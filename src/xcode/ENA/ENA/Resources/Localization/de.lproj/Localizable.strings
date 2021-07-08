@@ -2846,11 +2846,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validation Result */
 
+"HealthCertificate_Validation_Result_validationParameters" = "Einreise nach %@ am %@,\ngeprüft am %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "Dies ist eine Regel des Reiselandes %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "Dies ist eine Regel des Ausstellerlandes.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "Mehr Informationen finden Sie in den FAQ (https://www.coronawarn.app/de/faq/#cert_eu_travel) und unter https://reopen.europa.eu/de.";
+
 /* - Passed */
 
 "HealthCertificate_Validation_Passed_title" = "Gültiges Zertifikat";
-
-"HealthCertificate_Validation_Passed_validationParameters" = "Einreise nach %@ am %@,\ngeprüft am %@";
 
 "HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig.";
 
@@ -2864,6 +2870,40 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_hint4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird nicht geprüft.";
 
-"HealthCertificate_Validation_Passed_moreInformation" = "Mehr Informationen finden Sie in den FAQ (https://www.coronawarn.app/de/faq/#cert_eu_travel) und unter https://reopen.europa.eu/de.";
-
 "HealthCertificate_Validation_Passed_primaryButtonTitle" = "Für weiteres Land prüfen";
+
+/* - Open */
+
+"HealthCertificate_Validation_Open_title" = "Zertifikat nicht prüfbar";
+
+"HealthCertificate_Validation_Open_subtitle" = "Ihr Zertifikat konnte nicht vollständig geprüft werden";
+
+"HealthCertificate_Validation_Open_hintsTitle" = "Hinweis";
+
+"HealthCertificate_Validation_Open_hintsDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
+
+/* - Failed */
+
+"HealthCertificate_Validation_Failed_title" = "Zertifikat nicht gültig";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig.";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Prüfung abgeschlossen";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Prüfung nicht möglich";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
+
+/* - Technical Validation Failed */
+
+"HealthCertificate_Validation_TechnicalFailed_title" = "Zertifikat nicht gültig";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig.";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technische Prüfung";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Das Zertifikat darf nicht abgelaufen sein.";
