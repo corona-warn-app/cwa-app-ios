@@ -12,7 +12,7 @@ import CertLogic
 // swiftlint:disable file_length
 
 class HealthCertificateValidationProviderValidationTests: XCTestCase {
-			
+	
 	// MARK: - Success (Passed)
 	
 	func testGIVEN_ValidationProvider_WHEN_HappyCase_THEN_PassedShouldBeReturned() throws {
@@ -31,7 +31,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		XCTAssertNil(store.acceptanceRulesCache)
 		XCTAssertNil(store.invalidationRulesCache)
-				
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationResults = [
 			ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed),
@@ -53,7 +53,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// expirationTime must be >= validation clock to succeed.
 		let expirationTime: UInt64 = 1625655530
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -143,7 +143,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// expirationTime must be >= validation clock to succeed.
 		let expirationTime: UInt64 = 1625655530
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -236,7 +236,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// expirationTime must be >= validation clock to succeed.
 		let expirationTime: UInt64 = 1625655530
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -324,7 +324,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// expirationTime must be >= validation clock to succeed.
 		let expirationTime: UInt64 = 1625655530
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -406,7 +406,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// expirationTime must be >= validation clock to succeed.
 		let expirationTime: UInt64 = 1625655530
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -449,7 +449,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(report, .validationFailed(validationResults))
 	}
 	
-	// MARK: - Errors
+	// MARK: - Errors (ValueSets)
 	
 	func testGIVEN_ValidationProvider_WHEN_expirationDateHasReached_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
 		// GIVEN
@@ -519,7 +519,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
@@ -574,7 +574,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
@@ -625,7 +625,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
@@ -676,7 +676,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
-
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
@@ -714,6 +714,365 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			return
 		}
 		XCTAssertEqual(error, .VALUE_SET_CLIENT_ERROR)
+	}
+	
+	// MARK: - Errors (Downloading Rules Success Handler)
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingEtagNil_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		
+		// THEN
+		
+		// WHEN
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		
+		// THEN
+		
+		// WHEN
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		
+		// THEN
+		
+		// WHEN
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		
+		// THEN
+		
+		// WHEN
+	}
+	
+	// MARK: - Errors (Downloading Rules Failure Handler)
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingAcceptanceCacheIsMissing_THEN_ACCEPTANCE_RULE_MISSING_CACHE_IsReturned() {
+		// GIVEN
+		let client = ClientMock()
+		let expectedError = URLSessionError.notModified
+		client.onGetDCCRules = { _, _, completion in
+			completion(.failure(expectedError))
+		}
+		
+		let store = MockTestStore()
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_MISSING_CACHE")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .ACCEPTANCE_RULE_MISSING_CACHE)
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingInvalidationCacheIsMissing_THEN_INVALIDATION_RULE_MISSING_CACHE_IsReturned() {
+		// GIVEN
+		let client = ClientMock()
+		let expectedError = URLSessionError.notModified
+		
+		// The acceptance must success now to reach the invalidation.
+		client.onGetDCCRules = { _, _, completion in
+			completion(.failure(expectedError))
+		}
+		
+		let store = MockTestStore()
+		let cachedRule = Rule.fake(identifier: "Number One")
+		store.acceptanceRulesCache = ValidationRulesCache(
+			lastValidationRulesETag: "FakeEtag",
+			validationRules: [cachedRule]
+			
+		)
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .INVALIDATION_RULE_MISSING_CACHE")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .INVALIDATION_RULE_MISSING_CACHE)
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingNoNetwork_THEN_NO_NETWORK_IsReturned() {
+		// GIVEN
+		let client = ClientMock()
+		let expectedError = URLSessionError.noNetworkConnection
+		
+		// The acceptance must success now to reach the invalidation.
+		client.onGetDCCRules = { _, _, completion in
+			completion(.failure(expectedError))
+		}
+		
+		let store = MockTestStore()
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .NO_NETWORK")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .NO_NETWORK)
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingServerError404_THEN_ACCEPTANCE_RULE_CLIENT_ERROR_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		let client = ClientMock()
+		let expectedError = URLSessionError.serverError(404)
+		
+		// The acceptance must success now to reach the invalidation.
+		client.onGetDCCRules = { _, _, completion in
+			completion(.failure(expectedError))
+		}
+		
+		let store = MockTestStore()
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_CLIENT_ERROR")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .ACCEPTANCE_RULE_CLIENT_ERROR)
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		let client = ClientMock()
+		let expectedError = URLSessionError.serverError(500)
+		
+		// The acceptance must success now to reach the invalidation.
+		client.onGetDCCRules = { _, _, completion in
+			completion(.failure(expectedError))
+		}
+		
+		let store = MockTestStore()
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_SERVER_ERROR")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .ACCEPTANCE_RULE_SERVER_ERROR)
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
+		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// GIVEN
+		let client = ClientMock()
+		let expectedError = URLSessionError.fakeResponse
+		
+		// The acceptance must success now to reach the invalidation.
+		client.onGetDCCRules = { _, _, completion in
+			completion(.failure(expectedError))
+		}
+		
+		let store = MockTestStore()
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_SERVER_ERROR")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .ACCEPTANCE_RULE_SERVER_ERROR)
 	}
 	
 	// MARK: - Private
