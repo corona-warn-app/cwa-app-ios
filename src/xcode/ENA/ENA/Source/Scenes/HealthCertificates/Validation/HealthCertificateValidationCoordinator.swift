@@ -111,7 +111,7 @@ final class HealthCertificateValidationCoordinator {
 				self?.navigationController.dismiss(animated: true)
 			}
 		)
-		let validationNavigationController = DismissHandlingNavigationController(rootViewController: validationInformationViewController)
+		let validationNavigationController = DismissHandlingNavigationController(rootViewController: validationInformationViewController, transparent: true)
 		navigationController.present(validationNavigationController, animated: true)
 	}
 

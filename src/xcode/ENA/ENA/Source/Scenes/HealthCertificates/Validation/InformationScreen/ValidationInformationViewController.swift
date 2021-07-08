@@ -26,7 +26,6 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 		super.viewDidLoad()
 
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		setupTransparentNavigationBar()
 		setupView()
 	}
 
@@ -41,42 +40,6 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 	private let viewModel: ValidationInformationViewModel = ValidationInformationViewModel()
 	private let dismiss: () -> Void
 	
-	private var backgroundImage: UIImage?
-	private var shadowImage: UIImage?
-	private var isTranslucent: Bool = false
-	private var backgroundColor: UIColor?
-
-	private func setupTransparentNavigationBar() {
-		// save current state
-		guard let navigationController = navigationController else {
-			Log.debug("no navigation controller found - stop")
-			return
-		}
-
-		backgroundImage = navigationController.navigationBar.backgroundImage(for: .default)
-		shadowImage = navigationController.navigationBar.shadowImage
-		isTranslucent = navigationController.navigationBar.isTranslucent
-		backgroundColor = navigationController.view.backgroundColor
-
-		let emptyImage = UIImage()
-		navigationController.navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationController.navigationBar.shadowImage = emptyImage
-		navigationController.navigationBar.isTranslucent = true
-		navigationController.view.backgroundColor = .clear
-	}
-
-	private func restoreOriginalNavigationBar() {
-		navigationController?.navigationBar.setBackgroundImage(backgroundImage, for: .default)
-		navigationController?.navigationBar.shadowImage = shadowImage
-		navigationController?.navigationBar.isTranslucent = isTranslucent
-		navigationController?.view.backgroundColor = backgroundColor
-
-		// reset to initial values
-		backgroundImage = nil
-		shadowImage = nil
-		backgroundColor = nil
-	}
-
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
 
