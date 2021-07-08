@@ -27,6 +27,7 @@ enum HealthCertificateValidationError: LocalizedError {
 	case NO_NETWORK
 	case VALUE_SET_SERVER_ERROR
 	case VALUE_SET_CLIENT_ERROR
+	case RULES_VALIDATION_ERROR(RuleValidationError)
 
 	var errorDescription: String? {
 		switch self {
@@ -66,6 +67,8 @@ enum HealthCertificateValidationError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_SERVER_ERROR)"
 		case .VALUE_SET_CLIENT_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_CLIENT_ERROR)"
+		case let .RULES_VALIDATION_ERROR(error):
+			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (RULES_VALIDATION_ERROR - \(error)"
 		}
 	}
 }

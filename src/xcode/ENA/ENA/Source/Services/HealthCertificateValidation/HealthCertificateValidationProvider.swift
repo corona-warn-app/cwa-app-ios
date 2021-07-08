@@ -6,12 +6,12 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 // Do not import everything, just the datatypes we need to make a clean cut.
+import enum CertLogic.RuleType
+import enum CertLogic.CertificateType
 import class CertLogic.Rule
 import class CertLogic.ExternalParameter
 import class CertLogic.FilterParameter
-import enum CertLogic.CertificateType
 import class CertLogic.ValidationResult
-import enum CertLogic.RuleType
 
 protocol HealthCertificateValidationProviding {
 	func validate(
@@ -22,7 +22,6 @@ protocol HealthCertificateValidationProviding {
 	)
 }
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 final class HealthCertificateValidationProvider: HealthCertificateValidationProviding {
 	
@@ -245,71 +244,51 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-		// 7. apply acceptance rules
+		// 7. + 8. apply acceptance and invalidation rules together
 		
-		let acceptanceRulesResult = validationRulesAccess.applyValidationRules(
-			acceptanceRules,
+		let combinedRules = acceptanceRules + invalidationRules
+		
+		let validationRulesResult = validationRulesAccess.applyValidationRules(
+			combinedRules,
 			to: healthCertificate.digitalCovidCertificate,
-			// ToDo: Exchange fake
-			filter: FilterParameter.fake(),
-			externalRules: acceptanceRuleParameter
+			filter: filterParameter,
+			externalRules: externalParameter
 		)
 
-		guard case let .success(acceptanceRulesValidations) = acceptanceRulesResult else {
-			if case let .failure(error) = acceptanceRulesResult {
-				Log.error("Could not validate acceptance rules.", log: .vaccination, error: error)
-				completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(error)))
+		guard case let .success(validatedRules) = validationRulesResult else {
+			if case let .failure(error) = validationRulesResult {
+				Log.error("Could not validate rules.", log: .vaccination, error: error)
+				completion(.failure(.RULES_VALIDATION_ERROR(error)))
 			}
 			return
 		}
 		
-		Log.info("Successfully validated acceptance rules: \(private: acceptanceRulesValidations). Proceed with invalidation rules validation...", log: .vaccination)
+		Log.info("Successfully validated combined rules: \(private: validatedRules). Proceed with combined rule interpretation...", log: .vaccination)
 
-		// 9. apply invalidation rules
-		
-		let invalidationRulesResult = validationRulesAccess.applyValidationRules(
-			invalidationRules,
-			to: healthCertificate.digitalCovidCertificate,
-			// ToDo: Exchange fake
-			filter: FilterParameter.fake(),
-			externalRules: invalidationRuleParameter
-		)
-
-		guard case let .success(invalidationRulesValidations) = invalidationRulesResult else {
-			if case let .failure(error) = invalidationRulesResult {
-				Log.error("Could not validate invalidation rules.", log: .vaccination, error: error)
-				completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(error)))
-			}
-			return
-		}
-		
-		Log.info("Successfully validated invalidation rules: \(private: invalidationRulesValidations). Proceed with combined rule validation...", log: .vaccination)
-
-		let combinedRuleValidations = acceptanceRulesValidations + invalidationRulesValidations
 		proceedWithRulesInterpretation(
-			combinedRuleValidations: combinedRuleValidations,
+			validatedRules: validatedRules,
 			completion: completion
 		)
 		
 	}
 	
 	private func proceedWithRulesInterpretation(
-		combinedRuleValidations: [ValidationResult],
+		validatedRules: [ValidationResult],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
-		if combinedRuleValidations.allSatisfy({ $0.result == .passed }) {
+		if validatedRules.allSatisfy({ $0.result == .passed }) {
 			// all rules has to be .passed
-			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationPassed. Validation complete.", log: .vaccination)
+			Log.info("Validation result is: validationPassed. Validation complete.", log: .vaccination)
 			completion(.success(.validationPassed))
-		} else if combinedRuleValidations.contains(where: { $0.result == .open }) &&
-					!combinedRuleValidations.contains(where: { $0.result == .fail }) {
+		} else if validatedRules.contains(where: { $0.result == .open }) &&
+					!validatedRules.contains(where: { $0.result == .fail }) {
 			// At least one rule should contain now .open and there is no .fail
-			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationOpen. Validation complete.", log: .vaccination)
-			completion(.success(.validationOpen(combinedRuleValidations)))
+			Log.info("Validation result is: validationOpen. Validation complete.", log: .vaccination)
+			completion(.success(.validationOpen(validatedRules)))
 		} else {
 			// At least one rule should contain now .fail
-			Log.info("Successfully combined rules: \(private: combinedRuleValidations). Validation result is: validationFailed. Validation complete.", log: .vaccination)
-			completion(.success(.validationFailed(combinedRuleValidations)))
+			Log.info("Validation result is: validationFailed. Validation complete.", log: .vaccination)
+			completion(.success(.validationFailed(validatedRules)))
 		}
 	}
 	
