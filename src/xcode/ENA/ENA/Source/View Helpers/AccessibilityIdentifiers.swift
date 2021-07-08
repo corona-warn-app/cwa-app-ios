@@ -492,7 +492,9 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
 		}
-
+		enum General {
+			static let card = "HomeStatisticsCard"
+		}
 	}
 	
 	enum UpdateOSScreen {

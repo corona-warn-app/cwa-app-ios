@@ -12,6 +12,8 @@ class HomeStatisticsCardView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.General.card
+
 		let adjustsFontSizeToFitWidth = false
 		let allowsDefaultTighteningForTruncation = true
 
