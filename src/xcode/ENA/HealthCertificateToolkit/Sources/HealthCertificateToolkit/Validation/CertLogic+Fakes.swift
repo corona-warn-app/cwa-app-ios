@@ -45,13 +45,13 @@ public extension ExternalParameter {
         validationClock: Date = Date(),
         valueSets: [String: [String]] = ["": [""]],
         countryCode: String = "CZ",
-        issueCountryCode: String = "DE",
+        issuerCountryCode: String = "DE",
         exp: Date = Date(),
         iat: Date = Date(),
         certificationType: CertificateType = .general,
         kid: String? = nil,
         region: String? = nil
     ) -> ExternalParameter {
-        ExternalParameter(validationClock: validationClock, valueSets: valueSets, countryCode: countryCode, exp: exp, iat: iat, certificationType: certificationType, issueCountryCode: issueCountryCode)
+        ExternalParameter(validationClock: validationClock, valueSets: valueSets, countryCode: countryCode, exp: exp, iat: iat, certificationType: certificationType, issuerCountryCode: issuerCountryCode, region: region, kid: kid)
     }
 }
