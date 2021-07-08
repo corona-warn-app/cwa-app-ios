@@ -13,6 +13,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
 		self.addGestureRecognizer(scrollView.panGestureRecognizer)
+
+		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.General.tableViewCell
     }
 
 	override func layoutSubviews() {

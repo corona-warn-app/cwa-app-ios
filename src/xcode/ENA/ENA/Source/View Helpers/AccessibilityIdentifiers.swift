@@ -493,6 +493,7 @@ enum AccessibilityIdentifiers {
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
 		}
 		enum General {
+			static let tableViewCell = "HomeStatisticsTableViewCell"
 			static let card = "HomeStatisticsCard"
 		}
 	}

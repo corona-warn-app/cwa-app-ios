@@ -19,14 +19,13 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 	
 	func test_AddStatisticsButton_flow() {
-		let firstCardTitle = AccessibilityIdentifiers.Statistics.Incidence.title
 		let addLocalStatisticsButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-		let statisticsCell = app.staticTexts[firstCardTitle]
+		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
 		statisticsCell.swipeRight()
 
@@ -41,7 +40,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.cells.element(boundBy: 14).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.Home.tableView].waitForExistence(timeout: .medium))
-		XCTAssertTrue(self.app.staticTexts[localStatisticsViewTitle].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[localStatisticsViewTitle].waitForExistence(timeout: .medium))
+
 	}
 	
 	func test_StatisticsCardTitles() throws {
