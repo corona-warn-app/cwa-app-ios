@@ -1586,6 +1586,20 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.6 */
+
+"NewVersionFeature_26_euCertCheck_title" = "EU-Zertifikatsprüfung";
+
+"NewVersionFeature_26_euCertCheck_description" = "Sie können nun vor einer Reise Zertifikate für ein gewähltes Land auf Gültigkeit prüfen.";
+
+"NewVersionFeature_26_enhancedStats_title" = "Erweiterung Statistiken";
+
+"NewVersionFeature_26_enhancedStats_description" = "Sie können nun bis zu fünf lokale 7-Tage-Inzidenzen in der App hinzufügen.";
+
+"NewVersionFeature_26_editRapidTestProfile_title" = "Schnelltest-Profil bearbeiten";
+
+"NewVersionFeature_26_editRapidTestProfile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
+
 /* Version 2.5 */
 
 "NewVersionFeature_25_recovery_cert_title" = "COVID-Genesenenzertifikate";
