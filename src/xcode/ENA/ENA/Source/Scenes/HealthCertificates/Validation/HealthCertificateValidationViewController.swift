@@ -26,7 +26,8 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 			countries: countries,
 			store: store,
 			onValidationButtonTap: onValidationButtonTap,
-			onDisclaimerButtonTap: onDisclaimerButtonTap
+			onDisclaimerButtonTap: onDisclaimerButtonTap,
+			onInfoButtonTap: onInfoButtonTap
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -42,12 +43,7 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// Placeholder for info button in screen
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
-
-		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal), infoBarButtonItem]
+		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
 		parent?.navigationItem.title = "Gültigkeit des Zertifikats"
 
 		setupTableView()

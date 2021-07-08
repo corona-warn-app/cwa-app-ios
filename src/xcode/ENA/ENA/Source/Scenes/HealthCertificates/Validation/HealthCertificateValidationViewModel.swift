@@ -15,13 +15,15 @@ final class HealthCertificateValidationViewModel {
 		countries: [Country],
 		store: HealthCertificateStoring,
 		onValidationButtonTap: @escaping (Country, Date) -> Void,
-		onDisclaimerButtonTap: @escaping () -> Void
+		onDisclaimerButtonTap: @escaping () -> Void,
+		onInfoButtonTap: @escaping () -> Void
 	) {
 		self.healthCertificate = healthCertificate
 		self.countries = countries
 		self.store = store
 		self.onValidationButtonTap = onValidationButtonTap
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
+		self.onInfoButtonTap = onInfoButtonTap
 	}
 
 	// MARK: - Internal
@@ -110,6 +112,7 @@ final class HealthCertificateValidationViewModel {
 	private let store: HealthCertificateStoring
 	private let onValidationButtonTap: (Country, Date) -> Void
 	private let onDisclaimerButtonTap: () -> Void
+	private let onInfoButtonTap: () -> Void
 	private var countrySelectionCollapsed = true
 	private var validationDateSelectionCollapsed = true
 
@@ -176,6 +179,7 @@ final class HealthCertificateValidationViewModel {
 					self?.selectedArrivalDate = date
 				}
 
+				validationDateSelectionCell.didTapInfoButton = self.onInfoButtonTap
 				validationDateSelectionCell.selectedDate = self.selectedArrivalDate
 				validationDateSelectionCell.isCollapsed = self.validationDateSelectionCollapsed
 			}

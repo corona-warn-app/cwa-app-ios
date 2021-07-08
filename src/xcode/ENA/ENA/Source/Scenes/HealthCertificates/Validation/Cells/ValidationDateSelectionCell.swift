@@ -25,6 +25,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 	static let reuseIdentifier = "\(ValidationDateSelectionCell.self)"
 
 	var didSelectDate: ((Date) -> Void)?
+	var didTapInfoButton: (() -> Void)?
 
 	var selectedDate: Date? {
 		didSet {
@@ -113,6 +114,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		let button = UIButton(type: .custom)
 		button.setImage(UIImage(named: "info"), for: .normal)
 		button.setContentHuggingPriority(.required, for: .horizontal)
+		button.addTarget(self, action: #selector(didTapInfoButtonAction), for: .touchUpInside)
 		return button
 	}()
 
@@ -183,4 +185,8 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		didSelectDate?(datePicker.date)
 	}
 
+	@objc
+	private func didTapInfoButtonAction() {
+		self.didTapInfoButton?()
+	}
 }
