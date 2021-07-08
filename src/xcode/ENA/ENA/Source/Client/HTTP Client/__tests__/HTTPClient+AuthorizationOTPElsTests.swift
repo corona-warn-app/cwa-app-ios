@@ -409,7 +409,6 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 	
 	func testGIVEN_AuthorizeOTP_WHEN_NoNetworkConnection_THEN_NetworkErrorReturned() {
 		// GIVEN
-		let url = URL(staticString: "https://localhost:8080")
 		let notConnectedError = NSError(
 			domain: NSURLErrorDomain,
 			code: NSURLErrorNotConnectedToInternet,
@@ -418,12 +417,7 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 
 		let session = MockUrlSession(
 			data: nil,
-			nextResponse: HTTPURLResponse(
-				url: url,
-				statusCode: 500,
-				httpVersion: nil,
-				headerFields: nil
-			),
+			nextResponse: nil,
 			error: notConnectedError
 		)
 
@@ -436,20 +430,17 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
 		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				XCTAssertEqual(otpError, .noNetworkConnection)
 			}
 			expectation.fulfill()
 		})
 
 		// THEN
 		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .noNetworkConnection)
 	}
 }
