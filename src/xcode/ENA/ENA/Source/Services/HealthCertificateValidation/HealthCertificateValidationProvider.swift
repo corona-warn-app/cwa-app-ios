@@ -324,15 +324,13 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 			ruleType: ruleType,
 			completion: { [weak self] result in
 				guard let self = self else {
-					var error: HealthCertificateValidationError
+					Log.error("Could not create strong self", log: .vaccination)
 					switch ruleType {
 					case .acceptance:
-						error = .ACCEPTANCE_RULE_CLIENT_ERROR
+						completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 					case .invalidation:
-						error = .INVALIDATION_RULE_CLIENT_ERROR
+						completion(.failure(.INVALIDATION_RULE_CLIENT_ERROR))
 					}
-					Log.error("Could not create strong self", log: .vaccination)
-					completion(.failure(error))
 					return
 				}
 				
@@ -355,6 +353,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		)
 	}
 	
+	// Disable swiftlint for cyclomatic_complexity because it rants only due to the many switches over the rule type.
+	// swiftlint:disable:next cyclomatic_complexity
 	private func rulesDownloadingSuccessHandler(
 		ruleType: HealthCertificateValidationRuleType,
 		packageDownloadResponse: PackageDownloadResponse,
@@ -364,14 +364,12 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 
 		guard let eTag = packageDownloadResponse.etag else {
 			Log.error("ETag of package is missing. Return with failure.", log: .vaccination)
-			var error: HealthCertificateValidationError
 			switch ruleType {
 			case .acceptance:
-				error = .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR
+				completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR))
 			case .invalidation:
-				error = .INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR
+				completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR))
 			}
-			completion(.failure(error))
 			return
 		}
 		Log.info("Successfully verified eTag. Proceed with package extraction...", log: .vaccination)
@@ -379,28 +377,24 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		guard !packageDownloadResponse.isEmpty,
 			  let sapDownloadedPackage = packageDownloadResponse.package else {
 			Log.error("PackageDownloadResponse is empty. Return with failure.", log: .vaccination)
-			var error: HealthCertificateValidationError
 			switch ruleType {
 			case .acceptance:
-				error = .ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING
+				completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING))
 			case .invalidation:
-				error = .INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING
+				completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING))
 			}
-			completion(.failure(error))
 			return
 		}
 		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
 		
 		guard signatureVerifier.verify(sapDownloadedPackage) else {
 			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
-			var error: HealthCertificateValidationError
 			switch ruleType {
 			case .acceptance:
-				error = .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
+				completion(.failure(.ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
 			case .invalidation:
-				error = .INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
+				completion(.failure(.INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID))
 			}
-			completion(.failure(error))
 			return
 		}
 		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...", log: .vaccination)
@@ -412,7 +406,6 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 				// Save in success case for caching
 				switch ruleType {
 				case .acceptance:
-					
 					let receivedAcceptanceRules = ValidationRulesCache(
 						lastValidationRulesETag: eTag,
 						validationRules: rules
@@ -429,19 +422,18 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 				completion(.success(rules))
 				
 			case let .failure(validationError):
-				var error: HealthCertificateValidationError
+				Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: validationError)
 				switch ruleType {
 				case .acceptance:
-					error = .ACCEPTANCE_RULE_VALIDATION_ERROR(validationError)
+					completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(validationError)))
 				case .invalidation:
-					error = .INVALIDATION_RULE_VALIDATION_ERROR(validationError)
+					completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(validationError)))
 				}
-				Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: error)
-				completion(.failure(error))
 			}
 		})
 	}
-	
+	// Disable swiftlint for cyclomatic_complexity because it rants only due to the many switches over the rule type.
+	// swiftlint:disable:next cyclomatic_complexity
 	private func rulesDownloadingFailureHandler(
 		ruleType: HealthCertificateValidationRuleType,
 		failure: URLSession.Response.Failure,
@@ -476,39 +468,33 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 			switch statusCode {
 			case 400...409:
 				Log.error("Could not download \(ruleType) rules due to client error with status code: \(statusCode).", log: .vaccination, error: failure)
-				var error: HealthCertificateValidationError
 				switch ruleType {
 				case .acceptance:
-					error = .ACCEPTANCE_RULE_CLIENT_ERROR
+					completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 				case .invalidation:
-					error = .ACCEPTANCE_RULE_CLIENT_ERROR
+					completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 				}
-				completion(.failure(error))
 			default:
 				Log.error("Could not download \(ruleType) rules due to server error with status code: \(statusCode).", log: .vaccination, error: failure)
-				var error: HealthCertificateValidationError
 				switch ruleType {
 				case .acceptance:
-					error = .ACCEPTANCE_RULE_SERVER_ERROR
+					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 				case .invalidation:
-					error = .ACCEPTANCE_RULE_SERVER_ERROR
+					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 				}
-				completion(.failure(error))
 			}
 		default:
 			Log.error("Could not download \(ruleType) rules due to server error.", log: .vaccination, error: failure)
-			var error: HealthCertificateValidationError
 			switch ruleType {
 			case .acceptance:
-				error = .ACCEPTANCE_RULE_SERVER_ERROR
+				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 			case .invalidation:
-				error = .ACCEPTANCE_RULE_SERVER_ERROR
+				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 			}
-			completion(.failure(error))
 		}
 	}
 	
-
+	
 	private func extractRules(
 		_ data: Data,
 		completion: (Result<[Rule], RuleValidationError>) -> Void

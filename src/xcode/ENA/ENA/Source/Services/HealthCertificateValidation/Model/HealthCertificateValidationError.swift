@@ -15,7 +15,6 @@ enum HealthCertificateValidationError: LocalizedError {
 	case ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR
 	case ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING
 	case ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
-	case ACCEPTANCE_RULE_JSON_DECODING_FAILED
 	case ACCEPTANCE_RULE_MISSING_CACHE
 	case ACCEPTANCE_RULE_SERVER_ERROR
 	case INVALIDATION_RULE_VALIDATION_ERROR(RuleValidationError)
@@ -23,7 +22,6 @@ enum HealthCertificateValidationError: LocalizedError {
 	case INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR
 	case INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING
 	case INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
-	case INVALIDATION_RULE_JSON_DECODING_FAILED
 	case INVALIDATION_RULE_MISSING_CACHE
 	case INVALIDATION_RULE_SERVER_ERROR
 	case NO_NETWORK
@@ -44,8 +42,6 @@ enum HealthCertificateValidationError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING)"
 		case .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID)"
-		case .ACCEPTANCE_RULE_JSON_DECODING_FAILED:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_JSON_DECODING_FAILED)"
 		case .ACCEPTANCE_RULE_MISSING_CACHE:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_MISSING_CACHE)"
 		case .ACCEPTANCE_RULE_SERVER_ERROR:
@@ -60,8 +56,6 @@ enum HealthCertificateValidationError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING)"
 		case .INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID)"
-		case .INVALIDATION_RULE_JSON_DECODING_FAILED:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_JSON_DECODING_FAILED)"
 		case .INVALIDATION_RULE_MISSING_CACHE:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_MISSING_CACHE)"
 		case .INVALIDATION_RULE_SERVER_ERROR:
@@ -74,7 +68,6 @@ enum HealthCertificateValidationError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_CLIENT_ERROR)"
 		}
 	}
-
 }
 
 extension HealthCertificateValidationError: Equatable {
