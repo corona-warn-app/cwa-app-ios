@@ -2600,7 +2600,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validation Info */
 
-"HealthCertificate_Validation_Info_imageDescription" = "";
+"HealthCertificate_Validation_Info_imageDescription" = "Eine Landkarte von Europa wird angezeigt.";
 
 "HealthCertificate_Validation_Info_title" = "Informationen";
 
