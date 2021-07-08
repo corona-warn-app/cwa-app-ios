@@ -72,16 +72,30 @@ final class HealthCertificateValidationCoordinator {
 					case .success(let validationReport):
 						switch validationReport {
 						case .validationPassed:
-							self.showValidationPassedScreen(arrivalCountry: arrivalCountry, arrivalDate: arrivalDate)
+							self.showValidationPassedScreen(
+								arrivalCountry: arrivalCountry,
+								arrivalDate: arrivalDate
+							)
 						case .validationOpen(let validationResults):
-							self.showValidationOpenScreen(validationResults: validationResults)
+							self.showValidationOpenScreen(
+								arrivalCountry: arrivalCountry,
+								arrivalDate: arrivalDate,
+								validationResults: validationResults
+							)
 						case .validationFailed(let validationResults):
-							self.showValidationFailedScreen(validationResults: validationResults)
+							self.showValidationFailedScreen(
+								arrivalCountry: arrivalCountry,
+								arrivalDate: arrivalDate,
+								validationResults: validationResults
+							)
 						}
 					case .failure(let error):
 						switch error {
 						case .TECHNICAL_VALIDATION_FAILED:
-							self.showTechnicalErrorScreen()
+							self.showTechnicalValidationFailedScreen(
+								arrivalCountry: arrivalCountry,
+								arrivalDate: arrivalDate
+							)
 						default:
 							self.showErrorAlert(
 								title: AppStrings.HealthCertificate.Validation.Error.title,
@@ -109,7 +123,10 @@ final class HealthCertificateValidationCoordinator {
 
 	}
 
-	private func showValidationPassedScreen(arrivalCountry: Country, arrivalDate: Date) {
+	private func showValidationPassedScreen(
+		arrivalCountry: Country,
+		arrivalDate: Date
+	) {
 		let validationPassedViewController = HealthCertificateValidationResultViewController(
 			viewModel: HealthCertificateValidationPassedViewModel(
 				arrivalCountry: arrivalCountry,
@@ -132,24 +149,76 @@ final class HealthCertificateValidationCoordinator {
 
 		let footerViewController = FooterViewController(footerViewModel)
 
-		let vc = TopBottomContainerViewController(
+		let containerViewController = TopBottomContainerViewController(
 			topController: validationPassedViewController,
 			bottomController: footerViewController
 		)
 
-		navigationController.pushViewController(vc, animated: true)
+		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
-	private func showValidationOpenScreen(validationResults: [ValidationResult]) {
+	private func showValidationOpenScreen(
+		arrivalCountry: Country,
+		arrivalDate: Date,
+		validationResults: [ValidationResult]
+	) {
+		let validationOpenViewController = HealthCertificateValidationResultViewController(
+			viewModel: HealthCertificateValidationOpenViewModel(
+				arrivalCountry: arrivalCountry,
+				arrivalDate: arrivalDate,
+				validationResults: validationResults
+			),
+			onPrimaryButtonTap: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			},
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		navigationController.pushViewController(validationOpenViewController, animated: true)
 	}
 
-	private func showValidationFailedScreen(validationResults: [ValidationResult]) {
+	private func showValidationFailedScreen(
+		arrivalCountry: Country,
+		arrivalDate: Date,
+		validationResults: [ValidationResult]
+	) {
+		let validationFailedViewController = HealthCertificateValidationResultViewController(
+			viewModel: HealthCertificateValidationFailedViewModel(
+				arrivalCountry: arrivalCountry,
+				arrivalDate: arrivalDate,
+				validationResults: validationResults
+			),
+			onPrimaryButtonTap: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			},
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		navigationController.pushViewController(validationFailedViewController, animated: true)
 	}
 
-	private func showTechnicalErrorScreen() {
+	private func showTechnicalValidationFailedScreen(
+		arrivalCountry: Country,
+		arrivalDate: Date
+	) {
+		let technicalValidationFailedViewController = HealthCertificateValidationResultViewController(
+			viewModel: HealthCertificateTechnicalValidationFailedViewModel(
+				arrivalCountry: arrivalCountry,
+				arrivalDate: arrivalDate
+			),
+			onPrimaryButtonTap: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			},
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		navigationController.pushViewController(technicalValidationFailedViewController, animated: true)
 	}
 
 	private func showErrorAlert(
