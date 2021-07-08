@@ -44,7 +44,7 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 		super.viewDidLoad()
 
 		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
-		parent?.navigationItem.title = "Gültigkeit des Zertifikats"
+		parent?.navigationItem.title = AppStrings.HealthCertificate.Validation.title
 
 		setupTableView()
 

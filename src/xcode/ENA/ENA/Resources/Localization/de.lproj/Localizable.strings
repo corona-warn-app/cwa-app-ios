@@ -2843,3 +2843,37 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Um die Gültigkeitsprüfung des Zertifikates abzuschließen, prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
+/* Health Certificate Validation */
+
+"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikats";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Land";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Datum und Uhrzeit";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein.";
+
+"HealthCertificate_Validation_Body1" = "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.";
+
+"HealthCertificate_Validation_Headline1" = "Prüfen für";
+
+"HealthCertificate_Validation_Body2" = "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.";
+
+"HealthCertificate_Validation_Headline2" = "Hinweis";
+
+"HealthCertificate_Validation_Bullet1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
+
+"HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
+
+"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
+
+"HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
+
+"HealthCertificate_Validation_Body3" = "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.";
+
+"HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
+
+"HealthCertificate_Validation_Legal_Description" = "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt.";
+
+"HealthCertificate_Validation_Body4" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";

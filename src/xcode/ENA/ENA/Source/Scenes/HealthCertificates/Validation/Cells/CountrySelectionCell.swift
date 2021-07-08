@@ -65,7 +65,6 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 
 	private lazy var selectedCountryLabel: UILabel = {
 		let label = ENALabel(style: .headline)
-		label.text = "Deutschland"
 		label.numberOfLines = 0
 		label.textAlignment = .right
 		return label
@@ -73,7 +72,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 
 	private lazy var selectedCountryTitle: UILabel = {
 		let label = ENALabel(style: .body)
-		label.text = "Land"
+		label.text = AppStrings.HealthCertificate.Validation.countrySelectionTitle
 		label.numberOfLines = 0
 		label.setContentHuggingPriority(.required, for: .horizontal)
 		return label

@@ -75,7 +75,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 
 	private lazy var selectedDateTimeTitle: UILabel = {
 		let label = ENALabel(style: .body)
-		label.text = "Datum und Uhrzeit"
+		label.text = AppStrings.HealthCertificate.Validation.dateTimeSelectionTitle
 		label.numberOfLines = 0
 		return label
 	}()
@@ -105,7 +105,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 
 	private lazy var infoLabel: UILabel = {
 		let label = ENALabel(style: .footnote)
-		label.text = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein."
+		label.text = AppStrings.HealthCertificate.Validation.dateTimeSelectionInfo
 		label.numberOfLines = 0
 		return label
 	}()
