@@ -23,7 +23,7 @@ struct ValidationInformationViewModel {
 						accessibilityLabel: AppStrings.HealthCertificate.Validation.Info.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Validation.Info.imageDescription,
 						height: 274.0,
-						accessibilityTraits: [.header, .image]
+						accessibilityTraits: .image
 					),
 				cells: [
 					.space(height: 24.0),

@@ -39,7 +39,7 @@ class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 	// MARK: - Private
 
 	private(set) var imageView: UIImageView!
-	private var titleLabel: ENALabel = ENALabel(style: .title1)
+	private(set) var titleLabel: ENALabel = ENALabel(style: .title1)
 	private var heightConstraint: NSLayoutConstraint!
 
 	private func setup() {
