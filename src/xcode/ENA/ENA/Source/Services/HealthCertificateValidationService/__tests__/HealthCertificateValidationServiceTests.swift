@@ -90,7 +90,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	
 	// MARK: - Failures
 	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		client.onValidationOnboardedCountries = { _, completion in
@@ -113,7 +113,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier()
 		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
+		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR")
 		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
@@ -129,7 +129,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID)
+		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR)
 	}
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
