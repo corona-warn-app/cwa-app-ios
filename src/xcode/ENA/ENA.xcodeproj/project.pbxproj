@@ -126,6 +126,7 @@
 		018FD47C2696E192000088F8 /* HealthCertificateValidationOpenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD47B2696E192000088F8 /* HealthCertificateValidationOpenViewModel.swift */; };
 		018FD47E2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD47D2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift */; };
 		018FD4802696E19F000088F8 /* HealthCertificateTechnicalValidationFailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD47F2696E19F000088F8 /* HealthCertificateTechnicalValidationFailedViewModel.swift */; };
+		018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD48626973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
 		01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
@@ -1374,6 +1375,7 @@
 		018FD47B2696E192000088F8 /* HealthCertificateValidationOpenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOpenViewModel.swift; sourceTree = "<group>"; };
 		018FD47D2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationFailedViewModel.swift; sourceTree = "<group>"; };
 		018FD47F2696E19F000088F8 /* HealthCertificateTechnicalValidationFailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateTechnicalValidationFailedViewModel.swift; sourceTree = "<group>"; };
+		018FD48626973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechnicalValidationFailedRulesTableViewCell.swift; sourceTree = "<group>"; };
 		0190982B257E5AF70065D050 /* DiaryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoordinator.swift; sourceTree = "<group>"; };
 		01909834257E606C0065D050 /* DiaryEditEntriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewController.swift; sourceTree = "<group>"; };
 		0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModel.swift; sourceTree = "<group>"; };
@@ -2866,8 +2868,17 @@
 				018FD47B2696E192000088F8 /* HealthCertificateValidationOpenViewModel.swift */,
 				018FD47D2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift */,
 				018FD47F2696E19F000088F8 /* HealthCertificateTechnicalValidationFailedViewModel.swift */,
+				018FD48526973A99000088F8 /* Cells */,
 			);
 			path = Result;
+			sourceTree = "<group>";
+		};
+		018FD48526973A99000088F8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				018FD48626973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		0190982A257E5A9D0065D050 /* ContactDiary */ = {
@@ -7953,6 +7964,7 @@
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */,
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
+				018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */,
 				50FEB18B26580B1E005C3322 /* DMPPAActualDataViewModel.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,

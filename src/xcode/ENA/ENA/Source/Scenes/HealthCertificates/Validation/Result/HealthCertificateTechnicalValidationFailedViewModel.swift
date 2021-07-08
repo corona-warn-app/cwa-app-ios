@@ -33,7 +33,7 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 					.space(height: 10),
 					.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
 					.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription),
-					// TODO: Static Expired Cell
+					.technicalFailedRulesCell(),
 					.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation)
 				]
 			)
@@ -44,5 +44,13 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 
 	private let arrivalCountry: Country
 	private let arrivalDate: Date
+
+}
+
+private extension DynamicCell {
+
+	static func technicalFailedRulesCell() -> Self {
+		.custom(withIdentifier: TechnicalValidationFailedRulesTableViewCell.dynamicTableViewCellReuseIdentifier)
+	}
 
 }
