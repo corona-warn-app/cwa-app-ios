@@ -362,8 +362,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		// Need to double the results because the injected expectedValidationResult will be returned twice (1x acceptance, 1x invalidation)
-		XCTAssertEqual(report, .validationOpen(validationResults + validationResults))
+		XCTAssertEqual(report, .validationOpen(validationResults))
 	}
 	
 	// MARK: - Success (Fail)
@@ -445,8 +444,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		// Need to double the results because the injected expectedValidationResult will be returned twice (1x acceptance, 1x invalidation)
-		XCTAssertEqual(report, .validationFailed(validationResults + validationResults))
+		XCTAssertEqual(report, .validationFailed(validationResults))
 	}
 	
 	// MARK: - Errors

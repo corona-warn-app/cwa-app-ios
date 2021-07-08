@@ -135,7 +135,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 	) {
 		// 3. update/ download acceptance rules
 		downloadRules(
-			ruleType: .invalidation,
+			ruleType: .acceptance,
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
@@ -351,7 +351,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
-		Log.info("Successfully received \(ruleType) acceptance rules package. Proceed with eTag verification...", log: .vaccination)
+		Log.info("Successfully received \(ruleType) rules package. Proceed with eTag verification...", log: .vaccination)
 
 		guard let eTag = packageDownloadResponse.etag else {
 			Log.error("ETag of package is missing. Return with failure.", log: .vaccination)
