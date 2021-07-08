@@ -12,6 +12,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
+		backgroundColor = .clear
 		createAndLayoutViewHierarchy()
 	}
 
@@ -41,6 +42,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		didSet {
 			picker.isHidden = isCollapsed
 			seperator.isHidden = isCollapsed
+			selectedCountryLabel.textColor = isCollapsed ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		}
 	}
 
@@ -49,7 +51,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	private lazy var cardContainer: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
-		view.backgroundColor = .enaColor(for: .backgroundLightGray)
+		view.backgroundColor = .enaColor(for: .cellBackground3)
 		view.layer.cornerRadius = 8
 		return view
 	}()
@@ -62,7 +64,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	}()
 
 	private lazy var selectedCountryLabel: UILabel = {
-		let label = ENALabel(style: .body)
+		let label = ENALabel(style: .headline)
 		label.text = "Deutschland"
 		label.numberOfLines = 0
 		label.textAlignment = .right
@@ -70,7 +72,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	}()
 
 	private lazy var selectedCountryTitle: UILabel = {
-		let label = ENALabel(style: .headline)
+		let label = ENALabel(style: .body)
 		label.text = "Land"
 		label.numberOfLines = 0
 		label.setContentHuggingPriority(.required, for: .horizontal)
@@ -90,6 +92,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		let picker = UIPickerView()
 		picker.translatesAutoresizingMaskIntoConstraints = false
 		picker.delegate = self
+		picker.tintColor = .enaColor(for: .tint)
 		return picker
 	}()
 

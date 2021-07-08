@@ -37,17 +37,20 @@ final class HealthCertificateValidationViewModel {
 		DynamicTableViewModel([
 			.section(
 				cells: [
+					.space(height: 8),
 					.body(
 						text: "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.",
 						accessibilityIdentifier: ""
 					),
+					.space(height: 8),
 					.headline(
 						text: "Prüfen für",
 						accessibilityIdentifier: ""
 					),
 					countrySelectionCell(),
-					.space(height: 8, color: .white),
+					.space(height: 8),
 					validationDateSelectionCell(),
+					.space(height: 8),
 					.body(
 						text: "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.",
 						accessibilityIdentifier: ""
@@ -56,15 +59,21 @@ final class HealthCertificateValidationViewModel {
 						text: "Hinweis",
 						accessibilityIdentifier: ""
 					),
-					.bulletPoint(text: "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden). Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten."),
+					.bulletPoint(text: "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden)."),
+					.space(height: 8),
+					.bulletPoint(text: "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten."),
+					.space(height: 8),
 					.bulletPoint(text: "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert."),
-					.bulletPoint(text: "Ob die im Zertifikat eingetragenen Daten richtig sind, wird nicht geprüft."),
+					.space(height: 8),
+					.bulletPoint(text: "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft."),
+					.space(height: 8),
 					.body(
 						text: "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.",
 						style: .textView(.link),
 						accessibilityIdentifier: ""
 					),
-					.legal(title: NSAttributedString(string: "Datenschutz und Datensicherheit"), description: NSAttributedString(string: "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt."), textBlocks: [])
+					.legal(title: NSAttributedString(string: "Datenschutz und Datensicherheit"), description: NSAttributedString(string: "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt."), textBlocks: []),
+					.space(height: 16)
 			]),
 			// Disclaimer cell
 			.section(
@@ -81,7 +90,9 @@ final class HealthCertificateValidationViewModel {
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 							cell.selectionStyle = .default
-						})
+						}
+					),
+					.space(height: 16)
 				]
 			)
 		])
