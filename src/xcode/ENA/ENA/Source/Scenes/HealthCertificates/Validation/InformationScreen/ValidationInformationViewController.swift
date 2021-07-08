@@ -36,10 +36,6 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 		dismiss()
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: ValidationInformationViewModel = ValidationInformationViewModel()
