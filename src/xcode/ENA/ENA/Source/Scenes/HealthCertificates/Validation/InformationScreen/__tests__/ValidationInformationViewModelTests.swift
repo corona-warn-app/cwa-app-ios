@@ -16,7 +16,7 @@ class ValidationInformationViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 1)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 2)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 3)
 	}
 
 }

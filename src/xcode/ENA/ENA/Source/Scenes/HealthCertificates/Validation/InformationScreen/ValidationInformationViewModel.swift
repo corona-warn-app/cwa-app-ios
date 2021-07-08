@@ -26,6 +26,7 @@ struct ValidationInformationViewModel {
 						accessibilityTraits: [.header, .image]
 					),
 				cells: [
+					.space(height: 24.0),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Car"),
 						text: .string(AppStrings.HealthCertificate.Validation.Info.byCar),
