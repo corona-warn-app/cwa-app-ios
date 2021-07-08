@@ -8,6 +8,7 @@ import HealthCertificateToolkit
 // Do not import everything, just the datatypes we need to make a clean cut.
 import class CertLogic.Rule
 import class CertLogic.ExternalParameter
+import class CertLogic.FilterParameter
 import enum CertLogic.CertificateType
 import class CertLogic.ValidationResult
 import enum CertLogic.RuleType
@@ -373,6 +374,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		let acceptanceRulesResult = validationRulesAccess.applyValidationRules(
 			acceptanceRules,
 			to: healthCertificate.digitalCovidCertificate,
+			// ToDo: Exchange fake
+			filter: FilterParameter.fake(),
 			externalRules: acceptanceRuleParameter
 		)
 
@@ -391,6 +394,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		let invalidationRulesResult = validationRulesAccess.applyValidationRules(
 			invalidationRules,
 			to: healthCertificate.digitalCovidCertificate,
+			// ToDo: Exchange fake
+			filter: FilterParameter.fake(),
 			externalRules: invalidationRuleParameter
 		)
 
@@ -659,21 +664,25 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		validationClock: Date,
 		valueSet: SAP_Internal_Dgc_ValueSets
 	) -> ExternalParameter {
+
+		// ToDo: Exchange fake
 		
-		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
-		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
-		
-		let externalRuleParameter = ExternalParameter(
-			validationClock: validationClock,
-			valueSets: mappedValueSets,
-			countryCode: arrivalCountry,
-			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
-			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
-			certificationType: mappedCertificateType,
-			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
-		)
-		
-		return externalRuleParameter
+//		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
+//		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
+//
+//		let externalRuleParameter = ExternalParameter(
+//			validationClock: validationClock,
+//			valueSets: mappedValueSets,
+//			countryCode: arrivalCountry,
+//			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
+//			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
+//			certificationType: mappedCertificateType,
+//			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
+//		)
+//
+//		return externalRuleParameter
+
+		return .fake()
 	}
 	
 	private func assembleInvalidationExternalRuleParameters(
@@ -682,21 +691,26 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		validationClock: Date,
 		valueSet: SAP_Internal_Dgc_ValueSets
 	) -> ExternalParameter {
-		
-		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
-		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
 
-		let externalRuleParameter = ExternalParameter(
-			validationClock: validationClock,
-			valueSets: mappedValueSets,
-			countryCode: healthCertificate.cborWebTokenHeader.issuer,
-			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
-			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
-			certificationType: mappedCertificateType,
-			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
-		)
-		
-		return externalRuleParameter
+		// ToDo: Exchange fake
+
+//
+//		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSet)
+//		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
+//
+//		let externalRuleParameter = ExternalParameter(
+//			validationClock: validationClock,
+//			valueSets: mappedValueSets,
+//			countryCode: healthCertificate.cborWebTokenHeader.issuer,
+//			exp: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime),
+//			iat: mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt),
+//			certificationType: mappedCertificateType,
+//			issueCountryCode: healthCertificate.cborWebTokenHeader.issuer
+//		)
+//
+//		return externalRuleParameter
+
+		return .fake()
 	}
 	
 	/// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
@@ -725,7 +739,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 	private func mapForExternalParameter(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
 		switch certificateType {
 		case .vaccination:
-			return .vacctination
+			return .vaccination
 		case .test:
 			return .test
 		case .recovery:
