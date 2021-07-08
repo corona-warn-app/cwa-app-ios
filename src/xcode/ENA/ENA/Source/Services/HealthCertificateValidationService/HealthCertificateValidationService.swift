@@ -501,8 +501,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				Log.info("Successfully decoded acceptance rules: \(private: acceptanceRules).", log: .vaccination)
 				// Save in success case for caching
 				let receivedAcceptanceRules = ValidationRulesCache(
-					validationRules: acceptanceRules,
-					lastValidationRulesETag: eTag
+					lastValidationRulesETag: eTag,
+					validationRules: acceptanceRules
 				)
 				store.acceptanceRulesCache = receivedAcceptanceRules
 				Log.info("Successfully stored acceptance rules in cache.", log: .vaccination)
@@ -626,8 +626,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				Log.info("Successfully decoded invalidation rules: \(private: invalidationRules).", log: .vaccination)
 				// Save in success case for caching
 				let receivedInvalidationRules = ValidationRulesCache(
-					validationRules: invalidationRules,
-					lastValidationRulesETag: eTag
+					lastValidationRulesETag: eTag,
+					validationRules: invalidationRules
 				)
 				store.invalidationRulesCache = receivedInvalidationRules
 				Log.info("Successfully stored invalidation rules in cache.", log: .vaccination)
