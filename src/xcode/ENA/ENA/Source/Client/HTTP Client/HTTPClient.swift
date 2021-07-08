@@ -697,6 +697,9 @@ final class HTTPClient: Client {
 					let packageDownloadResponse = PackageDownloadResponse(package: sapPackage, etag: etag)
 					Log.info("Successfully got rules for ruleType: \(ruleType)", log: .api)
 					completion(.success(packageDownloadResponse))
+				case 304:
+					Log.info("Content was not modified - 304.", log: .api)
+					completion(.failure(.notModified))
 				default:
 					Log.error("General server error.", log: .api)
 					completion(.failure(.serverError(response.statusCode)))
