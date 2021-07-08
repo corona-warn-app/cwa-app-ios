@@ -116,8 +116,9 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let cachedRule = Rule.fake(identifier: "Number One")
 		store.acceptanceRulesCache = ValidationRulesCache(
-			validationRules: [cachedRule],
-			lastValidationRulesETag: "FakeEtag"
+			lastValidationRulesETag: "FakeEtag",
+			validationRules: [cachedRule]
+			
 		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationResults = [
@@ -209,8 +210,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let cachedRule = Rule.fake(identifier: "Number Two")
 		store.invalidationRulesCache = ValidationRulesCache(
-			validationRules: [cachedRule],
-			lastValidationRulesETag: "FakeEtag"
+			lastValidationRulesETag: "FakeEtag",
+			validationRules: [cachedRule]
 		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationResults = [
