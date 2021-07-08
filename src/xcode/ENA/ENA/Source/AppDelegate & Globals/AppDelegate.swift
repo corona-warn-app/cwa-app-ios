@@ -311,6 +311,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		appConfiguration: appConfigurationProvider
 	)
 	
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
+		#if DEBUG
+		if isUITesting {
+			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		}
+		#endif
+
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+	}
+	
+	private lazy var healthCertificateValidationProvider: HealthCertificateValidationProviding = HealthCertificateValidationProvider(
+		store: store,
+		client: client,
+		vaccinationValueSetsProvider: vaccinationValueSetsProvider
+	)
+	
+	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
+		store: store,
+		client: client
+	)
+	
 	/// Reference to the ELS server handling error log recording & submission
 	private lazy var elsService: ErrorLogSubmissionProviding = ErrorLogSubmissionService(
 		client: client,
@@ -587,6 +608,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService,
 		ppacService: ppacService,
 		healthCertificateService: healthCertificateService,
+		healthCertificateValidationProvider: healthCertificateValidationProvider,
+		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 		elsService: elsService
 	)
 
