@@ -463,7 +463,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 				case .acceptance:
 					completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 				case .invalidation:
-					completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
+					completion(.failure(.INVALIDATION_RULE_CLIENT_ERROR))
 				}
 			default:
 				Log.error("Could not download \(ruleType) rules due to server error with status code: \(statusCode).", log: .vaccination, error: failure)
@@ -471,7 +471,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 				case .acceptance:
 					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 				case .invalidation:
-					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
+					completion(.failure(.INVALIDATION_RULE_SERVER_ERROR))
 				}
 			}
 		default:
@@ -480,7 +480,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 			case .acceptance:
 				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 			case .invalidation:
-				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
+				completion(.failure(.INVALIDATION_RULE_SERVER_ERROR))
 			}
 		}
 	}
