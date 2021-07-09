@@ -44,7 +44,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	
 	static let staticVaccinationValueSets: SAP_Internal_Dgc_ValueSets = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
-		let jsonString = "{\"vp\":{\"items\":[{\"key\":\"1119349007\",\"displayText\":\"SARS-CoV-2 mRNA vaccine\"}]},\"mp\":{\"items\":[{\"key\":\"EU/1/20/1528\",\"displayText\":\"Comirnaty\"}]},\"ma\":{\"items\":[{\"key\":\"ORG-100001699\",\"displayText\":\"AstraZeneca AB\"}]}}"
+		let jsonString = "{\"vp\":{\"items\":[{\"key\":\"1119349007\",\"displayText\":\"SARS-CoV-2 mRNA vaccine\"}]},\"mp\":{\"items\":[{\"key\":\"EU/1/20/1507\",\"displayText\":\"BionTech\"}]},\"ma\":{\"items\":[{\"key\":\"ORG-100031184\",\"displayText\":\"Pfizer\"}]},\"tg\":{\"items\":[{\"key\":\"840539006\",\"displayText\":\"COVID-19\"}]},\"tcTt\":{\"items\":[{\"key\":\"LP6464-4\",\"displayText\":\"Rapid Antigen Test\"}]},\"tcTr\":{\"items\":[{\"key\":\"260415000\",\"displayText\":\"Negative\"}]}}"
 		guard let configMetadata = try? SAP_Internal_Dgc_ValueSets(jsonString: jsonString) else {
 			fatalError("Cannot initialize static test data")
 		}
