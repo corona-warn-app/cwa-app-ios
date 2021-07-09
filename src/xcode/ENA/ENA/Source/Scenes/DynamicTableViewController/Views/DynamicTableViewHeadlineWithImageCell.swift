@@ -35,6 +35,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 	private let headlineLabel = ENALabel(style: .title1)
 	private let backgroundImageView = UIImageView()
+	private let gradientView = GradientView()
 
 	/*
 	var height: CGFloat {
@@ -50,6 +51,8 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 */
 
 	private func setupView() {
+		gradientView.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(gradientView)
 
 		headlineLabel.translatesAutoresizingMaskIntoConstraints = false
 		headlineLabel.numberOfLines = 0
@@ -61,6 +64,11 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 		NSLayoutConstraint.activate(
 			[
+				gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+				gradientView.topAnchor.constraint(equalTo: contentView.topAnchor),
+				gradientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+				gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
 				headlineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 64.0),
 				headlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45.0),
