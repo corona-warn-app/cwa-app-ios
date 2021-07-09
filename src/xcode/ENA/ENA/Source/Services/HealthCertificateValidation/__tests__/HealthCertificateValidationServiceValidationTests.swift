@@ -1340,6 +1340,34 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertFalse(countryCodes.contains("HA"))
 		XCTAssertFalse(countryCodes.contains("FF"))
 	}
+	
+	func testGIVEN_ValidationProvider_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
+		// GIVEN
+		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: ClientMock(),
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		
+		// WHEN
+		let mappedTest = validationProvider.mapCertificateType( .test)
+		let mappedRecovery = validationProvider.mapCertificateType( .recovery)
+		let mappedVaccination = validationProvider.mapCertificateType( .vaccination)
+		
+		// THEN
+		XCTAssertEqual(mappedTest, CertLogic.CertificateType.test)
+		XCTAssertEqual(mappedRecovery, CertLogic.CertificateType.recovery)
+		XCTAssertEqual(mappedVaccination, CertLogic.CertificateType.vaccination)
+	}
+	
 	// MARK: - Private
 	
 	private func validHealthCertificate() throws -> HealthCertificate {
