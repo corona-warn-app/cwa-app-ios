@@ -214,7 +214,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		let exp = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime)
 		let iat = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt)
 		
-		// TODO: Extract kid from healtCertificate or the webTokenHeader
+		// TODO: Extract kid from healthCertificate or the webTokenHeader
 		let externalParameter = ExternalParameter(
 			validationClock: validationClock,
 			valueSets: mappedValueSets,
@@ -502,15 +502,17 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 	
 	// MARK: - ExternalParameters helpers
 	
-	private var allCountryCodes: [String] {
+	// Internal for testing purposes
+	var allCountryCodes: [String] {
 		// This list of country codes comes from our techspec 1:1 as it is. Because we want to keep the copied format, we disable swiftlint here.
 		// swiftlint:disable line_length
 		// swiftlint:disable comma
 		return ["AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW","AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN","BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG","CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI","FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR","HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR","PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV","SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO","TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE","VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"]
 	}
 		
-	/// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
-	private func mapValueSetsForExternalParameter(
+	// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
+	// Internal for testing purposes
+	func mapValueSetsForExternalParameter(
 		valueSet: SAP_Internal_Dgc_ValueSets
 	) -> [String: [String]] {
 		var dictionary = [String: [String]]()
@@ -525,7 +527,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		return dictionary
 	}
 	
-	private func mapForExternalParameter(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
+	// Internal for testing purposes
+	func mapForExternalParameter(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
 		switch certificateType {
 		case .vaccination:
 			return .vaccination
@@ -536,7 +539,8 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		}
 	}
 	
-	private func mapUnixTimestampsInSecondsToDate(_ timestamp: UInt64) -> Date {
+	// Internal for testing purposes
+	func mapUnixTimestampsInSecondsToDate(_ timestamp: UInt64) -> Date {
 		return Date(timeIntervalSince1970: TimeInterval(timestamp))
 	}
 }
