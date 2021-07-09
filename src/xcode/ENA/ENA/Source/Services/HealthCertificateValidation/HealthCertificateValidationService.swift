@@ -22,6 +22,17 @@ protocol HealthCertificateValidationProviding {
 	)
 }
 
+/*
+General flow:
+1. apply technical validation (expirationTimes)
+2. download new certificate value sets or load them from the cache
+3. download new acceptance rules or load them from the cache
+4. download new invalidation rules or load them from the cache
+5. assemble FilterParameter and ExternalParameter
+6. validate combined acceptance and invalidation rules
+7. return interpreted rules
+*/
+
 // swiftlint:disable:next type_body_length
 final class HealthCertificateValidationService: HealthCertificateValidationProviding {
 	
@@ -208,7 +219,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		Log.info("Successfully assembled common FilterParameter: \(private: filterParameter). Proceed with assembling common ExternalParameter...", log: .vaccination)
 		
-		// 6. Assemble common ExternalParameter
+		// Assemble common ExternalParameter
 		
 		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSets)
 		let exp = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime)
@@ -246,7 +257,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-		// 7. + 8. apply acceptance and invalidation rules together
+		// 6. apply acceptance and invalidation rules together and validate them
 		
 		let combinedRules = acceptanceRules + invalidationRules
 		
@@ -278,6 +289,9 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		validatedRules: [ValidationResult],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
+		
+		// 7. interpret rules
+		
 		if validatedRules.allSatisfy({ $0.result == .passed }) {
 			// all rules has to be .passed
 			Log.info("Validation result is: validationPassed. Validation complete.", log: .vaccination)
