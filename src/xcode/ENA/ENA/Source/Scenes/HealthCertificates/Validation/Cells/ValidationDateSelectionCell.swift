@@ -14,6 +14,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		selectionStyle = .none
 		backgroundColor = .clear
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection
+		accessibilityTraits = .button
 		createAndLayoutViewHierarchy()
 	}
 

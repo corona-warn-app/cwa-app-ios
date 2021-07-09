@@ -14,6 +14,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		selectionStyle = .none
 		backgroundColor = .clear
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Validation.countrySelection
+		accessibilityTraits = .button
 		createAndLayoutViewHierarchy()
 	}
 
