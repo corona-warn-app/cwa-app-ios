@@ -210,7 +210,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		
 		// 6. Assemble common ExternalParameter
 		
-		let mappedValueSets = mapValueSetsForExternalParameter(valueSet: valueSets)
+		let mappedValueSets = mapValueSets(valueSet: valueSets)
 		let exp = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime)
 		let iat = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt)
 		
@@ -512,7 +512,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		
 	// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
 	// Internal for testing purposes
-	func mapValueSetsForExternalParameter(
+	func mapValueSets(
 		valueSet: SAP_Internal_Dgc_ValueSets
 	) -> [String: [String]] {
 		var dictionary = [String: [String]]()
