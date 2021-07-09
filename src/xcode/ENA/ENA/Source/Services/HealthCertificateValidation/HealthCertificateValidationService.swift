@@ -23,7 +23,7 @@ protocol HealthCertificateValidationProviding {
 }
 
 // swiftlint:disable:next type_body_length
-final class HealthCertificateValidationProvider: HealthCertificateValidationProviding {
+final class HealthCertificateValidationService: HealthCertificateValidationProviding {
 	
 	// MARK: - Init
 	
@@ -214,14 +214,13 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		let exp = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime)
 		let iat = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt)
 		
-		// TODO: Extract kid from healtCertificate or the webTokenHeader
 		let externalParameter = ExternalParameter(
 			validationClock: validationClock,
 			valueSets: mappedValueSets,
 			exp: exp,
 			iat: iat,
 			issuerCountryCode: healthCertificate.cborWebTokenHeader.issuer,
-			kid: "TODO"
+			kid: healthCertificate.keyIdentifier
 		)
 		
 		Log.info("Successfully assembled common ExternalParameter: \(private: externalParameter). Proceed with rule validation...", log: .vaccination)
@@ -282,7 +281,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 		if validatedRules.allSatisfy({ $0.result == .passed }) {
 			// all rules has to be .passed
 			Log.info("Validation result is: validationPassed. Validation complete.", log: .vaccination)
-			completion(.success(.validationPassed))
+			completion(.success(.validationPassed(validatedRules)))
 		} else if validatedRules.contains(where: { $0.result == .open }) &&
 					!validatedRules.contains(where: { $0.result == .fail }) {
 			// At least one rule should contain now .open and there is no .fail
