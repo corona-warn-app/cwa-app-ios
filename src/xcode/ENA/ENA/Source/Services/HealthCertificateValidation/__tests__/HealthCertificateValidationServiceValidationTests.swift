@@ -32,7 +32,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertNil(store.acceptanceRulesCache)
 		XCTAssertNil(store.invalidationRulesCache)
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationResults = [
 			ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed),
 			ValidationResult(rule: Rule.fake(identifier: "B"), result: .passed),
@@ -301,7 +304,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		
 		let validationResults = [
 			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
@@ -383,7 +389,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		
 		let validationResults = [
 			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
@@ -465,7 +474,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -520,7 +532,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: cachingClient,
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -575,7 +590,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: cachingClient,
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -626,7 +644,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: cachingClient,
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -677,7 +698,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: cachingClient, store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: cachingClient,
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -767,7 +791,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -825,7 +852,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		)
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -877,7 +907,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -930,7 +963,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -983,7 +1019,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
@@ -1036,7 +1075,10 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 		let validationProvider = HealthCertificateValidationProvider(
 			store: store,
 			client: client,
