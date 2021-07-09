@@ -150,6 +150,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		default:
 			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[incidenceTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_incidence")
 			app.staticTexts[infectionsTitle].swipeLeft()
@@ -163,7 +164,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[reproductionNumberTitle].swipeLeft()
 			
 			XCTAssert(self.app.staticTexts[atLeastOneVaccinationTitle].waitForExistence(timeout: .medium))
-			snapshot("statistics_at_lease_one_vaccination")
+			snapshot("statistics_at_least_one_vaccination")
 			app.staticTexts[atLeastOneVaccinationTitle].swipeLeft()
 
 			XCTAssert(self.app.staticTexts[fullyVaccinatedTitle].waitForExistence(timeout: .medium))
