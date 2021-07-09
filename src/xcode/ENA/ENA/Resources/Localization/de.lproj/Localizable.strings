@@ -2846,7 +2846,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validation */
 
-"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikats";
+"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikates";
 
 "HealthCertificate_Validation_CountrySelection_Title" = "Land";
 
