@@ -73,9 +73,6 @@ class HealthCertificateService {
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 		setup()
-
-		registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
-		registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 	}
 
 	// MARK: - Internal
