@@ -97,6 +97,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			return
 		}
 		XCTAssertEqual(report, .validationPassed)
+		// The cache must now be filled, because only when download was successful we save the rules.
 		XCTAssertNotNil(store.acceptanceRulesCache)
 		XCTAssertNotNil(store.invalidationRulesCache)
 	}
@@ -742,8 +743,8 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Errors (Downloading Rules Success Handler)
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingEtagNil_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingEtagNil_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR_IsReturned() throws {
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		
 		// THEN
@@ -751,8 +752,8 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// WHEN
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() throws {
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		
 		// THEN
@@ -760,8 +761,8 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// WHEN
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() throws {
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		
 		// THEN
@@ -769,8 +770,8 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		// WHEN
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() throws {
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		
 		// THEN
@@ -950,7 +951,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	}
 	
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingServerError404_THEN_ACCEPTANCE_RULE_CLIENT_ERROR_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.serverError(404)
@@ -1006,7 +1007,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	}
 	
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.serverError(500)
@@ -1062,7 +1063,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	}
 	
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
-		// Note: This test would be redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
+		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.fakeResponse
