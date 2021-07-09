@@ -45,7 +45,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -96,7 +96,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(report, .validationPassed)
+		XCTAssertEqual(report, .validationPassed(validationResults))
 		// The cache must now be filled, because only when download was successful we save the rules.
 		XCTAssertNotNil(store.acceptanceRulesCache)
 		XCTAssertNotNil(store.invalidationRulesCache)
@@ -138,7 +138,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -189,13 +189,12 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(report, .validationPassed)
+		XCTAssertEqual(report, .validationPassed(validationResults))
 		guard let acceptanceRulesCache = store.acceptanceRulesCache,
 			  let invalidationRulesCache = store.invalidationRulesCache else {
 			XCTFail("cached rules must not be nil")
 			return
 		}
-		XCTAssertEqual(report, .validationPassed)
 		// The cached rules must not be changed, if so we would have downloaded new ones.
 		XCTAssertEqual(acceptanceRulesCache.validationRules, [cachedRule])
 		XCTAssertEqual(invalidationRulesCache.validationRules, [cachedRule2])
@@ -232,7 +231,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -317,7 +316,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -391,7 +390,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -449,7 +448,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -507,7 +506,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -561,7 +560,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -615,7 +614,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -680,7 +679,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -740,7 +739,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -801,7 +800,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		)
 		
 		// To force a verifying error, we just use the real verifier instead of the mock.
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -860,7 +859,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		)
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .failure(.CBOR_DECODING_FAILED(nil))
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -917,7 +916,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -978,7 +977,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1033,7 +1032,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1089,7 +1088,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1145,7 +1144,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1201,7 +1200,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1269,7 +1268,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .failure(.CBOR_DECODING_FAILED(nil))
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1316,7 +1315,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1348,7 +1347,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1375,7 +1374,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1423,7 +1422,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationProvider(
+		let validationProvider = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
