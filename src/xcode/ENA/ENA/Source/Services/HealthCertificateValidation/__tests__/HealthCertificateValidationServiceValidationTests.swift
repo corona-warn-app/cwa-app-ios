@@ -1341,7 +1341,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertFalse(countryCodes.contains("FF"))
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
+	func testGIVEN_ValidationProvider_WHEN_MappingCertificateTypes_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
@@ -1358,14 +1358,62 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		
 		// WHEN
-		let mappedTest = validationProvider.mapCertificateType( .test)
-		let mappedRecovery = validationProvider.mapCertificateType( .recovery)
-		let mappedVaccination = validationProvider.mapCertificateType( .vaccination)
+		let mappedTest = validationProvider.mapCertificateType(.test)
+		let mappedRecovery = validationProvider.mapCertificateType(.recovery)
+		let mappedVaccination = validationProvider.mapCertificateType(.vaccination)
 		
 		// THEN
 		XCTAssertEqual(mappedTest, CertLogic.CertificateType.test)
 		XCTAssertEqual(mappedRecovery, CertLogic.CertificateType.recovery)
 		XCTAssertEqual(mappedVaccination, CertLogic.CertificateType.vaccination)
+	}
+	
+	func testGIVEN_ValidationProvider_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
+		// GIVEN
+		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: ClientMock(),
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let countryCodes = validationProvider.allCountryCodes
+		let tcTrKey = "tcTr key"
+		let tcMaKey = "tcMa key"
+		let tcTtKey = "tcTt key"
+		let tgKey = "tg key"
+		let vpKey = "vp key"
+		let maKey = "ma key"
+		let mpKey = "mp key"
+		
+		let originalValueSet = SAP_Internal_Dgc_ValueSets.with {
+			$0.tcTr = valueSet(key: tcTrKey)
+			$0.tcMa = valueSet(key: tcMaKey)
+			$0.tcTt = valueSet(key: tcTtKey)
+			$0.tg = valueSet(key: tgKey)
+			$0.vp = valueSet(key: vpKey)
+			$0.ma = valueSet(key: maKey)
+			$0.mp = valueSet(key: mpKey)
+		}
+		
+		// WHEN
+		let mappedSet = validationProvider.mapValueSets(valueSet: originalValueSet)
+		
+		// THEN
+		XCTAssertEqual(mappedSet["country-2-codes"], countryCodes)
+		XCTAssertEqual(mappedSet["covid-19-lab-result"]?.first, tcTrKey)
+		XCTAssertEqual(mappedSet["covid-19-lab-test-manufacturer-and-name"]?.first, tcMaKey)
+		XCTAssertEqual(mappedSet["covid-19-lab-test-type"]?.first, tcTtKey)
+		XCTAssertEqual(mappedSet["disease-agent-targeted"]?.first, tgKey)
+		XCTAssertEqual(mappedSet["sct-vaccines-covid-19"]?.first, vpKey)
+		XCTAssertEqual(mappedSet["vaccines-covid-19-auth-holders"]?.first, maKey)
+		XCTAssertEqual(mappedSet["vaccines-covid-19-names"]?.first, mpKey)
 	}
 	
 	// MARK: - Private
@@ -1403,4 +1451,14 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			return response
 		}
 	}()
+	
+	private func valueSet(key: String) -> SAP_Internal_Dgc_ValueSet {
+		return SAP_Internal_Dgc_ValueSet.with {
+			$0.items.append(
+				SAP_Internal_Dgc_ValueSetItem.with {
+					$0.key = key
+				}
+			)
+		}
+	}
 }
