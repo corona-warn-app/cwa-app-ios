@@ -197,7 +197,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 	) {
 		// 5. Assemble common FilterParameter
 		
-		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
+		let mappedCertificateType = mapCertificateType(healthCertificate.type)
 		
 		let filterParameter = FilterParameter(
 			validationClock: validationClock,
@@ -528,7 +528,7 @@ final class HealthCertificateValidationProvider: HealthCertificateValidationProv
 	}
 	
 	// Internal for testing purposes
-	func mapForExternalParameter(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
+	func mapCertificateType(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
 		switch certificateType {
 		case .vaccination:
 			return .vaccination
