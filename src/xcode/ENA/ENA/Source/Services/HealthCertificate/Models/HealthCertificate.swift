@@ -63,6 +63,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	let base45: Base45
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
+	let keyIdentifier: String = "TODO Dummy key"
 	
 	var version: String {
 		digitalCovidCertificate.version

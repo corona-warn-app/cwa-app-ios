@@ -33,7 +33,7 @@ class RootCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		healthCertificateService: HealthCertificateService,
-		healthCertificateValidationProvider: HealthCertificateValidationProviding,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		elsService: ErrorLogSubmissionProviding
@@ -46,7 +46,7 @@ class RootCoordinator: RequiresAppDependencies {
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
-		self.healthCertificateValidationProvider = healthCertificateValidationProvider
+		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.elsService = elsService
@@ -100,7 +100,7 @@ class RootCoordinator: RequiresAppDependencies {
 		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
 			store: store,
 			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: healthCertificateValidationProvider,
+			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
@@ -207,7 +207,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private let ppacService: PrivacyPreservingAccessControl
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
-	private let healthCertificateValidationProvider: HealthCertificateValidationProviding
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let tabBarController = UITabBarController()

@@ -321,7 +321,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
 	}
 	
-	private lazy var healthCertificateValidationProvider: HealthCertificateValidationProviding = HealthCertificateValidationProvider(
+	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = HealthCertificateValidationService(
 		store: store,
 		client: client,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider
@@ -608,7 +608,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService,
 		ppacService: ppacService,
 		healthCertificateService: healthCertificateService,
-		healthCertificateValidationProvider: healthCertificateValidationProvider,
+		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 		elsService: elsService

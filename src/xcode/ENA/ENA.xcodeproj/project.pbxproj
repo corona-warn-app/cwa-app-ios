@@ -513,7 +513,7 @@
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
 		507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */; };
 		507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685D225E8EA040039B7B6 /* UserMetadataTests.swift */; };
-		5078DCA12684B3ED00535917 /* HealthCertificateValidationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA02684B3ED00535917 /* HealthCertificateValidationProvider.swift */; };
+		5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */; };
 		5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */; };
 		5078DCA62684B60400535917 /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA52684B60400535917 /* HealthCertificateValidationError.swift */; };
 		5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */; };
@@ -1759,7 +1759,7 @@
 		506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewModel.swift; sourceTree = "<group>"; };
 		507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDummyPPAnalyticsDataImplementation.swift; sourceTree = "<group>"; };
 		507685D225E8EA040039B7B6 /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
-		5078DCA02684B3ED00535917 /* HealthCertificateValidationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationProvider.swift; sourceTree = "<group>"; };
+		5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationService.swift; sourceTree = "<group>"; };
 		5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationReport.swift; sourceTree = "<group>"; };
 		5078DCA52684B60400535917 /* HealthCertificateValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationError.swift; sourceTree = "<group>"; };
 		5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ValidationOnboardedCountries.swift"; sourceTree = "<group>"; };
@@ -4064,7 +4064,7 @@
 				5078DCA22684B3F400535917 /* __tests__ */,
 				5078DC9F2684B3DD00535917 /* Model */,
 				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
-				5078DCA02684B3ED00535917 /* HealthCertificateValidationProvider.swift */,
+				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
 			);
 			path = HealthCertificateValidation;
 			sourceTree = "<group>";
@@ -7993,7 +7993,7 @@
 				01A4DC7025922EB4007D5794 /* HomeItemView.swift in Sources */,
 				BAC7419E26414D4700955311 /* SimpleTextCell.swift in Sources */,
 				5081EEF125FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift in Sources */,
-				5078DCA12684B3ED00535917 /* HealthCertificateValidationProvider.swift in Sources */,
+				5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */,
 				BA5B7FD726458EF400502087 /* HealthCertificateCellViewModel.swift in Sources */,
 				ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */,
 				01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */,

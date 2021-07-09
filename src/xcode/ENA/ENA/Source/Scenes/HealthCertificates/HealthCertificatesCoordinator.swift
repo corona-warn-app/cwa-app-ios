@@ -18,7 +18,7 @@ final class HealthCertificatesCoordinator {
 	) {
 		self.store = store
 		self.healthCertificateService = healthCertificateService
-		self.healthCertificateValidationProvider = healthCertificateValidationService
+		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
@@ -61,7 +61,7 @@ final class HealthCertificatesCoordinator {
 	
 	private let store: HealthCertificateStoring
 	private let healthCertificateService: HealthCertificateService
-	private let healthCertificateValidationProvider: HealthCertificateValidationProviding
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
@@ -342,7 +342,7 @@ final class HealthCertificatesCoordinator {
 			healthCertificate: healthCertificate,
 			countries: countries,
 			store: store,
-			healthCertificateValidationService: healthCertificateValidationProvider
+			healthCertificateValidationService: healthCertificateValidationService
 		)
 
 		validationCoordinator?.start()
