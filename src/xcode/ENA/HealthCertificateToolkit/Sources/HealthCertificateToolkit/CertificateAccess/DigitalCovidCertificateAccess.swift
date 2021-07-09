@@ -111,7 +111,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
     private func extractKeyIdentifier(from coseEntries: [CBOR]) -> Result<Base64, CertificateDecodingError> {
         if case let .byteString(protectedHeaderBytes) = coseEntries[0],
            let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
-           case let .byteString(keyIdentifierBytes)  = protectedHeaderCBOR[4] {
+           case let .byteString(keyIdentifierBytes) = protectedHeaderCBOR[4] {
             return .success(Data(keyIdentifierBytes).base64EncodedString())
         }
 
