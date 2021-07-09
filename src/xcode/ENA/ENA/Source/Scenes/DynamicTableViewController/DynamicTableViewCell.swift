@@ -27,6 +27,7 @@ extension DynamicCell {
 		case icon = "iconCell"
 		case space = "spaceCell"
 		case bulletPoint = "bulletPointCell"
+		case headlineWithImage = "headerWithImage"
 	}
 
 	/// Style of  `DynamicTableViewTextCell`
@@ -178,6 +179,21 @@ extension DynamicCell {
 			configure?(viewController, cell, indexPath)
 		}
 	}
+
+	static func headlineWithImage(
+		headerText: String,
+		font: ENAFont = .title1,
+		image: UIImage,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = [.header, .image],
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(CellReuseIdentifier.headlineWithImage, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image)
+			configure?(viewController, cell, indexPath)
+		}
+	}
+
 }
 
 extension DynamicCell {
@@ -212,4 +228,5 @@ extension DynamicCell {
 	static func footnote(text: String, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
 		.enaLabelStyle(.footnote, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
+
 }

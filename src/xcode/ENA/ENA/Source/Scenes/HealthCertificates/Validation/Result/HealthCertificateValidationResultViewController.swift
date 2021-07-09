@@ -67,6 +67,7 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.contentInsetAdjustmentBehavior = .never
 
 		tableView.register(
 			TechnicalValidationFailedRulesTableViewCell.self,
