@@ -41,7 +41,7 @@ final class HealthCertificateValidationCoordinator {
 
 	// MARK: Show Screens
 
-	lazy var validationScreen: UIViewController = {
+	private lazy var validationScreen: UIViewController = {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
 			isPrimaryButtonEnabled: true,

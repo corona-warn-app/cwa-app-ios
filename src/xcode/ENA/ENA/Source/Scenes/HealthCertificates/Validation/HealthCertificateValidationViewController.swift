@@ -80,34 +80,18 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		tableView.register(
-			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
-			forCellReuseIdentifier: "LabeledCountriesCell"
-		)
-
-		tableView.register(
-			DynamicTableViewRoundedCell.self,
-			forCellReuseIdentifier: "roundedCell"
-		)
-
-		tableView.register(
 			CountrySelectionCell.self,
-			forCellReuseIdentifier: CountrySelectionCell.reuseIdentifier
+			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.countrySelectionCell.rawValue
 		)
 
 		tableView.register(
 			ValidationDateSelectionCell.self,
-			forCellReuseIdentifier: ValidationDateSelectionCell.reuseIdentifier
+			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.validationDateSelectionCell.rawValue
 		)
 
 		tableView.register(
 			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
-			forCellReuseIdentifier: CellReuseIdentifier.legalDetails.rawValue
+			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.legalDetails.rawValue
 		)
-	}
-}
-
-extension HealthCertificateValidationViewController {
-	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
-		case legalDetails = "DynamicLegalCell"
 	}
 }

@@ -24,8 +24,6 @@ final class ValidationDateSelectionCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	static let reuseIdentifier = "\(ValidationDateSelectionCell.self)"
-
 	var didSelectDate: ((Date) -> Void)?
 	var didTapInfoButton: (() -> Void)?
 

@@ -28,6 +28,12 @@ final class HealthCertificateValidationViewModel {
 
 	// MARK: - Internal
 
+	enum CellIdentifiers: String, TableViewCellReuseIdentifiers {
+		case countrySelectionCell = "CountrySelectionCell"
+		case validationDateSelectionCell = "ValidationDateSelectionCell"
+		case legalDetails = "DynamicLegalCell"
+	}
+
 	var selectedArrivalCountry = Country.defaultCountry()
 	var selectedArrivalDate = Date()
 
@@ -101,11 +107,6 @@ final class HealthCertificateValidationViewModel {
 	}
 
 	// MARK: - Private
-
-	private enum CellIdentifiers: String, TableViewCellReuseIdentifiers {
-		case countrySelectionCell = "CountrySelectionCell"
-		case validationDateSelectionCell = "ValidationDateSelectionCell"
-	}
 
 	private let healthCertificate: HealthCertificate
 	private let countries: [Country]

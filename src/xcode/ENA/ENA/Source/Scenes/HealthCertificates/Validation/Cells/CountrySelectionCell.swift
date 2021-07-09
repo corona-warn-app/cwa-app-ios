@@ -24,8 +24,6 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 
 	// MARK: - Internal
 
-	static let reuseIdentifier = "\(CountrySelectionCell.self)"
-
 	var didSelectCountry: ((Country) -> Void)?
 
 	var countries: [Country] = [] {
