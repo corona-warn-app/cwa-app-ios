@@ -15,7 +15,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Success (Passed)
 	
-	func testGIVEN_ValidationProvider_WHEN_HappyCase_THEN_PassedShouldBeReturned() throws {
+	func testGIVEN_ValidationProvider_WHEN_HappyCaseCachedIsNotUsed_THEN_NewRulesAreDownloadedAndPassedShouldBeReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -98,7 +98,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertNotNil(store.invalidationRulesCache)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_NotModifiedAcceptanceRules_THEN_CachedAcceptanceRulesShouldNotBeChanged() throws {
+	func testGIVEN_ValidationProvider_WHEN_HappyCaseCachedIsUsed_THEN_CachedRulesAreUsedAndPassedShouldBeReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
