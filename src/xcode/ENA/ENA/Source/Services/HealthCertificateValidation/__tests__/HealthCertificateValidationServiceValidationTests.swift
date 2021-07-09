@@ -1416,6 +1416,39 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(mappedSet["vaccines-covid-19-names"]?.first, mpKey)
 	}
 	
+	func testGIVEN_ValidationProvider_WHEN_MappingUnixTime_THEN_MappingIsCorrect() {
+		// GIVEN
+		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: ClientMock(),
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		// Exact Time for 9.7.2021, 10:30:00
+		let dateToday: UInt64 = 1625819400
+		
+		var dateComponents = DateComponents()
+		dateComponents.year = 2021
+		dateComponents.month = 7
+		dateComponents.day = 9
+		dateComponents.hour = 10
+		dateComponents.minute = 30
+		dateComponents.second = 0
+
+		let expectedDate = Calendar(identifier: .gregorian).date(from: dateComponents)
+		// WHEN
+		let mappedTime = validationProvider.mapUnixTimestampsInSecondsToDate(dateToday)
+		
+		// THEN
+		XCTAssertEqual(mappedTime, expectedDate)
+	}
+	
 	// MARK: - Private
 	
 	private func validHealthCertificate() throws -> HealthCertificate {
