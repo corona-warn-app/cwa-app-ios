@@ -1308,6 +1308,38 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		}
 		XCTAssertEqual(error, .RULES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
+	
+	func testGIVEN_ValidationProvider_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
+		// GIVEN
+		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: ClientMock(),
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		
+		// WHEN
+		let countryCodes = validationProvider.allCountryCodes
+		
+		// THEN
+		// Picked some random codes
+		XCTAssertTrue(countryCodes.contains("DE"))
+		XCTAssertTrue(countryCodes.contains("PY"))
+		XCTAssertTrue(countryCodes.contains("ZW"))
+		XCTAssertTrue(countryCodes.contains("FR"))
+		
+		XCTAssertFalse(countryCodes.contains("AA"))
+		XCTAssertFalse(countryCodes.contains("ZZ"))
+		XCTAssertFalse(countryCodes.contains("HA"))
+		XCTAssertFalse(countryCodes.contains("FF"))
+	}
 	// MARK: - Private
 	
 	private func validHealthCertificate() throws -> HealthCertificate {
