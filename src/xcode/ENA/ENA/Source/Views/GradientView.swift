@@ -37,6 +37,11 @@ class GradientView: UIView {
 		return CAGradientLayer.self
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updatedLayer()
+	}
+
 	// MARK: - Internal
 
 	enum GradientType: Equatable {
@@ -46,6 +51,7 @@ class GradientView: UIView {
 		case lightBlue(withStars: Bool)
 		case mediumBlue(withStars: Bool)
 		case darkBlue(withStars: Bool)
+		case certificateCheck
 
 		var starsColor: UIColor? {
 			switch self {
@@ -82,11 +88,7 @@ class GradientView: UIView {
 		)
 	}
 
-	private func updatedLayer() {
-		guard let gradientLayer = self.layer as? CAGradientLayer else {
-			Log.debug("Failed to create view with matching layer class", log: .default)
-			return
-		}
+	private func updateStars() {
 		// update stars view
 		if let starsColor = type.starsColor {
 			imageView.tintColor = starsColor
@@ -95,7 +97,13 @@ class GradientView: UIView {
 		} else {
 			imageView.image = nil
 		}
+	}
 
+	private func updateGradient() {
+		guard let gradientLayer = self.layer as? CAGradientLayer else {
+			Log.debug("Failed to create view with matching layer class", log: .default)
+			return
+		}
 		// update gradient layer
 		switch type {
 		case .blueRedTilted:
@@ -154,6 +162,33 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.25, 0.75]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
+		case .certificateCheck:
+			let lightColors = [
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 235 / 255, green: 244 / 255, blue: 255 / 255, alpha: 1).cgColor
+			]
+
+			let darkColors = [
+				UIColor(red: 25 / 255, green: 25 / 255, blue: 27 / 255, alpha: 1).cgColor,
+				UIColor(red: 47 / 255, green: 65 / 255, blue: 77 / 255, alpha: 1).cgColor
+			]
+
+			var isDarkMode: Bool = false
+			if #available(iOS 13.0, *) {
+				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+			}
+
+			gradientLayer.colors = isDarkMode ? darkColors : lightColors
+			gradientLayer.locations = [0.0, 0.6, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.95)
 		}
+	}
+
+	private func updatedLayer() {
+		updateStars()
+		updateGradient()
 	}
 }
