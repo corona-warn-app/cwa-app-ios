@@ -658,10 +658,66 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingEtagNil_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
+		let client = ClientMock()
 		
-		// THEN
+		let fakeData = try rulesCBORDataFake()
+		let package = SAPDownloadedPackage(
+			keysBin: fakeData,
+			signature: Data()
+		)
+		let response = PackageDownloadResponse(
+			package: package,
+			etag: nil
+		)
+		
+		client.onGetDCCRules = { _, _, completion in
+			completion(.success(response))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR")
+		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR)
 	}
 	
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() throws {
