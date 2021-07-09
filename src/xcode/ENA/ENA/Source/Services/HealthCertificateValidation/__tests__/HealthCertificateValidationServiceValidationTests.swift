@@ -783,10 +783,61 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
+		let client = ClientMock()
 		
-		// THEN
+		client.onGetDCCRules = { [weak self] _, _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyRulesResponse))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		
+		// To force a verifying error, we just use the real verifier instead of the mock.
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			validationRulesAccess: MockValidationRulesAccess()
+		)
+		
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID")
+		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID )
 	}
 	
 	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() throws {
