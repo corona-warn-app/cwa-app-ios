@@ -1239,6 +1239,75 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_SERVER_ERROR)
 	}
 	
+	// MARK: - Others
+	
+	func testGIVEN_ValidationProvider_WHEN_RuleValidationFails_THEN_RULES_VALIDATION_ERROR_IsReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		let fakeData = try rulesCBORDataFake()
+		let package = SAPDownloadedPackage(
+			keysBin: fakeData,
+			signature: Data()
+		)
+		let response = PackageDownloadResponse(
+			package: package,
+			etag: "FakeETag"
+		)
+		
+		client.onGetDCCRules = { _, _, completion in
+			completion(.success(response))
+		}
+		
+		let store = MockTestStore()
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .failure(.CBOR_DECODING_FAILED(nil))
+		let validationProvider = HealthCertificateValidationProvider(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: validationRulesAccess
+		)
+		
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .RULES_VALIDATION_ERROR")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationProvider.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: "FR",
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .RULES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
+	}
 	// MARK: - Private
 	
 	private func validHealthCertificate() throws -> HealthCertificate {
