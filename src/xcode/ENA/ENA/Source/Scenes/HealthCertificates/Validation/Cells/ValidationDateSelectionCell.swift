@@ -13,6 +13,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		backgroundColor = .clear
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection
 		createAndLayoutViewHierarchy()
 	}
 

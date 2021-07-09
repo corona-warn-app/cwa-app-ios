@@ -13,6 +13,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		backgroundColor = .clear
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Validation.countrySelection
 		createAndLayoutViewHierarchy()
 	}
 

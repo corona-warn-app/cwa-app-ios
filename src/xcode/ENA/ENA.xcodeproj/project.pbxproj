@@ -810,6 +810,7 @@
 		AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */; };
 		AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420CA251B7D93006666AC /* DeltaOnboardingV15ViewController.swift */; };
 		AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */; };
+		AB76C4BE269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */; };
 		AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */; };
 		AB7DE73725C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */; };
 		AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73425C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift */; };
@@ -2069,6 +2070,7 @@
 		AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingProtocols.swift; sourceTree = "<group>"; };
 		AB7420CA251B7D93006666AC /* DeltaOnboardingV15ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15ViewController.swift; sourceTree = "<group>"; };
 		AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinatorTests.swift; sourceTree = "<group>"; };
+		AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_42_ValidateHealthCertificate.swift; sourceTree = "<group>"; };
 		AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModelTests.swift; sourceTree = "<group>"; };
 		AB7DE70125C4547600C52B3F /* ENAUITests_04b_ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_04b_ExposureDetection.swift; sourceTree = "<group>"; };
 		AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionSurveyTableViewCell.swift; sourceTree = "<group>"; };
@@ -5407,6 +5409,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		AB76C4BC269735BC009ADEB0 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
 		AB7BDF8725CC07A400E70744 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
@@ -6753,6 +6763,7 @@
 		BAC291482652BE1E00CFA8A5 /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
+				AB76C4BC269735BC009ADEB0 /* Validation */,
 				BAC291492652BEA600CFA8A5 /* ENAUITests_13_CreateHealthCertificate.swift */,
 			);
 			path = HealthCertificate;
@@ -8702,6 +8713,7 @@
 				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
 				350B26C6265E4E8D00180183 /* CWATestCase.swift in Sources */,
 				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
+				AB76C4BE269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
 				13E5046B248E3DF30086641C /* AppStrings.swift in Sources */,
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,

@@ -641,10 +641,16 @@ enum AccessibilityIdentifiers {
 
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
+			static let validationButton = "HealthCertificate.Person.validationButton"
 		}
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
+		}
+
+		enum Validation {
+			static let countrySelection = "HealthCertificate.Validation.CountrySelection"
+			static let dateTimeSelection = "HealthCertificate.Validation.DateTimeSelection"
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
