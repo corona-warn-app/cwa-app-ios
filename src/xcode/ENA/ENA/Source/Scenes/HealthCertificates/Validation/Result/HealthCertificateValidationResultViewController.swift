@@ -69,6 +69,11 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 		tableView.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
+			ValidationResultTableViewCell.self,
+			forCellReuseIdentifier: ValidationResultTableViewCell.reuseIdentifier
+		)
+
+		tableView.register(
 			TechnicalValidationFailedRulesTableViewCell.self,
 			forCellReuseIdentifier: TechnicalValidationFailedRulesTableViewCell.reuseIdentifier
 		)

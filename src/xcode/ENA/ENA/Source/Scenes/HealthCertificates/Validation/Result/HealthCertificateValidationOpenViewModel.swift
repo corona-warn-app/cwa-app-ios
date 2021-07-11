@@ -39,7 +39,7 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 			.body(text: AppStrings.HealthCertificate.Validation.Result.Open.openSectionDescription)
 		]
 
-		// TODO: Open Validation Results
+		cells.append(contentsOf: openValidationResults.map { .validationResult($0) })
 
 		cells.append(.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation))
 

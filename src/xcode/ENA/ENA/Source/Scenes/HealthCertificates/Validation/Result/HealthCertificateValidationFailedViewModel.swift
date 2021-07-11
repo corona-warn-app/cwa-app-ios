@@ -39,7 +39,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 			.body(text: AppStrings.HealthCertificate.Validation.Result.Failed.failedSectionDescription)
 		]
 
-		// TODO: Failed Validation Results
+		cells.append(contentsOf: failedValidationResults.map { .validationResult($0) })
 
 		if !openValidationResults.isEmpty {
 			cells.append(contentsOf: [
@@ -48,7 +48,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 				.body(text: AppStrings.HealthCertificate.Validation.Result.Failed.openSectionDescription)
 			])
 
-			// TODO: Open Validation Results
+			cells.append(contentsOf: openValidationResults.map { .validationResult($0) })
 		}
 
 		cells.append(.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation))
@@ -67,7 +67,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 	private let validationResults: [ValidationResult]
 
 	private var failedValidationResults: [ValidationResult] {
-		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
+		failedAcceptanceRuleValidationResults + failedInvalidationRuleValidationResults
 	}
 
 	private var failedAcceptanceRuleValidationResults: [ValidationResult] {
