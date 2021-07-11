@@ -31,14 +31,44 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with cellModel: ValidationResultCellModel) {
+		iconImageView.image = cellModel.iconImage
 		ruleDescriptionLabel.text = cellModel.ruleDescription
+		ruleTypeDescriptionLabel.text = cellModel.ruleTypeDescription
+
+		keyValuePairsStackView.arrangedSubviews.forEach {
+			keyValuePairsStackView.removeArrangedSubview($0)
+			$0.removeFromSuperview()
+		}
+
+		cellModel.keyValuePairs.forEach { keyValuePair in
+			let keyValueStackView = UIStackView()
+			keyValueStackView.axis = .vertical
+			keyValueStackView.spacing = 0
+			keyValueStackView.alignment = .leading
+			keyValuePairsStackView.addArrangedSubview(keyValueStackView)
+
+			let keyLabel = ENALabel(style: .footnote)
+			keyLabel.numberOfLines = 0
+			keyLabel.textColor = .enaColor(for: .textPrimary2)
+			keyLabel.text = keyValuePair.key
+			keyValueStackView.addArrangedSubview(keyLabel)
+
+			let valueLabel = ENALabel(style: .subheadline)
+			valueLabel.numberOfLines = 0
+			valueLabel.textColor = .enaColor(for: .textPrimary1)
+			valueLabel.text = keyValuePair.value
+			keyValueStackView.addArrangedSubview(valueLabel)
+		}
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
+	private let iconImageView = UIImageView()
 
+	private let keyValuePairsStackView = UIStackView()
 	private let ruleDescriptionLabel = ENALabel(style: .body)
+	private let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -57,21 +87,40 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		let contentStackView = UIStackView()
-		contentStackView.axis = .horizontal
-		contentStackView.spacing = 12
-		contentStackView.translatesAutoresizingMaskIntoConstraints = false
-		contentStackView.alignment = .top
-		backgroundContainerView.addSubview(contentStackView)
+		let containerStackView = UIStackView()
+		containerStackView.axis = .horizontal
+		containerStackView.spacing = 12
+		containerStackView.translatesAutoresizingMaskIntoConstraints = false
+		containerStackView.alignment = .top
+		backgroundContainerView.addSubview(containerStackView)
 
-		let failureIconImageView = UIImageView(image: UIImage(named: "Icon_CertificateValidation_Failed"))
-		failureIconImageView.setContentHuggingPriority(.required, for: .horizontal)
-		contentStackView.addArrangedSubview(failureIconImageView)
+		iconImageView.setContentHuggingPriority(.required, for: .horizontal)
+		containerStackView.addArrangedSubview(iconImageView)
+
+		let contentStackView = UIStackView()
+		contentStackView.axis = .vertical
+		contentStackView.spacing = 12
+		contentStackView.alignment = .leading
+		containerStackView.addArrangedSubview(contentStackView)
+
+		let descriptionStackView = UIStackView()
+		descriptionStackView.axis = .vertical
+		descriptionStackView.spacing = 0
+		descriptionStackView.alignment = .leading
+		contentStackView.addArrangedSubview(descriptionStackView)
 
 		ruleDescriptionLabel.numberOfLines = 0
 		ruleDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
-		ruleDescriptionLabel.text = AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateExpired
-		contentStackView.addArrangedSubview(ruleDescriptionLabel)
+		descriptionStackView.addArrangedSubview(ruleDescriptionLabel)
+
+		ruleTypeDescriptionLabel.numberOfLines = 0
+		ruleTypeDescriptionLabel.textColor = .enaColor(for: .textPrimary2)
+		descriptionStackView.addArrangedSubview(ruleTypeDescriptionLabel)
+
+		keyValuePairsStackView.axis = .vertical
+		keyValuePairsStackView.spacing = 12
+		keyValuePairsStackView.alignment = .leading
+		contentStackView.addArrangedSubview(keyValuePairsStackView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -80,10 +129,10 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
-				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				containerStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
+				containerStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				containerStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				containerStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 
