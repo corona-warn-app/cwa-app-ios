@@ -33,9 +33,16 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 		if let parent = parent, !parent.isKind(of: UINavigationController.self) {
 			parent.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 			parent.navigationItem.hidesBackButton = true
+
+			if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+				dismissHandlingNC.setupTransparentNavigationBar()
+				parent.navigationItem.largeTitleDisplayMode = .never
+			}
+
 		} else {
 			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 			navigationItem.hidesBackButton = true
+			navigationItem.largeTitleDisplayMode = .never
 		}
 
 		setupTableView()
@@ -67,6 +74,7 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.contentInsetAdjustmentBehavior = .never
 
 		tableView.register(
 			ValidationResultTableViewCell.self,

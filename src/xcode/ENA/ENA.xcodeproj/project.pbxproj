@@ -980,6 +980,7 @@
 		BA38183425CB104900C1DB6C /* ConfigureableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38183325CB104900C1DB6C /* ConfigureableCell.swift */; };
 		BA3A79C42631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A79C32631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift */; };
 		BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */; };
+		BA3EE65D26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */; };
 		BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
@@ -2259,6 +2260,7 @@
 		BA38183325CB104900C1DB6C /* ConfigureableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureableCell.swift; sourceTree = "<group>"; };
 		BA3A79C32631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInformationViewController.swift; sourceTree = "<group>"; };
 		BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInformationViewModel.swift; sourceTree = "<group>"; };
+		BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeadlineWithImageCell.swift; sourceTree = "<group>"; };
 		BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+DccRegisterPublicKeyTests.swift"; sourceTree = "<group>"; };
 		BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewController.swift; sourceTree = "<group>"; };
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
@@ -4662,6 +4664,7 @@
 				717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */,
 				A1C683F924AEC57400B90D12 /* DynamicTableViewTextViewCell.swift */,
 				01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */,
+				BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -8047,6 +8050,7 @@
 				01A4DC7025922EB4007D5794 /* HomeItemView.swift in Sources */,
 				BAC7419E26414D4700955311 /* SimpleTextCell.swift in Sources */,
 				5081EEF125FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift in Sources */,
+				BA3EE65D26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift in Sources */,
 				5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */,
 				BA5B7FD726458EF400502087 /* HealthCertificateCellViewModel.swift in Sources */,
 				ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */,

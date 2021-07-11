@@ -26,7 +26,7 @@ final class HealthCertificateValidationCoordinator {
 	// MARK: - Internal
 
 	func start() {
-		navigationController = UINavigationController(rootViewController: validationScreen)
+		navigationController = DismissHandlingNavigationController(rootViewController: validationScreen)
 		parentViewController.present(navigationController, animated: true)
 	}
 	
