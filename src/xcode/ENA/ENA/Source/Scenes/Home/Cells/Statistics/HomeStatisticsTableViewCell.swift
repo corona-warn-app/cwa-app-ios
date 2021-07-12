@@ -76,10 +76,30 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				self.insertLocalStatistics(
 					store: store,
 					administrativeUnitsData: administrativeUnitsData,
+					localStatisticsDistrict: nil,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus,
 					onDeleteStatistic: onDeleteLocalStatistic
 				)
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+		
+		keyFigureCellModel.$selectedLocalStatistics
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { selectedLocalStatistics in
+				Log.debug("update with \(keyFigureCellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
+				
+				for singleSelectedLocalStatistics in selectedLocalStatistics {
+					self.insertLocalStatistics(
+						store: store,
+						administrativeUnitsData: singleSelectedLocalStatistics.localStatisticsData,
+						localStatisticsDistrict: singleSelectedLocalStatistics.localStatisticsDistrict,
+						onInfoButtonTap: onInfoButtonTap,
+						onAccessibilityFocus: onAccessibilityFocus,
+						onDeleteStatistic: onDeleteLocalStatistic
+					)
+				}
 				onUpdate()
 			}
 			.store(in: &subscriptions)
@@ -88,10 +108,15 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	func insertLocalStatistics(
 		store: Store,
 		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
+		localStatisticsDistrict: LocalStatisticsDistrict?,
 		onInfoButtonTap:  @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onDeleteStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void
 	) {
+		if localStatisticsDistrict != nil {
+			district = localStatisticsDistrict
+		}
+		
 		let administrativeUnit = administrativeUnitsData.first {
 			$0.administrativeUnitShortID == UInt32(district?.districtId ?? "0")
 		}
@@ -138,6 +163,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 		}
 	}
+
 	// MARK: - Private
 
 	@IBOutlet private weak var scrollView: UIScrollView!

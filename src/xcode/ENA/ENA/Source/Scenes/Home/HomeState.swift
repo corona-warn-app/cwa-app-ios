@@ -70,6 +70,7 @@ class HomeState: ENStateHandlerUpdating {
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
 	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
+	@OpenCombine.Published var selectedLocalStatistics: [SelectedLocalStatisticsTuple] = [SelectedLocalStatisticsTuple]()
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -180,8 +181,8 @@ class HomeState: ENStateHandlerUpdating {
 	
 	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsDistrict]?) {
 		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selection ?? [], completion: { result in
-			// TODO: Handle the selected districts data
-			Log.debug("fetched local statistics: \(private: result) entities", log: .localStatistics)
+			self.selectedLocalStatistics = result
+			Log.debug("fetched selected local statistics: \(private: result) entities", log: .localStatistics)
 		})
 	}
 

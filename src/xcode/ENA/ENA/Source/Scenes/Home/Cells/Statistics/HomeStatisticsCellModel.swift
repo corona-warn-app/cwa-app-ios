@@ -29,6 +29,13 @@ class HomeStatisticsCellModel {
 				Log.debug("HomeState did update. \(private: "\(self?.localAdministrativeUnitStatistics.count ?? -1)")", log: .localStatistics)
 			}
 			.store(in: &subscriptions)
+		
+		homeState.$selectedLocalStatistics
+			.sink { [weak self] selectedLocalStatistics in
+				  self?.selectedLocalStatistics = selectedLocalStatistics
+				  Log.debug("HomeState did update. \(private: "\(self?.selectedLocalStatistics.count ?? -1)")", log: .localStatistics)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -36,6 +43,7 @@ class HomeStatisticsCellModel {
 	/// The default set of 'global' statistics for every user
 	@OpenCombine.Published private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@OpenCombine.Published private(set) var localAdministrativeUnitStatistics = [SAP_Internal_Stats_AdministrativeUnitData]()
+	@OpenCombine.Published private(set) var selectedLocalStatistics = [SelectedLocalStatisticsTuple]()
 
 	// MARK: - Private
 
