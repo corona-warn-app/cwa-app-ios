@@ -261,7 +261,8 @@
       "type": "object",
       "properties": {
         "tg": {
-          "$ref": "#/$defs/disease-agent-targeted"
+          "$ref": "#/$defs/disease-agent-targeted",
+          "minLength": 1
         },
         "fr": {
           "description": "ISO 8601 complete date of first positive NAA test result",
@@ -271,11 +272,13 @@
         },
         "co": {
           "description": "Country of Test",
-          "$ref": "#/$defs/country_vt"
+          "$ref": "#/$defs/country_vt",
+          "minLength": 1
         },
         "is": {
           "description": "Certificate Issuer",
-          "$ref": "#/$defs/issuer"
+          "$ref": "#/$defs/issuer",
+          "minLength": 1
         },
         "df": {
           "description": "ISO 8601 complete date: Certificate Valid From",
@@ -291,7 +294,8 @@
         },
         "ci": {
           "description": "Unique Certificate Identifier, UVCI",
-          "$ref": "#/$defs/certificate_id"
+          "$ref": "#/$defs/certificate_id",
+          "minLength": 1
         }
       }
     },
