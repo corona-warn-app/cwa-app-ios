@@ -16,4 +16,13 @@ enum HealthCertificateValidationRuleType {
 			return "invalidation-rules"
 		}
 	}
+	
+	var errorPrefix: String {
+		switch self {
+		case .acceptance:
+			return "ACCEPTANCE"
+		case .invalidation:
+			return "INVALIDATION"
+		}
+	}
 }
