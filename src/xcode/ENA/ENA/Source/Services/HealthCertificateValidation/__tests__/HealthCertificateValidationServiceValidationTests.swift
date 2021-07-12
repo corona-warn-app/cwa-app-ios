@@ -1430,17 +1430,17 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			validationRulesAccess: MockValidationRulesAccess()
 		)
 		// Exact Time for 9.7.2021, 10:30:00
-		let dateToday: UInt64 = 1625819400
+		let dateToday: UInt64 = 1625826600
 		
 		var dateComponents = DateComponents()
-		dateComponents.calendar = Calendar.current
 		dateComponents.year = 2021
 		dateComponents.month = 7
 		dateComponents.day = 9
 		dateComponents.hour = 10
 		dateComponents.minute = 30
 		dateComponents.second = 0
-
+		dateComponents.timeZone = TimeZone(abbreviation: "UTC")
+		
 		let expectedDate = Calendar(identifier: .gregorian).date(from: dateComponents)
 		// WHEN
 		let mappedTime = validationService.mapUnixTimestampsInSecondsToDate(dateToday)
