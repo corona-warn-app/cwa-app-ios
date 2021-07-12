@@ -485,7 +485,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Error";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Register your Test";
+"ExposureSubmission_DispatchTitle" = "Manage Your Tests";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
@@ -506,6 +506,10 @@
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN for PCR Test";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Call us and get a TAN for your PCR test.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Find Testing Center";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Find test centers near you.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Request TAN for PCR Test";
@@ -934,7 +938,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "A woman with a smartphone in her hand is standing in front of a building. A QR code symbolizes the rapid test profile to be scanned.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
 
@@ -953,12 +957,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Delete Rapid Test Profile";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edit";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Create Rapid Test Profile";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
 
@@ -1257,11 +1261,11 @@
 "Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Remove";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Register your Test";
+"Home_TestRegistration_Title" = "Manage Your Tests";
 
-"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly, or to request your COVID test certificate.";
+"Home_TestRegistration_Body" = "Find testing centers near you and register a test, so you can warn others more quickly, or to request your digital COVID test certificate.";
 
-"Home_TestRegistration_Button" = "Next Steps";
+"Home_TestRegistration_Button" = "Continue";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Planning an event?";
@@ -2374,7 +2378,7 @@
 
 "errorReport_DetailedInformation_Headline" = "Verification of Authenticity and Data Transfer to Third Countries";
 
-"errorReport_DetailedInformation_Content1" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send data to technical support and rule out manipulated error reports. To do so, the identifier is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple. Apple does not receive the information from your error report, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Agree and Send”. You will still be able to use the app, but you cannot send error reports.";
+"errorReport_DetailedInformation_Content1" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send data to technical support and rule out manipulated error reports. To do so, the identifier is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple. Apple does not receive the information from your error report, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Accept and Send”. You will still be able to use the app, but you cannot send error reports.";
 
 "ErrorReport_DetailedInformation_Subheadline" = "How the RKI analyzes the error reports";
 
@@ -2486,7 +2490,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Rapid Test Profile";
 
-"AntigenProfile_Create_Description" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
+"AntigenProfile_Create_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "First Name";
 
@@ -2507,6 +2511,14 @@
 "AntigenProfile_Create_Save_Button_Title" = "Save";
 
 /* Antigen Profile */
+"AntigenProfile_Info_Action_Title" = "Information";
+
+"AntigenProfile_Edit_Action_Title" = "Edit Rapid Test Profile";
+
+"AntigenProfile_Delete_Action_Title" = "Delete Rapid Test Profile";
+
+"AntigenProfile_Cancel_Action_Title" = "Cancel";
+
 "AntigenProfile_Delete_Alert_Title" = "Do you want to remove the rapid test profile?";
 
 "AntigenProfile_Delete_Alert_Description" = "Please consider that if you do, the QR code can no longer be used for registration.";
@@ -2623,6 +2635,8 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "A QR code with the current certificate";
 
+"HealthCertifiedPerson_validationButtonTitle" = "Check Validity";
+
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Vaccination Certificate";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Vaccination %i of %i";
@@ -2672,19 +2686,22 @@
 
 "HealthCertificate_Details_identifier" = "Certification Number";
 
-"HealthCertificate_Details_primaryButton" = "Delete Vaccination Certificate";
+"HealthCertificate_Details_validationButtonTitle" = "Check Validity";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Delete Vaccination Certificate";
 
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
 
-/* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
-
-"HealthCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
-
+/* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Delete";
 
 "HealthCertificate_Alert_cancelButton" = "Cancel";
+
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
+
+"VaccinationCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Certificate";
@@ -2702,10 +2719,6 @@
 
 "TestCertificate_Alert_message" = "If you remove the test certificate, you can no longer use it as proof in the app.";
 
-"TestCertificate_Alert_deleteButton" = "Delete";
-
-"TestCertificate_Alert_cancelButton" = "Cancel";
-
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificate of Recovery";
 
@@ -2717,10 +2730,6 @@
 "RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
 
 "RecoveryCertificate_Alert_message" = "If you remove the certificate of recovery, you can no longer use it as proof in the app.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Remove";
-
-"RecoveryCertificate_Alert_cancelButton" = "Cancel";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
@@ -2736,4 +2745,11 @@
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "This certificate is not supported.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "The QR code could not be generated. If the error persists, please contact the technical hotline via App Information -> Technical Hotline.";
+
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Validation Failed";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Your Internet connection was lost. To complete the validity check for the certificate, please check the connection and try again.";
 

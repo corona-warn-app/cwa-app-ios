@@ -32,6 +32,7 @@ enum AppStrings {
 		static let deadmanAlertTitle = NSLocalizedString("Common_Deadman_AlertTitle", comment: "")
 		static let deadmanAlertBody = NSLocalizedString("Common_Deadman_AlertBody", comment: "")
 		static let tessRelayDescription = NSLocalizedString("Common_Tess_Relay_Description", comment: "")
+		static let noNetworkConnection = NSLocalizedString("Common_No_Network", comment: "")
 	}
 
 	enum Links {
@@ -1919,6 +1920,16 @@ enum AppStrings {
 	}
 
 	enum HealthCertificate {
+
+		enum Validation {
+			enum Info {
+				static let imageDescription = NSLocalizedString("HealthCertificate_Validation_Info_imageDescription", comment: "")
+				static let title = NSLocalizedString("HealthCertificate_Validation_Info_title", comment: "")
+				static let byCar = NSLocalizedString("HealthCertificate_Validation_Info_byCar", comment: "")
+				static let byPlane = NSLocalizedString("HealthCertificate_Validation_Info_byPlane", comment: "")
+			}
+		}
+
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
 			static let addCertificate = NSLocalizedString("HealthCertificate_Overview_add", comment: "")
