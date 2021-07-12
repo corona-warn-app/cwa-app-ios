@@ -11,11 +11,11 @@ import CertLogic
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 
-class HealthCertificateValidationProviderValidationTests: XCTestCase {
+class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	
 	// MARK: - Success (Passed)
 	
-	func testGIVEN_ValidationProvider_WHEN_HappyCaseCachedIsNotUsed_THEN_NewRulesAreDownloadedAndPassedShouldBeReturned() throws {
+	func testGIVEN_ValidationService_WHEN_HappyCaseCachedIsNotUsed_THEN_NewRulesAreDownloadedAndPassedShouldBeReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -45,7 +45,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -75,7 +75,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseReport: HealthCertificateValidationReport?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -102,7 +102,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertNotNil(store.invalidationRulesCache)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_HappyCaseCachedIsUsed_THEN_CachedRulesAreUsedAndPassedShouldBeReturned() throws {
+	func testGIVEN_ValidationService_WHEN_HappyCaseCachedIsUsed_THEN_CachedRulesAreUsedAndPassedShouldBeReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -138,7 +138,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -168,7 +168,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseReport: HealthCertificateValidationReport?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -202,7 +202,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Success (Open)
 	
-	func testGIVEN_ValidationProvider_WHEN_SomeRuleIsOpen_THEN_OpenShouldBeReturned() throws {
+	func testGIVEN_ValidationService_WHEN_SomeRuleIsOpen_THEN_OpenShouldBeReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -231,7 +231,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -261,7 +261,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseReport: HealthCertificateValidationReport?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -287,7 +287,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Success (Fail)
 	
-	func testGIVEN_ValidationProvider_WHEN_SomeRuleIsFailed_THEN_FailedShouldBeReturned() throws {
+	func testGIVEN_ValidationService_WHEN_SomeRuleIsFailed_THEN_FailedShouldBeReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -316,7 +316,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -346,7 +346,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseReport: HealthCertificateValidationReport?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -372,7 +372,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Errors (ValueSets)
 	
-	func testGIVEN_ValidationProvider_WHEN_expirationDateHasReached_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_expirationDateHasReached_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -390,7 +390,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -404,7 +404,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: Date(),
@@ -428,7 +428,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .TECHNICAL_VALIDATION_FAILED)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_ValueSets50xError_THEN_VALUE_SET_SERVER_ERROR_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_ValueSets50xError_THEN_VALUE_SET_SERVER_ERROR_IsReturned() throws {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		guard let fakedUrlResponse = HTTPURLResponse(url: URL(fileURLWithPath: ""), statusCode: 505, httpVersion: nil, headerFields: nil) else {
@@ -448,7 +448,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -462,7 +462,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -486,7 +486,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .VALUE_SET_SERVER_ERROR)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_ValueSetsOtherError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_ValueSetsOtherError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		guard let fakedUrlResponse = HTTPURLResponse(url: URL(fileURLWithPath: ""), statusCode: 999, httpVersion: nil, headerFields: nil) else {
@@ -506,7 +506,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -520,7 +520,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -544,7 +544,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .VALUE_SET_CLIENT_ERROR)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_ValueSetsNoNetwork_THEN_NO_NETWORK_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_ValueSetsNoNetwork_THEN_NO_NETWORK_IsReturned() {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		let expectedError = URLSessionError.noNetworkConnection
@@ -560,7 +560,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -574,7 +574,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -598,7 +598,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .NO_NETWORK)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_ValueSetsUnkownError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_ValueSetsUnkownError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		let expectedError = URLSessionError.fakeResponse
@@ -614,7 +614,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -628,7 +628,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -654,7 +654,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Errors (Downloading Rules Success Handler)
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingEtagNil_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingEtagNil_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -679,7 +679,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -695,7 +695,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -719,7 +719,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -739,7 +739,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -755,7 +755,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -779,7 +779,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -800,7 +800,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		)
 		
 		// To force a verifying error, we just use the real verifier instead of the mock.
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -815,7 +815,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -839,7 +839,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID )
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -859,7 +859,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		)
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .failure(.CBOR_DECODING_FAILED(nil))
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -875,7 +875,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -901,7 +901,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Errors (Downloading Rules Failure Handler)
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingAcceptanceCacheIsMissing_THEN_ACCEPTANCE_RULE_MISSING_CACHE_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingAcceptanceCacheIsMissing_THEN_ACCEPTANCE_RULE_MISSING_CACHE_IsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.notModified
@@ -916,7 +916,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -930,7 +930,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -954,7 +954,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_MISSING_CACHE)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingInvalidationCacheIsMissing_THEN_INVALIDATION_RULE_MISSING_CACHE_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingInvalidationCacheIsMissing_THEN_INVALIDATION_RULE_MISSING_CACHE_IsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.notModified
@@ -977,7 +977,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -991,7 +991,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -1015,7 +1015,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .INVALIDATION_RULE_MISSING_CACHE)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingNoNetwork_THEN_NO_NETWORK_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingNoNetwork_THEN_NO_NETWORK_IsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.noNetworkConnection
@@ -1032,7 +1032,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1046,7 +1046,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -1070,7 +1070,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .NO_NETWORK)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingServerError404_THEN_ACCEPTANCE_RULE_CLIENT_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError404_THEN_ACCEPTANCE_RULE_CLIENT_ERROR_IsReturned() {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -1088,7 +1088,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1102,7 +1102,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -1126,7 +1126,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_CLIENT_ERROR)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -1144,7 +1144,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1158,7 +1158,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -1182,7 +1182,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .ACCEPTANCE_RULE_SERVER_ERROR)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -1200,7 +1200,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1214,7 +1214,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -1240,7 +1240,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 	
 	// MARK: - Others
 	
-	func testGIVEN_ValidationProvider_WHEN_RuleValidationFails_THEN_RULES_VALIDATION_ERROR_IsReturned() throws {
+	func testGIVEN_ValidationService_WHEN_RuleValidationFails_THEN_RULES_VALIDATION_ERROR_IsReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		
@@ -1268,7 +1268,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .failure(.CBOR_DECODING_FAILED(nil))
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1284,7 +1284,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationProvider.validate(
+		validationService.validate(
 			healthCertificate: healthCertificate,
 			arrivalCountry: "FR",
 			validationClock: validationClock,
@@ -1308,14 +1308,14 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(error, .RULES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
+	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1325,7 +1325,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		
 		// WHEN
-		let countryCodes = validationProvider.allCountryCodes
+		let countryCodes = validationService.allCountryCodes
 		
 		// THEN
 		// Picked some random codes
@@ -1340,14 +1340,14 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertFalse(countryCodes.contains("FF"))
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_MappingCertificateTypes_THEN_MappingIsCorrect() {
+	func testGIVEN_ValidationService_WHEN_MappingCertificateTypes_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1357,9 +1357,9 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		
 		
 		// WHEN
-		let mappedTest = validationProvider.mapCertificateType(.test)
-		let mappedRecovery = validationProvider.mapCertificateType(.recovery)
-		let mappedVaccination = validationProvider.mapCertificateType(.vaccination)
+		let mappedTest = validationService.mapCertificateType(.test)
+		let mappedRecovery = validationService.mapCertificateType(.recovery)
+		let mappedVaccination = validationService.mapCertificateType(.vaccination)
 		
 		// THEN
 		XCTAssertEqual(mappedTest, CertLogic.CertificateType.test)
@@ -1367,14 +1367,14 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(mappedVaccination, CertLogic.CertificateType.vaccination)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
+	func testGIVEN_ValidationService_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1382,7 +1382,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 			validationRulesAccess: MockValidationRulesAccess()
 		)
 		
-		let countryCodes = validationProvider.allCountryCodes
+		let countryCodes = validationService.allCountryCodes
 		let tcTrKey = "tcTr key"
 		let tcMaKey = "tcMa key"
 		let tcTtKey = "tcTt key"
@@ -1402,7 +1402,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		}
 		
 		// WHEN
-		let mappedSet = validationProvider.mapValueSets(valueSet: originalValueSet)
+		let mappedSet = validationService.mapValueSets(valueSet: originalValueSet)
 		
 		// THEN
 		XCTAssertEqual(mappedSet["country-2-codes"], countryCodes)
@@ -1415,14 +1415,14 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		XCTAssertEqual(mappedSet["vaccines-covid-19-names"]?.first, mpKey)
 	}
 	
-	func testGIVEN_ValidationProvider_WHEN_MappingUnixTime_THEN_MappingIsCorrect() {
+	func testGIVEN_ValidationService_WHEN_MappingUnixTime_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		let validationProvider = HealthCertificateValidationService(
+		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -1433,6 +1433,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 		let dateToday: UInt64 = 1625819400
 		
 		var dateComponents = DateComponents()
+		dateComponents.calendar = Calendar.current
 		dateComponents.year = 2021
 		dateComponents.month = 7
 		dateComponents.day = 9
@@ -1442,7 +1443,7 @@ class HealthCertificateValidationProviderValidationTests: XCTestCase {
 
 		let expectedDate = Calendar(identifier: .gregorian).date(from: dateComponents)
 		// WHEN
-		let mappedTime = validationProvider.mapUnixTimestampsInSecondsToDate(dateToday)
+		let mappedTime = validationService.mapUnixTimestampsInSecondsToDate(dateToday)
 		
 		// THEN
 		XCTAssertEqual(mappedTime, expectedDate)
