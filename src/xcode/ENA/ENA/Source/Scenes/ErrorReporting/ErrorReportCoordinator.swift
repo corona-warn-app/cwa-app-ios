@@ -169,7 +169,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 						Log.error("ELS submission error: \(error)", log: .els, error: error)
 						switch error {
 						case .otpError(let otpError):
-							self.showErrorAlert(with: otpError.errorDescription ?? error.localizedDescription)
+							self.showErrorAlert(with: otpError.localizedDescription)
 						default:
 							self.showErrorAlert(with: error.localizedDescription)
 						}
