@@ -48,7 +48,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
-		guard !isConfigured else { return }
+		guard cellModel == nil else { return }
 
 		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
@@ -75,8 +75,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 		// Retaining cell model so it gets updated
 		self.cellModel = keyFigureCellModel
-
-		isConfigured = true
 
 		keyFigureCellModel.$localAdministrativeUnitStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
@@ -186,7 +184,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	@IBOutlet private weak var trailingConstraint: NSLayoutConstraint!
 
 	private var cellModel: HomeStatisticsCellModel?
-	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
 	private var district: LocalStatisticsDistrict?
 	private var localStatisticsCache: LocalStatisticsCaching?
