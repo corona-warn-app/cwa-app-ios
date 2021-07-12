@@ -614,6 +614,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				
 				// removing the district from the store
 				guard let selectedLocalStatisticsDistricts = self?.store.selectedLocalStatisticsDistricts else {
+					Log.error("Could not assign selected local statistics districts", log: .localStatistics)
 					return
 				}
 				self?.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }

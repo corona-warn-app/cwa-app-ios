@@ -135,7 +135,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		localStatisticsCache = store
 		
 		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
-			// TODO: Error handling
+			Log.error("Could not assign administrative unit or district name", log: .localStatistics)
 			return
 		}
 
