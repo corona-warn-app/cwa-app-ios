@@ -69,21 +69,20 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				}
 
 				switch validationReport {
-				case .validationFailed(let results), .validationOpen(let results), .validationPassed(let results):
-					self.check(validatonResults: results, against: testCase)
+				case .validationFailed(let validatonResults),
+					 .validationOpen(let validatonResults),
+					 .validationPassed(let validatonResults):
+					
+					let passCount = validatonResults.filter { $0.result == .passed }.count
+					let openCount = validatonResults.filter { $0.result == .open }.count
+					let failCount = validatonResults.filter { $0.result == .fail }.count
+
+					XCTAssertEqual(passCount, testCase.expPass, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
+					XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
+					XCTAssertEqual(failCount, testCase.expFail, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
 				}
 			}
 		}
-	}
-
-	private func check(validatonResults: [ValidationResult], against testCase: CertEngineTestCase) {
-		let passCount = validatonResults.filter { $0.result == .passed }.count
-		let openCount = validatonResults.filter { $0.result == .open }.count
-		let failCount = validatonResults.filter { $0.result == .fail }.count
-
-		XCTAssertEqual(passCount, testCase.expPass, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
-		XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
-		XCTAssertEqual(failCount, testCase.expFail, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
 	}
 
 	private var certLogicTestData: Data? {
