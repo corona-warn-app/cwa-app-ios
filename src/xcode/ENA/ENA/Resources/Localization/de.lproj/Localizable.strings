@@ -27,6 +27,8 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+"Common_No_Network" = "Der Vorgang konnte wegen Netzwerkproblemen nicht abgeschlossen werden. Bitte versuchen Sie es noch einmal.";
+
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
 "Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
