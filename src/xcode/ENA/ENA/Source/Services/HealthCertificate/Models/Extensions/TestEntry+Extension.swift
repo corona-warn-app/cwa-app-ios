@@ -63,18 +63,18 @@ extension TestEntry {
 		case \TestEntry.diseaseOrAgentTargeted:
 			return valueSets?
 				.valueSet(for: .diseaseOrAgentTargeted)?
-				.displayText(forKey: diseaseOrAgentTargeted)
+				.displayText(forKey: diseaseOrAgentTargeted) ?? diseaseOrAgentTargeted
 		case \TestEntry.typeOfTest:
 			return valueSets?
 				.valueSet(for: .typeOfTest)?
-				.displayText(forKey: typeOfTest)
+				.displayText(forKey: typeOfTest) ?? typeOfTest
 		case \TestEntry.naaTestName:
 			return naaTestName
 		case \TestEntry.ratTestName:
 			return ratTestName.flatMap {
 				valueSets?
 					.valueSet(for: .rapidAntigenTestNameAndManufacturer)?
-					.displayText(forKey: $0)
+					.displayText(forKey: $0) ?? $0
 			}
 		case \TestEntry.sampleCollectionDate:
 			let customDateFormatter = DateFormatter()
@@ -83,11 +83,11 @@ extension TestEntry {
 			customDateFormatter.calendar = .gregorian()
 			return sampleCollectionDate.flatMap {
 				customDateFormatter.string(from: $0)
-			}
+			} ?? dateTimeOfSampleCollection
 		case \TestEntry.testResult:
 			return valueSets?
 				.valueSet(for: .testResult)?
-				.displayText(forKey: testResult)
+				.displayText(forKey: testResult) ?? testResult
 		case \TestEntry.testCenter:
 			return testCenter
 		case \TestEntry.countryOfTest:

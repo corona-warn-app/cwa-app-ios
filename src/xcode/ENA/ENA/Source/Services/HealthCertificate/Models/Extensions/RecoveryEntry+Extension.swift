@@ -41,7 +41,7 @@ extension RecoveryEntry {
 		case \RecoveryEntry.diseaseOrAgentTargeted:
 			return valueSets?
 				.valueSet(for: .diseaseOrAgentTargeted)?
-				.displayText(forKey: diseaseOrAgentTargeted)
+				.displayText(forKey: diseaseOrAgentTargeted) ?? diseaseOrAgentTargeted
 		case \RecoveryEntry.dateOfFirstPositiveNAAResult:
 			return DCCDateStringFormatter.formattedString(from: dateOfFirstPositiveNAAResult)
 		case \RecoveryEntry.countryOfTest:

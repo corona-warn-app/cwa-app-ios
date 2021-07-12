@@ -49,19 +49,19 @@ extension VaccinationEntry {
 		case \VaccinationEntry.diseaseOrAgentTargeted:
 			return valueSets?
 				.valueSet(for: .diseaseOrAgentTargeted)?
-				.displayText(forKey: diseaseOrAgentTargeted)
+				.displayText(forKey: diseaseOrAgentTargeted) ?? diseaseOrAgentTargeted
 		case \VaccinationEntry.vaccineOrProphylaxis:
 			return valueSets?
 				.valueSet(for: .vaccineOrProphylaxis)?
-				.displayText(forKey: vaccineOrProphylaxis)
+				.displayText(forKey: vaccineOrProphylaxis) ?? vaccineOrProphylaxis
 		case \VaccinationEntry.vaccineMedicinalProduct:
 			return valueSets?
 				.valueSet(for: .vaccineMedicinalProduct)?
-				.displayText(forKey: vaccineMedicinalProduct)
+				.displayText(forKey: vaccineMedicinalProduct) ?? vaccineMedicinalProduct
 		case \VaccinationEntry.marketingAuthorizationHolder:
 			return valueSets?
 				.valueSet(for: .marketingAuthorizationHolder)?
-				.displayText(forKey: marketingAuthorizationHolder)
+				.displayText(forKey: marketingAuthorizationHolder) ?? marketingAuthorizationHolder
 		case \VaccinationEntry.doseNumber:
 			return String(doseNumber)
 		case \VaccinationEntry.totalSeriesOfDoses:
