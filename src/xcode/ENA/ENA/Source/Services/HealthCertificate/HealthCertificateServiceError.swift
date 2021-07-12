@@ -38,7 +38,7 @@ enum HealthCertificateServiceError: Error {
 				case .HC_JSON_SCHEMA_INVALID:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (JSON_SCHEMA_INVALID)"
 				case .HC_PREFIX_INVALID:
-					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (PREFIX_INVALID)"
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_PREFIX_INVALID)"
 				case .AES_DECRYPTION_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (AES_DECRYPTION_FAILED)"
 				case .HC_BASE45_ENCODING_FAILED:

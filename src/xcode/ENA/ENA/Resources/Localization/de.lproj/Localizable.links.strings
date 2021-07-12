@@ -30,6 +30,8 @@
 
 "HealthCertificate_Info_register_FAQLink" = "https://www.coronawarn.app/de/faq/";
 
-"HealthCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/de/faq/#vac_cert_invalid";
+"HealthCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/de/faq/#hc_prefix_invalid";
 
 "TestCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/de/faq/#test_cert";
+
+"Test_Centers_FAQ_Link" = "https://www.coronawarn.app/de/faq/#where_can_i_get_tested";

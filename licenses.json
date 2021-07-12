@@ -68,5 +68,12 @@
     "website": "https://github.com/tsolomko/SWCompression",
     "license": "MIT License",
     "licenseUrl": "https://raw.githubusercontent.com/tsolomko/SWCompression/develop/LICENSE"
+  },
+  {
+    "component": "dgc-certlogic-ios",
+    "licensor": "T-Systems International GmbH",
+    "website": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
+    "license": "Apache 2.0 License",
+    "licenseUrl": "https://raw.githubusercontent.com/eu-digital-green-certificates/dgc-certlogic-ios/main/LICENSE"
   }
 ]

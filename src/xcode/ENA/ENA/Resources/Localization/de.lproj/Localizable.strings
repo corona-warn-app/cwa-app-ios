@@ -27,6 +27,8 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+"Common_No_Network" = "Der Vorgang konnte wegen Netzwerkproblemen nicht abgeschlossen werden. Bitte versuchen Sie es noch einmal.";
+
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
 "Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
@@ -203,7 +205,7 @@
 
 "SurveyConsent_Details_Headline" = "Zur Befragung durch das RKI";
 
-"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z. B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
+"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z.\U00A0B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
 
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
@@ -397,7 +399,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z. B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nEbenso können Sie Ihren persönlichen Impfstatus nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z.\U00A0B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nEbenso können Sie Ihren persönlichen Impfstatus nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -500,7 +502,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Dispatch */
 
-"ExposureSubmission_DispatchTitle" = "Test registrieren";
+"ExposureSubmission_DispatchTitle" = "Ihre Testverwaltung";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
@@ -521,6 +523,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN für PCR-Test anfragen";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN für Ihren PCR-Test.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe.";
 
 /* Exposure Submission Hotline */
 
@@ -955,7 +961,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
 
@@ -975,13 +981,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Bearbeiten";
 
 /* ExposureSubmission AntigenTest */
 
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
@@ -999,7 +1005,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_Section01" = "Das Testzertifikat wird nur bei einem negativen Testergebnis ausgestellt.";
 
-"ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.B. für Reisen).";
+"ExposureSubmission_TestCertificate_Information_Section02" = "Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis eines negativen Testergebnisses (z.\U00A0B. für Reisen).";
 
 "ExposureSubmission_TestCertificate_Information_Subheadline" = "Sie können über die App ein offizielles digitales COVID-Testzertifikat der EU anfordern, das anschließend in der App hinzugefügt wird.";
 
@@ -1295,11 +1301,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Test Registration Card */
 
-"Home_TestRegistration_Title" = "Test registrieren";
+"Home_TestRegistration_Title" = "Sie lassen sich testen?";
 
-"Home_TestRegistration_Body" = "Nutzen Sie die App, um Ihr Testergebnis abzurufen und andere schneller warnen zu können, oder um Ihr COVID-Testzertifikat anzufordern.";
+"Home_TestRegistration_Body" = "Finden sie Teststellen in ihrer Umgebung und registrieren sie einen Test, um andere schneller warnen zu können, oder ihr digitales COVID-Testzertifikat anzufordern.";
 
-"Home_TestRegistration_Button" = "Nächste Schritte";
+"Home_TestRegistration_Button" = "Weiter";
 
 /* Home Trace Locations Card */
 
@@ -1437,7 +1443,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ErrorReport_SendReports_Title" = "Fehlerbericht senden";
 
-"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z.\U00A0B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
 
 "ErrorReport_SendReports_Details" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
 
@@ -1582,23 +1588,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.5 */
+/* Version 2.6 */
 
-"NewVersionFeature_25_recovery_cert_title" = "COVID-Genesenenzertifikate";
+"NewVersionFeature_26_euCertCheck_title" = "EU-Zertifikatsprüfung";
 
-"NewVersionFeature_25_recovery_cert_description" = "Sie können nun in der App auch digitale Genesenenzertifikate hinzufügen. Sie können diese Zertifikate innerhalb der EU verwenden, um eine frühere Infektion nachzuweisen (z.B. für Auslandsreisen).";
+"NewVersionFeature_26_euCertCheck_description" = "Sie können nun vor einer Reise Zertifikate für ein gewähltes Land auf Gültigkeit prüfen.";
 
-"NewVersionFeature_25_family_certificate_title" = "Familienzertifikate";
+"NewVersionFeature_26_enhancedStats_title" = "Erweiterung Statistiken";
 
-"NewVersionFeature_25_family_certificate_description" = "Sie können nun digitale COVID-Zertifikate von Familienmitgliedern in der App hinzufügen und verwalten, um die Zertifikate vorzeigen zu können (z.B. bei Auslandsreisen).";
+"NewVersionFeature_26_enhancedStats_description" = "Sie können nun bis zu fünf lokale 7-Tage-Inzidenzen in der App hinzufügen.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Erweiterung Statistiken ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Schnelltest-Profil bearbeiten";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "Es sind nun folgende Impfstatistiken in der App verfügbar:\n\n\t- Anzahl mindestens einmal geimpfter Personen\n\t- Anzahl vollständig geimpfter Personen\n\t- Anzahl verabreichter Impfdosen";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Schnelltest-Profil bearbeiten";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1799,11 +1801,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Day_Encounter_Inside" = "drinnen";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z. B. geringer Abstand)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z.\U00A0B. geringer Abstand)";
 
 "ContactDiary_Day_Visit_Duration" = "Dauer";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z. B. sehr voll, schlecht gelüftet)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z.\U00A0B. sehr voll, schlecht gelüftet)";
 
 /* Edit Entries */
 
@@ -1990,15 +1992,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_Today" = "Bis heute";
 
-"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis gestern";
 
 "Statistics_Card_AtLeastOneVaccinated_Date" = "Bis %@";
 
-"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "der Gesamtbevölkerung";
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "der Bevölkerung";
 
 "Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Gesamt";
 
-"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der Bevölkerung";
 
 
 
@@ -2008,15 +2010,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
-"Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
+"Statistics_Card_FullyVaccinated_Yesterday" = "Bis gestern";
 
 "Statistics_Card_FullyVaccinated_Date" = "Bis %@";
 
-"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "der Gesamtbevölkerung";
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "der Bevölkerung";
 
 "Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Gesamt";
 
-"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der Gesamtbevölkerung";
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der Bevölkerung";
 
 /* - Applied vaccination dose rates card */
 
@@ -2188,7 +2190,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z. B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z.\U00A0B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
 
 "DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Verbesserung der Statistiken über den Pandemieverlauf";
 
@@ -2245,7 +2247,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Contact_Journal_Notes_Description_Title" = "Notiz";
 
-"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
+"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z.\U00A0B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
 
 /* Quick Actions a.k.a. shortcuts */
 
@@ -2454,7 +2456,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
 
-"ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+"ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z.\U00A0B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
 
 "ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";
 
@@ -2464,9 +2466,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "ErrorReport_DetailedInformation_Subheadline" = "Zur Auswertung der Fehlerberichte durch das RKI";
 
-"ErrorReport_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+"ErrorReport_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z.\U00A0B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
 
-"ErrorReport_Legal_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+"ErrorReport_Legal_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z.\U00A0B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
 
 "ErrorReport_History_Title" = "ID-Historie";
 
@@ -2578,7 +2580,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_Title" = "Schnelltest-Profil";
 
-"AntigenProfile_Create_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
 
@@ -2600,11 +2602,29 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
+"AntigenProfile_Info_Action_Title" = "Info";
+
+"AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
+
+"AntigenProfile_Delete_Action_Title" = "Schnelltest-Profil entfernen";
+
+"AntigenProfile_Cancel_Action_Title" = "Abbrechen";
+
 "AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
 
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+
+/* Health Certificate Validation Info */
+
+"HealthCertificate_Validation_Info_imageDescription" = "Eine Landkarte von Europa wird angezeigt.";
+
+"HealthCertificate_Validation_Info_title" = "Informationen";
+
+"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
 
 /* Health Certificate Overview */
 
@@ -2696,11 +2716,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App Ihren Impfschutz oder ein negatives Testergebnis nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App den Impfschutz, ein negatives Testergebnis oder eine überstandene Infektion nachweisen zu können.";
 
-"HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate oder COVID-Testzertifikate der EU in der App hinzufügen.";
+"HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate, COVID-Testzertifikate und COVID-Genesenenzertifikate der EU in der App hinzufügen.";
 
-"HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.B. für Reisen).";
+"HealthCertificate_Info_section02" = "Die Zertifikate gelten innerhalb der EU als gültiger Nachweis (z.\U00A0B. für Reisen).";
 
 "HealthCertificate_Info_section03" = "Nach dem Hinzufügen bleiben die Zertifikate auf Ihrem Smartphone. Andere Personen können Ihre Daten nur einsehen, wenn Sie diesen ein Zertifikat zur Überprüfung vorzeigen.";
 
@@ -2724,9 +2744,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 
-"HealthCertifiedPerson_preferredPersonDescription" = "Mein Smartphone, meine App. Zertifikate für mich erscheinen in der Liste an erster Stelle.";
+"HealthCertifiedPerson_preferredPersonDescription" = "Bitte aktivieren Sie diesen Schalter, wenn Sie selbst %@ sind und die App hauptsächlich nutzen. Ihre Zertifikate erscheinen in der Liste an erster Stelle.";
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
+
+"HealthCertifiedPerson_validationButtonTitle" = "Gültigkeit prüfen";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
 
@@ -2778,17 +2800,25 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+"HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
 
-/* Vaccination Certificate Delete Alert */
+"HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
 
-"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+/* Vaccination Certificate Details */
 
-"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
+
+/* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Vaccination Certificate Delete Alert */
+
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"VaccinationCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
 
 /* Test Certificate Details */
 
@@ -2808,10 +2838,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
-"TestCertificate_Alert_deleteButton" = "Entfernen";
-
-"TestCertificate_Alert_cancelButton" = "Abbrechen";
-
 /* Recovery Certificate Details */
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
@@ -2826,17 +2852,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
-"RecoveryCertificate_Alert_deleteButton" = "Entfernen";
-
-"RecoveryCertificate_Alert_cancelButton" = "Abbrechen";
-
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Impfzertifikats finden Sie in den FAQ.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Zertifikats finden Sie in den FAQ.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Impfzertifikaten";
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ zu Zertifikaten";
 
 "HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Das Zertifikat ist bereits in Ihrer App registriert.";
 
@@ -2845,3 +2867,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Dieses Zertifikat wird nicht unterstützt.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Der QR-Code konnte nicht generiert werden. Sollte der Fehler weiterhin bestehen, kontaktieren Sie die Hotline über App-Informationen -> Technische Hotline.";
+
+/* Health Certificate Validation Errors */
+
+"HealthCertificate_Validation_Error_Title" = "Überprüfung fehlgeschlagen";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Um die Gültigkeitsprüfung des Zertifikates abzuschließen, prüfen Sie die Verbindung und versuchen Sie es erneut.";

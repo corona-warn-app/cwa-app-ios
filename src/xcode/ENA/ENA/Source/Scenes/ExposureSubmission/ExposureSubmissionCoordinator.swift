@@ -145,12 +145,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					}
 				)
 			},
+			onFindTestCentersTap: {
+				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
+			},
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
 				// later move that to the title and inject both methods - just to get flow working
 				if self?.store.antigenTestProfile == nil {
-					self?.showCreateAntigenTestProfile()
+					self?.showAntigenTestProfileInput(editMode: false)
 				} else {
 					self?.showAntigenTestProfile()
 				}
@@ -179,6 +182,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
+	}
+
+	private func popViewController() {
+		self.navigationController?.popViewController(animated: true)
 	}
 
 	private var subscriptions = [AnyCancellable]()
@@ -783,7 +790,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			didTapContinue: { [weak self] in
-				self?.showCreateAntigenTestProfile()
+				self?.showAntigenTestProfileInput(editMode: false)
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
@@ -804,16 +811,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	private func showCreateAntigenTestProfile() {
-		guard store.antigenTestProfileInfoScreenShown else {
+	private func showAntigenTestProfileInput(editMode: Bool) {
+		guard store.antigenTestProfileInfoScreenShown || editMode else {
 			showAntigenTestProfileInformation()
 			return
 		}
 
-		let createAntigenTestProfileViewController = CreateAntigenTestProfileViewController(
+		let createAntigenTestProfileViewController = AntigenTestProfileInputViewController(
 			store: store,
 			didTapSave: { [weak self] in
-				self?.showAntigenTestProfile()
+				if editMode {
+					self?.popViewController()
+				} else {
+					self?.showAntigenTestProfile()
+				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
@@ -847,6 +858,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 
 			},
+			didTapProfileInfo: { [weak self] in
+				self?.showAntigenTestProfileInformation()
+			},
+			didTapEditProfile: { [weak self] in
+				self?.showAntigenTestProfileInput(editMode: true)
+			},
 			didTapDeleteProfile: { [weak self] in
 				self?.navigationController?.popViewController(animated: true)
 			}, dismiss: { [weak self] in self?.dismiss() }
@@ -856,7 +873,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			primaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton,
 			secondaryButtonName: AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton,
 			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton,
-			secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton,
+			secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
 			secondaryButtonInverted: true,

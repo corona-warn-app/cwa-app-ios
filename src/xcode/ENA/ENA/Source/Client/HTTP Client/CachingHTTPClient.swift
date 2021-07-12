@@ -170,7 +170,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 			headers = ["If-None-Match": etag]
 		}
 
-		session.GET(configuration.vaccinationValueSets, extraHeaders: headers) { result in
+		session.GET(configuration.vaccinationValueSetsURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
 				do {

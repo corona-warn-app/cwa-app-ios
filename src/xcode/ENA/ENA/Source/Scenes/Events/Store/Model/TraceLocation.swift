@@ -123,8 +123,8 @@ extension TraceLocation {
 				id: id,
 				version: Int(traceLocation.version),
 				type: TraceLocationType(traceLocationTypeProtobuf: eventInformation.type),
-				description: traceLocation.description_p,
-				address: traceLocation.address,
+				description: traceLocation.description_p.cleanedFromSpecialCharacters(),
+				address: traceLocation.address.cleanedFromSpecialCharacters(),
 				startDate: startDate,
 				endDate: endDate,
 				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
@@ -135,5 +135,16 @@ extension TraceLocation {
 			Log.error(error.localizedDescription, log: .checkin, error: error)
 			return nil
 		}
+	}
+}
+
+private extension String {
+	
+	func cleanedFromSpecialCharacters() -> String {
+		return self
+			.replacingOccurrences(of: "\0", with: "", options: .literal, range: nil) // remove Null character \0
+			.replacingOccurrences(of: "\u{0C}", with: "", options: .literal, range: nil) // remove FormFeed character \u{0C}
+			.replacingOccurrences(of: "\t", with: "", options: .literal, range: nil) // remove Tab character \t
+		
 	}
 }

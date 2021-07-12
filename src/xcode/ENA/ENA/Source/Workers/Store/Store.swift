@@ -227,6 +227,17 @@ protocol CoronaTestStoringLegacy {
 
 }
 
+protocol HealthCertificateValidationCaching: AnyObject {
+	
+	/// The cache for the onboarded countries. Contains the eTag and the countries received before or nil, when never cached.
+	var validationOnboardedCountriesCache: ValidationOnboardedCountriesCache? { get set }
+	/// The cache for the acceptance rules. Contains the eTag and the acceptance rules received before or nil, when never cached.
+	var acceptanceRulesCache: ValidationRulesCache? { get set }
+	/// The cache for the invalidation rules. Contains the eTag and the invalidation rules received before or nil, when never cached.
+	var invalidationRulesCache: ValidationRulesCache? { get set }
+}
+
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -234,15 +245,16 @@ protocol Store:
 	AppConfigCaching,
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
+	HealthCertificateValidationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
+	HealthCertificateStoring,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	LocalStatisticsCaching,
 	StoreProtocol,
-	WarnOthersTimeIntervalStoring,
-	HealthCertificateStoring,
-	VaccinationCaching
+	VaccinationCaching,
+	WarnOthersTimeIntervalStoring
 {}
 // swiftlint:enable all
