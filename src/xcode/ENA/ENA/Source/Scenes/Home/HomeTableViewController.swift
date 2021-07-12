@@ -603,17 +603,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
 				self?.onAddStateButtonTap(selectValueViewController)
+				self?.statisticsCell?.updateManagementCellState()
 			},
 			onAddDistrict: { [weak self] selectValueViewController in
 				self?.onAddDistrict(selectValueViewController)
+				self?.statisticsCell?.updateManagementCellState()
 			},
-			onDeleteLocalStatistic: { administrativeUnit, district in
+			onDeleteLocalStatistic: { [weak self] administrativeUnit, district in
 				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
 				
 				// removing the district from the store
-				self.store.selectedLocalStatisticsDistricts.removeAll { storedDistrict in
+				self?.store.selectedLocalStatisticsDistricts.removeAll { storedDistrict in
 					return storedDistrict.districtId == district.districtId
 				}
+				self?.statisticsCell?.updateManagementCellState()
 			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
@@ -637,6 +640,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onUpdate: { [weak self] in
 				DispatchQueue.main.async { [weak self] in
 					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+					self?.statisticsCell?.updateManagementCellState()
 				}
 			}
 		)
