@@ -95,6 +95,7 @@ class HealthCertificateService {
 			if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
 				let result = DigitalCovidCertificateFake.makeBase45Fake(
 					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 						recoveryEntries: [
 						 RecoveryEntry.fake()
 					 ]
