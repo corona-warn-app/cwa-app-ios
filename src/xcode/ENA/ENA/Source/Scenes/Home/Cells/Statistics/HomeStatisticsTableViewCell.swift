@@ -191,8 +191,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var district: LocalStatisticsDistrict?
 	private var localStatisticsCache: LocalStatisticsCaching?
 
-	/// A temporary solution to speed up development
-	///
 	/// Keeping `editingStatistics` locally would reset it on reloading of this cell.
 	/// Terrible design but simpler to handle than states passed through n layers of models, view controllers and views…
 	private static var editingStatistics: Bool = false
