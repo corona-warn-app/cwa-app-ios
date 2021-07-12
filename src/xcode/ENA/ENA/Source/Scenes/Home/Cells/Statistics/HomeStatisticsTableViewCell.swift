@@ -26,9 +26,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		super.setEditing(editing, animated: animated)
 
 		stackView.arrangedSubviews.forEach { view in
-			guard let card = view as? HomeStatisticsCardView else { return }
-			
-			card.setEditMode(editing, animated: animated)
+			let card = view as? HomeStatisticsCardView
+			card?.setEditMode(editing, animated: animated)
 		}
 	}
 
@@ -130,6 +129,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		let administrativeUnit = administrativeUnitsData.first {
 			$0.administrativeUnitShortID == UInt32(district?.districtId ?? "0")
 		}
+
+		// needed for UI updates
+		localStatisticsCache = store
 		
 		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
 			// TODO: Error handling
@@ -154,7 +156,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					},
 					onDeleteTap: { [weak self] in
-						// TODO: handle state, i.e. remove deselected entity from local statistics
 						guard let district = self?.district else {
 							assertionFailure("fix this!")
 							return
@@ -164,6 +165,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						DispatchQueue.main.async { [weak self] in
 							self?.stackView.removeArrangedSubview(statisticsCardView)
 							statisticsCardView.removeFromSuperview()
+
+							// update management 'cell' state
+							self?.updateManagementCellState()
 						}
 					}
 				)
@@ -185,8 +189,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var isConfigured: Bool = false
 	private var subscriptions = Set<AnyCancellable>()
 	private var district: LocalStatisticsDistrict?
+	private var localStatisticsCache: LocalStatisticsCaching?
 
 	/// A temporary solution to speed up development
+	///
+	/// Keeping `editingStatistics` locally would reset it on reloading of this cell.
+	/// Terrible design but simpler to handle than states passed through n layers of models, view controllers and views…
 	private static var editingStatistics: Bool = false
 
 	private func clearStackView() {
@@ -235,8 +243,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					self.district = district
 					onFetchGroupData(district)
 				}, onEditButtonTap: {
-					// FIXME: the local static var is currently for development. Keeping this locally will reset it on reloading of this cell. `onToggleEditMode` passes the current state to the tableViewController…
 					Self.editingStatistics.toggle()
+					// Pass the current state to the tableViewController
 					onToggleEditMode(Self.editingStatistics)
 				}, onAccessibilityFocus: {
 					onAccessibilityFocus()
@@ -295,5 +303,19 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
 			])
 		}
+	}
+
+	func updateManagementCellState() {
+		guard
+			let store = localStatisticsCache,
+			let cell = stackView.arrangedSubviews.first as? ManageStatisticsCardView
+		else {
+			assertionFailure("check store & stack view!")
+			return
+		}
+
+		let state = LocalStatisticsState.with(store)
+		Log.debug("management state: \(state), \(store.selectedLocalStatisticsDistricts.count)/\(store.localStatistics.count)", log: .localStatistics)
+		cell.updateUI(for: state)
 	}
 }
