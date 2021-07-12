@@ -55,11 +55,12 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 				gradientView.topAnchor.constraint(equalTo: contentView.topAnchor),
 				gradientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 				gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-				gradientView.heightAnchor.constraint(equalToConstant: 274.0),
 
 				headlineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 64.0),
 				headlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45.0),
+
+				headlineLabel.bottomAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: -12),
 
 				backgroundImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 				backgroundImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
