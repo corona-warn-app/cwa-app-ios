@@ -22,7 +22,7 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.HealthCertificate.Validation.Result.Passed.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Valid")
+						image: UIImage(imageLiteralResourceName: "Illu_Validation_Valid")
 					),
 					.footnote(
 						text: String(

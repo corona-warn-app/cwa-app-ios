@@ -59,7 +59,6 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 				headlineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 64.0),
 				headlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45.0),
-
 				headlineLabel.bottomAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: -12),
 
 				backgroundImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

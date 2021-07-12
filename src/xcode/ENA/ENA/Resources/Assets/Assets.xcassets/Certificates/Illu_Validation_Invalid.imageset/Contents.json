@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_certificate_invalid.pdf",
+      "filename" : "Illu_Validation_Invalid.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_certificate_invalid_dark.pdf",
+      "filename" : "Illu_Validation_Invalid_dark.pdf",
       "idiom" : "universal"
     }
   ],
