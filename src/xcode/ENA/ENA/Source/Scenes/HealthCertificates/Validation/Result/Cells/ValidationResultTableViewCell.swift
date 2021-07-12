@@ -135,8 +135,6 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				containerStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
-
-		accessibilityElements = [ruleDescriptionLabel]
 	}
 
 	private func updateBorderColor() {
