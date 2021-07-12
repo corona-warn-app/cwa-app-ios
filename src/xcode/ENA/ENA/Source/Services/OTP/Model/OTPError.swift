@@ -50,6 +50,15 @@ enum OTPError: Error, Equatable {
 			return "noNetworkConnection"
 		}
 	}
+	
+	var errorDescription: String {
+		switch self {
+		case .noNetworkConnection:
+			return AppStrings.Common.noNetworkConnection
+		default:
+			return localizedDescription
+		}
+	}
 
 	static func == (lhs: OTPError, rhs: OTPError) -> Bool {
 		return lhs.description == rhs.description
