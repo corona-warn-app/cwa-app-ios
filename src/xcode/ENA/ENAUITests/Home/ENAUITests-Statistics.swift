@@ -118,10 +118,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
+		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
 		let keySubmissionsTitle = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
 		let reproductionNumberTitle = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let atLeastOneVaccinationTitle = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let fullyVaccinatedTitle = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let dosesTitle = AccessibilityIdentifiers.Statistics.Doses.title
+		
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		var screenshotCounter = 0
 
@@ -146,15 +150,33 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		default:
 			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[incidenceTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_incidence")
 			app.staticTexts[infectionsTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[keySubmissionsTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_key_submissions")
 			app.staticTexts[keySubmissionsTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_rvalue")
-			cardReproductionNumberOpenInfoScreen(reproductionNumberTitle)
+			app.staticTexts[reproductionNumberTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[atLeastOneVaccinationTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_at_least_one_vaccination")
+			app.staticTexts[atLeastOneVaccinationTitle].swipeLeft()
+
+			XCTAssert(self.app.staticTexts[fullyVaccinatedTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_fully_vaccinated")
+			app.staticTexts[fullyVaccinatedTitle].swipeLeft()
+
+			XCTAssert(self.app.staticTexts[dosesTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_doses")
+			app.staticTexts[dosesTitle].swipeRight()
+			
+			cardFullyVaccinatedTitleOpenInfoScreen(fullyVaccinatedTitle)
+			
 			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 			app.swipeUp(velocity: .slow)
 			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -191,4 +213,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].waitAndTap()
 	}
+	
+	private func cardFullyVaccinatedTitleOpenInfoScreen(_ title: String) {
+		XCTAssert(app.staticTexts[title].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton].waitAndTap()
+	}
+
 }
