@@ -26,7 +26,7 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 		var cells: [DynamicCell] = [
 			.headlineWithImage(
 				headerText: AppStrings.HealthCertificate.Validation.Result.Open.title,
-				image: UIImage(imageLiteralResourceName: "Illu_Certificate_Unknown")
+				image: UIImage(imageLiteralResourceName: "Illu_Validation_Unknown")
 			),
 			.footnote(
 				text: String(

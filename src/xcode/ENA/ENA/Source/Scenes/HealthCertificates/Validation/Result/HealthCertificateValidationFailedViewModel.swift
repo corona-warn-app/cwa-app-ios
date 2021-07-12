@@ -26,7 +26,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 		var cells: [DynamicCell] = [
 			.headlineWithImage(
 				headerText: AppStrings.HealthCertificate.Validation.Result.Failed.title,
-				image: UIImage(imageLiteralResourceName: "Illu_Certificate_Invalid")
+				image: UIImage(imageLiteralResourceName: "Illu_Validation_nvalid")
 			),
 			.footnote(
 				text: String(
