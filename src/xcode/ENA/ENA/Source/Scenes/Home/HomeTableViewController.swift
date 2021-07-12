@@ -343,7 +343,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
 	private var antigenTestResultCell: UITableViewCell?
 	private var antigenTestShownPositiveResultCell: UITableViewCell?
-	private var statisticsCell: UITableViewCell?
+	private var statisticsCell: HomeStatisticsTableViewCell?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -585,7 +585,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func statisticsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func statisticsCell(forRowAt indexPath: IndexPath) -> HomeStatisticsTableViewCell {
 		if let statisticsCell = statisticsCell {
 			return statisticsCell
 		}
@@ -626,8 +626,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onToggleEditMode: { enabled in
 				Log.debug("Edit mode on: \(enabled)", log: .localStatistics)
-				DispatchQueue.main.async { [weak self] in
-					guard let cell = self?.statisticsCell as? HomeStatisticsTableViewCell else { preconditionFailure() }
+				DispatchQueue.main.async {
 					cell.setEditing(enabled, animated: true)
 				}
 			},
