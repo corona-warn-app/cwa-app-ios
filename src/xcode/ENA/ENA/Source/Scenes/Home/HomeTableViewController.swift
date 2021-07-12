@@ -593,6 +593,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
+		Log.debug("Configure statistics cell", log: .localStatistics)
 
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
@@ -607,7 +608,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.onAddDistrict(selectValueViewController)
 			},
 			onDeleteLocalStatistic: { administrativeUnit, district in
-				// TODO: Handle deletion
+				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
+				// ..
 			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
@@ -619,7 +621,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.viewModel.state.fetchLocalStatistics(district: district)
 			},
 			onToggleEditMode: { enabled in
-				Log.warning("Edit mode on: \(enabled)")
+				Log.debug("Edit mode on: \(enabled)", log: .localStatistics)
+				DispatchQueue.main.async { [weak self] in
+					guard let cell = self?.statisticsCell as? HomeStatisticsTableViewCell else { preconditionFailure() }
+					cell.setEditing(enabled, animated: true)
+				}
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0

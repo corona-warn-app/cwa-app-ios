@@ -311,6 +311,9 @@ class HomeStatisticsCardView: UIView {
 	}
 
 	func setEditMode(_ enabled: Bool, animated: Bool) {
+		// HACK: No delete action? Might be a 'global' statistic card which can't be removed.
+		guard onDeleteTap != nil else { return }
+		
 		UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
 			if self.deletionIndicator.isHidden { self.deletionIndicator.isHidden.toggle() }
 			self.deletionIndicator.alpha = enabled ? 1 : 0

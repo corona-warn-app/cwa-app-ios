@@ -22,6 +22,16 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		self.scrollView.bounds.origin.x = self.scrollView.frame.size.width
 	}
 
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+
+		stackView.arrangedSubviews.forEach { view in
+			guard let card = view as? HomeStatisticsCardView else { return }
+			
+			card.setEditMode(editing, animated: animated)
+		}
+	}
+
 	// MARK: - Internal
 	
 	// swiftlint:disable:next function_parameter_count
@@ -151,13 +161,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						}
 						Log.info("removing \(private: adminUnit.administrativeUnitShortID, public: "administrative unit") @ \(private: district.districtName, public: "district id")", log: .ui)
 						onDeleteStatistic(adminUnit, district)
-
-						self?.stackView.removeArrangedSubview(statisticsCardView)
-						statisticsCardView.removeFromSuperview()
+						DispatchQueue.main.async { [weak self] in
+							self?.stackView.removeArrangedSubview(statisticsCardView)
+							statisticsCardView.removeFromSuperview()
+						}
 					}
 				)
-				// FIXME: dev code
-				statisticsCardView.setEditMode(Self.editingStatistics, animated: true)
 
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
