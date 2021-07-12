@@ -961,7 +961,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Eine Frau mit einem Smartphone in der Hand steht vor einem Gebäude. Ein QR-Code symbolisiert das zu scannende Schnelltest-Profil.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
 
@@ -981,13 +981,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Schnelltest-Profil entfernen";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Bearbeiten";
 
 /* ExposureSubmission AntigenTest */
 
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Schnelltest-Profil anlegen";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
@@ -1984,7 +1984,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_Today" = "Bis heute";
 
-"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis Gestern";
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Bis gestern";
 
 "Statistics_Card_AtLeastOneVaccinated_Date" = "Bis %@";
 
@@ -2002,7 +2002,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
-"Statistics_Card_FullyVaccinated_Yesterday" = "Bis Gestern";
+"Statistics_Card_FullyVaccinated_Yesterday" = "Bis gestern";
 
 "Statistics_Card_FullyVaccinated_Date" = "Bis %@";
 
@@ -2572,7 +2572,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_Title" = "Schnelltest-Profil";
 
-"AntigenProfile_Create_Description" = "Legen Sie ein Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+"AntigenProfile_Create_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Vorname";
 
@@ -2594,11 +2594,29 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
+"AntigenProfile_Info_Action_Title" = "Info";
+
+"AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
+
+"AntigenProfile_Delete_Action_Title" = "Schnelltest-Profil entfernen";
+
+"AntigenProfile_Cancel_Action_Title" = "Abbrechen";
+
 "AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
 
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+
+/* Health Certificate Validation Info */
+
+"HealthCertificate_Validation_Info_imageDescription" = "Eine Landkarte von Europa wird angezeigt.";
+
+"HealthCertificate_Validation_Info_title" = "Informationen";
+
+"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
 
 /* Health Certificate Overview */
 
@@ -2722,6 +2740,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
+"HealthCertifiedPerson_validationButtonTitle" = "Gültigkeit prüfen";
+
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
@@ -2772,21 +2792,25 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Details_primaryButton" = "Impfzertifikat entfernen";
+"HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
 
 /* Vaccination Certificate Details */
 
 "VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
 
-/* Vaccination Certificate Delete Alert */
-
-"HealthCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
-
-"HealthCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+/* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
+
+/* Vaccination Certificate Delete Alert */
+
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+
+"VaccinationCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
 
 /* Test Certificate Details */
 
@@ -2806,10 +2830,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
-"TestCertificate_Alert_deleteButton" = "Entfernen";
-
-"TestCertificate_Alert_cancelButton" = "Abbrechen";
-
 /* Recovery Certificate Details */
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
@@ -2823,10 +2843,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Entfernen";
-
-"RecoveryCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Errors */
 
@@ -2843,3 +2859,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Dieses Zertifikat wird nicht unterstützt.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Der QR-Code konnte nicht generiert werden. Sollte der Fehler weiterhin bestehen, kontaktieren Sie die Hotline über App-Informationen -> Technische Hotline.";
+
+/* Health Certificate Validation Errors */
+
+"HealthCertificate_Validation_Error_Title" = "Überprüfung fehlgeschlagen";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Um die Gültigkeitsprüfung des Zertifikates abzuschließen, prüfen Sie die Verbindung und versuchen Sie es erneut.";

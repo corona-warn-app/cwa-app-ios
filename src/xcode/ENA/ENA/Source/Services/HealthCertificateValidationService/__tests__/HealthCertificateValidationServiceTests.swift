@@ -22,9 +22,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(self.dummyOnboardedCountriesResponse))
 		}
 		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should success with new countries")
@@ -60,9 +62,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			lastOnboardedCountriesETag: "FakeETagNotModified"
 		)
 		store.validationOnboardedCountriesCache = cachedOnboardedCountries
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should success with new countries")
@@ -86,7 +90,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	
 	// MARK: - Failures
 	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALIDIsReturned() {
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		client.onValidationOnboardedCountries = { _, completion in
@@ -102,12 +106,14 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier()
 		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
+		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR")
 		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
@@ -123,7 +129,7 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID)
+		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR)
 	}
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
@@ -138,9 +144,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING")
@@ -178,9 +186,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: client
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
 		var receivedError: ValidationOnboardedCountriesError?
@@ -217,9 +227,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.success(response))
 		}
 		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_DECODING_FAILED")
@@ -248,9 +260,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 			completion(.failure(.noNetworkConnection))
 		}
 		let store = MockTestStore()
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: client
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_NO_NETWORK")
 		var receivedError: ValidationOnboardedCountriesError?
@@ -279,9 +293,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: client
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_MISSING_CACHE")
 		var receivedError: ValidationOnboardedCountriesError?
@@ -310,9 +326,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: client
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_CLIENT_ERROR")
 		var receivedError: ValidationOnboardedCountriesError?
@@ -341,9 +359,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: client
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
 		var receivedError: ValidationOnboardedCountriesError?
@@ -372,9 +392,11 @@ class HealthCertificateValidationServiceTests: XCTestCase {
 		}
 		let store = MockTestStore()
 		// And now we do not save something cached in the store.
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: client
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
 		var receivedError: ValidationOnboardedCountriesError?

@@ -63,6 +63,31 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		XCTAssertEqual(failure, .invalidResponse)
 	}
 	
+	func testGIVEN_Client_WHEN_NotModifiedContent_THEN_Failure_NotModifiedIsReturned() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 304,
+			responseData: Data())
+		let client = HTTPClient.makeWith(mock: stack)
+		let expectation = self.expectation(description: "completion handler is called with notModified failure")
+		var failure: URLSession.Response.Failure?
+		
+		// WHEN
+		client.validationOnboardedCountries(completion: { result in
+			switch result {
+			case .success:
+				XCTFail("This test should not succeed.")
+			case let .failure(error):
+				failure = error
+				expectation.fulfill()
+			}
+		})
+	
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(failure, .notModified)
+	}
+	
 	func testGIVEN_Client_WHEN_OtherHttpStatusCode_THEN_Failure_ServerErrorIsReturned() {
 		// GIVEN
 		let stack = MockNetworkStack(

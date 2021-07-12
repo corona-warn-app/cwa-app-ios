@@ -6,8 +6,20 @@ import Foundation
 import UIKit
 
 class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
-	private(set) var imageView: UIImageView!
-	private var heightConstraint: NSLayoutConstraint!
+
+	// MARK: - Init
+
+	override init(reuseIdentifier: String?) {
+		super.init(reuseIdentifier: reuseIdentifier)
+		setup()
+	}
+
+	@available(*, unavailable)
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Internal
 
 	var image: UIImage? {
 		get { imageView.image }
@@ -19,29 +31,43 @@ class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 		set { heightConstraint.constant = newValue }
 	}
 
-	@available(*, unavailable)
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	var title: String? {
+		get { titleLabel.text }
+		set { titleLabel.text = newValue }
 	}
 
-	override init(reuseIdentifier: String?) {
-		super.init(reuseIdentifier: reuseIdentifier)
-		setup()
-	}
+	// MARK: - Private
+
+	private(set) var imageView: UIImageView!
+	private(set) var titleLabel: ENALabel = ENALabel(style: .title1)
+	private var heightConstraint: NSLayoutConstraint!
 
 	private func setup() {
 		imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.contentMode = .scaleAspectFit
-
 		addSubview(imageView)
-		imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-		imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-		imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		titleLabel.numberOfLines = 0
+		imageView.addSubview(titleLabel)
 
 		heightConstraint = imageView.heightAnchor.constraint(equalToConstant: 100)
 		heightConstraint.priority = .defaultHigh
-		heightConstraint.isActive = true
+
+		NSLayoutConstraint.activate(
+			[
+				imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+				imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+				imageView.topAnchor.constraint(equalTo: topAnchor),
+				imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+				heightConstraint,
+
+				titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 16.0),
+				titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 16.0),
+				titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -42.0)
+			]
+		)
 	}
 }
