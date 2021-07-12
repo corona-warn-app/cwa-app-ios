@@ -20,6 +20,10 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 		DynamicTableViewModel([
 			.section(
 				cells: [
+					.headlineWithImage(
+						headerText: AppStrings.HealthCertificate.Validation.Result.Passed.title,
+						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Valid")
+					),
 					.footnote(
 						text: String(
 							format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
