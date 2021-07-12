@@ -180,9 +180,9 @@ class HomeState: ENStateHandlerUpdating {
 	}
 	
 	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsDistrict]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selection ?? [], completion: { result in
-			self.selectedLocalStatistics = result
-			Log.debug("fetched selected local statistics: \(private: result) entities", log: .localStatistics)
+		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selection ?? [], completion: { selectedLocalStatistics in
+			self.selectedLocalStatistics = selectedLocalStatistics
+			Log.debug("fetched selected local statistics: \(private: selectedLocalStatistics) entities", log: .localStatistics)
 		})
 	}
 
