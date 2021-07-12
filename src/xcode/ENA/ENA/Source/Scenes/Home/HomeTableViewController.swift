@@ -613,9 +613,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
 				
 				// removing the district from the store
-				self?.store.selectedLocalStatisticsDistricts.removeAll { storedDistrict in
-					return storedDistrict.districtId == district.districtId
+				guard let selectedLocalStatisticsDistricts = self?.store.selectedLocalStatisticsDistricts else {
+					return
 				}
+				self?.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }
+				
 				self?.statisticsCell?.updateManagementCellState()
 			},
 			onDismissState: { [weak self] in

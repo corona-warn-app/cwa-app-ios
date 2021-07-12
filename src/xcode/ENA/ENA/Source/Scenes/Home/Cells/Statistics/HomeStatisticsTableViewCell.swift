@@ -84,6 +84,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					store: store,
 					administrativeUnitsData: administrativeUnitsData,
 					localStatisticsDistrict: nil,
+					isMultipleItems: false,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus,
 					onDeleteStatistic: onDeleteLocalStatistic
@@ -102,6 +103,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						store: store,
 						administrativeUnitsData: singleSelectedLocalStatistics.localStatisticsData,
 						localStatisticsDistrict: singleSelectedLocalStatistics.localStatisticsDistrict,
+						isMultipleItems: true,
 						onInfoButtonTap: onInfoButtonTap,
 						onAccessibilityFocus: onAccessibilityFocus,
 						onDeleteStatistic: onDeleteLocalStatistic
@@ -116,11 +118,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		store: Store,
 		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
 		localStatisticsDistrict: LocalStatisticsDistrict?,
+		isMultipleItems: Bool,
 		onInfoButtonTap:  @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onDeleteStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void
 	) {
-		if localStatisticsDistrict != nil {
+		if isMultipleItems {
 			district = localStatisticsDistrict
 		}
 		

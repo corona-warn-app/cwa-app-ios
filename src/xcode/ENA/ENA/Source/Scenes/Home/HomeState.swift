@@ -150,6 +150,7 @@ class HomeState: ENStateHandlerUpdating {
 		
 		// selected district is not there in presisted districts
 		if selectedLocalStatisticsDistrict == nil {
+			// persist the district to the list of selected districts
 			store.selectedLocalStatisticsDistricts.append(district)
 			
 			DispatchQueue.main.async { [weak self] in

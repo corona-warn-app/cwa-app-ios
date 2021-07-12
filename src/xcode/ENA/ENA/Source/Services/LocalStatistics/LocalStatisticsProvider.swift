@@ -57,7 +57,11 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		for localStatisticsDistrict in selectedlocalStatisticsDistricts {
 			localStatisticsGroup.enter()
 			DispatchQueue.global().async {
-				self.fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: nil)
+				let localStatistics = self.store.localStatistics.filter({
+					$0.groupID == String(localStatisticsDistrict.federalState.groupID)
+				}).compactMap { $0 }.first
+				
+				self.fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: localStatistics?.lastLocalStatisticsETag)
 					.sink(
 					receiveCompletion: { result in
 						switch result {
