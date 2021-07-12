@@ -99,7 +99,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		do {
 			try elsService.stopAndDeleteLog()
 		} catch {
-			showErrorAlert(with: error)
+			showErrorAlert(with: error.localizedDescription)
 		}
 	}
 	
@@ -167,7 +167,12 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 						self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
 					case .failure(let error):
 						Log.error("ELS submission error: \(error)", log: .els, error: error)
-						self.showErrorAlert(with: error)
+						switch error {
+						case .otpError(let otpError):
+							self.showErrorAlert(with: otpError.localizedDescription)
+						default:
+							self.showErrorAlert(with: error.localizedDescription)
+						}
 					}
 				}
 			},
@@ -194,8 +199,8 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		rootViewController.navigationController?.pushViewController(htmlViewController, animated: true)
 	}
 
-	private func showErrorAlert(with error: Error) {
-		let alert = UIAlertController(title: AppStrings.Common.alertTitleGeneral, message: error.localizedDescription, preferredStyle: .alert)
+	private func showErrorAlert(with errorMessage: String) {
+		let alert = UIAlertController(title: AppStrings.Common.alertTitleGeneral, message: errorMessage, preferredStyle: .alert)
 		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { _ in
 			alert.dismiss(animated: true, completion: nil)
 		})
