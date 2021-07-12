@@ -92,7 +92,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		let section2 = vc.dynamicTableViewModel.section(1)
 		XCTAssertNotNil(section2)
-		XCTAssertEqual(section2.cells.count, 5)
+		XCTAssertEqual(section2.cells.count, 6)
 
 	}
 

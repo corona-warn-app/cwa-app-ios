@@ -13,12 +13,14 @@ class ExposureSubmissionIntroViewModel {
 	
 	init(
 		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onFindTestCentersTap: @escaping () -> Void,
 		onTANButtonTap: @escaping () -> Void,
 		onHotlineButtonTap: @escaping () -> Void,
 		onRapidTestProfileTap: @escaping () -> Void,
 		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
 		self.onQRCodeButtonTap = onQRCodeButtonTap
+		self.onFindTestCentersTap = onFindTestCentersTap
 		self.onTANButtonTap = onTANButtonTap
 		self.onHotlineButtonTap = onHotlineButtonTap
 		self.onRapidTestProfileTap = onRapidTestProfileTap
@@ -37,6 +39,7 @@ class ExposureSubmissionIntroViewModel {
 	// MARK: - Internal
 	
 	let onQRCodeButtonTap: (@escaping (Bool) -> Void) -> Void
+	let onFindTestCentersTap: () -> Void
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
 	let onRapidTestProfileTap: () -> Void
@@ -104,6 +107,13 @@ class ExposureSubmissionIntroViewModel {
 						}
 					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
+				),
+				.imageCard(
+					title: AppStrings.ExposureSubmissionDispatch.findTestCentersButtonTitle,
+					description: AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription,
+					image: UIImage(named: "Illu_Submission_Test_Centers"),
+					action: .execute { [weak self] _, _ in self?.onFindTestCentersTap() },
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription
 				),
 				profileCell,
 				.title2(

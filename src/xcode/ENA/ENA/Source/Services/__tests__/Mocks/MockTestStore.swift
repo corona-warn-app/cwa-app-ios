@@ -40,7 +40,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	
+
 	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -88,7 +88,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var dateOfConversionToCheckinHighRisk: Date?
 
 	// MARK: - ErrorLogProviding
-	
+
 	var ppacApiTokenEls: TimestampedToken?
 	var otpTokenEls: OTPToken?
 	var otpElsAuthorizationDate: Date?
@@ -99,9 +99,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - ErrorLogHistory
 
 	var elsUploadHistory: [ErrorLogUploadReceipt] = []
-	
+
 	// MARK: - EventRegistrationCaching
-	
+
 	var wasRecentTraceWarningDownloadSuccessful: Bool = false
 	var checkinInfoScreenShown: Bool = false
 	var traceLocationsInfoScreenShown: Bool = false
@@ -119,7 +119,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var antigenTest: AntigenTest?
 
 	// MARK: - AntigenTestProfileStoring
-	
+
 	lazy var antigenTestProfileSubject = {
 		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
 	}()
@@ -140,7 +140,13 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - Protocol VaccinationCaching
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets?
-	
+
+	// MARK: - Protocol HealthCertificateValidationCaching
+
+	var validationOnboardedCountriesCache: ValidationOnboardedCountriesCache?
+	var acceptanceRulesCache: ValidationRulesCache?
+	var invalidationRulesCache: ValidationRulesCache?
+
 	// MARK: - CoronaTestStoringLegacy
 
 	var registrationToken: String?
