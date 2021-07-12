@@ -5,6 +5,7 @@
 import Foundation
 import UIKit.UIImage
 import OpenCombine
+import HealthCertificateToolkit
 import class CertLogic.ValidationResult
 
 final class ValidationResultCellModel {
@@ -12,9 +13,34 @@ final class ValidationResultCellModel {
 	// MARK: - Init
 
 	init(
-		validationResult: ValidationResult
+		validationResult: ValidationResult,
+		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.validationResult = validationResult
+		self.healthCertificate = healthCertificate
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+
+		updateKeyValuePairs()
+
+		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+			.sink(
+				receiveCompletion: { result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							Log.error("Signature verification error.", log: .vaccination, error: error)
+						}
+						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
+					}
+				}, receiveValue: { [weak self] valueSets in
+					self?.valueSets = valueSets
+					self?.updateKeyValuePairs()
+				}
+			)
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -54,87 +80,114 @@ final class ValidationResultCellModel {
 		}
 	}
 
-	var keyValuePairs: [(key: String, value: String?)] {
+	@DidSetPublished var keyValuePairs = [(key: String, value: String?)]()
+
+	// MARK: - Private
+
+	private let validationResult: ValidationResult
+	private let healthCertificate: HealthCertificate
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+
+	private let vaccinationEntryKeyPaths: [String: PartialKeyPath<VaccinationEntry>] = [
+		"v.0.tg": \VaccinationEntry.diseaseOrAgentTargeted,
+		"v.0.vp": \VaccinationEntry.vaccineOrProphylaxis,
+		"v.0.mp": \VaccinationEntry.vaccineMedicinalProduct,
+		"v.0.ma": \VaccinationEntry.marketingAuthorizationHolder,
+		"v.0.dn": \VaccinationEntry.doseNumber,
+		"v.0.sd": \VaccinationEntry.totalSeriesOfDoses,
+		"v.0.dt": \VaccinationEntry.dateOfVaccination,
+		"v.0.co": \VaccinationEntry.countryOfVaccination,
+		"v.0.is": \VaccinationEntry.certificateIssuer,
+		"v.0.ci": \VaccinationEntry.uniqueCertificateIdentifier
+	]
+
+	private let testEntryKeyPaths: [String: PartialKeyPath<TestEntry>] = [
+		"t.0.tg": \TestEntry.diseaseOrAgentTargeted,
+		"t.0.tt": \TestEntry.typeOfTest,
+		"t.0.nm": \TestEntry.naaTestName,
+		"t.0.ma": \TestEntry.ratTestName,
+		"t.0.sc": \TestEntry.sampleCollectionDate,
+		"t.0.tr": \TestEntry.testResult,
+		"t.0.tc": \TestEntry.testCenter,
+		"t.0.co": \TestEntry.countryOfTest,
+		"t.0.is": \TestEntry.certificateIssuer,
+		"t.0.ci": \TestEntry.uniqueCertificateIdentifier
+	]
+
+	private let recoveryEntryKeyPaths: [String: PartialKeyPath<RecoveryEntry>] = [
+		"r.0.tg": \RecoveryEntry.diseaseOrAgentTargeted,
+		"r.0.fr": \RecoveryEntry.dateOfFirstPositiveNAAResult,
+		"r.0.co": \RecoveryEntry.countryOfTest,
+		"r.0.is": \RecoveryEntry.certificateIssuer,
+		"r.0.df": \RecoveryEntry.certificateValidFrom,
+		"r.0.du": \RecoveryEntry.certificateValidUntil,
+		"r.0.ci": \RecoveryEntry.uniqueCertificateIdentifier
+	]
+
+	private var valueSets: SAP_Internal_Dgc_ValueSets?
+	private var subscriptions = Set<AnyCancellable>()
+
+	private var ruleIdentifier: String? {
+		validationResult.rule?.identifier
+	}
+
+	private func updateKeyValuePairs() {
+		switch healthCertificate.entry {
+		case .vaccination(let vaccinationEntry):
+			updateKeyValuePairs(vaccinationEntry: vaccinationEntry)
+		case .test(let testEntry):
+			updateKeyValuePairs(testEntry: testEntry)
+		case .recovery(let recoveryEntry):
+			updateKeyValuePairs(recoveryEntry: recoveryEntry)
+		}
+	}
+
+	func updateKeyValuePairs(vaccinationEntry: VaccinationEntry) {
 		var keyValuePairs = [(key: String, value: String?)]()
 
 		validationResult.rule?.affectedString.forEach {
-			let key: String?
-
-			switch $0 {
-			case "v.0.tg":
-				key = "Zielkrankheit oder -erreger / Disease or Agent Targeted"
-			case "v.0.vp":
-				key = "Impfstoff / Vaccine"
-			case "v.0.mp":
-				key = "Art des Impfstoffs / Vaccine Type"
-			case "v.0.ma":
-				key = "Hersteller / Manufacturer"
-			case "v.0.dn":
-				key = "Nummer der Impfung / Number in a series of vaccinations"
-			case "v.0.sd":
-				key = "Gesamtzahl an Impfdosen / Total number of vaccination doses"
-			case "v.0.dt":
-				key = "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)"
-			case "v.0.co":
-				key = "Land der Impfung / Member State of Vaccination"
-			case "v.0.is":
-				key = "Zertifikataussteller / Certificate Issuer"
-			case "v.0.ci":
-				key = "Zertifikatkennung / Unique Certificate Identifier"
-			case "t.0.tg":
-				key = "Zielkrankheit oder -erreger / Disease or Agent Targeted"
-			case "t.0.tt":
-				key = "Art des Tests / Type of Test"
-			case "t.0.nm":
-				key = "Produktname / Test Name"
-			case "t.0.ma":
-				key = "Produktname / Test Name"
-			case "t.0.sc":
-				key = "Datum und Uhrzeit der Probenahme / Date and Time of Sample Collection (YYYY-MM-DD hh:mm Z)"
-			case "t.0.tr":
-				key = "Testergebnis / Test Result"
-			case "t.0.tc":
-				key = "Testzentrum oder -einrichtung / Testing Center or Facility"
-			case "t.0.co":
-				key = "Land der Testung / Member State of Test"
-			case "t.0.is":
-				key = "Zertifikataussteller / Certificate Issuer"
-			case "t.0.ci":
-				key = "Zertifikatkennung / Unique Certificate Identifier"
-			case "r.0.tg":
-				key = "Zielkrankheit oder -erreger / Disease or Agent Targeted"
-			case "r.0.fr":
-				key = "Datum des ersten positiven Testergebnisses / Date of first positive test result (YYYY-MM-DD)"
-			case "r.0.co":
-				key = "Land der Testung / Member State of Test"
-			case "r.0.is":
-				key = "Zertifikataussteller / Certificate Issuer"
-			case "r.0.df":
-				key = "Zertifikat gültig ab / Certificate valid from (YYYY-MM-DD)"
-			case "r.0.du":
-				key = "Zertifikat gültig bis / Certificate valid until (YYYY-MM-DD)"
-			case "r.0.ci":
-				key = "Zertifikatkennung / Unique Certificate Identifier"
-			default:
-				key = nil
-			}
-
-			if let key = key {
-				keyValuePairs.append((key: key, value: "Value"))
+			if let keyPath = vaccinationEntryKeyPaths[$0],
+			   let title = vaccinationEntry.title(for: keyPath),
+			   let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+				keyValuePairs.append((key: title, value: formattedValue))
 			}
 		}
 
 		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
 
-		return keyValuePairs
+		self.keyValuePairs = keyValuePairs
 	}
 
-	// MARK: - Private
+	func updateKeyValuePairs(testEntry: TestEntry) {
+		var keyValuePairs = [(key: String, value: String?)]()
 
-	private let validationResult: ValidationResult
+		validationResult.rule?.affectedString.forEach {
+			if let keyPath = testEntryKeyPaths[$0],
+			   let title = testEntry.title(for: keyPath),
+			   let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+				keyValuePairs.append((key: title, value: formattedValue))
+			}
+		}
 
-	private var ruleIdentifier: String? {
-		validationResult.rule?.identifier
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+
+		self.keyValuePairs = keyValuePairs
+	}
+
+	func updateKeyValuePairs(recoveryEntry: RecoveryEntry) {
+		var keyValuePairs = [(key: String, value: String?)]()
+
+		validationResult.rule?.affectedString.forEach {
+			if let keyPath = recoveryEntryKeyPaths[$0],
+			   let title = recoveryEntry.title(for: keyPath),
+			   let formattedValue = recoveryEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+				keyValuePairs.append((key: title, value: formattedValue))
+			}
+		}
+
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+
+		self.keyValuePairs = keyValuePairs
 	}
 
 }

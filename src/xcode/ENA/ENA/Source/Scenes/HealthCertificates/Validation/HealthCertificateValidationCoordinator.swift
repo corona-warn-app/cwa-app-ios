@@ -14,13 +14,15 @@ final class HealthCertificateValidationCoordinator {
 		healthCertificate: HealthCertificate,
 		countries: [Country],
 		store: HealthCertificateStoring,
-		healthCertificateValidationService: HealthCertificateValidationProviding
+		healthCertificateValidationService: HealthCertificateValidationProviding,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificate = healthCertificate
 		self.countries = countries
 		self.store = store
 		self.healthCertificateValidationService = healthCertificateValidationService
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 	}
 	
 	// MARK: - Internal
@@ -39,6 +41,7 @@ final class HealthCertificateValidationCoordinator {
 	private let countries: [Country]
 	private let store: HealthCertificateStoring
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	// MARK: Show Screens
 
@@ -172,7 +175,9 @@ final class HealthCertificateValidationCoordinator {
 			viewModel: HealthCertificateValidationOpenViewModel(
 				arrivalCountry: arrivalCountry,
 				arrivalDate: arrivalDate,
-				validationResults: validationResults
+				validationResults: validationResults,
+				healthCertificate: healthCertificate,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider
 			),
 			onPrimaryButtonTap: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)
@@ -194,7 +199,9 @@ final class HealthCertificateValidationCoordinator {
 			viewModel: HealthCertificateValidationFailedViewModel(
 				arrivalCountry: arrivalCountry,
 				arrivalDate: arrivalDate,
-				validationResults: validationResults
+				validationResults: validationResults,
+				healthCertificate: healthCertificate,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider
 			),
 			onPrimaryButtonTap: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)

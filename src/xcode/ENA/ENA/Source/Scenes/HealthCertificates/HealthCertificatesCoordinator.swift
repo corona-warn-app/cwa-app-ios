@@ -339,7 +339,8 @@ final class HealthCertificatesCoordinator {
 			healthCertificate: healthCertificate,
 			countries: countries,
 			store: store,
-			healthCertificateValidationService: healthCertificateValidationService
+			healthCertificateValidationService: healthCertificateValidationService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 
 		validationCoordinator?.start()

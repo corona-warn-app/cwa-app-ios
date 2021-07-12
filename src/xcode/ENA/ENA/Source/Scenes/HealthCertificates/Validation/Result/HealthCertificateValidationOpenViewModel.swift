@@ -13,11 +13,15 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 	init(
 		arrivalCountry: Country,
 		arrivalDate: Date,
-		validationResults: [ValidationResult]
+		validationResults: [ValidationResult],
+		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProvider
 	) {
 		self.arrivalCountry = arrivalCountry
 		self.arrivalDate = arrivalDate
 		self.validationResults = validationResults
+		self.healthCertificate = healthCertificate
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 	}
 
 	// MARK: - Internal
@@ -43,7 +47,7 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 			.body(text: AppStrings.HealthCertificate.Validation.Result.Open.openSectionDescription)
 		]
 
-		cells.append(contentsOf: openValidationResults.map { .validationResult($0) })
+		cells.append(contentsOf: openValidationResults.map { .validationResult($0, healthCertificate: healthCertificate, vaccinationValueSetsProvider: vaccinationValueSetsProvider) })
 
 		cells.append(.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation))
 
@@ -59,6 +63,8 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 	private let arrivalCountry: Country
 	private let arrivalDate: Date
 	private let validationResults: [ValidationResult]
+	private let healthCertificate: HealthCertificate
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
 
 	private var openValidationResults: [ValidationResult] {
 		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
