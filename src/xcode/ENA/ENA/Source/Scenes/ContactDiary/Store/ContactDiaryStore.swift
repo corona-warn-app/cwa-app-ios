@@ -1004,7 +1004,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			return .failure(dbError(from: database))
 		}
 
-		return .success(contactPersons)
+		let arrangedContactPersons = contactPersons.sorted(by: {
+			$0.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
+				<
+				$1.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
+		})
+		return .success(arrangedContactPersons)
 	}
 
 	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SecureSQLStoreError> {
@@ -1065,8 +1070,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
 		}
-
-		return .success(locations)
+		let arrangedLocations = locations.sorted(by: {
+			
+			$0.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
+				<
+				$1.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
+		})
+		return .success(arrangedLocations)
 	}
 
 	private func fetchCoronaTests(for date: String, in database: FMDatabase) -> Result<[DiaryDayTest], SecureSQLStoreError> {
