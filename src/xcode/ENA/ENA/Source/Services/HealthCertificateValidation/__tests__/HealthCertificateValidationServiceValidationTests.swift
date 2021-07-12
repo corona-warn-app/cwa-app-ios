@@ -12,7 +12,7 @@ import ZIPFoundation
 
 class HealthCertificateValidationServiceValidationTests: XCTestCase {
 
-	func test_Some() throws {
+	func test_CertLogicEngineValidation() throws {
 		guard let jsonData = certLogicTestData else {
 			XCTFail("Could not load json data.")
 			return
