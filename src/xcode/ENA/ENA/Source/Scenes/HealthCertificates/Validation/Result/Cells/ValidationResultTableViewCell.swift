@@ -30,35 +30,43 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: ValidationResultCellModel) {
+	func configure(with cellModel: ValidationResultCellModel, onUpdate: @escaping () -> Void) {
 		iconImageView.image = cellModel.iconImage
 		ruleDescriptionLabel.text = cellModel.ruleDescription
 		ruleTypeDescriptionLabel.text = cellModel.ruleTypeDescription
 
-		keyValuePairsStackView.arrangedSubviews.forEach {
-			keyValuePairsStackView.removeArrangedSubview($0)
-			$0.removeFromSuperview()
-		}
+		cellModel.$keyValuePairs
+			.sink { [weak self] keyValuePairs in
+				self?.keyValuePairsStackView.arrangedSubviews.forEach {
+					self?.keyValuePairsStackView.removeArrangedSubview($0)
+					$0.removeFromSuperview()
+				}
 
-		cellModel.keyValuePairs.forEach { keyValuePair in
-			let keyValueStackView = UIStackView()
-			keyValueStackView.axis = .vertical
-			keyValueStackView.spacing = 0
-			keyValueStackView.alignment = .leading
-			keyValuePairsStackView.addArrangedSubview(keyValueStackView)
+				keyValuePairs.forEach { keyValuePair in
+					let keyValueStackView = UIStackView()
+					keyValueStackView.axis = .vertical
+					keyValueStackView.spacing = 0
+					keyValueStackView.alignment = .leading
+					self?.keyValuePairsStackView.addArrangedSubview(keyValueStackView)
 
-			let keyLabel = ENALabel(style: .footnote)
-			keyLabel.numberOfLines = 0
-			keyLabel.textColor = .enaColor(for: .textPrimary2)
-			keyLabel.text = keyValuePair.key
-			keyValueStackView.addArrangedSubview(keyLabel)
+					let keyLabel = ENALabel(style: .footnote)
+					keyLabel.numberOfLines = 0
+					keyLabel.textColor = .enaColor(for: .textPrimary2)
+					keyLabel.text = keyValuePair.key
+					keyValueStackView.addArrangedSubview(keyLabel)
 
-			let valueLabel = ENALabel(style: .subheadline)
-			valueLabel.numberOfLines = 0
-			valueLabel.textColor = .enaColor(for: .textPrimary1)
-			valueLabel.text = keyValuePair.value
-			keyValueStackView.addArrangedSubview(valueLabel)
-		}
+					let valueLabel = ENALabel(style: .subheadline)
+					valueLabel.numberOfLines = 0
+					valueLabel.textColor = .enaColor(for: .textPrimary1)
+					valueLabel.text = keyValuePair.value
+					keyValueStackView.addArrangedSubview(valueLabel)
+				}
+
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+
+		self.cellModel = cellModel
 	}
 
 	// MARK: - Private
@@ -69,6 +77,9 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let keyValuePairsStackView = UIStackView()
 	private let ruleDescriptionLabel = ENALabel(style: .body)
 	private let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
+
+	private var cellModel: ValidationResultCellModel?
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		backgroundColor = .clear
