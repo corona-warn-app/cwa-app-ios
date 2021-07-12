@@ -82,6 +82,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		navigationController?.navigationBar.sizeToFit()
 
 		viewModel.resetBadgeCount()
+		tableView.reloadData()
+		updateEmptyState()
 	}
 
 	// MARK: - Protocol UITableViewDataSource

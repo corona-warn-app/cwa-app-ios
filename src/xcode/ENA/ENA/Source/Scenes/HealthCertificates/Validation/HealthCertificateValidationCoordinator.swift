@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import class CertLogic.ValidationResult
 
 final class HealthCertificateValidationCoordinator {
 	
@@ -68,18 +69,25 @@ final class HealthCertificateValidationCoordinator {
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
 
 					switch result {
-					case .success(let countries):
-//						self.showValidationFlow(
-//							healthCertificate: healthCertificate,
-//							countries: countries
-//						)
-					break
+					case .success(let validationReport):
+						switch validationReport {
+						case .validationPassed:
+							self.showValidationPassedScreen()
+						case .validationOpen(let validationResults):
+							self.showValidationOpenScreen(validationResults: validationResults)
+						case .validationFailed(let validationResults):
+							self.showValidationFailedScreen(validationResults: validationResults)
+						}
 					case .failure(let error):
-//						self.showErrorAlert(
-//							title: AppStrings.HealthCertificate.ValidationError.title,
-//							error: error
-//						)
-					break
+						switch error {
+						case .TECHNICAL_VALIDATION_FAILED:
+							self.showTechnicalErrorScreen()
+						default:
+							self.showErrorAlert(
+								title: AppStrings.HealthCertificate.ValidationError.title,
+								error: error
+							)
+						}
 					}
 				}
 			},
@@ -103,7 +111,51 @@ final class HealthCertificateValidationCoordinator {
 	}()
 
 	private func showInfoScreen() {
+		let validationInformationViewController = ValidationInformationViewController(
+			dismiss: { [weak self] in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+		let validationNavigationController = DismissHandlingNavigationController(rootViewController: validationInformationViewController, transparent: true)
+		navigationController.present(validationNavigationController, animated: true)
+	}
 
+	private func showValidationPassedScreen() {
+
+	}
+
+	private func showValidationOpenScreen(validationResults: [ValidationResult]) {
+
+	}
+
+	private func showValidationFailedScreen(validationResults: [ValidationResult]) {
+
+	}
+
+	private func showTechnicalErrorScreen() {
+
+	}
+
+	private func showErrorAlert(
+		title: String,
+		error: Error
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		navigationController.present(alert, animated: true, completion: nil)
 	}
 	
 }

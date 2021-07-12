@@ -128,7 +128,7 @@
 
 "errorReport_Legal_SendReports_Headline" = "Your consent";
 
-"errorReport_Legal_SendReports_Subline" = "By tapping on “Accept and Send”, you consent to the following steps:";
+"errorReport_Legal_SendReports_Subline" = "By tapping on “Agree and Send”, you consent to the following steps:";
 
 "errorReport_Legal_SendReports_Bullet1_Part1" = "The error report you create will be sent to the RKI for error analysis purposes.";
 
@@ -208,9 +208,11 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Data protection and data security";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Requesting and using a digital COVID test certificate is voluntary. There are other ways to prove that you have a negative test certificate.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Requesting and using a digital COVID test certificate is voluntary. There are other ways to prove that you have a negative test result.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "To create your test certificate, data is transmitted once in encrypted form to the RKI. The RKI signs this data electronically to confirm its validity. The RKI will not store the data.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "To ensure that no one with your QR code can retrieve your test result, it is protected with your date of birth. Your date of birth is transmitted in encrypted form to the laboratory in order to retrieve the test result.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "The COVID test certificate contains the data about your coronavirus test. In cases where you are required by law to prove a negative test result, it is sufficient to show the QR code in the app. Do not provide the test certificate to anyone if you do not want the data to be read.";
 

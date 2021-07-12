@@ -39,6 +39,14 @@ final class PreferredPersonCellModel {
 			}
 	}
 
+	var description: String? {
+		guard let name = name else {
+			return nil
+		}
+
+		return String(format: AppStrings.HealthCertificate.Person.preferredPersonDescription, name)
+	}
+
 	@DidSetPublished var isPreferredPerson: Bool = false
 
 	func setAsPreferredPerson(_ newValue: Bool) {

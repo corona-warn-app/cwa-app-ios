@@ -403,7 +403,9 @@ enum AccessibilityIdentifiers {
 				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
 				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
-				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
+				static let editButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
+				static let deleteAction = "AppStrings.ExposureSubmission.AntigenTest.Profile.deleteAction"
+				static let editAction = "AppStrings.ExposureSubmission.AntigenTest.Profile.editAction"
 			}
 		}
 
@@ -444,6 +446,8 @@ enum AccessibilityIdentifiers {
 		static let secondaryFooterButton = "General.secondaryFooterButton"
 		static let cancelButton = "General.cancelButton"
 		static let defaultButton = "General.defaultButton"
+
+		static let webView = "HTMLView"
 	}
 	
 	enum DatePickerOption {
@@ -620,6 +624,14 @@ enum AccessibilityIdentifiers {
 
 	enum HealthCertificate {
 
+		enum Validation {
+			static let countrySelection = "HealthCertificate.Validation.CountrySelection"
+			static let dateTimeSelection = "HealthCertificate.Validation.DateTimeSelection"
+			enum Info {
+				static let imageDescription = "AppStrings.HealthCertificate.Validation.Info.imageDescription"
+			}
+		}
+
 		enum Overview {
 			static let addCertificateCell =
 				"addCertificateCell"
@@ -646,11 +658,6 @@ enum AccessibilityIdentifiers {
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
-		}
-
-		enum Validation {
-			static let countrySelection = "HealthCertificate.Validation.CountrySelection"
-			static let dateTimeSelection = "HealthCertificate.Validation.DateTimeSelection"
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
