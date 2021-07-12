@@ -609,7 +609,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onDeleteLocalStatistic: { administrativeUnit, district in
 				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
-				// ..
+				
+				// removing the district from the store
+				self.store.selectedLocalStatisticsDistricts.removeAll { storedDistrict in
+					return storedDistrict.districtId == district.districtId
+				}
 			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
