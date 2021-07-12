@@ -67,7 +67,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// NOTE: We expect here a HealthCertificate, which was already json schema validated at its creation time. So the JsonSchemaCheck will here always be true. So we only have to check for the expirationTime of the certificate.
 		guard expirationDate >= validationClock else {
 			Log.warning("Technical validation failed: expirationDate < validationClock. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
-			return completion(.failure(.TECHNICAL_VALIDATION_FAILED))
+			completion(.failure(.TECHNICAL_VALIDATION_FAILED))
+			return
 		}
 		Log.info("Successfully passed technical validation. Proceed with updating value sets...", log: .vaccination)
 
@@ -118,7 +119,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 							Log.error("Failed to update value sets. No network error", log: .vaccination, error: error)
 							completion(.failure(.NO_NETWORK))
 						} else {
-							Log.error("Casting error for http error", log: .vaccination, error: error)
+							Log.error("Casting error for http error failed", log: .vaccination, error: error)
 							completion(.failure(.VALUE_SET_CLIENT_ERROR))
 						}
 					}
@@ -146,7 +147,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	) {
 		// 3. update/ download acceptance rules
 		downloadRules(
-			ruleType: .invalidation,
+			ruleType: .acceptance,
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
@@ -210,6 +211,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		let mappedCertificateType = mapForExternalParameter(healthCertificate.type)
 		
+		// we must not set the region at the moment, so we set it to nil.
 		let filterParameter = FilterParameter(
 			validationClock: validationClock,
 			countryCode: arrivalCountry,
@@ -340,14 +342,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					self.rulesDownloadingSuccessHandler(
+					self.rulesDownloadingSucceeding(
 						ruleType: ruleType,
 						packageDownloadResponse: packageDownloadResponse,
 						completion: completion
 					)
 	
 				case let .failure(failure):
-					self.rulesDownloadingFailureHandler(
+					self.rulesDownloadingFailing(
 						ruleType: ruleType,
 						failure: failure,
 						completion: completion
@@ -359,7 +361,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	// Disable swiftlint for cyclomatic_complexity because it rants only due to the many switches over the rule type.
 	// swiftlint:disable:next cyclomatic_complexity
-	private func rulesDownloadingSuccessHandler(
+	private func rulesDownloadingSucceeding(
 		ruleType: HealthCertificateValidationRuleType,
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
@@ -429,16 +431,16 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: validationError)
 				switch ruleType {
 				case .acceptance:
-					completion(.failure(.ACCEPTANCE_RULE_VALIDATION_ERROR(validationError)))
+					completion(.failure(.ACCEPTANCE_RULE_DECODING_ERROR(validationError)))
 				case .invalidation:
-					completion(.failure(.INVALIDATION_RULE_VALIDATION_ERROR(validationError)))
+					completion(.failure(.INVALIDATION_RULE_DECODING_ERROR(validationError)))
 				}
 			}
 		})
 	}
 	// Disable swiftlint for cyclomatic_complexity because it rants only due to the many switches over the rule type.
 	// swiftlint:disable:next cyclomatic_complexity
-	private func rulesDownloadingFailureHandler(
+	private func rulesDownloadingFailing(
 		ruleType: HealthCertificateValidationRuleType,
 		failure: URLSession.Response.Failure,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
@@ -476,7 +478,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				case .acceptance:
 					completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
 				case .invalidation:
-					completion(.failure(.ACCEPTANCE_RULE_CLIENT_ERROR))
+					completion(.failure(.INVALIDATION_RULE_CLIENT_ERROR))
 				}
 			default:
 				Log.error("Could not download \(ruleType) rules due to server error with status code: \(statusCode).", log: .vaccination, error: failure)
@@ -484,7 +486,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				case .acceptance:
 					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 				case .invalidation:
-					completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
+					completion(.failure(.INVALIDATION_RULE_SERVER_ERROR))
 				}
 			}
 		default:
@@ -493,7 +495,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			case .acceptance:
 				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
 			case .invalidation:
-				completion(.failure(.ACCEPTANCE_RULE_SERVER_ERROR))
+				completion(.failure(.INVALIDATION_RULE_SERVER_ERROR))
 			}
 		}
 	}

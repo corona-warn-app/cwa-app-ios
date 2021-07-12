@@ -10,14 +10,14 @@ enum HealthCertificateValidationError: LocalizedError {
 	// MARK: - Internal
 	
 	case TECHNICAL_VALIDATION_FAILED
-	case ACCEPTANCE_RULE_VALIDATION_ERROR(RuleValidationError)
+	case ACCEPTANCE_RULE_DECODING_ERROR(RuleValidationError)
 	case ACCEPTANCE_RULE_CLIENT_ERROR
 	case ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR
 	case ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING
 	case ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
 	case ACCEPTANCE_RULE_MISSING_CACHE
 	case ACCEPTANCE_RULE_SERVER_ERROR
-	case INVALIDATION_RULE_VALIDATION_ERROR(RuleValidationError)
+	case INVALIDATION_RULE_DECODING_ERROR(RuleValidationError)
 	case INVALIDATION_RULE_CLIENT_ERROR
 	case INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR
 	case INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING
@@ -33,8 +33,8 @@ enum HealthCertificateValidationError: LocalizedError {
 		switch self {
 		case .TECHNICAL_VALIDATION_FAILED:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (TECHNICAL_VALIDATION_FAILED)"
-		case let .ACCEPTANCE_RULE_VALIDATION_ERROR(error):
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_VALIDATION_ERROR - \(error)"
+		case let .ACCEPTANCE_RULE_DECODING_ERROR(error):
+			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_DECODING_ERROR - \(error)"
 		case .ACCEPTANCE_RULE_CLIENT_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_CLIENT_ERROR)"
 		case .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR:
@@ -47,8 +47,8 @@ enum HealthCertificateValidationError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_MISSING_CACHE)"
 		case .ACCEPTANCE_RULE_SERVER_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_SERVER_ERROR)"
-		case let .INVALIDATION_RULE_VALIDATION_ERROR(error):
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_VALIDATION_ERROR - \(error)"
+		case let .INVALIDATION_RULE_DECODING_ERROR(error):
+			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_DECODING_ERROR - \(error)"
 		case .INVALIDATION_RULE_CLIENT_ERROR:
 			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_CLIENT_ERROR)"
 		case .INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR:
