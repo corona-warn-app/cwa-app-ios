@@ -155,6 +155,8 @@
 		019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F38258951BC00B26392 /* DiaryEntryType.swift */; };
 		019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3A258951BE00B26392 /* DiaryEntry.swift */; };
 		019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3F258951C000B26392 /* DiaryLocation.swift */; };
+		019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */; };
+		019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */; };
 		01A1A25626443FBE001E8183 /* value_sets.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1A25526443FBD001E8183 /* value_sets.pb.swift */; };
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
 		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
@@ -1412,6 +1414,8 @@
 		019C9F38258951BC00B26392 /* DiaryEntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryType.swift; sourceTree = "<group>"; };
 		019C9F3A258951BE00B26392 /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		019C9F3F258951C000B26392 /* DiaryLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLocation.swift; sourceTree = "<group>"; };
+		019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSets+ValueSetType.swift"; sourceTree = "<group>"; };
+		019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSet+DisplayText.swift"; sourceTree = "<group>"; };
 		01A1A25526443FBD001E8183 /* value_sets.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = value_sets.pb.swift; sourceTree = "<group>"; };
 		01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelTests.swift; sourceTree = "<group>"; };
 		01A1B449252DFD7700841B63 /* MetadataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataObject.swift; sourceTree = "<group>"; };
@@ -4525,6 +4529,8 @@
 				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
 				34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */,
 				35AAA19026139FE500D3A4C1 /* Array+SaveAccess.swift */,
+				019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */,
+				019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7867,6 +7873,7 @@
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				01BA0755262094D700237DD8 /* AerosoleDecayFunctionLinear.swift in Sources */,
+				019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				500396ED268D95970006D448 /* ValidationOnboardedCountriesCache.swift in Sources */,
@@ -8044,6 +8051,7 @@
 				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
+				019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */,
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
 				8F5B5C0E26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift in Sources */,
 				5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */,
