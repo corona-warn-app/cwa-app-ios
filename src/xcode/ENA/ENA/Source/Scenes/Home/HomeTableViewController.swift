@@ -607,7 +607,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.onAddDistrict(selectValueViewController)
 			},
 			onDeleteLocalStatistic: { administrativeUnit, district in
-				//
+				// TODO: Handle deletion
 			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
