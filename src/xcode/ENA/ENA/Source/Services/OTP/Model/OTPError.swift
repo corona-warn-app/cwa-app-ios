@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum OTPError: Error, Equatable {
+enum OTPError: Error, Equatable, LocalizedError {
 	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
 	case internalServerError
@@ -51,7 +51,7 @@ enum OTPError: Error, Equatable {
 		}
 	}
 	
-	var errorDescription: String {
+	var errorDescription: String? {
 		switch self {
 		case .noNetworkConnection:
 			return AppStrings.Common.noNetworkConnection
