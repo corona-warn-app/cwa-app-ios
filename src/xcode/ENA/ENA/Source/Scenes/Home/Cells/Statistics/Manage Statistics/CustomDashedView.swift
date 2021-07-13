@@ -59,6 +59,7 @@ class CustomDashedView: UIView {
 			dashBorder.path = UIBezierPath(rect: bounds).cgPath
 		}
 		layer.addSublayer(dashBorder)
+		layer.cornerRadius = cornerRadius
 		self.dashBorder = dashBorder
 	}
 
@@ -77,6 +78,7 @@ class CustomDashedView: UIView {
 			icon.image = UIImage(named: "Icon_Modify")
 			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
+		backgroundColor = .enaColor(for: .backgroundLightGray)
 
 		// ensure we don't assign this one multiple times
 		gestureRecognizers?.forEach { rec in
