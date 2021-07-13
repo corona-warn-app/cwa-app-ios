@@ -143,38 +143,38 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		let nib = UINib(nibName: nibName, bundle: .main)
 
 		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
-			if !stackView.arrangedSubviews.isEmpty {
-				stackView.insertArrangedSubview(statisticsCardView, at: 1)
-				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(administrativeUnitData: adminUnit, district: districtName),
-					onInfoButtonTap: {
-						onInfoButtonTap()
-					},
-					onAccessibilityFocus: { [weak self] in
-						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
-						onAccessibilityFocus()
-						UIAccessibility.post(notification: .layoutChanged, argument: nil)
-					},
-					onDeleteTap: { [weak self] in
-						guard let district = self?.district else {
-							assertionFailure("fix this!")
-							return
-						}
-						Log.info("removing \(private: adminUnit.administrativeUnitShortID, public: "administrative unit") @ \(private: district.districtName, public: "district id")", log: .ui)
-						onDeleteStatistic(adminUnit, district)
-						DispatchQueue.main.async { [weak self] in
-							self?.stackView.removeArrangedSubview(statisticsCardView)
-							statisticsCardView.removeFromSuperview()
+			clearStackView(keepManagementCell: true)
 
-							// update management 'cell' state
-							self?.updateManagementCellState()
-						}
+			stackView.insertArrangedSubview(statisticsCardView, at: 1)
+			statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+			statisticsCardView.configure(
+				viewModel: HomeStatisticsCardViewModel(administrativeUnitData: adminUnit, district: districtName),
+				onInfoButtonTap: {
+					onInfoButtonTap()
+				},
+				onAccessibilityFocus: { [weak self] in
+					self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+					onAccessibilityFocus()
+					UIAccessibility.post(notification: .layoutChanged, argument: nil)
+				},
+				onDeleteTap: { [weak self] in
+					guard let district = self?.district else {
+						assertionFailure("fix this!")
+						return
 					}
-				)
+					Log.info("removing \(private: adminUnit.administrativeUnitShortID, public: "administrative unit") @ \(private: district.districtName, public: "district id")", log: .ui)
+					onDeleteStatistic(adminUnit, district)
+					DispatchQueue.main.async { [weak self] in
+						self?.stackView.removeArrangedSubview(statisticsCardView)
+						statisticsCardView.removeFromSuperview()
 
-				configureBaselines(statisticsCardView: statisticsCardView)
-			}
+						// update management 'cell' state
+						self?.updateManagementCellState()
+					}
+				}
+			)
+
+			configureBaselines(statisticsCardView: statisticsCardView)
 		}
 	}
 
@@ -195,10 +195,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	/// Terrible design but simpler to handle than states passed through n layers of models, view controllers and views…
 	private static var editingStatistics: Bool = false
 
-	private func clearStackView() {
-		stackView.arrangedSubviews.forEach {
-			stackView.removeArrangedSubview($0)
-			$0.removeFromSuperview()
+	private func clearStackView(keepManagementCell: Bool = false) {
+		stackView.arrangedSubviews.enumerated().forEach { index, element in
+			guard index > 0 else { return }
+
+			stackView.removeArrangedSubview(element)
+			element.removeFromSuperview()
 		}
 	}
 	

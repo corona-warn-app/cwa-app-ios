@@ -29,7 +29,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
 		statisticsCell.swipeRight()
-
+		
 		// Management card(s) pt.1 - addition
 		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
 		XCTAssertTrue(statisticsCell.otherElements[addButton].isHittable)
