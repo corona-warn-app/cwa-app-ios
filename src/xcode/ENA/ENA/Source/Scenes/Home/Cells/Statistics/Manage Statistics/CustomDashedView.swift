@@ -22,7 +22,7 @@ class CustomDashedView: UIView {
 		}
 	}
 	@IBInspectable var dashWidth: CGFloat = 2
-	@IBInspectable var dashColor: UIColor = .enaColor(for: .riskNeutral)
+	@IBInspectable var dashColor: UIColor = .enaColor(for: .dashedCardBorder)
 
 	/// Dash pattern - dash length
 	@IBInspectable var dashLength: CGFloat = 5
