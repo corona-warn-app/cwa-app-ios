@@ -203,6 +203,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
 		}
+
+		// reset state
+		Self.editingStatistics = false
 	}
 	
 	private func removeLocalStatisticsCards() {
