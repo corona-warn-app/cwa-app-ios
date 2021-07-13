@@ -135,7 +135,6 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
-		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.clearChildViewController()
