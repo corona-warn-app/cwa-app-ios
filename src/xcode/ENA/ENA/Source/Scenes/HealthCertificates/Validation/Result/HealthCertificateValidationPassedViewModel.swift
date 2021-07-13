@@ -40,7 +40,12 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint3, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint4, spacing: .large),
-					.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation)
+					.dynamicType(
+						text: """
+							<p>\(AppStrings.HealthCertificate.Validation.Result.moreInformation01) <a href="\(AppStrings.Links.healthCertificateValidationFAQ)">\(AppStrings.HealthCertificate.Validation.Result.moreInformation02)</a> \(AppStrings.HealthCertificate.Validation.Result.moreInformation03) <a href="\(AppStrings.Links.healthCertificateValidationEU)">\(AppStrings.Links.healthCertificateValidationEU)</a>.</p>
+							""",
+						cellStyle: .htmlString
+					)
 				]
 			)
 		])
