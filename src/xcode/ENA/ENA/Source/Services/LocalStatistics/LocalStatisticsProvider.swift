@@ -50,6 +50,8 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 
 	private func fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
 		
+		self.selectedLocalStatisticsTuples = []
+
 		// We need to fetch local statistics for N saved districts, so we use dispatch group
 		// to make sure we get the data for N saved districts
 		let localStatisticsGroup = DispatchGroup()

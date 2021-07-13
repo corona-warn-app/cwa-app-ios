@@ -98,6 +98,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.sink { selectedLocalStatistics in
 				Log.debug("update with \(keyFigureCellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
 				
+				self.removeLocalStatisticsCards()
+
 				for singleSelectedLocalStatistics in selectedLocalStatistics {
 					self.insertLocalStatistics(
 						store: store,
@@ -144,6 +146,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
 			if !stackView.arrangedSubviews.isEmpty {
+				statisticsCardView.tag = 2
 				stackView.insertArrangedSubview(statisticsCardView, at: 1)
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 				statisticsCardView.configure(
@@ -200,6 +203,16 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
 		}
+	}
+	
+	private func removeLocalStatisticsCards() {
+		stackView.arrangedSubviews.forEach {
+			if $0.tag == 2 {
+				stackView.removeArrangedSubview($0)
+				$0.removeFromSuperview()
+			}
+		}
+		stackView.layoutIfNeeded()
 	}
 	
 	// swiftlint:disable:next function_parameter_count
