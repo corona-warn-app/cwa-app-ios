@@ -33,6 +33,9 @@ class RootCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
+		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		elsService: ErrorLogSubmissionProviding
 	) {
 		self.delegate = delegate
@@ -43,6 +46,9 @@ class RootCoordinator: RequiresAppDependencies {
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
+		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.elsService = elsService
 	}
 
@@ -90,11 +96,12 @@ class RootCoordinator: RequiresAppDependencies {
 			enStateHandler: enStateHandler,
 			route: route
 		)
-
+	
 		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
 			store: store,
 			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: MockHealthCertificateValidationService(),
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		self.healthCertificatesCoordinator = healthCertificatesCoordinator
@@ -135,7 +142,6 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
-		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.clearChildViewController()
@@ -200,6 +206,9 @@ class RootCoordinator: RequiresAppDependencies {
 	private let ppacService: PrivacyPreservingAccessControl
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
@@ -210,17 +219,6 @@ class RootCoordinator: RequiresAppDependencies {
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
-
-	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
-		#if DEBUG
-		if isUITesting {
-			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
-		}
-		#endif
-
-		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
-	}
-
 }
 
 // MARK: - Protocol ExposureStateUpdating
