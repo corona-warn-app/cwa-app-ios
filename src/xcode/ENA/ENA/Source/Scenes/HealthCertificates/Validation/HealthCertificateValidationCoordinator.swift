@@ -12,7 +12,7 @@ final class HealthCertificateValidationCoordinator {
 	init(
 		parentViewController: UIViewController,
 		healthCertificate: HealthCertificate,
-		countries: [Country],
+		countries: [ValidationCountryCode],
 		store: HealthCertificateStoring,
 		healthCertificateValidationService: HealthCertificateValidationProviding
 	) {
@@ -36,7 +36,7 @@ final class HealthCertificateValidationCoordinator {
 	private var navigationController: UINavigationController!
 
 	private let healthCertificate: HealthCertificate
-	private let countries: [Country]
+	private let countries: [ValidationCountryCode]
 	private let store: HealthCertificateStoring
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 

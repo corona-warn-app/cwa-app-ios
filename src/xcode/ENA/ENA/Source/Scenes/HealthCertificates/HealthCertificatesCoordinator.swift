@@ -335,7 +335,7 @@ final class HealthCertificatesCoordinator {
 
 	private func showValidationFlow(
 		healthCertificate: HealthCertificate,
-		countries: [Country]
+		countries: [ValidationCountryCode]
 	) {
 		validationCoordinator = HealthCertificateValidationCoordinator(
 			parentViewController: modalNavigationController,
