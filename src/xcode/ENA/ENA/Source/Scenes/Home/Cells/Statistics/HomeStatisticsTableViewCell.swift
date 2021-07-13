@@ -25,6 +25,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
+		Self.editingStatistics = editing
+		
 		stackView.arrangedSubviews.forEach { view in
 			let card = view as? HomeStatisticsCardView
 			card?.setEditMode(editing, animated: animated)
@@ -206,7 +208,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		// reset state
-		Self.editingStatistics = false
+		setEditing(false, animated: true)
 	}
 	
 	private func removeLocalStatisticsCards() {
@@ -248,6 +250,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				availableCardsState: LocalStatisticsState.with(store),
 				onAddStateButtonTap: { selectValueViewController in
 					onAddLocalStatisticsButtonTap(selectValueViewController)
+					// reset state
+					self.setEditing(false, animated: true)
 				}, onAddDistrict: { selectValueViewController in
 					onAddDistrict(selectValueViewController)
 				}, onDismissState: {
@@ -258,7 +262,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					self.district = district
 					onFetchGroupData(district)
 				}, onEditButtonTap: {
-					Self.editingStatistics.toggle()
+					self.setEditing(!Self.editingStatistics, animated: true)
 					// Pass the current state to the tableViewController
 					onToggleEditMode(Self.editingStatistics)
 				}, onAccessibilityFocus: {
