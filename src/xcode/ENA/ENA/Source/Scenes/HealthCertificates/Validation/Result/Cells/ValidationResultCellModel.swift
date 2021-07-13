@@ -48,9 +48,9 @@ final class ValidationResultCellModel {
 	var iconImage: UIImage? {
 		switch validationResult.result {
 		case .fail:
-			return UIImage(named: "Icon_CertificateValidation_Failed")
+			return UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Failed")
 		case .open:
-			return UIImage(named: "Icon_CertificateValidation_Open")
+			return UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Open")
 		case .passed:
 			return nil
 		}
@@ -78,6 +78,60 @@ final class ValidationResultCellModel {
 		case .none:
 			return nil
 		}
+	}
+
+	var keyValueAttributedString: NSAttributedString {
+		keyValuePairs.map { (key: String, value: String?) -> NSAttributedString in
+			NSAttributedString(attributedString: [keyFormatterAttributedString(key: key), valueFormatterAttributedString(value: value)].joined(with: "\n"))
+		}.joined(with: "\n")
+	}
+
+	func updateKeyValuePairs(vaccinationEntry: VaccinationEntry) {
+		var keyValuePairs = [(key: String, value: String?)]()
+
+		validationResult.rule?.affectedString.forEach {
+			if let keyPath = vaccinationEntryKeyPaths[$0],
+			   let title = vaccinationEntry.title(for: keyPath),
+			   let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+				keyValuePairs.append((key: title, value: formattedValue))
+			}
+		}
+
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+
+		self.keyValuePairs = keyValuePairs
+	}
+
+	func updateKeyValuePairs(testEntry: TestEntry) {
+		var keyValuePairs = [(key: String, value: String?)]()
+
+		validationResult.rule?.affectedString.forEach {
+			if let keyPath = testEntryKeyPaths[$0],
+			   let title = testEntry.title(for: keyPath),
+			   let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+				keyValuePairs.append((key: title, value: formattedValue))
+			}
+		}
+
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+
+		self.keyValuePairs = keyValuePairs
+	}
+
+	func updateKeyValuePairs(recoveryEntry: RecoveryEntry) {
+		var keyValuePairs = [(key: String, value: String?)]()
+
+		validationResult.rule?.affectedString.forEach {
+			if let keyPath = recoveryEntryKeyPaths[$0],
+			   let title = recoveryEntry.title(for: keyPath),
+			   let formattedValue = recoveryEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+				keyValuePairs.append((key: title, value: formattedValue))
+			}
+		}
+
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+
+		self.keyValuePairs = keyValuePairs
 	}
 
 	@DidSetPublished var keyValuePairs = [(key: String, value: String?)]()
@@ -142,52 +196,27 @@ final class ValidationResultCellModel {
 		}
 	}
 
-	func updateKeyValuePairs(vaccinationEntry: VaccinationEntry) {
-		var keyValuePairs = [(key: String, value: String?)]()
-
-		validationResult.rule?.affectedString.forEach {
-			if let keyPath = vaccinationEntryKeyPaths[$0],
-			   let title = vaccinationEntry.title(for: keyPath),
-			   let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets) {
-				keyValuePairs.append((key: title, value: formattedValue))
-			}
-		}
-
-		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
-
-		self.keyValuePairs = keyValuePairs
+	private func keyFormatterAttributedString(key: String) -> NSAttributedString {
+		let spaceParagraphStyle = NSMutableParagraphStyle()
+		spaceParagraphStyle.paragraphSpacingBefore = 16.0
+		spaceParagraphStyle.lineHeightMultiple = 0.8
+		return NSAttributedString(
+			string: key,
+			attributes: [
+				.font: UIFont.enaFont(for: .footnote) ,
+				.foregroundColor: UIColor.enaColor(for: .textPrimary2),
+				.paragraphStyle: spaceParagraphStyle
+			]
+		)
 	}
 
-	func updateKeyValuePairs(testEntry: TestEntry) {
-		var keyValuePairs = [(key: String, value: String?)]()
-
-		validationResult.rule?.affectedString.forEach {
-			if let keyPath = testEntryKeyPaths[$0],
-			   let title = testEntry.title(for: keyPath),
-			   let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets) {
-				keyValuePairs.append((key: title, value: formattedValue))
-			}
-		}
-
-		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
-
-		self.keyValuePairs = keyValuePairs
-	}
-
-	func updateKeyValuePairs(recoveryEntry: RecoveryEntry) {
-		var keyValuePairs = [(key: String, value: String?)]()
-
-		validationResult.rule?.affectedString.forEach {
-			if let keyPath = recoveryEntryKeyPaths[$0],
-			   let title = recoveryEntry.title(for: keyPath),
-			   let formattedValue = recoveryEntry.formattedValue(for: keyPath, valueSets: valueSets) {
-				keyValuePairs.append((key: title, value: formattedValue))
-			}
-		}
-
-		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
-
-		self.keyValuePairs = keyValuePairs
+	private func valueFormatterAttributedString(value: String?) -> NSAttributedString {
+		return NSAttributedString(
+			string: value ?? "",
+			attributes: [
+				.font: UIFont.enaFont(for: .subheadline) ,
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1)			]
+		)
 	}
 
 }
