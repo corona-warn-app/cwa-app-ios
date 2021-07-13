@@ -60,14 +60,9 @@ class VaccinationValueSetsProvider: VaccinationValueSetsProviding {
 					default:
 						break
 					}
-					
-					if cachedFallback {
-						// return cached if it exists
-						if let cachedValuesSets = self.store.vaccinationCertificateValueDataSets {
-							promise(.success(cachedValuesSets.valueDataSets))
-						} else {
-							promise(.failure(error))
-						}
+					// return cached if it exists
+					if cachedFallback, let cachedValuesSets = self.store.vaccinationCertificateValueDataSets {
+						promise(.success(cachedValuesSets.valueDataSets))
 					} else {
 						promise(.failure(error))
 					}
