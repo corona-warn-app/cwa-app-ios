@@ -41,7 +41,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		didSet {
 			datePicker.isHidden = isCollapsed
 			infoStackView.isHidden = !isCollapsed
-			seperator.isHidden = isCollapsed
+			separator.isHidden = isCollapsed
 			selectedDateTimeLabel.textColor = isCollapsed ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		}
 	}
@@ -135,7 +135,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		return datePicker
 	}()
 
-	private lazy var seperator: UIView = {
+	private lazy var separator: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = .enaColor(for: .hairline)
@@ -169,13 +169,13 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		infoStackView.addArrangedSubview(infoLabel)
 		infoStackView.addArrangedSubview(infoButton)
 
-		cardContainer.addSubview(seperator)
+		cardContainer.addSubview(separator)
 
 		NSLayoutConstraint.activate([
-			seperator.heightAnchor.constraint(equalToConstant: 1),
-			seperator.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor),
-			seperator.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor),
-			seperator.topAnchor.constraint(equalTo: selectedDateTimeStackView.bottomAnchor, constant: 8)
+			separator.heightAnchor.constraint(equalToConstant: 1),
+			separator.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor),
+			separator.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor),
+			separator.topAnchor.constraint(equalTo: selectedDateTimeStackView.bottomAnchor, constant: 8)
 		])
 	}
 

@@ -13,6 +13,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		self.base45 = base45
 		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
+		self.keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
 	// MARK: - Protocol Codable
@@ -28,6 +29,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 
 		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
+		self.keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -63,7 +65,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	let base45: Base45
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
-	let keyIdentifier: String = "TODO Dummy key"
+	let keyIdentifier: String?
 	
 	var version: String {
 		digitalCovidCertificate.version
@@ -194,4 +196,15 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		}
 	}
 
+	private static func extractKeyIdentifier(from base45: Base45) -> Base64? {
+		let certificateResult = DigitalCovidCertificateAccess().extractKeyIdentifier(from: base45)
+
+		switch certificateResult {
+		case .success(let keyIdentifier):
+			return keyIdentifier
+		case .failure(let error):
+			Log.error("Failed to decode key identifier (kid) with error", log: .vaccination, error: error)
+			return nil
+		}
+	}
 }

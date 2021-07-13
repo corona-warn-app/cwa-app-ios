@@ -66,7 +66,7 @@ final class HealthCertificateValidationCoordinator {
 
 				self.healthCertificateValidationService.validate(
 					healthCertificate: self.healthCertificate,
-					arrivalCountry: arrivalCountry.id,
+					arrivalCountry: arrivalCountry,
 					validationClock: arrivalDate
 				) { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
