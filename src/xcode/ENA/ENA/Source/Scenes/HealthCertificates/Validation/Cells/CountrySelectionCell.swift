@@ -41,7 +41,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	var isCollapsed: Bool = true {
 		didSet {
 			picker.isHidden = isCollapsed
-			seperator.isHidden = isCollapsed
+			separator.isHidden = isCollapsed
 			selectedCountryLabel.textColor = isCollapsed ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		}
 	}
@@ -95,7 +95,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		return picker
 	}()
 
-	private lazy var seperator: UIView = {
+	private lazy var separator: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = .enaColor(for: .hairline)
@@ -125,13 +125,13 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 		selectedCountryStackView.addArrangedSubview(selectedCountryTitle)
 		selectedCountryStackView.addArrangedSubview(selectedCountryLabel)
 
-		cardContainer.addSubview(seperator)
+		cardContainer.addSubview(separator)
 
 		NSLayoutConstraint.activate([
-			seperator.heightAnchor.constraint(equalToConstant: 1),
-			seperator.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor),
-			seperator.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor),
-			seperator.topAnchor.constraint(equalTo: selectedCountryStackView.bottomAnchor, constant: 8)
+			separator.heightAnchor.constraint(equalToConstant: 1),
+			separator.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor),
+			separator.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor),
+			separator.topAnchor.constraint(equalTo: selectedCountryStackView.bottomAnchor, constant: 8)
 		])
 	}
 

@@ -72,7 +72,3 @@ class ENAUITests_42_ValidateHealthCertificate: CWATestCase {
 		snapshot("screenshot_certificate_validation_date_selection")
 	}
 }
-
-extension XCUIGestureVelocity {
-	public static let justATinyBit: XCUIGestureVelocity = 0.3
-}

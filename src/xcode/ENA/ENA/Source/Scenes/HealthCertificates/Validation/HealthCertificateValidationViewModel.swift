@@ -67,14 +67,10 @@ final class HealthCertificateValidationViewModel {
 						text: AppStrings.HealthCertificate.Validation.headline2,
 						accessibilityIdentifier: ""
 					),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet1),
-					.space(height: 8),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet2),
-					.space(height: 8),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet3),
-					.space(height: 8),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet4),
-					.space(height: 8),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet1, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet2, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet3, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet4, spacing: .large),
 					.body(
 						text: AppStrings.HealthCertificate.Validation.body3,
 						style: .textView(.link),
