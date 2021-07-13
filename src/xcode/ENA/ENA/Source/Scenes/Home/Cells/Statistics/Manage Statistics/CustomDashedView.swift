@@ -36,8 +36,10 @@ class CustomDashedView: UIView {
 
 	class func instance(for mode: Mode) -> CustomDashedView {
 		let nibName = String(describing: Self.self)
-		// swiftlint:disable:next force_cast
-		let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! CustomDashedView
+
+		guard let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomDashedView else {
+			fatalError("Could not initialize CustomDashedView")
+		}
 		view.configure(for: mode)
 		return view
 	}
