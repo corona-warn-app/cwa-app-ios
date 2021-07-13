@@ -8,7 +8,7 @@ import HealthCertificateToolkit
 
 struct MockHealthCertificateValidationService: HealthCertificateValidationProviding {
 
-	var onboardedCountriesResult: Result<[Country], ValidationOnboardedCountriesError> = .success(
+	var onboardedCountriesResult: Result<[Country], HealthCertificateValidationOnboardedCountriesError> = .success(
 		[
 			Country(countryCode: "DE"),
 			Country(countryCode: "IT"),
@@ -16,10 +16,10 @@ struct MockHealthCertificateValidationService: HealthCertificateValidationProvid
 		].compactMap { $0 }
 	)
 
-	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationPassed)
+	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationPassed([]))
 
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
 	) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			completion(onboardedCountriesResult)
