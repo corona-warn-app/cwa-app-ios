@@ -36,6 +36,7 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		ruleTypeDescriptionLabel.text = cellModel.ruleTypeDescription
 
 		cellModel.$keyValuePairs
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] keyValuePairs in
 				self?.keyValuePairsStackView.arrangedSubviews.forEach {
 					self?.keyValuePairsStackView.removeArrangedSubview($0)
