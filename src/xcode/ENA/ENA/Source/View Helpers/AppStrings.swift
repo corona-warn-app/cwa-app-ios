@@ -32,6 +32,7 @@ enum AppStrings {
 		static let deadmanAlertTitle = NSLocalizedString("Common_Deadman_AlertTitle", comment: "")
 		static let deadmanAlertBody = NSLocalizedString("Common_Deadman_AlertBody", comment: "")
 		static let tessRelayDescription = NSLocalizedString("Common_Tess_Relay_Description", comment: "")
+		static let noNetworkConnection = NSLocalizedString("Common_No_Network", comment: "")
 	}
 
 	enum Links {
@@ -1125,24 +1126,20 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.5 */
+		/* Version 2.6 */
 		
-		static let feature25RecoveryCertTitle = NSLocalizedString("NewVersionFeature_25_recovery_cert_title", comment: "")
+		static let feature26EuCertCheckTitle = NSLocalizedString("NewVersionFeature_26_euCertCheck_title", comment: "")
 		
-		static let feature25tRecoveryCertDescription = NSLocalizedString("NewVersionFeature_25_recovery_cert_description", comment: "")
+		static let feature26EuCertCheckDescription = NSLocalizedString("NewVersionFeature_26_euCertCheck_description", comment: "")
 		
-		static let feature25FamilyCertTitle = NSLocalizedString("NewVersionFeature_25_family_certificate_title", comment: "")
+		static let feature26EnhancedStatsTitle = NSLocalizedString("NewVersionFeature_26_enhancedStats_title", comment: "")
 		
-		static let feature25FamilyCertDescription = NSLocalizedString("NewVersionFeature_25_family_certificate_description", comment: "")
+		static let feature26DEnhancedStatsDescription = NSLocalizedString("NewVersionFeature_26_enhancedStats_description", comment: "")
 		
-		static let feature25EnhancedStatisticsTitle = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_title", comment: "")
+		static let feature26EditRapidTestTitle = NSLocalizedString("NewVersionFeature_26_editRapidTestProfile_title", comment: "")
 		
-		static let feature25EnhancedStatisticsDescription = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_description", comment: "")
+		static let feature26EditRapidTestDescription = NSLocalizedString("NewVersionFeature_26_editRapidTestProfile_description", comment: "")
 		
-		static let feature25EditTestProfileTitle = NSLocalizedString("NewVersionFeature_25_edit_test_profile_title", comment: "")
-		
-		static let feature25tEditTestProfileDescription = NSLocalizedString("NewVersionFeature_25_edit_test_profile_description", comment: "")
-
 	}
 	
 	enum DeltaOnboarding {
