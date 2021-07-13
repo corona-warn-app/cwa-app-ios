@@ -108,6 +108,11 @@ final class HealthCertificateValidationCoordinator {
 					}
 				}
 			},
+			onDisclaimerButtonTap: { [weak self] in
+				let htmlViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+				htmlViewController.title = AppStrings.AppInformation.privacyTitle
+				self?.navigationController.pushViewController(htmlViewController, animated: true)
+			},
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
 			},
