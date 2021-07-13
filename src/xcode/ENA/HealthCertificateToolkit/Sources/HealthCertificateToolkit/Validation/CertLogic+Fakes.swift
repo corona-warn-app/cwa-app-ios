@@ -5,8 +5,9 @@
 import CertLogic
 import SwiftyJSON
 import Foundation
+import SwiftCBOR
 
-extension Rule {
+public extension Rule {
 
     static func fake(
         identifier: String = "GR-CZ-0001",
@@ -43,15 +44,65 @@ public extension ExternalParameter {
 
     static func fake(
         validationClock: Date = Date(),
-        valueSets: [String: [String]] = ["": [""]],
-        countryCode: String = "CZ",
-        issueCountryCode: String = "DE",
+        valueSets: [String: [String]] = [:],
         exp: Date = Date(),
         iat: Date = Date(),
-        certificationType: CertificateType = .general,
-        kid: String? = nil,
-        region: String? = nil
+        issuerCountryCode: String = "DE",
+        kid: String? = nil
     ) -> ExternalParameter {
-        ExternalParameter(validationClock: validationClock, valueSets: valueSets, countryCode: countryCode, exp: exp, iat: iat, certificationType: certificationType, issueCountryCode: issueCountryCode)
+        ExternalParameter(validationClock: validationClock, valueSets: valueSets, exp: exp, iat: iat, issuerCountryCode: issuerCountryCode, kid: kid)
     }
+}
+
+public extension FilterParameter {
+
+    static func fake(
+        validationClock: Date = Date(),
+        countryCode: String = "DE",
+        certificationType: CertificateType = .vaccination,
+        region: String? = nil
+    ) -> FilterParameter {
+        FilterParameter(validationClock: validationClock, countryCode: countryCode, certificationType: certificationType, region: region)
+    }
+}
+
+public extension ValidationResult {
+    
+    static func fake(
+        rule: Rule = Rule.fake(),
+        result: CertLogic.Result = .passed,
+        validationErrors: [Error] = []
+    ) -> ValidationResult {
+        ValidationResult(rule: rule, result: result, validationErrors: validationErrors)
+    }
+}
+
+public var onboardedCountriesCBORDataFake: Data {
+    let cborCountries = CBOR.array(
+        [
+            CBOR.utf8String("DE"),
+            CBOR.utf8String("FR")
+        ]
+    )
+    return Data(cborCountries.encode())
+}
+
+public var onboardedCountriesCorruptCBORDataFake: Data {
+    let cborCountries = CBOR.array(
+        [
+            CBOR.null,
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(cborCountries.encode())
+}
+
+public func rulesCBORDataFake() throws -> Data {
+    let rules = [
+        Rule.fake(),
+        Rule.fake(),
+        Rule.fake()
+    ]
+
+    return try CodableCBOREncoder().encode(rules)
 }
