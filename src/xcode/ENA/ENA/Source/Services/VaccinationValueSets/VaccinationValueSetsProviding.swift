@@ -6,7 +6,10 @@ import Foundation
 import OpenCombine
 
 protocol VaccinationValueSetsProviding {
+	/// Proofs before fetching if we have cached something and returns this. Otherwise, it fetches from server. If the server returns 304 (not modified), we take again the cached value sets and return them.
 	func latestVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error>
+	/// Fetches every time from server regardless of something cached. If the server returns 304 (not modified), we take again the cached value sets and return them.
+	func fetchVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error>
 }
 
 protocol VaccinationValueSetsFetching {
