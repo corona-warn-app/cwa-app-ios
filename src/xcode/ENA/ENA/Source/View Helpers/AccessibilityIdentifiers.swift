@@ -432,6 +432,10 @@ enum AccessibilityIdentifiers {
 
 	}
 	
+	enum ExposureSubmissionTestResultConsent {
+		static let switchIdentifier = "ExposureSubmissionTestResultConsent.SwitchIdentifier"
+	}
+	
 	enum ExposureSubmissionTestResultAvailable {
 		static let primaryButton = "AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle"
 	}
