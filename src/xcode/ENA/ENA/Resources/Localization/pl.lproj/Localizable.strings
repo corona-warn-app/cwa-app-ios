@@ -485,7 +485,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Błąd";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Zarejestruj test";
+"ExposureSubmission_DispatchTitle" = "Zarządzaj testami";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
 
@@ -506,6 +506,10 @@
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Poproś o TAN do testu PCR";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Zadzwoń i odbierz numer TAN do testu PCR.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Znajdź ośrodek testujący";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Poproś o TAN do testu PCR";
@@ -934,7 +938,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Przed budynkiem stoi kobieta ze smartfonem w dłoni. Kod QR symbolizuje profil szybkiego testu do zeskanowania.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Dzięki utworzeniu profilu szybkiego testu, nie będziesz musiał(a) ponownie wypełniać swoich danych osobowych przed wykonaniem szybkiego testu.";
 
@@ -953,12 +957,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Kontynuuj";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Usuń profil szybkiego testu";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edytuj";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Utwórz profil szybkiego testu";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil szybkiego testu";
 
@@ -1257,11 +1261,11 @@
 "Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Usuń";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Zarejestruj test";
+"Home_TestRegistration_Title" = "Zarządzaj testami";
 
-"Home_TestRegistration_Body" = "Aplikacji możesz używać do rejestrowania testów i pobierania ich wyników, aby szybciej ostrzegać innych. Za jej pośrednictwem możesz także poprosić o wydanie certyfikatu testu na COVID.";
+"Home_TestRegistration_Body" = "Znajdź ośrodki testujące w pobliżu i zarejestruj test, aby móc szybciej ostrzegać innych, lub poproś o wydanie cyfrowego certyfikatu testu na COVID.";
 
-"Home_TestRegistration_Button" = "Następne kroki";
+"Home_TestRegistration_Button" = "Kontynuuj";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Planujesz wydarzenie?";
@@ -2486,7 +2490,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Profil szybkiego testu";
 
-"AntigenProfile_Create_Description" = "Możesz utworzyć profil ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
+"AntigenProfile_Create_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Imię";
 
@@ -2507,6 +2511,14 @@
 "AntigenProfile_Create_Save_Button_Title" = "Zapisz";
 
 /* Antigen Profile */
+"AntigenProfile_Info_Action_Title" = "Informacje";
+
+"AntigenProfile_Edit_Action_Title" = "Edytuj profil szybkiego testu";
+
+"AntigenProfile_Delete_Action_Title" = "Usuń profil szybkiego testu";
+
+"AntigenProfile_Cancel_Action_Title" = "Anuluj";
+
 "AntigenProfile_Delete_Alert_Title" = "Czy chcesz usunąć profil szybkiego testu?";
 
 "AntigenProfile_Delete_Alert_Description" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być już używany do rejestracji.";
@@ -2623,6 +2635,8 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Kod QR z aktualnym certyfikatem";
 
+"HealthCertifiedPerson_validationButtonTitle" = "Sprawdź ważność";
+
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Certyfikat szczepienia";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Szczepienie %i %i";
@@ -2672,19 +2686,22 @@
 
 "HealthCertificate_Details_identifier" = "Numer certyfikatu";
 
-"HealthCertificate_Details_primaryButton" = "Usuń certyfikat szczepienia";
+"HealthCertificate_Details_validationButtonTitle" = "Sprawdź ważność";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Usuń certyfikat szczepienia";
 
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Jest to szczepionka, która wymaga tylko jednej dawki lub szczepionka dla ozdrowieńca, który potrzebuje tylko jednej dawki.";
 
-/* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Czy chcesz usunąć certyfikat  szczepienia?";
-
-"HealthCertificate_Alert_message" = "Jeśli usuniesz certyfikat szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
-
+/* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Usuń";
 
 "HealthCertificate_Alert_cancelButton" = "Anuluj";
+
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Czy chcesz usunąć certyfikat szczepienia?";
+
+"VaccinationCertificate_Alert_message" = "Jeśli usuniesz certyfikat szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certyfikat testu";
@@ -2702,10 +2719,6 @@
 
 "TestCertificate_Alert_message" = "Po usunięciu certyfikatu testu jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
 
-"TestCertificate_Alert_deleteButton" = "Usuń";
-
-"TestCertificate_Alert_cancelButton" = "Anuluj";
-
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certyfikat statusu ozdrowieńca";
 
@@ -2717,10 +2730,6 @@
 "RecoveryCertificate_Alert_title" = "Czy chcesz usunąć certyfikat statusu ozdrowieńca?";
 
 "RecoveryCertificate_Alert_message" = "Po usunięciu certyfikatu statusu ozdrowieńca jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Usuń";
-
-"RecoveryCertificate_Alert_cancelButton" = "Anuluj";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
@@ -2736,4 +2745,11 @@
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Ten certyfikat nie jest obsługiwany.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Kod QR nie mógł zostać wygenerowany. Jeśli błąd będzie nadal występować, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Walidacja nie powiodła się";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Nastąpiła utrata połączenia z Internetem. Aby zakończyć sprawdzanie ważności certyfikatu, sprawdź połączenie i spróbuj ponownie.";
 

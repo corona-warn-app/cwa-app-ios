@@ -406,4 +406,41 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 		XCTAssertNotNil(expectedOtpError)
 		XCTAssertEqual(expectedOtpError, .invalidResponseError)
 	}
+	
+	func testGIVEN_AuthorizeOTP_WHEN_NoNetworkConnection_THEN_NetworkErrorReturned() {
+		// GIVEN
+		let notConnectedError = NSError(
+			domain: NSURLErrorDomain,
+			code: NSURLErrorNotConnectedToInternet,
+			userInfo: nil
+		)
+
+		let session = MockUrlSession(
+			data: nil,
+			nextResponse: nil,
+			error: notConnectedError
+		)
+
+		let stack = MockNetworkStack(
+			mockSession: session
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		let otp = "OTPFake"
+		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+
+		// WHEN
+		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("success should not be called")
+			case .failure(let otpError):
+				XCTAssertEqual(otpError, .noNetworkConnection)
+			}
+			expectation.fulfill()
+		})
+
+		// THEN
+		waitForExpectations(timeout: expectationsTimeout)
+	}
 }

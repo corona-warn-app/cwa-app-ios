@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum OTPError: Error, Equatable {
+enum OTPError: Error, Equatable, LocalizedError {
 	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
 	case internalServerError
@@ -16,6 +16,7 @@ enum OTPError: Error, Equatable {
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
+	case noNetworkConnection
 
 	var description: String {
 		switch self {
@@ -45,6 +46,17 @@ enum OTPError: Error, Equatable {
 			return "deviceTokenRedeemed"
 		case .deviceTokenSyntaxError:
 			return "deviceTokenSyntaxError"
+		case .noNetworkConnection:
+			return "noNetworkConnection"
+		}
+	}
+	
+	var errorDescription: String? {
+		switch self {
+		case .noNetworkConnection:
+			return AppStrings.Common.noNetworkConnection
+		default:
+			return localizedDescription
 		}
 	}
 
