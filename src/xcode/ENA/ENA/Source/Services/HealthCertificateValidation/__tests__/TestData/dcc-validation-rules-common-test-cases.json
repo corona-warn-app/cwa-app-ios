@@ -1,127 +1,127 @@
 {
-  "general" : {
-    "valueSetProtocolBuffer" : "Cm8KJQoKMTExOTM0OTAwNxIXU0FSUy1Db1YtMiBtUk5BIHZhY2NpbmUKKAoKMTExOTMwNTAwNRIaU0FSUy1Db1YtMiBhbnRpZ2VuIHZhY2NpbmUKHAoHSjA3QlgwMxIRY292aWQtMTkgdmFjY2luZXMSmQMKGQoMRVUvMS8yMC8xNTI4EglDb21pcm5hdHkKKAoMRVUvMS8yMC8xNTA3EhhDT1ZJRC0xOSBWYWNjaW5lIE1vZGVybmEKGQoMRVUvMS8yMS8xNTI5EglWYXh6ZXZyaWEKKAoMRVUvMS8yMC8xNTI1EhhDT1ZJRC0xOSBWYWNjaW5lIEphbnNzZW4KEAoGQ1ZuQ29WEgZDVm5Db1YKFgoJU3B1dG5pay1WEglTcHV0bmlrLVYKGAoKQ29udmlkZWNpYRIKQ29udmlkZWNpYQocCgxFcGlWYWNDb3JvbmESDEVwaVZhY0Nvcm9uYQoYCgpCQklCUC1Db3JWEgpCQklCUC1Db3JWCkYKIEluYWN0aXZhdGVkLVNBUlMtQ29WLTItVmVyby1DZWxsEiJJbmFjdGl2YXRlZCBTQVJTLUNvVi0yIChWZXJvIENlbGwpChYKCUNvcm9uYVZhYxIJQ29yb25hVmFjCjEKB0NvdmF4aW4SJkNvdmF4aW4gKGFsc28ga25vd24gYXMgQkJWMTUyIEEsIEIsIEMpGqkFCh8KDU9SRy0xMDAwMDE2OTkSDkFzdHJhWmVuZWNhIEFCCiwKDU9SRy0xMDAwMzAyMTUSG0Jpb250ZWNoIE1hbnVmYWN0dXJpbmcgR21iSAosCg1PUkctMTAwMDAxNDE3EhtKYW5zc2VuLUNpbGFnIEludGVybmF0aW9uYWwKKwoNT1JHLTEwMDAzMTE4NBIaTW9kZXJuYSBCaW90ZWNoIFNwYWluIFMuTC4KGwoNT1JHLTEwMDAwNjI3MBIKQ3VyZXZhYyBBRwoiCg1PUkctMTAwMDEzNzkzEhFDYW5TaW5vIEJpb2xvZ2ljcwpHCg1PUkctMTAwMDIwNjkzEjZDaGluYSBTaW5vcGhhcm0gSW50ZXJuYXRpb25hbCBDb3JwLiAtIEJlaWppbmcgbG9jYXRpb24KUQoNT1JHLTEwMDAxMDc3MRJAU2lub3BoYXJtIFdlaXFpZGEgRXVyb3BlIFBoYXJtYWNldXRpY2FsIHMuci5vLiAtIFByYWd1ZSBsb2NhdGlvbgpYCg1PUkctMTAwMDI0NDIwEkdTaW5vcGhhcm0gWmhpanVuIChTaGVuemhlbikgUGhhcm1hY2V1dGljYWwgQ28uIEx0ZC4gLSBTaGVuemhlbiBsb2NhdGlvbgoeCg1PUkctMTAwMDMyMDIwEg1Ob3ZhdmF4IENaIEFTCjoKG0dhbWFsZXlhLVJlc2VhcmNoLUluc3RpdHV0ZRIbR2FtYWxleWEgUmVzZWFyY2ggSW5zdGl0dXRlCiQKEFZlY3Rvci1JbnN0aXR1dGUSEFZlY3RvciBJbnN0aXR1dGUKIgoPU2lub3ZhYy1CaW90ZWNoEg9TaW5vdmFjIEJpb3RlY2gKIAoOQmhhcmF0LUJpb3RlY2gSDkJoYXJhdCBCaW90ZWNoIhcKFQoJODQwNTM5MDA2EghDT1ZJRC0xOSpeCjsKCExQNjQ2NC00Ei9OdWNsZWljIGFjaWQgYW1wbGlmaWNhdGlvbiB3aXRoIHByb2JlIGRldGVjdGlvbgofCgpMUDIxNzE5OC0zEhFSYXBpZCBpbW11bm9hc3NheTLyDQo5CgQxMjMyEjFBYmJvdHQgUmFwaWQgRGlhZ25vc3RpY3MsIFBhbmJpbyBDT1ZJRC0xOSBBZyBUZXN0CkAKBDEzMDQSOEFNRURBIExhYm9yZGlhZ25vc3RpayBHbWJILCBBTVAgUmFwaWQgVGVzdCBTQVJTLUNvVi0yIEFnCkYKBDEwNjUSPkJlY3RvbiBEaWNraW5zb24sIFZlcml0b3IgU3lzdGVtIFJhcGlkIERldGVjdGlvbiBvZiBTQVJTLUNvVi0yClMKBDEzMzESS0JlaWppbmcgTGVwdSBNZWRpY2FsIFRlY2hub2xvZ3kgQ28uLCBMdGQsIFNBUlMtQ29WLTIgQW50aWdlbiBSYXBpZCBUZXN0IEtpdAplCgQxNDg0El1CZWlqaW5nIFdhbnRhaSBCaW9sb2dpY2FsIFBoYXJtYWN5IEVudGVycHJpc2UgQ28uLCBMdGQsIFdhbnRhaSBTQVJTLUNvVi0yIEFnIFJhcGlkIFRlc3QgKEZJQSkKLwoEMTI0MhInQmlvbm90ZSwgSW5jLCBOb3dDaGVjayBDT1ZJRC0xOSBBZyBUZXN0CjMKBDEyMjMSK0JJT1NZTkVYIFNXSVNTIFNBLCBCSU9TWU5FWCBDT1ZJRC0xOSBBZyBCU1MKOgoEMTE3MxIyQ2VyVGVzdCBCaW90ZWMsIFMuTC4sIENlclRlc3QgU0FSUy1Db1YtMiBDYXJkIHRlc3QKLgoEMTI0NBImR2VuQm9keSwgSW5jLCBHZW5ib2R5IENPVklELTE5IEFnIFRlc3QKPwoEMTM2MBI3R3Vhbmdkb25nIFdlc2FpbCBCaW90ZWNoIENvLiwgTHRkLCBDT1ZJRC0xOSBBZyBUZXN0IEtpdApLCgQxMzYzEkNIYW5nemhvdSBDbG9uZ2VuZSBCaW90ZWNoIENvLiwgTHRkLCBDb3ZpZC0xOSBBbnRpZ2VuIFJhcGlkIFRlc3QgS2l0ClgKBDE3NjcSUEhlYWxnZW4gU2NpZW50aWZpYyBMaW1pdGVkIExpYWJpbGl0eSBDb21wYW55LCBDb3JvbmF2aXJ1cyBBZyBSYXBpZCBUZXN0IENhc3NldHRlCl0KBDEzMzMSVUpvaW5zdGFyIEJpb21lZGljYWwgVGVjaG5vbG9neSBDby4sIEx0ZCwgQ09WSUQtMTkgUmFwaWQgQW50aWdlbiBUZXN0IChDb2xsb2lkYWwgR29sZCkKNAoEMTI2OBIsTHVtaXJhRFggVUsgTHRkLCBMdW1pcmFEeCBTQVJTLUNvVi0yIEFnIFRlc3QKOQoEMTE4MBIxTUVEc2FuIEdtYkgsIE1FRHNhbiBTQVJTLUNvVi0yIEFudGlnZW4gUmFwaWQgVGVzdApHCgQxNDgxEj9NUCBCaW9tZWRpY2FscyBHZXJtYW55IEdtYkgsIFJhcGlkIFNBUlMtQ29WLTIgQW50aWdlbiBUZXN0IENhcmQKMwoEMTE2MhIrTmFsIHZvbiBtaW5kZW4gR21iSCwgTkFEQUwgQ09WSUQtMTkgQWcgVGVzdAozCgQxMjcxEitQcmVjaXNpb24gQmlvc2Vuc29yLCBJbmMsIEV4ZGlhIENPVklELTE5IEFnCl4KBDEzNDESVlFpbmdkYW8gSGlnaHRvcCBCaW90ZWNoIENvLiwgTHRkLCBTQVJTLUNvVi0yIEFudGlnZW4gUmFwaWQgVGVzdCAoSW1tdW5vY2hyb21hdG9ncmFwaHkpCjIKBDEwOTcSKlF1aWRlbCBDb3Jwb3JhdGlvbiwgU29maWEgU0FSUyBBbnRpZ2VuIEZJQQpTCgQxNDg5EktTYWZlY2FyZSBCaW90ZWNoIChIYW5nemhvdSkgQ28uIEx0ZCwgQ09WSUQtMTkgQW50aWdlbiBSYXBpZCBUZXN0IEtpdCAoU3dhYikKMwoDMzQ0EixTRCBCSU9TRU5TT1IgSW5jLCBTVEFOREFSRCBGIENPVklELTE5IEFnIEZJQQo0CgMzNDUSLVNEIEJJT1NFTlNPUiBJbmMsIFNUQU5EQVJEIFEgQ09WSUQtMTkgQWcgVGVzdApDCgQxMjE4EjtTaWVtZW5zIEhlYWx0aGluZWVycywgQ0xJTklURVNUIFJhcGlkIENvdmlkLTE5IEFudGlnZW4gVGVzdApICgQxMjc4EkBYaWFtZW4gQm9zb24gQmlvdGVjaCBDby4gTHRkLCBSYXBpZCBTQVJTLUNvVi0yIEFudGlnZW4gVGVzdCBDYXJkCk8KBDEzNDMSR1poZWppYW5nIE9yaWVudCBHZW5lIEJpb3RlY2gsIENvcm9uYXZpcnVzIEFnIFJhcGlkIFRlc3QgQ2Fzc2V0dGUgKFN3YWIpOjIKGQoJMjYwNDE1MDAwEgxOb3QgZGV0ZWN0ZWQKFQoJMjYwMzczMDAxEghEZXRlY3RlZA=="
+  "general": {
+    "valueSetProtocolBuffer": "Cm8KJQoKMTExOTM0OTAwNxIXU0FSUy1Db1YtMiBtUk5BIHZhY2NpbmUKKAoKMTExOTMwNTAwNRIaU0FSUy1Db1YtMiBhbnRpZ2VuIHZhY2NpbmUKHAoHSjA3QlgwMxIRY292aWQtMTkgdmFjY2luZXMSmQMKGQoMRVUvMS8yMC8xNTI4EglDb21pcm5hdHkKKAoMRVUvMS8yMC8xNTA3EhhDT1ZJRC0xOSBWYWNjaW5lIE1vZGVybmEKGQoMRVUvMS8yMS8xNTI5EglWYXh6ZXZyaWEKKAoMRVUvMS8yMC8xNTI1EhhDT1ZJRC0xOSBWYWNjaW5lIEphbnNzZW4KEAoGQ1ZuQ29WEgZDVm5Db1YKFgoJU3B1dG5pay1WEglTcHV0bmlrLVYKGAoKQ29udmlkZWNpYRIKQ29udmlkZWNpYQocCgxFcGlWYWNDb3JvbmESDEVwaVZhY0Nvcm9uYQoYCgpCQklCUC1Db3JWEgpCQklCUC1Db3JWCkYKIEluYWN0aXZhdGVkLVNBUlMtQ29WLTItVmVyby1DZWxsEiJJbmFjdGl2YXRlZCBTQVJTLUNvVi0yIChWZXJvIENlbGwpChYKCUNvcm9uYVZhYxIJQ29yb25hVmFjCjEKB0NvdmF4aW4SJkNvdmF4aW4gKGFsc28ga25vd24gYXMgQkJWMTUyIEEsIEIsIEMpGqkFCh8KDU9SRy0xMDAwMDE2OTkSDkFzdHJhWmVuZWNhIEFCCiwKDU9SRy0xMDAwMzAyMTUSG0Jpb250ZWNoIE1hbnVmYWN0dXJpbmcgR21iSAosCg1PUkctMTAwMDAxNDE3EhtKYW5zc2VuLUNpbGFnIEludGVybmF0aW9uYWwKKwoNT1JHLTEwMDAzMTE4NBIaTW9kZXJuYSBCaW90ZWNoIFNwYWluIFMuTC4KGwoNT1JHLTEwMDAwNjI3MBIKQ3VyZXZhYyBBRwoiCg1PUkctMTAwMDEzNzkzEhFDYW5TaW5vIEJpb2xvZ2ljcwpHCg1PUkctMTAwMDIwNjkzEjZDaGluYSBTaW5vcGhhcm0gSW50ZXJuYXRpb25hbCBDb3JwLiAtIEJlaWppbmcgbG9jYXRpb24KUQoNT1JHLTEwMDAxMDc3MRJAU2lub3BoYXJtIFdlaXFpZGEgRXVyb3BlIFBoYXJtYWNldXRpY2FsIHMuci5vLiAtIFByYWd1ZSBsb2NhdGlvbgpYCg1PUkctMTAwMDI0NDIwEkdTaW5vcGhhcm0gWmhpanVuIChTaGVuemhlbikgUGhhcm1hY2V1dGljYWwgQ28uIEx0ZC4gLSBTaGVuemhlbiBsb2NhdGlvbgoeCg1PUkctMTAwMDMyMDIwEg1Ob3ZhdmF4IENaIEFTCjoKG0dhbWFsZXlhLVJlc2VhcmNoLUluc3RpdHV0ZRIbR2FtYWxleWEgUmVzZWFyY2ggSW5zdGl0dXRlCiQKEFZlY3Rvci1JbnN0aXR1dGUSEFZlY3RvciBJbnN0aXR1dGUKIgoPU2lub3ZhYy1CaW90ZWNoEg9TaW5vdmFjIEJpb3RlY2gKIAoOQmhhcmF0LUJpb3RlY2gSDkJoYXJhdCBCaW90ZWNoIhcKFQoJODQwNTM5MDA2EghDT1ZJRC0xOSpeCjsKCExQNjQ2NC00Ei9OdWNsZWljIGFjaWQgYW1wbGlmaWNhdGlvbiB3aXRoIHByb2JlIGRldGVjdGlvbgofCgpMUDIxNzE5OC0zEhFSYXBpZCBpbW11bm9hc3NheTLyDQo5CgQxMjMyEjFBYmJvdHQgUmFwaWQgRGlhZ25vc3RpY3MsIFBhbmJpbyBDT1ZJRC0xOSBBZyBUZXN0CkAKBDEzMDQSOEFNRURBIExhYm9yZGlhZ25vc3RpayBHbWJILCBBTVAgUmFwaWQgVGVzdCBTQVJTLUNvVi0yIEFnCkYKBDEwNjUSPkJlY3RvbiBEaWNraW5zb24sIFZlcml0b3IgU3lzdGVtIFJhcGlkIERldGVjdGlvbiBvZiBTQVJTLUNvVi0yClMKBDEzMzESS0JlaWppbmcgTGVwdSBNZWRpY2FsIFRlY2hub2xvZ3kgQ28uLCBMdGQsIFNBUlMtQ29WLTIgQW50aWdlbiBSYXBpZCBUZXN0IEtpdAplCgQxNDg0El1CZWlqaW5nIFdhbnRhaSBCaW9sb2dpY2FsIFBoYXJtYWN5IEVudGVycHJpc2UgQ28uLCBMdGQsIFdhbnRhaSBTQVJTLUNvVi0yIEFnIFJhcGlkIFRlc3QgKEZJQSkKLwoEMTI0MhInQmlvbm90ZSwgSW5jLCBOb3dDaGVjayBDT1ZJRC0xOSBBZyBUZXN0CjMKBDEyMjMSK0JJT1NZTkVYIFNXSVNTIFNBLCBCSU9TWU5FWCBDT1ZJRC0xOSBBZyBCU1MKOgoEMTE3MxIyQ2VyVGVzdCBCaW90ZWMsIFMuTC4sIENlclRlc3QgU0FSUy1Db1YtMiBDYXJkIHRlc3QKLgoEMTI0NBImR2VuQm9keSwgSW5jLCBHZW5ib2R5IENPVklELTE5IEFnIFRlc3QKPwoEMTM2MBI3R3Vhbmdkb25nIFdlc2FpbCBCaW90ZWNoIENvLiwgTHRkLCBDT1ZJRC0xOSBBZyBUZXN0IEtpdApLCgQxMzYzEkNIYW5nemhvdSBDbG9uZ2VuZSBCaW90ZWNoIENvLiwgTHRkLCBDb3ZpZC0xOSBBbnRpZ2VuIFJhcGlkIFRlc3QgS2l0ClgKBDE3NjcSUEhlYWxnZW4gU2NpZW50aWZpYyBMaW1pdGVkIExpYWJpbGl0eSBDb21wYW55LCBDb3JvbmF2aXJ1cyBBZyBSYXBpZCBUZXN0IENhc3NldHRlCl0KBDEzMzMSVUpvaW5zdGFyIEJpb21lZGljYWwgVGVjaG5vbG9neSBDby4sIEx0ZCwgQ09WSUQtMTkgUmFwaWQgQW50aWdlbiBUZXN0IChDb2xsb2lkYWwgR29sZCkKNAoEMTI2OBIsTHVtaXJhRFggVUsgTHRkLCBMdW1pcmFEeCBTQVJTLUNvVi0yIEFnIFRlc3QKOQoEMTE4MBIxTUVEc2FuIEdtYkgsIE1FRHNhbiBTQVJTLUNvVi0yIEFudGlnZW4gUmFwaWQgVGVzdApHCgQxNDgxEj9NUCBCaW9tZWRpY2FscyBHZXJtYW55IEdtYkgsIFJhcGlkIFNBUlMtQ29WLTIgQW50aWdlbiBUZXN0IENhcmQKMwoEMTE2MhIrTmFsIHZvbiBtaW5kZW4gR21iSCwgTkFEQUwgQ09WSUQtMTkgQWcgVGVzdAozCgQxMjcxEitQcmVjaXNpb24gQmlvc2Vuc29yLCBJbmMsIEV4ZGlhIENPVklELTE5IEFnCl4KBDEzNDESVlFpbmdkYW8gSGlnaHRvcCBCaW90ZWNoIENvLiwgTHRkLCBTQVJTLUNvVi0yIEFudGlnZW4gUmFwaWQgVGVzdCAoSW1tdW5vY2hyb21hdG9ncmFwaHkpCjIKBDEwOTcSKlF1aWRlbCBDb3Jwb3JhdGlvbiwgU29maWEgU0FSUyBBbnRpZ2VuIEZJQQpTCgQxNDg5EktTYWZlY2FyZSBCaW90ZWNoIChIYW5nemhvdSkgQ28uIEx0ZCwgQ09WSUQtMTkgQW50aWdlbiBSYXBpZCBUZXN0IEtpdCAoU3dhYikKMwoDMzQ0EixTRCBCSU9TRU5TT1IgSW5jLCBTVEFOREFSRCBGIENPVklELTE5IEFnIEZJQQo0CgMzNDUSLVNEIEJJT1NFTlNPUiBJbmMsIFNUQU5EQVJEIFEgQ09WSUQtMTkgQWcgVGVzdApDCgQxMjE4EjtTaWVtZW5zIEhlYWx0aGluZWVycywgQ0xJTklURVNUIFJhcGlkIENvdmlkLTE5IEFudGlnZW4gVGVzdApICgQxMjc4EkBYaWFtZW4gQm9zb24gQmlvdGVjaCBDby4gTHRkLCBSYXBpZCBTQVJTLUNvVi0yIEFudGlnZW4gVGVzdCBDYXJkCk8KBDEzNDMSR1poZWppYW5nIE9yaWVudCBHZW5lIEJpb3RlY2gsIENvcm9uYXZpcnVzIEFnIFJhcGlkIFRlc3QgQ2Fzc2V0dGUgKFN3YWIpOjIKGQoJMjYwNDE1MDAwEgxOb3QgZGV0ZWN0ZWQKFQoJMjYwMzczMDAxEghEZXRlY3RlZA=="
   },
-  "testCases" : [
+  "testCases": [
     {
-      "description" : "EP: kid shall be retrieved from protected header (sample TC)",
-      "dcc" : "HC1:6BFOXN%TSMAHN-H8TG4VIR3F7LL*IK:P556F* C%OJ6461095Z0NDC2LE $C$K9VH3EJP6+I:Z8RXQQHIZC4TPIFRMLNKNM8JI0EUG*%NH$RLF95HF1-7TB50GH1FDEMT4IJ2QTYGFTNP8EF HL-FI02K KP8EFEMTT1KR9UE0GHJP7NVDEBK3JC%0X/GDWCDAB2DNAHLW 70SO:GOLIROGO3T5ZXK9UO GOP*OSV8WP4K166K8BKRCEQ075XC5$0Q0/Q++R+ZOOSOJF6OEQG-RPL7:/6F0P GOQT6V776K82HPPEPHCR7XB1DOD*OBZO/8HB0Q3W1YXLNQ1PJAF7ABT1YXLXR9KNM.Z8M+8:Y001H%Y0C-9I/FOKDCHH*OB KE0-9/D9GLG1JAF.7OYVZJJ.V47NV/HLWU4L8S1JPTQNXHF+X47Y45W4*LP1Z25$0P+5GRVR54Z3E/8DXED G0X+G1:FNAF.TKFT8MCH7LN.RF1WMP7JAVKR+G2LM7GGCZG43BCX1QSE52G:NBZ7M5ZTN-GPK2UUDDTU1XLDH16BC. G-SF5AWSQN4 HH%HA135$HSNGJ.P.7HY$LBQAT2O6DMZS7QIS$II5ESYZE:30KC7H2",
-      "rules" : [
+      "description": "EP: kid shall be retrieved from protected header (sample TC)",
+      "dcc": "HC1:6BFOXN%TSMAHN-H8TG4VIR3F7LL*IK:P556F* C%OJ6461095Z0NDC2LE $C$K9VH3EJP6+I:Z8RXQQHIZC4TPIFRMLNKNM8JI0EUG*%NH$RLF95HF1-7TB50GH1FDEMT4IJ2QTYGFTNP8EF HL-FI02K KP8EFEMTT1KR9UE0GHJP7NVDEBK3JC%0K.GVONA*4SX43VLTK96L6SR9MU9DV5 R1AMI4H9LUFA$PA$PSVE/PIMJEDS42V55:P1NGMQKT+VM.JWX78VFO PHTOL-HF-H SI.J2PN1A$PFTIARI.R4HQ1*P1MX1+ZES%H R18ZLG*PGS9:*MCZHON1IMI%LH8TC/+H+V9UA21W4/GJI+C7*4M:KZ34FLE/69+FEQLG2KC0.C+-CP-KSCA-JE*IQVD9O-OEF82E9GX8$G10QVGB3O1KO-OAGJM*KYE9*FJGRVF/GJ5M%Y0VCK/8D:8DKTD2-UBKNPVC BGM3F8AE-VLZ7L8DII8L78K+JMBWMEKN+3DCVO5/H9QO$$OUBU%I75YC%HI: R*3ETE7WXE5WTOYU/MSH$17+NCDTC-J5MQ447$TUPDWSAN9+6Y6S5EODANF3A+YAY0EMFO+LMYCV$*062OB6I",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "===" : [
+          "Logic": {
+            "===": [
               {
-                "var" : "external.kid"
+                "var": "external.kid"
               },
               "AYkDTaR1OsI="
             ]
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP: kid shall be retrieved from unprotected header (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZDFRHQ$V4Y85LB-WN:D4S2W-36OLNAOM-W4G.H7WC3K97QK GD/GPWBI$C9UDBQEAJJKHHGEC8.-B97UI%KH NX8J.ZJU%O8%M8T6:%OB+PYUSC.UKMIZ.22.37CP8%MXLIC03$464DRG+SB.V Q5AO96J0AL86YBY U:OIG/QUZ4+FJE 4Y3LL/II 05B9LW4X$79-8J6T$/IORN:C9-HNPNI2$3K3JOCAW 5B7WR-963K:4UB%833SR5QT-CIE9DFH*/G1$4UE9.IP6MIVZ0X/G.J0-65RHQ/SPDIRFFQ6ZRCHP:CO-B562183RT*OYGOWCOY94ZJAPEDI.C$JC1IDMQS5CTLXK-4JD77Y6TKR2LE50$499TPZ7.XIZSBMZI/XILVA HS08K6LKFHJSVB6DBBKBJZI+EBR3E%JTQOL2009UVD0HX2JR$4$3CMWT2%8ZVN6-0F*G1QF/KJ1GFKU0NMBDWJJEN-BNZX8NZFNER-R73/TP4O2YU21NYFBH$7X4P*K49AN.0M$+1-:BUFMWYTX4M0JPC0S/OE5DQ206CXRHTEK-P.S7L$TZO0Y0PKY0%O3VZV43C00032CXRH",
-      "rules" : [
+      "description": "EP: kid shall be retrieved from unprotected header (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZDFRHQ$V4Y85LB-WN:D4S2W-36OLNAOM-W4G.H7WC3K97QK GD/GPWBI$C9UDBQEAJJKHHGEC8.-B97UI%KH NX8J.ZJU%O8%M8T6:%OB+PYUSC.UKMIZ.22.37CP8%MXLIC03$464DRG+SB.V Q5AO96J0*L84G6TR5*VB5VA81K0ECM8CXVDC8C90JXJA8/SG8C49D:8DDIKYZJ26J3A4$JTOPCY+3L$SZGS+3THFT*.T/HCXGSWGS6NDPTI7UJ$JC3VCKMINYJ3A41VCSWC%PD Z1MO6IHPZSPO+Q*$Q6ZRCHP:CO-B5621U3RT*OCHPTZOY94ZJAPEDI.C$JC1IDMQS5CTLXK-4JD77Y6TKR2LE50$499TPZ7.XIZSBMZI/XILVA HS08K6LKFHJSVB6DBBKBJZI+EBR3E%JTQOL2009UVD0HX2JR$4$3CMWT2%8ZVN6-0F*G1QF/KJ1GFKU0NMBDWJJEN-BNZX8NZFNER-R73/TP4O2YU21NYFBH$7X4P*K49AN.0M$+1-:BUFMWYTX4M0JPC0S/OE5DQ206CXRHTEK-P.S7L$TZO0Y0PKY0%O3VZV43C000C+BZRH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "===" : [
+          "Logic": {
+            "===": [
               {
-                "var" : "external.kid"
+                "var": "external.kid"
               },
               "h6WiMiptugo="
             ]
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP: iat shall be retrieved CWT (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP: iat shall be retrieved CWT (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "and" : [
+          "Logic": {
+            "and": [
               {
-                "not-before" : [
+                "not-before": [
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       {
-                        "var" : "external.iat"
+                        "var": "external.iat"
                       },
                       0,
                       "day"
                     ]
                   },
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       "2021-06-24T06:49:45.000Z",
                       0,
                       "day"
@@ -130,18 +130,18 @@
                 ]
               },
               {
-                "not-after" : [
+                "not-after": [
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       {
-                        "var" : "external.iat"
+                        "var": "external.iat"
                       },
                       0,
                       "day"
                     ]
                   },
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       "2021-06-24T06:49:45.000Z",
                       0,
                       "day"
@@ -153,51 +153,51 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP: exp shall be retrieved CWT (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP: exp shall be retrieved CWT (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "and" : [
+          "Logic": {
+            "and": [
               {
-                "not-before" : [
+                "not-before": [
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       {
-                        "var" : "external.exp"
+                        "var": "external.exp"
                       },
                       0,
                       "day"
                     ]
                   },
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       "2022-06-24T06:49:45.000Z",
                       0,
                       "day"
@@ -206,18 +206,18 @@
                 ]
               },
               {
-                "not-after" : [
+                "not-after": [
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       {
-                        "var" : "external.exp"
+                        "var": "external.exp"
                       },
                       0,
                       "day"
                     ]
                   },
                   {
-                    "plusTime" : [
+                    "plusTime": [
                       "2022-06-24T06:49:45.000Z",
                       0,
                       "day"
@@ -229,127 +229,87 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP: countryCode shall be retrieved user input (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP: issuerCountryCode shall be retrieved CWT (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IILCA 43$R7C9BSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JA8/B52BA C5KDMIA+/BTEUF+I-FHWC59NT$W4-.B-FIU2M KPZ78G9MX6K*AI8KES/F-1J3.KXHG-GGX2MNEDFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC9L7OKM9QWUE5GJ5K14A2BEW7C03G-2CNTOI05*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0VJ55M8%NA7ZD3K4:J0C KAE4GGBN223K4TK2FXG4C9Q2LCIJ/HHKGL/BHMXBC2K16JFZITRKI8AYBJPMI:NII02LE5V.40ATOLNJ%4N%2%R0O05L%2A550AT56D7OFOT2.+I6:IZW4I:A6J3ARN QT1BGL4OMJKR.K$A1YP7FWV15S+CAKIOC5PQ3T/:F IO5:GR0M%C4T3L3F8172W1CH$6:7Q5$VT6EY$NY+LV$2R3A1MMLHP2/L7O59SG6.2..TYUVNYT0G6-27$WBZP6NM13.60R3GSMF4ARSV*JO5PU.DGE39Y1GY8RZ30Y A/2",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "===" : [
+          "Logic": {
+            "===": [
               {
-                "var" : "external.countryCode"
-              },
-              "PL"
-            ]
-          }
-        }
-      ],
-      "countryOfArrival" : "PL",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
-    },
-    {
-      "description" : "EP: issuerCountryCode shall be retrieved CWT (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IILCA 43$R7C9BSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JA8/B52BA C5KDMIA+/BTEUF+I-FHWC59NT$W4-.B-FIU2M KPZ78G9MX6K*AI8KES/F-1J3.KXHG HG 3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC9L7OKM9QWUE5GJ5K14A2BEW7C03G-2CNTOI05*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZM0%MRF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9GWKPW7U5HFQZ8M97A70%IH+X4+X4/MVY2MUEEFLEUNIOPDZ.C3C9S/F$JDCHHZ4FNLE72M%+BX6A/DD1JAA/CY3O0JK1WL*50JFTMD3QHBZQJI.NF2MA9UPY2*V23HCLKDKJS.332ICF/SQE2G-DGT3U+3TIU5QC/FU+LMB V*2Q9MRSTCNEVSK37:HK2SKRNDS7BBF0UOABM+JN3:4VUE*4QHV7PBO3*D :P%/62KUM:LMK2TW2%J3H9E3/T1-FV50PWK:BI",
-      "rules" : [
-        {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
-            {
-              "lang" : "en",
-              "desc" : "Some description"
-            }
-          ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
-            "r.0"
-          ],
-          "Logic" : {
-            "===" : [
-              {
-                "var" : "external.issuerCountryCode"
+                "var": "external.issuerCountryCode"
               },
               "IT"
             ]
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: country-2-codes shall be set to a preset list (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: country-2-codes shall be set to a preset list (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.country-2-codes"
+                "var": "external.valueSets.country-2-codes"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "AD",
@@ -605,7 +565,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -614,47 +574,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: covid-19-lab-result shall be set to keys from value set tcTr (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: covid-19-lab-result shall be set to keys from value set tcTr (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.covid-19-lab-result"
+                "var": "external.valueSets.covid-19-lab-result"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "260415000",
@@ -663,7 +623,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -672,47 +632,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: covid-19-lab-test-manufacturer-and-name shall be set to keys from value set tcMa (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: covid-19-lab-test-manufacturer-and-name shall be set to keys from value set tcMa (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.covid-19-lab-test-manufacturer-and-name"
+                "var": "external.valueSets.covid-19-lab-test-manufacturer-and-name"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "1232",
@@ -745,7 +705,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -754,47 +714,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: covid-19-lab-test-type shall be set to keys from value set tcTt (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: covid-19-lab-test-type shall be set to keys from value set tcTt (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.covid-19-lab-test-type"
+                "var": "external.valueSets.covid-19-lab-test-type"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "LP6464-4",
@@ -803,7 +763,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -812,47 +772,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: disease-agent-targeted shall be set to keys from value set tg (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: disease-agent-targeted shall be set to keys from value set tg (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.disease-agent-targeted"
+                "var": "external.valueSets.disease-agent-targeted"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "840539006"
@@ -860,7 +820,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -869,47 +829,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: sct-vaccines-covid-19 shall be set to keys from value set vp (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: sct-vaccines-covid-19 shall be set to keys from value set vp (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.sct-vaccines-covid-19"
+                "var": "external.valueSets.sct-vaccines-covid-19"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "1119349007",
@@ -919,7 +879,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -928,47 +888,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: vaccines-covid-19-auth-holders shall be set to keys from value set ma (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: vaccines-covid-19-auth-holders shall be set to keys from value set ma (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.vaccines-covid-19-auth-holders"
+                "var": "external.valueSets.vaccines-covid-19-auth-holders"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "ORG-100001699",
@@ -989,7 +949,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -998,47 +958,47 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "EP/ValueSets: vaccines-covid-19-names shall be set to keys from value set mp (sample TC)",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGX2MMDBFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$965ZMII6RF6E9R176NF6B69W95ROIR11XT6NF6: 8Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T32TN4UH",
-      "rules" : [
+      "description": "EP/ValueSets: vaccines-covid-19-names shall be set to keys from value set mp (sample TC)",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIG70 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BD7A4KEYJDMIAO/BY1AWKEHFE6LFDC9$CIEVMPTLOKEH-B*NLWELVPC8KES/FP1JXGGYII-GGK3M0ECFF9%TT0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ RIC944FWAU236J79ZBUDXUJ/1YGU6UK/22E2F35F*$KLZO.L87O40%KD$S3B9%H0AN8SJ0PZBTRKMH0FK5LI6B$Q176NF6B69W95YLIXZ1ZT6OF6G39Z/I7ZC/FJBAJULJJ9G0OPMB4O-OFE1%IHUGJAGJ*$I%*80OPI985:4N%2%R0O05L%2A550AT56D7OF$W2AWCDZISP4*2DJFTU53/GNKL3ICGMJKQJK6HM:DQ09TT3LK825$37NSF.DEGGD4LR+BC8272LS-DWIK7-DY 1LA7551DC2U.NVOTJOII:8DKEK%N92T9YQ$0MK%P6$G9K7QQUY9KI.EK*8XRS-DPA5W64SMVR1NF6D0 2S0.7R:ASENTI094PIDS:T3-LOFUH",
+      "rules": [
         {
-          "Identifier" : "GR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "General",
-          "Description" : [
+          "Identifier": "GR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "General",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "reduce" : [
+          "Logic": {
+            "reduce": [
               {
-                "var" : "external.valueSets.vaccines-covid-19-names"
+                "var": "external.valueSets.vaccines-covid-19-names"
               },
               {
-                "and" : [
+                "and": [
                   {
-                    "in" : [
+                    "in": [
                       {
-                        "var" : "current"
+                        "var": "current"
                       },
                       [
                         "EU/1/20/1528",
@@ -1057,7 +1017,7 @@
                     ]
                   },
                   {
-                    "var" : "accumulator"
+                    "var": "accumulator"
                   }
                 ]
               },
@@ -1066,142 +1026,127 @@
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     },
     {
-      "description" : "TC: all attributes of a Test Certificate shall be accessible",
-      "dcc" : "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIWKF 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AAABE34L/5R3F9JA8/BW3EJCAS.CMIA+/BT3EFDA+/F .C6LFWD9V3E68AJ7LOKEH-B1RNIQCPWM$6K8KES/F-1JF.KYIIZIKK3M:CAFF9YPL0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ R8JPUQGZ.2MH0L/73VQ*-3IL4M2FL15 CG+30GFL*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$9687NB-6PF6B$Q176NF6O59XC5.Q69L6-96NV64GEWPEQJA5M9EYJ2YU+LHXT2NTICZUK-B6PP+ 5-PP:G9XF5-JU04AXIQM P7-5AQ5SW5PK95%LPN1VUU8C1VTEAYM6O62LEA.M+T6K/UC71:512RUG8EVI1M7ETMHU+UK61UKUUY6UCE4SPKC8S2IJCU Q92+I:Z7.BI$SSQW5D1KU$EMCCMT5KFQD8IWCWF9N+C6%B2:I86NUHJURORXGQ6W2/UTGAVK3NH7POP3-J66$V/3U-302L242",
-      "rules" : [
+      "description": "TC: all attributes of a Test Certificate shall be accessible",
+      "dcc": "HC1:6BFOXN*TS0BI$ZD8UHR+J+MR9-C R10IIWKF 43JUB/EBSOI04PBOMOW44OQA M:UC*GP-S4FT5D75W9AAABE34L/5R3F9JA8/BW3EJCAS.CMIA+/BT3EFDA+/F .C6LFWD9V3E68AJ7LOKEH-B1RNIQCPWM$6K8KES/F-1JF.KYIIZIKK3M:CAFF9YPL0QIRR97I2HOAXL92L0A KPLIO4KRK4WPE-L95*B7$KZ R8JPUQGZ.2MH0L/73VQ*-3IL4M2FL15 CG+30GFL*$KLZO.L87O40%KD$S3B9%H0AN8SJ0C24$9687NB-6PF6B$Q176NF6O59XC5.Q69L6-96NV64GEWPEQJA5M9EYJ2YU+LHXT2NTICZUK-B6PP+ 5-PP:G9XF5-JU04AXIQM P7-5AQ5SW5PK95%LPN1VUU8C1VTEAYM6O62LEA.M+T6K/UC71:512RUG8EVI1M7ETMHU+UK61UKUUY6UCE4SPKC8S2IJCU Q92+I:Z7.BI$SSQW5D1KU$EMCCMT5KFQD8IWCWF9N+C6%B2:I86NUHJURORXGQ6W2/UTGAVK3NH7POP3-J66$V/3U-302L242",
+      "rules": [
         {
-          "Identifier" : "TR-DE-0001",
-          "Type" : "Acceptance",
-          "Country" : "DE",
-          "Version" : "1.0.0",
-          "SchemaVersion" : "1.0.0",
-          "Engine" : "CERTLOGIC",
-          "EngineVersion" : "1.0.0",
-          "CertificateType" : "Test",
-          "Description" : [
+          "Identifier": "TR-DE-0001",
+          "Type": "Acceptance",
+          "Country": "DE",
+          "Version": "1.0.0",
+          "SchemaVersion": "1.0.0",
+          "Engine": "CERTLOGIC",
+          "EngineVersion": "1.0.0",
+          "CertificateType": "Test",
+          "Description": [
             {
-              "lang" : "en",
-              "desc" : "Some description"
+              "lang": "en",
+              "desc": "Some description"
             }
           ],
-          "ValidFrom" : "2021-07-01T00:00:00Z",
-          "ValidTo" : "2030-06-01T00:00:00Z",
-          "AffectedFields" : [
+          "ValidFrom": "2021-07-01T00:00:00Z",
+          "ValidTo": "2030-06-01T00:00:00Z",
+          "AffectedFields": [
             "r.0"
           ],
-          "Logic" : {
-            "and" : [
+          "Logic": {
+            "and": [
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.tg"
+                    "var": "payload.t.0.tg"
                   },
                   "840539006"
                 ]
               },
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.tt"
+                    "var": "payload.t.0.tt"
                   },
                   "LP217198-3"
                 ]
               },
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.nm"
+                    "var": "payload.t.0.nm"
                   },
                   "R0QDE04N05RLD2CGDBIPUPJZU"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.ma"
+                    "var": "payload.t.0.ma"
                   },
                   "1223"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.sc"
+                    "var": "payload.t.0.sc"
                   },
-                  "2021-07-07T07:33:21+02:00"
+				  "2021-07-07T07:33:21+02:00"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.tr"
+                    "var": "payload.t.0.tr"
                   },
                   "260415000"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.tc"
+                    "var": "payload.t.0.tc"
                   },
                   "Test Centre 1"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.co"
+                    "var": "payload.t.0.co"
                   },
                   "DE"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.is"
+                    "var": "payload.t.0.is"
                   },
                   "Robert Koch-Institut"
                 ]
               },
-              null,
               {
-                "===" : [
+                "===": [
                   {
-                    "var" : "payload.t.0.ci"
+                    "var": "payload.t.0.ci"
                   },
                   "URN:UVCI:V1:DE:A79LLP0SJOPC6R0GRYAIDVPHM3"
-                ]
-              },
-              {
-                "===" : [
-                  {
-                    "var" : "external.kid"
-                  },
-                  "3IsdmTYkAAM="
                 ]
               }
             ]
           }
         }
       ],
-      "countryOfArrival" : "DE",
-      "validationClock" : 1625731517,
-      "expPass" : 1,
-      "expFail" : 0,
-      "expOpen" : 0
+      "countryOfArrival": "DE",
+      "validationClock": 1626173279,
+      "expPass": 1,
+      "expFail": 0,
+      "expOpen": 0
     }
   ]
 }
