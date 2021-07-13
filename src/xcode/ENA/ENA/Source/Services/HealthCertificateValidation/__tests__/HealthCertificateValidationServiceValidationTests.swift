@@ -72,14 +72,14 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				case .validationFailed(let validatonResults),
 					 .validationOpen(let validatonResults),
 					 .validationPassed(let validatonResults):
-					
+
 					let passCount = validatonResults.filter { $0.result == .passed }.count
 					let openCount = validatonResults.filter { $0.result == .open }.count
 					let failCount = validatonResults.filter { $0.result == .fail }.count
 
-					XCTAssertEqual(passCount, testCase.expPass, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
-					XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
-					XCTAssertEqual(failCount, testCase.expFail, "CertEngineTestCase failed: \(testCase.testCaseDescription)")
+					XCTAssertEqual(passCount, testCase.expPass, "CertEngineTestCase failed with incorrect expPass count: \(testCase.testCaseDescription)")
+					XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed with incorrect expOpen count: \(testCase.testCaseDescription)")
+					XCTAssertEqual(failCount, testCase.expFail, "CertEngineTestCase failed with incorrect expFail count: \(testCase.testCaseDescription)")
 				}
 			}
 		}
