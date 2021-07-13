@@ -116,7 +116,9 @@ class TraceLocationsCoordinator {
 				}
 			),
 			onDismiss: { [weak self] didConsent in
-				self?.infoScreenShown = didConsent
+				if didConsent == true {
+					self?.infoScreenShown = true
+				}
 
 				if !(alreadyDidConsentOnce || didConsent) {
 					self?.parentNavigationController?.popViewController(animated: false)
