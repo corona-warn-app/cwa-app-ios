@@ -85,6 +85,11 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 			forCellReuseIdentifier: TechnicalValidationFailedRulesTableViewCell.reuseIdentifier
 		)
 
+		tableView.register(
+			DynamicTableViewHtmlCell.self,
+			forCellReuseIdentifier: AppInformationDetailViewController.CellReuseIdentifier.html.rawValue
+		)
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
