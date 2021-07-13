@@ -77,7 +77,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -170,7 +170,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -263,7 +263,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -348,7 +348,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -406,7 +406,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: Date(),
 			completion: { result in
 				switch result {
@@ -464,7 +464,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -486,7 +486,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .VALUE_SET_SERVER_ERROR)
 	}
 	
-	func testGIVEN_ValidationService_WHEN_ValueSetsOtherError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_ValueSetsOtherError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() throws {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		guard let fakedUrlResponse = HTTPURLResponse(url: URL(fileURLWithPath: ""), statusCode: 999, httpVersion: nil, headerFields: nil) else {
@@ -522,7 +522,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -544,7 +544,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .VALUE_SET_CLIENT_ERROR)
 	}
 	
-	func testGIVEN_ValidationService_WHEN_ValueSetsNoNetwork_THEN_NO_NETWORK_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_ValueSetsNoNetwork_THEN_NO_NETWORK_IsReturned() throws {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		let expectedError = URLSessionError.noNetworkConnection
@@ -576,7 +576,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -598,7 +598,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .NO_NETWORK)
 	}
 	
-	func testGIVEN_ValidationService_WHEN_ValueSetsUnkownError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_ValueSetsUnkownError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() throws {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
 		let expectedError = URLSessionError.fakeResponse
@@ -630,7 +630,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -697,7 +697,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -757,7 +757,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -817,7 +817,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -877,7 +877,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -901,7 +901,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	
 	// MARK: - Errors (Downloading Rules Failure Handler)
 	
-	func testGIVEN_ValidationService_WHEN_RuleDownloadingAcceptanceCacheIsMissing_THEN_ACCEPTANCE_RULE_MISSING_CACHE_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingAcceptanceCacheIsMissing_THEN_ACCEPTANCE_RULE_MISSING_CACHE_IsReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.notModified
@@ -932,7 +932,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -954,7 +954,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .RULE_MISSING_CACHE(.acceptance))
 	}
 	
-	func testGIVEN_ValidationService_WHEN_RuleDownloadingInvalidationCacheIsMissing_THEN_INVALIDATION_RULE_MISSING_CACHE_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingInvalidationCacheIsMissing_THEN_INVALIDATION_RULE_MISSING_CACHE_IsReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.notModified
@@ -993,7 +993,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -1015,7 +1015,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .RULE_MISSING_CACHE(.invalidation))
 	}
 	
-	func testGIVEN_ValidationService_WHEN_RuleDownloadingNoNetwork_THEN_NO_NETWORK_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingNoNetwork_THEN_NO_NETWORK_IsReturned() throws {
 		// GIVEN
 		let client = ClientMock()
 		let expectedError = URLSessionError.noNetworkConnection
@@ -1048,7 +1048,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -1070,7 +1070,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .NO_NETWORK)
 	}
 	
-	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError404_THEN_ACCEPTANCE_RULE_CLIENT_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError404_THEN_ACCEPTANCE_RULE_CLIENT_ERROR_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -1104,7 +1104,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -1126,7 +1126,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .RULE_CLIENT_ERROR(.acceptance))
 	}
 	
-	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -1160,7 +1160,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -1182,7 +1182,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .RULE_SERVER_ERROR(.acceptance))
 	}
 	
-	func testGIVEN_ValidationService_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
+	func testGIVEN_ValidationService_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() throws {
 		// Note: This test is redundant to the one for invalidation cause they have the same code path. So this one counts for both rule types.
 		// GIVEN
 		let client = ClientMock()
@@ -1216,7 +1216,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -1286,7 +1286,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// WHEN
 		validationService.validate(
 			healthCertificate: healthCertificate,
-			arrivalCountry: "FR",
+			arrivalCountry: try country(),
 			validationClock: validationClock,
 			completion: { result in
 				switch result {
@@ -1494,8 +1494,13 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			)
 		}
 	}
+	
+	private func country() throws -> Country {
+		 return try XCTUnwrap(Country(countryCode: "FR"))
+	}
 }
 
+/// ONLY for testing purposes because it ignores underlining errors for comparisons.
 extension HealthCertificateValidationOnboardedCountriesError: Equatable {
 	public static func == (lhs: HealthCertificateValidationOnboardedCountriesError, rhs: HealthCertificateValidationOnboardedCountriesError) -> Bool {
 		switch (lhs, rhs) {
@@ -1507,6 +1512,7 @@ extension HealthCertificateValidationOnboardedCountriesError: Equatable {
 	}
 }
 
+/// ONLY for testing purposes because it ignores underlining errors for comparisons.
 extension RuleValidationError: Equatable {
 	public static func == (lhs: RuleValidationError, rhs: RuleValidationError) -> Bool {
 		switch (lhs, rhs) {
