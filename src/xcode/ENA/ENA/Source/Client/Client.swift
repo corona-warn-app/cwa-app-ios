@@ -222,7 +222,7 @@ protocol Client {
 	func getDCCRules(
 		eTag: String?,
 		isFake: Bool,
-		ruleType: DCCRuleType,
+		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	)
 }

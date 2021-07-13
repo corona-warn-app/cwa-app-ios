@@ -14,7 +14,7 @@ final class HealthCertificateViewModel {
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson?,
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
@@ -198,7 +198,7 @@ final class HealthCertificateViewModel {
 	}
 
 	private let healthCertificate: HealthCertificate
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
