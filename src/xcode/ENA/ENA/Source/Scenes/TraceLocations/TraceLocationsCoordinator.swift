@@ -116,7 +116,7 @@ class TraceLocationsCoordinator {
 				}
 			),
 			onDismiss: { [weak self] didConsent in
-				if didConsent == true {
+				if !alreadyDidConsentOnce {
 					self?.infoScreenShown = true
 				}
 
