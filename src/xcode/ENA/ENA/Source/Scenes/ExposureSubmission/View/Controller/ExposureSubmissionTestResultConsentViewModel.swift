@@ -35,7 +35,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 						.title2(
 							text: AppStrings.AutomaticSharingConsent.switchTitle,
 							color: nil,
-							accessibilityIdentifier: nil,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultConsent.switchIdentifier,
 							accessibilityTraits: .header,
 							configure: { [weak self] _, cell, _ in
 								guard let self = self else {
