@@ -106,7 +106,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 					completion(.success(countries))
 				case let .failure(error):
 					Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: error)
-					completion(.failure(.ONBOARDED_COUNTRIES_VALIDATION_ERROR(error)))
+					completion(.failure(.ONBOARDED_COUNTRIES_DECODING_ERROR(error)))
 				}
 			}
 		)

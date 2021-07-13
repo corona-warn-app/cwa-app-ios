@@ -485,7 +485,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Hata";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Testinizi Kaydedin";
+"ExposureSubmission_DispatchTitle" = "Testlerinizi Yönetin";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Bir cihaz şifrelenmiş pozitif test tanısını sisteme aktarır.";
 
@@ -506,6 +506,10 @@
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "PCR Testi için TAN talebinde bulunun";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Bizi arayın ve PCR testiniz için bir TAN alın.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Test Merkezi Bul";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Yakınınızdaki test merkezlerini bulun.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "PCR Testi için TAN talebinde bulunun";
@@ -934,7 +938,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Elinde akıllı telefon tutan bir kadın bir binanın önünde duruyor. QR kod, taranacak hızlı test profilini sembolize ediyor.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Kişisel verilerinizle bir profil oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Hızlı test profili oluşturduğunuzda her hızlı testten önce kişisel verilerinizi yeniden doldurmanız gerekmez.";
 
@@ -953,12 +957,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Devam Et";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Hızlı Test Profilini Sil";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Düzenle";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Hızlı Test Profili Oluştur";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Kişisel verilerinizle bir profil oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profili";
 
@@ -1257,11 +1261,11 @@
 "Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Kaldır";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Testinizi Kaydedin";
+"Home_TestRegistration_Title" = "Testlerinizi Yönetin";
 
-"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak için testlerinizi kaydetmek ve test sonuçlarınızı almak ya da COVID test sertifikanızı talep etmek üzere uygulamayı kullanın.";
+"Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak veya dijital COVID test sertifikanızı talep etmek için yakınınızdaki test merkezlerini bulun ve bir testi kaydedin.";
 
-"Home_TestRegistration_Button" = "Sonraki Adımlar";
+"Home_TestRegistration_Button" = "Devam Et";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Bir etkinlik mi planlıyorsunuz?";
@@ -2486,7 +2490,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Hızlı Test Profili";
 
-"AntigenProfile_Create_Description" = "Kişisel verilerinizle bir profil oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+"AntigenProfile_Create_Description" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Ad";
 
@@ -2507,6 +2511,14 @@
 "AntigenProfile_Create_Save_Button_Title" = "Kaydet";
 
 /* Antigen Profile */
+"AntigenProfile_Info_Action_Title" = "Bilgi";
+
+"AntigenProfile_Edit_Action_Title" = "Hızlı Test Profilini Düzenle";
+
+"AntigenProfile_Delete_Action_Title" = "Hızlı Test Profilini Sil";
+
+"AntigenProfile_Cancel_Action_Title" = "İptal Et";
+
 "AntigenProfile_Delete_Alert_Title" = "Hızlı test profilini kaldırmak istiyor musunuz?";
 
 "AntigenProfile_Delete_Alert_Description" = "Lütfen unutmayın; QR kodu silerseniz artık kayıt yaparken bunu kullanamazsınız.";
@@ -2623,6 +2635,8 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Geçerli sertifikayı içeren bir QR kod";
 
+"HealthCertifiedPerson_validationButtonTitle" = "Geçerliliği Kontrol Et";
+
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Aşı Sertifikası";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Aşı %i / %i";
@@ -2672,19 +2686,22 @@
 
 "HealthCertificate_Details_identifier" = "Sertifika Numarası";
 
-"HealthCertificate_Details_primaryButton" = "Aşı Sertifikasını Sil";
+"HealthCertificate_Details_validationButtonTitle" = "Geçerliliği Kontrol Et";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Aşı Sertifikasını Sil";
 
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
 
-/* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Aşı sertifikasını silmek istiyor musunuz?";
-
-"HealthCertificate_Alert_message" = "Aşı sertifikasını silerseniz uygulama artık bu aşıyı aşı durumunuzun doğrulaması için kullanamaz.";
-
+/* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Sil";
 
 "HealthCertificate_Alert_cancelButton" = "İptal Et";
+
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Aşı sertifikasını silmek istiyor musunuz?";
+
+"VaccinationCertificate_Alert_message" = "Aşı sertifikasını silerseniz uygulama artık bu aşıyı aşı durumunuzun doğrulaması için kullanamaz.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Sertifikası";
@@ -2702,10 +2719,6 @@
 
 "TestCertificate_Alert_message" = "Test sertifikasını kaldırırsanız artık bunu uygulamada kanıt olarak kullanamazsınız.";
 
-"TestCertificate_Alert_deleteButton" = "Sil";
-
-"TestCertificate_Alert_cancelButton" = "İptal Et";
-
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "İyileşme Sertifikası";
 
@@ -2717,10 +2730,6 @@
 "RecoveryCertificate_Alert_title" = "İyileşme sertifikasını kaldırmak istiyor musunuz?";
 
 "RecoveryCertificate_Alert_message" = "İyileşme sertifikasını kaldırırsanız artık bunu uygulamada kanıt olarak kullanamazsınız.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Kaldır";
-
-"RecoveryCertificate_Alert_cancelButton" = "İptal Et";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Hata";
@@ -2736,4 +2745,11 @@
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Bu sertifika desteklenmiyor.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "QR kod oluşturulamadı. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Doğrulama başarısız oldu";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "İnternet bağlantınız kesildi. Sertifika geçerlilik kontrolünü tamamlamak için lütfen bağlantıyı kontrol edin ve yeniden deneyin.";
 
