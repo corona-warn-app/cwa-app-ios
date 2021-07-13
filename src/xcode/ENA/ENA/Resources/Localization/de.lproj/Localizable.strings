@@ -2872,7 +2872,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Result_invalidationRule" = "Dies ist eine Regel des Ausstellerlandes.";
 
-"HealthCertificate_Validation_Result_moreInformation" = "Mehr Informationen finden Sie in den FAQ (https://www.coronawarn.app/de/faq/#cert_eu_travel) und unter https://reopen.europa.eu/de.";
+"HealthCertificate_Validation_Result_moreInformation01" = "Mehr Informationen finden Sie in den";
+
+"HealthCertificate_Validation_Result_moreInformation02" = "FAQ";
+
+"HealthCertificate_Validation_Result_moreInformation03" = "und unter";
 
 /* - Passed */
 
