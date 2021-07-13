@@ -4,8 +4,10 @@
 
 import Foundation
 
-// we have to create another enum to avoid confusion also because the enum order for the 16 states federalStateId in PPA is different that LocalStatistics protobufs
 
+/// Federal states for usage in (local) statistics
+///
+/// we have to create another enum to avoid confusion also because the enum order for the 16 states federalStateId in PPA is different that LocalStatistics protobufs
 enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	case badenWürttemberg = "Baden-Württemberg"
 	case bayern = "Bayern"
@@ -23,8 +25,8 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	case sachsenAnhalt = "Sachsen-Anhalt"
 	case schleswigHolstein = "Schleswig-Holstein"
 	case thüringen = "Thüringen"
-	
-	// only for local statistics
+
+	/// A group of 1..n federal states
 	var groupID: Int {
 		switch self {
 		case .badenWürttemberg:
@@ -43,7 +45,8 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 			return 7
 		}
 	}
-	// only for local statistics
+
+	/// Mapping to int values
 	var federalStateId: Int {
 		switch self {
 		case .schleswigHolstein:
