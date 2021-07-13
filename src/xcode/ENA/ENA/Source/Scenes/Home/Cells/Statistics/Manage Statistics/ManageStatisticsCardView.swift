@@ -149,14 +149,17 @@ enum LocalStatisticsState {
 
 	static func with(_ store: LocalStatisticsCaching) -> Self {
 		switch store.selectedLocalStatisticsDistricts.count {
-		case 0:
+		case ...0:
 			return .empty
-		case let count where count < 5:
+		case 1...(Self.threshold - 1):
 			return .notYetFull
-		case 5:
+		case Self.threshold...: // allow over threshold values in favor to fatal errors
 			return .full
 		default:
-			return .empty
+			fatalError("should not happen™")
 		}
 	}
+
+	/// Maximum number of custom statistics
+	private static let threshold = 5
 }
