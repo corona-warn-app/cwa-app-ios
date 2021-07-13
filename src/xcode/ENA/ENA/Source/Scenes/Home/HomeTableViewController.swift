@@ -620,6 +620,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }
 				
 				self?.statisticsCell?.updateManagementCellState()
+				self?.statisticsCell?.layoutIfNeeded()
 			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
