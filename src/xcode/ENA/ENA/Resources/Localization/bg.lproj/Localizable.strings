@@ -485,7 +485,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Грешка";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Регистрирайте своя тест";
+"ExposureSubmission_DispatchTitle" = "Управлявайте тестовете си";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Устройство предава на системата информация за положителен резултат от тест.";
 
@@ -506,6 +506,10 @@
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Заявете ТАН код за PCR тест";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Позвънете ни, за да получите TAN код за PCR тест.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Търсене на център за тестване";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Намерете центровете за тестване в близост до вас.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Заявете ТАН код за PCR тест";
@@ -934,7 +938,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Жена със смартфон в ръката стои пред сграда. QR кодът символизира профила за бързи тестове, който трябва да се сканира.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Можете да създадете профил с личните си данни, който да представяте чрез QR код във всеки включен пункт за тестване.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Ако си създадете профил за бързи тестове, няма да се налага да попълвате личните си данни наново при всеки антигенен тест.";
 
@@ -953,12 +957,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Напред";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Изтриване на профил за бързи тестове";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Редактиране";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Създаване на профил за бързи тестове";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Можете да създадете профил с личните си данни, който да представяте чрез QR код във всеки включен пункт за тестване.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Профил за бързи тестове";
 
@@ -1257,11 +1261,11 @@
 "Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Премахване";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Регистрирайте своя тест";
+"Home_TestRegistration_Title" = "Управлявайте тестовете си";
 
-"Home_TestRegistration_Body" = "Използвайте приложението, за да регистрирате тестовете си и да извлечете резултатите от тях, за да можете да предупредите останалите по-бързо или за да заявите своя сертификат за тест за COVID.";
+"Home_TestRegistration_Body" = "Намерете центровете за тестване в близост до вас и регистрирайте теста си, за да можете да предупредите останалите по-бързо или за да заявите своя цифров сертификат за тест за COVID.";
 
-"Home_TestRegistration_Button" = "Следващи стъпки";
+"Home_TestRegistration_Button" = "Напред";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Планирате събитие?";
@@ -2486,7 +2490,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Профил за бързи тестове";
 
-"AntigenProfile_Create_Description" = "Можете да създадете профил с личните си данни, който да представяте чрез QR код във всеки включен пункт за тестване.";
+"AntigenProfile_Create_Description" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Име";
 
@@ -2507,6 +2511,14 @@
 "AntigenProfile_Create_Save_Button_Title" = "Запазване";
 
 /* Antigen Profile */
+"AntigenProfile_Info_Action_Title" = "Информация";
+
+"AntigenProfile_Edit_Action_Title" = "Редактиране на профил за бързи тестове";
+
+"AntigenProfile_Delete_Action_Title" = "Изтриване на профил за бързи тестове";
+
+"AntigenProfile_Cancel_Action_Title" = "Отказ";
+
 "AntigenProfile_Delete_Alert_Title" = "Желаете ли да премахнете профила си за бързи тестове?";
 
 "AntigenProfile_Delete_Alert_Description" = "Моля, имайте предвид, че ако го направите, този код повече няма да може да се използва за регистрации.";
@@ -2623,6 +2635,8 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "QR код с текущия сертификат";
 
+"HealthCertifiedPerson_validationButtonTitle" = "Проверка на валидност";
+
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Сертификат за ваксинация";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Ваксинация %i от %i";
@@ -2670,21 +2684,24 @@
 
 "HealthCertificate_Details_country" = "Държава";
 
-"HealthCertificate_Details_identifier" = "Сертификационен номер";
+"HealthCertificate_Details_identifier" = "Номер на сертификат";
 
-"HealthCertificate_Details_primaryButton" = "Изтриване на сертификата за ваксинация";
+"HealthCertificate_Details_validationButtonTitle" = "Проверка на валидност";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Изтриване на сертификата за ваксинация";
 
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Тази ваксина осигурява защита с една доза или се поставя на преболедувало лице, което се нуждае само от една доза.";
 
-/* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
-
-"HealthCertificate_Alert_message" = "Ако изтриете сертификата, приложението вече няма да може да използва тази ваксинация за удостоверяване на вашия ваксинационен статус.";
-
+/* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Изтриване";
 
 "HealthCertificate_Alert_cancelButton" = "Отказ";
+
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
+
+"VaccinationCertificate_Alert_message" = "Ако изтриете сертификата за ваксинация, приложението вече няма да може да използва ваксинацията за удостоверяване на вашия ваксинационен статус.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертификат за тест";
@@ -2702,10 +2719,6 @@
 
 "TestCertificate_Alert_message" = "Ако изтриете този сертификат, повече няма да можете да го използвате за доказателство чрез приложението.";
 
-"TestCertificate_Alert_deleteButton" = "Изтриване";
-
-"TestCertificate_Alert_cancelButton" = "Отказ";
-
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Сертификат за възстановяване";
 
@@ -2717,10 +2730,6 @@
 "RecoveryCertificate_Alert_title" = "Желаете ли да изтриете сертификата за възстановяване?";
 
 "RecoveryCertificate_Alert_message" = "Ако изтриете този сертификат за възстановяване, повече няма да може да го използвате за доказателство в приложението.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Изтриване";
-
-"RecoveryCertificate_Alert_cancelButton" = "Отказ";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Грешка";
@@ -2736,4 +2745,11 @@
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Този сертификат не се поддържа.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Не беше генериран QR код. Ако грешката продължи да възниква, се обърнете към горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
+
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Неуспешна проверка";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "Възникна грешка. Моля, опитайте по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Изгубихте връзка с Интернет. За да завършите проверката за валидност на сертификата, проверете връзката си и опитайте отново.";
 
