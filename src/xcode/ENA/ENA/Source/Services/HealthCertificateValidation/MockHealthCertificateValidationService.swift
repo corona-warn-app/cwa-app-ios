@@ -12,7 +12,7 @@ import class CertLogic.Description
 
 struct MockHealthCertificateValidationService: HealthCertificateValidationProviding {
 
-	var onboardedCountriesResult: Result<[Country], ValidationOnboardedCountriesError> = .success(
+	var onboardedCountriesResult: Result<[Country], HealthCertificateValidationOnboardedCountriesError> = .success(
 		[
 			Country(countryCode: "DE"),
 			Country(countryCode: "IT"),
@@ -23,7 +23,7 @@ struct MockHealthCertificateValidationService: HealthCertificateValidationProvid
 	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationFailed([validationResult1, validationResult2]))
 
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
 	) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
 			completion(onboardedCountriesResult)

@@ -12,7 +12,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson?,
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping () -> Void,
 		didTapDeleteButton: @escaping () -> Void

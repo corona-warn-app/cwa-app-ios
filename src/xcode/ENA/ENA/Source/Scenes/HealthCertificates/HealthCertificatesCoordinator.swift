@@ -13,11 +13,13 @@ final class HealthCertificatesCoordinator {
 		store: HealthCertificateStoring,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
 		self.store = store
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
+		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
 		#if DEBUG
@@ -60,7 +62,8 @@ final class HealthCertificatesCoordinator {
 	private let store: HealthCertificateStoring
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var modalNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
@@ -196,7 +199,7 @@ final class HealthCertificatesCoordinator {
 			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
 				setLoadingState(true)
 
-				self?.healthCertificateValidationService.onboardedCountries { result in
+				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
 					setLoadingState(false)
 
 					switch result {
@@ -279,7 +282,7 @@ final class HealthCertificatesCoordinator {
 				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
 				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
 
-				self?.healthCertificateValidationService.onboardedCountries { result in
+				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
 

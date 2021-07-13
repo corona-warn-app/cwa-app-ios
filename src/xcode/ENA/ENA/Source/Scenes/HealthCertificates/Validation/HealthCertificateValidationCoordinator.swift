@@ -15,7 +15,7 @@ final class HealthCertificateValidationCoordinator {
 		countries: [Country],
 		store: HealthCertificateStoring,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificate = healthCertificate
@@ -41,7 +41,7 @@ final class HealthCertificateValidationCoordinator {
 	private let countries: [Country]
 	private let store: HealthCertificateStoring
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	// MARK: Show Screens
 

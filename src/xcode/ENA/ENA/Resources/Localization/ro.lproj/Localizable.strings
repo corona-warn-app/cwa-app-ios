@@ -485,7 +485,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Eroare";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Înregistrarea testului dvs.";
+"ExposureSubmission_DispatchTitle" = "Gestionarea testelor dvs.";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
 
@@ -506,6 +506,10 @@
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Solicitare cod TAN pentru testul PCR";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Sunați-ne și obțineți un cod TAN pentru testul dvs. PCR.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Găsire centru de testare";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Solicitare cod TAN pentru testul PCR";
@@ -934,7 +938,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "O femeie cu un smartphone în mână stă în fața unei clădiri. Un cod QR simbolizează profilul de test rapid de scanat.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu va trebui să completați din nou datele dvs. înainte de fiecare test rapid.";
 
@@ -953,12 +957,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Continuare";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Ștergerea profilului de test rapid";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Editare";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Crearea profilului de test rapid";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
 
@@ -1257,11 +1261,11 @@
 "Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Eliminare";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Înregistrarea testului dvs.";
+"Home_TestRegistration_Title" = "Gestionarea testelor dvs.";
 
-"Home_TestRegistration_Body" = "Utilizați aplicația pentru a înregistra testele dvs. și a afla rezultatele testelor dvs. pentru a-i putea avertiza pe ceilalți mai rapid sau pentru a solicita certificatul dvs. de test COVID.";
+"Home_TestRegistration_Body" = "Găsiți centre de testare în aproprierea dvs. și înregistrați un test pentru a-i putea avertiza pe ceilalți mai rapid sau pentru a solicita certificatul dvs. de test COVID.";
 
-"Home_TestRegistration_Button" = "Pașii următori";
+"Home_TestRegistration_Button" = "Continuare";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Planificați un eveniment?";
@@ -2486,7 +2490,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Profil de test rapid";
 
-"AntigenProfile_Create_Description" = "Puteți crea un profil cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
+"AntigenProfile_Create_Description" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "Prenume";
 
@@ -2507,6 +2511,14 @@
 "AntigenProfile_Create_Save_Button_Title" = "Salvare";
 
 /* Antigen Profile */
+"AntigenProfile_Info_Action_Title" = "Informații";
+
+"AntigenProfile_Edit_Action_Title" = "Editarea profilului de test rapid";
+
+"AntigenProfile_Delete_Action_Title" = "Ștergerea profilului de test rapid";
+
+"AntigenProfile_Cancel_Action_Title" = "Anulare";
+
 "AntigenProfile_Delete_Alert_Title" = "Doriți să eliminați profilul de test rapid?";
 
 "AntigenProfile_Delete_Alert_Description" = "Luați în considerare că dacă îl ștergeți, codul QR nu mai poate fi utilizat pentru înregistrare.";
@@ -2623,6 +2635,8 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu certificatul curent";
 
+"HealthCertifiedPerson_validationButtonTitle" = "Verificare valabilitate";
+
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Certificat de vaccinare";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Vaccinarea %i din %i";
@@ -2672,19 +2686,22 @@
 
 "HealthCertificate_Details_identifier" = "Număr de certificare";
 
-"HealthCertificate_Details_primaryButton" = "Ștergere certificat de vaccinare";
+"HealthCertificate_Details_validationButtonTitle" = "Verificare valabilitate";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Ștergere certificat de vaccinare";
 
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
 
-/* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
-
-"HealthCertificate_Alert_message" = "Dacă ștergeți certificatul de vaccinare, aplicația nu mai poate utiliza vaccinarea pentru a verifica starea vaccinării dvs.";
-
+/* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Ștergere";
 
 "HealthCertificate_Alert_cancelButton" = "Anulare";
+
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
+
+"VaccinationCertificate_Alert_message" = "Dacă ștergeți certificatul de vaccinare, aplicația nu mai poate utiliza vaccinarea pentru a verifica starea vaccinării dvs.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certificat de test";
@@ -2702,10 +2719,6 @@
 
 "TestCertificate_Alert_message" = "Dacă eliminați certificatul de test, nu îl mai puteți utiliza ca dovadă în aplicație.";
 
-"TestCertificate_Alert_deleteButton" = "Ștergere";
-
-"TestCertificate_Alert_cancelButton" = "Anulare";
-
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificat de recuperare";
 
@@ -2717,10 +2730,6 @@
 "RecoveryCertificate_Alert_title" = "Doriți să eliminați certificatul de recuperare?";
 
 "RecoveryCertificate_Alert_message" = "Dacă eliminați certificatul de recuperare, nu îl mai puteți utiliza ca dovadă în aplicație.";
-
-"RecoveryCertificate_Alert_deleteButton" = "Eliminare";
-
-"RecoveryCertificate_Alert_cancelButton" = "Anulare";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
@@ -2736,4 +2745,11 @@
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Acest certificat nu este acceptat.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Codul QR nu a putut fi generat. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Validare nereușită";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Conexiunea dvs. la internet s-a pierdut. Pentru a finaliza verificarea valabilității certificatului, verificați conexiunea și reîncercați.";
 

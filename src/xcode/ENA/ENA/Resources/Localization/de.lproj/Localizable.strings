@@ -27,6 +27,8 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+"Common_No_Network" = "Der Vorgang konnte wegen Netzwerkproblemen nicht abgeschlossen werden. Bitte versuchen Sie es noch einmal.";
+
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
 "Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
@@ -1586,23 +1588,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.5 */
+/* Version 2.6 */
 
-"NewVersionFeature_25_recovery_cert_title" = "COVID-Genesenenzertifikate";
+"NewVersionFeature_26_euCertCheck_title" = "EU-Zertifikatsprüfung";
 
-"NewVersionFeature_25_recovery_cert_description" = "Sie können nun in der App auch digitale Genesenenzertifikate hinzufügen. Sie können diese Zertifikate innerhalb der EU verwenden, um eine frühere Infektion nachzuweisen (z.\U00A0B. für Auslandsreisen).";
+"NewVersionFeature_26_euCertCheck_description" = "Sie können nun vor einer Reise Zertifikate für ein gewähltes Land auf Gültigkeit prüfen.";
 
-"NewVersionFeature_25_family_certificate_title" = "Familienzertifikate";
+"NewVersionFeature_26_enhancedStats_title" = "Erweiterung Statistiken";
 
-"NewVersionFeature_25_family_certificate_description" = "Sie können nun digitale COVID-Zertifikate von Familienmitgliedern in der App hinzufügen und verwalten, um die Zertifikate vorzeigen zu können (z.\U00A0B. bei Auslandsreisen).";
+"NewVersionFeature_26_enhancedStats_description" = "Sie können nun bis zu fünf lokale 7-Tage-Inzidenzen in der App hinzufügen.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Erweiterung Statistiken ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Schnelltest-Profil bearbeiten";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "Es sind nun folgende Impfstatistiken in der App verfügbar:\n\n\t- Anzahl mindestens einmal geimpfter Personen\n\t- Anzahl vollständig geimpfter Personen\n\t- Anzahl verabreichter Impfdosen";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Schnelltest-Profil bearbeiten";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

@@ -13,30 +13,22 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.5"
+		self.featureVersion = "2.6"
 		
-		// Covid Recovered Certificate
+		// EU Certificate Check
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25RecoveryCertTitle, description: AppStrings.NewVersionFeatures.feature25tRecoveryCertDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature26EuCertCheckTitle, description: AppStrings.NewVersionFeatures.feature26EuCertCheckDescription)
 		)
 		
-		// Family Certificate
+		// Enhanced Stats
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25FamilyCertTitle, description: AppStrings.NewVersionFeatures.feature25FamilyCertDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature26EnhancedStatsTitle, description: AppStrings.NewVersionFeatures.feature26DEnhancedStatsDescription)
 		)
 		
-		// Extended Statistics
+		// Edit Rapid Tests
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25EnhancedStatisticsTitle, description: AppStrings.NewVersionFeatures.feature25EnhancedStatisticsDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature26EditRapidTestTitle, description: AppStrings.NewVersionFeatures.feature26EditRapidTestDescription)
 		)
-		
-		// Edit Test Profile
-		/*
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature25EditTestProfileTitle, description: AppStrings.NewVersionFeatures.feature25tEditTestProfileDescription)
-		)
-		*/
-		
 	}
 
 	// MARK: - Internal
