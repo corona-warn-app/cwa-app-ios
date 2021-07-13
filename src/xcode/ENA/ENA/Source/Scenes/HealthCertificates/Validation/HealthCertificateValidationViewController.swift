@@ -11,7 +11,7 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 
 	init(
 		healthCertificate: HealthCertificate,
-		countries: [ValidationCountryCode],
+		countries: [Country],
 		store: HealthCertificateStoring,
 		onValidationButtonTap: @escaping (Country, Date) -> Void,
 		onInfoButtonTap: @escaping () -> Void,

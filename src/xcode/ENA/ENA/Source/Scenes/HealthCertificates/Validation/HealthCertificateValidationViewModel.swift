@@ -12,7 +12,7 @@ final class HealthCertificateValidationViewModel {
 
 	init(
 		healthCertificate: HealthCertificate,
-		countries: [ValidationCountryCode],
+		countries: [Country],
 		store: HealthCertificateStoring,
 		onValidationButtonTap: @escaping (Country, Date) -> Void
 	) {
@@ -34,7 +34,7 @@ final class HealthCertificateValidationViewModel {
 	// MARK: - Private
 
 	private let healthCertificate: HealthCertificate
-	private let countries: [ValidationCountryCode]
+	private let countries: [Country]
 	private let store: HealthCertificateStoring
 	private let onValidationButtonTap: (Country, Date) -> Void
 
