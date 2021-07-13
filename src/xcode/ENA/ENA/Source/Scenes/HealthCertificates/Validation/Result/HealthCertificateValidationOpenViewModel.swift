@@ -15,7 +15,7 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 		arrivalDate: Date,
 		validationResults: [ValidationResult],
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
 		self.arrivalCountry = arrivalCountry
 		self.arrivalDate = arrivalDate
@@ -64,7 +64,7 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 	private let arrivalDate: Date
 	private let validationResults: [ValidationResult]
 	private let healthCertificate: HealthCertificate
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var openValidationResults: [ValidationResult] {
 		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults

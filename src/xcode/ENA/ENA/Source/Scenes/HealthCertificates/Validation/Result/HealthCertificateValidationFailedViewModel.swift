@@ -15,7 +15,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 		arrivalDate: Date,
 		validationResults: [ValidationResult],
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
 		self.arrivalCountry = arrivalCountry
 		self.arrivalDate = arrivalDate
@@ -74,7 +74,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 	private let arrivalDate: Date
 	private let validationResults: [ValidationResult]
 	private let healthCertificate: HealthCertificate
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var failedValidationResults: [ValidationResult] {
 		failedAcceptanceRuleValidationResults + failedInvalidationRuleValidationResults

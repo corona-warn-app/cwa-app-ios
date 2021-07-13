@@ -15,7 +15,7 @@ final class ValidationResultCellModel {
 	init(
 		validationResult: ValidationResult,
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
 		self.validationResult = validationResult
 		self.healthCertificate = healthCertificate
@@ -86,7 +86,7 @@ final class ValidationResultCellModel {
 
 	private let validationResult: ValidationResult
 	private let healthCertificate: HealthCertificate
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private let vaccinationEntryKeyPaths: [String: PartialKeyPath<VaccinationEntry>] = [
 		"v.0.tg": \VaccinationEntry.diseaseOrAgentTargeted,

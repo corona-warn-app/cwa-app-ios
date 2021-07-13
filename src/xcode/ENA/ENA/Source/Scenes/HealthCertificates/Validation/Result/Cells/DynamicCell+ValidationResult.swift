@@ -11,7 +11,7 @@ extension DynamicCell {
 	static func validationResult(
 		_ validationResult: ValidationResult,
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) -> Self {
 		.custom(
 			withIdentifier: ValidationResultTableViewCell.dynamicTableViewCellReuseIdentifier
