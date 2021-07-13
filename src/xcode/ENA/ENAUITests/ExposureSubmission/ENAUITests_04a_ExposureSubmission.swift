@@ -72,7 +72,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell].waitAndTap()
 		
-		let consentSwitch = app.switches.firstMatch
+		let consentSwitch = app.cells[AccessibilityIdentifiers.ExposureSubmissionTestResultConsent.switchIdentifier]
 		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
 		XCTAssertEqual(consentSwitch.value as? String, "0")
 		consentSwitch.waitAndTap()
