@@ -256,8 +256,8 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	
 	// MARK: - Protocol HealthCertificateValidationCaching
 	
-	var validationOnboardedCountriesCache: ValidationOnboardedCountriesCache? {
-		get { kvStore["validationOnboardedCountriesCache"] as ValidationOnboardedCountriesCache? ?? nil }
+	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? {
+		get { kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil }
 		set { kvStore["validationOnboardedCountriesCache"] = newValue }
 	}
 	
