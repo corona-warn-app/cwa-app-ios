@@ -141,7 +141,7 @@ final class HealthCertificateValidationViewModel {
 					self?.selectedArrivalCountry = country
 				}
 
-				countrySelectionCell.countries = self.countries
+				countrySelectionCell.countries = self.countries.sortedByLocalizedName
 				countrySelectionCell.selectedCountry = self.selectedArrivalCountry
 				countrySelectionCell.isCollapsed = self.countrySelectionCollapsed
 			}

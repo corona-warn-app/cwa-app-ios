@@ -35,6 +35,11 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	var selectedCountry: Country? {
 		didSet {
 			selectedCountryLabel.text = selectedCountry?.localizedName
+
+			if let selectedCountry = selectedCountry,
+				let countryIndex = countries.firstIndex(of: selectedCountry) {
+				picker.selectRow(countryIndex, inComponent: 0, animated: false)
+			}
 		}
 	}
 
