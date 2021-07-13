@@ -175,6 +175,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						}
 					}
 				)
+				statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}

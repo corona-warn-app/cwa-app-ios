@@ -17,7 +17,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
-	
+	/*
 	func test_AddStatisticsButton_flow() {
 		let addButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let modifyButton = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
@@ -59,7 +59,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertFalse(localStatisticCell.exists)
 		XCTAssertFalse(statisticsCell.otherElements[modifyButton].isHittable)
 	}
-	
+	*/
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
