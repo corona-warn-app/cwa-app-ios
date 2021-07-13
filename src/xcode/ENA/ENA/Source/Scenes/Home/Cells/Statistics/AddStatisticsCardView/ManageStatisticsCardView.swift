@@ -15,6 +15,7 @@ class ManageStatisticsCardView: UIView {
 		
 		let borderColor: UIColor = .enaColor(for: .backgroundLightGray)
 		layer.borderColor = borderColor.cgColor
+		accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.manageStatisticsCard
 	}
 	
 	// swiftlint:disable:next function_parameter_count

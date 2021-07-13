@@ -33,7 +33,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// Management card(s) pt.1 - addition
 		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
 		XCTAssertTrue(statisticsCell.otherElements[addButton].isHittable)
-		XCTAssertFalse(statisticsCell.otherElements[modifyButton].isHittable)
+		// XCTAssertFalse(statisticsCell.otherElements[modifyButton].isHittable) // assuming empty statistics
 		statisticsCell.otherElements[addButton].waitAndTap()
 
 		// Data selection
@@ -45,6 +45,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.cells.element(boundBy: 14).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
+		statisticsCell.swipeLeft()
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .medium))
 		XCTAssertFalse(localStatisticCell.otherElements[AccessibilityIdentifiers.General.deleteButton].isHittable)
