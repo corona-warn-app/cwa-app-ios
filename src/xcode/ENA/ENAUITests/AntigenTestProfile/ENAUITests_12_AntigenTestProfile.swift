@@ -35,6 +35,9 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		registerTestButton.waitAndTap()
 		
 		/// Register Test Screen
+		
+		// dont't take this swipe up otherwise this test will fail!
+		app.swipeUp(velocity: .slow)
 
 		let createProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description])
 		createProfileButton.waitAndTap()

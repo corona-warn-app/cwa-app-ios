@@ -306,7 +306,12 @@ final class HTTPClient: Client {
 				}
 			case let .failure(error):
 				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
-				completion(.failure(.invalidResponseError))
+				switch error {
+				case .noNetworkConnection:
+					completion(.failure(.noNetworkConnection))
+				default:
+					completion(.failure(.invalidResponseError))
+				}
 			}
 		})
 	}
@@ -665,7 +670,7 @@ final class HTTPClient: Client {
 	func getDCCRules(
 		eTag: String? = nil,
 		isFake: Bool = false,
-		ruleType: DCCRuleType,
+		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	) {
 		guard let request = try? URLRequest.dccRulesRequest(
@@ -1454,7 +1459,7 @@ private extension URLRequest {
 	}
 	
 	static func dccRulesRequest(
-		ruleType: DCCRuleType,
+		ruleType: HealthCertificateValidationRuleType,
 		configuration: HTTPClient.Configuration,
 		eTag: String?,
 		headerValue: Int
