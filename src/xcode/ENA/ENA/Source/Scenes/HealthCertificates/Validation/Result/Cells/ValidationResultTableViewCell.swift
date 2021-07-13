@@ -35,16 +35,27 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		ruleDescriptionLabel.text = cellModel.ruleDescription
 		ruleTypeDescriptionLabel.text = cellModel.ruleTypeDescription
 		keyValueAttributedLabel.attributedText = cellModel.keyValueAttributedString
+
+		// only needed if keyValuePairs get updated while the cell is shown.
+		// this is why we drop the first callback
+		cellModel.$keyValuePairs
+			.dropFirst()
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.keyValueAttributedLabel.attributedText = cellModel.keyValueAttributedString
+				onUpdate()
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
 	private let iconImageView = UIImageView()
-
 	private let ruleDescriptionLabel = ENALabel(style: .body)
 	private let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
 	private let keyValueAttributedLabel = UILabel()
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		backgroundColor = .clear
