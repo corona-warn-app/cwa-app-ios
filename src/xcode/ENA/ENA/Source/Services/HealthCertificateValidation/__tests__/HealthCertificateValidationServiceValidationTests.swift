@@ -716,7 +716,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR)
+		XCTAssertEqual(error, .RULE_JSON_ARCHIVE_ETAG_ERROR(.acceptance))
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingPackageIsEmpty_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING_IsReturned() throws {
@@ -776,7 +776,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING)
+		XCTAssertEqual(error, .RULE_JSON_ARCHIVE_FILE_MISSING(.acceptance))
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingVerifyingFails_THEN_ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID_IsReturned() throws {
@@ -836,7 +836,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID )
+		XCTAssertEqual(error, .RULE_JSON_ARCHIVE_SIGNATURE_INVALID(.acceptance) )
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingDataDecodingFails_THEN_ACCEPTANCE_RULE_VALIDATION_ERROR_IsReturned() throws {
@@ -896,7 +896,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
+		XCTAssertEqual(error, .RULE_DECODING_ERROR(.acceptance, .CBOR_DECODING_FAILED(nil)))
 	}
 	
 	// MARK: - Errors (Downloading Rules Failure Handler)
@@ -951,7 +951,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_MISSING_CACHE)
+		XCTAssertEqual(error, .RULE_MISSING_CACHE(.acceptance))
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingInvalidationCacheIsMissing_THEN_INVALIDATION_RULE_MISSING_CACHE_IsReturned() {
@@ -1012,7 +1012,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .INVALIDATION_RULE_MISSING_CACHE)
+		XCTAssertEqual(error, .RULE_MISSING_CACHE(.invalidation))
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingNoNetwork_THEN_NO_NETWORK_IsReturned() {
@@ -1123,7 +1123,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_CLIENT_ERROR)
+		XCTAssertEqual(error, .RULE_CLIENT_ERROR(.acceptance))
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingServerError500_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
@@ -1179,7 +1179,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_SERVER_ERROR)
+		XCTAssertEqual(error, .RULE_SERVER_ERROR(.acceptance))
 	}
 	
 	func testGIVEN_ValidationService_WHEN_RuleDownloadingDefaultError_THEN_ACCEPTANCE_RULE_SERVER_ERROR_IsReturned() {
@@ -1235,7 +1235,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .ACCEPTANCE_RULE_SERVER_ERROR)
+		XCTAssertEqual(error, .RULE_SERVER_ERROR(.acceptance))
 	}
 	
 	// MARK: - Others
