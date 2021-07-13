@@ -2840,7 +2840,7 @@
 				0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */,
 				0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */,
 				3484AC782693629C00CB0500 /* Model */,
-				8F3BB93626848F63000B9A95 /* AddStatisticsCardView */,
+				8F3BB93626848F63000B9A95 /* Manage Statistics */,
 				0105D88B25B87300007E288B /* HomeStatisticsCardView */,
 				0105D88F25B8731D007E288B /* Extensions */,
 			);
@@ -5012,7 +5012,7 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		8F3BB93626848F63000B9A95 /* AddStatisticsCardView */ = {
+		8F3BB93626848F63000B9A95 /* Manage Statistics */ = {
 			isa = PBXGroup;
 			children = (
 				8F499B082682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift */,
@@ -5022,7 +5022,7 @@
 				8F499B062681496D0047C1A6 /* CustomDashedView.swift */,
 				35A6FAFF268DC7C900A033A4 /* CustomDashedView.xib */,
 			);
-			path = AddStatisticsCardView;
+			path = "Manage Statistics";
 			sourceTree = "<group>";
 		};
 		8F3D71A825A8634700D52CCD /* __tests__ */ = {
