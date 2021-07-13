@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 protocol LocalStatisticsProviding {
-	func latestLocalStatistics(groupID: GroupIdentifier, eTag: String?) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error>
+	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error>
 	func latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
 }
 
@@ -18,7 +18,7 @@ protocol LocalStatisticsFetching {
 	typealias LocalStatisticsCompletionHandler = (Result<LocalStatisticsResponse, Error>) -> Void
 
 	func fetchLocalStatistics(
-		groupID: GroupIdentifier,
+		groupID: StatisticsGroupIdentifier,
 		eTag: String?,
 		completion: @escaping (Result<LocalStatisticsResponse, Error>) -> Void
 	)
@@ -28,9 +28,9 @@ struct LocalStatisticsResponse {
 	let localStatistics: SAP_Internal_Stats_LocalStatistics
 	let eTag: String?
 	let timestamp: Date
-	let groupID: GroupIdentifier
+	let groupID: StatisticsGroupIdentifier
 
-	init(_ localStatistics: SAP_Internal_Stats_LocalStatistics, _ eTag: String? = nil, _ groupID: GroupIdentifier) {
+	init(_ localStatistics: SAP_Internal_Stats_LocalStatistics, _ eTag: String? = nil, _ groupID: StatisticsGroupIdentifier) {
 		self.groupID = groupID
 		self.localStatistics = localStatistics
 		self.eTag = eTag

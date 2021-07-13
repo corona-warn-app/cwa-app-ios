@@ -16,7 +16,7 @@ struct LocalStatisticsMetadata: Codable, Equatable {
 	}
 
 	init(
-		groupID: GroupIdentifier,
+		groupID: StatisticsGroupIdentifier,
 		lastLocalStatisticsETag: String,
 		lastLocalStatisticsFetchDate: Date,
 		localStatistics: SAP_Internal_Stats_LocalStatistics
@@ -60,7 +60,7 @@ struct LocalStatisticsMetadata: Codable, Equatable {
 	
 	// MARK: - Internal
 	
-	var groupID: GroupIdentifier
+	var groupID: StatisticsGroupIdentifier
 	var lastLocalStatisticsETag: String?
 	var lastLocalStatisticsFetchDate: Date
 	var localStatistics: SAP_Internal_Stats_LocalStatistics

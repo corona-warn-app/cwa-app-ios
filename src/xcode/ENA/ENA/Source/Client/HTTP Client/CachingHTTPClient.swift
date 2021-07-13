@@ -4,7 +4,7 @@
 
 import Foundation
 
-typealias GroupIdentifier = String
+typealias StatisticsGroupIdentifier = String
 
 class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
 	private let environmentProvider: EnvironmentProviding
@@ -197,7 +197,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
 	func fetchLocalStatistics(
-		groupID: GroupIdentifier,
+		groupID: StatisticsGroupIdentifier,
 		eTag: String?,
 		completion: @escaping LocalStatisticsCompletionHandler
 	) {
