@@ -20,6 +20,10 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 		DynamicTableViewModel([
 			.section(
 				cells: [
+					.headlineWithImage(
+						headerText: AppStrings.HealthCertificate.Validation.Result.Failed.title,
+						image: UIImage(imageLiteralResourceName: "Illu_Validation_Invalid")
+					),
 					.footnote(
 						text: String(
 							format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
@@ -34,7 +38,12 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 					.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
 					.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription),
 					.technicalFailedRulesCell(),
-					.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation)
+					.dynamicType(
+						text: """
+							<p>\(AppStrings.HealthCertificate.Validation.Result.moreInformation01) <a href="\(AppStrings.Links.healthCertificateValidationFAQ)">\(AppStrings.HealthCertificate.Validation.Result.moreInformation02)</a> \(AppStrings.HealthCertificate.Validation.Result.moreInformation03) <a href="\(AppStrings.Links.healthCertificateValidationEU)">\(AppStrings.Links.healthCertificateValidationEU)</a>.</p>
+							""",
+						cellStyle: .htmlString
+					)
 				]
 			)
 		])
