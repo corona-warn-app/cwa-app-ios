@@ -146,7 +146,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	) {
 		// 3. update/ download acceptance rules
 		downloadRules(
-			ruleType: .invalidation,
+			ruleType: .acceptance,
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
