@@ -213,5 +213,29 @@
 			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Für diesen Zertifikattyp sind derzeit keine Einreiseregeln für das gewählte Land und den gewählten Zeitpunkt vorhanden. Bitte beachten Sie die folgenden Hinweise:</string>
+			<key>one</key>
+			<string>Es wurde %u Regel des Reiselandes erfolgreich überprüft.</string>
+			<key>two</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>few</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>many</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>other</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

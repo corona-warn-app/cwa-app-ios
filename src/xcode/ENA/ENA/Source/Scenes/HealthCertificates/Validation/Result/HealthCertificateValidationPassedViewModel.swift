@@ -4,14 +4,20 @@
 
 import Foundation
 import UIKit
+import class CertLogic.ValidationResult
 
 struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationResultViewModel {
 
 	// MARK: - Init
 
-	init(arrivalCountry: Country, arrivalDate: Date) {
+	init(
+		arrivalCountry: Country,
+		arrivalDate: Date,
+		validationResults: [ValidationResult]
+	) {
 		self.arrivalCountry = arrivalCountry
 		self.arrivalDate = arrivalDate
+		self.validationResults = validationResults
 	}
 
 	// MARK: - Internal
@@ -34,7 +40,13 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 						color: .enaColor(for: .textPrimary2)
 					),
 					.title2(text: AppStrings.HealthCertificate.Validation.Result.Passed.subtitle),
-					.space(height: 10),
+					.body(
+						text: String(
+							format: AppStrings.HealthCertificate.Validation.Result.Passed.description,
+							validationResults.count
+						)
+					),
+					.space(height: 12),
 					.headline(text: AppStrings.HealthCertificate.Validation.Result.Passed.hintsTitle),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint1, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
@@ -55,5 +67,6 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 
 	private let arrivalCountry: Country
 	private let arrivalDate: Date
+	private let validationResults: [ValidationResult]
 
 }
