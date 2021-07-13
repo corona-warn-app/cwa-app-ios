@@ -98,7 +98,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		// 2. update/ download value sets
-		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+		vaccinationValueSetsProvider.fetchVaccinationCertificateValueSets()
 			.sink(
 				receiveCompletion: { result in
 					switch result {
