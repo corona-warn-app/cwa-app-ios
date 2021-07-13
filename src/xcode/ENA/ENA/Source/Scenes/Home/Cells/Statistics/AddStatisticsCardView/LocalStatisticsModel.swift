@@ -41,10 +41,6 @@ struct LocalStatisticsModel {
 		})
 	}
 
-//	mutating func saveLocalStatistics() {
-		// save the returned LocalStatistics From the API to the store
-//	}
-
 	// MARK: - Private
 
 	private let store: Store
