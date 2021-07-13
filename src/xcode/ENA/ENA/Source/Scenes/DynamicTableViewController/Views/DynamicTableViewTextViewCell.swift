@@ -27,6 +27,15 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		resetMargins()
 		configureDynamicType()
 		configure(text: "", color: .enaColor(for: .textPrimary1))
+		lastHTMLString = nil
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle,
+		   let previousHTMLString = lastHTMLString {
+			configure(htmlString: previousHTMLString)
+		}
 	}
 
 	// MARK: - Internal
@@ -121,7 +130,11 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		contentView.insetsLayoutMarginsFromSafeArea = false
 	}
 
+	private var lastHTMLString: String?
+
 	private func htmlString(with content: String) -> String? {
+		lastHTMLString = content
+		let cssStyle = traitCollection.userInterfaceStyle == .dark ? darkCssStyle : lightCssStyle
 		return String(format: htmlTemplate, cssStyle, content)
 	}
 
@@ -137,7 +150,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		</html>
 		"""
 
-	private let cssStyle = """
+	private let lightCssStyle = """
 		* {
 			margin: 0;
 			padding: 0;
@@ -153,17 +166,6 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 				font: -apple-system-body !important;
 			}
 		}
-		@media (prefers-color-scheme: dark) {
-			body {
-				color: white;
-			}
-			a:link {
-				color: #0096e2;
-			}
-			a:visited {
-				color: #9d57df;
-			}
-		}
 		a:link, a:visited {
 			text-decoration: none;
 			color: #007fad;
@@ -172,5 +174,43 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 			font-size: 1.0em;
 			font-weight: normal;
 		}
+		body {
+			color: black;
+		}
 		"""
+
+	private let darkCssStyle = """
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		html, body, table {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+			"Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+		}
+
+		@supports (font: -apple-system-body) {
+			html, body, table {
+				font: -apple-system-body !important;
+			}
+		}
+		p {
+			font-size: 1.0em;
+			font-weight: normal;
+		}
+
+		body {
+			color: white;
+		}
+		a:link {
+			text-decoration: none;
+			color: #0096e2;
+		}
+		a:visited {
+			text-decoration: none;
+			color: #9d57df;
+		}
+		"""
+
 }
