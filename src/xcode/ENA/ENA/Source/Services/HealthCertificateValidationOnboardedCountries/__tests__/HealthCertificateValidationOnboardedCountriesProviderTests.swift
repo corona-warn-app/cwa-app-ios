@@ -29,7 +29,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should success with new countries")
-		var countries: [ValidationCountryCode] = []
+		var countries: [Country] = []
 				
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -67,7 +67,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should success with new countries")
-		var countries: [ValidationCountryCode] = []
+		var countries: [Country] = []
 		
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -413,7 +413,12 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		return response
 	}()
 	
-	private var onboardedCountriesFake: [ValidationCountryCode] {
-		return ["DE", "FR"]
+	private var onboardedCountriesFake: [Country] {
+		guard let countryDE = Country(countryCode: "DE"),
+			  let countryFR = Country(countryCode: "FR") else {
+			XCTFail("Could not create countries")
+			return []
+		}
+		return [countryDE, countryFR]
 	}
 }
