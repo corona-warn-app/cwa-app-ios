@@ -74,10 +74,11 @@ final class HealthCertificateValidationCoordinator {
 					switch result {
 					case .success(let validationReport):
 						switch validationReport {
-						case .validationPassed:
+						case .validationPassed(let validationResults):
 							self.showValidationPassedScreen(
 								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate
+								arrivalDate: arrivalDate,
+								validationResults: validationResults
 							)
 						case .validationOpen(let validationResults):
 							self.showValidationOpenScreen(
@@ -134,12 +135,14 @@ final class HealthCertificateValidationCoordinator {
 
 	private func showValidationPassedScreen(
 		arrivalCountry: Country,
-		arrivalDate: Date
+		arrivalDate: Date,
+		validationResults: [ValidationResult]
 	) {
 		let validationPassedViewController = HealthCertificateValidationResultViewController(
 			viewModel: HealthCertificateValidationPassedViewModel(
 				arrivalCountry: arrivalCountry,
-				arrivalDate: arrivalDate
+				arrivalDate: arrivalDate,
+				validationResults: validationResults
 			),
 			onPrimaryButtonTap: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)
