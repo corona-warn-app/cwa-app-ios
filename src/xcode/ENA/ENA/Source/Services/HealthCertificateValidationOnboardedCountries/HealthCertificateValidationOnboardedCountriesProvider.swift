@@ -5,9 +5,11 @@
 import Foundation
 import HealthCertificateToolkit
 
+typealias ValidationCountryCode = String
+
 protocol HealthCertificateValidationOnboardedCountriesProviding {
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[ValidationCountryCode], HealthCertificateValidationOnboardedCountriesError>) -> Void
 	)
 }
 
@@ -28,7 +30,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
 	
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[ValidationCountryCode], HealthCertificateValidationOnboardedCountriesError>) -> Void
 	) {
 		client.validationOnboardedCountries(
 			eTag: store.validationOnboardedCountriesCache?.lastOnboardedCountriesETag,
@@ -42,12 +44,12 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					self.processOnboardedCountriesResponse(
+					self.onboardedCountriesSuccess(
 						packageDownloadResponse: packageDownloadResponse,
 						completion: completion
 					)
 				case let .failure(error):
-					self.processOnboardedCountriesFailure(
+					self.onboardedCountriesFailure(
 						error: error,
 						completion: completion
 					)
@@ -62,9 +64,9 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	private let client: Client
 	private let signatureVerifier: SignatureVerification
 		
-	private func processOnboardedCountriesResponse(
+	private func onboardedCountriesSuccess(
 		packageDownloadResponse: PackageDownloadResponse,
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[ValidationCountryCode], HealthCertificateValidationOnboardedCountriesError>) -> Void
 	) {
 		Log.info("Successfully received onboarded countries package. Proceed with eTag verification...", log: .vaccination)
 
@@ -73,7 +75,6 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 			completion(.failure(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR))
 			return
 		}
-		
 		Log.info("Successfully verified eTag. Proceed with package extraction...", log: .vaccination)
 				
 		guard !packageDownloadResponse.isEmpty,
@@ -102,6 +103,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 						onboardedCountries: countries,
 						lastOnboardedCountriesETag: eTag
 					)
+					Log.info("Successfully stored country codes in cache.", log: .vaccination)
 					store.validationOnboardedCountriesCache = receivedOnboardedCountries
 					completion(.success(countries))
 				case let .failure(error):
@@ -112,9 +114,9 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		)
 	}
 	
-	private func processOnboardedCountriesFailure(
+	private func onboardedCountriesFailure(
 		error: URLSession.Response.Failure,
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[ValidationCountryCode], HealthCertificateValidationOnboardedCountriesError>) -> Void
 	) {
 		switch error {
 		case .notModified:
@@ -148,19 +150,10 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	/// Extracts by the HealthCertificateToolkit the list of countrys. Expects the list as CBOR-Data and return for success the list of Country-Objects.
 	private func extractCountryCodes(
 		cborData: Data,
-		completion: (Result<[Country], RuleValidationError>
+		completion: (Result<[ValidationCountryCode], RuleValidationError>
 		) -> Void
 	) {
 		let extractOnboardedCountryCodesResult = OnboardedCountriesAccess().extractCountryCodes(from: cborData)
-		
-		switch extractOnboardedCountryCodesResult {
-		case let .success(countryCodes):
-			let countries = countryCodes.compactMap {
-				Country(countryCode: $0)
-			}
-			completion(.success(countries))
-		case let .failure(error):
-			completion(.failure(error))
-		}
+		completion(extractOnboardedCountryCodesResult)
 	}
 }
