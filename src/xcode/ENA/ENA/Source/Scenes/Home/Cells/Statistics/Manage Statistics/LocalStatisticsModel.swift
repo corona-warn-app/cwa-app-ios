@@ -18,7 +18,7 @@ struct LocalStatisticsModel {
 			let jsonData = try Data(contentsOf: jsonFileURL)
 			self.allDistricts = try JSONDecoder().decode([DistrictElement].self, from: jsonData)
 		} catch {
-			Log.debug("Failed to read / parse district json", log: .ppac)
+			Log.debug("Failed to read / parse district json", log: .localStatistics)
 			self.allDistricts = []
 		}
 	}
