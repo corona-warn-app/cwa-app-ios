@@ -44,11 +44,14 @@ extension DynamicCell {
 
 		case linkTextView(String, ENAFont = .body)
 
+		case htmlString
+
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
 			case .label: return .dynamicTypeLabel
 			case .textView: return .dynamicTypeTextView
 			case .linkTextView: return .dynamicTypeTextView
+			case .htmlString: return .dynamicTypeTextView
 			}
 		}
 	}
@@ -91,6 +94,11 @@ extension DynamicCell {
 			if case .linkTextView(let placeHolder, let font) = cellStyle,
 				let cell = cell as? DynamicTableViewTextViewCell {
 				cell.configureAsLink(placeholder: placeHolder, urlString: text, font: font)
+			}
+
+			if case .htmlString = cellStyle,
+			   let cell = cell as? DynamicTableViewTextViewCell {
+				cell.configure(htmlString: text)
 			}
 
 			configure?(viewController, cell, indexPath)
