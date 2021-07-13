@@ -16,7 +16,7 @@ import class CertLogic.ValidationResult
 protocol HealthCertificateValidationProviding {
 	func validate(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	)
@@ -56,7 +56,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	func validate(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
@@ -93,7 +93,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private func updateValueSets(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
@@ -140,7 +140,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private func downloadAcceptanceRules(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
@@ -169,7 +169,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private func downloadInvalidationRules(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		acceptanceRules: [Rule],
@@ -200,7 +200,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private func assembleCommonRules(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		acceptanceRules: [Rule],
@@ -214,7 +214,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// we must not set the region at the moment, so we set it to nil.
 		let filterParameter = FilterParameter(
 			validationClock: validationClock,
-			countryCode: arrivalCountry,
+			countryCode: arrivalCountry.id,
 			certificationType: mappedCertificateType,
 			region: nil
 		)
