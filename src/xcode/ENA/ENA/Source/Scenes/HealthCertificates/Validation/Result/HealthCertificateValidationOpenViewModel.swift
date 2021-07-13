@@ -48,8 +48,14 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 		]
 
 		cells.append(contentsOf: openValidationResults.map { .validationResult($0, healthCertificate: healthCertificate, vaccinationValueSetsProvider: vaccinationValueSetsProvider) })
-
-		cells.append(.body(text: AppStrings.HealthCertificate.Validation.Result.moreInformation))
+		cells.append(
+			.dynamicType(
+				text: """
+					<p>\(AppStrings.HealthCertificate.Validation.Result.moreInformation01) <a href="\(AppStrings.Links.healthCertificateValidationFAQ)">\(AppStrings.HealthCertificate.Validation.Result.moreInformation02)</a> \(AppStrings.HealthCertificate.Validation.Result.moreInformation03) <a href="\(AppStrings.Links.healthCertificateValidationEU)">\(AppStrings.Links.healthCertificateValidationEU)</a>.</p>
+					""",
+				cellStyle: .htmlString
+			)
+		)
 
 		return DynamicTableViewModel([
 			.section(
