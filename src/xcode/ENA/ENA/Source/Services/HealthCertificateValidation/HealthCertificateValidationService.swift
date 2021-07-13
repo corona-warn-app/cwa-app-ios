@@ -72,7 +72,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		}
 		Log.info("Successfully passed technical validation. Proceed with updating value sets...", log: .vaccination)
 
-		proceedWithUpdatingValueSets(
+		updateValueSets(
 			healthCertificate: healthCertificate,
 			arrivalCountry: arrivalCountry,
 			validationClock: validationClock,
@@ -91,7 +91,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	// MARK: - Flow
 	
-	private func proceedWithUpdatingValueSets(
+	private func updateValueSets(
 		healthCertificate: HealthCertificate,
 		arrivalCountry: String,
 		validationClock: Date,
@@ -126,7 +126,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 					
 				}, receiveValue: { [weak self] valueSets in
 					Log.info("Successfully received value sets. Proceed with downloading acceptance rules...", log: .vaccination)
-					self?.proceedWithDownloadingAcceptanceRules(
+					self?.downloadAcceptanceRules(
 						healthCertificate: healthCertificate,
 						arrivalCountry: arrivalCountry,
 						validationClock: validationClock,
@@ -138,7 +138,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			.store(in: &subscriptions)
 	}
 	
-	private func proceedWithDownloadingAcceptanceRules(
+	private func downloadAcceptanceRules(
 		healthCertificate: HealthCertificate,
 		arrivalCountry: String,
 		validationClock: Date,
@@ -154,7 +154,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 					completion(.failure(error))
 				case let .success(acceptanceRules):
 					Log.info("Successfully downloaded/restored acceptance rules. Proceed with downloading invalidation rules...", log: .vaccination)
-					self?.proceedWithDownloadingInvalidationRules(
+					self?.downloadInvalidationRules(
 						healthCertificate: healthCertificate,
 						arrivalCountry: arrivalCountry,
 						validationClock: validationClock,
@@ -167,7 +167,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func proceedWithDownloadingInvalidationRules(
+	private func downloadInvalidationRules(
 		healthCertificate: HealthCertificate,
 		arrivalCountry: String,
 		validationClock: Date,
@@ -184,7 +184,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 					completion(.failure(error))
 				case let .success(invalidationRules):
 					Log.info("Successfully downloaded/restored invalidation rules. Proceed with assembling FilterParameter...", log: .vaccination)
-					self?.proceedWithAssemblingRules(
+					self?.assembleCommonRules(
 						healthCertificate: healthCertificate,
 						arrivalCountry: arrivalCountry,
 						validationClock: validationClock,
@@ -198,7 +198,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func proceedWithAssemblingRules(
+	private func assembleCommonRules(
 		healthCertificate: HealthCertificate,
 		arrivalCountry: String,
 		validationClock: Date,
@@ -238,7 +238,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		Log.info("Successfully assembled common ExternalParameter: \(private: externalParameter). Proceed with rule validation...", log: .vaccination)
 
-		proceedWithRulesValidation(
+		validateRules(
 			healthCertificate: healthCertificate,
 			valueSets: valueSets,
 			acceptanceRules: acceptanceRules,
@@ -249,7 +249,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func proceedWithRulesValidation(
+	private func validateRules(
 		healthCertificate: HealthCertificate,
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		acceptanceRules: [Rule],
@@ -280,14 +280,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		Log.info("Successfully validated combined rules: \(private: validatedRules). Proceed with combined rule interpretation...", log: .vaccination)
 
-		proceedWithRulesInterpretation(
+		interpretateRulesResult(
 			validatedRules: validatedRules,
 			completion: completion
 		)
 		
 	}
 	
-	private func proceedWithRulesInterpretation(
+	private func interpretateRulesResult(
 		validatedRules: [ValidationResult],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
@@ -337,14 +337,14 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					self.rulesDownloadingSucceeding(
+					self.rulesDownloadingSuccess(
 						ruleType: ruleType,
 						packageDownloadResponse: packageDownloadResponse,
 						completion: completion
 					)
 	
 				case let .failure(failure):
-					self.rulesDownloadingFailing(
+					self.rulesDownloadingFailure(
 						ruleType: ruleType,
 						failure: failure,
 						completion: completion
@@ -354,7 +354,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		)
 	}
 	
-	private func rulesDownloadingSucceeding(
+	private func rulesDownloadingSuccess(
 		ruleType: HealthCertificateValidationRuleType,
 		packageDownloadResponse: PackageDownloadResponse,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
@@ -415,7 +415,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		})
 	}
 
-	private func rulesDownloadingFailing(
+	private func rulesDownloadingFailure(
 		ruleType: HealthCertificateValidationRuleType,
 		failure: URLSession.Response.Failure,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void

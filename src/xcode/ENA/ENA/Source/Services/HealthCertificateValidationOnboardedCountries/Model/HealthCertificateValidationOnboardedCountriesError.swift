@@ -39,14 +39,3 @@ enum HealthCertificateValidationOnboardedCountriesError: LocalizedError {
 		}
 	}
 }
-
-extension HealthCertificateValidationOnboardedCountriesError: Equatable {
-	static func == (lhs: HealthCertificateValidationOnboardedCountriesError, rhs: HealthCertificateValidationOnboardedCountriesError) -> Bool {
-		switch (lhs, rhs) {
-		case let (.ONBOARDED_COUNTRIES_DECODING_ERROR(lhsRuleValidationError), .ONBOARDED_COUNTRIES_DECODING_ERROR(rhsRuleValidationError)):
-			return lhsRuleValidationError == rhsRuleValidationError
-		default:
-			return lhs.localizedDescription == rhs.localizedDescription
-		}
-	}
-}
