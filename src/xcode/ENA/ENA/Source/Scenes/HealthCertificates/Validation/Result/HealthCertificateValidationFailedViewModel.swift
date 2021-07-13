@@ -59,15 +59,11 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 			cells.append(contentsOf: openValidationResults.map { .validationResult($0, healthCertificate: healthCertificate, vaccinationValueSetsProvider: vaccinationValueSetsProvider) })
 		}
 
-
-		let faqLink = AppStrings.Links.healthCertificateValidationFAQ
-		let moreInformation01 = AppStrings.HealthCertificate.Validation.Result.moreInformation01
-		let moreInformation02 = AppStrings.HealthCertificate.Validation.Result.moreInformation02
-		let moreInformation03 = AppStrings.HealthCertificate.Validation.Result.moreInformation03
-
 		cells.append(
 			.dynamicType(
-				text: "<p>\(moreInformation01) <a href=\"\(faqLink)\">\(moreInformation02)</a> \(moreInformation03) <a href=\"\(faqLink)\">\(faqLink)</a>.</p>",
+				text: """
+					<p>\(AppStrings.HealthCertificate.Validation.Result.moreInformation01) <a href="\(AppStrings.Links.healthCertificateValidationFAQ)">\(AppStrings.HealthCertificate.Validation.Result.moreInformation02)</a> \(AppStrings.HealthCertificate.Validation.Result.moreInformation03) <a href="\(AppStrings.Links.healthCertificateValidationEU)">\(AppStrings.Links.healthCertificateValidationEU)</a>.</p>
+					""",
 				cellStyle: .htmlString
 			)
 		)
