@@ -24,8 +24,10 @@ extension DynamicCell {
 						vaccinationValueSetsProvider: vaccinationValueSetsProvider
 					),
 					onUpdate: {
-						viewController.tableView.beginUpdates()
-						viewController.tableView.endUpdates()
+						UIView.performWithoutAnimation {
+							viewController.tableView.beginUpdates()
+							viewController.tableView.endUpdates()
+						}
 					}
 				)
 			}

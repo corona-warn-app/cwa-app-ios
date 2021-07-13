@@ -50,13 +50,15 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 					keyValueStackView.alignment = .leading
 					self?.keyValuePairsStackView.addArrangedSubview(keyValueStackView)
 
-					let keyLabel = ENALabel(style: .footnote)
+					let keyLabel = StackViewLabel()
+					keyLabel.style = .footnote
 					keyLabel.numberOfLines = 0
 					keyLabel.textColor = .enaColor(for: .textPrimary2)
 					keyLabel.text = keyValuePair.key
 					keyValueStackView.addArrangedSubview(keyLabel)
 
-					let valueLabel = ENALabel(style: .subheadline)
+					let valueLabel = StackViewLabel()
+					keyLabel.style = .subheadline
 					valueLabel.numberOfLines = 0
 					valueLabel.textColor = .enaColor(for: .textPrimary1)
 					valueLabel.text = keyValuePair.value
@@ -76,8 +78,8 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let iconImageView = UIImageView()
 
 	private let keyValuePairsStackView = UIStackView()
-	private let ruleDescriptionLabel = ENALabel(style: .body)
-	private let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
+	private let ruleDescriptionLabel = StackViewLabel()
+	private let ruleTypeDescriptionLabel = StackViewLabel()
 
 	private var cellModel: ValidationResultCellModel?
 	private var subscriptions = Set<AnyCancellable>()
@@ -121,10 +123,12 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		descriptionStackView.alignment = .leading
 		contentStackView.addArrangedSubview(descriptionStackView)
 
+		ruleDescriptionLabel.style = .body
 		ruleDescriptionLabel.numberOfLines = 0
 		ruleDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		descriptionStackView.addArrangedSubview(ruleDescriptionLabel)
 
+		ruleTypeDescriptionLabel.style = .footnote
 		ruleTypeDescriptionLabel.numberOfLines = 0
 		ruleTypeDescriptionLabel.textColor = .enaColor(for: .textPrimary2)
 		descriptionStackView.addArrangedSubview(ruleTypeDescriptionLabel)
