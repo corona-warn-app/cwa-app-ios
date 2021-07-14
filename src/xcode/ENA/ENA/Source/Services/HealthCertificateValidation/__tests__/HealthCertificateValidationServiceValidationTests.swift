@@ -29,6 +29,9 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let valueSetsStub = ValueSetsStub()
 		valueSetsStub.valueSets = valueSets
 
+		let expectation = expectation(description: "Validation should complete for every test case.")
+		expectation.expectedFulfillmentCount = testData.testCases.count
+
 		for testCase in testData.testCases {
 			let mockVerifier = MockVerifier()
 			let mockStore = MockTestStore()
@@ -81,8 +84,12 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 					XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed with incorrect expOpen count: \(testCase.testCaseDescription)")
 					XCTAssertEqual(failCount, testCase.expFail, "CertEngineTestCase failed with incorrect expFail count: \(testCase.testCaseDescription)")
 				}
+
+				expectation.fulfill()
 			}
 		}
+
+		waitForExpectations(timeout: .short)
 	}
 
 	private var certLogicTestData: Data? {
