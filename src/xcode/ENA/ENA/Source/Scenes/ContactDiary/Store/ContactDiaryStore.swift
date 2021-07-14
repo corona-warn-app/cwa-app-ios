@@ -1065,7 +1065,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
 		}
-
 		return .success(locations)
 	}
 
@@ -1129,7 +1128,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			var personDiaryEntries: [DiaryEntry]
 			switch contactPersonsResult {
 			case .success(let contactPersons):
-				personDiaryEntries = contactPersons.map {
+				let sortedContactPersons = contactPersons.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+				personDiaryEntries = sortedContactPersons.map {
 					return DiaryEntry.contactPerson($0)
 				}
 			case .failure(let error):
@@ -1141,7 +1141,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			var locationDiaryEntries: [DiaryEntry]
 			switch locationsResult {
 			case .success(let locations):
-				locationDiaryEntries = locations.map {
+				let arrangedLocations = locations.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+				locationDiaryEntries = arrangedLocations.map {
 					return DiaryEntry.location($0)
 				}
 			case .failure(let error):
