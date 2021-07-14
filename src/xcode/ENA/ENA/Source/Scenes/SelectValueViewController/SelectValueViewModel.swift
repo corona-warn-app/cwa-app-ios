@@ -55,10 +55,12 @@ final class SelectValueViewModel {
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> SelectValueCellViewModel {
-		SelectValueCellViewModel(
+		let isEnabled = indexPath.item > 0 ? true : isInitialCellEnabled
+		return SelectValueCellViewModel(
 			text: allValues[indexPath.row],
 			isSelected: selectedTupel.1 == indexPath.row,
-			cellIconType: selectionCellIconType
+			cellIconType: selectionCellIconType,
+			isEnabled: isEnabled
 		)
 	}
 

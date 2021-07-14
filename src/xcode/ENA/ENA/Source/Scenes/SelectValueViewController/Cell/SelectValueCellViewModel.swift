@@ -9,8 +9,10 @@ final class SelectValueCellViewModel {
 
 	// MARK: - Init
 
-	init(text: String, isSelected: Bool, cellIconType: SelectionCellIcon) {
+	init(text: String, isSelected: Bool, cellIconType: SelectionCellIcon, isEnabled: Bool = true) {
 		self.text = text
+		self.isEnabled = isEnabled
+		
 		switch cellIconType {
 		case .checkmark:
 			self.image = isSelected ? UIImage(imageLiteralResourceName: "Icons_Checkmark") : nil
@@ -25,6 +27,7 @@ final class SelectValueCellViewModel {
 
 	let text: String
 	let image: UIImage?
+	let isEnabled: Bool
 }
 
 enum SelectionCellIcon {
