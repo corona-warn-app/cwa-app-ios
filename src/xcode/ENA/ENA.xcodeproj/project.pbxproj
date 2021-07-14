@@ -157,6 +157,8 @@
 		019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3F258951C000B26392 /* DiaryLocation.swift */; };
 		019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */; };
 		019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */; };
+		019E2F01269EF4EA000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */; };
+		019E2F02269EF4F8000EC4AD /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
 		01A1A25626443FBE001E8183 /* value_sets.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1A25526443FBD001E8183 /* value_sets.pb.swift */; };
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
 		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
@@ -275,7 +277,6 @@
 		01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4492657B0450043B4E1 /* Locale+SupportedLanguageTests.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
-		01E0D3A7268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
 		01E0D3A9268DE58200E32CF9 /* HealthCertificateDetailsQRCodeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A8268DE58200E32CF9 /* HealthCertificateDetailsQRCodeCellViewModel.swift */; };
 		01E0D3AC268F061B00E32CF9 /* HealthCertificateValidationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3AB268F02F100E32CF9 /* HealthCertificateValidationCoordinator.swift */; };
 		01E1025D266665A6009ED803 /* AntigenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1025C2666658B009ED803 /* AntigenTest.swift */; };
@@ -827,9 +828,9 @@
 		AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */; };
 		AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420CA251B7D93006666AC /* DeltaOnboardingV15ViewController.swift */; };
 		AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */; };
-		AB76C4BE269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */; };
 		AB76C4BA2695EEFB009ADEB0 /* AntigenTestProfileInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B82695EEFA009ADEB0 /* AntigenTestProfileInputCell.swift */; };
 		AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B92695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift */; };
+		AB76C4BE269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */; };
 		AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */; };
 		AB7DE73725C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */; };
 		AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73425C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift */; };
@@ -1421,6 +1422,7 @@
 		019C9F3F258951C000B26392 /* DiaryLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLocation.swift; sourceTree = "<group>"; };
 		019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSets+ValueSetType.swift"; sourceTree = "<group>"; };
 		019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSet+DisplayText.swift"; sourceTree = "<group>"; };
+		019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHealthCertificateValidationOnboardedCountriesProvider.swift; sourceTree = "<group>"; };
 		01A1A25526443FBD001E8183 /* value_sets.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = value_sets.pb.swift; sourceTree = "<group>"; };
 		01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelTests.swift; sourceTree = "<group>"; };
 		01A1B449252DFD7700841B63 /* MetadataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataObject.swift; sourceTree = "<group>"; };
@@ -2110,9 +2112,9 @@
 		AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingProtocols.swift; sourceTree = "<group>"; };
 		AB7420CA251B7D93006666AC /* DeltaOnboardingV15ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15ViewController.swift; sourceTree = "<group>"; };
 		AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinatorTests.swift; sourceTree = "<group>"; };
-		AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_42_ValidateHealthCertificate.swift; sourceTree = "<group>"; };
 		AB76C4B82695EEFA009ADEB0 /* AntigenTestProfileInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInputCell.swift; sourceTree = "<group>"; };
 		AB76C4B92695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInputDescriptionCell.swift; sourceTree = "<group>"; };
+		AB76C4BD269735F7009ADEB0 /* ENAUITests_42_ValidateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_42_ValidateHealthCertificate.swift; sourceTree = "<group>"; };
 		AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModelTests.swift; sourceTree = "<group>"; };
 		AB7DE70125C4547600C52B3F /* ENAUITests_04b_ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_04b_ExposureDetection.swift; sourceTree = "<group>"; };
 		AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionSurveyTableViewCell.swift; sourceTree = "<group>"; };
@@ -4086,6 +4088,7 @@
 				50690CB42696FA0A00127CB2 /* __tests__ */,
 				50690CB52696FA1500127CB2 /* Model */,
 				50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */,
+				019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */,
 			);
 			path = HealthCertificateValidationOnboardedCountries;
 			sourceTree = "<group>";
@@ -4129,8 +4132,8 @@
 			children = (
 				5078DCA22684B3F400535917 /* __tests__ */,
 				5078DC9F2684B3DD00535917 /* Model */,
-				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
 				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
+				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
 			);
 			path = HealthCertificateValidation;
 			sourceTree = "<group>";
@@ -8051,7 +8054,6 @@
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
-				01E0D3A7268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
@@ -8756,6 +8758,7 @@
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */,
 				8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */,
+				019E2F02269EF4F8000EC4AD /* MockHealthCertificateValidationService.swift in Sources */,
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				BAC7292026037D61006D83C7 /* AddCheckinCellModelTests.swift in Sources */,
@@ -8774,6 +8777,7 @@
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				017D8D9A263AF3730009E91C /* HealthCertificateServiceTests.swift in Sources */,
 				B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */,
+				019E2F01269EF4EA000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift in Sources */,
 				941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */,
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
