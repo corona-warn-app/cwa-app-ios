@@ -109,6 +109,7 @@ class HealthCertificateService {
 
 			return
 		}
+
 		#endif
 
 		self.store = store
