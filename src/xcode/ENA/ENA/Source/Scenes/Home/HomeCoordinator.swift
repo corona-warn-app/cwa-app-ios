@@ -64,7 +64,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
-			store: store,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
 			},

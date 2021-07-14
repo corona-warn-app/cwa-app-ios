@@ -14,7 +14,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		route: Route?,
-		store: Store,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -35,7 +34,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
 		self.route = route
-		self.store = store
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
@@ -318,7 +316,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private let viewModel: HomeTableViewModel
 	private let appConfigurationProvider: AppConfigurationProviding
-	private let store: Store
 
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
@@ -597,7 +594,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
-			store: self.store,
+			store: viewModel.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
 			},
@@ -613,11 +610,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
 				
 				// removing the district from the store
-				guard let selectedLocalStatisticsDistricts = self?.store.selectedLocalStatisticsDistricts else {
+				guard let selectedLocalStatisticsDistricts = self?.viewModel.store.selectedLocalStatisticsDistricts else {
 					Log.error("Could not assign selected local statistics districts", log: .localStatistics)
 					return
 				}
-				self?.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }
+				self?.viewModel.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }
 				
 				self?.statisticsCell?.updateManagementCellState()
 				self?.statisticsCell?.layoutIfNeeded()
@@ -861,7 +858,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			self?.viewModel.state.updateSelectedLocalStatistics(self?.store.selectedLocalStatisticsDistricts)
+			self?.viewModel.state.updateSelectedLocalStatistics(self?.viewModel.store.selectedLocalStatisticsDistricts)
 		}
 	}
 	// swiftlint:disable:next file_length
