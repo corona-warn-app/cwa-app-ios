@@ -22,6 +22,13 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Overrides
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+		cellModel = nil
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -46,6 +53,8 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				onUpdate()
 			}
 			.store(in: &subscriptions)
+
+		self.cellModel = cellModel
 	}
 
 	// MARK: - Private
@@ -55,6 +64,8 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let ruleDescriptionLabel = ENALabel(style: .body)
 	private let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
 	private let keyValueAttributedLabel = UILabel()
+
+	private var cellModel: ValidationResultCellModel?
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
