@@ -1004,12 +1004,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			return .failure(dbError(from: database))
 		}
 
-		let sortedContactPersons = contactPersons.sorted(by: {
-			$0.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
-				<
-				$1.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
-		})
-		return .success(sortedContactPersons)
+		return .success(contactPersons)
 	}
 
 	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SecureSQLStoreError> {
@@ -1070,13 +1065,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
 		}
-		let arrangedLocations = locations.sorted(by: {
-			
-			$0.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
-				<
-				$1.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
-		})
-		return .success(arrangedLocations)
+		return .success(locations)
 	}
 
 	private func fetchCoronaTests(for date: String, in database: FMDatabase) -> Result<[DiaryDayTest], SecureSQLStoreError> {
@@ -1139,7 +1128,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			var personDiaryEntries: [DiaryEntry]
 			switch contactPersonsResult {
 			case .success(let contactPersons):
-				personDiaryEntries = contactPersons.map {
+				let sortedContactPersons = contactPersons.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+				personDiaryEntries = sortedContactPersons.map {
 					return DiaryEntry.contactPerson($0)
 				}
 			case .failure(let error):
@@ -1151,7 +1141,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			var locationDiaryEntries: [DiaryEntry]
 			switch locationsResult {
 			case .success(let locations):
-				locationDiaryEntries = locations.map {
+				let arrangedLocations = locations.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
+				locationDiaryEntries = arrangedLocations.map {
 					return DiaryEntry.location($0)
 				}
 			case .failure(let error):
