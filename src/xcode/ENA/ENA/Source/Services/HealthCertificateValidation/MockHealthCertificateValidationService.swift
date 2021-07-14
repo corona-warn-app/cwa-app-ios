@@ -32,7 +32,7 @@ struct MockHealthCertificateValidationService: HealthCertificateValidationProvid
 	
 	func validate(
 		healthCertificate: HealthCertificate,
-		arrivalCountry: String,
+		arrivalCountry: Country,
 		validationClock: Date,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
