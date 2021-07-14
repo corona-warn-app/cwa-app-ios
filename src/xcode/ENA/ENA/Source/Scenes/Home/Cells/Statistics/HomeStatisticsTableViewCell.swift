@@ -230,7 +230,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
-		let localStatisticsModel = LocalStatisticsModel(store: store)
+		let localStatisticsModel = LocalStatisticsModel()
 
 		let nibName = String(describing: ManageStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)

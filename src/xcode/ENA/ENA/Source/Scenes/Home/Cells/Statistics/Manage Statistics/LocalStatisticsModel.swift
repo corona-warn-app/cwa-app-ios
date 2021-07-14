@@ -8,8 +8,7 @@ struct LocalStatisticsModel {
 
 	// MARK: - Init
 
-	init(store: Store) {
-		self.store = store
+	init() {
 		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
 			preconditionFailure("missing json file")
 		}
@@ -42,6 +41,5 @@ struct LocalStatisticsModel {
 
 	// MARK: - Private
 
-	private let store: Store
 	private let allDistricts: [DistrictElement]
 }
