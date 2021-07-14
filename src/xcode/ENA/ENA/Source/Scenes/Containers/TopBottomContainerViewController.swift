@@ -84,7 +84,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		let initialHeight = footerViewModel?.height ?? bottomView.bounds.height
 		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
 		
-		bottomViewBottomConstraint = bottomView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+		bottomViewBottomConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		
 		NSLayoutConstraint.activate(
 			[
