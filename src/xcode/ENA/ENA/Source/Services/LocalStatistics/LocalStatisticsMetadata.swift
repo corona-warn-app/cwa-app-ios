@@ -54,7 +54,7 @@ struct LocalStatisticsMetadata: Codable, Equatable {
 		try container.encode(lastLocalStatisticsETag, forKey: .lastLocalStatisticsETag)
 		try container.encode(lastLocalStatisticsFetchDate, forKey: .lastLocalStatisticsFetchDate)
 
-		let localStatistics = try localStatistics.serializedData()
+		let localStatistics = try self.localStatistics.serializedData()
 		try container.encode(localStatistics, forKey: .localStatistics)
 	}
 	
