@@ -59,11 +59,53 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
-	private let backgroundContainerView = UIView()
-	private let iconImageView = UIImageView()
-	private let ruleDescriptionLabel = ENALabel(style: .body)
-	private let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
-	private let keyValueAttributedLabel = UILabel()
+	private let backgroundContainerView: UIView = {
+		let backgroundContainerView = UIView()
+		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
+		backgroundContainerView.backgroundColor = .enaColor(for: .background)
+		backgroundContainerView.layer.borderWidth = 1
+		if #available(iOS 13.0, *) {
+			backgroundContainerView.layer.cornerCurve = .continuous
+		}
+		backgroundContainerView.layer.cornerRadius = 15.0
+		backgroundContainerView.layer.masksToBounds = true
+
+		return backgroundContainerView
+	}()
+
+	private let iconImageView: UIImageView = {
+		let iconImageView = UIImageView()
+		iconImageView.translatesAutoresizingMaskIntoConstraints = false
+		iconImageView.setContentHuggingPriority(.required, for: .horizontal)
+
+		return iconImageView
+	}()
+
+	private let ruleDescriptionLabel: ENALabel = {
+		let ruleDescriptionLabel = ENALabel(style: .body)
+		ruleDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+		ruleDescriptionLabel.numberOfLines = 0
+		ruleDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
+
+		return ruleDescriptionLabel
+	}()
+
+	private let ruleTypeDescriptionLabel: ENALabel = {
+		let ruleTypeDescriptionLabel = ENALabel(style: .footnote)
+		ruleTypeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+		ruleTypeDescriptionLabel.numberOfLines = 0
+		ruleTypeDescriptionLabel.textColor = .enaColor(for: .textPrimary2)
+
+		return ruleTypeDescriptionLabel
+	}()
+
+	private let keyValueAttributedLabel: UILabel = {
+		let keyValueAttributedLabel = UILabel()
+		keyValueAttributedLabel.translatesAutoresizingMaskIntoConstraints = false
+		keyValueAttributedLabel.numberOfLines = 0
+
+		return keyValueAttributedLabel
+	}()
 
 	private var cellModel: ValidationResultCellModel?
 	private var subscriptions = Set<AnyCancellable>()
@@ -73,33 +115,16 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
 
-		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
-		backgroundContainerView.backgroundColor = .enaColor(for: .background)
-		backgroundContainerView.layer.borderWidth = 1
-		if #available(iOS 13.0, *) {
-			backgroundContainerView.layer.cornerCurve = .continuous
-		}
-		backgroundContainerView.layer.cornerRadius = 15.0
-		backgroundContainerView.layer.masksToBounds = true
 		updateBorderColor()
+		setupViewHierarchy()
+	}
+
+	private func setupViewHierarchy() {
 		contentView.addSubview(backgroundContainerView)
 
-		iconImageView.translatesAutoresizingMaskIntoConstraints = false
-		iconImageView.setContentHuggingPriority(.required, for: .horizontal)
 		backgroundContainerView.addSubview(iconImageView)
-
-		ruleDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-		ruleDescriptionLabel.numberOfLines = 0
-		ruleDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		backgroundContainerView.addSubview(ruleDescriptionLabel)
-
-		ruleTypeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-		ruleTypeDescriptionLabel.numberOfLines = 0
-		ruleTypeDescriptionLabel.textColor = .enaColor(for: .textPrimary2)
 		backgroundContainerView.addSubview(ruleTypeDescriptionLabel)
-
-		keyValueAttributedLabel.translatesAutoresizingMaskIntoConstraints = false
-		keyValueAttributedLabel.numberOfLines = 0
 		backgroundContainerView.addSubview(keyValueAttributedLabel)
 
 		NSLayoutConstraint.activate(
