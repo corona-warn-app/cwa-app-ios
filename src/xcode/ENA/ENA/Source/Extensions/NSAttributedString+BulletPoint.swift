@@ -28,10 +28,10 @@ extension NSAttributedString {
 			.font: font.scaledFont(size: font.pointSize, weight: .black),
 			.foregroundColor: color
 		]
-
+		
 		let bullet = "\u{2022}"
 		let prefixString = "\(bullet)\t"
-
+		
 		let attributedString = NSMutableAttributedString(string: prefixString)
 		attributedString.append(from)
 
@@ -44,8 +44,14 @@ extension NSAttributedString {
 		attributedString.addAttributes(
 			[NSAttributedString.Key.paragraphStyle: paragraphStyle],
 			range: NSRange(location: 0, length: attributedString.length))
-
+		
+		let bodyAttributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.preferredFont(forTextStyle: .body)
+		]
+		attributedString.addAttributes(bodyAttributes, range: NSRange(location: prefixString.count, length: from.length))
+		
 		return attributedString
+		
 	}
 
 	/// Prefixes an attributed string with a bullet point (\u{2022}).
