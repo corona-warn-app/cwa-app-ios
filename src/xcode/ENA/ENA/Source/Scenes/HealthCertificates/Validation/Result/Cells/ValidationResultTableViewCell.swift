@@ -117,7 +117,6 @@ class ValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				keyValueAttributedLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0)
 			]
 		)
-		accessibilityElements = [ruleDescriptionLabel]
 	}
 
 	private func updateBorderColor() {
