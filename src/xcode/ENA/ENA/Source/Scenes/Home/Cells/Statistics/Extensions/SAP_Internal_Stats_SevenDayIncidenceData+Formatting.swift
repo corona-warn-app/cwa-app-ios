@@ -23,9 +23,7 @@ extension SAP_Internal_Stats_SevenDayIncidenceData {
 			return UIImage(named: "Pfeil_steigend_plain")
 		case .decreasing:
 			return UIImage(named: "Pfeil_sinkend_plain")
-		case .unspecifiedTrend:
-			return nil
-		case .UNRECOGNIZED:
+		default:
 			return nil
 		}
 	}
@@ -38,9 +36,7 @@ extension SAP_Internal_Stats_SevenDayIncidenceData {
 			return .enaColor(for: .riskNeutral)
 		case .decreasing:
 			return .enaColor(for: .riskLow)
-		case .unspecifiedTrend:
-			return nil
-		case .UNRECOGNIZED:
+		default:
 			return nil
 		}
 	}
@@ -53,9 +49,7 @@ extension SAP_Internal_Stats_SevenDayIncidenceData {
 			return AppStrings.Statistics.Card.trendIncreasing
 		case .decreasing:
 			return AppStrings.Statistics.Card.trendDecreasing
-		case .unspecifiedTrend:
-			return nil
-		case .UNRECOGNIZED:
+		default:
 			return nil
 		}
 	}
@@ -68,9 +62,7 @@ extension SAP_Internal_Stats_SevenDayIncidenceData {
 			return AppStrings.Statistics.Card.trendSemanticNeutral
 		case .decreasing:
 			return AppStrings.Statistics.Card.trendSemanticPositive
-		case .unspecifiedTrend:
-			return nil
-		case .UNRECOGNIZED:
+		default:
 			return nil
 		}
 	}
