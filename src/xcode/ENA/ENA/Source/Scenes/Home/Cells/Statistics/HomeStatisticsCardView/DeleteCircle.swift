@@ -7,11 +7,19 @@ import UIKit
 /// A red circle to indicate a delete action
 @IBDesignable
 class DeleteCircle: UIView {
-
+	
+	// MARK: - Init
+	
 	convenience init() {
 		self.init(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
+	// MARK: - Overrides
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		clipsToBounds = false
@@ -19,10 +27,6 @@ class DeleteCircle: UIView {
 		layer.shouldRasterize = true
 
 		accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 
     override func draw(_ rect: CGRect) {
@@ -40,5 +44,4 @@ class DeleteCircle: UIView {
 		])
 		context?.strokePath()
     }
-
 }
