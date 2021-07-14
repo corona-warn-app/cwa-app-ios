@@ -43,15 +43,12 @@ extension DynamicCell {
 		case textView(UIDataDetectorTypes)
 		
 		case linkTextView(String, ENAFont = .body)
-		
-		case htmlString
-		
+
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
 			case .label: return .dynamicTypeLabel
 			case .textView: return .dynamicTypeTextView
 			case .linkTextView: return .dynamicTypeTextView
-			case .htmlString: return .dynamicTypeTextView
 			}
 		}
 	}
@@ -95,16 +92,24 @@ extension DynamicCell {
 			   let cell = cell as? DynamicTableViewTextViewCell {
 				cell.configureAsLink(placeholder: placeHolder, urlString: text, font: font)
 			}
-			
-			if case .htmlString = cellStyle,
-			   let cell = cell as? DynamicTableViewTextViewCell {
-				cell.configure(htmlString: text)
-			}
-			
 			configure?(viewController, cell, indexPath)
 		}
 	}
-	
+
+	static func textWithLinks(
+		text: String,
+		links: [String: String],
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = .staticText,
+		configure: CellConfigurator? = nil) -> Self {
+		.identifier(CellReuseIdentifier.dynamicTypeTextView) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicTableViewTextViewCell else { return }
+			cell.configureAccessibility(label: text, identifier: accessibilityIdentifier, traits: accessibilityTraits)
+			cell.configure(text: text, textFont: .body, links: links)
+			configure?(viewController, cell, indexPath)
+		}
+	}
+
 	static func icon(
 		_ image: UIImage?,
 		text: DynamicTableViewIconCell.Text,
@@ -145,8 +150,7 @@ extension DynamicCell {
 			cell.backgroundColor = color
 		}
 	}
-	
-	
+
 	static func bulletPoint(
 		text: String,
 		spacing: DynamicTableViewBulletPointCell.Spacing = .normal,
