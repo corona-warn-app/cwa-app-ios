@@ -2958,7 +2958,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig.";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technische Prüfung";
 
