@@ -88,7 +88,7 @@ class HomeStatisticsCardView: UIView {
 		// delete button/circle
 		let tap = UITapGestureRecognizer(target: self, action: #selector(onDeleteTapped(_:)))
 		deletionIndicator.addGestureRecognizer(tap)
-		deletionIndicator.center = CGPoint(x: 10, y: 6) // magic number because of a very static design
+		deletionIndicator.center = CGPoint(x: frame.origin.x + 16, y: frame.origin.y) // magic number because of a very static design
 		addSubview(deletionIndicator)
 		deletionIndicator.isHidden = true // initial state
 	}
