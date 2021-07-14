@@ -66,9 +66,9 @@ class HomeStatisticsCardViewModel {
 
 		let updateDate = Date(timeIntervalSince1970: TimeInterval(administrativeUnitData.updatedAt))
 		primaryTitle = updateDate.formatted(
-			todayString: AppStrings.Statistics.Card.Infections.today,
-			yesterdayString: AppStrings.Statistics.Card.Infections.yesterday,
-			otherDateString: AppStrings.Statistics.Card.Infections.date
+			todayString: AppStrings.Statistics.Card.Incidence.today,
+			yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,
+			otherDateString: AppStrings.Statistics.Card.Incidence.date
 		)
 		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
 	}
