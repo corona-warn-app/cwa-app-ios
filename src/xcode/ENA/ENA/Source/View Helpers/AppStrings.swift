@@ -1918,6 +1918,23 @@ enum AppStrings {
 	enum HealthCertificate {
 
 		enum Validation {
+			static let title = NSLocalizedString("HealthCertificate_Validation_Title", comment: "")
+			static let countrySelectionTitle = NSLocalizedString("HealthCertificate_Validation_CountrySelection_Title", comment: "")
+			static let dateTimeSelectionTitle = NSLocalizedString("HealthCertificate_Validation_DateTimeSelection_Title", comment: "")
+			static let dateTimeSelectionInfo = NSLocalizedString("HealthCertificate_Validation_DateTimeSelection_Info", comment: "")
+			static let body1 = NSLocalizedString("HealthCertificate_Validation_Body1", comment: "")
+			static let headline1 = NSLocalizedString("HealthCertificate_Validation_Headline1", comment: "")
+			static let body2 = NSLocalizedString("HealthCertificate_Validation_Body2", comment: "")
+			static let headline2 = NSLocalizedString("HealthCertificate_Validation_Headline2", comment: "")
+			static let bullet1 = NSLocalizedString("HealthCertificate_Validation_Bullet1", comment: "")
+			static let bullet2 = NSLocalizedString("HealthCertificate_Validation_Bullet2", comment: "")
+			static let bullet3 = NSLocalizedString("HealthCertificate_Validation_Bullet3", comment: "")
+			static let bullet4 = NSLocalizedString("HealthCertificate_Validation_Bullet4", comment: "")
+			static let body3 = NSLocalizedString("HealthCertificate_Validation_Body3", comment: "")
+			static let legalTitle = NSLocalizedString("HealthCertificate_Validation_Legal_Title", comment: "")
+			static let legalDescription = NSLocalizedString("HealthCertificate_Validation_Legal_Description", comment: "")
+			static let body4 = NSLocalizedString("HealthCertificate_Validation_Body4", comment: "")
+			
 			enum Info {
 				static let imageDescription = NSLocalizedString("HealthCertificate_Validation_Info_imageDescription", comment: "")
 				static let title = NSLocalizedString("HealthCertificate_Validation_Info_title", comment: "")
@@ -2098,7 +2115,6 @@ enum AppStrings {
 			static let tryAgain = NSLocalizedString("HealthCertificate_Validation_Error_TRY_AGAIN", comment: "")
 			static let noNetwork = NSLocalizedString("HealthCertificate_Validation_Error_NO_NETWORK", comment: "")
 		}
-
 	}
 
 	// swiftlint:disable:next file_length

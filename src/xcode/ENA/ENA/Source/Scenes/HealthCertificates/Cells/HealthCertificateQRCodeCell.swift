@@ -99,6 +99,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 			AppStrings.HealthCertificate.Person.validationButtonTitle,
 			for: .normal
 		)
+		validationButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.validationButton
 		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
 		stackView.addArrangedSubview(validationButton)
 
