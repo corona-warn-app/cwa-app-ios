@@ -137,6 +137,14 @@ final class ValidationResultCellModel {
 		validationResult.rule?.identifier
 	}
 
+	private var ruleIdentifierWithVersion: String? {
+		guard let rule = validationResult.rule else {
+			return nil
+		}
+
+		return "\(rule.identifier) (\(rule.version))"
+	}
+
 	private func updateKeyValuePairs() {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
@@ -183,7 +191,7 @@ final class ValidationResultCellModel {
 			}
 		}
 
-		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifierWithVersion))
 
 		self.keyValuePairs = keyValuePairs
 	}
@@ -199,7 +207,7 @@ final class ValidationResultCellModel {
 			}
 		}
 
-		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifierWithVersion))
 
 		self.keyValuePairs = keyValuePairs
 	}
@@ -215,7 +223,7 @@ final class ValidationResultCellModel {
 			}
 		}
 
-		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifier))
+		keyValuePairs.append((key: "Regel-ID / Rule ID", value: ruleIdentifierWithVersion))
 
 		self.keyValuePairs = keyValuePairs
 	}
