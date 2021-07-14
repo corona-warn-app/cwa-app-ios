@@ -22,7 +22,6 @@ struct ValidationInformationViewModel {
 						title: AppStrings.HealthCertificate.Validation.Info.title,
 						accessibilityLabel: AppStrings.HealthCertificate.Validation.Info.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Validation.Info.imageDescription,
-						height: 274.0,
 						accessibilityTraits: .image
 					),
 				cells: [

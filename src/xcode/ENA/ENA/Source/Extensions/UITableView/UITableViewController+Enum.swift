@@ -56,3 +56,17 @@ extension UITableView {
 		dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath)
 	}
 }
+
+struct DynamicTableViewCellReuseIdentifier: TableViewCellReuseIdentifiers {
+
+	var rawValue: String
+
+	init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+
+	init?(_ identifier: String) {
+		self.rawValue = identifier
+	}
+
+}
