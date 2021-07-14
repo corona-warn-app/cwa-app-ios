@@ -160,7 +160,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					},
 					onDeleteTap: { [weak self] in
 						guard let district = self?.district else {
-							assertionFailure("fix this!")
+							Log.error("District can't be nil", log: .localStatistics, error: nil)
 							return
 						}
 						Log.info("removing \(private: adminUnit.administrativeUnitShortID, public: "administrative unit") @ \(private: district.districtName, public: "district id")", log: .ui)
@@ -326,7 +326,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			let store = localStatisticsCache,
 			let cell = stackView.arrangedSubviews.first as? ManageStatisticsCardView
 		else {
-			assertionFailure("check store & stack view!")
+			Log.error("Error because the store is Nil or the first card is not the ManageStatisticsCardView", log: .localStatistics, error: nil)
 			return
 		}
 
