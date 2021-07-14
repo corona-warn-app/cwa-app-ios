@@ -2916,7 +2916,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_title" = "Gültiges Zertifikat";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig.";
+"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
 
