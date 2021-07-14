@@ -11,8 +11,8 @@ final class SelectValueTableViewController: UITableViewController {
 
 	init(
 		_ viewModel: SelectValueViewModel,
-		dismiss: @escaping () -> Void,
-		closeOnSelection: Bool = true
+		closeOnSelection: Bool = true,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.dismiss = dismiss

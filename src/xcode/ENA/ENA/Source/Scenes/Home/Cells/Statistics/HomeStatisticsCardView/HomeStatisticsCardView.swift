@@ -12,6 +12,8 @@ class HomeStatisticsCardView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.General.card
+
 		let adjustsFontSizeToFitWidth = false
 		let allowsDefaultTighteningForTruncation = true
 
@@ -82,6 +84,13 @@ class HomeStatisticsCardView: UIView {
 
 		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
 		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
+
+		// delete button/circle
+		let tap = UITapGestureRecognizer(target: self, action: #selector(onDeleteTapped(_:)))
+		deletionIndicator.addGestureRecognizer(tap)
+		deletionIndicator.center = CGPoint(x: frame.origin.x + 16, y: frame.origin.y) // magic number because of a very static design
+		addSubview(deletionIndicator)
+		deletionIndicator.isHidden = true // initial state
 	}
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
@@ -182,7 +191,8 @@ class HomeStatisticsCardView: UIView {
 	func configure(
 		viewModel: HomeStatisticsCardViewModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
+		onAccessibilityFocus: @escaping () -> Void,
+		onDeleteTap: (() -> Void)? = nil // only for user defined statistics
 	) {
 		viewModel.$title
 			.sink { [weak self] in
@@ -295,19 +305,41 @@ class HomeStatisticsCardView: UIView {
 
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
+		self.onDeleteTap = onDeleteTap
 
 		updateIllustration(for: traitCollection)
 	}
 
+	func setEditMode(_ enabled: Bool, animated: Bool) {
+		// HACK: No delete action? Might be a 'global' statistic card which can't be removed.
+		guard onDeleteTap != nil else { return }
+		
+		UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
+			if self.deletionIndicator.isHidden { self.deletionIndicator.isHidden.toggle() }
+			self.deletionIndicator.alpha = enabled ? 1 : 0
+		}, completion: { _ in
+			self.deletionIndicator.isHidden = !enabled
+		})
+	}
 	// MARK: - Private
 
 	private var onInfoButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
+	private var onDeleteTap: (() -> Void)?
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
+	private lazy var deletionIndicator: UIView = {
+		let delete = DeleteCircle(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+		return delete
+	}()
 
-	@IBAction private func infoButtonTapped(_ sender: Any) {
+	@objc
+	private func onDeleteTapped(_ sender: Any?) {
+		onDeleteTap?()
+	}
+
+	@IBAction private func infoButtonTapped(_ sender: Any?) {
 		onInfoButtonTap?()
 	}
 

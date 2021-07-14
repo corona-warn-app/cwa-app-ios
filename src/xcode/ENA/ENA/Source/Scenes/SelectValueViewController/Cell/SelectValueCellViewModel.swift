@@ -9,13 +9,29 @@ final class SelectValueCellViewModel {
 
 	// MARK: - Init
 
-	init(text: String, isSelected: Bool) {
+	init(text: String, isSelected: Bool, cellIconType: SelectionCellIcon, isEnabled: Bool = true) {
 		self.text = text
-		self.checkmarkImage = isSelected ? UIImage(imageLiteralResourceName: "Icons_Checkmark") : nil
+		self.isEnabled = isEnabled
+		
+		switch cellIconType {
+		case .checkmark:
+			self.image = isSelected ? UIImage(imageLiteralResourceName: "Icons_Checkmark") : nil
+		case .discloseIndicator:
+			self.image = UIImage(imageLiteralResourceName: "Icons_Chevron_plain")
+		case .none:
+			self.image = nil
+		}
 	}
 
 	// MARK: - Internal
 
 	let text: String
-	let checkmarkImage: UIImage?
+	let image: UIImage?
+	let isEnabled: Bool
+}
+
+enum SelectionCellIcon {
+	case checkmark
+	case discloseIndicator
+	case none
 }

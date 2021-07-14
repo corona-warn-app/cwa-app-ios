@@ -137,6 +137,16 @@ extension HTTPClient {
 			)
 		}
 
+		func localStatisticsURL(groupID: StatisticsGroupIdentifier) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"local_stats_\(groupID)"
+			)
+		}
+
 		var submissionURL: URL {
 			endpoints
 				.submission
