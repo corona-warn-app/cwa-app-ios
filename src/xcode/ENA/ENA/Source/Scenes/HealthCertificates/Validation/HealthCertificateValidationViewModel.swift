@@ -34,11 +34,11 @@ final class HealthCertificateValidationViewModel {
 		case legalDetails = "DynamicLegalCell"
 	}
 
-	var selectedArrivalCountry = Country.defaultCountry()
-	var selectedArrivalDate = Date()
-
 	func validate() {
-		onValidationButtonTap(selectedArrivalCountry, selectedArrivalDate)
+		onValidationButtonTap(
+			store.lastSelectedValidationCountry,
+			store.lastSelectedValidationDate
+		)
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -138,11 +138,11 @@ final class HealthCertificateValidationViewModel {
 			if let countrySelectionCell = cell as? CountrySelectionCell {
 
 				countrySelectionCell.didSelectCountry = { [weak self] country in
-					self?.selectedArrivalCountry = country
+					self?.store.lastSelectedValidationCountry = country
 				}
 
 				countrySelectionCell.countries = self.countries.sortedByLocalizedName
-				countrySelectionCell.selectedCountry = self.selectedArrivalCountry
+				countrySelectionCell.selectedCountry = self.store.lastSelectedValidationCountry
 				countrySelectionCell.isCollapsed = self.countrySelectionCollapsed
 			}
 		}
@@ -173,11 +173,11 @@ final class HealthCertificateValidationViewModel {
 			if let validationDateSelectionCell = cell as? ValidationDateSelectionCell {
 
 				validationDateSelectionCell.didSelectDate = { [weak self] date in
-					self?.selectedArrivalDate = date
+					self?.store.lastSelectedValidationDate = date
 				}
 
 				validationDateSelectionCell.didTapInfoButton = self.onInfoButtonTap
-				validationDateSelectionCell.selectedDate = self.selectedArrivalDate
+				validationDateSelectionCell.selectedDate = self.store.lastSelectedValidationDate
 				validationDateSelectionCell.isCollapsed = self.validationDateSelectionCollapsed
 			}
 		}

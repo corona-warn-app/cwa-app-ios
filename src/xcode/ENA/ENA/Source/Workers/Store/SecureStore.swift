@@ -246,6 +246,16 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["unseenTestCertificateCount"] as Int? ?? 0 }
 		set { kvStore["unseenTestCertificateCount"] = newValue }
 	}
+
+	var lastSelectedValidationCountry: Country {
+		get { kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry() }
+		set { kvStore["lastSelectedValidationCountry"] = newValue }
+	}
+
+	var lastSelectedValidationDate: Date {
+		get { kvStore["lastSelectedValidationDate"] as Date? ?? Date() }
+		set { kvStore["lastSelectedValidationDate"] = newValue }
+	}
 	
 	// MARK: - Protocol VaccinationCaching
 

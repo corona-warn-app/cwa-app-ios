@@ -136,6 +136,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
 	var testCertificateRequests: [TestCertificateRequest] = []
 	var unseenTestCertificateCount: Int = 0
+	var lastSelectedValidationCountry: Country = .defaultCountry()
+	var lastSelectedValidationDate: Date = Date()
 
 	// MARK: - Protocol VaccinationCaching
 
