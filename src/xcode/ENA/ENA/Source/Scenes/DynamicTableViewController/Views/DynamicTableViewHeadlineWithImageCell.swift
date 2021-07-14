@@ -29,7 +29,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 	private let headlineLabel = ENALabel(style: .title1)
 	private let backgroundImageView = UIImageView()
-	private let gradientView = GradientView(type: .certificateCheck)
+	private let gradientView = GradientView(type: .whiteToLightBlue)
 
 	private func setupView() {
 		gradientView.translatesAutoresizingMaskIntoConstraints = false

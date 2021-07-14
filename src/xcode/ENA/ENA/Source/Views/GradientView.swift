@@ -51,7 +51,7 @@ class GradientView: UIView {
 		case lightBlue(withStars: Bool)
 		case mediumBlue(withStars: Bool)
 		case darkBlue(withStars: Bool)
-		case certificateCheck
+		case whiteToLightBlue
 
 		var starsColor: UIColor? {
 			switch self {
@@ -163,7 +163,7 @@ class GradientView: UIView {
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
 
-		case .certificateCheck:
+		case .whiteToLightBlue:
 			let lightColors = [
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
