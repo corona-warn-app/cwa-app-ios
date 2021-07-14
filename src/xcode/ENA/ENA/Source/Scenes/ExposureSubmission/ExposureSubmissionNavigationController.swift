@@ -41,7 +41,7 @@ extension DismissHandling {
 
 }
 
-final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter {
+final class ExposureSubmissionNavigationController: UINavigationController, UIAdaptivePresentationControllerDelegate {
 
 	// MARK: - Init
 
@@ -72,7 +72,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
 
 	/// override to implement an other default handling - call dismissClosure()
-	override func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
 			  let dismissAbleViewController = topViewController as? DismissHandling  else {
 			Log.debug("ViewController found doesn't conforms to protocol DismissHandling -> stop")
