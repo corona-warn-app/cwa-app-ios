@@ -204,17 +204,35 @@ class FooterViewController: UIViewController {
 
 		viewModel.$isPrimaryButtonHidden
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.isHidden, on: primaryButton)
+			.sink(receiveValue: { [weak self] isHidden in
+				self?.primaryButton.isHidden = isHidden
+				self?.animateHeightChange()
+			})
 			.store(in: &subscription)
 
 		viewModel.$isSecondaryButtonHidden
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.isHidden, on: secondaryButton)
+			.sink(receiveValue: { [weak self] isHidden in
+				self?.secondaryButton.isHidden = isHidden
+				self?.animateHeightChange()
+			})
 			.store(in: &subscription)
 
 		viewModel.$backgroundColor
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.backgroundColor, on: view)
 			.store(in: &subscription)
+	}
+	
+	private func animateHeightChange() {
+		let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
+			guard let self = self else {
+				return
+			}
+			self.primaryButton.alpha = self.viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
+			self.secondaryButton.alpha = self.viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
+			self.buttonsStackView.layoutIfNeeded()
+		}
+		animator.startAnimation()
 	}
 }
