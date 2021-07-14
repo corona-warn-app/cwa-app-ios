@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum DCCRuleType {
+enum HealthCertificateValidationRuleType {
 	case acceptance
 	case invalidation
 	
@@ -14,6 +14,15 @@ enum DCCRuleType {
 			return "acceptance-rules"
 		case .invalidation:
 			return "invalidation-rules"
+		}
+	}
+	
+	var errorPrefix: String {
+		switch self {
+		case .acceptance:
+			return "ACCEPTANCE"
+		case .invalidation:
+			return "INVALIDATION"
 		}
 	}
 }

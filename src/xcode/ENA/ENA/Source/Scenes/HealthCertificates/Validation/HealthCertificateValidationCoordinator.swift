@@ -63,7 +63,7 @@ final class HealthCertificateValidationCoordinator {
 
 				self.healthCertificateValidationService.validate(
 					healthCertificate: self.healthCertificate,
-					arrivalCountry: arrivalCountry.id,
+					arrivalCountry: arrivalCountry,
 					validationClock: arrivalDate
 				) { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
@@ -90,6 +90,11 @@ final class HealthCertificateValidationCoordinator {
 						}
 					}
 				}
+			},
+			onDisclaimerButtonTap: { [weak self] in
+				let htmlViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+				htmlViewController.title = AppStrings.AppInformation.privacyTitle
+				self?.navigationController.pushViewController(htmlViewController, animated: true)
 			},
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
