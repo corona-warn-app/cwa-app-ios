@@ -1004,12 +1004,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			return .failure(dbError(from: database))
 		}
 
-		let arrangedContactPersons = contactPersons.sorted(by: {
+		let sortedContactPersons = contactPersons.sorted(by: {
 			$0.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
 				<
 				$1.name.lowercased().folding(options: .diacriticInsensitive, locale: .current)
 		})
-		return .success(arrangedContactPersons)
+		return .success(sortedContactPersons)
 	}
 
 	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SecureSQLStoreError> {
