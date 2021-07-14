@@ -23,6 +23,8 @@
 
 "General_BackButtonTitle" = "Înapoi";
 
+"Common_No_Network" = "Procesul nu a putut fi terminat din cauza problemelor de rețea. Încercați din nou.";
+
 "Common_ENError5_Description" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
 
 "Common_ENError11_Description" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Reporniți smartphone-ul și reîncercați mâine.";
@@ -1543,22 +1545,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.5 */
-"NewVersionFeature_25_recovery_cert_title" = "Certificat de recuperare COVID";
+/* Version 2.6 */
+"NewVersionFeature_26_euCertCheck_title" = "Validare certificat UE";
 
-"NewVersionFeature_25_recovery_cert_description" = "Acum puteți solicita și certificate digitale de recuperare prin aplicație și apoi le puteți adăuga în aplicație. Puteți utiliza aceste certificate în UE pentru a face dovada recuperării de la o infecție anterioară (de exemplu, pentru călătoria internațională).";
+"NewVersionFeature_26_euCertCheck_description" = "Acum puteți verifica valabilitatea certificatelor pentru o țară selectată înainte de a călători.";
 
-"NewVersionFeature_25_family_certificate_title" = "Certificate de familie";
+"NewVersionFeature_26_enhancedStats_title" = "Statistică extinsă";
 
-"NewVersionFeature_25_family_certificate_description" = "Acum puteți adăuga și gestiona certificate COVID digitale ale membrilor familiei în aplicație, pe care le puteți transmite când este nevoie (pentru călătoria internațională, de exemplu).";
+"NewVersionFeature_26_enhancedStats_description" = "Acum puteți adăuga până la cinci cifre ale incidenței locale pe ultimele 7 zile în aplicație.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Statistică extinsă ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Editarea profilului de test rapid";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "Următoarele statistici privind vaccinarea sunt acum disponibile în aplicație:\n\n\t- Numărul de persoane care au primit cel puțin o doză de vaccin\n\t- Numărul de persoane care sunt complet vaccinate\n\t- Numărul de doze de vaccin administrate";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Editarea profilului de test rapid";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Acum puteți edita profilul dvs. de test rapid în aplicație, de exemplu, pentru a vă modifica adresa.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Acum puteți edita profilul dvs. de test rapid în aplicație, de exemplu, pentru a vă modifica adresa.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2519,11 +2517,20 @@
 
 "AntigenProfile_Cancel_Action_Title" = "Anulare";
 
-"AntigenProfile_Delete_Alert_Title" = "Doriți să eliminați profilul de test rapid?";
+"AntigenProfile_Delete_Alert_Title" = "Doriți să ștergeți profilul de test rapid?";
 
 "AntigenProfile_Delete_Alert_Description" = "Luați în considerare că dacă îl ștergeți, codul QR nu mai poate fi utilizat pentru înregistrare.";
 
-"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Eliminare";
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Ștergere";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "Este afișată o hartă a Europei.";
+
+"HealthCertificate_Validation_Info_title" = "Informații";
+
+"HealthCertificate_Validation_Info_byCar" = "Introduceți ora de sosire locală planificată la granița țării de destinație.";
+
+"HealthCertificate_Validation_Info_byPlane" = "În cazul în care călătoriți cu avionul, introduceți ora de plecare programată a zborului.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificate";

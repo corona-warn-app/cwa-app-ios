@@ -23,6 +23,8 @@
 
 "General_BackButtonTitle" = "Назад";
 
+"Common_No_Network" = "Процесът не беше завършен поради проблеми с мрежата. Моля, опитайте отново.";
+
 "Common_ENError5_Description" = "Грешка 5: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Работим по намиране на решение за проблема.";
 
 "Common_ENError11_Description" = "Грешка 11: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Моля, рестартирайте смартфона си и опитайте отново утре.";
@@ -1543,22 +1545,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.5 */
-"NewVersionFeature_25_recovery_cert_title" = "Сертификат за възстановяване от COVID";
+/* Version 2.6 */
+"NewVersionFeature_26_euCertCheck_title" = "Валидиране на сертификат на ЕС";
 
-"NewVersionFeature_25_recovery_cert_description" = "Вече може да използвате приложението, за да заявите цифров сертификат за възстановяване от COVID и да го добавите в самото приложение. Може да използвате сертификата в рамките на ЕС, за да докажете, че сте се възстановили от коронавирусна инфекция (например при международни пътувания).";
+"NewVersionFeature_26_euCertCheck_description" = "Вече може да проверите дали сертификатът ви е валиден в посочена от вас държава, преди да тръгнете на път.";
 
-"NewVersionFeature_25_family_certificate_title" = "Семейни сертификати";
+"NewVersionFeature_26_enhancedStats_title" = "Разширена статистика";
 
-"NewVersionFeature_25_family_certificate_description" = "В приложението вече можете да добавяте цифрови COVID сертификати на членове на семейството, както и да ги управлявате – например да изпращате сертификати, когато това е необходимо във връзка с международни пътувания.";
+"NewVersionFeature_26_enhancedStats_description" = "Вече може да добавяте до пет записа на данни за 7-дневна заболеваемост на местно ниво.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Разширена статистика";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Редактиране на профил за бързи тестове";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "В приложението вече е налична следната статистика за ваксинацията.\n\n\t- Брой хора, получили поне една доза ваксина\n\t- Брой на напълно ваксинираните хора\n\t- Брой поставени дози ваксини";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Редактиране на профил за бързи тестове";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Вече можете да редактирате профила за бързи тестове в приложението, например за да промените адреса си.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Вече можете да редактирате профила за бързи тестове в приложението, например за да промените адреса си.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2519,11 +2517,20 @@
 
 "AntigenProfile_Cancel_Action_Title" = "Отказ";
 
-"AntigenProfile_Delete_Alert_Title" = "Желаете ли да премахнете профила си за бързи тестове?";
+"AntigenProfile_Delete_Alert_Title" = "Желаете ли да изтриете профила за бързи тестове?";
 
 "AntigenProfile_Delete_Alert_Description" = "Моля, имайте предвид, че ако го направите, този код повече няма да може да се използва за регистрации.";
 
-"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Премахване";
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Изтриване";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "Показва се карта на Европа.";
+
+"HealthCertificate_Validation_Info_title" = "Информация";
+
+"HealthCertificate_Validation_Info_byCar" = "Въведете планирания час на пристигане на границата на държавата на местоназначение по местно време.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Ако пътувате със самолет, въведете планирания час на заминаване на полета ви.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Сертификати";
