@@ -18,11 +18,6 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
