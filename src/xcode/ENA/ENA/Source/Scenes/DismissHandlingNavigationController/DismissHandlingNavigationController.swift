@@ -8,55 +8,92 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 
 	// MARK: - Init
 
-	init() {
+	init(transparent: Bool = false) {
 		super.init(nibName: nil, bundle: nil)
-		self.presentationController?.delegate = self
-
-		if #available(iOS 13.0, *) {
-			self.isModalInPresentation = true
+		setup()
+		if transparent {
+			setupTransparentNavigationBar()
 		}
 	}
 
-	override init(rootViewController: UIViewController) {
+	convenience init(rootViewController: UIViewController, transparent: Bool = false) {
+		self.init(rootViewController: rootViewController)
+		if transparent {
+			setupTransparentNavigationBar()
+		}
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		setup()
+	}
+
+	// MARK: - Overrides
+
+	override private init(rootViewController: UIViewController) {
 		if #available(iOS 13.0, *) {
 			super.init(rootViewController: rootViewController)
 		} else {
 			super.init(nibName: nil, bundle: nil)
 			self.viewControllers = [rootViewController]
 		}
-
-		self.presentationController?.delegate = self
-
-		if #available(iOS 13.0, *) {
-			self.isModalInPresentation = true
-		}
+		setup()
 	}
-
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-		self.presentationController?.delegate = self
-		if #available(iOS 13.0, *) {
-			self.isModalInPresentation = true
-		}
-	}
-
-	// MARK: - Overrides
 
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
-			  let dismissableViewController = topViewController as? DismissHandling  else {
+			  let dismissAbleViewController = topViewController as? DismissHandling  else {
 			return
 		}
 
-		dismissableViewController.wasAttemptedToBeDismissed()
+		dismissAbleViewController.wasAttemptedToBeDismissed()
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
+	
+	func setupTransparentNavigationBar() {
+		// save current state
+		backgroundImage = navigationBar.backgroundImage(for: .default)
+		shadowImage = navigationBar.shadowImage
+		isTranslucent = navigationBar.isTranslucent
+		backgroundColor = view.backgroundColor
+
+		let emptyImage = UIImage()
+		navigationBar.setBackgroundImage(emptyImage, for: .default)
+		navigationBar.shadowImage = emptyImage
+		navigationBar.isTranslucent = true
+		view.backgroundColor = .clear
+
+		navigationBar.prefersLargeTitles = false
+		navigationBar.sizeToFit()
+	}
+
+	func restoreOriginalNavigationBar() {
+		navigationBar.setBackgroundImage(backgroundImage, for: .default)
+		navigationBar.shadowImage = shadowImage
+		navigationBar.isTranslucent = isTranslucent
+		view.backgroundColor = backgroundColor
+
+		// reset to initial values
+		backgroundImage = nil
+		shadowImage = nil
+		backgroundColor = nil
+	}
 
 	// MARK: - Private
+
+	private var backgroundImage: UIImage?
+	private var shadowImage: UIImage?
+	private var isTranslucent: Bool = false
+	private var backgroundColor: UIColor?
+
+	private func setup() {
+		presentationController?.delegate = self
+		if #available(iOS 13.0, *) {
+			isModalInPresentation = true
+		}
+	}
 
 }

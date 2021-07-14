@@ -306,7 +306,12 @@ final class HTTPClient: Client {
 				}
 			case let .failure(error):
 				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
-				completion(.failure(.invalidResponseError))
+				switch error {
+				case .noNetworkConnection:
+					completion(.failure(.noNetworkConnection))
+				default:
+					completion(.failure(.invalidResponseError))
+				}
 			}
 		})
 	}

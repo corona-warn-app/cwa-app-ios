@@ -32,6 +32,7 @@ enum AppStrings {
 		static let deadmanAlertTitle = NSLocalizedString("Common_Deadman_AlertTitle", comment: "")
 		static let deadmanAlertBody = NSLocalizedString("Common_Deadman_AlertBody", comment: "")
 		static let tessRelayDescription = NSLocalizedString("Common_Tess_Relay_Description", comment: "")
+		static let noNetworkConnection = NSLocalizedString("Common_No_Network", comment: "")
 	}
 
 	enum Links {
@@ -44,6 +45,8 @@ enum AppStrings {
 		static let healthCertificateErrorFAQ = NSLocalizedString("HealthCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let testCertificateErrorFAQ = NSLocalizedString("TestCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let findTestCentersFAQ = NSLocalizedString("Test_Centers_FAQ_Link", tableName: "Localizable.links", comment: "")
+		static let healthCertificateValidationFAQ = NSLocalizedString("HealthCertificate_Info_validation_FAQLink", tableName: "Localizable.links", comment: "")
+		static let healthCertificateValidationEU = NSLocalizedString("HealthCertificate_Info_validation_EULink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -1125,24 +1128,20 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.5 */
+		/* Version 2.6 */
 		
-		static let feature25RecoveryCertTitle = NSLocalizedString("NewVersionFeature_25_recovery_cert_title", comment: "")
+		static let feature26EuCertCheckTitle = NSLocalizedString("NewVersionFeature_26_euCertCheck_title", comment: "")
 		
-		static let feature25tRecoveryCertDescription = NSLocalizedString("NewVersionFeature_25_recovery_cert_description", comment: "")
+		static let feature26EuCertCheckDescription = NSLocalizedString("NewVersionFeature_26_euCertCheck_description", comment: "")
 		
-		static let feature25FamilyCertTitle = NSLocalizedString("NewVersionFeature_25_family_certificate_title", comment: "")
+		static let feature26EnhancedStatsTitle = NSLocalizedString("NewVersionFeature_26_enhancedStats_title", comment: "")
 		
-		static let feature25FamilyCertDescription = NSLocalizedString("NewVersionFeature_25_family_certificate_description", comment: "")
+		static let feature26DEnhancedStatsDescription = NSLocalizedString("NewVersionFeature_26_enhancedStats_description", comment: "")
 		
-		static let feature25EnhancedStatisticsTitle = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_title", comment: "")
+		static let feature26EditRapidTestTitle = NSLocalizedString("NewVersionFeature_26_editRapidTestProfile_title", comment: "")
 		
-		static let feature25EnhancedStatisticsDescription = NSLocalizedString("NewVersionFeature_25_enhanced_statistics_description", comment: "")
+		static let feature26EditRapidTestDescription = NSLocalizedString("NewVersionFeature_26_editRapidTestProfile_description", comment: "")
 		
-		static let feature25EditTestProfileTitle = NSLocalizedString("NewVersionFeature_25_edit_test_profile_title", comment: "")
-		
-		static let feature25tEditTestProfileDescription = NSLocalizedString("NewVersionFeature_25_edit_test_profile_description", comment: "")
-
 	}
 	
 	enum DeltaOnboarding {
@@ -1919,6 +1918,7 @@ enum AppStrings {
 	}
 
 	enum HealthCertificate {
+
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
 			static let addCertificate = NSLocalizedString("HealthCertificate_Overview_add", comment: "")
@@ -2086,12 +2086,82 @@ enum AppStrings {
 			static let hcQRCodeError = NSLocalizedString("HealthCertificate_Error_HC_QR_CODE_ERROR", comment: "")
 		}
 
-		enum ValidationError {
-			static let title = NSLocalizedString("HealthCertificate_Validation_Error_Title", comment: "")
-			static let tryAgain = NSLocalizedString("HealthCertificate_Validation_Error_TRY_AGAIN", comment: "")
-			static let noNetwork = NSLocalizedString("HealthCertificate_Validation_Error_NO_NETWORK", comment: "")
-		}
+		enum Validation {
+			static let title = NSLocalizedString("HealthCertificate_Validation_Title", comment: "")
+			static let countrySelectionTitle = NSLocalizedString("HealthCertificate_Validation_CountrySelection_Title", comment: "")
+			static let dateTimeSelectionTitle = NSLocalizedString("HealthCertificate_Validation_DateTimeSelection_Title", comment: "")
+			static let dateTimeSelectionInfo = NSLocalizedString("HealthCertificate_Validation_DateTimeSelection_Info", comment: "")
+			static let body1 = NSLocalizedString("HealthCertificate_Validation_Body1", comment: "")
+			static let headline1 = NSLocalizedString("HealthCertificate_Validation_Headline1", comment: "")
+			static let body2 = NSLocalizedString("HealthCertificate_Validation_Body2", comment: "")
+			static let headline2 = NSLocalizedString("HealthCertificate_Validation_Headline2", comment: "")
+			static let bullet1 = NSLocalizedString("HealthCertificate_Validation_Bullet1", comment: "")
+			static let bullet2 = NSLocalizedString("HealthCertificate_Validation_Bullet2", comment: "")
+			static let bullet3 = NSLocalizedString("HealthCertificate_Validation_Bullet3", comment: "")
+			static let bullet4 = NSLocalizedString("HealthCertificate_Validation_Bullet4", comment: "")
+			static let body3 = NSLocalizedString("HealthCertificate_Validation_Body3", comment: "")
+			static let legalTitle = NSLocalizedString("HealthCertificate_Validation_Legal_Title", comment: "")
+			static let legalDescription = NSLocalizedString("HealthCertificate_Validation_Legal_Description", comment: "")
+			static let body4 = NSLocalizedString("HealthCertificate_Validation_Body4", comment: "")
 
+			enum Info {
+				static let imageDescription = NSLocalizedString("HealthCertificate_Validation_Info_imageDescription", comment: "")
+				static let title = NSLocalizedString("HealthCertificate_Validation_Info_title", comment: "")
+				static let byCar = NSLocalizedString("HealthCertificate_Validation_Info_byCar", comment: "")
+				static let byPlane = NSLocalizedString("HealthCertificate_Validation_Info_byPlane", comment: "")
+			}
+
+			enum Error {
+				static let title = NSLocalizedString("HealthCertificate_Validation_Error_Title", comment: "")
+				static let tryAgain = NSLocalizedString("HealthCertificate_Validation_Error_TRY_AGAIN", comment: "")
+				static let noNetwork = NSLocalizedString("HealthCertificate_Validation_Error_NO_NETWORK", comment: "")
+			}
+
+			enum Result {
+				static let validationParameters = NSLocalizedString("HealthCertificate_Validation_Result_validationParameters", comment: "")
+				static let acceptanceRule = NSLocalizedString("HealthCertificate_Validation_Result_acceptanceRule", comment: "")
+				static let invalidationRule = NSLocalizedString("HealthCertificate_Validation_Result_invalidationRule", comment: "")
+				static let moreInformation01 = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation01", comment: "")
+				static let moreInformation02 = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation02", comment: "")
+				static let moreInformation03 = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation03", comment: "")
+
+				enum Passed {
+					static let title = NSLocalizedString("HealthCertificate_Validation_Passed_title", comment: "")
+					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Passed_subtitle", comment: "")
+					static let description = NSLocalizedString("HealthCertificate_Validation_Passed_description", comment: "")
+					static let hintsTitle = NSLocalizedString("HealthCertificate_Validation_Passed_hintsTitle", comment: "")
+					static let hint1 = NSLocalizedString("HealthCertificate_Validation_Passed_hint1", comment: "")
+					static let hint2 = NSLocalizedString("HealthCertificate_Validation_Passed_hint2", comment: "")
+					static let hint3 = NSLocalizedString("HealthCertificate_Validation_Passed_hint3", comment: "")
+					static let hint4 = NSLocalizedString("HealthCertificate_Validation_Passed_hint4", comment: "")
+					static let primaryButtonTitle = NSLocalizedString("HealthCertificate_Validation_Passed_primaryButtonTitle", comment: "")
+				}
+
+				enum Open {
+					static let title = NSLocalizedString("HealthCertificate_Validation_Open_title", comment: "")
+					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Open_subtitle", comment: "")
+					static let openSectionTitle = NSLocalizedString("HealthCertificate_Validation_Open_openSectionTitle", comment: "")
+					static let openSectionDescription = NSLocalizedString("HealthCertificate_Validation_Open_openSectionDescription", comment: "")
+				}
+
+				enum Failed {
+					static let title = NSLocalizedString("HealthCertificate_Validation_Failed_title", comment: "")
+					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Failed_subtitle", comment: "")
+					static let failedSectionTitle = NSLocalizedString("HealthCertificate_Validation_Failed_failedSectionTitle", comment: "")
+					static let failedSectionDescription = NSLocalizedString("HealthCertificate_Validation_Failed_failedSectionDescription", comment: "")
+					static let openSectionTitle = NSLocalizedString("HealthCertificate_Validation_Failed_openSectionTitle", comment: "")
+					static let openSectionDescription = NSLocalizedString("HealthCertificate_Validation_Failed_openSectionDescription", comment: "")
+				}
+
+				enum TechnicalFailed {
+					static let title = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_title", comment: "")
+					static let subtitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_subtitle", comment: "")
+					static let failedSectionTitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_failedSectionTitle", comment: "")
+					static let failedSectionDescription = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_failedSectionDescription", comment: "")
+					static let certificateExpired = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_certificateExpired", comment: "")
+				}
+			}
+		}
 	}
 
 	// swiftlint:disable:next file_length

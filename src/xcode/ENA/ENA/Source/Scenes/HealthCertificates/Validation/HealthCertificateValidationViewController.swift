@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HealthCertificateValidationViewController: UIViewController, FooterViewHandling, DismissHandling {
+class HealthCertificateValidationViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -14,6 +14,7 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 		countries: [Country],
 		store: HealthCertificateStoring,
 		onValidationButtonTap: @escaping (Country, Date) -> Void,
+		onDisclaimerButtonTap: @escaping () -> Void,
 		onInfoButtonTap: @escaping () -> Void,
 		onDismiss: @escaping () -> Void
 	) {
@@ -24,7 +25,9 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 			healthCertificate: healthCertificate,
 			countries: countries,
 			store: store,
-			onValidationButtonTap: onValidationButtonTap
+			onValidationButtonTap: onValidationButtonTap,
+			onDisclaimerButtonTap: onDisclaimerButtonTap,
+			onInfoButtonTap: onInfoButtonTap
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -40,12 +43,12 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// Placeholder for info button in screen
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
+		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
+		parent?.navigationItem.title = AppStrings.HealthCertificate.Validation.title
 
-		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal), infoBarButtonItem]
+		setupTableView()
+
+		view.backgroundColor = .enaColor(for: .background)
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -72,4 +75,23 @@ class HealthCertificateValidationViewController: UIViewController, FooterViewHan
 		onInfoButtonTap()
 	}
 
+	private func setupTableView() {
+		tableView.separatorStyle = .none
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+
+		tableView.register(
+			CountrySelectionCell.self,
+			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.countrySelectionCell.rawValue
+		)
+
+		tableView.register(
+			ValidationDateSelectionCell.self,
+			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.validationDateSelectionCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.legalDetails.rawValue
+		)
+	}
 }

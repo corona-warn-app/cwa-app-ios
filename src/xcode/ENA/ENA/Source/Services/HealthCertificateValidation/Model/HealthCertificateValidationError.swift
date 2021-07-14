@@ -10,20 +10,13 @@ enum HealthCertificateValidationError: LocalizedError {
 	// MARK: - Internal
 	
 	case TECHNICAL_VALIDATION_FAILED
-	case ACCEPTANCE_RULE_VALIDATION_ERROR(RuleValidationError)
-	case ACCEPTANCE_RULE_CLIENT_ERROR
-	case ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR
-	case ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING
-	case ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
-	case ACCEPTANCE_RULE_MISSING_CACHE
-	case ACCEPTANCE_RULE_SERVER_ERROR
-	case INVALIDATION_RULE_VALIDATION_ERROR(RuleValidationError)
-	case INVALIDATION_RULE_CLIENT_ERROR
-	case INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR
-	case INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING
-	case INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID
-	case INVALIDATION_RULE_MISSING_CACHE
-	case INVALIDATION_RULE_SERVER_ERROR
+	case RULE_DECODING_ERROR(HealthCertificateValidationRuleType, RuleValidationError)
+	case RULE_CLIENT_ERROR(HealthCertificateValidationRuleType)
+	case RULE_JSON_ARCHIVE_ETAG_ERROR(HealthCertificateValidationRuleType)
+	case RULE_JSON_ARCHIVE_FILE_MISSING(HealthCertificateValidationRuleType)
+	case RULE_JSON_ARCHIVE_SIGNATURE_INVALID(HealthCertificateValidationRuleType)
+	case RULE_MISSING_CACHE(HealthCertificateValidationRuleType)
+	case RULE_SERVER_ERROR(HealthCertificateValidationRuleType)
 	case NO_NETWORK
 	case VALUE_SET_SERVER_ERROR
 	case VALUE_SET_CLIENT_ERROR
@@ -32,43 +25,29 @@ enum HealthCertificateValidationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .TECHNICAL_VALIDATION_FAILED:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (TECHNICAL_VALIDATION_FAILED)"
-		case let .ACCEPTANCE_RULE_VALIDATION_ERROR(error):
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_VALIDATION_ERROR - \(error)"
-		case .ACCEPTANCE_RULE_CLIENT_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_CLIENT_ERROR)"
-		case .ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_JSON_ARCHIVE_ETAG_ERROR)"
-		case .ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_JSON_ARCHIVE_FILE_MISSING)"
-		case .ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_JSON_ARCHIVE_SIGNATURE_INVALID)"
-		case .ACCEPTANCE_RULE_MISSING_CACHE:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_MISSING_CACHE)"
-		case .ACCEPTANCE_RULE_SERVER_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (ACCEPTANCE_RULE_SERVER_ERROR)"
-		case let .INVALIDATION_RULE_VALIDATION_ERROR(error):
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_VALIDATION_ERROR - \(error)"
-		case .INVALIDATION_RULE_CLIENT_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_CLIENT_ERROR)"
-		case .INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_JSON_ARCHIVE_ETAG_ERROR)"
-		case .INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_JSON_ARCHIVE_FILE_MISSING)"
-		case .INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_JSON_ARCHIVE_SIGNATURE_INVALID)"
-		case .INVALIDATION_RULE_MISSING_CACHE:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_MISSING_CACHE)"
-		case .INVALIDATION_RULE_SERVER_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (INVALIDATION_RULE_SERVER_ERROR)"
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (TECHNICAL_VALIDATION_FAILED)"
+		case let .RULE_DECODING_ERROR(ruleType, error):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_DECODING_ERROR - \(error)"
+		case let .RULE_CLIENT_ERROR(ruleType):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_CLIENT_ERROR)"
+		case let .RULE_JSON_ARCHIVE_ETAG_ERROR(ruleType):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_JSON_ARCHIVE_ETAG_ERROR)"
+		case let .RULE_JSON_ARCHIVE_FILE_MISSING(ruleType):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_JSON_ARCHIVE_FILE_MISSING)"
+		case let .RULE_JSON_ARCHIVE_SIGNATURE_INVALID(ruleType):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_JSON_ARCHIVE_SIGNATURE_INVALID)"
+		case let .RULE_MISSING_CACHE(ruleType):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_MISSING_CACHE)"
+		case let .RULE_SERVER_ERROR(ruleType):
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (\(ruleType.errorPrefix)_RULE_SERVER_ERROR)"
 		case .NO_NETWORK:
-			return "\(AppStrings.HealthCertificate.ValidationError.noNetwork) (NO_NETWORK)"
+			return "\(AppStrings.HealthCertificate.Validation.Error.noNetwork) (NO_NETWORK)"
 		case .VALUE_SET_SERVER_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_SERVER_ERROR)"
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (VALUE_SET_SERVER_ERROR)"
 		case .VALUE_SET_CLIENT_ERROR:
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (VALUE_SET_CLIENT_ERROR)"
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (VALUE_SET_CLIENT_ERROR)"
 		case let .RULES_VALIDATION_ERROR(error):
-			return "\(AppStrings.HealthCertificate.ValidationError.tryAgain) (RULES_VALIDATION_ERROR - \(error)"
+			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (RULES_VALIDATION_ERROR - \(error)"
 		}
 	}
 }

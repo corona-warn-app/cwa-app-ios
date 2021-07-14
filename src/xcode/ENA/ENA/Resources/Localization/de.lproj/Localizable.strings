@@ -27,6 +27,8 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+"Common_No_Network" = "Der Vorgang konnte wegen Netzwerkproblemen nicht abgeschlossen werden. Bitte versuchen Sie es noch einmal.";
+
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
 "Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
@@ -1301,7 +1303,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TestRegistration_Title" = "Sie lassen sich testen?";
 
-"Home_TestRegistration_Body" = "Finden sie Teststellen in ihrer Umgebung und registrieren sie einen Test, um andere schneller warnen zu können, oder ihr digitales COVID-Testzertifikat anzufordern.";
+"Home_TestRegistration_Body" = "Finden Sie Teststellen in Ihrer Umgebung und registrieren Sie einen Test, um andere schneller warnen zu können, oder Ihr digitales COVID-Testzertifikat anzufordern.";
 
 "Home_TestRegistration_Button" = "Weiter";
 
@@ -1586,23 +1588,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.5 */
+/* Version 2.6 */
 
-"NewVersionFeature_25_recovery_cert_title" = "COVID-Genesenenzertifikate";
+"NewVersionFeature_26_euCertCheck_title" = "EU-Zertifikatsprüfung";
 
-"NewVersionFeature_25_recovery_cert_description" = "Sie können nun in der App auch digitale Genesenenzertifikate hinzufügen. Sie können diese Zertifikate innerhalb der EU verwenden, um eine frühere Infektion nachzuweisen (z.\U00A0B. für Auslandsreisen).";
+"NewVersionFeature_26_euCertCheck_description" = "Sie können nun vor einer Reise Zertifikate für ein gewähltes Land auf Gültigkeit prüfen.";
 
-"NewVersionFeature_25_family_certificate_title" = "Familienzertifikate";
+"NewVersionFeature_26_enhancedStats_title" = "Erweiterung Statistiken";
 
-"NewVersionFeature_25_family_certificate_description" = "Sie können nun digitale COVID-Zertifikate von Familienmitgliedern in der App hinzufügen und verwalten, um die Zertifikate vorzeigen zu können (z.\U00A0B. bei Auslandsreisen).";
+"NewVersionFeature_26_enhancedStats_description" = "Sie können nun bis zu fünf lokale 7-Tage-Inzidenzen in der App hinzufügen.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Erweiterung Statistiken ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Schnelltest-Profil bearbeiten";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "Es sind nun folgende Impfstatistiken in der App verfügbar:\n\n\t- Anzahl mindestens einmal geimpfter Personen\n\t- Anzahl vollständig geimpfter Personen\n\t- Anzahl verabreichter Impfdosen";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Schnelltest-Profil bearbeiten";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2606,6 +2604,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
 
+/* Health Certificate Validation Info */
+
+"HealthCertificate_Validation_Info_imageDescription" = "Eine Landkarte von Europa wird angezeigt.";
+
+"HealthCertificate_Validation_Info_title" = "Informationen";
+
+"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
+
 /* Health Certificate Overview */
 
 "HealthCertificate_Overview_title" = "Zertifikate";
@@ -2855,3 +2863,105 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Um die Gültigkeitsprüfung des Zertifikates abzuschließen, prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
+/* Health Certificate Validation */
+
+"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikates";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Land";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Datum und Uhrzeit";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein.";
+
+"HealthCertificate_Validation_Body1" = "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.";
+
+"HealthCertificate_Validation_Headline1" = "Prüfen für";
+
+"HealthCertificate_Validation_Body2" = "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.";
+
+"HealthCertificate_Validation_Headline2" = "Hinweis";
+
+"HealthCertificate_Validation_Bullet1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
+
+"HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
+
+"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikates sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
+
+"HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
+
+"HealthCertificate_Validation_Body3" = "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.";
+
+"HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
+
+"HealthCertificate_Validation_Legal_Description" = "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt.";
+
+"HealthCertificate_Validation_Body4" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
+/* Health Certificate Validation Result */
+
+"HealthCertificate_Validation_Result_validationParameters" = "Einreise nach %@ am %@,\ngeprüft am %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "Dies ist eine Regel des Reiselandes %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "Dies ist eine Regel des Ausstellerlandes.";
+
+"HealthCertificate_Validation_Result_moreInformation01" = "Mehr Informationen finden Sie in den";
+
+"HealthCertificate_Validation_Result_moreInformation02" = "FAQ";
+
+"HealthCertificate_Validation_Result_moreInformation03" = "und unter";
+
+/* - Passed */
+
+"HealthCertificate_Validation_Passed_title" = "Gültiges Zertifikat";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
+
+"HealthCertificate_Validation_Passed_hint1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
+
+"HealthCertificate_Validation_Passed_hint2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
+
+"HealthCertificate_Validation_Passed_hint3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird in einer Prüf-Anwendung validiert.";
+
+"HealthCertificate_Validation_Passed_hint4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Für weiteres Land prüfen";
+
+/* - Open */
+
+"HealthCertificate_Validation_Open_title" = "Zertifikat nicht prüfbar";
+
+"HealthCertificate_Validation_Open_subtitle" = "Ihr Zertifikat konnte nicht vollständig geprüft werden";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Hinweis";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
+
+/* - Failed */
+
+"HealthCertificate_Validation_Failed_title" = "Zertifikat nicht gültig";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Prüfung abgeschlossen";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Prüfung nicht möglich";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
+
+/* - Technical Validation Failed */
+
+"HealthCertificate_Validation_TechnicalFailed_title" = "Zertifikat nicht gültig";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technische Prüfung";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Das Zertifikat darf nicht abgelaufen sein.";

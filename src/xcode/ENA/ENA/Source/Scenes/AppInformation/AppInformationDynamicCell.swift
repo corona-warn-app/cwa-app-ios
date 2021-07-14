@@ -64,4 +64,14 @@ extension DynamicCell {
 			cell.webView.load(URLRequest(url: url))
 		}
 	}
+
+	static func html(string: String) -> Self {
+		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { _, cell, _  in
+			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
+			cell.webView.loadHTMLString(string, baseURL: nil)
+		}
+
+	}
+
+
 }
