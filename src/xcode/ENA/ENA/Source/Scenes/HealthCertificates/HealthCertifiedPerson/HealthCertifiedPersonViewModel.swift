@@ -13,7 +13,7 @@ final class HealthCertifiedPersonViewModel {
 	init(
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificateValueSetsProvider: VaccinationValueSetsProvider,
+		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	) {
@@ -216,7 +216,7 @@ final class HealthCertifiedPersonViewModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
-	private let healtCertificateValueSetsProvider: VaccinationValueSetsProvider
+	private let healtCertificateValueSetsProvider: VaccinationValueSetsProviding
 
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 
