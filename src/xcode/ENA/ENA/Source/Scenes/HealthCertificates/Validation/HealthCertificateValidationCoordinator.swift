@@ -260,8 +260,9 @@ final class HealthCertificateValidationCoordinator {
 			}
 		)
 		alert.addAction(okayAction)
-
-		navigationController.present(alert, animated: true, completion: nil)
+		DispatchQueue.main.async { [weak self] in
+			self?.navigationController.present(alert, animated: true, completion: nil)
+		}
 	}
 	
 }
