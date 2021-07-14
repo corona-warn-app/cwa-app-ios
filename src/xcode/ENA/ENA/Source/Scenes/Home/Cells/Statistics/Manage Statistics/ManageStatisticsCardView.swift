@@ -18,6 +18,8 @@ class ManageStatisticsCardView: UIView {
 		accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.manageStatisticsCard
 	}
 	
+	// MARK: - Internal
+
 	// swiftlint:disable:next function_parameter_count
 	func configure(
 		localStatisticsModel: LocalStatisticsModel,
