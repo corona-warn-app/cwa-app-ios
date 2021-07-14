@@ -1,30 +1,14 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
 import Foundation
 import OpenCombine
-import HealthCertificateToolkit
+@testable import ENA
 
 struct MockHealthCertificateValidationService: HealthCertificateValidationProviding {
 
-	var onboardedCountriesResult: Result<[Country], HealthCertificateValidationOnboardedCountriesError> = .success(
-		[
-			Country(countryCode: "DE"),
-			Country(countryCode: "IT"),
-			Country(countryCode: "ES")
-		].compactMap { $0 }
-	)
-
-	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationPassed([]))
-
-	func onboardedCountries(
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
-	) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			completion(onboardedCountriesResult)
-		}
-	}
+	// MARK: - Protocol HealthCertificateValidationProviding
 	
 	func validate(
 		healthCertificate: HealthCertificate,
@@ -32,9 +16,11 @@ struct MockHealthCertificateValidationService: HealthCertificateValidationProvid
 		validationClock: Date,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			completion(validationResult)
-		}
+		completion(validationResult)
 	}
+
+	// MARK: - Internal
+
+	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationPassed([]))
 
 }

@@ -22,4 +22,8 @@ extension ReuseIdentifierProviding {
 		String(describing: self)
 	}
 
+	static var dynamicTableViewCellReuseIdentifier: DynamicTableViewCellReuseIdentifier {
+		DynamicTableViewCellReuseIdentifier(rawValue: reuseIdentifier)
+	}
+
 }

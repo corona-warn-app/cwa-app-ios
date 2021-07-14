@@ -52,6 +52,23 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 	}
 
 	// MARK: - Internal
+	
+	func setupTransparentNavigationBar() {
+		// save current state
+		backgroundImage = navigationBar.backgroundImage(for: .default)
+		shadowImage = navigationBar.shadowImage
+		isTranslucent = navigationBar.isTranslucent
+		backgroundColor = view.backgroundColor
+
+		let emptyImage = UIImage()
+		navigationBar.setBackgroundImage(emptyImage, for: .default)
+		navigationBar.shadowImage = emptyImage
+		navigationBar.isTranslucent = true
+		view.backgroundColor = .clear
+
+		navigationBar.prefersLargeTitles = false
+		navigationBar.sizeToFit()
+	}
 
 	func restoreOriginalNavigationBar() {
 		navigationBar.setBackgroundImage(backgroundImage, for: .default)
@@ -77,20 +94,6 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 		if #available(iOS 13.0, *) {
 			isModalInPresentation = true
 		}
-	}
-
-	private func setupTransparentNavigationBar() {
-		// save current state
-		backgroundImage = navigationBar.backgroundImage(for: .default)
-		shadowImage = navigationBar.shadowImage
-		isTranslucent = navigationBar.isTranslucent
-		backgroundColor = view.backgroundColor
-
-		let emptyImage = UIImage()
-		navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationBar.shadowImage = emptyImage
-		navigationBar.isTranslucent = true
-		view.backgroundColor = .clear
 	}
 
 }
