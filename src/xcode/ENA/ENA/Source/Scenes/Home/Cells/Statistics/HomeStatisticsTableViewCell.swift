@@ -230,10 +230,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
-		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-			preconditionFailure("missing json file")
-		}
-		let localStatisticsModel = LocalStatisticsModel(store: store, jsonFileURL: jsonFileURL)
+		let localStatisticsModel = LocalStatisticsModel(store: store)
 
 		let nibName = String(describing: ManageStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
