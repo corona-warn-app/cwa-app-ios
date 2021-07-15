@@ -15,17 +15,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Do-LF-NEM" userLabel="container">
-                    <rect key="frame" x="232.5" y="137" width="42" height="64.5"/>
+                    <rect key="frame" x="233" y="137" width="41.5" height="64.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fjs-eu-uOP">
-                            <rect key="frame" x="5" y="0.0" width="32" height="32"/>
+                            <rect key="frame" x="4.5" y="0.0" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="Ski-I1-3yh"/>
                                 <constraint firstAttribute="width" secondItem="Fjs-eu-uOP" secondAttribute="height" multiplier="1:1" id="hBA-Pk-BZz"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHu-KX-nfx" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="44" width="42" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHu-KX-nfx" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="44" width="41.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -44,21 +44,26 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="5Do-LF-NEM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" id="3j1-u8-Nmi"/>
+                <constraint firstItem="5Do-LF-NEM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="43" id="3j1-u8-Nmi"/>
                 <constraint firstItem="5Do-LF-NEM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="Aoe-MN-LAS"/>
                 <constraint firstItem="5Do-LF-NEM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="OHm-LS-mkf"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Do-LF-NEM" secondAttribute="trailing" id="Pd4-cy-fCa"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Do-LF-NEM" secondAttribute="trailing" constant="43" id="Pd4-cy-fCa"/>
                 <constraint firstItem="5Do-LF-NEM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="b8P-48-6tq"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5Do-LF-NEM" secondAttribute="bottom" constant="20" id="uH4-fP-kiV"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="icon" destination="Fjs-eu-uOP" id="P0P-cq-0jw"/>
+                <outlet property="icon" destination="Fjs-eu-uOP" id="P1E-hf-PyU"/>
                 <outlet property="label" destination="bHu-KX-nfx" id="7o3-Ho-b1Z"/>
             </connections>
             <point key="canvasLocation" x="99.275362318840592" y="-60.267857142857139"/>
         </view>
     </objects>
+    <designables>
+        <designable name="bHu-KX-nfx">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
