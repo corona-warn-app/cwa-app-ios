@@ -1459,7 +1459,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			return
 		}
 
-		let testData = try JSONDecoder().decode(CertEngineTestData.self, from: jsonData)
+		let testData = try JSONDecoder().decode(CertLogicEngineTestData.self, from: jsonData)
 
 		guard let valueSetsData = Data(base64Encoded: testData.general.valueSetProtocolBuffer),
 			  let valueSets = try? SAP_Internal_Dgc_ValueSets(serializedData: valueSetsData) else {
