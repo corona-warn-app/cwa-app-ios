@@ -2918,11 +2918,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Result_invalidationRule" = "Dies ist eine Regel des Ausstellerlandes.";
 
-"HealthCertificate_Validation_Result_moreInformation01" = "Mehr Informationen finden Sie in den";
+"HealthCertificate_Validation_Result_moreInformation" = "Mehr Informationen finden Sie in den %@ und unter %@.";
 
-"HealthCertificate_Validation_Result_moreInformation02" = "FAQ";
-
-"HealthCertificate_Validation_Result_moreInformation03" = "und unter";
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "FAQ";
 
 /* - Passed */
 

@@ -27,15 +27,6 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		resetMargins()
 		configureDynamicType()
 		configure(text: "", color: .enaColor(for: .textPrimary1))
-		lastHTMLString = nil
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle,
-		   let previousHTMLString = lastHTMLString {
-			configure(htmlString: previousHTMLString)
-		}
 	}
 
 	// MARK: - Internal
@@ -73,25 +64,23 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.adjustsFontForContentSizeCategory = true
 	}
 
-	func configure(htmlString: String) {
-		guard let htmlString = self.htmlString(with: htmlString),
-			  let htmlData = htmlString.data(using: .unicode) else {
-			Log.debug("failed to encode html string to data")
-			return
-		}
+	func configure(text: String, textFont: ENAFont, textColor: UIColor = .enaColor(for: .textPrimary1), links: [String: String], linksColor: UIColor) {
+		let textAttributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.preferredFont(forTextStyle: textFont.textStyle).scaledFont(size: textFont.fontSize, weight: textFont.fontWeight),
+			.foregroundColor: textColor
+		]
+		let attributedText = NSMutableAttributedString(string: text, attributes: textAttributes)
 
-		do {
-			textView.attributedText = try NSAttributedString(
-				data: htmlData,
-				options: [
-					NSAttributedString.DocumentReadingOptionKey.documentType:
-						NSAttributedString.DocumentType.html
-				],
-				documentAttributes: nil
-			)
-		} catch {
-			Log.error("Failed to create attributed string from html data")
+		// setup link style - only available in UITextView
+		textView.linkTextAttributes = [
+			.foregroundColor: linksColor,
+			.underlineColor: UIColor.clear
+		]
+
+		links.forEach { text, link in
+			attributedText.mark(text, with: link)
 		}
+		textView.attributedText = attributedText
 	}
 
 	// MARK: - Private
@@ -129,88 +118,4 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 		contentView.insetsLayoutMarginsFromSafeArea = false
 	}
-
-	private var lastHTMLString: String?
-
-	private func htmlString(with content: String) -> String? {
-		lastHTMLString = content
-		let cssStyle = traitCollection.userInterfaceStyle == .dark ? darkCssStyle : lightCssStyle
-		return String(format: htmlTemplate, cssStyle, content)
-	}
-
-	private let htmlTemplate = """
-		<!DOCTYPE html>
-		<html lang="en">
-		<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<style>%@</style>
-		</head>
-		<body>%@</body>
-		</html>
-		"""
-
-	private let lightCssStyle = """
-		* {
-			margin: 0;
-			padding: 0;
-		}
-
-		html, body, table {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-			"Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
-		}
-
-		@supports (font: -apple-system-body) {
-			html, body, table {
-				font: -apple-system-body !important;
-			}
-		}
-		a:link, a:visited {
-			text-decoration: none;
-			color: #007fad;
-		}
-		p {
-			font-size: 1.0em;
-			font-weight: normal;
-		}
-		body {
-			color: black;
-		}
-		"""
-
-	private let darkCssStyle = """
-		* {
-			margin: 0;
-			padding: 0;
-		}
-
-		html, body, table {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-			"Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
-		}
-
-		@supports (font: -apple-system-body) {
-			html, body, table {
-				font: -apple-system-body !important;
-			}
-		}
-		p {
-			font-size: 1.0em;
-			font-weight: normal;
-		}
-
-		body {
-			color: white;
-		}
-		a:link {
-			text-decoration: none;
-			color: #0096e2;
-		}
-		a:visited {
-			text-decoration: none;
-			color: #9d57df;
-		}
-		"""
-
 }
