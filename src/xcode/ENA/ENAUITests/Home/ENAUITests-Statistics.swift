@@ -17,7 +17,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks, to: false)
 	}
-	/*
+
 	func test_AddStatisticsButton_flow() {
 		let addButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let modifyButton = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
@@ -32,9 +32,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 		// Management card(s) pt.1 - addition
 		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
-		XCTAssertTrue(statisticsCell.otherElements[addButton].isHittable)
-		// XCTAssertFalse(statisticsCell.otherElements[modifyButton].isHittable) // assuming empty statistics
-		statisticsCell.otherElements[addButton].waitAndTap()
+		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
+		// XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
+		statisticsCell.buttons[addButton].waitAndTap()
 
 		// Data selection
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
@@ -44,22 +44,21 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// Tap on some data entry. Then we should be back on the homescreen.
 		app.cells.element(boundBy: 14).waitAndTap()
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
-		statisticsCell.swipeLeft()
+		XCTAssertTrue(statisticsCell.exists)
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .medium))
-		XCTAssertFalse(localStatisticCell.otherElements[AccessibilityIdentifiers.General.deleteButton].isHittable)
+		XCTAssertTrue(localStatisticCell.exists)
+		XCTAssertFalse(localStatisticCell.buttons[AccessibilityIdentifiers.General.deleteButton].isHittable)
 
 		// Management card(s) pt.2 - removal
-		XCTAssertTrue(statisticsCell.otherElements[addButton].isHittable)
-		XCTAssertTrue(statisticsCell.otherElements[modifyButton].isHittable)
-		statisticsCell.otherElements[modifyButton].waitAndTap()
-		XCTAssertTrue(localStatisticCell.otherElements[AccessibilityIdentifiers.General.deleteButton].isHittable)
-		localStatisticCell.otherElements[AccessibilityIdentifiers.General.deleteButton].waitAndTap()
+		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
+		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
+		statisticsCell.buttons[modifyButton].waitAndTap()
+		XCTAssertTrue(localStatisticCell.buttons[AccessibilityIdentifiers.General.deleteButton].isHittable)
+		localStatisticCell.buttons[AccessibilityIdentifiers.General.deleteButton].waitAndTap()
 		XCTAssertFalse(localStatisticCell.exists)
-		XCTAssertFalse(statisticsCell.otherElements[modifyButton].isHittable)
+		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable)
 	}
-	*/
+
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
