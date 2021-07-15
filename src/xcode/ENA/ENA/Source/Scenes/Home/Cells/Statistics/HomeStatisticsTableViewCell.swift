@@ -19,6 +19,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		// prevent glitches with stackviews not sized properly.
 		self.scrollView.bounds.origin.x = self.scrollView.frame.size.width
 	}
 
@@ -124,6 +126,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAccessibilityFocus: @escaping () -> Void,
 		onDeleteStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void
 	) {
+		// check to separate the single entry and multiple entries
 		if localStatisticsDistrict != nil {
 			district = localStatisticsDistrict
 		}
