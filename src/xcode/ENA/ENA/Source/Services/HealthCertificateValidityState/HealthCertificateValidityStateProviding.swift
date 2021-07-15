@@ -11,4 +11,6 @@ protocol HealthCertificateValidityStateProviding {
 		completion: (HealthCertificateValidityState) -> Void
 	)
 
+	func scheduleUserNotificationsIfNecessary()
+
 }

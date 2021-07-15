@@ -15,4 +15,8 @@ struct MockHealthCertificateValidityStateService: HealthCertificateValidityState
 		completion(validityState)
 	}
 
+	func scheduleUserNotificationsIfNecessary() {
+
+	}
+
 }
