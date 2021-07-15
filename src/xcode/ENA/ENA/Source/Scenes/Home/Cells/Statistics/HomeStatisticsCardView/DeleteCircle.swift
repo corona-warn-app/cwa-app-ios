@@ -26,7 +26,9 @@ class DeleteCircle: UIView {
 		isOpaque = false
 		layer.shouldRasterize = true
 
+		isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
+		accessibilityTraits = [.button]
 	}
 
     override func draw(_ rect: CGRect) {
