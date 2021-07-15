@@ -38,8 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+		} else {
+			self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 		}
-		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 		#else
 		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 		#endif
