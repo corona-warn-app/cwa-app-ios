@@ -991,6 +991,7 @@
 		BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */; };
 		BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */; };
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
+		BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */; };
 		BA0E47DD266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */; };
 		BA0F6C4E26317BA40046BA48 /* AntigenTestProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C4D26317BA40046BA48 /* AntigenTestProfileViewController.swift */; };
 		BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C5226317C220046BA48 /* AntigenTestProfileViewModel.swift */; };
@@ -2297,6 +2298,7 @@
 		BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryModel.swift; sourceTree = "<group>"; };
 		BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsManagerTests.swift; sourceTree = "<group>"; };
 		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
+		BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Link.swift"; sourceTree = "<group>"; };
 		BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelPerDay.swift; sourceTree = "<group>"; };
 		BA0F6C4D26317BA40046BA48 /* AntigenTestProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewController.swift; sourceTree = "<group>"; };
@@ -4615,6 +4617,7 @@
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				3523F8A72570F819004B0424 /* NSAttributedString+BulletPoint.swift */,
 				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
+				BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
 				EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */,
@@ -8629,6 +8632,7 @@
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
+				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
 				5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */,
 				01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */,
 				017D8DA6263B02F70009E91C /* HealthCertificate.swift in Sources */,
