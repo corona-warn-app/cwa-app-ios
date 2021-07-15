@@ -47,6 +47,7 @@ class VaccinationValueSetsProvider: VaccinationValueSetsProviding {
 	) -> Future<SAP_Internal_Dgc_ValueSets, Error> {
 		return Future { promise in
 			self.client.fetchVaccinationValueSets(etag: etag) { result in
+				var useCache = cachedFallback
 				switch result {
 				case .success(let response):
 					// cache
@@ -57,11 +58,13 @@ class VaccinationValueSetsProvider: VaccinationValueSetsProviding {
 					switch error {
 					case URLSessionError.notModified:
 						self.store.vaccinationCertificateValueDataSets?.refreshLastVaccinationValueDataSetsFetchDate()
+						// Because now we have the notModified, we want in every case that the cache is used.
+						useCache = true
 					default:
 						break
 					}
 					// return cached if it exists
-					if cachedFallback, let cachedValuesSets = self.store.vaccinationCertificateValueDataSets {
+					if useCache, let cachedValuesSets = self.store.vaccinationCertificateValueDataSets {
 						promise(.success(cachedValuesSets.valueDataSets))
 					} else {
 						promise(.failure(error))
