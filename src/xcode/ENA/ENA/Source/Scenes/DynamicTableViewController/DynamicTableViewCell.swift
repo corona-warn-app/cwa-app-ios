@@ -99,7 +99,7 @@ extension DynamicCell {
 	static func textWithLinks(
 		text: String,
 		links: [String: String],
-		linksColor: UIColor = .systemBlue,
+		linksColor: UIColor = .enaColor(for: .textTint),
 		accessibilityIdentifier: String? = nil,
 		accessibilityTraits: UIAccessibilityTraits = .staticText,
 		configure: CellConfigurator? = nil) -> Self {
