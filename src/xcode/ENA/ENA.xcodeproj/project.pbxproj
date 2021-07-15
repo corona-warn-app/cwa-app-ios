@@ -163,6 +163,8 @@
 		019E2F0726A05196000EC4AD /* HealthCertificateValidityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */; };
 		019E2F0926A0519A000EC4AD /* HealthCertificateSignatureVerifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2F0826A05199000EC4AD /* HealthCertificateSignatureVerifying.swift */; };
 		019E2F0B26A0519C000EC4AD /* HealthCertificateSignatureVerificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2F0A26A0519C000EC4AD /* HealthCertificateSignatureVerificationError.swift */; };
+		019E2F0E26A052F0000EC4AD /* MockHealthCertificateSignatureVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2F0D26A052EF000EC4AD /* MockHealthCertificateSignatureVerificationService.swift */; };
+		019E2F1026A053DF000EC4AD /* MockHealthCertificateValidityStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2F0F26A053DE000EC4AD /* MockHealthCertificateValidityStateService.swift */; };
 		01A1A25626443FBE001E8183 /* value_sets.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1A25526443FBD001E8183 /* value_sets.pb.swift */; };
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
 		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
@@ -1449,6 +1451,8 @@
 		019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidityState.swift; sourceTree = "<group>"; };
 		019E2F0826A05199000EC4AD /* HealthCertificateSignatureVerifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateSignatureVerifying.swift; sourceTree = "<group>"; };
 		019E2F0A26A0519C000EC4AD /* HealthCertificateSignatureVerificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateSignatureVerificationError.swift; sourceTree = "<group>"; };
+		019E2F0D26A052EF000EC4AD /* MockHealthCertificateSignatureVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHealthCertificateSignatureVerificationService.swift; sourceTree = "<group>"; };
+		019E2F0F26A053DE000EC4AD /* MockHealthCertificateValidityStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHealthCertificateValidityStateService.swift; sourceTree = "<group>"; };
 		01A1A25526443FBD001E8183 /* value_sets.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = value_sets.pb.swift; sourceTree = "<group>"; };
 		01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelTests.swift; sourceTree = "<group>"; };
 		01A1B449252DFD7700841B63 /* MetadataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataObject.swift; sourceTree = "<group>"; };
@@ -3101,6 +3105,7 @@
 			children = (
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				019E2F0426A03C2A000EC4AD /* HealthCertificateValidityStateProviding.swift */,
+				019E2F0F26A053DE000EC4AD /* MockHealthCertificateValidityStateService.swift */,
 			);
 			path = HealthCertificateValidityState;
 			sourceTree = "<group>";
@@ -3109,6 +3114,7 @@
 			isa = PBXGroup;
 			children = (
 				019E2F0826A05199000EC4AD /* HealthCertificateSignatureVerifying.swift */,
+				019E2F0D26A052EF000EC4AD /* MockHealthCertificateSignatureVerificationService.swift */,
 				019E2F0A26A0519C000EC4AD /* HealthCertificateSignatureVerificationError.swift */,
 			);
 			path = HealthCertificateSignatureVerification;
@@ -7876,6 +7882,7 @@
 				ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */,
 				BA5B7FD326458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
+				019E2F1026A053DF000EC4AD /* MockHealthCertificateValidityStateService.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
@@ -8054,6 +8061,7 @@
 				019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
+				019E2F0E26A052F0000EC4AD /* MockHealthCertificateSignatureVerificationService.swift in Sources */,
 				500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */,
 				505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */,
 				50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */,
