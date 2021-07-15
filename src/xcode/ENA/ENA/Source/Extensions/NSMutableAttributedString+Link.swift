@@ -6,7 +6,7 @@ import Foundation
 
 extension NSMutableAttributedString {
 
-	/// looks for the given text and sets link attribute if and URL got created
+	/// looks for the given text and sets a link attribute
 	public func mark(_ text: String, with link: String) {
 		let foundRange = mutableString.range(of: text)
 		guard let linkURL = URL(string: link),
