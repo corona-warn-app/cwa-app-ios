@@ -606,4 +606,5 @@ extension SecureStore {
 			fatalError("Reset failure: \(error.localizedDescription)")
 		}
 	}
+	// swiftlint:disable file_length
 }
