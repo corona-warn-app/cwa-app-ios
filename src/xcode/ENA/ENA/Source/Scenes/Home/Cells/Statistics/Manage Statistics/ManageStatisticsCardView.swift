@@ -103,15 +103,13 @@ class ManageStatisticsCardView: UIView {
 	// MARK: - Private
 	
 	private func createAddView(isEnabled: Bool) -> CustomDashedView {
-		return { () -> CustomDashedView in
-			let add = CustomDashedView.instance(for: .add, isEnabled: isEnabled)
-			add.tapHandler = { [weak self] in
-				Log.debug("add…", log: .ui)
-					self?.onAddLocalIncidenceButtonPressed()
-			}
-			add.label.onAccessibilityFocus = onAccessibilityFocus
-			return add
-		}()
+		let addView = CustomDashedView.instance(for: .add, isEnabled: isEnabled)
+		addView.tapHandler = { [weak self] in
+			Log.debug("add…", log: .ui)
+				self?.onAddLocalIncidenceButtonPressed()
+		}
+		addView.label.onAccessibilityFocus = onAccessibilityFocus
+		return addView
 	}
 	private func presentAddLocalStatistics(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
