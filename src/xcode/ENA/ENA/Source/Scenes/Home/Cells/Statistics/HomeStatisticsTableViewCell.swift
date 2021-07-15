@@ -9,6 +9,17 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
+	override var accessibilityElements: [Any]? {
+		get {
+			stackView.arrangedSubviews
+		}
+
+		// swiftlint:disable:next unused_setter_value
+		set {
+			preconditionFailure("This property is computed by the contents of the stack view")
+		}
+	}
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -304,8 +315,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		} else {
 			trailingConstraint.constant = 65
 		}
-
-		accessibilityElements = stackView.arrangedSubviews
 	}
 	
 	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) {
