@@ -30,6 +30,9 @@ class DiaryOverviewViewModelTest: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
+			), localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
 			)
 		)
 		homeState.updateDetectionMode(.automatic)

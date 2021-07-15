@@ -23,6 +23,8 @@
 
 "General_BackButtonTitle" = "Geri";
 
+"Common_No_Network" = "Ağ problemleri nedeniyle işlem tamamlanamadı. Lütfen yeniden deneyin.";
+
 "Common_ENError5_Description" = "Hata 5: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Problemi çözmeye çalışıyoruz.";
 
 "Common_ENError11_Description" = "Hata 11: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Lütfen akıllı telefonunuzu yeniden başlatın ve yarın tekrar deneyin.";
@@ -1543,22 +1545,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.5 */
-"NewVersionFeature_25_recovery_cert_title" = "COVID İyileşme Sertifikası";
+/* Version 2.6 */
+"NewVersionFeature_26_euCertCheck_title" = "AB Doğrulama Sertifikası";
 
-"NewVersionFeature_25_recovery_cert_description" = "Artık uygulama üzerinden resmi dijital iyileşme sertifikası talebinde bulunabilir ve bunları uygulamaya ekleyebilirsiniz. Daha sonra bu sertifikaları AB içinde, daha önce enfeksiyonu geçirdiğinizi kanıtlamak için kullanabilirsiniz (örneğin, uluslararası seyahat için).";
+"NewVersionFeature_26_euCertCheck_description" = "Artık seyahat etmeden önce seçtiğiniz bir ülke için sertifikaların geçerliliğini doğrulayabilirsiniz.";
 
-"NewVersionFeature_25_family_certificate_title" = "Aile Sertifikaları";
+"NewVersionFeature_26_enhancedStats_title" = "Genişletilmiş İstatistikler";
 
-"NewVersionFeature_25_family_certificate_description" = "Artık uygulamaya, gerektiğinde sertifikaları göndermek üzere, aile üyeleri için dijital COVID sertifikaları ekleyebilir ve yönetebilirsiniz (örneğin, uluslararası seyahat için).";
+"NewVersionFeature_26_enhancedStats_description" = "Uygulamaya, en fazla beş adet yerel 7 günlük olay sayısı ekleyebilirsiniz.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Genişletilmiş İstatistikler ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Hızlı Test Profilini Düzenle";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "Artık uygulamada şu aşı istatistikleri sunulmaktadır:\n\n\t- En az bir doz aşı olan kişilerin sayısı\n\t- Tüm aşıları olan kişilerin sayısı\n\t- Uygulanan aşı dozlarının sayısı";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Hızlı test profilini düzenle";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Artık örneğin adresinizi değiştirmek için uygulamadaki hızlı test profilinizi düzenleyebilirsiniz.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Artık örneğin adresinizi değiştirmek için uygulamadaki hızlı test profilinizi düzenleyebilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2519,11 +2517,20 @@
 
 "AntigenProfile_Cancel_Action_Title" = "İptal Et";
 
-"AntigenProfile_Delete_Alert_Title" = "Hızlı test profilini kaldırmak istiyor musunuz?";
+"AntigenProfile_Delete_Alert_Title" = "Hızlı test profilini silmek istiyor musunuz?";
 
 "AntigenProfile_Delete_Alert_Description" = "Lütfen unutmayın; QR kodu silerseniz artık kayıt yaparken bunu kullanamazsınız.";
 
-"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Kaldır";
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Sil";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "Avrupa haritası gösterilir.";
+
+"HealthCertificate_Validation_Info_title" = "Bilgi";
+
+"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini girin.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini girin.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Sertifikalar";
