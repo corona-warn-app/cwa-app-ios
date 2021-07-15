@@ -33,7 +33,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// Management card(s) pt.1 - addition
 		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
 		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
-		// XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
+		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
 		statisticsCell.buttons[addButton].waitAndTap()
 
 		// Data selection
@@ -47,14 +47,15 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(statisticsCell.exists)
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
 		XCTAssertTrue(localStatisticCell.exists)
-		XCTAssertFalse(localStatisticCell.buttons[AccessibilityIdentifiers.General.deleteButton].isHittable)
+		let deleteButton = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
+		XCTAssertFalse(deleteButton.isEnabled)
 
 		// Management card(s) pt.2 - removal
-		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
-		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
+		XCTAssertTrue(statisticsCell.buttons[addButton].isEnabled)
+		XCTAssertTrue(statisticsCell.buttons[modifyButton].isEnabled)
 		statisticsCell.buttons[modifyButton].waitAndTap()
-		XCTAssertTrue(localStatisticCell.buttons[AccessibilityIdentifiers.General.deleteButton].isHittable)
-		localStatisticCell.buttons[AccessibilityIdentifiers.General.deleteButton].waitAndTap()
+		XCTAssertTrue(deleteButton.isEnabled)
+		deleteButton.waitAndTap()
 		XCTAssertFalse(localStatisticCell.exists)
 		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable)
 	}
