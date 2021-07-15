@@ -13,20 +13,20 @@ class CustomDashedView: UIView {
 
 		// simple way to handle layer resizing
 		dashBorder?.removeFromSuperlayer()
-		let dashBorder = CAShapeLayer()
-		dashBorder.lineWidth = dashWidth
-		dashBorder.strokeColor = dashColor.cgColor
-		dashBorder.lineDashPattern = [dashLength, betweenDashesSpace] as [NSNumber]
-		dashBorder.frame = bounds
-		dashBorder.fillColor = nil
+		let borderLayer = CAShapeLayer()
+		borderLayer.lineWidth = dashWidth
+		borderLayer.strokeColor = dashColor.cgColor
+		borderLayer.lineDashPattern = [dashLength, betweenDashesSpace] as [NSNumber]
+		borderLayer.frame = bounds
+		borderLayer.fillColor = nil
 		if cornerRadius > 0 {
-			dashBorder.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+			borderLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 		} else {
-			dashBorder.path = UIBezierPath(rect: bounds).cgPath
+			borderLayer.path = UIBezierPath(rect: bounds).cgPath
 		}
-		layer.addSublayer(dashBorder)
+		layer.addSublayer(borderLayer)
 		layer.cornerRadius = cornerRadius
-		self.dashBorder = dashBorder
+		self.dashBorder = borderLayer
 	}
 	
 	// MARK: - Internal
