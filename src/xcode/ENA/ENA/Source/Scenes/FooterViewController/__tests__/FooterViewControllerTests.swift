@@ -12,7 +12,6 @@ class FooterViewControllerTests: CWATestCase {
 		let model = FooterViewModel(primaryButtonName: "Button")
 		let vc = FooterViewController(model)
 		// THEN
-		XCTAssertNil(vc)
+		XCTAssertNotNil(vc)
 	}
 }
-
