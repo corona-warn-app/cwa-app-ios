@@ -50,6 +50,19 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		}
 		return configMetadata
 	}()
+	
+	static let staticLocalStatistics: SAP_Internal_Stats_LocalStatistics = {
+		guard
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "LocalStats", withExtension: "bin"),
+			let data = try? Data(contentsOf: url),
+			let localStatistics = try? SAP_Internal_Stats_LocalStatistics(serializedData: data)
+		else {
+			Log.debug("Cannot initialize static test data", log: .localStatistics)
+			return SAP_Internal_Stats_LocalStatistics()
+		}
+		return localStatistics
+	}()
+	
 	// MARK: - AppConfigurationFetching
 
 	var onFetchAppConfiguration: ((String?, @escaping CachingHTTPClient.AppConfigResultHandler) -> Void)?
@@ -100,6 +113,19 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 			return
 		}
 		handler(etag, completion)
+	}
+	
+	// MARK: - LocalStatisticsFetching
+	
+	var onFetchLocalStatistics: ((String?, @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) -> Void)?
+		
+	override func fetchLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?, completion: @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) {
+		guard let handler = self.onFetchLocalStatistics else {
+			let response = LocalStatisticsResponse(CachingHTTPClientMock.staticLocalStatistics, "fake", "1")
+			completion(.success(response))
+			return
+		}
+		handler(eTag, completion)
 	}
 }
 #endif

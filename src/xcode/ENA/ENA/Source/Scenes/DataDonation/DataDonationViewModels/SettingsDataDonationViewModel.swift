@@ -150,7 +150,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
 			preselected: dataDonationModel.federalStateName,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell,
+			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
 			guard self?.dataDonationModel.federalStateName != federalState else {
@@ -175,7 +176,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			dataDonationModel.allRegions(by: federalStateName),
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: dataDonationModel.region,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell,
+			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] region in
 			guard self?.dataDonationModel.region != region else {
@@ -195,7 +197,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			presorted: true,
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
 			preselected: dataDonationModel.age,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell,
+			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] age in
 			guard self?.dataDonationModel.age != age else {

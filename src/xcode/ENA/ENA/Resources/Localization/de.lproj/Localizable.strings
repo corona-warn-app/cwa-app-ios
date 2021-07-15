@@ -1920,6 +1920,18 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_From_Nationwide" = "Bundesweit";
 "Statistics_Card_From_CWA" = "über die Corona-Warn-App";
 
+/* - Add Statistics Card */
+
+"Statistics_Add_SevenDayIncidence" = "Lokale 7-Tage-Inzidenz hinzufügen";
+
+"Statistics_Add_LocalCardTitle" = "Lokale 7-Tage-Inzidenz";
+
+"Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
+
+"Statistics_Card_Manage" = "Bearbeiten";
+
 /* - Infections Card */
 
 "Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";
