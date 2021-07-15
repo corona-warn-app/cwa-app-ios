@@ -23,6 +23,8 @@
 
 "General_BackButtonTitle" = "Back";
 
+"Common_No_Network" = "The process could not be completed due to network problems. Please try again.";
+
 "Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
 
 "Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your smartphone and try again tomorrow.";
@@ -1543,22 +1545,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.5 */
-"NewVersionFeature_25_recovery_cert_title" = "COVID Certificate of Recovery";
+/* Version 2.6 */
+"NewVersionFeature_26_euCertCheck_title" = "EU Certificate Validation";
 
-"NewVersionFeature_25_recovery_cert_description" = "You can now also request digital certificates of recovery through the app and then add them in the app. You can use these certificates within the EU to prove recovery from a previous infection (for international travel, for example).";
+"NewVersionFeature_26_euCertCheck_description" = "You can now verify the validity of certificates for a selected country before you travel.";
 
-"NewVersionFeature_25_family_certificate_title" = "Family Certificates";
+"NewVersionFeature_26_enhancedStats_title" = "Extended Statistics";
 
-"NewVersionFeature_25_family_certificate_description" = "You can now add digital COVID certificates of family members in the app and manage them, to submit certificates when needed (for international travel, for example).";
+"NewVersionFeature_26_enhancedStats_description" = "You can now add up to five local 7-day incidence figures in the app.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Extended Statistics ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Edit Rapid Test Profile";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "The following vaccination statistics are now available in the app:\n\n\t- Number of people who have received at least one vaccine dose\n\t- Number of people who are fully vaccinated\n\t- Number of administered vaccine doses";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Edit rapid test profile";
-
-"NewVersionFeature_25_edit_test_profile_description" = "You can now edit your rapid test profile in the app, for example, to change your address.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "You can now edit your rapid test profile in the app, for example, to change your address.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2519,11 +2517,20 @@
 
 "AntigenProfile_Cancel_Action_Title" = "Cancel";
 
-"AntigenProfile_Delete_Alert_Title" = "Do you want to remove the rapid test profile?";
+"AntigenProfile_Delete_Alert_Title" = "Do you want to delete the rapid test profile?";
 
 "AntigenProfile_Delete_Alert_Description" = "Please consider that if you do, the QR code can no longer be used for registration.";
 
-"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Remove";
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Delete";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "A map of Europe is shown.";
+
+"HealthCertificate_Validation_Info_title" = "Information";
+
+"HealthCertificate_Validation_Info_byCar" = "Enter the planned local arrival time at the border of your destination country.";
+
+"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, enter the scheduled departure time of your flight.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificates";

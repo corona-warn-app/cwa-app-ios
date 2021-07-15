@@ -49,7 +49,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			riskProvider: riskProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			enState: enStateHandler.state,
-			statisticsProvider: statisticsProvider
+			statisticsProvider: statisticsProvider,
+			localStatisticsProvider: localStatisticsProvider
 		)
 
 		let homeController = HomeTableViewController(
@@ -98,7 +99,29 @@ class HomeCoordinator: RequiresAppDependencies {
 				self?.showSettings(enState: enState)
 			},
 			showTestInformationResult: { [weak self] testInformationResult in
-			   self?.showExposureSubmission(testInformationResult: testInformationResult)
+				self?.showExposureSubmission(testInformationResult: testInformationResult)
+			},
+			onAddLocalStatisticsTap: { [weak self] selectValueViewController in
+				self?.rootViewController.present(
+					UINavigationController(rootViewController: selectValueViewController),
+					animated: true
+				)
+			},
+			onAddDistrict: { [weak self] selectValueViewController in
+				self?.rootViewController.presentedViewController?.present(
+					UINavigationController(rootViewController: selectValueViewController),
+					animated: true
+				)
+			},
+			onDismissState: { [weak self] in
+				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+			},
+			onDismissDistrict: { [weak self] dismissToRoot in
+				if dismissToRoot {
+					self?.rootViewController.dismiss(animated: true, completion: nil)
+				} else {
+					self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				}
 			}
 		)
 
@@ -188,7 +211,23 @@ class HomeCoordinator: RequiresAppDependencies {
 				store: store
 			)
 		}()
-		
+	
+	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
+			#if DEBUG
+			if isUITesting {
+				return LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return LocalStatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+
 		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
 			return QRCodePosterTemplateProvider(
 				client: CachingHTTPClient(),

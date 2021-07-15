@@ -14,13 +14,19 @@ final class SelectValueViewModel {
 		presorted: Bool = false,
 		title: String,
 		preselected: String? = nil,
-		accessibilityIdentifier: String
+		isInitialCellEnabled: Bool = true,
+		initialString: String = AppStrings.DataDonation.ValueSelection.noValue,
+		accessibilityIdentifier: String,
+		selectionCellIconType: SelectionCellIcon
 	) {
+		self.selectionCellIconType = selectionCellIconType
+		self.isInitialCellEnabled = isInitialCellEnabled
+		
 		switch presorted {
 		case false:
-			self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues.sorted()
+			self.allValues = [initialString] + allowedValues.sorted()
 		default:
-			self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues
+			self.allValues = [initialString] + allowedValues
 		}
 		self.title = title
 		self.accessibilityIdentifier = accessibilityIdentifier
@@ -37,7 +43,7 @@ final class SelectValueViewModel {
 	// MARK: - Internal
 
 	let title: String
-	
+	let isInitialCellEnabled: Bool
 	let accessibilityIdentifier: String
 
 	/// this tupel represents the change (oldValue, currentValue)
@@ -49,9 +55,12 @@ final class SelectValueViewModel {
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> SelectValueCellViewModel {
-		SelectValueCellViewModel(
+		let isEnabled = indexPath.item > 0 ? true : isInitialCellEnabled
+		return SelectValueCellViewModel(
 			text: allValues[indexPath.row],
-			isSelected: selectedTupel.1 == indexPath.row
+			isSelected: selectedTupel.1 == indexPath.row,
+			cellIconType: selectionCellIconType,
+			isEnabled: isEnabled
 		)
 	}
 
@@ -67,5 +76,5 @@ final class SelectValueViewModel {
 	// MARK: - Private
 
 	private let allValues: [String]
-
+	private let selectionCellIconType: SelectionCellIcon
 }

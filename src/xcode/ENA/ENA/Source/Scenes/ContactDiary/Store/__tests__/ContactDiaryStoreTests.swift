@@ -794,56 +794,75 @@ class ContactDiaryStoreTests: CWATestCase {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		addContactPerson(name: "Adam Sandale", to: store)
-		addContactPerson(name: "Adam Sandale", to: store)
-		addContactPerson(name: "emma Hicks", to: store)
+		addContactPerson(name: "Adam Sandale", to: store) // 1
+		addContactPerson(name: "Adam Sandale", to: store) // 2
+		addContactPerson(name: "Emma Hicks", to: store) // 3
+		addContactPerson(name: "Äkon Blabla", to: store) // 4
+		addContactPerson(name: "Fernando Tores", to: store) // 5
+		addContactPerson(name: "Émanuel Stephan", to: store) // 6
 
-		addLocation(name: "Amsterdam", to: store)
-		addLocation(name: "Berlin", to: store)
-		addLocation(name: "berlin", to: store)
+		addLocation(name: "Österreich", to: store) // 1
+		addLocation(name: "Orlando", to: store) // 2
+		addLocation(name: "Berlin", to: store) // 3
+		addLocation(name: "USA", to: store) // 4
+		addLocation(name: "Ägypten", to: store) // 5
+
 
 		store.diaryDaysPublisher.sink { diaryDays in
-			let storedNames: [String] =
-				diaryDays[0].entries.map { entry in
-					switch entry {
-					case .contactPerson(let person):
-						return person.name
-					case .location(let location):
-						return location.name
-					}
+			var storedNames = [String]()
+			var storedLocations = [String]()
+			
+			var storedPersonsIDs = [Int]()
+			var storedLocationsIDs = [Int]()
+
+			for entry in diaryDays[0].entries {
+				switch entry {
+				case .contactPerson(let person):
+					storedNames.append(person.name)
+					storedPersonsIDs.append(person.id)
+				case .location(let location):
+					storedLocations.append(location.name)
+					storedLocationsIDs.append(location.id)
 				}
+			}
 
 			let expectedNames = [
 				"Adam Sandale",
 				"Adam Sandale",
-				"emma Hicks",
-				"Amsterdam",
+				"Äkon Blabla",
+				"Émanuel Stephan",
+				"Emma Hicks",
+				"Fernando Tores"
+			]
+			let expectedLocations = [
+				"Ägypten",
 				"Berlin",
-				"berlin"
+				"Orlando",
+				"Österreich",
+				"USA"
 			]
 
 			XCTAssertEqual(storedNames, expectedNames)
+			XCTAssertEqual(storedLocations, expectedLocations)
 
-			let storedIds: [Int] =
-				diaryDays[0].entries.map { entry in
-					switch entry {
-					case .contactPerson(let person):
-						return person.id
-					case .location(let location):
-						return location.id
-					}
-				}
-
-			let expectedIds = [
+			let expectedPersonsIDs = [
 				Int(1),
 				Int(2),
+				Int(4),
+				Int(6),
 				Int(3),
-				Int(1),
-				Int(2),
-				Int(3)
+				Int(5)
 			]
+			let expectedLocationsIDs = [
+				Int(5),
+				Int(3),
+				Int(2),
+				Int(1),
+				Int(4)
+			]
+			XCTAssertEqual(storedPersonsIDs, expectedPersonsIDs)
+			XCTAssertEqual(storedLocationsIDs, expectedLocationsIDs)
 
-			XCTAssertEqual(storedIds, expectedIds)
 		}.store(in: &subscriptions)
 	}
 

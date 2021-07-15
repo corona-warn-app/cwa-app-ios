@@ -32,6 +32,10 @@
 
 "HealthCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/en/faq/#vac_cert_invalid";
 
+"HealthCertificate_Info_validation_FAQLink" = "https://www.coronawarn.app/en/faq/#cert_eu_travel";
+
+"HealthCertificate_Info_validation_EULink" = "https://reopen.europa.eu/pl";
+
 "TestCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/en/faq/#test_cert";
 
 "Test_Centers_FAQ_Link" = "https://www.coronawarn.app/en/faq/#where_can_i_get_tested";

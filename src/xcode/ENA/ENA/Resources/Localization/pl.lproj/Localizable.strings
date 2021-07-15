@@ -23,6 +23,8 @@
 
 "General_BackButtonTitle" = "Wstecz";
 
+"Common_No_Network" = "Proces nie mógł zostać ukończony z powodu problemów z siecią. Spróbuj ponownie.";
+
 "Common_ENError5_Description" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
 
 "Common_ENError11_Description" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Zrestartuj smartfon i spróbuj ponownie jutro.";
@@ -1543,22 +1545,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.5 */
-"NewVersionFeature_25_recovery_cert_title" = "Certyfikat statusu ozdrowieńca COVID";
+/* Version 2.6 */
+"NewVersionFeature_26_euCertCheck_title" = "Walidacja certyfikatu UE";
 
-"NewVersionFeature_25_recovery_cert_description" = "Za pośrednictwem aplikacji możesz teraz również poprosić o wydanie cyfrowych certyfikatów statusu ozdrowieńca, a następnie dodać je w aplikacji. Certyfikatów tych można używać na terenie UE, aby udowodnić przejście infekcji (np. w przypadku podróży zagranicznych).";
+"NewVersionFeature_26_euCertCheck_description" = "Możesz teraz przed podróżą zweryfikować ważność certyfikatów dla wybranego kraju.";
 
-"NewVersionFeature_25_family_certificate_title" = "Certyfikaty rodzinne";
+"NewVersionFeature_26_enhancedStats_title" = "Rozszerzone statystyki";
 
-"NewVersionFeature_25_family_certificate_description" = "Aplikacja umożliwia teraz dodawanie cyfrowych certyfikatów COVID dla członków rodziny i zarządzanie nimi. Można je okazywać w razie potrzeby (np. w czasie podróży międzynarodowych).";
+"NewVersionFeature_26_enhancedStats_description" = "W aplikacji możesz teraz dodać maksymalnie pięć wskaźników lokalnej 7-dniowej zapadalności.";
 
-"NewVersionFeature_25_enhanced_statistics_title" = "Rozszerzone statystyki ";
+"NewVersionFeature_26_editRapidTestProfile_title" = "Edytuj profil szybkiego testu";
 
-"NewVersionFeature_25_enhanced_statistics_description" = "W aplikacji dostępne są teraz następujące statystyki dotyczące szczepień:\n\n\t- Liczba osób, które otrzymały co najmniej jedną dawkę szczepionki\n\t- Liczba osób, które są w pełni zaszczepione\n\t- Liczba podanych dawek szczepionki";
-
-"NewVersionFeature_25_edit_test_profile_title" = "Edytuj profil szybkiego testu";
-
-"NewVersionFeature_25_edit_test_profile_description" = "Możesz teraz edytować profil szybkiego testu w aplikacji, na przykład, aby zmienić swój adres.";
+"NewVersionFeature_26_editRapidTestProfile_description" = "Możesz teraz edytować profil szybkiego testu w aplikacji, na przykład, aby zmienić swój adres.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2524,6 +2522,15 @@
 "AntigenProfile_Delete_Alert_Description" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być już używany do rejestracji.";
 
 "AntigenProfile_Delete_Alert_Delete_Button_Title" = "Usuń";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "Wyświetlana jest mapa Europy.";
+
+"HealthCertificate_Validation_Info_title" = "Informacje";
+
+"HealthCertificate_Validation_Info_byCar" = "Wprowadź planowany lokalny czas przybycia na granicę kraju docelowego.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Jeśli podróżujesz samolotem, wpisz planowany czas odlotu.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certyfikaty";

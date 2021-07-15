@@ -25,7 +25,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
-		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
+		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
+		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
+		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDismissState: @escaping () -> Void,
+		onDismissDistrict: @escaping (Bool) -> Void
 	) {
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
@@ -42,6 +46,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
 		self.showTestInformationResult = showTestInformationResult
+		self.onAddStateButtonTap = onAddLocalStatisticsTap
+		self.onAddDistrict = onAddDistrict
+		self.onDismissState = onDismissState
+		self.onDismissDistrict = onDismissDistrict
 
 		super.init(style: .grouped)
 
@@ -242,6 +250,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
 			onExposureLoggingCellTap(viewModel.state.enState)
@@ -321,6 +330,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
+	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
+	private var onAddDistrict: (SelectValueTableViewController) -> Void
+	private var onDismissState: () -> Void
+	private var onDismissDistrict: (Bool) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 	private var riskCell: UITableViewCell?
@@ -328,7 +341,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
 	private var antigenTestResultCell: UITableViewCell?
 	private var antigenTestShownPositiveResultCell: UITableViewCell?
-	private var statisticsCell: UITableViewCell?
+	private var statisticsCell: HomeStatisticsTableViewCell?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -349,6 +362,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func setupTableView() {
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.Home.tableView
+		
 		tableView.register(
 			UINib(nibName: String(describing: HomeExposureLoggingTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeExposureLoggingTableViewCell.self)
@@ -568,7 +583,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func statisticsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func statisticsCell(forRowAt indexPath: IndexPath) -> HomeStatisticsTableViewCell {
 		if let statisticsCell = statisticsCell {
 			return statisticsCell
 		}
@@ -576,11 +591,49 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
+		Log.debug("Configure statistics cell", log: .localStatistics)
 
 		cell.configure(
 			with: HomeStatisticsCellModel(homeState: viewModel.state),
+			store: viewModel.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
+			},
+			onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
+				self?.onAddStateButtonTap(selectValueViewController)
+				self?.statisticsCell?.updateManagementCellState()
+			},
+			onAddDistrict: { [weak self] selectValueViewController in
+				self?.onAddDistrict(selectValueViewController)
+				self?.statisticsCell?.updateManagementCellState()
+			},
+			onDeleteLocalStatistic: { [weak self] administrativeUnit, district in
+				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
+				
+				// removing the district from the store
+				guard let selectedLocalStatisticsDistricts = self?.viewModel.store.selectedLocalStatisticsDistricts else {
+					Log.error("Could not assign selected local statistics districts", log: .localStatistics)
+					return
+				}
+				self?.viewModel.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }
+				
+				self?.statisticsCell?.updateManagementCellState()
+				self?.statisticsCell?.layoutIfNeeded()
+			},
+			onDismissState: { [weak self] in
+				self?.onDismissState()
+			},
+			onDismissDistrict: { [weak self] dismissToRoot in
+				self?.onDismissDistrict(dismissToRoot)
+			},
+			onFetchGroupData: { [weak self] district in
+				self?.viewModel.state.fetchLocalStatistics(district: district)
+			},
+			onToggleEditMode: { enabled in
+				Log.debug("Edit mode on: \(enabled)", log: .localStatistics)
+				DispatchQueue.main.async {
+					cell.setEditing(enabled, animated: true)
+				}
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0
@@ -589,6 +642,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onUpdate: { [weak self] in
 				DispatchQueue.main.async { [weak self] in
 					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+					self?.statisticsCell?.updateManagementCellState()
 				}
 			}
 		)
@@ -805,8 +859,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
+			self?.viewModel.state.updateSelectedLocalStatistics(self?.viewModel.store.selectedLocalStatisticsDistricts)
 		}
 	}
-
 	// swiftlint:disable:next file_length
 }

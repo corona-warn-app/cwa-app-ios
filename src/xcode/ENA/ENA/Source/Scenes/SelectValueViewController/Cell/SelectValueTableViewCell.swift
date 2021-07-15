@@ -24,7 +24,9 @@ final class SelectValueTableViewCell: UITableViewCell {
 
 	func configure(_ cellViewModel: SelectValueCellViewModel) {
 		selectableValueLabel.text = cellViewModel.text
-		accessoryView = UIImageView(image: cellViewModel.checkmarkImage)
+		selectableValueLabel.isEnabled = cellViewModel.isEnabled
+		isUserInteractionEnabled = cellViewModel.isEnabled
+		accessoryView = cellViewModel.isEnabled ? UIImageView(image: cellViewModel.image) : nil
 	}
 
 
