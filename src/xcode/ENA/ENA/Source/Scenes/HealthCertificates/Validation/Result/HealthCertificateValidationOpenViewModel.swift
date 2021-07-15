@@ -49,11 +49,15 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 
 		cells.append(contentsOf: openValidationResults.map { .validationResult($0, healthCertificate: healthCertificate, vaccinationValueSetsProvider: vaccinationValueSetsProvider) })
 		cells.append(
-			.dynamicType(
-				text: """
-					<p>\(AppStrings.HealthCertificate.Validation.Result.moreInformation01) <a href="\(AppStrings.Links.healthCertificateValidationFAQ)">\(AppStrings.HealthCertificate.Validation.Result.moreInformation02)</a> \(AppStrings.HealthCertificate.Validation.Result.moreInformation03) <a href="\(AppStrings.Links.healthCertificateValidationEU)">\(AppStrings.Links.healthCertificateValidationEU)</a>.</p>
-					""",
-				cellStyle: .htmlString
+			.textWithLinks(
+				text: String(
+					format: AppStrings.HealthCertificate.Validation.Result.moreInformation,
+					AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
+				links: [
+					AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
+					AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
+				],
+				linksColor: .enaColor(for: .textTint)
 			)
 		)
 
