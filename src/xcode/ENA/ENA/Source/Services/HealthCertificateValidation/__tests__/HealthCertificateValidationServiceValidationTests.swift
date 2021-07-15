@@ -1514,13 +1514,13 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				}
 
 				switch validationReport {
-				case .validationFailed(let validatonResults),
-					 .validationOpen(let validatonResults),
-					 .validationPassed(let validatonResults):
+				case .validationFailed(let validationResults),
+					 .validationOpen(let validationResults),
+					 .validationPassed(let validationResults):
 
-					let passCount = validatonResults.filter { $0.result == .passed }.count
-					let openCount = validatonResults.filter { $0.result == .open }.count
-					let failCount = validatonResults.filter { $0.result == .fail }.count
+					let passCount = validationResults.filter { $0.result == .passed }.count
+					let openCount = validationResults.filter { $0.result == .open }.count
+					let failCount = validationResults.filter { $0.result == .fail }.count
 
 					XCTAssertEqual(passCount, testCase.expPass, "CertEngineTestCase failed with incorrect expPass count: \(testCase.testCaseDescription)")
 					XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed with incorrect expOpen count: \(testCase.testCaseDescription)")
