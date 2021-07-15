@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class StatisticsCellTests: XCTestCase {
+class ManageStatisticsCellTests: XCTestCase {
 
     func testManageCardViewStates() throws {
 		let nib = UINib(nibName: "ManageStatisticsCardView", bundle: nil)
@@ -31,4 +31,9 @@ class StatisticsCellTests: XCTestCase {
 		XCTAssertTrue(modify.accessibilityTraits.contains(.button))
 	}
 
+	func testDeleteIndicator() throws {
+		let delete = DeleteCircle(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+		XCTAssertEqual(delete.accessibilityIdentifier, AccessibilityIdentifiers.General.deleteButton)
+		XCTAssertTrue(delete.accessibilityTraits.contains(.button))
+	}
 }
