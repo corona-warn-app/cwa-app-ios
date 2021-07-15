@@ -56,22 +56,5 @@ extension DynamicCell {
 			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
-	
-	/// Creates a cell that renders a view of a .html file with interactive texts, such as mail links, phone numbers, and web addresses.
-	static func html(url: URL) -> Self {
-		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { _, cell, _  in
-			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
-			cell.webView.load(URLRequest(url: url))
-		}
-	}
-
-	static func html(string: String) -> Self {
-		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { _, cell, _  in
-			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
-			cell.webView.loadHTMLString(string, baseURL: nil)
-		}
-
-	}
-
 
 }
