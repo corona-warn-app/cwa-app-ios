@@ -6,6 +6,7 @@ package SAP.internal.v2;
 message DGCParameters {
 
   DGCTestCertificateParameters testCertificateParameters = 1;
+  uint32 expirationThresholdInDays = 2;
 }
 
 message DGCTestCertificateParameters {
