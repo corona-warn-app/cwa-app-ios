@@ -382,6 +382,18 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: LocalStatisticsCaching {
+	var localStatistics: [LocalStatisticsMetadata] {
+		get { kvStore["localStatistics"] as [LocalStatisticsMetadata]? ?? [] }
+		set { kvStore["localStatistics"] = newValue }
+	}
+	
+	var selectedLocalStatisticsDistricts: [LocalStatisticsDistrict] {
+		get { kvStore["selectedLocalStatisticsDistricts"] as [LocalStatisticsDistrict]? ?? [] }
+		set { kvStore["selectedLocalStatisticsDistricts"] = newValue }
+	}
+}
+
 extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
