@@ -1467,8 +1467,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			return
 		}
 
-		let valueSetsStub = ValueSetsStub()
-		valueSetsStub.valueSets = valueSets
+		let valueSetsStub = ValueSetsStub(valueSets: valueSets)
 
 		let expectation = expectation(description: "Validation should complete for every test case.")
 		expectation.expectedFulfillmentCount = testData.testCases.count
@@ -1636,9 +1635,9 @@ extension RuleValidationError: Equatable {
 	}
 }
 
-private class ValueSetsStub: VaccinationValueSetsProviding {
+private struct ValueSetsStub: VaccinationValueSetsProviding {
 
-	var valueSets: SAP_Internal_Dgc_ValueSets!
+	var valueSets: SAP_Internal_Dgc_ValueSets
 
 	func latestVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
 		// return stubbed value sets; no error

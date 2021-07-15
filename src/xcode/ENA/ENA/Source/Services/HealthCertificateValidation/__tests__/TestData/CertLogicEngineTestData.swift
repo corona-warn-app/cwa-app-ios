@@ -5,16 +5,16 @@
 import Foundation
 import CertLogic
 
-struct CertEngineTestData: Codable {
-	let general: CertEngineGeneral
-	let testCases: [CertEngineTestCase]
+struct CertLogicEngineTestData: Codable {
+	let general: CertLogicEngineGeneral
+	let testCases: [CertLogicEngineTestCase]
 }
 
-struct CertEngineGeneral: Codable {
+struct CertLogicEngineGeneral: Codable {
 	let valueSetProtocolBuffer: String
 }
 
-struct CertEngineTestCase: Codable {
+struct CertLogicEngineTestCase: Codable {
 
 	let testCaseDescription, dcc: String
 	let rules: [Rule]
