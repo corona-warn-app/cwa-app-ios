@@ -84,7 +84,7 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	var uniqueCertificateIdentifier: String? {
-		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier
+		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier ?? recoveryEntry?.uniqueCertificateIdentifier
 	}
 
 	var vaccinationEntry: VaccinationEntry? {
