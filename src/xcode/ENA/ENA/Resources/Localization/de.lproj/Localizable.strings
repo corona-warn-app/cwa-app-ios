@@ -2102,11 +2102,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Trends_Title" = "Beispiele für die angezeigten Trends:";
 
-"Statistics_Info_Trends_Increasing" = "Trend steigend";
+"Statistics_Info_Trends_Increasing" = "Trend steigend, negativ";
 
-"Statistics_Info_Trends_Decreasing" = "Trend fallend";
+"Statistics_Info_Trends_Decreasing" = "Trend fallend, positiv";
 
-"Statistics_Info_Trends_Stable" = "Trend stabil";
+"Statistics_Info_Trends_Stable" = "Trend stabil, neutral";
 
 "Statistics_Info_Trends_Footnote" = "Die Bewertung des Trends bei den warnenden Personen ändert sich je nach Infektionslage. Deshalb wird dieser Trend immer neutral dargestellt.";
 
