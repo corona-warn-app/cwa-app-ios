@@ -71,7 +71,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		]
 		let attributedText = NSMutableAttributedString(string: text, attributes: textAttributes)
 
-		// setup some link style
+		// setup link style - only available in UITextView
 		textView.linkTextAttributes = [
 			.foregroundColor: linkColor,
 			.underlineColor: UIColor.clear
