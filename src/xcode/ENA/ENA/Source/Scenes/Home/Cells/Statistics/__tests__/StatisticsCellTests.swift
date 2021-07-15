@@ -21,4 +21,14 @@ class StatisticsCellTests: XCTestCase {
 		XCTAssertEqual(manageCard.stackView.arrangedSubviews.count, 1) // will be 2 after refactoring!
     }
 
+	func testDashedView() throws {
+		let add = CustomDashedView.instance(for: .add)
+		XCTAssertEqual(add.accessibilityIdentifier, AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton)
+		XCTAssertTrue(add.accessibilityTraits.contains(.button))
+
+		let modify = CustomDashedView.instance(for: .modify)
+		XCTAssertEqual(modify.accessibilityIdentifier, AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton)
+		XCTAssertTrue(modify.accessibilityTraits.contains(.button))
+	}
+
 }
