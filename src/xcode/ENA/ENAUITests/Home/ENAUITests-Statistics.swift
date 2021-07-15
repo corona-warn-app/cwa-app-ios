@@ -43,18 +43,21 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
 		// Tap on some data entry. Then we should be back on the homescreen.
 		app.cells.element(boundBy: 14).waitAndTap()
+
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.exists)
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
+		app.swipeDown(velocity: .slow) // glitch
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
-		XCTAssertTrue(localStatisticCell.exists)
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
 		let deleteButton = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
-		XCTAssertFalse(deleteButton.isEnabled)
+		XCTAssertFalse(deleteButton.isHittable)
 
 		// Management card(s) pt.2 - removal
-		XCTAssertTrue(statisticsCell.buttons[addButton].isEnabled)
-		XCTAssertTrue(statisticsCell.buttons[modifyButton].isEnabled)
+		statisticsCell.swipeRight() // because of ui reset
+		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
+		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
 		statisticsCell.buttons[modifyButton].waitAndTap()
-		XCTAssertTrue(deleteButton.isEnabled)
+		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
 		XCTAssertFalse(localStatisticCell.exists)
 		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable)
