@@ -2100,13 +2100,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Trend_Text" = "Die Pfeilrichtung zeigt an, ob der Trend nach oben oder nach unten geht oder relativ stabil ist, d.h. eine Abweichung von weniger als 1% im Vortagesvergleich bzw. 5% im Vorwochenvergleich aufweist. Die Farbe bewertet diesen Trend als positiv (grün), negativ (rot) oder neutral (grau). Der Trend vergleicht den Wert vom Vortag mit dem Wert von vor zwei Tagen bzw. für die 7-Tage-Trends den Mittelwert der letzten 7 Tage mit dem der vorausgegangenen 7 Tage.";
 
-"Statistics_Info_Trends_Title" = "Folgende Trends können angezeigt werden:";
+"Statistics_Info_Trends_Title" = "Beispiele für die angezeigten Trends:";
 
-"Statistics_Info_Trends_Increasing" = "Trend steigend";
+"Statistics_Info_Trends_Increasing" = "Trend steigend, negativ";
 
-"Statistics_Info_Trends_Decreasing" = "Trend fallend";
+"Statistics_Info_Trends_Decreasing" = "Trend fallend, positiv";
 
-"Statistics_Info_Trends_Stable" = "Trend stabil";
+"Statistics_Info_Trends_Stable" = "Trend stabil, neutral";
 
 "Statistics_Info_Trends_Footnote" = "Die Bewertung des Trends bei den warnenden Personen ändert sich je nach Infektionslage. Deshalb wird dieser Trend immer neutral dargestellt.";
 
@@ -2918,11 +2918,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Result_invalidationRule" = "Dies ist eine Regel des Ausstellerlandes.";
 
-"HealthCertificate_Validation_Result_moreInformation01" = "Mehr Informationen finden Sie in den";
+"HealthCertificate_Validation_Result_moreInformation" = "Mehr Informationen finden Sie in den %@ und unter %@.";
 
-"HealthCertificate_Validation_Result_moreInformation02" = "FAQ";
-
-"HealthCertificate_Validation_Result_moreInformation03" = "und unter";
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "FAQ";
 
 /* - Passed */
 
