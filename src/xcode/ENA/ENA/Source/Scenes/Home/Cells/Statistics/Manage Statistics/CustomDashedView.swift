@@ -77,22 +77,23 @@ class CustomDashedView: UIView {
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
 
 			icon.image = UIImage(named: "Icon_Add")
-			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
 
 			icon.image = UIImage(named: "Icon_Modify")
-			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
+			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)
+		accessibilityTraits = [.button, .staticText]
 
 		// ensure we don't assign this one multiple times
 		gestureRecognizers?.forEach { rec in
 			removeGestureRecognizer(rec)
 		}
 		// add tap recognizer
-		self.addGestureRecognizer(tapRecognizer)
+		addGestureRecognizer(tapRecognizer)
 	}
 
 	@objc
