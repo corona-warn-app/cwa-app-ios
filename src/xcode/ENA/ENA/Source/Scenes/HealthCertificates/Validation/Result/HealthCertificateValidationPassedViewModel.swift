@@ -59,7 +59,8 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 						links: [
 							AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
 							AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
-						]
+						],
+						linksColor: .enaColor(for: .textLink)
 					)
 				]
 			)

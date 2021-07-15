@@ -64,7 +64,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.adjustsFontForContentSizeCategory = true
 	}
 
-	func configure(text: String, textFont: ENAFont, textColor: UIColor = .enaColor(for: .textPrimary1), links: [String: String], linkColor: UIColor = .systemBlue) {
+	func configure(text: String, textFont: ENAFont, textColor: UIColor = .enaColor(for: .textPrimary1), links: [String: String], linksColor: UIColor) {
 		let textAttributes: [NSAttributedString.Key: Any] = [
 			.font: UIFont.preferredFont(forTextStyle: textFont.textStyle).scaledFont(size: textFont.fontSize, weight: textFont.fontWeight),
 			.foregroundColor: textColor
@@ -73,7 +73,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 		// setup link style - only available in UITextView
 		textView.linkTextAttributes = [
-			.foregroundColor: linkColor,
+			.foregroundColor: linksColor,
 			.underlineColor: UIColor.clear
 		]
 
