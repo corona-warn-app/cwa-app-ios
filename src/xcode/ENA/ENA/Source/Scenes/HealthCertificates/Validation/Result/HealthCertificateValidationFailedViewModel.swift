@@ -83,33 +83,39 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
-	private var failedValidationResults: [ValidationResult] {
+	// Internal for testing purposes
+	var failedValidationResults: [ValidationResult] {
 		failedAcceptanceRuleValidationResults + failedInvalidationRuleValidationResults
 	}
-
-	private var failedAcceptanceRuleValidationResults: [ValidationResult] {
+	
+	// Internal for testing purposes
+	var failedAcceptanceRuleValidationResults: [ValidationResult] {
 		validationResults
 			.filter { $0.rule?.ruleType == .acceptence && $0.result == .fail }
 			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
 	}
 
-	private var failedInvalidationRuleValidationResults: [ValidationResult] {
+	// Internal for testing purposes
+	var failedInvalidationRuleValidationResults: [ValidationResult] {
 		validationResults
 			.filter { $0.rule?.ruleType == .invalidation && $0.result == .fail }
 			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
 	}
 
-	private var openValidationResults: [ValidationResult] {
+	// Internal for testing purposes
+	var openValidationResults: [ValidationResult] {
 		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
 	}
 
-	private var openAcceptanceRuleValidationResults: [ValidationResult] {
+	// Internal for testing purposes
+	var openAcceptanceRuleValidationResults: [ValidationResult] {
 		validationResults
 			.filter { $0.rule?.ruleType == .acceptence && $0.result == .open }
 			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
 	}
 
-	private var openInvalidationRuleValidationResults: [ValidationResult] {
+	// Internal for testing purposes
+	var openInvalidationRuleValidationResults: [ValidationResult] {
 		validationResults
 			.filter { $0.rule?.ruleType == .invalidation && $0.result == .open }
 			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
