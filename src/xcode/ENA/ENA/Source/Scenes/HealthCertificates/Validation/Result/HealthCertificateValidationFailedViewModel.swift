@@ -25,6 +25,44 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 	}
 
 	// MARK: - Internal
+	
+	// Internal for testing purposes
+	var failedValidationResults: [ValidationResult] {
+		failedAcceptanceRuleValidationResults + failedInvalidationRuleValidationResults
+	}
+	
+	// Internal for testing purposes
+	var failedAcceptanceRuleValidationResults: [ValidationResult] {
+		validationResults
+			.filter { $0.rule?.ruleType == .acceptence && $0.result == .fail }
+			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
+	}
+
+	// Internal for testing purposes
+	var failedInvalidationRuleValidationResults: [ValidationResult] {
+		validationResults
+			.filter { $0.rule?.ruleType == .invalidation && $0.result == .fail }
+			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
+	}
+
+	// Internal for testing purposes
+	var openValidationResults: [ValidationResult] {
+		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
+	}
+
+	// Internal for testing purposes
+	var openAcceptanceRuleValidationResults: [ValidationResult] {
+		validationResults
+			.filter { $0.rule?.ruleType == .acceptence && $0.result == .open }
+			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
+	}
+
+	// Internal for testing purposes
+	var openInvalidationRuleValidationResults: [ValidationResult] {
+		validationResults
+			.filter { $0.rule?.ruleType == .invalidation && $0.result == .open }
+			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
+	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var cells: [DynamicCell] = [
@@ -82,43 +120,4 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 	private let validationResults: [ValidationResult]
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
-
-	// Internal for testing purposes
-	var failedValidationResults: [ValidationResult] {
-		failedAcceptanceRuleValidationResults + failedInvalidationRuleValidationResults
-	}
-	
-	// Internal for testing purposes
-	var failedAcceptanceRuleValidationResults: [ValidationResult] {
-		validationResults
-			.filter { $0.rule?.ruleType == .acceptence && $0.result == .fail }
-			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
-	}
-
-	// Internal for testing purposes
-	var failedInvalidationRuleValidationResults: [ValidationResult] {
-		validationResults
-			.filter { $0.rule?.ruleType == .invalidation && $0.result == .fail }
-			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
-	}
-
-	// Internal for testing purposes
-	var openValidationResults: [ValidationResult] {
-		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
-	}
-
-	// Internal for testing purposes
-	var openAcceptanceRuleValidationResults: [ValidationResult] {
-		validationResults
-			.filter { $0.rule?.ruleType == .acceptence && $0.result == .open }
-			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
-	}
-
-	// Internal for testing purposes
-	var openInvalidationRuleValidationResults: [ValidationResult] {
-		validationResults
-			.filter { $0.rule?.ruleType == .invalidation && $0.result == .open }
-			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
-	}
-
 }
