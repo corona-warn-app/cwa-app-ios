@@ -21,7 +21,7 @@ struct Country: Equatable, Codable {
 		UIImage(named: "flag.\(id.lowercased())")
 	}
 
-	/// Initialize a country with a given. If no valid `countryCode` is given the initalizer returns `nil`.
+	/// Initialize a country with a given `countryCode`. If no valid `countryCode` is given the initalizer returns `nil`.
 	///
 	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
 	init?(countryCode: ID) {
@@ -30,6 +30,14 @@ struct Country: Equatable, Codable {
 
 		id = countryCode
 		localizedName = name
+	}
+
+	/// Initialize a country with a given `countryCode`. If `countryCode` cannot be localized, the localizedName will contain the `countryCode`.
+	///
+	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
+	init(withCountryCodeFallback countryCode: ID) {
+		id = countryCode
+		localizedName = Locale.current.regionName(forCountryCode: countryCode) ?? countryCode
 	}
 
 	static func defaultCountry() -> Country {
