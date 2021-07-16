@@ -160,19 +160,19 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			self.isAnimatingChanges = true
 
 			tableView.performBatchUpdates({
-				var indexPaths = [indexPath]
+				var deleteIndexPaths = [indexPath]
+				var insertIndexPaths = [IndexPath]()
 
 				if vaccinationHintWasVisible && !self.viewModel.vaccinationHintIsVisible {
-					indexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
+				} else if !vaccinationHintWasVisible && self.viewModel.vaccinationHintIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
 				}
 
-				tableView.deleteRows(at: indexPaths, with: .automatic)
+				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)
+				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in
 				self.isAnimatingChanges = false
-
-				if self.viewModel.numberOfItems(in: .certificates) > 0 {
-					self.tableView.reloadData()
-				}
 			})
 		}
 	}

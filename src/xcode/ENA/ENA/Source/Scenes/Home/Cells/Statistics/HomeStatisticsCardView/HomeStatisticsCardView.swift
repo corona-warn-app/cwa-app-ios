@@ -13,6 +13,8 @@ class HomeStatisticsCardView: UIView {
 		super.awakeFromNib()
 
 		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.General.card
+		accessibilityTraits = [.summaryElement, .causesPageTurn]
+		accessibilityElements?.append(deletionIndicator)
 
 		let adjustsFontSizeToFitWidth = false
 		let allowsDefaultTighteningForTruncation = true
@@ -159,6 +161,8 @@ class HomeStatisticsCardView: UIView {
 				tertiaryTitleLabel.accessibilityLabel = tertiaryAccessibilityLabel
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
+
+			accessibilityElements.append(deletionIndicator)
 
 			return accessibilityElements
 		}
