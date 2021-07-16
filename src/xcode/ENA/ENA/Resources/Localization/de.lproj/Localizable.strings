@@ -1924,6 +1924,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Add_SevenDayIncidence" = "Lokale 7-Tage-Inzidenz hinzufügen";
 
+"Statistics_Add_DisabledAddTitle" = "Maximale Anzahl der lokalen 7-Tage-Inzidenz erreicht";
+
 "Statistics_Add_LocalCardTitle" = "Lokale 7-Tage-Inzidenz";
 
 "Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
