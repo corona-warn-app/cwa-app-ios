@@ -137,6 +137,8 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
 			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
 				Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		} else {
+			return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
 		}
 		#endif
 

@@ -2804,6 +2804,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
 
+"HealthCertificate_Details_expirationDateTitle" = "Technisches Ablaufdatum";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Gültig bis %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+
 /* Vaccination Certificate Details */
 
 "VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
