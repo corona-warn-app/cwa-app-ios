@@ -36,13 +36,8 @@ struct Country: Equatable, Codable {
 	///
 	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
 	init(withCountryCodeFallback countryCode: ID) {
-		if let name = Locale.current.regionName(forCountryCode: countryCode) {
-			id = countryCode
-			localizedName = name
-		} else {
-			id = countryCode
-			localizedName = countryCode
-		}
+		id = countryCode
+		localizedName = Locale.current.regionName(forCountryCode: countryCode) ?? countryCode
 	}
 
 	static func defaultCountry() -> Country {
