@@ -11,8 +11,7 @@ class HealthCertificateExpirationDateCell: UITableViewCell, ReuseIdentifierProvi
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
-		isAccessibilityElement = false
-		contentTextLabel.isAccessibilityElement = true
+		accessibilityElements = [headlineLabel as Any, expirationDateLabel as Any, contentTextLabel as Any]
 	}
 
 	@available(*, unavailable)
@@ -66,9 +65,11 @@ class HealthCertificateExpirationDateCell: UITableViewCell, ReuseIdentifierProvi
 		contentView.addSubview(backgroundContainerView)
 
 		headlineLabel.translatesAutoresizingMaskIntoConstraints = false
+		headlineLabel.numberOfLines = 0
 		backgroundContainerView.addSubview(headlineLabel)
 
 		expirationDateLabel.translatesAutoresizingMaskIntoConstraints = false
+		expirationDateLabel.numberOfLines = 0
 		backgroundContainerView.addSubview(expirationDateLabel)
 
 		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
