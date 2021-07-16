@@ -156,7 +156,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		switch extractOnboardedCountryCodesResult {
 		case let .success(countryCodes):
 			let countries = countryCodes.compactMap {
-				Country(countryCode: $0)
+				Country(withCountryCodeFallback: $0)
 			}
 			completion(.success(countries))
 		case let .failure(error):

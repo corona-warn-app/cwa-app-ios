@@ -41,7 +41,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	init(
 		store: Store,
 		client: Client,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess()
 	) {
@@ -84,7 +84,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private let store: Store
 	private let client: Client
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
 	private var subscriptions = Set<AnyCancellable>()
