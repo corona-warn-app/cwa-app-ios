@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -77,11 +77,15 @@ final class HealthCertificateViewModel {
 	}
 
 	let qrCodeCellViewModel: HealthCertificateDetailsQRCodeCellViewModel
-	let expirationDateCellViewModel = HealthCertificateExpirationDateCellViewModel(
-		headline: "Technisches Ablaufdatum",
-		expirationDate: "Gültig bis 21.08.21, 14:12",
-		content: "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen."
-	)
+
+	var expirationDateCellViewModel: HealthCertificateExpirationDateCellViewModel {
+		let formattedDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .short)
+		return HealthCertificateExpirationDateCellViewModel(
+			headline: AppStrings.HealthCertificate.Details.expirationDateTitle,
+			expirationDate: String(format: AppStrings.HealthCertificate.Details.expirationDatePlaceholder, formattedDate) ,
+			content: AppStrings.HealthCertificate.Details.expirationDateDetails
+		)
+	}
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
