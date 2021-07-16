@@ -1469,7 +1469,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 
 		let valueSetsStub = ValueSetsStub(valueSets: valueSets)
 
-		let expectation = expectation(description: "Validation should complete for every test case.")
+		let expectation = self.expectation(description: "Validation should complete for every test case.")
 		expectation.expectedFulfillmentCount = testData.testCases.count
 
 		for testCase in testData.testCases {
