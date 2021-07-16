@@ -25,6 +25,25 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 	}
 
 	// MARK: - Internal
+	
+	// Internal for testing purposes
+	var openValidationResults: [ValidationResult] {
+		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
+	}
+	
+	// Internal for testing purposes
+	var openAcceptanceRuleValidationResults: [ValidationResult] {
+		validationResults
+			.filter { $0.rule?.ruleType == .acceptence && $0.result == .open }
+			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
+	}
+
+	// Internal for testing purposes
+	var openInvalidationRuleValidationResults: [ValidationResult] {
+		validationResults
+			.filter { $0.rule?.ruleType == .invalidation && $0.result == .open }
+			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
+	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var cells: [DynamicCell] = [
@@ -75,21 +94,4 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 	private let validationResults: [ValidationResult]
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
-
-	private var openValidationResults: [ValidationResult] {
-		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
-	}
-
-	private var openAcceptanceRuleValidationResults: [ValidationResult] {
-		validationResults
-			.filter { $0.rule?.ruleType == .acceptence && $0.result == .open }
-			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
-	}
-
-	private var openInvalidationRuleValidationResults: [ValidationResult] {
-		validationResults
-			.filter { $0.rule?.ruleType == .invalidation && $0.result == .open }
-			.sorted { $0.rule?.identifier ?? "" < $1.rule?.identifier ?? "" }
-	}
-
 }
