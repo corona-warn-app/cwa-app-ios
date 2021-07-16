@@ -4,20 +4,26 @@
 
 import Foundation
 
-protocol SignatureVerifiable {
+public protocol DCCSignatureVerifiable {
     func verify(certificate base45: Base45, with signingCertificates: [Data], and validationClock: Date) -> Result<Void, SignatureVerificationError>
 }
 
-struct SignatureVerification: SignatureVerifiable {
+public struct DCCSignatureVerification: DCCSignatureVerifiable {
 
-    func verify(certificate base45: Base45, with signingCertificates: [Data], and validationClock: Date = Date()) -> Result<Void, SignatureVerificationError> {
+    public init() { }
+
+    public func verify(certificate base45: Base45, with signingCertificates: [Data], and validationClock: Date = Date()) -> Result<Void, SignatureVerificationError> {
         return .success(())
     }
 }
 
-struct SignatureVerifiableStub {
+public struct DCCSignatureVerifiableStub {
 
     let error: SignatureVerificationError?
+
+    public init(error: SignatureVerificationError?) {
+        self.error = error
+    }
 
     func verify(certificate base45: Base45, with signingCertificates: [Data], and validationClock: Date = Date()) -> Result<Void, SignatureVerificationError> {
         if let error = error {

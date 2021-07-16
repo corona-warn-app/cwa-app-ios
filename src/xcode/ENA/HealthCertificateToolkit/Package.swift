@@ -30,7 +30,7 @@ let package = Package(
             dependencies: ["SwiftCBOR", "base45-swift", "JSONSchema", "SWCompression", "CertLogic"],
             resources: [
                 .process("CertificateAccess/Ressources/CertificateSchema.json"),
-                .process("Validation/Ressources/dcc-validation-rule.json")
+                .process("RuleValidation/Ressources/dcc-validation-rule.json")
             ]
         ),
         .testTarget(
