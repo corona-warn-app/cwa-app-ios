@@ -133,6 +133,13 @@ class HealthCertificateService {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
+			// we need to use the real thing here later
+			let signatureVerifying = DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1)
+			let result = signatureVerifying.verify(certificate: base45, with: [])
+			if case .failure = result {
+				return .failure(.invalidSignature)
+			}
+
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			let healthCertifiedPerson = healthCertifiedPersons.value
