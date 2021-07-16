@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +14,6 @@
                 <outlet property="saveLocallyButton" destination="BIH-X6-akg" id="c0c-Dd-M91"/>
                 <outlet property="sendReportButton" destination="C1D-6e-Eky" id="btM-Wp-mRr"/>
                 <outlet property="stackView" destination="TmV-eH-o8L" id="cdo-yy-dBb"/>
-                <outlet property="stackViewHeightConstraint" destination="kJu-DK-6bD" id="7eh-GC-Vdj"/>
                 <outlet property="startButton" destination="mpT-qK-jdH" id="SIM-I2-9Kf"/>
                 <outlet property="statusDescription" destination="r4G-LI-jww" id="TdE-U7-44O"/>
                 <outlet property="statusTitle" destination="qFU-yF-xhT" id="Drj-lx-qH6"/>
@@ -89,11 +88,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
-                    <rect key="frame" x="16" y="148" width="382" height="200"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
+                    <rect key="frame" x="16" y="148" width="382" height="204"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="mpT-qK-jdH" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -101,21 +100,21 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-6e-Eky" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="51" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="53" width="382" height="45"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="sendLoggingReport:" destination="-1" eventType="touchUpInside" id="sDa-iI-QBO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIH-X6-akg" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="102" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="106" width="382" height="45"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="saveLoggingReport:" destination="-1" eventType="touchUpInside" id="nFh-YW-0YB"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hr5-Wn-LfN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="153" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="159" width="382" height="45"/>
                             <state key="normal" title="Button"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
@@ -127,9 +126,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="200" id="kJu-DK-6bD"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <color key="backgroundColor" name="ENA Background Color"/>

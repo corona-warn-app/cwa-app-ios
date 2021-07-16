@@ -45,7 +45,6 @@ final class FooterViewModel {
 		self.backgroundColor = backgroundColor
 		self.primaryTextColor = primaryTextColor
 		self.secondaryTextColor = secondaryTextColor
-		updateHeight()
 	}
 
 	// MARK: - Internal
@@ -80,7 +79,6 @@ final class FooterViewModel {
 	@OpenCombine.Published private(set) var isPrimaryButtonHidden: Bool
 	@OpenCombine.Published private(set) var isSecondaryButtonHidden: Bool
 
-	@OpenCombine.Published private(set) var height: CGFloat = 0.0
 	@OpenCombine.Published private(set) var isPrimaryLoading: Bool = false
 	@OpenCombine.Published private(set) var isSecondaryLoading: Bool = false
 	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
@@ -103,7 +101,6 @@ final class FooterViewModel {
 			self.isPrimaryButtonHidden = true
 			self.isSecondaryButtonHidden = true
 		}
-		updateHeight()
 	}
 
 	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType) {
@@ -125,20 +122,4 @@ final class FooterViewModel {
 			isSecondaryButtonEnabled = !disable
 		}
 	}
-
-	// MARK: - Private
-
-	private func updateHeight() {
-		let height: CGFloat
-		switch (isPrimaryButtonHidden, isSecondaryButtonHidden) {
-		case(false, false):
-			height = buttonHeight * 2 + spacer + topBottomInset * 2
-		case(true, false), (false, true):
-			height = buttonHeight + topBottomInset * 2
-		case(true, true):
-			height = 0.0
-		}
-		self.height = height
-	}
-
 }

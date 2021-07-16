@@ -360,6 +360,7 @@
 		2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB7D68A2680790D00633D30 /* CoronaTestResultOperation.swift */; };
 		2EDE67F9266E406900864D53 /* StackViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE67F8266E406900864D53 /* StackViewLabel.swift */; };
 		2EDE67FB266E63A600864D53 /* StackViewLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE67FA266E63A600864D53 /* StackViewLabelTests.swift */; };
+		2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF6906C26A07FAD006DE99F /* FooterViewControllerTests.swift */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
 		2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */; };
@@ -1649,6 +1650,7 @@
 		2EB7D68A2680790D00633D30 /* CoronaTestResultOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestResultOperation.swift; sourceTree = "<group>"; };
 		2EDE67F8266E406900864D53 /* StackViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewLabel.swift; sourceTree = "<group>"; };
 		2EDE67FA266E63A600864D53 /* StackViewLabelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewLabelTests.swift; sourceTree = "<group>"; };
+		2EF6906C26A07FAD006DE99F /* FooterViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewControllerTests.swift; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
@@ -6388,6 +6390,7 @@
 			isa = PBXGroup;
 			children = (
 				BA02641225E6A0800019CD55 /* FooterViewModelTests.swift */,
+				2EF6906C26A07FAD006DE99F /* FooterViewControllerTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8689,6 +8692,7 @@
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
+				2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,
 				2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */,
 				BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */,
