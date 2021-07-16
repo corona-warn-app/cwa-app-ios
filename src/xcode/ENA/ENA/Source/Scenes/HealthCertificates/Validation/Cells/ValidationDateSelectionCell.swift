@@ -31,6 +31,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		didSet {
 			if let date = selectedDate {
 				selectedDateTimeLabel.text = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+				datePicker.date = date
 			} else {
 				selectedDateTimeLabel.text = ""
 			}
@@ -86,13 +87,6 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		stack.axis = .horizontal
 		stack.distribution = .fillProportionally
 		return stack
-	}()
-
-	private lazy var selectedTimeTitle: UILabel = {
-		let label = ENALabel(style: .headline)
-		label.text = "Zeit"
-		label.numberOfLines = 0
-		return label
 	}()
 
 	private lazy var infoStackView: UIStackView = {
