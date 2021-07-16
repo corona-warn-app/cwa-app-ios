@@ -14,6 +14,15 @@ public struct DCCSignatureVerification: DCCSignatureVerifiable {
 
     public func verify(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate], and validationClock: Date = Date()) -> Result<Void, DCCSignatureVerificationError> {
 
+        let coseEntriesResult = DigitalCovidCertificateAccess().extractCOSEEntries(from: base45)
+
+        guard case let .success(coseEntries) = coseEntriesResult else {
+            if case let .failure(error) = coseEntriesResult {
+                return .failure(.HC_CBOR_DECODING_FAILED(error))
+            }
+            fatalError("Success and failure where handled, this part should never be reaached.")
+        }
+
         return .success(())
     }
 }

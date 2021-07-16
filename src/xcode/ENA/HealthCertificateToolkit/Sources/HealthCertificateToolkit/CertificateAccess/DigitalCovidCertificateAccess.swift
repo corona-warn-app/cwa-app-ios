@@ -67,6 +67,13 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
 
     // MARK: - Internal
 
+    func extractCOSEEntries(from base45: Base45) -> Result<[CBOR], CertificateDecodingError> {
+        removePrefix(from: base45)
+            .flatMap(convertBase45ToData)
+            .flatMap(decompressZLib)
+            .flatMap(decodeCOSEEntries)
+    }
+
     func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError> {
         let entriesResult = convertBase64ToData(base64: base64)
             .flatMap(decodeCOSEEntries)
