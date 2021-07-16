@@ -12,22 +12,6 @@ protocol FooterViewUpdating {
 	func update(to state: FooterViewModel.VisibleButtons)
 	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType)
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
-
-	/// Optional function to update the footer view with given `bounds` of the view.
-	///
-	/// Added to support customized Footer views that don't follow the 'model' approach. Consider this a hack until autolayout implementation is in place.
-	/// - Parameters:
-	///   - size: The final `size` of the footer view after the update.
-	///   - animated: Animated update or not.
-	///   - completion: An optional completion handler after the update.
-	func update(to size: CGSize, animated: Bool, completion: (() -> Void)?)
-}
-
-extension FooterViewUpdating {
-	func update(to size: CGSize, animated: Bool, completion: (() -> Void)?) {
-		// Intentionally left blank to treat this as an optional protocol function
-		preconditionFailure("Called \(#function), but not implemented. Check this.") // to prevent developer errors
-	}
 }
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom) */
@@ -81,9 +65,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(bottomView)
 
-		let initialHeight = footerViewModel?.height ?? bottomView.bounds.height
-		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
-		
 		bottomViewBottomConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		
 		NSLayoutConstraint.activate(
@@ -96,8 +77,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				// bottomView
 				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-				bottomViewBottomConstraint,
-				bottomViewHeightAnchorConstraint
+				bottomViewBottomConstraint
 			]
 		)
 		subscribeToKeyboardNotifications()
@@ -155,15 +135,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		
 		footerViewModel = viewModel
 		footerViewController.viewModel = viewModel
-		
-		footerViewModel?.$height.sink { [weak self] height in
-			self?.updateBottomHeight(height, animated: true)
-		}
-		.store(in: &subscriptions)
-	}
-
-	func update(to size: CGSize, animated: Bool, completion: (() -> Void)?) {
-		updateBottomHeight(size.height, animated: animated, completion: completion)
 	}
 
 	// MARK: - Internal
@@ -177,25 +148,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	private var subscriptions: [AnyCancellable] = []
 	private var keyboardSubscriptions: [AnyCancellable] = []
-	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
 	private var bottomViewBottomConstraint: NSLayoutConstraint!
-
-	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false, completion: (() -> Void)? = nil) {
-		guard bottomViewHeightAnchorConstraint.constant != height else {
-			Log.debug("no height change found")
-			return
-		}
-		view.setNeedsLayout()
-		bottomViewHeightAnchorConstraint.constant = height
-		let duration = animated ? 0.35 : 0.0
-		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) { [weak self] in
-			self?.view.layoutIfNeeded()
-		}
-		animator.addCompletion { _ in
-			completion?()
-		}
-		animator.startAnimation()
-	}
 	
 	private func subscribeToKeyboardNotifications() {
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
@@ -219,7 +172,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			.store(in: &keyboardSubscriptions)
 		
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
-			.dropFirst()
 			.sink { [weak self] notification in
 				
 				guard let self = self,
