@@ -35,9 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	override init() {
 		self.environmentProvider = Environments()
 
-		let some = DCCSignatureVerification()
-		let other = DCCSignatureVerifiableStub(error: nil)
-
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
