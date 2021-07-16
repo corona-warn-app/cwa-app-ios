@@ -7,6 +7,8 @@ import HealthCertificateToolkit
 import XCTest
 import SwiftCBOR
 import CertLogic
+import OpenCombine
+import ZIPFoundation
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
@@ -1448,6 +1450,88 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(mappedTime, expectedDate)
 	}
+
+	// MARK: - CertLogicEngineValidation
+
+	func test_CertLogicEngineValidation() throws {
+		guard let jsonData = certLogicTestData else {
+			XCTFail("Could not load json data.")
+			return
+		}
+
+		let testData = try JSONDecoder().decode(CertLogicEngineTestData.self, from: jsonData)
+
+		guard let valueSetsData = Data(base64Encoded: testData.general.valueSetProtocolBuffer),
+			  let valueSets = try? SAP_Internal_Dgc_ValueSets(serializedData: valueSetsData) else {
+			XCTFail("Could not load valueSets.")
+			return
+		}
+
+		let valueSetsStub = ValueSetsStub(valueSets: valueSets)
+
+		let expectation = self.expectation(description: "Validation should complete for every test case.")
+		expectation.expectedFulfillmentCount = testData.testCases.count
+
+		for testCase in testData.testCases {
+			let mockVerifier = MockVerifier()
+			let mockStore = MockTestStore()
+			let mockClient = ClientMock()
+
+			guard let package = try? makeSAPDownloadedPackage(with: testCase.rules) else {
+				XCTFail("Could not create package.")
+				return
+			}
+
+			mockClient.onGetDCCRules = { _, _, completion in
+				let package = PackageDownloadResponse(
+					package: package,
+					etag: ""
+				)
+				completion(.success(package))
+			}
+
+			let validationService = HealthCertificateValidationService(
+				store: mockStore,
+				client: mockClient,
+				vaccinationValueSetsProvider: valueSetsStub,
+				signatureVerifier: mockVerifier,
+				validationRulesAccess: ValidationRulesAccess()
+			)
+
+			let certificate = try HealthCertificate(base45: testCase.dcc)
+			let country = try XCTUnwrap(Country(countryCode: testCase.countryOfArrival))
+
+			validationService.validate(
+				healthCertificate: certificate,
+				arrivalCountry: country,
+				validationClock: Date(timeIntervalSince1970: TimeInterval(testCase.validationClock))
+			) { result in
+
+				guard case let .success(validationReport) = result else {
+					XCTFail("Success expected for validation result.")
+					return
+				}
+
+				switch validationReport {
+				case .validationFailed(let validationResults),
+					 .validationOpen(let validationResults),
+					 .validationPassed(let validationResults):
+
+					let passCount = validationResults.filter { $0.result == .passed }.count
+					let openCount = validationResults.filter { $0.result == .open }.count
+					let failCount = validationResults.filter { $0.result == .fail }.count
+
+					XCTAssertEqual(passCount, testCase.expPass, "CertEngineTestCase failed with incorrect expPass count: \(testCase.testCaseDescription)")
+					XCTAssertEqual(openCount, testCase.expOpen, "CertEngineTestCase failed with incorrect expOpen count: \(testCase.testCaseDescription)")
+					XCTAssertEqual(failCount, testCase.expFail, "CertEngineTestCase failed with incorrect expFail count: \(testCase.testCaseDescription)")
+				}
+
+				expectation.fulfill()
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 	
 	// MARK: - Private
 	
@@ -1498,6 +1582,29 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	private func country() throws -> Country {
 		 return try XCTUnwrap(Country(countryCode: "FR"))
 	}
+
+	private func makeSAPDownloadedPackage(with rules: [Rule]) throws -> SAPDownloadedPackage? {
+		let cborRulesData = try CodableCBOREncoder().encode(rules)
+
+		let archive = try XCTUnwrap(Archive(accessMode: .create))
+		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: UInt32(cborRulesData.count), bufferSize: 4, provider: { position, size -> Data in
+			return cborRulesData.subdata(in: position..<position + size)
+		})
+		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
+			return Data().subdata(in: position..<position + size)
+		})
+		let archiveData = archive.data ?? Data()
+		return SAPDownloadedPackage(compressedData: archiveData)
+	}
+
+	private var certLogicTestData: Data? {
+		let bundle = Bundle(for: HealthCertificateValidationServiceValidationTests.self)
+		guard let url = bundle.url(forResource: "dcc-validation-rules-common-test-cases", withExtension: "json"),
+			  let data = FileManager.default.contents(atPath: url.path) else {
+			return nil
+		}
+		return data
+	}
 }
 
 /// ONLY for testing purposes because it ignores underlining errors for comparisons.
@@ -1525,5 +1632,24 @@ extension RuleValidationError: Equatable {
 		default:
 			return false
 		}
+	}
+}
+
+private struct ValueSetsStub: VaccinationValueSetsProviding {
+
+	var valueSets: SAP_Internal_Dgc_ValueSets
+
+	func latestVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
+		// return stubbed value sets; no error
+		return Just(valueSets)
+			.setFailureType(to: Error.self)
+			.eraseToAnyPublisher()
+	}
+
+	func fetchVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
+		// return stubbed value sets; no error
+		return Just(valueSets)
+			.setFailureType(to: Error.self)
+			.eraseToAnyPublisher()
 	}
 }

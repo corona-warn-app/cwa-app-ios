@@ -1372,6 +1372,8 @@ enum AppStrings {
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
 		enum AddCard {
 			static let sevenDayIncidence = NSLocalizedString("Statistics_Add_SevenDayIncidence", comment: "")
+			static let disabledAddTitle = NSLocalizedString("Statistics_Add_DisabledAddTitle", comment: "")
+
 			static let localCardTitle = NSLocalizedString("Statistics_Add_LocalCardTitle", comment: "")
 			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
 			static let localCardPrimarySubtitle = NSLocalizedString("Statistics_Card_Add_LocalCardPrimarySubtitle", comment: "")
@@ -2126,9 +2128,8 @@ enum AppStrings {
 				static let validationParameters = NSLocalizedString("HealthCertificate_Validation_Result_validationParameters", comment: "")
 				static let acceptanceRule = NSLocalizedString("HealthCertificate_Validation_Result_acceptanceRule", comment: "")
 				static let invalidationRule = NSLocalizedString("HealthCertificate_Validation_Result_invalidationRule", comment: "")
-				static let moreInformation01 = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation01", comment: "")
-				static let moreInformation02 = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation02", comment: "")
-				static let moreInformation03 = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation03", comment: "")
+				static let moreInformation = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation", comment: "")
+				static let moreInformationPlaceholderFAQ = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ", comment: "")
 
 				enum Passed {
 					static let title = NSLocalizedString("HealthCertificate_Validation_Passed_title", comment: "")

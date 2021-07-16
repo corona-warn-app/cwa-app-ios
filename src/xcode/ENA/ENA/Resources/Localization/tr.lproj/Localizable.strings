@@ -1869,6 +1869,17 @@
 
 "Statistics_Card_From_CWA" = "Corona-Warn-App üzerinden";
 
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Yerel 7 günlük olay ekle";
+
+"Statistics_Add_LocalCardTitle" = "Yerel 7 günlük olay";
+
+"Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "her 100.000 vatandaşta onaylanan yeni enfeksiyon sayısı";
+
+"Statistics_Card_Manage" = "Düzenle";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
 
@@ -2028,11 +2039,11 @@
 
 "Statistics_Info_Trends_Title" = "Şu trendler gösterilebilir:";
 
-"Statistics_Info_Trends_Increasing" = "Trend: Yukarı";
+"Statistics_Info_Trends_Increasing" = "Trend: yukarı (negatif)";
 
-"Statistics_Info_Trends_Decreasing" = "Trend: Aşağı";
+"Statistics_Info_Trends_Decreasing" = "Trend: aşağı (pozitif)";
 
-"Statistics_Info_Trends_Stable" = "Trend: Sabit";
+"Statistics_Info_Trends_Stable" = "Trend: sabit (nötr)";
 
 "Statistics_Info_Trends_Footnote" = "Uygulama kullanıcıları tarafından yapılan uyarılara ilişkin trend değerlendirmesi geçerli enfeksiyon seviyesine göre değişiklik gösterir. Bu nedenle trend her zaman nötr olarak görüntülenir.";
 
@@ -2759,4 +2770,98 @@
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "İnternet bağlantınız kesildi. Sertifika geçerlilik kontrolünü tamamlamak için lütfen bağlantıyı kontrol edin ve yeniden deneyin.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Sertifika Geçerliliği";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Ülke";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Tarih ve saat";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Giriş tarihinizi ve yerel saatinizi girin.";
+
+"HealthCertificate_Validation_Body1" = "Lütfen gideceğiniz ülkede seyahatiniz sırasında sertifikanızın geçerli olup olmayacağını önceden kontrol edin. Seçilen hedef ülkeye ilişkin giriş kuralları göz önünde bulundurulacaktır.";
+
+"HealthCertificate_Validation_Headline1" = "Şunları kontrol edin:";
+
+"HealthCertificate_Validation_Body2" = "COVID sertifikası, AB'de seyahat için geçerli bir kanıttır.";
+
+"HealthCertificate_Validation_Headline2" = "Not";
+
+"HealthCertificate_Validation_Bullet1" = "Giriş kurallarında değişiklik yapılabileceğini lütfen unutmayın. Bu nedenle, lütfen gideceğiniz ülkeye girmeden kısa bir süre (en fazla 48 saat) önce sertifikayı kontrol edin.";
+
+"HealthCertificate_Validation_Bullet2" = "Bölgeler özelinde ek kurallar ve sınırlamalar geçerli olabilir.";
+
+"HealthCertificate_Validation_Bullet3" = "Sertifikanın doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
+
+"HealthCertificate_Validation_Bullet4" = "Corona-Warn-App, sertifikaya kaydedilen verilerin geçerli olup olmadığını kontrol etmez.";
+
+"HealthCertificate_Validation_Body3" = "Daha fazla bilgi için SSS sayfasına bakın ve https://reopen.europa.eu/en adresini ziyaret edin.";
+
+"HealthCertificate_Validation_Legal_Title" = "Gizlilik ve Veri Güvenliği";
+
+"HealthCertificate_Validation_Legal_Description" = "Güncel giriş kuralları RKI sunucularından indirilir. Bunun için internet bağlantısı gereklidir. Erişim verileri RKI'ye aktarılır.";
+
+"HealthCertificate_Validation_Body4" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "%@ tarihinde %@ girişi,\n%@ tarihinde doğrulandı";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "Bu, gideceğiniz ülke olan %@ için geçerli bir kural.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "Bu, düzenleyen ülke için geçerli bir kural.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "Daha fazla bilgi için, %@ bölümüne bakın veya %@ sayfasını ziyaret edin.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "SSS";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Sertifika Geçerli";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkede geçerli";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Not";
+
+"HealthCertificate_Validation_Passed_hint1" = "Giriş kurallarında değişiklik yapılabileceğini lütfen unutmayın. Bu nedenle, lütfen gideceğiniz ülkeye girmeden kısa bir süre (en fazla 48 saat) önce sertifikayı kontrol edin.";
+
+"HealthCertificate_Validation_Passed_hint2" = "Bölgeler özelinde ek kurallar ve sınırlamalar geçerli olabilir.";
+
+"HealthCertificate_Validation_Passed_hint3" = "Sertifikanın doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
+
+"HealthCertificate_Validation_Passed_hint4" = "Corona-Warn-App, sertifikaya kaydedilen verilerin geçerli olup olmadığını kontrol etmez.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Başka Ülke İçin Kontrol Et";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Sertifika Doğrulanamıyor";
+
+"HealthCertificate_Validation_Open_subtitle" = "Sertifikanız tamamen doğrulanamadı";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Not";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "Aşağıdaki kurallar kontrol edilemedi. Lütfen sertifikanın, gideceğiniz ülkenin kurallarına uygun olduğundan emin olun.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Sertifika Geçerli Değil";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Sertifikanız seçilen ülkede geçerli değil";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Doğrulama tamamlandı";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Aşağıdaki kurallara uygun değil:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Doğrulama yapılamıyor";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Aşağıdaki kurallar kontrol edilemedi. Lütfen sertifikanın, gideceğiniz ülkenin kurallarına uygun olduğundan emin olun.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Sertifika Geçerli Değil";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Sertifikanız seçilen ülkede geçerli değil";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Teknik kontrol";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Aşağıdaki kurallara uygun değil:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Sertifikanın süresi dolmuş olmamalıdır.";
 

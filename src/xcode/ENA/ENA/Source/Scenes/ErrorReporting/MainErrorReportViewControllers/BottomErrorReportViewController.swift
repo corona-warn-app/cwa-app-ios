@@ -106,7 +106,6 @@ class BottomErrorReportViewController: UIViewController {
 	private var subscriptions = [AnyCancellable]()
 
 	@IBOutlet private weak var stackView: UIStackView!
-	@IBOutlet private weak var stackViewHeightConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var startButton: ENAButton!
 	@IBOutlet private weak var sendReportButton: ENAButton!
 	@IBOutlet private weak var saveLocallyButton: ENAButton!
@@ -127,15 +126,6 @@ class BottomErrorReportViewController: UIViewController {
 		sendReportButton.isHidden = !isActive
 		saveLocallyButton.isHidden = !isActive
 		stopAndDeleteButton.isHidden = !isActive
-
-		stackViewHeightConstraint.constant = isActive ? 180 : 60 // hack: 3 buttons vs 1 button
-
-		if let topBottomController = parent as? FooterViewUpdating {
-			let targetSize = CGSize(width: view.bounds.width, height: isActive ? 356 : 220)
-			topBottomController.update(to: targetSize, animated: animated, completion: {
-				Log.debug("Bottom view size: \(targetSize)", log: .ui)
-			})
-		}
 	}
 	
 	@IBAction private func startLoggingReport(_ sender: Any) {

@@ -13,20 +13,20 @@ class CustomDashedView: UIView {
 
 		// simple way to handle layer resizing
 		dashBorder?.removeFromSuperlayer()
-		let dashBorder = CAShapeLayer()
-		dashBorder.lineWidth = dashWidth
-		dashBorder.strokeColor = dashColor.cgColor
-		dashBorder.lineDashPattern = [dashLength, betweenDashesSpace] as [NSNumber]
-		dashBorder.frame = bounds
-		dashBorder.fillColor = nil
+		let borderLayer = CAShapeLayer()
+		borderLayer.lineWidth = dashWidth
+		borderLayer.strokeColor = dashColor.cgColor
+		borderLayer.lineDashPattern = [dashLength, betweenDashesSpace] as [NSNumber]
+		borderLayer.frame = bounds
+		borderLayer.fillColor = nil
 		if cornerRadius > 0 {
-			dashBorder.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+			borderLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 		} else {
-			dashBorder.path = UIBezierPath(rect: bounds).cgPath
+			borderLayer.path = UIBezierPath(rect: bounds).cgPath
 		}
-		layer.addSublayer(dashBorder)
+		layer.addSublayer(borderLayer)
 		layer.cornerRadius = cornerRadius
-		self.dashBorder = dashBorder
+		self.dashBorder = borderLayer
 	}
 	
 	// MARK: - Internal
@@ -39,13 +39,13 @@ class CustomDashedView: UIView {
 
 	var tapHandler: (() -> Void)?
 
-	class func instance(for mode: Mode) -> CustomDashedView {
+	class func instance(for mode: Mode, isEnabled: Bool) -> CustomDashedView {
 		let nibName = String(describing: Self.self)
 
 		guard let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomDashedView else {
 			fatalError("Could not initialize CustomDashedView")
 		}
-		view.configure(for: mode)
+		view.configure(for: mode, isEnabled: isEnabled)
 		return view
 	}
 	
@@ -70,29 +70,39 @@ class CustomDashedView: UIView {
 	private var dashBorder: CAShapeLayer?
 	private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
 
-	private func configure(for mode: Mode) {
+	private func configure(for mode: Mode, isEnabled: Bool) {
 		switch mode {
 		case .add:
-			label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+			if isEnabled {
+				tapRecognizer.isEnabled = true
+				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+				icon.image = UIImage(named: "Icon_Add")
+			} else {
+				tapRecognizer.isEnabled = false
+				label.text = AppStrings.Statistics.AddCard.disabledAddTitle
+				icon.image = UIImage(named: "Icon_Add_Grey")
+			}
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
 
-			icon.image = UIImage(named: "Icon_Add")
-			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+			
+			
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
 
 			icon.image = UIImage(named: "Icon_Modify")
-			self.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
+			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)
+		accessibilityTraits = [.button, .staticText]
 
 		// ensure we don't assign this one multiple times
 		gestureRecognizers?.forEach { rec in
 			removeGestureRecognizer(rec)
 		}
 		// add tap recognizer
-		self.addGestureRecognizer(tapRecognizer)
+		addGestureRecognizer(tapRecognizer)
 	}
 
 	@objc
