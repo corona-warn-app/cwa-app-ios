@@ -22,11 +22,11 @@ class ManageStatisticsCellTests: XCTestCase {
     }
 
 	func testDashedView() throws {
-		let add = CustomDashedView.instance(for: .add)
+		let add = CustomDashedView.instance(for: .add, isEnabled: true)
 		XCTAssertEqual(add.accessibilityIdentifier, AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton)
 		XCTAssertTrue(add.accessibilityTraits.contains(.button))
 
-		let modify = CustomDashedView.instance(for: .modify)
+		let modify = CustomDashedView.instance(for: .modify, isEnabled: true)
 		XCTAssertEqual(modify.accessibilityIdentifier, AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton)
 		XCTAssertTrue(modify.accessibilityTraits.contains(.button))
 	}
