@@ -4,7 +4,7 @@
 
 import Foundation
 
-public enum SignatureVerificationError: Error {
+public enum DCCSignatureVerificationError: Error {
     case HC_COSE_PH_INVALID
     case HC_COSE_NO_SIGN1
     case HC_COSE_NO_ALG

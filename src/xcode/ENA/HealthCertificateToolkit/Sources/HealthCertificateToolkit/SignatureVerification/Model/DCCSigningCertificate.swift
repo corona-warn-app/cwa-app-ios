@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct SigningCertificate {
+public struct DCCSigningCertificate {
     let kid: Data
     let data: Data
 }
