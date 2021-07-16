@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertificateExpirationDateCell: UITableViewCell {
+class HealthCertificateExpirationDateCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -32,16 +32,21 @@ class HealthCertificateExpirationDateCell: UITableViewCell {
 
 	func configure(with cellViewModel: HealthCertificateExpirationDateCellViewModel) {
 		headlineLabel.text = cellViewModel.headline
+		headlineLabel.textColor = cellViewModel.headlineTextColor
+
 		expirationDateLabel.text = cellViewModel.expirationDate
+		expirationDateLabel.textColor = cellViewModel.expirationDateTextColor
+
 		contentTextLabel.text = cellViewModel.content
+		contentTextLabel.textColor = cellViewModel.contentTextColor
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
-	private let headlineLabel = ENALabel(style: .title1)
-	private let expirationDateLabel = ENALabel(style: .body)
-	private let contentTextLabel = ENALabel()
+	private let headlineLabel = ENALabel(style: .headline)
+	private let expirationDateLabel = ENALabel(style: .subheadline)
+	private let contentTextLabel = ENALabel(style: .subheadline)
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -82,11 +87,11 @@ class HealthCertificateExpirationDateCell: UITableViewCell {
 				headlineLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
 				expirationDateLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				expirationDateLabel.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 2.0),
+				expirationDateLabel.topAnchor.constraint(equalTo: headlineLabel.bottomAnchor, constant: 4.0),
 				expirationDateLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
 				contentTextLabel.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentTextLabel.topAnchor.constraint(equalTo: expirationDateLabel.bottomAnchor, constant: 16.0),
+				contentTextLabel.topAnchor.constraint(equalTo: expirationDateLabel.bottomAnchor, constant: 8.0),
 				contentTextLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 				contentTextLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0)
 			]

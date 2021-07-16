@@ -103,6 +103,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationOneOfOneHintCellViewModel)
 			return cell
+		case .expirationDate:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateExpirationDateCell.self, for: indexPath)
+			cell.configure(with: viewModel.expirationDateCellViewModel)
+			return cell
 		case .additionalInfo:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateTextViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.additionalInfoCellViewModels[indexPath.row])
@@ -237,6 +241,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			HealthCertificateBottomCornerCell.self,
 			forCellReuseIdentifier: HealthCertificateBottomCornerCell.reuseIdentifier
 		)
+
+		tableView.register(
+			HealthCertificateExpirationDateCell.self,
+			forCellReuseIdentifier: HealthCertificateExpirationDateCell.reuseIdentifier
+		)
+
 	}
 
 	private func setupViewModel() {
