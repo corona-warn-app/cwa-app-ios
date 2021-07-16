@@ -2875,6 +2875,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Der QR-Code konnte nicht generiert werden. Sollte der Fehler weiterhin bestehen, kontaktieren Sie die Hotline über App-Informationen -> Technische Hotline.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Signatur ungültig";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Die Signatur des Zertifikates ist ungültig. Das Zertifikat kann nicht als Nachweis verwendet werden und daher nicht importiert werden.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "FAQ zur Signaturprüfung";
+
 /* Health Certificate Validation Errors */
 
 "HealthCertificate_Validation_Error_Title" = "Überprüfung fehlgeschlagen";
