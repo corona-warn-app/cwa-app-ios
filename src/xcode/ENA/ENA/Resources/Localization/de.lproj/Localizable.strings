@@ -2534,7 +2534,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Checkout */
 
-"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt";
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
 
