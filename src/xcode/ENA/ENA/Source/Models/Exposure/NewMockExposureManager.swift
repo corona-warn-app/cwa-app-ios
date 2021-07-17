@@ -22,10 +22,6 @@ final class NewMockExposureManager: NSObject {
 		self.exposureNotificationError = exposureNotificationError
 		self.diagnosisKeysResult = diagnosisKeysResult
 
-		self.exposureNotificationStatus = ENStatus.unknown
-		self.exposureNotificationEnabled = false
-		self.dispatchQueue = DispatchQueue.main
-
 		#if RELEASE
 		// This whole class would/should be wrapped in a DEBUG block. However, there were some
 		// issues with the handling of community and debug builds so we chose this way to prevent
@@ -85,10 +81,10 @@ final class NewMockExposureManager: NSObject {
 
 	// MARK: - Configuring the Manager
 
-	var exposureNotificationStatus: ENStatus
-	var exposureNotificationEnabled: Bool
-	static var authorizationStatus: ENAuthorizationStatus = ENAuthorizationStatus.unknown
-	var dispatchQueue: DispatchQueue
+	var exposureNotificationStatus = ENStatus.unknown
+	var exposureNotificationEnabled = false
+	static var authorizationStatus = ENAuthorizationStatus.unknown
+	var dispatchQueue = DispatchQueue.main
 
 	// MARK: - Preauthorizing Exposure Keys
 
