@@ -452,6 +452,7 @@
 		35EA68522555488600335F73 /* SQLiteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA68512555488600335F73 /* SQLiteError.swift */; };
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
+		4BB024EB26A367F000F8499E /* NewMockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB024EA26A367F000F8499E /* NewMockExposureManager.swift */; };
 		500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */; };
 		5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006C274260E2A4900533CAA /* CheckinWithRisk.swift */; };
 		5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */; };
@@ -1661,6 +1662,7 @@
 		35EA68512555488600335F73 /* SQLiteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteError.swift; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
+		4BB024EA26A367F000F8499E /* NewMockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMockExposureManager.swift; sourceTree = "<group>"; };
 		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
 		5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollector.swift; sourceTree = "<group>"; };
 		500DB4CB25CDDECF0038DFED /* PPASResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASResponse.swift; sourceTree = "<group>"; };
@@ -4168,6 +4170,7 @@
 				941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */,
 				514E81332461B97700636861 /* ExposureManager.swift */,
 				CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */,
+				4BB024EA26A367F000F8499E /* NewMockExposureManager.swift */,
 				518A69FA24687D5800444E66 /* RiskLevel.swift */,
 				01D307892562B03B00ADB67B /* RiskState.swift */,
 				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */,
@@ -8088,6 +8091,7 @@
 				BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */,
 				3558CC8725F6225500624F5E /* FileManager+FileSize.swift in Sources */,
 				BAEE121C25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift in Sources */,
+				4BB024EB26A367F000F8499E /* NewMockExposureManager.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */,
 				ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */,
