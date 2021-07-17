@@ -72,3 +72,6 @@ final class NewMockExposureManager: NSObject {
 	var invalidationHandler: (() -> Void)?
 
 }
+
+extension NewMockExposureManager: Manager {
+}
