@@ -3,7 +3,6 @@
 //
 
 import ExposureNotification
-import UIKit
 
 /// The idea is to define this mock as close as possible to the original interface of ENManager (iOS API), but to the minimum required in cwa (which is Manager)
 final class NewMockExposureManager: NSObject {
@@ -25,7 +24,7 @@ final class NewMockExposureManager: NSObject {
 
 		self.exposureNotificationStatus = ENStatus.unknown
 		self.exposureNotificationEnabled = false
-		self.dispatchQueue = DispatchQueue(label: "MockExposureManager")
+		self.dispatchQueue = DispatchQueue.main
 
 		#if RELEASE
 		// This whole class would/should be wrapped in a DEBUG block. However, there were some
@@ -37,23 +36,52 @@ final class NewMockExposureManager: NSObject {
 	
 	// MARK: - Activating the Manager
 
-	func activate(completionHandler: @escaping ENErrorHandler) {}
-	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {}
+	func activate(completionHandler: @escaping ENErrorHandler) {
+		DispatchQueue.main.async {
+			completionHandler(nil)
+		}
+	}
+
+	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {
+		exposureNotificationEnabled = enabled
+		DispatchQueue.main.async {
+			completionHandler(nil)
+		}
+	}
 
 	// MARK: - Obtaining Exposure Information
 
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+		dispatchQueue.async {
+			// assuming successfull execution and no exposures
+			completionHandler(ENExposureDetectionSummary(), nil)
+		}
 		return Progress()
 	}
 
 	func getExposureWindows(from summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
+		dispatchQueue.async {
+			// assuming successfull execution and empty list of exposure windows
+			completionHandler([], nil)
+		}
 		return Progress()
 	}
 
 	// MARK: - Obtaining Exposure Keys
 
-	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {}
-	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {}
+	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		dispatchQueue.async {
+			// swiftlint:disable:next force_unwrapping
+			completionHandler(self.diagnosisKeysResult!.0, self.diagnosisKeysResult!.1)
+		}
+	}
+
+	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		dispatchQueue.async {
+			// swiftlint:disable:next force_unwrapping
+			completionHandler(self.diagnosisKeysResult!.0, self.diagnosisKeysResult!.1)
+		}
+	}
 
 	// MARK: - Configuring the Manager
 
@@ -64,11 +92,22 @@ final class NewMockExposureManager: NSObject {
 
 	// MARK: - Preauthorizing Exposure Keys
 
-	func preAuthorizeKeys(completion: @escaping  ENErrorHandler) {}
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping  ENErrorHandler) {
+		dispatchQueue.async {
+			completion(nil)
+		}
+	}
 
 	// MARK: - Invalidating the Manager
 
-	func invalidate() {}
+	func invalidate() {
+		if let handler = invalidationHandler {
+			dispatchQueue.async {
+				handler()
+			}
+		}
+	}
 	var invalidationHandler: (() -> Void)?
 
 }
