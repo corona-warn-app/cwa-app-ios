@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CustomDashedView: UIView {
+class CustomDashedView: UIControl {
 	
 	// MARK: - Overrides
 
@@ -27,6 +27,12 @@ class CustomDashedView: UIView {
 		layer.addSublayer(borderLayer)
 		layer.cornerRadius = cornerRadius
 		self.dashBorder = borderLayer
+	}
+
+	override var accessibilityElements: [Any]? {
+		get { [label, icon].compactMap { $0 } }
+		// swiftlint:disable:next unused_setter_value
+		set { }
 	}
 	
 	// MARK: - Internal
@@ -96,17 +102,20 @@ class CustomDashedView: UIView {
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)
 		accessibilityTraits = [.button, .staticText]
+		accessibilityLabel = label.text
+		isAccessibilityElement = true
 
 		// ensure we don't assign this one multiple times
 		gestureRecognizers?.forEach { rec in
 			removeGestureRecognizer(rec)
 		}
-		// add tap recognizer
-		addGestureRecognizer(tapRecognizer)
+
+		// user interaction
+		addTarget(self, action: #selector(onTap), for: .touchUpInside)
 	}
 
 	@objc
-	private func onTap(_ sender: UITapGestureRecognizer) {
+	private func onTap(_ sender: Any?) {
 		tapHandler?()
 	}
 }

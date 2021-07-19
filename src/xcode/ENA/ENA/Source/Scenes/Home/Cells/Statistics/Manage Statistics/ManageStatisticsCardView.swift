@@ -75,7 +75,6 @@ class ManageStatisticsCardView: UIView {
 		let modifyView = { () -> CustomDashedView in
 			let modify = CustomDashedView.instance(for: .modify, isEnabled: true)
 			modify.tapHandler = { [weak self] in
-				Log.debug("modify…", log: .ui)
 				self?.onEditButtonTap?()
 			}
 			modify.label.onAccessibilityFocus = onAccessibilityFocus
@@ -105,12 +104,12 @@ class ManageStatisticsCardView: UIView {
 	private func createAddView(isEnabled: Bool) -> CustomDashedView {
 		let addView = CustomDashedView.instance(for: .add, isEnabled: isEnabled)
 		addView.tapHandler = { [weak self] in
-			Log.debug("add…", log: .ui)
-				self?.onAddLocalIncidenceButtonPressed()
+			self?.onAddLocalIncidenceButtonPressed()
 		}
 		addView.label.onAccessibilityFocus = onAccessibilityFocus
 		return addView
 	}
+
 	private func presentAddLocalStatistics(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
 			selectValueViewModel,
