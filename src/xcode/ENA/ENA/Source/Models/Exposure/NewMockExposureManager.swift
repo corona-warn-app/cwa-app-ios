@@ -10,16 +10,19 @@ final class NewMockExposureManager: NSObject {
 
 	// MARK: Properties
 
-	let exposureNotificationError: ExposureNotificationError?
+	let defaultError: ENError?
 	let diagnosisKeysResult: MockDiagnosisKeysResult?
+	var enabled: Bool = true
+	var lastCall: Date?
+	let minDistanceBetweenCalls: TimeInterval = 4 * 3600
 
 	// MARK: Creating a Mocked Manager
 
 	init(
-		exposureNotificationError: ExposureNotificationError?,
+		defaultError: ENError?,
 		diagnosisKeysResult: MockDiagnosisKeysResult?
 	) {
-		self.exposureNotificationError = exposureNotificationError
+		self.defaultError = defaultError
 		self.diagnosisKeysResult = diagnosisKeysResult
 
 		#if RELEASE
@@ -39,7 +42,7 @@ final class NewMockExposureManager: NSObject {
 	}
 
 	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {
-		exposureNotificationEnabled = enabled
+		self.enabled = enabled
 		DispatchQueue.main.async {
 			completionHandler(nil)
 		}
@@ -48,9 +51,23 @@ final class NewMockExposureManager: NSObject {
 	// MARK: - Obtaining Exposure Information
 
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+		
+		let now = Date()
+        var error = defaultError
+		if let last = lastCall {
+			if now.timeIntervalSince(last) < minDistanceBetweenCalls {
+				error = ENError(.rateLimited)
+			}
+		}
+		lastCall = now
 		dispatchQueue.async {
-			// assuming successfull execution and no exposures
-			completionHandler(ENExposureDetectionSummary(), nil)
+			if error == nil {
+				// assuming successfull execution and no exposures
+				completionHandler(ENExposureDetectionSummary(), error)
+			} else {
+				// error case
+				completionHandler(nil, error)
+			}
 		}
 		return Progress()
 	}
@@ -81,9 +98,19 @@ final class NewMockExposureManager: NSObject {
 
 	// MARK: - Configuring the Manager
 
-	var exposureNotificationStatus = ENStatus.unknown
-	var exposureNotificationEnabled = false
-	static var authorizationStatus = ENAuthorizationStatus.unknown
+	var exposureNotificationStatus: ENStatus {
+		if enabled {
+			return ENStatus.active
+		} else {
+			return ENStatus.disabled
+		}
+	}
+	var exposureNotificationEnabled: Bool {
+		return enabled
+	}
+	static var authorizationStatus: ENAuthorizationStatus {
+		return ENAuthorizationStatus.authorized
+	}
 	var dispatchQueue = DispatchQueue.main
 
 	// MARK: - Preauthorizing Exposure Keys

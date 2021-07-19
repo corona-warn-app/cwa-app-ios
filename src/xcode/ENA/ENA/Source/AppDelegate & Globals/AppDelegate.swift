@@ -308,7 +308,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// entitlements to also use the app
 	lazy var exposureManager: ExposureManager = {
 		let keys = [ENTemporaryExposureKey()]
-		let mock = NewMockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+		let defaultError = ENError(.restricted)
+		let mock = NewMockExposureManager(defaultError: defaultError, diagnosisKeysResult: (keys, defaultError))
 		return ENAExposureManager(manager: mock)
 	}()
 	#else
