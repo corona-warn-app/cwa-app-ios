@@ -8,6 +8,18 @@ class CustomDashedView: UIControl {
 	
 	// MARK: - Overrides
 
+	override var isEnabled: Bool {
+		didSet {
+			if isEnabled {
+				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+				icon.image = UIImage(named: "Icon_Add")
+			} else {
+				label.text = AppStrings.Statistics.AddCard.disabledAddTitle
+				icon.image = UIImage(named: "Icon_Add_Grey")
+			}
+		}
+	}
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
@@ -45,13 +57,12 @@ class CustomDashedView: UIControl {
 
 	var tapHandler: (() -> Void)?
 
-	class func instance(for mode: Mode, isEnabled: Bool) -> CustomDashedView {
+	class func instance(for mode: Mode) -> CustomDashedView {
 		let nibName = String(describing: Self.self)
-
 		guard let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomDashedView else {
 			fatalError("Could not initialize CustomDashedView")
 		}
-		view.configure(for: mode, isEnabled: isEnabled)
+		view.configure(for: mode)
 		return view
 	}
 	
@@ -74,24 +85,14 @@ class CustomDashedView: UIControl {
 	@IBInspectable private var betweenDashesSpace: CGFloat = 5
 
 	private var dashBorder: CAShapeLayer?
-	private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
 
-	private func configure(for mode: Mode, isEnabled: Bool) {
+	private func configure(for mode: Mode) {
 		switch mode {
 		case .add:
-			if isEnabled {
-				tapRecognizer.isEnabled = true
-				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
-				icon.image = UIImage(named: "Icon_Add")
-			} else {
-				tapRecognizer.isEnabled = false
-				label.text = AppStrings.Statistics.AddCard.disabledAddTitle
-				icon.image = UIImage(named: "Icon_Add_Grey")
-			}
+			isEnabled = true // design is based on `isEnabled` state
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
 
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-			
 			
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
@@ -101,14 +102,9 @@ class CustomDashedView: UIControl {
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)
-		accessibilityTraits = [.button, .staticText]
+		accessibilityTraits = [.button, .allowsDirectInteraction]
 		accessibilityLabel = label.text
 		isAccessibilityElement = true
-
-		// ensure we don't assign this one multiple times
-		gestureRecognizers?.forEach { rec in
-			removeGestureRecognizer(rec)
-		}
 
 		// user interaction
 		addTarget(self, action: #selector(onTap), for: .touchUpInside)
