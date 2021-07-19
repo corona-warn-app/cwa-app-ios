@@ -37,8 +37,8 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	// function to get local statistics for N saved districts which are passed as an array
 	// returns an array of type SelectedLocalStatisticsTuple which contains the data for a particular group
 	// and the district information which will be then used for filtering.
-	func latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
-		return fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: selectedlocalStatisticsDistricts, completion: completion)
+	func latestSelectedLocalStatistics(selectedlocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
+		return fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: selectedlocalStatisticsRegions, completion: completion)
 	}
 
 	// MARK: - Private
@@ -48,7 +48,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	private var selectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple]
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
+	private func fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
 		
 		self.selectedLocalStatisticsTuples = []
 
@@ -70,10 +70,10 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 						case .finished:
 							break
 						case .failure(let error):
-							Log.error("[LocalStatisticsProvider] Could not fetch saved local statistics for district: \(localStatisticsDistrict.districtName): \(error)", log: .api)
+							Log.error("[LocalStatisticsProvider] Could not fetch saved local statistics for district: \(localStatisticsDistrict.name): \(error)", log: .api)
 						}
 					}, receiveValue: { [weak self] in
-						self?.selectedLocalStatisticsTuples.append(SelectedLocalStatisticsTuple(localStatisticsData: $0.administrativeUnitData, localStatisticsDistrict: localStatisticsDistrict))
+						self?.selectedLocalStatisticsTuples.append(SelectedLocalStatisticsTuple(federalStateAndDistrictsData: $0, localStatisticsRegion: localStatisticsDistrict))
 						localStatisticsGroup.leave()
 					}
 				)
