@@ -2534,7 +2534,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Checkout */
 
-"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt";
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
 
@@ -2734,7 +2734,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_QRScanner_title" = "QR-Code Scan";
 
-"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
+"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
 
 /* Home */
 
