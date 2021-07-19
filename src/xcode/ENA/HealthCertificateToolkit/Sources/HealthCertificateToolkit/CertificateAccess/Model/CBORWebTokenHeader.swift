@@ -17,13 +17,13 @@ public struct CBORWebTokenHeader: Codable, Equatable {
     // MARK: - Internal
 
     public let issuer: String
-    public let issuedAt: UInt64
-    public let expirationTime: UInt64
+    public let issuedAt: Date
+    public let expirationTime: Date
 
     public static func fake(
         issuer: String = "issuer",
-        issuedAt: UInt64 = UInt64(Date().timeIntervalSince1970),
-        expirationTime: UInt64 = 0
+        issuedAt: Date = Date(),
+        expirationTime: Date = Date(timeIntervalSince1970: 0)
     ) -> CBORWebTokenHeader {
         CBORWebTokenHeader(
             issuer: issuer,
