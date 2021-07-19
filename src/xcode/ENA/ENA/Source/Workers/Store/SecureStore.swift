@@ -115,6 +115,12 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["appInstallationDate"] = newValue }
 	}
 
+	var enfRiskCalculationDate: Date? {
+		get { kvStore["enfRiskCalculationDate"] as Date? ??
+			enfRiskCalculationResult?.calculationDate }
+		set { kvStore["enfRiskCalculationDate"] = newValue }
+	}
+
 	var enfRiskCalculationResult: ENFRiskCalculationResult? {
 		// Old named key matches not to property name to avoid migration.
 		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }

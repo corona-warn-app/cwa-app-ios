@@ -11,6 +11,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
+	var enfRiskCalculationDate: Date?
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
