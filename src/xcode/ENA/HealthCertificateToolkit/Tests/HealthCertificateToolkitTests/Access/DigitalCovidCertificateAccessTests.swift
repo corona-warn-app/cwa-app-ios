@@ -198,8 +198,8 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
-                issuedAt: 1619167131,
-                expirationTime: 1622725423
+                issuedAt: Date(timeIntervalSince1970: 1619167131),
+                expirationTime: Date(timeIntervalSince1970: 1622725423)
             )
         )
     }()
@@ -235,8 +235,8 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
-                issuedAt: 1619167131,
-                expirationTime: 1622725423
+                issuedAt: Date(timeIntervalSince1970: 1619167131),
+                expirationTime: Date(timeIntervalSince1970: 1622725423)
             )
         )
     }()
@@ -269,8 +269,8 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
             ),
             header: CBORWebTokenHeader(
                 issuer: "DE",
-                issuedAt: 1619167131,
-                expirationTime: 1622725423
+                issuedAt: Date(timeIntervalSince1970: 1619167131),
+                expirationTime: Date(timeIntervalSince1970: 1622725423)
             )
         )
     }()
