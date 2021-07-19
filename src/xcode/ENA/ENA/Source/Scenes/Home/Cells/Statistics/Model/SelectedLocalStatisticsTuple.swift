@@ -6,6 +6,6 @@ struct SelectedLocalStatisticsTuple {
 	
 	// MARK: - Internal
 
-	var localStatisticsData: [SAP_Internal_Stats_AdministrativeUnitData]
-	var localStatisticsDistrict: LocalStatisticsDistrict
+	var federalStateAndDistrictsData: SAP_Internal_Stats_LocalStatistics
+	var localStatisticsRegion: LocalStatisticsRegion
 }
