@@ -56,7 +56,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
-		let expirationTime: UInt64 = 1625655530
+		let expirationTime = Date(timeIntervalSince1970: 1625655530)
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
@@ -149,7 +149,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
-		let expirationTime: UInt64 = 1625655530
+		let expirationTime = Date(timeIntervalSince1970: 1625655530)
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
@@ -242,7 +242,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
-		let expirationTime: UInt64 = 1625655530
+		let expirationTime = Date(timeIntervalSince1970: 1625655530)
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
@@ -327,7 +327,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
-		let expirationTime: UInt64 = 1625655530
+		let expirationTime = Date(timeIntervalSince1970: 1625655530)
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
