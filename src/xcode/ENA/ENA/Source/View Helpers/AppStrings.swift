@@ -2110,6 +2110,7 @@ enum AppStrings {
 			static let legalTitle = NSLocalizedString("HealthCertificate_Validation_Legal_Title", comment: "")
 			static let legalDescription = NSLocalizedString("HealthCertificate_Validation_Legal_Description", comment: "")
 			static let body4 = NSLocalizedString("HealthCertificate_Validation_Body4", comment: "")
+			static let buttonTitle = NSLocalizedString("HealthCertificate_Validation_ButtonTitle", comment: "")
 
 			enum Info {
 				static let imageDescription = NSLocalizedString("HealthCertificate_Validation_Info_imageDescription", comment: "")
