@@ -10,6 +10,9 @@ class CustomDashedView: UIControl {
 
 	override var isEnabled: Bool {
 		didSet {
+			// design for add-card is based on this state
+			// using accessibility identifier to prevent yet another `mode` property
+			guard accessibilityIdentifier == AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton else { return }
 			if isEnabled {
 				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
 				icon.image = UIImage(named: "Icon_Add")
@@ -89,10 +92,9 @@ class CustomDashedView: UIControl {
 	private func configure(for mode: Mode) {
 		switch mode {
 		case .add:
-			isEnabled = true // design is based on `isEnabled` state
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
-
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+			isEnabled = true // explicit call to trigger design adjustment
 			
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
@@ -107,7 +109,7 @@ class CustomDashedView: UIControl {
 		isAccessibilityElement = true
 
 		// user interaction
-		addTarget(self, action: #selector(onTap), for: .touchUpInside)
+		addTarget(self, action: #selector(onTap(_:)), for: .touchUpInside)
 	}
 
 	@objc
