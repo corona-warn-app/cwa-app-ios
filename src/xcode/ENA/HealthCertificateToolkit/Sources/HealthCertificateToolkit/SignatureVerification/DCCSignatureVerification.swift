@@ -22,7 +22,7 @@ public struct DCCSignatureVerifyingStub: DCCSignatureVerifying {
 
     let error: DCCSignatureVerificationError?
 
-    public init(error: DCCSignatureVerificationError?) {
+    public init(error: DCCSignatureVerificationError? = nil) {
         self.error = error
     }
 

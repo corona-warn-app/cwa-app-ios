@@ -308,6 +308,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
+		signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 		client: client,
 		appConfiguration: appConfigurationProvider
 	)

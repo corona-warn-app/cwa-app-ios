@@ -14,6 +14,7 @@ class HealthCertificateService {
 	// swiftlint:disable:next cyclomatic_complexity
 	init(
 		store: HealthCertificateStoring,
+		signatureVerifying: DCCSignatureVerifying,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
@@ -22,6 +23,7 @@ class HealthCertificateService {
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+			self.signatureVerifying = signatureVerifying
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
@@ -113,6 +115,7 @@ class HealthCertificateService {
 		#endif
 
 		self.store = store
+		self.signatureVerifying = signatureVerifying
 		self.client = client
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
@@ -133,10 +136,7 @@ class HealthCertificateService {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
-			// use final DCCSignatureVerifying service here in the future - not yet available
-			let signatureVerifying = DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1)
-			let result = signatureVerifying.verify(certificate: base45, with: [])
-			if case .failure = result {
+			if case .failure = signatureVerifying.verify(certificate: base45, with: [], and: Date()) {
 				return .failure(.invalidSignature)
 			}
 
@@ -376,6 +376,7 @@ class HealthCertificateService {
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
+	private let signatureVerifying: DCCSignatureVerifying
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
