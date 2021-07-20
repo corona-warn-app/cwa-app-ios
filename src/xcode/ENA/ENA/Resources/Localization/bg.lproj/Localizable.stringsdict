@@ -266,5 +266,35 @@
 			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>В момента няма налични правила относно влизането в избраната държава в посоченото време за този вид сертификат. Моля, обърнете внимание на следното:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

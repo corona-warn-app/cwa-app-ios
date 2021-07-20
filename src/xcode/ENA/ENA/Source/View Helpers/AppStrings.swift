@@ -1372,6 +1372,8 @@ enum AppStrings {
 		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
 		enum AddCard {
 			static let sevenDayIncidence = NSLocalizedString("Statistics_Add_SevenDayIncidence", comment: "")
+			static let disabledAddTitle = NSLocalizedString("Statistics_Add_DisabledAddTitle", comment: "")
+
 			static let localCardTitle = NSLocalizedString("Statistics_Add_LocalCardTitle", comment: "")
 			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
 			static let localCardPrimarySubtitle = NSLocalizedString("Statistics_Card_Add_LocalCardPrimarySubtitle", comment: "")
@@ -2111,6 +2113,7 @@ enum AppStrings {
 			static let legalTitle = NSLocalizedString("HealthCertificate_Validation_Legal_Title", comment: "")
 			static let legalDescription = NSLocalizedString("HealthCertificate_Validation_Legal_Description", comment: "")
 			static let body4 = NSLocalizedString("HealthCertificate_Validation_Body4", comment: "")
+			static let buttonTitle = NSLocalizedString("HealthCertificate_Validation_ButtonTitle", comment: "")
 
 			enum Info {
 				static let imageDescription = NSLocalizedString("HealthCertificate_Validation_Info_imageDescription", comment: "")

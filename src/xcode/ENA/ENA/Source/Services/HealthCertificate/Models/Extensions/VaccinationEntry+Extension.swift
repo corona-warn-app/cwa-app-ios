@@ -15,6 +15,10 @@ extension VaccinationEntry {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfVaccination)
 	}
 
+	var doseNumberAndTotalSeriesOfDoses: String {
+		"\(doseNumber) of \(totalSeriesOfDoses)"
+	}
+
 	// swiftlint:disable:next cyclomatic_complexity
 	func title(for keyPath: PartialKeyPath<VaccinationEntry>) -> String? {
 		switch keyPath {
@@ -30,6 +34,8 @@ extension VaccinationEntry {
 			return "Nummer der Impfung / Number in a series of vaccinations"
 		case \VaccinationEntry.totalSeriesOfDoses:
 			return "Gesamtzahl an Impfdosen / Total number of vaccination doses"
+		case \VaccinationEntry.doseNumberAndTotalSeriesOfDoses:
+			return "Nummer der Impfung / Number in a series of vaccinations"
 		case \VaccinationEntry.dateOfVaccination:
 			return "Datum der Impfung / Date of Vaccination (YYYY-MM-DD)"
 		case \VaccinationEntry.countryOfVaccination:
@@ -66,6 +72,8 @@ extension VaccinationEntry {
 			return String(doseNumber)
 		case \VaccinationEntry.totalSeriesOfDoses:
 			return String(totalSeriesOfDoses)
+		case \VaccinationEntry.doseNumberAndTotalSeriesOfDoses:
+			return doseNumberAndTotalSeriesOfDoses
 		case \VaccinationEntry.dateOfVaccination:
 			return DCCDateStringFormatter.formattedString(from: dateOfVaccination)
 		case \VaccinationEntry.countryOfVaccination:

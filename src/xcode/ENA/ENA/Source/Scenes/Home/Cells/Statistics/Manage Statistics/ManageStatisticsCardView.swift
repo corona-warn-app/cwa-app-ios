@@ -45,7 +45,7 @@ class ManageStatisticsCardView: UIView {
 		updateUI(for: availableCardsState)
 	}
 
-	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
+	private func onAddLocalIncidenceButtonPressed() {
 		guard let model = self.model else {
 			Log.warning("AddStatistics model is nil", log: .localStatistics)
 			return
@@ -71,19 +71,9 @@ class ManageStatisticsCardView: UIView {
 			stackView.removeArrangedSubview(subview)
 			subview.removeFromSuperview()
 		}
-
-		let addView = { () -> CustomDashedView in
-			let add = CustomDashedView.instance(for: .add)
-			add.tapHandler = { [weak self] in
-				Log.debug("add…", log: .ui)
-				self?.onAddLocalIncidenceButtonPressed(add)
-			}
-			add.label.onAccessibilityFocus = onAccessibilityFocus
-			return add
-		}()
-
+		
 		let modifyView = { () -> CustomDashedView in
-			let modify = CustomDashedView.instance(for: .modify)
+			let modify = CustomDashedView.instance(for: .modify, isEnabled: true)
 			modify.tapHandler = { [weak self] in
 				Log.debug("modify…", log: .ui)
 				self?.onEditButtonTap?()
@@ -95,19 +85,32 @@ class ManageStatisticsCardView: UIView {
 		switch state {
 		case .empty:
 			// just 'add'
+			let addView = createAddView(isEnabled: true)
 			stackView.addArrangedSubview(addView)
 		case .notYetFull:
 			// 'add' & 'modify'
+			let addView = createAddView(isEnabled: true)
 			stackView.addArrangedSubview(addView)
 			stackView.addArrangedSubview(modifyView)
 		case .full:
-			// just 'modify'
+			// disable 'add' & enable 'modify'
+			let addView = createAddView(isEnabled: false)
+			stackView.addArrangedSubview(addView)
 			stackView.addArrangedSubview(modifyView)
 		}
 	}
 	
 	// MARK: - Private
-
+	
+	private func createAddView(isEnabled: Bool) -> CustomDashedView {
+		let addView = CustomDashedView.instance(for: .add, isEnabled: isEnabled)
+		addView.tapHandler = { [weak self] in
+			Log.debug("add…", log: .ui)
+				self?.onAddLocalIncidenceButtonPressed()
+		}
+		addView.label.onAccessibilityFocus = onAccessibilityFocus
+		return addView
+	}
 	private func presentAddLocalStatistics(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
 			selectValueViewModel,

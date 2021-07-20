@@ -266,5 +266,35 @@
 			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u de zile.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>În prezent nu sunt disponibile reguli de intrare pentru țara selectată și ora selectată pentru acest tip de certificat. Rețineți următoarele:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>%u regulă a țării de destinație a fost verificată cu succes.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>%u reguli ale țării de destinație au fost verificate cu succes.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>%u reguli ale țării de destinație au fost verificate cu succes.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>%u reguli ale țării de destinație au fost verificate cu succes.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>%u de reguli ale țării de destinație au fost verificate cu succes.</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

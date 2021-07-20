@@ -1924,6 +1924,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Add_SevenDayIncidence" = "Lokale 7-Tage-Inzidenz hinzufügen";
 
+"Statistics_Add_DisabledAddTitle" = "Maximale Anzahl der lokalen 7-Tage-Inzidenz erreicht";
+
 "Statistics_Add_LocalCardTitle" = "Lokale 7-Tage-Inzidenz";
 
 "Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
@@ -2532,7 +2534,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Checkout */
 
-"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt";
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
 
@@ -2732,7 +2734,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_QRScanner_title" = "QR-Code Scan";
 
-"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und registrieren";
+"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
 
 /* Home */
 
@@ -2916,6 +2918,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_Legal_Description" = "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt.";
 
 "HealthCertificate_Validation_Body4" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
+"HealthCertificate_Validation_ButtonTitle" = "Prüfen";
 
 /* Health Certificate Validation Result */
 

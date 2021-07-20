@@ -819,6 +819,9 @@
 		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
+		AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */; };
+		AB34787C269C93C20016A8AB /* CertLogicEngineTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB34787A269C92B00016A8AB /* CertLogicEngineTestData.swift */; };
+		AB34787D269C93C40016A8AB /* CertLogicEngineTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB34787A269C92B00016A8AB /* CertLogicEngineTestData.swift */; };
 		AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3560992547167800C3F8E0 /* DeviceTimeCheck.swift */; };
 		AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */; };
 		AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = AB42A192263C284200892536 /* HealthCertificateToolkit */; };
@@ -2136,6 +2139,8 @@
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
+		AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dcc-validation-rules-common-test-cases.json"; sourceTree = "<group>"; };
+		AB34787A269C92B00016A8AB /* CertLogicEngineTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertLogicEngineTestData.swift; sourceTree = "<group>"; };
 		AB3560992547167800C3F8E0 /* DeviceTimeCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTimeCheck.swift; sourceTree = "<group>"; };
 		AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTimeCheckTests.swift; sourceTree = "<group>"; };
 		AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManagerTests.swift; sourceTree = "<group>"; };
@@ -4281,6 +4286,7 @@
 		5078DCA22684B3F400535917 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				AB88AAFD2698899E00BC1731 /* TestData */,
 				500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */,
 			);
 			path = __tests__;
@@ -5707,6 +5713,15 @@
 				AB7DE73325C8528600C52B3F /* ExposureDetectionSurveyCellModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		AB88AAFD2698899E00BC1731 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */,
+				AB34787A269C92B00016A8AB /* CertLogicEngineTestData.swift */,
+			);
+			path = TestData;
 			sourceTree = "<group>";
 		};
 		AB8BC3452551B94200F3B5A7 /* Doubles */ = {
@@ -7790,6 +7805,7 @@
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
+				AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 				50412F32268AFA3500E4087C /* api-response-rule in Resources */,
@@ -8571,6 +8587,7 @@
 				018FD48D2697561A000088F8 /* ValidationResultCellModel.swift in Sources */,
 				0138F69025F21C8000A9B075 /* TraceLocationCellModel.swift in Sources */,
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
+				AB34787D269C93C40016A8AB /* CertLogicEngineTestData.swift in Sources */,
 				341DC3312682401D0003E6BA /* LocalStatisticsProvider.swift in Sources */,
 				BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */,
 				AB190EA925FB705500FBFF0D /* CreateTraceTimeIntervalMatchQuery.swift in Sources */,
@@ -8829,6 +8846,7 @@
 				01CBD890261B402500158B3E /* PCRTest+Mock.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */,
+				AB34787C269C93C20016A8AB /* CertLogicEngineTestData.swift in Sources */,
 				35BDAB2E25F1148E004DFE32 /* ELSServiceTests.swift in Sources */,
 				B1E23B8624FE4DD3006BCDA6 /* PublicKeyProviderTests.swift in Sources */,
 				01B605D9258A49E70093DB8E /* DiaryLocationTest.swift in Sources */,
@@ -9251,7 +9269,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9406,7 +9424,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -9585,7 +9603,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -9826,7 +9844,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9866,7 +9884,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -10009,7 +10027,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10053,7 +10071,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10096,7 +10114,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
