@@ -73,6 +73,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			if healthCertificates != oldValue {
 				updateVaccinationState()
 				updateMostRelevantHealthCertificate()
+				updateHealthCertificateSubscriptions(for: healthCertificates)
 
 				objectDidChange.send(self)
 			}
@@ -126,6 +127,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertificateSubscriptions = Set<AnyCancellable>()
+
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
@@ -154,6 +157,23 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		subscribeToNotifications()
 		scheduleMostRelevantCertificateTimer()
+	}
+
+	private func updateHealthCertificateSubscriptions(for healthCertificates: [HealthCertificate]) {
+		healthCertificateSubscriptions = []
+
+		healthCertificates.forEach { healthCertificate in
+			healthCertificate.objectDidChange
+				.sink { [weak self] healthCertificate in
+					guard let self = self else { return }
+
+					self.updateVaccinationState()
+					self.updateMostRelevantHealthCertificate()
+
+					self.objectDidChange.send(self)
+				}
+				.store(in: &healthCertificateSubscriptions)
+		}
 	}
 
 	private func updateVaccinationState() {

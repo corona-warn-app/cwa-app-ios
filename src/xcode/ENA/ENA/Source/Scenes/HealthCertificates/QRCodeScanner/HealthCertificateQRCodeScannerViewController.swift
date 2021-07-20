@@ -156,9 +156,9 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		#if DEBUG
 		if isUITesting {
 			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				viewModel?.didScan(base45: HealthCertificate.lastBase45Mock)
+				viewModel?.didScan(base45: HealthCertificateMocks.lastBase45Mock)
 			} else {
-				viewModel?.didScan(base45: HealthCertificate.firstBase45Mock)
+				viewModel?.didScan(base45: HealthCertificateMocks.firstBase45Mock)
 			}
 
 			return

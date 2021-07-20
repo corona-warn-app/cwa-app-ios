@@ -18,7 +18,6 @@ class HealthCertificateService {
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
 	) {
-
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
@@ -30,10 +29,10 @@ class HealthCertificateService {
 
 			// check launch arguments ->
 			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
 			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
-				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
-				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
+				registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
 			}
 			
 
