@@ -192,7 +192,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 
 	// MARK: Protocol DSCListFetching
 
-	func getDSCList(
+	func fetchDSCList(
 		etag: String?,
 		completion: @escaping DSCListCompletionHandler
 	) {

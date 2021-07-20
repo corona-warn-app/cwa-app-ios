@@ -18,7 +18,7 @@ protocol DSCListFetching {
 
 	typealias DSCListCompletionHandler = (Result<DSCListResponse, Error>) -> Void
 
-	func getDSCList(etag: String?, completion: @escaping DSCListCompletionHandler)
+	func fetchDSCList(etag: String?, completion: @escaping DSCListCompletionHandler)
 
 }
 

@@ -143,7 +143,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 
 	var onFetchLocalDSCList: ((String?, @escaping CachingHTTPClient.DSCListCompletionHandler) -> Void)?
 
-	override func getDSCList(
+	override func fetchDSCList(
 		etag: String?,
 		completion: @escaping DSCListCompletionHandler
 	) {

@@ -14,7 +14,7 @@ class DSCListProvidingTests: XCTestCase {
 		let client = CachingHTTPClientMock()
 
 		// WHEN
-		client.getDSCList(etag: "fake") { result in
+		client.fetchDSCList(etag: "fake") { result in
 			switch result {
 			case .success(let response):
 				XCTAssertNotNil(response.eTag)
