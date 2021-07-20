@@ -209,9 +209,9 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 					let package = try self.verifyPackage(in: response)
 					let DSCList = try SAP_Internal_Dgc_DscList(serializedData: package.bin)
 					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let DSCListResponse = DSCListResponse(dscList: DSCList, eTag: responseETag)
+					let dscListResponse = DSCListResponse(dscList: DSCList, eTag: responseETag)
 					Log.info("Received DSCList \(try DSCList.jsonString())", log: .vaccination)
-					completion(.success(DSCListResponse))
+					completion(.success(dscListResponse))
 				} catch {
 					completion(.failure(error))
 				}
