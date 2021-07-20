@@ -43,7 +43,6 @@ final class ClientMock {
 	var fetchPackageRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
 	var downloadedPackage: PackageDownloadResponse?
-
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
 		let codes = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"]
