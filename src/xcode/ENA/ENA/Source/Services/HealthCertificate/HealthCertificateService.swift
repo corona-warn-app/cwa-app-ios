@@ -136,11 +136,12 @@ class HealthCertificateService {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
+			let healthCertificate = try HealthCertificate(base45: base45)
+
+			// check signature
 			if case .failure = signatureVerifying.verify(certificate: base45, with: [], and: Date()) {
 				return .failure(.invalidSignature)
 			}
-
-			let healthCertificate = try HealthCertificate(base45: base45)
 
 			let healthCertifiedPerson = healthCertifiedPersons.value
 				.first(where: {
