@@ -94,13 +94,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { administrativeUnitsData in
 				Log.debug("update with \(keyFigureCellModel.localAdministrativeUnitStatistics.count) administrative local stats", log: .localStatistics)
-				
-				// check to separate the single entry and multiple entries
-				
+								
 				let administrativeUnit = administrativeUnitsData.first {
 					$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
 				}
-				
 				// needed for UI updates
 				self.localStatisticsCache = store
 				
@@ -168,7 +165,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				
 				for singleSelectedLocalStatistics in selectedLocalStatistics {
 					
-					// check to separate the single entry and multiple entries
 					self.localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
 					let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
 					let regionStatistics: RegionStatisticsData
