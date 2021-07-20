@@ -1869,6 +1869,17 @@
 
 "Statistics_Card_From_CWA" = "prin aplicația Corona-Warn";
 
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Adăugați incidența pe 7 zile la nivel local";
+
+"Statistics_Add_LocalCardTitle" = "Incidența pe 7 zile la nivel local";
+
+"Statistics_Add_fromTheWholeCountry" = "Întregul stat";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "infecții noi confirmate la 100.000 de locuitori";
+
+"Statistics_Card_Manage" = "Editare";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Infecții noi confirmate";
 
@@ -2028,11 +2039,11 @@
 
 "Statistics_Info_Trends_Title" = "Pot fi afișate următoarele tendințe:";
 
-"Statistics_Info_Trends_Increasing" = "Tendință: ascendentă";
+"Statistics_Info_Trends_Increasing" = "Tendință: ascendentă (negativă)";
 
-"Statistics_Info_Trends_Decreasing" = "Tendință: descendentă";
+"Statistics_Info_Trends_Decreasing" = "Tendință: descendentă (pozitivă)";
 
-"Statistics_Info_Trends_Stable" = "Tendință: constantă";
+"Statistics_Info_Trends_Stable" = "Tendință: constantă (neutră)";
 
 "Statistics_Info_Trends_Footnote" = "Evaluarea tendinței pentru avertizările de către utilizatorii aplicației se modifică în funcție de nivelul de infectare curent, de aceea această tendință este afișată întotdeauna ca neutră.";
 
@@ -2759,4 +2770,98 @@
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "Conexiunea dvs. la internet s-a pierdut. Pentru a finaliza verificarea valabilității certificatului, verificați conexiunea și reîncercați.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Valabilitatea certificatului";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Țara";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Data și ora";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Introduceți data intrării dvs. și ora locală.";
+
+"HealthCertificate_Validation_Body1" = "Verificați în avans dacă certificatul dvs. va fi valabil în țara de destinație la momentul călătoriei dvs. Vor fi luate în considerare regulile de intrare pentru țara de destinație selectată.";
+
+"HealthCertificate_Validation_Headline1" = "Verificare pentru";
+
+"HealthCertificate_Validation_Body2" = "Un certificat COVID este o dovadă valabilă pentru deplasarea în UE.";
+
+"HealthCertificate_Validation_Headline2" = "Notă";
+
+"HealthCertificate_Validation_Bullet1" = "Rețineți că regulile de intrare se supun modificărilor. În consecință, verificați certificatul cu puțin timp înainte de a intra în țara de destinație (cu maximum 48 de ore înainte).";
+
+"HealthCertificate_Validation_Bullet2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
+
+"HealthCertificate_Validation_Bullet3" = "Pentru a asigura autenticitatea certificatului, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
+
+"HealthCertificate_Validation_Bullet4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
+
+"HealthCertificate_Validation_Body3" = "Pentru mai multe informații, consultați pagina de întrebări frecvente și vizitați https://reopen.europa.eu/en.";
+
+"HealthCertificate_Validation_Legal_Title" = "Confidențialitate și securitatea datelor";
+
+"HealthCertificate_Validation_Legal_Description" = "Regulile de intrare curente sunt descărcate de pe serverele RKI. Acest lucru necesită o conexiune la internet. Datele de acces sunt transmise către RKI.";
+
+"HealthCertificate_Validation_Body4" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "Intrare în %@ pe %@\nValidat pe %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "Aceasta este o regulă pentru țara dvs. de destinație, %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "Aceasta este o regulă a țării emitente.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "Pentru mai multe informații, consultați %@ sau vizitați %@.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "Întrebări frecvente";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Certificatul este valabil";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Certificatul dvs. este valabil în țara selectată";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Notă";
+
+"HealthCertificate_Validation_Passed_hint1" = "Rețineți că regulile de intrare se supun modificărilor. În consecință, verificați certificatul cu puțin timp înainte de a intra în țara de destinație (cu maximum 48 de ore înainte).";
+
+"HealthCertificate_Validation_Passed_hint2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
+
+"HealthCertificate_Validation_Passed_hint3" = "Pentru a asigura autenticitatea certificatului, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
+
+"HealthCertificate_Validation_Passed_hint4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Verificare pentru o altă țară";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Certificatul nu poate fi validat";
+
+"HealthCertificate_Validation_Open_subtitle" = "Certificatul dvs. nu a putut fi validat complet";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Notă";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "Următoarele reguli nu au putut fi verificate. Asigurați-vă că certificatul îndeplinește regulile țării de destinație.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Certificatul nu este valabil";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Certificatul dvs. nu este valabil în țara selectată";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Validare completă";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Următoarele reguli nu sunt îndeplinite:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Validarea nu este posibilă";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Următoarele reguli nu au putut fi verificate. Asigurați-vă că certificatul îndeplinește regulile țării de destinație.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Certificatul nu este valabil";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Certificatul dvs. nu este valabil în țara selectată";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Verificare tehnică";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Următoarele reguli nu sunt îndeplinite:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Certificatul nu trebuie să fie expirat.";
 

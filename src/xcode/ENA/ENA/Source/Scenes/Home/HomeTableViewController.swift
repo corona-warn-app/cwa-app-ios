@@ -584,7 +584,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func statisticsCell(forRowAt indexPath: IndexPath) -> HomeStatisticsTableViewCell {
+		let cellHeight = viewModel.heightForRow(at: indexPath)
 		if let statisticsCell = statisticsCell {
+			statisticsCell.isHidden = cellHeight == 0
 			return statisticsCell
 		}
 
@@ -646,6 +648,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				}
 			}
 		)
+		
+		cell.isHidden = cellHeight == 0
 
 		statisticsCell = cell
 

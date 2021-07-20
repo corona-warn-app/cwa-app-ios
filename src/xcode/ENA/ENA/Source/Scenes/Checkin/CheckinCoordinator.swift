@@ -71,6 +71,9 @@ final class CheckinCoordinator {
 				if let qrCode = self.qrCodeAfterInfoScreen {
 					self.qrCodeAfterInfoScreen = nil
 					self.showTraceLocationDetailsFromExternalCamera(qrCode)
+				} else if self.showQRCodeScanningScreenAfterInfoScreen { // open qr code scanner screen if necessary
+					self.showQRCodeScanner()
+					self.showQRCodeScanningScreenAfterInfoScreen = false
 				}
 			},
 			showDetail: { detailViewController in
@@ -84,6 +87,14 @@ final class CheckinCoordinator {
 	}()
 	
 	func showQRCodeScanner() {
+		// Info view MUST be shown
+		guard self.infoScreenShown else {
+			Log.debug("Checkin info screen not shown. Skipping further navigation", log: .ui)
+			// set this to true to open qr code scanner screen after info screen has been dismissed
+			self.showQRCodeScanningScreenAfterInfoScreen = true
+			return
+		}
+		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			qrCodeVerificationHelper: verificationService,
 			appConfiguration: appConfiguration,
@@ -155,6 +166,7 @@ final class CheckinCoordinator {
 		set { store.checkinInfoScreenShown = newValue }
 	}
 	private var qrCodeAfterInfoScreen: String?
+	private var showQRCodeScanningScreenAfterInfoScreen: Bool = false
 	
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(

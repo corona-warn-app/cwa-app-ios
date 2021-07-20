@@ -41,7 +41,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	init(
 		store: Store,
 		client: Client,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess()
 	) {
@@ -62,7 +62,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	) {
 		
 		// 1. Apply technical validation
-		let expirationDate = Date(timeIntervalSince1970: TimeInterval(healthCertificate.cborWebTokenHeader.expirationTime))
+		let expirationDate = healthCertificate.cborWebTokenHeader.expirationTime
 		
 		// NOTE: We expect here a HealthCertificate, which was already json schema validated at its creation time. So the JsonSchemaCheck will here always be true. So we only have to check for the expirationTime of the certificate.
 		guard expirationDate >= validationClock else {
@@ -84,7 +84,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	private let store: Store
 	private let client: Client
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
 	private var subscriptions = Set<AnyCancellable>()
@@ -224,8 +224,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// Assemble common ExternalParameter
 		
 		let mappedValueSets = mapValueSets(valueSet: valueSets)
-		let exp = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.expirationTime)
-		let iat = mapUnixTimestampsInSecondsToDate(healthCertificate.cborWebTokenHeader.issuedAt)
+		let exp = healthCertificate.cborWebTokenHeader.expirationTime
+		let iat = healthCertificate.cborWebTokenHeader.issuedAt
 		
 		let externalParameter = ExternalParameter(
 			validationClock: validationClock,
