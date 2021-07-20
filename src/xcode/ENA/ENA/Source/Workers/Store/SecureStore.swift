@@ -540,6 +540,14 @@ extension SecureStore: CoronaTestStoringLegacy {
 
 }
 
+extension SecureStore: DSCListCaching {
+
+	var dscList: DSCListMetaData? {
+		get { kvStore["DSCList"] as DSCListMetaData? }
+		set { kvStore["DSCList"] = newValue }
+	}
+}
+
 extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
