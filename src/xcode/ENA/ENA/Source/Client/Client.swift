@@ -27,7 +27,6 @@ protocol Client {
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	typealias ValidationOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias DSCListCompletionHandler = (Result<DSCListResponse, Failure>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -226,17 +225,6 @@ protocol Client {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	)
-
-	/// GET call to download list of DSCs
-	/// - Parameters:
-	///   - isFake: Flag to indicate a fake request
-	///   - completion: The completion handler of the call, which contains a DSCList or a URLSession.Response.Failure
-	func getDSCList(
-		eTag: String?,
-		isFake: Bool,
-		completion: @escaping DSCListCompletionHandler
-	)
-
 }
 
 enum SubmissionError: Error {
@@ -350,11 +338,6 @@ struct FetchedDaysAndHours {
 	var allKeyPackages: [PackageDownloadResponse] {
 		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
 	}
-}
-
-struct DSCListResponse {
-	let DSCList: SAP_Internal_Dgc_DscList
-	let eTag: String?
 }
 
 extension Client {

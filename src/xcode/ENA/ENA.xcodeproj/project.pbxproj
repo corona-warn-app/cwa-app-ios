@@ -1180,6 +1180,7 @@
 		BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */; };
 		BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */; };
 		BAEFB35E2656BD4700497F79 /* DiaryDayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB35D2656BD4700497F79 /* DiaryDayTest.swift */; };
+		BAF0A3E326A6EBCB0043CA84 /* DSCListProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF0A3E226A6EBCB0043CA84 /* DSCListProviding.swift */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
@@ -2501,6 +2502,7 @@
 		BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5Tests.swift; sourceTree = "<group>"; };
 		BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5Tests.swift; sourceTree = "<group>"; };
 		BAEFB35D2656BD4700497F79 /* DiaryDayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTest.swift; sourceTree = "<group>"; };
+		BAF0A3E226A6EBCB0043CA84 /* DSCListProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviding.swift; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -5070,6 +5072,7 @@
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				BAC2F58326667A42008A6C7B /* DGCRegistration */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
+				BAF0A3E126A6EB930043CA84 /* DSCList */,
 				35BDAAED25F001BF004DFE32 /* ELS LoggingService */,
 				EB0F740A25E93C65003BFAE7 /* Event Registration */,
 				2FA9E39124D2F2620030561C /* Exposure Submission */,
@@ -7273,6 +7276,14 @@
 			path = StoreV5;
 			sourceTree = "<group>";
 		};
+		BAF0A3E126A6EB930043CA84 /* DSCList */ = {
+			isa = PBXGroup;
+			children = (
+				BAF0A3E226A6EBCB0043CA84 /* DSCListProviding.swift */,
+			);
+			path = DSCList;
+			sourceTree = "<group>";
+		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -8144,6 +8155,7 @@
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
 				0138F65A25F1174200A9B075 /* AddButtonAsTableViewCelling.swift in Sources */,
+				BAF0A3E326A6EBCB0043CA84 /* DSCListProviding.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */,

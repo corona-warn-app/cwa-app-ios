@@ -43,7 +43,6 @@ final class ClientMock {
 	var fetchPackageRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
 	var downloadedPackage: PackageDownloadResponse?
-	var dscListResponse: DSCListResponse?
 
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
@@ -68,8 +67,6 @@ final class ClientMock {
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
 	var onValidationOnboardedCountries: ((Bool, @escaping ValidationOnboardedCountriesCompletionHandler) -> Void)?
 	var onGetDCCRules: ((Bool, HealthCertificateValidationRuleType, @escaping DCCRulesCompletionHandler) -> Void)?
-
-	var onDSCList: ((Bool, @escaping DSCListCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -115,9 +112,7 @@ extension ClientMock: ClientWifiOnly {
 }
 
 extension ClientMock: Client {
-
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
-	private static let dummyDSCListResponse = DSCListResponse(DSCList: SAP_Internal_Dgc_DscList(), eTag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = availablePackageRequestFailure {
@@ -301,7 +296,7 @@ extension ClientMock: Client {
 		}
 		onValidationOnboardedCountries(isFake, completion)
 	}
-	
+
 	func getDCCRules(
 		eTag: String?,
 		isFake: Bool,
@@ -313,18 +308,6 @@ extension ClientMock: Client {
 			return
 		}
 		onGetDCCRules(isFake, ruleType, completion)
-	}
-
-	func getDSCList(
-		eTag: String?,
-		isFake: Bool,
-		completion: @escaping DSCListCompletionHandler
-	) {
-		guard let onDSCList = onDSCList else {
-			completion(.success(dscListResponse ?? ClientMock.dummyDSCListResponse))
-			return
-		}
-		onDSCList(isFake, completion)
 	}
 
 }
