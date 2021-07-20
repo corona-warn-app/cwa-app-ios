@@ -479,15 +479,15 @@ class HealthCertificateTests: XCTestCase {
 		
 		// GIVEN
 			
-		let expirationTime: UInt64 = 0123456798
-		let expectedDate = Date(timeIntervalSince1970: TimeInterval(expirationTime))
+		let expirationTime: Date = Date(timeIntervalSince1970: 0123456798)
 		
 		let dgcCertificate = DigitalCovidCertificate.fake()
 		
 		let result = DigitalCovidCertificateFake.makeBase45Fake(
 			from: dgcCertificate,
 			and: CBORWebTokenHeader.fake(
-				expirationTime: expirationTime)
+				expirationTime: expirationTime
+			)
 		)
 		
 		guard case let .success(base45) = result else {
@@ -501,7 +501,7 @@ class HealthCertificateTests: XCTestCase {
 		
 		// THEN
 	
-		XCTAssertEqual(healthCertificate.expirationDate, expectedDate)
+		XCTAssertEqual(healthCertificate.expirationDate, expirationTime)
 	}
 
 	func testGIVEN_CertificatesWithOneEntry_WHEN_CheckingTooManyEntries_FalseIsReturned() throws {

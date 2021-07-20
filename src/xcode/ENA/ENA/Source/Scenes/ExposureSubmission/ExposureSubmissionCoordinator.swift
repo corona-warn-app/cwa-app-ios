@@ -1242,7 +1242,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				case .testExpired:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
-						message: error.localizedDescription
+						message: error.localizedDescription,
+						completion: { [weak self] in
+							self?.dismiss()
+						}
 					)
 					
 					// dont save expired tests after registering them

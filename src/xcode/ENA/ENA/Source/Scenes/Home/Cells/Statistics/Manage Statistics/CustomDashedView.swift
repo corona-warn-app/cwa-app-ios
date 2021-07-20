@@ -39,13 +39,13 @@ class CustomDashedView: UIView {
 
 	var tapHandler: (() -> Void)?
 
-	class func instance(for mode: Mode) -> CustomDashedView {
+	class func instance(for mode: Mode, isEnabled: Bool) -> CustomDashedView {
 		let nibName = String(describing: Self.self)
 
 		guard let view = UINib(nibName: nibName, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? CustomDashedView else {
 			fatalError("Could not initialize CustomDashedView")
 		}
-		view.configure(for: mode)
+		view.configure(for: mode, isEnabled: isEnabled)
 		return view
 	}
 	
@@ -70,14 +70,23 @@ class CustomDashedView: UIView {
 	private var dashBorder: CAShapeLayer?
 	private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
 
-	private func configure(for mode: Mode) {
+	private func configure(for mode: Mode, isEnabled: Bool) {
 		switch mode {
 		case .add:
-			label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+			if isEnabled {
+				tapRecognizer.isEnabled = true
+				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
+				icon.image = UIImage(named: "Icon_Add")
+			} else {
+				tapRecognizer.isEnabled = false
+				label.text = AppStrings.Statistics.AddCard.disabledAddTitle
+				icon.image = UIImage(named: "Icon_Add_Grey")
+			}
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
 
-			icon.image = UIImage(named: "Icon_Add")
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+			
+			
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
