@@ -89,7 +89,10 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
-        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()"
+        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
+        "ENAUITests_12_AntigenTestProfile\/test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
+        "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_country_picker()",
+        "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
