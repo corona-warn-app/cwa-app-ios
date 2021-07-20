@@ -18,7 +18,7 @@ class DSCListProvidingTests: XCTestCase {
 			switch result {
 			case .success(let response):
 				XCTAssertNotNil(response.eTag)
-				XCTAssertNotNil(response.DSCList)
+				XCTAssertNotNil(response.dscList)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
