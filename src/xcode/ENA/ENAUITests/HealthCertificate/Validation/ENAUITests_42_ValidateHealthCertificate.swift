@@ -71,4 +71,26 @@ class ENAUITests_42_ValidateHealthCertificate: CWATestCase {
 
 		snapshot("screenshot_certificate_validation_date_selection")
 	}
+	
+	func test_screenshot_validation_result_invalid() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
+
+		// Open Validation Screen
+		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
+
+		// Tap on Date Time Selection
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap()
+		
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+		snapshot("screenshot_certificate_validation_date_selection")
+	}
 }
