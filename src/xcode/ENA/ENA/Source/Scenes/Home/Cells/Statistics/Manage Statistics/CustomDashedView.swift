@@ -73,9 +73,11 @@ class CustomDashedView: UIView {
 		tapHandler?()
 	}
 	private func configure(for mode: Mode, isEnabled: Bool) {
+		#if DEBUG
 		if isUITesting {
 			tapRecognizer.isEnabled = false
 		}
+		#endif
 		button.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.button
 		
 		switch mode {
