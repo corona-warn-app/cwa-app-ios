@@ -132,7 +132,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 
 	static let staticDSCList: SAP_Internal_Dgc_DscList = {
 		guard
-			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "default_dsc_list_ios", withExtension: "bin"),
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "default_dsc_list", withExtension: "bin"),
 			let data = try? Data(contentsOf: url),
 			let dscList = try? SAP_Internal_Dgc_DscList(serializedData: data)
 		else {
