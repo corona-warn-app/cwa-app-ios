@@ -17,13 +17,17 @@
                 <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Do-LF-NEM" userLabel="container">
                     <rect key="frame" x="233" y="137" width="41.5" height="64.5"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fjs-eu-uOP">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMK-BV-4xK">
                             <rect key="frame" x="4.5" y="0.0" width="32" height="32"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="Ski-I1-3yh"/>
-                                <constraint firstAttribute="width" secondItem="Fjs-eu-uOP" secondAttribute="height" multiplier="1:1" id="hBA-Pk-BZz"/>
+                                <constraint firstAttribute="width" constant="32" id="Fjp-1U-8ev"/>
+                                <constraint firstAttribute="width" secondItem="bMK-BV-4xK" secondAttribute="height" multiplier="1:1" id="S9S-Ka-cSL"/>
                             </constraints>
-                        </imageView>
+                            <state key="normal" image="Icon_Add"/>
+                            <connections>
+                                <action selector="buttonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="p8R-j2-FxP"/>
+                            </connections>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHu-KX-nfx" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="44" width="41.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -32,13 +36,13 @@
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="bHu-KX-nfx" firstAttribute="top" secondItem="Fjs-eu-uOP" secondAttribute="bottom" constant="12" id="Cbu-AV-ENT"/>
-                        <constraint firstItem="Fjs-eu-uOP" firstAttribute="top" secondItem="5Do-LF-NEM" secondAttribute="top" id="GUQ-2T-wnM"/>
+                        <constraint firstItem="bMK-BV-4xK" firstAttribute="centerX" secondItem="5Do-LF-NEM" secondAttribute="centerX" id="EjH-Lx-5zx"/>
                         <constraint firstItem="bHu-KX-nfx" firstAttribute="centerX" secondItem="5Do-LF-NEM" secondAttribute="centerX" id="Gu5-Tr-7MN"/>
+                        <constraint firstItem="bMK-BV-4xK" firstAttribute="top" secondItem="5Do-LF-NEM" secondAttribute="top" id="SJw-cI-P2h"/>
                         <constraint firstItem="bHu-KX-nfx" firstAttribute="leading" secondItem="5Do-LF-NEM" secondAttribute="leading" id="Yfq-cN-aHq"/>
-                        <constraint firstItem="Fjs-eu-uOP" firstAttribute="centerX" secondItem="5Do-LF-NEM" secondAttribute="centerX" id="dC6-Jp-rNs"/>
                         <constraint firstAttribute="trailing" secondItem="bHu-KX-nfx" secondAttribute="trailing" id="dck-sU-4Nq"/>
                         <constraint firstAttribute="bottom" secondItem="bHu-KX-nfx" secondAttribute="bottom" id="low-nR-iy8"/>
+                        <constraint firstItem="bHu-KX-nfx" firstAttribute="top" secondItem="bMK-BV-4xK" secondAttribute="bottom" constant="12" id="pnE-fw-e7K"/>
                     </constraints>
                 </view>
             </subviews>
@@ -53,7 +57,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="icon" destination="Fjs-eu-uOP" id="P1E-hf-PyU"/>
+                <outlet property="button" destination="bMK-BV-4xK" id="JbP-xY-ZhC"/>
                 <outlet property="label" destination="bHu-KX-nfx" id="7o3-Ho-b1Z"/>
             </connections>
             <point key="canvasLocation" x="99.275362318840592" y="-60.267857142857139"/>
@@ -65,6 +69,7 @@
         </designable>
     </designables>
     <resources>
+        <image name="Icon_Add" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
