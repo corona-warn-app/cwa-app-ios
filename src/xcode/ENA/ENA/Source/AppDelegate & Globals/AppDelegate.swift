@@ -309,9 +309,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
 		client: client,
-		appConfiguration: appConfigurationProvider
+		appConfiguration: appConfigurationProvider,
+		validityStateService: healthCertificateValidityStateService
 	)
-	
+
+	private lazy var healthCertificateValidityStateService: HealthCertificateValidityStateProviding = {
+		return MockHealthCertificateValidityStateService()
+	}()
+
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
 		#if DEBUG
 		if isUITesting {

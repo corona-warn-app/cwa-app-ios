@@ -16,6 +16,7 @@ class HealthCertificateService {
 		store: HealthCertificateStoring,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
+		validityStateService: HealthCertificateValidityStateProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
 	) {
 		#if DEBUG
@@ -23,6 +24,7 @@ class HealthCertificateService {
 			self.store = MockTestStore()
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
+			self.validityStateService = MockHealthCertificateValidityStateService()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 			setup()
@@ -114,6 +116,7 @@ class HealthCertificateService {
 		self.store = store
 		self.client = client
 		self.appConfiguration = appConfiguration
+		self.validityStateService = validityStateService
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 		setup()
@@ -370,6 +373,7 @@ class HealthCertificateService {
 	private let store: HealthCertificateStoring
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
+	private let validityStateService: HealthCertificateValidityStateProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
