@@ -1181,6 +1181,8 @@
 		BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */; };
 		BAEFB35E2656BD4700497F79 /* DiaryDayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFB35D2656BD4700497F79 /* DiaryDayTest.swift */; };
 		BAF0A3E326A6EBCB0043CA84 /* DSCListProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF0A3E226A6EBCB0043CA84 /* DSCListProviding.swift */; };
+		BAF0A3E926A6F7BF0043CA84 /* DSCListProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF0A3E826A6F7BF0043CA84 /* DSCListProvidingTests.swift */; };
+		BAF0A3EC26A6FCD90043CA84 /* default_dsc_list_ios.bin in Resources */ = {isa = PBXBuildFile; fileRef = BAF0A3EB26A6FCD90043CA84 /* default_dsc_list_ios.bin */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
@@ -2503,6 +2505,8 @@
 		BAEFB35B2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5Tests.swift; sourceTree = "<group>"; };
 		BAEFB35D2656BD4700497F79 /* DiaryDayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTest.swift; sourceTree = "<group>"; };
 		BAF0A3E226A6EBCB0043CA84 /* DSCListProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviding.swift; sourceTree = "<group>"; };
+		BAF0A3E826A6F7BF0043CA84 /* DSCListProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProvidingTests.swift; sourceTree = "<group>"; };
+		BAF0A3EB26A6FCD90043CA84 /* default_dsc_list_ios.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_dsc_list_ios.bin; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -7279,9 +7283,27 @@
 		BAF0A3E126A6EB930043CA84 /* DSCList */ = {
 			isa = PBXGroup;
 			children = (
+				BAF0A3E426A6F6DE0043CA84 /* __tests__ */,
 				BAF0A3E226A6EBCB0043CA84 /* DSCListProviding.swift */,
 			);
 			path = DSCList;
+			sourceTree = "<group>";
+		};
+		BAF0A3E426A6F6DE0043CA84 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAF0A3ED26A6FD170043CA84 /* SamleData */,
+				BAF0A3E826A6F7BF0043CA84 /* DSCListProvidingTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAF0A3ED26A6FD170043CA84 /* SamleData */ = {
+			isa = PBXGroup;
+			children = (
+				BAF0A3EB26A6FCD90043CA84 /* default_dsc_list_ios.bin */,
+			);
+			path = SamleData;
 			sourceTree = "<group>";
 		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {
@@ -7759,6 +7781,7 @@
 				01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
+				BAF0A3EC26A6FCD90043CA84 /* default_dsc_list_ios.bin in Resources */,
 				01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */,
 				8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
@@ -8818,6 +8841,7 @@
 				50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */,
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
+				BAF0A3E926A6F7BF0043CA84 /* DSCListProvidingTests.swift in Sources */,
 				ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
 				AB68884225DACD8C00907465 /* MigrationStub.swift in Sources */,
