@@ -51,8 +51,7 @@ class CustomDashedView: UIView {
 	
 	// MARK: - Private
 	
-	@IBOutlet private weak var icon: UIImageView!
-	
+	@IBOutlet private weak var button: UIButton!
 	@IBInspectable private var cornerRadius: CGFloat = 15 {
 		didSet {
 			layer.cornerRadius = cornerRadius
@@ -70,17 +69,20 @@ class CustomDashedView: UIView {
 	private var dashBorder: CAShapeLayer?
 	private lazy var tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
 
+	@IBAction private func buttonPressed(_ sender: Any) {
+		tapHandler?()
+	}
 	private func configure(for mode: Mode, isEnabled: Bool) {
 		switch mode {
 		case .add:
 			if isEnabled {
 				tapRecognizer.isEnabled = true
 				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
-				icon.image = UIImage(named: "Icon_Add")
+				button.setImage(UIImage(named: "Icon_Add"), for: .normal)
 			} else {
 				tapRecognizer.isEnabled = false
 				label.text = AppStrings.Statistics.AddCard.disabledAddTitle
-				icon.image = UIImage(named: "Icon_Add_Grey")
+				button.setImage(UIImage(named: "Icon_Add_Grey"), for: .normal)
 			}
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
 
@@ -90,8 +92,7 @@ class CustomDashedView: UIView {
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
-
-			icon.image = UIImage(named: "Icon_Modify")
+			button.setImage(UIImage(named: "Icon_Modify"), for: .normal)
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)
