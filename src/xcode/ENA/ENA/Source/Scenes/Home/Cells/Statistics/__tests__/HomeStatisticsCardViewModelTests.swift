@@ -534,11 +534,11 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 	// MARK: - Reproduction Numbers Card
 
 	func testLocalStatisticsCard() {
-		let sevenDayLocalTrend = sevenDayLocalTrend(trend: .increasing, value: 43.1)
-		let viewModel = HomeStatisticsCardViewModel(regionData: sevenDayLocalTrend)
+		let regionStatisticsLocalTrend = regionStatisticsDataLocalTrend(trend: .increasing, value: 43.1)
+		let viewModel = HomeStatisticsCardViewModel(regionStatisticsData: regionStatisticsLocalTrend)
 
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.AddCard.localCardTitle)
-		XCTAssertEqual(viewModel.subtitle, sevenDayLocalTrend.regionName)
+		XCTAssertEqual(viewModel.subtitle, regionStatisticsLocalTrend.regionName)
 		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "LocalIncidence"))
 		XCTAssertEqual(viewModel.primaryValue, "43,1")
 		XCTAssertEqual(viewModel.primaryTrendImage, UIImage(named: "Pfeil_steigend_plain"))
@@ -548,18 +548,18 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.AddCard.localCardPrimarySubtitle)
 	}
 	
-	private func sevenDayLocalTrend(trend: SAP_Internal_Stats_KeyFigure.Trend, value: Double) -> SevenDayData {
+	private func regionStatisticsDataLocalTrend(trend: SAP_Internal_Stats_KeyFigure.Trend, value: Double) -> RegionStatisticsData {
 		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
 		sevenDayIncidence.trend = trend
 		sevenDayIncidence.value = value
 
-		let sevenDayLocalTrend = SevenDayData(
+		let regionStatisticsData = RegionStatisticsData(
 			regionName: "Heidelberg",
-			administrativeUnitShortID: 1432,
+			id: 1432,
 			updatedAt: 1234,
 			sevenDayIncidence: sevenDayIncidence
 		)
-		return sevenDayLocalTrend
+		return regionStatisticsData
 	}
 
 	

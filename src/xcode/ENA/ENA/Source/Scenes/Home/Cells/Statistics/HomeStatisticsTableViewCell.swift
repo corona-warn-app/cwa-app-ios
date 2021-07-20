@@ -54,7 +54,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onInfoButtonTap: @escaping () -> Void,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDeleteLocalStatistic: @escaping (SevenDayData, LocalStatisticsRegion) -> Void,
+		onDeleteLocalStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
@@ -108,7 +108,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
 					return
 				}
-				let regionStatistics = SevenDayData(
+				let regionStatistics = RegionStatisticsData(
 					regionName: districtName,
 					id: Int(adminUnit.administrativeUnitShortID),
 					updatedAt: adminUnit.updatedAt,
@@ -126,16 +126,14 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 		
-		keyFigureCellModel.$localFederalStates
+		keyFigureCellModel.$localFederalStateStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { localFederalStates in
-				Log.debug("update with \(keyFigureCellModel.localFederalStates.count) federal local stats", log: .localStatistics)
-				
+				Log.debug("update with \(keyFigureCellModel.localFederalStateStatistics.count) federal local stats", log: .localStatistics)
 				
 				let localFederalState = localFederalStates.first {
 					$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
 				}
-				
 				// needed for UI updates
 				self.localStatisticsCache = store
 				
@@ -143,7 +141,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
 					return
 				}
-				let regionStatistics = SevenDayData(
+				let regionStatistics = RegionStatisticsData(
 					regionName: federalStateName,
 					id: federalState.federalState.rawValue,
 					updatedAt: federalState.updatedAt,
@@ -173,7 +171,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					// check to separate the single entry and multiple entries
 					self.localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
 					let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
-					let regionStatistics: SevenDayData
+					let regionStatistics: RegionStatisticsData
 					guard let region = self.localStatisticsRegion else {
 						Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
 						return
@@ -188,7 +186,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 							Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
 							return
 						}
-						regionStatistics = SevenDayData(
+						regionStatistics = RegionStatisticsData(
 							regionName: regionName,
 							id: federalState.federalState.rawValue,
 							updatedAt: federalState.updatedAt,
@@ -204,7 +202,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 							return
 						}
 						
-						regionStatistics = SevenDayData(
+						regionStatistics = RegionStatisticsData(
 							regionName: regionName,
 							id: Int(adminUnit.administrativeUnitShortID),
 							updatedAt: adminUnit.updatedAt,
@@ -227,12 +225,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	
 	func insertLocalStatistics(
 		store: Store,
-		regionData: SevenDayData,
+		regionData: RegionStatisticsData,
 		onInfoButtonTap:  @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
-		onDeleteStatistic: @escaping (SevenDayData, LocalStatisticsRegion) -> Void
+		onDeleteStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void
 	) {
-
 		let nibName = String(describing: HomeStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
 
@@ -242,7 +239,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				stackView.insertArrangedSubview(statisticsCardView, at: 1)
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(regionData: regionData),
+					viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionData),
 					onInfoButtonTap: {
 						onInfoButtonTap()
 					},
@@ -316,7 +313,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDeleteLocalStatistic: @escaping (SevenDayData, LocalStatisticsRegion) -> Void,
+		onDeleteLocalStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,

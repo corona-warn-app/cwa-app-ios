@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct SevenDayData {
+struct RegionStatisticsData {
 	var regionName: String
 	var id: Int = 0
 	var updatedAt: Int64 = 0
