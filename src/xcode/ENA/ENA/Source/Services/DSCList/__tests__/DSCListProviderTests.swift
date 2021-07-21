@@ -46,30 +46,17 @@ class DSCListProviderTests: XCTestCase {
 
 	func testGIVEN_Provider_WHEN_UnchangedResponse_THEN_DSCListIsNotUpdated() {
 		let fetchedFromClientExpectation = expectation(description: "DSC list fetched from client")
-		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+		fetchedFromClientExpectation.expectedFulfillmentCount = 2
 
 		let client = CachingHTTPClientMock()
 		client.onFetchLocalDSCList = { _, completeWith in
-			// fake 304 response
-			let error = URLSessionError.notModified
-			completeWith(.failure(error))
-		}
-
-		client.fetchDSCList(etag: nil) { result in
-			switch result {
-			case .success:
-				XCTFail("success unexpected")
-			case let .failure(error):
-				guard error is URLSession.Response.Failure else {
-					XCTFail("unexpected error")
-					return
-				}
-			}
+			// fake notModified 304 response
+			completeWith(.failure(URLSessionError.notModified))
 			fetchedFromClientExpectation.fulfill()
 		}
 
 		let provider = DSCListProvider(
-			client: CachingHTTPClientMock(),
+			client: client,
 			store: MockTestStore()
 		)
 		var subscriptions = Set<AnyCancellable>()
@@ -77,12 +64,14 @@ class DSCListProviderTests: XCTestCase {
 		// WHEN
 		let dscList = provider.dscList.value
 
-		provider.dscList.sink { updatedList in
-			XCTAssertEqual(dscList, updatedList)
-		}
-		.store(in: &subscriptions)
+		provider.dscList
+			.sink { updatedList in
+				XCTAssertEqual(dscList, updatedList)
+			}
+			.store(in: &subscriptions)
 
 		// THEN
+		NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
 		waitForExpectations(timeout: .short)
 	}
 

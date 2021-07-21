@@ -67,11 +67,11 @@ final class DSCListProvider: DSCListProviding {
 
 	@objc
 	private func updateListIfNeeded() {
-		guard metaData.timestamp.timeIntervalSinceNow > interval else {
+		Log.debug("timeinterval since last check: \(metaData.timestamp.timeIntervalSinceNow)")
+		guard abs(metaData.timestamp.timeIntervalSinceNow) > interval else {
 			Log.debug("DSCList update interval not reached - stop")
 			return
 		}
-
 		client.fetchDSCList(etag: metaData.eTag) { [weak self] result in
 			switch result {
 			case .success(let response):
