@@ -1872,6 +1872,8 @@
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Dodaj lokalną 7-dniową zapadalność";
 
+"Statistics_Add_DisabledAddTitle" = "Osiągnięto maksymalną liczbę wskaźników lokalnej 7-dniowej zapadalności.";
+
 "Statistics_Add_LocalCardTitle" = "Lokalna 7-dniowa zapadalność";
 
 "Statistics_Add_fromTheWholeCountry" = "Cały kraj związkowy";
@@ -2453,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Dalej";
 
 /* Checkout */
-"Checkout_Notification_Title" = "Nastąpiło automatyczne wymeldowanie.";
+"Checkout_Notification_Title" = "Nastąpiło automatyczne wymeldowanie";
 
 "Checkout_Notification_Body" = "W razie potrzeby dostosuj długość pobytu.";
 
@@ -2640,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "Skan kodu QR";
 
-"HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i zarejestruj się";
+"HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i dodaj certyfikat";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
@@ -2803,6 +2805,8 @@
 "HealthCertificate_Validation_Legal_Description" = "Aktualne zasady dotyczące wjazdu są pobierane z serwerów RKI. Wymaga to połączenia z Internetem. Dane dostępowe są przesyłane do RKI.";
 
 "HealthCertificate_Validation_Body4" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Sprawdź";
 
 /* Health Certificate Validation Result */
 "HealthCertificate_Validation_Result_validationParameters" = "Wjazd do %@ dnia %@\nZweryfikowano dnia %@";
