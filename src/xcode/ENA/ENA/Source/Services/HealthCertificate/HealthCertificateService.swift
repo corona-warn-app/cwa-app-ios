@@ -35,21 +35,6 @@ class HealthCertificateService {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
-			
-			if LaunchArguments.healthCertificate.invalidCertificateCheck.boolValue {
-				let dcc = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Saskia", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "SASKIA"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
-					),
-					and: CBORWebTokenHeader.fake()
-				)
-				
-				if case let .success(base45) = dcc {
-					registerHealthCertificate(base45: base45)
-				}
-				
-			}
 
 			if LaunchArguments.healthCertificate.familyCertificates.boolValue {
 				let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
