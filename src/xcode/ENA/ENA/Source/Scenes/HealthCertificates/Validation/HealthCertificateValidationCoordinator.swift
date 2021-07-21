@@ -96,11 +96,11 @@ final class HealthCertificateValidationCoordinator {
 						}
 					case .failure(let error):
 						switch error {
-						case .TECHNICAL_VALIDATION_FAILED(let isExpired, let signatureInvalid):
+						case .TECHNICAL_VALIDATION_FAILED(let expirationDate, let signatureInvalid):
 							self.showTechnicalValidationFailedScreen(
 								arrivalCountry: arrivalCountry,
 								arrivalDate: arrivalDate,
-								isExpired: isExpired,
+								expirationDate: expirationDate,
 								signatureInvalid: signatureInvalid
 							)
 						default:
@@ -228,14 +228,14 @@ final class HealthCertificateValidationCoordinator {
 	private func showTechnicalValidationFailedScreen(
 		arrivalCountry: Country,
 		arrivalDate: Date,
-		isExpired: Bool,
+		expirationDate: Date?,
 		signatureInvalid: Bool
 	) {
 		let technicalValidationFailedViewController = HealthCertificateValidationResultViewController(
 			viewModel: HealthCertificateTechnicalValidationFailedViewModel(
 				arrivalCountry: arrivalCountry,
 				arrivalDate: arrivalDate,
-				isExpired: isExpired,
+				expirationDate: expirationDate,
 				signatureInvalid: signatureInvalid
 			),
 			onPrimaryButtonTap: { [weak self] in

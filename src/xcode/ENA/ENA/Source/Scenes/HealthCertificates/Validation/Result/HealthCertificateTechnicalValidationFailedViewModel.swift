@@ -9,10 +9,10 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 
 	// MARK: - Init
 
-	init(arrivalCountry: Country, arrivalDate: Date, isExpired: Bool, signatureInvalid: Bool) {
+	init(arrivalCountry: Country, arrivalDate: Date, expirationDate: Date?, signatureInvalid: Bool) {
 		self.arrivalCountry = arrivalCountry
 		self.arrivalDate = arrivalDate
-		self.isExpired = isExpired
+		self.expirationDate = expirationDate
 		self.signatureInvalid = signatureInvalid
 	}
 
@@ -37,12 +37,21 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 			.title2(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.subtitle),
 			.space(height: 10),
 			.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
-			.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription)
+			.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription),
+			.technicalFailedRulesCell(failureText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.notValidDateFormat, expirationDate: nil)
 		]
 		
-		cells.append(
-			.technicalFailedRulesCell(failureText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateExpired)
-		)
+		if signatureInvalid {
+			cells.append(
+				.technicalFailedRulesCell(failureText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateNotValid, expirationDate: nil)
+			)
+		}
+		
+		if let expirationDate = expirationDate {
+			cells.append(
+				.technicalFailedRulesCell(failureText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.technicalExpirationDatePassed, expirationDate: expirationDate)
+			)
+		}
 		
 		cells.append(
 			.textWithLinks(
@@ -66,18 +75,18 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 
 	private let arrivalCountry: Country
 	private let arrivalDate: Date
-	private let isExpired: Bool
+	private let expirationDate: Date?
 	private let signatureInvalid: Bool
 }
 
 private extension DynamicCell {
 
-	static func technicalFailedRulesCell(failureText: String) -> Self {
+	static func technicalFailedRulesCell(failureText: String, expirationDate: Date?) -> Self {
 		.custom(withIdentifier: TechnicalValidationFailedRulesTableViewCell.dynamicTableViewCellReuseIdentifier) { _, cell, _ in
 			guard let cell = cell as? TechnicalValidationFailedRulesTableViewCell else {
 				return
 			}
-			cell.setText(failureText)
+			cell.customize(text: failureText, expirationDate: expirationDate)
 		}
 	}
 

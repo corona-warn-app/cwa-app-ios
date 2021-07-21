@@ -30,14 +30,26 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 
 	// MARK: - Internal
 	
-	func setText(_ text: String) {
+	func customize(text: String, expirationDate: Date?) {
 		failureDescriptionLabel.text = text
+		if let expirationDate = expirationDate {
+			expirationDateTitleLabel.isHidden = false
+			let dateString = DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .short)
+			expirationDateLabel.text = String(format: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.expirationDate, dateString)
+			expirationDateLabel.isHidden = false
+		} else {
+			expirationDateTitleLabel.isHidden = true
+			expirationDateLabel.text = nil
+			expirationDateLabel.isHidden = true
+		}
 	}
 	
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
-	private let failureDescriptionLabel = ENALabel(style: .body)
+	private let failureDescriptionLabel = StackViewLabel()
+	private let expirationDateTitleLabel = StackViewLabel()
+	private let expirationDateLabel = StackViewLabel()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -56,20 +68,35 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		let contentStackView = UIStackView()
-		contentStackView.axis = .horizontal
-		contentStackView.spacing = 12
-		contentStackView.translatesAutoresizingMaskIntoConstraints = false
-		contentStackView.alignment = .top
-		backgroundContainerView.addSubview(contentStackView)
-
 		let failureIconImageView = UIImageView(image: UIImage(named: "Icon_CertificateValidation_Failed"))
 		failureIconImageView.setContentHuggingPriority(.required, for: .horizontal)
-		contentStackView.addArrangedSubview(failureIconImageView)
-
+		failureIconImageView.translatesAutoresizingMaskIntoConstraints = false
+		backgroundContainerView.addSubview(failureIconImageView)
+		
+		let labelsStackView = UIStackView()
+		labelsStackView.axis = .vertical
+		labelsStackView.spacing = 4
+		labelsStackView.translatesAutoresizingMaskIntoConstraints = false
+		labelsStackView.alignment = .leading
+		backgroundContainerView.addSubview(labelsStackView)
+		
+		failureDescriptionLabel.style = .body
 		failureDescriptionLabel.numberOfLines = 0
 		failureDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
-		contentStackView.addArrangedSubview(failureDescriptionLabel)
+		labelsStackView.addArrangedSubview(failureDescriptionLabel)
+		
+		labelsStackView.setCustomSpacing(12, after: failureDescriptionLabel)
+		
+		expirationDateTitleLabel.style = .footnote
+		expirationDateTitleLabel.numberOfLines = 1
+		expirationDateTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		expirationDateTitleLabel.text = AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.expirationDateTitle
+		labelsStackView.addArrangedSubview(expirationDateTitleLabel)
+		
+		expirationDateLabel.style = .subheadline
+		expirationDateLabel.numberOfLines = 1
+		expirationDateLabel.textColor = .enaColor(for: .textPrimary1)
+		labelsStackView.addArrangedSubview(expirationDateLabel)
 
 		NSLayoutConstraint.activate(
 			[
@@ -78,10 +105,16 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
-				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				failureIconImageView.topAnchor.constraint(greaterThanOrEqualTo: backgroundContainerView.topAnchor, constant: 16.0),
+				failureIconImageView.bottomAnchor.constraint(lessThanOrEqualTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				failureIconImageView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				failureIconImageView.trailingAnchor.constraint(lessThanOrEqualTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+				failureIconImageView.centerYAnchor.constraint(equalTo: backgroundContainerView.centerYAnchor),
+				
+				labelsStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
+				labelsStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				labelsStackView.leadingAnchor.constraint(equalTo: failureIconImageView.trailingAnchor, constant: 12.0),
+				labelsStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 

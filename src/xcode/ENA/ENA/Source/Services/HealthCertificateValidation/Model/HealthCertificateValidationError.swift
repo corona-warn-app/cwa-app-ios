@@ -9,7 +9,7 @@ enum HealthCertificateValidationError: LocalizedError {
 	
 	// MARK: - Internal
 	
-	case TECHNICAL_VALIDATION_FAILED(isExpired: Bool, signatureInvalid: Bool)
+	case TECHNICAL_VALIDATION_FAILED(expirationDate: Date?, signatureInvalid: Bool)
 	case RULE_DECODING_ERROR(HealthCertificateValidationRuleType, RuleValidationError)
 	case RULE_CLIENT_ERROR(HealthCertificateValidationRuleType)
 	case RULE_JSON_ARCHIVE_ETAG_ERROR(HealthCertificateValidationRuleType)

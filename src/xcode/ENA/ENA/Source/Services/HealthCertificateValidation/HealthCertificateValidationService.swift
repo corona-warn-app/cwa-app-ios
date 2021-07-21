@@ -64,7 +64,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// 1. Apply technical validation
 		
 		let isExpired: Bool
-		let stub = DCCSignatureVerifiableStub(error: nil)
+		let stub = DCCSignatureVerifiableStub(error: .HC_COSE_NO_SIGN1)
 		// DONT FORGET: pass singatures array into this function!
 		let result = stub.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
 		switch result {
@@ -80,12 +80,12 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		guard !isExpired && !signatureInvalid else {
 			if isExpired {
-				Log.warning("Technical validation failed: signature expired. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
+				Log.warning("Technical validation failed: signature invalid.", log: .vaccination)
 			}
 			if signatureInvalid {
 				Log.warning("Technical validation failed: expirationDate < validationClock. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
 			}
-			completion(.failure(.TECHNICAL_VALIDATION_FAILED(isExpired: isExpired, signatureInvalid: signatureInvalid)))
+			completion(.failure(.TECHNICAL_VALIDATION_FAILED(expirationDate: isExpired ? expirationDate : nil, signatureInvalid: signatureInvalid)))
 			return
 		}
 		Log.info("Successfully passed signature verification and technical validation. Proceed with updating value sets...", log: .vaccination)
