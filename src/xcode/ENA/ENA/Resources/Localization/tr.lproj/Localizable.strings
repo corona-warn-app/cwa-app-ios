@@ -1872,6 +1872,8 @@
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Yerel 7 günlük olay ekle";
 
+"Statistics_Add_DisabledAddTitle" = "Maksimum yerel 7 günlük olay sayısına ulaşıldı.";
+
 "Statistics_Add_LocalCardTitle" = "Yerel 7 günlük olay";
 
 "Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
@@ -2453,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Sonraki";
 
 /* Checkout */
-"Checkout_Notification_Title" = "Otomatik olarak check out yaptınız.";
+"Checkout_Notification_Title" = "Otomatik olarak check out yaptınız";
 
 "Checkout_Notification_Body" = "Gerekiyorsa lütfen kalış sürenizi düzenleyin.";
 
@@ -2640,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "QR Kod Tarama";
 
-"HealthCertificate_QRScanner_instruction" = "QR Kodu Tara ve Kaydet";
+"HealthCertificate_QRScanner_instruction" = "QR Kodu Tara ve Sertifika Ekle";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
@@ -2803,6 +2805,8 @@
 "HealthCertificate_Validation_Legal_Description" = "Güncel giriş kuralları RKI sunucularından indirilir. Bunun için internet bağlantısı gereklidir. Erişim verileri RKI'ye aktarılır.";
 
 "HealthCertificate_Validation_Body4" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Kontrol";
 
 /* Health Certificate Validation Result */
 "HealthCertificate_Validation_Result_validationParameters" = "%@ tarihinde %@ girişi,\n%@ tarihinde doğrulandı";

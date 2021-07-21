@@ -1872,6 +1872,8 @@
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Adăugați incidența pe 7 zile la nivel local";
 
+"Statistics_Add_DisabledAddTitle" = "Numărul maxim al incidenței pe 7 zile la nivel local a fost atins.";
+
 "Statistics_Add_LocalCardTitle" = "Incidența pe 7 zile la nivel local";
 
 "Statistics_Add_fromTheWholeCountry" = "Întregul stat";
@@ -2453,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Înainte";
 
 /* Checkout */
-"Checkout_Notification_Title" = "Ați făcut check-out automat.";
+"Checkout_Notification_Title" = "Ați făcut check-out automat";
 
 "Checkout_Notification_Body" = "Ajustați durata șederii dvs. dacă este necesar.";
 
@@ -2640,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "Scanare cod QR";
 
-"HealthCertificate_QRScanner_instruction" = "Scanare cod QR și înregistrare";
+"HealthCertificate_QRScanner_instruction" = "Scanați codul QR și adăugați certificatul";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Certificat COVID digital UE";
@@ -2803,6 +2805,8 @@
 "HealthCertificate_Validation_Legal_Description" = "Regulile de intrare curente sunt descărcate de pe serverele RKI. Acest lucru necesită o conexiune la internet. Datele de acces sunt transmise către RKI.";
 
 "HealthCertificate_Validation_Body4" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Verificare";
 
 /* Health Certificate Validation Result */
 "HealthCertificate_Validation_Result_validationParameters" = "Intrare în %@ pe %@\nValidat pe %@";
