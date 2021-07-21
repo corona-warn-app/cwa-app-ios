@@ -36,19 +36,20 @@ final class DSCListProvider: DSCListProviding {
 
 	// MARK: - Internal
 
-	// MARK: - Private
-
-	private let client: DSCListFetching
-	private let store: Store
-	private let interval: TimeInterval
-
-	private var metaData: DSCListMetaData {
+	private(set) var metaData: DSCListMetaData {
 		// on change write to the store and update publisher
 		didSet {
 			store.dscList = metaData
 			dscList.value = metaData.dscList
 		}
 	}
+
+	// MARK: - Private
+
+	private let client: DSCListFetching
+	private let store: Store
+	private let interval: TimeInterval
+
 
 	private static func loadDSCListMetaDataIfAvailable(store: Store, interval: TimeInterval) -> DSCListMetaData {
 		guard let metaDataDSCList = store.dscList else {
@@ -68,7 +69,7 @@ final class DSCListProvider: DSCListProviding {
 	@objc
 	private func updateListIfNeeded() {
 		Log.debug("timeinterval since last check: \(metaData.timestamp.timeIntervalSinceNow)")
-		guard abs(metaData.timestamp.timeIntervalSinceNow) > interval else {
+		guard metaData.timestamp.timeIntervalSinceNow < -interval else {
 			Log.debug("DSCList update interval not reached - stop")
 			return
 		}

@@ -44,7 +44,7 @@ class DSCListProviderTests: XCTestCase {
 		XCTAssertEqual(dscList, defaultDSCList)
 	}
 
-	func testGIVEN_Provider_WHEN_UnchangedResponse_THEN_DSCListIsNotUpdated() {
+	func testGIVEN_Provider_WHEN_UnchangedResponse_THEN_FetchAgainOnNotification() {
 		let fetchedFromClientExpectation = expectation(description: "DSC list fetched from client")
 		fetchedFromClientExpectation.expectedFulfillmentCount = 2
 
@@ -73,6 +73,37 @@ class DSCListProviderTests: XCTestCase {
 		// THEN
 		NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
 		waitForExpectations(timeout: .short)
+	}
+
+
+	func testGIVEN_provider_WHEN_NotificationAfterInterval_THEN_DSCListGotUpdated() {
+		// GIVEN
+		let fetchedFromClientExpectation = expectation(description: "DSC list fetched from client")
+		fetchedFromClientExpectation.expectedFulfillmentCount = 2
+
+		let client = CachingHTTPClientMock()
+		var count  = 1
+		client.onFetchLocalDSCList = { _, completeWith in
+			completeWith(.success(DSCListResponse(dscList: SAP_Internal_Dgc_DscList(), eTag: String(count))))
+			count += 1
+			fetchedFromClientExpectation.fulfill()
+		}
+
+		let provider = DSCListProvider(
+			client: client,
+			store: MockTestStore(),
+			interval: 1.0
+		)
+		// WHEN
+		let waitFor5SecondsExpectation = expectation(description: "Wait for 2 seconds")
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+			waitFor5SecondsExpectation.fulfill()
+		}
+		wait(for: [waitFor5SecondsExpectation], timeout: .medium)
+
+		NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
+		wait(for: [fetchedFromClientExpectation], timeout: .short)
+		XCTAssertEqual(provider.metaData.eTag, "2")
 	}
 
 }
