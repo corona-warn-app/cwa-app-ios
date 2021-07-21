@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 import OpenCombine
 
 final class DSCListProvider: DSCListProviding {
@@ -22,7 +22,12 @@ final class DSCListProvider: DSCListProviding {
 		self.dscList = CurrentValueSubject<SAP_Internal_Dgc_DscList, Never>(metaData.dscList)
 
 		// trigger an update immediately
+		NotificationCenter.default.addObserver(self, selector: #selector(updateListIfNeeded), name: UIApplication.willEnterForegroundNotification, object: nil)
 		updateListIfNeeded()
+	}
+
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
 	}
 
 	// MARK: - Protocol DSCListProviding
@@ -30,23 +35,6 @@ final class DSCListProvider: DSCListProviding {
 	private(set) var dscList: CurrentValueSubject<SAP_Internal_Dgc_DscList, Never>
 
 	// MARK: - Internal
-
-	func updateListIfNeeded() {
-		guard metaData.timestamp.timeIntervalSinceNow > interval else {
-			Log.debug("DSCList update interval not reached - stop")
-			return
-		}
-
-		client.fetchDSCList(etag: metaData.eTag) { [weak self] result in
-			switch result {
-			case .success(let response):
-				self?.metaData = DSCListMetaData(eTag: response.eTag, timestamp: Date(), dscList: response.dscList)
-
-			case .failure(let error):
-				Log.error("Failed to updated DSCList \(error)")
-			}
-		}
-	}
 
 	// MARK: - Private
 
@@ -75,6 +63,24 @@ final class DSCListProvider: DSCListProviding {
 			return DSCListMetaData(eTag: nil, timestamp: Date(timeIntervalSinceNow: -interval), dscList: dscList)
 		}
 		return metaDataDSCList
+	}
+
+	@objc
+	private func updateListIfNeeded() {
+		guard metaData.timestamp.timeIntervalSinceNow > interval else {
+			Log.debug("DSCList update interval not reached - stop")
+			return
+		}
+
+		client.fetchDSCList(etag: metaData.eTag) { [weak self] result in
+			switch result {
+			case .success(let response):
+				self?.metaData = DSCListMetaData(eTag: response.eTag, timestamp: Date(), dscList: response.dscList)
+
+			case .failure(let error):
+				Log.error("Failed to updated DSCList \(error)")
+			}
+		}
 	}
 
 }
