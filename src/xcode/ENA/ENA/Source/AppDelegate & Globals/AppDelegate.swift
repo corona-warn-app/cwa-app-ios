@@ -344,12 +344,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 		
-		let service = HealthCertificateValidationService(
+		return HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
-		return service
 	}()
 	
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
