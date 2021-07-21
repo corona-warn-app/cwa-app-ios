@@ -47,24 +47,23 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 
 	// MARK: - Internal
-	
-	// swiftlint:disable:next function_parameter_count
+	// swiftlint:disable:next function_parameter_count function_body_length
 	func configure(
 		with keyFigureCellModel: HomeStatisticsCellModel,
 		store: Store,
 		onInfoButtonTap: @escaping () -> Void,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDeleteLocalStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void,
+		onDeleteLocalStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
 		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
 		guard cellModel == nil else { return }
-
+		
 		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
@@ -90,15 +89,65 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 		// Retaining cell model so it gets updated
 		self.cellModel = keyFigureCellModel
-
+		
 		keyFigureCellModel.$localAdministrativeUnitStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { administrativeUnitsData in
-				Log.debug("update with \(keyFigureCellModel.localAdministrativeUnitStatistics.count) local stats", log: .localStatistics)
+				Log.debug("update with \(keyFigureCellModel.localAdministrativeUnitStatistics.count) administrative local stats", log: .localStatistics)
+								
+				let administrativeUnit = administrativeUnitsData.first {
+					$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
+				}
+				// needed for UI updates
+				self.localStatisticsCache = store
+				
+				guard let adminUnit = administrativeUnit, let districtName = self.localStatisticsRegion?.name else {
+					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
+					return
+				}
+				let regionStatistics = RegionStatisticsData(
+					regionName: districtName,
+					id: Int(adminUnit.administrativeUnitShortID),
+					updatedAt: adminUnit.updatedAt,
+					sevenDayIncidence: adminUnit.sevenDayIncidence
+				)
+				
 				self.insertLocalStatistics(
 					store: store,
-					administrativeUnitsData: administrativeUnitsData,
-					localStatisticsDistrict: nil,
+					regionData: regionStatistics,
+					onInfoButtonTap: onInfoButtonTap,
+					onAccessibilityFocus: onAccessibilityFocus,
+					onDeleteStatistic: onDeleteLocalStatistic
+				)
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+		
+		keyFigureCellModel.$localFederalStateStatistics
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { localFederalStates in
+				Log.debug("update with \(keyFigureCellModel.localFederalStateStatistics.count) federal local stats", log: .localStatistics)
+				
+				let localFederalState = localFederalStates.first {
+					$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
+				}
+				// needed for UI updates
+				self.localStatisticsCache = store
+				
+				guard let federalState = localFederalState, let federalStateName = self.localStatisticsRegion?.name else {
+					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
+					return
+				}
+				let regionStatistics = RegionStatisticsData(
+					regionName: federalStateName,
+					id: federalState.federalState.rawValue,
+					updatedAt: federalState.updatedAt,
+					sevenDayIncidence: federalState.sevenDayIncidence
+				)
+				
+				self.insertLocalStatistics(
+					store: store,
+					regionData: regionStatistics,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus,
 					onDeleteStatistic: onDeleteLocalStatistic
@@ -113,47 +162,70 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				Log.debug("update with \(keyFigureCellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
 				
 				self.removeLocalStatisticsCards()
-
+				
 				for singleSelectedLocalStatistics in selectedLocalStatistics {
+					
+					self.localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
+					let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
+					let regionStatistics: RegionStatisticsData
+					guard let region = self.localStatisticsRegion else {
+						Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
+						return
+					}
+					
+					switch region.regionType {
+					case .federalState:
+						let localFederalState = singleSelectedLocalStatistics.federalStateAndDistrictsData.federalStateData.first {
+							$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
+						}
+						guard let federalState = localFederalState else {
+							Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
+							return
+						}
+						regionStatistics = RegionStatisticsData(
+							regionName: regionName,
+							id: federalState.federalState.rawValue,
+							updatedAt: federalState.updatedAt,
+							sevenDayIncidence: federalState.sevenDayIncidence
+						)
+						
+					case .administrativeUnit:
+						let administrativeUnit = singleSelectedLocalStatistics.federalStateAndDistrictsData.administrativeUnitData.first {
+							$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
+						}
+						guard let adminUnit = administrativeUnit else {
+							Log.error("Could not assign administrative unit or district name", log: .localStatistics)
+							return
+						}
+						
+						regionStatistics = RegionStatisticsData(
+							regionName: regionName,
+							id: Int(adminUnit.administrativeUnitShortID),
+							updatedAt: adminUnit.updatedAt,
+							sevenDayIncidence: adminUnit.sevenDayIncidence
+						)
+					}
+					
 					self.insertLocalStatistics(
 						store: store,
-						administrativeUnitsData: singleSelectedLocalStatistics.localStatisticsData,
-						localStatisticsDistrict: singleSelectedLocalStatistics.localStatisticsDistrict,
+						regionData: regionStatistics,
 						onInfoButtonTap: onInfoButtonTap,
 						onAccessibilityFocus: onAccessibilityFocus,
 						onDeleteStatistic: onDeleteLocalStatistic
 					)
+					onUpdate()
 				}
-				onUpdate()
 			}
 			.store(in: &subscriptions)
 	}
 	
 	func insertLocalStatistics(
 		store: Store,
-		administrativeUnitsData: [SAP_Internal_Stats_AdministrativeUnitData],
-		localStatisticsDistrict: LocalStatisticsDistrict?,
+		regionData: RegionStatisticsData,
 		onInfoButtonTap:  @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
-		onDeleteStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void
+		onDeleteStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void
 	) {
-		// check to separate the single entry and multiple entries
-		if localStatisticsDistrict != nil {
-			district = localStatisticsDistrict
-		}
-		
-		let administrativeUnit = administrativeUnitsData.first {
-			$0.administrativeUnitShortID == UInt32(district?.districtId ?? "0")
-		}
-
-		// needed for UI updates
-		localStatisticsCache = store
-		
-		guard let adminUnit = administrativeUnit, let districtName = district?.districtName else {
-			Log.error("Could not assign administrative unit or district name", log: .localStatistics)
-			return
-		}
-
 		let nibName = String(describing: HomeStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
 
@@ -163,7 +235,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				stackView.insertArrangedSubview(statisticsCardView, at: 1)
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(administrativeUnitData: adminUnit, district: districtName),
+					viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionData),
 					onInfoButtonTap: {
 						onInfoButtonTap()
 					},
@@ -173,12 +245,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					},
 					onDeleteTap: { [weak self] in
-						guard let district = self?.district else {
-							Log.error("District can't be nil", log: .localStatistics, error: nil)
+						guard let region = self?.localStatisticsRegion else {
+							Log.error("Region can't be nil", log: .localStatistics, error: nil)
 							return
 						}
-						Log.info("removing \(private: adminUnit.administrativeUnitShortID, public: "administrative unit") @ \(private: district.districtName, public: "district id")", log: .ui)
-						onDeleteStatistic(adminUnit, district)
+						Log.info("removing \(private: regionData.id, public: "administrative unit") @ \(private: region.name, public: "district id")", log: .ui)
+						onDeleteStatistic(regionData, region)
 						DispatchQueue.main.async { [weak self] in
 							self?.stackView.removeArrangedSubview(statisticsCardView)
 							statisticsCardView.removeFromSuperview()
@@ -205,7 +277,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	private var cellModel: HomeStatisticsCellModel?
 	private var subscriptions = Set<AnyCancellable>()
-	private var district: LocalStatisticsDistrict?
+	private var localStatisticsRegion: LocalStatisticsRegion?
 	private var localStatisticsCache: LocalStatisticsCaching?
 
 	/// Keeping `editingStatistics` locally would reset it on reloading of this cell.
@@ -237,10 +309,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDeleteLocalStatistic: @escaping (SAP_Internal_Stats_AdministrativeUnitData, LocalStatisticsDistrict) -> Void,
+		onDeleteLocalStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
 		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -266,9 +338,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissState()
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
-				}, onFetchGroupData: { district in
-					self.district = district
-					onFetchGroupData(district)
+				}, onFetchGroupData: { region in
+					self.localStatisticsRegion = region
+					onFetchGroupData(region)
 				}, onEditButtonTap: {
 					self.setEditing(!Self.editingStatistics, animated: true)
 					// Pass the current state to the tableViewController
@@ -342,7 +414,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		let state = LocalStatisticsState.with(store)
-		Log.debug("management state: \(state), \(store.selectedLocalStatisticsDistricts.count)/\(store.localStatistics.count)", log: .localStatistics)
+		Log.debug("management state: \(state), \(store.selectedLocalStatisticsRegions.count)/\(store.localStatistics.count)", log: .localStatistics)
 		cell.updateUI(for: state)
 	}
 }

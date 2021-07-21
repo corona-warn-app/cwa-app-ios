@@ -13,24 +13,24 @@ class LocalStatisticsStateTests: XCTestCase {
 		XCTAssertEqual(LocalStatisticsState.with(store), .empty)
 
 		// partially filled
-		store.selectedLocalStatisticsDistricts = [
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: "")
+		store.selectedLocalStatisticsRegions = [
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState)
 		]
 		XCTAssertEqual(LocalStatisticsState.with(store), .notYetFull)
 
 		// full
-		store.selectedLocalStatisticsDistricts = [
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: ""),
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: ""),
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: ""),
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: ""),
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: "")
+		store.selectedLocalStatisticsRegions = [
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState),
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState),
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState),
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState),
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState)
 		]
 		XCTAssertEqual(LocalStatisticsState.with(store), .full)
 
 		// over threshold
-		store.selectedLocalStatisticsDistricts.append(
-			LocalStatisticsDistrict(federalState: .berlin, districtName: "", districtId: ""))
+		store.selectedLocalStatisticsRegions.append(
+			LocalStatisticsRegion(federalState: .berlin, name: "", id: "", regionType: .federalState))
 		XCTAssertEqual(LocalStatisticsState.with(store), .full)
     }
 

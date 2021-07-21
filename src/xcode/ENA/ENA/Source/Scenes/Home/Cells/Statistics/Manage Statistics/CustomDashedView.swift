@@ -78,8 +78,7 @@ class CustomDashedView: UIControl {
 	
 	// MARK: - Private
 	
-	@IBOutlet private weak var icon: UIImageView!
-	
+	@IBOutlet private weak var button: UIButton!
 	@IBInspectable private var cornerRadius: CGFloat = 15 {
 		didSet {
 			layer.cornerRadius = cornerRadius
@@ -106,8 +105,7 @@ class CustomDashedView: UIControl {
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
-
-			icon.image = UIImage(named: "Icon_Modify")
+			button.setImage(UIImage(named: "Icon_Modify"), for: .normal)
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)

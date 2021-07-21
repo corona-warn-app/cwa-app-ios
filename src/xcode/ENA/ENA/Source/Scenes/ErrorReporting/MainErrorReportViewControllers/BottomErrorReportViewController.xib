@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +24,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="356"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMZ-di-uo6" userLabel="TopLabel" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
@@ -128,11 +129,12 @@
                     </subviews>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="0T2-DO-TWo"/>
             <color key="backgroundColor" name="ENA Background Color"/>
             <constraints>
                 <constraint firstItem="TmV-eH-o8L" firstAttribute="top" secondItem="sJl-QC-bln" secondAttribute="bottom" constant="16" id="0fg-8V-yym"/>
                 <constraint firstAttribute="trailing" secondItem="zMZ-di-uo6" secondAttribute="trailing" constant="16" id="80g-Vj-qwb"/>
-                <constraint firstAttribute="bottom" secondItem="TmV-eH-o8L" secondAttribute="bottom" priority="750" constant="8" id="AGp-3z-myZ"/>
+                <constraint firstItem="0T2-DO-TWo" firstAttribute="bottom" secondItem="TmV-eH-o8L" secondAttribute="bottom" priority="750" constant="4" id="AGp-3z-myZ"/>
                 <constraint firstAttribute="trailing" secondItem="sJl-QC-bln" secondAttribute="trailing" constant="16" id="TfT-vU-2yg"/>
                 <constraint firstItem="zMZ-di-uo6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="YyM-Qu-dZX"/>
                 <constraint firstItem="TmV-eH-o8L" firstAttribute="trailing" secondItem="sJl-QC-bln" secondAttribute="trailing" id="ceg-Pe-SS9"/>

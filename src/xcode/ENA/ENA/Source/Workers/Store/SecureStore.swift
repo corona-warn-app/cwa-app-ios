@@ -388,8 +388,8 @@ extension SecureStore: LocalStatisticsCaching {
 		set { kvStore["localStatistics"] = newValue }
 	}
 	
-	var selectedLocalStatisticsDistricts: [LocalStatisticsDistrict] {
-		get { kvStore["selectedLocalStatisticsDistricts"] as [LocalStatisticsDistrict]? ?? [] }
+	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] {
+		get { kvStore["selectedLocalStatisticsDistricts"] as [LocalStatisticsRegion]? ?? [] }
 		set { kvStore["selectedLocalStatisticsDistricts"] = newValue }
 	}
 }

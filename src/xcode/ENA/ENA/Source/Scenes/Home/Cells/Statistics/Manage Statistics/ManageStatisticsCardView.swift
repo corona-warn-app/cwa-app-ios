@@ -28,7 +28,7 @@ class ManageStatisticsCardView: UIView {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -134,7 +134,7 @@ class ManageStatisticsCardView: UIView {
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
 	private var onDismissDistrict: ((Bool) -> Void)?
-	private var onFetchGroupData: ((LocalStatisticsDistrict) -> Void)?
+	private var onFetchGroupData: ((LocalStatisticsRegion) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: ManageStatisticsCardsViewModel?
