@@ -21,16 +21,16 @@ struct DSCListMetaData: Codable {
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
-		case lastETag
-		case lastFetch
+		case eTag
+		case timestamp
 		case dscList
 	}
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		eTag = try container.decodeIfPresent(String.self, forKey: .lastETag)
-		timestamp = try container.decode(Date.self, forKey: .lastFetch)
+		eTag = try container.decodeIfPresent(String.self, forKey: .eTag)
+		timestamp = try container.decode(Date.self, forKey: .timestamp)
 
 		let dscListData = try container.decode(Data.self, forKey: .dscList)
 		dscList = try SAP_Internal_Dgc_DscList(serializedData: dscListData)
@@ -39,11 +39,11 @@ struct DSCListMetaData: Codable {
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
-		try container.encodeIfPresent(eTag, forKey: .lastETag)
-		try container.encode(timestamp, forKey: .lastFetch)
+		try container.encodeIfPresent(eTag, forKey: .eTag)
+		try container.encode(timestamp, forKey: .timestamp)
 
-		let dscListResponse = try dscList.serializedData()
-		try container.encode(dscListResponse, forKey: .dscList)
+		let dscList = try dscList.serializedData()
+		try container.encode(dscList, forKey: .dscList)
 	}
 
 	// MARK: - Internal
