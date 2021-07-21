@@ -334,7 +334,7 @@ class HomeStatisticsCardView: UIView {
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
 	private lazy var deletionIndicator: UIView = {
-		let delete = DeleteCircle(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+		let delete = DeleteCircle(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
 		return delete
 	}()
 
