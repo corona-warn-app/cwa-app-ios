@@ -89,6 +89,7 @@ class HomeStatisticsCardView: UIView {
 
 		// delete button/circle
 		deleteButton.isHidden = true // initial state
+		deleteButton.accessibilityLabel = AppStrings.Common.alertActionRemove
 	}
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
