@@ -324,7 +324,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
 	}
 	
-	
 	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = {
 		#if DEBUG
 		if isUITesting {
