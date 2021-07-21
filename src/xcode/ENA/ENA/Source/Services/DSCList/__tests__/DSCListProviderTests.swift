@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import OpenCombine
 @testable import ENA
 
 class DSCListProviderTests: XCTestCase {
@@ -41,6 +42,48 @@ class DSCListProviderTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(dscList, defaultDSCList)
+	}
+
+	func testGIVEN_Provider_WHEN_UnchangedResponse_THEN_DSCListIsNotUpdated() {
+		let fetchedFromClientExpectation = expectation(description: "DSC list fetched from client")
+		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+
+		let client = CachingHTTPClientMock()
+		client.onFetchLocalDSCList = { _, completeWith in
+			// fake 304 response
+			let error = URLSessionError.notModified
+			completeWith(.failure(error))
+		}
+
+		client.fetchDSCList(etag: nil) { result in
+			switch result {
+			case .success:
+				XCTFail("success unexpected")
+			case let .failure(error):
+				guard error is URLSession.Response.Failure else {
+					XCTFail("unexpected error")
+					return
+				}
+			}
+			fetchedFromClientExpectation.fulfill()
+		}
+
+		let provider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+		var subscriptions = Set<AnyCancellable>()
+
+		// WHEN
+		let dscList = provider.dscList.value
+
+		provider.dscList.sink { updatedList in
+			XCTAssertEqual(dscList, updatedList)
+		}
+		.store(in: &subscriptions)
+
+		// THEN
+		waitForExpectations(timeout: .short)
 	}
 
 }
