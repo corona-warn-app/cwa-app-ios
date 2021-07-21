@@ -20,7 +20,7 @@ let package = Package(
         .package(url: "https://github.com/corona-warn-app/base45-swift", .branch("distribution/swiftpackage")),
         .package(name: "JSONSchema", url: "https://github.com/eu-digital-green-certificates/JSONSchema.swift", .upToNextMajor(from: "0.6.0")),
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0")),
-        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("bd7223fa142bdd3f3d5ad770b12e06ffbb9149b3"))
+        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("8b7f86a2aed4f2c60dd2c7c4f28eb129d9fe379d"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
