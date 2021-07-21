@@ -64,7 +64,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// 1. Apply technical validation
 		
 		let isExpired: Bool
-		let stub = DCCSignatureVerifiableStub(error: .HC_COSE_NO_SIGN1)
+		let stub = DCCSignatureVerifiableStub(error: nil)
 		// DONT FORGET: pass singatures array into this function!
 		let result = stub.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
 		switch result {
