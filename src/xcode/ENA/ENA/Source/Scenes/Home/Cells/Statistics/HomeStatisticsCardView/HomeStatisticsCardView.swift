@@ -336,12 +336,6 @@ class HomeStatisticsCardView: UIView {
 	
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
-//	private lazy var deletionIndicator: UIButton = {
-//		let delete = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24), primaryAction: {
-//			onDeleteTap?()
-//		})
-//		return delete
-//	}()
 
 	@objc
 	private func onDeleteTapped(_ sender: Any?) {
