@@ -75,7 +75,6 @@ class DSCListProviderTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-
 	func testGIVEN_provider_WHEN_NotificationAfterInterval_THEN_DSCListGotUpdated() {
 		// GIVEN
 		let fetchedFromClientExpectation = expectation(description: "DSC list fetched from client")

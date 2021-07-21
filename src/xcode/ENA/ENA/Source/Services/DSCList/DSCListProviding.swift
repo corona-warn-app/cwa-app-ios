@@ -17,7 +17,6 @@ protocol DSCListFetching {
 	typealias DSCListCompletionHandler = (Result<DSCListResponse, Error>) -> Void
 
 	func fetchDSCList(etag: String?, completion: @escaping DSCListCompletionHandler)
-
 }
 
 struct DSCListResponse {

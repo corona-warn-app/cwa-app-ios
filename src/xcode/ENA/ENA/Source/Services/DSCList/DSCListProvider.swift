@@ -50,7 +50,6 @@ final class DSCListProvider: DSCListProviding {
 	private let store: Store
 	private let interval: TimeInterval
 
-
 	private static func loadDSCListMetaDataIfAvailable(store: Store, interval: TimeInterval) -> DSCListMetaData {
 		guard let metaDataDSCList = store.dscList else {
 			// store is empty -> store default and return it
