@@ -168,7 +168,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						onInfoButtonTap()
 					},
 					onAccessibilityFocus: { [weak self] in
-						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: true)
 						onAccessibilityFocus()
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					},
@@ -299,7 +299,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						onInfoButtonTap()
 					},
 					onAccessibilityFocus: { [weak self] in
-						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: true)
 						onAccessibilityFocus()
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					}
