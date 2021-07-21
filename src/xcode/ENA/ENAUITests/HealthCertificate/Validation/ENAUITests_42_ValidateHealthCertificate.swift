@@ -35,8 +35,6 @@ class ENAUITests_42_ValidateHealthCertificate: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
-
-		snapshot("screenshot_certificate_screen")
 		
 		// Open Validation Screen
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
