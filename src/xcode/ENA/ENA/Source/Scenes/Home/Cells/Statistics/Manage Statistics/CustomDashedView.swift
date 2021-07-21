@@ -61,8 +61,6 @@ class CustomDashedView: UIControl {
 	enum Mode {
 		case add, modify
 	}
-	
-	@IBOutlet weak var label: ENALabel!
 
 	var tapHandler: (() -> Void)?
 	var onAccessibilityFocus: (() -> Void)?
@@ -77,8 +75,10 @@ class CustomDashedView: UIControl {
 	}
 	
 	// MARK: - Private
-	
-	@IBOutlet private weak var button: UIButton!
+
+	@IBOutlet private weak var label: ENALabel!
+	@IBOutlet private weak var icon: UIImageView!
+
 	@IBInspectable private var cornerRadius: CGFloat = 15 {
 		didSet {
 			layer.cornerRadius = cornerRadius
@@ -101,11 +101,12 @@ class CustomDashedView: UIControl {
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 			isEnabled = true // explicit call to trigger design adjustment
-			
+			// HACK: it's important to call isEnabled after setting the accessibilityIdentifier!
 		case .modify:
 			label.text = AppStrings.Statistics.AddCard.modify
 			label.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidenceLabel
-			button.setImage(UIImage(named: "Icon_Modify"), for: .normal)
+
+			icon.image = UIImage(named: "Icon_Modify")
 			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		}
 		backgroundColor = .enaColor(for: .backgroundLightGray)
