@@ -4,6 +4,7 @@
 
 import XCTest
 import OpenCombine
+import HealthCertificateToolkit
 @testable import ENA
 
 class DSCListProviderTests: XCTestCase {
@@ -19,6 +20,12 @@ class DSCListProviderTests: XCTestCase {
 			fatalError("Failed to read default DSCList bin file - set empty fallback")
 		}
 		return dscList
+	}
+
+	func convert(dscList: SAP_Internal_Dgc_DscList) -> [DCCSigningCertificate] {
+		return dscList.certificates.map { listItem in
+			DCCSigningCertificate(kid: listItem.kid, data: listItem.data)
+		}
 	}
 
 	// MARK: - Tests
@@ -37,8 +44,8 @@ class DSCListProviderTests: XCTestCase {
 			store: MockTestStore()
 		)
 		// WHEN
-		let defaultDSCList = readDefaultFile()
-		let dscList = provider.dscList.value
+		let defaultDSCList = convert(dscList: readDefaultFile())
+		let dscList = provider.signingCertificates.value
 
 		// THEN
 		XCTAssertEqual(dscList, defaultDSCList)
@@ -62,9 +69,9 @@ class DSCListProviderTests: XCTestCase {
 		var subscriptions = Set<AnyCancellable>()
 
 		// WHEN
-		let dscList = provider.dscList.value
+		let dscList = provider.signingCertificates.value
 
-		provider.dscList
+		provider.signingCertificates
 			.sink { updatedList in
 				XCTAssertEqual(dscList, updatedList)
 			}

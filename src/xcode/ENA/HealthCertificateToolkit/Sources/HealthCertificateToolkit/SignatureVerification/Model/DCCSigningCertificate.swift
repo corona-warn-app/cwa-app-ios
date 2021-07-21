@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct DCCSigningCertificate {
+public struct DCCSigningCertificate: Hashable {
     let kid: Data
     let data: Data
 
