@@ -4,7 +4,8 @@
 
 import Foundation
 import OpenCombine
-@testable import ENA
+
+#if DEBUG
 
 struct MockHealthCertificateValidationService: HealthCertificateValidationProviding {
 
@@ -24,3 +25,5 @@ struct MockHealthCertificateValidationService: HealthCertificateValidationProvid
 	var validationResult: Result<HealthCertificateValidationReport, HealthCertificateValidationError> = .success(.validationPassed([]))
 
 }
+
+#endif
