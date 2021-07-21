@@ -60,6 +60,16 @@ class CustomDashedView: UIControl {
 
 		onAccessibilityFocus?()
 	}
+
+	override func accessibilityActivate() -> Bool {
+		guard isEnabled else {
+			return false
+		}
+
+		tapHandler?()
+
+		return true
+	}
 	
 	// MARK: - Internal
 
