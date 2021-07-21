@@ -18,29 +18,49 @@ final class DSCListProvider: DSCListProviding {
 		self.store = store
 		self.interval = interval
 		// load last knows | default DSCList data
-		let metaData = Self.loadDSCListMetaDataIfAvailable(store: store, interval: interval)
-		lastUpdate = CurrentValueSubject<DSCListMetaData, Never>(metaData)
+		self.metaData = Self.loadDSCListMetaDataIfAvailable(store: store, interval: interval)
+		self.dscList = CurrentValueSubject<SAP_Internal_Dgc_DscList, Never>(metaData.dscList)
 
 		// trigger an update immediately
-		fetchDSCList()
+		updateListIfNeeded()
 	}
-
-	// MARK: - Overrides
 
 	// MARK: - Protocol DSCListProviding
 
-	private(set) var lastUpdate: CurrentValueSubject<DSCListMetaData, Never>
+	private(set) var dscList: CurrentValueSubject<SAP_Internal_Dgc_DscList, Never>
 
-	/// return the recent DSCList
-	var dscList: SAP_Internal_Dgc_DscList {
-		return lastUpdate.value.dscList
+	// MARK: - Internal
+
+	func updateListIfNeeded() {
+		guard metaData.timestamp.timeIntervalSinceNow > interval else {
+			Log.debug("DSCList update interval not reached - stop")
+			return
+		}
+
+		client.fetchDSCList(etag: metaData.eTag) { [weak self] result in
+			switch result {
+			case .success(let response):
+				self?.metaData = DSCListMetaData(eTag: response.eTag, timestamp: Date(), dscList: response.dscList)
+
+			case .failure(let error):
+				Log.error("Failed to updated DSCList \(error)")
+			}
+		}
 	}
 
 	// MARK: - Private
-	
+
 	private let client: DSCListFetching
 	private let store: Store
 	private let interval: TimeInterval
+
+	private var metaData: DSCListMetaData {
+		// on change write to the store and update publisher
+		didSet {
+			store.dscList = metaData
+			dscList.value = metaData.dscList
+		}
+	}
 
 	private static func loadDSCListMetaDataIfAvailable(store: Store, interval: TimeInterval) -> DSCListMetaData {
 		guard let metaDataDSCList = store.dscList else {
@@ -55,29 +75,6 @@ final class DSCListProvider: DSCListProviding {
 			return DSCListMetaData(eTag: nil, timestamp: Date(timeIntervalSinceNow: -interval), dscList: dscList)
 		}
 		return metaDataDSCList
-	}
-
-	private func updateStore(eTag: String? = nil, timestamp: Date = Date(), dscList: SAP_Internal_Dgc_DscList) {
-		let metaData = DSCListMetaData(eTag: eTag, timestamp: timestamp, dscList: dscList)
-		store.dscList = metaData
-		lastUpdate.value = metaData
-	}
-
-	private func fetchDSCList() {
-		guard lastUpdate.value.timestamp.timeIntervalSinceNow > interval else {
-			Log.debug("DSCList update interval not reached - stop")
-			return
-		}
-
-		client.fetchDSCList(etag: lastUpdate.value.eTag) { [weak self] result in
-			switch result {
-			case .success(let response):
-				self?.updateStore(eTag: response.eTag, dscList: response.dscList)
-
-			case .failure(let error):
-				Log.error("Failed to updated DSCList \(error)")
-			}
-		}
 	}
 
 }

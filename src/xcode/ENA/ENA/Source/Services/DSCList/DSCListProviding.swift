@@ -6,10 +6,7 @@ import Foundation
 import OpenCombine
 
 protocol DSCListProviding {
-
-	var lastUpdate: CurrentValueSubject<DSCListMetaData, Never> { get }
-	var dscList: SAP_Internal_Dgc_DscList { get }
-
+	var dscList: CurrentValueSubject<SAP_Internal_Dgc_DscList, Never> { get }
 }
 
 protocol DSCListFetching {
