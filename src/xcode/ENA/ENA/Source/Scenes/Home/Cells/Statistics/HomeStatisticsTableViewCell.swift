@@ -273,8 +273,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					self.setEditing(!Self.editingStatistics, animated: true)
 					// Pass the current state to the tableViewController
 					onToggleEditMode(Self.editingStatistics)
-				}, onAccessibilityFocus: {
+				}, onAccessibilityFocus: { [weak self] in
+					self?.scrollView.scrollRectToVisible(manageLocalStatisticsCardView.frame, animated: true)
 					onAccessibilityFocus()
+					UIAccessibility.post(notification: .layoutChanged, argument: nil)
 				}
 			)
 		}

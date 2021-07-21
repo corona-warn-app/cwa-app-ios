@@ -49,6 +49,12 @@ class CustomDashedView: UIControl {
 		// swiftlint:disable:next unused_setter_value
 		set { }
 	}
+
+	override func accessibilityElementDidBecomeFocused() {
+		super.accessibilityElementDidBecomeFocused()
+
+		onAccessibilityFocus?()
+	}
 	
 	// MARK: - Internal
 
@@ -59,6 +65,7 @@ class CustomDashedView: UIControl {
 	@IBOutlet weak var label: ENALabel!
 
 	var tapHandler: (() -> Void)?
+	var onAccessibilityFocus: (() -> Void)?
 
 	class func instance(for mode: Mode) -> CustomDashedView {
 		let nibName = String(describing: Self.self)

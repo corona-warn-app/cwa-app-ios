@@ -77,7 +77,7 @@ class ManageStatisticsCardView: UIView {
 			addView.tapHandler = { [weak self] in
 				self?.onAddLocalIncidenceButtonPressed()
 			}
-			addView.label.onAccessibilityFocus = onAccessibilityFocus
+			addView.onAccessibilityFocus = onAccessibilityFocus
 			return addView
 		}()
 		let modifyView = { () -> CustomDashedView in
@@ -85,7 +85,7 @@ class ManageStatisticsCardView: UIView {
 			modify.tapHandler = { [weak self] in
 				self?.onEditButtonTap?()
 			}
-			modify.label.onAccessibilityFocus = onAccessibilityFocus
+			modify.onAccessibilityFocus = onAccessibilityFocus
 			return modify
 		}()
 
