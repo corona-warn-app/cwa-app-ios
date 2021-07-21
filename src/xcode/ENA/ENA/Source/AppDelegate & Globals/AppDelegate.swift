@@ -334,8 +334,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				
 				// Provide data for invalid validation
 				let fakeResult: ValidationResult = .fake(result: .fail)
-				fakeResult.rule?.description = [Description(lang: "de", desc: "Die Impfreihe muss vollständig sein (z.B. 1/1, 2/2)."),
-												Description(lang: "en", desc: "The vaccination schedule must be complete (e.g., 1/1, 2/2).")]
+				fakeResult.rule?.description = [Description(lang: "de", desc: "Die Impfreihe muss vollständig sein (z.B. 1/1, 2/2)."), Description(lang: "en", desc: "The vaccination schedule must be complete (e.g., 1/1, 2/2).")]
 				mock.validationResult = .success(.validationFailed([fakeResult]))
 			} else {
 				mock.validationResult = .success(.validationPassed([.fake(), .fake(), .fake()]))
