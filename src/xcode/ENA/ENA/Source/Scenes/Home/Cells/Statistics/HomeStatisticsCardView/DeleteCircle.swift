@@ -6,7 +6,7 @@ import UIKit
 
 /// A red circle to indicate a delete action
 @IBDesignable
-class DeleteCircle: UIView {
+class DeleteCircle: UIControl {
 	
 	// MARK: - Init
 	
@@ -28,6 +28,7 @@ class DeleteCircle: UIView {
 
 		isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
+		accessibilityLabel = AppStrings.Common.alertActionRemove
 		accessibilityTraits = [.button]
 	}
 
@@ -53,4 +54,9 @@ class DeleteCircle: UIView {
 		])
 		context?.strokePath()
     }
+
+	override func accessibilityElementDidBecomeFocused() {
+		super.accessibilityElementDidBecomeFocused()
+		superview?.accessibilityElementDidBecomeFocused()
+	}
 }

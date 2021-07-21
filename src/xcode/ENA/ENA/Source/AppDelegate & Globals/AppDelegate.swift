@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import OpenCombine
 import OpenCombineFoundation
 import OpenCombineDispatch
@@ -9,6 +10,7 @@ import ExposureNotification
 import FMDB
 import UIKit
 import HealthCertificateToolkit
+import CertLogic
 
 protocol CoronaWarnAppDelegate: AnyObject {
 
@@ -322,11 +324,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
 	}
 	
-	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = HealthCertificateValidationService(
-		store: store,
-		client: client,
-		vaccinationValueSetsProvider: vaccinationValueSetsProvider
-	)
+	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = {
+		#if DEBUG
+		if isUITesting {
+			var mock = MockHealthCertificateValidationService()
+			
+			if LaunchArguments.healthCertificate.invalidCertificateCheck.boolValue {
+				
+				// Provide data for invalid validation
+				let fakeResult: ValidationResult = .fake(result: .fail)
+				fakeResult.rule?.description = [Description(lang: "de", desc: "Die Impfreihe muss vollständig sein (z.B. 1/1, 2/2)."), Description(lang: "en", desc: "The vaccination schedule must be complete (e.g., 1/1, 2/2).")]
+				mock.validationResult = .success(.validationFailed([fakeResult]))
+			} else {
+				mock.validationResult = .success(.validationPassed([.fake(), .fake(), .fake()]))
+			}
+			
+			return mock
+		}
+		#endif
+		
+		return HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+	}()
 	
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
 		store: store,

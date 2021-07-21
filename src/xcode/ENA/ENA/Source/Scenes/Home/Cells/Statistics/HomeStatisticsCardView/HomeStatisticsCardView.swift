@@ -162,7 +162,9 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			accessibilityElements.append(deletionIndicator)
+			if !deletionIndicator.isHidden {
+				accessibilityElements.append(deletionIndicator)
+			}
 
 			return accessibilityElements
 		}
@@ -323,6 +325,7 @@ class HomeStatisticsCardView: UIView {
 			self.deletionIndicator.alpha = enabled ? 1 : 0
 		}, completion: { _ in
 			self.deletionIndicator.isHidden = !enabled
+
 		})
 	}
 	// MARK: - Private
