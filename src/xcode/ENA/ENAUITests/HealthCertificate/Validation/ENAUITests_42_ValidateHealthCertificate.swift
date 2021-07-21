@@ -115,6 +115,7 @@ class ENAUITests_42_ValidateHealthCertificate: CWATestCase {
 		// Tap on Date Time Selection
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap()
 		
+		// Tap on button to validate
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 
 		snapshot("screenshot_certificate_validation_date_selection")
