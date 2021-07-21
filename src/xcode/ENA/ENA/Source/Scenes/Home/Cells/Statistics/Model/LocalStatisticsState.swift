@@ -13,7 +13,7 @@ enum LocalStatisticsState {
 	case full
 
 	static func with(_ store: LocalStatisticsCaching) -> Self {
-		switch store.selectedLocalStatisticsDistricts.count {
+		switch store.selectedLocalStatisticsRegions.count {
 		case ...0:
 			return .empty
 		case 1...(Self.threshold - 1):

@@ -142,25 +142,25 @@ class HomeState: ENStateHandlerUpdating {
 			.store(in: &subscriptions)
 	}
 	
-	func fetchLocalStatistics(district: LocalStatisticsDistrict) {
-		// check for the selected district in persisted districts
-		let selectedLocalStatisticsDistrict = store.selectedLocalStatisticsDistricts.filter({
-			$0.districtId == district.districtId
+	func fetchLocalStatistics(region: LocalStatisticsRegion) {
+		// check for the selected Region in persisted Regions
+		let selectedLocalStatisticsRegion = store.selectedLocalStatisticsRegions.filter({
+			$0.id == region.id
 		}).compactMap { $0 }.first
 		
-		// selected district is not there in presisted districts
-		if selectedLocalStatisticsDistrict == nil {
-			// persist the district to the list of selected districts
-			store.selectedLocalStatisticsDistricts.append(district)
+		// selected Region is not there in persisted Regions
+		if selectedLocalStatisticsRegion == nil {
+			// persist the Region to the list of selected Regions
+			store.selectedLocalStatisticsRegions.append(region)
 			
 			DispatchQueue.main.async { [weak self] in
-				self?.updateLocalStatistics(selectedLocalStatisticsDistrict: district)
+				self?.updateLocalStatistics(selectedLocalStatisticsRegion: region)
 			}
 		}
 	}
 
-	func updateLocalStatistics(selectedLocalStatisticsDistrict: LocalStatisticsDistrict) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsDistrict.federalState.groupID), eTag: nil)
+	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil)
 			.sink(
 				receiveCompletion: { [weak self] result in
 					switch result {
@@ -180,8 +180,8 @@ class HomeState: ENStateHandlerUpdating {
 			.store(in: &subscriptions)
 	}
 	
-	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsDistrict]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: selection ?? [], completion: { selectedLocalStatistics in
+	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {
+		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
 			self.selectedLocalStatistics = selectedLocalStatistics
 			Log.debug("fetched selected local statistics: \(private: selectedLocalStatistics) entities", log: .localStatistics)
 		})
