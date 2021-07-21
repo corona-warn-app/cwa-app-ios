@@ -63,6 +63,11 @@
             <point key="canvasLocation" x="99.275362318840592" y="-60.267857142857139"/>
         </view>
     </objects>
+    <designables>
+        <designable name="bHu-KX-nfx">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
