@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import HealthCertificateToolkit
 
 struct DSCListMetaData: Codable {
 
@@ -51,5 +52,11 @@ struct DSCListMetaData: Codable {
 	var eTag: String?
 	var timestamp: Date
 	var dscList: SAP_Internal_Dgc_DscList
+	
+	var signingCertificate: [DCCSigningCertificate] {
+		return dscList.certificates.map { listItem in
+			DCCSigningCertificate(kid: listItem.kid, data: listItem.data)
+		}
+	}
 
 }

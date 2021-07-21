@@ -4,9 +4,10 @@
 
 import Foundation
 import OpenCombine
+import HealthCertificateToolkit
 
 protocol DSCListProviding {
-	var dscList: CurrentValueSubject<SAP_Internal_Dgc_DscList, Never> { get }
+	var signingCertificates: CurrentValueSubject<[DCCSigningCertificate], Never> { get }
 }
 
 protocol DSCListFetching {

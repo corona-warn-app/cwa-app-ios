@@ -4,6 +4,7 @@
 
 import UIKit
 import OpenCombine
+import HealthCertificateToolkit
 
 final class DSCListProvider: DSCListProviding {
 
@@ -19,7 +20,7 @@ final class DSCListProvider: DSCListProviding {
 		self.interval = interval
 		// load last knows | default DSCList data
 		self.metaData = Self.loadDSCListMetaDataIfAvailable(store: store, interval: interval)
-		self.dscList = CurrentValueSubject<SAP_Internal_Dgc_DscList, Never>(metaData.dscList)
+		self.signingCertificates = CurrentValueSubject<[DCCSigningCertificate], Never>(metaData.signingCertificate)
 
 		// trigger an update immediately
 		NotificationCenter.default.addObserver(self, selector: #selector(updateListIfNeeded), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -32,7 +33,7 @@ final class DSCListProvider: DSCListProviding {
 
 	// MARK: - Protocol DSCListProviding
 
-	private(set) var dscList: CurrentValueSubject<SAP_Internal_Dgc_DscList, Never>
+	private(set) var signingCertificates: CurrentValueSubject<[DCCSigningCertificate], Never>
 
 	// MARK: - Internal
 
@@ -40,7 +41,7 @@ final class DSCListProvider: DSCListProviding {
 		// on change write to the store and update publisher
 		didSet {
 			store.dscList = metaData
-			dscList.value = metaData.dscList
+			signingCertificates.value = metaData.signingCertificate
 		}
 	}
 
