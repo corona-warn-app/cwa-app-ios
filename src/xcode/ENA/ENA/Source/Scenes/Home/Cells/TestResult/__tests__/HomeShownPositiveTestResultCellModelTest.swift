@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class HomeShownPositiveTestResultCellModelTest: CWATestCase {
@@ -19,6 +20,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -111,6 +113,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
