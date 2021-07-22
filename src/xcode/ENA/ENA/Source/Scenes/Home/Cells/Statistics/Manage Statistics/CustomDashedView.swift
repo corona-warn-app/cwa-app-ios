@@ -12,7 +12,8 @@ class CustomDashedView: UIControl {
 		didSet {
 			// design for add-card is based on this state
 			// using accessibility identifier to prevent yet another `mode` property
-			guard accessibilityIdentifier == AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton else { return }
+			guard accessibilityIdentifier == AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton else { return
+			}
 
 			if isEnabled {
 				label.text = AppStrings.Statistics.AddCard.sevenDayIncidence
@@ -23,7 +24,7 @@ class CustomDashedView: UIControl {
 				icon.image = UIImage(named: "Icon_Add_Grey")
 				accessibilityTraits = [.button, .notEnabled]
 			}
-			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.button
+			
 			accessibilityLabel = label.text
 		}
 	}
