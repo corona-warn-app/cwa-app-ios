@@ -83,4 +83,9 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 			return 16
 		}
 	}
+	
+	// the FederalStates inside the returned in local_statistics.pb start from zero so this is to make the correct mapping
+	var federalStateProtobufId: Int {
+		return self.federalStateId - 1
+	}
 }
