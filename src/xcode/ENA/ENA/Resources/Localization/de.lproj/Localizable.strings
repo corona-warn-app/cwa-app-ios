@@ -2879,7 +2879,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_invalidSignature_title" = "Signatur ungültig";
 
-"HealthCertificate_Error_invalidSignature_msg" = "Die Signatur des Zertifikates ist ungültig. Das Zertifikat kann nicht als Nachweis verwendet werden und daher nicht importiert werden.";
+"HealthCertificate_Error_invalidSignature_msg" = "Die Signatur des Zertifikats ist ungültig. Das Zertifikat kann nicht als Nachweis verwendet werden und daher nicht importiert werden.";
 
 "HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "FAQ zur Signaturprüfung";
 
