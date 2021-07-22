@@ -31,7 +31,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.swipeRight()
 
 		// Management card(s) pt.1 - addition
-		XCTAssertTrue(self.app.staticTexts[AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(self.app.buttons[addButton].waitForExistence(timeout: .medium))
 		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
 		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
 		statisticsCell.buttons[addButton].waitAndTap()
@@ -49,6 +49,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.swipeDown(velocity: .slow) // glitch
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
+		
 		let deleteButton = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
 		XCTAssertFalse(deleteButton.isHittable)
 
@@ -57,6 +58,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
 		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
 		statisticsCell.buttons[modifyButton].waitAndTap()
+		
+		app.buttons[modifyButton].swipeLeft()
+		XCTAssertTrue(deleteButton.waitForExistence(timeout: .short))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
 		XCTAssertFalse(localStatisticCell.exists)
@@ -164,7 +168,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	func test_screenshot_local_statistics_card() throws {
 		// GIVEN
 		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
-		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.button
+		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 
 		// WHEN

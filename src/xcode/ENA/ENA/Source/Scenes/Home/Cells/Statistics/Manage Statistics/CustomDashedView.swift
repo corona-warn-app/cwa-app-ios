@@ -23,7 +23,6 @@ class CustomDashedView: UIControl {
 				icon.image = UIImage(named: "Icon_Add_Grey")
 				accessibilityTraits = [.button, .notEnabled]
 			}
-			accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.button
 			accessibilityLabel = label.text
 		}
 	}
