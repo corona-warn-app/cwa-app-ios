@@ -90,9 +90,7 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if let unWrappedDeleteButton = deleteButton, !unWrappedDeleteButton.isHidden {
-				accessibilityElements.append(unWrappedDeleteButton)
-			}
+			accessibilityElements.append(deleteButton as Any)
 
 			return accessibilityElements
 		}
@@ -279,9 +277,7 @@ class HomeStatisticsCardView: UIView {
 	}
 
 	private func configureDeleteButton() {
-		if let unWrappedDeleteButton = deleteButton {
-			accessibilityElements?.append(unWrappedDeleteButton)
-		}
+		accessibilityElements?.append(deleteButton as Any)
 		deleteButton.accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
 		deleteButton.accessibilityLabel = AppStrings.Common.alertActionRemove
 		deleteButton.isHidden = true // initial state
