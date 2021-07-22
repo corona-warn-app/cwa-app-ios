@@ -96,12 +96,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		
 		// check for the text for the add button
 		let addButton = app.buttons[addButtonIdentifier]
-		/*
-			we can't use AppStrings here because in UITests the strings are not localized and instead
-			we just get the key for the required string not the value.
-			since the UITests are only enabled in the German local so we compare to the german string
-		*/
-		let expectTitle = "Maximale Anzahl der lokalen 7-Tage-Inzidenz erreicht"
+		let expectTitle = AccessibilityLabels.localized(AppStrings.Statistics.AddCard.disabledAddTitle)
 		XCTAssertEqual(addButton.label, expectTitle, "label should show the disabled message")
 		XCTAssertFalse(addButton.isEnabled, "button should be disabled after 5 cards")
 	}
