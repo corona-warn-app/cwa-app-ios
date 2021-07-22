@@ -14,8 +14,13 @@ class HomeStatisticsCardView: UIView {
 
 		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.General.card
 		accessibilityTraits = [.summaryElement, .causesPageTurn]
-		accessibilityElements?.append(deleteButton)
-
+		
+		if let unWrappedDeleteButton = deleteButton {
+			accessibilityElements?.append(unWrappedDeleteButton)
+		}
+		deleteButton.accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
+		deleteButton.accessibilityLabel = AppStrings.Common.alertActionRemove
+		
 		let adjustsFontSizeToFitWidth = false
 		let allowsDefaultTighteningForTruncation = true
 
@@ -159,8 +164,8 @@ class HomeStatisticsCardView: UIView {
 				accessibilityElements.append(tertiaryTitleLabel)
 			}
 
-			if !deleteButton.isHidden {
-				accessibilityElements.append(deleteButton)
+			if let unWrappedDeleteButton = deleteButton, !unWrappedDeleteButton.isHidden {
+				accessibilityElements.append(unWrappedDeleteButton)
 			}
 
 			return accessibilityElements
@@ -330,10 +335,10 @@ class HomeStatisticsCardView: UIView {
 	private var onAccessibilityFocus: (() -> Void)?
 	private var onDeleteTap: (() -> Void)?
 
-	@IBAction func deleteButtonTapped(_ sender: Any) {
+	@IBAction private func deleteButtonTapped(_ sender: Any) {
 		onDeleteTap?()
 	}
-	@IBOutlet weak var deleteButton: UIButton!
+	@IBOutlet private weak var deleteButton: UIButton!
 	
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
