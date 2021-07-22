@@ -14,88 +14,14 @@ class HomeStatisticsCardView: UIView {
 
 		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.General.card
 		accessibilityTraits = [.summaryElement, .causesPageTurn]
-		
-		if let unWrappedDeleteButton = deleteButton {
-			accessibilityElements?.append(unWrappedDeleteButton)
-		}
-		deleteButton.accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
-		deleteButton.accessibilityLabel = AppStrings.Common.alertActionRemove
-		
-		let adjustsFontSizeToFitWidth = false
-		let allowsDefaultTighteningForTruncation = true
-
-		titleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		titleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		titleLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		primaryTitleLabel.style = .body
-		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
-		primaryTitleLabel.numberOfLines = 0
-		primaryTitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		primaryTitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		primaryTitleLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		primaryValueLabel.style = .title1
-		primaryValueLabel.numberOfLines = 0
-		primaryValueLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		primaryValueLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		primaryValueLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-		primarySubtitleLabel.style = .body
-		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
-		primarySubtitleLabel.numberOfLines = 0
-		primarySubtitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		primarySubtitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		primarySubtitleLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		secondaryTitleLabel.style = .body
-		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
-		secondaryTitleLabel.numberOfLines = 0
-		secondaryTitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		secondaryTitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		secondaryValueLabel.style = .headline
-		secondaryValueLabel.numberOfLines = 0
-		secondaryValueLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		secondaryValueLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		tertiaryTitleLabel.style = .body
-		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
-		tertiaryTitleLabel.numberOfLines = 0
-		tertiaryTitleLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		tertiaryTitleLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		tertiaryTitleLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		tertiaryValueLabel.style = .headline
-		tertiaryValueLabel.numberOfLines = 0
-		tertiaryValueLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
-		tertiaryValueLabel.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation
-		tertiaryValueLabel.onAccessibilityFocus = { [weak self] in
-			self?.onAccessibilityFocus?()
-		}
-
-		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
-		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
-
-		// delete button/circle
-		deleteButton.isHidden = true // initial state
-		deleteButton.accessibilityLabel = AppStrings.Common.alertActionRemove
+				
+		configureDeleteButton()
+		configureTitleSection()
+		configurePrimarySection()
+		configureSecondarySection()
+		configureTertiarySection()
 	}
+	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
@@ -352,6 +278,88 @@ class HomeStatisticsCardView: UIView {
 		onInfoButtonTap?()
 	}
 
+	private func configureDeleteButton() {
+		if let unWrappedDeleteButton = deleteButton {
+			accessibilityElements?.append(unWrappedDeleteButton)
+		}
+		deleteButton.accessibilityIdentifier = AccessibilityIdentifiers.General.deleteButton
+		deleteButton.accessibilityLabel = AppStrings.Common.alertActionRemove
+		deleteButton.isHidden = true // initial state
+	}
+	
+	private func configureTitleSection() {
+		titleLabel.adjustsFontSizeToFitWidth = false
+		titleLabel.allowsDefaultTighteningForTruncation = true
+		titleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+	}
+	
+	private func configurePrimarySection() {
+		primaryTitleLabel.style = .body
+		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		primaryTitleLabel.numberOfLines = 0
+		primaryTitleLabel.adjustsFontSizeToFitWidth = false
+		primaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		primaryTitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		primaryValueLabel.style = .title1
+		primaryValueLabel.numberOfLines = 0
+		primaryValueLabel.adjustsFontSizeToFitWidth = false
+		primaryValueLabel.allowsDefaultTighteningForTruncation = true
+		primaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		primarySubtitleLabel.style = .body
+		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		primarySubtitleLabel.numberOfLines = 0
+		primarySubtitleLabel.adjustsFontSizeToFitWidth = false
+		primarySubtitleLabel.allowsDefaultTighteningForTruncation = true
+		primarySubtitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
+	}
+	
+	private func configureSecondarySection() {
+		secondaryTitleLabel.style = .body
+		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		secondaryTitleLabel.numberOfLines = 0
+		secondaryTitleLabel.adjustsFontSizeToFitWidth = false
+		secondaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+
+		secondaryValueLabel.style = .headline
+		secondaryValueLabel.numberOfLines = 0
+		secondaryValueLabel.adjustsFontSizeToFitWidth = false
+		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
+		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
+	}
+	
+	private func configureTertiarySection() {
+		tertiaryTitleLabel.style = .body
+		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
+		tertiaryTitleLabel.numberOfLines = 0
+		tertiaryTitleLabel.adjustsFontSizeToFitWidth = false
+		tertiaryTitleLabel.allowsDefaultTighteningForTruncation = true
+		tertiaryTitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		tertiaryValueLabel.style = .headline
+		tertiaryValueLabel.numberOfLines = 0
+		tertiaryValueLabel.adjustsFontSizeToFitWidth = false
+		tertiaryValueLabel.allowsDefaultTighteningForTruncation = true
+		tertiaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+	}
+
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
 			illustrationImageView.isHidden = true
@@ -359,5 +367,4 @@ class HomeStatisticsCardView: UIView {
 			illustrationImageView.isHidden = false
 		}
 	}
-
 }
