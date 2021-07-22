@@ -160,6 +160,44 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 	
 	// MARK: - Screenshots
+	
+	func test_screenshot_local_statistics_card() throws {
+		// GIVEN
+		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
+		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.button
+		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+
+		// WHEN
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+
+
+		XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
+		app.staticTexts[incidenceTitle].swipeRight()
+		
+		XCTAssert(app.buttons[addStatisticsButtonTitle].waitForExistence(timeout: .medium))
+		snapshot("statistics_add_local_statistics")
+		app.buttons[addStatisticsButtonTitle].waitAndTap()
+
+		XCTAssert(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .medium))
+		
+		/*
+		CAUTION: the mocked Local statistics only return districts within BadenWürttemberg so for the state
+		always choose BadenWürttemberg 'i.e (boundBy: 1)' then you can select the whole state or a specific district
+		*/
+		
+		app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].cells.element(boundBy: 1).waitAndTap()
+			
+		XCTAssert(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .medium))
+		app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].cells.element(boundBy: 2).waitAndTap()
+		
+		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
+		
+		app.swipeDown(velocity: .slow)
+		XCTAssert(self.app.staticTexts[localStatisticsTitle].waitForExistence(timeout: .medium))
+		snapshot("statistics_local_7day_values")
+	}
 
 	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
@@ -194,10 +232,11 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[infectionsTitle].swipeRight()
 		default:
 			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_7day_incidences")
 			app.staticTexts[incidenceTitle].swipeLeft()
-			
+
 			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
-			snapshot("statistics_7Day_incidence")
+			snapshot("statistics_confirmed_new_infections")
 			app.staticTexts[infectionsTitle].swipeLeft()
 			
 			XCTAssert(self.app.staticTexts[keySubmissionsTitle].waitForExistence(timeout: .medium))

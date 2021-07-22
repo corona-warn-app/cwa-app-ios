@@ -1872,6 +1872,8 @@
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Добавяне на 7-дневна заболеваемост на местно ниво";
 
+"Statistics_Add_DisabledAddTitle" = "Достигнато максимално ниво на заболеваемост на 7-дневна база на местно ниво.";
+
 "Statistics_Add_LocalCardTitle" = "7-дневна заболеваемост на местно ниво";
 
 "Statistics_Add_fromTheWholeCountry" = "Национално ниво";
@@ -2453,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Напред";
 
 /* Checkout */
-"Checkout_Notification_Title" = "Регистрацията Ви беше прекратена автоматично.";
+"Checkout_Notification_Title" = "Регистрацията Ви беше прекратена автоматично";
 
 "Checkout_Notification_Body" = "Моля, коригирайте продължителността на престоя си, ако е необходимо.";
 
@@ -2640,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "Сканиране на QR кода";
 
-"HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и се регистрирайте";
+"HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и добавете сертификата";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
@@ -2803,6 +2805,8 @@
 "HealthCertificate_Validation_Legal_Description" = "Текущите правила за въвеждане са изтеглени от сървърите на RKI. Това изисква връзка с Интернет. Данните ви за достъп се изпращат до RKI.";
 
 "HealthCertificate_Validation_Body4" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Проверка";
 
 /* Health Certificate Validation Result */
 "HealthCertificate_Validation_Result_validationParameters" = "Влизане в %@ на %@\nВалидирано на %@";

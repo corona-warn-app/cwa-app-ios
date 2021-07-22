@@ -169,10 +169,23 @@
                                 </stackView>
                             </subviews>
                         </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOK-hD-S03">
+                            <rect key="frame" x="-18" y="-24" width="48" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="1QJ-hT-Y6Z"/>
+                                <constraint firstAttribute="height" constant="48" id="CCS-rH-VJI"/>
+                            </constraints>
+                            <state key="normal" image="delete"/>
+                            <connections>
+                                <action selector="deleteButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="hUN-Vt-siP"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" name="ENA Background Color"/>
                     <constraints>
+                        <constraint firstItem="FOK-hD-S03" firstAttribute="leading" secondItem="Vvk-0F-7Ew" secondAttribute="leading" constant="-18" id="DWH-56-A8s"/>
                         <constraint firstItem="Ssi-15-Ma9" firstAttribute="top" secondItem="Vvk-0F-7Ew" secondAttribute="top" id="cku-vM-07y"/>
+                        <constraint firstItem="FOK-hD-S03" firstAttribute="top" secondItem="Vvk-0F-7Ew" secondAttribute="top" constant="-24" id="im7-eV-neV"/>
                         <constraint firstItem="Ssi-15-Ma9" firstAttribute="leading" secondItem="Vvk-0F-7Ew" secondAttribute="leading" constant="16" identifier="statCell.stack.leading" id="l0s-6o-zST"/>
                         <constraint firstAttribute="bottom" secondItem="Ssi-15-Ma9" secondAttribute="bottom" constant="16" identifier="statCell.stack.bottom" id="ode-Qg-AZK"/>
                         <constraint firstAttribute="trailing" secondItem="Ssi-15-Ma9" secondAttribute="trailing" id="xf6-q8-BmW"/>
@@ -189,6 +202,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="deleteButton" destination="FOK-hD-S03" id="zwk-Pp-cjF"/>
                 <outlet property="illustrationImageView" destination="TH2-hV-4Si" id="uMD-sf-GcJ"/>
                 <outlet property="infoButton" destination="hme-UE-Bg6" id="V62-Kf-IBB"/>
                 <outlet property="primarySubtitleLabel" destination="Prc-3g-gOx" id="YZY-nC-ADp"/>
@@ -225,6 +239,7 @@
         <image name="Illu_Warnende_Personen" width="128" height="146"/>
         <image name="Pfeil_sinkend" width="19" height="19"/>
         <image name="Pfeil_steigend" width="19" height="19"/>
+        <image name="delete" width="24" height="24"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

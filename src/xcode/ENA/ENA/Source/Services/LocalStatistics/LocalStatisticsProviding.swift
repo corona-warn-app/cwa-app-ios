@@ -7,7 +7,7 @@ import OpenCombine
 
 protocol LocalStatisticsProviding {
 	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error>
-	func latestSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsDistrict], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
+	func latestSelectedLocalStatistics(selectedlocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
 }
 
 protocol LocalStatisticsFetching {

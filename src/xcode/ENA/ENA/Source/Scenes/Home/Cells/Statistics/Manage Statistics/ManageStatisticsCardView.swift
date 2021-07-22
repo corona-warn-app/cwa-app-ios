@@ -28,7 +28,7 @@ class ManageStatisticsCardView: UIView {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -71,46 +71,43 @@ class ManageStatisticsCardView: UIView {
 			stackView.removeArrangedSubview(subview)
 			subview.removeFromSuperview()
 		}
-		
+
+		let addView = { () -> CustomDashedView in
+			let addView = CustomDashedView.instance(for: .add)
+			addView.tapHandler = { [weak self] in
+				self?.onAddLocalIncidenceButtonPressed()
+			}
+			addView.onAccessibilityFocus = onAccessibilityFocus
+			return addView
+		}()
 		let modifyView = { () -> CustomDashedView in
-			let modify = CustomDashedView.instance(for: .modify, isEnabled: true)
+			let modify = CustomDashedView.instance(for: .modify)
 			modify.tapHandler = { [weak self] in
-				Log.debug("modify…", log: .ui)
 				self?.onEditButtonTap?()
 			}
-			modify.label.onAccessibilityFocus = onAccessibilityFocus
+			modify.onAccessibilityFocus = onAccessibilityFocus
 			return modify
 		}()
 
 		switch state {
 		case .empty:
 			// just 'add'
-			let addView = createAddView(isEnabled: true)
 			stackView.addArrangedSubview(addView)
 		case .notYetFull:
 			// 'add' & 'modify'
-			let addView = createAddView(isEnabled: true)
 			stackView.addArrangedSubview(addView)
 			stackView.addArrangedSubview(modifyView)
 		case .full:
 			// disable 'add' & enable 'modify'
-			let addView = createAddView(isEnabled: false)
-			stackView.addArrangedSubview(addView)
+			let disabledAddView = addView
+			disabledAddView.isEnabled = false
+			stackView.addArrangedSubview(disabledAddView)
 			stackView.addArrangedSubview(modifyView)
 		}
 	}
 	
 	// MARK: - Private
-	
-	private func createAddView(isEnabled: Bool) -> CustomDashedView {
-		let addView = CustomDashedView.instance(for: .add, isEnabled: isEnabled)
-		addView.tapHandler = { [weak self] in
-			Log.debug("add…", log: .ui)
-				self?.onAddLocalIncidenceButtonPressed()
-		}
-		addView.label.onAccessibilityFocus = onAccessibilityFocus
-		return addView
-	}
+
 	private func presentAddLocalStatistics(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
 			selectValueViewModel,
@@ -137,7 +134,7 @@ class ManageStatisticsCardView: UIView {
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
 	private var onDismissDistrict: ((Bool) -> Void)?
-	private var onFetchGroupData: ((LocalStatisticsDistrict) -> Void)?
+	private var onFetchGroupData: ((LocalStatisticsRegion) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: ManageStatisticsCardsViewModel?
