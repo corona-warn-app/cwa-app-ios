@@ -19,7 +19,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 
 	func test_AddStatisticsButton_maximumNumberOfCards() {
-		let addButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let modifyButton = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 
@@ -31,10 +31,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.swipeRight()
 
 		// Management card(s) pt.1 - addition
-		XCTAssertTrue(self.app.buttons[addButton].waitForExistence(timeout: .medium))
-		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
+		XCTAssertTrue(self.app.buttons[addButtonIdentifier].waitForExistence(timeout: .medium))
+		XCTAssertTrue(statisticsCell.buttons[addButtonIdentifier].isHittable)
 		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
-		statisticsCell.buttons[addButton].waitAndTap()
+		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		
 		// ADDING Card number: 1
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
@@ -49,7 +49,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		
 		// ADDING Card number: 2
 		localStatisticCell.swipeRight()
-		statisticsCell.buttons[addButton].waitAndTap()
+		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 1).waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
@@ -61,7 +61,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 		// ADDING Card number: 3
 		statisticsCell.swipeRight()
-		statisticsCell.buttons[addButton].waitAndTap()
+		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 1).waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
@@ -72,18 +72,18 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 		// ADDING Card number: 4
 		statisticsCell.swipeRight()
-		statisticsCell.buttons[addButton].waitAndTap()
+		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 1).waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
-		app.cells.element(boundBy: 14).waitAndTap()
+		app.cells.element(boundBy: 4).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
 		
 		// ADDING Card number: 5
 		statisticsCell.swipeRight()
-		statisticsCell.buttons[addButton].waitAndTap()
+		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 1).waitAndTap()
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
@@ -95,11 +95,15 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.swipeRight()
 		
 		// check for the text for the add button
-		let addLabel = AccessibilityIdentifiers.LocalStatistics.addLocalIncidenceLabel
-		let addLabelDisabledValue = AppStrings.Statistics.AddCard.disabledAddTitle
-
-		let addButtonLAbel = app.staticTexts.element(matching: .any, identifier: addLabel).label
-		XCTAssertEqual(addButtonLAbel, addLabelDisabledValue, "label sould show the disabled message")
+		let addButton = app.buttons[addButtonIdentifier]
+		/*
+			we can't use AppStrings here because in UITests the strings are not localized and instead
+			we just get the key for the required string not the value.
+			since the UITests are only enabled in the German local so we compare to the german string
+		*/
+		let expectTitle = "Maximale Anzahl der lokalen 7-Tage-Inzidenz erreicht"
+		XCTAssertEqual(addButton.label, expectTitle, "label should show the disabled message")
+		XCTAssertFalse(addButton.isEnabled, "button should be disabled after 5 cards")
 	}
 	
 	func test_AddStatisticsButton_flow() {
