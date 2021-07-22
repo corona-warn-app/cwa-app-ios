@@ -360,6 +360,7 @@ enum AccessibilityIdentifiers {
 		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
 	}
 	enum LocalStatistics {
+		static let button = "AppStrings.LocalStatistics.button"
 		static let selectState = "AppStrings.LocalStatistics.selectState"
 		static let selectDistrict = "AppStrings.LocalStatistics.selectDistrict"
 		static let manageStatisticsCard = "AppStrings.LocalStatistics.manageStatisticsCard"

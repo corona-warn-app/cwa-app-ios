@@ -609,15 +609,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.onAddDistrict(selectValueViewController)
 				self?.statisticsCell?.updateManagementCellState()
 			},
-			onDeleteLocalStatistic: { [weak self] administrativeUnit, district in
-				Log.debug("Delete \(private: administrativeUnit.administrativeUnitShortID), \(private: district.districtName)", log: .localStatistics)
+			onDeleteLocalStatistic: { [weak self] administrativeUnit, region in
+				Log.debug("Delete \(private: region.regionType) \(private: administrativeUnit.id), \(private: region.name)", log: .localStatistics)
 				
 				// removing the district from the store
-				guard let selectedLocalStatisticsDistricts = self?.viewModel.store.selectedLocalStatisticsDistricts else {
+				guard let selectedLocalStatisticsDistricts = self?.viewModel.store.selectedLocalStatisticsRegions else {
 					Log.error("Could not assign selected local statistics districts", log: .localStatistics)
 					return
 				}
-				self?.viewModel.store.selectedLocalStatisticsDistricts = selectedLocalStatisticsDistricts.filter { $0.districtId != String(administrativeUnit.administrativeUnitShortID) }
+				self?.viewModel.store.selectedLocalStatisticsRegions = selectedLocalStatisticsDistricts.filter { $0.id != String(administrativeUnit.id) }
 				
 				self?.statisticsCell?.updateManagementCellState()
 				self?.statisticsCell?.layoutIfNeeded()
@@ -628,8 +628,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
 			},
-			onFetchGroupData: { [weak self] district in
-				self?.viewModel.state.fetchLocalStatistics(district: district)
+			onFetchGroupData: { [weak self] region in
+				self?.viewModel.state.fetchLocalStatistics(region: region)
 			},
 			onToggleEditMode: { enabled in
 				Log.debug("Edit mode on: \(enabled)", log: .localStatistics)
@@ -639,7 +639,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0
-				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
 			},
 			onUpdate: { [weak self] in
 				DispatchQueue.main.async { [weak self] in
@@ -863,7 +863,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			self?.viewModel.state.updateSelectedLocalStatistics(self?.viewModel.store.selectedLocalStatisticsDistricts)
+			self?.viewModel.state.updateSelectedLocalStatistics(self?.viewModel.store.selectedLocalStatisticsRegions)
 		}
 	}
 	// swiftlint:disable:next file_length
