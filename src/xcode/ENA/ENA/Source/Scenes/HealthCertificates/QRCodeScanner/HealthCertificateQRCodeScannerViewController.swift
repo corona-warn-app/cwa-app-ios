@@ -4,6 +4,7 @@
 
 import UIKit
 import AVFoundation
+import HealthCertificateToolkit
 
 class HealthCertificateQRCodeScannerViewController: UIViewController {
 
@@ -213,24 +214,40 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 	private func showErrorAlert(error: Error) {
 		viewModel?.deactivateScanning()
 
-		let errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
-
-		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.Error.title,
-			message: errorMessage,
-			preferredStyle: .alert
+		var alertTitle = AppStrings.HealthCertificate.Error.title
+		var errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
+		var faqAlertAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
+					self?.viewModel?.activateScanning()
+				}
+			}
 		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+
+		// invalid signature error needs a different title, errorMessage and FAQ action
+		if case let QRScannerError.other(wrappedError) = error,
+		   case HealthCertificateServiceError.RegistrationError.invalidSignature = wrappedError {
+			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
+			errorMessage = wrappedError.localizedDescription
+			faqAlertAction = UIAlertAction(
+				title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
 				style: .default,
 				handler: { [weak self] _ in
-					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
+					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
 						self?.viewModel?.activateScanning()
 					}
 				}
 			)
+		}
+
+		let alert = UIAlertController(
+			title: alertTitle,
+			message: errorMessage,
+			preferredStyle: .alert
 		)
+		alert.addAction(faqAlertAction)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,

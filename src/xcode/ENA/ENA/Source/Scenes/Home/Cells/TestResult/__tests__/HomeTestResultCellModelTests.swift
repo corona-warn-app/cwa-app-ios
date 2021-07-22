@@ -4,6 +4,7 @@
 
 import XCTest
 import OpenCombine
+import HealthCertificateToolkit
 @testable import ENA
 
 class HomeTestResultCellModelTests: CWATestCase {
@@ -96,6 +97,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
