@@ -2879,7 +2879,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_invalidSignature_title" = "Signatur ungültig";
 
-"HealthCertificate_Error_invalidSignature_msg" = "Die Signatur des Zertifikates ist ungültig. Das Zertifikat kann nicht als Nachweis verwendet werden und daher nicht importiert werden.";
+"HealthCertificate_Error_invalidSignature_msg" = "Die Signatur des Zertifikats ist ungültig. Das Zertifikat kann nicht als Nachweis verwendet werden und daher nicht importiert werden.";
 
 "HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "FAQ zur Signaturprüfung";
 
@@ -2893,7 +2893,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validation */
 
-"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikates";
+"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikats";
 
 "HealthCertificate_Validation_CountrySelection_Title" = "Land";
 
@@ -2913,7 +2913,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
 
-"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikates sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
+"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
 
 "HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
