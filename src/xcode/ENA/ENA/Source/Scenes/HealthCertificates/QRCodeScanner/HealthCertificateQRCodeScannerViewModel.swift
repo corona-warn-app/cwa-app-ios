@@ -55,10 +55,10 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		let result = healthCertificateService.registerHealthCertificate(base45: base45)
 		switch result {
 		case let .success((healthCertifiedPerson, healthCertificate)):
-			self.onSuccess(healthCertifiedPerson, healthCertificate)
+			onSuccess(healthCertifiedPerson, healthCertificate)
 		case .failure(let registrationError):
 			// wrap RegistrationError into an QRScannerError.other error
-			self.onError?(QRScannerError.other(registrationError))
+			onError?(QRScannerError.other(registrationError))
 		}
 	}
 
