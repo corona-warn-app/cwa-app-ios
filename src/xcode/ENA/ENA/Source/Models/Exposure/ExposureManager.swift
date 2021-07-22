@@ -162,13 +162,16 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	@objc private var manager: Manager
 	private var detectExposuresProgress: Progress?
 	private var getExposureWindowsProgress: Progress?
+	private let store: Store
 
 	// MARK: Creating a Manager
 
 	init(
-		manager: Manager = ENManager()
+		manager: Manager = ENManager(),
+		store: Store
 	) {
 		self.manager = manager
+		self.store = store
 		super.init()
 		if #available(iOS 13.5, *) {
 			// Do nothing since we can use BGTask in this case.
@@ -280,6 +283,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		}
 
 		Log.info("ENAExposureManager: Start exposure detection.", log: .riskDetection)
+
+		store.enfRiskCalculationDate = Date()
 
 		let progress = manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { [weak self] summary, error in
 			guard let self = self else { return }
