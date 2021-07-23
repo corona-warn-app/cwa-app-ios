@@ -1138,7 +1138,10 @@ enum AppStrings {
 		static let feature27technicalValidityTitle = NSLocalizedString("NewVersionFeature_27_technicalValidity_title", comment: "")
 		
 		static let feature27technicalValidityDescription = NSLocalizedString("NewVersionFeature_27_technicalValidity_description", comment: "")
-		
+
+		static let feature27FAQ_URL = NSLocalizedString("NewVersion_Feature_27_FAQ_URL", tableName: "Localizable.links", comment: "URL")
+
+		static let feature27FAQ_URLDisplayText = "https://www.coronawarn.app"
 	}
 	
 	enum DeltaOnboarding {

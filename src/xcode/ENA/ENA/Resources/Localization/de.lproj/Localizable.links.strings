@@ -41,3 +41,5 @@
 "Test_Centers_FAQ_Link" = "https://www.coronawarn.app/de/faq/#where_can_i_get_tested";
 
 "HealthCertificate_InvalidSignature_FAQLink" = "https://www.coronawarn.app/de/faq/#hc_signature_invalid";
+
+"NewVersion_Feature_27_FAQ_URL" = "https://www.coronawarn.app/de/faq/#eu_dcc_validity";

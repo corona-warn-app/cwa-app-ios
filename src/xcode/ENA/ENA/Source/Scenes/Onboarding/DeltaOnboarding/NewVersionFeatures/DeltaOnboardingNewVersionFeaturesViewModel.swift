@@ -22,7 +22,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// Technical Validity
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27technicalValidityTitle, description: AppStrings.NewVersionFeatures.feature27technicalValidityDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27technicalValidityTitle, description: AppStrings.NewVersionFeatures.feature27technicalValidityDescription, internalId: "27FAQ_URL")
 		)
 	}
 
@@ -89,10 +89,18 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		]
 		
 		for feature in newVersionFeatures {
-			let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
-			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
-			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
-			cells.append(.bulletPoint(attributedText: featureBulletPoint))
+
+if feature.internalId != nil && feature.internalId == "27FAQ_URL" {
+				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+				cells.append(.bulletPoint(attributedText: featureBulletPoint))
+				cells.append(.link(placeholder: "\t\(AppStrings.NewVersionFeatures.feature27FAQ_URLDisplayText)", link: AppStrings.NewVersionFeatures.feature27FAQ_URL, font: .body, style: .body, accessibilityIdentifier: ""))
+			} else {
+				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+				featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+				cells.append(.bulletPoint(attributedText: featureBulletPoint))
+			}
 		}
 		return cells
 	}

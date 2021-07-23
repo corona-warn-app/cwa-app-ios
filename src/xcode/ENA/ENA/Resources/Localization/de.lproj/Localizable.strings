@@ -1596,7 +1596,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_27_technicalValidity_title" = "Prüfung technische Gültigkeit";
 
-"NewVersionFeature_27_technicalValidity_description" = "Die Corona-Warn-App zeigt Ihnen nun das technische Ablaufdatum der hinzugefügten Impf- und Genesenenzertifikate an. Die App kann Sie im Voraus über den Ablauf eines Zertifikats benachrichtigen.";
+"NewVersionFeature_27_technicalValidity_description" = "Die Corona-Warn-App zeigt Ihnen nun das technische Ablaufdatum der hinzugefügten Impf- und Genesenenzertifikate an. Die App kann Sie im Voraus über den Ablauf eines Zertifikats benachrichtigen. Mehr Informationen dazu, was die technische Gültigkeit ist, finden Sie auf";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
