@@ -15,7 +15,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.featureVersion = "2.7"
 		
-		// Signuature Check
+		// Signature Check
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27SigCheckTitle, description: AppStrings.NewVersionFeatures.feature27SigCheckDescription)
 		)
