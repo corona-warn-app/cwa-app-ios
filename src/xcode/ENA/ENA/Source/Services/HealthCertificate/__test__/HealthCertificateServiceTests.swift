@@ -12,7 +12,7 @@ import HealthCertificateToolkit
 // swiftlint:disable:next type_body_length
 class HealthCertificateServiceTests: CWATestCase {
 
-	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdated() throws {
+	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdatedOnCertificateRegistration() throws {
 		let store = MockTestStore()
 
 		let service = HealthCertificateService(
@@ -53,6 +53,50 @@ class HealthCertificateServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [testCertificate])
+
+		subscription.cancel()
+	}
+
+	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdatedOnValidityStateChange() throws {
+		let testCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			.init(
+				healthCertificates: [
+					testCertificate
+				]
+			)
+		]
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
+
+		let subscription = service.healthCertifiedPersons
+			.sink { _ in
+				healthCertifiedPersonsExpectation.fulfill()
+			}
+
+		testCertificate.validityState = .expired
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
 	}
