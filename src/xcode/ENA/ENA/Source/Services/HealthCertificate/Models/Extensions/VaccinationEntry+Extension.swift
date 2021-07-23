@@ -25,9 +25,9 @@ extension VaccinationEntry {
 		case \VaccinationEntry.diseaseOrAgentTargeted:
 			return "Zielkrankheit oder -erreger / Disease or Agent Targeted"
 		case \VaccinationEntry.vaccineOrProphylaxis:
-			return "Impfstoff / Vaccine"
-		case \VaccinationEntry.vaccineMedicinalProduct:
 			return "Art des Impfstoffs / Vaccine Type"
+		case \VaccinationEntry.vaccineMedicinalProduct:
+			return "Impfstoff / Vaccine"
 		case \VaccinationEntry.marketingAuthorizationHolder:
 			return "Hersteller / Manufacturer"
 		case \VaccinationEntry.doseNumber:
