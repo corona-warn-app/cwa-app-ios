@@ -164,7 +164,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		healthCertificates.forEach { healthCertificate in
 			healthCertificate.objectDidChange
-				.sink { [weak self] healthCertificate in
+				.sink { [weak self] _ in
 					guard let self = self else { return }
 
 					self.updateVaccinationState()
