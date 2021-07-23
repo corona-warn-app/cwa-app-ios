@@ -1598,20 +1598,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_27_technicalValidity_description" = "Die Corona-Warn-App zeigt Ihnen nun das technische Ablaufdatum der hinzugefügten Impf- und Genesenenzertifikate an. Die App kann Sie im Voraus über den Ablauf eines Zertifikats benachrichtigen.";
 
-/* Version 2.6 */
-
-"NewVersionFeature_26_euCertCheck_title" = "EU-Zertifikatsprüfung";
-
-"NewVersionFeature_26_euCertCheck_description" = "Sie können nun vor einer Reise Zertifikate für ein gewähltes Land auf Gültigkeit prüfen.";
-
-"NewVersionFeature_26_enhancedStats_title" = "Erweiterung Statistiken";
-
-"NewVersionFeature_26_enhancedStats_description" = "Sie können nun bis zu fünf lokale 7-Tage-Inzidenzen in der App hinzufügen.";
-
-"NewVersionFeature_26_editRapidTestProfile_title" = "Schnelltest-Profil bearbeiten";
-
-"NewVersionFeature_26_editRapidTestProfile_description" = "Sie können nun Ihr Schnelltest-Profil in der App bearbeiten, um zum Beispiel Ihre Adresse zu ändern.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
