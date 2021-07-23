@@ -154,6 +154,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private func setup() {
 		updateVaccinationState()
 		updateMostRelevantHealthCertificate()
+		updateHealthCertificateSubscriptions(for: healthCertificates)
 
 		subscribeToNotifications()
 		scheduleMostRelevantCertificateTimer()
