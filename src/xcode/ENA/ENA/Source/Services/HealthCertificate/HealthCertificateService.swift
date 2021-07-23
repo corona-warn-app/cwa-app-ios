@@ -454,7 +454,7 @@ class HealthCertificateService {
 				self.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 					healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 						let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
-						let expiringSoonDate = Calendar.current.date(byAdding: .hour, value: -Int(expirationThresholdInDays), to: healthCertificate.expirationDate)
+						let expiringSoonDate = Calendar.current.date(byAdding: .day, value: -Int(expirationThresholdInDays), to: healthCertificate.expirationDate)
 
 						let signatureVerificationResult = self.signatureVerifying.verify(certificate: healthCertificate.base45, with: [], and: Date())
 
