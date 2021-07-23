@@ -185,8 +185,8 @@ final class ValidationResultCellModel {
 
 		validationResult.rule?.affectedString.forEach {
 			if let keyPath = vaccinationEntryKeyPaths[$0],
-			   let title = vaccinationEntry.title(for: keyPath),
-			   let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+			   let title = vaccinationEntry.title(for: keyPath) {
+				let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets)
 				keyValuePairs.append((key: title, value: formattedValue))
 			}
 		}
@@ -201,8 +201,8 @@ final class ValidationResultCellModel {
 
 		validationResult.rule?.affectedString.forEach {
 			if let keyPath = testEntryKeyPaths[$0],
-			   let title = testEntry.title(for: keyPath),
-			   let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+			   let title = testEntry.title(for: keyPath) {
+				let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets)
 				keyValuePairs.append((key: title, value: formattedValue))
 			}
 		}
