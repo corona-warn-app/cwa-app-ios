@@ -228,8 +228,8 @@ final class HealthCertificateViewModel {
 	private func updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: VaccinationEntry) {
 		let keyPaths: [PartialKeyPath<VaccinationEntry>] = [
 			\VaccinationEntry.diseaseOrAgentTargeted,
-			\VaccinationEntry.vaccineOrProphylaxis,
 			\VaccinationEntry.vaccineMedicinalProduct,
+			\VaccinationEntry.vaccineOrProphylaxis,
 			\VaccinationEntry.marketingAuthorizationHolder,
 			\VaccinationEntry.doseNumberAndTotalSeriesOfDoses,
 			\VaccinationEntry.dateOfVaccination,
