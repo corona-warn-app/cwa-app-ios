@@ -12,6 +12,8 @@ final class MockExposureManager {
 
 	let exposureNotificationError: ExposureNotificationError?
 	let diagnosisKeysResult: MockDiagnosisKeysResult?
+	var lastCall: Date?
+	let minDistanceBetweenCalls: TimeInterval = 4 * 3600
 
 	// MARK: Creating a Mocked Manager
 
@@ -61,9 +63,25 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		DispatchQueue.main.async {
-			// assuming successfull execution and no exposures
-			completionHandler(ENExposureDetectionSummary(), nil)
+		let now = Date()
+		if let last = lastCall {
+			if now.timeIntervalSince(last) < minDistanceBetweenCalls {
+				DispatchQueue.main.async {
+					completionHandler(nil, ENError(.rateLimited))
+				}
+			}
+		}
+		lastCall = now
+		if let error = exposureNotificationError {
+			DispatchQueue.main.async {
+				// assuming failed execution
+				completionHandler(nil, error)
+			}
+		} else {
+			DispatchQueue.main.async {
+				// assuming successfull execution and no exposures
+				completionHandler(ENExposureDetectionSummary(), nil)
+			}
 		}
 		return Progress()
 	}
