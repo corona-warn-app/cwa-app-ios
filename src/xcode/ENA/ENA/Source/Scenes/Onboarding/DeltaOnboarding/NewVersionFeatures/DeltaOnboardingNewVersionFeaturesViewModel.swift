@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.6"
+		self.featureVersion = "2.7"
 		
 		// EU Certificate Check
 		self.newVersionFeatures.append(
