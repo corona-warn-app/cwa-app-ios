@@ -312,13 +312,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 		client: client,
-		appConfiguration: appConfigurationProvider,
-		validityStateService: healthCertificateValidityStateService
+		appConfiguration: appConfigurationProvider
 	)
-
-	private lazy var healthCertificateValidityStateService: HealthCertificateValidityStateProviding = {
-		return MockHealthCertificateValidityStateService()
-	}()
 
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
 		#if DEBUG

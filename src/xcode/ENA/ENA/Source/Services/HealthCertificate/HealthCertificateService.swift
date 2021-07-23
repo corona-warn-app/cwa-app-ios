@@ -17,7 +17,6 @@ class HealthCertificateService {
 		signatureVerifying: DCCSignatureVerifying,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
-		validityStateService: HealthCertificateValidityStateProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
 	) {
 		#if DEBUG
@@ -26,7 +25,6 @@ class HealthCertificateService {
 			self.signatureVerifying = signatureVerifying
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
-			self.validityStateService = MockHealthCertificateValidityStateService()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 			setup()
@@ -118,7 +116,6 @@ class HealthCertificateService {
 		self.signatureVerifying = signatureVerifying
 		self.client = client
 		self.appConfiguration = appConfiguration
-		self.validityStateService = validityStateService
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 		setup()
@@ -381,7 +378,6 @@ class HealthCertificateService {
 	private let signatureVerifying: DCCSignatureVerifying
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
-	private let validityStateService: HealthCertificateValidityStateProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
