@@ -1588,6 +1588,16 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.7 */
+
+"NewVersionFeature_27_sigCheck_title" = "Signaturprüfung";
+
+"NewVersionFeature_27_sigCheck_description" = "Die Signatur Ihrer Zertifikate wird nun beim Hinzufügen in der Corona-Warn-App auf Gültigkeit und Echtheit geprüft. Damit können nur Zertifikate importiert werden, die von einer autorisierten Stelle ausgestellt wurden.";
+
+"NewVersionFeature_27_technicalValidity_title" = "Prüfung technische Gültigkeit";
+
+"NewVersionFeature_27_technicalValididty_description" = "Die Corona-Warn-App zeigt Ihnen nun das technische Ablaufdatum der hinzugefügten Impf- und Genesenenzertifikate an. Die App kann Sie im Voraus über den Ablauf eines Zertifikats benachrichtigen.";
+
 /* Version 2.6 */
 
 "NewVersionFeature_26_euCertCheck_title" = "EU-Zertifikatsprüfung";
