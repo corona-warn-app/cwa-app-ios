@@ -50,7 +50,7 @@ extension VaccinationEntry {
 	}
 
 	// swiftlint:disable:next cyclomatic_complexity
-	func formattedValue(for keyPath: PartialKeyPath<VaccinationEntry>, valueSets: SAP_Internal_Dgc_ValueSets?) -> String {
+	func formattedValue(for keyPath: PartialKeyPath<VaccinationEntry>, valueSets: SAP_Internal_Dgc_ValueSets?) -> String? {
 		switch keyPath {
 		case \VaccinationEntry.diseaseOrAgentTargeted:
 			return valueSets?
@@ -83,7 +83,7 @@ extension VaccinationEntry {
 		case \VaccinationEntry.uniqueCertificateIdentifier:
 			return uniqueCertificateIdentifier
 		default:
-			return ""
+			return nil
 		}
 	}
 
