@@ -39,3 +39,5 @@
 "TestCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/de/faq/#test_cert";
 
 "Test_Centers_FAQ_Link" = "https://www.coronawarn.app/de/faq/#where_can_i_get_tested";
+
+"HealthCertificate_InvalidSignature_FAQLink" = "https://www.coronawarn.app/de/faq/#hc_signature_invalid";

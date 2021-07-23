@@ -4,6 +4,7 @@
 
 import Foundation
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class ExposureSubmissionViewControllerTests: CWATestCase {
@@ -39,6 +40,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: HealthCertificateService(
 						store: store,
+						signatureVerifying: DCCSignatureVerifyingStub(),
 						client: client,
 						appConfiguration: appConfiguration
 					)
