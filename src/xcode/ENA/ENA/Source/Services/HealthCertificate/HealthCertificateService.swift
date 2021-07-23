@@ -409,6 +409,7 @@ class HealthCertificateService {
 
 		subscribeToNotifications()
 		updateGradients()
+		updateValidityStates()
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
@@ -430,6 +431,7 @@ class HealthCertificateService {
 
 					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value.sorted()
 					self.updateGradients()
+					self.updateValidityStates()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
@@ -442,6 +444,36 @@ class HealthCertificateService {
 			.forEach { index, person in
 				person.gradientType = gradientTypes[index % 3]
 			}
+	}
+
+	private func updateValidityStates() {
+		appConfiguration.appConfiguration()
+			.sink { [weak self] appConfiguration in
+				guard let self = self else { return }
+
+				self.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+					healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+						let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
+						let expiringSoonDate = Calendar.current.date(byAdding: .hour, value: -Int(expirationThresholdInDays), to: healthCertificate.expirationDate)
+
+						let signatureVerificationResult = self.signatureVerifying.verify(certificate: healthCertificate.base45, with: [], and: Date())
+
+						switch signatureVerificationResult {
+						case .success:
+							if Date() > healthCertificate.expirationDate {
+								healthCertificate.validityState = .expired
+							} else if let expiringSoonDate = expiringSoonDate, Date() > expiringSoonDate {
+								healthCertificate.validityState = .expiringSoon
+							} else {
+								healthCertificate.validityState = .invalid
+							}
+						case .failure:
+							healthCertificate.validityState = .invalid
+						}
+					}
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
