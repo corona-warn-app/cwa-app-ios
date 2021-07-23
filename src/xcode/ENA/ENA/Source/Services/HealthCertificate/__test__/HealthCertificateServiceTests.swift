@@ -69,14 +69,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
 
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				   testCertificate
+			   ]
+		   )
+
 		let store = MockTestStore()
-		store.healthCertifiedPersons = [
-			.init(
-				healthCertificates: [
-					testCertificate
-				]
-			)
-		]
+		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let service = HealthCertificateService(
 			store: store,
@@ -85,20 +85,40 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
+		var subscriptions = Set<AnyCancellable>()
+
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
-		let subscription = service.healthCertifiedPersons
+		service.healthCertifiedPersons
+			.dropFirst()
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
 			}
+			.store(in: &subscriptions)
+
+		let healthCertifiedPersonExpectation = expectation(description: "healthCertifiedPerson objectDidChange publisher updated")
+
+		healthCertifiedPerson
+			.objectDidChange
+			.sink { _ in
+				healthCertifiedPersonExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		let testCertificateExpectation = expectation(description: "testCertificate objectDidChange publisher updated")
+
+		testCertificate
+			.objectDidChange
+			.sink { _ in
+				testCertificateExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
 
 		testCertificate.validityState = .expired
 
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
-
-		subscription.cancel()
 	}
 
 	func testGIVEN_Certificate_WHEN_Register_THEN_SignatureInvalidError() throws {
