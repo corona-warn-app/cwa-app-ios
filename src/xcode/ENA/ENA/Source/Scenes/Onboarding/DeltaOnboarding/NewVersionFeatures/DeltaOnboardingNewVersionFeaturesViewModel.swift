@@ -15,14 +15,14 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.featureVersion = "2.7"
 		
-		// EU Certificate Check
+		// Signuature Check
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27SigCheckTitle, description: AppStrings.NewVersionFeatures.feature27SigCheckDescription)
 		)
 		
-		// Enhanced Stats
+		// Technical Validity
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27technicalValidityTitle description: AppStrings.NewVersionFeatures.feature27technicalValidityDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27technicalValidityTitle, description: AppStrings.NewVersionFeatures.feature27technicalValidityDescription)
 		)
 	}
 
