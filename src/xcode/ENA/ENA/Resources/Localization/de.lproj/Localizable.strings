@@ -2072,7 +2072,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
 
-"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die die alle notwendigen Impfdosen erhalten haben.";
+"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen erhalten haben.";
 
 "Statistics_Info_DosesAdministered_Title" = "Verabreichte Impfdosen";
 
