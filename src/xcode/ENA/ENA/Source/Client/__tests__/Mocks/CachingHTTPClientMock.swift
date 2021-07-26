@@ -139,8 +139,6 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 			Log.debug("Cannot initialize static test data", log: .vaccination)
 			return SAP_Internal_Dgc_DscList()
 		}
-			fatalError("Cannot initialize static test data")
-		}
 		return dscList
 	}()
 
