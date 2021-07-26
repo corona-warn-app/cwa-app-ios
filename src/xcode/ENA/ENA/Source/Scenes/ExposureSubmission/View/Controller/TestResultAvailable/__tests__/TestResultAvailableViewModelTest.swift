@@ -31,6 +31,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -73,6 +74,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -124,6 +126,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
