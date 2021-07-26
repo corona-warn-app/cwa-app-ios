@@ -1872,6 +1872,8 @@
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Add local 7-day incidence";
 
+"Statistics_Add_DisabledAddTitle" = "Maximum number of local 7-day incidence figures reached.";
+
 "Statistics_Add_LocalCardTitle" = "Local 7-day incidence";
 
 "Statistics_Add_fromTheWholeCountry" = "Entire state";
@@ -2453,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Next";
 
 /* Checkout */
-"Checkout_Notification_Title" = "You were checked out automatically.";
+"Checkout_Notification_Title" = "You were checked out automatically";
 
 "Checkout_Notification_Body" = "Please adjust the length of your stay if needed.";
 
@@ -2640,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "QR Code Scan";
 
-"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Register";
+"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Add Certificate";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
@@ -2803,6 +2805,8 @@
 "HealthCertificate_Validation_Legal_Description" = "The current entry rules are downloaded from the RKI servers. This requires an internet connection. Access data is transmitted to the RKI.";
 
 "HealthCertificate_Validation_Body4" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Check";
 
 /* Health Certificate Validation Result */
 "HealthCertificate_Validation_Result_validationParameters" = "Entering %@ on %@\nValidated on %@";

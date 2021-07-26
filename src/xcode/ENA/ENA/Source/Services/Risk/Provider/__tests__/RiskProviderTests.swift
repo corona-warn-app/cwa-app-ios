@@ -4,6 +4,7 @@
 
 import XCTest
 import ExposureNotification
+import HealthCertificateToolkit
 @testable import ENA
 
 // swiftlint:disable file_length
@@ -55,6 +56,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -141,6 +143,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -227,6 +230,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -302,6 +306,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -364,6 +369,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: cachedAppConfig
 				)
@@ -452,6 +458,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: cachedAppConfig
 				)
@@ -507,6 +514,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -574,6 +582,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -648,6 +657,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -729,6 +739,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -1024,6 +1035,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfig
 				)
@@ -1124,6 +1136,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -1211,6 +1224,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: cachedAppConfig
 				)
@@ -1308,6 +1322,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: cachedAppConfig
 				)
@@ -1407,6 +1422,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: cachedAppConfig
 				)
@@ -1504,6 +1520,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: cachedAppConfig
 				)

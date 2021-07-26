@@ -14,6 +14,7 @@ class HealthCertificateService {
 	// swiftlint:disable:next cyclomatic_complexity
 	init(
 		store: HealthCertificateStoring,
+		signatureVerifying: DCCSignatureVerifying,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
@@ -22,6 +23,7 @@ class HealthCertificateService {
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+			self.signatureVerifying = signatureVerifying
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
@@ -35,7 +37,6 @@ class HealthCertificateService {
 				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
-			
 
 			if LaunchArguments.healthCertificate.familyCertificates.boolValue {
 				let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
@@ -113,6 +114,7 @@ class HealthCertificateService {
 		#endif
 
 		self.store = store
+		self.signatureVerifying = signatureVerifying
 		self.client = client
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
@@ -134,6 +136,11 @@ class HealthCertificateService {
 
 		do {
 			let healthCertificate = try HealthCertificate(base45: base45)
+
+			// check signature
+			if case .failure = signatureVerifying.verify(certificate: base45, with: [], and: Date()) {
+				return .failure(.invalidSignature)
+			}
 
 			let healthCertifiedPerson = healthCertifiedPersons.value
 				.first(where: {
@@ -369,6 +376,7 @@ class HealthCertificateService {
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
+	private let signatureVerifying: DCCSignatureVerifying
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol

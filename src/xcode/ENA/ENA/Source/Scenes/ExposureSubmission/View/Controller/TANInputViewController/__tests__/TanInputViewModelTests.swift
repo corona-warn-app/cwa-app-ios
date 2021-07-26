@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class TanInputViewModelTests: CWATestCase {
@@ -22,6 +23,7 @@ class TanInputViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -54,6 +56,7 @@ class TanInputViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -86,6 +89,7 @@ class TanInputViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)

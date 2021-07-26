@@ -51,12 +51,12 @@ class HomeStatisticsCardViewModel {
 		}
 	}
 	
-	init(administrativeUnitData: SAP_Internal_Stats_AdministrativeUnitData, district: String) {
-		let sevenDayTrend = administrativeUnitData.sevenDayIncidence
+	init(regionStatisticsData: RegionStatisticsData) {
+		let sevenDayTrend = regionStatisticsData.sevenDayIncidence
 		
 		title = AppStrings.Statistics.AddCard.localCardTitle
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
-		subtitle = district
+		subtitle = regionStatisticsData.regionName
 		illustrationImage = UIImage(named: "LocalIncidence")
 		primaryValue = sevenDayTrend.formattedValue
 		primaryTrendImage = sevenDayTrend.trendImage
@@ -64,7 +64,7 @@ class HomeStatisticsCardViewModel {
 		primaryTrendAccessibilityLabel = sevenDayTrend.trendAccessibilityLabel
 		primaryTrendAccessibilityValue = sevenDayTrend.trendAccessibilityValue
 
-		let updateDate = Date(timeIntervalSince1970: TimeInterval(administrativeUnitData.updatedAt))
+		let updateDate = Date(timeIntervalSince1970: TimeInterval(regionStatisticsData.updatedAt))
 		primaryTitle = updateDate.formatted(
 			todayString: AppStrings.Statistics.Card.Incidence.today,
 			yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,

@@ -3,6 +3,7 @@
 //
 
 @testable import ENA
+import HealthCertificateToolkit
 import XCTest
 // Testpattern:
 // ENF high, Checkin none
@@ -28,6 +29,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -90,6 +92,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -142,6 +145,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -202,6 +206,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -245,6 +250,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -297,6 +303,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -355,6 +362,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -405,6 +413,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -452,6 +461,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
