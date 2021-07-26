@@ -295,7 +295,7 @@ extension ClientMock: Client {
 		}
 		onValidationOnboardedCountries(isFake, completion)
 	}
-	
+
 	func getDCCRules(
 		eTag: String?,
 		isFake: Bool,
@@ -308,6 +308,6 @@ extension ClientMock: Client {
 		}
 		onGetDCCRules(isFake, ruleType, completion)
 	}
-	
+
 }
 #endif
