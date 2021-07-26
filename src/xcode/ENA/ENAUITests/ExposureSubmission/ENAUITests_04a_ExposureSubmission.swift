@@ -72,7 +72,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell].waitAndTap()
 		
-		let consentSwitch = app.switches.firstMatch
+		let consentSwitch = app.cells[AccessibilityIdentifiers.ExposureSubmissionTestResultConsent.switchIdentifier]
 		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
 		XCTAssertEqual(consentSwitch.value as? String, "0")
 		consentSwitch.waitAndTap()
@@ -449,6 +449,24 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		waitForExpectations(timeout: .medium, handler: nil)
 
 		snapshot("submissionflow_screenshot_test_certificate_entered_birthday")
+	}
+	
+	func test_Tester_Centers_Opens_Website_In_Safari() {
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select to find test centers
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
+	
+		// Check if safari was opened
+		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+		XCTAssertTrue(safariApp.state == .runningForeground)
 	}
 	
 	// MARK: - Screenshots

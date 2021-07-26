@@ -13,13 +13,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		elsService: ErrorLogSubmissionProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.elsService = elsService
 	}
 
 	deinit {
@@ -47,7 +49,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			riskProvider: riskProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			enState: enStateHandler.state,
-			statisticsProvider: statisticsProvider
+			statisticsProvider: statisticsProvider,
+			localStatisticsProvider: localStatisticsProvider
 		)
 
 		let homeController = HomeTableViewController(
@@ -96,7 +99,29 @@ class HomeCoordinator: RequiresAppDependencies {
 				self?.showSettings(enState: enState)
 			},
 			showTestInformationResult: { [weak self] testInformationResult in
-			   self?.showExposureSubmission(testInformationResult: testInformationResult)
+				self?.showExposureSubmission(testInformationResult: testInformationResult)
+			},
+			onAddLocalStatisticsTap: { [weak self] selectValueViewController in
+				self?.rootViewController.present(
+					UINavigationController(rootViewController: selectValueViewController),
+					animated: true
+				)
+			},
+			onAddDistrict: { [weak self] selectValueViewController in
+				self?.rootViewController.presentedViewController?.present(
+					UINavigationController(rootViewController: selectValueViewController),
+					animated: true
+				)
+			},
+			onDismissState: { [weak self] in
+				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+			},
+			onDismissDistrict: { [weak self] dismissToRoot in
+				if dismissToRoot {
+					self?.rootViewController.dismiss(animated: true, completion: nil)
+				} else {
+					self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				}
 			}
 		)
 
@@ -129,11 +154,12 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	// MARK: - Private
-
+	
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestService
+	private let elsService: ErrorLogSubmissionProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -141,7 +167,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
 
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
@@ -173,7 +198,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private lazy var statisticsProvider: StatisticsProvider = {
 			#if DEBUG
-			if isUITesting, LaunchArguments.statistics.useMockDataForStatistics.boolValue {
+			if isUITesting {
 				return StatisticsProvider(
 					client: CachingHTTPClientMock(),
 					store: store
@@ -186,7 +211,23 @@ class HomeCoordinator: RequiresAppDependencies {
 				store: store
 			)
 		}()
-		
+	
+	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
+			#if DEBUG
+			if isUITesting {
+				return LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return LocalStatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+
 		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
 			return QRCodePosterTemplateProvider(
 				client: CachingHTTPClient(),
@@ -317,8 +358,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showAppInformation() {
 		rootViewController.pushViewController(
 			AppInformationViewController(
-				ppacService: ppacService,
-				otpService: otpService
+				elsService: elsService
 			),
 			animated: true
 		)

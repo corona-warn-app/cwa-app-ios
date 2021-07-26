@@ -236,36 +236,6 @@
 			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
 		</dict>
 	</dict>
-	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>%u gün içinde tam aşı koruması</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u gün içinde tam aşı koruması</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u gün içinde tam aşı koruması</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u gün içinde tam aşı koruması</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u gün içinde tam aşı koruması</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u gün içinde tam aşı koruması</string>
-		</dict>
-	</dict>
 	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -281,7 +251,7 @@
 			<string>Şu anda planlanan tüm aşıları aldınız ancak aşı korumanız %u gün daha tamamlanmayacaktır.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Şu anda planlanan tüm aşıları aldınız ancak aşı korumanız %u gün daha tamamlanmayacaktır.</string>
+			<string>Şu anda planlanan tüm aşıları aldınız ancak aşı korumanız yarına kadar tamamlanmayacaktır.</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>Şu anda planlanan tüm aşıları aldınız ancak aşı korumanız %u gün daha tamamlanmayacaktır.</string>
@@ -294,6 +264,36 @@
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Şu anda planlanan tüm aşıları aldınız ancak aşı korumanız %u gün daha tamamlanmayacaktır.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Bu sertifika türü için seçilen ülke ve seçilen zamana ilişkin herhangi bir giriş kuralı bulunmamaktadır. Lütfen unutmayın:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Gidilecek ülkenin %u kuralı başarıyla kontrol edildi.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Gidilecek ülkenin %u kuralı başarıyla kontrol edildi.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Gidilecek ülkenin %u kuralı başarıyla kontrol edildi.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Gidilecek ülkenin %u kuralı başarıyla kontrol edildi.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Gidilecek ülkenin %u kuralı başarıyla kontrol edildi.</string>
 		</dict>
 	</dict>
 </dict>

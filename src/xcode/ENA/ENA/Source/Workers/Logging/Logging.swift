@@ -39,6 +39,8 @@ extension OSLog {
 	static let qrCode = OSLog(subsystem: subsystem, category: "qrCode")
 	/// Vaccination
 	static let vaccination = OSLog(subsystem: subsystem, category: "vaccination")
+	/// Local Statistics
+	static let localStatistics = OSLog(subsystem: subsystem, category: "localStatistics")
 }
 
 /// Logging
@@ -193,7 +195,7 @@ struct FileLogger {
 		if let file = file, let line = line, let function = function {
 			meta = "[\(file):\(line)] [\(function)]\n"
 		}
-		let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
+		let prefixedLogMessage = "\(logType.title) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
 
 		writeLog(of: logType, message: prefixedLogMessage)
 	}

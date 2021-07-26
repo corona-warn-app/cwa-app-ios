@@ -20,12 +20,30 @@
         }
       },
       {
+        "package": "CertLogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
+        "state": {
+          "branch": null,
+          "revision": "8b7f86a2aed4f2c60dd2c7c4f28eb129d9fe379d",
+          "version": null
+        }
+      },
+      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
           "branch": null,
           "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
           "version": "2.7.7"
+        }
+      },
+      {
+        "package": "jsonlogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "8dc339147b27ae633a1857503ed8d091c7935d0d",
+          "version": "1.1.5"
         }
       },
       {
@@ -69,8 +87,8 @@
         "repositoryURL": "https://github.com/tsolomko/SWCompression.git",
         "state": {
           "branch": null,
-          "revision": "add1e6111fe411221bfa46bc5db792e35cd72768",
-          "version": "4.5.10"
+          "revision": "594cc1968e99f7df2b2d6e1d3ee76dec70ac9cc4",
+          "version": "4.5.11"
         }
       },
       {
@@ -89,6 +107,15 @@
           "branch": null,
           "revision": "668c26fc3373d5f1bccbaad7665ca6048797e324",
           "version": "0.4.3"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+          "version": "5.0.1"
         }
       },
       {

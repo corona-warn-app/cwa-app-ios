@@ -21,6 +21,13 @@ class StackViewLabel: UIView {
 		super.init(coder: coder)
 		setupView()
 	}
+
+	// MARK: - Overrides
+
+	override var accessibilityLabel: String? {
+		get { label.accessibilityLabel }
+		set { label.accessibilityLabel = newValue }
+	}
 	
 	// MARK: - Internal
 	
@@ -64,7 +71,7 @@ class StackViewLabel: UIView {
 		set { label.textColor = newValue }
 	}
 	
-	var style: ENALabel.Style {
+	var style: ENALabel.Style? {
 		get { label.style }
 		set { label.style = newValue }
 	}

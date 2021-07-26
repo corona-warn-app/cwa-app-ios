@@ -95,32 +95,20 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				),
 				footer: .space(height: 16),
 				cells: [
+					/* not used at the moment - let's keep it for later use
+
+					// Lokale 7-Tage-Inzidenz
 					.title2(
-						text: AppStrings.Statistics.Info.infectionsTitle,
+						text: AppStrings.Statistics.Info.local7DaysTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.Statistics.Info.infectionsText,
+						text: AppStrings.Statistics.Info.local7DaysText,
 						accessibilityIdentifier: nil
-					)
-				]
-			),
-			.section(
-				footer: .space(height: 16),
-				cells: [
-					.title2(
-						text: AppStrings.Statistics.Info.keySubmissionsTitle,
-						accessibilityIdentifier: nil
-					) { _, cell, _ in cell.accessibilityTraits = .header },
-					.body(
-						text: AppStrings.Statistics.Info.keySubmissionsText,
-						accessibilityIdentifier: nil
-					)
-				]
-			),
-			.section(
-				footer: .space(height: 16),
-				cells: [
+					),
+					*/
+					
+					// 7-Tage-Inzidenz
 					.title2(
 						text: AppStrings.Statistics.Info.incidenceTitle,
 						accessibilityIdentifier: nil
@@ -128,18 +116,59 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					.body(
 						text: AppStrings.Statistics.Info.incidenceText,
 						accessibilityIdentifier: nil
-					)
-				]
-			),
-			.section(
-				footer: .space(height: 16),
-				cells: [
+					),
+					// Bestätigte Neuinfektionen
+					.title2(
+						text: AppStrings.Statistics.Info.infectionsTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.infectionsText,
+						accessibilityIdentifier: nil
+					),
+					// Warnende Personen
+					.title2(
+						text: AppStrings.Statistics.Info.keySubmissionsTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.keySubmissionsText,
+						accessibilityIdentifier: nil
+					),
+					// 7-Tage-R-Wert
 					.title2(
 						text: AppStrings.Statistics.Info.reproductionNumberTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.Statistics.Info.reproductionNumberText,
+						accessibilityIdentifier: nil
+					),
+					// Mindestens einmal geimpfte Personen
+					.title2(
+						text: AppStrings.Statistics.Info.vaccinatedAtLeastOnceTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.vaccinatedAtLeastOnceText,
+						accessibilityIdentifier: nil
+					),
+					// Vollständig geimpfte Personen
+					.title2(
+						text: AppStrings.Statistics.Info.fullyVaccinatedTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.fullyVaccinatedText,
+						accessibilityIdentifier: nil
+					),
+					// Verabreichte Impfdosen
+					.title2(
+						text: AppStrings.Statistics.Info.dosesAdministeredTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.dosesAdministeredText,
 						accessibilityIdentifier: nil
 					)
 				]

@@ -99,6 +99,11 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
+protocol LocalStatisticsCaching: AnyObject {
+	var localStatistics: [LocalStatisticsMetadata] { get set }
+	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] { get set }
+}
+
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
@@ -119,9 +124,13 @@ protocol ErrorLogProviding: AnyObject {
 	var otpTokenEls: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpElsAuthorizationDate: Date? { get set }
+	#if !RELEASE
+	/// For DeveloperMenu - Indicates if the ELS shall be activated or not at startup
+	var elsLoggingActiveAtStartup: Bool { get set }
+	#endif
 }
 
-protocol ErrorLogUploadHistoryProviding {
+protocol ErrorLogUploadHistoryProviding: AnyObject {
 	/// Collection of previous upload 'receipts'
 	var elsUploadHistory: [ErrorLogUploadReceipt] { get set }
 }
@@ -181,6 +190,9 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var unseenTestCertificateCount: Int { get set }
 
+	var lastSelectedValidationCountry: Country { get set }
+
+	var lastSelectedValidationDate: Date { get set }
 }
 
 /// this section contains only deprecated stuff, please do not add new things here
@@ -218,6 +230,17 @@ protocol CoronaTestStoringLegacy {
 
 }
 
+protocol HealthCertificateValidationCaching: AnyObject {
+	
+	/// The cache for the onboarded countries. Contains the eTag and the countries received before or nil, when never cached.
+	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? { get set }
+	/// The cache for the acceptance rules. Contains the eTag and the acceptance rules received before or nil, when never cached.
+	var acceptanceRulesCache: ValidationRulesCache? { get set }
+	/// The cache for the invalidation rules. Contains the eTag and the invalidation rules received before or nil, when never cached.
+	var invalidationRulesCache: ValidationRulesCache? { get set }
+}
+
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -225,14 +248,16 @@ protocol Store:
 	AppConfigCaching,
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
+	HealthCertificateValidationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
+	HealthCertificateStoring,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
+	LocalStatisticsCaching,
 	StoreProtocol,
-	WarnOthersTimeIntervalStoring,
-	HealthCertificateStoring,
-	VaccinationCaching
+	VaccinationCaching,
+	WarnOthersTimeIntervalStoring
 {}
 // swiftlint:enable all

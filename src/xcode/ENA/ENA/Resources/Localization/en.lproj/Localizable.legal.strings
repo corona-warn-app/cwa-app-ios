@@ -128,7 +128,7 @@
 
 "errorReport_Legal_SendReports_Headline" = "Your consent";
 
-"errorReport_Legal_SendReports_Subline" = "By tapping on “Accept and Send”, you consent to the following steps:";
+"errorReport_Legal_SendReports_Subline" = "By tapping on “Agree and Send”, you consent to the following steps:";
 
 "errorReport_Legal_SendReports_Bullet1_Part1" = "The error report you create will be sent to the RKI for error analysis purposes.";
 
@@ -194,12 +194,28 @@
 
 "HealthCertificate_Info_Legal_headline" = "Data protection and data security";
 
-"HealthCertificate_Info_Legal_section01" = "Using the digital COVID-19 certificates is voluntary. There are other ways to prove that you are fully vaccinated or have a negative test result.";
+"HealthCertificate_Info_Legal_section01" = "Using the digital COVID-19 certificates is voluntary. There are other ways to prove that you are fully vaccinated, have a negative test result, or have recovered from a coronavirus infection.";
 
-"HealthCertificate_Info_Legal_section02" = "The COVID-19 certificates contain your personal data (concerning vaccinations or your test result). In cases where you are required by law to prove your vaccination status or test result, it is sufficient to show the QR code of the certificate in the app. Do not provide your certificates or the QR codes to anyone if you do not want the data to be read.";
+"HealthCertificate_Info_Legal_section02" = "The COVID Certificates contain personal data (involving vaccinations, test results or a previous infection). In cases where you are required by law to show proof, it is sufficient to show the QR code of the certificate in the app. Please note that you may be required to present an identification document during the check. Do not provide certificates and the QR codes to anyone if you do not want the data to be read.";
 
-"HealthCertificate_Info_Legal_section03" = "When you present the QR code of a certificate in the app for verification, others will be able to find out your test result or whether you are fully vaccinated. During verification, the official verification app will also display your name and date of birth.";
+"HealthCertificate_Info_Legal_section03" = "When you present the QR code of a certificate in the app for verification, others will be able to find out whether you have tested negative, are fully vaccinated, or have proof that you have recovered from a coronavirus infection. During verification, the official verification app will also display the name and date of birth. In the case of test certificates, the date of sampling will also be displayed.";
 
 "HealthCertificate_Info_Legal_section04" = "You have the possibility to delete COVID-19 certificates in the app at any time. Until then, the certificates will be stored on your smartphone.";
 
 "HealthCertificate_Info_disclaimer" = "Detailed information about this data processing is available in the privacy notice";
+
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Data protection and data security";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Requesting and using a digital COVID test certificate is voluntary. There are other ways to prove that you have a negative test result.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "To create your test certificate, data is transmitted once in encrypted form to the RKI. The RKI signs this data electronically to confirm its validity. The RKI will not store the data.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "To ensure that no one with your QR code can retrieve your test result, it is protected with your date of birth. Your date of birth is transmitted in encrypted form to the laboratory in order to retrieve the test result.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "The COVID test certificate contains the data about your coronavirus test. In cases where you are required by law to prove a negative test result, it is sufficient to show the QR code in the app. Do not provide the test certificate to anyone if you do not want the data to be read.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "If you present the QR code of the test certificate in the app and it is scanned using the verification app, others will be able to find out your test result. During verification, the official verification app will also display your name and date of birth.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "You have the possibility to delete test certificates in the app at any time. Until then, the test certificates will be stored on your smartphone.";

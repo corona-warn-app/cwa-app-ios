@@ -53,7 +53,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onSuccess: { _ in
+			onSuccess: { _, _ in
 				onSuccessExpectation.fulfill()
 			},
 			onError: { _ in
@@ -86,7 +86,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onSuccess: { _ in
+			onSuccess: { _, _  in
 				onSuccessExpectation.fulfill()
 			},
 			onError: { _ in
@@ -105,7 +105,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		XCTAssertFalse(viewModel.isScanningActivated)
 	}
 
-	func testInitalUnsuccessfulScanWithSuccessfulRetry() {
+	func testInitialUnsuccessfulScanWithSuccessfulRetry() {
 		let validBase45 = mockBase45
 		let emptyBase45 = ""
 
@@ -121,7 +121,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
-			onSuccess: { _ in
+			onSuccess: { _, _ in
 				onSuccessExpectation.fulfill()
 			},
 			onError: { _ in

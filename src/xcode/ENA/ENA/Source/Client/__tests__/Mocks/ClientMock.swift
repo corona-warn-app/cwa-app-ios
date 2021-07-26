@@ -64,6 +64,8 @@ final class ClientMock {
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
 	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
+	var onValidationOnboardedCountries: ((Bool, @escaping ValidationOnboardedCountriesCompletionHandler) -> Void)?
+	var onGetDCCRules: ((Bool, HealthCertificateValidationRuleType, @escaping DCCRulesCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -109,7 +111,6 @@ extension ClientMock: ClientWifiOnly {
 }
 
 extension ClientMock: Client {
-
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
@@ -275,7 +276,6 @@ extension ClientMock: Client {
 		registrationToken token: String,
 		isFake: Bool,
 		completion: @escaping DigitalCovid19CertificateCompletionHandler
-
 	) {
 		guard let onGetDigitalCovid19Certificate = self.onGetDigitalCovid19Certificate else {
 			completion(.success((DCCResponse(dek: "dataEncryptionKey", dcc: "coseObject"))))
@@ -283,5 +283,31 @@ extension ClientMock: Client {
 		}
 		onGetDigitalCovid19Certificate(token, isFake, completion)
 	}
+	
+	func validationOnboardedCountries(
+		eTag: String?,
+		isFake: Bool,
+		completion: @escaping ValidationOnboardedCountriesCompletionHandler
+	) {
+		guard let onValidationOnboardedCountries = self.onValidationOnboardedCountries else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onValidationOnboardedCountries(isFake, completion)
+	}
+	
+	func getDCCRules(
+		eTag: String?,
+		isFake: Bool,
+		ruleType: HealthCertificateValidationRuleType,
+		completion: @escaping DCCRulesCompletionHandler
+	) {
+		guard let onGetDCCRules = self.onGetDCCRules else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onGetDCCRules(isFake, ruleType, completion)
+	}
+	
 }
 #endif

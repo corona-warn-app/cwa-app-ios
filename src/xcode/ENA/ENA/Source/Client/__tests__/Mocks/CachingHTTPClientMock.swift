@@ -15,7 +15,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 
 	static let staticStatistics: SAP_Internal_Stats_Statistics = {
 		guard
-			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "sample_stats", withExtension: "bin"),
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "stats", withExtension: "bin"),
 			let data = try? Data(contentsOf: url),
 			let stats = try? SAP_Internal_Stats_Statistics(serializedData: data)
 		else {
@@ -41,13 +41,28 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		return configMetadata
 	}()
 
+	
 	static let staticVaccinationValueSets: SAP_Internal_Dgc_ValueSets = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
-		guard let configMetadata = try? SAP_Internal_Dgc_ValueSets(jsonString: "{\"vp\":{\"items\":[{\"key\":\"1119349007\",\"displayText\":\"SARS-CoV-2 mRNA vaccine\"}]},\"mp\":{\"items\":[{\"key\":\"EU/1/20/1528\",\"displayText\":\"Comirnaty\"}]},\"ma\":{\"items\":[{\"key\":\"ORG-100001699\",\"displayText\":\"AstraZeneca AB\"}]}}") else {
+		let jsonString = "{\"vp\":{\"items\":[{\"key\":\"1119349007\",\"displayText\":\"SARS-CoV-2 mRNA vaccine\"}]},\"mp\":{\"items\":[{\"key\":\"EU/1/20/1507\",\"displayText\":\"BionTech\"}]},\"ma\":{\"items\":[{\"key\":\"ORG-100031184\",\"displayText\":\"Pfizer\"}]},\"tg\":{\"items\":[{\"key\":\"840539006\",\"displayText\":\"COVID-19\"}]},\"tcTt\":{\"items\":[{\"key\":\"LP6464-4\",\"displayText\":\"Rapid Antigen Test\"}]},\"tcTr\":{\"items\":[{\"key\":\"260415000\",\"displayText\":\"Negative\"}]}}"
+		guard let configMetadata = try? SAP_Internal_Dgc_ValueSets(jsonString: jsonString) else {
 			fatalError("Cannot initialize static test data")
 		}
 		return configMetadata
 	}()
+	
+	static let staticLocalStatistics: SAP_Internal_Stats_LocalStatistics = {
+		guard
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "LocalStats", withExtension: "bin"),
+			let data = try? Data(contentsOf: url),
+			let localStatistics = try? SAP_Internal_Stats_LocalStatistics(serializedData: data)
+		else {
+			Log.debug("Cannot initialize static test data", log: .localStatistics)
+			return SAP_Internal_Stats_LocalStatistics()
+		}
+		return localStatistics
+	}()
+	
 	// MARK: - AppConfigurationFetching
 
 	var onFetchAppConfiguration: ((String?, @escaping CachingHTTPClient.AppConfigResultHandler) -> Void)?
@@ -98,6 +113,19 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 			return
 		}
 		handler(etag, completion)
+	}
+	
+	// MARK: - LocalStatisticsFetching
+	
+	var onFetchLocalStatistics: ((String?, @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) -> Void)?
+		
+	override func fetchLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?, completion: @escaping CachingHTTPClient.LocalStatisticsCompletionHandler) {
+		guard let handler = self.onFetchLocalStatistics else {
+			let response = LocalStatisticsResponse(CachingHTTPClientMock.staticLocalStatistics, "fake", "1")
+			completion(.success(response))
+			return
+		}
+		handler(eTag, completion)
 	}
 }
 #endif

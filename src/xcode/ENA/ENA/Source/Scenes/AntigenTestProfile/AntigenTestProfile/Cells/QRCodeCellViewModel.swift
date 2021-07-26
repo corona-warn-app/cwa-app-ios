@@ -80,6 +80,7 @@ struct QRCodeCellViewModel {
 		}
 		// removed line breaks
 		var output = input.filter { !"\n\r".contains($0) }
+		output = output.replacingOccurrences(of: "\\", with: "\\\\")
 		output = output.replacingOccurrences(of: ";", with: "\\;")
 		output = output.replacingOccurrences(of: ",", with: "\\,")
 		return output

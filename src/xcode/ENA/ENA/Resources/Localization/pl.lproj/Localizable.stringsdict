@@ -238,36 +238,6 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 		</dict>
 	</dict>
-	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Pełna ochrona poszczepienna za %u dni</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Pełna ochrona poszczepienna za %u dzień</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Pełna ochrona poszczepienna za %u dni</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Pełna ochrona poszczepienna za %u dni</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Pełna ochrona poszczepienna za %u dni</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Pełna ochrona poszczepienna za %u dni</string>
-		</dict>
-	</dict>
 	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -283,7 +253,7 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dzień.</string>
+			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero jutro.</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
@@ -296,6 +266,36 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Otrzymałeś(-aś) już wszystkie zaplanowane dotychczas szczepienia, jednak pełną ochronę poszczepienną uzyskasz dopiero za %u dni.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Nie są obecnie dostępne żadne zasady dotyczące wjazdu do wybranego kraju i wybranego czasu dla tego typu certyfikatu. Zwróć uwagę na następujące kwestie:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>%u zasada obowiązująca w kraju docelowym została pomyślnie sprawdzona.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>%u zasady obowiązujące w kraju docelowym zostały pomyślnie sprawdzone.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>%u zasady obowiązujące w kraju docelowym zostały pomyślnie sprawdzone.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>%u zasad obowiązujących w kraju docelowym zostało pomyślnie sprawdzonych.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>%u zasady obowiązującej w kraju docelowym zostało pomyślnie sprawdzone.</string>
 		</dict>
 	</dict>
 </dict>

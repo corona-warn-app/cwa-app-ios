@@ -193,12 +193,28 @@
 
 "HealthCertificate_Info_Legal_headline" = "Veri gizliliği ve veri güvenliği";
 
-"HealthCertificate_Info_Legal_section01" = "​Dijital COVID sertifikasının kullanımı isteğe bağlıdır. Tam aşı korumasının gerçekleştirildiğine veya test sonucunun negatif çıktığına ilişkin kanıt, diğer yöntemlerle de sağlanabilir.";
+"HealthCertificate_Info_Legal_section01" = "​Dijital Covid sertifikalarının kullanımı isteğe bağlıdır. Aşıların tamamlanmasına, test sonucunun negatif olmasına ya da Covid enfeksiyonunun atlatılmasına ilişkin kanıtlar başka şekilde de ibraz edilebilir.";
 
-"HealthCertificate_Info_Legal_section02" = "COVID sertifikaları (aşılar veya test sonuçlarınıza ilişkin) kişisel verilerinizi içerir. Yasal açıdan zorunlu durumlarda, Uygulamadaki QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, sertifikalarınızı ve QR kodu hiç kimseye göstermeyin.";
+"HealthCertificate_Info_Legal_section02" = "Covid sertifikaları kişisel bilgiler (aşılar, test sonuçları ya da enfeksiyonu atlatma) içerir. Yasal olarak öngörülen durumlarda kanıt olarak sertifikanın kare kodunun uygulamada gösterilmesi yeterlidir. Kontrol sırasında gerekirse kimlik belgesi de ibraz edilmelidir. Bilgilerinizi paylaşmak istemiyorsanız sertifikaları ve kare kodunu kimseye göstermeyin.";
 
-"HealthCertificate_Info_Legal_section03" = "Bir kontrol sırasında Uygulamanızdaki bir sertifikanın QR kodunu gösterirseniz, orada bulunan diğer kişiler test sonucunuzu veya aşı korumanızın tamamlanıp tamamlanmadığını öğrenebilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
+"HealthCertificate_Info_Legal_section03" = "Uygulamada bir sertifikanın kare kodunu kontrol için gösterirseniz, başka kişiler de test sonucunuzun negatif olduğunu, aşılarınızın tamamlandığını veya enfeksiyonu atlattığınıza ilişkin kanıtı görebilirler. Kontrol sırasında resmi test uygulamasında aa ve doğum tarihi de gösterilir. Test sertifikalarında ek olarak numune alma zamanı da gösterilir.";
 
-"HealthCertificate_Info_Legal_section04" = "COVID sertifikalarınızı istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar bu sertifikalar akıllı telefonunuzda kayıtlı kalacaktır.";
+"HealthCertificate_Info_Legal_section04" = "Uygulamadaki Covid sertifikalarını istediğiniz zaman kaldırabilirsiniz. Sertifikalar siz kaldırana kadar akıllı telefonunuzda kayıtlı kalır.";
 
 "HealthCertificate_Info_disclaimer" = "Veri işleme ile ilgili ayrıntılı bilgileri Veri Gizliliği Beyanında bulabilirsiniz";
+
+/* ExposureSubmission TestCertificate */
+
+"ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Veri gizliliği ve veri güvenliği";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Dijital COVID test sertifikasının talep etmek ve kullanmak isteğe bağlıdır. Yapılan testin negatif çıktığına ilişkin sertifikanın kanıtı, başka yollarla da sağlanabilir";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Verileriniz, test sertifikanızı oluşturmak üzere bir kez şifrelenir ve RKI’ye aktarılır. RKI, bu verilerin geçerliliğini onaylamak için onları elektronik olarak imzalar. Veriler RKI’de saklanmaz.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Hiç kimsenin QR kodunuz üzerinden test sonucunuza erişememesi için test sonucunuz, doğum tarihinizle korunur. Doğum tarihiniz şifrelenir ve test sonucunu çağırmak üzere ilgili laboratuvara gönderilir.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "COVID test sertifikası, yaptırdığınız Korona testinize ilişkin verileri içerir. Yasal açıdan zorunlu durumlarda ilgili test sonucunu kanıtlamak için, Uygulamadaki QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, test sertifikasını hiç kimseye göstermeyin.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "Eğer Uygulamada test sertifikasına ilişkin QR kodu gösterirseniz ve bu bir kontrol uygulamasıyla taranırsa, diğer kişiler sizin test sertifikanızı öğrenebilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "Test sertifikasını istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar test sertifikaları akıllı telefonunuzda kayıtlı kalacaktır. ";

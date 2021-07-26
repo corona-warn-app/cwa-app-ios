@@ -189,30 +189,6 @@
 			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 		</dict>
 	</dict>
-	<key>VaccinationCertificate_daysUntilCompleteProtection</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Vollständiger Impfschutz in %u Tagen</string>
-			<key>one</key>
-			<string>Vollständiger Impfschutz in %u Tag</string>
-			<key>two</key>
-			<string>Vollständiger Impfschutz in %u Tagen</string>
-			<key>few</key>
-			<string>Vollständiger Impfschutz in %u Tagen</string>
-			<key>many</key>
-			<string>Vollständiger Impfschutz in %u Tagen</string>
-			<key>other</key>
-			<string>Vollständiger Impfschutz in %u Tagen</string>
-		</dict>
-	</dict>
 	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -226,7 +202,7 @@
 			<key>zero</key>
 			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
 			<key>one</key>
-			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tag vollständig.</string>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst morgen vollständig.</string>
 			<key>two</key>
 			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
 			<key>few</key>
@@ -235,6 +211,30 @@
 			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
 			<key>other</key>
 			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Für diesen Zertifikattyp sind derzeit keine Einreiseregeln für das gewählte Land und den gewählten Zeitpunkt vorhanden. Bitte beachten Sie die folgenden Hinweise:</string>
+			<key>one</key>
+			<string>Es wurde %u Regel des Reiselandes erfolgreich überprüft.</string>
+			<key>two</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>few</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>many</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>other</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
 		</dict>
 	</dict>
 </dict>

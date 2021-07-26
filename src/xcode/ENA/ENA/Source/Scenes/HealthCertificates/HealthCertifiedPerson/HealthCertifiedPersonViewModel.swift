@@ -13,33 +13,52 @@ final class HealthCertifiedPersonViewModel {
 	init(
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
-		dismiss: @escaping () -> Void
+		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
+		dismiss: @escaping () -> Void,
+		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
-		// setup gradient update
-		healthCertifiedPerson.$vaccinationState
+		self.didTapValidationButton = didTapValidationButton
+
+		healthCertifiedPerson.$healthCertificates
 			.sink { [weak self] in
-				self?.gradientType = $0.gradientType
-			}
-			.store(in: &subscriptions)
-
-		healthCertifiedPerson.objectDidChange
-			.sink { [weak self] healthCertifiedPerson in
-				guard !healthCertifiedPerson.vaccinationCertificates.isEmpty else {
+				guard !$0.isEmpty else {
 					dismiss()
 					return
 				}
 
-				self?.triggerReload = true
+				self?.triggerCertificatesReload = true
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$vaccinationState
+			.sink { [weak self] _ in
+				self?.triggerCertificatesReload = true
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$mostRelevantHealthCertificate
+			.sink { [weak self] in
+				guard $0 != nil else {
+					dismiss()
+					return
+				}
+
+				self?.triggerQRCodeReload = true
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$gradientType
+			.sink { [weak self] in
+				self?.gradientType = $0
 			}
 			.store(in: &subscriptions)
 
 		// load certificate value sets
-		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+		healthCertificateValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
 				receiveCompletion: { _ in },
 				receiveValue: { _ in }
@@ -52,8 +71,8 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
-		case fullyVaccinatedHint
 		case person
+		case vaccinationHint
 		case certificates
 
 		static var numberOfSections: Int {
@@ -69,66 +88,56 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		let centerParagraphStyle = NSMutableParagraphStyle()
-		centerParagraphStyle.alignment = .center
-		centerParagraphStyle.lineSpacing = 10.0
-
-		let attributedHeadline = NSAttributedString(
-			string: AppStrings.HealthCertificate.Person.title,
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		let attributedSubheadline = NSAttributedString(
-			string: AppStrings.HealthCertificate.Person.subtitle,
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
+		HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
+			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			attributedText: [attributedHeadline, attributedSubheadline].joined(with: "\n"),
+			text: AppStrings.HealthCertificate.Person.title,
 			topSpace: 42.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
 	}()
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .solidGrey
-	@OpenCombine.Published private(set) var triggerReload: Bool = false
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@OpenCombine.Published private(set) var triggerQRCodeReload: Bool = false
+	@OpenCombine.Published private(set) var triggerCertificatesReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let latestHealthCertificate = healthCertifiedPerson.vaccinationCertificates.last
+		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
 			else {
 			fatalError("Cell cannot be shown without a health certificate")
 		}
 
 		return HealthCertificateQRCodeCellViewModel(
-			healthCertificate: latestHealthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription
+			healthCertificate: mostRelevantHealthCertificate,
+			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
+			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
+				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+			}
 		)
 	}
 
-	var fullyVaccinatedHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
-			fatalError("Cell cannot be shown in any other vaccination state than .fullyVaccinated")
+	var vaccinationHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		let text: String
+
+		switch healthCertifiedPerson.vaccinationState {
+		case .partiallyVaccinated:
+			text = AppStrings.HealthCertificate.Person.partiallyVaccinated
+		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
+			text = String(
+				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+				daysUntilCompleteProtection
+			)
+		case .notVaccinated, .completelyProtected:
+			fatalError("Cell cannot be shown in any other vaccination state than .partiallyVaccinated or .fullyVaccinated")
 		}
 
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .enaColor(for: .cellBackground2),
 			textAlignment: .left,
-			text: String(
-				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			),
+			text: text,
 			topSpace: 16.0,
 			font: .enaFont(for: .body),
 			borderColor: .enaColor(for: .hairline),
@@ -136,38 +145,19 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var fullyVaccinatedHintIsVisible: Bool {
-		if case .fullyVaccinated = healthCertifiedPerson.vaccinationState {
+	var vaccinationHintIsVisible: Bool {
+		switch healthCertifiedPerson.vaccinationState {
+		case .partiallyVaccinated, .fullyVaccinated:
 			return true
-		} else {
+		case .notVaccinated, .completelyProtected:
 			return false
 		}
 	}
 
-	var personCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		let attributedName = NSAttributedString(
-			string: healthCertifiedPerson.name?.fullName ?? "",
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		let attributedDetails = NSAttributedString(
-			string: dateOfBirth ?? "",
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
-			]
-		)
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			attributedText: [attributedName, attributedDetails].joined(with: "\n"),
-			topSpace: 16.0,
-			font: .enaFont(for: .headline),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
+	var preferredPersonCellModel: PreferredPersonCellModel {
+		PreferredPersonCellModel(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateService: healthCertificateService
 		)
 	}
 
@@ -177,28 +167,37 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .qrCode:
 			return 1
-		case .fullyVaccinatedHint:
-			return fullyVaccinatedHintIsVisible ? 1 : 0
+		case .vaccinationHint:
+			return vaccinationHintIsVisible ? 1 : 0
 		case .person:
 			return 1
 		case .certificates:
-			return healthCertifiedPerson.vaccinationCertificates.count
+			return healthCertifiedPerson.healthCertificates.count
+		}
+	}
+
+	func heightForFooter(in section: TableViewSection) -> CGFloat {
+		switch section {
+		case .certificates:
+			return 12
+		default:
+			return 0
 		}
 	}
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
 		HealthCertificateCellViewModel(
-			healthCertificate: healthCertifiedPerson.vaccinationCertificates[row],
-			gradientType: gradientType
+			healthCertificate: sortedHealthCertificates[row],
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
-		guard TableViewSection.map(indexPath.section) == .certificates,
-			  healthCertifiedPerson.vaccinationCertificates.indices.contains(indexPath.row) else {
+		guard TableViewSection.map(indexPath.section) == .certificates else {
 			return nil
 		}
-		return healthCertifiedPerson.vaccinationCertificates[indexPath.row]
+
+		return sortedHealthCertificates[safe: indexPath.row]
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -210,28 +209,21 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(healthCertifiedPerson.vaccinationCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(sortedHealthCertificates[indexPath.row])
 	}
 
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
-	private let vaccinationValueSetsProvider: VaccinationValueSetsProvider
+	private let healtCertificateValueSetsProvider: VaccinationValueSetsProviding
+
+	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
 
-	private var dateOfBirth: String? {
-		guard
-			let dateOfBirthString = healthCertifiedPerson.dateOfBirth,
-			let dateOfBirthDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfBirthString)
-		else {
-			return nil
-		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.dateOfBirth,
-			DateFormatter.localizedString(from: dateOfBirthDate, dateStyle: .medium, timeStyle: .none)
-		)
+	private var sortedHealthCertificates: [HealthCertificate] {
+		healthCertifiedPerson.healthCertificates.sorted(by: >)
 	}
 
 }

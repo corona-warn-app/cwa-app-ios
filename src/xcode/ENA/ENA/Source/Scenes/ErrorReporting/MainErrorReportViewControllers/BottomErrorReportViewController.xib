@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +15,6 @@
                 <outlet property="saveLocallyButton" destination="BIH-X6-akg" id="c0c-Dd-M91"/>
                 <outlet property="sendReportButton" destination="C1D-6e-Eky" id="btM-Wp-mRr"/>
                 <outlet property="stackView" destination="TmV-eH-o8L" id="cdo-yy-dBb"/>
-                <outlet property="stackViewHeightConstraint" destination="kJu-DK-6bD" id="7eh-GC-Vdj"/>
                 <outlet property="startButton" destination="mpT-qK-jdH" id="SIM-I2-9Kf"/>
                 <outlet property="statusDescription" destination="r4G-LI-jww" id="TdE-U7-44O"/>
                 <outlet property="statusTitle" destination="qFU-yF-xhT" id="Drj-lx-qH6"/>
@@ -24,7 +24,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="356"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMZ-di-uo6" userLabel="TopLabel" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
@@ -89,11 +89,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
-                    <rect key="frame" x="16" y="148" width="382" height="200"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
+                    <rect key="frame" x="16" y="148" width="382" height="204"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="mpT-qK-jdH" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -101,21 +101,21 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-6e-Eky" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="51" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="53" width="382" height="45"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="sendLoggingReport:" destination="-1" eventType="touchUpInside" id="sDa-iI-QBO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIH-X6-akg" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="102" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="106" width="382" height="45"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="saveLoggingReport:" destination="-1" eventType="touchUpInside" id="nFh-YW-0YB"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hr5-Wn-LfN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="153" width="382" height="47"/>
+                            <rect key="frame" x="0.0" y="159" width="382" height="45"/>
                             <state key="normal" title="Button"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="enabledBackgroundColor">
@@ -127,16 +127,14 @@
                             </connections>
                         </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="200" id="kJu-DK-6bD"/>
-                    </constraints>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="0T2-DO-TWo"/>
             <color key="backgroundColor" name="ENA Background Color"/>
             <constraints>
                 <constraint firstItem="TmV-eH-o8L" firstAttribute="top" secondItem="sJl-QC-bln" secondAttribute="bottom" constant="16" id="0fg-8V-yym"/>
                 <constraint firstAttribute="trailing" secondItem="zMZ-di-uo6" secondAttribute="trailing" constant="16" id="80g-Vj-qwb"/>
-                <constraint firstAttribute="bottom" secondItem="TmV-eH-o8L" secondAttribute="bottom" priority="750" constant="8" id="AGp-3z-myZ"/>
+                <constraint firstItem="0T2-DO-TWo" firstAttribute="bottom" secondItem="TmV-eH-o8L" secondAttribute="bottom" priority="750" constant="4" id="AGp-3z-myZ"/>
                 <constraint firstAttribute="trailing" secondItem="sJl-QC-bln" secondAttribute="trailing" constant="16" id="TfT-vU-2yg"/>
                 <constraint firstItem="zMZ-di-uo6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="YyM-Qu-dZX"/>
                 <constraint firstItem="TmV-eH-o8L" firstAttribute="trailing" secondItem="sJl-QC-bln" secondAttribute="trailing" id="ceg-Pe-SS9"/>

@@ -152,8 +152,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: AddEventTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: AddEventTableViewCell.self)
+			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: AddButtonAsTableViewCell.self)
 		)
 
 		tableView.register(
@@ -205,8 +205,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	}
 
 	private func traceLocationAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddEventTableViewCell.self), for: indexPath) as? AddEventTableViewCell else {
-			fatalError("Could not dequeue AddEventTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
+			fatalError("Could not dequeue AddButtonAsTableViewCell")
 		}
 
 		cell.configure(cellModel: addEntryCellModel)
@@ -228,7 +228,11 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 		cell.configure(
 			cellModel: cellModel,
 			onButtonTap: { [weak self] in
-				self?.viewModel.didTapEntryCellButton(at: indexPath)
+				guard let self = self,
+					  let currentIndexPath = self.tableView.indexPath(for: cell) else {
+					return
+				}
+				self.viewModel.didTapEntryCellButton(at: currentIndexPath)
 			}
 		)
 

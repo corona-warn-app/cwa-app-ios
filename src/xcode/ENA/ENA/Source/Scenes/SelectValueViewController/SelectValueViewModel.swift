@@ -14,13 +14,20 @@ final class SelectValueViewModel {
 		presorted: Bool = false,
 		title: String,
 		preselected: String? = nil,
-		accessibilityIdentifier: String
+		isInitialCellEnabled: Bool = true,
+		isInitialCellWithValue: Bool = false,
+		initialString: String = AppStrings.DataDonation.ValueSelection.noValue,
+		accessibilityIdentifier: String,
+		selectionCellIconType: SelectionCellIcon
 	) {
+		self.selectionCellIconType = selectionCellIconType
+		self.isInitialCellEnabled = isInitialCellEnabled
+		self.isInitialCellWithValue = isInitialCellWithValue
 		switch presorted {
 		case false:
-			self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues.sorted()
+			self.allValues = [initialString] + allowedValues.sorted()
 		default:
-			self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues
+			self.allValues = [initialString] + allowedValues
 		}
 		self.title = title
 		self.accessibilityIdentifier = accessibilityIdentifier
@@ -37,9 +44,13 @@ final class SelectValueViewModel {
 	// MARK: - Internal
 
 	let title: String
-	
 	let accessibilityIdentifier: String
-
+	// the following two flags are for configuration of the first cell
+	// only in the case of choosing districts in the local statistics do we return a value from the first cell
+	// in PPA the first cell is enabled but it returns nil value, in local statistics federal states it is disabled
+	let isInitialCellWithValue: Bool
+	let isInitialCellEnabled: Bool
+	
 	/// this tupel represents the change (oldValue, currentValue)
 	@OpenCombine.Published private (set) var selectedTupel: (Int?, Int)
 	@OpenCombine.Published private (set) var selectedValue: String?
@@ -49,9 +60,12 @@ final class SelectValueViewModel {
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> SelectValueCellViewModel {
-		SelectValueCellViewModel(
+		let isEnabled = indexPath.item > 0 ? true : isInitialCellEnabled
+		return SelectValueCellViewModel(
 			text: allValues[indexPath.row],
-			isSelected: selectedTupel.1 == indexPath.row
+			isSelected: selectedTupel.1 == indexPath.row,
+			cellIconType: selectionCellIconType,
+			isEnabled: isEnabled
 		)
 	}
 
@@ -61,11 +75,16 @@ final class SelectValueViewModel {
 			return
 		}
 		selectedTupel = (selectedTupel.1, indexPath.row)
-		selectedValue = indexPath.row == 0 ? nil : allValues[indexPath.row]
+		
+		if indexPath.row == 0 && !isInitialCellWithValue {
+			selectedValue = nil
+		} else {
+			selectedValue = allValues[indexPath.row]
+		}
 	}
 
 	// MARK: - Private
 
 	private let allValues: [String]
-
+	private let selectionCellIconType: SelectionCellIcon
 }

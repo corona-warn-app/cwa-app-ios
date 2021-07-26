@@ -33,10 +33,10 @@ class HealthCertificateKeyValueCellViewModelTests: CWATestCase {
 		let viewModel = try XCTUnwrap(HealthCertificateKeyValueCellViewModel(key: key, value: value))
 
 		// THEN
-		XCTAssertEqual(viewModel.headlineFont, .enaFont(for: .body))
-		XCTAssertEqual(viewModel.textFont, .enaFont(for: .subheadline))
-		XCTAssertEqual(viewModel.headlineTextColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(viewModel.textTextColor, .enaColor(for: .textPrimary2))
+		XCTAssertEqual(viewModel.headlineFont, .enaFont(for: .subheadline))
+		XCTAssertEqual(viewModel.textFont, .enaFont(for: .body))
+		XCTAssertEqual(viewModel.headlineTextColor, .enaColor(for: .textPrimary2))
+		XCTAssertEqual(viewModel.textTextColor, .enaColor(for: .textPrimary1))
 
 		XCTAssertEqual(viewModel.headline, key)
 		XCTAssertEqual(viewModel.text, value)
@@ -61,10 +61,10 @@ class HealthCertificateKeyValueCellViewModelTests: CWATestCase {
 			))
 
 		// THEN
-		XCTAssertEqual(viewModel.headlineFont, .enaFont(for: .body))
-		XCTAssertEqual(viewModel.textFont, .enaFont(for: .subheadline))
-		XCTAssertEqual(viewModel.headlineTextColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(viewModel.textTextColor, .enaColor(for: .textPrimary2))
+		XCTAssertEqual(viewModel.headlineFont, .enaFont(for: .subheadline))
+		XCTAssertEqual(viewModel.textFont, .enaFont(for: .body))
+		XCTAssertEqual(viewModel.headlineTextColor, .enaColor(for: .textPrimary2))
+		XCTAssertEqual(viewModel.textTextColor, .enaColor(for: .textPrimary1))
 
 		XCTAssertEqual(viewModel.headline, key)
 		XCTAssertEqual(viewModel.text, value)

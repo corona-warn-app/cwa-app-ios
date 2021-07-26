@@ -29,6 +29,7 @@ enum AccessibilityIdentifiers {
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
+		static let tableView = "AppStrings.Home.tableView"
 
 		enum RiskTableViewCell {
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
@@ -251,6 +252,7 @@ enum AccessibilityIdentifiers {
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
+		static let findTestCentersButtonDescription = "AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription"
 	}
 	
 	enum ExposureSubmissionResult {
@@ -357,7 +359,16 @@ enum AccessibilityIdentifiers {
 		static let optionNo = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"
 		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
 	}
-	
+	enum LocalStatistics {
+		static let selectState = "AppStrings.LocalStatistics.selectState"
+		static let selectDistrict = "AppStrings.LocalStatistics.selectDistrict"
+		static let manageStatisticsCard = "AppStrings.LocalStatistics.manageStatisticsCard"
+		static let localStatisticsCard = "AppStrings.LocalStatistics.localStatisticsCard"
+		static let addLocalIncidencesButton = "AppStrings.LocalStatistics.addLocalIncidencesButton"
+		static let addLocalIncidenceLabel = "AppStrings.LocalStatistics.addLocalIncidenceLabel"
+		static let modifyLocalIncidencesButton = "AppStrings.LocalStatistics.modifyLocalIncidencesButton"
+		static let modifyLocalIncidenceLabel = "AppStrings.LocalStatistics.modifyLocalIncidenceLabel"
+	}
 	enum ExposureSubmissionWarnEuropeCountrySelection {
 		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
 		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
@@ -402,7 +413,9 @@ enum AccessibilityIdentifiers {
 				static let profileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description"
 				static let createProfileTile_Description = "AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description"
 				static let continueButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.primaryButton"
-				static let deleteButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
+				static let editButton = "AppStrings.ExposureSubmission.AntigenTest.Profile.secondaryButton"
+				static let deleteAction = "AppStrings.ExposureSubmission.AntigenTest.Profile.deleteAction"
+				static let editAction = "AppStrings.ExposureSubmission.AntigenTest.Profile.editAction"
 			}
 		}
 
@@ -417,6 +430,10 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+	}
+	
+	enum ExposureSubmissionTestResultConsent {
+		static let switchIdentifier = "ExposureSubmissionTestResultConsent.SwitchIdentifier"
 	}
 	
 	enum ExposureSubmissionTestResultAvailable {
@@ -443,6 +460,8 @@ enum AccessibilityIdentifiers {
 		static let secondaryFooterButton = "General.secondaryFooterButton"
 		static let cancelButton = "General.cancelButton"
 		static let defaultButton = "General.defaultButton"
+		static let deleteButton = "General.deleteButton"
+		static let webView = "HTMLView"
 	}
 	
 	enum DatePickerOption {
@@ -469,6 +488,22 @@ enum AccessibilityIdentifiers {
 		enum ReproductionNumber {
 			static let title = "AppStrings.Statistics.Card.ReproductionNumber.title"
 			static let infoButton = "AppStrings.Statistics.Card.ReproductionNumber.infoButton"
+		}
+		enum AtLeastOneVaccination {
+			static let title = "AppStrings.Statistics.Card.AtLeastOneVaccination.title"
+			static let infoButton = "AppStrings.Statistics.Card.AtLeastOneVaccination.infoButton"
+		}
+		enum FullyVaccinated {
+			static let title = "AppStrings.Statistics.Card.FullyVaccinated.title"
+			static let infoButton = "AppStrings.Statistics.Card.FullyVaccinated.infoButton"
+		}
+		enum Doses {
+			static let title = "AppStrings.Statistics.Card.Doses.title"
+			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
+		}
+		enum General {
+			static let tableViewCell = "HomeStatisticsTableViewCell"
+			static let card = "HomeStatisticsCard"
 		}
 	}
 	
@@ -606,11 +641,19 @@ enum AccessibilityIdentifiers {
 
 	enum HealthCertificate {
 
+		enum Validation {
+			static let countrySelection = "HealthCertificate.Validation.CountrySelection"
+			static let dateTimeSelection = "HealthCertificate.Validation.DateTimeSelection"
+			enum Info {
+				static let imageDescription = "AppStrings.HealthCertificate.Validation.Info.imageDescription"
+			}
+		}
+
 		enum Overview {
-			static let vaccinationCertificateRegistrationCell = "AccessibilityIdentifiers.HealthCertificate.vaccinationCertificateRegistrationCell"
-			static let vaccinationCertificateCell = "AppStrings.HealthCertificate.vaccinationCertificateCell"
+			static let addCertificateCell =
+				"addCertificateCell"
+			static let healthCertifiedPersonCell = "AppStrings.HealthCertificate.healthCertifiedPersonCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
-			static let testCertificateInfoCell = "AppStrings.HealthCertificate.testCertificateInfoCell"
 		}
 
 		enum Info {
@@ -627,6 +670,7 @@ enum AccessibilityIdentifiers {
 
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
+			static let validationButton = "HealthCertificate.Person.validationButton"
 		}
 
 		enum Certificate {

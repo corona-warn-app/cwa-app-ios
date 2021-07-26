@@ -76,7 +76,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
 						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_1),
 						alignment: .top
 					),
@@ -85,7 +85,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
+						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
 						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_2),
 						alignment: .top
 					)
@@ -99,10 +99,11 @@ class ExposureSubmissionTestCertificateViewModel {
 					bulletPoints1: [
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_1),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2),
+						testType == .antigen ? nil : NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2a_PCR),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_3),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_4),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_5)
-					],
+					].compactMap { $0 },
 					subheadline2: nil,
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.acknowledgementTitle,
 					configure: { _, cell, _ in

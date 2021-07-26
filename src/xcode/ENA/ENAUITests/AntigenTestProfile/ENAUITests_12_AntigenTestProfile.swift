@@ -25,7 +25,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 	
 	// MARK: - Tests
 	
-	func test_FIRST_CreateAntigenTestProfile_THEN_DeleteProfile() throws {
+	func test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile() throws {
 		
 		app.launch()
 		
@@ -35,6 +35,9 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		registerTestButton.waitAndTap()
 		
 		/// Register Test Screen
+		
+		// dont't take this swipe up otherwise this test will fail!
+		app.swipeUp(velocity: .slow)
 
 		let createProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description])
 		createProfileButton.waitAndTap()
@@ -67,17 +70,19 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		let backButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 0))
 		backButton.waitAndTap()
-		
+
 		/// -> Antigen Test Information Screen
 		
-		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton]
+		var continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.continueButton]
 		continueButton.waitAndTap()
-		
+
 		/// Create Antigen Test Profile Screen
 
 		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
 		XCTAssertTrue(saveProfileButton.waitForExistence(timeout: .short))
 		XCTAssertFalse(saveProfileButton.isEnabled)
+
+		snapshot("antigentestprofile_screenshot_create_profile_screen")
 		
 		let firstNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField])
 		firstNameTextField.waitAndTap()
@@ -110,7 +115,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		let emailAddressTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField])
 		emailAddressTextField.waitAndTap()
 		emailAddressTextField.typeText("bastian@bastian.codes")
-		
+
 		XCTAssertTrue(saveProfileButton.isEnabled)
 		saveProfileButton.waitAndTap()
 		
@@ -118,9 +123,11 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		// continues button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .short))
-		// delete profile button exists
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton].waitForExistence(timeout: .short))
-		
+		// edit profile button exists
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton].waitForExistence(timeout: .short))
+
+		snapshot("antigentestprofile_screenshot_profile_screen")
+
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
 		closeButton.waitAndTap()
 		
@@ -136,10 +143,41 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		
 		/// Antigen Test Profile Screen
 		
-		// delete profile button exists
-		let deleteTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteButton])
+		// edit profile button exists
+		var editTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton])
+		editTestProfileButton.waitAndTap()
+
+		snapshot("antigentestprofile_screenshot_edit_actions")
+
+		/// Edit Antigen Test Profile Screen
+
+		let editTestProfileAction = try XCTUnwrap(app.sheets.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editAction])
+		editTestProfileAction.waitAndTap()
+
+		let editSaveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
+		XCTAssertTrue(editSaveProfileButton.waitForExistence(timeout: .short))
+		XCTAssertTrue(editSaveProfileButton.isEnabled)
+
+		let editFirstNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField])
+		editFirstNameTextField.waitAndTap()
+		editFirstNameTextField.typeText("Ronaldo")
+
+		XCTAssertTrue(editSaveProfileButton.isEnabled)
+		editSaveProfileButton.waitAndTap()
+
+		/// Antigen Test Profile Screen
+
+		// continues button exists
+		continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .short))
+
+		// edit profile button exists
+		editTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton])
+		editTestProfileButton.waitAndTap()
+
+		let deleteTestProfileButton = try XCTUnwrap(app.sheets.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.deleteAction])
 		deleteTestProfileButton.waitAndTap()
-		
+
 		// confirm deletion on popup
 		let popupDeleteButton = try XCTUnwrap(app.alerts.firstMatch.buttons.element(boundBy: 1))
 		popupDeleteButton.waitAndTap()

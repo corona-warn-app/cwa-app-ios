@@ -15,8 +15,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		qrCodeImageView.isAccessibilityElement = true
 		qrCodeImageView.accessibilityTraits = .image
-		certificateCountLabel.isAccessibilityElement = true
-		validityLabel.isAccessibilityElement = true
+		titleLabel.isAccessibilityElement = true
+		subtitleLabel.isAccessibilityElement = true
 
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
@@ -37,26 +37,31 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
+		self.cellViewModel = cellViewModel
+
 		qrCodeImageView.image = cellViewModel.qrCodeImage
 		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
 
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 
-		certificateCountLabel.text = cellViewModel.certificate
-		certificateCountLabel.isHidden = cellViewModel.certificate == nil
+		titleLabel.text = cellViewModel.title
+		titleLabel.isHidden = cellViewModel.title == nil
 
-		validityLabel.text = cellViewModel.validity
-		validityLabel.isHidden = cellViewModel.validity == nil
+		subtitleLabel.text = cellViewModel.subtitle
+		subtitleLabel.isHidden = cellViewModel.subtitle == nil
 	}
 
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
 	private let qrCodeImageView = UIImageView()
-	private let certificateCountLabel = ENALabel()
-	private let validityLabel = ENALabel()
+	private let titleLabel = ENALabel()
+	private let subtitleLabel = ENALabel()
+	private let validationButton = ENAButton()
 	private let stackView = UIStackView()
+
+	private var cellViewModel: HealthCertificateQRCodeCellViewModel?
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -77,16 +82,29 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		stackView.addArrangedSubview(qrCodeImageView)
 
-		certificateCountLabel.font = .enaFont(for: .headline)
-		certificateCountLabel.numberOfLines = 0
-		stackView.addArrangedSubview(certificateCountLabel)
+		titleLabel.style = .headline
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.numberOfLines = 0
+		stackView.addArrangedSubview(titleLabel)
 
-		validityLabel.font = .enaFont(for: .body)
-		validityLabel.numberOfLines = 0
-		stackView.addArrangedSubview(validityLabel)
+		subtitleLabel.style = .body
+		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		subtitleLabel.numberOfLines = 0
+		stackView.addArrangedSubview(subtitleLabel)
+		stackView.setCustomSpacing(12, after: subtitleLabel)
+
+		validationButton.hasBorder = true
+		validationButton.hasBackground = false
+		validationButton.setTitle(
+			AppStrings.HealthCertificate.Person.validationButtonTitle,
+			for: .normal
+		)
+		validationButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.validationButton
+		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
+		stackView.addArrangedSubview(validationButton)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.alignment = .leading
+		stackView.alignment = .fill
 		stackView.axis = .vertical
 		stackView.spacing = 4.0
 		backgroundContainerView.addSubview(stackView)
@@ -111,6 +129,14 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+	}
+
+	@objc
+	private func validationButtonTapped() {
+		cellViewModel?.didTapValidationButton { [weak self] isLoading in
+			self?.validationButton.isLoading = isLoading
+			self?.validationButton.isEnabled = !isLoading
+		}
 	}
 
 }

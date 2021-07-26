@@ -12,7 +12,7 @@
 
 /* DeltaOnboarding */
 
-"DeltaOnboarding_DataProcessing_Info_title" = "Hinweise zur Datenverarbeitung";
+"DeltaOnboarding_DataProcessing_Info_title" = "Datenschutz und Datensicherheit";
 
 "DeltaOnboarding_DataProcessing_Info_content" = "Um zu erfahren, ob Sie Risiko-Begegnungen mit App-Nutzern der teilnehmenden Länder hatten und deshalb ein Ansteckungsrisiko besteht, müssen Sie nichts ändern. Es muss nur weiterhin die Risiko-Ermittlung aktiviert sein. Die Risiko-Ermittlung warnt Sie automatisch bei allen Risiko-Begegnungen, die Sie mit einem Nutzer der Corona-Warn-App oder einer anderen offiziellen Corona-App hatten.\n\nWenn Sie in Ihrem iPhone die Funktion „Begegnungsmitteilungen“ aktiviert haben, erzeugt Ihr iPhone kontinuierlich Zufalls-IDs und versendet diese per Bluetooth, damit sie von Smartphones in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs von anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden von Ihrem iPhone aufgezeichnet und dort für 14 Tage gespeichert.\n\nFür die Risiko-Ermittlung lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis (genauer gesagt: die eigenen Zufalls-IDs) zur Warnung anderer über ihre offizielle Corona-App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer verglichen.\n\nWenn dabei eine Risiko-Begegnung festgestellt wird, werden Sie von der App informiert. In diesem Fall erhält die App Zugriff auf die von Ihrem iPhone zu der Risiko-Begegnung aufgezeichneten Daten (Datum, Dauer und Bluetooth-Signalstärke des Kontakts). Aus der Bluetooth-Signalstärke wird der räumliche Abstand zu dem anderen Nutzer abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Ansteckungsrisiko zu berechnen und Ihnen Verhaltensempfehlungen zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt.\n\nAußer Ihnen erfährt niemand (auch nicht das RKI oder die Gesundheitsbehörden teilnehmender Länder), ob Sie eine Risiko-Begegnung hatten und welches Ansteckungsrisiko für Sie ermittelt wird.\n\nDie Datenschutzerklärung der App (einschließlich Informationen zur Datenverarbeitung für die länderübergreifende Risiko-Ermittlung) finden Sie unter dem Menüpunkt „App-Informationen“ > „Datenschutz“.";
 
@@ -55,7 +55,7 @@
 
 /* Contact journal information */
 
-"ContactDiary_Information_Legal_Headline_1" = "Hinweise zur Datenverarbeitung";
+"ContactDiary_Information_Legal_Headline_1" = "Datenschutz und Datensicherheit";
 
 "ContactDiary_Information_Legal_SubHeadline_1" = "Sie behalten über alle erfassten Informationen die volle Kontrolle.";
 
@@ -182,7 +182,7 @@
 
 "ExposureSubmission_Antigen_Profile_Legal_Text03" = "In der Teststelle können Sie den QR-Code Ihres Schnelltest-Profils scannen lassen, um der Teststelle Ihre Daten schnell und sicher bereitzustellen. Die Teststelle benötigt Ihre Daten zur Durchführung des Tests. Sie können die Daten aber auch ohne die App bereitstellen. Sie entscheiden selbst, welche Daten im QR-Code enthalten sind und welche Sie der Teststelle auf andere Weise mitteilen.";
 
-"ExposureSubmission_Antigen_Profile_Legal_Text04" = "Auf Ihr persönliches Schnelltest-Profil haben zunächst nur Sie Zugriff. Nur wenn Sie den QR-Code des Schnelltest-Profils anderen Personen zeigen, können diese Zugriff auf die persönlichen Daten Ihres Schnelltest-Profils erhalten. Ein Zugriff auf andere Daten aus der App erfolgt dabei nicht (z.B. Ihre Check-ins oder Angaben im Kontakt-Tagebuch).";
+"ExposureSubmission_Antigen_Profile_Legal_Text04" = "Auf Ihr persönliches Schnelltest-Profil haben zunächst nur Sie Zugriff. Nur wenn Sie den QR-Code des Schnelltest-Profils anderen Personen zeigen, können diese Zugriff auf die persönlichen Daten Ihres Schnelltest-Profils erhalten. Ein Zugriff auf andere Daten aus der App erfolgt dabei nicht (z.\U00A0B. Ihre Check-ins oder Angaben im Kontakt-Tagebuch).";
 
 "ExposureSubmission_Antigen_Profile_Legal_Text05" = "Sie haben jederzeit die Möglichkeit, Ihr Schnelltest-Profil wieder zu entfernen. Bis dahin bleibt es in der App auf Ihrem Smartphone gespeichert.";
 
@@ -194,11 +194,11 @@
 
 "HealthCertificate_Info_Legal_headline" = "Datenschutz und Datensicherheit";
 
-"HealthCertificate_Info_Legal_section01" = "​Die Verwendung der EU digitalen COVID-Zertifikate ist freiwillig. Die Nachweise des vollständigen Impfschutzes oder eines negativen Testergebnisses können auch auf andere Weise erbracht werden.";
+"HealthCertificate_Info_Legal_section01" = "​Die Verwendung der digitalen COVID-Zertifikate ist freiwillig. Die Nachweise des vollständigen Impfschutzes, eines negativen Testergebnisses oder einer überstandenen Corona-Infektion können auch auf andere Weise erbracht werden.";
 
-"HealthCertificate_Info_Legal_section02" = "Die COVID-Zertifikate enthalten Ihre personenbezogenen Daten (zu Impfungen oder Ihrem Testergebnis). Zum Nachweis in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes des Zertifikats in der App. Stellen Sie Ihre Zertifikate und die QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
+"HealthCertificate_Info_Legal_section02" = "Die COVID-Zertifikate enthalten Ihre personenbezogenen Daten (zu Impfungen, Testergebnissen oder einer überstandenen Infektion). Zum Nachweis in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes des Zertifikats in der App. Bei der Prüfung ist gegebenenfalls ein Ausweisdokument vorzulegen. Stellen Sie Ihre Zertifikate und die QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 
-"HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code eines Zertifikats in der App zur Prüfung vorzeigen, können andere Personen Ihr Testergebnis nachvollziehen oder ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und Ihr Geburtsdatum angezeigt.";
+"HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code eines Zertifikats in der App zur Prüfung vorzeigen, können andere Personen nachvollziehen, dass ein negatives Testergebnis, ein vollständiger Impfschutz oder ein Nachweis über eine überstandene Infektion vorliegt. Bei der Prüfung werden in der offiziellen Prüf-App auch der Name und das Geburtsdatum angezeigt. Bei Testzertifikaten wird zusätzlich auch das Datum der Probenahme angezeigt.";
 
 "HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, COVID-Zertifikate in der App wieder zu entfernen. Bis dahin bleiben die Zertifikate auf Ihrem Smartphone gespeichert.";
 
@@ -208,9 +208,11 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Headline" = "Datenschutz und Datensicherheit";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Die Anforderung und Verwendung des digitalen COVID-Testzertifikats ist freiwillig. Der Nachweis eines negativen Testzertifikats kann auch auf andere Weise erbracht werden.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_1" = "Die Anforderung und Verwendung des digitalen COVID-Testzertifikats ist freiwillig. Der Nachweis eines negativen Testergebnisses kann auch auf andere Weise erbracht werden.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Zur Erstellung Ihres Testzertifikats werden Daten einmalig verschlüsselt an das RKI übermittelt. Das RKI signiert die Daten elektronisch, um die Gültigkeit zu bestätigen. Die Daten werden beim RKI nicht gespeichert.";
+
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Um sicherzustellen, dass niemand mit Ihrem QR-Code Ihr Testergebnis abrufen kann, wird es mit Ihrem Geburtsdatum geschützt. Ihr Geburtsdatum wird verschlüsselt an das Labor übermittelt, um das Testergebnis abzurufen.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "Das COVID-Testzertifikat enthält die Daten über Ihren Corona-Test. Zum Nachweis des negativen Testergebnisses in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der App. Stellen Sie das Testzertifikat niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 

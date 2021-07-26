@@ -108,9 +108,9 @@ enum LaunchArguments {
 		static let journalRemoveAllPersons = LaunchArgument(name: "journalRemoveAllPersons")
 		/// To remove all the locations from contact journal
 		static let journalRemoveAllLocations = LaunchArgument(name: "journalRemoveAllLocations")
-		// to remove all the corona tests from the contact journal
+		/// to remove all the corona tests from the contact journal
 		static let journalRemoveAllCoronaTests = LaunchArgument(name: "journalRemoveAllCoronaTests")
-		// inject test data to journal
+		/// inject test data to journal
 		static let testsRiskLevel = LaunchArgument(name: "journalTestsRiskLevel")
 	}
 	enum healthCertificate {
@@ -119,5 +119,8 @@ enum LaunchArguments {
 		static let firstHealthCertificate = LaunchArgument(name: "firstHealthCertificate")
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
 		static let testCertificateRegistered = LaunchArgument(name: "testCertificateRegistered")
+		static let recoveryCertificateRegistered = LaunchArgument(name: "recoveryCertificateRegistered")
+		static let familyCertificates = LaunchArgument(name: "familyCertificates")
+		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
 	}
 }

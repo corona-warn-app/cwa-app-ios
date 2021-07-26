@@ -43,6 +43,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.space.rawValue)
 		tableView.register(DynamicTableViewIconCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
 		tableView.register(DynamicTableViewBulletPointCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.bulletPoint.rawValue)
+		tableView.register(DynamicTableViewHeadlineWithImageCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.headlineWithImage.rawValue)
 	}
 }
 
@@ -95,15 +96,22 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits):
+		case let .image(image, title, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
-			if let label = label {
-				view?.imageView?.isAccessibilityElement = true
-				view?.imageView?.accessibilityLabel = label
-			}
+			view?.imageView?.isAccessibilityElement = label != nil
+			view?.imageView?.accessibilityLabel = label
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
 			view?.imageView?.accessibilityTraits = accessibilityTraits
+
+			// optional title that will be shown over the image and scroll with it.
+			view?.titleLabel.isAccessibilityElement = title != nil
+			view?.titleLabel.accessibilityLabel = title
+			view?.titleLabel.accessibilityTraits = .header
+			view?.title = title
+
+			view?.accessibilityElements = [view?.titleLabel as Any, view?.imageView as Any]
+
 			if let height = height {
 				view?.height = height
 			} else if let imageWidth = image?.size.width,

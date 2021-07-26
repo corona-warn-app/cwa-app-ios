@@ -49,28 +49,45 @@ class FooterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		view.insetsLayoutMarginsFromSafeArea = false
-		view.preservesSuperviewLayoutMargins = false
-		view.layoutMargins = UIEdgeInsets(
-			top: viewModel.topBottomInset,
-			left: viewModel.leftRightInset,
-			bottom: viewModel.topBottomInset,
-			right: viewModel.leftRightInset
-		)
-
-		view.addSubview(primaryButton)
-		view.addSubview(secondaryButton)
+		
+		buttonsStackView = UIStackView()
+		buttonsStackView.alignment = .fill
+		buttonsStackView.axis = .vertical
+		buttonsStackView.distribution = .fill
+		buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(buttonsStackView)
 
 		primaryButton.disabledBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.addArrangedSubview(primaryButton)
+		
+		primaryButtonHeightConstraint = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		primaryButtonHeightConstraint.priority = .defaultHigh
 		
 		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.addArrangedSubview(secondaryButton)
+		
+		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		secondaryButtonHeightConstraint.priority = .defaultHigh
+		
+		NSLayoutConstraint.activate([
+			// buttonsStackView
+			buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset),
+			buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset),
+			buttonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: viewModel.leftRightInset),
+			buttonsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -viewModel.leftRightInset),
+			// primaryButton
+			primaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
+			primaryButtonHeightConstraint,
+			// secondaryButton
+			secondaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
+			secondaryButtonHeightConstraint
+		])
 
 		updateViewModel()
 	}
@@ -91,7 +108,9 @@ class FooterViewController: UIViewController {
 	private let primaryButton: ENAButton = ENAButton(type: .custom)
 	private let secondaryButton: ENAButton = ENAButton(type: .custom)
 
-	private var buttonConstraints = [NSLayoutConstraint]()
+	private var buttonsStackView: UIStackView!
+	private var primaryButtonHeightConstraint: NSLayoutConstraint!
+	private var secondaryButtonHeightConstraint: NSLayoutConstraint!
 	private var subscription: [AnyCancellable] = []
 
 	@objc
@@ -119,12 +138,22 @@ class FooterViewController: UIViewController {
 		subscription.forEach { $0.cancel() }
 		subscription.removeAll()
 		
-		NSLayoutConstraint.deactivate(buttonConstraints)
-		buttonConstraints.removeAll()
+		// hiding these views will force the stack view to update its layout
+		primaryButton.isHidden = true
+		secondaryButton.isHidden = true
 		
 		// background color
 		
 		view.backgroundColor = viewModel.backgroundColor
+		
+		// update stack view spacing
+		
+		buttonsStackView.spacing = viewModel.spacer
+		
+		// update button constraints
+		
+		primaryButtonHeightConstraint.constant = viewModel.buttonHeight
+		secondaryButtonHeightConstraint.constant = viewModel.buttonHeight
 		
 		// primary button
 		primaryButton.customTextColor = viewModel.primaryTextColor
@@ -138,7 +167,7 @@ class FooterViewController: UIViewController {
 		
 		// secondary button
 		
-		secondaryButton.customTextColor = viewModel.primaryTextColor
+		secondaryButton.customTextColor = viewModel.secondaryTextColor
 		secondaryButton.enabledBackgroundColor = viewModel.secondaryButtonColor
 		secondaryButton.hasBackground = !viewModel.secondaryButtonInverted
 		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
@@ -146,43 +175,6 @@ class FooterViewController: UIViewController {
 		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
 		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
 		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
-		
-		// update button constraints
-
-		buttonConstraints = [
-			// primaryButton
-			primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-			primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
-			primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
-			primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight),
-			// secondaryButton
-			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: viewModel.spacer),
-			secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor),
-			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor),
-			secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		]
-		
-		NSLayoutConstraint.activate(buttonConstraints)
-		
-		// subscribe to view model properties
-
-		viewModel.$height
-			.receive(on: DispatchQueue.main.ocombine)
-			.sink { height in
-				
-				// hide and show buttons by alpha to make it animatable
-				
-				let alpha: CGFloat = height > 0.0 ? 1.0 : 0.0
-				let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
-					guard let self = self else {
-						return
-					}
-					self.primaryButton.alpha = alpha
-					self.secondaryButton.alpha = alpha
-				}
-				animator.startAnimation()
-			}
-			.store(in: &subscription)
 
 		// update loading indicators on model change
 
@@ -212,17 +204,35 @@ class FooterViewController: UIViewController {
 
 		viewModel.$isPrimaryButtonHidden
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.isHidden, on: primaryButton)
+			.sink(receiveValue: { [weak self] isHidden in
+				self?.primaryButton.isHidden = isHidden
+				self?.animateHeightChange()
+			})
 			.store(in: &subscription)
 
 		viewModel.$isSecondaryButtonHidden
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.isHidden, on: secondaryButton)
+			.sink(receiveValue: { [weak self] isHidden in
+				self?.secondaryButton.isHidden = isHidden
+				self?.animateHeightChange()
+			})
 			.store(in: &subscription)
 
 		viewModel.$backgroundColor
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.backgroundColor, on: view)
 			.store(in: &subscription)
+	}
+	
+	private func animateHeightChange() {
+		let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
+			guard let self = self else {
+				return
+			}
+			self.primaryButton.alpha = self.viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
+			self.secondaryButton.alpha = self.viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
+			self.buttonsStackView.layoutIfNeeded()
+		}
+		animator.startAnimation()
 	}
 }

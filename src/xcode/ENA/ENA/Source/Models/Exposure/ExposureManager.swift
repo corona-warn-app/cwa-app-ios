@@ -219,12 +219,14 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
+		Log.info("Trying to activate ENManager.")
 		manager.activate { activationError in
 			if let activationError = activationError {
 				Log.error("Failed to activate ENManager: \(activationError.localizedDescription)", log: .api)
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
+			Log.info("Activated ENManager succesfully.")
 			completion(nil)
 		}
 	}
@@ -389,6 +391,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				Log.error(errorMsg, log: .api)
 				completion(ExposureNotificationError.unknown(error.localizedDescription))
 			}
+		} else {
+			Log.error("Casting error from error to ENError", error: error)
+			completion(ExposureNotificationError.unknown("Could not cast ENError to Error: \(error.localizedDescription)"))
 		}
 	}
 

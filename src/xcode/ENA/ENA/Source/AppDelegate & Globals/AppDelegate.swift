@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import OpenCombine
 import OpenCombineFoundation
 import OpenCombineDispatch
@@ -9,6 +10,7 @@ import ExposureNotification
 import FMDB
 import UIKit
 import HealthCertificateToolkit
+import CertLogic
 
 protocol CoronaWarnAppDelegate: AnyObject {
 
@@ -38,8 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+		} else {
+			self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 		}
-		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 		#else
 		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
 		#endif
@@ -56,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		super.init()
 
-		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		// Make the analytics working. Should not be called later than at this moment of app initialization.
 		
 		let testResultCollector = PPAAnalyticsTestResultCollector(
 			store: store
@@ -74,6 +77,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			testResultCollector: testResultCollector,
 			submissionCollector: submissionCollector
 		)
+		
+		// Let ELS run for our testers as soon as possible to see any possible errors in startup, too. Only in release builds we wait for the user to start it manually.
+		#if !RELEASE
+		if store.elsLoggingActiveAtStartup {
+			elsService.startLogging()
+		} else {
+			Log.warning("ELS is not set to be active at app startup.")
+		}
+		#endif
 
 		// Migrate the old pcr test structure from versions older than v2.1
 		coronaTestService.migrate()
@@ -300,6 +312,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		appConfiguration: appConfigurationProvider
+	)
+	
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
+		#if DEBUG
+		if isUITesting {
+			return VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: store)
+		}
+		#endif
+
+		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+	}
+	
+	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = {
+		#if DEBUG
+		if isUITesting {
+			var mock = MockHealthCertificateValidationService()
+			
+			if LaunchArguments.healthCertificate.invalidCertificateCheck.boolValue {
+				
+				// Provide data for invalid validation
+				let fakeResult: ValidationResult = .fake(result: .fail)
+				fakeResult.rule?.description = [Description(lang: "de", desc: "Die Impfreihe muss vollständig sein (z.B. 1/1, 2/2)."), Description(lang: "en", desc: "The vaccination schedule must be complete (e.g., 1/1, 2/2).")]
+				mock.validationResult = .success(.validationFailed([fakeResult]))
+			} else {
+				mock.validationResult = .success(.validationPassed([.fake(), .fake(), .fake()]))
+			}
+			
+			return mock
+		}
+		#endif
+		
+		return HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+	}()
+	
+	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
+		store: store,
+		client: client
+	)
+	
+	/// Reference to the ELS server handling error log recording & submission
+	private lazy var elsService: ErrorLogSubmissionProviding = ErrorLogSubmissionService(
+		client: client,
+		store: store,
+		ppacService: ppacService,
+		otpService: otpService
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -569,7 +630,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
-		healthCertificateService: healthCertificateService
+		healthCertificateService: healthCertificateService,
+		healthCertificateValidationService: healthCertificateValidationService,
+		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+		elsService: elsService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -653,30 +718,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	#if DEBUG
 	private func setupOnboardingForTesting() {
-		// Only disable onboarding if it was explicitly set to "NO"
-		if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
-			store.isOnboarded = isOnboarded != "NO"
-		}
+		if isUITesting {
+			// Only disable onboarding if it was explicitly set to "NO"
+			if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
+				store.isOnboarded = isOnboarded != "NO"
+			}
 
-		if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
-			store.onboardingVersion = onboardingVersion
-		}
+			if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
+				store.onboardingVersion = onboardingVersion
+			}
 
-		if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
-			store.finishedDeltaOnboardings = [:]
-		}
+			if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
+				store.finishedDeltaOnboardings = [:]
+			}
 
-		if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
-			store.onboardingVersion = Bundle.main.appVersion
+			if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
+				store.onboardingVersion = Bundle.main.appVersion
+			}
 		}
 	}
 
 	private func setupDatadonationForTesting() {
-		store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
+		if isUITesting {
+			store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
+		}
 	}
 
 	private func setupInstallationDateForTesting() {
-		if let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
+		if isUITesting, let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
 			let installationDays = Int(installationDaysString) ?? 0
 			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
 			store.appInstallationDate = date
@@ -684,9 +753,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func setupAntigenTestProfileForTesting() {
-		store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
-		if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
-			store.antigenTestProfile = nil
+		if isUITesting {
+			store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
+			if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
+				store.antigenTestProfile = nil
+			}
 		}
 	}
 	

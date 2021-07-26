@@ -45,6 +45,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	func wipeAll(key: String?) {
 		do {
 			try kvStore.wipeAll(key: key)
+			antigenTestProfileSubject.send(nil)
 		} catch {
 			Log.error("kv store error", log: .localData, error: error)
 		}
@@ -209,15 +210,13 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 
     // MARK: - Protocol AntigenTestProfileStoring
 
-	lazy var antigenTestProfileSubject = {
-		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
-	}()
+	lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
 
 	var antigenTestProfile: AntigenTestProfile? {
 		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
 		set {
 			kvStore["antigenTestProfile"] = newValue
-			antigenTestProfileSubject.value = newValue
+			antigenTestProfileSubject.send(newValue)
 		}
 	}
 
@@ -229,8 +228,8 @@ final class SecureStore: Store, AntigenTestProfileStoring {
     // MARK: - Protocol HealthCertificateStoring
 
 	var healthCertificateInfoScreenShown: Bool {
-		get { kvStore["healthCertificateInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["healthCertificateInfoScreenShown"] = newValue }
+		get { kvStore["healthCertificateInfoScreenShown25"] as Bool? ?? false }
+		set { kvStore["healthCertificateInfoScreenShown25"] = newValue }
 	}
 
     var healthCertifiedPersons: [HealthCertifiedPerson] {
@@ -247,6 +246,16 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["unseenTestCertificateCount"] as Int? ?? 0 }
 		set { kvStore["unseenTestCertificateCount"] = newValue }
 	}
+
+	var lastSelectedValidationCountry: Country {
+		get { kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry() }
+		set { kvStore["lastSelectedValidationCountry"] = newValue }
+	}
+
+	var lastSelectedValidationDate: Date {
+		get { kvStore["lastSelectedValidationDate"] as Date? ?? Date() }
+		set { kvStore["lastSelectedValidationDate"] = newValue }
+	}
 	
 	// MARK: - Protocol VaccinationCaching
 
@@ -254,6 +263,25 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
 		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
 	}
+	
+	// MARK: - Protocol HealthCertificateValidationCaching
+	
+	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? {
+		get { kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil }
+		set { kvStore["validationOnboardedCountriesCache"] = newValue }
+	}
+	
+	var acceptanceRulesCache: ValidationRulesCache? {
+		get { kvStore["acceptanceRulesCache"] as ValidationRulesCache? ?? nil }
+		set { kvStore["acceptanceRulesCache"] = newValue }
+	}
+	
+	var invalidationRulesCache: ValidationRulesCache? {
+		get { kvStore["invalidationRulesCache"] as ValidationRulesCache? ?? nil }
+		set { kvStore["invalidationRulesCache"] = newValue }
+	}
+	
+	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE
 
@@ -354,6 +382,18 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: LocalStatisticsCaching {
+	var localStatistics: [LocalStatisticsMetadata] {
+		get { kvStore["localStatistics"] as [LocalStatisticsMetadata]? ?? [] }
+		set { kvStore["localStatistics"] = newValue }
+	}
+	
+	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] {
+		get { kvStore["selectedLocalStatisticsDistricts"] as [LocalStatisticsRegion]? ?? [] }
+		set { kvStore["selectedLocalStatisticsDistricts"] = newValue }
+	}
+}
+
 extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
@@ -404,6 +444,13 @@ extension SecureStore: ErrorLogProviding {
 		get { kvStore["otpElsAuthorizationDate"] as Date? }
 		set { kvStore["otpElsAuthorizationDate"] = newValue }
 	}
+	
+	#if !RELEASE
+	var elsLoggingActiveAtStartup: Bool {
+		get { kvStore["elsLoggingActiveAtStartup"] as Bool? ?? true }
+		set { kvStore["elsLoggingActiveAtStartup"] = newValue }
+	}
+	#endif
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {
@@ -559,4 +606,5 @@ extension SecureStore {
 			fatalError("Reset failure: \(error.localizedDescription)")
 		}
 	}
+	// swiftlint:disable file_length
 }

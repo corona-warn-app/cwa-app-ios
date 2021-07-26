@@ -30,13 +30,11 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(_ cellModel: CheckInTimeModel) {
-		self.cellModel = cellModel
 		typeLabel.text = cellModel.type
 		typeLabel.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Details.typeLabel
 		topSeparatorView.isHidden = !cellModel.hasTopSeparator
 		topLayoutConstraint.constant = cellModel.hasTopSeparator ? 16.0 : 0.0
 		bottomLayoutConstraint.constant = cellModel.hasTopSeparator ? 0.0 : -16.0
-		setNeedsLayout()
 		cellModel.$date
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { _ in
@@ -55,12 +53,11 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
-	private let typeLabel = ENALabel()
-	private let dateTimeLabel = ENALabel()
+	private let typeLabel = ENALabel(style: .headline)
+	private let dateTimeLabel = ENALabel(style: .headline)
 	private let topSeparatorView = UIView()
 	private var topLayoutConstraint: NSLayoutConstraint!
 	private var bottomLayoutConstraint: NSLayoutConstraint!
-	private var cellModel: CheckInTimeModel?
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
@@ -75,6 +72,10 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
 		dateTimeLabel.textAlignment = .right
 		dateTimeLabel.numberOfLines = 1
+
+		// we add a placeholder text to get the cell hight calculation right
+		// otherwise the label is hidden, text gets updated as soon as configure with a cellViewModel gets called
+		dateTimeLabel.text = "placeholder"
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false

@@ -98,6 +98,13 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.cells["AppStrings.AppInformation.privacyNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
+
+		XCTAssertTrue(app.webViews[AccessibilityIdentifiers.General.webView].waitForExistence(timeout: .medium))
+		let webView = app.webViews[AccessibilityIdentifiers.General.webView]
+		let firstLink = webView.links.firstMatch
+		XCTAssertTrue(firstLink.exists)
+		XCTAssertTrue(firstLink.isHittable)
+		firstLink.waitAndTap(.medium)
 	}
 
 	func test_0025_AppInformationFlow_terms() throws {
@@ -113,6 +120,15 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.cells["AppStrings.AppInformation.termsNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.termsImageDescription"].waitForExistence(timeout: .medium))
+	}
+	
+	func test_0026a_AppInformationFlow_ErrorReportsShouldBeActiveForDebugAsDefault() throws {
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		app.swipeUp(velocity: .fast)
+
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
 	}
 	
 	func test_0026_AppInformationFlow_ErrorReports() throws {

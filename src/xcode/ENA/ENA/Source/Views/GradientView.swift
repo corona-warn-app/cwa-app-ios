@@ -9,15 +9,26 @@ class GradientView: UIView {
 
 	// MARK: - Init
 
+	init(
+		type: GradientType = .solidGrey,
+		frame: CGRect = .zero
+	) {
+		super.init(frame: frame)
+		setupView()
+		self.type = type
+		updatedLayer()
+	}
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-
-		setupLayer()
+		setupView()
+		updatedLayer()
 	}
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-		setupLayer()
+		setupView()
+		updatedLayer()
 	}
 
 	// MARK: - Overrides
@@ -26,24 +37,74 @@ class GradientView: UIView {
 		return CAGradientLayer.self
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updatedLayer()
+	}
+
 	// MARK: - Internal
 
-	enum GradientType {
+	enum GradientType: Equatable {
 		case blueRedTilted
 		case blueOnly
 		case solidGrey
-		case lightBlue
-		case green
+		case lightBlue(withStars: Bool)
+		case mediumBlue(withStars: Bool)
+		case darkBlue(withStars: Bool)
+		case whiteToLightBlue
+
+		var starsColor: UIColor? {
+			switch self {
+			case let .lightBlue(withStars):
+				return withStars ? UIColor(red: 1.0 / 255.0, green: 145.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0) : nil
+			case let .mediumBlue(withStars):
+				return withStars ? UIColor(red: 7.0 / 255.0, green: 106.0 / 255.0, blue: 159.0 / 255.0, alpha: 1.0) : nil
+			case let .darkBlue(withStars):
+				return withStars ? UIColor(red: 2.0 / 255.0, green: 90.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0) : nil
+			default:
+				return nil
+			}
+		}
 	}
 
-	var type: GradientType = .blueRedTilted { didSet { setupLayer() } }
+	var type: GradientType = .blueRedTilted {
+		didSet {
+			updatedLayer()
+		}
+	}
 
 	// MARK: - Private
 
-	private func setupLayer() {
+	private let imageView: UIImageView = UIImageView()
+
+	private func setupView() {
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(imageView)
+		NSLayoutConstraint.activate(
+			[
+				imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10.0),
+				imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33.0)
+			]
+		)
+	}
+
+	private func updateStars() {
+		// update stars view
+		if let starsColor = type.starsColor {
+			imageView.tintColor = starsColor
+			imageView.tintAdjustmentMode = .normal
+			imageView.image = UIImage(imageLiteralResourceName: "EUStarsGroup")
+		} else {
+			imageView.image = nil
+		}
+	}
+
+	private func updateGradient() {
 		guard let gradientLayer = self.layer as? CAGradientLayer else {
 			Log.debug("Failed to create view with matching layer class", log: .default)
-			return }
+			return
+		}
+		// update gradient layer
 		switch type {
 		case .blueRedTilted:
 			// magic numbers to create the gradient colors in the right place
@@ -55,6 +116,7 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.12, 0.48, 0.81]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
 		case .blueOnly:
 			gradientLayer.colors = [
 				UIColor(red: 43 / 255, green: 84 / 255, blue: 142 / 255, alpha: 1).cgColor,
@@ -64,6 +126,7 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 0.5, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
 		case .solidGrey:
 			gradientLayer.colors = [
 				UIColor(red: 0.38, green: 0.435, blue: 0.494, alpha: 1).cgColor,
@@ -72,23 +135,60 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
 		case .lightBlue:
 			gradientLayer.colors = [
-				UIColor(red: 0 / 255, green: 147 / 255, blue: 200 / 255, alpha: 1).cgColor,
-				UIColor(red: 0 / 255, green: 127 / 255, blue: 173 / 255, alpha: 1).cgColor
+				UIColor(red: 0, green: 0.575, blue: 0.783, alpha: 1).cgColor,
+				UIColor(red: 0, green: 0.499, blue: 0.679, alpha: 1).cgColor
 			]
 			gradientLayer.locations = [0.0, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
+			gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
+
+		case .mediumBlue:
+			gradientLayer.colors = [
+				UIColor(red: 25 / 255, green: 108 / 255, blue: 163 / 255, alpha: 1).cgColor,
+				UIColor(red: 35 / 255, green: 118 / 255, blue: 169 / 255, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.0, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+
+		case .darkBlue:
+			gradientLayer.colors = [
+				UIColor(red: 0 / 255, green: 93 / 255, blue: 147 / 255, alpha: 1).cgColor,
+				UIColor(red: 4 / 255, green: 96 / 255, blue: 151 / 255, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.25, 0.75]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
 
-		case .green:
-			gradientLayer.colors = [
-				UIColor(red: 40 / 255, green: 132 / 255, blue: 71 / 255, alpha: 1).cgColor,
-				UIColor(red: 53 / 255, green: 181 / 255, blue: 95 / 255, alpha: 1).cgColor
+		case .whiteToLightBlue:
+			let lightColors = [
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 235 / 255, green: 244 / 255, blue: 255 / 255, alpha: 1).cgColor
 			]
-			gradientLayer.locations = [0.0, 1.0]
+
+			let darkColors = [
+				UIColor(red: 25 / 255, green: 25 / 255, blue: 27 / 255, alpha: 1).cgColor,
+				UIColor(red: 47 / 255, green: 65 / 255, blue: 77 / 255, alpha: 1).cgColor
+			]
+
+			var isDarkMode: Bool = false
+			if #available(iOS 13.0, *) {
+				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+			}
+
+			gradientLayer.colors = isDarkMode ? darkColors : lightColors
+			gradientLayer.locations = [0.0, 0.6, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+			gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.95)
 		}
+	}
+
+	private func updatedLayer() {
+		updateStars()
+		updateGradient()
 	}
 }

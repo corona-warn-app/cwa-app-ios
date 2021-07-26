@@ -30,7 +30,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let testCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
@@ -43,7 +43,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let result = service.registerHealthCertificate(base45: testCertificateBase45)
 
 		switch result {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [testCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
@@ -56,7 +56,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		subscription.cancel()
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable cyclomatic_complexity
+	// swiftlint:disable:next function_body_length
 	func testRegisteringCertificates() throws {
 		let store = MockTestStore()
 
@@ -71,7 +72,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register first test certificate
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
@@ -84,7 +85,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
@@ -104,10 +105,35 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
 
+		// Try to register certificate with too many entries
+
+		let wrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: "2020-01-01"
+			)],
+			testEntries: [TestEntry.fake(
+				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
+			)],
+			recoveryEntries: nil
+		))
+
+		let wrongCertificate = try HealthCertificate(base45: wrongCertificateBase45)
+
+		XCTAssertTrue(wrongCertificate.hasTooManyEntries)
+
+		registrationResult = service.registerHealthCertificate(base45: wrongCertificateBase45)
+
+		if case .failure(let error) = registrationResult, case .certificateHasTooManyEntries = error { } else {
+			XCTFail("Registration of a certificate with too many entries should fail")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+
 		// Register second test certificate for same person
 
 		let secondTestCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-30T22:34:17.595Z",
@@ -120,7 +146,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -132,7 +158,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register vaccination certificate for same person
 
 		let firstVaccinationCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-28",
@@ -145,7 +171,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -153,11 +179,12 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
 
 		// Register vaccination certificate for other person
 
 		let secondVaccinationCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MAX"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-14",
@@ -170,20 +197,25 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [secondVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [secondVaccinationCertificate])
+
+		// New health certified person comes first due to alphabetical ordering
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
 
 		// Register test certificate for second person
 
 		let thirdTestCertificateBase45 = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MAX"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
@@ -196,15 +228,39 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
 
 		switch registrationResult {
-		case.success(let healthCertifiedPerson):
+		case let .success((healthCertifiedPerson, _)):
 			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
+
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+
+		// Set last person as preferred person and check that positions switched and gradients are correct
+
+		service.healthCertifiedPersons.value.last?.isPreferredPerson = true
+
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+
+		// Remove all certificates of first person and check that person is removed and gradient is correct
+
+		service.removeHealthCertificate(firstVaccinationCertificate)
+		service.removeHealthCertificate(firstTestCertificate)
+		service.removeHealthCertificate(secondTestCertificate)
+
+		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
@@ -217,8 +273,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificate1 = try HealthCertificate(
-			base45: try base45Fake(from: DigitalGreenCertificate.fake(
-				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
+			base45: try base45Fake(from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
@@ -227,7 +283,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificate2 = try HealthCertificate(
-			base45: try base45Fake(from: DigitalGreenCertificate.fake(
+			base45: try base45Fake(from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-14",
@@ -237,8 +293,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificate3 = try HealthCertificate(
-			base45: try base45Fake(from: DigitalGreenCertificate.fake(
-				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
+			base45: try base45Fake(from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-16T22:34:17.595Z",
 					uniqueCertificateIdentifier: "2"
@@ -328,19 +384,19 @@ class HealthCertificateServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
 		let service = HealthCertificateService(
 			store: store,
 			client: client,
 			appConfiguration: appConfig,
-			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
 		)
 
 		let requestsSubscription = service.testCertificateRequests
@@ -426,19 +482,19 @@ class HealthCertificateServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
 		let service = HealthCertificateService(
 			store: store,
 			client: client,
 			appConfiguration: appConfig,
-			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -509,19 +565,19 @@ class HealthCertificateServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
 		let service = HealthCertificateService(
 			store: store,
 			client: client,
 			appConfiguration: appConfig,
-			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -594,19 +650,19 @@ class HealthCertificateServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
 		let service = HealthCertificateService(
 			store: store,
 			client: client,
 			appConfiguration: appConfig,
-			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -676,7 +732,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
+			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess()
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -739,19 +795,19 @@ class HealthCertificateServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalGreenCertificate.fake(
+			from: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
 		let service = HealthCertificateService(
 			store: store,
 			client: client,
 			appConfiguration: appConfig,
-			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -976,14 +1032,14 @@ class HealthCertificateServiceTests: CWATestCase {
 			getDigitalCovid19CertificateExpectation.fulfill()
 		}
 
-		var digitalGreenCertificateAccess = MockDigitalGreenCertificateAccess()
-		digitalGreenCertificateAccess.convertedToBase45 = .failure(.AES_DECRYPTION_FAILED)
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .failure(.AES_DECRYPTION_FAILED)
 
 		let service = HealthCertificateService(
 			store: store,
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			digitalGreenCertificateAccess: digitalGreenCertificateAccess
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -1017,7 +1073,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: MockTestStore(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			digitalGreenCertificateAccess: MockDigitalGreenCertificateAccess()
+			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess()
 		)
 
 		let completionExpectation = expectation(description: "Completion is called.")

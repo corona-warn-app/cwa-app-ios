@@ -18,13 +18,11 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	init(
 		rootViewController: UIViewController,
 		initialState: ErrorLoggingStatus = .inactive,
-		ppacService: PrivacyPreservingAccessControl,
-		otpService: OTPServiceProviding
+		elsService: ErrorLogSubmissionProviding
 	) {
 		self.rootViewController = rootViewController
 		self.errorLoggingStatus = initialState
-		self.ppacService = ppacService
-		self.otpService = otpService
+		self.elsService = elsService
 		
 		#if DEBUG
 		if isUITesting {
@@ -42,8 +40,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 				var items = self.store.elsUploadHistory
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID001", timestamp: Date()))
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID002", timestamp: Date()))
-				var store = self.store // quick hack to allow writing
-				store.elsUploadHistory = items
+				self.store.elsUploadHistory = items
 			}
 		}
 		#endif
@@ -102,7 +99,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		do {
 			try elsService.stopAndDeleteLog()
 		} catch {
-			showErrorAlert(with: error)
+			showErrorAlert(with: error.localizedDescription)
 		}
 	}
 	
@@ -125,8 +122,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	// MARK: - Private
 	
 	private let rootViewController: UIViewController
-	private let ppacService: PrivacyPreservingAccessControl
-	private let otpService: OTPServiceProviding
+	private let elsService: ErrorLogSubmissionProviding
 	
 	private var errorLoggingStatus: ErrorLoggingStatus
 	// We need a reference to update the error logs size as we are on the screen by calling
@@ -143,14 +139,6 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	i.e If a history Cell should be added or not
 	*/
 	private var topViewControllerViewModel: TopErrorReportViewModel?
-
-	/// Reference to the ELS server handling error log recording & submission
-	private lazy var elsService: ErrorLogHandling & ErrorLogSubmitting = ErrorLogSubmissionService(
-		client: client,
-		store: store,
-		ppacService: ppacService,
-		otpService: otpService
-	)
 	
 	private func showConfirmSendingScreen() {
 		let footerViewModel = FooterViewModel(
@@ -172,15 +160,19 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 						// Let's make history ;)
 						var items = self.store.elsUploadHistory
 						items.append(ErrorLogUploadReceipt(id: response.id, timestamp: Date()))
-						var store = self.store // quick hack to allow writing
-						store.elsUploadHistory = items
+						self.store.elsUploadHistory = items
 
 						Log.info("ELS log submitted successfully", log: .els)
 						self.rootViewController.navigationController?.popViewController(animated: true)
 						self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
 					case .failure(let error):
 						Log.error("ELS submission error: \(error)", log: .els, error: error)
-						self.showErrorAlert(with: error)
+						switch error {
+						case .otpError(let otpError):
+							self.showErrorAlert(with: otpError.localizedDescription)
+						default:
+							self.showErrorAlert(with: error.localizedDescription)
+						}
 					}
 				}
 			},
@@ -207,8 +199,8 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		rootViewController.navigationController?.pushViewController(htmlViewController, animated: true)
 	}
 
-	private func showErrorAlert(with error: Error) {
-		let alert = UIAlertController(title: AppStrings.Common.alertTitleGeneral, message: error.localizedDescription, preferredStyle: .alert)
+	private func showErrorAlert(with errorMessage: String) {
+		let alert = UIAlertController(title: AppStrings.Common.alertTitleGeneral, message: errorMessage, preferredStyle: .alert)
 		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { _ in
 			alert.dismiss(animated: true, completion: nil)
 		})

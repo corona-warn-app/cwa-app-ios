@@ -95,6 +95,13 @@ struct AntigenTestProfileViewModel {
 		store.antigenTestProfile = nil
 	}
 
+	mutating func refreshProfile() {
+		guard let antigenTestProfile = store.antigenTestProfile else {
+			fatalError("We can't refresh without a valid antigenTestProfile stored")
+		}
+		self.antigenTestProfile = antigenTestProfile
+	}
+
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:

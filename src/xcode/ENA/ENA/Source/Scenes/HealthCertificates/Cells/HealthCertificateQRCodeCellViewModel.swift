@@ -9,9 +9,13 @@ struct HealthCertificateQRCodeCellViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificate: HealthCertificateData,
-		accessibilityText: String?
+		healthCertificate: HealthCertificate,
+		accessibilityText: String?,
+		onValidationButtonTap: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	) {
+		self.healthCertificate = healthCertificate
+		self.onValidationButtonTap = onValidationButtonTap
+
 		let qrCodeSize = UIScreen.main.bounds.width - 60
 
 		self.qrCodeImage = UIImage.qrCode(
@@ -23,24 +27,31 @@ struct HealthCertificateQRCodeCellViewModel {
 
 		self.accessibilityText = accessibilityText
 
-		switch healthCertificate.type {
+		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
-			var dateOfVaccination: String = ""
-			if let localVaccinationDate = vaccinationEntry.localVaccinationDate {
-				dateOfVaccination = DateFormatter.localizedString(from: localVaccinationDate, dateStyle: .medium, timeStyle: .none)
+			self.title = AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
+			self.subtitle = vaccinationEntry.localVaccinationDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
+				)
 			}
-			let expirationDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .none)
-			self.validity = String(
-				format: AppStrings.HealthCertificate.Details.validity,
-				dateOfVaccination, expirationDate
-			)
-			self.certificate = String(
-				format: AppStrings.HealthCertificate.Details.certificateCount,
-				vaccinationEntry.doseNumber, vaccinationEntry.totalSeriesOfDoses
-			)
-		case .test:
-			self.validity = nil
-			self.certificate = nil
+		case .test(let testEntry):
+			self.title = AppStrings.HealthCertificate.Person.TestCertificate.headline
+			self.subtitle = testEntry.sampleCollectionDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.TestCertificate.sampleCollectionDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .short)
+				)
+			}
+		case .recovery(let recoveryEntry):
+			self.title = AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
+			self.subtitle = recoveryEntry.localCertificateValidityEndDate.map {
+				String(
+					format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
+				)
+			}
 		}
 	}
 
@@ -48,8 +59,20 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	let backgroundColor: UIColor = .enaColor(for: .cellBackground2)
 	let borderColor: UIColor = .enaColor(for: .hairline)
-	let certificate: String?
-	let validity: String?
+	let title: String?
+	let subtitle: String?
 	let qrCodeImage: UIImage
 	let accessibilityText: String?
+
+	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
+		onValidationButtonTap(healthCertificate) { isLoading in
+			loadingStateHandler(isLoading)
+		}
+	}
+
+	// MARK: - Private
+
+	private let healthCertificate: HealthCertificate
+	private let onValidationButtonTap: (HealthCertificate, @escaping (Bool) -> Void) -> Void
+
 }

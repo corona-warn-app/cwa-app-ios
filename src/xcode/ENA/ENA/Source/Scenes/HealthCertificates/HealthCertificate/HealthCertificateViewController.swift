@@ -12,12 +12,14 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson?,
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProvider,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
-		didTapDelete: @escaping () -> Void
+		didTapValidationButton: @escaping () -> Void,
+		didTapDeleteButton: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		self.didTapDelete = didTapDelete
+		self.didTapValidationButton = didTapValidationButton
+		self.didTapDeleteButton = didTapDeleteButton
 		self.viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
@@ -56,10 +58,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard type == .primary else {
-			return
+		switch type {
+		case .primary:
+			didTapValidationButton()
+		case .secondary:
+			didTapDeleteButton()
 		}
-		didTapDelete()
 	}
 
 	// MARK: - Protocol UITableViewDateSource
@@ -84,7 +88,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(with: viewModel.headlineCellViewModel)
 			return cell
 		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateDetailsQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 		case .topCorner:
@@ -95,6 +99,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
+		case .vaccinationOneOfOneHint:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			cell.configure(with: viewModel.vaccinationOneOfOneHintCellViewModel)
+			return cell
 		case .additionalInfo:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateTextViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.additionalInfoCellViewModels[indexPath.row])
@@ -121,7 +129,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Private
 
 	private let dismiss: () -> Void
-	private let didTapDelete: () -> Void
+	private let didTapValidationButton: () -> Void
+	private let didTapDeleteButton: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
 	private let backgroundView = GradientBackgroundView(type: .solidGrey)
@@ -132,12 +141,18 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupNavigationBar() {
-		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
-		parent?.navigationItem.titleView = logoImageView
+
+		// check is we are the first one on the navigation stack
+		if navigationController?.viewControllers.count == 1 {
+			parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+		} else {
+			parent?.navigationItem.titleView = logoImageView
+		}
+
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
 		// create a transparent navigation bar
@@ -204,8 +219,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		)
 
 		tableView.register(
-			HealthCertificateQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
+			HealthCertificateDetailsQRCodeCell.self,
+			forCellReuseIdentifier: HealthCertificateDetailsQRCodeCell.reuseIdentifier
 		)
 
 		tableView.register(

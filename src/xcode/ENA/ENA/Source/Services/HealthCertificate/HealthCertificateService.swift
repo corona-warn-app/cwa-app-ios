@@ -11,11 +11,12 @@ class HealthCertificateService {
 
 	// MARK: - Init
 
+	// swiftlint:disable:next cyclomatic_complexity
 	init(
 		store: HealthCertificateStoring,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
-		digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol = DigitalGreenCertificateAccess()
+		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
 	) {
 
 		#if DEBUG
@@ -23,21 +24,63 @@ class HealthCertificateService {
 			self.store = MockTestStore()
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
-			self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
+			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 			setup()
 
 			// check launch arguments ->
 			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				registerVaccinationCertificate(base45: HealthCertificate.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
 			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
-				registerVaccinationCertificate(base45: HealthCertificate.firstBase45Mock)
-				registerVaccinationCertificate(base45: HealthCertificate.lastBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.firstBase45Mock)
+				registerHealthCertificate(base45: HealthCertificate.lastBase45Mock)
 			}
 
+			if LaunchArguments.healthCertificate.familyCertificates.boolValue {
+				let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = testCert1 {
+					registerHealthCertificate(base45: base45)
+				}
+				let testCert2 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = testCert2 {
+					registerHealthCertificate(base45: base45)
+				}
+				let testCert3 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = testCert3 {
+					registerHealthCertificate(base45: base45)
+				}
+				let testCert4 = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
+						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z")]
+					),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = testCert4 {
+					registerHealthCertificate(base45: base45)
+				}
+			}
 			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
-				let result = DigitalGreenCertificateFake.makeBase45Fake(
-					from: DigitalGreenCertificate.fake(
+				let result = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
 						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 					),
@@ -47,15 +90,31 @@ class HealthCertificateService {
 					registerHealthCertificate(base45: base45)
 				}
 			}
+			
+			if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
+				let result = DigitalCovidCertificateFake.makeBase45Fake(
+					from: DigitalCovidCertificate.fake(
+						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+						recoveryEntries: [
+						 RecoveryEntry.fake()
+					 ]
+				 ),
+					and: CBORWebTokenHeader.fake()
+				)
+				if case let .success(base45) = result {
+					registerHealthCertificate(base45: base45)
+				}
+			}
 
 			return
 		}
+
 		#endif
 
 		self.store = store
 		self.client = client
 		self.appConfiguration = appConfiguration
-		self.digitalGreenCertificateAccess = digitalGreenCertificateAccess
+		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 		setup()
 	}
@@ -67,59 +126,9 @@ class HealthCertificateService {
 	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
 
 	@discardableResult
-	func registerVaccinationCertificate(
-		base45: Base45
-	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.VaccinationRegistrationError> {
-		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
-
-		do {
-			let healthCertificate = try HealthCertificate(base45: base45)
-
-			guard let vaccinationEntry = healthCertificate.vaccinationEntry else {
-				return .failure(.noVaccinationEntry)
-			}
-
-			let healthCertifiedPerson = healthCertifiedPersons.value.first(where: { !$0.vaccinationCertificates.isEmpty }) ??
-				healthCertifiedPersons.value.first(where: { $0.name?.standardizedName == healthCertificate.name.standardizedName && $0.dateOfBirth == healthCertificate.dateOfBirth }) ??
-				HealthCertifiedPerson(healthCertificates: [])
-
-			let isDuplicate = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.vaccinationEntry?.uniqueCertificateIdentifier == vaccinationEntry.uniqueCertificateIdentifier })
-			if isDuplicate {
-				return .failure(.vaccinationCertificateAlreadyRegistered)
-			}
-
-			let hasDifferentName = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.name.standardizedName != healthCertificate.name.standardizedName })
-			if hasDifferentName {
-				return .failure(.nameMismatch)
-			}
-
-			let hasDifferentDateOfBirth = healthCertifiedPerson.healthCertificates
-				.contains(where: { $0.dateOfBirth != healthCertificate.dateOfBirth })
-			if hasDifferentDateOfBirth {
-				return .failure(.dateOfBirthMismatch)
-			}
-
-			healthCertifiedPerson.healthCertificates.append(healthCertificate)
-			healthCertifiedPerson.healthCertificates.sort(by: <)
-
-			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
-				healthCertifiedPersons.value.append(healthCertifiedPerson)
-			}
-
-			return .success((healthCertifiedPerson))
-		} catch let error as CertificateDecodingError {
-			return .failure(.decodingError(error))
-		} catch {
-			return .failure(.other(error))
-		}
-	}
-
-	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45
-	) -> Result<HealthCertifiedPerson, HealthCertificateServiceError.RegistrationError> {
+	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
@@ -131,13 +140,18 @@ class HealthCertificateService {
 					$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
 				}) ?? HealthCertifiedPerson(healthCertificates: [])
 
+			if healthCertificate.hasTooManyEntries {
+				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
+				return .failure(.certificateHasTooManyEntries)
+			}
+
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
 					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
-				Log.error("[HealthCertificateService] Registering health certificate failed: .certificateAlreadyRegistered", log: .api)
-				return .failure(.certificateAlreadyRegistered)
+				Log.error("[HealthCertificateService] Registering health certificate failed:  certificate already registered", log: .api)
+				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
 			healthCertifiedPerson.healthCertificates.append(healthCertificate)
@@ -145,12 +159,13 @@ class HealthCertificateService {
 
 			if !healthCertifiedPersons.value.contains(healthCertifiedPerson) {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-				healthCertifiedPersons.value.append(healthCertifiedPerson)
+				healthCertifiedPersons.value = (healthCertifiedPersons.value + [healthCertifiedPerson]).sorted()
+				updateGradients()
 			} else {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
-			return .success((healthCertifiedPerson))
+			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
 			return .failure(.decodingError(error))
@@ -167,7 +182,10 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
-					healthCertifiedPersons.value.removeAll(where: { $0 == healthCertifiedPerson })
+					healthCertifiedPersons.value = healthCertifiedPersons.value
+						.filter { $0 != healthCertifiedPerson }
+						.sorted()
+					updateGradients()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				}
@@ -352,7 +370,7 @@ class HealthCertificateService {
 	private let store: HealthCertificateStoring
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
-	private let digitalGreenCertificateAccess: DigitalGreenCertificateAccessProtocol
+	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
@@ -382,6 +400,7 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 
 		subscribeToNotifications()
+		updateGradients()
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
@@ -389,13 +408,32 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
-				.sink { [weak self] _ in
+				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
-					// Trigger publisher to inform subscribers and update store
-					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value
+
+					if healthCertifiedPerson.isPreferredPerson {
+						// Set isPreferredPerson = false on all other persons to only have one preferred person
+						self.healthCertifiedPersons.value
+							.filter { $0 != healthCertifiedPerson }
+							.forEach {
+								$0.isPreferredPerson = false
+							}
+					}
+
+					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value.sorted()
+					self.updateGradients()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
+	}
+
+	private func updateGradients() {
+		let gradientTypes: [GradientView.GradientType] = [.lightBlue(withStars: true), .mediumBlue(withStars: true), .darkBlue(withStars: true)]
+		self.healthCertifiedPersons.value
+			.enumerated()
+			.forEach { index, person in
+				person.gradientType = gradientTypes[index % 3]
+			}
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
@@ -489,7 +527,7 @@ class HealthCertificateService {
 
 		do {
 			let decodedDEK = try rsaKeyPair.decrypt(encryptedDEKData)
-			let result = digitalGreenCertificateAccess.convertToBase45(from: encryptedCOSE, with: decodedDEK)
+			let result = digitalCovidCertificateAccess.convertToBase45(from: encryptedCOSE, with: decodedDEK)
 
 			switch result {
 			case .success(let healthCertificateBase45):

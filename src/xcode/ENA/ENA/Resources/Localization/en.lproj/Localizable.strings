@@ -23,6 +23,8 @@
 
 "General_BackButtonTitle" = "Back";
 
+"Common_No_Network" = "The process could not be completed due to network problems. Please try again.";
+
 "Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
 
 "Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your smartphone and try again tomorrow.";
@@ -485,7 +487,7 @@
 "ExposureSubmission_GeneralErrorTitle" = "Error";
 
 /* Exposure Submission Dispatch */
-"ExposureSubmission_DispatchTitle" = "Register your Test";
+"ExposureSubmission_DispatchTitle" = "Manage Your Tests";
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
@@ -506,6 +508,10 @@
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN for PCR Test";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Call us and get a TAN for your PCR test.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Find Testing Center";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Find test centers near you.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Request TAN for PCR Test";
@@ -682,9 +688,9 @@
 
 "ExposureSubmissionResult_Procedure" = "How this works:";
 
-"ExposureSubmissionResult_testAdded" = "Your test has been added.";
+"ExposureSubmissionResult_testAdded" = "Your test was added";
 
-"ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added.";
+"ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours.";
 
@@ -714,11 +720,11 @@
 
 "ExposureSubmissionResult_testExpiredDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
-"ExposureSubmissionResult_testPending" = "Your test result is not available yet.";
+"ExposureSubmissionResult_testPending" = "Your test result is not available yet";
 
 "ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
-"ExposureSubmissionResult_testCertificate_title" = "COVID Test Certificate";
+"ExposureSubmissionResult_testCertificate_title" = "Your COVID Test Certificate";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "An official digital COVID test certificate cannot be issued because this testing point does not support the issuing of test certificates.";
 
@@ -728,13 +734,13 @@
 
 "ExposureSubmissionResult_testCertificate_AvailableInTab" = "The test certificate is available on the “Certificates” tab.";
 
-"ExposureSubmissionResult_antigenTestPending" = "Your test result is not available yet.";
+"ExposureSubmissionResult_antigenTestPending" = "Your Test Result Is Not Available Yet";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
-"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Your test result will be added to your contact journal.";
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Your Test Result Will Be Added to Your Contact Journal";
 
-"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Your test result will be added to your contact journal.";
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Your Test Result Will Be Added to Your Contact Journal";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
@@ -748,7 +754,7 @@
 
 "ExposureSubmissionResult_testRemove" = "Delete test";
 
-"ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
+"ExposureSubmissionResult_testRemoveDesc" = "You have to remove the last test before you can register a new one.";
 
 "ExposureSubmissionResult_primaryButtonTitle" = "Enter Symptoms";
 
@@ -934,7 +940,7 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Image_Description" = "A woman with a smartphone in her hand is standing in front of a building. A QR code symbolizes the rapid test profile to be scanned.";
 
-"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
 
 "ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
 
@@ -953,12 +959,12 @@
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
 
-"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Delete Rapid Test Profile";
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edit";
 
 /* ExposureSubmission AntigenTest */
 "ExposureSubmission_Profile_CreateProfileTile_Title" = "Create Rapid Test Profile";
 
-"ExposureSubmission_Profile_CreateProfileTile_Description" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
 
@@ -977,7 +983,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Section02" = "The test certificate is valid proof of a negative test result within the EU (e.g. for travel).";
 
-"ExposureSubmission_TestCertificate_Information_Subheadline" = "You can use the app to request an official digital test certificate, which is then added in the app.";
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "You can use the app to request an official EU digital COVID test certificate, which is then added in the app.";
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Date of Birth";
 
@@ -1257,11 +1263,11 @@
 "Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Remove";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Register your Test";
+"Home_TestRegistration_Title" = "Manage Your Tests";
 
-"Home_TestRegistration_Body" = "Use the app to register your tests and retrieve your test results, so you can warn others more quickly, or to request your COVID test certificate.";
+"Home_TestRegistration_Body" = "Find testing centers near you and register a test, so you can warn others more quickly, or to request your digital COVID test certificate.";
 
-"Home_TestRegistration_Button" = "Next Steps";
+"Home_TestRegistration_Button" = "Continue";
 
 /* Home Trace Locations Card */
 "Home_TraceLocationsCard_Title" = "Planning an event?";
@@ -1539,14 +1545,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.4 */
-"NewVersionFeature_24_digital_covid_cert_title" = "COVID Test Certificate";
+/* Version 2.6 */
+"NewVersionFeature_26_euCertCheck_title" = "EU Certificate Validation";
 
-"NewVersionFeature_24_digital_covid_cert_description" = "You can now request an official digital test certificate through the app and then add it in the app. You can use this test certificate (QR code) within the EU to prove a negative test result (for international travel, for example).";
+"NewVersionFeature_26_euCertCheck_description" = "You can now verify the validity of certificates for a selected country before you travel.";
 
-"NewVersionFeature_24_extended_diary_title" = "Contact Journal Enhancement";
+"NewVersionFeature_26_enhancedStats_title" = "Extended Statistics";
 
-"NewVersionFeature_24_extended_diary_title_description" = "As soon as your test result is available, it is now also added to your contact journal.";
+"NewVersionFeature_26_enhancedStats_description" = "You can now add up to five local 7-day incidence figures in the app.";
+
+"NewVersionFeature_26_editRapidTestProfile_title" = "Edit Rapid Test Profile";
+
+"NewVersionFeature_26_editRapidTestProfile_description" = "You can now edit your rapid test profile in the app, for example, to change your address.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1854,6 +1864,24 @@
 /* - Number Formatting */
 "Statistics_Card_Million" = "%@ Million";
 
+/* - General Card Texts */
+"Statistics_Card_From_Nationwide" = "Nationwide";
+
+"Statistics_Card_From_CWA" = "through the Corona-Warn-App";
+
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Add local 7-day incidence";
+
+"Statistics_Add_DisabledAddTitle" = "Maximum number of local 7-day incidence figures reached.";
+
+"Statistics_Add_LocalCardTitle" = "Local 7-day incidence";
+
+"Statistics_Add_fromTheWholeCountry" = "Entire state";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "confirmed new infections per 100,000 residents";
+
+"Statistics_Card_Manage" = "Edit";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Confirmed New Infections";
 
@@ -1904,13 +1932,64 @@
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "average infections by each infected person";
 
+/* - At least one person vaccinated card */
+"Statistics_Card_AtLeastOneVaccinated_Title" = "People who have received at least one vaccine dose";
+
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Up to today";
+
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_AtLeastOneVaccinated_Date" = "Up to %@";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "of the population";
+
+"Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "of the population";
+
+/* - Fully vaccinated people card */
+"Statistics_Card_FullyVaccinated_Title" = "People who are fully vaccinated";
+
+"Statistics_Card_FullyVaccinated_Today" = "Up to today";
+
+"Statistics_Card_FullyVaccinated_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_FullyVaccinated_Date" = "Up to %@";
+
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "of the population";
+
+"Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "of the population";
+
+/* - Applied vaccination dose rates card */
+"Statistics_Card_AppliedDoseRates_Title" = "Vaccine doses administered";
+
+"Statistics_Card_AppliedDoseRates_Today" = "Today";
+
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Yesterday";
+
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
+
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Day Average";
+
+"Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
+
 /* Error */
 "Statistics_LoadingError" = "The statistics cannot be loaded. Please close the app and try again.";
 
 /* - Info Screen */
 "Statistics_Info_Title" = "Key Figures";
 
-"Statistics_Info_Subtitle" = "Explanation of nationwide statistics";
+"Statistics_Info_Subtitle" = "Explanation of Statistics";
+
+"Statistics_Info_Local7Days_Title" = "Local 7-day incidence";
+
+"Statistics_Info_Local7Days_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents in the configured district or federal state.";
+
+"Statistics_Info_Incidence_Title" = "7-Day Incidence";
+
+"Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents";
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
@@ -1918,15 +1997,23 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
-"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
-
-"Statistics_Info_Incidence_Title" = "7-Day Incidence";
-
-"Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents";
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
+
+"Statistics_Info_AtLeastOnce_Title" = "People who have received at least one vaccine dose";
+
+"Statistics_Info_AtLeastOnce_Text" = "Number of persons reported to the RKI who have received the first dose of the vaccine.";
+
+"Statistics_Info_FullyVaccinated_Title" = "People who are fully vaccinated";
+
+"Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the necessary vaccine doses.";
+
+"Statistics_Info_DosesAdministered_Title" = "Vaccine doses administered";
+
+"Statistics_Info_DosesAdministered_Text" = "Number of vaccine doses that have been administered nationwide to date.";
 
 "Statistics_Info_FAQLink_Text" = "For further information, please see our FAQ page:";
 
@@ -1954,11 +2041,11 @@
 
 "Statistics_Info_Trends_Title" = "The following trends can be shown:";
 
-"Statistics_Info_Trends_Increasing" = "Trend: Upwards";
+"Statistics_Info_Trends_Increasing" = "Trend: upwards (negative)";
 
-"Statistics_Info_Trends_Decreasing" = "Trend: Downwards";
+"Statistics_Info_Trends_Decreasing" = "Trend: downwards (positive)";
 
-"Statistics_Info_Trends_Stable" = "Trend: Steady";
+"Statistics_Info_Trends_Stable" = "Trend: steady (neutral)";
 
 "Statistics_Info_Trends_Footnote" = "The assessment of the trend for warnings by app users changes depending on current infection levels, which is why this trend is always displayed as neutral.";
 
@@ -2368,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Next";
 
 /* Checkout */
-"Checkout_Notification_Title" = "You were checked out automatically.";
+"Checkout_Notification_Title" = "You were checked out automatically";
 
 "Checkout_Notification_Body" = "Please adjust the length of your stay if needed.";
 
@@ -2414,7 +2501,7 @@
 /* Create Antigen Profile */
 "AntigenProfile_Create_Title" = "Rapid Test Profile";
 
-"AntigenProfile_Create_Description" = "You can create a profile with your personal data, which you can submit via QR code to every participating testing point.";
+"AntigenProfile_Create_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
 "AntigenProfile_Create_FirstNamePlaceholder" = "First Name";
 
@@ -2435,41 +2522,62 @@
 "AntigenProfile_Create_Save_Button_Title" = "Save";
 
 /* Antigen Profile */
-"AntigenProfile_Delete_Alert_Title" = "Do you want to remove the rapid test profile?";
+"AntigenProfile_Info_Action_Title" = "Information";
+
+"AntigenProfile_Edit_Action_Title" = "Edit Rapid Test Profile";
+
+"AntigenProfile_Delete_Action_Title" = "Delete Rapid Test Profile";
+
+"AntigenProfile_Cancel_Action_Title" = "Cancel";
+
+"AntigenProfile_Delete_Alert_Title" = "Do you want to delete the rapid test profile?";
 
 "AntigenProfile_Delete_Alert_Description" = "Please consider that if you do, the QR code can no longer be used for registration.";
 
-"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Remove";
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Delete";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "A map of Europe is shown.";
+
+"HealthCertificate_Validation_Info_title" = "Information";
+
+"HealthCertificate_Validation_Info_byCar" = "Enter the planned local arrival time at the border of your destination country.";
+
+"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, enter the scheduled departure time of your flight.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificates";
 
-"HealthCertificate_Overview_description" = "Your digital vaccination certificates and test certificates are displayed here.";
+"HealthCertificate_Overview_add" = "Add Certificate";
 
-/* - Vaccination Certificate Registration */
-"VaccinationCertificate_Registration_title" = "Add **Digital\nProof of Vaccination**";
+"HealthCertificate_Overview_EmptyTitle" = "No certificates available yet";
 
-"VaccinationCertificate_Registration_description" = "Add your vaccination certificates in the app so you always have them with you. To do so, scan the QR code on your document.";
+"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.";
 
-/* - Vaccination Certificate */
-"VaccinationCertificate_title" = "Digital **Proof\nof Vaccination**";
+"HealthCertificate_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
+
+"HealthCertificate_Overview_Covid_Title" = "EU\n**Digital COVID Certificate**";
+
+"VaccinationCertificate_title" = "EU\n**Digital Vaccination Certificate**";
 
 "VaccinationCertificate_partiallyVaccinated" = "Vaccination incomplete";
 
 "VaccinationCertificate_vaccinationValidUntil" = "Valid through %@";
 
+"HealthCertificate_Overview_Covid_Certificate_Description" = "A QR code with the certificate";
+
 /* - Test Certificate Info */
-"TestCertificate_Info_title" = "Digital\n**COVID Test Certificate**";
+"TestCertificate_Info_title" = "EU\n**Digital COVID Test Certificate**";
 
 "TestCertificate_Info_description" = "Register a test on the home screen and agree to receive a digital test certificate. As soon as the certificate is available, it is displayed here.";
 
 /* - Test Certificate */
-"TestCertificate_title" = "Digital\n**COVID Test Certificate**";
+"TestCertificate_title" = "EU\n**Digital COVID Test Certificate**";
 
 "TestCertificate_testDate" = "Test performed on %@";
 
 /* - Test Certificate Request */
-"TestCertificateRequest_title" = "Digital\n**COVID Test Certificate**";
+"TestCertificateRequest_title" = "EU\n**Digital COVID Test Certificate**";
 
 "TestCertificateRequest_loadingSubtitle" = "Your certificate is being created...";
 
@@ -2512,45 +2620,69 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Your certificate it not available yet. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please remove the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Add Certificates";
 
 "HealthCertificate_Info_imageDescription" = "An immunized person is looking at their smartphone";
 
-"HealthCertificate_Info_description" = "Add your digital EU COVID certificates in the app. This will enable you to prove your vaccination protection or a negative test result with the app.";
+"HealthCertificate_Info_description" = "Add your EU digital COVID certificates in the app. This will enable you to prove your vaccination protection, a negative test result, or your recovery from an infection with the app.";
 
-"HealthCertificate_Info_section01" = "You can add digital EU COVID vaccination certificates or COVID test certificates in the app.";
+"HealthCertificate_Info_section01" = "You can add EU digital COVID vaccination certificates, COVID test certificates, and COVID certificates of recovery in the app.";
 
 "HealthCertificate_Info_section02" = "These certificates are considered to be valid proof within the EU (e.g. for travel).";
 
 "HealthCertificate_Info_section03" = "After you add a certificate, it will remain on your smartphone. It will only be shared with others if you present a certificate for verification.";
+
+"HealthCertificate_Info_section04" = "Add existing certificates for yourself and your family members.";
 
 "HealthCertificate_Info_primaryButton" = "Continue";
 
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "QR Code Scan";
 
-"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Register";
+"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Add Certificate";
 
 /* Health Certified Person Screen */
-"HealthCertifiedPerson_title" = "Digital Proof of Vaccination";
+"HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
-"HealthCertifiedPerson_subtitle" = "SARS-CoV-2 Vaccination Protection";
+"HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
-"HealthCertifiedPerson_vaccinationCount" = "Vaccination %i of %i";
+"HealthCertifiedPerson_preferredPersonDescription" = "Please turn on this switch if you are %@ and are the main user of the app. Your certificates will appear at the top of the list.";
 
-"HealthCertifiedPerson_vaccinationDate" = "Performed on %@";
+"HealthCertifiedPerson_QRCode_Image_Description" = "A QR code with the current certificate";
 
-"HealthCertifiedPerson_QRCode_Image_Description" = "A QR code with the status of your vaccination";
+"HealthCertifiedPerson_validationButtonTitle" = "Check Validity";
 
-"HealthCertifiedPerson_primaryButton" = "Register Another Vaccination";
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Vaccination Certificate";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Vaccination %i of %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinated on %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Test Certificate";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Test";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Rapid Test";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Sample taken %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificate of Recovery";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccination %i of %i";
 
 "HealthCertificate_Details_certificate" = "Vaccination Certificate";
+
+"HealthCertificate_Details_EU_Covid_Certificate" = "EU Digital COVID Certificate";
 
 "HealthCertificate_Details_QRCode_Image_Description" = "A QR code with your certificate";
 
@@ -2574,49 +2706,166 @@
 
 "HealthCertificate_Details_identifier" = "Certification Number";
 
-"HealthCertificate_Details_primaryButton" = "Delete Vaccination Certificate";
+"HealthCertificate_Details_validationButtonTitle" = "Check Validity";
 
-/* Vaccination Certificate Delete Alert */
-"HealthCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
+"HealthCertificate_Details_deleteButtonTitle" = "Delete Vaccination Certificate";
 
-"HealthCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
+/* Vaccination Certificate Details */
+"VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
 
+/* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Delete";
 
 "HealthCertificate_Alert_cancelButton" = "Cancel";
 
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
+
+"VaccinationCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
+
 /* Test Certificate Details */
-"TestCertificate_Details_title" = "EU Digital COVID Test Certificate";
+"TestCertificate_Details_title" = "Test Certificate";
 
 "TestCertificate_Details_subtitle" = "Negative SARS-CoV-2 test";
 
 "TestCertificate_Details_primaryButton" = "Remove Test Certificate";
 
-/* Vaccination Certificate Delete Alert */
+"TestCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your test certificate, please see our FAQ page.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "FAQ for Test Certificates";
+
+/* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Do you want to remove the test certificate?";
 
 "TestCertificate_Alert_message" = "If you remove the test certificate, you can no longer use it as proof in the app.";
 
-"TestCertificate_Alert_deleteButton" = "Delete";
+/* Recovery Certificate Details */
+"RecoveryCertificate_Details_title" = "Certificate of Recovery";
 
-"TestCertificate_Alert_cancelButton" = "Cancel";
+"RecoveryCertificate_Details_subtitle" = "EU Digital COVID Certificate";
+
+"RecoveryCertificate_Details_primaryButton" = "Remove Certificate of Recovery";
+
+/* Recovery Certificate Delete Alert */
+"RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
+
+"RecoveryCertificate_Alert_message" = "If you remove the certificate of recovery, you can no longer use it as proof in the app.";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
 
-"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your vaccination certificate, please see our FAQ page.";
+"HealthCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your certificate, please see our FAQ page.";
 
-"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Vaccination Certificates";
+"HealthCertificate_Error_FAQ_Button_Title" = "FAQ for Certificates";
 
-"HealthCertificate_Error_PC_TRY_AGAIN_LATER" = "The vaccination certificate cannot be verified right now. Please try again later.";
+"HealthCertificate_Error_HC_ALREADY_REGISTERED" = "The certificate is already registered in your app.";
 
-"HealthCertificate_Error_VC_ALREADY_REGISTERED" = "The vaccination certificate is already registered in your app.";
+"HealthCertificate_Error_HC_INVALID" = "This QR code is not a valid certificate.";
 
-"HealthCertificate_Error_VC_DIFFERENT_PERSON" = "The personal information of this vaccination certificate does not match that of the certificates already registered. You can only register certificates for one person in the app.";
+"HealthCertificate_Error_HC_NOT_SUPPORTED" = "This certificate is not supported.";
 
-"HealthCertificate_Error_VC_INVALID" = "This QR code is not a valid vaccination certificate.";
+"HealthCertificate_Error_HC_QR_CODE_ERROR" = "The QR code could not be generated. If the error persists, please contact the technical hotline via App Information -> Technical Hotline.";
 
-"HealthCertificate_Error_VC_NOT_YET_SUPPORTED" = "This vaccination certificate is not supported in your app version yet. Please update your app or contact the technical hotline under “App Information”.";
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Validation Failed";
 
-"HealthCertificate_Error_VC_SCAN_AGAIN" = "The vaccination certificate could not be saved on your smartphone. Please try again later or contact the technical hotline under “App Information”.";
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Your Internet connection was lost. To complete the validity check for the certificate, please check the connection and try again.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Validity of Certificate";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Country";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Date and time";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Enter your entry date and your local time.";
+
+"HealthCertificate_Validation_Body1" = "Please check in advance whether your certificate will be valid in your destination country at the time of your trip. The entry rules for the selected destination country will be taken into account.";
+
+"HealthCertificate_Validation_Headline1" = "Check for";
+
+"HealthCertificate_Validation_Body2" = "A COVID certificate is valid proof for travel within the EU.";
+
+"HealthCertificate_Validation_Headline2" = "Note";
+
+"HealthCertificate_Validation_Bullet1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
+
+"HealthCertificate_Validation_Bullet2" = "Additional rules and restrictions may apply in individual regions.";
+
+"HealthCertificate_Validation_Bullet3" = "To ensure the authenticity of a certificate, each certificate is issued with a digital signature. A validation app merely validates this signature.";
+
+"HealthCertificate_Validation_Bullet4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
+
+"HealthCertificate_Validation_Body3" = "For more information, refer to the FAQ and visit https://reopen.europa.eu/en.";
+
+"HealthCertificate_Validation_Legal_Title" = "Privacy and Data Security";
+
+"HealthCertificate_Validation_Legal_Description" = "The current entry rules are downloaded from the RKI servers. This requires an internet connection. Access data is transmitted to the RKI.";
+
+"HealthCertificate_Validation_Body4" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Check";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "Entering %@ on %@\nValidated on %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "This is a rule of your destination country, %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "This is a rule of the issuing country.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "For more information, refer to the %@ or visit %@.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "FAQ";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Certificate Is Valid";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid in the selected country";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Note";
+
+"HealthCertificate_Validation_Passed_hint1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
+
+"HealthCertificate_Validation_Passed_hint2" = "Additional rules and restrictions may apply in individual regions.";
+
+"HealthCertificate_Validation_Passed_hint3" = "To ensure the authenticity of a certificate, each certificate is issued with a digital signature. A validation app merely validates this signature.";
+
+"HealthCertificate_Validation_Passed_hint4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Check for Another Country";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Certificate Cannot Be Validated";
+
+"HealthCertificate_Validation_Open_subtitle" = "Your certificate could not be validated completely";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Note";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "The following rules could not be checked. Please make sure that the certificate satisfies the rules of your destination country.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Certificate Is Not Valid";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Your certificate is not valid in the selected country";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Validation complete";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "The following rules are not satisfied:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Validation is not possible";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "The following rules could not be checked. Please make sure that the certificate satisfies the rules of your destination country.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Certificate Is Not Valid";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Your certificate is not valid in the selected country";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technical check";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "The following rules are not satisfied:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "The certificate must not be expired.";
 

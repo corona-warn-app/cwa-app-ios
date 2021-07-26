@@ -60,7 +60,7 @@ class GradientBackgroundView: UIView {
 				gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
 				gradientView.trailingAnchor.constraint(equalTo: trailingAnchor),
 				gradientHeightConstraint,
-
+				
 				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
 				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
 				backgroundViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
