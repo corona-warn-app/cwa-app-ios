@@ -63,7 +63,7 @@ class HealthCertificateService {
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			// check signature
-			if case .failure = signatureVerifying.verify(certificate: base45, with: [], and: Date()) {
+			if case .failure = signatureVerifying.verify(certificate: base45, with: dscListProvider.signingCertificates.value, and: Date()) {
 				return .failure(.invalidSignature)
 			}
 
@@ -471,7 +471,7 @@ class HealthCertificateService {
 
 						let signatureVerificationResult = self.signatureVerifying.verify(
 							certificate: healthCertificate.base45,
-							with: [],
+							with: self.dscListProvider.signingCertificates.value,
 							and: Date()
 						)
 
