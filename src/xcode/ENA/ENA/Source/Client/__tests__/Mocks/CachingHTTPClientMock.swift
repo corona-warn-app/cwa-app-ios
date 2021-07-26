@@ -136,6 +136,9 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 			let data = try? Data(contentsOf: url),
 			let dscList = try? SAP_Internal_Dgc_DscList(serializedData: data)
 		else {
+			Log.debug("Cannot initialize static test data", log: .vaccination)
+			return SAP_Internal_Dgc_DscList()
+		}
 			fatalError("Cannot initialize static test data")
 		}
 		return dscList
