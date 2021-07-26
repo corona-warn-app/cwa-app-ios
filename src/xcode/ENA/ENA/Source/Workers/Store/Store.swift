@@ -240,6 +240,10 @@ protocol HealthCertificateValidationCaching: AnyObject {
 	var invalidationRulesCache: ValidationRulesCache? { get set }
 }
 
+protocol DSCListCaching: AnyObject {
+	// the cache for last fetched DSC List
+	var dscList: DSCListMetaData? { get set }
+}
 
 // swiftlint:disable all
 /// Wrapper protocol
@@ -258,6 +262,7 @@ protocol Store:
 	LocalStatisticsCaching,
 	StoreProtocol,
 	VaccinationCaching,
-	WarnOthersTimeIntervalStoring
+	WarnOthersTimeIntervalStoring,
+	DSCListCaching
 {}
 // swiftlint:enable all
