@@ -11,7 +11,6 @@ class HealthCertificateService {
 
 	// MARK: - Init
 
-	// swiftlint:disable:next cyclomatic_complexity
 	init(
 		store: HealthCertificateStoring,
 		signatureVerifying: DCCSignatureVerifying,
@@ -28,88 +27,10 @@ class HealthCertificateService {
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 
 			setup()
-
-			// check launch arguments ->
-			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
-			} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
-				registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
-				registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
-			}
-
-			if LaunchArguments.healthCertificate.familyCertificates.boolValue {
-				let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
-					),
-					and: CBORWebTokenHeader.fake()
-				)
-				if case let .success(base45) = testCert1 {
-					registerHealthCertificate(base45: base45)
-				}
-				let testCert2 = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
-					),
-					and: CBORWebTokenHeader.fake()
-				)
-				if case let .success(base45) = testCert2 {
-					registerHealthCertificate(base45: base45)
-				}
-				let testCert3 = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z")]
-					),
-					and: CBORWebTokenHeader.fake()
-				)
-				if case let .success(base45) = testCert3 {
-					registerHealthCertificate(base45: base45)
-				}
-				let testCert4 = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z")]
-					),
-					and: CBORWebTokenHeader.fake()
-				)
-				if case let .success(base45) = testCert4 {
-					registerHealthCertificate(base45: base45)
-				}
-			}
-			if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
-				let result = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-						testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
-					),
-					and: CBORWebTokenHeader.fake()
-				)
-				if case let .success(base45) = result {
-					registerHealthCertificate(base45: base45)
-				}
-			}
-			
-			if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
-				let result = DigitalCovidCertificateFake.makeBase45Fake(
-					from: DigitalCovidCertificate.fake(
-						name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-						recoveryEntries: [
-						 RecoveryEntry.fake()
-					 ]
-				 ),
-					and: CBORWebTokenHeader.fake()
-				)
-				if case let .success(base45) = result {
-					registerHealthCertificate(base45: base45)
-				}
-			}
+			configureForLaunchArguments()
 
 			return
 		}
-
 		#endif
 
 		self.store = store
@@ -412,6 +333,88 @@ class HealthCertificateService {
 		updateValidityStates()
 	}
 
+	#if DEBUG
+	// swiftlint:disable:next cyclomatic_complexity
+	private func configureForLaunchArguments() {
+		if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
+			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
+		} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
+			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
+			registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+		}
+
+		if LaunchArguments.healthCertificate.familyCertificates.boolValue {
+			let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+				),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = testCert1 {
+				registerHealthCertificate(base45: base45)
+			}
+			let testCert2 = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+				),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = testCert2 {
+				registerHealthCertificate(base45: base45)
+			}
+			let testCert3 = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z")]
+				),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = testCert3 {
+				registerHealthCertificate(base45: base45)
+			}
+			let testCert4 = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z")]
+				),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = testCert4 {
+				registerHealthCertificate(base45: base45)
+			}
+		}
+		if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
+			let result = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+				),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = result {
+				registerHealthCertificate(base45: base45)
+			}
+		}
+
+		if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
+			let result = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					recoveryEntries: [
+					 RecoveryEntry.fake()
+				 ]
+			 ),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = result {
+				registerHealthCertificate(base45: base45)
+			}
+		}
+	}
+	#endif
+
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
 		healthCertifiedPersonSubscriptions = []
 
@@ -601,4 +604,5 @@ class HealthCertificateService {
 		}
 	}
 
+	// swiftlint:disable:next file_length
 }
