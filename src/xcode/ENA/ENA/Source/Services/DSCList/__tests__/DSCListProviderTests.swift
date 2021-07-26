@@ -101,11 +101,11 @@ class DSCListProviderTests: XCTestCase {
 			interval: 1.0
 		)
 		// WHEN
-		let waitFor5SecondsExpectation = expectation(description: "Wait for 2 seconds")
+		let waitExpectation = expectation(description: "Wait for 2 seconds")
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-			waitFor5SecondsExpectation.fulfill()
+			waitExpectation.fulfill()
 		}
-		wait(for: [waitFor5SecondsExpectation], timeout: .medium)
+		wait(for: [waitExpectation], timeout: .medium)
 
 		NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
 		wait(for: [fetchedFromClientExpectation], timeout: .short)

@@ -57,6 +57,7 @@ final class DSCListProvider: DSCListProviding {
 			else {
 				fatalError("Failed to read default DSCList bin file - set empty fallback")
 			}
+			Log.info("Fallback default DSCList got loaded", log: .api)
 			return DSCListMetaData(eTag: nil, timestamp: Date(timeIntervalSinceNow: -interval), dscList: dscList)
 		}
 		return metaDataDSCList
@@ -72,6 +73,7 @@ final class DSCListProvider: DSCListProviding {
 		client.fetchDSCList(etag: metaData.eTag) { [weak self] result in
 			switch result {
 			case .success(let response):
+				Log.info("Fetched DSCList from server", log: .api)
 				self?.metaData = DSCListMetaData(eTag: response.eTag, timestamp: Date(), dscList: response.dscList)
 
 			case .failure(let error):
