@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import OpenCombine
 import OpenCombineFoundation
 import OpenCombineDispatch
@@ -9,6 +10,7 @@ import ExposureNotification
 import FMDB
 import UIKit
 import HealthCertificateToolkit
+import CertLogic
 
 protocol CoronaWarnAppDelegate: AnyObject {
 
@@ -308,6 +310,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
+		signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 		client: client,
 		appConfiguration: appConfigurationProvider
 	)
@@ -322,11 +325,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
 	}
 	
-	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = HealthCertificateValidationService(
-		store: store,
-		client: client,
-		vaccinationValueSetsProvider: vaccinationValueSetsProvider
-	)
+	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = {
+		#if DEBUG
+		if isUITesting {
+			var mock = MockHealthCertificateValidationService()
+			
+			if LaunchArguments.healthCertificate.invalidCertificateCheck.boolValue {
+				
+				// Provide data for invalid validation
+				let fakeResult: ValidationResult = .fake(result: .fail)
+				fakeResult.rule?.description = [Description(lang: "de", desc: "Die Impfreihe muss vollständig sein (z.B. 1/1, 2/2)."), Description(lang: "en", desc: "The vaccination schedule must be complete (e.g., 1/1, 2/2).")]
+				mock.validationResult = .success(.validationFailed([fakeResult]))
+			} else {
+				mock.validationResult = .success(.validationPassed([.fake(), .fake(), .fake()]))
+			}
+			
+			return mock
+		}
+		#endif
+		
+		return HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+	}()
 	
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
 		store: store,
@@ -696,30 +719,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	#if DEBUG
 	private func setupOnboardingForTesting() {
-		// Only disable onboarding if it was explicitly set to "NO"
-		if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
-			store.isOnboarded = isOnboarded != "NO"
-		}
+		if isUITesting {
+			// Only disable onboarding if it was explicitly set to "NO"
+			if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
+				store.isOnboarded = isOnboarded != "NO"
+			}
 
-		if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
-			store.onboardingVersion = onboardingVersion
-		}
+			if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
+				store.onboardingVersion = onboardingVersion
+			}
 
-		if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
-			store.finishedDeltaOnboardings = [:]
-		}
+			if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
+				store.finishedDeltaOnboardings = [:]
+			}
 
-		if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
-			store.onboardingVersion = Bundle.main.appVersion
+			if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
+				store.onboardingVersion = Bundle.main.appVersion
+			}
 		}
 	}
 
 	private func setupDatadonationForTesting() {
-		store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
+		if isUITesting {
+			store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
+		}
 	}
 
 	private func setupInstallationDateForTesting() {
-		if let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
+		if isUITesting, let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
 			let installationDays = Int(installationDaysString) ?? 0
 			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
 			store.appInstallationDate = date
@@ -727,9 +754,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func setupAntigenTestProfileForTesting() {
-		store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
-		if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
-			store.antigenTestProfile = nil
+		if isUITesting {
+			store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
+			if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
+				store.antigenTestProfile = nil
+			}
 		}
 	}
 	

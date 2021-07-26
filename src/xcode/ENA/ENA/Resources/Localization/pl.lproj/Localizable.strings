@@ -1869,6 +1869,19 @@
 
 "Statistics_Card_From_CWA" = "za pośrednictwem Corona-Warn-App";
 
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Dodaj lokalną 7-dniową zapadalność";
+
+"Statistics_Add_DisabledAddTitle" = "Osiągnięto maksymalną liczbę wskaźników lokalnej 7-dniowej zapadalności.";
+
+"Statistics_Add_LocalCardTitle" = "Lokalna 7-dniowa zapadalność";
+
+"Statistics_Add_fromTheWholeCountry" = "Cały kraj związkowy";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "potwierdzone nowe zakażenia na 100 000 mieszkańców";
+
+"Statistics_Card_Manage" = "Edytuj";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Potwierdzone nowe zakażenia";
 
@@ -1972,7 +1985,7 @@
 
 "Statistics_Info_Local7Days_Title" = "Lokalna 7-dniowa zapadalność";
 
-"Statistics_Info_Local7Days_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców w skonfigurowanym okręgu lub stanie federalnym.";
+"Statistics_Info_Local7Days_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców w skonfigurowanym okręgu lub kraju związkowym.";
 
 "Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
 
@@ -2028,11 +2041,11 @@
 
 "Statistics_Info_Trends_Title" = "Można przedstawić następujące trendy:";
 
-"Statistics_Info_Trends_Increasing" = "Trend: Rosnący";
+"Statistics_Info_Trends_Increasing" = "Trend: rosnący (negatywny)";
 
-"Statistics_Info_Trends_Decreasing" = "Trend: Malejący";
+"Statistics_Info_Trends_Decreasing" = "Trend: malejący (pozytywny)";
 
-"Statistics_Info_Trends_Stable" = "Trend: Stabilny";
+"Statistics_Info_Trends_Stable" = "Trend: stabilny (neutralny)";
 
 "Statistics_Info_Trends_Footnote" = "Ocena trendu dotyczącego ostrzeżeń wysyłanych przez użytkowników aplikacji zmienia się w zależności od aktualnych poziomów zakażenia, dlatego trend ten jest zawsze wyświetlany jako neutralny.";
 
@@ -2442,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Dalej";
 
 /* Checkout */
-"Checkout_Notification_Title" = "Nastąpiło automatyczne wymeldowanie.";
+"Checkout_Notification_Title" = "Nastąpiło automatyczne wymeldowanie";
 
 "Checkout_Notification_Body" = "W razie potrzeby dostosuj długość pobytu.";
 
@@ -2629,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "Skan kodu QR";
 
-"HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i zarejestruj się";
+"HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i dodaj certyfikat";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
@@ -2759,4 +2772,100 @@
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "Nastąpiła utrata połączenia z Internetem. Aby zakończyć sprawdzanie ważności certyfikatu, sprawdź połączenie i spróbuj ponownie.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Ważność certyfikatu";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Kraj";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Data i czas";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Wprowadź datę wjazdu i czas lokalny.";
+
+"HealthCertificate_Validation_Body1" = "Sprawdź z wyprzedzeniem, czy Twój certyfikat będzie ważny w kraju docelowym w czasie podróży. Uwzględnione zostaną zasady wjazdu do wybranego kraju docelowego.";
+
+"HealthCertificate_Validation_Headline1" = "Sprawdź";
+
+"HealthCertificate_Validation_Body2" = "Certyfikat COVID jest ważnym dowodem w przypadku podróży na terenie UE.";
+
+"HealthCertificate_Validation_Headline2" = "Uwaga";
+
+"HealthCertificate_Validation_Bullet1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
+
+"HealthCertificate_Validation_Bullet2" = "W poszczególnych regionach mogą obowiązywać dodatkowe zasady i ograniczenia.";
+
+"HealthCertificate_Validation_Bullet3" = "Wszystkie certyfikaty są opatrzone podpisem cyfrowym zapewniającym ich autentyczność. Aplikacja walidacyjna jedynie weryfikuje ten podpis.";
+
+"HealthCertificate_Validation_Bullet4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
+
+"HealthCertificate_Validation_Body3" = "Aby uzyskać więcej informacji, zapoznaj się z często zadawanymi pytaniami i odwiedź stronę https://reopen.europa.eu/en.";
+
+"HealthCertificate_Validation_Legal_Title" = "Prywatność i bezpieczeństwo danych";
+
+"HealthCertificate_Validation_Legal_Description" = "Aktualne zasady dotyczące wjazdu są pobierane z serwerów RKI. Wymaga to połączenia z Internetem. Dane dostępowe są przesyłane do RKI.";
+
+"HealthCertificate_Validation_Body4" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Sprawdź";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "Wjazd do %@ dnia %@\nZweryfikowano dnia %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "To jest zasada obowiązująca w kraju docelowym, %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "To jest zasada obowiązująca w kraju wydającym.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "Więcej informacji można znaleźć w %@ lub %@.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "Często zadawane pytania";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Certyfikat jest ważny.";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Twój certyfikat jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Uwaga";
+
+"HealthCertificate_Validation_Passed_hint1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
+
+"HealthCertificate_Validation_Passed_hint2" = "W poszczególnych regionach mogą obowiązywać dodatkowe zasady i ograniczenia.";
+
+"HealthCertificate_Validation_Passed_hint3" = "Wszystkie certyfikaty są opatrzone podpisem cyfrowym zapewniającym ich autentyczność. Aplikacja walidacyjna jedynie weryfikuje ten podpis.";
+
+"HealthCertificate_Validation_Passed_hint4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Sprawdź dla innego kraju";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Walidacja certyfikatu jest niemożliwa";
+
+"HealthCertificate_Validation_Open_subtitle" = "Twój certyfikat nie mógł zostać całkowicie zweryfikowany";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Uwaga";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "Nie udało się sprawdzić poniższych zasad. Upewnij się, że certyfikat jest zgodny z zasadami obowiązującymi w kraju docelowym.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Certyfikat jest nieważny";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Twój certyfikat nie jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Walidacja zakończona";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Brak zgodności z poniższymi zasadami:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Walidacja nie jest możliwa";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Nie udało się sprawdzić poniższych zasad. Upewnij się, że certyfikat jest zgodny z zasadami obowiązującymi w kraju docelowym.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Certyfikat jest nieważny";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Twój certyfikat nie jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Kontrola techniczna";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Brak zgodności z poniższymi zasadami:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Certyfikat nie może być wygasły.";
 

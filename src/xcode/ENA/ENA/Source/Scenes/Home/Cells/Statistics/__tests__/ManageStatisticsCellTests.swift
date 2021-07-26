@@ -18,7 +18,7 @@ class ManageStatisticsCellTests: XCTestCase {
 		XCTAssertEqual(manageCard.stackView.arrangedSubviews.count, 2)
 
 		manageCard.updateUI(for: .full)
-		XCTAssertEqual(manageCard.stackView.arrangedSubviews.count, 1) // will be 2 after refactoring!
+		XCTAssertEqual(manageCard.stackView.arrangedSubviews.count, 2)
     }
 
 	func testDashedView() throws {
@@ -29,11 +29,5 @@ class ManageStatisticsCellTests: XCTestCase {
 		let modify = CustomDashedView.instance(for: .modify)
 		XCTAssertEqual(modify.accessibilityIdentifier, AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton)
 		XCTAssertTrue(modify.accessibilityTraits.contains(.button))
-	}
-
-	func testDeleteIndicator() throws {
-		let delete = DeleteCircle(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-		XCTAssertEqual(delete.accessibilityIdentifier, AccessibilityIdentifiers.General.deleteButton)
-		XCTAssertTrue(delete.accessibilityTraits.contains(.button))
 	}
 }

@@ -1869,6 +1869,19 @@
 
 "Statistics_Card_From_CWA" = "чрез приложението Corona-Warn-App";
 
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Добавяне на 7-дневна заболеваемост на местно ниво";
+
+"Statistics_Add_DisabledAddTitle" = "Достигнато максимално ниво на заболеваемост на 7-дневна база на местно ниво.";
+
+"Statistics_Add_LocalCardTitle" = "7-дневна заболеваемост на местно ниво";
+
+"Statistics_Add_fromTheWholeCountry" = "Национално ниво";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "Потвърдени нови случаи на заразяване на 100 000 души";
+
+"Statistics_Card_Manage" = "Редактиране";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Потвърдени нови случаи на заразяване";
 
@@ -2028,11 +2041,11 @@
 
 "Statistics_Info_Trends_Title" = "Възможни са следните тенденции:";
 
-"Statistics_Info_Trends_Increasing" = "Тенденция: Нагоре";
+"Statistics_Info_Trends_Increasing" = "Тенденция: Нагоре (отрицателна)";
 
-"Statistics_Info_Trends_Decreasing" = "Тенденция: Надолу";
+"Statistics_Info_Trends_Decreasing" = "Тенденция: Надолу (положителна)";
 
-"Statistics_Info_Trends_Stable" = "Тенденция: Стабилизиране";
+"Statistics_Info_Trends_Stable" = "Тенденция: Стабилна (неутрална)";
 
 "Statistics_Info_Trends_Footnote" = "Оценката на тенденцията за броя предупреждения от потребители на приложението се променя в зависимост от текущите нива на заразяване, поради което тази тенденция винаги се показва като неутрална.";
 
@@ -2442,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Напред";
 
 /* Checkout */
-"Checkout_Notification_Title" = "Регистрацията Ви беше прекратена автоматично.";
+"Checkout_Notification_Title" = "Регистрацията Ви беше прекратена автоматично";
 
 "Checkout_Notification_Body" = "Моля, коригирайте продължителността на престоя си, ако е необходимо.";
 
@@ -2629,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "Сканиране на QR кода";
 
-"HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и се регистрирайте";
+"HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и добавете сертификата";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
@@ -2759,4 +2772,100 @@
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Възникна грешка. Моля, опитайте по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "Изгубихте връзка с Интернет. За да завършите проверката за валидност на сертификата, проверете връзката си и опитайте отново.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Валидност на сертификат";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Държава";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Дата и час";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Въведете датата и часа на влизане във вашето местно време.";
+
+"HealthCertificate_Validation_Body1" = "Моля, проверете предварително дали сертификатът ви ще бъде валиден в държавата на местоназначение по време на пътуването ви. Правилата за влизане в избраната държава ще бъдат взети предвид.";
+
+"HealthCertificate_Validation_Headline1" = "Проверка на";
+
+"HealthCertificate_Validation_Body2" = "Сертификатът за COVID е валиден документ при пътуване в рамките на ЕС.";
+
+"HealthCertificate_Validation_Headline2" = "Забележка";
+
+"HealthCertificate_Validation_Bullet1" = "Моля, имайте предвид, че правилата за влизане подлежат на промяна. Затова, моля, проверете сертификата си непосредствено преди да влезете в държавата на местоназначение (макс. 48 часа).";
+
+"HealthCertificate_Validation_Bullet2" = "В отделни райони може да се прилагат допълнителни правила и ограничения.";
+
+"HealthCertificate_Validation_Bullet3" = "С цел удостоверяване на автентичността всеки сертификат се издава с електронен подпис, който се проверява с помощта на приложение за проверка.";
+
+"HealthCertificate_Validation_Bullet4" = "Corona-Warn-App не проверява дали записаните в сертификата данни са валидни.";
+
+"HealthCertificate_Validation_Body3" = "За повече информация, вижте ЧЗВ и посетете https://reopen.europa.eu/en.";
+
+"HealthCertificate_Validation_Legal_Title" = "Защита на личните данни";
+
+"HealthCertificate_Validation_Legal_Description" = "Текущите правила за въвеждане са изтеглени от сървърите на RKI. Това изисква връзка с Интернет. Данните ви за достъп се изпращат до RKI.";
+
+"HealthCertificate_Validation_Body4" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Проверка";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "Влизане в %@ на %@\nВалидирано на %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "Това е правило в държавата, където отивате: %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "Това е правило в държавата, където е издаден сертификатът.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "За повече информация вижте %@ или посетете %@.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "ЧЗВ";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Сертификатът е валиден";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Сертификатът ви е валиден в избраната държава";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Забележка";
+
+"HealthCertificate_Validation_Passed_hint1" = "Моля, имайте предвид, че правилата за влизане подлежат на промяна. Затова, моля, проверете сертификата си непосредствено преди да влезете в държавата на местоназначение (макс. 48 часа).";
+
+"HealthCertificate_Validation_Passed_hint2" = "В отделни райони може да се прилагат допълнителни правила и ограничения.";
+
+"HealthCertificate_Validation_Passed_hint3" = "С цел удостоверяване на автентичността всеки сертификат се издава с електронен подпис, който се проверява с помощта на приложение за проверка.";
+
+"HealthCertificate_Validation_Passed_hint4" = "Corona-Warn-App не проверява дали записаните в сертификата данни са валидни.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Проверка за друга държава";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Сертификатът не може да бъде валидиран";
+
+"HealthCertificate_Validation_Open_subtitle" = "Сертификатът Ви не беше валидиран напълно";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Забележка";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "Следните правила не бяха проверени. Моля, уверете се, че сертификатът съответства на правилата в държавата на местоназначение.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Сертификатът не е валиден";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Сертификатът Ви не е валиден в избраната държава";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Валидирането е успешно завършено";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Следните изисквания не са изпълнени:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Валидирането е невъзможно";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Следните правила не бяха проверени. Моля, уверете се, че сертификатът съответства на правилата в държавата на местоназначение.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Сертификатът не е валиден";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Сертификатът Ви не е валиден в избраната държава";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Техническа проверка";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Следните изисквания не са изпълнени:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Валидността на сертификата не трябва да е изтекла.";
 

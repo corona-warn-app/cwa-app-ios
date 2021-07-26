@@ -181,7 +181,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private let antigenTestProfileStore: AntigenTestProfileStoring
 	
 	private func push(_ vc: UIViewController) {
-		self.navigationController?.pushViewController(vc, animated: true)
+		navigationController?.topViewController?.view.endEditing(true)
+		navigationController?.pushViewController(vc, animated: true)
 	}
 
 	private func popViewController() {
@@ -1242,7 +1243,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				case .testExpired:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
-						message: error.localizedDescription
+						message: error.localizedDescription,
+						completion: { [weak self] in
+							self?.dismiss()
+						}
 					)
 					
 					// dont save expired tests after registering them

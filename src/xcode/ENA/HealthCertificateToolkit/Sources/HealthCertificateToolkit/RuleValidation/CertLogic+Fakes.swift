@@ -20,7 +20,7 @@ public extension Rule {
         description: [Description] = [.fake()],
         validFrom: String = "2021-05-27T07:46:40Z",
         validTo: String = "2021-06-01T07:46:40Z",
-        affectedString: [String] = ["dn", "sd"],
+        affectedString: [String] = ["v.0.dn", "v.0.sd"],
         logic: JSON = JSON(""),
         countryCode: String = "CZ",
         region: String? = nil,

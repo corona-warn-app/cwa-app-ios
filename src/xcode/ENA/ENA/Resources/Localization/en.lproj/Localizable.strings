@@ -1869,6 +1869,19 @@
 
 "Statistics_Card_From_CWA" = "through the Corona-Warn-App";
 
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Add local 7-day incidence";
+
+"Statistics_Add_DisabledAddTitle" = "Maximum number of local 7-day incidence figures reached.";
+
+"Statistics_Add_LocalCardTitle" = "Local 7-day incidence";
+
+"Statistics_Add_fromTheWholeCountry" = "Entire state";
+
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "confirmed new infections per 100,000 residents";
+
+"Statistics_Card_Manage" = "Edit";
+
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Confirmed New Infections";
 
@@ -2028,11 +2041,11 @@
 
 "Statistics_Info_Trends_Title" = "The following trends can be shown:";
 
-"Statistics_Info_Trends_Increasing" = "Trend: Upwards";
+"Statistics_Info_Trends_Increasing" = "Trend: upwards (negative)";
 
-"Statistics_Info_Trends_Decreasing" = "Trend: Downwards";
+"Statistics_Info_Trends_Decreasing" = "Trend: downwards (positive)";
 
-"Statistics_Info_Trends_Stable" = "Trend: Steady";
+"Statistics_Info_Trends_Stable" = "Trend: steady (neutral)";
 
 "Statistics_Info_Trends_Footnote" = "The assessment of the trend for warnings by app users changes depending on current infection levels, which is why this trend is always displayed as neutral.";
 
@@ -2442,7 +2455,7 @@
 "TraceLocation_Information_PrimaryButton_Title" = "Next";
 
 /* Checkout */
-"Checkout_Notification_Title" = "You were checked out automatically.";
+"Checkout_Notification_Title" = "You were checked out automatically";
 
 "Checkout_Notification_Body" = "Please adjust the length of your stay if needed.";
 
@@ -2629,7 +2642,7 @@
 /* QR Scanner */
 "HealthCertificate_QRScanner_title" = "QR Code Scan";
 
-"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Register";
+"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Add Certificate";
 
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
@@ -2759,4 +2772,100 @@
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline.";
 
 "HealthCertificate_Validation_Error_NO_NETWORK" = "Your Internet connection was lost. To complete the validity check for the certificate, please check the connection and try again.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Validity of Certificate";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Country";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Date and time";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Enter your entry date and your local time.";
+
+"HealthCertificate_Validation_Body1" = "Please check in advance whether your certificate will be valid in your destination country at the time of your trip. The entry rules for the selected destination country will be taken into account.";
+
+"HealthCertificate_Validation_Headline1" = "Check for";
+
+"HealthCertificate_Validation_Body2" = "A COVID certificate is valid proof for travel within the EU.";
+
+"HealthCertificate_Validation_Headline2" = "Note";
+
+"HealthCertificate_Validation_Bullet1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
+
+"HealthCertificate_Validation_Bullet2" = "Additional rules and restrictions may apply in individual regions.";
+
+"HealthCertificate_Validation_Bullet3" = "To ensure the authenticity of a certificate, each certificate is issued with a digital signature. A validation app merely validates this signature.";
+
+"HealthCertificate_Validation_Bullet4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
+
+"HealthCertificate_Validation_Body3" = "For more information, refer to the FAQ and visit https://reopen.europa.eu/en.";
+
+"HealthCertificate_Validation_Legal_Title" = "Privacy and Data Security";
+
+"HealthCertificate_Validation_Legal_Description" = "The current entry rules are downloaded from the RKI servers. This requires an internet connection. Access data is transmitted to the RKI.";
+
+"HealthCertificate_Validation_Body4" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Check";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "Entering %@ on %@\nValidated on %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "This is a rule of your destination country, %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "This is a rule of the issuing country.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "For more information, refer to the %@ or visit %@.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "FAQ";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Certificate Is Valid";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid in the selected country";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Note";
+
+"HealthCertificate_Validation_Passed_hint1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
+
+"HealthCertificate_Validation_Passed_hint2" = "Additional rules and restrictions may apply in individual regions.";
+
+"HealthCertificate_Validation_Passed_hint3" = "To ensure the authenticity of a certificate, each certificate is issued with a digital signature. A validation app merely validates this signature.";
+
+"HealthCertificate_Validation_Passed_hint4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Check for Another Country";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Certificate Cannot Be Validated";
+
+"HealthCertificate_Validation_Open_subtitle" = "Your certificate could not be validated completely";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Note";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "The following rules could not be checked. Please make sure that the certificate satisfies the rules of your destination country.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Certificate Is Not Valid";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Your certificate is not valid in the selected country";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Validation complete";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "The following rules are not satisfied:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Validation is not possible";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "The following rules could not be checked. Please make sure that the certificate satisfies the rules of your destination country.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Certificate Is Not Valid";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Your certificate is not valid in the selected country";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technical check";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "The following rules are not satisfied:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "The certificate must not be expired.";
 

@@ -179,24 +179,40 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
 
         // 4: Expiration time (UNIX timestamp in seconds)
         guard let expirationTimeElement = cosePayload[4],
-              case let .unsignedInt(expirationTime) = expirationTimeElement else {
+              let expirationTime = date(from: expirationTimeElement) else {
             return .failure(.HC_CBORWEBTOKEN_NO_EXPIRATIONTIME)
         }
 
+        // 6: Issued at (UNIX timestamp in seconds)
         // 'iat' (issuedAt) should not be nil, so we assign it a default 0 here to avoid optionality.
         // We are not returning an error here, because of backwards compatibility, due to a change from optional to non-optional.
-        var issuedAt: UInt64 = 0
-        // 6: Issued at (UNIX timestamp in seconds)
-        if let issuedAtElement = cosePayload[6],
-           case let .unsignedInt(_issuedAt) = issuedAtElement {
-            issuedAt = _issuedAt
-        }
+        let issuedAt = cosePayload[6].flatMap { date(from: $0) } ?? Date(timeIntervalSince1970: 0)
 
         return .success(CBORWebTokenHeader(
             issuer: issuer,
             issuedAt: issuedAt,
             expirationTime: expirationTime
         ))
+    }
+
+    private func date(from element: CBOR) -> Date? {
+        var date: Date?
+        switch element {
+        case let .unsignedInt(_date):
+            date = Date(timeIntervalSince1970: TimeInterval(_date))
+        case let .negativeInt(_date):
+            date = Date(timeIntervalSince1970: TimeInterval(_date))
+        case let .float(_date):
+            date = Date(timeIntervalSince1970: TimeInterval(_date))
+        case let .double(_date):
+            date = Date(timeIntervalSince1970: TimeInterval(_date))
+        case let .date(_date):
+            date = _date
+        case .byteString, .utf8String, .array, .map, .tagged, .simple, .boolean, .null, .undefined, .half, .break:
+            return nil
+        }
+
+        return date
     }
 
     private func extractDigitalCovidCertificate(from cborWebToken: CBOR) -> Result<DigitalCovidCertificate, CertificateDecodingError> {

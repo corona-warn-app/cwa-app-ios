@@ -136,11 +136,11 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 		#if DEBUG
 		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
 			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
-				Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+				cborWebTokenHeader.expirationTime
 		}
 		#endif
 
-		return Date(timeIntervalSince1970: TimeInterval(cborWebTokenHeader.expirationTime))
+		return cborWebTokenHeader.expirationTime
 	}
 
 	var ageInHours: Int? {

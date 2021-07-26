@@ -28,7 +28,7 @@ class ManageStatisticsCardView: UIView {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsDistrict) -> Void,
+		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
 		onEditButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
@@ -45,7 +45,7 @@ class ManageStatisticsCardView: UIView {
 		updateUI(for: availableCardsState)
 	}
 
-	@IBAction func onAddLocalIncidenceButtonPressed(_ sender: Any) {
+	private func onAddLocalIncidenceButtonPressed() {
 		guard let model = self.model else {
 			Log.warning("AddStatistics model is nil", log: .localStatistics)
 			return
@@ -73,22 +73,19 @@ class ManageStatisticsCardView: UIView {
 		}
 
 		let addView = { () -> CustomDashedView in
-			let add = CustomDashedView.instance(for: .add)
-			add.tapHandler = { [weak self] in
-				Log.debug("add…", log: .ui)
-				self?.onAddLocalIncidenceButtonPressed(add)
+			let addView = CustomDashedView.instance(for: .add)
+			addView.tapHandler = { [weak self] in
+				self?.onAddLocalIncidenceButtonPressed()
 			}
-			add.label.onAccessibilityFocus = onAccessibilityFocus
-			return add
+			addView.onAccessibilityFocus = onAccessibilityFocus
+			return addView
 		}()
-
 		let modifyView = { () -> CustomDashedView in
 			let modify = CustomDashedView.instance(for: .modify)
 			modify.tapHandler = { [weak self] in
-				Log.debug("modify…", log: .ui)
 				self?.onEditButtonTap?()
 			}
-			modify.label.onAccessibilityFocus = onAccessibilityFocus
+			modify.onAccessibilityFocus = onAccessibilityFocus
 			return modify
 		}()
 
@@ -101,7 +98,10 @@ class ManageStatisticsCardView: UIView {
 			stackView.addArrangedSubview(addView)
 			stackView.addArrangedSubview(modifyView)
 		case .full:
-			// just 'modify'
+			// disable 'add' & enable 'modify'
+			let disabledAddView = addView
+			disabledAddView.isEnabled = false
+			stackView.addArrangedSubview(disabledAddView)
 			stackView.addArrangedSubview(modifyView)
 		}
 	}
@@ -134,7 +134,7 @@ class ManageStatisticsCardView: UIView {
 	private var onAddDistrict: ((SelectValueTableViewController) -> Void)?
 	private var onDismissState: (() -> Void)?
 	private var onDismissDistrict: ((Bool) -> Void)?
-	private var onFetchGroupData: ((LocalStatisticsDistrict) -> Void)?
+	private var onFetchGroupData: ((LocalStatisticsRegion) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
 	private var viewModel: ManageStatisticsCardsViewModel?
