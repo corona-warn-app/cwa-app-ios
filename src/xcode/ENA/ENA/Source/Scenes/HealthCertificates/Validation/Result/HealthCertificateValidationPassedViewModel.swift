@@ -43,7 +43,9 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 					.body(
 						text: String(
 							format: AppStrings.HealthCertificate.Validation.Result.Passed.description,
-							validationResults.count
+							validationResults.filter({ validationResult in
+								validationResult.rule?.ruleType == .acceptence
+							}).count
 						)
 					),
 					.space(height: 12),
