@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 // swiftlint:disable file_length
@@ -37,6 +38,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -125,6 +127,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -177,6 +180,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -229,6 +233,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -280,6 +285,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -332,6 +338,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -385,6 +392,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -439,6 +447,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -491,6 +500,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -560,6 +570,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)
@@ -940,6 +951,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -1038,6 +1050,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfigurationProvider
 				)

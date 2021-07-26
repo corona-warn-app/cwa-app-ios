@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 // swiftlint:disable file_length
@@ -24,6 +25,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -55,6 +57,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -99,6 +102,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -147,6 +151,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -182,6 +187,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -207,6 +213,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -243,6 +250,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -279,6 +287,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -315,6 +324,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -342,6 +352,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -376,6 +387,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -417,6 +429,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -460,6 +473,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -503,6 +517,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -543,6 +558,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -584,6 +600,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -624,6 +641,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -664,6 +682,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -717,6 +736,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -770,6 +790,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -825,6 +846,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -879,6 +901,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -940,6 +963,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
 					client: client,
 					appConfiguration: appConfiguration
 				)

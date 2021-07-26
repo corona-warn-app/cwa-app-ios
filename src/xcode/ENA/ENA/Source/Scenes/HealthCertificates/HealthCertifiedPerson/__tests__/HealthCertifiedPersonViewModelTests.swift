@@ -12,6 +12,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let service = HealthCertificateService(
 			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -49,6 +50,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let service = HealthCertificateService(
 			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -81,6 +83,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let service = HealthCertificateService(
 			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -121,6 +124,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let service = HealthCertificateService(
 			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -166,6 +170,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let service = HealthCertificateService(
 			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
