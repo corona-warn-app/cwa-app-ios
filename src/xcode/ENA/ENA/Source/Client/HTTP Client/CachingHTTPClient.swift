@@ -192,6 +192,10 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 
 	// MARK: Protocol DSCListFetching
 
+	/// Fetches lis of DSC certificates
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
 	func fetchDSCList(
 		etag: String?,
 		completion: @escaping DSCListCompletionHandler
@@ -213,6 +217,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 					Log.info("Received DSCList \(try DSCList.jsonString())", log: .vaccination)
 					completion(.success(dscListResponse))
 				} catch {
+					Log.error("Failed to unpack / parse data from the response to expected data structure", log: .api)
 					completion(.failure(error))
 				}
 			case .failure(let error):

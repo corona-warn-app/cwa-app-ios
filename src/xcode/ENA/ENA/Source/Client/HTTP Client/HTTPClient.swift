@@ -1493,7 +1493,7 @@ private extension URLRequest {
 		return request
 	}
 
-	static func DSCListRequest(
+	static func dscListRequest(
 		configuration: HTTPClient.Configuration,
 		eTag: String?,
 		headerValue: Int
