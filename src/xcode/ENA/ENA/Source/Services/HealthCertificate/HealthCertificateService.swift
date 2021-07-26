@@ -476,7 +476,7 @@ class HealthCertificateService {
 							} else if let expiringSoonDate = expiringSoonDate, Date() > expiringSoonDate {
 								healthCertificate.validityState = .expiringSoon
 							} else {
-								healthCertificate.validityState = .invalid
+								healthCertificate.validityState = .valid
 							}
 						case .failure:
 							healthCertificate.validityState = .invalid
