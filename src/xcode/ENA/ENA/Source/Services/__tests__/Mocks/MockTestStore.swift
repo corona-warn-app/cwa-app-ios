@@ -169,7 +169,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var positiveTestResultWasShown: Bool = false
 	var isSubmissionConsentGiven = false
 
-	// MARK: - Protocol
+	// MARK: - Protocol DSCListCaching
 
 	var dscList: DSCListMetaData?
 }

@@ -12,7 +12,7 @@ final class DSCListProvider: DSCListProviding {
 
 	init(
 		client: DSCListFetching,
-		store: Store,
+		store: DSCListCaching,
 		interval: TimeInterval = 12 * 60 * 60  // 12 hours
 	) {
 		self.client = client
@@ -44,10 +44,10 @@ final class DSCListProvider: DSCListProviding {
 	// MARK: - Private
 
 	private let client: DSCListFetching
-	private let store: Store
+	private let store: DSCListCaching
 	private let interval: TimeInterval
 
-	private static func loadDSCListMetaDataIfAvailable(store: Store, interval: TimeInterval) -> DSCListMetaData {
+	private static func loadDSCListMetaDataIfAvailable(store: DSCListCaching, interval: TimeInterval) -> DSCListMetaData {
 		guard let metaDataDSCList = store.dscList else {
 			// store is empty -> store default and return it
 			guard
