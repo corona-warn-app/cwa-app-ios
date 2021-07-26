@@ -471,9 +471,9 @@ class HealthCertificateService {
 
 						switch signatureVerificationResult {
 						case .success:
-							if Date() > healthCertificate.expirationDate {
+							if Date() >= healthCertificate.expirationDate {
 								healthCertificate.validityState = .expired
-							} else if let expiringSoonDate = expiringSoonDate, Date() > expiringSoonDate {
+							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
 								healthCertificate.validityState = .expiringSoon
 							} else {
 								healthCertificate.validityState = .valid
