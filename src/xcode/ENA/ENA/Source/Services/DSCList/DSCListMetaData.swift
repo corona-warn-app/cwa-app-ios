@@ -43,8 +43,8 @@ struct DSCListMetaData: Codable {
 		try container.encodeIfPresent(eTag, forKey: .eTag)
 		try container.encode(timestamp, forKey: .timestamp)
 
-		let dscList = try dscList.serializedData()
-		try container.encode(dscList, forKey: .dscList)
+		let dscListData = try dscList.serializedData()
+		try container.encode(dscListData, forKey: .dscList)
 	}
 
 	// MARK: - Internal

@@ -27,10 +27,6 @@ final class DSCListProvider: DSCListProviding {
 		updateListIfNeeded()
 	}
 
-	deinit {
-		NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-	}
-
 	// MARK: - Protocol DSCListProviding
 
 	private(set) var signingCertificates: CurrentValueSubject<[DCCSigningCertificate], Never>
