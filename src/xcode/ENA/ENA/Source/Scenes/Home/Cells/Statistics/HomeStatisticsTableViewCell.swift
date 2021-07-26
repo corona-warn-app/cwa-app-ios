@@ -288,8 +288,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var stackView: UIStackView!
-	@IBOutlet private weak var topConstraint: NSLayoutConstraint!
-	@IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var trailingConstraint: NSLayoutConstraint!
 
 	private var cellModel: HomeStatisticsCellModel?
@@ -398,8 +396,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
 		}
-		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
-		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
 		
 		if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.width <= 320 {
 			trailingConstraint.constant = 12
