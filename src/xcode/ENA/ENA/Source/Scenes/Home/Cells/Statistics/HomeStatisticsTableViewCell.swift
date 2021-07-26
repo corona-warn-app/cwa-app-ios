@@ -46,6 +46,23 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 	}
 
+	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+		let child = super.hitTest(point, with: event)
+
+		// Forward tap events to the correct home statistics card view (needed for deletion of cards that are not currently in focus).
+		if child == contentView {
+			for arrangedSubview in stackView.arrangedSubviews {
+				let convertedPoint = contentView.convert(point, to: arrangedSubview)
+				if let staticsCardView = arrangedSubview as? HomeStatisticsCardView,
+				   staticsCardView.point(inside: convertedPoint, with: event) {
+					return staticsCardView.hitTest(convertedPoint, with: event)
+				}
+			}
+		}
+
+		return child
+	}
+
 	// MARK: - Internal
 	// swiftlint:disable:next function_parameter_count function_body_length
 	func configure(
