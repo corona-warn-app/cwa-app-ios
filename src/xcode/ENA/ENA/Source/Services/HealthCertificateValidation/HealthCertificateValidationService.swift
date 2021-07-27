@@ -43,13 +43,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		client: Client,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
-		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess()
+		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
+		signatureVerifying: DCCSignatureVerifying
 	) {
 		self.store = store
 		self.client = client
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.signatureVerifier = signatureVerifier
 		self.validationRulesAccess = validationRulesAccess
+		self.signatureVerifying = signatureVerifying
 	}
 		
 	// MARK: - Protocol HealthCertificateValidationProviding
@@ -64,9 +66,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// 1. Apply technical validation
 		
 		let isExpired: Bool
-		let stub = DCCSignatureVerifyingStub(error: nil)
 		// DONT FORGET: pass singatures array into this function!
-		let result = stub.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
+		let result = signatureVerifying.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
 		switch result {
 		case .success:
 			isExpired = false
@@ -105,6 +106,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
+	private let signatureVerifying: DCCSignatureVerifying
 	private var subscriptions = Set<AnyCancellable>()
 	
 	// MARK: - Flow
