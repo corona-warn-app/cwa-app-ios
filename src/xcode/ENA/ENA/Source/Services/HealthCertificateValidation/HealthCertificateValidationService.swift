@@ -66,13 +66,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		// 1. Apply technical validation
 		
 		let signatureInvalid: Bool
+		var signatureValidationError: Error?
 		// DONT FORGET: pass singatures array into this function!
 		let result = signatureVerifying.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
 		switch result {
 		case .success:
 			signatureInvalid = false
-		case.failure:
+		case.failure(let error):
 			signatureInvalid = true
+			signatureValidationError = error
 		}
 		
 		let expirationDate = healthCertificate.cborWebTokenHeader.expirationTime
@@ -81,7 +83,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		guard !isExpired && !signatureInvalid else {
 			if signatureInvalid {
-				Log.warning("Technical validation failed: signature invalid.", log: .vaccination)
+				Log.warning("Technical validation failed: signature invalid. Error: \(signatureValidationError?.localizedDescription ?? "-")", log: .vaccination)
 			}
 			if isExpired {
 				Log.warning("Technical validation failed: expirationDate < validationClock. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
