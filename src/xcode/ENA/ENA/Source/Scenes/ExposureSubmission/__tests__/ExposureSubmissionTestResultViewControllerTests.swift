@@ -41,6 +41,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 					healthCertificateService: HealthCertificateService(
 						store: store,
 						signatureVerifying: DCCSignatureVerifyingStub(),
+						dscListProvider: MockDSCListProvider(),
 						client: client,
 						appConfiguration: appConfiguration
 					)

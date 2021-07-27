@@ -68,6 +68,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case completelyProtected(expirationDate: Date)
 	}
 
+	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
+
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			if healthCertificates != oldValue {
@@ -105,8 +107,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
-
-	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	var name: Name? {
 		healthCertificates.first?.name

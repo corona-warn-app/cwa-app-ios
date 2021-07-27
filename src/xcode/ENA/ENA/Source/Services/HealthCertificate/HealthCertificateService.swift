@@ -14,14 +14,18 @@ class HealthCertificateService {
 	init(
 		store: HealthCertificateStoring,
 		signatureVerifying: DCCSignatureVerifying,
+		dscListProvider: DSCListProviding,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
 	) {
 		#if DEBUG
 		if isUITesting {
-			self.store = MockTestStore()
+			let store = MockTestStore()
+
+			self.store = store
 			self.signatureVerifying = signatureVerifying
+			self.dscListProvider = DSCListProvider(client: CachingHTTPClientMock(), store: store)
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
@@ -35,6 +39,7 @@ class HealthCertificateService {
 
 		self.store = store
 		self.signatureVerifying = signatureVerifying
+		self.dscListProvider = dscListProvider
 		self.client = client
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
@@ -58,7 +63,11 @@ class HealthCertificateService {
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			// check signature
-			if case .failure = signatureVerifying.verify(certificate: base45, with: [], and: Date()) {
+			if case .failure = signatureVerifying.verify(
+				certificate: base45,
+				with: dscListProvider.signingCertificates.value,
+				and: Date()
+			) {
 				return .failure(.invalidSignature)
 			}
 
@@ -297,6 +306,7 @@ class HealthCertificateService {
 
 	private let store: HealthCertificateStoring
 	private let signatureVerifying: DCCSignatureVerifying
+	private let dscListProvider: DSCListProviding
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
@@ -465,7 +475,7 @@ class HealthCertificateService {
 
 						let signatureVerificationResult = self.signatureVerifying.verify(
 							certificate: healthCertificate.base45,
-							with: [],
+							with: self.dscListProvider.signingCertificates.value,
 							and: Date()
 						)
 
