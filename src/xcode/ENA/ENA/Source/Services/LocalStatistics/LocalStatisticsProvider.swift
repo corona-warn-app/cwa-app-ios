@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import OpenCombine
 
 class LocalStatisticsProvider: LocalStatisticsProviding {
 
@@ -48,7 +47,6 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	private let client: LocalStatisticsFetching
 	private let store: LocalStatisticsCaching
 	private var selectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple]
-	private var subscriptions = Set<AnyCancellable>()
 
 	private func fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
 		
