@@ -100,10 +100,10 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 		cells.append(
 			.textWithLinks(
 				text: String(
-					format: AppStrings.HealthCertificate.Validation.Result.moreInformation,
-					AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
+					format: AppStrings.HealthCertificate.Validation.moreInformation,
+					AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
 				links: [
-					AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
+					AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
 					AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
 				],
 				linksColor: .enaColor(for: .textTint)
