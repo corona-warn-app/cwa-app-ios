@@ -160,10 +160,11 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] localStatistics, error in
-			if error != nil {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] result in
+			switch result {
+			case .success(let localStatistics):
 				self?.localStatistics = localStatistics
-			} else {
+			case .failure(let error):
 				// Propagate signature verification error to the user
 				if case CachingHTTPClient.CacheError.dataVerificationError = error {
 					self?.statisticsLoadingError = .dataVerificationError
