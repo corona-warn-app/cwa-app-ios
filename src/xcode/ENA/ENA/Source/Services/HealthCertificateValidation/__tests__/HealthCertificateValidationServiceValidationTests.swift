@@ -52,7 +52,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: validationRulesAccess
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -145,7 +146,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: validationRulesAccess
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -238,7 +240,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: validationRulesAccess
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -323,7 +326,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: validationRulesAccess
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -397,7 +401,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -455,7 +460,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -513,7 +519,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -567,7 +574,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -621,7 +629,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -686,7 +695,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -746,7 +756,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -806,7 +817,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -866,7 +878,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: validationRulesAccess
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -923,7 +936,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -984,7 +998,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1039,7 +1054,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1095,7 +1111,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1151,7 +1168,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1207,7 +1225,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1275,7 +1294,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: validationRulesAccess
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -1322,7 +1342,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		
@@ -1354,7 +1375,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		
@@ -1381,7 +1403,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		
 		let countryCodes = validationService.allCountryCodes
@@ -1429,7 +1452,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: ClientMock(),
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess()
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifying: DCCSignatureVerifyingStub()
 		)
 		// Exact Time for 9.7.2021, 10:30:00
 		let dateToday: UInt64 = 1625826600
@@ -1495,7 +1519,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				client: mockClient,
 				vaccinationValueSetsProvider: valueSetsStub,
 				signatureVerifier: mockVerifier,
-				validationRulesAccess: ValidationRulesAccess()
+				validationRulesAccess: ValidationRulesAccess(),
+				signatureVerifying: DCCSignatureVerifyingStub()
 			)
 
 			let certificate = try HealthCertificate(base45: testCase.dcc)
