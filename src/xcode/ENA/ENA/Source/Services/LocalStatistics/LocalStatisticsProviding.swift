@@ -6,7 +6,7 @@ import Foundation
 // import OpenCombine
 
 protocol LocalStatisticsProviding {
-	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?, completion: @escaping (SAP_Internal_Stats_LocalStatistics, Error) -> Void)
+	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?, completion: @escaping (Result<SAP_Internal_Stats_LocalStatistics, Error>) -> Void)
 	func latestSelectedLocalStatistics(selectedlocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
 }
 
