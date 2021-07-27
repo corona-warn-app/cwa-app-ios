@@ -220,14 +220,39 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
 		Log.info("Trying to activate ENManager.")
+		
+		var activated = false
+		var timeout = 0
+		
 		manager.activate { activationError in
 			if let activationError = activationError {
 				Log.error("Failed to activate ENManager: \(activationError.localizedDescription)", log: .api)
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
-			Log.info("Activated ENManager succesfully.")
-			completion(nil)
+			activated = true
+		}
+		
+		// Sometimes the ENF does not call internally the completion. So we wait 10 seconds until we proceed with a deactivated ENF and log an error.
+		Timer.scheduledTimer(
+			withTimeInterval: 1,
+			repeats: true
+		) { timer in
+			if activated {
+				// The happy path: The ENF was activated, mostly instantly.
+				Log.info("Activated ENF within \(timeout) seconds successfully.")
+				timer.invalidate()
+				completion(nil)
+			} else if timeout >= 10 {
+				// The ENF is not calling completion: We waited 10 seconds and proceed.
+				timer.invalidate()
+				Log.error("Could not activate ENF within 10 seconds. Proceed with deactivated ENF")
+				completion(ExposureNotificationError.unknown("Could not activate ENF within 10 seconds. Proceed with deactivated ENF"))
+			} else {
+				// We give another second that the ENF is activated.
+				Log.warning("Could not activate ENF within \(timeout) seconds. Retry in 1 second.")
+				timeout += 1
+			}
 		}
 	}
 
