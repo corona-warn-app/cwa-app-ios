@@ -320,11 +320,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var dccSignatureVerificationService: DCCSignatureVerifying = {
 		#if DEBUG
 		if isUITesting {
-			return DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1)
+			return DCCSignatureVerifyingStub()
 		}
 		#endif
 
-		return DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1)
+		return DCCSignatureVerifyingStub()
 	}()
 
 	private lazy var dscListProvider: DSCListProviding = {
