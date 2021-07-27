@@ -19,21 +19,21 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	// MARK: - Internal
 
 	// function to get local statistics for a particular group
-	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil, completion: @escaping (SAP_Internal_Stats_LocalStatistics, Error) -> Void) {
+	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil, completion: @escaping (Result<SAP_Internal_Stats_LocalStatistics, Error>) -> Void) {
 		let localStatistics = store.localStatistics.filter({
 			$0.groupID == groupID
 		}).compactMap { $0 }.first
 		
 		guard let cached = localStatistics, !shouldFetch(store: store, groupID: groupID) else {
 			let etag = localStatistics?.lastLocalStatisticsETag
-			return fetchLocalStatistics(groupID: groupID, eTag: etag, completion: completion)
+			fetchLocalStatistics(groupID: groupID, eTag: etag, completion: { result in
+				completion(result)
+			})
+			return
 		}
+
 		// return cached data; no error
-//		return Just(cached.localStatistics)
-//			.setFailureType(to: Error.self)
-//			.eraseToAnyPublisher()
-		
-		return completion(cached.localStatistics, Error.Self)
+		return completion(.success(cached.localStatistics))
 	}
 	
 	// function to get local statistics for N saved districts which are passed as an array
@@ -67,13 +67,13 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 				
 				self?.fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: localStatistics?.lastLocalStatisticsETag, completion: { result in
 					switch result {
-					   case .success (let localStatistics):
+					case .success(let localStatistics):
 						self?.selectedLocalStatisticsTuples.append(SelectedLocalStatisticsTuple(federalStateAndDistrictsData: localStatistics, localStatisticsRegion: localStatisticsDistrict))
 						localStatisticsGroup.leave()
-					   case .failure(let error):
-						   Log.error("[LocalStatisticsProvider] Could not fetch saved local statistics for district: \(localStatisticsDistrict.name): \(error)", log: .api)
-					   }
-				   })
+					case .failure(let error):
+						Log.error("[LocalStatisticsProvider] Could not fetch saved local statistics for district: \(localStatisticsDistrict.name): \(error)", log: .api)
+					}
+				})
 			}
 		}
 		
@@ -82,7 +82,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		}
 	}
 
-	private func fetchLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil) ->
+	private func fetchLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil, completion: @escaping
 		(Result<SAP_Internal_Stats_LocalStatistics, Error>) -> Void) {
 			self.client.fetchLocalStatistics(groupID: groupID, eTag: eTag) { result in
 				switch result {
