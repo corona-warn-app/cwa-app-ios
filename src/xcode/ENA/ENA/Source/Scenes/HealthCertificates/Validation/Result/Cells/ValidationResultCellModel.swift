@@ -67,7 +67,7 @@ final class ValidationResultCellModel {
 	var ruleTypeDescription: String? {
 		switch validationResult.rule?.ruleType {
 		case .acceptence:
-			let arrivalCountry = (validationResult.rule?.countryCode).flatMap { Country(countryCode: $0) }
+			let arrivalCountry = (validationResult.rule?.countryCode).flatMap { Country(withCountryCodeFallback: $0) }
 
 			return String(
 				format: AppStrings.HealthCertificate.Validation.Result.acceptanceRule,
