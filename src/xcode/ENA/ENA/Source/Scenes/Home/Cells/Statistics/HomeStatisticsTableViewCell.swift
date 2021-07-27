@@ -46,6 +46,23 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 	}
 
+	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+		let child = super.hitTest(point, with: event)
+
+		// Forward tap events to the correct home statistics card view (needed for deletion of cards that are not currently in focus).
+		if child == contentView {
+			for arrangedSubview in stackView.arrangedSubviews {
+				let convertedPoint = contentView.convert(point, to: arrangedSubview)
+				if let staticsCardView = arrangedSubview as? HomeStatisticsCardView,
+				   staticsCardView.point(inside: convertedPoint, with: event) {
+					return staticsCardView.hitTest(convertedPoint, with: event)
+				}
+			}
+		}
+
+		return child
+	}
+
 	// MARK: - Internal
 	// swiftlint:disable:next function_parameter_count function_body_length
 	func configure(
@@ -271,8 +288,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var stackView: UIStackView!
-	@IBOutlet private weak var topConstraint: NSLayoutConstraint!
-	@IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var trailingConstraint: NSLayoutConstraint!
 
 	private var cellModel: HomeStatisticsCellModel?
@@ -381,8 +396,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
 		}
-		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
-		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 12
 		
 		if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.width <= 320 {
 			trailingConstraint.constant = 12

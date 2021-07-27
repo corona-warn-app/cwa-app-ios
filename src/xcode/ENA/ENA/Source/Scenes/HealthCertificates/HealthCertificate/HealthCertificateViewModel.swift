@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -60,6 +60,7 @@ final class HealthCertificateViewModel {
 		case details
 		case bottomCorner
 		case vaccinationOneOfOneHint
+		case expirationDate
 		case additionalInfo
 
 		static var numberOfSections: Int {
@@ -76,6 +77,15 @@ final class HealthCertificateViewModel {
 	}
 
 	let qrCodeCellViewModel: HealthCertificateDetailsQRCodeCellViewModel
+
+	var expirationDateCellViewModel: HealthCertificateExpirationDateCellViewModel {
+		let formattedDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .short)
+		return HealthCertificateExpirationDateCellViewModel(
+			headline: AppStrings.HealthCertificate.Details.expirationDateTitle,
+			expirationDate: String(format: AppStrings.HealthCertificate.Details.expirationDatePlaceholder, formattedDate) ,
+			content: AppStrings.HealthCertificate.Details.expirationDateDetails
+		)
+	}
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
@@ -151,7 +161,7 @@ final class HealthCertificateViewModel {
 				// swiftlint:disable:next line_length
 				text: "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter\n https://reopen.europa.eu/de.",
 				topSpace: 16.0,
-				font: .enaFont(for: .body),
+				font: .enaFont(for: .subheadline),
 				borderColor: .enaColor(for: .hairline),
 				accessibilityTraits: .staticText
 			),
@@ -160,7 +170,7 @@ final class HealthCertificateViewModel {
 				textAlignment: .left,
 				text: "This certificate is not a travel document. The scientific evidence on COVID-19 vaccination, testing, and recovery continues to evolve, also in view of new variants of concern of the virus. Before traveling, please check the applicable public health measures and related restrictions applied at the point of destination.\nInformation on the current travel restrictions that apply to EU countries is available at\n https://reopen.europa.eu/en.",
 				topSpace: 16.0,
-				font: .enaFont(for: .body),
+				font: .enaFont(for: .subheadline),
 				borderColor: .enaColor(for: .hairline),
 				accessibilityTraits: .staticText
 			)
@@ -179,6 +189,8 @@ final class HealthCertificateViewModel {
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		case .vaccinationOneOfOneHint:
 			return shouldShowVaccinationOneOfOneHint ? 1 : 0
+		case .expirationDate:
+			return 1
 		case .additionalInfo:
 			return additionalInfoCellViewModels.count
 		}

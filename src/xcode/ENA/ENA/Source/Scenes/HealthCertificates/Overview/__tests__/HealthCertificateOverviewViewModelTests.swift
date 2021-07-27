@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class HealthCertificateOverviewViewModelTests: XCTestCase {
@@ -41,6 +42,8 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	private let service: HealthCertificateService = {
 		HealthCertificateService(
 			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)

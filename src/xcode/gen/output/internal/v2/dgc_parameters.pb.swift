@@ -36,6 +36,8 @@ struct SAP_Internal_V2_DGCParameters {
   /// Clears the value of `testCertificateParameters`. Subsequent reads from it will return its default value.
   mutating func clearTestCertificateParameters() {self._testCertificateParameters = nil}
 
+  var expirationThresholdInDays: UInt32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -65,6 +67,7 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
   static let protoMessageName: String = _protobuf_package + ".DGCParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "testCertificateParameters"),
+    2: .same(proto: "expirationThresholdInDays"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -74,6 +77,7 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._testCertificateParameters) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.expirationThresholdInDays) }()
       default: break
       }
     }
@@ -83,11 +87,15 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
     if let v = self._testCertificateParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
+    if self.expirationThresholdInDays != 0 {
+      try visitor.visitSingularUInt32Field(value: self.expirationThresholdInDays, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_V2_DGCParameters, rhs: SAP_Internal_V2_DGCParameters) -> Bool {
     if lhs._testCertificateParameters != rhs._testCertificateParameters {return false}
+    if lhs.expirationThresholdInDays != rhs.expirationThresholdInDays {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

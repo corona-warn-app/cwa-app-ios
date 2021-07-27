@@ -4,6 +4,7 @@
 
 import XCTest
 import AVFoundation
+import HealthCertificateToolkit
 @testable import ENA
 
 final class TestableHealthCertificateQRCodeScannerViewModelTests: HealthCertificateQRCodeScannerViewModel {
@@ -50,6 +51,8 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
 			healthCertificateService: HealthCertificateService(
 				store: MockTestStore(),
+				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -83,6 +86,8 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
 			healthCertificateService: HealthCertificateService(
 				store: MockTestStore(),
+				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -118,6 +123,8 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
 			healthCertificateService: HealthCertificateService(
 				store: MockTestStore(),
+				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),

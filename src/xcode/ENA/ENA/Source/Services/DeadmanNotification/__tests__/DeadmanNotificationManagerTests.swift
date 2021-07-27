@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class DeadmanNotificationManagerTests: CWATestCase {
@@ -22,6 +23,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -69,6 +72,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -99,6 +104,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -131,6 +138,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -164,6 +173,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -196,6 +207,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -229,6 +242,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)

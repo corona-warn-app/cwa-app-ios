@@ -307,9 +307,9 @@ Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird d
 
 "NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
 
-"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen in der Corona-Warn-App zu aktivieren, müssen Sie Mitteilungen in Ihren Geräteeinstellungen zulassen.";
 
-"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
+"NotificationSettings_Off_OpenSettings" = "Geräteeinstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
@@ -2052,15 +2052,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 
-"Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner";
+"Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
 
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
-"Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen";
+"Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
 
-"Statistics_Info_KeySubmissions_Text" = "Anzahl der über einen PCR-Test Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben ";
+"Statistics_Info_KeySubmissions_Text" = "Anzahl der über einen PCR-Test Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
 
@@ -2072,7 +2072,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
 
-"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die die alle notwendigen Impfdosen erhalten haben.";
+"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen erhalten haben.";
 
 "Statistics_Info_DosesAdministered_Title" = "Verabreichte Impfdosen";
 
@@ -2718,7 +2718,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_imageDescription" = "Eine geschützte Person schaut auf ein Smartphone";
 
-"HealthCertificate_Info_description" = "Fügen Sie Ihre digitalen COVID-Zertifikate der EU in der App hinzu, um mit der App den Impfschutz, ein negatives Testergebnis oder eine überstandene Infektion nachweisen zu können.";
+"HealthCertificate_Info_description" = "Fügen Sie digitale COVID-Zertifikate der EU in der App hinzu, um mit der App den Impfschutz, ein negatives Testergebnis oder eine überstandene Infektion nachweisen zu können.";
 
 "HealthCertificate_Info_section01" = "Sie können digitale COVID-Impfzertifikate, COVID-Testzertifikate und COVID-Genesenenzertifikate der EU in der App hinzufügen.";
 
@@ -2806,6 +2806,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
 
+"HealthCertificate_Details_expirationDateTitle" = "Technisches Ablaufdatum";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Gültig bis %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+
 /* Vaccination Certificate Details */
 
 "VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
@@ -2870,17 +2877,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Der QR-Code konnte nicht generiert werden. Sollte der Fehler weiterhin bestehen, kontaktieren Sie die Hotline über App-Informationen -> Technische Hotline.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Signatur ungültig";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Die Signatur des Zertifikats ist ungültig. Das Zertifikat kann nicht als Nachweis verwendet werden und daher nicht importiert werden.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "FAQ zur Signaturprüfung";
+
 /* Health Certificate Validation Errors */
 
 "HealthCertificate_Validation_Error_Title" = "Überprüfung fehlgeschlagen";
 
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"HealthCertificate_Validation_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Um die Gültigkeitsprüfung des Zertifikates abzuschließen, prüfen Sie die Verbindung und versuchen Sie es erneut.";
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Ihre Internetverbindung wurde unterbrochen. Um die Gültigkeitsprüfung des Zertifikats abzuschließen, prüfen Sie die Verbindung und versuchen Sie es erneut.";
 
 /* Health Certificate Validation */
 
-"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikates";
+"HealthCertificate_Validation_Title" = "Gültigkeit des Zertifikats";
 
 "HealthCertificate_Validation_CountrySelection_Title" = "Land";
 
@@ -2900,11 +2913,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
 
-"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikates sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
+"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
 
 "HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
-
-"HealthCertificate_Validation_Body3" = "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.";
 
 "HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
 

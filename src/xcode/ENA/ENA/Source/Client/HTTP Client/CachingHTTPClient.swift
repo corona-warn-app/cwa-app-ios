@@ -6,7 +6,8 @@ import Foundation
 
 typealias StatisticsGroupIdentifier = String
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching {
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching, DSCListFetching {
+
 	private let environmentProvider: EnvironmentProviding
 
 	enum CacheError: Error {
@@ -172,7 +173,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 
 		session.GET(configuration.vaccinationValueSetsURL, extraHeaders: headers) { result in
 			switch result {
-			case .success(let response):
+			case let .success(response):
 				do {
 					let package = try self.verifyPackage(in: response)
 					let vaccinationValueSetsData = try SAP_Internal_Dgc_ValueSets(serializedData: package.bin)
@@ -181,6 +182,42 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 					Log.info("Received value sets: \(try vaccinationValueSetsData.jsonString())", log: .vaccination)
 					completion(.success(vaccinationValueSetsResponse))
 				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+
+	// MARK: Protocol DSCListFetching
+
+	/// Fetches lis of DSC certificates
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchDSCList(
+		etag: String?,
+		completion: @escaping DSCListCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.DSCListURL, extraHeaders: headers) { result in
+			switch result {
+			case let .success(response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let DSCList = try SAP_Internal_Dgc_DscList(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let dscListResponse = DSCListResponse(dscList: DSCList, eTag: responseETag)
+					Log.info("Received DSCList \(try DSCList.jsonString())", log: .vaccination)
+					completion(.success(dscListResponse))
+				} catch {
+					Log.error("Failed to unpack / parse data from the response to expected data structure", log: .api)
 					completion(.failure(error))
 				}
 			case .failure(let error):
