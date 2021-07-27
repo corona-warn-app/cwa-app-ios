@@ -270,16 +270,41 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+		Log.info("Trying to change ENManager.setExposureNotificationEnabled to \(status).")
+
+		var changed = false
+		var retries = 0
+		let timeout = 2
+		
+		
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
 				self.handleENError(error: error, completion: completion)
 				return
 			}
-			completion(nil)
+			changed = true
+		}
+		
+		// Sometimes the ENF is broken. So we wait 2 seconds until we show an alert. Mostly, the ENF responding instantly, so 2 seconds should be enough time to wait.
+		Timer.scheduledTimer(
+			withTimeInterval: 1,
+			repeats: true
+		) { timer in
+			if changed {
+				Log.info("Activated ENF within \(retries) seconds successfully.")
+				timer.invalidate()
+				completion(nil)
+			} else if retries >= timeout {
+				timer.invalidate()
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within \(retries) seconds. Show alert.")
+				completion(ExposureNotificationError.notResponding)
+			} else {
+				Log.warning("Failed to change ENManager.setExposureNotificationEnabled to \(status) within \(retries) seconds. Retry in 1 second.")
+				retries += 1
+			}
 		}
 	}
-
 
 	private func disableIfNeeded(completion:@escaping CompletionHandler) {
 		manager.exposureNotificationEnabled ? disable(completion: completion) : completion(nil)
