@@ -123,7 +123,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		vStackView.axis = .vertical
 		vStackView.spacing = 6
 
-		gradientBackground.type = .solidGrey
+		gradientBackground.type = .solidGrey(withStars: false)
 		gradientBackground.translatesAutoresizingMaskIntoConstraints = false
 		if #available(iOS 13.0, *) {
 			gradientBackground.layer.cornerCurve = .continuous

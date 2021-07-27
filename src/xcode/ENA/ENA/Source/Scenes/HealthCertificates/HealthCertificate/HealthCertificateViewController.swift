@@ -137,7 +137,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private let didTapDeleteButton: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()

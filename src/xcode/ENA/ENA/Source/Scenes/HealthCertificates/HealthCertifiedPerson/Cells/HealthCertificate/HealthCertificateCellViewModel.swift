@@ -22,7 +22,7 @@ final class HealthCertificateCellViewModel {
 		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
 			return .lightBlue(withStars: false)
 		} else {
-			return .solidGrey
+			return .solidGrey(withStars: false)
 		}
 	}
 

@@ -10,7 +10,7 @@ class GradientView: UIView {
 	// MARK: - Init
 
 	init(
-		type: GradientType = .solidGrey,
+		type: GradientType = .solidGrey(withStars: false),
 		frame: CGRect = .zero
 	) {
 		super.init(frame: frame)
@@ -47,7 +47,7 @@ class GradientView: UIView {
 	enum GradientType: Equatable {
 		case blueRedTilted
 		case blueOnly
-		case solidGrey
+		case solidGrey(withStars: Bool)
 		case lightBlue(withStars: Bool)
 		case mediumBlue(withStars: Bool)
 		case darkBlue(withStars: Bool)
@@ -55,6 +55,8 @@ class GradientView: UIView {
 
 		var starsColor: UIColor? {
 			switch self {
+			case let .solidGrey(withStars):
+				return withStars ? UIColor(red: 87.0 / 255.0, green: 103.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0) : nil
 			case let .lightBlue(withStars):
 				return withStars ? UIColor(red: 1.0 / 255.0, green: 145.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0) : nil
 			case let .mediumBlue(withStars):
