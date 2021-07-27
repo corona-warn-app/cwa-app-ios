@@ -222,7 +222,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		Log.info("Trying to activate ENManager.")
 		
 		var activated = false
-		var timeout = 0
+		var retries = 0
+		let timeout = 5
 		
 		manager.activate { activationError in
 			if let activationError = activationError {
@@ -233,25 +234,22 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			activated = true
 		}
 		
-		// Sometimes the ENF does not call internally the completion. So we wait 10 seconds until we proceed with a deactivated ENF and log an error.
+		// Sometimes the ENF is broken. So we wait 5 seconds until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 5 seconds should be enough time to wait.
 		Timer.scheduledTimer(
 			withTimeInterval: 1,
 			repeats: true
 		) { timer in
 			if activated {
-				// The happy path: The ENF was activated, mostly instantly.
-				Log.info("Activated ENF within \(timeout) seconds successfully.")
+				Log.info("Activated ENF within \(retries) seconds successfully.")
 				timer.invalidate()
 				completion(nil)
-			} else if timeout >= 10 {
-				// The ENF is not calling completion: We waited 10 seconds and proceed.
+			} else if retries >= timeout {
 				timer.invalidate()
-				Log.error("Could not activate ENF within 10 seconds. Proceed with deactivated ENF")
-				completion(ExposureNotificationError.unknown("Could not activate ENF within 10 seconds. Proceed with deactivated ENF"))
+				Log.error("Could not activate ENF within \(retries) seconds. Proceed with deactivated ENF")
+				completion(ExposureNotificationError.notResponding)
 			} else {
-				// We give another second that the ENF is activated.
-				Log.warning("Could not activate ENF within \(timeout) seconds. Retry in 1 second.")
-				timeout += 1
+				Log.warning("Could not activate ENF within \(retries) seconds. Retry in 1 second.")
+				retries += 1
 			}
 		}
 	}
