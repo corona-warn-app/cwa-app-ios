@@ -160,7 +160,7 @@ class HomeState: ENStateHandlerUpdating {
 		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] result in
 			switch result {
 			case .success(let localStatistics):
-        // persist the Region to the list of selected Regions
+				// persist the Region to the list of selected Regions
 				self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
 				self?.localStatistics = localStatistics
 			case .failure(let error):
