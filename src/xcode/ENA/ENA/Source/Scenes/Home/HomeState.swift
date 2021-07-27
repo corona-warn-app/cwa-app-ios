@@ -160,24 +160,17 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil)
-			.sink(
-				receiveCompletion: { [weak self] result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						// Propagate signature verification error to the user
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							self?.statisticsLoadingError = .dataVerificationError
-						}
-						Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
-					}
-				}, receiveValue: { [weak self] in
-					self?.localStatistics = $0
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] localStatistics, error in
+			if error != nil {
+				self?.localStatistics = localStatistics
+			} else {
+				// Propagate signature verification error to the user
+				if case CachingHTTPClient.CacheError.dataVerificationError = error {
+					self?.statisticsLoadingError = .dataVerificationError
 				}
-			)
-			.store(in: &subscriptions)
+				Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
+			}
+		})
 	}
 	
 	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {
