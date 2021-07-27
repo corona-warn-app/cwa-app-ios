@@ -19,39 +19,46 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			.section(
-				cells: [
-					.headlineWithImage(
-						headerText: AppStrings.HealthCertificate.Validation.Result.Failed.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Validation_Invalid")
-					),
-					.footnote(
-						text: String(
-							format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
-							arrivalCountry.localizedName,
-							DateFormatter.localizedString(from: arrivalDate, dateStyle: .short, timeStyle: .short),
-							DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
-						),
-						color: .enaColor(for: .textPrimary2)
-					),
-					.title2(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.subtitle),
-					.space(height: 10),
-					.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
-					.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription),
-					.technicalFailedRulesCell(),
-					.textWithLinks(
-						text: String(
-							format: AppStrings.HealthCertificate.Validation.moreInformation,
-							AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
-						links: [
-							AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
-							AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
-						],
-						linksColor: .enaColor(for: .textTint)
-					)
-				]
+		 
+		var cells = [
+			DynamicCell.headlineWithImage(
+				headerText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.title,
+				image: UIImage(imageLiteralResourceName: "Illu_Validation_Invalid")
+			),
+			.footnote(
+				text: String(
+					format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
+					arrivalCountry.localizedName,
+					DateFormatter.localizedString(from: arrivalDate, dateStyle: .short, timeStyle: .short),
+					DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+				),
+				color: .enaColor(for: .textPrimary2)
+			),
+			.title2(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.subtitle),
+			.space(height: 10),
+			.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
+			.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription)
+		]
+		
+		cells.append(
+			.technicalFailedRulesCell(failureText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateExpired)
+		)
+		
+		cells.append(
+			.textWithLinks(
+				text: String(
+					format: AppStrings.HealthCertificate.Validation.Result.moreInformation,
+					AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
+				links: [
+					AppStrings.HealthCertificate.Validation.Result.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
+					AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
+				],
+				linksColor: .enaColor(for: .textTint)
 			)
+		)
+		
+		return DynamicTableViewModel([
+			.section(cells: cells)
 		])
 	}
 
@@ -65,8 +72,13 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 
 private extension DynamicCell {
 
-	static func technicalFailedRulesCell() -> Self {
-		.custom(withIdentifier: TechnicalValidationFailedRulesTableViewCell.dynamicTableViewCellReuseIdentifier)
+	static func technicalFailedRulesCell(failureText: String) -> Self {
+		.custom(withIdentifier: TechnicalValidationFailedRulesTableViewCell.dynamicTableViewCellReuseIdentifier) { _, cell, _ in
+			guard let cell = cell as? TechnicalValidationFailedRulesTableViewCell else {
+				return
+			}
+			cell.setText(failureText)
+		}
 	}
 
 }

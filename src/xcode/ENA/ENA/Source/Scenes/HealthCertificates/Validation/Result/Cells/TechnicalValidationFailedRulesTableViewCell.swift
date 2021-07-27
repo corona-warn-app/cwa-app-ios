@@ -28,9 +28,16 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 		updateBorderColor()
 	}
 
+	// MARK: - Internal
+	
+	func setText(_ text: String) {
+		failureDescriptionLabel.text = text
+	}
+	
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
+	private let failureDescriptionLabel = ENALabel(style: .body)
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -60,10 +67,8 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 		failureIconImageView.setContentHuggingPriority(.required, for: .horizontal)
 		contentStackView.addArrangedSubview(failureIconImageView)
 
-		let failureDescriptionLabel = ENALabel(style: .body)
 		failureDescriptionLabel.numberOfLines = 0
 		failureDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
-		failureDescriptionLabel.text = AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateExpired
 		contentStackView.addArrangedSubview(failureDescriptionLabel)
 
 		NSLayoutConstraint.activate(
