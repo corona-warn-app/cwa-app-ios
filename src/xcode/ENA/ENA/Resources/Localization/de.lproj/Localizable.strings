@@ -307,9 +307,9 @@ Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird d
 
 "NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
 
-"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen in der Corona-Warn-App zu aktivieren, müssen Sie Mitteilungen in Ihren Geräteeinstellungen zulassen.";
 
-"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
+"NotificationSettings_Off_OpenSettings" = "Geräteeinstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
