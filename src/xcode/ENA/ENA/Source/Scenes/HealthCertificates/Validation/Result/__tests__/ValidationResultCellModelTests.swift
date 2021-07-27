@@ -252,7 +252,7 @@ class ValidationResultCellModelTests: XCTestCase {
 		// GIVEN
 		let expectedResult = String(
 			format: AppStrings.HealthCertificate.Validation.Result.acceptanceRule,
-			""
+			"Fake"
 		)
 		let expectedAcceptanceOpenValidationResult = ValidationResult.fake(
 			rule: Rule.fake(
