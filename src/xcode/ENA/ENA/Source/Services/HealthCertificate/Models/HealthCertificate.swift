@@ -78,6 +78,8 @@ final class HealthCertificate: Codable, Equatable, Comparable {
 	let digitalCovidCertificate: DigitalCovidCertificate
 	let keyIdentifier: String?
 
+	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()
+
 	@DidSetPublished var validityState: HealthCertificateValidityState {
 		didSet {
 			if validityState != oldValue {
@@ -85,8 +87,6 @@ final class HealthCertificate: Codable, Equatable, Comparable {
 			}
 		}
 	}
-
-	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()
 	
 	var version: String {
 		digitalCovidCertificate.version

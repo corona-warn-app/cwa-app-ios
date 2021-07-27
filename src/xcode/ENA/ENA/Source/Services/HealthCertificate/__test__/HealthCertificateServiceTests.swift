@@ -18,6 +18,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -81,6 +82,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -126,6 +128,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -161,6 +164,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -367,6 +371,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -499,6 +504,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: cachedAppConfig
 		)
@@ -531,6 +537,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -575,6 +582,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -619,6 +627,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -676,6 +685,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: cachedAppConfig
 		)
@@ -728,6 +738,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: cachedAppConfig
 		)
@@ -786,6 +797,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess
@@ -885,6 +897,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess
@@ -969,6 +982,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess
@@ -1055,6 +1069,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess
@@ -1126,6 +1141,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess()
@@ -1202,6 +1218,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess
@@ -1272,6 +1289,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig
 		)
@@ -1327,6 +1345,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1381,6 +1400,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock()
 		)
@@ -1438,6 +1458,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: store,
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess
@@ -1473,6 +1494,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess()

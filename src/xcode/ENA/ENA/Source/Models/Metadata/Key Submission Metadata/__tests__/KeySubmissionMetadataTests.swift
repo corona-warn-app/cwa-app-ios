@@ -30,6 +30,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -93,6 +94,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -146,6 +148,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -207,6 +210,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -251,6 +255,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -304,6 +309,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -363,6 +369,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -414,6 +421,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -462,6 +470,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: secureStore,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
