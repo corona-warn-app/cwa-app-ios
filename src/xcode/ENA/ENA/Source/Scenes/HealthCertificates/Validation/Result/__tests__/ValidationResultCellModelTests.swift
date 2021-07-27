@@ -194,7 +194,7 @@ class ValidationResultCellModelTests: XCTestCase {
 		XCTAssertEqual(ruleTypeDescription, expectedResult)
 	}
 
-	func testGIVEN_AcceptanceRule_WHEN_RuleTypeDescriptionWithNonexistantCountry_THEN_DescriptionIsReturned() throws {
+	func testGIVEN_AcceptanceRule_WHEN_RuleTypeDescriptionWithNonexistentCountry_THEN_DescriptionIsReturned() throws {
 		// GIVEN
 		let countryCode = "XX"
 		let expectedResult = String(
