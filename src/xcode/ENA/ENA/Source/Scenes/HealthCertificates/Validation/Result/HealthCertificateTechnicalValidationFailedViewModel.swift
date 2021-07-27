@@ -9,9 +9,11 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 
 	// MARK: - Init
 
-	init(arrivalCountry: Country, arrivalDate: Date) {
+	init(arrivalCountry: Country, arrivalDate: Date, isExpired: Bool, signatureInvalid: Bool) {
 		self.arrivalCountry = arrivalCountry
 		self.arrivalDate = arrivalDate
+		self.isExpired = isExpired
+		self.signatureInvalid = signatureInvalid
 	}
 
 	// MARK: - Internal
@@ -57,7 +59,8 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 
 	private let arrivalCountry: Country
 	private let arrivalDate: Date
-
+	private let isExpired: Bool
+	private let signatureInvalid: Bool
 }
 
 private extension DynamicCell {

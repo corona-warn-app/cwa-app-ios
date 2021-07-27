@@ -45,6 +45,7 @@ final class HealthCertificateValidationCoordinator {
 
 	// MARK: Show Screens
 
+	// swiftlint:disable pattern_matching_keywords
 	private lazy var validationScreen: UIViewController = {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Validation.buttonTitle,
@@ -95,10 +96,12 @@ final class HealthCertificateValidationCoordinator {
 						}
 					case .failure(let error):
 						switch error {
-						case .TECHNICAL_VALIDATION_FAILED:
+						case .TECHNICAL_VALIDATION_FAILED(let isExpired, let signatureInvalid):
 							self.showTechnicalValidationFailedScreen(
 								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate
+								arrivalDate: arrivalDate,
+								isExpired: isExpired,
+								signatureInvalid: signatureInvalid
 							)
 						default:
 							self.showErrorAlert(
@@ -224,12 +227,16 @@ final class HealthCertificateValidationCoordinator {
 
 	private func showTechnicalValidationFailedScreen(
 		arrivalCountry: Country,
-		arrivalDate: Date
+		arrivalDate: Date,
+		isExpired: Bool,
+		signatureInvalid: Bool
 	) {
 		let technicalValidationFailedViewController = HealthCertificateValidationResultViewController(
 			viewModel: HealthCertificateTechnicalValidationFailedViewModel(
 				arrivalCountry: arrivalCountry,
-				arrivalDate: arrivalDate
+				arrivalDate: arrivalDate,
+				isExpired: isExpired,
+				signatureInvalid: signatureInvalid
 			),
 			onPrimaryButtonTap: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)
