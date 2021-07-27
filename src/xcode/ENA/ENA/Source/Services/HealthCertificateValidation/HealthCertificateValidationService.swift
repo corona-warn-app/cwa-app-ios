@@ -65,25 +65,25 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		// 1. Apply technical validation
 		
-		let isExpired: Bool
+		let signatureInvalid: Bool
 		// DONT FORGET: pass singatures array into this function!
 		let result = signatureVerifying.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
 		switch result {
 		case .success:
-			isExpired = false
+			signatureInvalid = false
 		case.failure:
-			isExpired = true
+			signatureInvalid = true
 		}
 		
 		let expirationDate = healthCertificate.cborWebTokenHeader.expirationTime
 		// NOTE: We expect here a HealthCertificate, which was already json schema validated at its creation time. So the JsonSchemaCheck will here always be true. So we only have to check for the expirationTime of the certificate.
-		let signatureInvalid = expirationDate < validationClock
+		let isExpired = expirationDate < validationClock
 		
 		guard !isExpired && !signatureInvalid else {
-			if isExpired {
+			if signatureInvalid {
 				Log.warning("Technical validation failed: signature invalid.", log: .vaccination)
 			}
-			if signatureInvalid {
+			if isExpired {
 				Log.warning("Technical validation failed: expirationDate < validationClock. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
 			}
 			completion(.failure(.TECHNICAL_VALIDATION_FAILED(expirationDate: isExpired ? expirationDate : nil, signatureInvalid: signatureInvalid)))
