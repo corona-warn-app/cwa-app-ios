@@ -13,6 +13,7 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationUnavailable
 	/// Typically occurs when `activate()` is called more than once.
 	case apiMisuse
+	case notResponding
 	case unknown(String)
 }
 
