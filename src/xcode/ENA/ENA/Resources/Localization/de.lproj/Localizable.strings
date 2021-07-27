@@ -2913,8 +2913,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
-"HealthCertificate_Validation_Body3" = "Mehr Informationen finden Sie in den FAQ und unter https://reopen.europa.eu/de.";
-
 "HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
 
 "HealthCertificate_Validation_Legal_Description" = "Die aktuellen Einreiseregeln werden von den Servern des RKI heruntergeladen. Hierfür ist eine Verbindung zum Internet erforderlich und es werden Zugriffsdaten an das RKI übermittelt.";
