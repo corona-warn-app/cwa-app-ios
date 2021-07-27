@@ -52,8 +52,15 @@ enum HealthCertificateValidationError: LocalizedError {
 	}
 }
 
+// swiftlint:disable pattern_matching_keywords
 extension HealthCertificateValidationError: Equatable {
 	static func == (lhs: HealthCertificateValidationError, rhs: HealthCertificateValidationError) -> Bool {
-		lhs.localizedDescription == rhs.localizedDescription
+		
+		switch (lhs, rhs) {
+		case (.TECHNICAL_VALIDATION_FAILED(let lhsExpirationDate, let lhsSignatureInvalid), .TECHNICAL_VALIDATION_FAILED(let rhsExpirationDate, let rhsSignatureInvalid)):
+			return lhsExpirationDate == rhsExpirationDate && lhsSignatureInvalid == rhsSignatureInvalid
+		default:
+			return lhs.localizedDescription == rhs.localizedDescription
+		}
 	}
 }
