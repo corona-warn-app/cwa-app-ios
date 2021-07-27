@@ -3,39 +3,50 @@
 //
 
 import Foundation
+import OpenCombine
 import HealthCertificateToolkit
 
-struct HealthCertificate: Codable, Equatable, Comparable {
+final class HealthCertificate: Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
-	init(base45: Base45) throws {
+	init(base45: Base45, validityState: HealthCertificateValidityState = .valid) throws {
 		self.base45 = base45
-		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		self.keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		self.validityState = validityState
+
+		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
+		keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
 		case base45
+		case validityState
 	}
 
-	init(from decoder: Decoder) throws {
+	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		base45 = try container.decode(Base45.self, forKey: .base45)
+		validityState = try container.decodeIfPresent(HealthCertificateValidityState.self, forKey: .validityState) ?? .valid
 
-		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		self.keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
+		keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(base45, forKey: .base45)
+	}
+
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
+		lhs.base45 == rhs.base45
 	}
 
 	// MARK: - Protocol Comparable
@@ -66,6 +77,16 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
 	let keyIdentifier: String?
+
+	@DidSetPublished var validityState: HealthCertificateValidityState {
+		didSet {
+			if validityState != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()
 	
 	var version: String {
 		digitalCovidCertificate.version

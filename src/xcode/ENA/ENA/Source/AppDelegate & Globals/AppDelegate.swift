@@ -314,7 +314,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		client: client,
 		appConfiguration: appConfigurationProvider
 	)
-	
+
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
 		#if DEBUG
 		if isUITesting {
