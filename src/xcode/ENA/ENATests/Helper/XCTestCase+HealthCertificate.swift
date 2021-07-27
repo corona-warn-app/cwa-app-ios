@@ -12,10 +12,13 @@ extension XCTestCase {
 		case failed
 	}
 
-	func base45Fake(from digitalCovidCertificate: DigitalCovidCertificate) throws -> Base45 {
+	func base45Fake(
+		from digitalCovidCertificate: DigitalCovidCertificate,
+		and webTokenHeader: CBORWebTokenHeader = .fake()
+	) throws -> Base45 {
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
 			from: digitalCovidCertificate,
-			and: CBORWebTokenHeader.fake()
+			and: webTokenHeader
 		)
 
 		guard case let .success(base45) = base45Result else {

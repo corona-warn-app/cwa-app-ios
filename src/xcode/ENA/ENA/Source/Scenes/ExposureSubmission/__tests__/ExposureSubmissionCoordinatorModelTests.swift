@@ -26,6 +26,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: store,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -58,6 +59,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: store,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -103,6 +105,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: store,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -152,6 +155,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: store,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -188,6 +192,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -214,6 +219,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -251,6 +257,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -288,6 +295,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -325,6 +333,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -353,6 +362,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -388,6 +398,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -430,6 +441,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -474,6 +486,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -518,6 +531,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -559,6 +573,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -601,6 +616,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -642,6 +658,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -683,6 +700,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -737,6 +755,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -791,6 +810,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -847,6 +867,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -902,6 +923,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
@@ -964,6 +986,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration
 				)
