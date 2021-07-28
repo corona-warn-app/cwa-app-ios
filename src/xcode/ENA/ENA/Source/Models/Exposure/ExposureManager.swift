@@ -220,7 +220,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
-		Log.info("Trying to activate ENManager.")
+		Log.info("Trying to activate ENF")
 		
 		var isActive = false
 		
@@ -273,7 +273,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completion(nil)
 		}
 		
-		// Sometimes the ENF is broken. So we wait 1 seconds to ensure the changed applied. Mostly, the ENF responding instantly, so we check after 2 seconds and show then an alert.
+		// Sometimes the ENF framework is broken. So we wait 1 seconds to ensure that the changed has been applied. Mostly, the ENF framework responds instantly, so we check after 2 seconds and show then an alert.
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			if !hasChanged {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 1 seconds. Show alert.")
