@@ -156,27 +156,21 @@ class HomeState: ENStateHandlerUpdating {
 		}
 	}
 
-	private func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil)
-			.sink(
-				receiveCompletion: { [weak self] result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						// Propagate signature verification error to the user
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							self?.statisticsLoadingError = .dataVerificationError
-						}
-						Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
-					}
-				}, receiveValue: { [weak self] in
-					// persist the Region to the list of selected Regions
-					self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
-					self?.localStatistics = $0
+	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] result in
+			switch result {
+			case .success(let localStatistics):
+				// persist the Region to the list of selected Regions
+				self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
+				self?.localStatistics = localStatistics
+			case .failure(let error):
+				// Propagate signature verification error to the user
+				if case CachingHTTPClient.CacheError.dataVerificationError = error {
+					self?.statisticsLoadingError = .dataVerificationError
 				}
-			)
-			.store(in: &subscriptions)
+				Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
+			}
+		})
 	}
 	
 	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {

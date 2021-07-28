@@ -1131,19 +1131,15 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.6 */
+		/* Version 2.7 */
 		
-		static let feature26EuCertCheckTitle = NSLocalizedString("NewVersionFeature_26_euCertCheck_title", comment: "")
+		static let feature27SigCheckTitle = NSLocalizedString("NewVersionFeature_27_sigCheck_title", comment: "")
 		
-		static let feature26EuCertCheckDescription = NSLocalizedString("NewVersionFeature_26_euCertCheck_description", comment: "")
+		static let feature27SigCheckDescription = NSLocalizedString("NewVersionFeature_27_sigCheck_description", comment: "")
 		
-		static let feature26EnhancedStatsTitle = NSLocalizedString("NewVersionFeature_26_enhancedStats_title", comment: "")
+		static let feature27technicalValidityTitle = NSLocalizedString("NewVersionFeature_27_technicalValidity_title", comment: "")
 		
-		static let feature26DEnhancedStatsDescription = NSLocalizedString("NewVersionFeature_26_enhancedStats_description", comment: "")
-		
-		static let feature26EditRapidTestTitle = NSLocalizedString("NewVersionFeature_26_editRapidTestProfile_title", comment: "")
-		
-		static let feature26EditRapidTestDescription = NSLocalizedString("NewVersionFeature_26_editRapidTestProfile_description", comment: "")
+		static let feature27technicalValidityDescription = NSLocalizedString("NewVersionFeature_27_technicalValidity_description", comment: "")
 		
 	}
 	
@@ -2175,7 +2171,10 @@ enum AppStrings {
 					static let subtitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_subtitle", comment: "")
 					static let failedSectionTitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_failedSectionTitle", comment: "")
 					static let failedSectionDescription = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_failedSectionDescription", comment: "")
-					static let certificateExpired = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_certificateExpired", comment: "")
+					static let certificateNotValid = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_certificateNotValid", comment: "")
+					static let technicalExpirationDatePassed = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed", comment: "")
+					static let expirationDateTitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_expirationDateTitle", comment: "")
+					static let expirationDate = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_expirationDate", comment: "")
 				}
 			}
 		}
