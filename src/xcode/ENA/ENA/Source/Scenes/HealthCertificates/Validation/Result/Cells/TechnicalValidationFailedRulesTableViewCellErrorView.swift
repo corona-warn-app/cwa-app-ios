@@ -35,7 +35,7 @@ class TechnicalValidationFailedRulesTableViewCellErrorView: UIView {
 		
 		let expirationDateTitleLabel = StackViewLabel()
 		expirationDateTitleLabel.style = .footnote
-		expirationDateTitleLabel.numberOfLines = 1
+		expirationDateTitleLabel.numberOfLines = 0
 		expirationDateTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		expirationDateTitleLabel.text = AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.expirationDateTitle
 		labelsStackView.addArrangedSubview(expirationDateTitleLabel)
