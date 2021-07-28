@@ -44,7 +44,9 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 		}
 		
 		if let expirationDate = expirationDate {
-			addErrorViewSeparator()
+			if !errorViewsStackView.arrangedSubviews.isEmpty {
+				addErrorViewSeparator()
+			}
 			errorViewsStackView.addArrangedSubview(TechnicalValidationFailedRulesTableViewCellErrorView(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.technicalExpirationDatePassed, expirationDate: expirationDate))
 		}
 	}
