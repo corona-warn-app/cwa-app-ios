@@ -220,7 +220,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
-		Log.info("Trying to activate ENManager.")
+		Log.info("Trying to activate ENF")
 		
 		var activated = false
 		
