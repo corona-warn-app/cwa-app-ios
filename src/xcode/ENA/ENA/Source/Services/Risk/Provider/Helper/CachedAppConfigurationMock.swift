@@ -9,8 +9,9 @@ import ZIPFoundation
 #if DEBUG
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
-	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
+	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
 
+	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
 
 	/// A special configuration for screenshots.
 	///
@@ -38,6 +39,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration) {
 		self.config = config
+		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
 	}
 	
 	init(
@@ -46,11 +48,13 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		isEventSurveyUrlAvailable: Bool
 	) {
 		self.config = config
+		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
 		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
 			isEnabled: isEventSurveyEnabled,
-			isCorrectURL: isEventSurveyUrlAvailable)
+			isCorrectURL: isEventSurveyUrlAvailable
+		)
 	}
-	
+
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return Just(config)
 			.receive(on: DispatchQueue.main.ocombine)

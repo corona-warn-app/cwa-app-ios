@@ -55,12 +55,6 @@ protocol StoreProtocol: AnyObject {
 
 	var lastKeyPackageDownloadDate: Date { get set }
 
-	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
-
-	var deviceTimeLastStateChange: Date { get set }
-
-	var wasDeviceTimeErrorShown: Bool { get set }
-
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
 	
 	var submissionCheckins: [Checkin] { get set }
@@ -81,14 +75,21 @@ protocol StoreProtocol: AnyObject {
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
-	var dmKillDeviceTimeCheck: Bool { get set }
-
 	var forceAPITokenAuthorization: Bool { get set }
 	
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
 
 	#endif
 
+}
+
+protocol DeviceTimeChecking: AnyObject {
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
+	var deviceTimeLastStateChange: Date { get set }
+	var wasDeviceTimeErrorShown: Bool { get set }
+	#if !RELEASE
+	var dmKillDeviceTimeCheck: Bool { get set }
+	#endif
 }
 
 protocol AppConfigCaching: AnyObject {
@@ -263,6 +264,7 @@ protocol Store:
 	StoreProtocol,
 	VaccinationCaching,
 	WarnOthersTimeIntervalStoring,
-	DSCListCaching
+	DSCListCaching,
+	DeviceTimeChecking
 {}
 // swiftlint:enable all
