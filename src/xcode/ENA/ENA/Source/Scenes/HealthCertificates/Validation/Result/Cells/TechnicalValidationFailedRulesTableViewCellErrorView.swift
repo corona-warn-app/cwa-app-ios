@@ -71,7 +71,7 @@ class TechnicalValidationFailedRulesTableViewCellErrorView: UIView {
 			]
 		)
 		
-		accessibilityElements = [failureDescriptionLabel]
+		accessibilityElements = [failureDescriptionLabel, expirationDateTitleLabel, expirationDateLabel].filter { !$0.isHidden }
 	}
 	
 	required init?(coder: NSCoder) {
