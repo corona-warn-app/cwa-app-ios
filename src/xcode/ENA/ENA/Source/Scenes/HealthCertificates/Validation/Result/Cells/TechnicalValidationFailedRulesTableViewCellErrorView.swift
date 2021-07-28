@@ -59,11 +59,10 @@ class TechnicalValidationFailedRulesTableViewCellErrorView: UIView {
 		
 		NSLayoutConstraint.activate(
 			[
-				failureIconImageView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16.0),
+				failureIconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 22.0),
 				failureIconImageView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16.0),
 				failureIconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
 				failureIconImageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -16.0),
-				failureIconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
 				
 				labelsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
 				labelsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
