@@ -234,11 +234,11 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completion(nil)
 			activated = true
 		}
-		
-		// Sometimes the ENF is broken. So we check after 5 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 5 seconds should be enough time to wait.
-		DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+
+		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 5 seconds should be enough time to wait.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			if !activated {
-				Log.error("Could not activate ENF within 5 seconds. Proceed with deactivated ENF")
+				Log.error("Could not activate ENF within 3 seconds. Proceed with deactivated ENF")
 				completion(ExposureNotificationError.notResponding)
 			}
 		}
@@ -273,10 +273,10 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completion(nil)
 		}
 		
-		// Sometimes the ENF is broken. So we wait 2 seconds to ensure the changed applied. Mostly, the ENF responding instantly, so we check after 2 seconds and show then an alert.
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+		// Sometimes the ENF is broken. So we wait 1 seconds to ensure the changed applied. Mostly, the ENF responding instantly, so we check after 2 seconds and show then an alert.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			if !changed {
-				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 2 seconds. Show alert.")
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 1 seconds. Show alert.")
 				completion(ExposureNotificationError.notResponding)
 			}
 		}
