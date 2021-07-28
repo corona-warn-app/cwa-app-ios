@@ -120,7 +120,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 		return url
 	}
 
-	/// get the  cached or default config
+	/// get the cached or default config
 	private static var defaultAppConfig: SAP_Internal_V2_ApplicationConfigurationIOS {
 		guard
 			let data = try? Data(contentsOf: self.defaultAppConfigPath),

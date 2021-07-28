@@ -40,19 +40,15 @@ class LocalStatisticsProviderTests: CWATestCase {
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock()
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
-			.sink(receiveCompletion: { result in
-				switch result {
-				case .finished:
-					break
-				case .failure(let error):
-					XCTFail(error.localizedDescription)
-				}
-			}, receiveValue: { localStatistics in
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake", completion: { result in
+			switch result {
+			case .success(let localStatistics):
 				XCTAssertNotNil(localStatistics)
 				valueReceived.fulfill()
-			})
-			.store(in: &subscriptions)
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			}
+		})
 		
 		waitForExpectations(timeout: .short)
 	}
@@ -67,18 +63,14 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
-			.sink(receiveCompletion: { result in
-				switch result {
-				case .finished:
-					break
-				case .failure(let error):
-					XCTAssertEqual(error.localizedDescription, expectedError.errorDescription)
-				}
-			}, receiveValue: { _ in
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake", completion: { result in
+			switch result {
+			case .success:
 				XCTFail("Did not expect a value")
-			})
-			.store(in: &subscriptions)
+			case .failure(let error):
+				XCTAssertEqual(error.localizedDescription, expectedError.errorDescription)
+			}
+		})
 	}
 	
 	func testLocalStatisticsProvidingHTTP304() throws {
@@ -101,19 +93,16 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(groupID: "1", eTag: "fake")
-			.sink(receiveCompletion: { result in
-				switch result {
-				case .finished:
-					break
-				case .failure(let error):
-					XCTFail("Did not expect an error, got: \(error)")
-				}
-			}, receiveValue: { value in
+		provider.latestLocalStatistics(groupID: "1", eTag: "fake", completion: { result in
+			switch result {
+			case .success(let value):
 				XCTAssertNotNil(value)
 				valueNotChangedExpectation.fulfill()
-			})
-			.store(in: &subscriptions)
+			case .failure(let error):
+				XCTFail("Did not expect an error, got: \(error)")
+			}
+			
+		})
 		
 		waitForExpectations(timeout: .medium)
 	}
