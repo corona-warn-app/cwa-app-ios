@@ -302,6 +302,44 @@ class HealthCertificateService {
 		unseenTestCertificateCount.value = store.unseenTestCertificateCount
 	}
 
+	func updateValidityStates() {
+		appConfiguration.appConfiguration()
+			.sink { [weak self] appConfiguration in
+				guard let self = self else { return }
+
+				self.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+					healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+						let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
+						let expiringSoonDate = Calendar.current.date(
+							byAdding: .day,
+							value: -Int(expirationThresholdInDays),
+							to: healthCertificate.expirationDate
+						)
+
+						let signatureVerificationResult = self.signatureVerifying.verify(
+							certificate: healthCertificate.base45,
+							with: self.dscListProvider.signingCertificates.value,
+							and: Date()
+						)
+
+						switch signatureVerificationResult {
+						case .success:
+							if Date() >= healthCertificate.expirationDate {
+								healthCertificate.validityState = .expired
+							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+								healthCertificate.validityState = .expiringSoon
+							} else {
+								healthCertificate.validityState = .valid
+							}
+						case .failure:
+							healthCertificate.validityState = .invalid
+						}
+					}
+				}
+			}
+			.store(in: &subscriptions)
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
@@ -457,44 +495,6 @@ class HealthCertificateService {
 			.forEach { index, person in
 				person.gradientType = gradientTypes[index % 3]
 			}
-	}
-
-	private func updateValidityStates() {
-		appConfiguration.appConfiguration()
-			.sink { [weak self] appConfiguration in
-				guard let self = self else { return }
-
-				self.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-					healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-						let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
-						let expiringSoonDate = Calendar.current.date(
-							byAdding: .day,
-							value: -Int(expirationThresholdInDays),
-							to: healthCertificate.expirationDate
-						)
-
-						let signatureVerificationResult = self.signatureVerifying.verify(
-							certificate: healthCertificate.base45,
-							with: self.dscListProvider.signingCertificates.value,
-							and: Date()
-						)
-
-						switch signatureVerificationResult {
-						case .success:
-							if Date() >= healthCertificate.expirationDate {
-								healthCertificate.validityState = .expired
-							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-								healthCertificate.validityState = .expiringSoon
-							} else {
-								healthCertificate.validityState = .valid
-							}
-						case .failure:
-							healthCertificate.validityState = .invalid
-						}
-					}
-				}
-			}
-			.store(in: &subscriptions)
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
