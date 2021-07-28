@@ -42,7 +42,7 @@ class TechnicalValidationFailedRulesTableViewCellErrorView: UIView {
 		
 		let expirationDateLabel = StackViewLabel()
 		expirationDateLabel.style = .subheadline
-		expirationDateLabel.numberOfLines = 1
+		expirationDateLabel.numberOfLines = 0
 		expirationDateLabel.textColor = .enaColor(for: .textPrimary1)
 		labelsStackView.addArrangedSubview(expirationDateLabel)
 		
