@@ -15,7 +15,7 @@ enum Route {
 		}
 		self.init(url: url)
 	}
-	// swiftlint:disable:next cyclomatic_complexity superfluous_disable_command
+	// swiftlint:disable:next cyclomatic_complexity
 	init?(url: URL) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
 		guard let host = components?.host?.lowercased() else {
