@@ -10,13 +10,13 @@ final class ValidityService {
 	// MARK: - Init
 
 	init(
+		appConfigurationProvider: AppConfigurationProviding,
 		dscListProviding: DSCListProviding,
-		healthCertificateService: HealthCertificateService,
-		appConfigurationProvider: AppConfigurationProviding
+		healthCertificateService: HealthCertificateService
 	) {
+		self.appConfigurationProvider = appConfigurationProvider
 		self.dscListProviding = dscListProviding
 		self.healthCertificateService = healthCertificateService
-		self.appConfigurationProvider = appConfigurationProvider
 
 		// we are done with init - now let's start watching for some updates
 		self.subscribeAppConfigUpdates()
@@ -33,9 +33,9 @@ final class ValidityService {
 
 	// MARK: - Private
 
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let dscListProviding: DSCListProviding
 	private let healthCertificateService: HealthCertificateService
-	private let appConfigurationProvider: AppConfigurationProviding
 
 	private var subscriptions = Set<AnyCancellable>()
 
