@@ -40,7 +40,6 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 		clearErrorViews()
 				
 		if signatureInvalid {
-			addErrorViewSeparator()
 			errorViewsStackView.addArrangedSubview(TechnicalValidationFailedRulesTableViewCellErrorView(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateNotValid, expirationDate: nil))
 		}
 		
