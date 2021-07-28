@@ -363,7 +363,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifying: dccSignatureVerificationService,
+			dscListProvider: dscListProvider
 		)
 	}()
 	
