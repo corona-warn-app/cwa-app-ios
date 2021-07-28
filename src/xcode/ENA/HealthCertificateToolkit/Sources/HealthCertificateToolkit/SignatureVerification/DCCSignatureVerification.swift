@@ -68,27 +68,26 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
         // 4. Determine 'signed payload'
 
         let signedPayload = CBOR.array([
-            CBOR.utf8String("Signature1"),
+            "Signature1",
             CBOR.byteString(protectedHeaderBytes),
             CBOR.byteString([UInt8]()),
             CBOR.byteString(payloadBytes)
         ]).encode()
 
         // 5. Determine 'signed payload hash'
-
-        // ToDo
+        // Skip this step because the payload hash is not needed.
 
         // 6. Determine 'verifier'
 
         let verifier: Data
         switch algorithm {
         case .PS256:
+            verifier = Data(signature)
+        case .ES256:
             guard let ecdsaSignature = ECDSA.convertSignatureData(Data(signature)) else {
                 return .failure(.HC_COSE_ECDSA_SPLITTING_FAILED)
             }
             verifier = Data(ecdsaSignature)
-        case .ES256:
-            verifier = Data(signature)
         }
 
         // 7. Filter DSCs for 'DSCs to test'
@@ -158,7 +157,6 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
         let containsAnyTestCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
             return ExtendedKeyUsageObjectIdentifier.testIssuer.contains($0)
         }
-
         if containsAnyTestCertificateKeyUsage && !certificate.isTestCertificate {
             return .failure(.HC_DSC_OID_MISMATCH_TC)
         }
@@ -166,7 +164,6 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
         let containsAnyVaccinationCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
             return ExtendedKeyUsageObjectIdentifier.vaccinationIssuer.contains($0)
         }
-
         if containsAnyVaccinationCertificateKeyUsage && !certificate.isVaccinationCertificate {
             return .failure(.HC_DSC_OID_MISMATCH_VC)
         }
@@ -174,7 +171,6 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
         let containsAnyRecoveryCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
             return ExtendedKeyUsageObjectIdentifier.recoveryIssuer.contains($0)
         }
-
         if containsAnyRecoveryCertificateKeyUsage && !certificate.isRecoveryCertificate {
             return .failure(.HC_DSC_OID_MISMATCH_RC)
         }
@@ -196,7 +192,6 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
         }
     }
 
-    // TODO: Test because of negativeInt or tag.
     func determineAlgorithm(from coseEntries: [CBOR]) -> Result<Algorithm, DCCSignatureVerificationError> {
         guard case let .byteString(protectedHeaderBytes) = coseEntries[0],
            let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),

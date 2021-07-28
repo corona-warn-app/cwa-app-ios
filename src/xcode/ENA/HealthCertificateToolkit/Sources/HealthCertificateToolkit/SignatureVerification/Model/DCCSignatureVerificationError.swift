@@ -4,7 +4,7 @@
 
 import Foundation
 
-public enum DCCSignatureVerificationError: Error {
+public enum DCCSignatureVerificationError: Error, Equatable {
     case HC_CBOR_DECODING_FAILED(CertificateDecodingError)
     case HC_COSE_PH_INVALID
     case HC_COSE_NO_SIGN1

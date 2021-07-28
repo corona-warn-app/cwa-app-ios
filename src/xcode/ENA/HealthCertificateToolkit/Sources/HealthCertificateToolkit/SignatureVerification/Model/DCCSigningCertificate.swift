@@ -6,8 +6,8 @@ import Foundation
 import Security
 import CryptoKit
 
-public struct DCCSigningCertificate: Hashable {
-    
+public struct DCCSigningCertificate: Codable, Hashable {
+
     let kid: Data
     let data: Data
 
