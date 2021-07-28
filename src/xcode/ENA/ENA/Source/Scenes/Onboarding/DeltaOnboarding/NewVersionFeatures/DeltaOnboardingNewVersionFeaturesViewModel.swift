@@ -86,6 +86,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	
 	private func buildNewFeaturesCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
+		// enaFont(for style: ENAFont, weight: UIFont.Weight? = nil, italic: Bool = false)
 		let boldTextAttribute: [NSAttributedString.Key: Any] = [
 			NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
 		]
