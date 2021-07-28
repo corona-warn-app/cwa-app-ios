@@ -223,8 +223,6 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		Log.info("Trying to activate ENManager.")
 		
 		var activated = false
-		var retries = 0
-		let timeout = 5
 		
 		manager.activate { activationError in
 			if let activationError = activationError {
@@ -232,25 +230,16 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
+			Log.info("Activated ENF successfully.")
+			completion(nil)
 			activated = true
 		}
 		
-		// Sometimes the ENF is broken. So we wait 5 seconds until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 5 seconds should be enough time to wait.
-		Timer.scheduledTimer(
-			withTimeInterval: 1,
-			repeats: true
-		) { timer in
-			if activated {
-				Log.info("Activated ENF within \(retries) seconds successfully.")
-				timer.invalidate()
-				completion(nil)
-			} else if retries >= timeout {
-				timer.invalidate()
-				Log.error("Could not activate ENF within \(retries) seconds. Proceed with deactivated ENF")
+		// Sometimes the ENF is broken. So we check after 5 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 5 seconds should be enough time to wait.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+			if !activated {
+				Log.error("Could not activate ENF within 5 seconds. Proceed with deactivated ENF")
 				completion(ExposureNotificationError.notResponding)
-			} else {
-				Log.warning("Could not activate ENF within \(retries) seconds. Retry in 1 second.")
-				retries += 1
 			}
 		}
 	}
@@ -273,35 +262,22 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		Log.info("Trying to change ENManager.setExposureNotificationEnabled to \(status).")
 
 		var changed = false
-		var retries = 0
-		let timeout = 2
-		
-		
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
 				self.handleENError(error: error, completion: completion)
 				return
 			}
+			Log.error("Successfully changed ENManager.setExposureNotificationEnabled to \(status).", log: .api)
 			changed = true
+			completion(nil)
 		}
 		
-		// Sometimes the ENF is broken. So we wait 2 seconds until we show an alert. Mostly, the ENF responding instantly, so 2 seconds should be enough time to wait.
-		Timer.scheduledTimer(
-			withTimeInterval: 1,
-			repeats: true
-		) { timer in
-			if changed {
-				Log.info("Activated ENF within \(retries) seconds successfully.")
-				timer.invalidate()
-				completion(nil)
-			} else if retries >= timeout {
-				timer.invalidate()
-				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within \(retries) seconds. Show alert.")
+		// Sometimes the ENF is broken. So we wait 2 seconds to ensure the changed applied. Mostly, the ENF responding instantly, so we check after 2 seconds and show then an alert.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+			if !changed {
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 2 seconds. Show alert.")
 				completion(ExposureNotificationError.notResponding)
-			} else {
-				Log.warning("Failed to change ENManager.setExposureNotificationEnabled to \(status) within \(retries) seconds. Retry in 1 second.")
-				retries += 1
 			}
 		}
 	}
