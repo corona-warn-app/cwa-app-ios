@@ -59,6 +59,13 @@ enum Route {
 				// non-personalized code
 				recomputedHashString = ENAHasher.sha256(timestamp + "#" + salt)
 			} else {
+							
+				guard !firstName.isEmpty && !lastName.isEmpty && !dateOfBirthString.isEmpty else {
+					self = .rapidAntigen( .failure(.invalidTestCode(.invalidTestedPersonInformation)))
+					Log.error("Antigen test data for personalized code is not valid: firstName \(private: firstName), lastName \(private: lastName), dateOfBirthString: \(private: dateOfBirthString)", log: .qrCode)
+					return
+				}
+				
 				// personalized code
 				var informationArray = [String]()
 				informationArray.append(dateOfBirthString)
