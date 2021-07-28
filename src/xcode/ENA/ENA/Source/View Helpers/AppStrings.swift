@@ -2173,7 +2173,6 @@ enum AppStrings {
 					static let subtitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_subtitle", comment: "")
 					static let failedSectionTitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_failedSectionTitle", comment: "")
 					static let failedSectionDescription = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_failedSectionDescription", comment: "")
-					static let notValidDateFormat = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_notValidDateFormat", comment: "")
 					static let certificateNotValid = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_certificateNotValid", comment: "")
 					static let technicalExpirationDatePassed = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed", comment: "")
 					static let expirationDateTitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_expirationDateTitle", comment: "")
