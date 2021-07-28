@@ -303,41 +303,36 @@ class HealthCertificateService {
 	}
 
 	func updateValidityStates() {
-		appConfiguration.appConfiguration()
-			.sink { [weak self] appConfiguration in
-				guard let self = self else { return }
+		let appConfiguration = appConfiguration.currentAppConfig.value
+		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
+				let expiringSoonDate = Calendar.current.date(
+					byAdding: .day,
+					value: -Int(expirationThresholdInDays),
+					to: healthCertificate.expirationDate
+				)
 
-				self.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-					healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-						let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
-						let expiringSoonDate = Calendar.current.date(
-							byAdding: .day,
-							value: -Int(expirationThresholdInDays),
-							to: healthCertificate.expirationDate
-						)
+				let signatureVerificationResult = self.signatureVerifying.verify(
+					certificate: healthCertificate.base45,
+					with: self.dscListProvider.signingCertificates.value,
+					and: Date()
+				)
 
-						let signatureVerificationResult = self.signatureVerifying.verify(
-							certificate: healthCertificate.base45,
-							with: self.dscListProvider.signingCertificates.value,
-							and: Date()
-						)
-
-						switch signatureVerificationResult {
-						case .success:
-							if Date() >= healthCertificate.expirationDate {
-								healthCertificate.validityState = .expired
-							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-								healthCertificate.validityState = .expiringSoon
-							} else {
-								healthCertificate.validityState = .valid
-							}
-						case .failure:
-							healthCertificate.validityState = .invalid
-						}
+				switch signatureVerificationResult {
+				case .success:
+					if Date() >= healthCertificate.expirationDate {
+						healthCertificate.validityState = .expired
+					} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+						healthCertificate.validityState = .expiringSoon
+					} else {
+						healthCertificate.validityState = .valid
 					}
+				case .failure:
+					healthCertificate.validityState = .invalid
 				}
 			}
-			.store(in: &subscriptions)
+		}
 	}
 
 	// MARK: - Private
@@ -352,6 +347,10 @@ class HealthCertificateService {
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
+
+	// Validation Service
+	private var lastKnowAppConfigurationHash: Int?
+	private var lastKnownDccCertificatesHash: Int?
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -379,6 +378,42 @@ class HealthCertificateService {
 		subscribeToNotifications()
 		updateGradients()
 		updateValidityStates()
+
+		// Validation Service
+		subscribeAppConfigUpdates()
+		subscribeDSCListChanges()
+	}
+
+	private func subscribeAppConfigUpdates() {
+		// subscribe app config updates
+		appConfiguration.currentAppConfig
+			.sink { [weak self] configuration in
+				// only revalidate state if configuration has changed
+				let hash = configuration.hashValue
+				guard self?.lastKnowAppConfigurationHash != hash else {
+					Log.info("AppConfig change seems to be no real change - ignored")
+					return
+				}
+				self?.lastKnowAppConfigurationHash = hash
+				self?.updateValidityStates()
+			}
+			.store(in: &subscriptions)
+	}
+
+	private func subscribeDSCListChanges() {
+		// subscribe to changes of dcc certificates list
+		dscListProvider.signingCertificates
+			.sink { [weak self] dccCertificates in
+				// only revalidate state if configuration has changed
+				let hash = dccCertificates.hashValue
+				guard  self?.lastKnownDccCertificatesHash != hash else {
+					Log.info("dccCertificates change seems to be no real change - ignored")
+					return
+				}
+				self?.lastKnownDccCertificatesHash = hash
+				self?.updateValidityStates()
+			}
+			.store(in: &subscriptions)
 	}
 
 	#if DEBUG
