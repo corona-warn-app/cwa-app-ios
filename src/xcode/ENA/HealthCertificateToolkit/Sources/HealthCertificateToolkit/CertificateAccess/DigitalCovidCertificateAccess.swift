@@ -89,6 +89,30 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             .map { reassembleCose(webTokenEntries: webTokenEntries, payload: $0) }
     }
 
+    func extractKeyIdentifier(from coseEntries: [CBOR]) -> Result<Base64, CertificateDecodingError> {
+        if case let .byteString(protectedHeaderBytes) = coseEntries[0],
+           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
+           case let .byteString(keyIdentifierBytes) = protectedHeaderCBOR[4] {
+            return .success(Data(keyIdentifierBytes).base64EncodedString())
+        }
+
+        let unprotectedHeaderCBOR = coseEntries[1]
+        if case let .byteString(keyIdentifierBytes) = unprotectedHeaderCBOR[4] {
+            return .success(Data(keyIdentifierBytes).base64EncodedString())
+        }
+
+        return .failure(.HC_COSE_NO_KEYIDENTIFIER)
+    }
+
+    func extractCOSEPayload(from coseEntries: [CBOR]) -> Result<Data, CertificateDecodingError> {
+        let payload = coseEntries[2]
+        if case let .byteString(payloadBytes) = payload {
+            return .success(Data(payloadBytes))
+        } else {
+            return .failure(.HC_COSE_MESSAGE_INVALID)
+        }
+    }
+
     // MARK: - Private
 
     private func reassembleCose(webTokenEntries: [CBOR], payload: Data) -> CBOR {
@@ -104,30 +128,6 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         ])
 
         return CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
-    }
-
-    private func extractCOSEPayload(from coseEntries: [CBOR]) -> Result<Data, CertificateDecodingError> {
-        let payload = coseEntries[2]
-        if case let .byteString(payloadBytes) = payload {
-            return .success(Data(payloadBytes))
-        } else {
-            return .failure(.HC_COSE_MESSAGE_INVALID)
-        }
-    }
-
-    private func extractKeyIdentifier(from coseEntries: [CBOR]) -> Result<Base64, CertificateDecodingError> {
-        if case let .byteString(protectedHeaderBytes) = coseEntries[0],
-           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
-           case let .byteString(keyIdentifierBytes) = protectedHeaderCBOR[4] {
-            return .success(Data(keyIdentifierBytes).base64EncodedString())
-        }
-
-        let unprotectedHeaderCBOR = coseEntries[1]
-        if case let .byteString(keyIdentifierBytes) = unprotectedHeaderCBOR[4] {
-            return .success(Data(keyIdentifierBytes).base64EncodedString())
-        }
-
-        return .failure(.HC_COSE_NO_KEYIDENTIFIER)
     }
 
     private func decryptPayload(payload: Data, dataEncryptionKey: Data) -> Result<Data, CertificateDecodingError> {
