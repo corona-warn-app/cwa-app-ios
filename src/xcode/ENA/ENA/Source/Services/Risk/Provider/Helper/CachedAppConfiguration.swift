@@ -228,8 +228,9 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 			promise(result)
 		}
 
-		if case let .success(appConfig) = result {
-			currentAppConfig.value = appConfig.config
+		if case let .success(appConfigResponse) = result,
+		   currentAppConfig.value != appConfigResponse.config {
+			currentAppConfig.value = appConfigResponse.config
 		}
 
 		promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
