@@ -22,14 +22,12 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		firstNameTextField = textField()
 		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder
 		firstNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField
-		firstNameTextField.textContentType = .givenName
 		contentView.addSubview(firstNameTextField)
 		textFields.append(firstNameTextField)
 
 		lastNameTextField = textField()
 		lastNameTextField.placeholder = AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder
 		lastNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.lastNameTextField
-		lastNameTextField.textContentType = .familyName
 		contentView.addSubview(lastNameTextField)
 		textFields.append(lastNameTextField)
 
@@ -43,7 +41,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		addressLineTextField = textField()
 		addressLineTextField.placeholder = AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder
 		addressLineTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.streetTextField
-		addressLineTextField.textContentType = .streetAddressLine1
 		contentView.addSubview(addressLineTextField)
 		textFields.append(addressLineTextField)
 
@@ -51,14 +48,12 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		postalCodeTextField.placeholder = AppStrings.AntigenProfile.Create.postalCodeTextFieldPlaceholder
 		postalCodeTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.postalCodeTextField
 		postalCodeTextField.keyboardType = .asciiCapableNumberPad
-		postalCodeTextField.textContentType = .postalCode
 		contentView.addSubview(postalCodeTextField)
 		textFields.append(postalCodeTextField)
 
 		cityTextField = textField()
 		cityTextField.placeholder = AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder
 		cityTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.cityTextField
-		cityTextField.textContentType = .addressCity
 		contentView.addSubview(cityTextField)
 		textFields.append(cityTextField)
 
@@ -66,7 +61,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		phoneNumberTextField.placeholder = AppStrings.AntigenProfile.Create.phoneNumberTextFieldPlaceholder
 		phoneNumberTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.phoneNumberTextField
 		phoneNumberTextField.keyboardType = .phonePad
-		phoneNumberTextField.textContentType = .telephoneNumber
 		contentView.addSubview(phoneNumberTextField)
 		textFields.append(phoneNumberTextField)
 
@@ -74,7 +68,6 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		emailAddressTextField.placeholder = AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder
 		emailAddressTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField
 		emailAddressTextField.keyboardType = .emailAddress
-		emailAddressTextField.textContentType = .emailAddress
 		contentView.addSubview(emailAddressTextField)
 		textFields.append(emailAddressTextField)
 
