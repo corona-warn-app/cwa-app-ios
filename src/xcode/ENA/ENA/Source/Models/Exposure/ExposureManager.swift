@@ -222,7 +222,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func activate(completion: @escaping CompletionHandler) {
 		Log.info("Trying to activate ENManager.")
 		
-		var activated = false
+		var isActive = false
 		
 		manager.activate { activationError in
 			if let activationError = activationError {
@@ -232,12 +232,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			}
 			Log.info("Activated ENF successfully.")
 			completion(nil)
-			activated = true
+			isActive = true
 		}
 
 		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 3 seconds should be enough time to wait.
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-			if !activated {
+			if !isActive {
 				Log.error("Could not activate ENF within 3 seconds. Proceed with deactivated ENF")
 				completion(ExposureNotificationError.notResponding)
 			}
@@ -261,7 +261,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
 		Log.info("Trying to change ENManager.setExposureNotificationEnabled to \(status).")
 
-		var changed = false
+		var hasChanged = false
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
@@ -269,13 +269,13 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				return
 			}
 			Log.error("Successfully changed ENManager.setExposureNotificationEnabled to \(status).", log: .api)
-			changed = true
+			hasChanged = true
 			completion(nil)
 		}
 		
 		// Sometimes the ENF is broken. So we wait 1 seconds to ensure the changed applied. Mostly, the ENF responding instantly, so we check after 2 seconds and show then an alert.
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			if !changed {
+			if !hasChanged {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 1 seconds. Show alert.")
 				completion(ExposureNotificationError.notResponding)
 			}
