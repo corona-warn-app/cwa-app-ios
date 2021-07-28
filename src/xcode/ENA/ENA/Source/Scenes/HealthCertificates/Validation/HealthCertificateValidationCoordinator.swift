@@ -45,7 +45,6 @@ final class HealthCertificateValidationCoordinator {
 
 	// MARK: Show Screens
 
-	// swiftlint:disable pattern_matching_keywords
 	private lazy var validationScreen: UIViewController = {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Validation.buttonTitle,
