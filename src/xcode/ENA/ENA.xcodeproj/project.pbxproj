@@ -4395,6 +4395,7 @@
 			isa = PBXGroup;
 			children = (
 				50B9133626B1AF280005C8D8 /* __test__ */,
+				50B9133726B1AF480005C8D8 /* HealthCertificateNotificationService.swift */,
 			);
 			path = HealthCertificateNotification;
 			sourceTree = "<group>";
@@ -4402,7 +4403,6 @@
 		50B9133626B1AF280005C8D8 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
-				50B9133726B1AF480005C8D8 /* HealthCertificateNotificationService.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
