@@ -20,7 +20,7 @@ let package = Package(
         .package(url: "https://github.com/corona-warn-app/base45-swift", .branch("distribution/swiftpackage")),
         .package(name: "JSONSchema", url: "https://github.com/eu-digital-green-certificates/JSONSchema.swift", .upToNextMajor(from: "0.6.0")),
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0")),
-        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("8b7f86a2aed4f2c60dd2c7c4f28eb129d9fe379d")),
+        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("8f07a22ec2adc2335b4a4cb75b408c8c93d86208")),
         .package(url: "https://github.com/filom/ASN1Decoder", .upToNextMajor(from: "1.8.0"))
     ],
     targets: [
