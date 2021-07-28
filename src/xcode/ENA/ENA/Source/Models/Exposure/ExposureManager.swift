@@ -235,7 +235,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			activated = true
 		}
 
-		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 5 seconds should be enough time to wait.
+		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 3 seconds should be enough time to wait.
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			if !activated {
 				Log.error("Could not activate ENF within 3 seconds. Proceed with deactivated ENF")
