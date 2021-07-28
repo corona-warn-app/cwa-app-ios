@@ -319,6 +319,18 @@ extension HTTPClient {
 					rulePath
 				)
 		}
+
+		var DSCListURL: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					"dscs"
+				)
+		}
+
 	}
 }
 

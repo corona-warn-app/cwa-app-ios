@@ -62,7 +62,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 
 		#if targetEnvironment(simulator) && DEBUG
 			if !isUITesting {
-				let healthCertificate = HealthCertificate.mock(base45: HealthCertificate.lastBase45Mock)
+				let healthCertificate = HealthCertificate.mock(base45: HealthCertificateMocks.lastBase45Mock)
 				didScanCertificate(HealthCertifiedPerson(healthCertificates: [healthCertificate]), healthCertificate)
 			}
 		#endif
@@ -157,9 +157,9 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		#if DEBUG
 		if isUITesting {
 			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				viewModel?.didScan(base45: HealthCertificate.lastBase45Mock)
+				viewModel?.didScan(base45: HealthCertificateMocks.lastBase45Mock)
 			} else {
-				viewModel?.didScan(base45: HealthCertificate.firstBase45Mock)
+				viewModel?.didScan(base45: HealthCertificateMocks.firstBase45Mock)
 			}
 
 			return

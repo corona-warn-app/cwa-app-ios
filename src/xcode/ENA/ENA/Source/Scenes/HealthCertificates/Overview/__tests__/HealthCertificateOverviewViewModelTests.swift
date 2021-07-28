@@ -43,6 +43,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 		HealthCertificateService(
 			store: MockTestStore(),
 			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)

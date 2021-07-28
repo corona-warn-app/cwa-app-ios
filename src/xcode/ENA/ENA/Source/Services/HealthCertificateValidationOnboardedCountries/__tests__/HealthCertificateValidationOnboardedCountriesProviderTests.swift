@@ -273,7 +273,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_NO_NETWORK)
 	}
-	
+
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NotModified_THEN_ONBOARDED_COUNTRIES_MISSING_CACHEIsReturned() {
 		// GIVEN
 		let client = ClientMock()
@@ -367,8 +367,8 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_SERVER_ERROR)
 	}
-	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_DefaultHTTPError_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
+
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NoResponse_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {
 		// GIVEN
 		let client = ClientMock()
 		client.onValidationOnboardedCountries = { _, completion in
@@ -380,9 +380,9 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			client: client,
 			signatureVerifier: MockVerifier()
 		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
+		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_NO_NETWORK")
 		var receivedError: HealthCertificateValidationOnboardedCountriesError?
-	
+
 		// WHEN
 		provider.onboardedCountries(completion: { result in
 			switch result {
@@ -393,12 +393,12 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 				expectation.fulfill()
 			}
 		})
-	
+
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_SERVER_ERROR)
+		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_NO_NETWORK)
 	}
-			
+
 	private lazy var dummyOnboardedCountriesResponse: PackageDownloadResponse = {
 		let fakeData = onboardedCountriesCBORDataFake
 				

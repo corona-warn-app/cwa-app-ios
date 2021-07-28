@@ -150,16 +150,13 @@ class HomeState: ENStateHandlerUpdating {
 		
 		// selected Region is not there in persisted Regions
 		if selectedLocalStatisticsRegion == nil {
-			// persist the Region to the list of selected Regions
-			store.selectedLocalStatisticsRegions.append(region)
-			
 			DispatchQueue.main.async { [weak self] in
 				self?.updateLocalStatistics(selectedLocalStatisticsRegion: region)
 			}
 		}
 	}
 
-	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
+	private func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
 		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil)
 			.sink(
 				receiveCompletion: { [weak self] result in
@@ -174,6 +171,8 @@ class HomeState: ENStateHandlerUpdating {
 						Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
 					}
 				}, receiveValue: { [weak self] in
+					// persist the Region to the list of selected Regions
+					self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
 					self?.localStatistics = $0
 				}
 			)

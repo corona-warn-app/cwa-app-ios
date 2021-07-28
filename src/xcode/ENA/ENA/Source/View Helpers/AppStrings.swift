@@ -2115,11 +2115,12 @@ enum AppStrings {
 			static let bullet2 = NSLocalizedString("HealthCertificate_Validation_Bullet2", comment: "")
 			static let bullet3 = NSLocalizedString("HealthCertificate_Validation_Bullet3", comment: "")
 			static let bullet4 = NSLocalizedString("HealthCertificate_Validation_Bullet4", comment: "")
-			static let body3 = NSLocalizedString("HealthCertificate_Validation_Body3", comment: "")
 			static let legalTitle = NSLocalizedString("HealthCertificate_Validation_Legal_Title", comment: "")
 			static let legalDescription = NSLocalizedString("HealthCertificate_Validation_Legal_Description", comment: "")
 			static let body4 = NSLocalizedString("HealthCertificate_Validation_Body4", comment: "")
 			static let buttonTitle = NSLocalizedString("HealthCertificate_Validation_ButtonTitle", comment: "")
+			static let moreInformation = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation", comment: "")
+			static let moreInformationPlaceholderFAQ = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ", comment: "")
 
 			enum Info {
 				static let imageDescription = NSLocalizedString("HealthCertificate_Validation_Info_imageDescription", comment: "")
@@ -2138,8 +2139,6 @@ enum AppStrings {
 				static let validationParameters = NSLocalizedString("HealthCertificate_Validation_Result_validationParameters", comment: "")
 				static let acceptanceRule = NSLocalizedString("HealthCertificate_Validation_Result_acceptanceRule", comment: "")
 				static let invalidationRule = NSLocalizedString("HealthCertificate_Validation_Result_invalidationRule", comment: "")
-				static let moreInformation = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation", comment: "")
-				static let moreInformationPlaceholderFAQ = NSLocalizedString("HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ", comment: "")
 
 				enum Passed {
 					static let title = NSLocalizedString("HealthCertificate_Validation_Passed_title", comment: "")

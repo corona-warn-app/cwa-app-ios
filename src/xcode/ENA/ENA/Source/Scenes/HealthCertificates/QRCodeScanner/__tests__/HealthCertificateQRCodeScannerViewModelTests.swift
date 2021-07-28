@@ -52,6 +52,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: MockTestStore(),
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -86,6 +87,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: MockTestStore(),
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),
@@ -122,6 +124,7 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: MockTestStore(),
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: ClientMock(),
 				appConfiguration: CachedAppConfigurationMock()
 			),

@@ -21,6 +21,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: store,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)
@@ -114,6 +115,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 			healthCertificateService: HealthCertificateService(
 				store: store,
 				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)

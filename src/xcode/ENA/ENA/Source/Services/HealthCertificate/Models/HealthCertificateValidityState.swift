@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum HealthCertificateValidityState {
+enum HealthCertificateValidityState: Int, Codable {
 	case valid
 	case expiringSoon
 	case expired
