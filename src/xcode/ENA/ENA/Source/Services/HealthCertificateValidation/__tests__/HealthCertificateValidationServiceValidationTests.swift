@@ -38,6 +38,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let validationResults = [
 			ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed),
 			ValidationResult(rule: Rule.fake(identifier: "B"), result: .passed),
@@ -53,7 +57,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -128,6 +133,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertNotNil(store.acceptanceRulesCache)
 		XCTAssertNotNil(store.invalidationRulesCache)
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -147,7 +156,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -220,6 +230,11 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -241,7 +256,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -306,6 +322,11 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+		
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -327,7 +348,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -392,6 +414,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -402,7 +428,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -449,6 +476,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -459,7 +490,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID)
+			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -508,6 +540,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: cachingClient,
 			store: store
@@ -518,7 +554,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -567,6 +604,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: cachingClient,
 			store: store
@@ -577,7 +618,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -622,6 +664,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: cachingClient,
 			store: store
@@ -632,7 +678,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -677,6 +724,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: cachingClient,
 			store: store
@@ -687,7 +738,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -743,6 +795,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -753,7 +809,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -804,6 +861,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -814,7 +875,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -864,6 +926,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -875,7 +941,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -924,6 +991,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -936,7 +1007,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -984,6 +1056,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -994,7 +1070,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1046,6 +1123,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1056,7 +1137,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1102,6 +1184,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1112,7 +1198,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1159,6 +1246,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1169,7 +1260,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1216,6 +1308,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1226,7 +1322,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1273,6 +1370,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let store = MockTestStore()
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1283,7 +1384,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -1338,6 +1440,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		
 		let store = MockTestStore()
 		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1352,7 +1458,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -1390,6 +1497,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1400,7 +1511,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		
@@ -1423,6 +1535,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	func testGIVEN_ValidationService_WHEN_MappingCertificateTypes_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1433,7 +1549,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		
@@ -1451,6 +1568,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	func testGIVEN_ValidationService_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1461,7 +1582,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		
 		let countryCodes = validationService.allCountryCodes
@@ -1500,6 +1622,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	func testGIVEN_ValidationService_WHEN_MappingUnixTime_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
@@ -1510,7 +1636,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub()
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
 		)
 		// Exact Time for 9.7.2021, 10:30:00
 		let dateToday: UInt64 = 1625826600
@@ -1557,7 +1684,11 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			let mockVerifier = MockVerifier()
 			let mockStore = MockTestStore()
 			let mockClient = ClientMock()
-
+			let dscListProvider = DSCListProvider(
+				client: CachingHTTPClientMock(),
+				store: MockTestStore()
+			)
+			
 			guard let package = try? makeSAPDownloadedPackage(with: testCase.rules) else {
 				XCTFail("Could not create package.")
 				return
@@ -1577,7 +1708,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				vaccinationValueSetsProvider: valueSetsStub,
 				signatureVerifier: mockVerifier,
 				validationRulesAccess: ValidationRulesAccess(),
-				signatureVerifying: DCCSignatureVerifyingStub()
+				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: dscListProvider
 			)
 
 			let certificate = try HealthCertificate(base45: testCase.dcc)

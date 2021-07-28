@@ -364,7 +364,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifying: dccSignatureVerificationService
+			signatureVerifying: dccSignatureVerificationService,
+			dscListProvider: dscListProvider
 		)
 	}()
 	

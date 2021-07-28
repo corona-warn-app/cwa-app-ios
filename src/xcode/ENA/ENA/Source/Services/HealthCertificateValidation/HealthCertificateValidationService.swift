@@ -44,7 +44,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
-		signatureVerifying: DCCSignatureVerifying
+		signatureVerifying: DCCSignatureVerifying,
+		dscListProvider: DSCListProviding
 	) {
 		self.store = store
 		self.client = client
@@ -52,6 +53,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		self.signatureVerifier = signatureVerifier
 		self.validationRulesAccess = validationRulesAccess
 		self.signatureVerifying = signatureVerifying
+		self.dscListProvider = dscListProvider
 	}
 		
 	// MARK: - Protocol HealthCertificateValidationProviding
@@ -67,8 +69,12 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		
 		let signatureInvalid: Bool
 		var signatureValidationError: Error?
-		// DONT FORGET: pass singatures array into this function!
-		let result = signatureVerifying.verify(certificate: healthCertificate.base45, with: [], and: validationClock)
+		
+		let result = signatureVerifying.verify(
+			certificate: healthCertificate.base45,
+			with: dscListProvider.signingCertificates.value,
+			and: validationClock
+		)
 		switch result {
 		case .success:
 			signatureInvalid = false
@@ -109,6 +115,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
 	private let signatureVerifying: DCCSignatureVerifying
+	private let dscListProvider: DSCListProviding
 	private var subscriptions = Set<AnyCancellable>()
 	
 	// MARK: - Flow
