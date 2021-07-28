@@ -38,9 +38,7 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 	func customize(signatureInvalid: Bool, expirationDate: Date?) {
 		
 		clearErrorViews()
-		
-		errorViewsStackView.addArrangedSubview(TechnicalValidationFailedRulesTableViewCellErrorView(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.notValidDateFormat, expirationDate: nil))
-		
+				
 		if signatureInvalid {
 			addErrorViewSeparator()
 			errorViewsStackView.addArrangedSubview(TechnicalValidationFailedRulesTableViewCellErrorView(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateNotValid, expirationDate: nil))
