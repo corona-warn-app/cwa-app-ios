@@ -96,7 +96,7 @@ final class HealthCertificateValidationCoordinator {
 						}
 					case .failure(let error):
 						switch error {
-						case .TECHNICAL_VALIDATION_FAILED(let expirationDate, let signatureInvalid):
+						case let .TECHNICAL_VALIDATION_FAILED(expirationDate, signatureInvalid):
 							self.showTechnicalValidationFailedScreen(
 								arrivalCountry: arrivalCountry,
 								arrivalDate: arrivalDate,
