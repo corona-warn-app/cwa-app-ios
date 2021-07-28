@@ -161,4 +161,50 @@ class RouteTests: CWATestCase {
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidTestedPersonInformation))))
 	}
 
+	func testGIVEN_nonPersonalizedCodeURL_WHEN_Route_THEN_Succeed() throws {
+		// GIVEN
+		let url = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0MDM4MDEsInNhbHQiOiJEQkFDOUU5ODNGQkVDRDc5RDRERkIzMzI3MTUyN0M2NyIsInRlc3RpZCI6ImE5NjIyMjlmLTg3M2EtNDAyNy05NjUxLWJlNWJhZTZkNzVjNSIsImhhc2giOiI1ZGI3ZGI5OGZhMGM2NDYxMWJhZDdhMmQxYzk4MGE1MDc4MzZiM2ZiZWIzNzNiMWNlMGMwNGNmNmUxNjYzNDExIn0"
+		
+		// WHEN
+		let testInformation = try XCTUnwrap(AntigenTestQRCodeInformation(
+												hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
+												timestamp: 1627403801,
+												firstName: nil,
+												lastName: nil,
+												dateOfBirth: nil,
+												testID: "a962229f-873a-4027-9651-be5bae6d75c5",
+												cryptographicSalt: "DBAC9E983FBECD79D4DFB33271527C67",
+												certificateSupportedByPointOfCare: nil
+		))
+		let route = try XCTUnwrap(Route(url))
+
+		// THEN
+		switch route {
+		case .rapidAntigen(.success(let test)):
+			switch test {
+			case .antigen(qrCodeInformation: let qrCodeInformation):
+				XCTAssertEqual(testInformation, qrCodeInformation)
+			case .pcr, .teleTAN:
+				XCTFail("Wrong test. Expected Antigen")
+			}
+		default:
+			XCTFail("Wrong route. Expected .rapidAntigen")
+		}
+	}
+	
+	func testGIVEN_manipulatedNonPersonalizedCodeURL_WHEN_Route_THEN_Fails() throws {
+		// GIVEN
+		let url = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0NjAyNjAsInNhbHQiOiI1OTQyOTAxRDY1OEVBNDNENTk2ODI5REZEREY4QUY3NSIsInRlc3RpZCI6IjQyMGYwNzY1LWYzYWUtNGVhYy05ZTZiLTQ1MDRkNTk5NjIzMyIsImhhc2giOiI2NWVlMDVjMDZhODMzNjJjYzM2NTMxNDFmNDY0ODkwODRmZjA5NDQwZGI0OGZhYzU1MGMxOTZmZWI4NzkyOGMwIn0"
+		
+		// WHEN
+		let route = try XCTUnwrap(Route(url))
+
+		// THEN
+		switch route {
+		case .rapidAntigen(.failure(.invalidTestCode(let error))):
+			XCTAssertEqual(error, .hashMismatch)
+		default:
+			XCTFail("Wrong route. Expected .rapidAntigen")
+		}
+	}
 }
