@@ -13,7 +13,8 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		// Checkout a event checkin.
 		if notification.request.identifier.contains(LocalNotificationIdentifier.checkout.rawValue) {
 			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
-		} else if notification.request.identifier.contains(HealthCertificateNotificationService.notificationIdentifierPrefix) {
+		} else if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpireSoon.rawValue) ||
+					notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpired.rawValue) {
 			// TODO
 		}
 

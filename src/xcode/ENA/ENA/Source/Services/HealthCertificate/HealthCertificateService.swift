@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 import HealthCertificateToolkit
+import UserNotifications
 
 // swiftlint:disable:next type_body_length
 class HealthCertificateService {
@@ -17,7 +18,8 @@ class HealthCertificateService {
 		dscListProvider: DSCListProviding,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
-		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -29,11 +31,8 @@ class HealthCertificateService {
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
-			// TODO: Use/create Mock.
-			self.notificationService = HealthCertificateNotificationService(
-				store: store,
-				appConfigurationProvider: CachedAppConfigurationMock()
-			)
+			// TODO: pass mock here
+			self.notificationCenter = notificationCenter
 			setup()
 			configureForLaunchArguments()
 
@@ -47,10 +46,7 @@ class HealthCertificateService {
 		self.client = client
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
-		self.notificationService = HealthCertificateNotificationService(
-			store: store,
-			appConfigurationProvider: appConfiguration
-		)
+		self.notificationCenter = notificationCenter
 
 		setup()
 	}
@@ -110,7 +106,7 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
-			notificationService.scheduleNotificationAfterCreation(for: healthCertificate)
+			createNotifications(for: healthCertificate)
 			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
@@ -124,7 +120,7 @@ class HealthCertificateService {
 		for healthCertifiedPerson in healthCertifiedPersons.value {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
-				notificationService.scheduleNotificationAfterCreation(for: healthCertificate)
+				removeAllNotifications(for: healthCertificate)
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
@@ -319,7 +315,7 @@ class HealthCertificateService {
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
-	private let notificationService: HealthCertificateNotificationProviding
+	private let notificationCenter: UserNotificationCenter
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
@@ -631,6 +627,144 @@ class HealthCertificateService {
 			completion?(.failure(.decryptionFailed(error)))
 		}
 	}
+	
+	private func refreshNotifications() {
+		
+		// iterate over all certificates and remove their notifications if available and readd them.
+		// this method is call in init() and when updateValueSets is called (and this is called when app config is changed)
+	}
+	
+	private func createNotifications(for healthCertificate: HealthCertificate) {
+		guard let id = healthCertificate.uniqueCertificateIdentifier else {
+			Log.error("Could not schedule notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
+			return
+		}
+		
+		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
+		let expiringSoonDate = Calendar.current.date(
+			byAdding: .day,
+			value: -Int(expirationThresholdInDays),
+			to: healthCertificate.expirationDate
+		)
+		
+		let expirationDate = healthCertificate.expirationDate
+		
+		let dispatchGroup = DispatchGroup()
+		dispatchGroup.enter()
+		self.scheduleNotificationForExpiredSoon(id: id, date: expiringSoonDate, completion: {
+			dispatchGroup.leave()
+		})
+		dispatchGroup.enter()
+		self.scheduleNotificationForExpired(id: id, date: expirationDate, completion: {
+			dispatchGroup.leave()
+		})
+		
+		dispatchGroup.notify(queue: .main) { [weak self] in
+			self?.unseenTestCertificateCount.value += 1
+		}
+	}
+	
+	private func removeAllNotifications(for healthCertificate: HealthCertificate) {
+		guard let id = healthCertificate.uniqueCertificateIdentifier else {
+			Log.error("Could not delete notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
+			return
+		}
+		
+		Log.info("Cancel all notifications for certificate with id: \(id).", log: .checkin)
+		
+		let expireSoonId = LocalNotificationIdentifier.certificateExpireSoon.rawValue + "\(id)"
+		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
 
+		notificationCenter.getPendingNotificationRequests { [weak self] requests in
+			let notificationIds = requests.map {
+				$0.identifier
+			}.filter {
+				$0.contains(expireSoonId) ||
+				$0.contains(expiredId)
+			}
+
+			self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: notificationIds)
+		}
+	}
+	
+	private func scheduleNotificationForExpiredSoon(
+		id: String,
+		date: Date?,
+		completion: @escaping () -> Void
+	) {
+		guard let date = date else {
+			Log.error("Could not schedule expiring soon notification for certificate with id: \(id) because we have no expiringSoonDate.", log: .vaccination)
+			completion()
+			return
+		}
+		
+		Log.info("Schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.expireSoonTitle
+		content.body = AppStrings.LocalNotifications.expireSoonBody
+		content.sound = .default
+
+		let expiringSoonDateComponents = Calendar.current.dateComponents(
+			[.year, .month, .day, .hour, .minute, .second],
+			from: date
+		)
+
+		let trigger = UNCalendarNotificationTrigger(dateMatching: expiringSoonDateComponents, repeats: false)
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			content: content,
+			trigger: trigger
+		)
+
+		notificationCenter.add(request) { error in
+			if error != nil {
+				Log.error(
+					"Could not schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)",
+					log: .vaccination,
+					error: error
+				)
+			}
+			completion()
+		}
+	}
+	
+	private func scheduleNotificationForExpired(
+		id: String,
+		date: Date,
+		completion: @escaping () -> Void
+	) {
+		Log.info("Schedule expired notification for certificate with id: \(id) with expirationDate: \(date)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.expiredTitle
+		content.body = AppStrings.LocalNotifications.expiredBody
+		content.sound = .default
+
+		let expiredDateComponents = Calendar.current.dateComponents(
+			[.year, .month, .day, .hour, .minute, .second],
+			from: date
+		)
+
+		let trigger = UNCalendarNotificationTrigger(dateMatching: expiredDateComponents, repeats: false)
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			content: content,
+			trigger: trigger
+		)
+
+		notificationCenter.add(request) { error in
+			if error != nil {
+				Log.error(
+					"Could not schedule expired notification for certificate with id: \(id) with expirationDate: \(date)",
+					log: .vaccination,
+					error: error
+				)
+			}
+			completion()
+		}
+	}
 	// swiftlint:disable:next file_length
 }
