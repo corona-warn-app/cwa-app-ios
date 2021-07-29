@@ -14,15 +14,18 @@ final class MockExposureManager {
 	let diagnosisKeysResult: MockDiagnosisKeysResult?
 	var lastCall: Date?
 	let minDistanceBetweenCalls: TimeInterval = 4 * 3600
+	private let store: Store
 
 	// MARK: Creating a Mocked Manager
 
 	init(
 		exposureNotificationError: ExposureNotificationError?,
-		diagnosisKeysResult: MockDiagnosisKeysResult?
+		diagnosisKeysResult: MockDiagnosisKeysResult?,
+		store: Store
 	) {
 		self.exposureNotificationError = exposureNotificationError
 		self.diagnosisKeysResult = diagnosisKeysResult
+		self.store = store
 
 		#if RELEASE
 		// This whole class would/should be wrapped in a DEBUG block. However, there were some
@@ -63,6 +66,8 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+		store.exposureDetectionDate = Date()
+
 		let now = Date()
 		if let last = lastCall {
 			if now.timeIntervalSince(last) < minDistanceBetweenCalls {
@@ -72,6 +77,7 @@ extension MockExposureManager: ExposureManager {
 			}
 		}
 		lastCall = now
+
 		if let error = exposureNotificationError {
 			DispatchQueue.main.async {
 				// assuming failed execution

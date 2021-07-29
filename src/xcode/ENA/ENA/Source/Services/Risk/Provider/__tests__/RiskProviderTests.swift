@@ -24,7 +24,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionValidityDuration: duration,
 			exposureDetectionInterval: duration
 		)
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
@@ -111,7 +111,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionValidityDuration: duration,
 			exposureDetectionInterval: duration
 		)
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
@@ -198,7 +198,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionValidityDuration: duration,
 			exposureDetectionInterval: duration
 		)
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
@@ -285,7 +285,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let riskProvider = RiskProvider(
@@ -349,7 +349,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let riskProvider = RiskProvider(
 			configuration: config,
@@ -432,7 +432,7 @@ final class RiskProviderTests: CWATestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
@@ -494,7 +494,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let riskProvider = RiskProvider(
 			configuration: config,
@@ -561,7 +561,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()), store: store)
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let sut = RiskProvider(
@@ -636,7 +636,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let riskProvider = RiskProvider(
@@ -718,7 +718,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let riskProvider = RiskProvider(
@@ -970,11 +970,12 @@ final class RiskProviderTests: CWATestCase {
 			to: Date(),
 			wrappingComponents: false
 		))
+		store.exposureDetectionDate = previousExposureDetectionDate
 		store.enfRiskCalculationResult = makeEnfRiskCalculationResultMock(withCalculationDate: previousExposureDetectionDate)
 		store.checkinRiskCalculationResult = makeCheckinRiskCalculationResult()
 		builder.configureStore(store: store)
 
-		let exposureDetectionDelegate = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegate = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		builder.configureExposureDetection(delegate: exposureDetectionDelegate)
 
 		let riskProvider = builder.build()
@@ -991,10 +992,12 @@ final class RiskProviderTests: CWATestCase {
 
 		riskProvider.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: .medium)
+		XCTAssertNotEqual(store.exposureDetectionDate, previousExposureDetectionDate, "Exposure detection date should change")
 		XCTAssertNotEqual(store.enfRiskCalculationResult?.calculationDate, previousExposureDetectionDate, "Risk calculation date should change")
 
 		// test scenario
 		let lastRiskCalculationtionDate = store.enfRiskCalculationResult?.calculationDate
+		let lastExposureDetectionDate = store.exposureDetectionDate
 		let expectRiskResult = expectation(description: "Risk result is provided")
 		riskConsumer.didCalculateRisk = { _ in
 			// THEN - risk level is provided without calling the exposure detection again
@@ -1009,6 +1012,7 @@ final class RiskProviderTests: CWATestCase {
 		riskProvider.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: .medium)
 
+		XCTAssertEqual(store.exposureDetectionDate, lastExposureDetectionDate, "Exposure detection timestamp should not change")
 		XCTAssertEqual(store.enfRiskCalculationResult?.calculationDate, lastRiskCalculationtionDate, "Risk calculation timestamp should not change")
 	}
 
@@ -1029,11 +1033,12 @@ final class RiskProviderTests: CWATestCase {
 			to: Date(),
 			wrappingComponents: false
 		))
+		store.exposureDetectionDate = previousExposureDetectionDate
 		store.enfRiskCalculationResult = makeEnfRiskCalculationResultMock(withCalculationDate: previousExposureDetectionDate)
 		store.checkinRiskCalculationResult = makeCheckinRiskCalculationResult()
 		builder.configureStore(store: store)
 		
-		let exposureDetectionDelegate = ExposureDetectionDelegateStub(result: .failure(ENError(.internal)))
+		let exposureDetectionDelegate = ExposureDetectionDelegateStub(result: .failure(ENError(.internal)), store: store)
 		builder.configureExposureDetection(delegate: exposureDetectionDelegate)
 		
 		let riskProvider = builder.build()
@@ -1050,11 +1055,12 @@ final class RiskProviderTests: CWATestCase {
 
 		riskProvider.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: .medium)
+		XCTAssertNotEqual(store.exposureDetectionDate, previousExposureDetectionDate, "Exposure detection date should change")
 		XCTAssertEqual(store.enfRiskCalculationResult?.calculationDate, previousExposureDetectionDate, "Risk calculation date should not change")
 
 		// test scenario
 		let lastRiskCalculationtionDate = store.enfRiskCalculationResult?.calculationDate
-
+		let lastExposureDetectionDate = store.exposureDetectionDate
 		let expectRiskResult = expectation(description: "Risk result is provided")
 		riskConsumer.didCalculateRisk = { _ in
 			// THEN - risk level is provided without calling the exposure detection again
@@ -1069,6 +1075,7 @@ final class RiskProviderTests: CWATestCase {
 		riskProvider.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: .medium)
 
+		XCTAssertEqual(store.exposureDetectionDate, lastExposureDetectionDate, "Exposure detection timestamp should not change")
 		XCTAssertEqual(store.enfRiskCalculationResult?.calculationDate, lastRiskCalculationtionDate, "Risk calculation timestamp should not change")
 	}
 
@@ -1131,7 +1138,7 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
@@ -1200,7 +1207,7 @@ final class RiskProviderTests: CWATestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
@@ -1283,7 +1290,7 @@ final class RiskProviderTests: CWATestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -1381,7 +1388,7 @@ final class RiskProviderTests: CWATestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -1481,7 +1488,7 @@ final class RiskProviderTests: CWATestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -1579,7 +1586,7 @@ final class RiskProviderTests: CWATestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -1804,15 +1811,18 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 
 	private let result: Result<[ENExposureWindow], Error>
 	private let keyPackagesToWrite: WrittenPackages
+	private let store: Store
 
 	var exposureWindowsWereDetected = false
 	var numberOfDetectionCalls = 0
 
 	init(
 		result: Result<[ENExposureWindow], Error>,
-		keyPackagesToWrite: WrittenPackages = ExposureDetectionDelegateStub.defaultKeyPackages) {
+		keyPackagesToWrite: WrittenPackages = ExposureDetectionDelegateStub.defaultKeyPackages,
+		store: Store) {
 		self.result = result
 		self.keyPackagesToWrite = keyPackagesToWrite
+		self.store = store
 	}
 
 	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
@@ -1820,6 +1830,7 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 	}
 
 	func detectExposureWindows(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<[ENExposureWindow], Error>) -> Void) -> Progress {
+		store.exposureDetectionDate = Date()
 		exposureWindowsWereDetected = true
 		numberOfDetectionCalls += 1
 		completion(result)
@@ -1907,7 +1918,7 @@ private class RiskProviderBuilder {
 		let traceWarningPackageDownload = self.traceWarningPackageDownload ??
 			makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig)
 		let exposureDetectionDelegate = self.exposureDetectionDelegate ??
-			ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+			ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]), store: store)
 		let coronaTestService = self.coronaTestService ?? makeCoronaTestServiceMock(store: store)
 
 		return RiskProvider(
