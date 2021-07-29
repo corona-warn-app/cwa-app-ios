@@ -31,7 +31,6 @@ class HealthCertificateService {
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
-			// TODO: pass mock here
 			self.notificationCenter = notificationCenter
 			setup()
 			configureForLaunchArguments()
@@ -129,10 +128,11 @@ class HealthCertificateService {
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				}
-				updateNotifications()
 				break
 			}
 		}
+		// we do not have to wait here, so we leave the completion empty
+		removeAllNotifications(for: healthCertificate, completion: {})
 	}
 
 	func registerAndExecuteTestCertificateRequest(
@@ -510,8 +510,9 @@ class HealthCertificateService {
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				// No notifications for test certificates
 				if healthCertificate.type == .recovery || healthCertificate.type == .vaccination {
-					removeAllNotifications(for: healthCertificate)
-					createNotifications(for: healthCertificate)
+					removeAllNotifications(for: healthCertificate, completion: { [weak self] in
+						self?.createNotifications(for: healthCertificate)
+					})
 				}
 			}
 		}
@@ -642,13 +643,16 @@ class HealthCertificateService {
 		}
 	}
 	
-	private func removeAllNotifications(for healthCertificate: HealthCertificate) {
+	private func removeAllNotifications(
+		for healthCertificate: HealthCertificate,
+		completion: @escaping () -> Void
+	) {
 		guard let id = healthCertificate.uniqueCertificateIdentifier else {
 			Log.error("Could not delete notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
 			return
 		}
 		
-		Log.info("Cancel all notifications for certificate with id: \(id).", log: .checkin)
+		Log.info("Cancel all notifications for certificate with id: \(id).", log: .vaccination)
 		
 		let expireSoonId = LocalNotificationIdentifier.certificateExpireSoon.rawValue + "\(id)"
 		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
@@ -662,6 +666,7 @@ class HealthCertificateService {
 			}
 
 			self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: notificationIds)
+			completion()
 		}
 	}
 	
