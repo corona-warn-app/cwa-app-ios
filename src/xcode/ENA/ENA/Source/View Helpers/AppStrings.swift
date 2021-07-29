@@ -2176,6 +2176,15 @@ enum AppStrings {
 					static let certificateExpired = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_certificateExpired", comment: "")
 				}
 			}
+
+			enum ValidityState {
+				static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
+				static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
+				static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
+				static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
+				static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
+				static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
+			}
 		}
 	}
 
