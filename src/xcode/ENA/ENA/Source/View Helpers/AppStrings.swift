@@ -829,6 +829,8 @@ enum AppStrings {
 		static let enUnknownError = NSLocalizedString("ExposureNotificationSetting_unknownError", comment: "")
 
 		static let apiMisuse = NSLocalizedString("ExposureNotificationSetting_apiMisuse", comment: "")
+		
+		static let notResponding = NSLocalizedString("ExposureNotificationSetting_notResponding", comment: "")
 	}
 
 	enum Home {
