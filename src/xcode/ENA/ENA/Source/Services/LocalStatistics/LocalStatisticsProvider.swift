@@ -78,9 +78,9 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		localStatisticsGroup.notify(queue: .main) { [weak self] in
 			var arrangedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] = []
 			for localStatisticsDistrict in selectedlocalStatisticsDistricts {
-				guard let localStatisticsTuple = self.selectedLocalStatisticsTuples.filter({
-				$0.localStatisticsRegion.id == localStatisticsDistrict.id
-				}).compactMap({ $0 }).first else {
+				guard let localStatisticsTuple = self?.selectedLocalStatisticsTuples.first(where: {
+					$0.localStatisticsRegion.id == localStatisticsDistrict.id
+				}) else {
 					continue
 				}
 				
