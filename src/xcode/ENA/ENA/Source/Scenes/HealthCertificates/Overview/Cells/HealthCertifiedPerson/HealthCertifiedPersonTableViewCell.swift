@@ -32,21 +32,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		titleLabel.text = cellModel.title
 		nameLabel.text = cellModel.name
 		gradientView.type = cellModel.backgroundGradientType
-		// add a placeholder image and process the QRCode image in background to smooth scrolling a bit
-		qrCodeImageView.image = placeHolderImage
-		DispatchQueue.global(qos: .userInteractive).async {
-			let qrCodeImage = UIImage.qrCode(
-				with: cellModel.certificate.base45,
-				encoding: .utf8,
-				size: CGSize(width: 280, height: 280),
-				qrCodeErrorCorrectionLevel: .medium
-			)
-			DispatchQueue.main.async { [weak self] in
-				self?.qrCodeImageView.image = qrCodeImage
-			}
-		}
+		qrCodeImageView.image = cellModel.qrCodeImage
 		qrCodeImageView.accessibilityLabel = AppStrings.HealthCertificate.Overview.covidDescription
-		accessibilityIdentifier = cellModel.accessibilityIdentifier
 	}
 	
 	// MARK: - Private
@@ -62,6 +49,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeImageView as Any]
 		cardView.accessibilityTraits = [.staticText, .button]
 		qrCodeImageView.isAccessibilityElement = true
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
 
 	private func setupView() {
@@ -119,6 +107,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		cardView.addSubview(qrCodeContainerView)
 
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		qrCodeContainerView.addSubview(qrCodeImageView)
 
 		NSLayoutConstraint.activate(

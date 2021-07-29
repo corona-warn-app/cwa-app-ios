@@ -2,7 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
+import Foundation
+import UIKit.UIColor
 
 struct HealthCertificateQRCodeCellViewModel {
 
@@ -16,15 +17,7 @@ struct HealthCertificateQRCodeCellViewModel {
 		self.healthCertificate = healthCertificate
 		self.onValidationButtonTap = onValidationButtonTap
 
-		let qrCodeSize = UIScreen.main.bounds.width - 60
-
-		self.qrCodeImage = UIImage.qrCode(
-			with: healthCertificate.base45,
-			encoding: .utf8,
-			size: CGSize(width: qrCodeSize, height: qrCodeSize),
-			qrCodeErrorCorrectionLevel: .quartile
-		) ?? UIImage()
-
+		self.qrCodeImage = healthCertificate.qrCodeImage
 		self.accessibilityText = accessibilityText
 
 		switch healthCertificate.entry {
@@ -61,7 +54,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	let borderColor: UIColor = .enaColor(for: .hairline)
 	let title: String?
 	let subtitle: String?
-	let qrCodeImage: UIImage
+	let qrCodeImage: UIImage?
 	let accessibilityText: String?
 
 	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {

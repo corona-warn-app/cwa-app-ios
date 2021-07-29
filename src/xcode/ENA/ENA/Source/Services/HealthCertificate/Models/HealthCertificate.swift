@@ -3,6 +3,8 @@
 //
 
 import Foundation
+import UIKit.UIImage
+import UIKit.UIScreen
 import OpenCombine
 import HealthCertificateToolkit
 
@@ -178,6 +180,17 @@ final class HealthCertificate: Codable, Equatable, Comparable {
 		}
 
 		return Calendar.current.dateComponents([.day], from: sortDate, to: Date()).day
+	}
+
+	var qrCodeImage: UIImage? {
+		let qrCodeSize = UIScreen.main.bounds.width - 100
+
+		return UIImage.qrCode(
+			with: base45,
+			encoding: .utf8,
+			size: CGSize(width: qrCodeSize, height: qrCodeSize),
+			qrCodeErrorCorrectionLevel: .medium
+		)
 	}
 
 	// MARK: - Private

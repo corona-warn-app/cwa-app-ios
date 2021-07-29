@@ -17,17 +17,16 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		}
 		title = AppStrings.HealthCertificate.Overview.covidTitle
-		backgroundGradientType = healthCertifiedPerson.gradientType
 		name = healthCertifiedPerson.name?.fullName
-		certificate = mostRelevantCertificate
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
+		qrCodeImage = mostRelevantCertificate.qrCodeImage
+		backgroundGradientType = healthCertifiedPerson.gradientType
 	}
 
 	// MARK: - Internal
 	
 	let title: String
 	let name: String?
-	let accessibilityIdentifier: String
-	let certificate: HealthCertificate
+	let qrCodeImage: UIImage?
 	let backgroundGradientType: GradientView.GradientType
+
 }
