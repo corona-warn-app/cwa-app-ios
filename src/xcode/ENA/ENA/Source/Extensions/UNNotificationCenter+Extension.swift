@@ -20,6 +20,11 @@ public enum ActionableNotificationIdentifier: String {
 	}
 }
 
+public enum LocalNotificationIdentifier: String {
+	case checkout = "EventCheckoutNotification"
+	case certificate = "HealthCertificateNotification"
+}
+
 extension UserNotificationCenter {
 
 	func presentNotification(
