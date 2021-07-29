@@ -63,7 +63,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 					$0.groupID == String(localStatisticsDistrict.federalState.groupID)
 				}).compactMap { $0 }.first
 				
-				self?.fetchLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: localStatistics?.lastLocalStatisticsETag, completion: { result in
+				self?.latestLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: localStatistics?.lastLocalStatisticsETag, completion: { result in
 					switch result {
 					case .success(let localStatistics):
 						self?.selectedLocalStatisticsTuples.append(SelectedLocalStatisticsTuple(federalStateAndDistrictsData: localStatistics, localStatisticsRegion: localStatisticsDistrict))
@@ -95,6 +95,8 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 			self.client.fetchLocalStatistics(groupID: groupID, eTag: eTag) { result in
 				switch result {
 				case .success(let response):
+					// removing previous data from the store
+					self.store.localStatistics.removeAll(where: { $0.groupID == groupID })
 					// cache
 					self.store.localStatistics.append(LocalStatisticsMetadata(with: response))
 					completion(.success(response.localStatistics))
@@ -110,9 +112,9 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 						break
 					}
 					// return cached if it exists
-					if let cachedLocalStatistics = self.store.localStatistics.filter({
+					if let cachedLocalStatistics = self.store.localStatistics.first(where: {
 						$0.groupID == groupID
-					}).compactMap({ $0 }).first {
+					}) {
 						completion(.success(cachedLocalStatistics.localStatistics))
 					} else {
 						completion(.failure(error))
