@@ -1,6 +1,7 @@
 //
 // 🦠 Corona-Warn-App
 //
+
 import Foundation
 
 protocol LocalStatisticsProviding {
