@@ -22,7 +22,7 @@ public enum ActionableNotificationIdentifier: String {
 
 public enum LocalNotificationIdentifier: String {
 	case checkout = "EventCheckoutNotification"
-	case certificateExpireSoon = "HealthCertificateNotificationExpireSoon"
+	case certificateExpiringSoon = "HealthCertificateNotificationExpireSoon"
 	case certificateExpired = "HealthCertificateNotificationExpired"
 }
 

@@ -21,7 +21,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		}
 		
 		// Show badge on certificates tab when certificate expires soon.
-		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpireSoon.rawValue) {
+		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpiringSoon.rawValue) {
 			appDelegate?.healthCertificateService.unseenTestCertificateCount.value += 1
 		}
 

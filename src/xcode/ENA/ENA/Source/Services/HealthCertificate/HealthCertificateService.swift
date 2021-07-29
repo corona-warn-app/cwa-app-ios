@@ -101,10 +101,11 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 				healthCertifiedPersons.value = (healthCertifiedPersons.value + [healthCertifiedPerson]).sorted()
 				updateGradients()
+				updateValidityStatesAndNotifications()
 			} else {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
-			updateNotifications()
+			
 			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
@@ -654,14 +655,14 @@ class HealthCertificateService {
 		
 		Log.info("Cancel all notifications for certificate with id: \(id).", log: .vaccination)
 		
-		let expireSoonId = LocalNotificationIdentifier.certificateExpireSoon.rawValue + "\(id)"
+		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)"
 		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
 
 		notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			let notificationIds = requests.map {
 				$0.identifier
 			}.filter {
-				$0.contains(expireSoonId) ||
+				$0.contains(expiringSoonId) ||
 				$0.contains(expiredId)
 			}
 
@@ -684,11 +685,11 @@ class HealthCertificateService {
 		)
 		
 		let expirationDate = healthCertificate.expirationDate
-		self.scheduleNotificationForExpiredSoon(id: id, date: expiringSoonDate)
+		self.scheduleNotificationForExpiringSoon(id: id, date: expiringSoonDate)
 		self.scheduleNotificationForExpired(id: id, date: expirationDate)
 	}
 	
-	private func scheduleNotificationForExpiredSoon(
+	private func scheduleNotificationForExpiringSoon(
 		id: String,
 		date: Date?
 	) {
@@ -700,8 +701,8 @@ class HealthCertificateService {
 		Log.info("Schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expireSoonTitle
-		content.body = AppStrings.LocalNotifications.expireSoonBody
+		content.title = AppStrings.LocalNotifications.expiringSoonTitle
+		content.body = AppStrings.LocalNotifications.expiringSoonBody
 		content.sound = .default
 
 		let expiringSoonDateComponents = Calendar.current.dateComponents(
@@ -712,7 +713,7 @@ class HealthCertificateService {
 		let trigger = UNCalendarNotificationTrigger(dateMatching: expiringSoonDateComponents, repeats: false)
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateExpireSoon.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)",
 			content: content,
 			trigger: trigger
 		)

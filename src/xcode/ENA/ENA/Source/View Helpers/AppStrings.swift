@@ -1026,8 +1026,8 @@ enum AppStrings {
 		static let detectExposureBody = NSLocalizedString("local_notifications_detectexposure_body", comment: "")
 		static let testResultsTitle = NSLocalizedString("local_notifications_testresults_title", comment: "")
 		static let testResultsBody = NSLocalizedString("local_notifications_testresults_body", comment: "")
-		static let expireSoonTitle = NSLocalizedString("local_notifications_expireSoon_title", comment: "")
-		static let expireSoonBody = NSLocalizedString("local_notifications_expireSoon_body", comment: "")
+		static let expiringSoonTitle = NSLocalizedString("local_notifications_expiringSoon_title", comment: "")
+		static let expiringSoonBody = NSLocalizedString("local_notifications_expiringSoon_body", comment: "")
 		static let expiredTitle = NSLocalizedString("local_notifications_expired_title", comment: "")
 		static let expiredBody = NSLocalizedString("local_notifications_expired_body", comment: "")
 	}
