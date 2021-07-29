@@ -45,7 +45,7 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 				}
 				
 				guard let id = healthCertificate.uniqueCertificateIdentifier else {
-					Log.error("Could not schedule notification due to invalid uniqueCertificateIdentifier")
+					Log.error("Could not schedule notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
 					return
 				}
 				
@@ -58,8 +58,8 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 				
 				let expirationDate = healthCertificate.expirationDate
 				
-				self.triggerNotificationForExpiredSoon(id: id, date: expiringSoonDate)
-				self.triggerNotificationForExpired(id: id, date: expirationDate)
+				self.scheduleNotificationForExpiredSoon(id: id, date: expiringSoonDate)
+				self.scheduleNotificationForExpired(id: id, date: expirationDate)
 				
 			}
 			.store(in: &subscriptions)
@@ -67,7 +67,7 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 
 	
 	func scheduleNotificationAfterDeletion(for healthCertificate: HealthCertificate) {
-		Log.info("[EventCheckoutService] Cancel all notifications.", log: .checkin)
+//		Log.info("[EventCheckoutService] Cancel all notifications.", log: .checkin)
 
 //		notificationCenter.getPendingNotificationRequests { [weak self] requests in
 //			let notificationIds = requests.map {
@@ -101,44 +101,79 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 		
 	}
 	
-	private func triggerNotificationForExpiredSoon(
+	private func scheduleNotificationForExpiredSoon(
 		id: String,
 		date: Date?
 	) {
+		guard let date = date else {
+			Log.error("Could not schedule expiring soon notification for certificate with id: \(id) because we have no expiringSoonDate.", log: .vaccination)
+			return
+		}
 		
-//		Log.info("Trigger notification for certificate with id: \(healthCertificate.uniqueCertificateIdentifier) and endDate: \(healthCertificate.expirationDate)", log: .checkin)
-//
-//		let content = UNMutableNotificationContent()
-//		content.title = AppStrings.Checkout.notificationTitle
-//		content.body = AppStrings.Checkout.notificationBody
-//		content.sound = .default
-//
-//		let checkinEndDateComponents = Calendar.current.dateComponents(
-//			[.year, .month, .day, .hour, .minute, .second],
-//			from: checkin.checkinEndDate
-//		)
-//
-//		let trigger = UNCalendarNotificationTrigger(dateMatching: checkinEndDateComponents, repeats: false)
-//
-//		let request = UNNotificationRequest(
-//			identifier: checkin.notificationIdentifier,
-//			content: content,
-//			trigger: trigger
-//		)
-//
-//		notificationCenter.add(request) { error in
-//			if error != nil {
-//				Log.error("Checkout notification could not be scheduled.")
-//			}
-//		}
-	
+		Log.info("Schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.expireSoonTitle
+		content.body = AppStrings.LocalNotifications.expireSoonBody
+		content.sound = .default
+
+		let expiringSoonDateComponents = Calendar.current.dateComponents(
+			[.year, .month, .day, .hour, .minute, .second],
+			from: date
+		)
+
+		let trigger = UNCalendarNotificationTrigger(dateMatching: expiringSoonDateComponents, repeats: false)
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			content: content,
+			trigger: trigger
+		)
+
+		notificationCenter.add(request) { error in
+			if error != nil {
+				Log.error(
+					"Could not schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)",
+					log: .vaccination,
+					error: error
+				)
+			}
+		}
 	}
 	
-	private func triggerNotificationForExpired(
+	private func scheduleNotificationForExpired(
 		id: String,
 		date: Date
 	) {
-		
+		Log.info("Schedule expired notification for certificate with id: \(id) with expirationDate: \(date)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.expiredTitle
+		content.body = AppStrings.LocalNotifications.expiredBody
+		content.sound = .default
+
+		let expiredDateComponents = Calendar.current.dateComponents(
+			[.year, .month, .day, .hour, .minute, .second],
+			from: date
+		)
+
+		let trigger = UNCalendarNotificationTrigger(dateMatching: expiredDateComponents, repeats: false)
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			content: content,
+			trigger: trigger
+		)
+
+		notificationCenter.add(request) { error in
+			if error != nil {
+				Log.error(
+					"Could not schedule expired notification for certificate with id: \(id) with expirationDate: \(date)",
+					log: .vaccination,
+					error: error
+				)
+			}
+		}
 	}
 	
 	private func removeNotificationForExpiredSoon() {
