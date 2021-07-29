@@ -75,7 +75,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 			}
 		}
 		
-		localStatisticsGroup.notify(queue: .main) {
+		localStatisticsGroup.notify(queue: .main) { [weak self] in
 			var arrangedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] = []
 			for localStatisticsDistrict in selectedlocalStatisticsDistricts {
 				guard let localStatisticsTuple = self.selectedLocalStatisticsTuples.filter({
