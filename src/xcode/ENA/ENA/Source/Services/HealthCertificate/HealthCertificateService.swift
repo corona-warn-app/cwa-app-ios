@@ -302,7 +302,151 @@ class HealthCertificateService {
 		unseenTestCertificateCount.value = store.unseenTestCertificateCount
 	}
 
-	func updateValidityStates() {
+	// MARK: - Private
+
+	private let store: HealthCertificateStoring
+	private let signatureVerifying: DCCSignatureVerifying
+	private let dscListProvider: DSCListProviding
+	private let client: Client
+	private let appConfiguration: AppConfigurationProviding
+	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
+
+	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
+	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
+	private var subscriptions = Set<AnyCancellable>()
+
+	// Validation Service
+	private var lastKnowAppConfigurationHash: Int?
+	private var lastKnownDccCertificatesHash: Int?
+	private var nextValidityTimer: Timer?
+
+	private func setup() {
+		updatePublishersFromStore()
+
+		healthCertifiedPersons
+			.sink { [weak self] in
+				self?.store.healthCertifiedPersons = $0
+				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
+			}
+			.store(in: &subscriptions)
+
+		testCertificateRequests
+			.sink { [weak self] in
+				self?.store.testCertificateRequests = $0
+				self?.updateTestCertificateRequestSubscriptions(for: $0)
+			}
+			.store(in: &subscriptions)
+
+		unseenTestCertificateCount
+			.sink { [weak self] in
+				self?.store.unseenTestCertificateCount = $0
+			}
+			.store(in: &subscriptions)
+
+		subscribeToNotifications()
+		updateGradients()
+		// Validation Service
+		subscribeAppConfigUpdates()
+		subscribeDSCListChanges()
+
+		updateValidityStates()
+	}
+
+	private func subscribeAppConfigUpdates() {
+		// subscribe app config updates
+		appConfiguration.currentAppConfig
+			.dropFirst()
+			.sink { [weak self] configuration in
+				// only revalidate state if configuration has changed
+				let hash = configuration.hashValue
+				guard self?.lastKnowAppConfigurationHash != hash else {
+					Log.info("AppConfig change seems to be no real change - ignored")
+					return
+				}
+				self?.lastKnowAppConfigurationHash = hash
+				self?.updateValidityStates()
+			}
+			.store(in: &subscriptions)
+	}
+
+	private func subscribeDSCListChanges() {
+		// subscribe to changes of dcc certificates list
+		dscListProvider.signingCertificates
+			.dropFirst()
+			.sink { [weak self] dccCertificates in
+				// only revalidate state if configuration has changed
+				let hash = dccCertificates.hashValue
+				guard  self?.lastKnownDccCertificatesHash != hash else {
+					Log.info("dccCertificates change seems to be no real change - ignored")
+					return
+				}
+				self?.lastKnownDccCertificatesHash = hash
+				self?.updateValidityStates()
+			}
+			.store(in: &subscriptions)
+	}
+
+	private var processNextFireTimestamp: Date? {
+		// collect all heath certificates from all persons
+		let healthCertificates = healthCertifiedPersons.value
+			.flatMap { $0.healthCertificates }
+
+		// check all dcc signing certificates and get the valid until dates
+		let dccValidation = DCCSignatureVerification()
+		let signingCertificates = dscListProvider.signingCertificates.value
+		let validUntilDates = healthCertificates
+			.map { certificate in
+				dccValidation.validUntilDate(certificate: certificate.base45, with: signingCertificates)
+			}
+			.compactMap { result -> Date? in
+				switch result {
+				case let .success(date):
+					return date
+
+				case let .failure(error):
+					Log.error("Error while validating certificate \(error.localizedDescription)")
+					return nil
+				}
+			}
+
+		let expirationDates = healthCertificates.map { $0.expirationDate }
+		let allDatesToExam = (validUntilDates + expirationDates)
+			.filter { date in
+				date.timeIntervalSinceNow > 0
+			}
+		return allDatesToExam.min()
+	}
+
+	@objc
+	private func scheduleTimer() {
+		invalidateTimer(removeNotifications: true)
+		guard let fireDate = processNextFireTimestamp,
+			fireDate.timeIntervalSinceNow > 0 else {
+			Log.error("no next date in the future found - can't schedule timer")
+			return
+		}
+
+		nextValidityTimer = Timer.scheduledTimer(withTimeInterval: fireDate.timeIntervalSinceNow, repeats: false) { [weak self] _ in
+			self?.updateValidityStates(shouldScheduleTimer: false)
+			self?.nextValidityTimer = nil
+		}
+
+		// schedule timer updates
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer(removeNotifications:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(scheduleTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	@objc
+	private func invalidateTimer( removeNotifications: Bool = false) {
+		nextValidityTimer?.invalidate()
+		nextValidityTimer = nil
+		if removeNotifications {
+			NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+			NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+		}
+	}
+
+	private func updateValidityStates(shouldScheduleTimer: Bool = true) {
 		let appConfiguration = appConfiguration.currentAppConfig.value
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
@@ -333,125 +477,9 @@ class HealthCertificateService {
 				}
 			}
 		}
-	}
-
-	// MARK: - Private
-
-	private let store: HealthCertificateStoring
-	private let signatureVerifying: DCCSignatureVerifying
-	private let dscListProvider: DSCListProviding
-	private let client: Client
-	private let appConfiguration: AppConfigurationProviding
-	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
-
-	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
-	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()
-	private var subscriptions = Set<AnyCancellable>()
-
-	// Validation Service
-	private var lastKnowAppConfigurationHash: Int?
-	private var lastKnownDccCertificatesHash: Int?
-
-	private func setup() {
-		updatePublishersFromStore()
-
-		healthCertifiedPersons
-			.sink { [weak self] in
-				self?.store.healthCertifiedPersons = $0
-				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
-			}
-			.store(in: &subscriptions)
-
-		testCertificateRequests
-			.sink { [weak self] in
-				self?.store.testCertificateRequests = $0
-				self?.updateTestCertificateRequestSubscriptions(for: $0)
-			}
-			.store(in: &subscriptions)
-
-		unseenTestCertificateCount
-			.sink { [weak self] in
-				self?.store.unseenTestCertificateCount = $0
-			}
-			.store(in: &subscriptions)
-
-		subscribeToNotifications()
-		updateGradients()
-		updateValidityStates()
-
-		// Validation Service
-		subscribeAppConfigUpdates()
-		subscribeDSCListChanges()
-	}
-
-	private func subscribeAppConfigUpdates() {
-		// subscribe app config updates
-		appConfiguration.currentAppConfig
-			.sink { [weak self] configuration in
-				// only revalidate state if configuration has changed
-				let hash = configuration.hashValue
-				guard self?.lastKnowAppConfigurationHash != hash else {
-					Log.info("AppConfig change seems to be no real change - ignored")
-					return
-				}
-				self?.lastKnowAppConfigurationHash = hash
-				self?.updateValidityStates()
-			}
-			.store(in: &subscriptions)
-	}
-
-	private func subscribeDSCListChanges() {
-		// subscribe to changes of dcc certificates list
-		dscListProvider.signingCertificates
-			.sink { [weak self] dccCertificates in
-				// only revalidate state if configuration has changed
-				let hash = dccCertificates.hashValue
-				guard  self?.lastKnownDccCertificatesHash != hash else {
-					Log.info("dccCertificates change seems to be no real change - ignored")
-					return
-				}
-				self?.lastKnownDccCertificatesHash = hash
-				self?.updateValidityStates()
-			}
-			.store(in: &subscriptions)
-	}
-
-	private func setupValidityTimer() {
-		// collect all heath certificates from all persons
-		let healthCertificates = healthCertifiedPersons.value
-			.flatMap { $0.healthCertificates }
-
-		// check all dcc signing certificates and get the valid until dates
-		let dccValidation = DCCSignatureVerification()
-		let signingCertificates = dscListProvider.signingCertificates.value
-		let validUntilDates = healthCertificates
-			.map { certificate in
-				dccValidation.validUntilDate(certificate: certificate.base45, with: signingCertificates)
-			}
-			.compactMap { result -> Date? in
-				switch result {
-				case let .success(date):
-					return date
-
-				case let .failure(error):
-					Log.error("Error while validating certificate \(error.localizedDescription)")
-					return nil
-				}
-			}
-
-		// collect
-		var allDatesToExam = validUntilDates
-
-		// find min in expiration dates of all our health certificates
-		if let minExpirationDate = (
-			healthCertificates
-				.map { $0.expirationDate }
-				.min()
-		) {
-			allDatesToExam.append(minExpirationDate)
+		if shouldScheduleTimer {
+			scheduleTimer()
 		}
-
-		let nextDateToSchedule = allDatesToExam.min()
 	}
 
 	#if DEBUG
