@@ -38,8 +38,8 @@ class HealthCertificateValidationResultTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
-		// 12 rows = 5 rows for 5 open validationResults, 7 is texts, images etc.
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfRows(section: 0), 12)
+		// 11 rows = 5 rows for 5 open validationResults, 7 is texts, images etc.
+		XCTAssertEqual(model.dynamicTableViewModel.numberOfRows(section: 0), 11)
 		
 		XCTAssertEqual(model.openValidationResults.count, 5)
 		XCTAssertEqual(model.openAcceptanceRuleValidationResults.count, 2)
@@ -85,8 +85,8 @@ class HealthCertificateValidationResultTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
-		// 20 rows = 10 rows for 4 open, 6 failed, 10 is texts, images etc.
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfRows(section: 0), 20)
+		// 19 rows = 10 rows for 4 open, 6 failed, 10 is texts, images etc.
+		XCTAssertEqual(model.dynamicTableViewModel.numberOfRows(section: 0), 19)
 		
 		XCTAssertEqual(model.openValidationResults.count, 4)
 		XCTAssertEqual(model.openAcceptanceRuleValidationResults.count, 3)
