@@ -31,7 +31,7 @@ class HealthCertificateService {
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			// TODO: Use/create Mock.
 			self.notificationService = HealthCertificateNotificationService(
-				existingCertificates: healthCertifiedPersons.value,
+				store: store,
 				appConfigurationProvider: CachedAppConfigurationMock()
 			)
 			setup()
@@ -48,7 +48,7 @@ class HealthCertificateService {
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.notificationService = HealthCertificateNotificationService(
-			existingCertificates: healthCertifiedPersons.value,
+			store: store,
 			appConfigurationProvider: appConfiguration
 		)
 
@@ -110,7 +110,7 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
-			notificationService.scheduleNotificationAfterCreation(id: healthCertificate.base45)
+			notificationService.scheduleNotificationAfterCreation(for: healthCertificate)
 			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
@@ -124,7 +124,7 @@ class HealthCertificateService {
 		for healthCertifiedPerson in healthCertifiedPersons.value {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
-				notificationService.scheduleNotificationAfterCreation(id: healthCertificate.base45)
+				notificationService.scheduleNotificationAfterCreation(for: healthCertificate)
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
