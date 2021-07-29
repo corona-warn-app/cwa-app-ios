@@ -417,12 +417,41 @@ class HealthCertificateService {
 	}
 
 	private func setupValidityTimer() {
-		// find min in expiration dates of all our health certificates
-		let minExpirationDate = healthCertifiedPersons.value
-			.flatMap { $0.healthCertificates }
-			.map { $0.expirationDate }
-			.min()
+		// collect all heath certificates from all persons
+		let healthCertificates = healthCertifiedPersons.value
+			.flatMap { $0.healthCertificates }
 
+		// check all dcc signing certificates and get the valid until dates
+		let dccValidation = DCCSignatureVerification()
+		let signingCertificates = dscListProvider.signingCertificates.value
+		let validUntilDates = healthCertificates
+			.map { certificate in
+				dccValidation.validUntilDate(certificate: certificate.base45, with: signingCertificates)
+			}
+			.compactMap { result -> Date? in
+				switch result {
+				case let .success(date):
+					return date
+
+				case let .failure(error):
+					Log.error("Error while validating certificate \(error.localizedDescription)")
+					return nil
+				}
+			}
+
+		// collect
+		var allDatesToExam = validUntilDates
+
+		// find min in expiration dates of all our health certificates
+		if let minExpirationDate = (
+			healthCertificates
+				.map { $0.expirationDate }
+				.min()
+		) {
+			allDatesToExam.append(minExpirationDate)
+		}
+
+		let nextDateToSchedule = allDatesToExam.min()
 	}
 
 	#if DEBUG
