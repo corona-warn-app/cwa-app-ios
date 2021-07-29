@@ -7,7 +7,7 @@ import OpenCombine
 
 class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	
-	// MARK: - Overrides
+	// MARK: - Init
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,10 +20,18 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
 
 		cardView.setHighlighted(highlighted, animated: animated)
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateBorderColors()
 	}
 
 	// MARK: - Internal
@@ -42,8 +50,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let titleLabel = ENALabel(style: .body)
 	private let nameLabel = ENALabel(style: .title2)
 	private let gradientView = GradientView()
+	private let bottomView = UIView()
+	private let qrCodeContainerView = UIView()
 	private let qrCodeImageView = UIImageView()
-	private let placeHolderImage: UIImage? = UIImage.with(color: .enaColor(for: .background))
 
 	private func setupAccessibility() {
 		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeImageView as Any]
@@ -69,12 +78,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 		cardView.addSubview(gradientView)
 
-		let bottomView = UIView()
 		bottomView.backgroundColor = .enaColor(for: .background)
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.clipsToBounds = false
 		bottomView.layer.borderWidth = 1.0
-		bottomView.layer.borderColor = UIColor.enaColor(for: .cardShadow).cgColor
 		bottomView.layer.cornerRadius = 14.0
 		bottomView.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 		if #available(iOS 13.0, *) {
@@ -95,12 +102,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		stackView.spacing = 16.0
 		gradientView.addSubview(stackView)
 
-		let qrCodeContainerView = UIView()
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.backgroundColor = .enaColor(for: .cellBackground2)
 		qrCodeContainerView.layer.cornerRadius = 14
 		qrCodeContainerView.layer.borderWidth = 1
-		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		if #available(iOS 13.0, *) {
 			qrCodeContainerView.layer.cornerCurve = .continuous
 		}
@@ -109,6 +114,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		qrCodeContainerView.addSubview(qrCodeImageView)
+
+		updateBorderColors()
 
 		NSLayoutConstraint.activate(
 			[
@@ -144,6 +151,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			]
 		)
 
+	}
+
+	private func updateBorderColors() {
+		bottomView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
+		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 	}
 
 }
