@@ -15,12 +15,138 @@ public protocol DCCSignatureVerifying {
 
 public struct DCCSignatureVerification: DCCSignatureVerifying {
 
+    // MARK: - Init
+
     public init() { }
+
+    // MARK: - Protocol DCCSignatureVerifying
 
     // swiftlint:disable cyclomatic_complexity
     public func verify(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate], and validationClock: Date = Date()) -> Result<Void, DCCSignatureVerificationError> {
 
+        let certificateResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45)
+        guard case let .success(certificate) = certificateResult else {
+            if case let .failure(error) = certificateResult {
+                return .failure(.HC_CBOR_DECODING_FAILED(error))
+            }
+            fatalError("Success and failure where handled, this part should never be reaached.")
+        }
+
+        let matchingSigningCertificateResult = findMatchingSigningCertificate(certificate: base45, with: signingCertificates)
+        guard case let .success(matchingSigningCertificate) = matchingSigningCertificateResult  else {
+            if case let .failure(error) = matchingSigningCertificateResult {
+                return .failure(error)
+            }
+            fatalError("Success and failure where handled, this part should never be reaached.")
+        }
+
+        // 9. Check DSC validity
+
+        guard let x509Certificate = try? X509Certificate(data: matchingSigningCertificate.data),
+              let notBefore = x509Certificate.notBefore,
+              let notAfter = x509Certificate.notAfter else {
+            return .failure(.HC_DSC_NOT_READABLE)
+        }
+        if notBefore > validationClock {
+            return .failure(.HC_DSC_NOT_YET_VALID)
+        }
+        if notAfter < validationClock {
+            return .failure(.HC_DSC_EXPIRED)
+        }
+
+        // 10. Check extended key usage
+
+        if x509Certificate.extendedKeyUsage.isEmpty {
+            return .success(())
+        }
+
+        let containsAnyKeyUsage = x509Certificate.extendedKeyUsage.contains {
+            return ExtendedKeyUsageObjectIdentifier.all.contains($0)
+        }
+        if !containsAnyKeyUsage {
+            return .success(())
+        }
+
+        switch certificate.type {
+        case .vaccination:
+            let containsAnyVaccinationCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
+                return ExtendedKeyUsageObjectIdentifier.vaccinationIssuer.contains($0)
+            }
+            return containsAnyVaccinationCertificateKeyUsage ? .success(()) : .failure(.HC_DSC_OID_MISMATCH_VC)
+        case .test:
+            let containsAnyTestCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
+                return ExtendedKeyUsageObjectIdentifier.testIssuer.contains($0)
+            }
+            return containsAnyTestCertificateKeyUsage ? .success(()) : .failure(.HC_DSC_OID_MISMATCH_TC)
+        case .recovery:
+            let containsAnyRecoveryCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
+                return ExtendedKeyUsageObjectIdentifier.recoveryIssuer.contains($0)
+            }
+            return containsAnyRecoveryCertificateKeyUsage ? .success(()) : .failure(.HC_DSC_OID_MISMATCH_RC)
+        }
+    }
+
+    public func validUntilDate(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate]) -> Result<Date, DCCSignatureVerificationError> {
+
+        let matchingSigningCertificateResult = findMatchingSigningCertificate(certificate: base45, with: signingCertificates)
+        guard case let .success(matchingSigningCertificate) = matchingSigningCertificateResult  else {
+            if case let .failure(error) = matchingSigningCertificateResult {
+                return .failure(error)
+            }
+            fatalError("Success and failure where handled, this part should never be reaached.")
+        }
+
+        guard let x509Certificate = try? X509Certificate(data: matchingSigningCertificate.data),
+              let notAfter = x509Certificate.notAfter else {
+            return .failure(.HC_DSC_NOT_READABLE)
+        }
+
+        return .success(notAfter)
+    }
+
+    // MARK: - Private
+
+    private enum Algorithm: Int {
+        case ES256 = -7
+        case PS256 = -37
+
+        var secKeyAlgorithm: SecKeyAlgorithm {
+            switch self {
+            case .ES256:
+                return .ecdsaSignatureMessageX962SHA256
+            case .PS256:
+                return .rsaSignatureMessagePSSSHA256
+            }
+        }
+    }
+
+    private func determineAlgorithm(from coseEntries: [CBOR]) -> Result<Algorithm, DCCSignatureVerificationError> {
+        guard case let .byteString(protectedHeaderBytes) = coseEntries[0],
+           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
+           case let .negativeInt(algorithmIdentifier) = protectedHeaderCBOR[1] else {
+            return .failure(.HC_COSE_UNKNOWN_ALG)
+        }
+
+        // I know its confusing. Please see here how negative integers are handled for CBOR (Major type 1:  a negative integer.): https://datatracker.ietf.org/doc/html/rfc7049#section-2.1
+        // And here some rationale for this kind of implementation: https://stackoverflow.com/questions/50584127/rationale-for-cbor-negative-integers
+        guard let algorithm = Algorithm(rawValue: -1 - Int(algorithmIdentifier)) else {
+            return .failure(.HC_COSE_NO_ALG)
+        }
+
+        return .success(algorithm)
+    }
+
+    private func extractProtectedHeader(from coseEntries: [CBOR]) -> Result<[UInt8], DCCSignatureVerificationError> {
+        guard case let .byteString(protectedHeaderBytes) = coseEntries[0] else {
+            return .failure(.HC_COSE_UNKNOWN_ALG)
+        }
+        return .success(protectedHeaderBytes)
+    }
+
+    private func findMatchingSigningCertificate(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate]) -> Result<DCCSigningCertificate, DCCSignatureVerificationError> {
+
         // 1. Decode and extract COSE headers
+
         let coseEntriesResult = DigitalCovidCertificateAccess().extractCOSEEntries(from: base45)
         guard case let .success(coseEntries) = coseEntriesResult  else {
             if case let .failure(error) = coseEntriesResult {
@@ -37,15 +163,6 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
         guard case let .byteString(signature) = coseEntries[3] else {
             return .failure(.HC_COSE_NO_SIGN1)
         }
-
-        let certificateResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45)
-        guard case let .success(certificate) = certificateResult else {
-            if case let .failure(error) = certificateResult {
-                return .failure(.HC_CBOR_DECODING_FAILED(error))
-            }
-            fatalError("Success and failure where handled, this part should never be reaached.")
-        }
-
 
         // 2. Extract 'kid'
 
@@ -126,97 +243,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             return .failure(.HC_DSC_NO_MATCH)
         }
 
-        // 9. Check DSC validity
-
-        guard let x509Certificate = try? X509Certificate(data: passedSigningCertificate.data),
-              let notBefore = x509Certificate.notBefore,
-              let notAfter = x509Certificate.notAfter else {
-            return .failure(.HC_DSC_NOT_READABLE)
-        }
-        if notBefore > validationClock {
-            return .failure(.HC_DSC_NOT_YET_VALID)
-        }
-        if notAfter < validationClock {
-            return .failure(.HC_DSC_EXPIRED)
-        }
-
-        // 10. Check extended key usage
-
-        if x509Certificate.extendedKeyUsage.isEmpty {
-            return .success(())
-        }
-
-        let containsAnyKeyUsage = x509Certificate.extendedKeyUsage.contains {
-            return ExtendedKeyUsageObjectIdentifier.all.contains($0)
-        }
-
-        if !containsAnyKeyUsage {
-            return .success(())
-        }
-
-        let containsAnyTestCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
-            return ExtendedKeyUsageObjectIdentifier.testIssuer.contains($0)
-        }
-        if containsAnyTestCertificateKeyUsage && !certificate.isTestCertificate {
-            return .failure(.HC_DSC_OID_MISMATCH_TC)
-        }
-
-        let containsAnyVaccinationCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
-            return ExtendedKeyUsageObjectIdentifier.vaccinationIssuer.contains($0)
-        }
-        if containsAnyVaccinationCertificateKeyUsage && !certificate.isVaccinationCertificate {
-            return .failure(.HC_DSC_OID_MISMATCH_VC)
-        }
-
-        let containsAnyRecoveryCertificateKeyUsage = x509Certificate.extendedKeyUsage.contains {
-            return ExtendedKeyUsageObjectIdentifier.recoveryIssuer.contains($0)
-        }
-        if containsAnyRecoveryCertificateKeyUsage && !certificate.isRecoveryCertificate {
-            return .failure(.HC_DSC_OID_MISMATCH_RC)
-        }
-
-        return .success(())
-    }
-
-    enum Algorithm: Int {
-        case ES256 = -7
-        case PS256 = -37
-
-        var secKeyAlgorithm: SecKeyAlgorithm {
-            switch self {
-            case .ES256:
-                return .ecdsaSignatureMessageX962SHA256
-            case .PS256:
-                return .rsaSignatureMessagePSSSHA256
-            }
-        }
-    }
-
-    func determineAlgorithm(from coseEntries: [CBOR]) -> Result<Algorithm, DCCSignatureVerificationError> {
-        guard case let .byteString(protectedHeaderBytes) = coseEntries[0],
-           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
-           case let .negativeInt(algorithmIdentifier) = protectedHeaderCBOR[1] else {
-            return .failure(.HC_COSE_UNKNOWN_ALG)
-        }
-
-        // I know its confusing. Please see here how negative integers are handled for CBOR (Major type 1:  a negative integer.): https://datatracker.ietf.org/doc/html/rfc7049#section-2.1
-        // And here some rationale for this kind of implementation: https://stackoverflow.com/questions/50584127/rationale-for-cbor-negative-integers
-        guard let algorithm = Algorithm(rawValue: -1 - Int(algorithmIdentifier)) else {
-            return .failure(.HC_COSE_NO_ALG)
-        }
-
-        return .success(algorithm)
-    }
-
-    func extractProtectedHeader(from coseEntries: [CBOR]) -> Result<[UInt8], DCCSignatureVerificationError> {
-        guard case let .byteString(protectedHeaderBytes) = coseEntries[0] else {
-            return .failure(.HC_COSE_UNKNOWN_ALG)
-        }
-        return .success(protectedHeaderBytes)
-    }
-
-    public func validUntilDate(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate]) -> Result<Date, DCCSignatureVerificationError> {
-        return .success(Date())
+        return .success(passedSigningCertificate)
     }
 }
 
@@ -254,6 +281,24 @@ public struct DCCSignatureVerifyingStub: DCCSignatureVerifying {
 }
 
 extension DigitalCovidCertificate {
+
+    enum CertificateType {
+        case vaccination
+        case test
+        case recovery
+    }
+
+    var type: CertificateType {
+        if isVaccinationCertificate {
+            return .vaccination
+        } else if isTestCertificate {
+            return .test
+        } else if isRecoveryCertificate {
+            return .recovery
+        } else {
+            fatalError("The certificate has to have either VC, TC or RC entries.")
+        }
+    }
 
     var isVaccinationCertificate: Bool {
         guard let vaccinationEntries = vaccinationEntries else {
