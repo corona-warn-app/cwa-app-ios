@@ -20,7 +20,8 @@ enum DynamicHeader {
 			accessibilityLabel: String? = nil,
 			accessibilityIdentifier: String?,
 			height: CGFloat? = nil,
-			accessibilityTraits: UIAccessibilityTraits = .none
+			accessibilityTraits: UIAccessibilityTraits = .none,
+			backgroundGradient: GradientView.GradientType? = nil
 		 )
 	case view(_ view: UIView)
 	case identifier(_ identifier: TableViewHeaderFooterReuseIdentifiers, action: DynamicAction = .none, configure: HeaderConfigurator? = nil)

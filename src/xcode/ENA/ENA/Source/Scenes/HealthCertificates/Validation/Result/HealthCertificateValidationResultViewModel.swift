@@ -11,3 +11,16 @@ protocol HealthCertificateValidationResultViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel { get }
 
 }
+
+extension HealthCertificateValidationResultViewModel {
+	
+	func sectionHeader(image: UIImage?) -> DynamicHeader {
+		.image(
+			image,
+			accessibilityIdentifier: nil,
+			height: 150,
+			accessibilityTraits: .header,
+			backgroundGradient: .whiteToLightBlue
+		)
+	}
+}

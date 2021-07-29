@@ -110,13 +110,7 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 
 		return DynamicTableViewModel([
 			.section(
-				header:
-					.image(
-						UIImage(imageLiteralResourceName: "Illu_Validation_Invalid"),
-						accessibilityIdentifier: nil,
-						height: 274,
-						accessibilityTraits: .header
-					),
+				header: sectionHeader(image: UIImage(imageLiteralResourceName: "Illu_Validation_Invalid")),
 				cells: cells
 			)
 		])

@@ -96,7 +96,7 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, title, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits):
+		case let .image(image, title, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits, backgroundGradient):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
 			view?.imageView?.isAccessibilityElement = label != nil
@@ -109,6 +109,16 @@ extension DynamicTableViewController {
 			view?.titleLabel.accessibilityLabel = title
 			view?.titleLabel.accessibilityTraits = .header
 			view?.title = title
+			
+			// add optional background gradient
+			if let backgroundGradient = backgroundGradient, let view = view {
+				// remove any other gradient view
+				view.contentView.subviews.forEach { ($0 as? GradientView)?.removeFromSuperview() }
+				// setup
+				let gradientView = GradientView(type: backgroundGradient, frame: view.contentView.bounds)
+				gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+				view.contentView.addSubview(gradientView)
+			}
 
 			view?.accessibilityElements = [view?.titleLabel as Any, view?.imageView as Any]
 

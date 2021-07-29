@@ -27,13 +27,7 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
-				header:
-					.image(
-						UIImage(imageLiteralResourceName: "Illu_Validation_Valid"),
-						accessibilityIdentifier: nil,
-						height: 274,
-						accessibilityTraits: .header
-					),
+				header: sectionHeader(image: UIImage(imageLiteralResourceName: "Illu_Validation_Valid")),
 				cells: [
 					.footnote(
 						text: String(
