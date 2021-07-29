@@ -182,7 +182,7 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Private
 
-	private let store: Store
+	private (set) var store: Store
 
 	private let statisticsProvider: StatisticsProviding
 	private let localStatisticsProvider: LocalStatisticsProviding
