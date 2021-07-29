@@ -220,7 +220,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
-		Log.info("Trying to activate ENF")
+		Log.info("Trying to activate ENManager")
 		
 		var isActive = false
 		
@@ -230,7 +230,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
-			Log.info("Activated ENF successfully.")
+			Log.info("Activated ENManager successfully.")
 			completion(nil)
 			isActive = true
 		}
@@ -238,7 +238,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 3 seconds should be enough time to wait.
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			if !isActive {
-				Log.error("Could not activate ENF within 3 seconds. Proceed with deactivated ENF")
+				Log.error("Could not activate ENManager within 3 seconds. Proceed with deactivated ENManager")
 				completion(ExposureNotificationError.notResponding)
 			}
 		}
