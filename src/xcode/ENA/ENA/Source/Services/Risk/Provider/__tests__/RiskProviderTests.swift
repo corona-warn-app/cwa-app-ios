@@ -951,6 +951,127 @@ final class RiskProviderTests: CWATestCase {
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
+	// MARK: - Test the rate limitation
+	func test_GIVEN_EnfSucceededNoWindows_WHEN_RiskRequestedAgain_THEN_RateLimitIsEffective() throws {
+		// setup
+		// setup
+		let store = MockTestStore()
+		let builder = RiskProviderBuilder()
+
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.exposureDetectionParameters.maxExposureDetectionsPerInterval = 6
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+		builder.configureAppConfig(appConfig: appConfiguration)
+
+		let calendar = Calendar.current
+		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+			byAdding: .hour,
+			value: -5,
+			to: Date(),
+			wrappingComponents: false
+		))
+		store.enfRiskCalculationResult = makeEnfRiskCalculationResultMock(withCalculationDate: previousExposureDetectionDate)
+		store.checkinRiskCalculationResult = makeCheckinRiskCalculationResult()
+		builder.configureStore(store: store)
+
+		let exposureDetectionDelegate = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		builder.configureExposureDetection(delegate: exposureDetectionDelegate)
+
+		let riskProvider = builder.build()
+		let riskConsumer = RiskConsumer()
+		riskProvider.observeRisk(riskConsumer)
+
+		// pre-conditions
+		let expectPrecondition = expectation(description: "Precondition: a succeeded risk calculation.")
+		riskConsumer.didCalculateRisk = { _ in
+			// GIVEN - a succeeded risk calculation
+			expectPrecondition.fulfill()
+			XCTAssertEqual(exposureDetectionDelegate.numberOfDetectionCalls, 1, "Exposure detection should have been called")
+		}
+
+		riskProvider.requestRisk(userInitiated: false)
+		waitForExpectations(timeout: .medium)
+		XCTAssertNotEqual(store.enfRiskCalculationResult?.calculationDate, previousExposureDetectionDate, "Risk calculation date should change")
+
+		// test scenario
+		let lastRiskCalculationtionDate = store.enfRiskCalculationResult?.calculationDate
+		let expectRiskResult = expectation(description: "Risk result is provided")
+		riskConsumer.didCalculateRisk = { _ in
+			// THEN - risk level is provided without calling the exposure detection again
+			expectRiskResult.fulfill()
+			XCTAssertEqual(exposureDetectionDelegate.numberOfDetectionCalls, 1, "Exposure detection should not have been called again")
+		}
+		riskConsumer.didFailCalculateRisk = { _ in
+			XCTFail("Risk should be provided")
+		}
+
+		// WHEN - request risk again
+		riskProvider.requestRisk(userInitiated: false)
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(store.enfRiskCalculationResult?.calculationDate, lastRiskCalculationtionDate, "Risk calculation timestamp should not change")
+	}
+
+	func test_GIVEN_EnfFailed_WHEN_RiskRequestedAgain_THEN_RateLimitIsEffective() throws {
+		// setup
+		let store = MockTestStore()
+		let builder = RiskProviderBuilder()
+
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.exposureDetectionParameters.maxExposureDetectionsPerInterval = 6
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+		builder.configureAppConfig(appConfig: appConfiguration)
+
+		let calendar = Calendar.current
+		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+			byAdding: .hour,
+			value: -5,
+			to: Date(),
+			wrappingComponents: false
+		))
+		store.enfRiskCalculationResult = makeEnfRiskCalculationResultMock(withCalculationDate: previousExposureDetectionDate)
+		store.checkinRiskCalculationResult = makeCheckinRiskCalculationResult()
+		builder.configureStore(store: store)
+		
+		let exposureDetectionDelegate = ExposureDetectionDelegateStub(result: .failure(ENError(.internal)))
+		builder.configureExposureDetection(delegate: exposureDetectionDelegate)
+		
+		let riskProvider = builder.build()
+		let riskConsumer = RiskConsumer()
+		riskProvider.observeRisk(riskConsumer)
+
+		// pre-conditions
+		let expectPrecondition = expectation(description: "Precondition: a failed risk calculation.")
+		riskConsumer.didFailCalculateRisk = { _ in
+			// GIVEN - a failed risk calculation
+			expectPrecondition.fulfill()
+			XCTAssertEqual(exposureDetectionDelegate.numberOfDetectionCalls, 1, "Exposure detection should have been called")
+		}
+
+		riskProvider.requestRisk(userInitiated: false)
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(store.enfRiskCalculationResult?.calculationDate, previousExposureDetectionDate, "Risk calculation date should not change")
+
+		// test scenario
+		let lastRiskCalculationtionDate = store.enfRiskCalculationResult?.calculationDate
+
+		let expectRiskResult = expectation(description: "Risk result is provided")
+		riskConsumer.didCalculateRisk = { _ in
+			// THEN - risk level is provided without calling the exposure detection again
+			expectRiskResult.fulfill()
+			XCTAssertEqual(exposureDetectionDelegate.numberOfDetectionCalls, 1, "Exposure detection should not have been called again")
+		}
+		riskConsumer.didFailCalculateRisk = { _ in
+			XCTFail("Risk should be provided")
+		}
+
+		// WHEN - request risk again
+		riskProvider.requestRisk(userInitiated: false)
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(store.enfRiskCalculationResult?.calculationDate, lastRiskCalculationtionDate, "Risk calculation timestamp should not change")
+	}
+
 	// MARK: - RiskProvider stress test
 	func test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk() {
 
@@ -1041,30 +1162,7 @@ final class RiskProviderTests: CWATestCase {
 				)
 			)
 		)
-
-	}
-
-	private func makeKeyPackageDownloadMock(with store: Store) -> KeyPackageDownload {
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
-		downloadedPackagesStore.open()
-
-		let client = ClientMock(availableDaysAndHours: DaysAndHours(days: ["day"], hours: [0]))
-		return KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-	}
 	
-	private func makeTraceWarningPackageDownloadMock(with store: Store, appConfig: CachedAppConfigurationMock) -> TraceWarningPackageDownload {
-		let mockEventStore = MockEventStore()
-		let client = ClientMock()
-		return TraceWarningPackageDownload(
-			client: client,
-			store: store,
-			eventStore: mockEventStore
-		)
 	}
 
 	private func riskProviderChangingRiskLevel(from previousRiskLevel: RiskLevel, to newRiskLevel: RiskLevel, store: MockTestStore) throws -> RiskProvider {
@@ -1569,6 +1667,78 @@ final class RiskProviderTests: CWATestCase {
 	}
 }
 
+private func makeRiskConfigHighFrequency() -> RiskProvidingConfiguration {
+	let exposureChecksPerDay = 6
+	let validityDuration = DateComponents(day: 1)
+	return RiskProvidingConfiguration(
+		exposureDetectionValidityDuration: validityDuration,
+		exposureDetectionInterval: DateComponents(hour: 24 / exposureChecksPerDay),
+		detectionMode: .automatic
+	)
+}
+
+private func makeEnfRiskCalculationResultMock(withCalculationDate: Date) -> ENFRiskCalculationResult {
+	return ENFRiskCalculationResult(
+		riskLevel: .low,
+		minimumDistinctEncountersWithLowRisk: 0,
+		minimumDistinctEncountersWithHighRisk: 0,
+		mostRecentDateWithLowRisk: nil,
+		mostRecentDateWithHighRisk: nil,
+		numberOfDaysWithLowRisk: 0,
+		numberOfDaysWithHighRisk: 0,
+		calculationDate: withCalculationDate,
+		riskLevelPerDate: [:],
+		minimumDistinctEncountersWithHighRiskPerDate: [:]
+	)
+}
+
+private func makeCheckinRiskCalculationResult() -> CheckinRiskCalculationResult {
+	return CheckinRiskCalculationResult(
+		calculationDate: Date(),
+		checkinIdsWithRiskPerDate: [:],
+		riskLevelPerDate: [:]
+	)
+}
+
+private func makeKeyPackageDownloadMock(with store: Store) -> KeyPackageDownload {
+	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
+	downloadedPackagesStore.open()
+
+	let client = ClientMock(availableDaysAndHours: DaysAndHours(days: ["day"], hours: [0]))
+	return KeyPackageDownload(
+		downloadedPackagesStore: downloadedPackagesStore,
+		client: client,
+		wifiClient: client,
+		store: store
+	)
+}
+
+private func makeTraceWarningPackageDownloadMock(with store: Store, appConfig: AppConfigurationProviding) -> TraceWarningPackageDownload {
+	let mockEventStore = MockEventStore()
+	let client = ClientMock()
+	return TraceWarningPackageDownload(
+		client: client,
+		store: store,
+		eventStore: mockEventStore
+	)
+}
+
+private func makeCoronaTestServiceMock(store: Store) -> CoronaTestService {
+	let client = ClientMock()
+	let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+	let healthCertificateService = HealthCertificateService(store: store, client: client, appConfiguration: appConfig)
+	let eventStore = MockEventStore()
+	let diaryStore = MockDiaryStore()
+	return CoronaTestService(
+		client: client,
+		store: store,
+		eventStore: eventStore,
+		diaryStore: diaryStore,
+		appConfiguration: appConfig,
+		healthCertificateService: healthCertificateService
+	)
+}
+
 private class ENFRiskCalculationFake: ENFRiskCalculationProtocol {
 	
 	init(
@@ -1636,6 +1806,7 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 	private let keyPackagesToWrite: WrittenPackages
 
 	var exposureWindowsWereDetected = false
+	var numberOfDetectionCalls = 0
 
 	init(
 		result: Result<[ENExposureWindow], Error>,
@@ -1650,6 +1821,7 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 
 	func detectExposureWindows(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<[ENExposureWindow], Error>) -> Void) -> Progress {
 		exposureWindowsWereDetected = true
+		numberOfDetectionCalls += 1
 		completion(result)
 		return Progress()
 	}
@@ -1675,6 +1847,81 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 			attributes: nil
 		)
 		return tempDir
+	}
+}
+
+private class RiskProviderBuilder {
+	var config: RiskProvidingConfiguration?
+	var store: Store?
+	var appConfig: AppConfigurationProviding?
+	var exposureManagerState: ExposureManagerState?
+	var enfRiskCalculation: ENFRiskCalculationProtocol?
+	var checkinRiskCalculation: CheckinRiskCalculationProtocol?
+	var keyPackageDownload: KeyPackageDownloadProtocol?
+	var traceWarningPackageDownload: TraceWarningPackageDownloading?
+	weak var exposureDetectionDelegate: ExposureDetectionDelegate?
+	var coronaTestService: CoronaTestService?
+	
+	func configureRiskConfig(riskConfig: RiskProvidingConfiguration) {
+		self.config = riskConfig
+	}
+	func configureStore(store: Store) {
+		self.store = store
+	}
+	func configureAppConfig(appConfig: AppConfigurationProviding) {
+		self.appConfig = appConfig
+	}
+	func configureExpManagerState(state: ExposureManagerState) {
+		self.exposureManagerState = state
+	}
+	func configureEnfRiskCalc(riskCalc: ENFRiskCalculationProtocol) {
+		self.enfRiskCalculation = riskCalc
+	}
+	func configureCheckinRiskCalc(riskCalc: CheckinRiskCalculationProtocol) {
+		self.checkinRiskCalculation = riskCalc
+	}
+	func configureKeyDownload(download: KeyPackageDownloadProtocol) {
+		self.keyPackageDownload = download
+	}
+	func configureTraceWarnDownload(download: TraceWarningPackageDownloading) {
+		self.traceWarningPackageDownload = download
+	}
+	func configureExposureDetection(delegate: ExposureDetectionDelegate) {
+		self.exposureDetectionDelegate = delegate
+	}
+	func configureCoronaTestService(service: CoronaTestService) {
+		self.coronaTestService = service
+	}
+	
+	func build() -> RiskProvider {
+		let config = self.config ?? makeRiskConfigHighFrequency()
+		let store: Store = self.store ?? MockTestStore()
+		let appConfig = self.appConfig ??
+			CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+		let exposureManagerState = self.exposureManagerState ??
+			.init(authorized: true, enabled: true, status: .active)
+		let enfRiskCalculation = self.enfRiskCalculation ?? ENFRiskCalculationFake()
+		let checkinRiskCalculation = self.checkinRiskCalculation ?? CheckinRiskCalculationFake()
+		let keyPackageDownload = self.keyPackageDownload ??
+			makeKeyPackageDownloadMock(with: store)
+		let traceWarningPackageDownload = self.traceWarningPackageDownload ??
+			makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig)
+		let exposureDetectionDelegate = self.exposureDetectionDelegate ??
+			ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let coronaTestService = self.coronaTestService ?? makeCoronaTestServiceMock(store: store)
+
+		return RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: appConfig,
+			exposureManagerState: exposureManagerState,
+			enfRiskCalculation: enfRiskCalculation,
+			checkinRiskCalculation: checkinRiskCalculation,
+			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegate,
+			coronaTestService: coronaTestService
+		)
 	}
 }
 
