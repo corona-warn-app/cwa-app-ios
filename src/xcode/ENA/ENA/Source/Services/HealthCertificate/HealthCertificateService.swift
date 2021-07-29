@@ -412,38 +412,40 @@ class HealthCertificateService {
 		let expirationDates = healthCertificates.map { $0.expirationDate }
 		let allDatesToExam = (validUntilDates + expirationDates)
 			.filter { date in
-				date.timeIntervalSinceNow > 0
+				date.timeIntervalSinceNow.sign == .plus
 			}
 		return allDatesToExam.min()
 	}
 
 	@objc
 	private func scheduleTimer() {
-		invalidateTimer(removeNotifications: true)
+		invalidateTimer()
 		guard let fireDate = processNextFireTimestamp,
 			fireDate.timeIntervalSinceNow > 0 else {
 			Log.error("no next date in the future found - can't schedule timer")
 			return
 		}
 
+		Log.info("Schedule validity timer in \(fireDate.timeIntervalSinceNow) seconds")
 		nextValidityTimer = Timer.scheduledTimer(withTimeInterval: fireDate.timeIntervalSinceNow, repeats: false) { [weak self] _ in
 			self?.updateValidityStates(shouldScheduleTimer: false)
 			self?.nextValidityTimer = nil
 		}
 
+		// remove old notifications before we subscribe new ones
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
 		// schedule timer updates
-		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer(removeNotifications:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(scheduleTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
 	@objc
-	private func invalidateTimer( removeNotifications: Bool = false) {
+	private func invalidateTimer() {
+		Log.info("Invalidate scheduled validity timer")
 		nextValidityTimer?.invalidate()
 		nextValidityTimer = nil
-		if removeNotifications {
-			NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
-			NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-		}
 	}
 
 	private func updateValidityStates(shouldScheduleTimer: Bool = true) {
