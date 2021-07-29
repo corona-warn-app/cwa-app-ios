@@ -704,7 +704,7 @@ class HealthCertificateService {
 		let trigger = UNCalendarNotificationTrigger(dateMatching: expiringSoonDateComponents, repeats: false)
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.certificateExpireSoon.rawValue + "\(id)",
 			content: content,
 			trigger: trigger
 		)
