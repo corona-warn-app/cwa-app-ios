@@ -11,8 +11,10 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 		// Checkout a event checkin.
-		if notification.request.identifier.contains(EventCheckoutService.notificationIdentifierPrefix) {
+		if notification.request.identifier.contains(LocalNotificationIdentifier.checkout.rawValue) {
 			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
+		} else if notification.request.identifier.contains(HealthCertificateNotificationService.notificationIdentifierPrefix) {
+			// TODO
 		}
 
 		completionHandler([.alert, .badge, .sound])
