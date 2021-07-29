@@ -29,7 +29,9 @@ class HealthCertificateService {
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
-
+			self.notificationService = HealthCertificateNotificationService(
+				existingCertificates: healthCertifiedPersons.value
+			)
 			setup()
 			configureForLaunchArguments()
 
@@ -43,6 +45,9 @@ class HealthCertificateService {
 		self.client = client
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
+		self.notificationService = HealthCertificateNotificationService(
+			existingCertificates: healthCertifiedPersons.value
+		)
 
 		setup()
 	}
@@ -102,6 +107,7 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
+			notificationService.scheduleNotificationAfterCreation(id: healthCertificate.base45)
 			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
@@ -115,7 +121,7 @@ class HealthCertificateService {
 		for healthCertifiedPerson in healthCertifiedPersons.value {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
-
+				notificationService.scheduleNotificationAfterCreation(id: healthCertificate.base45)
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
@@ -310,6 +316,7 @@ class HealthCertificateService {
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
+	private let notificationService: HealthCertificateNotificationProviding
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var testCertificateRequestSubscriptions = Set<AnyCancellable>()

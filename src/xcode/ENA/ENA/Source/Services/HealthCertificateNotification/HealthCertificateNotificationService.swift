@@ -4,18 +4,23 @@
 
 import Foundation
 import OpenCombine
+import UIKit
 
 protocol HealthCertificateNotificationProviding {
-	func scheduleNotificationsAfterCreation()
-	func scheduleNotificationsAfterDeletion()
+	func scheduleNotificationAfterCreation(id: String)
+	func scheduleNotificationAfterDeletion(id: String)
 }
 
 final class HealthCertificateNotificationService: HealthCertificateNotificationProviding {
 
 	// MARK: - Init
 
-	init() {
-		
+	init(
+		existingCertificates: [HealthCertifiedPerson],
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+	) {
+		self.existingCertificates = existingCertificates
+		self.notificationCenter = notificationCenter
 		// trigger init check
 		
 		// register publisher for app config change
@@ -24,16 +29,18 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 	
 	// MARK: - Protocol HealthCertificateNotificationProviding
 	
-	func scheduleNotificationsAfterCreation() {
+	func scheduleNotificationAfterCreation(id: String) {
 		
 	}
 	
-	func scheduleNotificationsAfterDeletion() {
+	func scheduleNotificationAfterDeletion(id: String) {
 		
 	}
 	
 	// MARK: - Internal
 	
 	// MARK: - Private
+	
+	private let existingCertificates: [HealthCertifiedPerson]
+	private let notificationCenter: UserNotificationCenter
 }
-
