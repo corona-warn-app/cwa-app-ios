@@ -75,5 +75,12 @@
     "website": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
     "license": "Apache 2.0 License",
     "licenseUrl": "https://raw.githubusercontent.com/eu-digital-green-certificates/dgc-certlogic-ios/main/LICENSE"
+  },
+  {
+    "component": "ASN1Decoder",
+    "licensor": "Filippo",
+    "website": "https://github.com/filom/ASN1Decoder",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/filom/ASN1Decoder/master/LICENSE"
   }
 ]
