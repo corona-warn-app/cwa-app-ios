@@ -106,7 +106,6 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
 
-			createNotifications(for: healthCertificate)
 			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
@@ -120,7 +119,6 @@ class HealthCertificateService {
 		for healthCertifiedPerson in healthCertifiedPersons.value {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
-				removeAllNotifications(for: healthCertificate)
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
@@ -346,7 +344,7 @@ class HealthCertificateService {
 
 		subscribeToNotifications()
 		updateGradients()
-		updateValidityStates()
+		updateValidityStatesAndNotifications()
 	}
 
 	#if DEBUG
@@ -450,7 +448,7 @@ class HealthCertificateService {
 
 					self.healthCertifiedPersons.value = self.healthCertifiedPersons.value.sorted()
 					self.updateGradients()
-					self.updateValidityStates()
+					self.updateValidityStatesAndNotifications()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
@@ -465,7 +463,7 @@ class HealthCertificateService {
 			}
 	}
 
-	private func updateValidityStates() {
+	private func updateValidityStatesAndNotifications() {
 		appConfiguration.appConfiguration()
 			.sink { [weak self] appConfiguration in
 				guard let self = self else { return }
@@ -499,8 +497,21 @@ class HealthCertificateService {
 						}
 					}
 				}
+				
+				self.updateNotifications()
 			}
 			.store(in: &subscriptions)
+	}
+	
+	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
+	/// First, removes all local notifications and then re-adds all updates or new notifications to the notification center.
+	private func updateNotifications() {
+		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				removeAllNotifications(for: healthCertificate)
+				createNotifications(for: healthCertificate)
+			}
+		}
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
@@ -628,42 +639,6 @@ class HealthCertificateService {
 		}
 	}
 	
-	private func refreshNotifications() {
-		
-		// iterate over all certificates and remove their notifications if available and readd them.
-		// this method is call in init() and when updateValueSets is called (and this is called when app config is changed)
-	}
-	
-	private func createNotifications(for healthCertificate: HealthCertificate) {
-		guard let id = healthCertificate.uniqueCertificateIdentifier else {
-			Log.error("Could not schedule notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
-			return
-		}
-		
-		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
-		let expiringSoonDate = Calendar.current.date(
-			byAdding: .day,
-			value: -Int(expirationThresholdInDays),
-			to: healthCertificate.expirationDate
-		)
-		
-		let expirationDate = healthCertificate.expirationDate
-		
-		let dispatchGroup = DispatchGroup()
-		dispatchGroup.enter()
-		self.scheduleNotificationForExpiredSoon(id: id, date: expiringSoonDate, completion: {
-			dispatchGroup.leave()
-		})
-		dispatchGroup.enter()
-		self.scheduleNotificationForExpired(id: id, date: expirationDate, completion: {
-			dispatchGroup.leave()
-		})
-		
-		dispatchGroup.notify(queue: .main) { [weak self] in
-			self?.unseenTestCertificateCount.value += 1
-		}
-	}
-	
 	private func removeAllNotifications(for healthCertificate: HealthCertificate) {
 		guard let id = healthCertificate.uniqueCertificateIdentifier else {
 			Log.error("Could not delete notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
@@ -687,14 +662,30 @@ class HealthCertificateService {
 		}
 	}
 	
+	private func createNotifications(for healthCertificate: HealthCertificate) {
+		guard let id = healthCertificate.uniqueCertificateIdentifier else {
+			Log.error("Could not schedule notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
+			return
+		}
+		
+		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
+		let expiringSoonDate = Calendar.current.date(
+			byAdding: .day,
+			value: -Int(expirationThresholdInDays),
+			to: healthCertificate.expirationDate
+		)
+		
+		let expirationDate = healthCertificate.expirationDate
+		self.scheduleNotificationForExpiredSoon(id: id, date: expiringSoonDate)
+		self.scheduleNotificationForExpired(id: id, date: expirationDate)
+	}
+	
 	private func scheduleNotificationForExpiredSoon(
 		id: String,
-		date: Date?,
-		completion: @escaping () -> Void
+		date: Date?
 	) {
 		guard let date = date else {
 			Log.error("Could not schedule expiring soon notification for certificate with id: \(id) because we have no expiringSoonDate.", log: .vaccination)
-			completion()
 			return
 		}
 		
@@ -726,14 +717,12 @@ class HealthCertificateService {
 					error: error
 				)
 			}
-			completion()
 		}
 	}
 	
 	private func scheduleNotificationForExpired(
 		id: String,
-		date: Date,
-		completion: @escaping () -> Void
+		date: Date
 	) {
 		Log.info("Schedule expired notification for certificate with id: \(id) with expirationDate: \(date)", log: .vaccination)
 
@@ -763,7 +752,6 @@ class HealthCertificateService {
 					error: error
 				)
 			}
-			completion()
 		}
 	}
 	// swiftlint:disable:next file_length
