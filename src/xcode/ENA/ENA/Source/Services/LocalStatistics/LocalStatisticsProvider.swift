@@ -75,8 +75,18 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 			}
 		}
 		
-		localStatisticsGroup.notify(queue: .main) {
-			completion(self.selectedLocalStatisticsTuples)
+		localStatisticsGroup.notify(queue: .main) { [weak self] in
+			var arrangedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] = []
+			for localStatisticsDistrict in selectedlocalStatisticsDistricts {
+				guard let localStatisticsTuple = self?.selectedLocalStatisticsTuples.first(where: {
+					$0.localStatisticsRegion.id == localStatisticsDistrict.id
+				}) else {
+					continue
+				}
+				
+				arrangedSelectedLocalStatisticsTuples.append(localStatisticsTuple)
+			}
+			completion(arrangedSelectedLocalStatisticsTuples)
 		}
 	}
 
