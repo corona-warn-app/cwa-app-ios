@@ -92,16 +92,16 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		keyFigureCellModel.$localAdministrativeUnitStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { administrativeUnitsData in
+			.sink { [weak self] administrativeUnitsData in
 				Log.debug("update with \(keyFigureCellModel.localAdministrativeUnitStatistics.count) administrative local stats", log: .localStatistics)
 								
 				let administrativeUnit = administrativeUnitsData.first {
-					$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
+					$0.administrativeUnitShortID == UInt32(self?.localStatisticsRegion?.id ?? "0")
 				}
 				// needed for UI updates
-				self.localStatisticsCache = store
+				self?.localStatisticsCache = store
 				
-				guard let adminUnit = administrativeUnit, let districtName = self.localStatisticsRegion?.name else {
+				guard let adminUnit = administrativeUnit, let districtName = self?.localStatisticsRegion?.name else {
 					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
 					return
 				}
@@ -112,7 +112,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					sevenDayIncidence: adminUnit.sevenDayIncidence
 				)
 				
-				self.insertLocalStatistics(
+				self?.insertLocalStatistics(
 					store: store,
 					regionData: regionStatistics,
 					onInfoButtonTap: onInfoButtonTap,
@@ -125,16 +125,16 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		keyFigureCellModel.$localFederalStateStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { localFederalStates in
+			.sink { [weak self] localFederalStates in
 				Log.debug("update with \(keyFigureCellModel.localFederalStateStatistics.count) federal local stats", log: .localStatistics)
 				
 				let localFederalState = localFederalStates.first {
-					$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
+					$0.federalState.rawValue == Int(self?.localStatisticsRegion?.id ?? "0")
 				}
 				// needed for UI updates
-				self.localStatisticsCache = store
+				self?.localStatisticsCache = store
 				
-				guard let federalState = localFederalState, let federalStateName = self.localStatisticsRegion?.name else {
+				guard let federalState = localFederalState, let federalStateName = self?.localStatisticsRegion?.name else {
 					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
 					return
 				}
@@ -145,7 +145,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					sevenDayIncidence: federalState.sevenDayIncidence
 				)
 				
-				self.insertLocalStatistics(
+				self?.insertLocalStatistics(
 					store: store,
 					regionData: regionStatistics,
 					onInfoButtonTap: onInfoButtonTap,
@@ -158,17 +158,17 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		keyFigureCellModel.$selectedLocalStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { selectedLocalStatistics in
+			.sink { [weak self] selectedLocalStatistics in
 				Log.debug("update with \(keyFigureCellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
 				
-				self.removeLocalStatisticsCards()
+				self?.removeLocalStatisticsCards()
 				
 				for singleSelectedLocalStatistics in selectedLocalStatistics {
 					
-					self.localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
+					self?.localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
 					let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
 					let regionStatistics: RegionStatisticsData
-					guard let region = self.localStatisticsRegion else {
+					guard let region = self?.localStatisticsRegion else {
 						Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
 						return
 					}
@@ -176,7 +176,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					switch region.regionType {
 					case .federalState:
 						let localFederalState = singleSelectedLocalStatistics.federalStateAndDistrictsData.federalStateData.first {
-							$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
+							$0.federalState.rawValue == Int(self?.localStatisticsRegion?.id ?? "0")
 						}
 						guard let federalState = localFederalState else {
 							Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
@@ -191,7 +191,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						
 					case .administrativeUnit:
 						let administrativeUnit = singleSelectedLocalStatistics.federalStateAndDistrictsData.administrativeUnitData.first {
-							$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
+							$0.administrativeUnitShortID == UInt32(self?.localStatisticsRegion?.id ?? "0")
 						}
 						guard let adminUnit = administrativeUnit else {
 							Log.error("Could not assign administrative unit or district name", log: .localStatistics)
@@ -206,7 +206,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						)
 					}
 					
-					self.insertLocalStatistics(
+					self?.insertLocalStatistics(
 						store: store,
 						regionData: regionStatistics,
 						onInfoButtonTap: onInfoButtonTap,
