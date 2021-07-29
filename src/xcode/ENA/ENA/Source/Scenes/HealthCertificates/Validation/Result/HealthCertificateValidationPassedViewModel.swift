@@ -22,14 +22,19 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 
 	// MARK: - Internal
 
+	var title = AppStrings.HealthCertificate.Validation.Result.Passed.title
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
-				cells: [
-					.headlineWithImage(
-						headerText: AppStrings.HealthCertificate.Validation.Result.Passed.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Validation_Valid")
+				header:
+					.image(
+						UIImage(imageLiteralResourceName: "Illu_Validation_Valid"),
+						accessibilityIdentifier: nil,
+						height: 274,
+						accessibilityTraits: .header
 					),
+				cells: [
 					.footnote(
 						text: String(
 							format: AppStrings.HealthCertificate.Validation.Result.validationParameters,

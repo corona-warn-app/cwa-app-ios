@@ -30,18 +30,14 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-			dismissHandlingNC.setupTransparentNavigationBar()
-		}
-
 		if let parent = parent, !parent.isKind(of: UINavigationController.self) {
+			parent.navigationItem.title = viewModel.title
 			parent.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 			parent.navigationItem.hidesBackButton = true
-			parent.navigationItem.largeTitleDisplayMode = .never
 		} else {
+			navigationItem.title = viewModel.title
 			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 			navigationItem.hidesBackButton = true
-			navigationItem.largeTitleDisplayMode = .never
 		}
 
 		setupTableView()
@@ -73,7 +69,6 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		tableView.backgroundColor = .enaColor(for: .background)
-		tableView.contentInsetAdjustmentBehavior = .never
 
 		tableView.register(
 			ValidationResultTableViewCell.self,

@@ -26,6 +26,8 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 
 	// MARK: - Internal
 	
+	var title = AppStrings.HealthCertificate.Validation.Result.Open.title
+	
 	// Internal for testing purposes
 	var openValidationResults: [ValidationResult] {
 		openAcceptanceRuleValidationResults + openInvalidationRuleValidationResults
@@ -47,10 +49,6 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var cells: [DynamicCell] = [
-			.headlineWithImage(
-				headerText: AppStrings.HealthCertificate.Validation.Result.Open.title,
-				image: UIImage(imageLiteralResourceName: "Illu_Validation_Unknown")
-			),
 			.footnote(
 				text: String(
 					format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
@@ -82,6 +80,13 @@ struct HealthCertificateValidationOpenViewModel: HealthCertificateValidationResu
 
 		return DynamicTableViewModel([
 			.section(
+				header:
+					.image(
+						UIImage(imageLiteralResourceName: "Illu_Validation_Unknown"),
+						accessibilityIdentifier: nil,
+						height: 274,
+						accessibilityTraits: .header
+					),
 				cells: cells
 			)
 		])

@@ -17,15 +17,21 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 	}
 
 	// MARK: - Internal
+	
+	var title = AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.title
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		
 		DynamicTableViewModel([
-			.section(cells: [
-				.headlineWithImage(
-					headerText: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.title,
-					image: UIImage(imageLiteralResourceName: "Illu_Validation_Invalid")
-				),
+			.section(
+				header:
+					.image(
+						UIImage(imageLiteralResourceName: "Illu_Validation_Invalid"),
+						accessibilityIdentifier: nil,
+						height: 274,
+						accessibilityTraits: .header
+					),
+				cells: [
 				.footnote(
 					text: String(
 						format: AppStrings.HealthCertificate.Validation.Result.validationParameters,

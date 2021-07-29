@@ -26,6 +26,8 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 
 	// MARK: - Internal
 	
+	var title = AppStrings.HealthCertificate.Validation.Result.Failed.title
+	
 	// Internal for testing purposes
 	var failedValidationResults: [ValidationResult] {
 		failedAcceptanceRuleValidationResults + failedInvalidationRuleValidationResults
@@ -66,10 +68,6 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var cells: [DynamicCell] = [
-			.headlineWithImage(
-				headerText: AppStrings.HealthCertificate.Validation.Result.Failed.title,
-				image: UIImage(imageLiteralResourceName: "Illu_Validation_Invalid")
-			),
 			.footnote(
 				text: String(
 					format: AppStrings.HealthCertificate.Validation.Result.validationParameters,
@@ -112,6 +110,13 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 
 		return DynamicTableViewModel([
 			.section(
+				header:
+					.image(
+						UIImage(imageLiteralResourceName: "Illu_Validation_Invalid"),
+						accessibilityIdentifier: nil,
+						height: 274,
+						accessibilityTraits: .header
+					),
 				cells: cells
 			)
 		])
