@@ -17,10 +17,12 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 
 	init(
 		existingCertificates: [HealthCertifiedPerson],
-		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
+		appConfigurationProvider: AppConfigurationProviding
 	) {
 		self.existingCertificates = existingCertificates
 		self.notificationCenter = notificationCenter
+		self.appConfigurationProvider = appConfigurationProvider
 		// trigger init check
 		
 		// register publisher for app config change
@@ -43,4 +45,5 @@ final class HealthCertificateNotificationService: HealthCertificateNotificationP
 	
 	private let existingCertificates: [HealthCertifiedPerson]
 	private let notificationCenter: UserNotificationCenter
+	private let appConfigurationProvider: AppConfigurationProviding
 }

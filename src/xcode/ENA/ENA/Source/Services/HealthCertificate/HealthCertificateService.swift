@@ -30,7 +30,8 @@ class HealthCertificateService {
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationService = HealthCertificateNotificationService(
-				existingCertificates: healthCertifiedPersons.value
+				existingCertificates: healthCertifiedPersons.value,
+				appConfigurationProvider: CachedAppConfigurationMock()
 			)
 			setup()
 			configureForLaunchArguments()
@@ -46,7 +47,8 @@ class HealthCertificateService {
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.notificationService = HealthCertificateNotificationService(
-			existingCertificates: healthCertifiedPersons.value
+			existingCertificates: healthCertifiedPersons.value,
+			appConfigurationProvider: appConfiguration
 		)
 
 		setup()
