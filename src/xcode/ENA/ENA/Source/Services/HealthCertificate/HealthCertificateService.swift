@@ -29,6 +29,7 @@ class HealthCertificateService {
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock()
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
+			// TODO: Use/create Mock.
 			self.notificationService = HealthCertificateNotificationService(
 				existingCertificates: healthCertifiedPersons.value,
 				appConfigurationProvider: CachedAppConfigurationMock()
