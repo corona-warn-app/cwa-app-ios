@@ -7,6 +7,7 @@ import OpenCombine
 class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Init
+
 	init(
 		store: Store,
 		riskProvider: RiskProviding,
@@ -49,11 +50,13 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	// MARK: - Protocol ENStateHandlerUpdating
+
 	func updateEnState(_ state: ENStateHandler.State) {
 		enState = state
 	}
 
 	// MARK: - Internal
+
 	enum StatisticsLoadingError {
 		case dataVerificationError
 	}
@@ -177,6 +180,7 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	// MARK: - Private
+
 	private let store: Store
 
 	private let statisticsProvider: StatisticsProviding
