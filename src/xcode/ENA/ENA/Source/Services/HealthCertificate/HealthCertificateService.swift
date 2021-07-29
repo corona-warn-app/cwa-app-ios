@@ -416,6 +416,15 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 	}
 
+	private func setupValidityTimer() {
+		// find min in expiration dates of all our health certificates
+		let minExpirationDate = healthCertifiedPersons.value
+			.flatMap { $0.healthCertificates }
+			.map { $0.expirationDate }
+			.min()
+
+	}
+
 	#if DEBUG
 	// swiftlint:disable:next cyclomatic_complexity
 	private func configureForLaunchArguments() {
