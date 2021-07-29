@@ -67,7 +67,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
-				// self?.clearStackView()
+				self?.clearStackView()
 				self?.configureLocalStatisticsCell(
 					store: store,
 					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
