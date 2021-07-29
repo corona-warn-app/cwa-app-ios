@@ -10,12 +10,19 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	weak var appDelegate: AppDelegate?
 
 	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-		// Checkout a event checkin.
+		// Show badge on check-in tab when checkout.
 		if notification.request.identifier.contains(LocalNotificationIdentifier.checkout.rawValue) {
 			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
-		} else if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpireSoon.rawValue) ||
-					notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpired.rawValue) {
-			// TODO
+		}
+		
+		// Show badge on certificates tab when certificate is expired.
+		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpired.rawValue) {
+			appDelegate?.healthCertificateService.unseenTestCertificateCount.value += 1
+		}
+		
+		// Show badge on certificates tab when certificate expires soon.
+		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpireSoon.rawValue) {
+			appDelegate?.healthCertificateService.unseenTestCertificateCount.value += 1
 		}
 
 		completionHandler([.alert, .badge, .sound])

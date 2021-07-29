@@ -287,6 +287,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 		#endif
 	}()
+	
+	lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+		store: store,
+		signatureVerifying: dccSignatureVerificationService,
+		dscListProvider: dscListProvider,
+		client: client,
+		appConfiguration: appConfigurationProvider
+	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
@@ -307,14 +315,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
 		store: store,
 		deviceCheck: PPACDeviceCheck()
-	)
-
-	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
-		store: store,
-		signatureVerifying: dccSignatureVerificationService,
-		dscListProvider: dscListProvider,
-		client: client,
-		appConfiguration: appConfigurationProvider
 	)
 
 	private lazy var dccSignatureVerificationService: DCCSignatureVerifying = {
