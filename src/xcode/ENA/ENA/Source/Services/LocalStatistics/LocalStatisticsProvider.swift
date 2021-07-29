@@ -17,6 +17,27 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 
 	// MARK: - Internal
 
+	var cachedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] {
+		var selectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] = []
+
+		for localStatisticsRegion in store.selectedLocalStatisticsRegions {
+			guard let localStatistics = store.localStatistics.first(where: {
+				$0.groupID == String(localStatisticsRegion.federalState.groupID)
+			})?.localStatistics else {
+				continue
+			}
+
+			selectedLocalStatisticsTuples.append(
+				SelectedLocalStatisticsTuple(
+					federalStateAndDistrictsData: localStatistics,
+					localStatisticsRegion: localStatisticsRegion
+				)
+			)
+		}
+
+		return selectedLocalStatisticsTuples
+	}
+
 	// function to get local statistics for a particular group
 	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil, completion: @escaping (Result<SAP_Internal_Stats_LocalStatistics, Error>) -> Void) {
 		let localStatistics = store.localStatistics.filter({
@@ -39,7 +60,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	// returns an array of type SelectedLocalStatisticsTuple which contains the data for a particular group
 	// and the district information which will be then used for filtering.
 	func latestSelectedLocalStatistics(selectedlocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
-		return fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: selectedlocalStatisticsRegions, completion: completion)
+		return fetchSelectedLocalStatistics(selectedLocalStatisticsDistricts: selectedlocalStatisticsRegions, completion: completion)
 	}
 
 	// MARK: - Private
@@ -48,7 +69,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	private let store: LocalStatisticsCaching
 	private var selectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple]
 
-	private func fetchSelectedLocalStatistics(selectedlocalStatisticsDistricts: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
+	private func fetchSelectedLocalStatistics(selectedLocalStatisticsDistricts: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void) {
 		
 		self.selectedLocalStatisticsTuples = []
 
@@ -56,12 +77,12 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		// to make sure we get the data for N saved districts
 		let localStatisticsGroup = DispatchGroup()
 		
-		for localStatisticsDistrict in selectedlocalStatisticsDistricts {
+		for localStatisticsDistrict in selectedLocalStatisticsDistricts {
 			localStatisticsGroup.enter()
 			DispatchQueue.global().async { [weak self] in
-				let localStatistics = self?.store.localStatistics.filter({
+				let localStatistics = self?.store.localStatistics.first(where: {
 					$0.groupID == String(localStatisticsDistrict.federalState.groupID)
-				}).compactMap { $0 }.first
+				})
 				
 				self?.latestLocalStatistics(groupID: String(localStatisticsDistrict.federalState.groupID), eTag: localStatistics?.lastLocalStatisticsETag, completion: { result in
 					switch result {
@@ -77,7 +98,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		
 		localStatisticsGroup.notify(queue: .main) { [weak self] in
 			var arrangedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] = []
-			for localStatisticsDistrict in selectedlocalStatisticsDistricts {
+			for localStatisticsDistrict in selectedLocalStatisticsDistricts {
 				guard let localStatisticsTuple = self?.selectedLocalStatisticsTuples.first(where: {
 					$0.localStatisticsRegion.id == localStatisticsDistrict.id
 				}) else {
