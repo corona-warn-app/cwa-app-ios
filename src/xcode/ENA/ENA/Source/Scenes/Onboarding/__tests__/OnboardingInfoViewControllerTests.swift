@@ -8,8 +8,8 @@ import XCTest
 class OnboardingInfoViewControllerTests: CWATestCase {
 
 	func test_createOnboardingInfoViewController() {
-		let mockExposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: nil)
 		let mockStore = MockTestStore()
+		let mockExposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: nil, store: mockStore)
 		let mockClient = ClientMock()
 
 		guard let germanCountry = Country(countryCode: "DE") else {

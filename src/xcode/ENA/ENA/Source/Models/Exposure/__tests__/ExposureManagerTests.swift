@@ -10,7 +10,8 @@ class ExposureManagerTests: CWATestCase {
 
 	func test_GIVEN_RunningDetection_When_StartNewDetection_Then_SameProgressReturned() {
 		let managerSpy = ManagerSpy()
-		let exposureManager = ENAExposureManager(manager: managerSpy)
+		let store = MockTestStore()
+		let exposureManager = ENAExposureManager(manager: managerSpy, store: store)
 
 		let progress1 = exposureManager.detectExposures(configuration: ENExposureConfiguration(), diagnosisKeyURLs: []) { _, _ in
 		}
@@ -23,7 +24,8 @@ class ExposureManagerTests: CWATestCase {
 
 	func test_GIVEN_CanceledDetection_When_StartNewDetection_Then_NewProgressReturned() {
 		let managerSpy = ManagerSpy()
-		let exposureManager = ENAExposureManager(manager: managerSpy)
+		let store = MockTestStore()
+		let exposureManager = ENAExposureManager(manager: managerSpy, store: store)
 
 		let progress1 = exposureManager.detectExposures(configuration: ENExposureConfiguration(), diagnosisKeyURLs: []) { _, _ in
 		}
@@ -38,7 +40,8 @@ class ExposureManagerTests: CWATestCase {
 
 	func test_GIVEN_FinishedDetection_When_StartNewDetection_Then_NewProgressReturned() {
 		let managerSpy = ManagerSpy()
-		let exposureManager = ENAExposureManager(manager: managerSpy)
+		let store = MockTestStore()
+		let exposureManager = ENAExposureManager(manager: managerSpy, store: store)
 
 		let progress1 = exposureManager.detectExposures(configuration: ENExposureConfiguration(), diagnosisKeyURLs: []) { _, _ in
 		}
@@ -55,7 +58,8 @@ class ExposureManagerTests: CWATestCase {
 
 	func test_GIVEN_RunningDetection_When_StartNewDetection_Then_DetectExposuresNotCalled() {
 		let managerSpy = ManagerSpy()
-		let exposureManager = ENAExposureManager(manager: managerSpy)
+		let store = MockTestStore()
+		let exposureManager = ENAExposureManager(manager: managerSpy, store: store)
 
 		_ = exposureManager.detectExposures(configuration: ENExposureConfiguration(), diagnosisKeyURLs: []) { _, _ in
 		}

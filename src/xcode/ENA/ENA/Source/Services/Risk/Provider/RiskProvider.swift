@@ -331,7 +331,7 @@ final class RiskProvider: RiskProviding {
 
 	private func previousRiskIfExistingAndNotExpired(userInitiated: Bool) -> Risk? {
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
-			lastExposureDetectionDate: store.enfRiskCalculationResult?.calculationDate
+			lastExposureDetectionDate: store.exposureDetectionDate
 		)
 		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
 
