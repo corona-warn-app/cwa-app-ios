@@ -372,15 +372,9 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 	}
 
-	private var processNextFireTimestamp: Date? {
-		// collect all heath certificates from all persons
-		let healthCertificates = healthCertifiedPersons.value
-			.flatMap { $0.healthCertificates }
-
-		// check all dcc signing certificates and get the valid until dates
+	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
 		let dccValidation = DCCSignatureVerification()
-		let signingCertificates = dscListProvider.signingCertificates.value
-		let validUntilDates = healthCertificates
+		return healthCertificates
 			.map { certificate in
 				dccValidation.validUntilDate(certificate: certificate.base45, with: signingCertificates)
 			}
@@ -394,8 +388,19 @@ class HealthCertificateService {
 					return nil
 				}
 			}
+	}
 
-		let expirationDates = healthCertificates.map { $0.expirationDate }
+	func expirationDates(for healthCertificates: [HealthCertificate]) -> [Date] {
+		return healthCertificates.map { $0.expirationDate }
+	}
+
+	var processNextFireTimestamp: Date? {
+		let healthCertificates = healthCertifiedPersons.value
+			.flatMap { $0.healthCertificates }
+		let signingCertificates = dscListProvider.signingCertificates.value
+
+		let validUntilDates = validUntilDates(for: healthCertificates, signingCertificates: signingCertificates)
+		let expirationDates = expirationDates(for: healthCertificates)
 		let allDatesToExam = (validUntilDates + expirationDates)
 			.filter { date in
 				date.timeIntervalSinceNow.sign == .plus

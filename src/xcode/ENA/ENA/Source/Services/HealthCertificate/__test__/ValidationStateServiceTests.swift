@@ -8,11 +8,42 @@ import HealthCertificateToolkit
 
 class TestHealthCertificateService: HealthCertificateService {
 
+	convenience init(
+		store: HealthCertificateStoring,
+		signatureVerifying: DCCSignatureVerifying,
+		dscListProvider: DSCListProviding,
+		client: Client,
+		appConfiguration: AppConfigurationProviding,
+		validUntilDates: [Date],
+		expirationDates: [Date]
+	) {
+		self.init(
+			store: store,
+		 signatureVerifying: signatureVerifying,
+		 dscListProvider: dscListProvider,
+			client: client,
+		 appConfiguration: appConfiguration
+	 )
+		self.validUntilDates = validUntilDates
+		self.expirationDates = expirationDates
+	}
+
+	// inject some test data helpers
 	var expectationHook: () -> Void = {}
+	var validUntilDates: [Date] = []
+	var expirationDates: [Date] = []
 
 	override func updateValidityStates(shouldScheduleTimer: Bool = true) {
 		super.updateValidityStates(shouldScheduleTimer: shouldScheduleTimer)
 		expectationHook()
+	}
+
+	override func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
+		return validUntilDates
+	}
+
+	override func expirationDates(for healthCertificates: [HealthCertificate]) -> [Date] {
+		return expirationDates
 	}
 
 }
@@ -73,6 +104,43 @@ class ValidationStateServiceTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertNil(service.nextValidityTimer)
+	}
+
+	struct DateHelpers {
+		let minus2Days = Date(timeIntervalSinceNow: 60 * 60 * 24 * -2)
+		let minus1Day = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
+		let now = Date()
+		let plus5Seconds = Date(timeIntervalSinceNow: 5)
+		let plus1Day = Date(timeIntervalSinceNow: 60 * 60 * 24 * 1)
+		let plus2Days = Date(timeIntervalSinceNow: 60 * 60 * 24 * 2)
+
+		var orderDates: [Date] {
+			[minus2Days, minus1Day, now, plus5Seconds, plus1Day, plus2Days]
+		}
+
+		var futureDates: [Date] {
+			[plus5Seconds, plus1Day, plus2Days]
+		}
+	}
+
+	func test_processNextFireTimestamp_THEN_isPlus1Day() throws {
+		// GIVEN
+		let dateHelper = DateHelpers()
+		let service = TestHealthCertificateService(
+			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			validUntilDates: dateHelper.orderDates.shuffled(),
+			expirationDates: dateHelper.futureDates.shuffled()
+		)
+
+		// WHEN
+		let nextDate = try XCTUnwrap(service.processNextFireTimestamp)
+
+		// THEN
+		XCTAssertEqual(dateHelper.plus5Seconds, nextDate)
 	}
 
 }
