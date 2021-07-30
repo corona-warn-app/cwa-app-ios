@@ -316,7 +316,6 @@ class HealthCertificateService {
 	private var subscriptions = Set<AnyCancellable>()
 
 	// ValidationStateService
-	var lastKnownDccCertificatesHash: Int?
 	var nextValidityTimer: Timer?
 
 	private func setup() {
@@ -367,14 +366,7 @@ class HealthCertificateService {
 		// subscribe to changes of dcc certificates list
 		dscListProvider.signingCertificates
 			.dropFirst()
-			.sink { [weak self] dccCertificates in
-				// only revalidate state if configuration has changed
-				let hash = dccCertificates.hashValue
-				guard  self?.lastKnownDccCertificatesHash != hash else {
-					Log.info("dccCertificates change seems to be no real change - ignored")
-					return
-				}
-				self?.lastKnownDccCertificatesHash = hash
+			.sink { [weak self] _ in
 				self?.updateValidityStates()
 			}
 			.store(in: &subscriptions)

@@ -45,6 +45,34 @@ class ValidationStateServiceTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertNotEqual(config, originalConfiguration)
+		XCTAssertNil(service.nextValidityTimer)
+	}
+
+	func test_DSCListChanges_THEN_UpdateGetsCalled() {
+		// GIVEN
+		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
+
+		let dscListProvider = MockDSCListProvider()
+		let store = MockTestStore()
+		let service = TestHealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+		service.expectationHook = {
+			validationStateServiceExpectation.fulfill()
+		}
+
+		// WHEN
+
+		let fakeDCCSigningCertificate = DCCSigningCertificate(kid: Data(), data: Data())
+		dscListProvider.signingCertificates.value = [fakeDCCSigningCertificate]
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertNil(service.nextValidityTimer)
 	}
 
 }
