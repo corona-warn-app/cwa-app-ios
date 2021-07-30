@@ -24,6 +24,8 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
     // swiftlint:disable cyclomatic_complexity
     public func verify(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate], and validationClock: Date = Date()) -> Result<Void, DCCSignatureVerificationError> {
 
+        // Find matching DSC
+
         let certificateResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45)
         guard case let .success(certificate) = certificateResult else {
             if case let .failure(error) = certificateResult {
@@ -40,7 +42,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             fatalError("Success and failure where handled, this part should never be reaached.")
         }
 
-        // 9. Check DSC validity
+        // Check DSC validity
 
         guard let x509Certificate = try? X509Certificate(data: matchingSigningCertificate.data),
               let notBefore = x509Certificate.notBefore,
@@ -54,7 +56,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             return .failure(.HC_DSC_EXPIRED)
         }
 
-        // 10. Check extended key usage
+        // Check extended key usage
 
         if x509Certificate.extendedKeyUsage.isEmpty {
             return .success(())
@@ -87,6 +89,8 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
     }
 
     public func validUntilDate(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate]) -> Result<Date, DCCSignatureVerificationError> {
+
+        // Find matching DSC and return validUntilDate
 
         let matchingSigningCertificateResult = findMatchingSigningCertificate(certificate: base45, with: signingCertificates)
         guard case let .success(matchingSigningCertificate) = matchingSigningCertificateResult  else {
@@ -145,7 +149,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
 
     private func findMatchingSigningCertificate(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate]) -> Result<DCCSigningCertificate, DCCSignatureVerificationError> {
 
-        // 1. Decode and extract COSE headers
+        // Decode and extract COSE headers
 
         let coseEntriesResult = DigitalCovidCertificateAccess().extractCOSEEntries(from: base45)
         guard case let .success(coseEntries) = coseEntriesResult  else {
@@ -164,7 +168,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             return .failure(.HC_COSE_NO_SIGN1)
         }
 
-        // 2. Extract 'kid'
+        // Extract 'kid'
 
         var keyIdentifier: Data?
         if case let .success(kidBase64) = DigitalCovidCertificateAccess().extractKeyIdentifier(from: coseEntries),
@@ -172,7 +176,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             keyIdentifier = kid
         }
 
-        // 3. Determine 'alg'
+        // Determine 'alg'
 
         let algorithmResult = determineAlgorithm(from: coseEntries)
         guard case let .success(algorithm) = algorithmResult else {
@@ -182,7 +186,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             fatalError("Success and failure where handled, this part should never be reaached.")
         }
 
-        // 4. Determine 'signed payload'
+        // Determine 'signed payload'
 
         let signedPayload = CBOR.array([
             "Signature1",
@@ -191,10 +195,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             CBOR.byteString(payloadBytes)
         ]).encode()
 
-        // 5. Determine 'signed payload hash'
-        // Skip this step because the payload hash is not needed.
-
-        // 6. Determine 'verifier'
+        // Determine 'verifier'
 
         let verifier: Data
         switch algorithm {
@@ -207,14 +208,14 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
             verifier = Data(ecdsaSignature)
         }
 
-        // 7. Filter DSCs for 'DSCs to test'
+        // Filter DSCs for 'DSCs to test'
 
         let matchedSigningCertificates = signingCertificates.filter {
             $0.kid == keyIdentifier
         }
         let signingCertificatesToTest = matchedSigningCertificates.isEmpty ? signingCertificates : matchedSigningCertificates
 
-        // 8. Find 'DSC for DGC'
+        // Find 'DSC for DGC'
 
         var _passedSigningCertificate: DCCSigningCertificate?
 
