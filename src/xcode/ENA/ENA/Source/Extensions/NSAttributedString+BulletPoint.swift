@@ -61,7 +61,7 @@ extension NSAttributedString {
 	///
 	/// - Parameters:
 	///   - bulletPointFont: The Font for the bullet point and first part of the `from` string. Required to align and scale the bullet point.
-	///   - overwriteAttributes: if true, this ensures, that the original passed in attributes are kept.
+	///   - overwriteAttributes: If true, this ensures, that the original passed in attributes are kept.
 	/// - Returns: An attributed string that is prefixed with a bullet point.
 	func bulletPointString(bulletPointFont font: UIFont, overwriteAttributes: Bool = false) -> NSAttributedString {
 		return NSAttributedString.bulletPointString(self, bulletPointFont: font, overwriteAttributes: overwriteAttributes)
