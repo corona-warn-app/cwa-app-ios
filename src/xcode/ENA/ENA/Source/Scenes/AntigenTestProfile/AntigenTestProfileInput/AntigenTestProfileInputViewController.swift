@@ -147,7 +147,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 		var string = string
 		
 		if string.last?.isWhitespace == true { // possible keyboard suggestion
-			// -> remove last charater and pass that on to validation below
+			// -> remove last character and pass that on to validation below
 			let lastIndex = string.index(string.endIndex, offsetBy: -1)
 			string.remove(at: lastIndex)
 		}
