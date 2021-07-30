@@ -37,9 +37,9 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 	}
 	
 	// MARK: - Internal
-	/// overwriteAttributes parameter: If you have already attributes in the attributedStrings you want to keep, you can set overwriteAttributes to true. This will ensure, that your attributes are not overwritten internally
-	func configure(attributedString text: NSAttributedString, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil, overwriteAttributes: Bool = false) {
-		contentLabel.attributedText = text.bulletPointString(bulletPointFont: contentLabel.font, overwriteAttributes: overwriteAttributes)
+	/// keepOriginalAttributes parameter: If you have already attributes in the attributedStrings you want to keep, you can set keepOriginalAttributes to true. This will ensure, that your attributes are not overwritten internally
+	func configure(attributedString text: NSAttributedString, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil, keepOriginalAttributes: Bool = false) {
+		contentLabel.attributedText = text.bulletPointString(bulletPointFont: contentLabel.font, keepOriginalAttributes: keepOriginalAttributes)
 		
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityTraits = accessibilityTraits
@@ -62,7 +62,7 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 		layoutIfNeeded()
 	}
 
-	/// This configure will automatically set overwriteAttributes to true. So If you have already attributes in the attributedStrings you want to keep, you can use this configuration call. This will ensure, that your attributes are not overwritten internally
+	/// This configure will automatically set keepOriginalAttributes to true. So If you have already attributes in the attributedStrings you want to keep, you can use this configuration call. This will ensure, that your attributes are not overwritten internally
 	func configure(text: String, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
 		configure(
 			attributedString: NSAttributedString(string: text),
@@ -70,7 +70,7 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 			alignment: alignment,
 			accessibilityTraits: accessibilityTraits,
 			accessibilityIdentifier: accessibilityIdentifier,
-			overwriteAttributes: true)
+			keepOriginalAttributes: true)
 	}
 
 	// MARK: - Private
