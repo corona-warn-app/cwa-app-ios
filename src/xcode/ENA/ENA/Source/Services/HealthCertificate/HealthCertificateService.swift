@@ -316,9 +316,8 @@ class HealthCertificateService {
 	private var subscriptions = Set<AnyCancellable>()
 
 	// ValidationStateService
-	private var lastKnowAppConfigurationHash: Int?
-	private var lastKnownDccCertificatesHash: Int?
-	private var nextValidityTimer: Timer?
+	var lastKnownDccCertificatesHash: Int?
+	var nextValidityTimer: Timer?
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -358,14 +357,7 @@ class HealthCertificateService {
 		// subscribe app config updates
 		appConfiguration.currentAppConfig
 			.dropFirst()
-			.sink { [weak self] configuration in
-				// only revalidate state if configuration has changed
-				let hash = configuration.hashValue
-				guard self?.lastKnowAppConfigurationHash != hash else {
-					Log.info("AppConfig change seems to be no real change - ignored")
-					return
-				}
-				self?.lastKnowAppConfigurationHash = hash
+			.sink { [weak self] _ in
 				self?.updateValidityStates()
 			}
 			.store(in: &subscriptions)
@@ -566,7 +558,7 @@ class HealthCertificateService {
 			}
 	}
 
-	private func updateValidityStates(shouldScheduleTimer: Bool = true) {
+	func updateValidityStates(shouldScheduleTimer: Bool = true) {
 		let appConfiguration = appConfiguration.currentAppConfig.value
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
