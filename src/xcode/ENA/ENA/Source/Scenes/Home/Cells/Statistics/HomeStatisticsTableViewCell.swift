@@ -277,11 +277,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	/// Keeping `editingStatistics` locally would reset it on reloading of this cell.
 	/// Terrible design but simpler to handle than states passed through n layers of models, view controllers and views…
-	static var editingStatistics: Bool = false {
-		didSet {
-			()
-		}
-	}
+	static var editingStatistics: Bool = false
 
 	private func clearStackView() {
 		stackView.arrangedSubviews.forEach {
