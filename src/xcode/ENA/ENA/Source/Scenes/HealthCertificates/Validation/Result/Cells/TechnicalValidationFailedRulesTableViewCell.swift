@@ -27,10 +27,34 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 
 		updateBorderColor()
 	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		clearErrorViews()
+	}
 
+	// MARK: - Internal
+	
+	func customize(signatureInvalid: Bool, expirationDate: Date?) {
+		
+		clearErrorViews()
+				
+		if signatureInvalid {
+			errorViewsStackView.addArrangedSubview(TechnicalValidationFailedRulesTableViewCellErrorView(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateNotValid, expirationDate: nil))
+		}
+		
+		if let expirationDate = expirationDate {
+			if !errorViewsStackView.arrangedSubviews.isEmpty {
+				addErrorViewSeparator()
+			}
+			errorViewsStackView.addArrangedSubview(TechnicalValidationFailedRulesTableViewCellErrorView(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.technicalExpirationDatePassed, expirationDate: expirationDate))
+		}
+	}
+	
 	// MARK: - Private
 
 	private let backgroundContainerView = UIView()
+	private let errorViewsStackView = UIStackView()
 
 	private func setupView() {
 		backgroundColor = .clear
@@ -48,23 +72,12 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
-
-		let contentStackView = UIStackView()
-		contentStackView.axis = .horizontal
-		contentStackView.spacing = 12
-		contentStackView.translatesAutoresizingMaskIntoConstraints = false
-		contentStackView.alignment = .top
-		backgroundContainerView.addSubview(contentStackView)
-
-		let failureIconImageView = UIImageView(image: UIImage(named: "Icon_CertificateValidation_Failed"))
-		failureIconImageView.setContentHuggingPriority(.required, for: .horizontal)
-		contentStackView.addArrangedSubview(failureIconImageView)
-
-		let failureDescriptionLabel = ENALabel(style: .body)
-		failureDescriptionLabel.numberOfLines = 0
-		failureDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
-		failureDescriptionLabel.text = AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.certificateExpired
-		contentStackView.addArrangedSubview(failureDescriptionLabel)
+		
+		errorViewsStackView.axis = .vertical
+		errorViewsStackView.spacing = 0
+		errorViewsStackView.translatesAutoresizingMaskIntoConstraints = false
+		errorViewsStackView.alignment = .leading
+		backgroundContainerView.addSubview(errorViewsStackView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -73,18 +86,28 @@ class TechnicalValidationFailedRulesTableViewCell: UITableViewCell, ReuseIdentif
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
-				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				errorViewsStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor),
+				errorViewsStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor),
+				errorViewsStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor),
+				errorViewsStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor)
 			]
 		)
-
-		accessibilityElements = [failureDescriptionLabel]
 	}
 
 	private func updateBorderColor() {
 		backgroundContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 	}
 
+	private func clearErrorViews() {
+		errorViewsStackView.arrangedSubviews.forEach { errorViewsStackView.removeArrangedSubview($0); $0.removeFromSuperview() }
+	}
+	
+	private func addErrorViewSeparator() {
+		let separator = UIView()
+		separator.translatesAutoresizingMaskIntoConstraints = false
+		separator.backgroundColor = .enaColor(for: .hairline)
+		errorViewsStackView.addArrangedSubview(separator)
+		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		separator.widthAnchor.constraint(equalTo: errorViewsStackView.widthAnchor).isActive = true
+	}
 }

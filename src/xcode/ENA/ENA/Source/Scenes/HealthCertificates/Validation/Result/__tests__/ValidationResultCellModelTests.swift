@@ -193,6 +193,36 @@ class ValidationResultCellModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(ruleTypeDescription, expectedResult)
 	}
+
+	func testGIVEN_AcceptanceRule_WHEN_RuleTypeDescriptionWithNonexistentCountry_THEN_DescriptionIsReturned() throws {
+		// GIVEN
+		let countryCode = "XX"
+		let expectedResult = String(
+			format: AppStrings.HealthCertificate.Validation.Result.acceptanceRule,
+			countryCode
+		)
+		let expectedAcceptanceOpenValidationResult = ValidationResult.fake(
+			rule: Rule.fake(
+				type: "Acceptance",
+				countryCode: countryCode
+			),
+			result: .open)
+
+		let healthCertificate = HealthCertificate.mock()
+		let vaccinationValueSets = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore())
+
+		let model = ValidationResultCellModel(
+			validationResult: expectedAcceptanceOpenValidationResult,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSets
+		)
+
+		// WHEN
+		let ruleTypeDescription = model.ruleTypeDescription
+
+		// THEN
+		XCTAssertEqual(ruleTypeDescription, expectedResult)
+	}
 	
 	func testGIVEN_InvalidationRule_WHEN_RuleTypeDescription_THEN_DescriptionIsReturned() throws {
 		// GIVEN
@@ -222,7 +252,7 @@ class ValidationResultCellModelTests: XCTestCase {
 		// GIVEN
 		let expectedResult = String(
 			format: AppStrings.HealthCertificate.Validation.Result.acceptanceRule,
-			""
+			"Fake"
 		)
 		let expectedAcceptanceOpenValidationResult = ValidationResult.fake(
 			rule: Rule.fake(

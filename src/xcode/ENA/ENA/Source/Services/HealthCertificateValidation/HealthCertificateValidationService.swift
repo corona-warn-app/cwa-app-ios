@@ -43,13 +43,17 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		client: Client,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
-		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess()
+		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
+		signatureVerifying: DCCSignatureVerifying,
+		dscListProvider: DSCListProviding
 	) {
 		self.store = store
 		self.client = client
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.signatureVerifier = signatureVerifier
 		self.validationRulesAccess = validationRulesAccess
+		self.signatureVerifying = signatureVerifying
+		self.dscListProvider = dscListProvider
 	}
 		
 	// MARK: - Protocol HealthCertificateValidationProviding
@@ -62,15 +66,38 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	) {
 		
 		// 1. Apply technical validation
-		let expirationDate = healthCertificate.cborWebTokenHeader.expirationTime
 		
+		let signatureInvalid: Bool
+		var signatureValidationError: Error?
+		
+		let result = signatureVerifying.verify(
+			certificate: healthCertificate.base45,
+			with: dscListProvider.signingCertificates.value,
+			and: validationClock
+		)
+		switch result {
+		case .success:
+			signatureInvalid = false
+		case.failure(let error):
+			signatureInvalid = true
+			signatureValidationError = error
+		}
+		
+		let expirationDate = healthCertificate.cborWebTokenHeader.expirationTime
 		// NOTE: We expect here a HealthCertificate, which was already json schema validated at its creation time. So the JsonSchemaCheck will here always be true. So we only have to check for the expirationTime of the certificate.
-		guard expirationDate >= validationClock else {
-			Log.warning("Technical validation failed: expirationDate < validationClock. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
-			completion(.failure(.TECHNICAL_VALIDATION_FAILED))
+		let isExpired = expirationDate < validationClock
+		
+		guard !isExpired && !signatureInvalid else {
+			if signatureInvalid {
+				Log.warning("Technical validation failed: signature invalid. Error: \(signatureValidationError?.localizedDescription ?? "-")", log: .vaccination)
+			}
+			if isExpired {
+				Log.warning("Technical validation failed: expirationDate < validationClock. Expiration date: \(private: expirationDate), validationClock: \(private: validationClock)", log: .vaccination)
+			}
+			completion(.failure(.TECHNICAL_VALIDATION_FAILED(expirationDate: isExpired ? expirationDate : nil, signatureInvalid: signatureInvalid)))
 			return
 		}
-		Log.info("Successfully passed technical validation. Proceed with updating value sets...", log: .vaccination)
+		Log.info("Successfully passed signature verification and technical validation. Proceed with updating value sets...", log: .vaccination)
 
 		updateValueSets(
 			healthCertificate: healthCertificate,
@@ -87,6 +114,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
+	private let signatureVerifying: DCCSignatureVerifying
+	private let dscListProvider: DSCListProviding
 	private var subscriptions = Set<AnyCancellable>()
 	
 	// MARK: - Flow

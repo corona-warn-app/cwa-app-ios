@@ -68,11 +68,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case completelyProtected(expirationDate: Date)
 	}
 
+	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
+
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			if healthCertificates != oldValue {
 				updateVaccinationState()
 				updateMostRelevantHealthCertificate()
+				updateHealthCertificateSubscriptions(for: healthCertificates)
 
 				objectDidChange.send(self)
 			}
@@ -105,8 +108,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 
-	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
-
 	var name: Name? {
 		healthCertificates.first?.name
 	}
@@ -126,6 +127,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertificateSubscriptions = Set<AnyCancellable>()
+
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
@@ -151,9 +154,27 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private func setup() {
 		updateVaccinationState()
 		updateMostRelevantHealthCertificate()
+		updateHealthCertificateSubscriptions(for: healthCertificates)
 
 		subscribeToNotifications()
 		scheduleMostRelevantCertificateTimer()
+	}
+
+	private func updateHealthCertificateSubscriptions(for healthCertificates: [HealthCertificate]) {
+		healthCertificateSubscriptions = []
+
+		healthCertificates.forEach { healthCertificate in
+			healthCertificate.objectDidChange
+				.sink { [weak self] _ in
+					guard let self = self else { return }
+
+					self.updateVaccinationState()
+					self.updateMostRelevantHealthCertificate()
+
+					self.objectDidChange.send(self)
+				}
+				.store(in: &healthCertificateSubscriptions)
+		}
 	}
 
 	private func updateVaccinationState() {

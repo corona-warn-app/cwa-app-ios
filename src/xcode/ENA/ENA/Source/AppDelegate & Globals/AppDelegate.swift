@@ -192,6 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	let client: HTTPClient
 	let wifiClient: WifiOnlyHTTPClient
+	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
@@ -310,11 +311,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
-		signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+		signatureVerifying: dccSignatureVerificationService,
+		dscListProvider: dscListProvider,
 		client: client,
 		appConfiguration: appConfigurationProvider
 	)
-	
+
+	private lazy var dccSignatureVerificationService: DCCSignatureVerifying = {
+		#if DEBUG
+		if isUITesting {
+			return DCCSignatureVerifyingStub()
+		}
+		#endif
+
+		return DCCSignatureVerifyingStub()
+	}()
+
+	private lazy var dscListProvider: DSCListProviding = {
+		return DSCListProvider(client: cachingClient, store: store)
+	}()
+
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
 		#if DEBUG
 		if isUITesting {
@@ -322,7 +338,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 
-		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+		return VaccinationValueSetsProvider(client: cachingClient, store: store)
 	}
 	
 	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = {
@@ -347,7 +363,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifying: dccSignatureVerificationService,
+			dscListProvider: dscListProvider
 		)
 	}()
 	

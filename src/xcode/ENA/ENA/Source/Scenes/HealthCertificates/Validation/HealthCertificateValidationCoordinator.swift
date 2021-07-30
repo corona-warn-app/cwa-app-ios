@@ -95,10 +95,12 @@ final class HealthCertificateValidationCoordinator {
 						}
 					case .failure(let error):
 						switch error {
-						case .TECHNICAL_VALIDATION_FAILED:
+						case let .TECHNICAL_VALIDATION_FAILED(expirationDate, signatureInvalid):
 							self.showTechnicalValidationFailedScreen(
 								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate
+								arrivalDate: arrivalDate,
+								expirationDate: expirationDate,
+								signatureInvalid: signatureInvalid
 							)
 						default:
 							self.showErrorAlert(
@@ -224,12 +226,16 @@ final class HealthCertificateValidationCoordinator {
 
 	private func showTechnicalValidationFailedScreen(
 		arrivalCountry: Country,
-		arrivalDate: Date
+		arrivalDate: Date,
+		expirationDate: Date?,
+		signatureInvalid: Bool
 	) {
 		let technicalValidationFailedViewController = HealthCertificateValidationResultViewController(
 			viewModel: HealthCertificateTechnicalValidationFailedViewModel(
 				arrivalCountry: arrivalCountry,
-				arrivalDate: arrivalDate
+				arrivalDate: arrivalDate,
+				expirationDate: expirationDate,
+				signatureInvalid: signatureInvalid
 			),
 			onPrimaryButtonTap: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)
