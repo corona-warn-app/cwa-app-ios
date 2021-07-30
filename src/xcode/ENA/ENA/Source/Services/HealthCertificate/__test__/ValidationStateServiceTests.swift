@@ -26,6 +26,7 @@ class TestHealthCertificateService: HealthCertificateService {
 	 )
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
+
 	}
 
 	// inject some test data helpers
@@ -110,7 +111,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let minus2Days = Date(timeIntervalSinceNow: 60 * 60 * 24 * -2)
 		let minus1Day = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
 		let now = Date()
-		let plus5Seconds = Date(timeIntervalSinceNow: 5)
+		let plus5Seconds = Date(timeIntervalSinceNow: .short)
 		let plus1Day = Date(timeIntervalSinceNow: 60 * 60 * 24 * 1)
 		let plus2Days = Date(timeIntervalSinceNow: 60 * 60 * 24 * 2)
 
@@ -123,7 +124,7 @@ class ValidationStateServiceTests: XCTestCase {
 		}
 	}
 
-	func test_processNextFireTimestamp_THEN_isPlus1Day() throws {
+	func test_processNextFireTimestamp_THEN_isNearestFuturedate() throws {
 		// GIVEN
 		let dateHelper = DateHelpers()
 		let service = TestHealthCertificateService(
@@ -138,9 +139,35 @@ class ValidationStateServiceTests: XCTestCase {
 
 		// WHEN
 		let nextDate = try XCTUnwrap(service.processNextFireTimestamp)
-
 		// THEN
 		XCTAssertEqual(dateHelper.plus5Seconds, nextDate)
+	}
+
+	func test_scheduleTimer_THEN_TriggersUpdateAndGetsReset() throws {
+		// GIVEN
+		let dateHelper = DateHelpers()
+		let service = TestHealthCertificateService(
+			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			validUntilDates: dateHelper.orderDates.shuffled(),
+			expirationDates: dateHelper.futureDates.shuffled()
+		)
+
+		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
+		service.expectationHook = {
+			validationStateServiceExpectation.fulfill()
+		}
+
+		// WHEN
+		service.scheduleTimer()
+		XCTAssertNotNil(service.nextValidityTimer)
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertNil(service.nextValidityTimer)
 	}
 
 }
