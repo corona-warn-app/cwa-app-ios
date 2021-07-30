@@ -30,9 +30,9 @@ public enum JSONSchemaValidationError: Error, Equatable {
             return true
         case (.DECODING_FAILED, .DECODING_FAILED):
             return true
-        case (.VALIDATION_FAILED(let lhsError), .VALIDATION_FAILED(let rhsError)):
+        case let (.VALIDATION_FAILED(lhsError), .VALIDATION_FAILED(rhsError)):
             return lhsError.localizedDescription == rhsError.localizedDescription
-        case (.VALIDATION_RESULT_FAILED(let lhsError), .VALIDATION_RESULT_FAILED(let rhsError)):
+        case let (.VALIDATION_RESULT_FAILED(lhsError), .VALIDATION_RESULT_FAILED(rhsError)):
             return lhsError == rhsError
         default:
             return false
@@ -64,13 +64,14 @@ public enum CertificateDecodingError: Error, Equatable {
 
     // MARK: - Protocol Equatable
 
+    // swiftlint:disable cyclomatic_complexity
     public static func == (lhs: CertificateDecodingError, rhs: CertificateDecodingError) -> Bool {
         switch (lhs, rhs) {
-        case (.HC_BASE45_DECODING_FAILED(let lhsError), .HC_BASE45_DECODING_FAILED(let rhsError)):
+        case let (.HC_BASE45_DECODING_FAILED(lhsError), .HC_BASE45_DECODING_FAILED(rhsError)):
             return lhsError?.localizedDescription == rhsError?.localizedDescription
         case (.HC_BASE45_ENCODING_FAILED, .HC_BASE45_ENCODING_FAILED):
             return true
-        case (.HC_ZLIB_DECOMPRESSION_FAILED(let lhsError), .HC_ZLIB_DECOMPRESSION_FAILED(let rhsError)):
+        case let (.HC_ZLIB_DECOMPRESSION_FAILED(lhsError), .HC_ZLIB_DECOMPRESSION_FAILED(rhsError)):
             return lhsError.localizedDescription == rhsError.localizedDescription
         case (.HC_ZLIB_COMPRESSION_FAILED, .HC_ZLIB_COMPRESSION_FAILED):
             return true
@@ -80,7 +81,7 @@ public enum CertificateDecodingError: Error, Equatable {
             return true
         case (.HC_COSE_NO_KEYIDENTIFIER, .HC_COSE_NO_KEYIDENTIFIER):
             return true
-        case (.HC_CBOR_DECODING_FAILED(let lhsError), .HC_CBOR_DECODING_FAILED(let rhsError)):
+        case let (.HC_CBOR_DECODING_FAILED(lhsError), .HC_CBOR_DECODING_FAILED(rhsError)):
             return lhsError?.localizedDescription == rhsError?.localizedDescription
         case (.HC_CBORWEBTOKEN_NO_ISSUER, .HC_CBORWEBTOKEN_NO_ISSUER):
             return true
@@ -90,7 +91,7 @@ public enum CertificateDecodingError: Error, Equatable {
             return true
         case (.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE, .HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE):
             return true
-        case (.HC_JSON_SCHEMA_INVALID(let lhsError), .HC_JSON_SCHEMA_INVALID(let rhsError)):
+        case let (.HC_JSON_SCHEMA_INVALID(lhsError), .HC_JSON_SCHEMA_INVALID(rhsError)):
             return lhsError.localizedDescription == rhsError.localizedDescription
         case (.HC_PREFIX_INVALID, .HC_PREFIX_INVALID):
             return true
