@@ -15,7 +15,7 @@ extension NSAttributedString {
 	///   - from: The initial attributed string.
 	///   - bulletPointFont: The Font for the bullet point and first part of the `from` string. Required to align and scale the bullet point.
 	/// - Returns: An attributed string that is prefixed with a bullet point.
-	static func bulletPointString(_ from: NSAttributedString, bulletPointFont font: UIFont, bulletPointColor color: UIColor = ColorCompatibility.label) -> NSAttributedString {
+	static func bulletPointString(_ from: NSAttributedString, bulletPointFont font: UIFont, bulletPointColor color: UIColor = ColorCompatibility.label, overwriteAttributes: Bool = false) -> NSAttributedString {
 		// <bullet point>|--- indentation ---|<rest of text>
 		let indentation: CGFloat = 20.0
 		let paragraphStyle = NSMutableParagraphStyle()
@@ -45,11 +45,12 @@ extension NSAttributedString {
 			[NSAttributedString.Key.paragraphStyle: paragraphStyle],
 			range: NSRange(location: 0, length: attributedString.length))
 		
-		let bodyAttributes: [NSAttributedString.Key: Any] = [
-			.font: UIFont.preferredFont(forTextStyle: .body)
-		]
-		attributedString.addAttributes(bodyAttributes, range: NSRange(location: prefixString.count, length: from.length))
-		
+		if overwriteAttributes {
+			let bodyAttributes: [NSAttributedString.Key: Any] = [
+				.font: UIFont.preferredFont(forTextStyle: .body)
+			]
+			attributedString.addAttributes(bodyAttributes, range: NSRange(location: prefixString.count, length: from.length))
+		}
 		return attributedString
 		
 	}
@@ -61,8 +62,8 @@ extension NSAttributedString {
 	/// - Parameters:
 	///   - bulletPointFont: The Font for the bullet point and first part of the `from` string. Required to align and scale the bullet point.
 	/// - Returns: An attributed string that is prefixed with a bullet point.
-	func bulletPointString(bulletPointFont font: UIFont) -> NSAttributedString {
-		return NSAttributedString.bulletPointString(self, bulletPointFont: font)
+	func bulletPointString(bulletPointFont font: UIFont, overwriteAttributes: Bool = false) -> NSAttributedString {
+		return NSAttributedString.bulletPointString(self, bulletPointFont: font, overwriteAttributes: overwriteAttributes)
 	}
 	
 	func bulletPointString(bulletPointFont font: UIFont, bulletPointColor: UIColor) -> NSAttributedString {
