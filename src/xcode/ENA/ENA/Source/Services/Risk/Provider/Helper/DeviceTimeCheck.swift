@@ -15,7 +15,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Init
 
-	init(store: Store) {
+	init(store: AppConfigCaching & DeviceTimeChecking) {
 		self.store = store
 	}
 
@@ -58,7 +58,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Private
 
-	private let store: Store
+	private let store: AppConfigCaching & DeviceTimeChecking
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
         let killSwitchActive = isDeviceTimeCheckKillSwitchActive(config: store.appConfigMetadata?.appConfig)
