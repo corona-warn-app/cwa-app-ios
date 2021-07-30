@@ -73,7 +73,7 @@
 			As a matter of principle, the RKI will only process your data for the purposes of exposure logging and warning others if you have given your express consent beforehand. The legal basis is Art. 6(1) Sentence 1(a) GDPR and, in the case of health data, Art. 9(2)(a) GDPR. After giving your consent, you can withdraw it at any time (so-called right of withdrawal). Please refer to Section 12 for further information about your right of withdrawal.
 		</p>
 		<p>
-			In the context of the official digital COVID certificates (COVID test certificate, COVID vaccination certificate and COVID recovery certificate), data processing is regulated by law. The creation and confirmation of vaccination certificates is based on Art. 9(2)(g) GDPR in conjunction with Sect. 22(5) of the Infection Protection Act (IfSG). The creation and confirmation of test certificates is based on Art. 9(2)(g) GDPR in conjunction with Sect. 22(7) IfSG. The creation and confirmation of recovery certificates is based on Art. 9(2)(g) GDPR in conjunction with Sect. 22(6) IfSG. The processing of access data for the purpose of checking whether certificates are valid is based on Art. 6(1) Sentence 1(e) GDPR in conjunction with Sect. 3 of the German Federal Data Protection Act (BDSG).
+			In the context of the official digital COVID certificates (COVID test certificate, COVID vaccination certificate and COVID recovery certificate), data processing is regulated by law. The creation and confirmation of vaccination certificates is based on Art. 9(2)(g) GDPR in conjunction with Sect. 22(5) of the Infection Protection Act (IfSG). The creation and confirmation of test certificates is based on Art. 9(2)(g) GDPR in conjunction with Sect. 22(7) IfSG. The creation and confirmation of recovery certificates is based on Art. 9(2)(g) GDPR in conjunction with Sect. 22(6) IfSG. The processing of access data for the purpose of checking whether certificates are valid and authentic is based on Art. 6(1) Sentence 1(e) GDPR in conjunction with Sect. 3 of the German Federal Data Protection Act (BDSG).
 		</p>
 		<p>
 			On the basis of Art. 6(1) Sentence 1(e) GDPR in conjunction with Sect. 3 of the German Federal Data Protection Act (BDSG), the processing of access data for the provision of daily statistics (see Section 6 f.) is performed as part of the RKI’s duty to inform the public pursuant to Sect. 4(4) of the Act on Successor Agencies to the Federal Health Agency (BGA-NachfG).
@@ -98,7 +98,7 @@
 			Exceptions apply to the feature for proving a rapid test result, which allows you to display a confirmation issued in your name for negative rapid test results (see Section 6 c.), the feature for creating a rapid test profile, which allows you to provide a testing point with the data required to perform a rapid test (see Section 6 d.) and if you add digital COVID certificates in the app.
 		</p>
 		<p>
-			The app refrains by default from using analysis tools to evaluate the way you use it. Only if you expressly agree to voluntarily share data or to record an error report and share it with the RKI (see Sections 5 j. and 5 l.), will certain data about your use of the app be transmitted to the RKI.
+			The app refrains by default from using analysis tools to evaluate the way you use it. Only if you expressly agree to voluntarily share data or to record an error report and share it with the RKI (see Sections 5 k. and 5 m.), will certain data about your use of the app be transmitted to the RKI.
 		</p>
 		
 		<p>
@@ -651,9 +651,11 @@
 			A COVID Certificate can be obtained on request after a vaccination, a test or after recovering from a confirmed case of COVID-19, from a competent entity (vaccination centres, testing points, doctors or pharmacies). You can also request a COVID test certificate directly in the app when you register a test. To do this, scan the QR code you received during the test. The app will read the information about your test from the QR code and receive the test result from the server. If you have taken a PCR test, retrieving the result and the COVID test certificate is additionally secured by means of your date of birth. A security code is generated from your date of birth (in the form of what’s known as a hash value) and compared with the RKI server. This ensures that no one else can retrieve your test result. The test certificate is stored in a secure area on your smartphone after the test result is retrieved. If you retrieved a positive test result, no COVID test certificate will be generated. Your current COVID test certificate will be displayed on the app’s home screen and in the “Certificates” section.
 		</p>
 		<p>
-			You can use a COVID Certificate in paper form or carry it with you in electronic form on your smartphone. Each certificate contains a QR code with an electronic signature from the RKI to protect against forged certificates. If you would like to save a COVID Certificate on your smartphone, you can simply scan the QR code with the app. The app then securely stores an electronic version of the COVID Certificate on your smartphone.
+			You can use a COVID Certificate in paper form or carry it with you in electronic form on your smartphone. Each certificate contains a QR code with an electronic signature from the RKI to protect against forged certificates. If you would like to save a COVID Certificate on your smartphone, you can simply scan the QR code with the app. The app then securely stores an electronic version of the COVID Certificate on your smartphone. To prevent unwanted access to the certificates stored on your smartphone, you should set up a code lock on the device.
 		</p>
+		<p>
 			Please note that the QR codes on the COVID Certificates contain health data (data about coronavirus vaccinations, coronavirus test results or past coronavirus infections). You should only show the certificates and QR codes if you want to provide appropriate proof. Do not provide QR codes to anyone if you do not want the data to be read.
+		</p>
 		<p>
 			You can use the app to scan your own printed COVID Certificates and those of family members (family certificates) and store them in encrypted form on your smartphone. You should show family certificates only when necessary for your family members to exercise their rights, such as when dining out or travelling together.
 		</p>
@@ -671,6 +673,12 @@
 		</p>
 		<p>
 			To protect against forged certificates, it is necessary to verify the authenticity of the stored COVID Certificates. The electronic signature contained in a certificate’s QR code is used for this purpose. The electronic signature is generated by the RKI when creating the COVID Certificate on the basis of the data contained in the certificate (see also Section 5 h.–j.). The signature is a special type of encryption that allows the RKI to confirm that the certificate is an official digital document created by the RKI.
+		</p>
+		<p>
+			The RKI also provides the corresponding public keys from the authorities that issue certificates (in Germany, this is the RKI). These public keys can be used to check whether a certificate’s electronic signature actually originates from the issuing authority and whether the certificate has been manipulated since being signed electronically.
+		</p>
+		<p>
+			The app regularly downloads the public keys in the background and stores them locally on your smartphone. This allows the app to check the validity of the electronic signature and thus the authenticity of the stored certificates. The public keys do not contain any personal data.
 		</p>
 		<p>
 			You can use the app to check whether the COVID Certificates stored in the app are valid. EU countries may adopt their own rules for the validity of COVID Certificates. For example, test certificates may be valid for a longer period in some EU countries than in others. The EU countries exchange these rules via a common exchange server. Before starting a trip, you can therefore use the app to check whether your certificates are valid in the destination country.
@@ -1090,10 +1098,9 @@
 			13353 Berlin, or by emailing <a href="mailto:datenschutz@rki.de">datenschutz@rki.de</a>.
 		</p>
 		<p>
-			Last amended: 27 July 2021
+			Last amended: 16 August 2021
 		</p>
 
 	</body>
 </html>
-
 

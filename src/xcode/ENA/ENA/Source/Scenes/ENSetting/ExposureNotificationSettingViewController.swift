@@ -214,6 +214,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 		})
 		var errorMessage = ""
+		var noSettings = false
 		switch error {
 		case .exposureNotificationAuthorization:
 			errorMessage = AppStrings.ExposureNotificationError.enAuthorizationError
@@ -225,9 +226,16 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			errorMessage = AppStrings.ExposureNotificationError.enUnknownError + message
 		case .apiMisuse:
 			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
+		case .notResponding:
+			errorMessage = AppStrings.ExposureNotificationError.notResponding
+			noSettings = true
 		}
 		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
+			if noSettings {
+				alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle)
+			} else {
+				alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
+			}
 		}
 		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
 
