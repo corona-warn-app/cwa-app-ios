@@ -82,5 +82,12 @@
     "website": "https://github.com/filom/ASN1Decoder",
     "license": "MIT License",
     "licenseUrl": "https://raw.githubusercontent.com/filom/ASN1Decoder/master/LICENSE"
+  },
+  {
+    "component": "ECDSA",
+    "licensor": "IBM Deutschland GmbH",
+    "website": "https://github.com/Digitaler-Impfnachweis/covpass-ios/blob/9fc907a6c1eed1d632795487bfa1451c10418692/Source/CovPassCommon/Sources/CovPassCommon/Encoding/ECDSA.swift",
+    "license": "Apache 2.0 License",
+    "licenseUrl": "https://raw.githubusercontent.com/Digitaler-Impfnachweis/covpass-ios/main/LICENSE"
   }
 ]

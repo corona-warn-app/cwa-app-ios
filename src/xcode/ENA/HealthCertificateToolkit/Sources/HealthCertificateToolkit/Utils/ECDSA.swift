@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ECDSA {
+enum ECDSA {
     static let length: Int = 32
     static let tagSequence: UInt8 = 0x30
     static let firstBitIsSet: UInt8 = 0x80
@@ -29,9 +29,12 @@ struct ECDSA {
     }
 
     private static func encodeInteger(_ data: Data) -> Data {
-        if data.first! >= firstBitIsSet {
+        guard let first = data.first else {
+            fatalError("At least one entry expected for data.")
+        }
+        if first >= firstBitIsSet {
             return Data([tagInteger] + [UInt8(data.count + 1)] + [zero] + data)
-        } else if data.first! == zero {
+        } else if first == zero {
             return ECDSA.encodeInteger(data.dropFirst())
         } else {
             return Data([tagInteger] + [UInt8(data.count)] + data)
