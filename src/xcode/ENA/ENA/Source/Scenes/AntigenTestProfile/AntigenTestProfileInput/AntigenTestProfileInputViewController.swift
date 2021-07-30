@@ -149,6 +149,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty
 			|| string.contains(where: { $0 == "@" })
+			|| (string.count > 1 && string.last?.isWhitespace == true) // keyboard toolbar suggestions always have a space at the end -> allow these
 	}
 	
 	// MARK: - Private
