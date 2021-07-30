@@ -38,8 +38,9 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 	
 	// MARK: - Internal
 
-	func configure(attributedString text: NSAttributedString, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
-		contentLabel.attributedText = text.bulletPointString(bulletPointFont: contentLabel.font)
+	func configure(attributedString text: NSAttributedString, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil, overwriteAttributes: Bool = false) {
+		contentLabel.attributedText = text.bulletPointString(bulletPointFont: contentLabel.font, overwriteAttributes: overwriteAttributes)
+		
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityTraits = accessibilityTraits
 		accessibilityLabel = text.string
@@ -67,7 +68,8 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 			spacing: spacing,
 			alignment: alignment,
 			accessibilityTraits: accessibilityTraits,
-			accessibilityIdentifier: accessibilityIdentifier)
+			accessibilityIdentifier: accessibilityIdentifier,
+			overwriteAttributes: true)
 	}
 
 	// MARK: - Private
