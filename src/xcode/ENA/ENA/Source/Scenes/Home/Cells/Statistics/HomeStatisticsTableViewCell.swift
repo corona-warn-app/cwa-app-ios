@@ -34,7 +34,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		// Scroll to first statistics card initially and when entering/leaving edit mode
 		if scrollView.bounds.origin.x == 0, let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
 			DispatchQueue.main.async {
-				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: true)
+				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: self.wasAlreadyShown)
+				self.wasAlreadyShown = true
 			}
 		}
 	}
@@ -271,6 +272,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var subscriptions = Set<AnyCancellable>()
 	private var localStatisticsRegion: LocalStatisticsRegion?
 	private var localStatisticsCache: LocalStatisticsCaching?
+
+	private var wasAlreadyShown = false
 
 	/// Keeping `editingStatistics` locally would reset it on reloading of this cell.
 	/// Terrible design but simpler to handle than states passed through n layers of models, view controllers and views…
