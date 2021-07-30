@@ -146,8 +146,8 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 		// filtering out emojis and any other unwanted charaters. these are not wanted in the test profile.
 		var string = string
 		
-		if string.last?.isWhitespace == true { // possible keyboard suggestions
-			// -> remove last charater an passt that on to validation below
+		if string.last?.isWhitespace == true { // possible keyboard suggestion
+			// -> remove last charater and pass that on to validation below
 			let lastIndex = string.index(string.endIndex, offsetBy: -1)
 			string.remove(at: lastIndex)
 		}
