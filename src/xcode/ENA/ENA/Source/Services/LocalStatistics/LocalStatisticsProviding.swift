@@ -8,7 +8,7 @@ protocol LocalStatisticsProviding {
 	var cachedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] { get }
 
 	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?, completion: @escaping (Result<SAP_Internal_Stats_LocalStatistics, Error>) -> Void)
-	func latestSelectedLocalStatistics(selectedlocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
+	func latestSelectedLocalStatistics(selectedLocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
 }
 
 protocol LocalStatisticsFetching {

@@ -609,33 +609,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.onAddDistrict(selectValueViewController)
 				self?.statisticsCell?.updateManagementCellState()
 			},
-			onDeleteLocalStatistic: { [weak self] administrativeUnit, region in
-				Log.debug("Delete \(private: region.regionType) \(private: administrativeUnit.id), \(private: region.name)", log: .localStatistics)
-				
-				// removing the district from the store
-				guard let selectedLocalStatisticsDistricts = self?.viewModel.store.selectedLocalStatisticsRegions else {
-					Log.error("Could not assign selected local statistics districts", log: .localStatistics)
-					return
-				}
-				self?.viewModel.store.selectedLocalStatisticsRegions = selectedLocalStatisticsDistricts.filter { $0.id != String(administrativeUnit.id) }
-				
-				self?.statisticsCell?.updateManagementCellState()
-				self?.statisticsCell?.layoutIfNeeded()
-			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
 			},
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
-			},
-			onFetchGroupData: { [weak self] region in
-				self?.viewModel.state.fetchLocalStatistics(region: region)
-			},
-			onToggleEditMode: { enabled in
-				Log.debug("Edit mode on: \(enabled)", log: .localStatistics)
-				DispatchQueue.main.async {
-					cell.setEditing(enabled, animated: true)
-				}
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0
@@ -643,7 +621,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onUpdate: { [weak self] in
 				DispatchQueue.main.async { [weak self] in
+					let isEditing = HomeStatisticsTableViewCell.editingStatistics
 					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+					self?.statisticsCell?.setEditing(isEditing, animated: false)
 					self?.statisticsCell?.updateManagementCellState()
 				}
 			}
