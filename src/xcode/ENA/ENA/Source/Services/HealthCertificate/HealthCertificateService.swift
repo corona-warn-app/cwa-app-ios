@@ -101,11 +101,12 @@ class HealthCertificateService {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 				healthCertifiedPersons.value = (healthCertifiedPersons.value + [healthCertifiedPerson]).sorted()
 				updateGradients()
-				updateValidityStatesAndNotifications()
 			} else {
 				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 			}
-			
+			if healthCertificate.type != .test {
+				createNotifications(for: healthCertificate)
+			}
 			return .success((healthCertifiedPerson, healthCertificate))
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
