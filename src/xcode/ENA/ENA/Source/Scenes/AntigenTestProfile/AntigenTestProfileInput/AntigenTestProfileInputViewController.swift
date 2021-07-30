@@ -155,6 +155,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 		return string.trimmingCharacters(in: CharacterSet.alphanumerics).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.punctuationCharacters).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.urlHostAllowed).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty
 			|| string.contains(where: { $0 == "@" })
 	}
