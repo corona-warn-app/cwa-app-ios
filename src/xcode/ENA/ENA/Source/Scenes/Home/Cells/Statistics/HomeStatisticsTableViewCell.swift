@@ -30,9 +30,14 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-		
-		// prevent glitches with stackviews not sized properly.
-		self.scrollView.bounds.origin.x = self.scrollView.frame.size.width
+
+		// Scroll to first statistics card initially and when entering/leaving edit mode
+		if scrollView.bounds.origin.x == 0, let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
+			DispatchQueue.main.async {
+				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: self.wasAlreadyShown)
+				self.wasAlreadyShown = true
+			}
+		}
 	}
 
 	override func setEditing(_ editing: Bool, animated: Bool) {
@@ -64,18 +69,15 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 
 	// MARK: - Internal
-	// swiftlint:disable:next function_parameter_count function_body_length
+	// swiftlint:disable:next function_parameter_count
 	func configure(
 		with keyFigureCellModel: HomeStatisticsCellModel,
 		store: Store,
 		onInfoButtonTap: @escaping () -> Void,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDeleteLocalStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
-		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
@@ -83,165 +85,150 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] in
-				self?.clearStackView()
-				self?.configureLocalStatisticsCell(
+			.sink { [weak self] _ in
+				self?.configureStatisticsCards(
+					with: keyFigureCellModel,
 					store: store,
+					onInfoButtonTap: onInfoButtonTap,
 					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
 					onAddDistrict: onAddDistrict,
-					onDeleteLocalStatistic: onDeleteLocalStatistic,
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
-					onFetchGroupData: onFetchGroupData,
-					onToggleEditMode: onToggleEditMode,
-					onAccessibilityFocus: onAccessibilityFocus
-				)
-				self?.configureKeyFigureCells(
-					for: $0,
-					onInfoButtonTap: onInfoButtonTap,
-					onAccessibilityFocus: onAccessibilityFocus
-				)
-				onUpdate()
-			}
-			.store(in: &subscriptions)
-		// Retaining cell model so it gets updated
-		self.cellModel = keyFigureCellModel
-		
-		keyFigureCellModel.$localAdministrativeUnitStatistics
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { administrativeUnitsData in
-				Log.debug("update with \(keyFigureCellModel.localAdministrativeUnitStatistics.count) administrative local stats", log: .localStatistics)
-								
-				let administrativeUnit = administrativeUnitsData.first {
-					$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
-				}
-				// needed for UI updates
-				self.localStatisticsCache = store
-				
-				guard let adminUnit = administrativeUnit, let districtName = self.localStatisticsRegion?.name else {
-					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
-					return
-				}
-				let regionStatistics = RegionStatisticsData(
-					regionName: districtName,
-					id: Int(adminUnit.administrativeUnitShortID),
-					updatedAt: adminUnit.updatedAt,
-					sevenDayIncidence: adminUnit.sevenDayIncidence
-				)
-				
-				self.insertLocalStatistics(
-					store: store,
-					regionData: regionStatistics,
-					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus,
-					onDeleteStatistic: onDeleteLocalStatistic
+					onUpdate: onUpdate
 				)
-				onUpdate()
-			}
-			.store(in: &subscriptions)
-		
-		keyFigureCellModel.$localFederalStateStatistics
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { localFederalStates in
-				Log.debug("update with \(keyFigureCellModel.localFederalStateStatistics.count) federal local stats", log: .localStatistics)
-				
-				let localFederalState = localFederalStates.first {
-					$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
-				}
-				// needed for UI updates
-				self.localStatisticsCache = store
-				
-				guard let federalState = localFederalState, let federalStateName = self.localStatisticsRegion?.name else {
-					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-					return
-				}
-				let regionStatistics = RegionStatisticsData(
-					regionName: federalStateName,
-					id: federalState.federalState.rawValue,
-					updatedAt: federalState.updatedAt,
-					sevenDayIncidence: federalState.sevenDayIncidence
-				)
-				
-				self.insertLocalStatistics(
-					store: store,
-					regionData: regionStatistics,
-					onInfoButtonTap: onInfoButtonTap,
-					onAccessibilityFocus: onAccessibilityFocus,
-					onDeleteStatistic: onDeleteLocalStatistic
-				)
-				onUpdate()
 			}
 			.store(in: &subscriptions)
 		
 		keyFigureCellModel.$selectedLocalStatistics
 			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { selectedLocalStatistics in
-				Log.debug("update with \(keyFigureCellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
-				
-				self.removeLocalStatisticsCards()
-				
-				for singleSelectedLocalStatistics in selectedLocalStatistics {
-					
-					self.localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
-					let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
-					let regionStatistics: RegionStatisticsData
-					guard let region = self.localStatisticsRegion else {
-						Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-						return
-					}
-					
-					switch region.regionType {
-					case .federalState:
-						let localFederalState = singleSelectedLocalStatistics.federalStateAndDistrictsData.federalStateData.first {
-							$0.federalState.rawValue == Int(self.localStatisticsRegion?.id ?? "0")
-						}
-						guard let federalState = localFederalState else {
-							Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-							return
-						}
-						regionStatistics = RegionStatisticsData(
-							regionName: regionName,
-							id: federalState.federalState.rawValue,
-							updatedAt: federalState.updatedAt,
-							sevenDayIncidence: federalState.sevenDayIncidence
-						)
-						
-					case .administrativeUnit:
-						let administrativeUnit = singleSelectedLocalStatistics.federalStateAndDistrictsData.administrativeUnitData.first {
-							$0.administrativeUnitShortID == UInt32(self.localStatisticsRegion?.id ?? "0")
-						}
-						guard let adminUnit = administrativeUnit else {
-							Log.error("Could not assign administrative unit or district name", log: .localStatistics)
-							return
-						}
-						
-						regionStatistics = RegionStatisticsData(
-							regionName: regionName,
-							id: Int(adminUnit.administrativeUnitShortID),
-							updatedAt: adminUnit.updatedAt,
-							sevenDayIncidence: adminUnit.sevenDayIncidence
-						)
-					}
-					
-					self.insertLocalStatistics(
-						store: store,
-						regionData: regionStatistics,
-						onInfoButtonTap: onInfoButtonTap,
-						onAccessibilityFocus: onAccessibilityFocus,
-						onDeleteStatistic: onDeleteLocalStatistic
-					)
-					onUpdate()
-				}
+			.sink { [weak self] _ in
+				self?.configureStatisticsCards(
+					with: keyFigureCellModel,
+					store: store,
+					onInfoButtonTap: onInfoButtonTap,
+					onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
+					onAddDistrict: onAddDistrict,
+					onDismissState: onDismissState,
+					onDismissDistrict: onDismissDistrict,
+					onAccessibilityFocus: onAccessibilityFocus,
+					onUpdate: onUpdate
+				)
 			}
 			.store(in: &subscriptions)
+
+		// Retaining cell model so it gets updated
+		self.cellModel = keyFigureCellModel
+	}
+
+	// swiftlint:disable:next function_parameter_count
+	func configureStatisticsCards(
+		with keyFigureCellModel: HomeStatisticsCellModel,
+		store: Store,
+		onInfoButtonTap: @escaping () -> Void,
+		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
+		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
+		onDismissState: @escaping () -> Void,
+		onDismissDistrict: @escaping (Bool) -> Void,
+		onAccessibilityFocus: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
+	) {
+		clearStackView()
+
+		configureManageLocalStatisticsCell(
+			store: store,
+			onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
+			onAddDistrict: onAddDistrict,
+			onDismissState: onDismissState,
+			onDismissDistrict: onDismissDistrict,
+			onAccessibilityFocus: onAccessibilityFocus
+		)
+		configureLocalStatisticsCards(
+			store: store,
+			onInfoButtonTap: onInfoButtonTap,
+			onAccessibilityFocus: onAccessibilityFocus,
+			onUpdate: onUpdate
+		)
+		configureKeyFigureCells(
+			for: keyFigureCellModel.keyFigureCards,
+			onInfoButtonTap: onInfoButtonTap,
+			onAccessibilityFocus: onAccessibilityFocus
+		)
+
+		onUpdate()
+	}
+
+	func configureLocalStatisticsCards(
+		store: Store,
+		onInfoButtonTap:  @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
+	) {
+		guard let cellModel = cellModel else {
+			return
+		}
+
+		Log.debug("update with \(cellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
+
+		removeLocalStatisticsCards()
+
+		for singleSelectedLocalStatistics in cellModel.selectedLocalStatistics {
+			localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
+			let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
+			let regionStatistics: RegionStatisticsData
+			guard let region = localStatisticsRegion else {
+				Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
+				return
+			}
+
+			switch region.regionType {
+			case .federalState:
+				let localFederalState = singleSelectedLocalStatistics.federalStateAndDistrictsData.federalStateData.first {
+					$0.federalState.rawValue == Int(localStatisticsRegion?.id ?? "0")
+				}
+				guard let federalState = localFederalState else {
+					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
+					return
+				}
+				regionStatistics = RegionStatisticsData(
+					regionName: regionName,
+					id: federalState.federalState.rawValue,
+					updatedAt: federalState.updatedAt,
+					sevenDayIncidence: federalState.sevenDayIncidence
+				)
+
+			case .administrativeUnit:
+				let administrativeUnit = singleSelectedLocalStatistics.federalStateAndDistrictsData.administrativeUnitData.first {
+					$0.administrativeUnitShortID == UInt32(localStatisticsRegion?.id ?? "0")
+				}
+				guard let adminUnit = administrativeUnit else {
+					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
+					return
+				}
+
+				regionStatistics = RegionStatisticsData(
+					regionName: regionName,
+					id: Int(adminUnit.administrativeUnitShortID),
+					updatedAt: adminUnit.updatedAt,
+					sevenDayIncidence: adminUnit.sevenDayIncidence
+				)
+			}
+
+			insertLocalStatistics(
+				store: store,
+				regionData: regionStatistics,
+				onInfoButtonTap: onInfoButtonTap,
+				onAccessibilityFocus: onAccessibilityFocus
+			)
+			onUpdate()
+		}
 	}
 	
 	func insertLocalStatistics(
 		store: Store,
 		regionData: RegionStatisticsData,
 		onInfoButtonTap:  @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void,
-		onDeleteStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void
+		onAccessibilityFocus: @escaping () -> Void
 	) {
 		let nibName = String(describing: HomeStatisticsCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
@@ -267,17 +254,23 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 							return
 						}
 						Log.info("removing \(private: regionData.id, public: "administrative unit") @ \(private: region.name, public: "district id")", log: .ui)
-						onDeleteStatistic(regionData, region)
+
 						DispatchQueue.main.async { [weak self] in
 							self?.stackView.removeArrangedSubview(statisticsCardView)
 							statisticsCardView.removeFromSuperview()
-
-							// update management 'cell' state
-							self?.updateManagementCellState()
 						}
+
+						// removing the district from the store
+						store.selectedLocalStatisticsRegions = store.selectedLocalStatisticsRegions.filter { $0.id != String(regionData.id) }
+						if let cellModel = self?.cellModel {
+							cellModel.homeState.selectedLocalStatistics = cellModel.homeState.selectedLocalStatistics.filter { $0.localStatisticsRegion.id != String(regionData.id) }
+						}
+
+						self?.updateManagementCellState()
 					}
 				)
 				statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+				statisticsCardView.setEditMode(Self.editingStatistics, animated: false)
 
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
@@ -295,18 +288,17 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	private var localStatisticsRegion: LocalStatisticsRegion?
 	private var localStatisticsCache: LocalStatisticsCaching?
 
+	private var wasAlreadyShown = false
+
 	/// Keeping `editingStatistics` locally would reset it on reloading of this cell.
 	/// Terrible design but simpler to handle than states passed through n layers of models, view controllers and views…
-	private static var editingStatistics: Bool = false
+	static var editingStatistics: Bool = false
 
 	private func clearStackView() {
 		stackView.arrangedSubviews.forEach {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
 		}
-
-		// reset state
-		setEditing(false, animated: true)
 	}
 	
 	private func removeLocalStatisticsCards() {
@@ -319,16 +311,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		stackView.layoutIfNeeded()
 	}
 	
-	// swiftlint:disable:next function_parameter_count
-	private func configureLocalStatisticsCell(
+	private func configureManageLocalStatisticsCell(
 		store: Store,
 		onAddLocalStatisticsButtonTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
-		onDeleteLocalStatistic: @escaping (RegionStatisticsData, LocalStatisticsRegion) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
-		onToggleEditMode: @escaping (_ enabled: Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void
 	) {
 		let localStatisticsModel = LocalStatisticsModel()
@@ -355,11 +343,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissDistrict(dismissToRoot)
 				}, onFetchGroupData: { region in
 					self.localStatisticsRegion = region
-					onFetchGroupData(region)
+					self.cellModel?.homeState.fetchLocalStatistics(region: region)
 				}, onEditButtonTap: {
-					self.setEditing(!Self.editingStatistics, animated: true)
-					// Pass the current state to the tableViewController
-					onToggleEditMode(Self.editingStatistics)
+					DispatchQueue.main.async {
+						self.setEditing(!Self.editingStatistics, animated: true)
+					}
 				}, onAccessibilityFocus: { [weak self] in
 					self?.scrollView.scrollRectToVisible(manageLocalStatisticsCardView.frame, animated: true)
 					onAccessibilityFocus()

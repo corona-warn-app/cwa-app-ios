@@ -6,7 +6,7 @@ import UIKit
 
 class DeltaOnboardingNewVersionFeatures: DeltaOnboarding {
 
-	let version = "2.6"
+	let version = "2.7"
 	let store: Store
 
 	init(store: Store) {

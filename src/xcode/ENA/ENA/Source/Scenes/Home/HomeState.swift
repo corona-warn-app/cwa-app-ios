@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -47,6 +47,9 @@ class HomeState: ENStateHandlerUpdating {
 		self.localStatisticsProvider = localStatisticsProvider
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
+		statistics = store.statistics?.statistics ?? SAP_Internal_Stats_Statistics()
+		selectedLocalStatistics = localStatisticsProvider.cachedSelectedLocalStatisticsTuples
+
 		observeRisk()
 	}
 
@@ -68,9 +71,8 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
-	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
-	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
-	@OpenCombine.Published var selectedLocalStatistics: [SelectedLocalStatisticsTuple] = [SelectedLocalStatisticsTuple]()
+	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics
+	@OpenCombine.Published var selectedLocalStatistics: [SelectedLocalStatisticsTuple]
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -156,31 +158,25 @@ class HomeState: ENStateHandlerUpdating {
 		}
 	}
 
-	private func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil)
-			.sink(
-				receiveCompletion: { [weak self] result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						// Propagate signature verification error to the user
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							self?.statisticsLoadingError = .dataVerificationError
-						}
-						Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
-					}
-				}, receiveValue: { [weak self] in
-					// persist the Region to the list of selected Regions
-					self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
-					self?.localStatistics = $0
+	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
+		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] result in
+			switch result {
+			case .success:
+				// persist the Region to the list of selected Regions
+				self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
+				self?.updateSelectedLocalStatistics(self?.store.selectedLocalStatisticsRegions)
+			case .failure(let error):
+				// Propagate signature verification error to the user
+				if case CachingHTTPClient.CacheError.dataVerificationError = error {
+					self?.statisticsLoadingError = .dataVerificationError
 				}
-			)
-			.store(in: &subscriptions)
+				Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
+			}
+		})
 	}
 	
 	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
+		localStatisticsProvider.latestSelectedLocalStatistics(selectedLocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
 			self.selectedLocalStatistics = selectedLocalStatistics
 			Log.debug("fetched selected local statistics: \(private: selectedLocalStatistics) entities", log: .localStatistics)
 		})
@@ -188,7 +184,7 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Private
 
-	private let store: Store
+	private (set) var store: Store
 
 	private let statisticsProvider: StatisticsProviding
 	private let localStatisticsProvider: LocalStatisticsProviding

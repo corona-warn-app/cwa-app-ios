@@ -44,7 +44,8 @@ extension ExposureNotificationError: ExposureSubmissionErrorTransformable {
 		switch self {
 		case .exposureNotificationRequired,
 			 .exposureNotificationAuthorization,
-			 .exposureNotificationUnavailable:
+			 .exposureNotificationUnavailable,
+			 .notResponding:
 			return .enNotEnabled
 		case .apiMisuse, .unknown:
 			return .other("ENErrorCodeAPIMisuse")

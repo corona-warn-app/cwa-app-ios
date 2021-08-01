@@ -13,21 +13,16 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.6"
+		self.featureVersion = "2.7"
 		
-		// EU Certificate Check
+		// Signature Check
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature26EuCertCheckTitle, description: AppStrings.NewVersionFeatures.feature26EuCertCheckDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27SigCheckTitle, description: AppStrings.NewVersionFeatures.feature27SigCheckDescription)
 		)
 		
-		// Enhanced Stats
+		// Technical Validity
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature26EnhancedStatsTitle, description: AppStrings.NewVersionFeatures.feature26DEnhancedStatsDescription)
-		)
-		
-		// Edit Rapid Tests
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature26EditRapidTestTitle, description: AppStrings.NewVersionFeatures.feature26EditRapidTestDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature27technicalValidityTitle, description: AppStrings.NewVersionFeatures.feature27technicalValidityDescription)
 		)
 	}
 
@@ -95,6 +90,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		for feature in newVersionFeatures {
 			let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+			featureBulletPoint.addAttributes(boldTextAttribute, range: NSRange(location: 0, length: feature.title.count))
 			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
 			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
 			cells.append(.bulletPoint(attributedText: featureBulletPoint))

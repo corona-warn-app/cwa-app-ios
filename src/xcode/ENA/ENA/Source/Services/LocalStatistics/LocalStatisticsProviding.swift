@@ -3,11 +3,12 @@
 //
 
 import Foundation
-import OpenCombine
 
 protocol LocalStatisticsProviding {
-	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?) -> AnyPublisher<SAP_Internal_Stats_LocalStatistics, Error>
-	func latestSelectedLocalStatistics(selectedlocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
+	var cachedSelectedLocalStatisticsTuples: [SelectedLocalStatisticsTuple] { get }
+
+	func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String?, completion: @escaping (Result<SAP_Internal_Stats_LocalStatistics, Error>) -> Void)
+	func latestSelectedLocalStatistics(selectedLocalStatisticsRegions: [LocalStatisticsRegion], completion: @escaping ([SelectedLocalStatisticsTuple]) -> Void)
 }
 
 protocol LocalStatisticsFetching {
