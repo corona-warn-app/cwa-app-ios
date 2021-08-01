@@ -237,7 +237,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			if !stackView.arrangedSubviews.isEmpty {
 				statisticsCardView.tag = 2
 				stackView.insertArrangedSubview(statisticsCardView, at: 1)
-				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+
+				let widthConstraint = statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+				widthConstraint.isActive = true
+
+				var baselineConstraints: [NSLayoutConstraint] = []
+
 				statisticsCardView.configure(
 					viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionData),
 					onInfoButtonTap: {
@@ -255,24 +260,34 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						}
 						Log.info("removing \(private: regionData.id, public: "administrative unit") @ \(private: region.name, public: "district id")", log: .ui)
 
-						DispatchQueue.main.async { [weak self] in
-							self?.stackView.removeArrangedSubview(statisticsCardView)
-							statisticsCardView.removeFromSuperview()
-						}
+						widthConstraint.isActive = false
+						baselineConstraints.forEach { $0.isActive = false }
 
-						// removing the district from the store
-						store.selectedLocalStatisticsRegions = store.selectedLocalStatisticsRegions.filter { $0.id != String(regionData.id) }
-						if let cellModel = self?.cellModel {
-							cellModel.homeState.selectedLocalStatistics = cellModel.homeState.selectedLocalStatistics.filter { $0.localStatisticsRegion.id != String(regionData.id) }
-						}
+						UIView.animate(
+							withDuration: 0.25,
+							animations: {
+								statisticsCardView.isHidden = true
+								statisticsCardView.alpha = 0
+							},
+							completion: { _ in
+								store.selectedLocalStatisticsRegions = store.selectedLocalStatisticsRegions
+									.filter { $0.id != String(regionData.id) }
+								if let cellModel = self?.cellModel {
+									cellModel.homeState.selectedLocalStatistics = cellModel.homeState.selectedLocalStatistics
+										.filter {
+											$0.localStatisticsRegion.id != String(regionData.id)
+										}
+								}
 
-						self?.updateManagementCellState()
+								self?.updateManagementCellState()
+							}
+						)
 					}
 				)
 				statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 				statisticsCardView.setEditMode(Self.editingStatistics, animated: false)
 
-				configureBaselines(statisticsCardView: statisticsCardView)
+				baselineConstraints = configureBaselines(statisticsCardView: statisticsCardView)
 			}
 		}
 	}
@@ -391,18 +406,25 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			trailingConstraint.constant = 65
 		}
 	}
-	
-	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) {
+
+	@discardableResult
+	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) -> [NSLayoutConstraint] {
 		let cardViewCount = stackView.arrangedSubviews.count
 		if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
-			NSLayoutConstraint.activate([
+			let constraints = [
 				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
 				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
 				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
-			])
+			]
+
+			NSLayoutConstraint.activate(constraints)
+
+			return constraints
 		}
+
+		return []
 	}
 
 	func updateManagementCellState() {
