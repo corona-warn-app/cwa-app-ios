@@ -60,9 +60,9 @@ class HealthCertificateService {
 			.flatMap { $0.healthCertificates }
 		let signingCertificates = dscListProvider.signingCertificates.value
 
-		let validUntilDates = validUntilDates(for: healthCertificates, signingCertificates: signingCertificates)
-		let expirationDates = expirationDates(for: healthCertificates)
-		let allDatesToExam = (validUntilDates + expirationDates)
+		let allValidUntilDates = validUntilDates(for: healthCertificates, signingCertificates: signingCertificates)
+		let allExpirationDates = expirationDates(for: healthCertificates)
+		let allDatesToExam = (allValidUntilDates + allExpirationDates)
 			.filter { date in
 				date.timeIntervalSinceNow.sign == .plus
 			}
@@ -319,10 +319,10 @@ class HealthCertificateService {
 	}
 
 	func updateValidityStates(shouldScheduleTimer: Bool = true) {
-		let appConfiguration = appConfiguration.currentAppConfig.value
+		let currentAppConfiguration = appConfiguration.currentAppConfig.value
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
+				let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
 				let expiringSoonDate = Calendar.current.date(
 					byAdding: .day,
 					value: -Int(expirationThresholdInDays),
