@@ -18,7 +18,8 @@ final class HealthCertificateViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		self.qrCodeCellViewModel = HealthCertificateDetailsQRCodeCellViewModel(
+		self.qrCodeCellViewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
 			healthCertificate: healthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
 		)
@@ -93,7 +94,7 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	let qrCodeCellViewModel: HealthCertificateDetailsQRCodeCellViewModel
+	let qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel
 
 	var expirationDateCellViewModel: HealthCertificateExpirationDateCellViewModel {
 		let formattedDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .short)

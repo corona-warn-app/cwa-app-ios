@@ -88,7 +88,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(with: viewModel.headlineCellViewModel)
 			return cell
 		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateDetailsQRCodeCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 		case .topCorner:
@@ -223,8 +223,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		)
 
 		tableView.register(
-			HealthCertificateDetailsQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateDetailsQRCodeCell.reuseIdentifier
+			HealthCertificateQRCodeCell.self,
+			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 
 		tableView.register(

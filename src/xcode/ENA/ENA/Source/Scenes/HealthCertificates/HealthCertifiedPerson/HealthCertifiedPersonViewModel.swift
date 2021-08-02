@@ -111,6 +111,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
 			healthCertificate: mostRelevantHealthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
 			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
