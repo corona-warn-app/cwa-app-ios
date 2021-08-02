@@ -282,6 +282,8 @@ class CoronaTestService {
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
+		Log.info("[CoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
+
 		let group = DispatchGroup()
 		var errors = [CoronaTestServiceError]()
 
@@ -316,7 +318,7 @@ class CoronaTestService {
 		presentNotification: Bool = false,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
+		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
 		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
@@ -575,6 +577,7 @@ class CoronaTestService {
 		}
 
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			Log.info("[CoronaTestService] Get test result completed early because final test result is present.", log: .api)
 			completion(.success(coronaTest.testResult))
 			return
 		}

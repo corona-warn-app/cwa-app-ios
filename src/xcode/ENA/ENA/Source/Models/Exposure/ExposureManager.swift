@@ -226,7 +226,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
-			Log.info("Activated ENManager succesfully.")
+			Log.info("Activated ENManager successfully.")
 			completion(nil)
 		}
 	}

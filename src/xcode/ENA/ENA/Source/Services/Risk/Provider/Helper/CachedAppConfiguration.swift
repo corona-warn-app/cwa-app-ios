@@ -73,7 +73,7 @@ final class CachedAppConfiguration {
 		return Future { promise in
 			Self.queue.sync(flags: .barrier) {
 				guard !self.requestIsRunning else {
-					Log.debug("Return immediately because request allready running.", log: .appConfig)
+					Log.debug("Return immediately because request already running.", log: .appConfig)
 					Log.debug("Append promise.", log: .appConfig)
 					self.promises.append(promise)
 					return

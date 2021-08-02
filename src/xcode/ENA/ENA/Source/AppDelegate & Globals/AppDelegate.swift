@@ -120,8 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
-		let route = routeFromLaunchOptions(launchOptions)
-		setupUI(route)
+		// Route will be executed in 'applicationDidBecomeActive'
+		self.route = routeFromLaunchOptions(launchOptions)
+
 		QuickAction.setup()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -160,6 +161,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)
 
+		if let route = route {
+			setupUI(route)
+			self.route = nil
+		}
+
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
 		if !AppDelegate.isAppDisabled() {
@@ -177,7 +183,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-		// handle QR cdes scanned in the camera app
+		Log.info("Application continue user activity.", log: .appLifecycle)
+
+		// handle QR codes scanned in the camera app
 		var route: Route?
 		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
 			route = Route(url: incomingURL)
@@ -200,6 +208,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let eventStore: EventStoringProviding = EventStore.make()
     let environmentProvider: EnvironmentProviding
 	var store: Store
+	var route: Route?
 
 	lazy var coronaTestService: CoronaTestService = {
 		return CoronaTestService(
