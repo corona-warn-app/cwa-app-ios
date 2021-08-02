@@ -53,6 +53,22 @@ class HealthCertificateService {
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
 
+	var nextValidityTimer: Timer?
+
+	var nextFireDate: Date? {
+		let healthCertificates = healthCertifiedPersons.value
+			.flatMap { $0.healthCertificates }
+		let signingCertificates = dscListProvider.signingCertificates.value
+
+		let allValidUntilDates = validUntilDates(for: healthCertificates, signingCertificates: signingCertificates)
+		let allExpirationDates = expirationDates(for: healthCertificates)
+		let allDatesToExam = (allValidUntilDates + allExpirationDates)
+			.filter { date in
+				date.timeIntervalSinceNow.sign == .plus
+			}
+		return allDatesToExam.min()
+	}
+
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45
@@ -302,6 +318,89 @@ class HealthCertificateService {
 		unseenTestCertificateCount.value = store.unseenTestCertificateCount
 	}
 
+	func updateValidityStates(shouldScheduleTimer: Bool = true) {
+		let currentAppConfiguration = appConfiguration.currentAppConfig.value
+		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
+				let expiringSoonDate = Calendar.current.date(
+					byAdding: .day,
+					value: -Int(expirationThresholdInDays),
+					to: healthCertificate.expirationDate
+				)
+
+				let signatureVerificationResult = self.signatureVerifying.verify(
+					certificate: healthCertificate.base45,
+					with: self.dscListProvider.signingCertificates.value,
+					and: Date()
+				)
+
+				switch signatureVerificationResult {
+				case .success:
+					if Date() >= healthCertificate.expirationDate {
+						healthCertificate.validityState = .expired
+					} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+						healthCertificate.validityState = .expiringSoon
+					} else {
+						healthCertificate.validityState = .valid
+					}
+				case .failure:
+					healthCertificate.validityState = .invalid
+				}
+				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
+			}
+		}
+		if shouldScheduleTimer {
+			scheduleTimer()
+		}
+	}
+
+	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
+		let dccValidation = DCCSignatureVerification()
+		return healthCertificates
+			.map { certificate in
+				dccValidation.validUntilDate(certificate: certificate.base45, with: signingCertificates)
+			}
+			.compactMap { result -> Date? in
+				switch result {
+				case let .success(date):
+					return date
+
+				case let .failure(error):
+					Log.error("Error while validating certificate \(error.localizedDescription)")
+					return nil
+				}
+			}
+	}
+
+	func expirationDates(for healthCertificates: [HealthCertificate]) -> [Date] {
+		return healthCertificates.map { $0.expirationDate }
+	}
+
+	@objc
+	func scheduleTimer() {
+		invalidateTimer()
+		guard let fireDate = nextFireDate,
+			fireDate.timeIntervalSinceNow > 0 else {
+			Log.info("no next date in the future found - can't schedule timer")
+			return
+		}
+
+		Log.info("Schedule validity timer in \(fireDate.timeIntervalSinceNow) seconds")
+		nextValidityTimer = Timer.scheduledTimer(withTimeInterval: fireDate.timeIntervalSinceNow, repeats: false) { [weak self] _ in
+			self?.updateValidityStates(shouldScheduleTimer: false)
+			self?.nextValidityTimer = nil
+		}
+
+		// remove old notifications before we subscribe new ones
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		// schedule timer updates
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(scheduleTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
@@ -340,7 +439,38 @@ class HealthCertificateService {
 
 		subscribeToNotifications()
 		updateGradients()
+		// Validation Service
+		subscribeAppConfigUpdates()
+		subscribeDSCListChanges()
+
 		updateValidityStates()
+	}
+
+	private func subscribeAppConfigUpdates() {
+		// subscribe app config updates
+		appConfiguration.currentAppConfig
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateValidityStates()
+			}
+			.store(in: &subscriptions)
+	}
+
+	private func subscribeDSCListChanges() {
+		// subscribe to changes of dcc certificates list
+		dscListProvider.signingCertificates
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateValidityStates()
+			}
+			.store(in: &subscriptions)
+	}
+
+	@objc
+	private func invalidateTimer() {
+		Log.info("Invalidate scheduled validity timer")
+		nextValidityTimer?.invalidate()
+		nextValidityTimer = nil
 	}
 
 	#if DEBUG
@@ -457,45 +587,6 @@ class HealthCertificateService {
 			.forEach { index, person in
 				person.gradientType = gradientTypes[index % 3]
 			}
-	}
-
-	private func updateValidityStates() {
-		appConfiguration.appConfiguration()
-			.sink { [weak self] appConfiguration in
-				guard let self = self else { return }
-
-				self.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-					healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-						let expirationThresholdInDays = appConfiguration.dgcParameters.expirationThresholdInDays
-						let expiringSoonDate = Calendar.current.date(
-							byAdding: .day,
-							value: -Int(expirationThresholdInDays),
-							to: healthCertificate.expirationDate
-						)
-
-						let signatureVerificationResult = self.signatureVerifying.verify(
-							certificate: healthCertificate.base45,
-							with: self.dscListProvider.signingCertificates.value,
-							and: Date()
-						)
-
-						switch signatureVerificationResult {
-						case .success:
-							if Date() >= healthCertificate.expirationDate {
-								healthCertificate.validityState = .expired
-							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-								healthCertificate.validityState = .expiringSoon
-							} else {
-								healthCertificate.validityState = .valid
-							}
-						case .failure:
-							healthCertificate.validityState = .invalid
-						}
-					}
-					healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
-				}
-			}
-			.store(in: &subscriptions)
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
