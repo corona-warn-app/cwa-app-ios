@@ -11,7 +11,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 	func testGIVEN_ViewModelWithVaccinationCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
-			mode: .details,
+			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalCovidCertificate.fake(
@@ -41,7 +41,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 
 		let viewModel = HealthCertificateQRCodeCellViewModel(
-			mode: .details,
+			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalCovidCertificate.fake(
@@ -67,7 +67,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 	func testGIVEN_ViewModelWithRecoveryCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
-			mode: .details,
+			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalCovidCertificate.fake(
