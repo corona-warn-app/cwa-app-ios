@@ -173,6 +173,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		validityStateStackView.addArrangedSubview(validityStateTitleLabel)
 
 		stackView.addArrangedSubview(validityStateStackView)
+		stackView.setCustomSpacing(12, after: validityStateStackView)
+
 		stackView.addArrangedSubview(validityStateDescriptionLabel)
 		stackView.addArrangedSubview(validationButton)
 
