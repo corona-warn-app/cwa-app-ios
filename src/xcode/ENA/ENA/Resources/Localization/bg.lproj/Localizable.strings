@@ -299,9 +299,9 @@
 
 "NotificationSettings_Off_InfoTitle" = "Активиране на известия";
 
-"NotificationSettings_Off_InfoDescription" = "За да активирате известията, от настройките на Вашето устройство трябва да разрешите на приложението Corona-Warn-App да Ви изпраща известия.";
+"NotificationSettings_Off_InfoDescription" = "За да активирате известията от Corona-Warn-App, трябва да разрешите известяването от настройките на Вашето устройство.";
 
-"NotificationSettings_Off_OpenSettings" = "Отворете менюто за настройки";
+"NotificationSettings_Off_OpenSettings" = "Към настройките на устройството";
 
 "NotificationSettings_NavTitle" = "Известия";
 
@@ -1082,6 +1082,8 @@
 
 "ExposureNotificationSetting_apiMisuse" = "Възникна вътрешна грешка при активирането на функцията за регистриране на излагания на риск. За повече информация посетете нашата страница „ЧЗВ“ и опитайте отново по-късно.";
 
+"ExposureNotificationSetting_notResponding" = "Възникна грешка при активирането на регистрирането на излаганията на риск. Моля, рестартирайте устройството си. Ако грешката продължи да възниква, посетете уебсайта с често задавани въпроси (ЧЗВ) или се обадете на горещата линия от „Информация за приложението“ -> „Гореща линия за технически проблеми“.";
+
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Международно регистриране на излаганията";
 
@@ -1545,18 +1547,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.6 */
-"NewVersionFeature_26_euCertCheck_title" = "Валидиране на сертификат на ЕС";
+/* Version 2.7 */
+"NewVersionFeature_27_sigCheck_title" = "Версия на подписа";
 
-"NewVersionFeature_26_euCertCheck_description" = "Вече може да проверите дали сертификатът ви е валиден в посочена от вас държава, преди да тръгнете на път.";
+"NewVersionFeature_27_sigCheck_description" = "Когато добавяте своите сертификати в Corona-Warn-App, те преминават проверка за валидност и автентичност. Могат да бъдат импортирани само сертификати, издадени от оторизиран орган.";
 
-"NewVersionFeature_26_enhancedStats_title" = "Разширена статистика";
+"NewVersionFeature_27_technicalValidity_title" = "Техническа проверка за валидност";
 
-"NewVersionFeature_26_enhancedStats_description" = "Вече може да добавяте до пет записа на данни за 7-дневна заболеваемост на местно ниво.";
-
-"NewVersionFeature_26_editRapidTestProfile_title" = "Редактиране на профил за бързи тестове";
-
-"NewVersionFeature_26_editRapidTestProfile_description" = "Вече можете да редактирате профила за бързи тестове в приложението, например за да промените адреса си.";
+"NewVersionFeature_27_technicalValidity_description" = "Corona-Warn-App вече показва техническата дата на изтичане на сертификатите за ваксинация и възстановяване, които сте добавили. Приложението може да Ви известява за наближаващо изтичане на валидността на някой от сертификатите.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1989,11 +1987,11 @@
 
 "Statistics_Info_Incidence_Title" = "7-дневна заболеваемост";
 
-"Statistics_Info_Incidence_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души";
+"Statistics_Info_Incidence_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души.";
 
 "Statistics_Info_Infections_Title" = "Потвърдени нови случаи на заразяване";
 
-"Statistics_Info_Infections_Text" = "Брой диагностицирани с коронавирус лица, регистрирани в института „Роберт Кох“";
+"Statistics_Info_Infections_Text" = "Брой диагностицирани с коронавирус лица, регистрирани в института „Роберт Кох“.";
 
 "Statistics_Info_KeySubmissions_Title" = "Лица, които изпращат предупреждения";
 
@@ -2710,6 +2708,12 @@
 
 "HealthCertificate_Details_deleteButtonTitle" = "Изтриване на сертификата за ваксинация";
 
+"HealthCertificate_Details_expirationDateTitle" = "Техническа дата на изтичане";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Валидно до %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Моля, снабдете се с нов цифров сертификат навреме.";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Тази ваксина осигурява защита с една доза или се поставя на преболедувало лице, което се нуждае само от една доза.";
 
@@ -2766,6 +2770,12 @@
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Не беше генериран QR код. Ако грешката продължи да възниква, се обърнете към горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Невалиден подпис";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Подписът на сертификата е невалиден. Сертификатът няма силата на доказателство и съответно не може да бъде импортиран.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "ЧЗВ за проверката на подписа";
+
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Неуспешна проверка";
 
@@ -2797,8 +2807,6 @@
 "HealthCertificate_Validation_Bullet3" = "С цел удостоверяване на автентичността всеки сертификат се издава с електронен подпис, който се проверява с помощта на приложение за проверка.";
 
 "HealthCertificate_Validation_Bullet4" = "Corona-Warn-App не проверява дали записаните в сертификата данни са валидни.";
-
-"HealthCertificate_Validation_Body3" = "За повече информация, вижте ЧЗВ и посетете https://reopen.europa.eu/en.";
 
 "HealthCertificate_Validation_Legal_Title" = "Защита на личните данни";
 
@@ -2867,5 +2875,11 @@
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Следните изисквания не са изпълнени:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Валидността на сертификата не трябва да е изтекла.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Сертификатът трябва да носи валиден подпис.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Техническата дата на изтичане на сертификата не може да е отминала.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Техническа дата на изтичане";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Валидно до %@";
 

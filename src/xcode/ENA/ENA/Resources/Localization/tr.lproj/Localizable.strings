@@ -299,9 +299,9 @@
 
 "NotificationSettings_Off_InfoTitle" = "Bildirimleri Etkinleştir";
 
-"NotificationSettings_Off_InfoDescription" = "Bildirimleri etkinleştirmek üzere cihazınızın ayarlarında Corona-Warn-App için bildirimlere izin vermeniz gerekir.";
+"NotificationSettings_Off_InfoDescription" = "Corona-Warn-App uygulamasında bildirimleri etkinleştirmek için cihazınızın ayarlarında bildirimlere izin vermeniz gerekir.";
 
-"NotificationSettings_Off_OpenSettings" = "Ayarları Aç";
+"NotificationSettings_Off_OpenSettings" = "Cihaz Ayarlarını Aç";
 
 "NotificationSettings_NavTitle" = "Bildirimler";
 
@@ -1082,6 +1082,8 @@
 
 "ExposureNotificationSetting_apiMisuse" = "Maruz kalma günlüğü özelliğini etkinleştirirken dahili hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin ve daha sonra tekrar deneyin.";
 
+"ExposureNotificationSetting_notResponding" = "Maruz kalma günlüğü etkinleştirilirken bir hata oluştu. Lütfen cihazınızı yeniden başlatın. Hata devam ederse SSS web sitesini ziyaret edin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Uluslararası Maruz Kalma Günlüğü";
 
@@ -1545,18 +1547,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.6 */
-"NewVersionFeature_26_euCertCheck_title" = "AB Doğrulama Sertifikası";
+/* Version 2.7 */
+"NewVersionFeature_27_sigCheck_title" = "İmza Doğrulama";
 
-"NewVersionFeature_26_euCertCheck_description" = "Artık seyahat etmeden önce seçtiğiniz bir ülke için sertifikaların geçerliliğini doğrulayabilirsiniz.";
+"NewVersionFeature_27_sigCheck_description" = "Sertifikalarınızı Corona-Warn-App'e eklediğinizde sertifikalarınız geçerlilik ve doğruluk açısından konrol edilir. Bu nedenle, yalnızca onaylanmış bir kuruluş tarafından düzenlenen sertifikalar içe aktarılabilir.";
 
-"NewVersionFeature_26_enhancedStats_title" = "Genişletilmiş İstatistikler";
+"NewVersionFeature_27_technicalValidity_title" = "Teknik Geçerlilik Kontrolü";
 
-"NewVersionFeature_26_enhancedStats_description" = "Uygulamaya, en fazla beş adet yerel 7 günlük olay sayısı ekleyebilirsiniz.";
-
-"NewVersionFeature_26_editRapidTestProfile_title" = "Hızlı Test Profilini Düzenle";
-
-"NewVersionFeature_26_editRapidTestProfile_description" = "Artık örneğin adresinizi değiştirmek için uygulamadaki hızlı test profilinizi düzenleyebilirsiniz.";
+"NewVersionFeature_27_technicalValidity_description" = "Corona-Warn-App artık eklediğiniz aşı sertifikalarının ve iyileşme sertifikalarının teknik sona erme tarihini gösterir. Uygulama, süresi olmak üzere olan sertifikalar konusunda sizi önceden uyarabilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1933,7 +1931,7 @@
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "enfekte olan kişi başına ortalama enfeksiyon sayısı";
 
 /* - At least one person vaccinated card */
-"Statistics_Card_AtLeastOneVaccinated_Title" = "En az bir doz aşı olan kişiler";
+"Statistics_Card_AtLeastOneVaccinated_Title" = "En Az Bir Doz Aşı Olan Kişiler";
 
 "Statistics_Card_AtLeastOneVaccinated_Today" = "Bugüne kadar";
 
@@ -1948,7 +1946,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Tüm aşıları olan kişiler";
+"Statistics_Card_FullyVaccinated_Title" = "Tüm Aşıları Olan Kişiler";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bugüne kadar";
 
@@ -1963,7 +1961,7 @@
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
 /* - Applied vaccination dose rates card */
-"Statistics_Card_AppliedDoseRates_Title" = "Uygulanan aşı dozları";
+"Statistics_Card_AppliedDoseRates_Title" = "Uygulanan Aşı Dozları";
 
 "Statistics_Card_AppliedDoseRates_Today" = "Bugün";
 
@@ -1983,17 +1981,17 @@
 
 "Statistics_Info_Subtitle" = "İstatistiklerin Açıklaması";
 
-"Statistics_Info_Local7Days_Title" = "Yerel 7 günlük olay";
+"Statistics_Info_Local7Days_Title" = "Yerel 7 Günlük Olay";
 
 "Statistics_Info_Local7Days_Text" = "Konfigüre edilen bölgede veya federal eyalette her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
 
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
-"Statistics_Info_Incidence_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı";
+"Statistics_Info_Incidence_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
 
 "Statistics_Info_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
 
-"Statistics_Info_Infections_Text" = "Koronavirüs tanısı koyulan ve RKI’ye bildirilen kişi sayısı";
+"Statistics_Info_Infections_Text" = "Koronavirüs tanısı alan ve RKI’ye bildirilen kişi sayısı.";
 
 "Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
 
@@ -2710,6 +2708,12 @@
 
 "HealthCertificate_Details_deleteButtonTitle" = "Aşı Sertifikasını Sil";
 
+"HealthCertificate_Details_expirationDateTitle" = "Teknik sona erme tarihi";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Geçerlilik bitişi %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Lütfen zamanında yeni bir dijital sertifika aldığınızdan emin olun.";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
 
@@ -2766,6 +2770,12 @@
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "QR kod oluşturulamadı. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Geçersiz İmza";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Sertifika imzası geçersiz. Sertifika kanıt olarak kullanılamaz ve dolayısıyla içe aktarılamaz.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "İmza Doğrulama için SSS";
+
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Doğrulama başarısız oldu";
 
@@ -2794,11 +2804,9 @@
 
 "HealthCertificate_Validation_Bullet2" = "Bölgeler özelinde ek kurallar ve sınırlamalar geçerli olabilir.";
 
-"HealthCertificate_Validation_Bullet3" = "Sertifikanın doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
+"HealthCertificate_Validation_Bullet3" = "Sertifikaların doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
 
 "HealthCertificate_Validation_Bullet4" = "Corona-Warn-App, sertifikaya kaydedilen verilerin geçerli olup olmadığını kontrol etmez.";
-
-"HealthCertificate_Validation_Body3" = "Daha fazla bilgi için SSS sayfasına bakın ve https://reopen.europa.eu/en adresini ziyaret edin.";
 
 "HealthCertificate_Validation_Legal_Title" = "Gizlilik ve Veri Güvenliği";
 
@@ -2867,5 +2875,11 @@
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Aşağıdaki kurallara uygun değil:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Sertifikanın süresi dolmuş olmamalıdır.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Sertifika imzası geçerli olmalıdır.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Sertifikanın teknik geçerlilik sona erme tarihi dolmuş olmamalıdır.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Teknik sona erme tarihi";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Geçerlilik bitişi: %@";
 
