@@ -16,6 +16,7 @@ struct HealthCertificateQRCodeCellViewModel {
 		accessibilityText: String,
 		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil
 	) {
+		self.mode = mode
 		self.healthCertificate = healthCertificate
 		self.onValidationButtonTap = onValidationButtonTap
 
@@ -23,49 +24,6 @@ struct HealthCertificateQRCodeCellViewModel {
 			healthCertificate: healthCertificate,
 			accessibilityLabel: accessibilityText
 		)
-
-		if mode == .overview ||
-			healthCertificate.validityState == .invalid ||
-			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
-			switch healthCertificate.entry {
-			case .vaccination:
-				self.title = AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
-			case .test:
-				self.title = AppStrings.HealthCertificate.Person.TestCertificate.headline
-			case .recovery:
-				self.title = AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
-			}
-		} else {
-			self.title = nil
-		}
-
-		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon) {
-			switch healthCertificate.entry {
-			case .vaccination(let vaccinationEntry):
-				self.subtitle = vaccinationEntry.localVaccinationDate.map {
-					String(
-						format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
-						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
-					)
-				}
-			case .test(let testEntry):
-				self.subtitle = testEntry.sampleCollectionDate.map {
-					String(
-						format: AppStrings.HealthCertificate.Person.TestCertificate.sampleCollectionDate,
-						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .short)
-					)
-				}
-			case .recovery(let recoveryEntry):
-				self.subtitle = recoveryEntry.localCertificateValidityEndDate.map {
-					String(
-						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
-						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
-					)
-				}
-			}
-		} else {
-			self.subtitle = nil
-		}
 
 		if healthCertificate.validityState == .invalid ||
 			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
@@ -122,8 +80,52 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
-	let title: String?
-	let subtitle: String?
+	var title: String? {
+		if mode == .overview ||
+			healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+			switch healthCertificate.entry {
+			case .vaccination:
+				return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
+			case .test:
+				return AppStrings.HealthCertificate.Person.TestCertificate.headline
+			case .recovery:
+				return AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
+			}
+		} else {
+			return nil
+		}
+	}
+
+	var subtitle: String? {
+		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon) {
+			switch healthCertificate.entry {
+			case .vaccination(let vaccinationEntry):
+				return vaccinationEntry.localVaccinationDate.map {
+					String(
+						format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
+						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
+					)
+				}
+			case .test(let testEntry):
+				return testEntry.sampleCollectionDate.map {
+					String(
+						format: AppStrings.HealthCertificate.Person.TestCertificate.sampleCollectionDate,
+						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .short)
+					)
+				}
+			case .recovery(let recoveryEntry):
+				return recoveryEntry.localCertificateValidityEndDate.map {
+					String(
+						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
+					)
+				}
+			}
+		} else {
+			return nil
+		}
+	}
 
 	let validityStateIcon: UIImage?
 	let validityStateTitle: String?
@@ -141,6 +143,7 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	// MARK: - Private
 
+	private let mode: Mode
 	private let healthCertificate: HealthCertificate
 	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
 
