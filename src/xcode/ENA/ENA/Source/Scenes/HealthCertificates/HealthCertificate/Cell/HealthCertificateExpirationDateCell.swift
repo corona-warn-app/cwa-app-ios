@@ -44,8 +44,8 @@ class HealthCertificateExpirationDateCell: UITableViewCell, ReuseIdentifierProvi
 
 	private let backgroundContainerView = UIView()
 	private let headlineLabel = ENALabel(style: .headline)
-	private let expirationDateLabel = ENALabel(style: .subheadline)
-	private let contentTextLabel = ENALabel(style: .subheadline)
+	private let expirationDateLabel = ENALabel(style: .body)
+	private let contentTextLabel = ENALabel(style: .body)
 
 	private func setupView() {
 		backgroundColor = .clear
