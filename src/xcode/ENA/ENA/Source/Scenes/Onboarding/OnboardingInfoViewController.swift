@@ -170,7 +170,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 		let containerViewController = TopBottomContainerViewController(
 			topController: dataDonationViewController,
-			bottomController: FooterViewController(
+			bottomView: FooterView(
 				FooterViewModel(
 					primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
 					secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK

@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class BottomErrorReportViewController: UIViewController {
+class BottomErrorReportView: UIView {
 
 	// MARK: - Init
 
@@ -24,53 +24,13 @@ class BottomErrorReportViewController: UIViewController {
 		self.didTapSendButton = didTapSendButton
 		self.didTapStopAndDeleteButton = didTapStopAndDeleteButton
 		
-		super.init(nibName: nil, bundle: nil)
+		super.init(frame: .zero)
+		setupView()
 	}
 	
 	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK: - Overrides
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		titleLabel.text = AppStrings.ErrorReport.analysisTitle
-
-		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
-		startButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.startButton
-
-		sendReportButton.setTitle(AppStrings.ErrorReport.sendButtontitle, for: .normal)
-		sendReportButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.sendReportButton
-
-		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
-		saveLocallyButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.saveLocallyButton
-
-		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
-		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
-
-		elsService
-			.logFileSizePublisher
-			.sink { result in
-				switch result {
-				case .finished:
-					break
-				case .failure(let error):
-					Log.error("ELS error: \(error)", log: .els, error: error)
-				}
-			} receiveValue: { size in
-				self.updateProgress(progressInBytes: size)
-			}
-			.store(in: &subscriptions)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		// Keep this update call in `viewWillAppear` to prevent ui glitches on launch.
-		// This is caused by some race conditions in the top/bottom container.
-		let status: ErrorLoggingStatus = ErrorLogSubmissionService.errorLoggingEnabled ? .active : .inactive
-		configure(status: status, animated: false)
-		super.viewWillAppear(animated)
+		super.init(coder: coder)
+		setupView()
 	}
 
 	// MARK: - Internal
@@ -120,6 +80,40 @@ class BottomErrorReportViewController: UIViewController {
 		formatter.allowedUnits = [.useAll]
 		return formatter
 	}()
+	
+	private func setupView() {
+		
+		titleLabel.text = AppStrings.ErrorReport.analysisTitle
+
+		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
+		startButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.startButton
+
+		sendReportButton.setTitle(AppStrings.ErrorReport.sendButtontitle, for: .normal)
+		sendReportButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.sendReportButton
+
+		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
+		saveLocallyButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.saveLocallyButton
+
+		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
+		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
+
+		elsService
+			.logFileSizePublisher
+			.sink { result in
+				switch result {
+				case .finished:
+					break
+				case .failure(let error):
+					Log.error("ELS error: \(error)", log: .els, error: error)
+				}
+			} receiveValue: { size in
+				self.updateProgress(progressInBytes: size)
+			}
+			.store(in: &subscriptions)
+		
+		let status: ErrorLoggingStatus = ErrorLogSubmissionService.errorLoggingEnabled ? .active : .inactive
+		configure(status: status, animated: false)
+	}
 	
 	private func showButtonsForStatus(isActive: Bool, animated: Bool) {
 		startButton.isHidden = isActive

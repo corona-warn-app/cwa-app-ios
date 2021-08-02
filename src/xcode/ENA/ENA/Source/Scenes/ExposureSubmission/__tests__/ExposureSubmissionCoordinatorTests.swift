@@ -115,7 +115,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController>)
+		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterView>)
 	}
 
 	func testStart_withPositiveResult() {
@@ -134,7 +134,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
+		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<TestResultAvailableViewController, FooterView>)
 	}
 
 	func testDismiss() {
@@ -167,11 +167,11 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		coordinator.start(with: .pcr)
 
 		let unknown = coordinator.getInitialViewController()
-		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
+		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterView>)
 
 		coronaTestService.pcrTest?.positiveTestResultWasShown = true
 
 		let positive = coordinator.getInitialViewController()
-		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)
+		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterView>)
 	}
 }

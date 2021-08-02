@@ -16,7 +16,7 @@ protocol FooterViewUpdating {
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom) */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewUpdating {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomView: UIView>: UIViewController, DismissHandling, FooterViewUpdating {
 
 	// MARK: - Init
 
@@ -27,13 +27,13 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	
 	init(
 		topController: TopViewController,
-		bottomController: BottomViewController
+		bottomView: BottomView
 	) {
 		self.topViewController = topController
-		self.bottomViewController = bottomController
+		self.bottomView = bottomView
 		
-		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
-		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
+		// if the the bottom view controller is FooterView we use it's viewModel here as well
+		self.footerViewModel = (bottomView as? FooterView)?.viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -59,9 +59,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		view.addSubview(topView)
 
 		// add bottom controller
-		addChild(bottomViewController)
-		bottomViewController.didMove(toParent: self)
-		let bottomView: UIView = bottomViewController.view
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(bottomView)
 
@@ -82,8 +79,8 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		)
 		subscribeToKeyboardNotifications()
 		
-		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
-		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
+		// if the the bottom view controller is FooterView we use it's viewModel here as well
+		if let viewModel = (bottomView as? FooterView)?.viewModel {
 			UIView.performWithoutAnimation {
 				self.updateFooterViewModel(viewModel)
 			}
@@ -123,7 +120,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	func updateFooterViewModel(_ viewModel: FooterViewModel) {
 		
-		guard let footerViewController = (bottomViewController as? FooterViewController) else {
+		guard let footerView = (bottomView as? FooterView) else {
 			return
 		}
 		// clear
@@ -134,7 +131,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		// setup
 		
 		footerViewModel = viewModel
-		footerViewController.viewModel = viewModel
+		footerView.viewModel = viewModel
 	}
 
 	// MARK: - Internal
@@ -144,7 +141,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	// MARK: - Private
 
 	private let topViewController: TopViewController
-	private let bottomViewController: BottomViewController
+	private let bottomView: BottomView
 
 	private var subscriptions: [AnyCancellable] = []
 	private var keyboardSubscriptions: [AnyCancellable] = []

@@ -39,7 +39,7 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 				
 		let containerViewController = TopBottomContainerViewController(
 			topController: DataDonationViewController(viewModel: dataDonationViewModel),
-			bottomController: FooterViewController(
+			bottomView: FooterView(
 				FooterViewModel(
 					primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
 					secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK,

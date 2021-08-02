@@ -11,9 +11,9 @@ class TopBottomContainerViewControllerTests: CWATestCase {
 	func testInit() {
 		let top = UIViewController()
 		let model = FooterViewModel(primaryButtonName: "Button")
-		let bottom = FooterViewController(model)
+		let bottom = FooterView(model)
 		XCTAssertNotNil(bottom)
-		let vc = TopBottomContainerViewController(topController: top, bottomController: bottom)
+		let vc = TopBottomContainerViewController(topController: top, bottomView: bottom)
 		XCTAssertNotNil(vc)
 	}
 }

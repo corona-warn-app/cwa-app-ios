@@ -73,7 +73,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
 			guard case let .option(index: index) = optionGroupSelection else { return }
-			guard let topBottomViewController = parent as? TopBottomContainerViewController<ExposureSubmissionSymptomsViewController, FooterViewController> else { return }
+			guard let topBottomViewController = parent as? TopBottomContainerViewController<ExposureSubmissionSymptomsViewController, FooterView> else { return }
 			switch index {
 			case 0:
 				selectedSymptomsOption = .yes

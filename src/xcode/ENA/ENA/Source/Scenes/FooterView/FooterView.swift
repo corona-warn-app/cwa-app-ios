@@ -6,8 +6,8 @@ import UIKit
 import OpenCombine
 
 /**
-	If the ViewController and the FooterViewController are composed inside a TopBottomContainer,
-	ViewController that implement this protocol get called if a button gets tapped in the footerViewController
+	If the ViewController and the FooterView are composed inside a TopBottomContainer,
+	ViewController that implement this protocol get called if a button gets tapped in the footerView
 */
 protocol FooterViewHandling {
 	var footerView: FooterViewUpdating? { get }
@@ -26,7 +26,7 @@ extension FooterViewHandling where Self: UIViewController {
 	func didHideKeyboard() {}
 }
 
-class FooterViewController: UIViewController {
+class FooterView: UIView {
 
 	// MARK: - Init
 	init(
@@ -37,59 +37,14 @@ class FooterViewController: UIViewController {
 		self.viewModel = viewModel
 		self.didTapPrimaryButton = didTapPrimaryButton
 		self.didTapSecondaryButton = didTapSecondaryButton
-		super.init(nibName: nil, bundle: nil)
+		super.init(frame: .zero)
+		
+		setupView()
 	}
 
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK: - Overrides
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		buttonsStackView = UIStackView()
-		buttonsStackView.alignment = .fill
-		buttonsStackView.axis = .vertical
-		buttonsStackView.distribution = .fill
-		buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(buttonsStackView)
-
-		primaryButton.disabledBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
-		primaryButton.hasBackground = true
-		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
-		primaryButton.translatesAutoresizingMaskIntoConstraints = false
-		buttonsStackView.addArrangedSubview(primaryButton)
-		
-		primaryButtonHeightConstraint = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		primaryButtonHeightConstraint.priority = .defaultHigh
-		
-		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
-		secondaryButton.hasBackground = true
-		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
-		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
-		buttonsStackView.addArrangedSubview(secondaryButton)
-		
-		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		secondaryButtonHeightConstraint.priority = .defaultHigh
-		
-		NSLayoutConstraint.activate([
-			// buttonsStackView
-			buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset),
-			buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset),
-			buttonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: viewModel.leftRightInset),
-			buttonsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -viewModel.leftRightInset),
-			// primaryButton
-			primaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
-			primaryButtonHeightConstraint,
-			// secondaryButton
-			secondaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
-			secondaryButtonHeightConstraint
-		])
-
-		updateViewModel()
 	}
 
 	// MARK: - Internal
@@ -115,7 +70,7 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitPrimaryButton() {
-		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
+		guard let footerViewHandler = (parentViewController as? FooterViewUpdating)?.footerViewHandler else {
 			didTapPrimaryButton()
 			return
 		}
@@ -124,11 +79,55 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitSecondaryButton() {
-		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
+		guard let footerViewHandler = (parentViewController as? FooterViewUpdating)?.footerViewHandler else {
 			didTapSecondaryButton()
 			return
 		}
 		footerViewHandler.didTapFooterViewButton(.secondary)
+	}
+	
+	private func setupView() {
+		
+		buttonsStackView = UIStackView()
+		buttonsStackView.alignment = .fill
+		buttonsStackView.axis = .vertical
+		buttonsStackView.distribution = .fill
+		buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(buttonsStackView)
+
+		primaryButton.disabledBackgroundColor = viewModel.primaryCustomDisableBackgroundColor
+		primaryButton.hasBackground = true
+		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
+		primaryButton.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.addArrangedSubview(primaryButton)
+		
+		primaryButtonHeightConstraint = primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		primaryButtonHeightConstraint.priority = .defaultHigh
+		
+		secondaryButton.disabledBackgroundColor = viewModel.secondaryCustomDisableBackgroundColor
+		secondaryButton.hasBackground = true
+		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
+		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.addArrangedSubview(secondaryButton)
+		
+		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
+		secondaryButtonHeightConstraint.priority = .defaultHigh
+		
+		NSLayoutConstraint.activate([
+			// buttonsStackView
+			buttonsStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset),
+			buttonsStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset),
+			buttonsStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: viewModel.leftRightInset),
+			buttonsStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -viewModel.leftRightInset),
+			// primaryButton
+			primaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
+			primaryButtonHeightConstraint,
+			// secondaryButton
+			secondaryButton.widthAnchor.constraint(equalTo: buttonsStackView.widthAnchor),
+			secondaryButtonHeightConstraint
+		])
+
+		updateViewModel()
 	}
 	
 	private func updateViewModel() {
@@ -144,7 +143,7 @@ class FooterViewController: UIViewController {
 		
 		// background color
 		
-		view.backgroundColor = viewModel.backgroundColor
+		backgroundColor = viewModel.backgroundColor
 		
 		// update stack view spacing
 		
@@ -220,7 +219,7 @@ class FooterViewController: UIViewController {
 
 		viewModel.$backgroundColor
 			.receive(on: DispatchQueue.main.ocombine)
-			.assign(to: \.backgroundColor, on: view)
+			.assign(to: \.backgroundColor, on: self)
 			.store(in: &subscription)
 	}
 	
@@ -234,5 +233,19 @@ class FooterViewController: UIViewController {
 			self.buttonsStackView.layoutIfNeeded()
 		}
 		animator.startAnimation()
+	}
+}
+
+private extension UIView {
+	
+	var parentViewController: UIViewController? {
+		var parentResponder: UIResponder? = self
+		while parentResponder != nil {
+			parentResponder = parentResponder?.next
+			if let viewController = parentResponder as? UIViewController {
+				return viewController
+			}
+		}
+		return nil
 	}
 }

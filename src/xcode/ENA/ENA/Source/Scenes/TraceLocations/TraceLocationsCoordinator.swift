@@ -78,7 +78,7 @@ class TraceLocationsCoordinator {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Overview.deleteAllButtonTitle,
 				isSecondaryButtonEnabled: false,
@@ -90,7 +90,7 @@ class TraceLocationsCoordinator {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationsOverviewViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		return topBottomContainerViewController
@@ -127,7 +127,7 @@ class TraceLocationsCoordinator {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
 				isSecondaryButtonEnabled: false,
@@ -140,7 +140,7 @@ class TraceLocationsCoordinator {
 		
 		let topBottomLayoutViewController = TopBottomContainerViewController(
 			topController: traceLocationsInfoViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
 		
@@ -174,7 +174,7 @@ class TraceLocationsCoordinator {
 					}
 				)
 				
-				let footerViewController = FooterViewController(
+				let footerView = FooterView(
 					FooterViewModel(
 						primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
 						secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
@@ -187,7 +187,7 @@ class TraceLocationsCoordinator {
 				
 				let topBottomContainerViewController = TopBottomContainerViewController(
 					topController: traceLocationDetailsViewController,
-					bottomController: footerViewController
+					bottomView: footerView
 				)
 
 				self.traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
@@ -239,7 +239,7 @@ class TraceLocationsCoordinator {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Configuration.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -251,7 +251,7 @@ class TraceLocationsCoordinator {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationConfigurationViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		navigationController.pushViewController(topBottomContainerViewController, animated: true)

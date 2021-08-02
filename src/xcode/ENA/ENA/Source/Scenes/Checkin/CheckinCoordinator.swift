@@ -43,7 +43,7 @@ final class CheckinCoordinator {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Overview.deleteAllButtonTitle,
 				isSecondaryButtonEnabled: false,
@@ -55,7 +55,7 @@ final class CheckinCoordinator {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: checkinsOverviewViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		// show the info screen only once
@@ -183,7 +183,7 @@ final class CheckinCoordinator {
 	}()
 
 	private func showEditCheckIn(_ checkIn: Checkin) {
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Edit.primaryButtonTitle,
 				secondaryButtonName: nil,
@@ -205,7 +205,7 @@ final class CheckinCoordinator {
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: editCheckInViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		viewController.present(topBottomContainerViewController, animated: true)
 	}
@@ -250,7 +250,7 @@ final class CheckinCoordinator {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
@@ -262,7 +262,7 @@ final class CheckinCoordinator {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: checkinsInfoScreenViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		return topBottomContainerViewController

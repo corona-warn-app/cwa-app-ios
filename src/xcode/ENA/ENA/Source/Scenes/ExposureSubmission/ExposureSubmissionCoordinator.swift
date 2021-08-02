@@ -109,8 +109,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isSecondaryButtonHidden: true
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
-		let topBottomViewController = TopBottomContainerViewController(topController: vc, bottomController: footerViewController)
+		let footerView = FooterView(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: vc, bottomView: footerView)
 		
 		push(topBottomViewController)
 	}
@@ -276,13 +276,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: TestResultAvailableViewController(viewModel),
-			bottomController: FooterViewController(footerViewModel)
+			bottomView: FooterView(footerViewModel)
 		)
 		
 		return topBottomContainerViewController
 	}
 
-	private func createTestResultViewController(triggeredFromTeletan: Bool = false) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
+	private func createTestResultViewController(triggeredFromTeletan: Bool = false) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterView> {
 		guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Could not find corona test to create test result view controller for.")
 		}
@@ -341,13 +341,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 		)
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		return topBottomContainerViewController
@@ -383,7 +383,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			dismiss: { [weak self] in self?.dismiss() }
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -395,7 +395,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		return topBottomContainerViewController
@@ -446,7 +446,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			dismiss: { [weak self] in self?.dismiss() }
 		)
 
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -458,7 +458,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		return topBottomContainerViewController
@@ -568,8 +568,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
-		let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomController: footerViewController)
+		let footerView = FooterView(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(topController: overwriteNoticeViewController, bottomView: footerView)
 		topBottomViewController.navigationItem.hidesBackButton = true
 		push(topBottomViewController)
 	}
@@ -656,9 +656,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 		
-		let footerVC = FooterViewController(footerViewModel)
+		let footerVC = FooterView(footerViewModel)
 		
-		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomController: footerVC)
+		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomView: footerVC)
 		
 		push(topBottomVC)
 	}
@@ -680,7 +680,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 		
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ThankYouScreen.continueButton,
 				secondaryButtonName: AppStrings.ThankYouScreen.cancelButton,
@@ -693,7 +693,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: thankYouVC,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		push(topBottomContainerViewController)
@@ -722,7 +722,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -733,7 +733,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		push(topBottomContainerViewController)
@@ -759,7 +759,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionSymptomsOnset.continueButton,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -772,7 +772,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: vc,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		push(topBottomContainerViewController)
@@ -803,10 +803,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
 		)
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: antigenTestProfileInformationViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		push(topBottomContainerViewController)
@@ -837,10 +837,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isSecondaryButtonEnabled: false,
 			isSecondaryButtonHidden: true
 		)
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: createAntigenTestProfileViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		push(topBottomContainerViewController)
@@ -880,10 +880,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			secondaryButtonInverted: true,
 			backgroundColor: .enaColor(for: .cellBackground)
 		)
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: antigenTestProfileViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		push(topBottomContainerViewController)
@@ -955,10 +955,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: testCertificateViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		push(topBottomContainerViewController)
 	}

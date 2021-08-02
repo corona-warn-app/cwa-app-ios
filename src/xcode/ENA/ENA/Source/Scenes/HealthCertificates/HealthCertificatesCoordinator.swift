@@ -103,7 +103,7 @@ final class HealthCertificatesCoordinator {
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
-	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
+	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterView> {
 		let consentScreen = HealthCertificateInfoViewController(
 			viewModel: HealthCertificateInfoViewModel(
 				hidesCloseButton: hidesCloseButton,
@@ -122,7 +122,7 @@ final class HealthCertificatesCoordinator {
 			dismiss: dismissAction
 		)
 
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.HealthCertificate.Info.primaryButton,
 				isPrimaryButtonEnabled: true,
@@ -134,7 +134,7 @@ final class HealthCertificatesCoordinator {
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: consentScreen,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		return topBottomContainerViewController
@@ -269,7 +269,7 @@ final class HealthCertificatesCoordinator {
 			secondaryTextColor: .systemRed
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 
 		let healthCertificateViewController = HealthCertificateViewController(
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -322,7 +322,7 @@ final class HealthCertificatesCoordinator {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: healthCertificateViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		if shouldPushOnModalNavigationController {

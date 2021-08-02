@@ -172,7 +172,7 @@ class DiaryCoordinator {
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
-	) -> TopBottomContainerViewController<DiaryInfoViewController, FooterViewController> {
+	) -> TopBottomContainerViewController<DiaryInfoViewController, FooterView> {
 		
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
@@ -192,7 +192,7 @@ class DiaryCoordinator {
 			}
 		)
 			
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ContactDiary.Information.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -203,7 +203,7 @@ class DiaryCoordinator {
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: viewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 		
 		return topBottomContainerViewController
@@ -269,7 +269,7 @@ class DiaryCoordinator {
 			}
 		)
 
-		let footerViewController = FooterViewController(
+		let footerView = FooterView(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ContactDiary.AddEditEntry.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
@@ -280,7 +280,7 @@ class DiaryCoordinator {
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: viewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)

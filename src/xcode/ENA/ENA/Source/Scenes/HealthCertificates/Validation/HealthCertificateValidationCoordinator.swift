@@ -53,7 +53,7 @@ final class HealthCertificateValidationCoordinator {
 			backgroundColor: .enaColor(for: .background)
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 
 		let healthCertificateViewController = HealthCertificateValidationViewController(
 			healthCertificate: healthCertificate,
@@ -126,7 +126,7 @@ final class HealthCertificateValidationCoordinator {
 
 		return TopBottomContainerViewController(
 			topController: healthCertificateViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 	}()
 
@@ -166,11 +166,11 @@ final class HealthCertificateValidationCoordinator {
 			backgroundColor: .enaColor(for: .background)
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
+		let footerView = FooterView(footerViewModel)
 
 		let containerViewController = TopBottomContainerViewController(
 			topController: validationPassedViewController,
-			bottomController: footerViewController
+			bottomView: footerView
 		)
 
 		navigationController.pushViewController(containerViewController, animated: true)

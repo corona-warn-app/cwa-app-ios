@@ -52,7 +52,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		// temporary solution: the coordinator gets deallocated after the start method so when we tap a button the weak self is nil
 		// the current solution to keep the instance alive is to inject a strong reference to it inside the ErrorReportLoggingViewController
 		// when the user goes back to the AppInformationViewController, the ErrorReportLoggingViewController will be deallocated and the coordinator with it
-		let errorReportsLoggingViewController = BottomErrorReportViewController(
+		let errorReportsLoggingView = BottomErrorReportView(
 			coordinator: self,
 			elsService: elsService,
 			didTapStartButton: { [weak self] in
@@ -81,10 +81,10 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 
 		let errorReportsContainerViewController = TopBottomContainerViewController(
 			topController: TopErrorReportViewController(viewModel: viewModel),
-			bottomController: errorReportsLoggingViewController
+			bottomView: errorReportsLoggingView
 		)
 		self.errorReportsContainerViewController = errorReportsContainerViewController
-		self.errorReportsLoggingViewController = errorReportsLoggingViewController
+		self.errorReportsLoggingView = errorReportsLoggingView
 		
 		rootViewController.navigationController?.pushViewController(errorReportsContainerViewController, animated: true)
 	}
@@ -126,13 +126,13 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	
 	private var errorLoggingStatus: ErrorLoggingStatus
 	// We need a reference to update the error logs size as we are on the screen by calling
-	private var errorReportsLoggingViewController: BottomErrorReportViewController?
+	private var errorReportsLoggingView: BottomErrorReportView?
 	/*
 	We need a reference to the TopBottomContainerViewController so we can adjust the
 	height of the bottom view depending on the Logging status: active or inactive
 	because the active status has 2 extra buttons so the height is variable
 	*/
-	private var errorReportsContainerViewController: TopBottomContainerViewController <TopErrorReportViewController, BottomErrorReportViewController>?
+	private var errorReportsContainerViewController: TopBottomContainerViewController <TopErrorReportViewController, BottomErrorReportView>?
 	/*
 	We need to call the update() function inside this topViewControllerViewModel every time we show the main Controller
 	This insures that we show the correct number of Cells in the TopErrorReportViewController "based on wether there is already a history or not"
@@ -146,7 +146,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 			primaryIdentifier: AccessibilityIdentifiers.ErrorReport.agreeAndSendButton,
 			isSecondaryButtonHidden: true
 		)
-		let bottomViewController = FooterViewController(
+		let bottomViewController = FooterView(
 			footerViewModel,
 			didTapPrimaryButton: {
 				// can't disable buttons while this is running
@@ -187,7 +187,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		)
 		let topBottomViewController = TopBottomContainerViewController(
 			topController: topViewController,
-			bottomController: bottomViewController
+			bottomView: bottomViewController
 		)
 		
 		rootViewController.navigationController?.pushViewController(topBottomViewController, animated: true)

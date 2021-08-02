@@ -5,13 +5,13 @@
 import XCTest
 @testable import ENA
 
-class FooterViewControllerTests: CWATestCase {
+class FooterViewTests: CWATestCase {
 
-	func testGIVEN_FooterViewControllerTests() {
+	func testGIVEN_FooterViewTests() {
 		// GIVEN
 		let model = FooterViewModel(primaryButtonName: "Button")
-		let vc = FooterViewController(model)
+		let view = FooterView(model)
 		// THEN
-		XCTAssertNotNil(vc)
+		XCTAssertNotNil(view)
 	}
 }
