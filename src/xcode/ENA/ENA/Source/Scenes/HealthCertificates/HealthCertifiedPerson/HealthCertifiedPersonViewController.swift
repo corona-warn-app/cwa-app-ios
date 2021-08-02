@@ -277,30 +277,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 
-		viewModel.$triggerQRCodeReload
+		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] triggerCertificatesReload in
-				guard triggerCertificatesReload, let self = self, !self.isAnimatingChanges else { return }
+			.sink { [weak self] triggerReload in
+				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
-				self.tableView.reloadSections(
-					[HealthCertifiedPersonViewModel.TableViewSection.qrCode.rawValue],
-					with: .none
-				)
-			}
-			.store(in: &subscriptions)
-
-		viewModel.$triggerCertificatesReload
-			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] triggerCertificatesReload in
-				guard triggerCertificatesReload, let self = self, !self.isAnimatingChanges else { return }
-
-				self.tableView.reloadSections(
-					[
-						HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue,
-						HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue
-					],
-					with: .none
-				)
+				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}

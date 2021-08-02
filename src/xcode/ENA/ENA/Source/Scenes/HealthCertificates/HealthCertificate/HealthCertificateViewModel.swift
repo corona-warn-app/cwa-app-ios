@@ -67,6 +67,12 @@ final class HealthCertificateViewModel {
 				self?.updateGradient()
 			}
 			.store(in: &subscriptions)
+
+		healthCertificate.objectDidChange
+			.sink { [weak self] _ in
+				self?.triggerReload = true
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -106,6 +112,7 @@ final class HealthCertificateViewModel {
 	}
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
