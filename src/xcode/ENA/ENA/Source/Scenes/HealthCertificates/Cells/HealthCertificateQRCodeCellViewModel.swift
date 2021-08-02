@@ -13,14 +13,16 @@ struct HealthCertificateQRCodeCellViewModel {
 	init(
 		mode: Mode,
 		healthCertificate: HealthCertificate,
-		accessibilityText: String?,
+		accessibilityText: String,
 		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil
 	) {
 		self.healthCertificate = healthCertificate
 		self.onValidationButtonTap = onValidationButtonTap
 
-		self.qrCodeImage = healthCertificate.qrCodeImage
-		self.accessibilityText = accessibilityText
+		self.qrCodeViewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			accessibilityLabel: accessibilityText
+		)
 
 		if mode == .overview ||
 			healthCertificate.validityState == .invalid ||
@@ -118,8 +120,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	let backgroundColor: UIColor = .enaColor(for: .cellBackground2)
 	let borderColor: UIColor = .enaColor(for: .hairline)
 
-	let qrCodeImage: UIImage?
-	let accessibilityText: String?
+	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
 	let title: String?
 	let subtitle: String?

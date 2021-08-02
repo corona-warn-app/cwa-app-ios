@@ -41,11 +41,10 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
 		self.cellViewModel = cellViewModel
 
-		qrCodeImageView.image = cellViewModel.qrCodeImage
-		qrCodeImageView.accessibilityLabel = cellViewModel.accessibilityText
-
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
+
+		qrCodeImageView.configure(with: cellViewModel.qrCodeViewModel)
 
 		titleLabel.text = cellViewModel.title
 		titleLabel.isHidden = cellViewModel.title == nil
@@ -75,13 +74,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		return backgroundContainerView
 	}()
 
-	private let qrCodeImageView: UIImageView = {
-		let qrCodeImageView = UIImageView()
-		qrCodeImageView.contentMode = .scaleAspectFit
-		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
-
-		return qrCodeImageView
-	}()
+	private let qrCodeImageView = HealthCertificateQRCodeView()
 
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel()
@@ -103,14 +96,19 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let validityStateStackView: UIStackView = {
 		let validityStateStackView = UIStackView()
-		validityStateStackView.alignment = .fill
+		validityStateStackView.alignment = .center
 		validityStateStackView.axis = .horizontal
 		validityStateStackView.spacing = 8.0
 
 		return validityStateStackView
 	}()
 
-	private let validityStateIconImageView = UIImageView()
+	private let validityStateIconImageView: UIImageView = {
+		let validityStateIconImageView = UIImageView()
+		validityStateIconImageView.setContentHuggingPriority(.required, for: .horizontal)
+
+		return validityStateIconImageView
+	}()
 
 	private let validityStateTitleLabel: ENALabel = {
 		let validityStateTitleLabel = ENALabel()
