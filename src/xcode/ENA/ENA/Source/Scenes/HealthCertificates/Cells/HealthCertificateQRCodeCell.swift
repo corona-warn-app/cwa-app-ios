@@ -58,6 +58,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		validityStateDescriptionLabel.text = cellViewModel.validityStateDescription
 		validityStateDescriptionLabel.isHidden = cellViewModel.validityStateDescription == nil
+
+		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
 	}
 
 	// MARK: - Private
