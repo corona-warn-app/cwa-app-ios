@@ -11,6 +11,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 	func testGIVEN_ViewModelWithVaccinationCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalCovidCertificate.fake(
@@ -22,7 +23,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					)
 				)
 			),
-			accessibilityText: nil,
+			accessibilityText: "",
 			onValidationButtonTap: { _, _ in }
 		)
 
@@ -31,7 +32,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
-		XCTAssertNil(viewModel.accessibilityText)
 	}
 
 	func testGIVEN_ViewModelWithTestCertificate_THEN_IsInitCorrect() throws {
@@ -41,6 +41,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 
 		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalCovidCertificate.fake(
@@ -52,7 +53,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					)
 				)
 			),
-			accessibilityText: nil,
+			accessibilityText: "",
 			onValidationButtonTap: { _, _ in }
 		)
 
@@ -61,12 +62,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
-		XCTAssertNil(viewModel.accessibilityText)
 	}
 
 	func testGIVEN_ViewModelWithRecoveryCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
 					from: DigitalCovidCertificate.fake(
@@ -78,7 +79,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					)
 				)
 			),
-			accessibilityText: nil,
+			accessibilityText: "",
 			onValidationButtonTap: { _, _ in }
 		)
 
@@ -87,7 +88,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.borderColor, .enaColor(for: .hairline))
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
-		XCTAssertNil(viewModel.accessibilityText)
 	}
 
 }
