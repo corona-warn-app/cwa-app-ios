@@ -60,6 +60,7 @@ class HealthCertificateQRCodeView: UIView {
 
 	private func setUp() {
 		backgroundColor = .clear
+		accessibilityTraits = .image
 
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(qrCodeImageView)

@@ -39,9 +39,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
 		titleLabel.text = cellModel.title
 		nameLabel.text = cellModel.name
+
+		qrCodeView.configure(with: cellModel.qrCodeViewModel)
+
 		gradientView.type = cellModel.backgroundGradientType
-		qrCodeImageView.image = cellModel.qrCodeImage
-		qrCodeImageView.accessibilityLabel = AppStrings.HealthCertificate.Overview.covidDescription
 	}
 	
 	// MARK: - Private
@@ -52,12 +53,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let gradientView = GradientView()
 	private let bottomView = UIView()
 	private let qrCodeContainerView = UIView()
-	private let qrCodeImageView = UIImageView()
+	private let qrCodeView = HealthCertificateQRCodeView()
 
 	private func setupAccessibility() {
-		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeImageView as Any]
+		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeView as Any]
 		cardView.accessibilityTraits = [.staticText, .button]
-		qrCodeImageView.isAccessibilityElement = true
+		qrCodeView.isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
 
@@ -111,9 +112,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 		cardView.addSubview(qrCodeContainerView)
 
-		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
-		qrCodeContainerView.addSubview(qrCodeImageView)
+		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeView.layer.magnificationFilter = CALayerContentsFilter.nearest
+		qrCodeContainerView.addSubview(qrCodeView)
 
 		updateBorderColors()
 
@@ -127,7 +128,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				gradientView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
 				gradientView.topAnchor.constraint(equalTo: cardView.topAnchor),
 				gradientView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
-				gradientView.bottomAnchor.constraint(equalTo: qrCodeImageView.centerYAnchor),
+				gradientView.bottomAnchor.constraint(equalTo: qrCodeView.centerYAnchor),
 
 				bottomView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
 				bottomView.topAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -1.0),
@@ -144,10 +145,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				qrCodeContainerView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -24.0),
 				qrCodeContainerView.widthAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor),
 
-				qrCodeImageView.centerXAnchor.constraint(equalTo: qrCodeContainerView.centerXAnchor),
-				qrCodeImageView.centerYAnchor.constraint(equalTo: qrCodeContainerView.centerYAnchor),
-				qrCodeImageView.widthAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor, constant: -32.0),
-				qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0)
+				qrCodeView.centerXAnchor.constraint(equalTo: qrCodeContainerView.centerXAnchor),
+				qrCodeView.centerYAnchor.constraint(equalTo: qrCodeContainerView.centerYAnchor),
+				qrCodeView.widthAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor, constant: -32.0),
+				qrCodeView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0)
 			]
 		)
 

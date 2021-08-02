@@ -13,8 +13,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		setupView()
 		isAccessibilityElement = false
 
-		qrCodeImageView.isAccessibilityElement = true
-		qrCodeImageView.accessibilityTraits = .image
+		qrCodeView.isAccessibilityElement = true
 		titleLabel.isAccessibilityElement = true
 		subtitleLabel.isAccessibilityElement = true
 		validityStateTitleLabel.isAccessibilityElement = true
@@ -44,7 +43,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
 		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
 
-		qrCodeImageView.configure(with: cellViewModel.qrCodeViewModel)
+		qrCodeView.configure(with: cellViewModel.qrCodeViewModel)
 
 		titleLabel.text = cellViewModel.title
 		titleLabel.isHidden = cellViewModel.title == nil
@@ -76,7 +75,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		return backgroundContainerView
 	}()
 
-	private let qrCodeImageView = HealthCertificateQRCodeView()
+	private let qrCodeView = HealthCertificateQRCodeView()
 
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel()
@@ -165,7 +164,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		stackView.addArrangedSubview(qrCodeImageView)
+		stackView.addArrangedSubview(qrCodeView)
 		stackView.addArrangedSubview(titleLabel)
 		stackView.addArrangedSubview(subtitleLabel)
 		stackView.setCustomSpacing(12, after: subtitleLabel)
@@ -187,7 +186,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
+				qrCodeView.heightAnchor.constraint(equalTo: qrCodeView.widthAnchor),
 
 				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
 				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),

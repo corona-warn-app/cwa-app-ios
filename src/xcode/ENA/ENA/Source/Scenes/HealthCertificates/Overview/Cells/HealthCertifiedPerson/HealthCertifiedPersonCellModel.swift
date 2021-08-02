@@ -18,7 +18,12 @@ class HealthCertifiedPersonCellModel {
 		}
 		title = AppStrings.HealthCertificate.Overview.covidTitle
 		name = healthCertifiedPerson.name?.fullName
-		qrCodeImage = mostRelevantCertificate.qrCodeImage
+
+		qrCodeViewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: mostRelevantCertificate,
+			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription
+		)
+
 		backgroundGradientType = healthCertifiedPerson.gradientType
 	}
 
@@ -26,7 +31,7 @@ class HealthCertifiedPersonCellModel {
 	
 	let title: String
 	let name: String?
-	let qrCodeImage: UIImage?
+	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 	let backgroundGradientType: GradientView.GradientType
 
 }
