@@ -30,13 +30,13 @@ class TestHealthCertificateService: HealthCertificateService {
 	}
 
 	// inject some test data helpers
-	var expectationHook: () -> Void = {}
+	var validationUpdatedHook: () -> Void = {}
 	var validUntilDates: [Date] = []
 	var expirationDates: [Date] = []
 
 	override func updateValidityStates(shouldScheduleTimer: Bool = true) {
 		super.updateValidityStates(shouldScheduleTimer: shouldScheduleTimer)
-		expectationHook()
+		validationUpdatedHook()
 	}
 
 	override func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
@@ -64,7 +64,7 @@ class ValidationStateServiceTests: XCTestCase {
 			client: ClientMock(),
 			appConfiguration: appConfiguration
 		)
-		service.expectationHook = {
+		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
 
@@ -93,7 +93,7 @@ class ValidationStateServiceTests: XCTestCase {
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		service.expectationHook = {
+		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
 
@@ -138,7 +138,7 @@ class ValidationStateServiceTests: XCTestCase {
 		)
 
 		// WHEN
-		let nextDate = try XCTUnwrap(service.processNextFireTimestamp)
+		let nextDate = try XCTUnwrap(service.nextFireDate)
 		// THEN
 		XCTAssertEqual(dateHelper.plus5Seconds, nextDate)
 	}
@@ -157,7 +157,7 @@ class ValidationStateServiceTests: XCTestCase {
 		)
 
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
-		service.expectationHook = {
+		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
 

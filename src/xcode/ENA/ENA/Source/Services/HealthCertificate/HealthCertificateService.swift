@@ -55,7 +55,7 @@ class HealthCertificateService {
 
 	var nextValidityTimer: Timer?
 
-	var processNextFireTimestamp: Date? {
+	var nextFireDate: Date? {
 		let healthCertificates = healthCertifiedPersons.value
 			.flatMap { $0.healthCertificates }
 		let signingCertificates = dscListProvider.signingCertificates.value
@@ -379,9 +379,9 @@ class HealthCertificateService {
 	@objc
 	func scheduleTimer() {
 		invalidateTimer()
-		guard let fireDate = processNextFireTimestamp,
+		guard let fireDate = nextFireDate,
 			fireDate.timeIntervalSinceNow > 0 else {
-			Log.error("no next date in the future found - can't schedule timer")
+			Log.info("no next date in the future found - can't schedule timer")
 			return
 		}
 
