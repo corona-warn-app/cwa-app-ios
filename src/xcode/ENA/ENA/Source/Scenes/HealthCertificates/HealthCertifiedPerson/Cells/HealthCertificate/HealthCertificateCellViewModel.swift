@@ -85,6 +85,28 @@ final class HealthCertificateCellViewModel {
 		}
 	}
 
+	var validityStateInfo: String? {
+		if healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+			switch healthCertificate.validityState {
+			case .valid:
+				return nil
+			case .expiringSoon:
+				return String(
+					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
+					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
+				)
+			case .expired:
+				return AppStrings.HealthCertificate.ValidityState.expired
+			case .invalid:
+				return AppStrings.HealthCertificate.ValidityState.invalid
+			}
+		} else {
+			return nil
+		}
+	}
+
 	var image: UIImage {
 		if healthCertificate.validityState == .invalid ||
 			(healthCertificate.type != .test && healthCertificate.validityState == .expired) {

@@ -37,6 +37,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		subheadlineLabel.text = cellViewModel.subheadline
 		detailsLabel.text = cellViewModel.detail
 
+		validityStateInfoLabel.text = cellViewModel.validityStateInfo
+		validityStateInfoLabel.isHidden = cellViewModel.validityStateInfo == nil
+
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
 
 		setupAccessibility()
@@ -47,9 +50,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let backgroundContainerView = UIView()
 	private let disclosureContainerView = UIView()
 	private let disclosureImageView = UIImageView()
-	private let headlineLabel = ENALabel()
-	private let subheadlineLabel = ENALabel()
-	private let detailsLabel = ENALabel()
+
+	private let headlineLabel = ENALabel(style: .headline)
+	private let subheadlineLabel = ENALabel(style: .body)
+	private let detailsLabel = ENALabel(style: .body)
+	private let validityStateInfoLabel = ENALabel(style: .body)
+
 	private let currentlyUsedStackView = UIStackView()
 	private let currentlyUsedImageView = UIImageView()
 	private let currentlyUsedLabel = ENALabel()
@@ -75,7 +81,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		headlineLabel.style = .headline
 		headlineLabel.numberOfLines = 0
 		headlineLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
@@ -92,17 +97,18 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineStackView.axis = .horizontal
 		headlineStackView.spacing = 8
 
-		subheadlineLabel.style = .body
 		subheadlineLabel.textColor = .enaColor(for: .textPrimary2)
 		subheadlineLabel.numberOfLines = 0
 
-		detailsLabel.style = .body
 		detailsLabel.textColor = .enaColor(for: .textPrimary2)
 		detailsLabel.numberOfLines = 0
 
 		let subheadlineDetailsStackView = UIStackView(arrangedSubviews: [subheadlineLabel, detailsLabel])
 		subheadlineDetailsStackView.axis = .vertical
 		subheadlineDetailsStackView.spacing = 0
+
+		validityStateInfoLabel.textColor = .enaColor(for: .textPrimary1)
+		validityStateInfoLabel.numberOfLines = 0
 
 		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
 		currentlyUsedImageView.contentMode = .scaleAspectFit
@@ -119,7 +125,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		currentlyUsedStackView.alignment = .top
 		currentlyUsedStackView.spacing = 6
 
-		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView, currentlyUsedStackView])
+		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView, validityStateInfoLabel, currentlyUsedStackView])
 		vStackView.axis = .vertical
 		vStackView.spacing = 6
 
