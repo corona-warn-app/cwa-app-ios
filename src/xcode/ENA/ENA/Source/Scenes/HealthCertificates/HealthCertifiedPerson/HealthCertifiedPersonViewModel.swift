@@ -23,31 +23,14 @@ final class HealthCertifiedPersonViewModel {
 
 		self.didTapValidationButton = didTapValidationButton
 
-		healthCertifiedPerson.$healthCertificates
-			.sink { [weak self] in
-				guard !$0.isEmpty else {
+		healthCertifiedPerson.objectDidChange
+			.sink { [weak self] person in
+				guard !person.healthCertificates.isEmpty else {
 					dismiss()
 					return
 				}
 
-				self?.triggerCertificatesReload = true
-			}
-			.store(in: &subscriptions)
-
-		healthCertifiedPerson.$vaccinationState
-			.sink { [weak self] _ in
-				self?.triggerCertificatesReload = true
-			}
-			.store(in: &subscriptions)
-
-		healthCertifiedPerson.$mostRelevantHealthCertificate
-			.sink { [weak self] in
-				guard $0 != nil else {
-					dismiss()
-					return
-				}
-
-				self?.triggerQRCodeReload = true
+				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
 
@@ -100,8 +83,7 @@ final class HealthCertifiedPersonViewModel {
 	}()
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
-	@OpenCombine.Published private(set) var triggerQRCodeReload: Bool = false
-	@OpenCombine.Published private(set) var triggerCertificatesReload: Bool = false
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
@@ -111,6 +93,7 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
 			healthCertificate: mostRelevantHealthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
 			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
