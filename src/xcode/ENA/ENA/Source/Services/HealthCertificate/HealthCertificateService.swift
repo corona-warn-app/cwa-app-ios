@@ -811,15 +811,8 @@ class HealthCertificateService {
 			trigger: trigger
 		)
 
-		notificationCenter.add(request) { error in
-			if error != nil {
-				Log.error(
-					"Could not schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)",
-					log: .vaccination,
-					error: error
-				)
-			}
-		}
+		addNotification(request: request)
+		
 	}
 	
 	private func scheduleNotificationForExpired(
@@ -846,15 +839,29 @@ class HealthCertificateService {
 			trigger: trigger
 		)
 
-		notificationCenter.add(request) { error in
-			if error != nil {
-				Log.error(
-					"Could not schedule expired notification for certificate with id: \(id) with expirationDate: \(date)",
-					log: .vaccination,
-					error: error
+		addNotification(request: request)
+	}
+	
+	private func addNotification(request: UNNotificationRequest) {
+		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
+			guard !requests.contains(request) else {
+				Log.info(
+					"Did not schedule notification: \(request.identifier) because it is already scheduled.",
+					log: .vaccination
 				)
+				return
+			}
+			self?.notificationCenter.add(request) { error in
+				if error != nil {
+					Log.error(
+						"Could not schedule notification: \(request.identifier)",
+						log: .vaccination,
+						error: error
+					)
+				}
 			}
 		}
 	}
+	
 	// swiftlint:disable:next file_length
 }
