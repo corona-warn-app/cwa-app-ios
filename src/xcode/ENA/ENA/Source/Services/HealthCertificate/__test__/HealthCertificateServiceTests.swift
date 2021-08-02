@@ -76,6 +76,17 @@ class HealthCertificateServiceTests: CWATestCase {
 			   ]
 		   )
 
+		var subscriptions = Set<AnyCancellable>()
+
+		let healthCertifiedPersonExpectation = expectation(description: "healthCertifiedPerson objectDidChange publisher updated")
+
+		healthCertifiedPerson
+			.objectDidChange
+			.sink { _ in
+				healthCertifiedPersonExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
@@ -87,36 +98,14 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
-		var subscriptions = Set<AnyCancellable>()
-
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
 		service.healthCertifiedPersons
-			.dropFirst()
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 			.store(in: &subscriptions)
 
-		let healthCertifiedPersonExpectation = expectation(description: "healthCertifiedPerson objectDidChange publisher updated")
-
-		healthCertifiedPerson
-			.objectDidChange
-			.sink { _ in
-				healthCertifiedPersonExpectation.fulfill()
-			}
-			.store(in: &subscriptions)
-
-		let testCertificateExpectation = expectation(description: "testCertificate objectDidChange publisher updated")
-
-		testCertificate
-			.objectDidChange
-			.sink { _ in
-				testCertificateExpectation.fulfill()
-			}
-			.store(in: &subscriptions)
-
-		testCertificate.validityState = .expired
 
 		waitForExpectations(timeout: .short)
 
@@ -534,14 +523,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
-		let service = HealthCertificateService(
-			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
-			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
-		)
-
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
 
 		let subscription = healthCertificate
@@ -550,6 +531,14 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificateExpectation.fulfill()
 				XCTAssertEqual($0.validityState, .invalid)
 			}
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -579,14 +568,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
-		let service = HealthCertificateService(
-			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
-		)
-
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
 
 		let subscription = healthCertificate
@@ -595,6 +576,14 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificateExpectation.fulfill()
 				XCTAssertEqual($0.validityState, .expired)
 			}
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -624,14 +613,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
-		let service = HealthCertificateService(
-			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
-		)
-
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
 
 		let subscription = healthCertificate
@@ -640,6 +621,14 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificateExpectation.fulfill()
 				XCTAssertEqual($0.validityState, .expired)
 			}
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -682,14 +671,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		appConfig.dgcParameters = parameters
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
-		let service = HealthCertificateService(
-			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: cachedAppConfig
-		)
-
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
 
 		let subscription = healthCertificate
@@ -698,6 +679,14 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificateExpectation.fulfill()
 				XCTAssertEqual($0.validityState, .expiringSoon)
 			}
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: cachedAppConfig
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -735,14 +724,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		appConfig.dgcParameters = parameters
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
-		let service = HealthCertificateService(
-			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: cachedAppConfig
-		)
-
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
 
 		let subscription = healthCertificate
@@ -751,6 +732,14 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificateExpectation.fulfill()
 				XCTAssertEqual($0.validityState, .expiringSoon)
 			}
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: cachedAppConfig
+		)
 
 		waitForExpectations(timeout: .short)
 
