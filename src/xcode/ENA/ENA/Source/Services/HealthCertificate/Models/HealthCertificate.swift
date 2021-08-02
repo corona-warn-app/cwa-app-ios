@@ -3,8 +3,6 @@
 //
 
 import Foundation
-import UIKit.UIImage
-import UIKit.UIScreen
 import OpenCombine
 import HealthCertificateToolkit
 
