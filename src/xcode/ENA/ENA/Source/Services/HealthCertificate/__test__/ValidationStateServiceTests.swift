@@ -34,8 +34,8 @@ class TestHealthCertificateService: HealthCertificateService {
 	var validUntilDates: [Date] = []
 	var expirationDates: [Date] = []
 
-	override func updateValidityStates(shouldScheduleTimer: Bool = true) {
-		super.updateValidityStates(shouldScheduleTimer: shouldScheduleTimer)
+	override func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
+		super.updateValidityStatesAndNotifications(shouldScheduleTimer: shouldScheduleTimer)
 		validationUpdatedHook()
 	}
 
