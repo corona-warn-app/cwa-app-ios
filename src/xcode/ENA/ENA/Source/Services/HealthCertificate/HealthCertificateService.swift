@@ -492,6 +492,7 @@ class HealthCertificateService {
 							healthCertificate.validityState = .invalid
 						}
 					}
+					healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
 				}
 			}
 			.store(in: &subscriptions)
