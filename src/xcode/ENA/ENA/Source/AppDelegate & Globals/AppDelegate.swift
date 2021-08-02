@@ -324,7 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 
-		return DCCSignatureVerifyingStub()
+		return DCCSignatureVerification()
 	}()
 
 	private lazy var dscListProvider: DSCListProviding = {
