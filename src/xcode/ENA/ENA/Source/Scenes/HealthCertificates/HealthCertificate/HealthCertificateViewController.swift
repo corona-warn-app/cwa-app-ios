@@ -271,7 +271,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] triggerReload in
+			.sink { [weak self] _ in
 				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
