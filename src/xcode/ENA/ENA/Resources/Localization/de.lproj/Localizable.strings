@@ -2742,8 +2742,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
 
-/* Home */
-
 /* Health Certified Person Screen */
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
@@ -3002,3 +3000,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Technisches Ablaufdatum";
 
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Gültig bis %@";
+
+/* Health Certificate Validity State */
+
+"HealthCertificate_ValidityState_ExpiringSoon" = "Zertifikat läuft am %@ um %@ ab";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+"HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
+
+"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+"HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
