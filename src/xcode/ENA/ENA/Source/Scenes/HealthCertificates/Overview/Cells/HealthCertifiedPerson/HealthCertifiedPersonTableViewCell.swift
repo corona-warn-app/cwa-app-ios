@@ -37,23 +37,116 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
+		gradientView.type = cellModel.backgroundGradientType
+
 		titleLabel.text = cellModel.title
 		nameLabel.text = cellModel.name
 
 		qrCodeView.configure(with: cellModel.qrCodeViewModel)
 
-		gradientView.type = cellModel.backgroundGradientType
+		validityStateIconImageView.image = cellModel.validityStateIcon
+		validityStateTitleLabel.text = cellModel.validityStateTitle
+		validityStateStackView.isHidden = cellModel.validityStateIcon == nil && cellModel.validityStateTitle == nil
 	}
 	
 	// MARK: - Private
 
-	private let cardView = CardView()
-	private let titleLabel = ENALabel(style: .body)
-	private let nameLabel = ENALabel(style: .title2)
-	private let gradientView = GradientView()
-	private let bottomView = UIView()
-	private let qrCodeContainerView = UIView()
+	private let cardView: CardView = {
+		let cardView = CardView()
+		cardView.hasBorder = false
+
+		return cardView
+	}()
+
+	private let titleLabel: ENALabel = {
+		let titleLabel = ENALabel(style: .body)
+		titleLabel.numberOfLines = 0
+		titleLabel.textColor = .enaColor(for: .textContrast)
+
+		return titleLabel
+	}()
+
+	private let nameLabel: ENALabel = {
+		let nameLabel = ENALabel()
+		nameLabel.numberOfLines = 0
+		nameLabel.textColor = .enaColor(for: .textContrast)
+		nameLabel.font = .enaFont(for: .title2, weight: .light, italic: false)
+
+		return nameLabel
+	}()
+
+	private let gradientView: GradientView = {
+		let gradientView = GradientView()
+		gradientView.layer.masksToBounds = true
+		gradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+		gradientView.layer.cornerRadius = 14.0
+		if #available(iOS 13.0, *) {
+			gradientView.layer.cornerCurve = .continuous
+		}
+
+		return gradientView
+	}()
+
+	private let bottomView: UIView = {
+		let bottomView = UIView()
+		bottomView.backgroundColor = .enaColor(for: .background)
+		bottomView.clipsToBounds = false
+		bottomView.layer.borderWidth = 1.0
+		bottomView.layer.cornerRadius = 14.0
+		bottomView.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+		if #available(iOS 13.0, *) {
+			bottomView.layer.cornerCurve = .continuous
+		}
+
+		return bottomView
+	}()
+
+	private lazy var stackView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [titleLabel, nameLabel])
+		stackView.axis = .vertical
+		stackView.spacing = 16.0
+
+		return stackView
+	}()
+
+	private let qrCodeContainerView: UIView = {
+		let qrCodeContainerView = UIView()
+		qrCodeContainerView.backgroundColor = .enaColor(for: .cellBackground2)
+		qrCodeContainerView.layer.cornerRadius = 14
+		qrCodeContainerView.layer.borderWidth = 1
+		if #available(iOS 13.0, *) {
+			qrCodeContainerView.layer.cornerCurve = .continuous
+		}
+
+		return qrCodeContainerView
+	}()
+
 	private let qrCodeView = HealthCertificateQRCodeView()
+
+	private lazy var validityStateStackView: UIStackView = {
+		let validityStateStackView = UIStackView(arrangedSubviews: [validityStateIconImageView, validityStateTitleLabel])
+		validityStateStackView.alignment = .center
+		validityStateStackView.axis = .horizontal
+		validityStateStackView.spacing = 8.0
+
+		return validityStateStackView
+	}()
+
+	private let validityStateIconImageView: UIImageView = {
+		let validityStateIconImageView = UIImageView()
+		validityStateIconImageView.setContentHuggingPriority(.required, for: .horizontal)
+
+		return validityStateIconImageView
+	}()
+
+	private let validityStateTitleLabel: ENALabel = {
+		let validityStateTitleLabel = ENALabel()
+		validityStateTitleLabel.style = .body
+		validityStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
+		validityStateTitleLabel.numberOfLines = 0
+
+		return validityStateTitleLabel
+	}()
 
 	private func setupAccessibility() {
 		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeView as Any]
@@ -67,54 +160,25 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		contentView.backgroundColor = .enaColor(for: .darkBackground)
 
 		cardView.translatesAutoresizingMaskIntoConstraints = false
-		cardView.hasBorder = false
 		contentView.addSubview(cardView)
 
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
-		gradientView.layer.masksToBounds = true
-		gradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-		gradientView.layer.cornerRadius = 14.0
-		if #available(iOS 13.0, *) {
-			gradientView.layer.cornerCurve = .continuous
-		}
 		cardView.addSubview(gradientView)
 
-		bottomView.backgroundColor = .enaColor(for: .background)
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
-		bottomView.clipsToBounds = false
-		bottomView.layer.borderWidth = 1.0
-		bottomView.layer.cornerRadius = 14.0
-		bottomView.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-		if #available(iOS 13.0, *) {
-			bottomView.layer.cornerCurve = .continuous
-		}
-
 		cardView.addSubview(bottomView)
 
-		titleLabel.numberOfLines = 0
-		titleLabel.textColor = .enaColor(for: .textContrast)
-
-		nameLabel.textColor = .enaColor(for: .textContrast)
-		nameLabel.font = .enaFont(for: .title2, weight: .regular, italic: false)
-
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, nameLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.axis = .vertical
-		stackView.spacing = 16.0
 		gradientView.addSubview(stackView)
 
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeContainerView.backgroundColor = .enaColor(for: .cellBackground2)
-		qrCodeContainerView.layer.cornerRadius = 14
-		qrCodeContainerView.layer.borderWidth = 1
-		if #available(iOS 13.0, *) {
-			qrCodeContainerView.layer.cornerCurve = .continuous
-		}
 		cardView.addSubview(qrCodeContainerView)
 
 		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		qrCodeContainerView.addSubview(qrCodeView)
+
+		validityStateStackView.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.addSubview(validityStateStackView)
 
 		updateBorderColors()
 
@@ -142,13 +206,18 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
-				qrCodeContainerView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -24.0),
+				qrCodeContainerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -24.0),
 				qrCodeContainerView.widthAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor),
 
 				qrCodeView.centerXAnchor.constraint(equalTo: qrCodeContainerView.centerXAnchor),
 				qrCodeView.centerYAnchor.constraint(equalTo: qrCodeContainerView.centerYAnchor),
 				qrCodeView.widthAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor, constant: -32.0),
-				qrCodeView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0)
+				qrCodeView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0),
+
+				validityStateStackView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 18.0),
+				validityStateStackView.topAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: 12.0),
+				validityStateStackView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -16.0),
+				validityStateStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -16.0)
 			]
 		)
 
