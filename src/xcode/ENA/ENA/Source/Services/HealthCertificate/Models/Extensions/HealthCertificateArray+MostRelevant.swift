@@ -40,10 +40,28 @@ extension Array where Element == HealthCertificate {
 	var mostRelevant: HealthCertificate? {
 		let sortedHealthCertificates = sorted()
 
+		return sortedHealthCertificates.filter({
+			$0.validityState == .valid || $0.validityState == .expiringSoon
+		}).mostRelevantIgnoringValidityState ??
+		
+		sortedHealthCertificates.filter({
+			$0.validityState == .expired
+		}).mostRelevantIgnoringValidityState ??
+		
+		sortedHealthCertificates.filter({
+			$0.validityState == .invalid
+		}).mostRelevantIgnoringValidityState ??
+
+		// Fallback
+		first
+	}
+	
+	private var mostRelevantIgnoringValidityState: HealthCertificate? {
+		
 		// PCR Test Certificate < 48 hours
 
-		let currentPCRTest = sortedHealthCertificates
-			.last {
+			
+		let currentPCRTest = last {
 				guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 					return false
 				}
@@ -57,8 +75,7 @@ extension Array where Element == HealthCertificate {
 
 		// RAT Test Certificate < 24 hours
 
-		let currentAntigenTest = sortedHealthCertificates
-			.last {
+		let currentAntigenTest = last {
 				guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 					return false
 				}
@@ -72,8 +89,7 @@ extension Array where Element == HealthCertificate {
 
 		// Series-completing Vaccination Certificate > 14 days
 
-		let protectingVaccinationCertificate = sortedHealthCertificates
-			.last {
+		let protectingVaccinationCertificate = last {
 				guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
 					return false
 				}
@@ -87,8 +103,7 @@ extension Array where Element == HealthCertificate {
 
 		// Recovery Certificate <= 180 days
 
-		let validRecoveryCertificate = sortedHealthCertificates
-			.last {
+		let validRecoveryCertificate = last {
 				guard let ageInDays = $0.ageInDays else {
 					return false
 				}
@@ -102,8 +117,7 @@ extension Array where Element == HealthCertificate {
 
 		// Series-completing Vaccination Certificate <= 14 days
 
-		let seriesCompletingVaccinationCertificate = sortedHealthCertificates
-			.last {
+		let seriesCompletingVaccinationCertificate = last {
 				guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
 					return false
 				}
@@ -117,31 +131,28 @@ extension Array where Element == HealthCertificate {
 
 		// Other Vaccination Certificate
 
-		if let otherVaccinationCertificate = sortedHealthCertificates.last(where: { $0.type == .vaccination }) {
+		if let otherVaccinationCertificate = last(where: { $0.type == .vaccination }) {
 			return otherVaccinationCertificate
 		}
 
 		// Recovery Certificate > 180 days
 
-		if let outdatedRecoveryCertificate = sortedHealthCertificates.last(where: { $0.type == .recovery }) {
+		if let outdatedRecoveryCertificate = last(where: { $0.type == .recovery }) {
 			return outdatedRecoveryCertificate
 		}
 
 		// PCR Test Certificate > 48 hours
 
-		if let outdatedPCRTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .pcr }) {
+		if let outdatedPCRTestCertificate = last(where: { $0.testEntry?.coronaTestType == .pcr }) {
 			return outdatedPCRTestCertificate
 		}
 
 		// RAT Test Certificate > 24 hours
 
-		if let outdatedAntigenTestCertificate = sortedHealthCertificates.last(where: { $0.testEntry?.coronaTestType == .antigen }) {
+		if let outdatedAntigenTestCertificate = last(where: { $0.testEntry?.coronaTestType == .antigen }) {
 			return outdatedAntigenTestCertificate
 		}
 
-		// Fallback
-
-		return first
+		return nil
 	}
-
 }
