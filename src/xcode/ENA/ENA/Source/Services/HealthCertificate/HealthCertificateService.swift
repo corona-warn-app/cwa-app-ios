@@ -584,7 +584,15 @@ class HealthCertificateService {
 		self.healthCertifiedPersons.value
 			.enumerated()
 			.forEach { index, person in
-				person.gradientType = gradientTypes[index % 3]
+				let healthCertificate = person.mostRelevantHealthCertificate
+
+				if healthCertificate?.validityState == .valid ||
+					healthCertificate?.validityState == .expiringSoon ||
+					(healthCertificate?.type == .test && healthCertificate?.validityState == .expired) {
+					person.gradientType = gradientTypes[index % 3]
+				} else {
+					person.gradientType = .solidGrey(withStars: true)
+				}
 			}
 	}
 
