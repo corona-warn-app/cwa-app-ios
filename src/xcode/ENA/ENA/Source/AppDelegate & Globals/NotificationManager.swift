@@ -13,7 +13,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		coronaTestService: CoronaTestService,
 		eventCheckoutService: EventCheckoutService,
 		healthCertificateService: HealthCertificateService,
-		showHome: @escaping (Route?) -> Void,
+		showHome: @escaping () -> Void,
 		showTestResultFromNotification: @escaping (CoronaTestType) -> Void
 	) {
 		self.coronaTestService = coronaTestService
@@ -48,7 +48,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		switch response.notification.request.identifier {
 		case ActionableNotificationIdentifier.riskDetection.identifier,
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
-			showHome(nil)
+			showHome()
 
 		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier:
@@ -66,7 +66,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 				  let testResult = TestResult(serverResponse: testResultRawValue),
 				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
 				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
-				showHome(nil)
+				showHome()
 				return
 			}
 
@@ -74,7 +74,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			case .positive, .negative:
 				showTestResultFromNotification(testResultType)
 			case .invalid:
-				showHome(nil)
+				showHome()
 			case .expired, .pending:
 				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
@@ -92,7 +92,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let coronaTestService: CoronaTestService
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
-	private let showHome: (Route?) -> Void
+	private let showHome: () -> Void
 	private let showTestResultFromNotification: (CoronaTestType) -> Void
 	
 	private func showPositivePCRTestResultIfNeeded() {

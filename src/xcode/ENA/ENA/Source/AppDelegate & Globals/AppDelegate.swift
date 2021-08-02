@@ -434,7 +434,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			coronaTestService: coronaTestService,
 			eventCheckoutService: eventCheckoutService,
 			healthCertificateService: healthCertificateService,
-			showHome: showHome,
+			showHome: { [weak self] in
+				// We don't need the Route parameter in the NotificationManager
+				self?.showHome()
+			},
 			showTestResultFromNotification: coordinator.showTestResultFromNotification
 		)
 		return notificationManager
