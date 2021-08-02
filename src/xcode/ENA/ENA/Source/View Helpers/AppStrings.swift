@@ -2065,6 +2065,15 @@ enum AppStrings {
 			}
 		}
 
+		enum ValidityState {
+			static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
+			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
+			static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
+			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
+			static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
+			static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
+		}
+
 		enum Alert {
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
@@ -2176,15 +2185,6 @@ enum AppStrings {
 					static let expirationDateTitle = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_expirationDateTitle", comment: "")
 					static let expirationDate = NSLocalizedString("HealthCertificate_Validation_TechnicalFailed_expirationDate", comment: "")
 				}
-			}
-
-			enum ValidityState {
-				static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
-				static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
-				static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
-				static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
-				static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
-				static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
 			}
 		}
 	}

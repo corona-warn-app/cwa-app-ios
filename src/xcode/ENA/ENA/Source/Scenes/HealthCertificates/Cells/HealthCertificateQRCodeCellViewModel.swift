@@ -74,25 +74,29 @@ struct HealthCertificateQRCodeCellViewModel {
 				self.validityStateDescription = nil
 			case .expiringSoon:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiringSoon")
-				self.validityStateTitle = AppStrings.HealthCertificate.Validation.ValidityState.expiringSoon
+				self.validityStateTitle = String(
+					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
+					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
+				)
 				if mode == .details {
-					self.validityStateDescription = AppStrings.HealthCertificate.Validation.ValidityState.expiringSoonDescription
+					self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.expiringSoonDescription
 				} else {
 					self.validityStateDescription = nil
 				}
 			case .expired:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-				self.validityStateTitle = AppStrings.HealthCertificate.Validation.ValidityState.expired
+				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.expired
 				if mode == .details {
-					self.validityStateDescription = AppStrings.HealthCertificate.Validation.ValidityState.expiredDescription
+					self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.expiredDescription
 				} else {
 					self.validityStateDescription = nil
 				}
 			case .invalid:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-				self.validityStateTitle = AppStrings.HealthCertificate.Validation.ValidityState.invalid
+				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.invalid
 				if mode == .details {
-					self.validityStateDescription = AppStrings.HealthCertificate.Validation.ValidityState.invalidDescription
+					self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.invalidDescription
 				} else {
 					self.validityStateDescription = nil
 				}
