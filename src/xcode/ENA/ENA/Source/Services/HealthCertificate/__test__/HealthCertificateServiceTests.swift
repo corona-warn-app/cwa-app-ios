@@ -1512,4 +1512,65 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(service.testCertificateRequests.value[0].requestExecutionFailed)
 		XCTAssertFalse(service.testCertificateRequests.value[0].isLoading)
 	}
+	
+	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
+		// GIVEN
+		let notificationCenter = MockUserNotificationCenter()
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
+			notificationCenter: notificationCenter
+		)
+		
+		let testCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-07-22T22:22:22.225Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		
+		let vaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "1"
+				)]
+			)
+		)
+		
+		let recoveryCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				recoveryEntries: [RecoveryEntry.fake(
+					dateOfFirstPositiveNAAResult: "2021-05-28",
+					uniqueCertificateIdentifier: "2"
+				)]
+			)
+		)
+		let recoveryCertificate = try HealthCertificate(base45: recoveryCertificateBase45)
+		
+		// WHEN
+		_ = service.registerHealthCertificate(base45: testCertificateBase45)
+		_ = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
+		_ = service.registerHealthCertificate(base45: recoveryCertificateBase45)
+		
+		// THEN
+		// There should be now 2 notifications for expireSoon and 2 for expired (One for each the vaccination and the recovery certificate). Test certificates are ignored.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 4)
+		
+		// WHEN
+		service.removeHealthCertificate(recoveryCertificate)
+		
+		// THEN
+		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
+	}
 }
