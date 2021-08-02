@@ -124,6 +124,12 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
+	@objc
+	func triggerMostRelevantCertificateUpdate() {
+		updateMostRelevantHealthCertificate()
+		scheduleMostRelevantCertificateTimer()
+	}
+
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -225,7 +231,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		// Schedule new timer.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(triggerMostRelevantCertificateUpdate), name: UIApplication.didBecomeActiveNotification, object: nil)
 
 		mostRelevantCertificateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateMostRelevantHealthCertificate), userInfo: nil, repeats: false)
 
@@ -239,14 +245,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	@objc
-	private func refreshUpdateTimerAfterResumingFromBackground() {
-		updateMostRelevantHealthCertificate()
-		scheduleMostRelevantCertificateTimer()
-	}
-
-	@objc
 	private func updateMostRelevantHealthCertificate() {
 		mostRelevantHealthCertificate = healthCertificates.mostRelevant
 	}
-
 }
