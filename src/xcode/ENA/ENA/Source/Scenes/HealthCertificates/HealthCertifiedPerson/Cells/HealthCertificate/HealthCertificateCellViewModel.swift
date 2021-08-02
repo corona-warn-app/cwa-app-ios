@@ -19,10 +19,12 @@ final class HealthCertificateCellViewModel {
 	// MARK: - Internal
 
 	var gradientType: GradientView.GradientType {
-		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-			return .lightBlue(withStars: false)
-		} else {
+		if healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState == .expired) ||
+			healthCertificate != healthCertifiedPerson.mostRelevantHealthCertificate {
 			return .solidGrey(withStars: false)
+		} else {
+			return .lightBlue(withStars: false)
 		}
 	}
 
@@ -84,6 +86,11 @@ final class HealthCertificateCellViewModel {
 	}
 
 	var image: UIImage {
+		if healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState == .expired) {
+			return UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small")
+		}
+
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			if vaccinationEntry.isLastDoseInASeries {
