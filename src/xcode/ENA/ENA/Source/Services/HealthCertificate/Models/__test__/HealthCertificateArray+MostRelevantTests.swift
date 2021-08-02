@@ -8,7 +8,8 @@ import XCTest
 import HealthCertificateToolkit
 
 class HealthCertificateArrayMostRelevantTests: CWATestCase {
-
+	
+	// swiftlint:disable:next function_body_length
 	func testMostRelevantHealthCertificate() throws {
 		let mostRecentValidPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 18)
    		let olderValidPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 47)

@@ -62,12 +62,12 @@ extension Array where Element == HealthCertificate {
 
 			
 		let currentPCRTest = last {
-				guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
-					return false
-				}
-
-				return coronaTestType == .pcr && ageInHours < 48
+			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
+				return false
 			}
+			
+			return coronaTestType == .pcr && ageInHours < 48
+		}
 
 		if let currentPCRTest = currentPCRTest {
 			return currentPCRTest
@@ -76,12 +76,12 @@ extension Array where Element == HealthCertificate {
 		// RAT Test Certificate < 24 hours
 
 		let currentAntigenTest = last {
-				guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
-					return false
-				}
-
-				return coronaTestType == .antigen && ageInHours < 24
+			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
+				return false
 			}
+			
+			return coronaTestType == .antigen && ageInHours < 24
+		}
 
 		if let currentAntigenTest = currentAntigenTest {
 			return currentAntigenTest
@@ -90,12 +90,12 @@ extension Array where Element == HealthCertificate {
 		// Series-completing Vaccination Certificate > 14 days
 
 		let protectingVaccinationCertificate = last {
-				guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
-					return false
-				}
-
-				return isLastDoseInASeries && ageInDays > 14
+			guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
+				return false
 			}
+			
+			return isLastDoseInASeries && ageInDays > 14
+		}
 
 		if let protectingVaccinationCertificate = protectingVaccinationCertificate {
 			return protectingVaccinationCertificate
@@ -104,12 +104,12 @@ extension Array where Element == HealthCertificate {
 		// Recovery Certificate <= 180 days
 
 		let validRecoveryCertificate = last {
-				guard let ageInDays = $0.ageInDays else {
-					return false
-				}
-
-				return $0.type == .recovery && ageInDays <= 180
+			guard let ageInDays = $0.ageInDays else {
+				return false
 			}
+			
+			return $0.type == .recovery && ageInDays <= 180
+		}
 
 		if let validRecoveryCertificate = validRecoveryCertificate {
 			return validRecoveryCertificate
@@ -118,12 +118,12 @@ extension Array where Element == HealthCertificate {
 		// Series-completing Vaccination Certificate <= 14 days
 
 		let seriesCompletingVaccinationCertificate = last {
-				guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
-					return false
-				}
-
-				return isLastDoseInASeries && ageInDays <= 14
+			guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
+				return false
 			}
+			
+			return isLastDoseInASeries && ageInDays <= 14
+		}
 
 		if let seriesCompletingVaccinationCertificate = seriesCompletingVaccinationCertificate {
 			return seriesCompletingVaccinationCertificate
