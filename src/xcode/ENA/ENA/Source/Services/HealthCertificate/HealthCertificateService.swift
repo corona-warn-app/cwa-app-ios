@@ -686,8 +686,8 @@ class HealthCertificateService {
 		)
 		
 		let expirationDate = healthCertificate.expirationDate
-		self.scheduleNotificationForExpiringSoon(id: id, date: expiringSoonDate)
-		self.scheduleNotificationForExpired(id: id, date: expirationDate)
+		scheduleNotificationForExpiringSoon(id: id, date: expiringSoonDate)
+		scheduleNotificationForExpired(id: id, date: expirationDate)
 	}
 	
 	private func scheduleNotificationForExpiringSoon(

@@ -288,7 +288,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 	
-	lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
 		signatureVerifying: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
@@ -430,9 +430,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var notificationManager: NotificationManager = {
-		let notificationManager = NotificationManager()
-		notificationManager.appDelegate = self
-
+		let notificationManager = NotificationManager(
+			coronaTestService: coronaTestService,
+			eventCheckoutService: eventCheckoutService,
+			healthCertificateService: healthCertificateService,
+			showHome: showHome,
+			showTestResultFromNotification: coordinator.showTestResultFromNotification
+		)
 		return notificationManager
 	}()
 

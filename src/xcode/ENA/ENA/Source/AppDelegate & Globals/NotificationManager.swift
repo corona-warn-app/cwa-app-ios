@@ -6,23 +6,39 @@ import Foundation
 import NotificationCenter
 
 final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
-
-	weak var appDelegate: AppDelegate?
-
+	
+	// MARK: - Init
+	
+	init(
+		coronaTestService: CoronaTestService,
+		eventCheckoutService: EventCheckoutService,
+		healthCertificateService: HealthCertificateService,
+		showHome: @escaping (Route?) -> Void,
+		showTestResultFromNotification: @escaping (CoronaTestType) -> Void
+	) {
+		self.coronaTestService = coronaTestService
+		self.eventCheckoutService = eventCheckoutService
+		self.healthCertificateService = healthCertificateService
+		self.showHome = showHome
+		self.showTestResultFromNotification = showTestResultFromNotification
+	}
+		
+	// MARK: - Protocol UNUserNotificationCenterDelegate
+	
 	func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-		// Show badge on check-in tab when checkout.
+		// Checkout overdue checkins.
 		if notification.request.identifier.contains(LocalNotificationIdentifier.checkout.rawValue) {
-			appDelegate?.eventCheckoutService.checkoutOverdueCheckins()
+			eventCheckoutService.checkoutOverdueCheckins()
 		}
 		
 		// Show badge on certificates tab when certificate is expired.
 		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpired.rawValue) {
-			appDelegate?.healthCertificateService.unseenTestCertificateCount.value += 1
+			healthCertificateService.unseenTestCertificateCount.value += 1
 		}
 		
 		// Show badge on certificates tab when certificate expires soon.
 		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpiringSoon.rawValue) {
-			appDelegate?.healthCertificateService.unseenTestCertificateCount.value += 1
+			healthCertificateService.unseenTestCertificateCount.value += 1
 		}
 
 		completionHandler([.alert, .badge, .sound])
@@ -32,7 +48,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		switch response.notification.request.identifier {
 		case ActionableNotificationIdentifier.riskDetection.identifier,
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
-			appDelegate?.showHome()
+			showHome(nil)
 
 		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier:
@@ -50,15 +66,15 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 				  let testResult = TestResult(serverResponse: testResultRawValue),
 				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
 				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
-				appDelegate?.showHome()
+				showHome(nil)
 				return
 			}
 
 			switch testResult {
 			case .positive, .negative:
-				showTestResultFromNotification(with: testResultType)
+				showTestResultFromNotification(testResultType)
 			case .invalid:
-				appDelegate?.showHome()
+				showHome(nil)
 			case .expired, .pending:
 				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
@@ -68,23 +84,28 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 		completionHandler()
 	}
-
+	
+	// MARK: - Internal
+	
+	// MARK: - Private
+	
+	private let coronaTestService: CoronaTestService
+	private let eventCheckoutService: EventCheckoutService
+	private let healthCertificateService: HealthCertificateService
+	private let showHome: (Route?) -> Void
+	private let showTestResultFromNotification: (CoronaTestType) -> Void
+	
 	private func showPositivePCRTestResultIfNeeded() {
-		if let pcrTest = appDelegate?.coronaTestService.pcrTest,
+		if let pcrTest = coronaTestService.pcrTest,
 		   pcrTest.positiveTestResultWasShown {
-			showTestResultFromNotification(with: .pcr)
+			showTestResultFromNotification(.pcr)
 		}
 	}
 
 	private func showPositiveAntigenTestResultIfNeeded() {
-		if let antigenTest = appDelegate?.coronaTestService.antigenTest,
+		if let antigenTest = coronaTestService.antigenTest,
 		   antigenTest.positiveTestResultWasShown {
-			showTestResultFromNotification(with: .antigen)
+			showTestResultFromNotification(.antigen)
 		}
-	}
-
-	private func showTestResultFromNotification(with testType: CoronaTestType) {
-		// we should show screens based on test result regardless wether positiveTestResultWasShown before or not
-		appDelegate?.coordinator.showTestResultFromNotification(with: testType)
 	}
 }
