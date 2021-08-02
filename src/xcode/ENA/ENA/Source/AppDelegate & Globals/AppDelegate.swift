@@ -287,6 +287,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 		#endif
 	}()
+	
+	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+		store: store,
+		signatureVerifying: dccSignatureVerificationService,
+		dscListProvider: dscListProvider,
+		client: client,
+		appConfiguration: appConfigurationProvider
+	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
@@ -309,14 +317,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		deviceCheck: PPACDeviceCheck()
 	)
 
-	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
-		store: store,
-		signatureVerifying: dccSignatureVerificationService,
-		dscListProvider: dscListProvider,
-		client: client,
-		appConfiguration: appConfigurationProvider
-	)
-
 	private lazy var dccSignatureVerificationService: DCCSignatureVerifying = {
 		#if DEBUG
 		if isUITesting {
@@ -324,7 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 
-		return DCCSignatureVerifyingStub()
+		return DCCSignatureVerification()
 	}()
 
 	private lazy var dscListProvider: DSCListProviding = {
@@ -430,9 +430,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var notificationManager: NotificationManager = {
-		let notificationManager = NotificationManager()
-		notificationManager.appDelegate = self
-
+		let notificationManager = NotificationManager(
+			coronaTestService: coronaTestService,
+			eventCheckoutService: eventCheckoutService,
+			healthCertificateService: healthCertificateService,
+			showHome: { [weak self] in
+				// We don't need the Route parameter in the NotificationManager
+				self?.showHome()
+			},
+			showTestResultFromNotification: coordinator.showTestResultFromNotification
+		)
 		return notificationManager
 	}()
 
