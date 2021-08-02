@@ -187,6 +187,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
 		// First check if user activated notification setting
 		guard self.dependencies.store.allowTestsStatusNotification else {
+			Log.info("[ENATaskExecutionDelegate] Cancel updating test results. User deactivated notification setting.", log: .riskDetection)
 			completion(false)
 			return
 		}
