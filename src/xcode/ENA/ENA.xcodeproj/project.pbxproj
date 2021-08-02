@@ -706,7 +706,6 @@
 		8F4E623325EE878400FF4F0A /* ErrorReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */; };
 		8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */; };
 		8F4E623A25EE878E00FF4F0A /* BottomErrorReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* BottomErrorReportView.swift */; };
-		8F4E623B25EE878E00FF4F0A /* _BottomErrorReportView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4E623925EE878E00FF4F0A /* _BottomErrorReportView.xib */; };
 		8F4E624225EE879B00FF4F0A /* TopErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */; };
 		8F5B5C0E26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C0C26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift */; };
 		8F5B5C172648CD3800456381 /* HealthCertifiedPersonCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C162648CD3800456381 /* HealthCertifiedPersonCellModel.swift */; };
@@ -2032,7 +2031,6 @@
 		8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorReportCoordinator.swift; sourceTree = "<group>"; };
 		8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorLoggingStatus.swift; sourceTree = "<group>"; };
 		8F4E623825EE878E00FF4F0A /* BottomErrorReportView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomErrorReportView.swift; sourceTree = "<group>"; };
-		8F4E623925EE878E00FF4F0A /* _BottomErrorReportView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = _BottomErrorReportView.xib; sourceTree = "<group>"; };
 		8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewController.swift; sourceTree = "<group>"; };
 		8F5B5C0C26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonTableViewCell.swift; sourceTree = "<group>"; };
 		8F5B5C162648CD3800456381 /* HealthCertifiedPersonCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModel.swift; sourceTree = "<group>"; };
@@ -5197,7 +5195,6 @@
 				8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */,
 				8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */,
 				8F4E623825EE878E00FF4F0A /* BottomErrorReportView.swift */,
-				8F4E623925EE878E00FF4F0A /* _BottomErrorReportView.xib */,
 			);
 			path = MainErrorReportViewControllers;
 			sourceTree = "<group>";
@@ -7791,7 +7788,6 @@
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
 				01D0272E258BD2B100B6389A /* BackgroundAppRefreshViewController.xib in Resources */,
 				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
-				8F4E623B25EE878E00FF4F0A /* _BottomErrorReportView.xib in Resources */,
 				35F929B02682176B006115BB /* style.css in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,

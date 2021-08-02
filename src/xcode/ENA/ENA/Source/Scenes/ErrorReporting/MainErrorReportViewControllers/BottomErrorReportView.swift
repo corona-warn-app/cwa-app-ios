@@ -92,6 +92,8 @@ class BottomErrorReportView: UIView {
 		let grayView = UIView()
 		grayView.backgroundColor = .enaColor(for: .separator)
 		grayView.translatesAutoresizingMaskIntoConstraints = false
+		grayView.layer.masksToBounds = true
+		grayView.layer.cornerRadius = 14
 		addSubview(grayView)
 		
 		coloredCircle = UIImageView(image: UIImage(named: "icon_fehleranalyse"))
@@ -132,6 +134,7 @@ class BottomErrorReportView: UIView {
 		stackView.addArrangedSubview(saveLocallyButton)
 		
 		stopAndDeleteButton = ENAButton(frame: .zero)
+		stopAndDeleteButton.enabledBackgroundColor = .enaColor(for: .buttonDestructive)
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
 		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
 		stackView.addArrangedSubview(stopAndDeleteButton)
@@ -164,7 +167,7 @@ class BottomErrorReportView: UIView {
 			statusDescription.trailingAnchor.constraint(equalTo: grayView.trailingAnchor, constant: -8),
 			
 			stackView.topAnchor.constraint(equalTo: grayView.bottomAnchor, constant: 16),
-			stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+			stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -4),
 			stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
 			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
 		])

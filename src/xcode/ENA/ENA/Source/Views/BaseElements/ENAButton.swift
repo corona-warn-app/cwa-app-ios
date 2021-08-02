@@ -44,8 +44,8 @@ class ENAButton: DynamicTypeButton {
 
 	// MARK: - Internal
 
-	@IBInspectable var enabledBackgroundColor: UIColor?
-	@IBInspectable var disabledBackgroundColor: UIColor?
+	@IBInspectable var enabledBackgroundColor: UIColor? { didSet { applyStyle() } }
+	@IBInspectable var disabledBackgroundColor: UIColor? { didSet { applyStyle() } }
 	@IBInspectable var hasBackground: Bool = true { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
