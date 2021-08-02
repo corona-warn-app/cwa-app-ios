@@ -4,7 +4,6 @@
 
 import Foundation
 import Security
-import CryptoKit
 
 public struct DCCSigningCertificate: Codable, Hashable {
 
