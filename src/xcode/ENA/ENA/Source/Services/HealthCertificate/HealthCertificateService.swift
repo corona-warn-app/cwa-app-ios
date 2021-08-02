@@ -347,6 +347,7 @@ class HealthCertificateService {
 				case .failure:
 					healthCertificate.validityState = .invalid
 				}
+				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
 			}
 		}
 		if shouldScheduleTimer {
