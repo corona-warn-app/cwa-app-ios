@@ -186,7 +186,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		healthCertificates.removeAll(where: { $0 == expiredRecentOutdatedPCRTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredOutdatedAntigenTest)
 
-		// Invalid Certificates are the second most relevant
+		// Invalid Certificates are the least relevant
 		
 		healthCertificates.removeAll(where: { $0 == expiredOutdatedAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentPCRTest)
