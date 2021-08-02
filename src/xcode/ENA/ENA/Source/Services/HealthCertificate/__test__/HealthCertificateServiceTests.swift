@@ -807,6 +807,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -900,6 +901,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -985,6 +987,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1072,6 +1075,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1221,6 +1225,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
