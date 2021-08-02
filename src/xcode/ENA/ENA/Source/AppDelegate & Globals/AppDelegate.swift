@@ -104,6 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		Log.info("Application did finish launching.", log: .appLifecycle)
+
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
@@ -156,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
-		Log.info("Application did become active.", log: .background)
+		Log.info("Application did become active.", log: .appLifecycle)
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
@@ -171,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if #available(iOS 13.0, *) {
 			taskScheduler.scheduleTask()
 		}
-		Log.info("Application did enter background.", log: .background)
+		Log.info("Application did enter background.", log: .appLifecycle)
 	}
 
 	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
