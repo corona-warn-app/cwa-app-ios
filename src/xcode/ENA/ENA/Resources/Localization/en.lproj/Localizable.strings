@@ -299,9 +299,9 @@
 
 "NotificationSettings_Off_InfoTitle" = "Activate Notifications";
 
-"NotificationSettings_Off_InfoDescription" = "To activate notifications, you must allow notifications for the Corona-Warn-App in your device settings.";
+"NotificationSettings_Off_InfoDescription" = "To activate notifications in the Corona-Warn-App, you must allow notifications in your device settings.";
 
-"NotificationSettings_Off_OpenSettings" = "Open Settings";
+"NotificationSettings_Off_OpenSettings" = "Open Device Settings";
 
 "NotificationSettings_NavTitle" = "Notifications";
 
@@ -1082,6 +1082,8 @@
 
 "ExposureNotificationSetting_apiMisuse" = "An internal error occurred while activating the exposure logging feature. For more information, visit our FAQ page and try again later.";
 
+"ExposureNotificationSetting_notResponding" = "An error occurred while activating exposure logging. Please restart your device. If the error persists, visit the FAQ website or contact the technical hotline via App Information -> Technical Hotline.";
+
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Transnational Exposure Logging";
 
@@ -1545,18 +1547,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.6 */
-"NewVersionFeature_26_euCertCheck_title" = "EU Certificate Validation";
+/* Version 2.7 */
+"NewVersionFeature_27_sigCheck_title" = "Signature Verification";
 
-"NewVersionFeature_26_euCertCheck_description" = "You can now verify the validity of certificates for a selected country before you travel.";
+"NewVersionFeature_27_sigCheck_description" = "When you add your certificates in the Corona-Warn-App, they are checked for validity and authenticity. Therefore, only certificates that were issued by an authorized body can be imported.";
 
-"NewVersionFeature_26_enhancedStats_title" = "Extended Statistics";
+"NewVersionFeature_27_technicalValidity_title" = "Technical Validity Check";
 
-"NewVersionFeature_26_enhancedStats_description" = "You can now add up to five local 7-day incidence figures in the app.";
-
-"NewVersionFeature_26_editRapidTestProfile_title" = "Edit Rapid Test Profile";
-
-"NewVersionFeature_26_editRapidTestProfile_description" = "You can now edit your rapid test profile in the app, for example, to change your address.";
+"NewVersionFeature_27_technicalValidity_description" = "The Corona-Warn-App now shows you the technical expiration date of the vaccination certificates and certificates of recovery you add. The app can notify you of an expiring certificate in advance.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1933,7 +1931,7 @@
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "average infections by each infected person";
 
 /* - At least one person vaccinated card */
-"Statistics_Card_AtLeastOneVaccinated_Title" = "People who have received at least one vaccine dose";
+"Statistics_Card_AtLeastOneVaccinated_Title" = "People Who Have Received at Least One Vaccine Dose";
 
 "Statistics_Card_AtLeastOneVaccinated_Today" = "Up to today";
 
@@ -1948,7 +1946,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "of the population";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "People who are fully vaccinated";
+"Statistics_Card_FullyVaccinated_Title" = "People Who Are Fully Vaccinated";
 
 "Statistics_Card_FullyVaccinated_Today" = "Up to today";
 
@@ -1963,7 +1961,7 @@
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "of the population";
 
 /* - Applied vaccination dose rates card */
-"Statistics_Card_AppliedDoseRates_Title" = "Vaccine doses administered";
+"Statistics_Card_AppliedDoseRates_Title" = "Vaccine Doses Administered";
 
 "Statistics_Card_AppliedDoseRates_Today" = "Today";
 
@@ -1983,17 +1981,17 @@
 
 "Statistics_Info_Subtitle" = "Explanation of Statistics";
 
-"Statistics_Info_Local7Days_Title" = "Local 7-day incidence";
+"Statistics_Info_Local7Days_Title" = "Local 7-Day Incidence";
 
 "Statistics_Info_Local7Days_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents in the configured district or federal state.";
 
 "Statistics_Info_Incidence_Title" = "7-Day Incidence";
 
-"Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents";
+"Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents.";
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
-"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI";
+"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
@@ -2710,6 +2708,12 @@
 
 "HealthCertificate_Details_deleteButtonTitle" = "Delete Vaccination Certificate";
 
+"HealthCertificate_Details_expirationDateTitle" = "Technical Expiration Date";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Valid until %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Please make sure to get a new digital certificate in time.";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
 
@@ -2766,6 +2770,12 @@
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "The QR code could not be generated. If the error persists, please contact the technical hotline via App Information -> Technical Hotline.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Signature Invalid";
+
+"HealthCertificate_Error_invalidSignature_msg" = "The signature of the certificate is invalid. The certificate cannot be used as proof and therefore cannot be imported.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "FAQ for Signature Validation";
+
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Validation Failed";
 
@@ -2794,11 +2804,9 @@
 
 "HealthCertificate_Validation_Bullet2" = "Additional rules and restrictions may apply in individual regions.";
 
-"HealthCertificate_Validation_Bullet3" = "To ensure the authenticity of a certificate, each certificate is issued with a digital signature. A validation app merely validates this signature.";
+"HealthCertificate_Validation_Bullet3" = "To ensure the authenticity of certificates, each certificate is issued with a digital signature. A validation app merely validates this signature.";
 
 "HealthCertificate_Validation_Bullet4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
-
-"HealthCertificate_Validation_Body3" = "For more information, refer to the FAQ and visit https://reopen.europa.eu/en.";
 
 "HealthCertificate_Validation_Legal_Title" = "Privacy and Data Security";
 
@@ -2867,5 +2875,11 @@
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "The following rules are not satisfied:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "The certificate must not be expired.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "The signature of the certificate must be valid.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "The technical expiration date of the certificate must not have passed.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Technical Expiration Date";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valid until %@";
 

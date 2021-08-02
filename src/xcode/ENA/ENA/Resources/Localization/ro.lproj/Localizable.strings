@@ -299,9 +299,9 @@
 
 "NotificationSettings_Off_InfoTitle" = "Activați Notificările";
 
-"NotificationSettings_Off_InfoDescription" = "Pentru a activa notificările, trebuie să permiteți notificările pentru Corona-Warn-App în setările dispozitivului.";
+"NotificationSettings_Off_InfoDescription" = "Pentru a activa notificările în Corona-Warn-App, trebuie să permiteți notificările în setările dispozitivului.";
 
-"NotificationSettings_Off_OpenSettings" = "Deschideți Configurări";
+"NotificationSettings_Off_OpenSettings" = "Deschideți configurările dispozitivului";
 
 "NotificationSettings_NavTitle" = "Notificări";
 
@@ -1082,6 +1082,8 @@
 
 "ExposureNotificationSetting_apiMisuse" = "A apărut o eroare internă la activarea caracteristicii de înregistrare în jurnal a expunerilor. Pentru mai multe informații, vizitați pagina noastră de întrebări frecvente și reîncercați mai târziu.";
 
+"ExposureNotificationSetting_notResponding" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Reporniți dispozitivul. Dacă eroarea persistă, consultați site-ul web de întrebări frecvente sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Înregistrare transnațională a expunerilor în jurnal";
 
@@ -1545,18 +1547,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.6 */
-"NewVersionFeature_26_euCertCheck_title" = "Validare certificat UE";
+/* Version 2.7 */
+"NewVersionFeature_27_sigCheck_title" = "Verificarea semnăturii";
 
-"NewVersionFeature_26_euCertCheck_description" = "Acum puteți verifica valabilitatea certificatelor pentru o țară selectată înainte de a călători.";
+"NewVersionFeature_27_sigCheck_description" = "Atunci când adăugați certificatele dvs. în Corona-Warn-App, acestora li se verifică atât valabilitatea, cât și autenticitate. Prin urmare, doar certificatele care au fost emise de către un organism autorizat pot fi importate.";
 
-"NewVersionFeature_26_enhancedStats_title" = "Statistică extinsă";
+"NewVersionFeature_27_technicalValidity_title" = "Verificarea valabilității tehnice";
 
-"NewVersionFeature_26_enhancedStats_description" = "Acum puteți adăuga până la cinci cifre ale incidenței locale pe ultimele 7 zile în aplicație.";
-
-"NewVersionFeature_26_editRapidTestProfile_title" = "Editarea profilului de test rapid";
-
-"NewVersionFeature_26_editRapidTestProfile_description" = "Acum puteți edita profilul dvs. de test rapid în aplicație, de exemplu, pentru a vă modifica adresa.";
+"NewVersionFeature_27_technicalValidity_description" = "Acum Corona-Warn-App vă afișează data de expirare tehnică a certificatelor de vaccinare și a certificatelor de recuperate pe care le adăugați. Aplicația vă poate notifica în avans cu privire la expirarea certificatului.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1989,11 +1987,11 @@
 
 "Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
 
-"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori";
+"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori.";
 
 "Statistics_Info_Infections_Title" = "Infecții noi confirmate";
 
-"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI";
+"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI.";
 
 "Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
 
@@ -2710,6 +2708,12 @@
 
 "HealthCertificate_Details_deleteButtonTitle" = "Ștergere certificat de vaccinare";
 
+"HealthCertificate_Details_expirationDateTitle" = "Data de expirare tehnică";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Valabil până la %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
 
@@ -2766,6 +2770,12 @@
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Codul QR nu a putut fi generat. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Semnătură nevalabilă";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Semnătura de pe certificat este nevalabilă. Certificatul nu poate fi utilizat ca dovadă și de aceea nu poate fi importat.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Întrebări frecvente privind validarea semnăturii";
+
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Validare nereușită";
 
@@ -2794,11 +2804,9 @@
 
 "HealthCertificate_Validation_Bullet2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
 
-"HealthCertificate_Validation_Bullet3" = "Pentru a asigura autenticitatea certificatului, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
+"HealthCertificate_Validation_Bullet3" = "Pentru a asigura autenticitatea certificatelor, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
 
 "HealthCertificate_Validation_Bullet4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
-
-"HealthCertificate_Validation_Body3" = "Pentru mai multe informații, consultați pagina de întrebări frecvente și vizitați https://reopen.europa.eu/en.";
 
 "HealthCertificate_Validation_Legal_Title" = "Confidențialitate și securitatea datelor";
 
@@ -2867,5 +2875,11 @@
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Următoarele reguli nu sunt îndeplinite:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Certificatul nu trebuie să fie expirat.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Semnătura de pe certificat trebuie să fie valabilă.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Data de expirare tehnică a certificatului nu trebuie să fi trecut.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Data de expirare tehnică";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valabil până la %@";
 
