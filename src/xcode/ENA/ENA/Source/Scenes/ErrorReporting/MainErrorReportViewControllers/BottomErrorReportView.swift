@@ -29,10 +29,9 @@ class BottomErrorReportView: UIView {
 	}
 	
 	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		setupView()
+		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	// MARK: - Internal
 
 	func configure(status: ErrorLoggingStatus, animated: Bool = true) {
@@ -65,15 +64,15 @@ class BottomErrorReportView: UIView {
 
 	private var subscriptions = [AnyCancellable]()
 
-	@IBOutlet private weak var stackView: UIStackView!
-	@IBOutlet private weak var startButton: ENAButton!
-	@IBOutlet private weak var sendReportButton: ENAButton!
-	@IBOutlet private weak var saveLocallyButton: ENAButton!
-	@IBOutlet private weak var stopAndDeleteButton: ENAButton!
-	@IBOutlet private weak var titleLabel: ENALabel!
-	@IBOutlet private weak var statusTitle: ENALabel!
-	@IBOutlet private weak var statusDescription: ENALabel!
-	@IBOutlet private weak var coloredCircle: UIImageView!
+	private var stackView: UIStackView!
+	private var startButton: ENAButton!
+	private var sendReportButton: ENAButton!
+	private var saveLocallyButton: ENAButton!
+	private var stopAndDeleteButton: ENAButton!
+	private var titleLabel: ENALabel!
+	private var statusTitle: ENALabel!
+	private var statusDescription: ENALabel!
+	private var coloredCircle: UIImageView!
 
 	private lazy var fileSizeFormatter: ByteCountFormatter = {
 		let formatter = ByteCountFormatter()
@@ -83,20 +82,93 @@ class BottomErrorReportView: UIView {
 	
 	private func setupView() {
 		
+		backgroundColor = .enaColor(for: .background)
+		
+		titleLabel = ENALabel(style: .title2)
 		titleLabel.text = AppStrings.ErrorReport.analysisTitle
-
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(titleLabel)
+		
+		let grayView = UIView()
+		grayView.backgroundColor = .enaColor(for: .separator)
+		grayView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(grayView)
+		
+		coloredCircle = UIImageView(image: UIImage(named: "icon_fehleranalyse"))
+		coloredCircle.tintColor = .enaColor(for: .brandRed)
+		coloredCircle.translatesAutoresizingMaskIntoConstraints = false
+		grayView.addSubview(coloredCircle)
+		
+		statusTitle = ENALabel(style: .headline)
+		statusTitle.translatesAutoresizingMaskIntoConstraints = false
+		grayView.addSubview(statusTitle)
+		
+		statusDescription = ENALabel(style: .subheadline)
+		statusDescription.textColor = .enaColor(for: .textPrimary2)
+		statusDescription.translatesAutoresizingMaskIntoConstraints = false
+		grayView.addSubview(statusDescription)
+		
+		stackView = UIStackView()
+		stackView.axis = .vertical
+		stackView.alignment = .fill
+		stackView.distribution = .fillEqually
+		stackView.spacing = 8
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(stackView)
+		
+		startButton = ENAButton(frame: .zero)
 		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
 		startButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.startButton
-
+		stackView.addArrangedSubview(startButton)
+		
+		sendReportButton = ENAButton(frame: .zero)
 		sendReportButton.setTitle(AppStrings.ErrorReport.sendButtontitle, for: .normal)
 		sendReportButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.sendReportButton
-
+		stackView.addArrangedSubview(sendReportButton)
+		
+		saveLocallyButton = ENAButton(frame: .zero)
 		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
 		saveLocallyButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.saveLocallyButton
-
+		stackView.addArrangedSubview(saveLocallyButton)
+		
+		stopAndDeleteButton = ENAButton(frame: .zero)
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
 		stopAndDeleteButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton
-
+		stackView.addArrangedSubview(stopAndDeleteButton)
+		
+		NSLayoutConstraint.activate([
+			
+			titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+			titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+			titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+			
+			grayView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+			grayView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+			grayView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			grayView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+			grayView.heightAnchor.constraint(equalToConstant: 82),
+			
+			coloredCircle.widthAnchor.constraint(equalToConstant: 32),
+			coloredCircle.heightAnchor.constraint(equalToConstant: 32),
+			coloredCircle.centerYAnchor.constraint(equalTo: grayView.centerYAnchor),
+			coloredCircle.leadingAnchor.constraint(equalTo: grayView.leadingAnchor, constant: 8),
+			coloredCircle.trailingAnchor.constraint(lessThanOrEqualTo: grayView.trailingAnchor, constant: -8),
+			
+			statusTitle.bottomAnchor.constraint(equalTo: grayView.centerYAnchor, constant: -2),
+			statusTitle.leadingAnchor.constraint(equalTo: coloredCircle.trailingAnchor, constant: 8),
+			statusTitle.trailingAnchor.constraint(equalTo: grayView.trailingAnchor, constant: -8),
+			
+			statusDescription.topAnchor.constraint(equalTo: grayView.centerYAnchor, constant: 2),
+			statusDescription.leadingAnchor.constraint(equalTo: coloredCircle.trailingAnchor, constant: 8),
+			statusDescription.trailingAnchor.constraint(equalTo: grayView.trailingAnchor, constant: -8),
+			
+			stackView.topAnchor.constraint(equalTo: grayView.bottomAnchor, constant: 16),
+			stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+			stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+		])
+		
 		elsService
 			.logFileSizePublisher
 			.sink { result in
