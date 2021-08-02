@@ -22,15 +22,6 @@ class HomeStatisticsCellModel {
 					}
 			}
 			.store(in: &subscriptions)
-
-		homeState.$localStatistics
-			.sink { [weak self] localStatistics in
-				self?.localAdministrativeUnitStatistics = localStatistics.administrativeUnitData
-				self?.localFederalStateStatistics = localStatistics.federalStateData
-				Log.debug("HomeState did update \(private: "\(self?.localAdministrativeUnitStatistics.count ?? -1) administrativeUnits.")", log: .localStatistics)
-				Log.debug("HomeState did update \(private: "\(self?.localFederalStateStatistics.count ?? -1) localFederalStates.")", log: .localStatistics)
-			}
-			.store(in: &subscriptions)
 		
 		homeState.$selectedLocalStatistics
 			.sink { [weak self] selectedLocalStatistics in
@@ -42,15 +33,14 @@ class HomeStatisticsCellModel {
 
 	// MARK: - Internal
 
+	let homeState: HomeState
+
 	/// The default set of 'global' statistics for every user
-	@OpenCombine.Published private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
-	@OpenCombine.Published private(set) var localAdministrativeUnitStatistics = [SAP_Internal_Stats_AdministrativeUnitData]()
-	@OpenCombine.Published private(set) var localFederalStateStatistics = [SAP_Internal_Stats_FederalStateData]()
-	@OpenCombine.Published private(set) var selectedLocalStatistics = [SelectedLocalStatisticsTuple]()
+	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
+	@DidSetPublished private(set) var selectedLocalStatistics = [SelectedLocalStatisticsTuple]()
 
 	// MARK: - Private
 
-	private let homeState: HomeState
 	private var subscriptions = Set<AnyCancellable>()
 
 }
