@@ -149,7 +149,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private func setupAccessibility() {
-		cardView.accessibilityElements = [titleLabel as Any, nameLabel as Any, qrCodeView as Any]
+		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView, validityStateTitleLabel]
+			.filter { !$0.isHidden }
+
 		cardView.accessibilityTraits = [.staticText, .button]
 		qrCodeView.isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell

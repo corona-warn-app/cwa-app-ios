@@ -24,6 +24,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
+		// One for registration and on for the validity state update
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 2
 
 		let subscription = service.healthCertifiedPersons
 			.dropFirst()
