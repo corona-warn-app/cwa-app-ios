@@ -299,9 +299,9 @@
 
 "NotificationSettings_Off_InfoTitle" = "Aktywuj powiadomienia";
 
-"NotificationSettings_Off_InfoDescription" = "Aby aktywować powiadomienia, musisz zezwolić na powiadomienia dla aplikacji Corona-Warn-App w ustawieniach swojego urządzenia.";
+"NotificationSettings_Off_InfoDescription" = "Aby aktywować powiadomienia w aplikacji Corona-Warn-App, musisz zezwolić na powiadomienia w ustawieniach swojego urządzenia.";
 
-"NotificationSettings_Off_OpenSettings" = "Otwórz opcję Ustawienia";
+"NotificationSettings_Off_OpenSettings" = "Otwórz ustawienia urządzenia";
 
 "NotificationSettings_NavTitle" = "Powiadomienia";
 
@@ -1082,6 +1082,8 @@
 
 "ExposureNotificationSetting_apiMisuse" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił wewnętrzny błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania i spróbuj ponownie później.";
 
+"ExposureNotificationSetting_notResponding" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Uruchom ponownie swoje urządzenie. Jeśli błąd nadal występuje, odwiedź stronę internetową z często zadawanymi pytaniami lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Rejestrowanie narażenia w różnych krajach";
 
@@ -1545,18 +1547,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.6 */
-"NewVersionFeature_26_euCertCheck_title" = "Walidacja certyfikatu UE";
+/* Version 2.7 */
+"NewVersionFeature_27_sigCheck_title" = "Weryfikacja podpisu";
 
-"NewVersionFeature_26_euCertCheck_description" = "Możesz teraz przed podróżą zweryfikować ważność certyfikatów dla wybranego kraju.";
+"NewVersionFeature_27_sigCheck_description" = "Po dodaniu certyfikatów w aplikacji Corona-Warn-App ich ważność i autentyczność jest sprawdzana. Dlatego możliwy jest import tylko tych certyfikatów, które zostały wydane przez uprawniony organ.";
 
-"NewVersionFeature_26_enhancedStats_title" = "Rozszerzone statystyki";
+"NewVersionFeature_27_technicalValidity_title" = "Techniczna kontrola ważności";
 
-"NewVersionFeature_26_enhancedStats_description" = "W aplikacji możesz teraz dodać maksymalnie pięć wskaźników lokalnej 7-dniowej zapadalności.";
-
-"NewVersionFeature_26_editRapidTestProfile_title" = "Edytuj profil szybkiego testu";
-
-"NewVersionFeature_26_editRapidTestProfile_description" = "Możesz teraz edytować profil szybkiego testu w aplikacji, na przykład, aby zmienić swój adres.";
+"NewVersionFeature_27_technicalValidity_description" = "Teraz w aplikacji Corona-Warn-App wyświetlana jest techniczna data wygaśnięcia dodawanych certyfikatów szczepień oraz certyfikatów statusu ozdrowieńca. Aplikacja może powiadomić Cię z wyprzedzeniem o wygasającym certyfikacie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1989,11 +1987,11 @@
 
 "Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
 
-"Statistics_Info_Incidence_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców";
+"Statistics_Info_Incidence_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców.";
 
 "Statistics_Info_Infections_Title" = "Potwierdzone nowe zakażenia";
 
-"Statistics_Info_Infections_Text" = "Liczba osób ze zdiagnozowanym zakażeniem koronawirusem zgłoszonych do RKI";
+"Statistics_Info_Infections_Text" = "Liczba osób ze zdiagnozowanym zakażeniem koronawirusem zgłoszonych do RKI.";
 
 "Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
 
@@ -2710,6 +2708,12 @@
 
 "HealthCertificate_Details_deleteButtonTitle" = "Usuń certyfikat szczepienia";
 
+"HealthCertificate_Details_expirationDateTitle" = "Techniczna data wygaśnięcia";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Ważny do %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Jest to szczepionka, która wymaga tylko jednej dawki lub szczepionka dla ozdrowieńca, który potrzebuje tylko jednej dawki.";
 
@@ -2766,6 +2770,12 @@
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Kod QR nie mógł zostać wygenerowany. Jeśli błąd będzie nadal występować, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
 
+"HealthCertificate_Error_invalidSignature_title" = "Podpis jest nieprawidłowy";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Podpis certyfikatu jest nieprawidłowy. Certyfikatu nie można używać jako dowodu i w związku z tym nie można go importować.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Często zadawane pytania na temat weryfikacji podpisu";
+
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Walidacja nie powiodła się";
 
@@ -2797,8 +2807,6 @@
 "HealthCertificate_Validation_Bullet3" = "Wszystkie certyfikaty są opatrzone podpisem cyfrowym zapewniającym ich autentyczność. Aplikacja walidacyjna jedynie weryfikuje ten podpis.";
 
 "HealthCertificate_Validation_Bullet4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
-
-"HealthCertificate_Validation_Body3" = "Aby uzyskać więcej informacji, zapoznaj się z często zadawanymi pytaniami i odwiedź stronę https://reopen.europa.eu/en.";
 
 "HealthCertificate_Validation_Legal_Title" = "Prywatność i bezpieczeństwo danych";
 
@@ -2867,5 +2875,11 @@
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Brak zgodności z poniższymi zasadami:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Certyfikat nie może być wygasły.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Podpis certyfikatu musi być ważny.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Techniczna data wygaśnięcia certyfikatu nie może upłynąć.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Techniczna data wygaśnięcia";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Ważny do %@";
 
