@@ -72,7 +72,6 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var enState: ENStateHandler.State
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics
-	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
 	@OpenCombine.Published var selectedLocalStatistics: [SelectedLocalStatisticsTuple]
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
@@ -162,10 +161,10 @@ class HomeState: ENStateHandlerUpdating {
 	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
 		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] result in
 			switch result {
-			case .success(let localStatistics):
+			case .success:
 				// persist the Region to the list of selected Regions
 				self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
-				self?.localStatistics = localStatistics
+				self?.updateSelectedLocalStatistics(self?.store.selectedLocalStatisticsRegions)
 			case .failure(let error):
 				// Propagate signature verification error to the user
 				if case CachingHTTPClient.CacheError.dataVerificationError = error {
@@ -177,7 +176,7 @@ class HomeState: ENStateHandlerUpdating {
 	}
 	
 	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
+		localStatisticsProvider.latestSelectedLocalStatistics(selectedLocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
 			self.selectedLocalStatistics = selectedLocalStatistics
 			Log.debug("fetched selected local statistics: \(private: selectedLocalStatistics) entities", log: .localStatistics)
 		})
