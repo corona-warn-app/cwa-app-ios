@@ -11,8 +11,6 @@ import OpenCombine
 
 final class EventCheckoutService {
 
-	static let notificationIdentifierPrefix = "EventCheckoutNotification"
-
 	// MARK: - Init
 
 	init(
@@ -135,7 +133,7 @@ final class EventCheckoutService {
 			let notificationIds = requests.map {
 				$0.identifier
 			}.filter {
-				$0.contains(EventCheckoutService.notificationIdentifierPrefix)
+				$0.contains(LocalNotificationIdentifier.checkout.rawValue)
 			}
 
 			self?.userNotificationCenter.removePendingNotificationRequests(withIdentifiers: notificationIds)
@@ -307,6 +305,6 @@ final class EventCheckoutService {
 private extension Checkin {
 
 	var notificationIdentifier: String {
-		EventCheckoutService.notificationIdentifierPrefix + "\(id)"
+		LocalNotificationIdentifier.checkout.rawValue + "\(id)"
 	}
 }

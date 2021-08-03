@@ -243,7 +243,7 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showHealthCertificate(
-		healthCertifiedPerson: HealthCertifiedPerson?,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		shouldPushOnModalNavigationController: Bool
 	) {

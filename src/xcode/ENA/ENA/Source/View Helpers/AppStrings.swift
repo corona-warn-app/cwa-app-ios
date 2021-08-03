@@ -1026,6 +1026,10 @@ enum AppStrings {
 		static let detectExposureBody = NSLocalizedString("local_notifications_detectexposure_body", comment: "")
 		static let testResultsTitle = NSLocalizedString("local_notifications_testresults_title", comment: "")
 		static let testResultsBody = NSLocalizedString("local_notifications_testresults_body", comment: "")
+		static let expiringSoonTitle = NSLocalizedString("local_notifications_expiringSoon_title", comment: "")
+		static let expiringSoonBody = NSLocalizedString("local_notifications_expiringSoon_body", comment: "")
+		static let expiredTitle = NSLocalizedString("local_notifications_expired_title", comment: "")
+		static let expiredBody = NSLocalizedString("local_notifications_expired_body", comment: "")
 	}
 
 	enum RiskLegend {
@@ -2063,6 +2067,15 @@ enum AppStrings {
 				static let subtitle = NSLocalizedString("RecoveryCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("RecoveryCertificate_Details_primaryButton", comment: "")
 			}
+		}
+
+		enum ValidityState {
+			static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
+			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
+			static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
+			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
+			static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
+			static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
 		}
 
 		enum Alert {

@@ -24,6 +24,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
+		// One for registration and one for the validity state update
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 2
 
 		let subscription = service.healthCertifiedPersons
 			.dropFirst()
@@ -169,7 +171,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
@@ -230,7 +233,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-05-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "1"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
 
@@ -255,7 +259,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateOfVaccination: "2021-05-28",
 					uniqueCertificateIdentifier: "2"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
 
@@ -281,7 +286,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateOfVaccination: "2021-05-14",
 					uniqueCertificateIdentifier: "3"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let secondVaccinationCertificate = try HealthCertificate(base45: secondVaccinationCertificateBase45)
 
@@ -312,7 +318,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "4"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let thirdTestCertificate = try HealthCertificate(base45: thirdTestCertificateBase45)
 
@@ -800,6 +807,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -893,6 +901,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -978,6 +987,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1065,6 +1075,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1214,6 +1225,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1511,5 +1523,66 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.testCertificateRequests.value.count, 1)
 		XCTAssertTrue(service.testCertificateRequests.value[0].requestExecutionFailed)
 		XCTAssertFalse(service.testCertificateRequests.value[0].isLoading)
+	}
+	
+	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
+		// GIVEN
+		let notificationCenter = MockUserNotificationCenter()
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
+			notificationCenter: notificationCenter
+		)
+		
+		let testCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-07-22T22:22:22.225Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			)
+		)
+		
+		let vaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "1"
+				)]
+			)
+		)
+		
+		let recoveryCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				recoveryEntries: [RecoveryEntry.fake(
+					dateOfFirstPositiveNAAResult: "2021-05-28",
+					uniqueCertificateIdentifier: "2"
+				)]
+			)
+		)
+		let recoveryCertificate = try HealthCertificate(base45: recoveryCertificateBase45)
+		
+		// WHEN
+		_ = service.registerHealthCertificate(base45: testCertificateBase45)
+		_ = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
+		_ = service.registerHealthCertificate(base45: recoveryCertificateBase45)
+		
+		// THEN
+		// There should be now 2 notifications for expireSoon and 2 for expired (One for each the vaccination and the recovery certificate). Test certificates are ignored.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 4)
+		
+		// WHEN
+		service.removeHealthCertificate(recoveryCertificate)
+		
+		// THEN
+		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
 	}
 }
