@@ -38,4 +38,4 @@ License: MIT
 
 Files: src/xcode/ENA/HealthCertificateToolkit/Sources/HealthCertificateToolkit/Utils/ECDSA.swift
 Copyright: (c) Copyright IBM Deutschland GmbH 2021
-License: Apache 2.0 License
+License: Apache-2.0
