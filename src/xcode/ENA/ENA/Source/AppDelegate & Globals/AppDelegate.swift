@@ -165,6 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if !didSetupUI {
 			setupUI(route)
 			didSetupUI = true
+			route = nil
 		}
 
 		hidePrivacyProtectionWindow()
