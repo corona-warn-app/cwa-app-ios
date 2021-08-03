@@ -15,14 +15,12 @@ final class HealthCertificateViewModel {
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
+		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		self.qrCodeCellViewModel = HealthCertificateDetailsQRCodeCellViewModel(
-			healthCertificate: healthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
-		)
 
 		updateHealthCertificateKeyValueCellViewModels()
+		updateGradient()
 
 		// load certificate value sets
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
@@ -45,8 +43,29 @@ final class HealthCertificateViewModel {
 			.store(in: &subscriptions)
 
 		healthCertifiedPerson.$gradientType
-			.sink { [weak self] in
-				self?.gradientType = $0
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateGradient()
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$mostRelevantHealthCertificate
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateGradient()
+			}
+			.store(in: &subscriptions)
+
+		healthCertificate.$validityState
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateGradient()
+			}
+			.store(in: &subscriptions)
+
+		healthCertificate.objectDidChange
+			.sink { [weak self] _ in
+				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
 	}
@@ -76,7 +95,13 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	let qrCodeCellViewModel: HealthCertificateDetailsQRCodeCellViewModel
+	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
+		HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: healthCertificate,
+			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
+		)
+	}
 
 	var expirationDateCellViewModel: HealthCertificateExpirationDateCellViewModel {
 		let formattedDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .short)
@@ -88,6 +113,7 @@ final class HealthCertificateViewModel {
 	}
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
@@ -161,7 +187,7 @@ final class HealthCertificateViewModel {
 				// swiftlint:disable:next line_length
 				text: "Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter\n https://reopen.europa.eu/de.",
 				topSpace: 16.0,
-				font: .enaFont(for: .subheadline),
+				font: .enaFont(for: .body),
 				borderColor: .enaColor(for: .hairline),
 				accessibilityTraits: .staticText
 			),
@@ -170,7 +196,7 @@ final class HealthCertificateViewModel {
 				textAlignment: .left,
 				text: "This certificate is not a travel document. The scientific evidence on COVID-19 vaccination, testing, and recovery continues to evolve, also in view of new variants of concern of the virus. Before traveling, please check the applicable public health measures and related restrictions applied at the point of destination.\nInformation on the current travel restrictions that apply to EU countries is available at\n https://reopen.europa.eu/en.",
 				topSpace: 16.0,
-				font: .enaFont(for: .subheadline),
+				font: .enaFont(for: .body),
 				borderColor: .enaColor(for: .hairline),
 				accessibilityTraits: .staticText
 			)
@@ -198,6 +224,7 @@ final class HealthCertificateViewModel {
 
 	// MARK: - Private
 
+	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
@@ -218,10 +245,6 @@ final class HealthCertificateViewModel {
 				key: "Name, Vorname / Name, First Name",
 				value: healthCertificate.name.reversedFullName,
 				topSpace: 0.0
-			),
-			HealthCertificateKeyValueCellViewModel(
-				key: "Standardisierter Name, Vorname / Standardized Name, First Name",
-				value: healthCertificate.name.reversedStandardizedName
 			),
 			HealthCertificateKeyValueCellViewModel(
 				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
@@ -352,6 +375,16 @@ final class HealthCertificateViewModel {
 		}
 
 		healthCertificateKeyValueCellViewModel = (nameAndDateOfBirthCellViewModel + cellViewModels + [lastCellViewModel]).compactMap { $0 }
+	}
+
+	private func updateGradient() {
+		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate &&
+			(healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon ||
+				(healthCertificate.validityState == .expired && healthCertificate.type == .test)) {
+			gradientType = healthCertifiedPerson.gradientType
+		} else {
+			gradientType = .solidGrey(withStars: true)
+		}
 	}
 
 }

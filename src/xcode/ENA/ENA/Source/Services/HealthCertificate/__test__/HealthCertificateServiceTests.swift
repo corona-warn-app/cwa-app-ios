@@ -24,6 +24,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
+		// One for registration and one for the validity state update
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 2
 
 		let subscription = service.healthCertifiedPersons
 			.dropFirst()
@@ -169,7 +171,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
@@ -230,7 +233,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-05-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "1"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
 
@@ -255,7 +259,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateOfVaccination: "2021-05-28",
 					uniqueCertificateIdentifier: "2"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
 
@@ -281,7 +286,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateOfVaccination: "2021-05-14",
 					uniqueCertificateIdentifier: "3"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let secondVaccinationCertificate = try HealthCertificate(base45: secondVaccinationCertificateBase45)
 
@@ -312,7 +318,8 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "4"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantFuture)
 		)
 		let thirdTestCertificate = try HealthCertificate(base45: thirdTestCertificateBase45)
 
@@ -800,6 +807,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -893,6 +901,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -978,6 +987,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1065,6 +1075,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1214,6 +1225,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {

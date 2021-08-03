@@ -88,7 +88,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(with: viewModel.headlineCellViewModel)
 			return cell
 		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateDetailsQRCodeCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 		case .topCorner:
@@ -137,7 +137,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private let didTapDeleteButton: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -223,8 +223,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		)
 
 		tableView.register(
-			HealthCertificateDetailsQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateDetailsQRCodeCell.reuseIdentifier
+			HealthCertificateQRCodeCell.self,
+			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 
 		tableView.register(
@@ -266,6 +266,13 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 					],
 					with: .none
 				)
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$triggerReload
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}
