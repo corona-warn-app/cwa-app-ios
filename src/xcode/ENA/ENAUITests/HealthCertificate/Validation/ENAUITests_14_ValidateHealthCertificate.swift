@@ -92,7 +92,7 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		// Tap on Check button
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 
-		snapshot("screenshot_certificate_validation_date_selection")
+		snapshot("screenshot_certificate_validation_result_valid")
 	}
 	
 	func test_screenshot_validation_result_invalid() throws {
@@ -116,6 +116,6 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		// Tap on button to validate
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 
-		snapshot("screenshot_certificate_validation_date_selection")
+		snapshot("screenshot_certificate_validation_result_invalid")
 	}
 }
