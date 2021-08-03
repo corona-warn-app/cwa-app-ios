@@ -69,6 +69,8 @@ struct SAP_Internal_SubmissionPayload {
   /// Clears the value of `submissionType`. Subsequent reads from it will return its default value.
   mutating func clearSubmissionType() {self._submissionType = nil}
 
+  var checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum SubmissionType: SwiftProtobuf.Enum {
@@ -127,6 +129,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     5: .same(proto: "consentToFederation"),
     6: .same(proto: "checkIns"),
     7: .same(proto: "submissionType"),
+    8: .same(proto: "checkInProtectedReports"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -142,6 +145,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
       case 5: try { try decoder.decodeSingularBoolField(value: &self._consentToFederation) }()
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.checkIns) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self._submissionType) }()
+      case 8: try { try decoder.decodeRepeatedMessageField(value: &self.checkInProtectedReports) }()
       default: break
       }
     }
@@ -169,6 +173,9 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if let v = self._submissionType {
       try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
     }
+    if !self.checkInProtectedReports.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.checkInProtectedReports, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -180,6 +187,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs._consentToFederation != rhs._consentToFederation {return false}
     if lhs.checkIns != rhs.checkIns {return false}
     if lhs._submissionType != rhs._submissionType {return false}
+    if lhs.checkInProtectedReports != rhs.checkInProtectedReports {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
