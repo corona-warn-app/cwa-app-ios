@@ -75,9 +75,6 @@ struct HealthCertificateQRCodeCellViewModel {
 		case details
 	}
 
-	let backgroundColor: UIColor = .enaColor(for: .cellBackground2)
-	let borderColor: UIColor = .enaColor(for: .hairline)
-
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
 	var title: String? {
