@@ -11,7 +11,7 @@ final class HealthCertificateViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson?,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
@@ -44,7 +44,7 @@ final class HealthCertificateViewModel {
 			)
 			.store(in: &subscriptions)
 
-		healthCertifiedPerson?.$gradientType
+		healthCertifiedPerson.$gradientType
 			.sink { [weak self] in
 				self?.gradientType = $0
 			}

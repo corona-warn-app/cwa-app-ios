@@ -26,6 +26,8 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.$healthCertificates
 			.sink { [weak self] in
 				guard !$0.isEmpty else {
+					// Prevent trigger reload if we the person was removed before because we removed their last certificate.
+					self?.triggerCertificatesReload = false
 					dismiss()
 					return
 				}
@@ -36,7 +38,8 @@ final class HealthCertifiedPersonViewModel {
 
 		healthCertifiedPerson.$vaccinationState
 			.sink { [weak self] _ in
-				self?.triggerCertificatesReload = true
+				// Prevent trigger reload if we the person was removed before because we removed their last certificate.
+				self?.triggerCertificatesReload = healthCertifiedPerson.$healthCertificates.value.isEmpty ? false : true
 			}
 			.store(in: &subscriptions)
 
