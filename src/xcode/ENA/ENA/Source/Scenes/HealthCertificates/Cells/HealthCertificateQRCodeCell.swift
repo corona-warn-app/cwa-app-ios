@@ -129,7 +129,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		return validityStateDescriptionLabel
 	}()
 
-	private let validationButton: ENAButton = {
+	private lazy var validationButton: ENAButton = {
 		let validationButton = ENAButton()
 		validationButton.hasBorder = true
 		validationButton.hasBackground = false
