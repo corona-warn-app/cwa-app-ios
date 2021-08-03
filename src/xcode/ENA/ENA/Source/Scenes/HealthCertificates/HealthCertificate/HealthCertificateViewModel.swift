@@ -247,10 +247,6 @@ final class HealthCertificateViewModel {
 				topSpace: 0.0
 			),
 			HealthCertificateKeyValueCellViewModel(
-				key: "Standardisierter Name, Vorname / Standardized Name, First Name",
-				value: healthCertificate.name.reversedStandardizedName
-			),
-			HealthCertificateKeyValueCellViewModel(
 				key: "Geburtsdatum / Date of Birth (YYYY-MM-DD)",
 				value: DCCDateStringFormatter.formattedString(from: healthCertificate.dateOfBirth)
 			)
