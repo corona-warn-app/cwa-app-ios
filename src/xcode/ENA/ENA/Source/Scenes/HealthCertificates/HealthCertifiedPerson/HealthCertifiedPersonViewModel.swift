@@ -26,6 +26,8 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] person in
 				guard !person.healthCertificates.isEmpty else {
+					// Prevent trigger reload if we the person was removed before because we removed their last certificate.
+					self?.triggerReload = false
 					dismiss()
 					return
 				}
