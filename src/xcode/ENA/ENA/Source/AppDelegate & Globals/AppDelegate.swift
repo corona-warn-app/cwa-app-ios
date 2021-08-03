@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
 		// Route will be executed in 'applicationDidBecomeActive'
-		self.route = routeFromLaunchOptions(launchOptions)
+		route = routeFromLaunchOptions(launchOptions)
 
 		QuickAction.setup()
 
