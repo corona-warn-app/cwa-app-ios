@@ -43,13 +43,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	///         This will set the background task state to _completed_. We only mark the task as incomplete
 	///         when the OS calls the expiration handler before all tasks were able to finish.
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
-		Log.info("Starting background task…", log: .background)
+		Log.info("Starting background task...", log: .background)
 
 		let group = DispatchGroup()
 
 		group.enter()
 		DispatchQueue.global().async {
-			Log.info("Starting ExposureDetection…", log: .background)
+			Log.info("Starting ExposureDetection...", log: .background)
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
 				
@@ -57,28 +57,28 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Trying to submit TEKs…", log: .background)
+					Log.info("Trying to submit TEKs...", log: .background)
 					self.executeSubmitTemporaryExposureKeys { _ in
 						group.leave()
-						Log.info("Done submitting TEKs…", log: .background)
+						Log.info("Done submitting TEKs...", log: .background)
 					}
 				}
 
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Trying to fetch TestResults…", log: .background)
+					Log.info("Trying to fetch TestResults...", log: .background)
 					self.executeFetchTestResults { _ in
 						group.leave()
-						Log.info("Done fetching TestResults…", log: .background)
+						Log.info("Done fetching TestResults...", log: .background)
 					}
 				}
 
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Starting FakeRequests…", log: .background)
+					Log.info("Starting FakeRequests...", log: .background)
 					self.pdService.executeFakeRequests {
 						group.leave()
-						Log.info("Done sending FakeRequests…", log: .background)
+						Log.info("Done sending FakeRequests...", log: .background)
 					}
 				}
 

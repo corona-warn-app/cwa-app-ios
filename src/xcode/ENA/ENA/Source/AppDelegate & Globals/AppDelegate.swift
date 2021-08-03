@@ -145,6 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -161,9 +162,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)
 
-		if let route = route {
+		if !didSetupUI {
 			setupUI(route)
-			self.route = nil
+			didSetupUI = true
 		}
 
 		hidePrivacyProtectionWindow()
@@ -208,7 +209,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let eventStore: EventStoringProviding = EventStore.make()
     let environmentProvider: EnvironmentProviding
 	var store: Store
-	var route: Route?
 
 	lazy var coronaTestService: CoronaTestService = {
 		return CoronaTestService(
@@ -515,7 +515,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
 	private var postOnboardingRoute: Route?
-	
+	private var route: Route?
+	private var didSetupUI = false
+
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
