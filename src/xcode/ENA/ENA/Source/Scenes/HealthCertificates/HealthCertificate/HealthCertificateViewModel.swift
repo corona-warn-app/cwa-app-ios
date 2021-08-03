@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -11,18 +11,16 @@ final class HealthCertificateViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson?,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
+		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		self.qrCodeCellViewModel = HealthCertificateDetailsQRCodeCellViewModel(
-			healthCertificate: healthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
-		)
 
 		updateHealthCertificateKeyValueCellViewModels()
+		updateGradient()
 
 		// load certificate value sets
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
@@ -44,9 +42,30 @@ final class HealthCertificateViewModel {
 			)
 			.store(in: &subscriptions)
 
-		healthCertifiedPerson?.$gradientType
-			.sink { [weak self] in
-				self?.gradientType = $0
+		healthCertifiedPerson.$gradientType
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateGradient()
+			}
+			.store(in: &subscriptions)
+
+		healthCertifiedPerson.$mostRelevantHealthCertificate
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateGradient()
+			}
+			.store(in: &subscriptions)
+
+		healthCertificate.$validityState
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.updateGradient()
+			}
+			.store(in: &subscriptions)
+
+		healthCertificate.objectDidChange
+			.sink { [weak self] _ in
+				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
 	}
@@ -60,6 +79,7 @@ final class HealthCertificateViewModel {
 		case details
 		case bottomCorner
 		case vaccinationOneOfOneHint
+		case expirationDate
 		case additionalInfo
 
 		static var numberOfSections: Int {
@@ -75,9 +95,25 @@ final class HealthCertificateViewModel {
 		}
 	}
 
-	let qrCodeCellViewModel: HealthCertificateDetailsQRCodeCellViewModel
+	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
+		HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: healthCertificate,
+			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
+		)
+	}
+
+	var expirationDateCellViewModel: HealthCertificateExpirationDateCellViewModel {
+		let formattedDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .short)
+		return HealthCertificateExpirationDateCellViewModel(
+			headline: AppStrings.HealthCertificate.Details.expirationDateTitle,
+			expirationDate: String(format: AppStrings.HealthCertificate.Details.expirationDatePlaceholder, formattedDate) ,
+			content: AppStrings.HealthCertificate.Details.expirationDateDetails
+		)
+	}
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
@@ -179,6 +215,8 @@ final class HealthCertificateViewModel {
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
 		case .vaccinationOneOfOneHint:
 			return shouldShowVaccinationOneOfOneHint ? 1 : 0
+		case .expirationDate:
+			return 1
 		case .additionalInfo:
 			return additionalInfoCellViewModels.count
 		}
@@ -186,6 +224,7 @@ final class HealthCertificateViewModel {
 
 	// MARK: - Private
 
+	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
@@ -336,6 +375,16 @@ final class HealthCertificateViewModel {
 		}
 
 		healthCertificateKeyValueCellViewModel = (nameAndDateOfBirthCellViewModel + cellViewModels + [lastCellViewModel]).compactMap { $0 }
+	}
+
+	private func updateGradient() {
+		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate &&
+			(healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon ||
+				(healthCertificate.validityState == .expired && healthCertificate.type == .test)) {
+			gradientType = healthCertifiedPerson.gradientType
+		} else {
+			gradientType = .solidGrey(withStars: true)
+		}
 	}
 
 }

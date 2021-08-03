@@ -157,21 +157,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
     }
 
-	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
-		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
-		set { kvStore["deviceTimeCheckResult"] = newValue }
-	}
-
-	var deviceTimeLastStateChange: Date {
-		get { kvStore["deviceTimeLastStateChange"] as Date? ?? Date() }
-		set { kvStore["deviceTimeLastStateChange"] = newValue }
-	}
-
-	var wasDeviceTimeErrorShown: Bool {
-		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
-		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
-	}
-
 	var lastKeyPackageDownloadDate: Date {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
@@ -292,11 +277,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
 
-	var dmKillDeviceTimeCheck: Bool {
-		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
-		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
-	}
-
 	var mostRecentRiskCalculation: ENFRiskCalculation? {
 		get { kvStore["mostRecentRiskCalculation"] as ENFRiskCalculation? }
 		set { kvStore["mostRecentRiskCalculation"] = newValue }
@@ -366,6 +346,30 @@ extension SecureStore: WarnOthersTimeIntervalStoring {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 
+}
+
+extension SecureStore: DeviceTimeChecking {
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
+		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
+		set { kvStore["deviceTimeCheckResult"] = newValue }
+	}
+
+	var deviceTimeLastStateChange: Date {
+		get { kvStore["deviceTimeLastStateChange"] as Date? ?? Date() }
+		set { kvStore["deviceTimeLastStateChange"] = newValue }
+	}
+
+	var wasDeviceTimeErrorShown: Bool {
+		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+
+	#if !RELEASE
+	var dmKillDeviceTimeCheck: Bool {
+		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
+		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
+	#endif
 }
 
 extension SecureStore: AppConfigCaching {
@@ -538,6 +542,14 @@ extension SecureStore: CoronaTestStoringLegacy {
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
 
+}
+
+extension SecureStore: DSCListCaching {
+
+	var dscList: DSCListMetaData? {
+		get { kvStore["DSCList"] as DSCListMetaData? }
+		set { kvStore["DSCList"] = newValue }
+	}
 }
 
 extension SecureStore {

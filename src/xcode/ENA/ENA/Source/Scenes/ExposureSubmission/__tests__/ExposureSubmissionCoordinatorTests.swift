@@ -5,6 +5,7 @@
 @testable import ENA
 import Foundation
 import XCTest
+import HealthCertificateToolkit
 
 class ExposureSubmissionCoordinatorTests: CWATestCase {
 
@@ -34,6 +35,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)

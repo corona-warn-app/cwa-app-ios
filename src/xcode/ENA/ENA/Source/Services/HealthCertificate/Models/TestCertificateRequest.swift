@@ -98,6 +98,8 @@ class TestCertificateRequest: Codable, Equatable {
 	let registrationDate: Date
 	let labId: String?
 
+	let objectDidChange = OpenCombine.PassthroughSubject<TestCertificateRequest, Never>()
+
 	var rsaKeyPair: DCCRSAKeyPair? {
 		didSet {
 			if rsaKeyPair != oldValue {
@@ -145,7 +147,5 @@ class TestCertificateRequest: Codable, Equatable {
 			}
 		}
 	}
-
-	var objectDidChange = OpenCombine.PassthroughSubject<TestCertificateRequest, Never>()
 
 }

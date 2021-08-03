@@ -67,7 +67,7 @@ final class ValidationResultCellModel {
 	var ruleTypeDescription: String? {
 		switch validationResult.rule?.ruleType {
 		case .acceptence:
-			let arrivalCountry = (validationResult.rule?.countryCode).flatMap { Country(countryCode: $0) }
+			let arrivalCountry = (validationResult.rule?.countryCode).flatMap { Country(withCountryCodeFallback: $0) }
 
 			return String(
 				format: AppStrings.HealthCertificate.Validation.Result.acceptanceRule,
@@ -185,8 +185,8 @@ final class ValidationResultCellModel {
 
 		validationResult.rule?.affectedString.forEach {
 			if let keyPath = vaccinationEntryKeyPaths[$0],
-			   let title = vaccinationEntry.title(for: keyPath),
-			   let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+			   let title = vaccinationEntry.title(for: keyPath) {
+				let formattedValue = vaccinationEntry.formattedValue(for: keyPath, valueSets: valueSets) ?? ""
 				keyValuePairs.append((key: title, value: formattedValue))
 			}
 		}
@@ -201,8 +201,8 @@ final class ValidationResultCellModel {
 
 		validationResult.rule?.affectedString.forEach {
 			if let keyPath = testEntryKeyPaths[$0],
-			   let title = testEntry.title(for: keyPath),
-			   let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+			   let title = testEntry.title(for: keyPath) {
+				let formattedValue = testEntry.formattedValue(for: keyPath, valueSets: valueSets) ?? ""
 				keyValuePairs.append((key: title, value: formattedValue))
 			}
 		}
@@ -217,8 +217,8 @@ final class ValidationResultCellModel {
 
 		validationResult.rule?.affectedString.forEach {
 			if let keyPath = recoveryEntryKeyPaths[$0],
-			   let title = recoveryEntry.title(for: keyPath),
-			   let formattedValue = recoveryEntry.formattedValue(for: keyPath, valueSets: valueSets) {
+			   let title = recoveryEntry.title(for: keyPath) {
+				let formattedValue = recoveryEntry.formattedValue(for: keyPath, valueSets: valueSets) ?? ""
 				keyValuePairs.append((key: title, value: formattedValue))
 			}
 		}

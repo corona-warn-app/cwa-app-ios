@@ -71,10 +71,15 @@ final class HealthCertificateValidationViewModel {
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet2, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet3, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet4, spacing: .large),
-					.body(
-						text: AppStrings.HealthCertificate.Validation.body3,
-						style: .textView(.link),
-						accessibilityIdentifier: ""
+					.textWithLinks(
+						text: String(
+							format: AppStrings.HealthCertificate.Validation.moreInformation,
+							AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
+						links: [
+							AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
+							AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
+						],
+						linksColor: .enaColor(for: .textTint)
 					),
 					.legal(title: NSAttributedString(string: AppStrings.HealthCertificate.Validation.legalTitle), description: NSAttributedString(string: AppStrings.HealthCertificate.Validation.legalDescription), textBlocks: []),
 					.space(height: 16)

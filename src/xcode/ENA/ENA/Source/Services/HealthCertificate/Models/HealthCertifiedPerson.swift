@@ -68,11 +68,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case completelyProtected(expirationDate: Date)
 	}
 
+	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
+
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			if healthCertificates != oldValue {
 				updateVaccinationState()
 				updateMostRelevantHealthCertificate()
+				updateHealthCertificateSubscriptions(for: healthCertificates)
 
 				objectDidChange.send(self)
 			}
@@ -105,8 +108,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 
-	var objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
-
 	var name: Name? {
 		healthCertificates.first?.name
 	}
@@ -123,9 +124,17 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
+	@objc
+	func triggerMostRelevantCertificateUpdate() {
+		updateMostRelevantHealthCertificate()
+		scheduleMostRelevantCertificateTimer()
+	}
+
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertificateSubscriptions = Set<AnyCancellable>()
+
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
@@ -151,9 +160,27 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private func setup() {
 		updateVaccinationState()
 		updateMostRelevantHealthCertificate()
+		updateHealthCertificateSubscriptions(for: healthCertificates)
 
 		subscribeToNotifications()
 		scheduleMostRelevantCertificateTimer()
+	}
+
+	private func updateHealthCertificateSubscriptions(for healthCertificates: [HealthCertificate]) {
+		healthCertificateSubscriptions = []
+
+		healthCertificates.forEach { healthCertificate in
+			healthCertificate.objectDidChange
+				.sink { [weak self] _ in
+					guard let self = self else { return }
+
+					self.updateVaccinationState()
+					self.updateMostRelevantHealthCertificate()
+
+					self.objectDidChange.send(self)
+				}
+				.store(in: &healthCertificateSubscriptions)
+		}
 	}
 
 	private func updateVaccinationState() {
@@ -204,7 +231,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		// Schedule new timer.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(triggerMostRelevantCertificateUpdate), name: UIApplication.didBecomeActiveNotification, object: nil)
 
 		mostRelevantCertificateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateMostRelevantHealthCertificate), userInfo: nil, repeats: false)
 
@@ -218,14 +245,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	@objc
-	private func refreshUpdateTimerAfterResumingFromBackground() {
-		updateMostRelevantHealthCertificate()
-		scheduleMostRelevantCertificateTimer()
-	}
-
-	@objc
 	private func updateMostRelevantHealthCertificate() {
 		mostRelevantHealthCertificate = healthCertificates.mostRelevant
 	}
-
 }

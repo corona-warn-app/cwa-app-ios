@@ -144,9 +144,18 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 	
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 		// filtering out emojis and any other unwanted charaters. these are not wanted in the test profile.
+		var string = string
+		
+		if string.last?.isWhitespace == true { // possible keyboard suggestion
+			// -> remove last character and pass that on to validation below
+			let lastIndex = string.index(string.endIndex, offsetBy: -1)
+			string.remove(at: lastIndex)
+		}
+		
 		return string.trimmingCharacters(in: CharacterSet.alphanumerics).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.punctuationCharacters).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.symbols).isEmpty
+			|| string.trimmingCharacters(in: CharacterSet.urlHostAllowed).isEmpty
 			|| string.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty
 			|| string.contains(where: { $0 == "@" })
 	}

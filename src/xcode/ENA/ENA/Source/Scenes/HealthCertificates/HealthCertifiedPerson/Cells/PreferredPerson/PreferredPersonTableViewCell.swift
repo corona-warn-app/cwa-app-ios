@@ -42,6 +42,7 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		dateOfBirthLabel.text = cellModel.dateOfBirth
 
 		descriptionLabel.text = cellModel.description
+		preferredPersonSwitch.accessibilityLabel = cellModel.description
 
 		cellModel.$isPreferredPerson
 			.assign(to: \.isOn, on: preferredPersonSwitch)
@@ -124,7 +125,6 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 			]
 		)
 
-		preferredPersonSwitch.accessibilityLabel = AppStrings.HealthCertificate.Person.preferredPersonDescription
 		accessibilityElements = [personalDataStackView as Any, preferredPersonSwitch as Any]
 	}
 

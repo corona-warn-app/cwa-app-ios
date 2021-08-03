@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,17 +13,17 @@
             <rect key="frame" x="0.0" y="0.0" width="511" height="349"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fNr-bd-DnP">
-                    <rect key="frame" x="0.0" y="0.0" width="511" height="349"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fNr-bd-DnP">
+                    <rect key="frame" x="4" y="24" width="503" height="325"/>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="fNr-bd-DnP" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="9xZ-UG-tTQ"/>
+                <constraint firstItem="fNr-bd-DnP" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" constant="-4" id="9xZ-UG-tTQ"/>
                 <constraint firstAttribute="bottom" secondItem="fNr-bd-DnP" secondAttribute="bottom" id="C1W-PI-425"/>
-                <constraint firstItem="fNr-bd-DnP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ox8-FN-6SM"/>
-                <constraint firstItem="fNr-bd-DnP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wa8-Yc-yma"/>
+                <constraint firstItem="fNr-bd-DnP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="ox8-FN-6SM"/>
+                <constraint firstItem="fNr-bd-DnP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="wa8-Yc-yma"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -33,9 +32,4 @@
             <point key="canvasLocation" x="165.94202898550725" y="-47.209821428571423"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

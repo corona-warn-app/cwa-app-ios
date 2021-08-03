@@ -4,6 +4,7 @@
 
 import XCTest
 import OpenCombine
+import HealthCertificateToolkit
 @testable import ENA
 
 class HomeTestResultCellModelTests: CWATestCase {
@@ -57,6 +58,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 		AccessibilityIdentifiers.Home.TestResultCell.loadingPCRButton
 	]
 
+	// swiftlint:disable:next function_body_length
 	func test_whenTestResultChanges_then_changesAreReflectedInTheSubscription() {
 		let expectationSubtitles = expectation(description: "expectationSubtitles")
 		let expectationDescription = expectation(description: "expectationDescription")
@@ -96,6 +98,8 @@ class HomeTestResultCellModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				signatureVerifying: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
 			)

@@ -13,6 +13,7 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationUnavailable
 	/// Typically occurs when `activate()` is called more than once.
 	case apiMisuse
+	case notResponding
 	case unknown(String)
 }
 
@@ -219,7 +220,10 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
-		Log.info("Trying to activate ENManager.")
+		Log.info("Trying to activate ENManager")
+		
+		var isActive = false
+		
 		manager.activate { activationError in
 			if let activationError = activationError {
 				Log.error("Failed to activate ENManager: \(activationError.localizedDescription)", log: .api)
@@ -228,6 +232,15 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			}
 			Log.info("Activated ENManager successfully.")
 			completion(nil)
+			isActive = true
+		}
+
+		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 3 seconds should be enough time to wait.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+			if !isActive {
+				Log.error("Could not activate ENManager within 3 seconds. Proceed with deactivated ENManager")
+				completion(ExposureNotificationError.notResponding)
+			}
 		}
 	}
 
@@ -246,16 +259,28 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+		Log.info("Trying to change ENManager.setExposureNotificationEnabled to \(status).")
+
+		var hasChanged = false
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
 				self.handleENError(error: error, completion: completion)
 				return
 			}
+			Log.error("Successfully changed ENManager.setExposureNotificationEnabled to \(status).", log: .api)
+			hasChanged = true
 			completion(nil)
 		}
+		
+		// Sometimes the ENF framework is broken. So we wait 1 seconds to ensure that the changed has been applied. Mostly, the ENF framework responds instantly, so we check after 1 seconds and show then an alert.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+			if !hasChanged {
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 1 seconds. Show alert.")
+				completion(ExposureNotificationError.notResponding)
+			}
+		}
 	}
-
 
 	private func disableIfNeeded(completion:@escaping CompletionHandler) {
 		manager.exposureNotificationEnabled ? disable(completion: completion) : completion(nil)
