@@ -5,6 +5,27 @@
 import Foundation
 import OpenCombine
 
+extension SAP_Internal_V2_ApplicationConfigurationIOS {
+
+	/// App Feature helpers to determine if a feature is enabled or disabled
+	///
+
+	/// device time check
+	func disableDeviceTimeCheck(store: DeviceTimeChecking) -> Bool {
+		#if !RELEASE
+		if store.dmKillDeviceTimeCheck {
+			return true
+		}
+		#endif
+		let killSwitchFeature = appFeatures.appFeatures.first {
+			$0.label == "disable-device-time-check"
+		}
+		return killSwitchFeature?.value == 1
+	}
+
+}
+
+
 /// A provider of the app configuration struct
 protocol AppConfigurationProviding: AnyObject {
 
