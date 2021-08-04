@@ -66,7 +66,7 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
 
 		// Tap on Date Time Selection
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap()
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap(.extraLong)
 
 		snapshot("screenshot_certificate_validation_date_selection")
 	}
@@ -87,7 +87,7 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
 
 		// Tap on Date Time Selection
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap()
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap(.extraLong)
 		
 		// Tap on Check button
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
