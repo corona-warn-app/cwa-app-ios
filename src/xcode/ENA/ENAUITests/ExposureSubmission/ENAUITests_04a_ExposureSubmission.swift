@@ -410,6 +410,26 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
+	
+	func test_Tester_Centers_Opens_Website_In_Safari() {
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select to find test centers
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
+	
+		// Check if safari was opened
+		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+		XCTAssertTrue(safariApp.state == .runningForeground)
+	}
+	
+	// MARK: - Screenshots
 
 	func test_screenshot_TestCertificateScreen() throws {
 		launch()
@@ -450,26 +470,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_test_certificate_entered_birthday")
 	}
-	
-	func test_Tester_Centers_Opens_Website_In_Safari() {
-		launch()
-
-		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
-		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-
-		// Intro screen
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
-
-		// -> Select to find test centers
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
-	
-		// Check if safari was opened
-		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		XCTAssertTrue(safariApp.state == .runningForeground)
-	}
-	
-	// MARK: - Screenshots
 
 	func test_screenshot_SymptomsOptionYes() {
 		var screenshotCounter = 0
