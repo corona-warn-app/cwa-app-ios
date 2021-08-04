@@ -34,6 +34,8 @@ struct SAP_Internal_Pt_TraceWarningPackage {
 
   var timeIntervalWarnings: [SAP_Internal_Pt_TraceTimeIntervalWarning] = []
 
+  var checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -70,6 +72,7 @@ extension SAP_Internal_Pt_TraceWarningPackage: SwiftProtobuf.Message, SwiftProto
     1: .same(proto: "intervalNumber"),
     2: .same(proto: "region"),
     3: .same(proto: "timeIntervalWarnings"),
+    4: .same(proto: "checkInProtectedReports"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -81,6 +84,7 @@ extension SAP_Internal_Pt_TraceWarningPackage: SwiftProtobuf.Message, SwiftProto
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.intervalNumber) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.region) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.timeIntervalWarnings) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.checkInProtectedReports) }()
       default: break
       }
     }
@@ -96,6 +100,9 @@ extension SAP_Internal_Pt_TraceWarningPackage: SwiftProtobuf.Message, SwiftProto
     if !self.timeIntervalWarnings.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.timeIntervalWarnings, fieldNumber: 3)
     }
+    if !self.checkInProtectedReports.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.checkInProtectedReports, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -103,6 +110,7 @@ extension SAP_Internal_Pt_TraceWarningPackage: SwiftProtobuf.Message, SwiftProto
     if lhs.intervalNumber != rhs.intervalNumber {return false}
     if lhs.region != rhs.region {return false}
     if lhs.timeIntervalWarnings != rhs.timeIntervalWarnings {return false}
+    if lhs.checkInProtectedReports != rhs.checkInProtectedReports {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

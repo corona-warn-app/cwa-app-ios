@@ -439,6 +439,15 @@ final class HTTPClient: Client {
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
+	func encryptedTraceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		let url = configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
+		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
+	}
+
 	// swiftlint:disable:next cyclomatic_complexity
 	func dccRegisterPublicKey(
 		isFake: Bool = false,
@@ -1384,7 +1393,21 @@ private extension URLRequest {
 		
 		return request
 	}
-	
+
+	// Encrypted Hour Package Discovery
+	static func encryptedTraceWarningPackageDiscovery(
+		configuration: HTTPClient.Configuration,
+		country: String
+	) throws -> URLRequest {
+
+		let url = configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.get
+
+		return request
+	}
+
 	static func dccRequest(
 		configuration: HTTPClient.Configuration,
 		registrationToken: String,
