@@ -35,3 +35,7 @@ License: CC0-1.0
 Files: src/xcode/ENA/ENA/Source/Utils/iOS12Support/ColorCompatibility/ColorCompatibility.swift
 Copyright: Copyright (c) 2019 Noah Gilmore <noah.w.gilmore@gmail.com>
 License: MIT
+
+Files: src/xcode/ENA/HealthCertificateToolkit/Sources/HealthCertificateToolkit/Utils/ECDSA.swift
+Copyright: (c) Copyright IBM Deutschland GmbH 2021
+License: Apache-2.0
