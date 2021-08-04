@@ -1463,6 +1463,14 @@
 
 "local_notifications_testresults_body" = "Имате нови съобщения от приложението Corona-Warn-App.";
 
+"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+
+"local_notifications_expiringSoon_body" = "Проверете валидността на своите сертификати.";
+
+"local_notifications_expired_title" = "Corona-Warn-App";
+
+"local_notifications_expired_body" = "Проверете валидността на своите сертификати.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Общ преглед";
 
@@ -2882,4 +2890,17 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Техническа дата на изтичане";
 
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Валидно до %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Сертификатът изтича на %@ в %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Моля, снабдете се с нов цифров сертификат навреме.";
+
+"HealthCertificate_ValidityState_Expired" = "Сертификатът е изтекъл";
+
+"HealthCertificate_ValidityState_Expired_description" = "Срокът на валидност е изтекъл. Моля, снабдете се с нов цифров сертификат.";
+
+"HealthCertificate_ValidityState_Invalid" = "Сертификатът (подписът) е невалиден";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
 

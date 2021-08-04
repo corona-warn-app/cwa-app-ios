@@ -116,6 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
+			didSetupUI = true
 			return true
 		}
 
