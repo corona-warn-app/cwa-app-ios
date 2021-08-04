@@ -93,6 +93,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	}
 
 	func testViewModelWithSoonExpiringIncompleteVaccinationCertificate() throws {
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -104,7 +105,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				and: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -120,7 +121,14 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.21")
-		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateInfo,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
@@ -345,6 +353,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	}
 
 	func testViewModelWithSoonExpiringRecoveryCertificate() throws {
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -354,7 +363,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				and: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -370,7 +379,14 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
-		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateInfo,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}

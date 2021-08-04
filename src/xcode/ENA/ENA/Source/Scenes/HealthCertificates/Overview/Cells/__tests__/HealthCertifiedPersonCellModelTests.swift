@@ -37,12 +37,13 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testHealthCertifiedPersonWithSoonExpiringVaccinationCertificate() throws {
 		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				and: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -60,7 +61,14 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 	}
 
 	func testHealthCertifiedPersonWithExpiredVaccinationCertificate() throws {
@@ -255,12 +263,13 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testHealthCertifiedPersonWithSoonExpiringRecoveryCertificate() throws {
 		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				and: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -278,7 +287,14 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 	}
 
 	func testHealthCertifiedPersonWithExpiredRecoveryCertificate() throws {

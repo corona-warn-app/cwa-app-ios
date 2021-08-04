@@ -73,6 +73,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_OverviewViewModelWithSoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
@@ -84,7 +85,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 							)
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					and: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -98,7 +99,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
@@ -106,6 +114,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_DetailsViewModelWithSoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
 			healthCertificate: try HealthCertificate(
@@ -115,7 +124,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					and: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -129,7 +138,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
@@ -583,6 +599,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_OverviewViewModelWithSoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
@@ -594,7 +611,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 							)
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					and: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -608,7 +625,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
@@ -616,6 +640,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_DetailsViewModelWithSoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
 			healthCertificate: try HealthCertificate(
@@ -625,7 +650,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					and: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -639,7 +664,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
