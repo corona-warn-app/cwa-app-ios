@@ -41,7 +41,7 @@ extension CBOR {
         case .date(let dateValue):
             return dateValue as Any
         case .utf8String(let stringValue):
-            return stringValue as Any
+            return stringValue.trimmingCharacters(in: .whitespacesAndNewlines) as Any
         case .array(let arrayValue):
             return arrayValue.map { $0.anyValue }
         case .map(let mapValue):
