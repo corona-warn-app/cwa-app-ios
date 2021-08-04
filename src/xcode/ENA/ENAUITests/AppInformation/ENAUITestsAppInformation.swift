@@ -89,7 +89,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
 
 		app.swipeUp(velocity: .fast)
 		// assert cells
@@ -97,9 +97,9 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		app.cells["AppStrings.AppInformation.privacyNavigation"].waitAndTap()
 
-		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .long))
 
-		XCTAssertTrue(app.webViews[AccessibilityIdentifiers.General.webView].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.webViews[AccessibilityIdentifiers.General.webView].waitForExistence(timeout: .long))
 		let webView = app.webViews[AccessibilityIdentifiers.General.webView]
 		let firstLink = webView.links.firstMatch
 		XCTAssertTrue(firstLink.exists)
