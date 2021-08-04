@@ -67,6 +67,8 @@ struct SAP_Internal_Pt_CheckInProtectedReport {
 
   var encryptedCheckInRecord: Data = Data()
 
+  var mac: Data = Data()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -176,6 +178,7 @@ extension SAP_Internal_Pt_CheckInProtectedReport: SwiftProtobuf.Message, SwiftPr
     1: .same(proto: "locationIdHash"),
     2: .same(proto: "iv"),
     3: .same(proto: "encryptedCheckInRecord"),
+    4: .same(proto: "mac"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -187,6 +190,7 @@ extension SAP_Internal_Pt_CheckInProtectedReport: SwiftProtobuf.Message, SwiftPr
       case 1: try { try decoder.decodeSingularBytesField(value: &self.locationIDHash) }()
       case 2: try { try decoder.decodeSingularBytesField(value: &self.iv) }()
       case 3: try { try decoder.decodeSingularBytesField(value: &self.encryptedCheckInRecord) }()
+      case 4: try { try decoder.decodeSingularBytesField(value: &self.mac) }()
       default: break
       }
     }
@@ -202,6 +206,9 @@ extension SAP_Internal_Pt_CheckInProtectedReport: SwiftProtobuf.Message, SwiftPr
     if !self.encryptedCheckInRecord.isEmpty {
       try visitor.visitSingularBytesField(value: self.encryptedCheckInRecord, fieldNumber: 3)
     }
+    if !self.mac.isEmpty {
+      try visitor.visitSingularBytesField(value: self.mac, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -209,6 +216,7 @@ extension SAP_Internal_Pt_CheckInProtectedReport: SwiftProtobuf.Message, SwiftPr
     if lhs.locationIDHash != rhs.locationIDHash {return false}
     if lhs.iv != rhs.iv {return false}
     if lhs.encryptedCheckInRecord != rhs.encryptedCheckInRecord {return false}
+    if lhs.mac != rhs.mac {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
