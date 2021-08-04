@@ -8,7 +8,7 @@ import HealthCertificateToolkit
 
 class HealthCertificateCellViewModelTests: XCTestCase {
 
-	func testViewModelWithIncompleteVaccinationCertificate() throws {
+	func testViewModelWithValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -20,7 +20,8 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				)
-			)
+			),
+			validityState: .valid
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
@@ -34,6 +35,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.21")
+		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
@@ -90,7 +92,104 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
-	func testViewModelWithPCRTestCertificate() throws {
+	func testViewModelWithSoonExpiringIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				),
+				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+			),
+			validityState: .expiringSoon
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithExpiredIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				)
+			),
+			validityState: .expired
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat abgelaufen")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithInvalidIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				)
+			),
+			validityState: .invalid
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat (Signatur) ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -101,7 +200,8 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				)
-			)
+			),
+			validityState: .valid
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
@@ -115,11 +215,12 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
+		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
-	func testViewModelWithAntigenTestCertificate() throws {
+	func testViewModelWithSoonExpiringAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -129,8 +230,10 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 							dateTimeOfSampleCollection: "2021-05-13T14:36:00.000Z"
 						)
 					]
-				)
-			)
+				),
+				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+			),
+			validityState: .expiringSoon
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
@@ -144,11 +247,12 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
+		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
-	func testViewModelWithTestCertificateOfUnknownType() throws {
+	func testViewModelWithExpiredTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -159,7 +263,8 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				)
-			)
+			),
+			validityState: .expired
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
@@ -173,11 +278,43 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
+		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
-	func testViewModelWithRecoveryCertificate() throws {
+	func testViewModelWithInvalidPCRTestCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [
+						TestEntry.fake(
+							typeOfTest: "LP6464-4",
+							dateTimeOfSampleCollection: "2021-05-29T14:36:00.000Z"
+						)
+					]
+				)
+			),
+			validityState: .invalid
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Testzertifikat")
+		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat (Signatur) ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -187,7 +324,8 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				)
-			)
+			),
+			validityState: .valid
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
@@ -201,7 +339,99 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithSoonExpiringRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+						)
+					]
+				),
+				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+			),
+			validityState: .expiringSoon
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat läuft am 03.08.21 um 12:41 ab")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithExpiredRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+						)
+					]
+				)
+			),
+			validityState: .expired
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat abgelaufen")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithInvalidRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+						)
+					]
+				)
+			),
+			validityState: .invalid
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat (Signatur) ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
