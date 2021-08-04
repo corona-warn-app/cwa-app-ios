@@ -5,6 +5,7 @@
 //  © Copyright IBM Deutschland GmbH 2021
 //  SPDX-License-Identifier: Apache-2.0
 //
+//  Modifications Copyright (c) 2021 SAP SE or an SAP affiliate company.
 
 import Foundation
 

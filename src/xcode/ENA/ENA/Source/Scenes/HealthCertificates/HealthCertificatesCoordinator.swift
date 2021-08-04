@@ -230,8 +230,17 @@ final class HealthCertificatesCoordinator {
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .destructive,
 						handler: { _ in
-							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
-							confirmDeletion()
+							guard let self = self else {
+								Log.error("Could not create strong self")
+								return
+							}
+							self.healthCertificateService.removeHealthCertificate(healthCertificate)
+							// Do not confirm deletion if we removed the last certificate of the person (this removes the person, too) because it would trigger a new reload of the table where no person can be shown. Instead, we dismiss the view controller.
+							if self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson) {
+								confirmDeletion()
+							} else {
+								self.viewController.dismiss(animated: true)
+							}
 						}
 					)
 				)
@@ -307,12 +316,18 @@ final class HealthCertificatesCoordinator {
 						title: AppStrings.HealthCertificate.Alert.deleteButton,
 						style: .destructive,
 						handler: { _ in
-							self?.healthCertificateService.removeHealthCertificate(healthCertificate)
+							guard let self = self else {
+								Log.error("Could not create strong self")
+								return
+							}
+							self.healthCertificateService.removeHealthCertificate(healthCertificate)
+							let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
 
-							if shouldPushOnModalNavigationController {
-								self?.modalNavigationController.popToRootViewController(animated: true)
+							// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
+							if shouldPushOnModalNavigationController && isPersonStillExistent {
+								self.modalNavigationController.popToRootViewController(animated: true)
 							} else {
-								self?.modalNavigationController.dismiss(animated: true)
+								self.modalNavigationController.dismiss(animated: true)
 							}
 						}
 					)
