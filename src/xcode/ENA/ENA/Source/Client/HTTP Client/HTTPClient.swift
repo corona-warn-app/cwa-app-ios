@@ -445,7 +445,6 @@ final class HTTPClient: Client {
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
 		let url = configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
-		// not that the actual downloader might get changed later too - depending on the response model
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
@@ -1394,16 +1393,16 @@ private extension URLRequest {
 		
 		return request
 	}
-	
 
 	// Encrypted Hour Package Discovery
 	static func encryptedTraceWarningPackageDiscovery(
 		configuration: HTTPClient.Configuration,
 		country: String
 	) throws -> URLRequest {
-		let url = configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
 
+		let url = configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
 		var request = URLRequest(url: url)
+
 		request.httpMethod = HttpMethod.get
 
 		return request
