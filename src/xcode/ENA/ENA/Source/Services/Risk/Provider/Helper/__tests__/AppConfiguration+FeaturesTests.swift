@@ -6,7 +6,7 @@ import XCTest
 import ZIPFoundation
 @testable import ENA
 
-class AppConfiguration_Features: XCTestCase {
+class AppConfiguration_FeaturesTests: XCTestCase {
 
 	func testGIVEN_DefaultAppConfiguration_WHEN_getFeatures_THEN_allMatchDefaultValues() throws {
 		let url = try XCTUnwrap(Bundle.main.url(forResource: "default_app_config_270", withExtension: ""))
