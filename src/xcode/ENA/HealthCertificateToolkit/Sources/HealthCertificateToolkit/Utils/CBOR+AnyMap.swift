@@ -6,8 +6,8 @@ import SwiftCBOR
 
 extension Dictionary where Key == CBOR, Value == CBOR {
 
-    var anyMap: [String: Any?] {
-        var anyMap = [String: Any?]()
+    var anyMap: [String: Any] {
+        var anyMap = [String: Any]()
         for (key, value) in self {
             guard case let .utf8String(stringKey) = key else {
                 fatalError("String key expected: \(self)")
@@ -46,7 +46,10 @@ extension CBOR {
             return arrayValue.map { $0.anyValue }
         case .map(let mapValue):
             return mapValue.anyMap as Any
-        case .null, .undefined, .tagged, .break:
+        case .null:
+            // if the value is null we will remove both the key and value from the dictionary
+             return nil
+        case .undefined, .tagged, .break:
             return nil as Any?
         }
     }
