@@ -12,7 +12,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 	init(
 		client: AppConfigurationFetching,
-		store: AppConfigCaching & DeviceTimeChecking,
+		store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring,
 		deviceTimeCheck: DeviceTimeCheckProtocol? = nil
 	) {
 		Log.debug("CachedAppConfiguration init called", log: .appConfig)

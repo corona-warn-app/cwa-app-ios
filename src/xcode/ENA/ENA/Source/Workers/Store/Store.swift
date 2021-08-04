@@ -87,8 +87,12 @@ protocol DeviceTimeChecking: AnyObject {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
 	var deviceTimeLastStateChange: Date { get set }
 	var wasDeviceTimeErrorShown: Bool { get set }
+}
+
+protocol AppFeaturesStoring: AnyObject {
 	#if !RELEASE
 	var dmKillDeviceTimeCheck: Bool { get set }
+	var unencryptedCheckinsEnabled: Bool { get set }
 	#endif
 }
 
@@ -265,6 +269,7 @@ protocol Store:
 	VaccinationCaching,
 	WarnOthersTimeIntervalStoring,
 	DSCListCaching,
-	DeviceTimeChecking
+	DeviceTimeChecking,
+	AppFeaturesStoring
 {}
 // swiftlint:enable all
