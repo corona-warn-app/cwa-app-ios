@@ -363,11 +363,18 @@ extension SecureStore: DeviceTimeChecking {
 		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
+}
 
+extension SecureStore: AppFeaturesStoring {
 	#if !RELEASE
 	var dmKillDeviceTimeCheck: Bool {
 		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
+
+	var unencryptedCheckinsEnabled: Bool {
+		get { kvStore["unencryptedCheckinsEnabled"] as Bool? ?? false }
+		set { kvStore["unencryptedCheckinsEnabled"] = newValue }
 	}
 	#endif
 }

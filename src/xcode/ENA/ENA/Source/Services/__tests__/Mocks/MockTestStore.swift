@@ -47,7 +47,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var fakeSQLiteError: Int32?
 	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
-	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	#endif
@@ -172,6 +171,12 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - Protocol DSCListCaching
 
 	var dscList: DSCListMetaData?
+
+	// MARK: - Protocol AppFeaturesStoring
+	#if !RELEASE
+	var dmKillDeviceTimeCheck = false
+	var unencryptedCheckinsEnabled = false
+	#endif
 }
 
 #endif

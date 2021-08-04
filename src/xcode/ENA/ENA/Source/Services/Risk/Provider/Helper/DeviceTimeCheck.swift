@@ -15,7 +15,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Init
 
-	init(store: AppConfigCaching & DeviceTimeChecking) {
+	init(store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring) {
 		self.store = store
 	}
 
@@ -58,7 +58,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Private
 
-	private let store: AppConfigCaching & DeviceTimeChecking
+	private let store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
 
