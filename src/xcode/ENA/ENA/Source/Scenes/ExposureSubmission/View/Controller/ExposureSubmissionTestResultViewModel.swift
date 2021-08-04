@@ -192,6 +192,8 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	private func refreshTest() {
+		Log.info("Refresh test.")
+
 		primaryButtonIsLoading = true
 		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
 			guard let self = self else { return }

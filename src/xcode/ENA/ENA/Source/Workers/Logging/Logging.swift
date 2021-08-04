@@ -5,6 +5,8 @@ extension OSLog {
 
 	private static var subsystem = Bundle.main.unwrappedBundleIdentifier
 
+	/// Application lifecycle
+	static let appLifecycle = OSLog(subsystem: subsystem, category: "appLifecycle")
     /// API interactions
     static let api = OSLog(subsystem: subsystem, category: "api")
     /// UI
