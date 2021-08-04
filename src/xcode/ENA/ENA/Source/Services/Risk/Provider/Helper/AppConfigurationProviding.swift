@@ -5,7 +5,6 @@
 import Foundation
 import OpenCombine
 
-
 /// A provider of the app configuration struct
 protocol AppConfigurationProviding: AnyObject {
 
