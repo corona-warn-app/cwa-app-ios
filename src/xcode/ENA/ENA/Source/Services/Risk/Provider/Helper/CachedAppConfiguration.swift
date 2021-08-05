@@ -12,7 +12,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 	init(
 		client: AppConfigurationFetching,
-		store: AppConfigCaching & DeviceTimeChecking
+		store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
 	) {
 		Log.debug("CachedAppConfiguration init called", log: .appConfig)
 
@@ -86,8 +86,14 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	}
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
-	var featureProvider: AppFeatureProvider {
-		AppFeatureProvider(appConfiguration: self)
+	var featureProvider: AppFeatureProviding {
+		let appFeatureProvider = AppFeatureProvider(appConfiguration: self)
+		#if !RELEASE
+		return AppFeatureProviderDeviceTimeCheckDecorator(appFeatureProvider, store: store)
+		#else
+		return appFeatureProvider
+		#endif
+
 	}
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
@@ -106,7 +112,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	private let client: AppConfigurationFetching
 
 	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching & DeviceTimeChecking
+	private let store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
 
 	private var subscriptions = [AnyCancellable]()
 	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
