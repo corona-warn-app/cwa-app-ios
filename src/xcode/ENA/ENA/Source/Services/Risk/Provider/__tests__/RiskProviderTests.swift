@@ -33,7 +33,7 @@ final class RiskProviderTests: CWATestCase {
 			client: client,
 			store: store,
 			eventStore: eventStore,
-			appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
 		)
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.high]
@@ -122,7 +122,7 @@ final class RiskProviderTests: CWATestCase {
 			client: client,
 			store: store,
 			eventStore: eventStore,
-			appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
 		)
 
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
@@ -212,7 +212,7 @@ final class RiskProviderTests: CWATestCase {
 			client: client,
 			store: store,
 			eventStore: eventStore,
-			appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
 		)
 
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
@@ -1080,7 +1080,7 @@ final class RiskProviderTests: CWATestCase {
 			client: client,
 			store: store,
 			eventStore: mockEventStore,
-			appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: store, config: appConfig.currentAppConfig.value)
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig.currentAppConfig.value)
 		)
 	}
 

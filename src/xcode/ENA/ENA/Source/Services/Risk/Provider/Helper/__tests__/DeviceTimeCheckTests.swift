@@ -14,7 +14,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = Date()
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -33,7 +33,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(-twoHourIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -52,7 +52,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(twoHourIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -71,7 +71,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(-twoHourOneSecondIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -90,7 +90,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(twoHourOneSecondIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -112,7 +112,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 			return
 		}
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -128,7 +128,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		fakeStore.deviceTimeCheckResult = .incorrect
 		fakeStore.wasDeviceTimeErrorShown = true
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureProviderDeviceTimeCheckDecorator.mock(store: fakeStore))
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: true)
 
 		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)

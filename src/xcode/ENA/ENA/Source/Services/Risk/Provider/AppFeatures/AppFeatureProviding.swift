@@ -12,3 +12,9 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS {
 		case unencryptedCheckinsEnabled = "unencrypted-checkins-enabled"
 	}
 }
+
+/// protocol an AppFeature provider must fulfill
+///
+protocol AppFeatureProviding {
+	func value(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool
+}

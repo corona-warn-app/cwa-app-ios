@@ -89,7 +89,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	var featureProvider: AppFeatureProviding {
 		let appFeatureProvider = AppFeatureProvider(appConfigurationProvider: self)
 		#if !RELEASE
-		return AppFeatureProviderDeviceTimeCheckDecorator(appFeatureProvider, store: store)
+		return AppFeatureDeviceTimeCheckDecorator(appFeatureProvider, store: store)
 		#else
 		return appFeatureProvider
 		#endif
