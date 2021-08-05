@@ -100,17 +100,51 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		)
 	}
 
-	// function to get local statistics for a particular group
-	private func latestLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil, completion: @escaping (Result<LocalStatisticsMetadata, Error>) -> Void) {
+	private func latestLocalStatistics(
+		groupID: StatisticsGroupIdentifier,
+		eTag: String? = nil,
+		completion: @escaping (Result<LocalStatisticsMetadata, Error>) -> Void
+	) {
 		let localStatistics = store.localStatistics.filter({
 			$0.groupID == groupID
 		}).compactMap { $0 }.first
 
 		guard let cachedLocalStatistics = localStatistics, !shouldFetch(store: store, groupID: groupID) else {
-			let etag = localStatistics?.lastLocalStatisticsETag
-			fetchLocalStatistics(groupID: groupID, eTag: etag, completion: { result in
-				completion(result)
-			})
+			self.client.fetchLocalStatistics(
+				groupID: groupID,
+				eTag: localStatistics?.lastLocalStatisticsETag
+			) { result in
+				switch result {
+				case .success(let response):
+					// removing previous data from the store
+					self.store.localStatistics.removeAll(where: { $0.groupID == groupID })
+					// cache
+					self.store.localStatistics.append(LocalStatisticsMetadata(with: response))
+					completion(.success(LocalStatisticsMetadata(with: response)))
+				case .failure(let error):
+					Log.error(error.localizedDescription, log: .vaccination)
+					switch error {
+					case URLSessionError.notModified:
+						if let cachedIndex = self.store.localStatistics.firstIndex(where: { $0.groupID == groupID }) {
+							var cachedLocalStatistics = self.store.localStatistics[cachedIndex]
+							cachedLocalStatistics.refreshLastLocalStatisticsFetchDate()
+							self.store.localStatistics.remove(at: cachedIndex)
+							self.store.localStatistics.append(cachedLocalStatistics)
+						}
+					default:
+						break
+					}
+					// return cached if it exists
+					if let cachedLocalStatistics = self.store.localStatistics.first(where: {
+						$0.groupID == groupID
+					}) {
+						completion(.success(cachedLocalStatistics))
+					} else {
+						completion(.failure(error))
+					}
+				}
+			}
+
 			return
 		}
 
@@ -118,42 +152,10 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		return completion(.success(cachedLocalStatistics))
 	}
 
-	private func fetchLocalStatistics(groupID: StatisticsGroupIdentifier, eTag: String? = nil, completion: @escaping
-										(Result<LocalStatisticsMetadata, Error>) -> Void) {
-		self.client.fetchLocalStatistics(groupID: groupID, eTag: eTag) { result in
-			switch result {
-			case .success(let response):
-				// removing previous data from the store
-				self.store.localStatistics.removeAll(where: { $0.groupID == groupID })
-				// cache
-				self.store.localStatistics.append(LocalStatisticsMetadata(with: response))
-				completion(.success(LocalStatisticsMetadata(with: response)))
-			case .failure(let error):
-				Log.error(error.localizedDescription, log: .vaccination)
-				switch error {
-				case URLSessionError.notModified:
-					if let cachedIndex = self.store.localStatistics.firstIndex(where: { $0.groupID == groupID }) {
-						var cachedLocalStatistics = self.store.localStatistics[cachedIndex]
-						cachedLocalStatistics.refreshLastLocalStatisticsFetchDate()
-						self.store.localStatistics.remove(at: cachedIndex)
-						self.store.localStatistics.append(cachedLocalStatistics)
-					}
-				default:
-					break
-				}
-				// return cached if it exists
-				if let cachedLocalStatistics = self.store.localStatistics.first(where: {
-					$0.groupID == groupID
-				}) {
-					completion(.success(cachedLocalStatistics))
-				} else {
-					completion(.failure(error))
-				}
-			}
-		}
-	}
-
-	private func shouldFetch(store: LocalStatisticsCaching, groupID: StatisticsGroupIdentifier) -> Bool {
+	private func shouldFetch(
+		store: LocalStatisticsCaching,
+		groupID: StatisticsGroupIdentifier
+	) -> Bool {
 		guard let localStatistics = self.store.localStatistics.first(where: { $0.groupID == groupID }) else {
 			return true
 		}
@@ -165,7 +167,10 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		return abs(Date().timeIntervalSince(lastFetchDate)) >= 300
 	}
 
-	private func regionStatisticsData(for regions: [LocalStatisticsRegion], with data: [LocalStatisticsMetadata]) -> [RegionStatisticsData] {
+	private func regionStatisticsData(
+		for regions: [LocalStatisticsRegion],
+		with data: [LocalStatisticsMetadata]
+	) -> [RegionStatisticsData] {
 		regions.map {
 			RegionStatisticsData(
 				region: $0,
