@@ -89,11 +89,11 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	var featureProvider: AppFeatureProviding {
 		let appFeatureProvider = AppFeatureProvider(appConfigurationProvider: self)
 		#if !RELEASE
-		return AppFeatureDeviceTimeCheckDecorator(appFeatureProvider, store: store)
+		let timeCheckDecorator = AppFeatureDeviceTimeCheckDecorator(appFeatureProvider, store: store)
+		return AppFeatureUnencryptedEventsDecorator(timeCheckDecorator, store: store)
 		#else
 		return appFeatureProvider
 		#endif
-
 	}
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
