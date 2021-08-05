@@ -1463,6 +1463,14 @@
 
 "local_notifications_testresults_body" = "Corona-Warn-App uygulamasından yeni mesajlarınız var.";
 
+"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+
+"local_notifications_expiringSoon_body" = "Sertifikalarınızın geçerliliğini kontrol edin.";
+
+"local_notifications_expired_title" = "Corona-Warn-App";
+
+"local_notifications_expired_body" = "Sertifikalarınızın geçerliliğini kontrol edin.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Genel Bakış";
 
@@ -2882,4 +2890,17 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Teknik sona erme tarihi";
 
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Geçerlilik bitişi: %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Sertifikanın süresi %@, %@ tarihinde dolacak";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Lütfen zamanında yeni bir dijital sertifika aldığınızdan emin olun.";
+
+"HealthCertificate_ValidityState_Expired" = "Sertifikanın Süresi Doldu";
+
+"HealthCertificate_ValidityState_Expired_description" = "Sona erme tarihi dolmadı. Lütfen yeni bir dijital sertifika alın.";
+
+"HealthCertificate_ValidityState_Invalid" = "Sertifika (İmza) Geçersiz";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 

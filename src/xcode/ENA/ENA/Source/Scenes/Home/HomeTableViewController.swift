@@ -840,6 +840,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	@objc
 	private func refreshUI() {
+		Log.info("Refresh UI.")
+
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
