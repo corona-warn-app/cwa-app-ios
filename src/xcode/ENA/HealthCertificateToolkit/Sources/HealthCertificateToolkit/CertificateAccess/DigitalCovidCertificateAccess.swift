@@ -239,7 +239,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         }
 
         do {
-            let healthCertificate = try JSONDecoder().decode(DigitalCovidCertificate.self, from: JSONSerialization.data(withJSONObject: certificateMap.anyMap))
+            let healthCertificate = try JSONDecoder().decode(DigitalCovidCertificate.self, from: JSONSerialization.data(withJSONObject: certificateMap.anyMapWithTrimmingWhiteSpaces))
             return .success(healthCertificate)
         } catch {
             return .failure(.HC_CBOR_DECODING_FAILED(error))
@@ -263,13 +263,15 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
                 return .failure(.HC_JSON_SCHEMA_INVALID(.DECODING_FAILED))
             }
 
-            let validationResult = try JSONSchema.validate(certificateMap.anyMap, schema: schemaDict)
-
+            let validationResult = try JSONSchema.validate(certificateMap.anyMapWithTrimmingWhiteSpaces, schema: schemaDict)
+            
             switch validationResult {
             case .invalid(let errors):
                 return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_RESULT_FAILED(errors)))
             case .valid:
-                return .success((certificate))
+                // we need to remove spaces from attributes of the certificate CBOR itself so we pass back a modifiedCertificate
+                let modifiedCertificate = CBOR.map(certificateMap.cborMapWithTrimmingWhiteSpaces)
+                return .success(modifiedCertificate)
             }
         } catch {
             return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(error)))
