@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.7"
+		self.featureVersion = "2.8"
 		
 		// Signature Check
 		self.newVersionFeatures.append(
