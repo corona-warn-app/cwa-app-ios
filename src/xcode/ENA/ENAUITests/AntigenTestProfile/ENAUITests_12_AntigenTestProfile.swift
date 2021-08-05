@@ -45,9 +45,9 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// Antigen Test Information Screen
 		
 		// header image exists
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription].waitForExistence(timeout: .long))
 		// title exists
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle].waitForExistence(timeout: .long))
 		// subtitle exists
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionSubHeadline].waitForExistence(timeout: .long))
 		// legal text exists
@@ -122,9 +122,9 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// Antigen Test Profile Screen
 
 		// continues button exists
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .long))
 		// edit profile button exists
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton].waitForExistence(timeout: .long))
 
 		snapshot("antigentestprofile_screenshot_profile_screen")
 
@@ -152,7 +152,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// Edit Antigen Test Profile Screen
 
 		let editTestProfileAction = try XCTUnwrap(app.sheets.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editAction])
-		editTestProfileAction.waitAndTap()
+		editTestProfileAction.waitAndTap(.extraLong)
 
 		let editSaveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
 		XCTAssertTrue(editSaveProfileButton.waitForExistence(timeout: .short))
@@ -185,6 +185,6 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// -> Register Test Screen
 		
 		// create test profile button exists
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description].waitForExistence(timeout: .long))
 	}
 }

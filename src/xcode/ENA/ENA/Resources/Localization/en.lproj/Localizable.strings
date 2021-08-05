@@ -1463,6 +1463,14 @@
 
 "local_notifications_testresults_body" = "You have new messages from your Corona-Warn-App.";
 
+"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+
+"local_notifications_expiringSoon_body" = "Check the validity of your certificates.";
+
+"local_notifications_expired_title" = "Corona-Warn-App";
+
+"local_notifications_expired_body" = "Check the validity of your certificates.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Overview";
 
@@ -2882,4 +2890,17 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Technical Expiration Date";
 
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valid until %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Certificate expires on %@ at %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Please make sure to get a new digital certificate in time.";
+
+"HealthCertificate_ValidityState_Expired" = "Certificate Expired";
+
+"HealthCertificate_ValidityState_Expired_description" = "The expiration date has passed. Please get a new digital certificate.";
+
+"HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
+
+"HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
