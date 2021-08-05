@@ -37,9 +37,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		
 		// ADDING Card number: 1
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 6).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
@@ -50,9 +50,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// ADDING Card number: 2
 		localStatisticCell.swipeRight()
 		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 2).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
@@ -62,9 +62,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// ADDING Card number: 3
 		statisticsCell.swipeRight()
 		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 7).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
@@ -73,9 +73,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// ADDING Card number: 4
 		statisticsCell.swipeRight()
 		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 4).waitAndTap()
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
@@ -84,14 +84,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// ADDING Card number: 5
 		statisticsCell.swipeRight()
 		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 9).waitAndTap()
 
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
 		statisticsCell.swipeRight()
 		
 		// check for the text for the add button
