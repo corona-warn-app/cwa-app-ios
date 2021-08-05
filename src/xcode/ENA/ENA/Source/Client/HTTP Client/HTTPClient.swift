@@ -438,6 +438,11 @@ final class HTTPClient: Client {
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
+		if unencrypted {
+			Log.info("unencrypted traceWarningPackageDownload", log: .api)
+		} else {
+			Log.info("encrypted traceWarningPackageDownload", log: .api)
+		}
 		let url = unencrypted ?
 			configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId) :
 			configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
@@ -1382,6 +1387,11 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		country: String
 	) throws -> URLRequest {
+		if unencrypted {
+			Log.info("unencrypted traceWarningPackageDiscovery", log: .api)
+		} else {
+			Log.info("encrypted traceWarningPackageDiscovery", log: .api)
+		}
 		let url = unencrypted ?
 			configuration.traceWarningPackageDiscoveryURL(country: country) :
 			configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
