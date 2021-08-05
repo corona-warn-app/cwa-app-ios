@@ -100,7 +100,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 		
-		keyFigureCellModel.$selectedLocalStatistics
+		keyFigureCellModel.$regionStatisticsData
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.configureStatisticsCards(
@@ -168,59 +168,15 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			return
 		}
 
-		Log.debug("update with \(cellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
+		Log.debug("update with \(cellModel.regionStatisticsData.count) local stats", log: .localStatistics)
 
-		removeLocalStatisticsCards()
-
-		for singleSelectedLocalStatistics in cellModel.selectedLocalStatistics {
-			localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
-			let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
-			let regionStatistics: RegionStatisticsData
-			guard let region = localStatisticsRegion else {
-				Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-				return
-			}
-
-			switch region.regionType {
-			case .federalState:
-				let localFederalState = singleSelectedLocalStatistics.federalStateAndDistrictsData.federalStateData.first {
-					$0.federalState.rawValue == Int(localStatisticsRegion?.id ?? "0")
-				}
-				guard let federalState = localFederalState else {
-					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-					return
-				}
-				regionStatistics = RegionStatisticsData(
-					regionName: regionName,
-					id: federalState.federalState.rawValue,
-					updatedAt: federalState.updatedAt,
-					sevenDayIncidence: federalState.sevenDayIncidence
-				)
-
-			case .administrativeUnit:
-				let administrativeUnit = singleSelectedLocalStatistics.federalStateAndDistrictsData.administrativeUnitData.first {
-					$0.administrativeUnitShortID == UInt32(localStatisticsRegion?.id ?? "0")
-				}
-				guard let adminUnit = administrativeUnit else {
-					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
-					return
-				}
-
-				regionStatistics = RegionStatisticsData(
-					regionName: regionName,
-					id: Int(adminUnit.administrativeUnitShortID),
-					updatedAt: adminUnit.updatedAt,
-					sevenDayIncidence: adminUnit.sevenDayIncidence
-				)
-			}
-
+		for regionStatisticsData in cellModel.regionStatisticsData {
 			insertLocalStatistics(
 				store: store,
-				regionData: regionStatistics,
+				regionData: regionStatisticsData,
 				onInfoButtonTap: onInfoButtonTap,
 				onAccessibilityFocus: onAccessibilityFocus
 			)
-			onUpdate()
 		}
 	}
 	
@@ -254,11 +210,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					},
 					onDeleteTap: { [weak self] in
-						guard let region = self?.localStatisticsRegion else {
-							Log.error("Region can't be nil", log: .localStatistics, error: nil)
-							return
-						}
-						Log.info("removing \(private: regionData.id, public: "administrative unit") @ \(private: region.name, public: "district id")", log: .ui)
+						Log.info("removing \(private: regionData.region.id, public: "administrative unit") @ \(private: regionData.region.name, public: "district id")", log: .ui)
 
 						widthConstraint.isActive = false
 						baselineConstraints.forEach { $0.isActive = false }
@@ -270,15 +222,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 								statisticsCardView.alpha = 0
 							},
 							completion: { _ in
-								store.selectedLocalStatisticsRegions = store.selectedLocalStatisticsRegions
-									.filter { $0.id != String(regionData.id) }
-								if let cellModel = self?.cellModel {
-									cellModel.homeState.selectedLocalStatistics = cellModel.homeState.selectedLocalStatistics
-										.filter {
-											$0.localStatisticsRegion.id != String(regionData.id)
-										}
-								}
-
+								self?.cellModel?.remove(regionData.region)
 								self?.updateManagementCellState()
 							}
 						)
@@ -300,7 +244,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	private var cellModel: HomeStatisticsCellModel?
 	private var subscriptions = Set<AnyCancellable>()
-	private var localStatisticsRegion: LocalStatisticsRegion?
 	private var localStatisticsCache: LocalStatisticsCaching?
 
 	private var wasAlreadyShown = false
@@ -314,16 +257,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
 		}
-	}
-	
-	private func removeLocalStatisticsCards() {
-		stackView.arrangedSubviews.forEach {
-			if $0.tag == 2 {
-				stackView.removeArrangedSubview($0)
-				$0.removeFromSuperview()
-			}
-		}
-		stackView.layoutIfNeeded()
 	}
 	
 	private func configureManageLocalStatisticsCell(
@@ -357,8 +290,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
 				}, onFetchGroupData: { region in
-					self.localStatisticsRegion = region
-					self.cellModel?.homeState.fetchLocalStatistics(region: region)
+					self.cellModel?.addLocalStatistics(region: region)
 				}, onEditButtonTap: {
 					DispatchQueue.main.async {
 						self.setEditing(!Self.editingStatistics, animated: true)

@@ -48,7 +48,6 @@ class HomeState: ENStateHandlerUpdating {
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
 		statistics = store.statistics?.statistics ?? SAP_Internal_Stats_Statistics()
-		selectedLocalStatistics = localStatisticsProvider.cachedSelectedLocalStatisticsTuples
 
 		observeRisk()
 	}
@@ -65,6 +64,8 @@ class HomeState: ENStateHandlerUpdating {
 		case dataVerificationError
 	}
 
+	let localStatisticsProvider: LocalStatisticsProviding
+
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
 	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
@@ -72,7 +73,6 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var enState: ENStateHandler.State
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics
-	@OpenCombine.Published var selectedLocalStatistics: [SelectedLocalStatisticsTuple]
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -142,29 +142,11 @@ class HomeState: ENStateHandlerUpdating {
 				}
 			)
 			.store(in: &subscriptions)
-	}
-	
-	func fetchLocalStatistics(region: LocalStatisticsRegion) {
-		// check for the selected Region in persisted Regions
-		let selectedLocalStatisticsRegion = store.selectedLocalStatisticsRegions.filter({
-			$0.id == region.id
-		}).compactMap { $0 }.first
-		
-		// selected Region is not there in persisted Regions
-		if selectedLocalStatisticsRegion == nil {
-			DispatchQueue.main.async { [weak self] in
-				self?.updateLocalStatistics(selectedLocalStatisticsRegion: region)
-			}
-		}
-	}
 
-	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil, completion: { [weak self] result in
+		localStatisticsProvider.updateLocalStatistics { [weak self] result in
 			switch result {
 			case .success:
-				// persist the Region to the list of selected Regions
-				self?.store.selectedLocalStatisticsRegions.append(selectedLocalStatisticsRegion)
-				self?.updateSelectedLocalStatistics(self?.store.selectedLocalStatisticsRegions)
+				return
 			case .failure(let error):
 				// Propagate signature verification error to the user
 				if case CachingHTTPClient.CacheError.dataVerificationError = error {
@@ -172,14 +154,7 @@ class HomeState: ENStateHandlerUpdating {
 				}
 				Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
 			}
-		})
-	}
-	
-	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedLocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
-			self.selectedLocalStatistics = selectedLocalStatistics
-			Log.debug("fetched selected local statistics: \(private: selectedLocalStatistics) entities", log: .localStatistics)
-		})
+		}
 	}
 
 	// MARK: - Private
@@ -187,7 +162,6 @@ class HomeState: ENStateHandlerUpdating {
 	private (set) var store: Store
 
 	private let statisticsProvider: StatisticsProviding
-	private let localStatisticsProvider: LocalStatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
 
 	private let riskProvider: RiskProviding
