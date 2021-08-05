@@ -69,6 +69,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 
 	// MARK: - Internal
+
 	// swiftlint:disable:next function_parameter_count
 	func configure(
 		with keyFigureCellModel: HomeStatisticsCellModel,
@@ -144,96 +145,17 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onAccessibilityFocus: onAccessibilityFocus
 		)
 		configureLocalStatisticsCards(
-			store: store,
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus,
 			onUpdate: onUpdate
 		)
-		configureKeyFigureCells(
+		configureKeyFigureCards(
 			for: keyFigureCellModel.keyFigureCards,
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus
 		)
 
 		onUpdate()
-	}
-
-	func configureLocalStatisticsCards(
-		store: Store,
-		onInfoButtonTap:  @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void,
-		onUpdate: @escaping () -> Void
-	) {
-		guard let cellModel = cellModel else {
-			return
-		}
-
-		Log.debug("update with \(cellModel.regionStatisticsData.count) local stats", log: .localStatistics)
-
-		for regionStatisticsData in cellModel.regionStatisticsData {
-			insertLocalStatistics(
-				store: store,
-				regionData: regionStatisticsData,
-				onInfoButtonTap: onInfoButtonTap,
-				onAccessibilityFocus: onAccessibilityFocus
-			)
-		}
-	}
-	
-	func insertLocalStatistics(
-		store: Store,
-		regionData: RegionStatisticsData,
-		onInfoButtonTap:  @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
-	) {
-		let nibName = String(describing: HomeStatisticsCardView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
-
-		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
-			if !stackView.arrangedSubviews.isEmpty {
-				statisticsCardView.tag = 2
-				stackView.insertArrangedSubview(statisticsCardView, at: 1)
-
-				let widthConstraint = statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-				widthConstraint.isActive = true
-
-				var baselineConstraints: [NSLayoutConstraint] = []
-
-				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionData),
-					onInfoButtonTap: {
-						onInfoButtonTap()
-					},
-					onAccessibilityFocus: { [weak self] in
-						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: true)
-						onAccessibilityFocus()
-						UIAccessibility.post(notification: .layoutChanged, argument: nil)
-					},
-					onDeleteTap: { [weak self] in
-						Log.info("removing \(private: regionData.region.id, public: "administrative unit") @ \(private: regionData.region.name, public: "district id")", log: .ui)
-
-						widthConstraint.isActive = false
-						baselineConstraints.forEach { $0.isActive = false }
-
-						UIView.animate(
-							withDuration: 0.25,
-							animations: {
-								statisticsCardView.isHidden = true
-								statisticsCardView.alpha = 0
-							},
-							completion: { _ in
-								self?.cellModel?.remove(regionData.region)
-								self?.updateManagementCellState()
-							}
-						)
-					}
-				)
-				statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
-				statisticsCardView.setEditMode(Self.editingStatistics, animated: false)
-
-				baselineConstraints = configureBaselines(statisticsCardView: statisticsCardView)
-			}
-		}
 	}
 
 	// MARK: - Private
@@ -303,8 +225,71 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			)
 		}
 	}
+
+	private func configureLocalStatisticsCards(
+		onInfoButtonTap:  @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
+	) {
+		guard let cellModel = cellModel else {
+			return
+		}
+
+		Log.debug("update with \(cellModel.regionStatisticsData.count) local stats", log: .localStatistics)
+
+		for regionStatisticsData in cellModel.regionStatisticsData {
+			let nibName = String(describing: HomeStatisticsCardView.self)
+			let nib = UINib(nibName: nibName, bundle: .main)
+
+			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
+				if !stackView.arrangedSubviews.isEmpty {
+					statisticsCardView.tag = 2
+					stackView.insertArrangedSubview(statisticsCardView, at: 1)
+
+					let widthConstraint = statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+					widthConstraint.isActive = true
+
+					var baselineConstraints: [NSLayoutConstraint] = []
+
+					statisticsCardView.configure(
+						viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionStatisticsData),
+						onInfoButtonTap: {
+							onInfoButtonTap()
+						},
+						onAccessibilityFocus: { [weak self] in
+							self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: true)
+							onAccessibilityFocus()
+							UIAccessibility.post(notification: .layoutChanged, argument: nil)
+						},
+						onDeleteTap: { [weak self] in
+							Log.info("removing \(private: regionStatisticsData.region.id, public: "administrative unit") @ \(private: regionStatisticsData.region.name, public: "district id")", log: .ui)
+
+							widthConstraint.isActive = false
+							baselineConstraints.forEach { $0.isActive = false }
+
+							UIView.animate(
+								withDuration: 0.25,
+								animations: {
+									statisticsCardView.isHidden = true
+									statisticsCardView.alpha = 0
+								},
+								completion: { _ in
+									self?.cellModel?.remove(regionStatisticsData.region)
+									self?.updateManagementCellState()
+								}
+							)
+						}
+					)
+					statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+					statisticsCardView.setEditMode(Self.editingStatistics, animated: false)
+
+					baselineConstraints = configureBaselines(statisticsCardView: statisticsCardView)
+				}
+			}
+		}
+	}
 	
-	private func configureKeyFigureCells(
+	private func configureKeyFigureCards(
 		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
 		onInfoButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
