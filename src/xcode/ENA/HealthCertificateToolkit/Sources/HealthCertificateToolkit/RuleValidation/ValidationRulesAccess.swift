@@ -36,7 +36,7 @@ public struct ValidationRulesAccess: ValidationRulesAccessing {
                 guard case let .map(cborRuleMap) = cborRule else {
                     return .failure(.CBOR_DECODING_FAILED(nil))
                 }
-                let rule = try JSONDecoder().decode(Rule.self, from: JSONSerialization.data(withJSONObject: cborRuleMap.anyMapTrimmingWhitSpaces))
+                let rule = try JSONDecoder().decode(Rule.self, from: JSONSerialization.data(withJSONObject: cborRuleMap.anyMapWithTrimmingWhiteSpaces))
                 rules.append(rule)
             }
             return .success(rules)
