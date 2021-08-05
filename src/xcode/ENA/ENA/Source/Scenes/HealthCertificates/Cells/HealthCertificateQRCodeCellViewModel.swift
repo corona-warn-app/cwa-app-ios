@@ -75,9 +75,6 @@ struct HealthCertificateQRCodeCellViewModel {
 		case details
 	}
 
-	let backgroundColor: UIColor = .enaColor(for: .cellBackground2)
-	let borderColor: UIColor = .enaColor(for: .hairline)
-
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
 	var title: String? {
@@ -98,7 +95,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	}
 
 	var subtitle: String? {
-		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon) {
+		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon || (healthCertificate.type == .test && healthCertificate.validityState == .expired)) {
 			switch healthCertificate.entry {
 			case .vaccination(let vaccinationEntry):
 				return vaccinationEntry.localVaccinationDate.map {

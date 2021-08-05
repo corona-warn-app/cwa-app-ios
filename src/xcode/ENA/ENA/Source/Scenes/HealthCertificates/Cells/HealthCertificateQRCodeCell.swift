@@ -40,9 +40,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(with cellViewModel: HealthCertificateQRCodeCellViewModel) {
 		self.cellViewModel = cellViewModel
 
-		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor
-		backgroundContainerView.layer.borderColor = cellViewModel.borderColor.cgColor
-
 		qrCodeView.configure(with: cellViewModel.qrCodeViewModel)
 
 		titleLabel.text = cellViewModel.title
@@ -65,6 +62,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let backgroundContainerView: UIView = {
 		let backgroundContainerView = UIView()
+		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
+		backgroundContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 
 		if #available(iOS 13.0, *) {
 			backgroundContainerView.layer.cornerCurve = .continuous

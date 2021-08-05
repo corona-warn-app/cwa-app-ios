@@ -62,7 +62,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		
 		// Check if a submission is already in progress
 		guard submissionState == .readyForSubmission else {
-			Log.warning("Analytics submission abord due to submission is already in progress", log: .ppa)
+			Log.warning("Analytics submission abort due to submission is already in progress", log: .ppa)
 			completion?(.failure(.submissionInProgress))
 			return
 		}
@@ -71,7 +71,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		
 		// Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
-			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
+			Log.warning("Analytics submission abort due to missing users consent", log: .ppa)
 			submissionState = .readyForSubmission
 			completion?(.failure(.userConsentError))
 			return
@@ -88,7 +88,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			self?.probabilityToSubmitExposureWindows = ppaConfigData.probabilityToSubmitExposureWindows
 			
 			guard let strongSelf = self else {
-				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
+				Log.warning("Analytics submission abort due fail at creating strong self", log: .ppa)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.generalError))
 				return
@@ -97,7 +97,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			// Check configuration parameter
 			let random = Double.random(in: 0...1)
 			if random > strongSelf.probabilityToSubmitPPAUsageData {
-				Log.warning("Analytics submission abord due to randomness. Random is: \(random), probabilityToSubmit is: \(strongSelf.probabilityToSubmitPPAUsageData)", log: .ppa)
+				Log.warning("Analytics submission abort due to randomness. Random is: \(random), probabilityToSubmit is: \(strongSelf.probabilityToSubmitPPAUsageData)", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.probibilityError))
 				return
@@ -105,7 +105,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// Last submission check
 			if strongSelf.submissionWithinLast23Hours {
-				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+				Log.warning("Analytics submission abort due to submission last 23 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.submission23hoursError))
 				return
@@ -113,7 +113,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// Onboarding check
 			if strongSelf.onboardingCompletedWithinLast24Hours {
-				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+				Log.warning("Analytics submission abort due to onboarding completed last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.onboardingError))
 				return
@@ -121,7 +121,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// App Reset check
 			if strongSelf.appResetWithinLast24Hours {
-				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+				Log.warning("Analytics submission abort due to app resetted last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.appResetError))
 				return
