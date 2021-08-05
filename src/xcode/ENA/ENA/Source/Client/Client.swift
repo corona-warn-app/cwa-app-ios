@@ -172,6 +172,7 @@ protocol Client {
 	///   - packageId: The packageID for the package we want to download
 	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler

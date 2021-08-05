@@ -236,6 +236,7 @@ extension ClientMock: Client {
 	}
 	
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler

@@ -433,20 +433,14 @@ final class HTTPClient: Client {
 	}
 
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
-		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
-		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
-	}
-
-	func encryptedTraceWarningPackageDownload(
-		country: String,
-		packageId: Int,
-		completion: @escaping TraceWarningPackageDownloadCompletionHandler
-	) {
-		let url = configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
+		let url = unencrypted ?
+			configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId) :
+			configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
