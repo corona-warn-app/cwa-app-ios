@@ -15,19 +15,11 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Init
 
-	init(store: AppConfigCaching & DeviceTimeChecking) {
+	init(store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring) {
 		self.store = store
 	}
 
-	// MARK: - Protocol DeviceTimeCheckProtocol
-
-	// MARK: - Internal
-
-	enum TimeCheckResult: Int, Codable {
-		case correct
-		case assumedCorrect
-		case incorrect
-	}
+	// MARK: - Protocol DeviceTimeChecking
 
 	var isDeviceTimeCorrect: Bool {
 		return store.deviceTimeCheckResult == .correct || store.deviceTimeCheckResult == .assumedCorrect
@@ -45,9 +37,9 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 			store.deviceTimeLastStateChange = Date()
 		}
 
-        if store.deviceTimeCheckResult == .correct {
-            store.wasDeviceTimeErrorShown = false
-        }
+		if store.deviceTimeCheckResult == .correct {
+			store.wasDeviceTimeErrorShown = false
+		}
 	}
 
 	func resetDeviceTimeFlags(configUpdateSuccessful: Bool) {
@@ -56,35 +48,34 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 		store.wasDeviceTimeErrorShown = false
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
-	private let store: AppConfigCaching & DeviceTimeChecking
-
-	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
-        let killSwitchActive = isDeviceTimeCheckKillSwitchActive(config: store.appConfigMetadata?.appConfig)
-		guard !killSwitchActive,
-			  configUpdateSuccessful else {
-            return .assumedCorrect
-        }
-		let twoHourIntevall: Double = 2 * 60 * 60
-		let serverTimeMinus2Hours = serverTime.addingTimeInterval(-twoHourIntevall)
-		let serverTimePlus2Hours = serverTime.addingTimeInterval(twoHourIntevall)
-		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime) ? .correct : .incorrect
+	enum TimeCheckResult: Int, Codable {
+		case correct
+		case assumedCorrect
+		case incorrect
 	}
 
-	private func isDeviceTimeCheckKillSwitchActive(config: SAP_Internal_V2_ApplicationConfigurationIOS?) -> Bool {
+	// MARK: - Private
+
+	private let store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
+
+	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
+
+		var killSwitchActive = store.appConfigMetadata?.appConfig.value(for: .disableDeviceTimeCheck) ?? false
 		#if !RELEASE
 		if store.dmKillDeviceTimeCheck {
-			return true
+			killSwitchActive = true
 		}
 		#endif
-		guard let config = config else {
-			return false
-		}
 
-		let killSwitchFeature = config.appFeatures.appFeatures.first {
-			$0.label == "disable-device-time-check"
+		guard !killSwitchActive,
+			  configUpdateSuccessful else {
+			return .assumedCorrect
 		}
-		return killSwitchFeature?.value == 1
+		let twoHourIntervall: Double = 2 * 60 * 60
+		let serverTimeMinus2Hours = serverTime.addingTimeInterval(-twoHourIntervall)
+		let serverTimePlus2Hours = serverTime.addingTimeInterval(twoHourIntervall)
+		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime) ? .correct : .incorrect
 	}
 }
