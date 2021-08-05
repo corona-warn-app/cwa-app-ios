@@ -24,6 +24,8 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
 	}
 
+	// MARK: - Tests
+
     func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {
 		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
