@@ -11,7 +11,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
 	var featureProvider: AppFeatureProviding {
-		AppFeatureProvider(appConfiguration: self)
+		AppFeatureProvider(appConfigurationProvider: self)
 	}
 
 	private var config: SAP_Internal_V2_ApplicationConfigurationIOS

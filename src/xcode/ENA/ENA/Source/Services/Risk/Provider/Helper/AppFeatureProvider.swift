@@ -12,15 +12,15 @@ class AppFeatureProvider: AppFeatureProviding {
 
 	// MARK: - Init
 	init(
-		appConfiguration: AppConfigurationProviding
+		appConfigurationProvider: AppConfigurationProviding
 	) {
-		self.appConfiguration = appConfiguration
+		self.appConfigurationProvider = appConfigurationProvider
 	}
 
 	// MARK: - Protocol AppFeaturesProviding
 
 	func value(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool {
-		guard let configuration = appConfiguration?.currentAppConfig.value else {
+		guard let configuration = appConfigurationProvider?.currentAppConfig.value else {
 			return false
 		}
 		let feature = configuration.appFeatures.appFeatures.first {
@@ -31,7 +31,7 @@ class AppFeatureProvider: AppFeatureProviding {
 
 	// MARK: - Private
 
-	private weak var appConfiguration: AppConfigurationProviding?
+	private weak var appConfigurationProvider: AppConfigurationProviding?
 
 }
 

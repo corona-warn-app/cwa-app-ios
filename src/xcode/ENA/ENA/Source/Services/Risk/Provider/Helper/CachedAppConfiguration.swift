@@ -87,7 +87,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
 	var featureProvider: AppFeatureProviding {
-		let appFeatureProvider = AppFeatureProvider(appConfiguration: self)
+		let appFeatureProvider = AppFeatureProvider(appConfigurationProvider: self)
 		#if !RELEASE
 		return AppFeatureProviderDeviceTimeCheckDecorator(appFeatureProvider, store: store)
 		#else
