@@ -70,8 +70,9 @@ class HomeStatisticsCardViewModel {
 				yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,
 				otherDateString: AppStrings.Statistics.Card.Incidence.date
 			)
-			primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
 		}
+
+		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
 	}
 	
 	// swiftlint:enable cyclomatic_complexity
