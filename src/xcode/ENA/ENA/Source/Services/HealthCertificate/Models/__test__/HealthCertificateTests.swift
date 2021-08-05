@@ -86,14 +86,10 @@ class HealthCertificateTests: XCTestCase {
 		}
 		
 		// THEN
-		XCTAssertNil(healthCertificate)
-		XCTAssertNotNil(error)
-
-		guard case let .HC_JSON_SCHEMA_INVALID(validationError) = error,
-			  case .VALIDATION_RESULT_FAILED = validationError else {
-			XCTFail("Unexpected error returned")
-			return
-		}
+		// According to the tech specs now any value can be accepted as a date
+		//https://github.com/corona-warn-app/cwa-app-tech-spec/blob/5d0c104b512eb601d22a1926e204222d8feddf6c/docs/spec/dgc-overview-client.md#sample-data-for-formatting-the-date-of-birth
+		XCTAssertNotNil(healthCertificate)
+		XCTAssertNil(error)
 	}
 	
 	func testGIVEN_TwoCertificates_WHEN_Compare1_THEN_CompareIsCorrect() throws {
