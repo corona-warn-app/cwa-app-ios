@@ -21,6 +21,8 @@ protocol AppConfigurationProviding: AnyObject {
 
 	/// a publisher for the current app configuration
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never> { get }
+
+	var featureProvider: AppFeatureProvider { get }
 }
 
 /// Some requirements for app configuration handling

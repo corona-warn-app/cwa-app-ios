@@ -247,11 +247,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			wifiClient: wifiClient,
 			store: store
 		)
-		
+
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore
+			eventStore: eventStore,
+			appFeatureProvider: appConfigurationProvider.featureProvider
 		)
 
 		let checkinRiskCalculation = CheckinRiskCalculation(

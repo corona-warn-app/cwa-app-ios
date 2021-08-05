@@ -12,14 +12,12 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 	init(
 		client: AppConfigurationFetching,
-		store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring,
-		deviceTimeCheck: DeviceTimeCheckProtocol? = nil
+		store: AppConfigCaching & DeviceTimeChecking
 	) {
 		Log.debug("CachedAppConfiguration init called", log: .appConfig)
 
 		self.client = client
 		self.store = store
-		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(Self.defaultAppConfig)
 
 		guard shouldFetch() else { return }
@@ -88,6 +86,9 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	}
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+	var featureProvider: AppFeatureProvider {
+		AppFeatureProvider(appConfiguration: self)
+	}
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
@@ -106,11 +107,14 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching & DeviceTimeChecking
-	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	private var subscriptions = [AnyCancellable]()
 	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
 	private var requestIsRunning: Bool { !promises.isEmpty }
+
+	private var deviceTimeCheck: DeviceTimeCheckProtocol {
+		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
+	}
 
 	/// The location of the default app configuration.
 	private static var defaultAppConfigPath: URL {

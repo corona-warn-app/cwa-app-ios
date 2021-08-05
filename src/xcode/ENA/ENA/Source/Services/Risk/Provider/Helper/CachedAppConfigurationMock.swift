@@ -10,6 +10,9 @@ import ZIPFoundation
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+	var featureProvider: AppFeatureProvider {
+		AppFeatureProvider(appConfiguration: self)
+	}
 
 	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
 

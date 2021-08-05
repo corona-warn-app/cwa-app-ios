@@ -29,15 +29,17 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		client: Client,
 		store: Store,
 		eventStore: EventStoringProviding,
+		appFeatureProvider: AppFeatureProviding,
 		countries: [Country.ID] = ["DE"],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.client = client
 		self.store = store
 		self.eventStore = eventStore
+		self.appFeatureProvider = appFeatureProvider
 		self.countries = countries
 		self.signatureVerifier = signatureVerifier
-		
+
 		self.matcher = TraceWarningMatcher(eventStore: eventStore)
 	}
 	
@@ -154,6 +156,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private let client: Client
 	private let store: Store
 	private let eventStore: EventStoringProviding
+	private let appFeatureProvider: AppFeatureProviding
 	private let countries: [Country.ID]
 	private let matcher: TraceWarningMatching
 	private let signatureVerifier: SignatureVerification
@@ -231,17 +234,20 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
 		
 		// 4. Determine availablePackagesOnCDN (http discovery)
-		client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
-			
-			switch result {
-			case let .success(traceWarningDiscovery):
-				self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
-				
-			case let .failure(error):
-				Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
-				completion(.failure(error))
+		client.traceWarningPackageDiscovery(
+			unencrypted: appFeatureProvider.value(for: .unencryptedCheckinsEnabled),
+			country: country,
+			completion: { [weak self] result in
+				switch result {
+				case let .success(traceWarningDiscovery):
+					self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
+
+				case let .failure(error):
+					Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
+					completion(.failure(error))
+				}
 			}
-		})
+		)
 	}
 	
 	private func processDiscoverdPackages(
@@ -354,7 +360,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					completion(.failure(.identicationError))
 					return
 				}
-				
+
 				// 9. Verfify signature for every not-empty package.
 				guard !packageDownloadResponse.isEmpty,
 					  let sapDownloadedPackage = packageDownloadResponse.package else {
@@ -377,7 +383,9 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					completion(.failure(.verificationError))
 					return
 				}
-				
+
+				// decode encryption here ?
+
 				Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
 				
 				// 10.+ 11. Match the verified package and store them.
