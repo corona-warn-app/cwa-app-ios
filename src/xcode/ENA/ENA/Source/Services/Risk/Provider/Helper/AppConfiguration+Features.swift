@@ -12,4 +12,3 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS {
 		case unencryptedCheckinsEnabled = "unencrypted-checkins-enabled"
 	}
 }
-
