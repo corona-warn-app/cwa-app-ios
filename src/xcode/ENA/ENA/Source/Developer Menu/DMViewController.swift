@@ -143,6 +143,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
 		case .adHocPosterGeneration:
 			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: true)
+		case .appFeatures:
+			vc = DMAppFeaturesViewController(store: store)
 		}
 
 		if let vc = vc {

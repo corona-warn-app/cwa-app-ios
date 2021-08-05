@@ -994,6 +994,8 @@
 		BA00FED026BC2D5F009DA07F /* AppFeatureDeviceTimeCheckDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FECF26BC2D5F009DA07F /* AppFeatureDeviceTimeCheckDecorator.swift */; };
 		BA00FED226BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FED126BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift */; };
 		BA00FED526BC2FC7009DA07F /* AppFeatureMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FED326BC2FC2009DA07F /* AppFeatureMocks.swift */; };
+		BA00FED926BC357F009DA07F /* DMAppFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FED826BC356D009DA07F /* DMAppFeaturesViewController.swift */; };
+		BA00FEDB26BC3587009DA07F /* DMAppFeaturesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FEDA26BC3586009DA07F /* DMAppFeaturesViewModel.swift */; };
 		BA01BA64264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA61264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift */; };
 		BA01BA65264423CF00D906B6 /* HealthCertificateInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA62264423CF00D906B6 /* HealthCertificateInfoViewController.swift */; };
 		BA01BA66264423CF00D906B6 /* HealthCertificateInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */; };
@@ -2326,6 +2328,8 @@
 		BA00FECF26BC2D5F009DA07F /* AppFeatureDeviceTimeCheckDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureDeviceTimeCheckDecorator.swift; sourceTree = "<group>"; };
 		BA00FED126BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureUnencryptedEventsDecorator.swift; sourceTree = "<group>"; };
 		BA00FED326BC2FC2009DA07F /* AppFeatureMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureMocks.swift; sourceTree = "<group>"; };
+		BA00FED826BC356D009DA07F /* DMAppFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppFeaturesViewController.swift; sourceTree = "<group>"; };
+		BA00FEDA26BC3586009DA07F /* DMAppFeaturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppFeaturesViewModel.swift; sourceTree = "<group>"; };
 		BA01BA61264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateAttributedTextCell.swift; sourceTree = "<group>"; };
 		BA01BA62264423CF00D906B6 /* HealthCertificateInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateInfoViewController.swift; sourceTree = "<group>"; };
 		BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateInfoViewModel.swift; sourceTree = "<group>"; };
@@ -6179,30 +6183,31 @@
 			children = (
 				BA6D164E255ADDA300ED3492 /* ConfigureAbleCells */,
 				01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */,
-				013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */,
 				B1F82DF124718C7300E2E56A /* DMBackendConfigurationViewController.swift */,
+				013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */,
 				AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */,
 				B1FC2D1C24D9C87F00083C81 /* DMKeysViewController.swift */,
 				B16457B424DC11EF002879EB /* DMLastSubmissionRequetViewController.swift */,
+				EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */,
+				504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */,
 				ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */,
 				9417BA94252B6B5100AD4053 /* DMSQLiteErrorViewController.swift */,
-				EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */,
-				94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */,
 				B18755D024DC45CA00A9202E /* DMStoreViewController.swift */,
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
-				504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */,
+				94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */,
+				BA00FED726BC3542009DA07F /* DMAppFeatures */,
+				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
+				5084889E26822D53004299E6 /* DMErrorLogSharing */,
 				ABE9612925EFEB4E00D0F699 /* DMInstallationDate */,
 				358249E925E910AF00BFF303 /* DMLogging */,
-				5084889E26822D53004299E6 /* DMErrorLogSharing */,
-				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
-				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
-				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
+				50680B8A26163A97002EA256 /* DMMostRecentTraceLocationCheckedInto */,
 				50B5058725CAF3C500EEA380 /* DMOTPService */,
+				3494D91D261DD41700EC532C /* DMPosterGeneration */,
 				506AB7492658007A004AE743 /* DMPPAActualData */,
+				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
 				504E8B0A25D400A400CAFBDF /* DMPPAnalytics */,
 				50FE68092615C99F00A2B2E7 /* DMRecentCreatedEvent */,
-				50680B8A26163A97002EA256 /* DMMostRecentTraceLocationCheckedInto */,
-				3494D91D261DD41700EC532C /* DMPosterGeneration */,
+				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -6437,6 +6442,15 @@
 				BA00FED326BC2FC2009DA07F /* AppFeatureMocks.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA00FED726BC3542009DA07F /* DMAppFeatures */ = {
+			isa = PBXGroup;
+			children = (
+				BA00FED826BC356D009DA07F /* DMAppFeaturesViewController.swift */,
+				BA00FEDA26BC3586009DA07F /* DMAppFeaturesViewModel.swift */,
+			);
+			path = DMAppFeatures;
 			sourceTree = "<group>";
 		};
 		BA01BA5E264423B000D906B6 /* HealthCertificates */ = {
@@ -8699,6 +8713,7 @@
 				01A4DCFE25926A66007D5794 /* HomeImageItemViewModel.swift in Sources */,
 				0138F65525F1174200A9B075 /* TraceLocationsOverviewViewModel.swift in Sources */,
 				01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */,
+				BA00FEDB26BC3587009DA07F /* DMAppFeaturesViewModel.swift in Sources */,
 				01E1026A26690CCF009ED803 /* local_statistics.pb.swift in Sources */,
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
 				EB67B5E7262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift in Sources */,
@@ -8774,6 +8789,7 @@
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
 				8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */,
 				BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */,
+				BA00FED926BC357F009DA07F /* DMAppFeaturesViewController.swift in Sources */,
 				0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */,
 				35327FF6256D4CE600C36A44 /* UIStackView+prune.swift in Sources */,
 				347FBB622610D77400672770 /* TraceLocationDetailsLocationCell.swift in Sources */,
