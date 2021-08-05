@@ -173,10 +173,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var dscList: DSCListMetaData?
 
 	// MARK: - Protocol AppFeaturesStoring
-	#if !RELEASE
 	var dmKillDeviceTimeCheck = false
 	var unencryptedCheckinsEnabled = false
-	#endif
 }
 
 #endif

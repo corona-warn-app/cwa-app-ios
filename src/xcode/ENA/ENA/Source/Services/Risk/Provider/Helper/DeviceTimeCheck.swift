@@ -19,7 +19,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 		self.store = store
 	}
 
-	// MARK: - Protocol DeviceTimeCheckProtocol
+	// MARK: - Protocol DeviceTimeChecking
 
 	var isDeviceTimeCorrect: Bool {
 		return store.deviceTimeCheckResult == .correct || store.deviceTimeCheckResult == .assumedCorrect
