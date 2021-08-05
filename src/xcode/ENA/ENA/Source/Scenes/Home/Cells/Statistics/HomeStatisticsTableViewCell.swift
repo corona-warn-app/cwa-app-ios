@@ -237,14 +237,13 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		Log.debug("update with \(cellModel.regionStatisticsData.count) local stats", log: .localStatistics)
 
-		for regionStatisticsData in cellModel.regionStatisticsData {
+		for regionStatisticsData in cellModel.regionStatisticsData.reversed() {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
 
 			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
 				if !stackView.arrangedSubviews.isEmpty {
-					statisticsCardView.tag = 2
-					stackView.insertArrangedSubview(statisticsCardView, at: 1)
+					stackView.addArrangedSubview(statisticsCardView)
 
 					let widthConstraint = statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
 					widthConstraint.isActive = true
@@ -327,7 +326,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	@discardableResult
 	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) -> [NSLayoutConstraint] {
 		let cardViewCount = stackView.arrangedSubviews.count
-		if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+		if cardViewCount > 2, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
 			let constraints = [
 				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
 				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
