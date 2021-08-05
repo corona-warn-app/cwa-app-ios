@@ -10,7 +10,7 @@ protocol LocalStatisticsProviding {
 
 	func add(_ region: LocalStatisticsRegion)
 	func remove(_ region: LocalStatisticsRegion)
-	func updateLocalStatistics(completion: @escaping (Result<Void, Error>) -> Void)
+	func updateLocalStatistics(completion: ((Result<Void, Error>) -> Void)?)
 }
 
 protocol LocalStatisticsFetching {

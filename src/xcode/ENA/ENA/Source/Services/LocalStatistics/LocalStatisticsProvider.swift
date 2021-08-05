@@ -23,6 +23,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	func add(_ region: LocalStatisticsRegion) {
 		store.selectedLocalStatisticsRegions.append(region)
 		updatePublisherFromStore()
+		updateLocalStatistics()
 	}
 
 	func remove(_ region: LocalStatisticsRegion) {
@@ -33,7 +34,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		updatePublisherFromStore()
 	}
 
-	func updateLocalStatistics(completion: @escaping (Result<Void, Error>) -> Void) {
+	func updateLocalStatistics(completion: ((Result<Void, Error>) -> Void)? = nil) {
 		let fetchedLocalStatisticsQueue = DispatchQueue(label: "com.sap.LocalStatisticsProvider.fetchedLocalStatistics")
 
 		var _fetchedLocalStatistics = [LocalStatisticsMetadata]()
