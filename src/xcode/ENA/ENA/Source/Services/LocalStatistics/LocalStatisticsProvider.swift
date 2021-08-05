@@ -132,11 +132,12 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 				Log.error(error.localizedDescription, log: .vaccination)
 				switch error {
 				case URLSessionError.notModified:
-					var localStatistics = self.store.localStatistics.filter({
-						$0.groupID == groupID
-					}).compactMap { $0 }.first
-					// TODO: Check if this is actually set
-					localStatistics?.refreshLastLocalStatisticsFetchDate()
+					if let cachedIndex = self.store.localStatistics.firstIndex(where: { $0.groupID == groupID }) {
+						var cachedLocalStatistics = self.store.localStatistics[cachedIndex]
+						cachedLocalStatistics.refreshLastLocalStatisticsFetchDate()
+						self.store.localStatistics.remove(at: cachedIndex)
+						self.store.localStatistics.append(cachedLocalStatistics)
+					}
 				default:
 					break
 				}
@@ -153,17 +154,15 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	}
 
 	private func shouldFetch(store: LocalStatisticsCaching, groupID: StatisticsGroupIdentifier) -> Bool {
-		let localStatistics = store.localStatistics.filter({
-			$0.groupID == groupID
-		}).compactMap { $0 }.first
-		if localStatistics == nil { return true }
-
-		// naive cache control
-		guard let lastFetch = localStatistics?.lastLocalStatisticsFetchDate else {
+		guard let localStatistics = self.store.localStatistics.first(where: { $0.groupID == groupID }) else {
 			return true
 		}
-		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetch))) >= 300)", log: .localStatistics)
-		return abs(Date().timeIntervalSince(lastFetch)) >= 300
+
+		// naive cache control
+		let lastFetchDate = localStatistics.lastLocalStatisticsFetchDate
+		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetchDate))) >= 300)", log: .localStatistics)
+
+		return abs(Date().timeIntervalSince(lastFetchDate)) >= 300
 	}
 
 	private func regionStatisticsData(for regions: [LocalStatisticsRegion], with data: [LocalStatisticsMetadata]) -> [RegionStatisticsData] {
