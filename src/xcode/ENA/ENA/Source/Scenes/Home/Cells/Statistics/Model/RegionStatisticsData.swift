@@ -10,6 +10,16 @@ struct RegionStatisticsData {
 
 	init(
 		region: LocalStatisticsRegion,
+		updatedAt: Int64? = nil,
+		sevenDayIncidence: SAP_Internal_Stats_SevenDayIncidenceData? = nil
+	) {
+		self.region = region
+		self.updatedAt = updatedAt
+		self.sevenDayIncidence = sevenDayIncidence
+	}
+
+	init(
+		region: LocalStatisticsRegion,
 		localStatisticsData: [SAP_Internal_Stats_LocalStatistics]
 	) {
 		self.region = region
