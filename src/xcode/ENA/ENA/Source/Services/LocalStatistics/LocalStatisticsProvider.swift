@@ -21,6 +21,10 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	var regionStatisticsData = OpenCombine.CurrentValueSubject<[RegionStatisticsData], Never>([])
 
 	func add(_ region: LocalStatisticsRegion) {
+		guard !store.selectedLocalStatisticsRegions.contains(region) else {
+			return
+		}
+
 		store.selectedLocalStatisticsRegions.append(region)
 		updatePublisherFromStore()
 		updateLocalStatistics()
