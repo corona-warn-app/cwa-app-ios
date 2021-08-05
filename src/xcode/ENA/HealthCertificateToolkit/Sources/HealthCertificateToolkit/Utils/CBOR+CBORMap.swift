@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import SwiftCBOR
 
 extension Dictionary where Key == CBOR, Value == CBOR {
     var cborMapWithTrimmingWhiteSpaces: [CBOR: CBOR] {
