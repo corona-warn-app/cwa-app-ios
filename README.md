@@ -28,15 +28,16 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 ### Setup
 
-1. Install Xcode 11.5 or higher
-2. Select the right app scheme.
+1. Install Xcode 12.4
+2. Open [ENA.xcworkspace](./src/xcode/ENA.xcworkspace)
+3. Select the right app scheme.
 
    We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
 
-3. Set the user-defined variable to your development team
+4. Set the user-defined variable to your development team
 
    In the [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj) file, set IPHONE_APP_DEV_TEAM for the build setting `Community` to your development team
-4. Install SwiftLint
+5. Install SwiftLint
 
    ```console
    brew install swiftlint
@@ -46,7 +47,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    This particular version of SwiftLint does not detect a certain set of issues, which our CI (currently running Xcode 12.4) does.
    To mitigate this problem we use a self compiled version of [SwiftLint fixing this problem](https://github.com/realm/SwiftLint/pull/3618). This version id tracked by `git lfs` which needs to be installed or supported by your git client.
 
-5. (Optional) Set up fastlane:
+6. (Optional) Set up fastlane:
    Make sure you have the latest version of the Xcode command line tools installed:
 
    ```console
@@ -57,12 +58,12 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    cd src/xcode && bundle install --path vendor/bundle
    ```
 
-6. (Optional) Add code snippet to Xcode:
-CodeSnipets are located inside the folder 'CodeSnippets'.
-Copy MARKs.codesnippet  to Xcode UserData folder:
- ```console
- cp CodeSnippets/MARKs.codesnippet ~/Library/Developer/Xcode/UserData/CodeSnippets/
- ```
+7. (Optional) Add code snippet to Xcode:
+   CodeSnipets are located inside the folder 'CodeSnippets'.
+   Copy MARKs.codesnippet  to Xcode UserData folder:
+   ```console
+   cp CodeSnippets/MARKs.codesnippet ~/Library/Developer/Xcode/UserData/CodeSnippets/
+   ```
 
 ### Build
 
