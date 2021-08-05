@@ -161,7 +161,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
 					switch result {
 					case .success:
-						Log.info("KeyPackageDownload: Succeded downloading \(downloadMode.title) key packages for country id: \(countryId).", log: .riskDetection)
+						Log.info("KeyPackageDownload: Succeeded downloading \(downloadMode.title) key packages for country id: \(countryId).", log: .riskDetection)
 					case .failure(let error):
 						Log.info("KeyPackageDownload: Failed downloading \(downloadMode.title) key packages for country id: \(countryId).", log: .riskDetection)
 						errors.append(error)
