@@ -170,7 +170,7 @@ final class PPAAnalyticsTestResultCollector {
 
 				updateTestResultHoursSinceTestRegistration(diffComponents.hour, testType: type)
 
-				Log.info("update TestResultMetadataof type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
+				Log.info("update TestResultMetadata of type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
 
 			case .expired, .invalid:
 				break

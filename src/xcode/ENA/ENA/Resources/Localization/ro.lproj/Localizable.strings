@@ -1463,6 +1463,14 @@
 
 "local_notifications_testresults_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
 
+"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+
+"local_notifications_expiringSoon_body" = "Verificați valabilitatea certificatelor dvs.";
+
+"local_notifications_expired_title" = "Corona-Warn-App";
+
+"local_notifications_expired_body" = "Verificați valabilitatea certificatelor dvs.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Sumar";
 
@@ -2882,4 +2890,17 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Data de expirare tehnică";
 
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valabil până la %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Certificatul expiră pe %@ la %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
+
+"HealthCertificate_ValidityState_Expired" = "Certificat expirat";
+
+"HealthCertificate_ValidityState_Expired_description" = "Data de expirare a trecut. Obțineți un certificat digital nou.";
+
+"HealthCertificate_ValidityState_Invalid" = "Certificat (Semnătură) nevalabil(ă)";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
 

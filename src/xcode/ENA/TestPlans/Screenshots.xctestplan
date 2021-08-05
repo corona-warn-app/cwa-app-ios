@@ -80,6 +80,10 @@
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_ShowCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_TestCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_shownConsentScreenAndDisclaimer()",
+        "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_country_picker()",
+        "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()",
+        "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_invalid()",
+        "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_valid()",
         "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_country_picker()",
         "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()"
       ],

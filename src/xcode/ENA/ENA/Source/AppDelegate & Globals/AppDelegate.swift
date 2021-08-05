@@ -104,6 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		Log.info("Application did finish launching.", log: .appLifecycle)
+
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
@@ -114,12 +116,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
+			didSetupUI = true
 			return true
 		}
 
 		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
-		let route = routeFromLaunchOptions(launchOptions)
-		setupUI(route)
+		// Route will be executed in 'applicationDidBecomeActive'
+		route = routeFromLaunchOptions(launchOptions)
+
 		QuickAction.setup()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -142,6 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -156,7 +161,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
-		Log.info("Application did become active.", log: .background)
+		Log.info("Application did become active.", log: .appLifecycle)
+
+		if !didSetupUI {
+			setupUI(route)
+			didSetupUI = true
+			route = nil
+		}
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
@@ -171,11 +182,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if #available(iOS 13.0, *) {
 			taskScheduler.scheduleTask()
 		}
-		Log.info("Application did enter background.", log: .background)
+		Log.info("Application did enter background.", log: .appLifecycle)
 	}
 
 	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-		// handle QR cdes scanned in the camera app
+		Log.info("Application continue user activity.", log: .appLifecycle)
+
+		// handle QR codes scanned in the camera app
 		var route: Route?
 		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
 			route = Route(url: incomingURL)
@@ -531,7 +544,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
 	private var postOnboardingRoute: Route?
-	
+	private var route: Route?
+	private var didSetupUI = false
+
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,

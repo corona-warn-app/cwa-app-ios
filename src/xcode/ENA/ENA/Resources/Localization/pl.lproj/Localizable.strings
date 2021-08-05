@@ -1463,6 +1463,14 @@
 
 "local_notifications_testresults_body" = "Masz nowe wiadomości od Corona-Warn-App.";
 
+"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+
+"local_notifications_expiringSoon_body" = "Sprawdź ważność swoich certyfikatów.";
+
+"local_notifications_expired_title" = "Corona-Warn-App";
+
+"local_notifications_expired_body" = "Sprawdź ważność swoich certyfikatów.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Przegląd";
 
@@ -2882,4 +2890,17 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Techniczna data wygaśnięcia";
 
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Ważny do %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Certyfikat wygasa dnia %@ o godzinie %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
+
+"HealthCertificate_ValidityState_Expired" = "Certyfikat wygasł";
+
+"HealthCertificate_ValidityState_Expired_description" = "Data wygaśnięcia upłynęła. Pobierz nowy certyfikat cyfrowy.";
+
+"HealthCertificate_ValidityState_Invalid" = "Certyfikat (podpis) jest nieprawidłowy";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
 
