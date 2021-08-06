@@ -47,6 +47,12 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 			set { fetchedLocalStatisticsQueue.sync { _fetchedLocalStatistics = newValue } }
 		}
 
+		var _errors = [Error]()
+		var errors: [Error] {
+			get { fetchedLocalStatisticsQueue.sync { _errors } }
+			set { fetchedLocalStatisticsQueue.sync { _errors = newValue } }
+		}
+
 		// We need to fetch local statistics for N saved districts, so we use dispatch group
 		// to make sure we get the data for N saved districts
 		let localStatisticsGroup = DispatchGroup()
@@ -69,6 +75,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 							}
 							fetchedLocalStatistics.append(localStatistics)
 						case .failure(let error):
+							errors.append(error)
 							Log.error("[LocalStatisticsProvider] Could not fetch saved local statistics for district: \(localStatisticsRegion.name): \(error)", log: .api)
 						}
 
@@ -85,6 +92,21 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 				for: self.store.selectedLocalStatisticsRegions,
 				with: fetchedLocalStatistics
 			)
+
+			if let firstError = errors.first {
+				/// Data verification errors are preferably passed on as they cause an error message for the user
+				let firstDataVerificationError = errors.first {
+					if case CachingHTTPClient.CacheError.dataVerificationError = $0 {
+						return true
+					} else {
+						return false
+					}
+				}
+
+				completion?(.failure(firstDataVerificationError ?? firstError))
+			} else {
+				completion?(.success(()))
+			}
 		}
 	}
 
