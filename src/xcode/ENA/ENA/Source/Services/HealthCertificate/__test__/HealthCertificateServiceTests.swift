@@ -340,15 +340,49 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
 
+		// Register expired recovery certificate for a third person to check gradients are correct
+
+		let firstRecoveryCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MICHI"),
+				recoveryEntries: [.fake(
+					uniqueCertificateIdentifier: "5"
+				)]
+			),
+			and: .fake(expirationTime: .distantPast)
+		)
+		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45)
+
+		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
+
+		switch registrationResult {
+		case let .success((healthCertifiedPerson, _)):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstRecoveryCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .darkBlue(withStars: true))
+
 		// Set last person as preferred person and check that positions switched and gradients are correct
 
 		service.healthCertifiedPersons.value.last?.isPreferredPerson = true
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
 
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .mediumBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .solidGrey(withStars: true))
 
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
@@ -356,9 +390,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.removeHealthCertificate(firstTestCertificate)
 		service.removeHealthCertificate(secondTestCertificate)
 
-		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
+
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
