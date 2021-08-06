@@ -189,7 +189,7 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
         }
     }
     
-    func test_When_CBORValuesContainWhiteSpace_Then_SchemaValidationSucceeds() {
+    func test_When_CBORValuesContainWhiteSpace_Then_WhiteSpaceIsRemoved() {
         let certificateAccess = DigitalCovidCertificateAccess()
         let result = certificateAccess.extractDigitalCovidCertificate(from: vaccinationCertificateWithWhiteSpacesBase45String)
 
