@@ -156,6 +156,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					appConfig: appConfig,
 					symptomOnset: self.symptomsOnset
 				)
+
 				let unencrypted = self.appConfigurationProvider.featureProvider.value(for: .unencryptedCheckinsEnabled)
 				// Request needs to be prepended by the fake request.
 				self.fakeRequestService.fakeVerificationServerRequest {
@@ -197,8 +198,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private let fakeRequestService: FakeRequestService
 
+	// for the moment we can't create CheckInProtectedReport -> let's return an empty array
+	// needs to be changed if the encryption is working
 	private var checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport] {
-		// convert checkins to checkInProtectedReports - return an empty array for the moment
 		return []
 	}
 
