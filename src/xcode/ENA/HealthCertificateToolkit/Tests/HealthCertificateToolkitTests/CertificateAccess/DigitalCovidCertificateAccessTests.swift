@@ -183,7 +183,7 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
         let certificateAccess = DigitalCovidCertificateAccess()
         let result = certificateAccess.extractDigitalCovidCertificate(from: vaccinationCertificateWithNillValuesBase45String)
 
-        guard case let .success = result else {
+        guard case .success = result else {
             XCTFail("Schema validation success is expected.")
             return
         }
