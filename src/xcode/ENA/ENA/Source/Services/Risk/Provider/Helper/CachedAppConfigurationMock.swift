@@ -14,6 +14,10 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		AppFeatureProvider(appConfigurationProvider: self)
 	}
 
+	var deviceTimeCheck: DeviceTimeCheckProtocol {
+		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
+	}
+
 	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
 
 	/// A special configuration for screenshots.
@@ -40,18 +44,24 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		return staticConfig
 	}()
 
-	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration) {
+	init(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
+		store: AppConfigCaching & DeviceTimeChecking = MockTestStore()
+	) {
 		self.config = config
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
+		self.store = store
 	}
 	
 	init(
 		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
 		isEventSurveyEnabled: Bool,
-		isEventSurveyUrlAvailable: Bool
+		isEventSurveyUrlAvailable: Bool,
+		store: AppConfigCaching & DeviceTimeChecking = MockTestStore()
 	) {
 		self.config = config
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
+		self.store = store
 		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
 			isEnabled: isEventSurveyEnabled,
 			isCorrectURL: isEventSurveyUrlAvailable
@@ -74,11 +84,14 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 			return countries.isEmpty ? [.defaultCountry()] : countries
 		}).eraseToAnyPublisher()
 	}
+
 	private func eventDrivenUserSurveyParametersEnabled(isEnabled: Bool, isCorrectURL: Bool) -> SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS {
 		var surveyParameters = SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()
 		surveyParameters.common.surveyOnHighRiskURL = isCorrectURL ? "https://www.test.de" : "https://w.test.de"
 		surveyParameters.common.surveyOnHighRiskEnabled = isEnabled ? true : false
 		return surveyParameters
 	}
+
+	private let store: AppConfigCaching & DeviceTimeChecking
 }
 #endif

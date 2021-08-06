@@ -86,6 +86,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	}
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+
 	var featureProvider: AppFeatureProviding {
 		let appFeatureProvider = AppFeatureProvider(appConfigurationProvider: self)
 		#if !RELEASE
@@ -94,6 +95,10 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 		#else
 		return appFeatureProvider
 		#endif
+	}
+
+	var deviceTimeCheck: DeviceTimeCheckProtocol {
+		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
 	}
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
@@ -117,10 +122,6 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	private var subscriptions = [AnyCancellable]()
 	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
 	private var requestIsRunning: Bool { !promises.isEmpty }
-
-	private var deviceTimeCheck: DeviceTimeCheckProtocol {
-		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
-	}
 
 	/// The location of the default app configuration.
 	private static var defaultAppConfigPath: URL {
