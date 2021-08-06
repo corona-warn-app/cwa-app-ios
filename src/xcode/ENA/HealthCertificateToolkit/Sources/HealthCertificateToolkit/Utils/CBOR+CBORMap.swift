@@ -5,6 +5,8 @@
 import SwiftCBOR
 
 extension Dictionary where Key == CBOR, Value == CBOR {
+
+    /// Returns a new CBOR dictionary with trimmed nil values, white spaces and new lines.
     var trimmed: [CBOR: CBOR] {
         var anyMap = [CBOR: CBOR]()
         for (key, value) in self {
