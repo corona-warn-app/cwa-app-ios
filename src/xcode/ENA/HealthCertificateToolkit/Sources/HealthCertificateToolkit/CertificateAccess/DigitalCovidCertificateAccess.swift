@@ -232,6 +232,15 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             .flatMap { validateSchema(of: healthCertificateCBOR, schemaDict: $0) }
             .flatMap(convertCBORToStruct)
     }
+    
+    private func cborMapWithTrimming(certificateCBOR: CBOR) -> CBOR? {
+        guard case let CBOR.map(certificateMap) = certificateCBOR else {
+            return nil
+        }
+        // we need to remove spaces from attributes of the certificate CBOR itself so we pass back a modifiedCertificate
+        return CBOR.map(certificateMap.cborMapWithTrimmingWhiteSpaces)
+    }
+
 
     private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
         guard case let CBOR.map(certificateMap) = cbor else {
