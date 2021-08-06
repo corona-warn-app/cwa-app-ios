@@ -11,6 +11,10 @@ class HomeStatisticsCellModelTests: CWATestCase {
 
 	func testForwardingSupportedKeyFigureCards() throws {
 		let store = MockTestStore()
+		let localStatisticsProvider = LocalStatisticsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 
 		let homeState = HomeState(
 			store: store,
@@ -20,15 +24,14 @@ class HomeStatisticsCellModelTests: CWATestCase {
 			statisticsProvider: StatisticsProvider(
 				client: CachingHTTPClientMock(),
 				store: store
-			), localStatisticsProvider: LocalStatisticsProvider(
-				client: CachingHTTPClientMock(),
-				store: store
-			)
+			),
+			localStatisticsProvider: localStatisticsProvider
 		)
 		homeState.statistics.keyFigureCards = []
 
 		let cellModel = HomeStatisticsCellModel(
-			homeState: homeState
+			homeState: homeState,
+			localStatisticsProvider: localStatisticsProvider
 		)
 
 		let sinkExpectation = expectation(description: "keyFigureCards received")
