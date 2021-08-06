@@ -227,9 +227,12 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         guard  let healthCertificateCBOR = healthCertificateMap[1] else {
             return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
         }
-
+        
+        guard let trimmedHealthCertificateCBOR = cborMapWithTrimming(certificateCBOR: healthCertificateCBOR) else {
+            return .failure(.HC_JSON_SCHEMA_INVALID(.DECODING_FAILED))
+        }
         return loadSchemaAsDict()
-            .flatMap { validateSchema(of: healthCertificateCBOR, schemaDict: $0) }
+            .flatMap { validateSchema(of: trimmedHealthCertificateCBOR, schemaDict: $0) }
             .flatMap(convertCBORToStruct)
     }
     
