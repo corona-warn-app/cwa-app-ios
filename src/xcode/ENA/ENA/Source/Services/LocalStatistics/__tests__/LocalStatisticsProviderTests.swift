@@ -10,7 +10,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 
 	private var subscriptions = [AnyCancellable]()
 	
-	func testFetchLocalStatitics() {
+	func testFetchLocalStatistics() {
 		let fetchedFromClientExpectation = expectation(description: "Local statistics fetched from client")
 		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
@@ -33,14 +33,14 @@ class LocalStatisticsProviderTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 	}
 	
-	func testLocalStatiticsProviding() throws {
+	func testLocalStatisticsProviding() throws {
 		let valueReceived = expectation(description: "Local statistics received")
 		valueReceived.expectedFulfillmentCount = 1
 		
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock()
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(groupID: "1", eTag: "fake", completion: { result in
+		provider.updateLocalStatistics(completion: { result in
 			switch result {
 			case .success(let localStatistics):
 				XCTAssertNotNil(localStatistics)
@@ -63,7 +63,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(groupID: "1", eTag: "fake", completion: { result in
+		provider.updateLocalStatistics(completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Did not expect a value")
@@ -78,13 +78,25 @@ class LocalStatisticsProviderTests: CWATestCase {
 		valueNotChangedExpectation.expectedFulfillmentCount = 2
 		
 		let store = MockTestStore()
-		store.localStatistics.append(LocalStatisticsMetadata(
-			groupID: "1",
-			lastLocalStatisticsETag: "fake",
-			lastLocalStatisticsFetchDate: try XCTUnwrap(301.secondsAgo),
-			localStatistics: CachingHTTPClientMock.staticLocalStatistics
-		))
-		// Fake, backend returns HTTP 304
+		store.localStatistics.append(
+			LocalStatisticsMetadata(
+				groupID: "1",
+				lastLocalStatisticsETag: "fake",
+				lastLocalStatisticsFetchDate: try XCTUnwrap(301.secondsAgo),
+				localStatistics: CachingHTTPClientMock.staticLocalStatistics
+			)
+		)
+
+		store.selectedLocalStatisticsRegions.append(
+			LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Heidelberg",
+				id: "1432",
+				regionType: .administrativeUnit
+			)
+		)
+
+		// Fake backend returns HTTP 304
 		let client = CachingHTTPClientMock()
 		client.onFetchLocalStatistics = { _, completeWith in
 			let error = URLSessionError.notModified
@@ -93,7 +105,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.latestLocalStatistics(groupID: "1", eTag: "fake", completion: { result in
+		provider.updateLocalStatistics(completion: { result in
 			switch result {
 			case .success(let value):
 				XCTAssertNotNil(value)
