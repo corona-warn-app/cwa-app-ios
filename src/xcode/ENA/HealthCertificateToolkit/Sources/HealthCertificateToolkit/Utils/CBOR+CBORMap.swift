@@ -16,7 +16,7 @@ extension Dictionary where Key == CBOR, Value == CBOR {
     }
 }
 
-extension CBOR {
+fileprivate extension CBOR {
 
     var cborValue: CBOR? {
         switch self {
