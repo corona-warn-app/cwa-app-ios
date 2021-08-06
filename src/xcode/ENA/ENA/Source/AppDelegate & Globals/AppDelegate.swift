@@ -285,7 +285,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: appConfigurationProvider.featureProvider)
 		)
 		#else
 		return RiskProvider(

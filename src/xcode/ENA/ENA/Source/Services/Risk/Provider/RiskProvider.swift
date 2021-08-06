@@ -23,12 +23,13 @@ final class RiskProvider: RiskProviding {
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
 		exposureDetectionExecutor: ExposureDetectionDelegate,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		deviceTimeCheck: DeviceTimeCheck
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
 		self.appConfigurationProvider = appConfigurationProvider
-		self.appFeatureProvider = appConfigurationProvider.featureProvider
+		self.deviceTimeCheck = deviceTimeCheck
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
 		self.enfRiskCalculation = enfRiskCalculation
@@ -158,7 +159,7 @@ final class RiskProvider: RiskProviding {
 
 	private let store: Store
 	private let appConfigurationProvider: AppConfigurationProviding
-	private let appFeatureProvider: AppFeatureProviding
+	private let deviceTimeCheck: DeviceTimeCheck
 	private let targetQueue: DispatchQueue
 	private let enfRiskCalculation: ENFRiskCalculationProtocol
 	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
@@ -375,10 +376,7 @@ final class RiskProvider: RiskProviding {
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(
-				store: store,
-				appFeatureProvider: appFeatureProvider
-			)
+			deviceTimeCheck: deviceTimeCheck
 		)
 
 		exposureDetection?.start { [weak self] result in
