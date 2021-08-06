@@ -64,7 +64,10 @@ class HealthCertificateTests: XCTestCase {
 	func testGIVEN_Base45WrongDGCEncoded_WHEN_InitIsCalled_THEN_FailureIsReturned() throws {
 		
 		// GIVEN
-		let dgcCertificate = DigitalCovidCertificate.fake(dateOfBirth: "WrongDOB")
+		let dgcCertificate = DigitalCovidCertificate.fake(
+			// 2 VaccinationEntries are not allowed.
+			vaccinationEntries: [VaccinationEntry.fake(), VaccinationEntry.fake()]
+		)
 		
 		let result = DigitalCovidCertificateFake.makeBase45Fake(
 			from: dgcCertificate,
@@ -86,10 +89,8 @@ class HealthCertificateTests: XCTestCase {
 		}
 		
 		// THEN
-		// According to the tech specs now any value can be accepted as a date
-		//https://github.com/corona-warn-app/cwa-app-tech-spec/blob/5d0c104b512eb601d22a1926e204222d8feddf6c/docs/spec/dgc-overview-client.md#sample-data-for-formatting-the-date-of-birth
-		XCTAssertNotNil(healthCertificate)
-		XCTAssertNil(error)
+		XCTAssertNil(healthCertificate)
+		XCTAssertNotNil(error)
 	}
 	
 	func testGIVEN_TwoCertificates_WHEN_Compare1_THEN_CompareIsCorrect() throws {
