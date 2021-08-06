@@ -14,7 +14,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		AppFeatureProvider(appConfigurationProvider: self)
 	}
 
-	var deviceTimeCheck: DeviceTimeCheckProtocol {
+	var deviceTimeCheck: DeviceTimeChecking {
 		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
 	}
 
@@ -46,7 +46,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	init(
 		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
-		store: AppConfigCaching & DeviceTimeChecking = MockTestStore()
+		store: AppConfigCaching & DeviceTimeCheckStoring = MockTestStore()
 	) {
 		self.config = config
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
@@ -57,7 +57,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
 		isEventSurveyEnabled: Bool,
 		isEventSurveyUrlAvailable: Bool,
-		store: AppConfigCaching & DeviceTimeChecking = MockTestStore()
+		store: AppConfigCaching & DeviceTimeCheckStoring = MockTestStore()
 	) {
 		self.config = config
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
@@ -92,6 +92,6 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		return surveyParameters
 	}
 
-	private let store: AppConfigCaching & DeviceTimeChecking
+	private let store: AppConfigCaching & DeviceTimeCheckStoring
 }
 #endif

@@ -12,7 +12,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 	init(
 		client: AppConfigurationFetching,
-		store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
+		store: AppConfigCaching & DeviceTimeCheckStoring & AppFeaturesStoring
 	) {
 		Log.debug("CachedAppConfiguration init called", log: .appConfig)
 
@@ -97,7 +97,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 		#endif
 	}
 
-	var deviceTimeCheck: DeviceTimeCheckProtocol {
+	var deviceTimeCheck: DeviceTimeChecking {
 		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
 	}
 
@@ -117,7 +117,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	private let client: AppConfigurationFetching
 
 	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
+	private let store: AppConfigCaching & DeviceTimeCheckStoring & AppFeaturesStoring
 
 	private var subscriptions = [AnyCancellable]()
 	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()

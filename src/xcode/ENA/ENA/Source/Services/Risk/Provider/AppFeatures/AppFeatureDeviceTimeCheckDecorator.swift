@@ -34,7 +34,7 @@ class AppFeatureDeviceTimeCheckDecorator: AppFeatureProviding {
 
 	// mock for testing
 	static func mock(
-		store: AppFeaturesStoring & AppConfigCaching & DeviceTimeChecking,
+		store: AppFeaturesStoring & AppConfigCaching & DeviceTimeCheckStoring,
 		config: SAP_Internal_V2_ApplicationConfigurationIOS = SAP_Internal_V2_ApplicationConfigurationIOS()
 		) -> AppFeatureProviding {
 		let featureProvider = AppFeatureProvider(

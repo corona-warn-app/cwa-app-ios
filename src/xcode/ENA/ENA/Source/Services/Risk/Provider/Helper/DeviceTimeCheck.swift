@@ -4,19 +4,19 @@
 
 import Foundation
 
-protocol DeviceTimeCheckProtocol {
+protocol DeviceTimeChecking {
 	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool)
 	func resetDeviceTimeFlags(configUpdateSuccessful: Bool)
 
 	var isDeviceTimeCorrect: Bool { get }
 }
 
-final class DeviceTimeCheck: DeviceTimeCheckProtocol {
+final class DeviceTimeCheck: DeviceTimeChecking {
 
 	// MARK: - Init
 
 	init(
-		store: AppConfigCaching & DeviceTimeChecking,
+		store: AppConfigCaching & DeviceTimeCheckStoring,
 		appFeatureProvider: AppFeatureProviding
 	) {
 		self.store = store
@@ -62,7 +62,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Private
 
-	private let store: AppConfigCaching & DeviceTimeChecking
+	private let store: AppConfigCaching & DeviceTimeCheckStoring
 	private let appFeatureProvider: AppFeatureProviding
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {

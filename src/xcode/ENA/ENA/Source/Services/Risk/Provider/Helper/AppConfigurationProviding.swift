@@ -23,7 +23,7 @@ protocol AppConfigurationProviding: AnyObject {
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never> { get }
 
 	var featureProvider: AppFeatureProviding { get }
-	var deviceTimeCheck: DeviceTimeCheckProtocol { get }
+	var deviceTimeCheck: DeviceTimeChecking { get }
 
 }
 
