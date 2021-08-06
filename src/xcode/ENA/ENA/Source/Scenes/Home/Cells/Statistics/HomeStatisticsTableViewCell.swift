@@ -214,7 +214,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
 				}, onFetchGroupData: { region in
-					self.cellModel?.addLocalStatistics(region: region)
+					self.cellModel?.add(region)
 				}, onEditButtonTap: {
 					DispatchQueue.main.async {
 						self.setEditing(!Self.editingStatistics, animated: true)

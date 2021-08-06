@@ -39,7 +39,7 @@ class HomeStatisticsCellModel {
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@DidSetPublished private(set) var regionStatisticsData = [RegionStatisticsData]()
 
-	func addLocalStatistics(region: LocalStatisticsRegion) {
+	func add(_ region: LocalStatisticsRegion) {
 		localStatisticsProvider.add(region)
 	}
 
