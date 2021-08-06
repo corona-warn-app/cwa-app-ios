@@ -6,8 +6,8 @@ import SwiftCBOR
 
 extension Dictionary where Key == CBOR, Value == CBOR {
 
-    var anyMapWithTrimmingWhiteSpaces: [String: Any] {
-        var anyMap = [String: Any]()
+    var anyMap: [String: Any?] {
+        var anyMap = [String: Any?]()
         for (key, value) in self {
             guard case let .utf8String(stringKey) = key else {
                 fatalError("String key expected: \(self)")
@@ -41,15 +41,12 @@ extension CBOR {
         case .date(let dateValue):
             return dateValue as Any
         case .utf8String(let stringValue):
-            return stringValue.trimmingCharacters(in: .whitespacesAndNewlines) as Any
+            return stringValue as Any
         case .array(let arrayValue):
             return arrayValue.map { $0.anyValue }
         case .map(let mapValue):
-            return mapValue.anyMapWithTrimmingWhiteSpaces as Any
-        case .null:
-            // if the value is null we will remove both the key and value from the dictionary
-             return nil
-        case .undefined, .tagged, .break:
+            return mapValue.anyMap as Any
+        case .null, .undefined, .tagged, .break:
             return nil as Any?
         }
     }
