@@ -7,8 +7,6 @@ import OpenCombine
 @testable import ENA
 
 class LocalStatisticsProviderTests: CWATestCase {
-
-	private var subscriptions = [AnyCancellable]()
 	
 	func testFetchLocalStatistics() {
 		let fetchedFromClientExpectation = expectation(description: "Local statistics fetched from client")
