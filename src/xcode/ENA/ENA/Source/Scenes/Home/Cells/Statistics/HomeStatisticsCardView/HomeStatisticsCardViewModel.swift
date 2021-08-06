@@ -52,24 +52,28 @@ class HomeStatisticsCardViewModel {
 	}
 	
 	init(regionStatisticsData: RegionStatisticsData) {
-		let sevenDayTrend = regionStatisticsData.sevenDayIncidence
-		
 		title = AppStrings.Statistics.AddCard.localCardTitle
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
-		subtitle = regionStatisticsData.regionName
+		subtitle = regionStatisticsData.region.name
 		illustrationImage = UIImage(named: "LocalIncidence")
-		primaryValue = sevenDayTrend.formattedValue
-		primaryTrendImage = sevenDayTrend.trendImage
-		primaryTrendImageTintColor = sevenDayTrend.trendTintColor
-		primaryTrendAccessibilityLabel = sevenDayTrend.trendAccessibilityLabel
-		primaryTrendAccessibilityValue = sevenDayTrend.trendAccessibilityValue
 
-		let updateDate = Date(timeIntervalSince1970: TimeInterval(regionStatisticsData.updatedAt))
-		primaryTitle = updateDate.formatted(
-			todayString: AppStrings.Statistics.Card.Incidence.today,
-			yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,
-			otherDateString: AppStrings.Statistics.Card.Incidence.date
-		)
+		if let sevenDayTrend = regionStatisticsData.sevenDayIncidence, let updatedAt = regionStatisticsData.updatedAt {
+			primaryValue = sevenDayTrend.formattedValue
+			primaryTrendImage = sevenDayTrend.trendImage
+			primaryTrendImageTintColor = sevenDayTrend.trendTintColor
+			primaryTrendAccessibilityLabel = sevenDayTrend.trendAccessibilityLabel
+			primaryTrendAccessibilityValue = sevenDayTrend.trendAccessibilityValue
+
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(updatedAt))
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.Incidence.today,
+				yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Incidence.date
+			)
+		} else {
+			primaryTitle = String(format: AppStrings.Statistics.Card.Incidence.date, "")
+		}
+
 		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
 	}
 	

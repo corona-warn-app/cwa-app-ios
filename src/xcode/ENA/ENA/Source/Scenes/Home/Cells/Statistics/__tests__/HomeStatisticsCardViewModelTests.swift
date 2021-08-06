@@ -538,7 +538,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		let viewModel = HomeStatisticsCardViewModel(regionStatisticsData: regionStatisticsLocalTrend)
 
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.AddCard.localCardTitle)
-		XCTAssertEqual(viewModel.subtitle, regionStatisticsLocalTrend.regionName)
+		XCTAssertEqual(viewModel.subtitle, regionStatisticsLocalTrend.region.name)
 		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "LocalIncidence"))
 		XCTAssertEqual(viewModel.primaryValue, "43,1")
 		XCTAssertEqual(viewModel.primaryTrendImage, UIImage(named: "Pfeil_steigend_plain"))
@@ -554,8 +554,12 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		sevenDayIncidence.value = value
 
 		let regionStatisticsData = RegionStatisticsData(
-			regionName: "Heidelberg",
-			id: 1432,
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Heidelberg",
+				id: "1432",
+				regionType: .administrativeUnit
+			),
 			updatedAt: 1234,
 			sevenDayIncidence: sevenDayIncidence
 		)
