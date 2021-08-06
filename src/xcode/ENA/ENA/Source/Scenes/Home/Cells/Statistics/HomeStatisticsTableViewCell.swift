@@ -31,8 +31,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-		// Scroll to first statistics card initially and when entering/leaving edit mode
-		if scrollView.bounds.origin.x == 0, let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
+		// Scroll to first statistics card initially if local statistics exist, and when entering/leaving edit mode
+		if let cellModel = cellModel, !cellModel.regionStatisticsData.isEmpty,
+			scrollView.bounds.origin.x == 0,
+			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
 			DispatchQueue.main.async {
 				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: self.wasAlreadyShown)
 				self.wasAlreadyShown = true
