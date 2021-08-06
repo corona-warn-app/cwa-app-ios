@@ -18,12 +18,17 @@ class CheckinEncryptionTests: XCTestCase {
 
 		let checkinEncryption = CheckinEncryption()
 
-		let decryptedCheckinRecord = checkinEncryption.decrypt(
+		let decryptionResult = checkinEncryption.decrypt(
 			locationId: locationId,
 			encryptedCheckinRecord: encryptedCheckinRecord,
 			initializationVector: iv,
 			messageAuthenticationCode: mac
 		)
+
+		guard case let .success(decryptedCheckinRecord) = decryptionResult else {
+			XCTFail("Success expected.")
+			return
+		}
 
 		var expectedCheckinRecord = SAP_Internal_Pt_CheckInRecord()
 		expectedCheckinRecord.startIntervalNumber = 2710445
@@ -44,12 +49,17 @@ class CheckinEncryptionTests: XCTestCase {
 
 		let checkinEncryption = CheckinEncryption()
 
-		let decryptedCheckinRecord = checkinEncryption.decrypt(
+		let decryptionResult = checkinEncryption.decrypt(
 			locationId: locationId,
 			encryptedCheckinRecord: encryptedCheckinRecord,
 			initializationVector: iv,
 			messageAuthenticationCode: mac
 		)
+
+		guard case let .success(decryptedCheckinRecord) = decryptionResult else {
+			XCTFail("Success expected.")
+			return
+		}
 
 		var expectedCheckinRecord = SAP_Internal_Pt_CheckInRecord()
 		expectedCheckinRecord.startIntervalNumber = 2710117
@@ -59,7 +69,59 @@ class CheckinEncryptionTests: XCTestCase {
 		XCTAssertEqual(expectedCheckinRecord, decryptedCheckinRecord)
 	}
 
-	func test_encryptCheckins() {
-		
+	func test_encryptCheckin_1() {
+		guard let locationId = Data(base64Encoded: "m686QDEvOYSfRtrRBA8vA58c/6EjjEHp22dTFc+tObY="),
+			  let encryptedCheckinRecord = Data(base64Encoded: "t5TWYYc/kn4vbWRd677L3g=="),
+			  let mac = Data(base64Encoded: "BJX/KwAXo3vQBMlycMxNxiwlrNyzWdD2LeF9KCrzt/I="),
+			  let iv = Data(base64Encoded: "+VNLZEr+j6qotkv8v1ASlQ==") else {
+			XCTFail("Could not create test data for checkin decryption")
+			return
+		}
+
+		let checkinEncryption = CheckinEncryption()
+
+		let result = checkinEncryption.encrypt(
+			locationId: locationId,
+			startInterval: 2710445,
+			endInterval: 2710473,
+			riskLevel: 7,
+			initializationVector: iv
+		)
+
+		guard case let .success(encryptionResult) = result else {
+			XCTFail("Success expected.")
+			return
+		}
+
+		XCTAssertEqual(encryptedCheckinRecord, encryptionResult.encryptedCheckInRecord)
+		XCTAssertEqual(mac, encryptionResult.messageAuthenticationCode)
+	}
+
+	func test_encryptCheckin_2() {
+		guard let locationId = Data(base64Encoded: "A61rMz1EUJnH3+D/dF7FzBMw0UnvdS82w67U7+oT9yU="),
+			  let encryptedCheckinRecord = Data(base64Encoded: "axfEwnDGz7r4c/n65DVDaw=="),
+			  let mac = Data(base64Encoded: "vfjGr8pJ2F+IhGfHl4Audcrjhhcgr9qJ9hl176S/Il8="),
+			  let iv = Data(base64Encoded: "SM6n2ApMmwWCEVwex9yrmA==") else {
+			XCTFail("Could not create test data for checkin decryption")
+			return
+		}
+
+		let checkinEncryption = CheckinEncryption()
+
+		let result = checkinEncryption.encrypt(
+			locationId: locationId,
+			startInterval: 2710117,
+			endInterval: 2710127,
+			riskLevel: 8,
+			initializationVector: iv
+		)
+
+		guard case let .success(encryptionResult) = result else {
+			XCTFail("Success expected.")
+			return
+		}
+
+		XCTAssertEqual(encryptedCheckinRecord, encryptionResult.encryptedCheckInRecord)
+		XCTAssertEqual(mac, encryptionResult.messageAuthenticationCode)
 	}
 }

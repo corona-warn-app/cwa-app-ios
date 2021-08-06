@@ -5,51 +5,154 @@
 import Foundation
 import CommonCrypto.CommonHMAC
 
+enum CheckinDecryptionError: Error {
+	case MessageAuthenticationCodeMissmatch
+	case DecryptionFailed(AESEncryptionError)
+	case CheckInRecordDecodingFailed
+}
+
+struct CheckinEncryptionResult {
+	let encryptedCheckInRecord: Data
+	let initializationVector: Data
+	let messageAuthenticationCode: Data
+}
+
+enum CheckinEncryptionError: Error {
+	case RandomBytesCreationFailed
+	case CheckInRecordEncodingFailed
+	case EncryptionFailed(AESEncryptionError)
+	case HMACreationFailed
+}
+
 protocol CheckinEncrypting {
-//	func decrypt()
-//	func encrypt()
+	func decrypt(
+		locationId: Data, // `location id` as byte sequence
+		encryptedCheckinRecord: Data, // `encrypted CheckInRecord` as byte sequence
+		initializationVector: Data, // `iv` (initialization vector) as byte sequence
+		messageAuthenticationCode: Data // `mac` (message authentication code) as byte sequence
+	) -> Result<SAP_Internal_Pt_CheckInRecord, CheckinDecryptionError>
+
+	func encrypt(
+		locationId: Data, // `location id` as byte sequence
+		startInterval: Int, // start interval number` as integer
+		endInterval: Int, // `end interval number` as integer
+		riskLevel: Int, // `transmission risk level` as integer
+		initializationVector: Data? // (initialization vector) as byte sequence (for testing purposes)
+	) -> Result<CheckinEncryptionResult, CheckinEncryptionError>
 }
 
 struct CheckinEncryption: CheckinEncrypting {
 
-	func decrypt(
-		locationId: Data,
-		encryptedCheckinRecord: Data,
-		initializationVector: Data,
-		messageAuthenticationCode: Data
-	) -> SAP_Internal_Pt_CheckInRecord? {
+	// MARK: - Protocol CheckinEncrypting
 
+	func decrypt(
+		locationId: Data, // `location id` as byte sequence
+		encryptedCheckinRecord: Data, // `encrypted CheckInRecord` as byte sequence
+		initializationVector: Data, // `iv` (initialization vector) as byte sequence
+		messageAuthenticationCode: Data // `mac` (message authentication code) as byte sequence
+	) -> Result<SAP_Internal_Pt_CheckInRecord, CheckinDecryptionError> {
+
+		// Determine `recalculated mac`
 		let recalculatedMac = self.messageAuthenticationCode(
 			locationId: locationId,
 			encryptedCheckinRecord: encryptedCheckinRecord,
 			initializationVector: initializationVector
 		)
 
-		// ToDo: Add error handling
+		// Compare mac: if `recalculated mac` does not equal `mac`, the record has been tampered with and decryption shall fail.
 		if messageAuthenticationCode != recalculatedMac {
-			fatalError("")
+			return .failure(.MessageAuthenticationCodeMissmatch)
 		}
 
+		// Determine `encryption key`
 		let encryptionKey = encryptionKey(for: locationId)
 
-		let aesEncryption = AESEncryption(encryptionKey: encryptionKey, initializationVector: initializationVector)
-
+		// Create `CheckInRecord`: the `encrypted CheckInRecord` shall be decrypted
+		let aesEncryption = AESEncryption(
+			encryptionKey: encryptionKey,
+			initializationVector: initializationVector
+		)
 		let decryptionResult = aesEncryption.decrypt(data: encryptedCheckinRecord)
 
 		guard case let .success(checkinRecordData) = decryptionResult else {
-			return nil
+			if case let .failure(error) = decryptionResult {
+				return .failure(.DecryptionFailed(error))
+			}
+			fatalError("Success and failure where handled, this part should never be reaached.")
 		}
 
+		// Parse `CheckInRecord`: the `CheckInRecord` shall be parsed as [Protocol Buffer message CheckInRecord]
 		guard let checkinRecord = try? SAP_Internal_Pt_CheckInRecord(serializedData: checkinRecordData) else {
-			return nil
+			return .failure(.CheckInRecordDecodingFailed)
 		}
 
-		return checkinRecord
+		return .success(checkinRecord)
 	}
 
-	func encrypt() {
-		
+	func encrypt(
+		locationId: Data, // `location id` as byte sequence
+		startInterval: Int, // start interval number` as integer
+		endInterval: Int, // `end interval number` as integer
+		riskLevel: Int, // `transmission risk level` as integer
+		initializationVector: Data? = nil // (initialization vector) as byte sequence (for testing purposes)
+	) -> Result<CheckinEncryptionResult, CheckinEncryptionError> {
+
+		// Determine `period`: the `period` shall be determined as `end interval number - start interval number`
+		let period = endInterval - startInterval
+
+		// Create `CheckInRecord`: the `CheckInRecord` shall be created as the byte representation of a [Protocol Buffer message CheckInRecord]
+		var checkinRecord = SAP_Internal_Pt_CheckInRecord()
+		checkinRecord.startIntervalNumber = UInt32(startInterval)
+		checkinRecord.period = UInt32(period)
+		checkinRecord.transmissionRiskLevel = UInt32(riskLevel)
+
+		guard let checkinRecordData = try? checkinRecord.serializedData() else {
+			return .failure(.CheckInRecordEncodingFailed)
+		}
+
+		// Determine `encryption key`: the `encryption key` shall be determined
+		let encryptionKey = encryptionKey(for: locationId)
+
+		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 32 bytes.
+		guard let randomInitializationVector = randomBytes() else {
+			return .failure(.RandomBytesCreationFailed)
+		}
+		let finalInitializationVector = initializationVector ?? randomInitializationVector
+
+
+		// Create `encrypted CheckInRecord`: the `CheckInRecord` shall be encrypted
+		let aesEncryption = AESEncryption(
+			encryptionKey: encryptionKey,
+			initializationVector: finalInitializationVector
+		)
+		let encryptionResult = aesEncryption.encrypt(data: checkinRecordData)
+
+		guard case let .success(encryptedCheckinData) = encryptionResult else {
+			if case let .failure(error) = encryptionResult {
+				return .failure(.EncryptionFailed(error))
+			}
+			fatalError("Success and failure where handled, this part should never be reaached.")
+		}
+
+		// Determine `mac`: the `mac` (message authentication code) shall be determined as the HMAC-SHA256
+		guard let messageAuthenticationCode = messageAuthenticationCode(
+			locationId: locationId,
+			encryptedCheckinRecord: encryptedCheckinData,
+			initializationVector: finalInitializationVector
+		) else {
+			return .failure(.HMACreationFailed)
+		}
+
+		let finalEncryptionResult = CheckinEncryptionResult(
+			encryptedCheckInRecord: encryptedCheckinData,
+			initializationVector: finalInitializationVector,
+			messageAuthenticationCode: messageAuthenticationCode
+		)
+
+		return .success(finalEncryptionResult)
 	}
+
+	// MARK: - Private
 
 	// Determine `MAC key`
 	private func messageAuthenticationCodeKey(for locationId: Data) -> Data {
@@ -69,29 +172,61 @@ struct CheckinEncryption: CheckinEncrypting {
 		return keyData.sha256()
 	}
 
+	// Determine `mac`: the `mac` (message authentication code) shall be determined as the HMAC-SHA256
 	private func messageAuthenticationCode(
 		locationId: Data,
 		encryptedCheckinRecord: Data,
 		initializationVector: Data
-	) -> Data {
+	) -> Data? {
 
 		let key = messageAuthenticationCodeKey(for: locationId)
-		let keyBase64 = key.base64EncodedString()
 		let data = initializationVector + encryptedCheckinRecord
 		return hmac(data: data, key: key)
 	}
 
-	private func hmac(data: Data, key: Data) -> Data {
-
+	private func hmac(data: Data, key: Data) -> Data? {
 		let dataLength = data.count
 		let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: dataLength)
+		defer { result.deallocate() }
 
-		data.withUnsafeBytes { dataPointer in
-			key.withUnsafeBytes { keyPointer in
-				CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyPointer, key.count, dataPointer, dataLength, result)
+		let success = data.withUnsafeBytes { dataPointer -> Bool in
+			guard let dataPointerAddress = dataPointer.baseAddress else {
+				Log.error("Could not access base address.", log: .checkin)
+				return false
+			}
+
+			return key.withUnsafeBytes { keyPointer -> Bool in
+				guard let keyPointerAddress = keyPointer.baseAddress else {
+					Log.error("Could not access base address.", log: .checkin)
+					return false
+				}
+				CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyPointerAddress, key.count, dataPointerAddress, dataLength, result)
+				return true
 			}
 		}
 
-		return Data(bytes: result, count: dataLength)
+		if success {
+			return Data(bytes: result, count: dataLength)
+		} else {
+			return nil
+		}
+	}
+
+	private func randomBytes() -> Data? {
+		var randomData = Data(count: 32)
+
+		let result: Int32? = randomData.withUnsafeMutableBytes {
+			guard let baseAddress = $0.baseAddress else {
+				Log.error("Could not access base address.", log: .checkin)
+				return nil
+			}
+			return SecRandomCopyBytes(kSecRandomDefault, 32, baseAddress)
+		}
+		if let result = result, result == errSecSuccess {
+			return randomData
+		} else {
+			Log.error("Failed to generate random bytes.", log: .checkin)
+			return nil
+		}
 	}
 }
