@@ -5,7 +5,7 @@
 import SwiftCBOR
 
 extension Dictionary where Key == CBOR, Value == CBOR {
-    var cborMapWithTrimmingWhiteSpaces: [CBOR: CBOR] {
+    var trimmed: [CBOR: CBOR] {
         var anyMap = [CBOR: CBOR]()
         for (key, value) in self {
             anyMap[key] = value.cborValue
@@ -23,7 +23,7 @@ extension CBOR {
             return CBOR(stringLiteral: trimmedString)
             
         case .map(let cborDictionary):
-            let trimmedDictionary = cborDictionary.cborMapWithTrimmingWhiteSpaces
+            let trimmedDictionary = cborDictionary.trimmed
             return .map(trimmedDictionary)
             
         case .array(let arrayValue):

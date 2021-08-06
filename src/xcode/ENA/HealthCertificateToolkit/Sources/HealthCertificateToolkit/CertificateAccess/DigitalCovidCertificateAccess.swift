@@ -241,7 +241,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             return nil
         }
         // we need to remove spaces from attributes of the certificate CBOR itself so we pass back a modifiedCertificate
-        return CBOR.map(certificateMap.cborMapWithTrimmingWhiteSpaces)
+        return CBOR.map(certificateMap.trimmed)
     }
 
 
