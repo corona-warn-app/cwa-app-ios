@@ -70,6 +70,8 @@ class HomeStatisticsCardViewModel {
 				yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,
 				otherDateString: AppStrings.Statistics.Card.Incidence.date
 			)
+		} else {
+			primaryTitle = String(format: AppStrings.Statistics.Card.Incidence.date, "")
 		}
 
 		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
