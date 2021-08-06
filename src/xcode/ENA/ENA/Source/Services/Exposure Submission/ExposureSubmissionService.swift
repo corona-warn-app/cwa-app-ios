@@ -142,7 +142,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		// we need the app configuration first…
 		appConfigurationProvider
 			.appConfiguration()
-			.sink { appConfig in
+			.sink { [weak self] appConfig in
+				guard let self = self else {
+					Log.error("Failed to create string self")
+					return
+				}
 				// Fetch & process keys and checkins
 				let processedKeys = keys.processedForSubmission(
 					with: self.symptomsOnset
@@ -152,14 +156,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					appConfig: appConfig,
 					symptomOnset: self.symptomsOnset
 				)
-
+				let unencrypted = self.appConfigurationProvider.featureProvider.value(for: .unencryptedCheckinsEnabled)
 				// Request needs to be prepended by the fake request.
 				self.fakeRequestService.fakeVerificationServerRequest {
 					self._submitExposure(
 						processedKeys,
 						coronaTest: coronaTest,
 						visitedCountries: self.supportedCountries,
-						checkins: processedCheckins,
+						checkins: unencrypted ? processedCheckins : [],
+						checkInProtectedReports: self.checkInProtectedReports,
 						completion: { error in
 							completion(error)
 						}
@@ -192,6 +197,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private let fakeRequestService: FakeRequestService
 
+	private var checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport] {
+		// convert checkins to checkInProtectedReports - return an empty array for the moment
+		return []
+	}
+
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
 		get { store.submissionKeys }
 		set { store.submissionKeys = newValue }
@@ -211,6 +221,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		coronaTest: CoronaTest,
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
+		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		coronaTestService.getSubmissionTAN(for: coronaTest.type) { result in
@@ -224,6 +235,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					with: tan,
 					visitedCountries: visitedCountries,
 					checkins: checkins,
+					checkInProtectedReports: checkInProtectedReports,
 					completion: completion
 				)
 			}
@@ -239,12 +251,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		with tan: String,
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
+		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
 			checkins: checkins,
+			checkInProtectedReports: checkInProtectedReports,
 			tan: tan,
 			submissionType: coronaTest.protobufType
 		)
