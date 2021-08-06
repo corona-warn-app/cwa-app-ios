@@ -31,28 +31,38 @@ class LocalStatisticsProviderTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 	}
 	
-	func testLocalStatisticsProviding() throws {
-		let valueReceived = expectation(description: "Local statistics received")
-		valueReceived.expectedFulfillmentCount = 1
+	func testLocalStatisticsProvidingUpdateWithoutSelectedRegions() throws {
+		let updateExpectation = expectation(description: "Update completion called")
 		
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock()
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.updateLocalStatistics(completion: { result in
+
+		provider.updateLocalStatistics { result in
 			switch result {
 			case .success(let localStatistics):
 				XCTAssertNotNil(localStatistics)
-				valueReceived.fulfill()
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
-		})
+
+			updateExpectation.fulfill()
+		}
 		
 		waitForExpectations(timeout: .short)
 	}
 	
 	func testLocalStatisticsProvidingHTTPErrors() throws {
 		let store = MockTestStore()
+		store.selectedLocalStatisticsRegions.append(
+			LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Heidelberg",
+				id: "1432",
+				regionType: .administrativeUnit
+			)
+		)
+
 		let client = CachingHTTPClientMock()
 		let expectedError = URLSessionError.serverError(503)
 		client.onFetchLocalStatistics = { _, completeWith in
@@ -61,14 +71,20 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.updateLocalStatistics(completion: { result in
+
+		let updateExpectation = expectation(description: "Update completion called")
+		provider.updateLocalStatistics { result in
 			switch result {
 			case .success:
-				XCTFail("Did not expect a value")
+				XCTFail("Did not expect a success")
 			case .failure(let error):
 				XCTAssertEqual(error.localizedDescription, expectedError.errorDescription)
 			}
-		})
+
+			updateExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
 	}
 	
 	func testLocalStatisticsProvidingHTTP304() throws {
@@ -103,7 +119,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 		}
 		
 		let provider = LocalStatisticsProvider(client: client, store: store)
-		provider.updateLocalStatistics(completion: { result in
+		provider.updateLocalStatistics { result in
 			switch result {
 			case .success(let value):
 				XCTAssertNotNil(value)
@@ -112,7 +128,7 @@ class LocalStatisticsProviderTests: CWATestCase {
 				XCTFail("Did not expect an error, got: \(error)")
 			}
 			
-		})
+		}
 		
 		waitForExpectations(timeout: .medium)
 	}
