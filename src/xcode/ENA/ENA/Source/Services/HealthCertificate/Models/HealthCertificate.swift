@@ -46,7 +46,7 @@ final class HealthCertificate: Codable, Equatable, Comparable {
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		lhs.base45 == rhs.base45
+		lhs.base45 == rhs.base45 && lhs.validityState == rhs.validityState
 	}
 
 	// MARK: - Protocol Comparable
