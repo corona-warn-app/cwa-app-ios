@@ -1562,6 +1562,75 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(service.testCertificateRequests.value[0].requestExecutionFailed)
 		XCTAssertFalse(service.testCertificateRequests.value[0].isLoading)
 	}
+
+	func testTestCertificateRegistrationAndExecution_SignatureNotCheckedOnRegistration() throws {
+		let client = ClientMock()
+
+		var keyPair: DCCRSAKeyPair?
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let base45TestCertificate = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				testEntries: [TestEntry.fake()]
+			)
+		)
+
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			// Return error on signature check to ensure the certificate is registered regardless
+			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_DSC_NO_MATCH),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: appConfig,
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess
+		)
+
+		let requestsSubscription = service.testCertificateRequests
+			.sink {
+				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
+					keyPair = requestWithKeyPair.rsaKeyPair
+				}
+			}
+
+		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
+		service.registerAndExecuteTestCertificateRequest(
+			coronaTestType: .pcr,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			retryExecutionIfCertificateIsPending: false,
+			labId: "SomeLabId"
+		) { result in
+			if case .failure = result {
+				XCTFail("Success expected")
+			}
+
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .medium)
+
+		requestsSubscription.cancel()
+
+		XCTAssertEqual(
+			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			base45TestCertificate
+		)
+		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+	}
 	
 	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
 		// GIVEN
