@@ -151,21 +151,32 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				let processedKeys = keys.processedForSubmission(
 					with: self.symptomsOnset
 				)
-				let processedCheckins = self.preparedCheckinsForSubmission(
+
+				let unencryptedCheckinsEnabled = self.appConfigurationProvider.featureProvider.value(for: .unencryptedCheckinsEnabled)
+
+				var unencryptedCheckins = [SAP_Internal_Pt_CheckIn]()
+				if unencryptedCheckinsEnabled {
+					unencryptedCheckins = self.preparedCheckinsForSubmission(
+						checkins: self.checkins,
+						appConfig: appConfig,
+						symptomOnset: self.symptomsOnset
+					)
+				}
+
+				let checkinProtectedReports = self.preparedCheckinProtectedReportsForSubmission(
 					checkins: self.checkins,
 					appConfig: appConfig,
 					symptomOnset: self.symptomsOnset
 				)
 
-				let unencrypted = self.appConfigurationProvider.featureProvider.value(for: .unencryptedCheckinsEnabled)
 				// Request needs to be prepended by the fake request.
 				self.fakeRequestService.fakeVerificationServerRequest {
 					self._submitExposure(
 						processedKeys,
 						coronaTest: coronaTest,
 						visitedCountries: self.supportedCountries,
-						checkins: unencrypted ? processedCheckins : [],
-						checkInProtectedReports: self.checkInProtectedReports,
+						checkins: unencryptedCheckins,
+						checkInProtectedReports: checkinProtectedReports,
 						completion: { error in
 							completion(error)
 						}
@@ -197,12 +208,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let coronaTestService: CoronaTestService
 
 	private let fakeRequestService: FakeRequestService
-
-	// for the moment we can't create CheckInProtectedReport -> let's return an empty array
-	// needs to be changed if the encryption is working
-	private var checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport] {
-		return []
-	}
 
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
 		get { store.submissionKeys }
