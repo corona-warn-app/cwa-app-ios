@@ -431,15 +431,19 @@ class HealthCertificateService {
 
 		healthCertifiedPersons
 			.sink { [weak self] in
-				self?.store.healthCertifiedPersons = $0
-				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
+				if $0 != self?.store.healthCertifiedPersons {
+					self?.store.healthCertifiedPersons = $0
+					self?.updateHealthCertifiedPersonSubscriptions(for: $0)
+				}
 			}
 			.store(in: &subscriptions)
 
 		testCertificateRequests
 			.sink { [weak self] in
-				self?.store.testCertificateRequests = $0
-				self?.updateTestCertificateRequestSubscriptions(for: $0)
+				if $0 != self?.store.testCertificateRequests {
+					self?.store.testCertificateRequests = $0
+					self?.updateTestCertificateRequestSubscriptions(for: $0)
+				}
 			}
 			.store(in: &subscriptions)
 
