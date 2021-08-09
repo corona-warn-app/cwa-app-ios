@@ -3015,7 +3015,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
 
-/* Federal States Name */
+/* Federal State Names */
 
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
 
