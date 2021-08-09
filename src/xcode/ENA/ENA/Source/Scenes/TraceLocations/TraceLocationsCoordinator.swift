@@ -135,6 +135,7 @@ class TraceLocationsCoordinator {
 			),
 			didTapPrimaryButton: {
 				navigationController.dismiss(animated: true)
+				self.infoScreenShown = true
 			}
 		)
 		
@@ -144,9 +145,7 @@ class TraceLocationsCoordinator {
 		)
 		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
 		
-		parentNavigationController?.present(navigationController, animated: true) {
-			self.infoScreenShown = true
-		}
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
