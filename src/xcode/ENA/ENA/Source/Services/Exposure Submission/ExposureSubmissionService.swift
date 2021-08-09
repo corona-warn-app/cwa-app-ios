@@ -260,7 +260,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
 			checkins: checkins,
-			checkInProtectedReports: checkInProtectedReports,
+			checkinProtectedReports: checkInProtectedReports,
 			tan: tan,
 			submissionType: coronaTest.protobufType
 		)

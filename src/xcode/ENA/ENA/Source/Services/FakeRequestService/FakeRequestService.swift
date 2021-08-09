@@ -50,7 +50,7 @@ class FakeRequestService {
 			exposureKeys: [],
 			visitedCountries: [],
 			checkins: [],
-			checkInProtectedReports: [],
+			checkinProtectedReports: [],
 			tan: Self.fakeSubmissionTan,
 			submissionType: SAP_Internal_SubmissionPayload.SubmissionType(
 				rawValue: Int.random(in: 0...1)
