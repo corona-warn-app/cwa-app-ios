@@ -24,12 +24,12 @@ struct LocalStatisticsModel {
 	// MARK: - Internal
 
 	var allFederalStateNames: [String] {
-		FederalStateName.allCases.map { $0.rawValue }
+		FederalStateName.allCases.map { $0.localizedName }
 	}
 
 	func allRegions(by federalStateName: String) -> [String] {
 		allDistricts.filter { district -> Bool in
-			district.federalStateName.rawValue == federalStateName
+			district.federalStateName.localizedName == federalStateName
 		}
 		.map { $0.districtName }
 	}
