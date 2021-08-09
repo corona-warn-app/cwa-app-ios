@@ -26,7 +26,7 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	case schleswigHolstein = "Schleswig-Holstein"
 	case thüringen = "Thüringen"
 
-	/// localized names for federal states
+	/// mapping to localized names for federal states
 	var localizedName: String {
 		switch self {
 		case .badenWürttemberg:
