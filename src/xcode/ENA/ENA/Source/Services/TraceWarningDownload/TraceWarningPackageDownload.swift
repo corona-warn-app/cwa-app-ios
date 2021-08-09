@@ -388,12 +388,13 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 						return
 					}
 
-					// decode encryption here ?
-
 					Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
 
 					// 10.+ 11. Match the verified package and store them.
-					self.matcher.matchAndStore(package: sapDownloadedPackage)
+					self.matcher.matchAndStore(
+						package: sapDownloadedPackage,
+						encrypted: !self.appFeatureProvider.value(for: .unencryptedCheckinsEnabled)
+					)
 
 					Log.info("Matching of packageId: \(packageId) done. Proceed with storing the package.")
 
