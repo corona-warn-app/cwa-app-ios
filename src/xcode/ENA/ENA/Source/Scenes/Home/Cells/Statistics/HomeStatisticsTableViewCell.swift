@@ -31,8 +31,10 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-		// Scroll to first statistics card initially and when entering/leaving edit mode
-		if scrollView.bounds.origin.x == 0, let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
+		// Scroll to first statistics card initially if local statistics exist, and when entering/leaving edit mode
+		if let cellModel = cellModel, !cellModel.regionStatisticsData.isEmpty,
+			scrollView.bounds.origin.x == 0,
+			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
 			DispatchQueue.main.async {
 				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: self.wasAlreadyShown)
 				self.wasAlreadyShown = true
@@ -69,6 +71,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	}
 
 	// MARK: - Internal
+
 	// swiftlint:disable:next function_parameter_count
 	func configure(
 		with keyFigureCellModel: HomeStatisticsCellModel,
@@ -100,7 +103,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 		
-		keyFigureCellModel.$selectedLocalStatistics
+		keyFigureCellModel.$regionStatisticsData
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.configureStatisticsCards(
@@ -144,137 +147,17 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onAccessibilityFocus: onAccessibilityFocus
 		)
 		configureLocalStatisticsCards(
-			store: store,
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus,
 			onUpdate: onUpdate
 		)
-		configureKeyFigureCells(
+		configureKeyFigureCards(
 			for: keyFigureCellModel.keyFigureCards,
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus
 		)
 
 		onUpdate()
-	}
-
-	func configureLocalStatisticsCards(
-		store: Store,
-		onInfoButtonTap:  @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void,
-		onUpdate: @escaping () -> Void
-	) {
-		guard let cellModel = cellModel else {
-			return
-		}
-
-		Log.debug("update with \(cellModel.selectedLocalStatistics.count) local stats", log: .localStatistics)
-
-		removeLocalStatisticsCards()
-
-		for singleSelectedLocalStatistics in cellModel.selectedLocalStatistics {
-			localStatisticsRegion = singleSelectedLocalStatistics.localStatisticsRegion
-			let regionName = singleSelectedLocalStatistics.localStatisticsRegion.name
-			let regionStatistics: RegionStatisticsData
-			guard let region = localStatisticsRegion else {
-				Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-				return
-			}
-
-			switch region.regionType {
-			case .federalState:
-				let localFederalState = singleSelectedLocalStatistics.federalStateAndDistrictsData.federalStateData.first {
-					$0.federalState.rawValue == Int(localStatisticsRegion?.id ?? "0")
-				}
-				guard let federalState = localFederalState else {
-					Log.error("Could not assign localFederalState or localFederalState name", log: .localStatistics)
-					return
-				}
-				regionStatistics = RegionStatisticsData(
-					regionName: regionName,
-					id: federalState.federalState.rawValue,
-					updatedAt: federalState.updatedAt,
-					sevenDayIncidence: federalState.sevenDayIncidence
-				)
-
-			case .administrativeUnit:
-				let administrativeUnit = singleSelectedLocalStatistics.federalStateAndDistrictsData.administrativeUnitData.first {
-					$0.administrativeUnitShortID == UInt32(localStatisticsRegion?.id ?? "0")
-				}
-				guard let adminUnit = administrativeUnit else {
-					Log.error("Could not assign administrative unit or district name", log: .localStatistics)
-					return
-				}
-
-				regionStatistics = RegionStatisticsData(
-					regionName: regionName,
-					id: Int(adminUnit.administrativeUnitShortID),
-					updatedAt: adminUnit.updatedAt,
-					sevenDayIncidence: adminUnit.sevenDayIncidence
-				)
-			}
-
-			insertLocalStatistics(
-				store: store,
-				regionData: regionStatistics,
-				onInfoButtonTap: onInfoButtonTap,
-				onAccessibilityFocus: onAccessibilityFocus
-			)
-			onUpdate()
-		}
-	}
-	
-	func insertLocalStatistics(
-		store: Store,
-		regionData: RegionStatisticsData,
-		onInfoButtonTap:  @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
-	) {
-		let nibName = String(describing: HomeStatisticsCardView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
-
-		if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
-			if !stackView.arrangedSubviews.isEmpty {
-				statisticsCardView.tag = 2
-				stackView.insertArrangedSubview(statisticsCardView, at: 1)
-				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionData),
-					onInfoButtonTap: {
-						onInfoButtonTap()
-					},
-					onAccessibilityFocus: { [weak self] in
-						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: true)
-						onAccessibilityFocus()
-						UIAccessibility.post(notification: .layoutChanged, argument: nil)
-					},
-					onDeleteTap: { [weak self] in
-						guard let region = self?.localStatisticsRegion else {
-							Log.error("Region can't be nil", log: .localStatistics, error: nil)
-							return
-						}
-						Log.info("removing \(private: regionData.id, public: "administrative unit") @ \(private: region.name, public: "district id")", log: .ui)
-
-						DispatchQueue.main.async { [weak self] in
-							self?.stackView.removeArrangedSubview(statisticsCardView)
-							statisticsCardView.removeFromSuperview()
-						}
-
-						// removing the district from the store
-						store.selectedLocalStatisticsRegions = store.selectedLocalStatisticsRegions.filter { $0.id != String(regionData.id) }
-						if let cellModel = self?.cellModel {
-							cellModel.homeState.selectedLocalStatistics = cellModel.homeState.selectedLocalStatistics.filter { $0.localStatisticsRegion.id != String(regionData.id) }
-						}
-
-						self?.updateManagementCellState()
-					}
-				)
-				statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
-				statisticsCardView.setEditMode(Self.editingStatistics, animated: false)
-
-				configureBaselines(statisticsCardView: statisticsCardView)
-			}
-		}
 	}
 
 	// MARK: - Private
@@ -285,7 +168,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	private var cellModel: HomeStatisticsCellModel?
 	private var subscriptions = Set<AnyCancellable>()
-	private var localStatisticsRegion: LocalStatisticsRegion?
 	private var localStatisticsCache: LocalStatisticsCaching?
 
 	private var wasAlreadyShown = false
@@ -299,16 +181,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			stackView.removeArrangedSubview($0)
 			$0.removeFromSuperview()
 		}
-	}
-	
-	private func removeLocalStatisticsCards() {
-		stackView.arrangedSubviews.forEach {
-			if $0.tag == 2 {
-				stackView.removeArrangedSubview($0)
-				$0.removeFromSuperview()
-			}
-		}
-		stackView.layoutIfNeeded()
 	}
 	
 	private func configureManageLocalStatisticsCell(
@@ -342,8 +214,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}, onDismissDistrict: { dismissToRoot in
 					onDismissDistrict(dismissToRoot)
 				}, onFetchGroupData: { region in
-					self.localStatisticsRegion = region
-					self.cellModel?.homeState.fetchLocalStatistics(region: region)
+					self.cellModel?.add(region)
 				}, onEditButtonTap: {
 					DispatchQueue.main.async {
 						self.setEditing(!Self.editingStatistics, animated: true)
@@ -356,8 +227,70 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			)
 		}
 	}
+
+	private func configureLocalStatisticsCards(
+		onInfoButtonTap:  @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
+	) {
+		guard let cellModel = cellModel else {
+			return
+		}
+
+		Log.debug("update with \(cellModel.regionStatisticsData.count) local stats", log: .localStatistics)
+
+		for regionStatisticsData in cellModel.regionStatisticsData.reversed() {
+			let nibName = String(describing: HomeStatisticsCardView.self)
+			let nib = UINib(nibName: nibName, bundle: .main)
+
+			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
+				if !stackView.arrangedSubviews.isEmpty {
+					stackView.addArrangedSubview(statisticsCardView)
+
+					let widthConstraint = statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+					widthConstraint.isActive = true
+
+					var baselineConstraints: [NSLayoutConstraint] = []
+
+					statisticsCardView.configure(
+						viewModel: HomeStatisticsCardViewModel(regionStatisticsData: regionStatisticsData),
+						onInfoButtonTap: {
+							onInfoButtonTap()
+						},
+						onAccessibilityFocus: { [weak self] in
+							self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: true)
+							onAccessibilityFocus()
+							UIAccessibility.post(notification: .layoutChanged, argument: nil)
+						},
+						onDeleteTap: { [weak self] in
+							Log.info("removing \(private: regionStatisticsData.region.id, public: "administrative unit") @ \(private: regionStatisticsData.region.name, public: "district id")", log: .ui)
+
+							widthConstraint.isActive = false
+							baselineConstraints.forEach { $0.isActive = false }
+
+							UIView.animate(
+								withDuration: 0.25,
+								animations: {
+									statisticsCardView.isHidden = true
+									statisticsCardView.alpha = 0
+								},
+								completion: { _ in
+									self?.cellModel?.remove(regionStatisticsData.region)
+									self?.updateManagementCellState()
+								}
+							)
+						}
+					)
+					statisticsCardView.accessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+					statisticsCardView.setEditMode(Self.editingStatistics, animated: false)
+
+					baselineConstraints = configureBaselines(statisticsCardView: statisticsCardView)
+				}
+			}
+		}
+	}
 	
-	private func configureKeyFigureCells(
+	private func configureKeyFigureCards(
 		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
 		onInfoButtonTap: @escaping () -> Void,
 		onAccessibilityFocus: @escaping () -> Void
@@ -391,18 +324,25 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			trailingConstraint.constant = 65
 		}
 	}
-	
-	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) {
+
+	@discardableResult
+	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) -> [NSLayoutConstraint] {
 		let cardViewCount = stackView.arrangedSubviews.count
-		if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
-			NSLayoutConstraint.activate([
+		if cardViewCount > 2, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+			let constraints = [
 				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
 				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
 				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
-			])
+			]
+
+			NSLayoutConstraint.activate(constraints)
+
+			return constraints
 		}
+
+		return []
 	}
 
 	func updateManagementCellState() {

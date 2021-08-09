@@ -596,7 +596,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		Log.debug("Configure statistics cell", log: .localStatistics)
 
 		cell.configure(
-			with: HomeStatisticsCellModel(homeState: viewModel.state),
+			with: HomeStatisticsCellModel(
+				homeState: viewModel.state,
+				localStatisticsProvider: viewModel.state.localStatisticsProvider
+			),
 			store: viewModel.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
@@ -845,7 +848,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			self?.viewModel.state.updateSelectedLocalStatistics(self?.viewModel.store.selectedLocalStatisticsRegions)
 		}
 	}
 	// swiftlint:disable:next file_length
