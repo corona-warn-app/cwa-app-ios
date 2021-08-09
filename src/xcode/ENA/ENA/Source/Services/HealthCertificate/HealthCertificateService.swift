@@ -643,6 +643,7 @@ class HealthCertificateService {
 				self?.testCertificateRequests.value.forEach {
 					self?.executeTestCertificateRequest($0, retryIfCertificateIsPending: false)
 				}
+				self?.updateValidityStatesAndNotifications()
 			}
 			.store(in: &subscriptions)
 	}
