@@ -2113,6 +2113,7 @@ enum AppStrings {
 
 		}
 
+		
 		enum Validation {
 			static let title = NSLocalizedString("HealthCertificate_Validation_Title", comment: "")
 			static let countrySelectionTitle = NSLocalizedString("HealthCertificate_Validation_CountrySelection_Title", comment: "")
@@ -2191,6 +2192,25 @@ enum AppStrings {
 				}
 			}
 		}
+	}
+
+	enum FederalStateName {
+		static let badenWuerttemberg = NSLocalizedString("FederalState_BadenWuerttemberg", comment: "")
+		static let bayen = NSLocalizedString("FederalState_Bayern", comment: "")
+		static let berlin = NSLocalizedString("FederalState_Berlin", comment: "")
+		static let brandenburg = NSLocalizedString("FederalState_Brandenburg", comment: "")
+		static let bremen = NSLocalizedString("FederalState_Bremen", comment: "")
+		static let hamburg = NSLocalizedString("FederalState_Hamburg", comment: "")
+		static let hessen = NSLocalizedString("FederalState_Hessen", comment: "")
+		static let mecklenburgVorpommern = NSLocalizedString("FederalState_MecklenburgVorpommern", comment: "")
+		static let niedersachsen = NSLocalizedString("FederalState_Niedersachsen", comment: "")
+		static let nordrheinWestfalen = NSLocalizedString("FederalState_NordrheinWestfalen", comment: "")
+		static let rheinlandPfalz = NSLocalizedString("FederalState_RheinlandPfalz", comment: "")
+		static let saarland = NSLocalizedString("FederalState_Saarland", comment: "")
+		static let sachsen = NSLocalizedString("FederalState_Sachsen", comment: "")
+		static let sachsenAnhalt = NSLocalizedString("FederalState_SachsenAnhalt", comment: "")
+		static let schleswigHolstein = NSLocalizedString("FederalState_SchleswigHolstein", comment: "")
+		static let thueringen = NSLocalizedString("FederalState_Thueringen", comment: "")
 	}
 
 	// swiftlint:disable:next file_length
