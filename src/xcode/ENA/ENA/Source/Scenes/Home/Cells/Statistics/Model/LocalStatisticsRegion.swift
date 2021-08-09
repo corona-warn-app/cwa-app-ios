@@ -16,6 +16,7 @@ struct LocalStatisticsRegion: Codable, Equatable {
 		case .federalState:
 			return federalState.localizedName
 		case .administrativeUnit:
+			// just return the name in case of administrative unit
 			return name
 		}
 	}
