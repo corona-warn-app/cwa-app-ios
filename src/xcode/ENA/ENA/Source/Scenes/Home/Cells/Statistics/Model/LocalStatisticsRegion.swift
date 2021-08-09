@@ -14,6 +14,7 @@ struct LocalStatisticsRegion: Codable, Equatable {
 	var localizedName: String {
 		switch regionType {
 		case .federalState:
+			// return localized name for federal state
 			return federalState.localizedName
 		case .administrativeUnit:
 			// just return the name in case of administrative unit
