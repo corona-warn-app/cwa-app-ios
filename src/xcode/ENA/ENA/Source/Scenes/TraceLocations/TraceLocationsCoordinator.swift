@@ -135,6 +135,8 @@ class TraceLocationsCoordinator {
 			),
 			didTapPrimaryButton: {
 				navigationController.dismiss(animated: true)
+				
+				// set to true only if user gives the consent
 				self.infoScreenShown = true
 			}
 		)
