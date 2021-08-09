@@ -3014,3 +3014,38 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
+
+/* Federal States Name */
+
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bayern";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessen";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Vorpommern";
+
+"FederalState_Niedersachsen" = "Niedersachsen";
+
+"FederalState_NordrheinWestfalen" = "Nordrhein-Westfalen";
+
+"FederalState_RheinlandPfalz" = "Rheinland-Pfalz";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Sachsen";
+
+"FederalState_SachsenAnhalt" = "Sachsen-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Thüringen";
+
