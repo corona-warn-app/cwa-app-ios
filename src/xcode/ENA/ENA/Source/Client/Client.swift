@@ -161,6 +161,7 @@ protocol Client {
 	///   - country: The country.ID for which country we want the IDs.
 	///   - completion: The completion handler of the get call, which contains the set of availablePackagesOnCDN.
 	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	)
@@ -171,6 +172,7 @@ protocol Client {
 	///   - packageId: The packageID for the package we want to download
 	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler

@@ -4,19 +4,23 @@
 
 import Foundation
 
-protocol DeviceTimeCheckProtocol {
+protocol DeviceTimeChecking {
 	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool)
 	func resetDeviceTimeFlags(configUpdateSuccessful: Bool)
 
 	var isDeviceTimeCorrect: Bool { get }
 }
 
-final class DeviceTimeCheck: DeviceTimeCheckProtocol {
+final class DeviceTimeCheck: DeviceTimeChecking {
 
 	// MARK: - Init
 
-	init(store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring) {
+	init(
+		store: AppConfigCaching & DeviceTimeCheckStoring,
+		appFeatureProvider: AppFeatureProviding
+	) {
 		self.store = store
+		self.appFeatureProvider = appFeatureProvider
 	}
 
 	// MARK: - Protocol DeviceTimeChecking
@@ -58,17 +62,12 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Private
 
-	private let store: AppConfigCaching & DeviceTimeChecking & AppFeaturesStoring
+	private let store: AppConfigCaching & DeviceTimeCheckStoring
+	private let appFeatureProvider: AppFeatureProviding
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
 
-		var killSwitchActive = store.appConfigMetadata?.appConfig.value(for: .disableDeviceTimeCheck) ?? false
-		#if !RELEASE
-		if store.dmKillDeviceTimeCheck {
-			killSwitchActive = true
-		}
-		#endif
-
+		let killSwitchActive = appFeatureProvider.value(for: .disableDeviceTimeCheck)
 		guard !killSwitchActive,
 			  configUpdateSuccessful else {
 			return .assumedCorrect

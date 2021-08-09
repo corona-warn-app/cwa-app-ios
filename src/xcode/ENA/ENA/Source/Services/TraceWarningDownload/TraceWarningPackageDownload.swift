@@ -29,15 +29,17 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		client: Client,
 		store: Store,
 		eventStore: EventStoringProviding,
+		appFeatureProvider: AppFeatureProviding,
 		countries: [Country.ID] = ["DE"],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.client = client
 		self.store = store
 		self.eventStore = eventStore
+		self.appFeatureProvider = appFeatureProvider
 		self.countries = countries
 		self.signatureVerifier = signatureVerifier
-		
+
 		self.matcher = TraceWarningMatcher(eventStore: eventStore)
 	}
 	
@@ -154,6 +156,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private let client: Client
 	private let store: Store
 	private let eventStore: EventStoringProviding
+	private let appFeatureProvider: AppFeatureProviding
 	private let countries: [Country.ID]
 	private let matcher: TraceWarningMatching
 	private let signatureVerifier: SignatureVerification
@@ -231,17 +234,20 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
 		
 		// 4. Determine availablePackagesOnCDN (http discovery)
-		client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
-			
-			switch result {
-			case let .success(traceWarningDiscovery):
-				self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
-				
-			case let .failure(error):
-				Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
-				completion(.failure(error))
+		client.traceWarningPackageDiscovery(
+			unencrypted: appFeatureProvider.value(for: .unencryptedCheckinsEnabled),
+			country: country,
+			completion: { [weak self] result in
+				switch result {
+				case let .success(traceWarningDiscovery):
+					self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
+
+				case let .failure(error):
+					Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
+					completion(.failure(error))
+				}
 			}
-		})
+		)
 	}
 	
 	private func processDiscoverdPackages(
@@ -337,71 +343,78 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		Log.info("Try to download single package with id: \(packageId) ...")
-		client.traceWarningPackageDownload(country: country, packageId: packageId, completion: { [weak self] result in
-			
-			guard let self = self else {
-				Log.error("Could not create strong self. Abord verification and matching for packageId: \(packageId)", log: .checkin)
-				completion(.failure(.generalError))
-				return
-			}
-			
-			switch result {
-			case let .success(packageDownloadResponse):
-				Log.info("Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
-				
-				guard let eTag = packageDownloadResponse.etag else {
-					Log.error("ETag of packageId: \(packageId) missing. Discard package.")
-					completion(.failure(.identicationError))
+		client.traceWarningPackageDownload(
+			unencrypted: appFeatureProvider.value(for: .unencryptedCheckinsEnabled),
+			country: country,
+			packageId: packageId,
+			completion: { [weak self] result in
+
+				guard let self = self else {
+					Log.error("Could not create strong self. Abord verification and matching for packageId: \(packageId)", log: .checkin)
+					completion(.failure(.generalError))
 					return
 				}
-				
-				// 9. Verfify signature for every not-empty package.
-				guard !packageDownloadResponse.isEmpty,
-					  let sapDownloadedPackage = packageDownloadResponse.package else {
-					Log.info("PackageId: \(packageId) is empty and was discarded.")
-					
-					// Also empty one should be stored because if not, download is triggered everytime again because nothing could be cleanuped before but should be cleaned up to prevent new start of download.
+
+				switch result {
+				case let .success(packageDownloadResponse):
+					Log.info("Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
+
+					guard let eTag = packageDownloadResponse.etag else {
+						Log.error("ETag of packageId: \(packageId) missing. Discard package.")
+						completion(.failure(.identicationError))
+						return
+					}
+
+					// 9. Verfify signature for every not-empty package.
+					guard !packageDownloadResponse.isEmpty,
+						  let sapDownloadedPackage = packageDownloadResponse.package else {
+						Log.info("PackageId: \(packageId) is empty and was discarded.")
+
+						// Also empty one should be stored because if not, download is triggered everytime again because nothing could be cleanuped before but should be cleaned up to prevent new start of download.
+						let traceWarningPackageMetadata = TraceWarningPackageMetadata(
+							id: packageId,
+							region: country,
+							eTag: eTag
+						)
+						self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
+						Log.info("Storing of empty packageId: \(packageId) done.")
+						completion(.success(.emptySinglePackage))
+						return
+					}
+
+					guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+						Log.warning("Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
+						completion(.failure(.verificationError))
+						return
+					}
+
+					// decode encryption here ?
+
+					Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
+
+					// 10.+ 11. Match the verified package and store them.
+					self.matcher.matchAndStore(package: sapDownloadedPackage)
+
+					Log.info("Matching of packageId: \(packageId) done. Proceed with storing the package.")
+
+					// 12. Store downloaded and verified
 					let traceWarningPackageMetadata = TraceWarningPackageMetadata(
 						id: packageId,
 						region: country,
 						eTag: eTag
 					)
 					self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
-					Log.info("Storing of empty packageId: \(packageId) done.")
-					completion(.success(.emptySinglePackage))
-					return
-				}
 
-				guard self.signatureVerifier.verify(sapDownloadedPackage) else {
-					Log.warning("Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
-					completion(.failure(.verificationError))
-					return
+					Log.info("Storing of packageId: \(packageId) done.")
+					completion(.success(.success))
+
+
+				case let .failure(error):
+					Log.error("Error at download single package with id: \(packageId).", log: .checkin, error: error)
+					completion(.failure(error))
 				}
-				
-				Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
-				
-				// 10.+ 11. Match the verified package and store them.
-				self.matcher.matchAndStore(package: sapDownloadedPackage)
-				
-				Log.info("Matching of packageId: \(packageId) done. Proceed with storing the package.")
-				
-				// 12. Store downloaded and verified
-				let traceWarningPackageMetadata = TraceWarningPackageMetadata(
-					id: packageId,
-					region: country,
-					eTag: eTag
-				)
-				self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
-				
-				Log.info("Storing of packageId: \(packageId) done.")
-				completion(.success(.success))
-				
-				
-			case let .failure(error):
-				Log.error("Error at download single package with id: \(packageId).", log: .checkin, error: error)
-				completion(.failure(error))
 			}
-		})
+		)
 	}
 	
 	// MARK: - Private helpers

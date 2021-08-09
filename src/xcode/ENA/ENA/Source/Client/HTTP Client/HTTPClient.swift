@@ -375,16 +375,18 @@ final class HTTPClient: Client {
 	}
 	
 	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	) {
 		guard let request = try? URLRequest.traceWarningPackageDiscovery(
+				unencrypted: unencrypted,
 				configuration: configuration,
 				country: country) else {
 			completion(.failure(.requestCreationError))
 			return
 		}
-		
+
 		session.response(for: request, completion: { result in
 			switch result {
 			case let .success(response):
@@ -395,7 +397,7 @@ final class HTTPClient: Client {
 						completion(.failure(.invalidResponseError(response.statusCode)))
 						return
 					}
-					
+
 					do {
 						let decoder = JSONDecoder()
 						let decodedResponse = try decoder.decode(
@@ -403,7 +405,7 @@ final class HTTPClient: Client {
 							from: body
 						)
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-						
+
 						guard let oldest = decodedResponse.oldest,
 							  let latest = decodedResponse.latest else {
 							Log.info("Succesfully discovered that there are no availablePackagesOnCDN", log: .api)
@@ -411,7 +413,7 @@ final class HTTPClient: Client {
 							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
 							return
 						}
-						
+
 						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
 						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))
@@ -429,22 +431,21 @@ final class HTTPClient: Client {
 			}
 		})
 	}
-	
-	func traceWarningPackageDownload(
-		country: String,
-		packageId: Int,
-		completion: @escaping TraceWarningPackageDownloadCompletionHandler
-	) {
-		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
-		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
-	}
 
-	func encryptedTraceWarningPackageDownload(
+	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
-		let url = configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
+		if unencrypted {
+			Log.info("unencrypted traceWarningPackageDownload", log: .api)
+		} else {
+			Log.info("encrypted traceWarningPackageDownload", log: .api)
+		}
+		let url = unencrypted ?
+			configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId) :
+			configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
@@ -735,10 +736,10 @@ final class HTTPClient: Client {
 
 	private let environmentProvider: EnvironmentProviding
 	private let session: URLSession
+	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
+
 	private var fetchDayRetries: [URL: Int] = [:]
 	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
-
-	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
 
 	private func fetchDay(
 		from url: URL,
@@ -1382,29 +1383,22 @@ private extension URLRequest {
 	}
 
 	static func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		configuration: HTTPClient.Configuration,
 		country: String
 	) throws -> URLRequest {
-
-		let url = configuration.traceWarningPackageDiscoveryURL(country: country)
+		if unencrypted {
+			Log.info("unencrypted traceWarningPackageDiscovery", log: .api)
+		} else {
+			Log.info("encrypted traceWarningPackageDiscovery", log: .api)
+		}
+		let url = unencrypted ?
+			configuration.traceWarningPackageDiscoveryURL(country: country) :
+			configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
 		var request = URLRequest(url: url)
 
 		request.httpMethod = HttpMethod.get
 		
-		return request
-	}
-
-	// Encrypted Hour Package Discovery
-	static func encryptedTraceWarningPackageDiscovery(
-		configuration: HTTPClient.Configuration,
-		country: String
-	) throws -> URLRequest {
-
-		let url = configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
-		var request = URLRequest(url: url)
-
-		request.httpMethod = HttpMethod.get
-
 		return request
 	}
 

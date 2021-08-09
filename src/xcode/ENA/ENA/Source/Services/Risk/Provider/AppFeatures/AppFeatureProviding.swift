@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-/// App Feature helpers to determine if a feature is enabled or disabled
+/// App Feature with matching string label name
 ///
 extension SAP_Internal_V2_ApplicationConfigurationIOS {
 
@@ -11,12 +11,10 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS {
 		case disableDeviceTimeCheck = "disable-device-time-check"
 		case unencryptedCheckinsEnabled = "unencrypted-checkins-enabled"
 	}
+}
 
-	/// helper for bool values
-	func value(for appFeature: AppFeature) -> Bool {
-		let feature = appFeatures.appFeatures.first {
-			$0.label == appFeature.rawValue
-		}
-		return feature?.value == 1
-	}
+/// protocol an AppFeature provider must fulfill
+///
+protocol AppFeatureProviding {
+	func value(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool
 }

@@ -348,7 +348,7 @@ extension SecureStore: WarnOthersTimeIntervalStoring {
 
 }
 
-extension SecureStore: DeviceTimeChecking {
+extension SecureStore: DeviceTimeCheckStoring {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
 		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
 		set { kvStore["deviceTimeCheckResult"] = newValue }
