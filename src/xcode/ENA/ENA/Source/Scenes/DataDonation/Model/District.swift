@@ -76,7 +76,8 @@ enum FederalStateName: String, CaseIterable, Codable {
 			return .federalStateTh
 		}
 	}
-		
+	
+	/// mapping to localized names for federal states
 	var localizedName: String {
 		switch self {
 		case .badenWürttemberg:
