@@ -317,6 +317,8 @@ struct CountrySubmissionPayload {
 
 	let checkins: [SAP_Internal_Pt_CheckIn]
 
+	let checkinProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport]
+
 	/// a transaction number
 	let tan: String
 
