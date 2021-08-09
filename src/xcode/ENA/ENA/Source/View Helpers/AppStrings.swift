@@ -2113,7 +2113,6 @@ enum AppStrings {
 
 		}
 
-		
 		enum Validation {
 			static let title = NSLocalizedString("HealthCertificate_Validation_Title", comment: "")
 			static let countrySelectionTitle = NSLocalizedString("HealthCertificate_Validation_CountrySelection_Title", comment: "")
