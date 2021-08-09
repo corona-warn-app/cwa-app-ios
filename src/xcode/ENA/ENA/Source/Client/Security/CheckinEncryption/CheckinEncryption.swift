@@ -65,7 +65,7 @@ struct CheckinEncryption: CheckinEncrypting {
 		}
 
 		// Determine `encryption key`
-		let encryptionKey = encryptionKey(for: locationId)
+		let encryptionKey = self.encryptionKey(for: locationId)
 
 		// Create `CheckInRecord`: the `encrypted CheckInRecord` shall be decrypted
 		let aesEncryption = AESEncryption(
@@ -111,7 +111,7 @@ struct CheckinEncryption: CheckinEncrypting {
 		}
 
 		// Determine `encryption key`: the `encryption key` shall be determined
-		let encryptionKey = encryptionKey(for: locationId)
+		let encryptionKey = self.encryptionKey(for: locationId)
 
 		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 32 bytes.
 		guard let randomInitializationVector = randomBytes() else {
