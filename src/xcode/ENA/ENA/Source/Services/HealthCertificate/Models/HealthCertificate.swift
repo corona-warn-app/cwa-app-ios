@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-final class HealthCertificate: Codable, Equatable, Comparable {
+final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -19,22 +19,13 @@ final class HealthCertificate: Codable, Equatable, Comparable {
 		keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
-	// MARK: - Protocol Codable
+	// MARK: - Protocol Encodable
+
+	// Decoding is handled by the HealthCertificateDecodingContainer!
 
 	enum CodingKeys: String, CodingKey {
 		case base45
 		case validityState
-	}
-
-	required init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-
-		base45 = try container.decode(Base45.self, forKey: .base45)
-		validityState = try container.decodeIfPresent(HealthCertificateValidityState.self, forKey: .validityState) ?? .valid
-
-		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
 	func encode(to encoder: Encoder) throws {
