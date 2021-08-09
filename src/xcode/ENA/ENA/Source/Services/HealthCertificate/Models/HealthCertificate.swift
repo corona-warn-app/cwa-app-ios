@@ -41,6 +41,7 @@ final class HealthCertificate: Codable, Equatable, Comparable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(base45, forKey: .base45)
+		try container.encode(validityState, forKey: .validityState)
 	}
 
 	// MARK: - Protocol Equatable
