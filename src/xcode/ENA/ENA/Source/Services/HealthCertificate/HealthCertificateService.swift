@@ -433,8 +433,8 @@ class HealthCertificateService {
 			.sink { [weak self] in
 				if $0 != self?.store.healthCertifiedPersons {
 					self?.store.healthCertifiedPersons = $0
-					self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 				}
+				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
 
@@ -442,8 +442,8 @@ class HealthCertificateService {
 			.sink { [weak self] in
 				if $0 != self?.store.testCertificateRequests {
 					self?.store.testCertificateRequests = $0
-					self?.updateTestCertificateRequestSubscriptions(for: $0)
 				}
+				self?.updateTestCertificateRequestSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
 
