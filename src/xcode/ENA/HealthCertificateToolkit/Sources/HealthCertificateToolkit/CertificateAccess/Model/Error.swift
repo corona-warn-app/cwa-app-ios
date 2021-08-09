@@ -50,6 +50,7 @@ public enum CertificateDecodingError: Error, Equatable {
     case HC_COSE_MESSAGE_INVALID
     case HC_COSE_NO_KEYIDENTIFIER
     case HC_CBOR_DECODING_FAILED(Error?)
+    case HC_CBOR_TRIMMING_FAILED
     // HC_CWT_NO_ISS
     case HC_CBORWEBTOKEN_NO_ISSUER
     // HC_CWT_NO_EXP

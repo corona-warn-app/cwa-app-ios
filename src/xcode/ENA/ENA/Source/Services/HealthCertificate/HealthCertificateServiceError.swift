@@ -30,6 +30,8 @@ enum HealthCertificateServiceError: Error {
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_NO_KEYIDENTIFIER)"
 				case .HC_CBOR_DECODING_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CBOR_DECODING_FAILED)"
+				case .HC_CBOR_TRIMMING_FAILED:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CBOR_TRIMMING_FAILED)"
 				case .HC_CBORWEBTOKEN_NO_ISSUER:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CWT_NO_ISS)"
 				case .HC_CBORWEBTOKEN_NO_EXPIRATIONTIME:
@@ -182,6 +184,8 @@ enum HealthCertificateServiceError: Error {
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COSE_MESSAGE_INVALID")
 				case .HC_CBOR_DECODING_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CBOR_DECODING_FAILED")
+				case .HC_CBOR_TRIMMING_FAILED:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "HC_CBOR_TRIMMING_FAILED")
 				case .HC_CBORWEBTOKEN_NO_ISSUER:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CWT_NO_ISS")
 				case .HC_CBORWEBTOKEN_NO_EXPIRATIONTIME:
