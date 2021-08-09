@@ -70,21 +70,34 @@ final class TraceWarningMatcher: TraceWarningMatching {
 		}
 
 		// Filter for matches
-		let matchingReports = checkInProtectedReports.filter { report in
-			eventStore.checkinsPublisher.value.contains { checkin in
+
+		struct ReportWithLocationId {
+			let report: SAP_Internal_Pt_CheckInProtectedReport
+			let locationId: Data
+		}
+
+		let reportsWithLocationId = checkInProtectedReports.compactMap { report -> ReportWithLocationId? in
+			let matchingCheckin = eventStore.checkinsPublisher.value.first { checkin -> Bool in
 				report.locationIDHash == checkin.traceLocationIdHash
+			}
+			if let matchingCheckin = matchingCheckin {
+				return ReportWithLocationId(report: report, locationId: matchingCheckin.traceLocationId)
+			} else {
+				return nil
 			}
 		}
 
 		let checkinEncryption = CheckinEncryption()
 		var warnings = [SAP_Internal_Pt_TraceTimeIntervalWarning]()
 
-		for checkInProtectedReport in matchingReports {
+		// Decrypt checkins.
+
+		for reportWithLocationId in reportsWithLocationId {
 			let decryptionResult = checkinEncryption.decrypt(
-				locationId: checkInProtectedReport.locationIDHash,
-				encryptedCheckinRecord: checkInProtectedReport.encryptedCheckInRecord,
-				initializationVector: checkInProtectedReport.iv,
-				messageAuthenticationCode: checkInProtectedReport.mac
+				locationId: reportWithLocationId.locationId,
+				encryptedCheckinRecord: reportWithLocationId.report.encryptedCheckInRecord,
+				initializationVector: reportWithLocationId.report.iv,
+				messageAuthenticationCode: reportWithLocationId.report.mac
 			)
 
 			switch decryptionResult {
@@ -99,7 +112,7 @@ final class TraceWarningMatcher: TraceWarningMatching {
 
 				// Map to TraceTimeIntervalWarnings
 				var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-				warning.locationIDHash = checkInProtectedReport.locationIDHash
+				warning.locationIDHash = reportWithLocationId.report.locationIDHash
 				warning.startIntervalNumber = checkinRecord.startIntervalNumber
 				warning.period = checkinRecord.period
 				warning.transmissionRiskLevel = checkinRecord.transmissionRiskLevel
