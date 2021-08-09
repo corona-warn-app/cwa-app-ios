@@ -10,7 +10,7 @@ struct LocalStatisticsRegion: Codable, Equatable {
 	let id: String
 	let regionType: RegionType
 	
-	// returns localized name for a region
+	// returns localized name based on region type
 	var localizedName: String {
 		switch regionType {
 		case .federalState:
