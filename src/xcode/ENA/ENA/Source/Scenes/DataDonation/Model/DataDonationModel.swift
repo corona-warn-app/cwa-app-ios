@@ -16,7 +16,7 @@ struct DataDonationModel {
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 
 		let userMetadata = store.userData
-		self.federalStateName = userMetadata?.federalState?.rawValue
+		self.federalStateName = userMetadata?.federalState?.localizedName
 		self.age = userMetadata?.ageGroup?.text
 
 		do {
@@ -71,7 +71,7 @@ struct DataDonationModel {
 
 		var federalStateNameEnum: FederalStateName?
 		if let federalStateName = federalStateName {
-			federalStateNameEnum = FederalStateName(rawValue: federalStateName)
+			federalStateNameEnum = byLocalizedName(federalStateString: federalStateName)
 		}
 
 		let userdata = UserMetadata(

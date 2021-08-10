@@ -114,6 +114,10 @@ enum FederalStateName: String, CaseIterable, Codable {
 			return AppStrings.FederalStateName.thueringen
 		}
 	}
+	
+	static func byLocalizedName(federalStateString: String) -> LocalStatisticsFederalState? {
+		return LocalStatisticsFederalState.allCases.first(where: { $0.localizedName.elementsEqual(federalStateString) })
+	}
 }
 
 enum FederalStateShortName: String, CaseIterable, Codable {
