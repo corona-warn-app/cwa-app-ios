@@ -6,9 +6,9 @@ import Foundation
 import CommonCrypto.CommonHMAC
 
 enum CheckinDecryptionError: Error {
-	case MessageAuthenticationCodeMissmatch
-	case DecryptionFailed(AESEncryptionError)
-	case CheckInRecordDecodingFailed
+	case messageAuthenticationCodeMissmatch
+	case decryptionFailed(AESEncryptionError)
+	case checkInRecordDecodingFailed
 }
 
 struct CheckinEncryptionResult {
