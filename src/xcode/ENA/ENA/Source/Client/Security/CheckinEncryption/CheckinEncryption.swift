@@ -18,10 +18,10 @@ struct CheckinEncryptionResult {
 }
 
 enum CheckinEncryptionError: Error {
-	case RandomBytesCreationFailed
-	case CheckInRecordEncodingFailed
-	case EncryptionFailed(AESEncryptionError)
-	case HMACreationFailed
+	case randomBytesCreationFailed
+	case checkInRecordEncodingFailed
+	case encryptionFailed(AESEncryptionError)
+	case hmaCreationFailed
 }
 
 protocol CheckinEncrypting {
