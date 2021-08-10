@@ -6,7 +6,7 @@ import Foundation
 import CommonCrypto
 
 enum AESEncryptionError: Error {
-    case EncryptionFailed(Int)
+    case encryptionFailed(Int)
 }
 
 struct AESEncryption {
