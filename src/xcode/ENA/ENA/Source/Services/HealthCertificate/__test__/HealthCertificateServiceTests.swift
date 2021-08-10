@@ -40,9 +40,10 @@ class HealthCertificateServiceTests: CWATestCase {
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
 				)]
-			)
+			),
+			and: .fake(expirationTime: .distantPast)
 		)
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45, validityState: .expired)
 
 		let result = service.registerHealthCertificate(base45: testCertificateBase45)
 
@@ -351,7 +352,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantPast)
 		)
-		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45)
+		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired)
 
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
 
