@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 import CommonCrypto.CommonHMAC
 
 enum CheckinDecryptionError: Error {
