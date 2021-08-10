@@ -36,10 +36,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
@@ -70,10 +67,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
@@ -104,10 +98,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
@@ -138,10 +129,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
@@ -172,10 +160,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
@@ -206,10 +191,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
@@ -240,10 +222,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 
@@ -277,10 +256,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -313,10 +289,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -349,10 +322,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -385,10 +355,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -421,10 +388,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -457,10 +421,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -493,10 +454,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
@@ -528,10 +486,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning, warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 2)
 
@@ -565,10 +520,7 @@ class TraceWarningMatcherTests: CWATestCase {
 		warning.transmissionRiskLevel = 8
 
 		let warnings = [warning]
-		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
-		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
-
-		matcher.matchAndStore(package: warningPackage)
+		matcher.matchAndStore(warnings: warnings, intervalNumber: 0)
 
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 2)
 
@@ -609,5 +561,4 @@ class TraceWarningMatcherTests: CWATestCase {
 		return dateFormatter
 	}()
 
-	// swiftlint:disable:next file_length
 }
