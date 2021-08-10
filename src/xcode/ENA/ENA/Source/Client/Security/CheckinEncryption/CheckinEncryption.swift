@@ -152,6 +152,35 @@ struct CheckinEncryption: CheckinEncrypting {
 		return .success(finalEncryptionResult)
 	}
 
+	func hmac(data: Data, key: Data) -> Data? {
+		let dataLength = data.count
+		let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: dataLength)
+		defer { result.deallocate() }
+
+		let success = data.withUnsafeBytes { dataPointer -> Bool in
+			guard let dataPointerAddress = dataPointer.baseAddress else {
+				Log.error("Could not access base address.", log: .checkin)
+				return false
+			}
+
+			return key.withUnsafeBytes { keyPointer -> Bool in
+				guard let keyPointerAddress = keyPointer.baseAddress else {
+					Log.error("Could not access base address.", log: .checkin)
+					return false
+				}
+				CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyPointerAddress, key.count, dataPointerAddress, dataLength, result)
+				return true
+			}
+		}
+
+		if success {
+			let resultData = Data(bytes: result, count: 32)
+			return resultData
+		} else {
+			return nil
+		}
+	}
+
 	// MARK: - Private
 
 	// Determine `MAC key`
@@ -182,34 +211,6 @@ struct CheckinEncryption: CheckinEncrypting {
 		let key = messageAuthenticationCodeKey(for: locationId)
 		let data = initializationVector + encryptedCheckinRecord
 		return hmac(data: data, key: key)
-	}
-
-	private func hmac(data: Data, key: Data) -> Data? {
-		let dataLength = data.count
-		let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: dataLength)
-		defer { result.deallocate() }
-
-		let success = data.withUnsafeBytes { dataPointer -> Bool in
-			guard let dataPointerAddress = dataPointer.baseAddress else {
-				Log.error("Could not access base address.", log: .checkin)
-				return false
-			}
-
-			return key.withUnsafeBytes { keyPointer -> Bool in
-				guard let keyPointerAddress = keyPointer.baseAddress else {
-					Log.error("Could not access base address.", log: .checkin)
-					return false
-				}
-				CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), keyPointerAddress, key.count, dataPointerAddress, dataLength, result)
-				return true
-			}
-		}
-
-		if success {
-			return Data(bytes: result, count: dataLength)
-		} else {
-			return nil
-		}
 	}
 
 	private func randomBytes() -> Data? {

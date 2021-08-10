@@ -7,6 +7,22 @@ import XCTest
 
 class CheckinEncryptionTests: XCTestCase {
 
+	func test_hmac_alwaysGeneratesSameHash() throws {
+
+		let checkinEncryption = CheckinEncryption()
+		let data: Data = try XCTUnwrap(Data(base64Encoded: "XyOp85hPBY51G5l4VuJ9QdxtT0HAXs+ul8spFwGj8912Tp3igoLu1L4TtpL/KaXN"))
+		let key: Data = try XCTUnwrap(Data(base64Encoded: "T4jqEMtrtkhQmn+mDXoFBTji4LDiVIZNtP83axUz+bA="))
+		let hash = try XCTUnwrap(checkinEncryption.hmac(data: data, key: key)).base64EncodedString()
+
+		let otherHashes = [
+			try XCTUnwrap(checkinEncryption.hmac(data: data, key: key)).base64EncodedString(),
+			try XCTUnwrap(checkinEncryption.hmac(data: data, key: key)).base64EncodedString(),
+			try XCTUnwrap(checkinEncryption.hmac(data: data, key: key)).base64EncodedString()
+		]
+
+		XCTAssertEqual(otherHashes.filter { $0 == hash }.count, 3)
+	}
+
 	func test_decryptCheckin_1() {
 		guard let locationId = Data(base64Encoded: "m686QDEvOYSfRtrRBA8vA58c/6EjjEHp22dTFc+tObY="),
 			  let encryptedCheckinRecord = Data(base64Encoded: "t5TWYYc/kn4vbWRd677L3g=="),

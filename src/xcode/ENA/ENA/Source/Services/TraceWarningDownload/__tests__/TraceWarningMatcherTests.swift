@@ -41,6 +41,48 @@ class TraceWarningMatcherTests: CWATestCase {
 		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
 	}
 
+	// returns 0 if guids do not match
+	func test_Scenario1_with_encryptedCheckInProtectedReport() {
+		let store = MockEventStore()
+		let matcher = TraceWarningMatcher(eventStore: store)
+
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T09:45:00+01:00"),
+			  let warningStartDate = utcFormatter.date(from: "2021-03-04T10:00:00+01:00") else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		let checkin = Checkin.mock(
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data(),
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate
+		)
+		store.createCheckin(checkin)
+
+		let checkinEncryption = CheckinEncryption()
+		let result = checkinEncryption.encrypt(
+			locationId: Data(),
+			startInterval: Int(create10MinutesInterval(from: warningStartDate)),
+			endInterval: Int(create10MinutesInterval(from: warningStartDate)) + 6,
+			riskLevel: 8
+		)
+
+		guard case let .success(encryptionResult) = result else {
+			XCTFail("Could no encrypt checkin.")
+			return
+		}
+
+		var protectedReport = SAP_Internal_Pt_CheckInProtectedReport()
+		protectedReport.iv = encryptionResult.initializationVector
+		protectedReport.encryptedCheckInRecord = encryptionResult.encryptedCheckInRecord
+		protectedReport.mac = encryptionResult.messageAuthenticationCode
+
+		matcher.matchAndStore(checkInProtectedReports: [protectedReport], intervalNumber: 0)
+
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
+	}
+
 	// returns 0 if guids do not match (but the time machtes)
 	func test_Scenario1b() {
 		let store = MockEventStore()
@@ -228,6 +270,50 @@ class TraceWarningMatcherTests: CWATestCase {
 
 		let overlap = matcher.calculateOverlap(checkin: checkin, warning: warning)
 		XCTAssertEqual(overlap, 12)
+	}
+
+	//	returns overlap if check-in overlaps warning at the start
+	func test_Scenario6_with_encryptedCheckInProtectedReport() {
+		let store = MockEventStore()
+		let matcher = TraceWarningMatcher(eventStore: store)
+
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T10:12:00+01:00"),
+			  let warningStartDate = utcFormatter.date(from: "2021-03-04T10:00:00+01:00") else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		let traceLocationIdHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		let checkin = Checkin.mock(
+			traceLocationIdHash: traceLocationIdHash,
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate
+		)
+		store.createCheckin(checkin)
+
+		let checkinEncryption = CheckinEncryption()
+		let result = checkinEncryption.encrypt(
+			locationId: Data(),
+			startInterval: Int(create10MinutesInterval(from: warningStartDate)),
+			endInterval: Int(create10MinutesInterval(from: warningStartDate)) + 6,
+			riskLevel: 8
+		)
+
+		guard case let .success(encryptionResult) = result else {
+			XCTFail("Could no encrypt checkin.")
+			return
+		}
+
+		var protectedReport = SAP_Internal_Pt_CheckInProtectedReport()
+		protectedReport.locationIDHash = traceLocationIdHash
+		protectedReport.iv = encryptionResult.initializationVector
+		protectedReport.encryptedCheckInRecord = encryptionResult.encryptedCheckInRecord
+		protectedReport.mac = encryptionResult.messageAuthenticationCode
+
+		matcher.matchAndStore(checkInProtectedReports: [protectedReport], intervalNumber: 0)
+
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
 	}
 
 //	returns overlap if check-in overlaps warning at the end
@@ -561,4 +647,5 @@ class TraceWarningMatcherTests: CWATestCase {
 		return dateFormatter
 	}()
 
+	// swiftlint:disable file_length
 }
