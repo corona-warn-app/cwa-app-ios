@@ -25,15 +25,16 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-		
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-		   client: client,
-		   store: store,
-		   eventStore: eventStore
-	   )
+			client: client,
+			store: store,
+			eventStore: eventStore,
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+		)
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.high]
 		let riskLevelPerDateCheckin = [today: RiskLevel.low]
@@ -41,7 +42,7 @@ final class RiskProviderTests: CWATestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfig,
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
@@ -53,13 +54,13 @@ final class RiskProviderTests: CWATestCase {
 				store: store,
 				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
+				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: cachedAppConfig
 				)
 			)
 		)
@@ -113,15 +114,17 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-		
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-		   client: client,
-		   store: store,
-		   eventStore: eventStore
-	   )
+			client: client,
+			store: store,
+			eventStore: eventStore,
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+		)
+
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.low]
 		let riskLevelPerDateCheckin = [today: RiskLevel.high]
@@ -129,7 +132,7 @@ final class RiskProviderTests: CWATestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfig,
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
@@ -141,13 +144,13 @@ final class RiskProviderTests: CWATestCase {
 				store: store,
 				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
+				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: cachedAppConfig
 				)
 			)
 		)
@@ -202,14 +205,16 @@ final class RiskProviderTests: CWATestCase {
 		)
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 		
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-		   client: client,
-		   store: store,
-		   eventStore: eventStore
-	   )
+			client: client,
+			store: store,
+			eventStore: eventStore,
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+		)
+
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.low]
 		let riskLevelPerDateCheckin = [today: RiskLevel.low]
@@ -217,7 +222,7 @@ final class RiskProviderTests: CWATestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfig,
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
@@ -229,13 +234,13 @@ final class RiskProviderTests: CWATestCase {
 				store: store,
 				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
+				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
 					signatureVerifying: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: cachedAppConfig
 				)
 			)
 		)
@@ -1074,7 +1079,8 @@ final class RiskProviderTests: CWATestCase {
 		return TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: mockEventStore
+			eventStore: mockEventStore,
+			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig.currentAppConfig.value)
 		)
 	}
 

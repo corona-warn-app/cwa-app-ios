@@ -26,7 +26,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 		// WHEN
 		var response: PackageDownloadResponse?
 		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.traceWarningPackageDownload(country: "DE", packageId: packageId, completion: { result in
+		httpClient.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
 			case let .success(package):
 				response = package
@@ -57,7 +57,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 		// WHEN
 		var response: PackageDownloadResponse?
 		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.traceWarningPackageDownload(country: "DE", packageId: packageId, completion: { result in
+		httpClient.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
 			case let .success(package):
 				response = package
@@ -88,7 +88,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 
 		// WHEN
 		var response: TraceWarningError?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDownload(country: "DE", packageId: packageId, completion: { result in
+		HTTPClient.makeWith(mock: stack).traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not success!")
@@ -118,7 +118,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 		// WHEN
 		var response: TraceWarningError?
 		let httpClientMock = HTTPClient.makeWith(mock: stack)
-		httpClientMock.traceWarningPackageDownload(country: "DE", packageId: packageId, completion: { result in
+		httpClientMock.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not success!")
@@ -148,7 +148,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 		// WHEN
 		var response: TraceWarningError?
 		let httpClientMock = HTTPClient.makeWith(mock: stack)
-		httpClientMock.traceWarningPackageDownload(country: "DE", packageId: packageId, completion: { result in
+		httpClientMock.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not success!")

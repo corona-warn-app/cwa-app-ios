@@ -6,12 +6,12 @@
 
 import UIKit
 
-final class DMDeviceTimeCheckViewController: UITableViewController {
+final class DMAppFeaturesViewController: UITableViewController {
 
 	// MARK: - Init
 
 	init(store: Store) {
-		self.viewModel = DMDeviceTimeCheckViewModel(store: store)
+		self.viewModel = DMAppFeaturesViewModel(store: store)
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
 		} else {
@@ -28,7 +28,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
-		title = "Device Time Check 📱 🕰"
+		title = "App Features 🪄⚙️"
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -42,7 +42,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let section = DMDeviceTimeCheckViewModel.Sections(rawValue: indexPath.section) else {
+		guard let section = DMAppFeaturesViewModel.Sections(rawValue: indexPath.section) else {
 			fatalError("unknown tableview section")
 		}
 
@@ -54,12 +54,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 
-		case .deviceTimeCheckState, .timestampLastChange:
-			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-
-		case .killDeviceTimeCheck:
+		case .unencryptedEvents:
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMSwitchTableViewCell") as? DMSwitchTableViewCell else {
 				let dummy = UITableViewCell(style: .default, reuseIdentifier: "DummyFallBackCell")
 				dummy.textLabel?.text = "Fallback cell"
@@ -73,7 +68,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMDeviceTimeCheckViewModel
+	private let viewModel: DMAppFeaturesViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0

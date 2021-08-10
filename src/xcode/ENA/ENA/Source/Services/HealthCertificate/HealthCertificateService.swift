@@ -29,7 +29,7 @@ class HealthCertificateService {
 			self.signatureVerifying = signatureVerifying
 			self.dscListProvider = DSCListProvider(client: CachingHTTPClientMock(), store: store)
 			self.client = ClientMock()
-			self.appConfiguration = CachedAppConfigurationMock()
+			self.appConfiguration = CachedAppConfigurationMock(store: store)
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
 			setup()
@@ -82,12 +82,12 @@ class HealthCertificateService {
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			// check signature
-			if case .failure = signatureVerifying.verify(
+			if case .failure(let error) = signatureVerifying.verify(
 				certificate: base45,
 				with: dscListProvider.signingCertificates.value,
 				and: Date()
 			) {
-				return .failure(.invalidSignature)
+				return .failure(.invalidSignature(error))
 			}
 
 			let healthCertifiedPerson = healthCertifiedPersons.value
