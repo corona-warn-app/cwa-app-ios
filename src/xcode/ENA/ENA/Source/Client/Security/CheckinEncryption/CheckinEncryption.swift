@@ -131,7 +131,7 @@ struct CheckinEncryption: CheckinEncrypting {
 			if case let .failure(error) = encryptionResult {
 				return .failure(.EncryptionFailed(error))
 			}
-			fatalError("Success and failure where handled, this part should never be reaached.")
+			fatalError("Success and failure where handled, this part should never be reached.")
 		}
 
 		// Determine `mac`: the `mac` (message authentication code) shall be determined as the HMAC-SHA256
