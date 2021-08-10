@@ -73,7 +73,7 @@ class ManageStatisticsCardsViewModel {
 		// If the user taps on the first Cell fetch data for the entire federalState
 		case AppStrings.Statistics.AddCard.stateWide:
 			guard let federalStateString = self.federalState,
-				  let state = LocalStatisticsFederalState(rawValue: federalStateString)
+				  let state = LocalStatisticsFederalState.byLocalizedName(federalStateString: federalStateString)
 			else {
 				Log.warning("federalStateString or state is nil", log: .localStatistics)
 				return
@@ -93,7 +93,7 @@ class ManageStatisticsCardsViewModel {
 			let districtInfo = localStatisticsModel.regionId(by: district)
 			guard let districtIDValue = districtInfo?.districtID,
 				  let federalStateString = self.federalState,
-				  let state = LocalStatisticsFederalState(rawValue: federalStateString)
+				  let state = LocalStatisticsFederalState.byLocalizedName(federalStateString: federalStateString)
 			else {
 				Log.warning("districtIDValue, federalStateString or state is nil", log: .localStatistics)
 				return
