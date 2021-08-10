@@ -431,14 +431,18 @@ class HealthCertificateService {
 
 		healthCertifiedPersons
 			.sink { [weak self] in
-				self?.store.healthCertifiedPersons = $0
+				if $0 != self?.store.healthCertifiedPersons {
+					self?.store.healthCertifiedPersons = $0
+				}
 				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
 
 		testCertificateRequests
 			.sink { [weak self] in
-				self?.store.testCertificateRequests = $0
+				if $0 != self?.store.testCertificateRequests {
+					self?.store.testCertificateRequests = $0
+				}
 				self?.updateTestCertificateRequestSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
@@ -556,9 +560,9 @@ class HealthCertificateService {
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
-					 RecoveryEntry.fake()
-				 ]
-			 ),
+						RecoveryEntry.fake()
+					]
+				),
 				and: CBORWebTokenHeader.fake()
 			)
 			if case let .success(base45) = result {

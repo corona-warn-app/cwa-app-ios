@@ -30,7 +30,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
+		healthCertificates = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates).compactMap { $0.healthCertificate }
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 
 		setup()
@@ -46,7 +46,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.healthCertificates == rhs.healthCertificates
+		lhs.healthCertificates == rhs.healthCertificates && lhs.isPreferredPerson == rhs.isPreferredPerson
 	}
 
 	// MARK: - Protocol Comparable
