@@ -126,4 +126,8 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	var federalStateProtobufId: Int {
 		return self.federalStateId - 1
 	}
+	
+	static func byLocalizedName(federalStateString: String) -> LocalStatisticsFederalState? {
+		return LocalStatisticsFederalState.allCases.first(where: { $0.localizedName.elementsEqual(federalStateString) })
+	}
 }

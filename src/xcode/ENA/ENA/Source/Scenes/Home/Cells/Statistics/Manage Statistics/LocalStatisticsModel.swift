@@ -33,6 +33,7 @@ struct LocalStatisticsModel {
 		}
 		.map { $0.districtName }
 	}
+
 	func regionId(by region: String) -> DistrictElement? {
 		allDistricts.first(where: { district -> Bool in
 			district.districtName == region
