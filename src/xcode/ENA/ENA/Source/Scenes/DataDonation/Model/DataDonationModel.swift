@@ -71,7 +71,7 @@ struct DataDonationModel {
 
 		var federalStateNameEnum: FederalStateName?
 		if let federalStateName = federalStateName {
-			federalStateNameEnum = byLocalizedName(federalStateString: federalStateName)
+			federalStateNameEnum = FederalStateName.byLocalizedName(federalStateString: federalStateName)
 		}
 
 		let userdata = UserMetadata(
