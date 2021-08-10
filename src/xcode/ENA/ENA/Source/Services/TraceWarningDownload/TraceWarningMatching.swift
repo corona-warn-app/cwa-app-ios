@@ -78,7 +78,7 @@ final class TraceWarningMatcher: TraceWarningMatching {
 
 		let reportsWithLocationId = checkInProtectedReports.compactMap { report -> ReportWithLocationId? in
 			let matchingCheckin = eventStore.checkinsPublisher.value.first { checkin -> Bool in
-				report.locationIDHash == checkin.traceLocationIdHash
+				return true //report.locationIDHash == checkin.traceLocationIdHash
 			}
 			if let matchingCheckin = matchingCheckin {
 				return ReportWithLocationId(report: report, locationId: matchingCheckin.traceLocationId)

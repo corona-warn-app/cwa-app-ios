@@ -182,7 +182,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			Log.info("Start processsing package download for country: \(country).", log: .checkin)
 			
 			// Check if we did not discover in the same hour before.
-			if shouldStartPackageDownload(for: country) {
+			if true { //shouldStartPackageDownload(for: country) {
 				countriesDG.enter()
 				
 				// Go now for the real download
@@ -281,7 +281,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		cleanUpOutdatedMetadata(oldest: discoveredTraceWarnings.oldest, earliest: earliestRelevantPackage)
 				
 		// 7. Determine packagesToDownload
-		let packagesToDownload = determinePackagesToDownload(availables: availablePackagesOnCDN, earliest: earliestRelevantPackage)
+		let packagesToDownload = Set(availablePackagesOnCDN) //determinePackagesToDownload(availables: availablePackagesOnCDN, earliest: earliestRelevantPackage)
 		
 		guard !packagesToDownload.isEmpty else {
 			Log.info("Aborted due to no packages to download.", log: .checkin)
@@ -389,6 +389,8 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					}
 
 					Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
+
+					print("unencryptedCheckinsEnabled: \(self.appFeatureProvider.value(for: .unencryptedCheckinsEnabled))")
 
 					// 10.+ 11. Match the verified package and store them.
 					self.matcher.matchAndStore(
