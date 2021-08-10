@@ -6,7 +6,7 @@ import Foundation
 import CommonCrypto
 
 enum AESEncryptionError: Error {
-    case EncryptionFailed(Int)
+    case encryptionFailed(Int)
 }
 
 struct AESEncryption {
@@ -57,7 +57,7 @@ struct AESEncryption {
         }
 
         guard UInt32(status) == UInt32(kCCSuccess) else {
-            return .failure(.EncryptionFailed(Int(status)))
+            return .failure(.encryptionFailed(Int(status)))
         }
 
         cryptedData.removeSubrange(bytesLength ..< cryptedData.count)

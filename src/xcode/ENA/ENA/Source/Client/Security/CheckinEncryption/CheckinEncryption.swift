@@ -6,9 +6,9 @@ import Foundation
 import CommonCrypto.CommonHMAC
 
 enum CheckinDecryptionError: Error {
-	case MessageAuthenticationCodeMissmatch
-	case DecryptionFailed(AESEncryptionError)
-	case CheckInRecordDecodingFailed
+	case messageAuthenticationCodeMissmatch
+	case decryptionFailed(AESEncryptionError)
+	case checkInRecordDecodingFailed
 }
 
 struct CheckinEncryptionResult {
@@ -18,10 +18,10 @@ struct CheckinEncryptionResult {
 }
 
 enum CheckinEncryptionError: Error {
-	case RandomBytesCreationFailed
-	case CheckInRecordEncodingFailed
-	case EncryptionFailed(AESEncryptionError)
-	case HMACreationFailed
+	case randomBytesCreationFailed
+	case checkInRecordEncodingFailed
+	case encryptionFailed(AESEncryptionError)
+	case hmacCreationFailed
 }
 
 protocol CheckinEncrypting {
@@ -61,7 +61,7 @@ struct CheckinEncryption: CheckinEncrypting {
 
 		// Compare mac: if `recalculated mac` does not equal `mac`, the record has been tampered with and decryption shall fail.
 		if messageAuthenticationCode != recalculatedMac {
-			return .failure(.MessageAuthenticationCodeMissmatch)
+			return .failure(.messageAuthenticationCodeMissmatch)
 		}
 
 		// Determine `encryption key`
@@ -76,14 +76,14 @@ struct CheckinEncryption: CheckinEncrypting {
 
 		guard case let .success(checkinRecordData) = decryptionResult else {
 			if case let .failure(error) = decryptionResult {
-				return .failure(.DecryptionFailed(error))
+				return .failure(.decryptionFailed(error))
 			}
 			fatalError("Success and failure where handled, this part should never be reaached.")
 		}
 
 		// Parse `CheckInRecord`: the `CheckInRecord` shall be parsed as [Protocol Buffer message CheckInRecord]
 		guard let checkinRecord = try? SAP_Internal_Pt_CheckInRecord(serializedData: checkinRecordData) else {
-			return .failure(.CheckInRecordDecodingFailed)
+			return .failure(.checkInRecordDecodingFailed)
 		}
 
 		return .success(checkinRecord)
@@ -107,7 +107,7 @@ struct CheckinEncryption: CheckinEncrypting {
 		checkinRecord.transmissionRiskLevel = UInt32(riskLevel)
 
 		guard let checkinRecordData = try? checkinRecord.serializedData() else {
-			return .failure(.CheckInRecordEncodingFailed)
+			return .failure(.checkInRecordEncodingFailed)
 		}
 
 		// Determine `encryption key`: the `encryption key` shall be determined
@@ -115,7 +115,7 @@ struct CheckinEncryption: CheckinEncrypting {
 
 		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 32 bytes.
 		guard let randomInitializationVector = randomBytes() else {
-			return .failure(.RandomBytesCreationFailed)
+			return .failure(.randomBytesCreationFailed)
 		}
 		let finalInitializationVector = initializationVector ?? randomInitializationVector
 
@@ -129,9 +129,9 @@ struct CheckinEncryption: CheckinEncrypting {
 
 		guard case let .success(encryptedCheckinData) = encryptionResult else {
 			if case let .failure(error) = encryptionResult {
-				return .failure(.EncryptionFailed(error))
+				return .failure(.encryptionFailed(error))
 			}
-			fatalError("Success and failure where handled, this part should never be reaached.")
+			fatalError("Success and failure where handled, this part should never be reached.")
 		}
 
 		// Determine `mac`: the `mac` (message authentication code) shall be determined as the HMAC-SHA256
@@ -140,7 +140,7 @@ struct CheckinEncryption: CheckinEncrypting {
 			encryptedCheckinRecord: encryptedCheckinData,
 			initializationVector: finalInitializationVector
 		) else {
-			return .failure(.HMACreationFailed)
+			return .failure(.hmacCreationFailed)
 		}
 
 		let finalEncryptionResult = CheckinEncryptionResult(
