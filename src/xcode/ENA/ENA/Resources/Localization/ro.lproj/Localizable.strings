@@ -2910,3 +2910,36 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
 
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessa";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Pomerania de Vest";
+
+"FederalState_Niedersachsen" = "Saxonia Inferioară";
+
+"FederalState_NordrheinWestfalen" = "Renania de Nord-Westfalia";
+
+"FederalState_RheinlandPfalz" = "Renania-Palatinat";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saxonia";
+
+"FederalState_SachsenAnhalt" = "Saxonia-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Turingia";
+

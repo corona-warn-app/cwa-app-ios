@@ -2910,3 +2910,36 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
 
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Баден-Вюртемберг";
+
+"FederalState_Bayern" = "Бавария";
+
+"FederalState_Berlin" = "Берлин";
+
+"FederalState_Brandenburg" = "Бранденбург";
+
+"FederalState_Bremen" = "Бремен";
+
+"FederalState_Hamburg" = "Хамбург";
+
+"FederalState_Hessen" = "Хесен";
+
+"FederalState_MecklenburgVorpommern" = "Мекленбург-Западна Померания";
+
+"FederalState_Niedersachsen" = "Долна Саксония";
+
+"FederalState_NordrheinWestfalen" = "Северен Рейн-Вестфалия";
+
+"FederalState_RheinlandPfalz" = "Рейнланд-Пфалц";
+
+"FederalState_Saarland" = "Саарланд";
+
+"FederalState_Sachsen" = "Саксония";
+
+"FederalState_SachsenAnhalt" = "Саксония-Анхалт";
+
+"FederalState_SchleswigHolstein" = "Шлезвиг-Холщайн";
+
+"FederalState_Thueringen" = "Тюрингия";
+

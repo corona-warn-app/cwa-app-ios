@@ -269,6 +269,7 @@
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
 		01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D307892562B03B00ADB67B /* RiskState.swift */; };
+		01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */; };
 		01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */; };
 		01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948C2502717F00B45BEA /* DatePickerDayView.swift */; };
 		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
@@ -1571,6 +1572,7 @@
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
 		01D307892562B03B00ADB67B /* RiskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskState.swift; sourceTree = "<group>"; };
+		01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateDecodingContainer.swift; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModel.swift; sourceTree = "<group>"; };
 		01D6948C2502717F00B45BEA /* DatePickerDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayView.swift; sourceTree = "<group>"; };
@@ -2968,6 +2970,7 @@
 				01FE5E532648511100155906 /* __test__ */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
 				017D8DA4263B02F40009E91C /* HealthCertificate.swift */,
+				01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */,
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 				01E05137263C436100D57A5E /* Extensions */,
@@ -8117,6 +8120,7 @@
 				BA3A79C42631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
 				504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */,
+				01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */,
 				BAB8F2EF2695C4A500AF68A3 /* ValidationInformationViewController.swift in Sources */,
 				BADD36EB260B4FBA00DD282A /* EditCheckinDetailViewController.swift in Sources */,
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,

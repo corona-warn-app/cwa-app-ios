@@ -26,6 +26,44 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	case schleswigHolstein = "Schleswig-Holstein"
 	case thüringen = "Thüringen"
 
+	/// mapping to localized names for federal states
+	var localizedName: String {
+		switch self {
+		case .badenWürttemberg:
+			return AppStrings.FederalStateName.badenWuerttemberg
+		case .bayern:
+			return AppStrings.FederalStateName.bayen
+		case .berlin:
+			return AppStrings.FederalStateName.berlin
+		case .brandenburg:
+			return AppStrings.FederalStateName.brandenburg
+		case .bremen:
+			return AppStrings.FederalStateName.bremen
+		case .hamburg:
+			return AppStrings.FederalStateName.hamburg
+		case .hessen:
+			return AppStrings.FederalStateName.hessen
+		case .mecklenburgVorpommern:
+			return AppStrings.FederalStateName.mecklenburgVorpommern
+		case .niedersachsen:
+			return AppStrings.FederalStateName.niedersachsen
+		case .nordrheinWestfalen:
+			return AppStrings.FederalStateName.nordrheinWestfalen
+		case .rheinlandPfalz:
+			return AppStrings.FederalStateName.rheinlandPfalz
+		case .saarland:
+			return AppStrings.FederalStateName.saarland
+		case .sachsen:
+			return AppStrings.FederalStateName.sachsen
+		case .sachsenAnhalt:
+			return AppStrings.FederalStateName.sachsenAnhalt
+		case .schleswigHolstein:
+			return AppStrings.FederalStateName.schleswigHolstein
+		case .thüringen:
+			return AppStrings.FederalStateName.thueringen
+		}
+	}
+
 	/// A group of 1..n federal states
 	var groupID: Int {
 		switch self {
@@ -87,5 +125,9 @@ enum LocalStatisticsFederalState: String, CaseIterable, Codable {
 	// the FederalStates inside the returned in local_statistics.pb start from zero so this is to make the correct mapping
 	var federalStateProtobufId: Int {
 		return self.federalStateId - 1
+	}
+	
+	static func byLocalizedName(federalStateString: String) -> LocalStatisticsFederalState? {
+		return LocalStatisticsFederalState.allCases.first(where: { $0.localizedName.elementsEqual(federalStateString) })
 	}
 }

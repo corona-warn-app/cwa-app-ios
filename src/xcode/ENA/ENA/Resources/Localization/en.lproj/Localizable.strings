@@ -2910,3 +2910,36 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hesse";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Western Pomerania";
+
+"FederalState_Niedersachsen" = "Lower Saxony";
+
+"FederalState_NordrheinWestfalen" = "North Rhine-Westphalia";
+
+"FederalState_RheinlandPfalz" = "Rhineland-Palatinate";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saxony";
+
+"FederalState_SachsenAnhalt" = "Saxony-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Thuringia";
+

@@ -2910,3 +2910,36 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavyera";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessen";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Vorpommern";
+
+"FederalState_Niedersachsen" = "Aşağı Saksonya";
+
+"FederalState_NordrheinWestfalen" = "Kuzey Ren-Vestfalya";
+
+"FederalState_RheinlandPfalz" = "Renanya-Palatina";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saksonya";
+
+"FederalState_SachsenAnhalt" = "Saksonya-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Türingiya";
+

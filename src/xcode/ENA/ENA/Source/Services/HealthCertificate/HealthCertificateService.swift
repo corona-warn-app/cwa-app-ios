@@ -74,7 +74,8 @@ class HealthCertificateService {
 
 	@discardableResult
 	func registerHealthCertificate(
-		base45: Base45
+		base45: Base45,
+		checkSignatureUpfront: Bool = true
 	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
@@ -82,12 +83,14 @@ class HealthCertificateService {
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			// check signature
-			if case .failure(let error) = signatureVerifying.verify(
-				certificate: base45,
-				with: dscListProvider.signingCertificates.value,
-				and: Date()
-			) {
-				return .failure(.invalidSignature(error))
+			if checkSignatureUpfront {
+				if case .failure(let error) = signatureVerifying.verify(
+					certificate: base45,
+					with: dscListProvider.signingCertificates.value,
+					and: Date()
+				) {
+					return .failure(.invalidSignature(error))
+				}
 			}
 
 			let healthCertifiedPerson = healthCertifiedPersons.value
@@ -428,14 +431,18 @@ class HealthCertificateService {
 
 		healthCertifiedPersons
 			.sink { [weak self] in
-				self?.store.healthCertifiedPersons = $0
+				if $0 != self?.store.healthCertifiedPersons {
+					self?.store.healthCertifiedPersons = $0
+				}
 				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
 
 		testCertificateRequests
 			.sink { [weak self] in
-				self?.store.testCertificateRequests = $0
+				if $0 != self?.store.testCertificateRequests {
+					self?.store.testCertificateRequests = $0
+				}
 				self?.updateTestCertificateRequestSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
@@ -553,9 +560,9 @@ class HealthCertificateService {
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
-					 RecoveryEntry.fake()
-				 ]
-			 ),
+						RecoveryEntry.fake()
+					]
+				),
 				and: CBORWebTokenHeader.fake()
 			)
 			if case let .success(base45) = result {
@@ -718,7 +725,7 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-				let registerResult = registerHealthCertificate(base45: healthCertificateBase45)
+				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
 
 				switch registerResult {
 				case .success:
