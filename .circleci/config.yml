@@ -3,7 +3,7 @@ version: 2.1
 configuration:
   - cache_key: &cache_key v9-{{ checksum "src/xcode/Gemfile.lock" }}
   - tools_cache_key: &tools_cache_key v3-{{ checksum "Brewfile.lock.json" }}
-  - xcode_version: &xcode_version 12.4.0
+  - xcode_version: &xcode_version 12.5.1
   - resource_class: &resource_class large
 
 ###
@@ -76,7 +76,7 @@ jobs:
             xcodebuild \
               -workspace "ENA.xcworkspace" \
               -scheme ENA \
-              -destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" \
+              -destination "platform=iOS Simulator,OS=14.5,name=iPhone 11" \
               -testPlan AllTests \
               -only-test-configuration "DE" \
               -derivedDataPath "./DerivedData" \
