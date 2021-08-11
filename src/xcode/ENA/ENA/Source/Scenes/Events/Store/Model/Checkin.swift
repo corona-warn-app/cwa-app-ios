@@ -140,7 +140,7 @@ extension Checkin {
 		return checkin
 	}
 
-	func createChekinProtectedReport(transmissionRiskLevel: Int) -> SAP_Internal_Pt_CheckInProtectedReport? {
+	func createCheckinProtectedReport(transmissionRiskLevel: Int) -> SAP_Internal_Pt_CheckInProtectedReport? {
 
 		// 10 minute time interval; derived from the unix timestamps
 		// see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#derive-10-minute-interval-from-timestamp
