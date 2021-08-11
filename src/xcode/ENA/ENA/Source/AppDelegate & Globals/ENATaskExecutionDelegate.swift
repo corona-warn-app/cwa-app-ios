@@ -47,6 +47,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
 		Log.info("Starting background task...", log: .background)
 
+		guard store.isOnboarded else {
+			Log.info("Cancelling background task because user is not onboarded yet.", log: .background)
+
+			completion(true)
+			return
+		}
+
 		let group = DispatchGroup()
 
 		group.enter()
