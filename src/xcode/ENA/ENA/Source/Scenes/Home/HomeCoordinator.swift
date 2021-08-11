@@ -175,11 +175,12 @@ class HomeCoordinator: RequiresAppDependencies {
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		#if DEBUG
 		if isUITesting {
+			let store = MockTestStore()
 			return ENAExposureSubmissionService(
 				diagnosisKeysRetrieval: exposureManager,
-				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
 				client: ClientMock(),
-				store: MockTestStore(),
+				store: store,
 				eventStore: eventStore,
 				coronaTestService: coronaTestService
 			)

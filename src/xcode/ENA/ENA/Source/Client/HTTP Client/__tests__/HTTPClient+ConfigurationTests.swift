@@ -48,6 +48,7 @@ final class BackendConfigurationTests: CWATestCase {
 
 		let config = Configuration(
 			apiVersion: "v1",
+			encryptedApiVersion: "v2",
 			country: "DE",
 			endpoints: endpoints
 		)
@@ -87,5 +88,16 @@ final class BackendConfigurationTests: CWATestCase {
 			config.availableHoursURL(day: "2020-04-20", country: "IT").absoluteString,
 			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/"
 		)
+
+		XCTAssertEqual(
+			config.encryptedTraceWarningPackageDiscoveryURL(country: "DE").absoluteString,
+			"http://localhost/dist/version/v2/twp/country/DE/hour/"
+		)
+
+		XCTAssertEqual(
+			config.encryptedTraceWarningPackageDownloadURL(country: "DE", packageId: 12345).absoluteString,
+			"http://localhost/dist/version/v2/twp/country/DE/hour/12345/"
+		)
+
 	}
 }
