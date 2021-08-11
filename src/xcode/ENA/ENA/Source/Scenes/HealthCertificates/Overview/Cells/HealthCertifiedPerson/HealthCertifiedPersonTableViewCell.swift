@@ -11,8 +11,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+
 		setupView()
-		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -47,6 +47,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		validityStateIconImageView.image = cellModel.validityStateIcon
 		validityStateTitleLabel.text = cellModel.validityStateTitle
 		validityStateStackView.isHidden = cellModel.validityStateIcon == nil && cellModel.validityStateTitle == nil
+
+		setupAccessibility(validityStateTitleIsVisible: cellModel.validityStateTitle != nil)
 	}
 	
 	// MARK: - Private
@@ -148,11 +150,14 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return validityStateTitleLabel
 	}()
 
-	private func setupAccessibility() {
-		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView, validityStateTitleLabel]
-			.filter { !$0.isHidden }
+	private func setupAccessibility(validityStateTitleIsVisible: Bool) {
+		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView]
 
-		cardView.accessibilityTraits = [.staticText, .button]
+		if validityStateTitleIsVisible {
+			cardView.accessibilityElements?.append(validityStateTitleLabel)
+		}
+
+		qrCodeView.accessibilityTraits = [.image, .button]
 		qrCodeView.isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
