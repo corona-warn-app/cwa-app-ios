@@ -264,8 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: appConfigurationProvider.featureProvider
+			eventStore: eventStore
 		)
 
 		let checkinRiskCalculation = CheckinRiskCalculation(

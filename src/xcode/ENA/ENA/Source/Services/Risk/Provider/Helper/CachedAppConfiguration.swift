@@ -151,7 +151,6 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 			return AppConfigResponse(config: Self.defaultAppConfig, etag: nil)
 		}
 
-		// If there is no cached config, use the default app configuration.
 		Log.info("Providing default app configuration 🥫", log: .localData)
 		return AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)
 	}

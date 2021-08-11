@@ -4,7 +4,7 @@
 
 import Foundation
 import XCTest
-@testable import HealthCertificateToolkit
+@testable import ENASecurity
 
 final class AESEncryptionTests: XCTestCase {
 
@@ -18,7 +18,7 @@ final class AESEncryptionTests: XCTestCase {
 
         let aesEncryption = AESEncryption(
             encryptionKey: key,
-            initializationVector: AESEncryptionConstants.initializationVector
+            initializationVector: AESEncryptionConstants.zeroInitializationVector
         )
         let result = aesEncryption.decrypt(data: encrypted)
 
