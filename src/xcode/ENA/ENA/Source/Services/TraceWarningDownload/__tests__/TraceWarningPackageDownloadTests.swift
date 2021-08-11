@@ -41,7 +41,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			client: client,
 			store: store,
 			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig),
 			signatureVerifier: MockVerifier()
 		)
 		
@@ -79,8 +78,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage CheckInDatabaseIsEmpty_THEN_Success.")
@@ -119,8 +117,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage CheckInDatabaseIsNotEmpty_THEN_Success.")
@@ -163,8 +160,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage AvailablePackagesOnCDNAreEmpty_THEN_Success.")
@@ -217,8 +213,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let successExpectation = expectation(description: "TraceWarningPackage SinglePackageIsEmpty_THEN_Success.")
@@ -260,8 +255,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let successExpectation = expectation(description: "TraceWarningPackage DownloadIsAlreadyInProgress_THEN_DownloadIsRunning.")
@@ -319,8 +313,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let expect = expectation(description: "TraceWarningPackage DiscoveryIsFailing_THEN_InvalidResponseError.")
@@ -370,8 +363,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let expect = expectation(description: "TraceWarningPackage DownloadIsFailing_THEN_InvalidResponseError.")
@@ -422,8 +414,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let expect = expectation(description: "TraceWarningPackage DownloadIsFailing_THEN_InvalidResponseError.")
@@ -475,8 +466,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let expect = expectation(description: "TraceWarningPackage EtagMissing_THEN_IdenticationError.")
@@ -530,8 +520,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig)
+			eventStore: eventStore
 		)
 
 		let expect = expectation(description: "TraceWarningPackage VerificationFails_THEN_VerificationError.")
@@ -569,8 +558,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: MockEventStore(),
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store)
+			eventStore: MockEventStore()
 		)
 
 		// THEN
@@ -593,8 +581,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store)
+			eventStore: eventStore
 		)
 
 		// WHEN
@@ -620,8 +607,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store)
+			eventStore: eventStore
 		)
 
 		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 3)
@@ -650,8 +636,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store)
+			eventStore: eventStore
 		)
 
 		XCTAssertEqual(eventStore.checkinsPublisher.value.count, 3)
@@ -684,8 +669,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store)
+			eventStore: eventStore
 		)
 
 		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 5)
@@ -720,8 +704,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store)
+			eventStore: eventStore
 		)
 		let availables = [earliestPackageId, earliestPackageIdPlusOne, earliestPackageIdPlusTwo, earliestPackageIdPlusThree, earliestPackageIdPlusFour]
 		let earliestRelevantPackageId = earliestPackageIdPlusOne

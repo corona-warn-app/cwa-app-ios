@@ -125,18 +125,17 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 
 		XCTAssertEqual(checkinProtectedReports.count, 5)
 
-		let riskLevels = [
-			riskLevel(for: checkinProtectedReports[0], traceLocationId: traceLocationId),
-			riskLevel(for: checkinProtectedReports[1], traceLocationId: traceLocationId),
-			riskLevel(for: checkinProtectedReports[2], traceLocationId: traceLocationId),
-			riskLevel(for: checkinProtectedReports[3], traceLocationId: traceLocationId),
-			riskLevel(for: checkinProtectedReports[4], traceLocationId: traceLocationId)
-		]
+		let checkinRecords = checkinProtectedReports.compactMap {
+			self.checkinRecord(for: $0, traceLocationId: traceLocationId)
+		}.sorted {
+			$0.startIntervalNumber < $1.startIntervalNumber
+		}
 
-		XCTAssertEqual(riskLevels.filter { $0 == 4 }.count, 1)
-		XCTAssertEqual(riskLevels.filter { $0 == 6 }.count, 1)
-		XCTAssertEqual(riskLevels.filter { $0 == 7 }.count, 1)
-		XCTAssertEqual(riskLevels.filter { $0 == 8 }.count, 2)
+		XCTAssertEqual(checkinRecords[0].transmissionRiskLevel, 4)
+		XCTAssertEqual(checkinRecords[1].transmissionRiskLevel, 6)
+		XCTAssertEqual(checkinRecords[2].transmissionRiskLevel, 7)
+		XCTAssertEqual(checkinRecords[3].transmissionRiskLevel, 8)
+		XCTAssertEqual(checkinRecords[4].transmissionRiskLevel, 8)
 	}
 
 	func testDerivingWarningTimeInterval() throws {
@@ -237,10 +236,10 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 
 	// MARK: - Private
 
-	private func riskLevel(
+	private func checkinRecord(
 		for protectedReport: SAP_Internal_Pt_CheckInProtectedReport,
 		traceLocationId: Data
-	) -> UInt32? {
+	) -> SAP_Internal_Pt_CheckInRecord? {
 		let result = CheckinEncryption().decrypt(
 			locationId: traceLocationId,
 			encryptedCheckinRecord: protectedReport.encryptedCheckInRecord,
@@ -255,6 +254,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 			fatalError("Success and failure where handled, this part should never be reached.")
 		}
 
-		return decryptionResult.transmissionRiskLevel
+		return decryptionResult
 	}
 }

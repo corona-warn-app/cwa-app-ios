@@ -32,8 +32,7 @@ final class RiskProviderTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+			eventStore: eventStore
 		)
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.high]
@@ -121,8 +120,7 @@ final class RiskProviderTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+			eventStore: eventStore
 		)
 
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
@@ -211,8 +209,7 @@ final class RiskProviderTests: CWATestCase {
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: cachedAppConfig.currentAppConfig.value)
+			eventStore: eventStore
 		)
 
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
@@ -1079,8 +1076,7 @@ final class RiskProviderTests: CWATestCase {
 		return TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: mockEventStore,
-			appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: appConfig.currentAppConfig.value)
+			eventStore: mockEventStore
 		)
 	}
 
