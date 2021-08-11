@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "Wystąpił błąd.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Możesz wyświetlić kraje uczestniczące w danych rejestrowania narażenia.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -1555,14 +1559,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "Weryfikacja podpisu";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Standardowa nazwa";
 
-"NewVersionFeature_27_sigCheck_description" = "Po dodaniu certyfikatów w aplikacji Corona-Warn-App ich ważność i autentyczność jest sprawdzana. Dlatego możliwy jest import tylko tych certyfikatów, które zostały wydane przez uprawniony organ.";
+"NewVersionFeature_28_standardizeName_description" = "Poza nazwą w pisowni specyficznej dla kraju każdy certyfikat ma wyświetlaną również nazwę w standardowych znakach łacińskich.";
 
-"NewVersionFeature_27_technicalValidity_title" = "Techniczna kontrola ważności";
+"NewVersionFeature_28_certificateFromTestResult_title" = "Otwórz certyfikat z wyniku testu";
 
-"NewVersionFeature_27_technicalValidity_description" = "Teraz w aplikacji Corona-Warn-App wyświetlana jest techniczna data wygaśnięcia dodawanych certyfikatów szczepień oraz certyfikatów statusu ozdrowieńca. Aplikacja może powiadomić Cię z wyprzedzeniem o wygasającym certyfikacie.";
+"NewVersionFeature_28_certificateFromTestResult_description" = "Teraz możesz wywołać swój unijny cyfrowy certyfikat testu na COVID ze swojego wyniku testu, jeśli jest on dostępny.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1667,6 +1671,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Usuń test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menu";
 
@@ -1854,6 +1859,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Rosnący";
 
