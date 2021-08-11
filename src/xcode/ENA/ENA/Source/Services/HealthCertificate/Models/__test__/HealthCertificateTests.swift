@@ -64,7 +64,10 @@ class HealthCertificateTests: XCTestCase {
 	func testGIVEN_Base45WrongDGCEncoded_WHEN_InitIsCalled_THEN_FailureIsReturned() throws {
 		
 		// GIVEN
-		let dgcCertificate = DigitalCovidCertificate.fake(dateOfBirth: "WrongDOB")
+		let dgcCertificate = DigitalCovidCertificate.fake(
+			// 2 VaccinationEntries are not allowed.
+			vaccinationEntries: [VaccinationEntry.fake(), VaccinationEntry.fake()]
+		)
 		
 		let result = DigitalCovidCertificateFake.makeBase45Fake(
 			from: dgcCertificate,
@@ -88,12 +91,6 @@ class HealthCertificateTests: XCTestCase {
 		// THEN
 		XCTAssertNil(healthCertificate)
 		XCTAssertNotNil(error)
-
-		guard case let .HC_JSON_SCHEMA_INVALID(validationError) = error,
-			  case .VALIDATION_RESULT_FAILED = validationError else {
-			XCTFail("Unexpected error returned")
-			return
-		}
 	}
 	
 	func testGIVEN_TwoCertificates_WHEN_Compare1_THEN_CompareIsCorrect() throws {

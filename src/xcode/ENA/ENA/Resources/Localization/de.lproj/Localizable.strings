@@ -1044,7 +1044,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionText3" = "Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden über die App zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"ExposureNotificationSetting_DescriptionText4" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden bei der Risiko-Ermittlung zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
 
@@ -3014,3 +3014,38 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
+
+/* Federal State Names */
+
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bayern";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessen";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Vorpommern";
+
+"FederalState_Niedersachsen" = "Niedersachsen";
+
+"FederalState_NordrheinWestfalen" = "Nordrhein-Westfalen";
+
+"FederalState_RheinlandPfalz" = "Rheinland-Pfalz";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Sachsen";
+
+"FederalState_SachsenAnhalt" = "Sachsen-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Thüringen";
+

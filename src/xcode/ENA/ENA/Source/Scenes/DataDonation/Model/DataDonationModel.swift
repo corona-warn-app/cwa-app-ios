@@ -16,7 +16,7 @@ struct DataDonationModel {
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 
 		let userMetadata = store.userData
-		self.federalStateName = userMetadata?.federalState?.rawValue
+		self.federalStateName = userMetadata?.federalState?.localizedName
 		self.age = userMetadata?.ageGroup?.text
 
 		do {
@@ -40,12 +40,12 @@ struct DataDonationModel {
 	var age: String?
 
 	var allFederalStateNames: [String] {
-		FederalStateName.allCases.map { $0.rawValue }
+		FederalStateName.allCases.map { $0.localizedName }
 	}
 
 	func allRegions(by federalStateName: String) -> [String] {
 		allDistricts.filter { district -> Bool in
-			district.federalStateName.rawValue == federalStateName
+			district.federalStateName.localizedName == federalStateName
 		}
 		.map { $0.districtName }
 	}
@@ -71,7 +71,7 @@ struct DataDonationModel {
 
 		var federalStateNameEnum: FederalStateName?
 		if let federalStateName = federalStateName {
-			federalStateNameEnum = FederalStateName(rawValue: federalStateName)
+			federalStateNameEnum = FederalStateName.byLocalizedName(federalStateString: federalStateName)
 		}
 
 		let userdata = UserMetadata(

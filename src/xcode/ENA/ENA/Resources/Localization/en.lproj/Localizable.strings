@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "An error occurred.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "You can view the participating countries in the exposure logging details.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -1555,14 +1559,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "Signature Verification";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Standardized Name";
 
-"NewVersionFeature_27_sigCheck_description" = "When you add your certificates in the Corona-Warn-App, they are checked for validity and authenticity. Therefore, only certificates that were issued by an authorized body can be imported.";
+"NewVersionFeature_28_standardizeName_description" = "In addition to the name in the country-specific spelling, each certificate now also displays the name in standardized Latin characters.";
 
-"NewVersionFeature_27_technicalValidity_title" = "Technical Validity Check";
+"NewVersionFeature_28_certificateFromTestResult_title" = "Open Certificate from Test Result";
 
-"NewVersionFeature_27_technicalValidity_description" = "The Corona-Warn-App now shows you the technical expiration date of the vaccination certificates and certificates of recovery you add. The app can notify you of an expiring certificate in advance.";
+"NewVersionFeature_28_certificateFromTestResult_description" = "You can now call up your EU digital COVID test certificate directly from your test result, provided a certificate is available.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1667,6 +1671,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Delete Test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menu";
 
@@ -1854,6 +1859,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";
 
@@ -2903,4 +2909,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hesse";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Western Pomerania";
+
+"FederalState_Niedersachsen" = "Lower Saxony";
+
+"FederalState_NordrheinWestfalen" = "North Rhine-Westphalia";
+
+"FederalState_RheinlandPfalz" = "Rhineland-Palatinate";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saxony";
+
+"FederalState_SachsenAnhalt" = "Saxony-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Thuringia";
 

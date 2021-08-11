@@ -228,11 +228,23 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         guard  let healthCertificateCBOR = healthCertificateMap[1] else {
             return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
         }
-
+        
+        guard let trimmedHealthCertificateCBOR = cborMapWithTrimming(certificateCBOR: healthCertificateCBOR) else {
+            return .failure(.HC_CBOR_TRIMMING_FAILED)
+        }
         return loadSchemaAsDict()
-            .flatMap { validateSchema(of: healthCertificateCBOR, schemaDict: $0) }
+            .flatMap { validateSchema(of: trimmedHealthCertificateCBOR, schemaDict: $0) }
             .flatMap(convertCBORToStruct)
     }
+    
+    private func cborMapWithTrimming(certificateCBOR: CBOR) -> CBOR? {
+        guard case let CBOR.map(certificateMap) = certificateCBOR else {
+            return nil
+        }
+        // we need to remove spaces from attributes of the certificate CBOR itself so we pass back a modifiedCertificate
+        return CBOR.map(certificateMap.trimmed)
+    }
+
 
     private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
         guard case let CBOR.map(certificateMap) = cbor else {
@@ -265,18 +277,18 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             }
 
             let validationResult = try JSONSchema.validate(certificateMap.anyMap, schema: schemaDict)
-
+            
             switch validationResult {
             case .invalid(let errors):
                 return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_RESULT_FAILED(errors)))
             case .valid:
-                return .success((certificate))
+                return .success(certificate)
             }
         } catch {
             return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(error)))
         }
     }
-
+    
     private func decodeCOSEEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError> {
         decodeDataToCBOR(cborData)
             .flatMap(extractCOSE)

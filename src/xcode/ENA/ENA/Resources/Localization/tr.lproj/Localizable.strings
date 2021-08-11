@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "Bir hata oluştu.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Katılımcı ülkeleri, maruz kalma günlüğü ayrıntılarında görüntüleyebilirsiniz.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -1555,14 +1559,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "İmza Doğrulama";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Standartlaştırılmış Ad";
 
-"NewVersionFeature_27_sigCheck_description" = "Sertifikalarınızı Corona-Warn-App'e eklediğinizde sertifikalarınız geçerlilik ve doğruluk açısından konrol edilir. Bu nedenle, yalnızca onaylanmış bir kuruluş tarafından düzenlenen sertifikalar içe aktarılabilir.";
+"NewVersionFeature_28_standardizeName_description" = "Artık her bir sertifikada, ülkeye özel yazım biçimindeki ada ek olarak standartlaştırılmış Latin harfleriyle yazımı da görüntülenir.";
 
-"NewVersionFeature_27_technicalValidity_title" = "Teknik Geçerlilik Kontrolü";
+"NewVersionFeature_28_certificateFromTestResult_title" = "Test Sonucundan Sertifika Aç";
 
-"NewVersionFeature_27_technicalValidity_description" = "Corona-Warn-App artık eklediğiniz aşı sertifikalarının ve iyileşme sertifikalarının teknik sona erme tarihini gösterir. Uygulama, süresi olmak üzere olan sertifikalar konusunda sizi önceden uyarabilir.";
+"NewVersionFeature_28_certificateFromTestResult_description" = "Sertifika varsa, AB dijital COVID test sertifikanızı doğrudan test sertifikanızdan çekebilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1667,6 +1671,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Testi Sil";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menü";
 
@@ -1854,6 +1859,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-posta";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
 
@@ -2903,4 +2909,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Sertifika (İmza) Geçersiz";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavyera";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessen";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Vorpommern";
+
+"FederalState_Niedersachsen" = "Aşağı Saksonya";
+
+"FederalState_NordrheinWestfalen" = "Kuzey Ren-Vestfalya";
+
+"FederalState_RheinlandPfalz" = "Renanya-Palatina";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saksonya";
+
+"FederalState_SachsenAnhalt" = "Saksonya-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Türingiya";
 
