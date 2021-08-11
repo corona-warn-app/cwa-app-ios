@@ -433,6 +433,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// will be released in `deinit`
 		TaskExecutionHandler(
 			riskProvider: self.riskProvider,
+			exposureManager: exposureManager,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
 			eventStore: self.eventStore,
@@ -731,7 +732,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					Log.error("Cannot activate the ENManager. The reason is \(error)", log: .api)
+					Log.error("Cannot activate the ENManager.", log: .api, error: error)
 				}
 				self?.presentHomeVC(route)
 			}
