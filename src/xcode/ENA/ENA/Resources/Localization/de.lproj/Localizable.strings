@@ -1044,7 +1044,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionText3" = "Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden über die App zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"ExposureNotificationSetting_DescriptionText4" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden bei der Risiko-Ermittlung zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
 
