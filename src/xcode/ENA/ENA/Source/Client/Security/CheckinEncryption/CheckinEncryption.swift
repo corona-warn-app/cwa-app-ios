@@ -53,11 +53,6 @@ struct CheckinEncryption: CheckinEncrypting {
 		messageAuthenticationCode: Data // `mac` (message authentication code) as byte sequence
 	) -> Result<SAP_Internal_Pt_CheckInRecord, CheckinDecryptionError> {
 
-		print("locationId: \(locationId.base64EncodedString())")
-		print("encryptedCheckinRecord: \(encryptedCheckinRecord.base64EncodedString())")
-		print("initializationVector: \(initializationVector.base64EncodedString())")
-		print("messageAuthenticationCode: \(messageAuthenticationCode.base64EncodedString())")
-
 		// Determine `recalculated mac`
 		let recalculatedMac = self.messageAuthenticationCode(
 			locationId: locationId,
