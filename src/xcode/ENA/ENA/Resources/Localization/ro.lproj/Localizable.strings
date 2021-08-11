@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "A apărut o eroare.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Puteți vedea țările participante în detaliile înregistrării în jurnal a expunerilor.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -1667,6 +1671,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Ștergere test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Meniu";
 
@@ -1854,6 +1859,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
 
@@ -2903,4 +2909,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificat (Semnătură) nevalabil(ă)";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessa";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Pomerania de Vest";
+
+"FederalState_Niedersachsen" = "Saxonia Inferioară";
+
+"FederalState_NordrheinWestfalen" = "Renania de Nord-Westfalia";
+
+"FederalState_RheinlandPfalz" = "Renania-Palatinat";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saxonia";
+
+"FederalState_SachsenAnhalt" = "Saxonia-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Turingia";
 

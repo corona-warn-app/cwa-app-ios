@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "Wystąpił błąd.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Możesz wyświetlić kraje uczestniczące w danych rejestrowania narażenia.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -1667,6 +1671,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Usuń test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menu";
 
@@ -1854,6 +1859,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Rosnący";
 
@@ -2903,4 +2909,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Certyfikat (podpis) jest nieprawidłowy";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Badenia-Wirtembergia";
+
+"FederalState_Bayern" = "Bawaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburgia";
+
+"FederalState_Bremen" = "Brema";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hesja";
+
+"FederalState_MecklenburgVorpommern" = "Meklemburgia-Pomorze Zachodnie";
+
+"FederalState_Niedersachsen" = "Dolna Saksonia";
+
+"FederalState_NordrheinWestfalen" = "Nadrenia Północna-Westfalia";
+
+"FederalState_RheinlandPfalz" = "Nadrenia-Palatynat";
+
+"FederalState_Saarland" = "Saara";
+
+"FederalState_Sachsen" = "Saksonia";
+
+"FederalState_SachsenAnhalt" = "Saksonia-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Szlezwik-Holsztyn";
+
+"FederalState_Thueringen" = "Turyngia";
 
