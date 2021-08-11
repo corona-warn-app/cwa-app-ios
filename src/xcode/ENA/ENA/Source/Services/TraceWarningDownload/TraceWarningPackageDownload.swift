@@ -186,19 +186,19 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				downloadTraceWarningPackages(
 					with: appConfig,
 					for: country,
-					unencrypted:  AppFeatureProvider(appConfig: appConfig).value(for: .unencryptedCheckinsEnabled),
+					unencrypted: AppFeatureProvider(appConfig: appConfig).value(for: .unencryptedCheckinsEnabled),
 					completion: { result in
-					switch result {
-					case let .success(success):
-						Log.info("Succeded downloading packages for country id: \(country).", log: .checkin)
-						successes.append(success)
-					case let .failure(error):
-						Log.info("Failed downloading packages for country id: \(country).", log: .checkin)
-						errors.append(error)
-					}
-					
-					countriesDG.leave()
-				})
+						switch result {
+						case let .success(success):
+							Log.info("Succeded downloading packages for country id: \(country).", log: .checkin)
+							successes.append(success)
+						case let .failure(error):
+							Log.info("Failed downloading packages for country id: \(country).", log: .checkin)
+							errors.append(error)
+						}
+
+						countriesDG.leave()
+					})
 			}
 		}
 		

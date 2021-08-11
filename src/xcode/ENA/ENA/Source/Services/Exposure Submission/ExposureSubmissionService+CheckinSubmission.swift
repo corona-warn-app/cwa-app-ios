@@ -98,7 +98,7 @@ extension ExposureSubmissionService {
 					return nil
 				}
 
-				let checkinProtectedReport = checkin.createChekinProtectedReport(
+				let checkinProtectedReport = checkin.createCheckinProtectedReport(
 					transmissionRiskLevel: transmissionRiskLevel
 				)
 
