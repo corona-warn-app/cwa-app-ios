@@ -260,7 +260,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			wifiClient: wifiClient,
 			store: store
 		)
-		
+
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,

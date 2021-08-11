@@ -43,7 +43,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let section = DMDeviceTimeCheckViewModel.Sections(rawValue: indexPath.section) else {
-			fatalError("unknonw tableview section")
+			fatalError("unknown tableview section")
 		}
 
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)

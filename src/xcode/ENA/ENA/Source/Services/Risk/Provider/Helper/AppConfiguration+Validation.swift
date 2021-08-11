@@ -5,7 +5,6 @@
 import Foundation
 import ZIPFoundation
 
-
 extension Archive {
 
 	func extractAppConfiguration() throws -> SAP_Internal_V2_ApplicationConfigurationIOS {

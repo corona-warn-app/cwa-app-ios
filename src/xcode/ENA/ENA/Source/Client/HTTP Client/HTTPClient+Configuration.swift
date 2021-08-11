@@ -39,6 +39,7 @@ extension HTTPClient {
 
 			return Configuration(
 				apiVersion: "v1",
+				encryptedApiVersion: "v2",
 				country: "DE",
 				endpoints: endpoints
 			)
@@ -47,6 +48,7 @@ extension HTTPClient {
 		// MARK: Properties
 
 		let apiVersion: String
+		let encryptedApiVersion: String
 		let country: String
 		let endpoints: Endpoints
 
@@ -246,7 +248,36 @@ extension HTTPClient {
 					String(packageId)
 				)
 		}
-		
+
+		/// API for Encrypted Hour Package Discovery
+		func encryptedTraceWarningPackageDiscoveryURL(country: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					encryptedApiVersion,
+					"twp",
+					"country",
+					country,
+					"hour"
+				)
+		}
+
+		/// API for Encrypted Hour Package Download
+		func encryptedTraceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					encryptedApiVersion,
+					"twp",
+					"country",
+					country,
+					"hour",
+					String(packageId)
+				)
+		}
+
 		var qrCodePosterTemplateURL: URL {
 			endpoints
 				.distribution

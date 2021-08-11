@@ -373,7 +373,7 @@ final class RiskProvider: RiskProviding {
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			deviceTimeCheck: appConfigurationProvider.deviceTimeCheck
 		)
 
 		exposureDetection?.start { [weak self] result in
