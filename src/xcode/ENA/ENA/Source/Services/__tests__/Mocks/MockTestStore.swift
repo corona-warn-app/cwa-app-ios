@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-#if DEBUG
+#if !RELEASE
 
 final class MockTestStore: Store, PPAnalyticsData {
 	var firstPlaybookExecution: Date?

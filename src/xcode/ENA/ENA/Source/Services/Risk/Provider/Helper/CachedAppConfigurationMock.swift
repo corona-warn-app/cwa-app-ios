@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import ZIPFoundation
 
-#if DEBUG
+#if !RELEASE
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
