@@ -996,6 +996,7 @@ final class RiskProviderTests: CWATestCase {
 
 		let appDelegate = AppDelegate()
 		appDelegate.riskProvider = riskProvider
+		appDelegate.store.isOnboarded = true
 
 		for _ in 0...numberOfExecuteENABackgroundTask - 1 {
 			appDelegate.taskExecutionDelegate.executeENABackgroundTask { _ in }
