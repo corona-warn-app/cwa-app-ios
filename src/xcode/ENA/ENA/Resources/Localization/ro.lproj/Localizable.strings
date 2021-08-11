@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "A apărut o eroare.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Puteți vedea țările participante în detaliile înregistrării în jurnal a expunerilor.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -1555,14 +1559,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "Verificarea semnăturii";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Nume standardizat";
 
-"NewVersionFeature_27_sigCheck_description" = "Atunci când adăugați certificatele dvs. în Corona-Warn-App, acestora li se verifică atât valabilitatea, cât și autenticitate. Prin urmare, doar certificatele care au fost emise de către un organism autorizat pot fi importate.";
+"NewVersionFeature_28_standardizeName_description" = "Pe lângă numele afișat în ortografia specifică țării, acum fiecare certificat afișează numele și sub formă de caractere latine standardizate.";
 
-"NewVersionFeature_27_technicalValidity_title" = "Verificarea valabilității tehnice";
+"NewVersionFeature_28_certificateFromTestResult_title" = "Deschidere certificat de la rezultat de test";
 
-"NewVersionFeature_27_technicalValidity_description" = "Acum Corona-Warn-App vă afișează data de expirare tehnică a certificatelor de vaccinare și a certificatelor de recuperate pe care le adăugați. Aplicația vă poate notifica în avans cu privire la expirarea certificatului.";
+"NewVersionFeature_28_certificateFromTestResult_description" = "Acum puteți apela certificatul de test COVID digital UE direct din rezultatul testului, cu condiția să existe un certificat disponibil.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1667,6 +1671,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Ștergere test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Meniu";
 
@@ -1854,6 +1859,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
 
