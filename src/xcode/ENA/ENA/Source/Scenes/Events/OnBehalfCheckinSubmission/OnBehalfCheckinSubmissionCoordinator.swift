@@ -65,7 +65,33 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	}()
 
 	private func showTraceLocationSelectionScreen() {
+		let traceLocationSelectionViewController = OnBehalfTraceLocationSelectionViewController(
+			traceLocations: eventStore.traceLocationsPublisher.value,
+			onCompletion: { [weak self] selectedTraceLocation in
+				self?.showDateTimeSelectionSelectionScreen(
+					traceLocation: selectedTraceLocation
+				)
+			},
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.primaryButtonTitle,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: traceLocationSelectionViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
 	func showQRCodeScanner() {
@@ -98,7 +124,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	}
 
 	private func showTANInputScreen(
-
+		checkin: Checkin
 	) {
 
 	}

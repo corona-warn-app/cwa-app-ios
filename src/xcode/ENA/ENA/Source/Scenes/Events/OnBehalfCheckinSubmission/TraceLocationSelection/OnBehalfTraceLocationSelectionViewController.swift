@@ -5,14 +5,17 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHandling, FooterViewHandling {
+class OnBehalfTraceLocationSelectionViewController: UITableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 	
-	init(checkins: [Checkin], onCompletion: @escaping ([Checkin]) -> Void, onSkip: @escaping () -> Void, onDismiss: @escaping () -> Void) {
-		self.viewModel = ExposureSubmissionCheckinsViewModel(checkins: checkins)
+	init(
+		traceLocations: [TraceLocation],
+		onCompletion: @escaping (TraceLocation) -> Void,
+		onDismiss: @escaping () -> Void
+	) {
+		self.viewModel = OnBehalfTraceLocationSelectionViewModel(traceLocations: traceLocations)
 		self.onCompletion = onCompletion
-		self.onSkip = onSkip
 		self.onDismiss = onDismiss
 		
 		super.init(style: .plain)
@@ -26,9 +29,9 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		parent?.title = viewModel.title
-		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.largeTitleDisplayMode = .always
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		tableView.separatorStyle = .none
@@ -43,6 +46,13 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 			}
 			.store(in: &subscriptions)
 	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.sizeToFit()
+	}
 	
 	// MARK: - Protocol DismissHandling
 	
@@ -53,14 +63,11 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	// MARK: - Protocol FooterViewHandling
 	
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		switch type {
-		case .primary:
-			// Submit
-			onCompletion(viewModel.selectedCheckins)
-		case .secondary:
-			// Skip
-			onSkip()
+		guard type == .primary, let selectedTraceLocation = viewModel.selectedTraceLocation else {
+			return
 		}
+
+		onCompletion(selectedTraceLocation)
 	}
 	
 	// MARK: - Protocol UITableViewDataSource
@@ -74,38 +81,23 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch ExposureSubmissionCheckinsViewModel.Section(rawValue: indexPath.section) {
+		switch OnBehalfTraceLocationSelectionViewModel.Section(rawValue: indexPath.section) {
 		case .description:
 			return descriptionCell(forRowAt: indexPath)
-		case .checkins:
-			return checkinCell(forRowAt: indexPath)
+		case .traceLocations:
+			return traceLocationCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
 	}
 
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard ExposureSubmissionCheckinsViewModel.Section(rawValue: section) == .checkins else {
-			return UIView()
-		}
-		
-		let selectAllButton = UIButton()
-		selectAllButton.backgroundColor = .enaColor(for: .darkBackground)
-		selectAllButton.contentHorizontalAlignment = .left
-		selectAllButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-		selectAllButton.setTitleColor(.enaColor(for: .textTint), for: .normal)
-		selectAllButton.setTitle(AppStrings.ExposureSubmissionCheckins.selectAll, for: .normal)
-		selectAllButton.addTarget(viewModel, action: #selector(viewModel.selectAll), for: .touchUpInside)
-		return selectAllButton
-	}
-
 	// MARK: - Protocol UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch ExposureSubmissionCheckinsViewModel.Section(rawValue: indexPath.section) {
+		switch OnBehalfTraceLocationSelectionViewModel.Section(rawValue: indexPath.section) {
 		case .description:
 			return
-		case .checkins:
+		case .traceLocations:
 			viewModel.toggleSelection(at: indexPath.row)
 			return
 		default:
@@ -115,9 +107,8 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	
 	// MARK: - Private
 	
-	private let viewModel: ExposureSubmissionCheckinsViewModel
-	private let onCompletion: ([Checkin]) -> Void
-	private let onSkip: () -> Void
+	private let viewModel: OnBehalfTraceLocationSelectionViewModel
+	private let onCompletion: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
 	private var subscriptions: Set<AnyCancellable> = []
 
@@ -128,19 +119,19 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 
 		cell.configure(
 			with: ExposureSubmissionCheckinDescriptionCellModel(
-				description: AppStrings.ExposureSubmissionCheckins.description
+				description: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.description
 			)
 		)
 
 		return cell
 	}
 	
-	private func checkinCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func traceLocationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinTableViewCell else {
 			fatalError("Could not dequeue ExposureSubmissionCheckinTableViewCell")
 		}
 
-		cell.configure(with: viewModel.checkinCellModels[indexPath.row])
+		cell.configure(with: viewModel.traceLocationCellModels[indexPath.row])
 
 		return cell
 	}

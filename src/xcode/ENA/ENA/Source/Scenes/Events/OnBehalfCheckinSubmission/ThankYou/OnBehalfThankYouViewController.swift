@@ -55,7 +55,6 @@ class OnBehalfThankYouViewController: DynamicTableViewController, DismissHandlin
 		navigationItem.hidesBackButton = true
 		navigationItem.largeTitleDisplayMode = .always
 
-
 		view.backgroundColor = .enaColor(for: .background)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel

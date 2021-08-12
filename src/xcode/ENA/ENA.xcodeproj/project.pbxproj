@@ -23,6 +23,10 @@
 		01164CD426C559AA007F9C3E /* OnBehalfCheckinSubmissionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */; };
 		01164CD826C568F9007F9C3E /* OnBehalfThankYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CD726C56863007F9C3E /* OnBehalfThankYouViewModel.swift */; };
 		01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CD626C56863007F9C3E /* OnBehalfThankYouViewController.swift */; };
+		01164CDD26C571C3007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CDC26C56F89007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift */; };
+		01164CDE26C571DA007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */; };
+		01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE126C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift */; };
+		01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */; };
@@ -1252,7 +1256,7 @@
 		EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */; };
 		EB67B5E1262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */; };
 		EB67B5E7262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */; };
-		EB67B5EF262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5EE262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift */; };
+		EB67B5EF262AD6D300218EC7 /* CheckinSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */; };
 		EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */; };
 		EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */; };
 		EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB7057D624E6BACA002235B4 /* InfoBoxView.xib */; };
@@ -1352,6 +1356,10 @@
 		01164CD126C551B2007F9C3E /* OnBehalfInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfInfoViewModel.swift; sourceTree = "<group>"; };
 		01164CD626C56863007F9C3E /* OnBehalfThankYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfThankYouViewController.swift; sourceTree = "<group>"; };
 		01164CD726C56863007F9C3E /* OnBehalfThankYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfThankYouViewModel.swift; sourceTree = "<group>"; };
+		01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewModel.swift; sourceTree = "<group>"; };
+		01164CDC26C56F89007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewController.swift; sourceTree = "<group>"; };
+		01164CE126C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinSelectionCellModel.swift; sourceTree = "<group>"; };
+		01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModel.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModel.swift; sourceTree = "<group>"; };
@@ -2601,7 +2609,7 @@
 		EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewController.swift; sourceTree = "<group>"; };
 		EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewModel.swift; sourceTree = "<group>"; };
 		EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinTableViewCell.swift; sourceTree = "<group>"; };
-		EB67B5EE262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinCellModel.swift; sourceTree = "<group>"; };
+		EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSelectionCellModel.swift; sourceTree = "<group>"; };
 		EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewController.swift; sourceTree = "<group>"; };
 		EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationCell.swift; sourceTree = "<group>"; };
 		EB7057D624E6BACA002235B4 /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
@@ -2784,6 +2792,15 @@
 			path = ThankYou;
 			sourceTree = "<group>";
 		};
+		01164CDA26C56F70007F9C3E /* TraceLocationSelection */ = {
+			isa = PBXGroup;
+			children = (
+				01164CDC26C56F89007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift */,
+				01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */,
+			);
+			path = TraceLocationSelection;
+			sourceTree = "<group>";
+		};
 		0123D5962501381900A91838 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -2876,6 +2893,12 @@
 				0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */,
 				0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */,
 				01F6701125FF79830069C4F9 /* EventCellModel.swift */,
+				EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */,
+				01164CE126C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift */,
+				EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */,
+				01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */,
+				EB3B3498262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift */,
+				EB3B349D262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2964,6 +2987,7 @@
 			children = (
 				015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */,
 				01164CCF26C55187007F9C3E /* Info */,
+				01164CDA26C56F70007F9C3E /* TraceLocationSelection */,
 				01164CD526C56853007F9C3E /* ThankYou */,
 			);
 			path = OnBehalfCheckinSubmission;
@@ -7517,17 +7541,6 @@
 			path = UpdateOS;
 			sourceTree = "<group>";
 		};
-		EB3B34A2262B1BBE00B1801E /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */,
-				EB67B5EE262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift */,
-				EB3B3498262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift */,
-				EB3B349D262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		EB41DC0624E53D3F0029C6F7 /* BackgroundAppRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -7568,7 +7581,6 @@
 			children = (
 				EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */,
 				EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */,
-				EB3B34A2262B1BBE00B1801E /* Cells */,
 			);
 			path = ExposureSubmissionCheckins;
 			sourceTree = "<group>";
@@ -8052,6 +8064,7 @@
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */,
+				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
 				EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */,
 				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
@@ -8247,6 +8260,7 @@
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				01BA0755262094D700237DD8 /* AerosoleDecayFunctionLinear.swift in Sources */,
 				019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */,
+				01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */,
@@ -8313,6 +8327,7 @@
 				01E0D3AC268F061B00E32CF9 /* HealthCertificateValidationCoordinator.swift in Sources */,
 				EB2FDF952639A75E00B2BBF0 /* StringInterpolation+Private.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
+				01164CDD26C571C3007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift in Sources */,
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
 				35E121DC25B273280098D754 /* key_figure_card.pb.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
@@ -8585,7 +8600,7 @@
 				AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */,
 				CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */,
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
-				EB67B5EF262AD6D300218EC7 /* ExposureSubmissionCheckinCellModel.swift in Sources */,
+				EB67B5EF262AD6D300218EC7 /* CheckinSelectionCellModel.swift in Sources */,
 				BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
 				345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */,
@@ -8640,6 +8655,7 @@
 				2EDE67F9266E406900864D53 /* StackViewLabel.swift in Sources */,
 				BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */,
 				01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */,
+				01164CDE26C571DA007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
 				011216FA2617363D00320745 /* CoronaTestService.swift in Sources */,
 				BAEFB3562656A79700497F79 /* ContactDiaryMigration4To5.swift in Sources */,

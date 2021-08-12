@@ -12,7 +12,7 @@ class ExposureSubmissionCheckinsViewModel {
 	init(checkins: [Checkin]) {
 		self.checkinCellModels = checkins
 			.filter { $0.checkinCompleted } // Only shows completed check-ins
-			.map { ExposureSubmissionCheckinCellModel(checkin: $0) }
+			.map { CheckinSelectionCellModel(checkin: $0) }
 	}
 		
 	// MARK: - Internal
@@ -23,7 +23,7 @@ class ExposureSubmissionCheckinsViewModel {
 	}
 	
 	let title = AppStrings.ExposureSubmissionCheckins.title
-	let checkinCellModels: [ExposureSubmissionCheckinCellModel]
+	let checkinCellModels: [CheckinSelectionCellModel]
 	@OpenCombine.Published private(set) var continueEnabled: Bool = false
 	
 	var numberOfSections: Int {
