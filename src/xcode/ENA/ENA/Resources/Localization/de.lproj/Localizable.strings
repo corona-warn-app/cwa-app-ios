@@ -2373,6 +2373,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informationen";
 
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "In Vertretung warnen";
+
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
 "TraceLocations_Overview_Item_Prefix" = "QR-Code für %@.";

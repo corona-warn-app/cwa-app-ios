@@ -1868,6 +1868,7 @@ enum AppStrings {
 
 			enum ActionSheet {
 				static let infoTitle = NSLocalizedString("TraceLocations_Overview_ActionSheet_InfoTitle", comment: "")
+				static let onBehalfCheckinSubmissionTitle = NSLocalizedString("TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle", comment: "")
 				static let editTitle = NSLocalizedString("TraceLocations_Overview_ActionSheet_EditTitle", comment: "")
 			}
 		}
