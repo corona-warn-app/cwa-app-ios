@@ -1666,8 +1666,8 @@ enum AppStrings {
 		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_DetailedInformation_Subheadline", comment: "")
 		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_DetailedInformation_Content2", comment: "")
 	}
-	enum Checkins {
 
+	enum Checkins {
 		enum Edit {
 			static let primaryButtonTitle = NSLocalizedString("Checkins_Edit_PrimaryButton_Title", comment: "")
 			static let sectionHeaderTitle = NSLocalizedString("Checkins_Edit_Section_Title", comment: "")
@@ -1898,6 +1898,50 @@ enum AppStrings {
 			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 			static let savingErrorMessage = NSLocalizedString("TraceLocations_Configuration_SavingErrorMessage", comment: "")
 		}
+	}
+
+	enum OnBehalfCheckinSubmission {
+
+		enum Info {
+			static let title = NSLocalizedString("OnBehalfCheckinSubmission_Info_Title", comment: "")
+			static let subtitle = NSLocalizedString("OnBehalfCheckinSubmission_Info_Subtitle", comment: "")
+			static let description = NSLocalizedString("OnBehalfCheckinSubmission_Info_Description", comment: "")
+			static let bulletPoint1 = NSLocalizedString("OnBehalfCheckinSubmission_Info_BulletPoint1", comment: "")
+			static let bulletPoint2 = NSLocalizedString("OnBehalfCheckinSubmission_Info_BulletPoint2", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_Info_PrimaryButtonTitle", comment: "")
+		}
+
+		enum TraceLocationSelection {
+			static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Title", comment: "")
+			static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Description", comment: "")
+			static let scanButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle", comment: "")
+
+			enum EmptyState {
+				static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title", comment: "")
+				static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description", comment: "")
+			}
+		}
+
+		enum DateTimeSelection {
+			static let title = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Title", comment: "")
+			static let description = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Description", comment: "")
+			static let start = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Start", comment: "")
+			static let duration = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Duration", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle", comment: "")
+		}
+
+		enum TANInput {
+			static let title = NSLocalizedString("OnBehalfCheckinSubmission_TANInput_Title", comment: "")
+			static let description = NSLocalizedString("OnBehalfCheckinSubmission_TANInput_Description", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle", comment: "")
+		}
+
+		enum ThankYou {
+			static let title = NSLocalizedString("OnBehalfCheckinSubmission_ThankYou_Title", comment: "")
+			static let description = NSLocalizedString("OnBehalfCheckinSubmission_ThankYou_Description", comment: "")
+		}
+
 	}
 
 	enum AntigenProfile {
