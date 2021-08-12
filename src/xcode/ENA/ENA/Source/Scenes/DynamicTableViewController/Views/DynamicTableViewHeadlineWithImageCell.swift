@@ -40,7 +40,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		contentView.addSubview(headlineLabel)
 
 		backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-		backgroundImageView.contentMode = .scaleAspectFit
+		backgroundImageView.contentMode = .scaleAspectFill
 		contentView.addSubview(backgroundImageView)
 
 		NSLayoutConstraint.activate(
