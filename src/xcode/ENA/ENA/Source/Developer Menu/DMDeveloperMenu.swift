@@ -18,6 +18,15 @@ extension UserDefaults: DMStore {
 			set(newValue, forKey: "dmLastSubmissionRequest")
 		}
 	}
+	
+	var dmLastonBehalfCheckinSubmissionRequest: Data? {
+		get {
+			data(forKey: "dmLastonBehalfCheckinSubmissionRequest")
+		}
+		set {
+			set(newValue, forKey: "dmLastonBehalfCheckinSubmissionRequest")
+		}
+	}
 }
 
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.

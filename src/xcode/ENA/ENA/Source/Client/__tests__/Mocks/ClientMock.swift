@@ -140,6 +140,10 @@ extension ClientMock: Client {
 	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitCountries(payload, isFake, completion)
 	}
+	
+	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		onSubmitCountries(payload, isFake, completion)
+	}
 
 	func getRegistrationToken(
 		forKey: String,

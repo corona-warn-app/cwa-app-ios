@@ -94,7 +94,18 @@ protocol Client {
 		isFake: Bool,
 		completion: @escaping KeySubmissionResponse
 	)
-
+	
+	/// Submits Checkins to the backend on behalf.
+	/// - Parameters:
+	///   - payload: A set of properties to provide during the submission process
+	///   - isFake: flag to indicate a fake request
+	///   - completion: the completion handler of the submission call
+	func submitOnBehalf(
+		payload: SubmissionPayload,
+		isFake: Bool,
+		completion: @escaping KeySubmissionResponse
+	)
+	
 	// MARK: OTP Authorization
 
 	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
