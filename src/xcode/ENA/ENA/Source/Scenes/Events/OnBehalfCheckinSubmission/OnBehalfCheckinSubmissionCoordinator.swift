@@ -30,7 +30,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	// MARK: - Private
 
 	private weak var parentViewController: UIViewController!
-	private var navigationController: UINavigationController!
+	private var navigationController: DismissHandlingNavigationController!
 
 	private let appConfiguration: AppConfigurationProviding
 	private let eventStore: EventStoringProviding
@@ -41,6 +41,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private lazy var infoScreen: UIViewController = {
 		let infoViewController = OnBehalfInfoViewController(
 			onPrimaryButtonTap: { [weak self] in
+				self?.navigationController.restoreOriginalNavigationBar()
 				self?.showTraceLocationSelectionScreen()
 			},
 			onDismiss: { [weak self] in
@@ -65,7 +66,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 	private func showTraceLocationSelectionScreen() {
 
-		//navigationController.pushViewController(containerViewController, animated: true)
 	}
 
 	func showQRCodeScanner() {
@@ -95,21 +95,22 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		traceLocation: TraceLocation
 	) {
 
-		//navigationController.pushViewController(containerViewController, animated: true)
 	}
 
 	private func showTANInputScreen(
 
 	) {
 
-		//navigationController.pushViewController(containerViewController, animated: true)
 	}
 
-	private func showThankYouScreen(
+	private func showThankYouScreen() {
+		let thankYouViewController = OnBehalfThankYouViewController(
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
-	) {
-
-		//navigationController.pushViewController(containerViewController, animated: true)
+		navigationController.pushViewController(thankYouViewController, animated: true)
 	}
 
 	private func showErrorAlert(

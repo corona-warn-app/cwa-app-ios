@@ -21,6 +21,8 @@
 		01164CD226C559A5007F9C3E /* OnBehalfInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CD026C5519F007F9C3E /* OnBehalfInfoViewController.swift */; };
 		01164CD326C559A8007F9C3E /* OnBehalfInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CD126C551B2007F9C3E /* OnBehalfInfoViewModel.swift */; };
 		01164CD426C559AA007F9C3E /* OnBehalfCheckinSubmissionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */; };
+		01164CD826C568F9007F9C3E /* OnBehalfThankYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CD726C56863007F9C3E /* OnBehalfThankYouViewModel.swift */; };
+		01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CD626C56863007F9C3E /* OnBehalfThankYouViewController.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */; };
@@ -1348,6 +1350,8 @@
 		01131E41261610F7001DB2CD /* TraceLocationsConfigurationViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsConfigurationViewModelTest.swift; sourceTree = "<group>"; };
 		01164CD026C5519F007F9C3E /* OnBehalfInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfInfoViewController.swift; sourceTree = "<group>"; };
 		01164CD126C551B2007F9C3E /* OnBehalfInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfInfoViewModel.swift; sourceTree = "<group>"; };
+		01164CD626C56863007F9C3E /* OnBehalfThankYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfThankYouViewController.swift; sourceTree = "<group>"; };
+		01164CD726C56863007F9C3E /* OnBehalfThankYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfThankYouViewModel.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModel.swift; sourceTree = "<group>"; };
@@ -2771,6 +2775,15 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
+		01164CD526C56853007F9C3E /* ThankYou */ = {
+			isa = PBXGroup;
+			children = (
+				01164CD626C56863007F9C3E /* OnBehalfThankYouViewController.swift */,
+				01164CD726C56863007F9C3E /* OnBehalfThankYouViewModel.swift */,
+			);
+			path = ThankYou;
+			sourceTree = "<group>";
+		};
 		0123D5962501381900A91838 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -2951,6 +2964,7 @@
 			children = (
 				015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */,
 				01164CCF26C55187007F9C3E /* Info */,
+				01164CD526C56853007F9C3E /* ThankYou */,
 			);
 			path = OnBehalfCheckinSubmission;
 			sourceTree = "<group>";
@@ -8072,6 +8086,7 @@
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
+				01164CD826C568F9007F9C3E /* OnBehalfThankYouViewModel.swift in Sources */,
 				354BB49A25B07DB000FBCFEE /* StatisticsProviding.swift in Sources */,
 				01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
@@ -8395,6 +8410,7 @@
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
 				8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */,
+				01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */,
 				01E102662668D40F009ED803 /* TestCertificateRequest.swift in Sources */,
 				BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */,
 				BA5B7FCE26458EF400502087 /* HealthCertificateViewModel.swift in Sources */,
