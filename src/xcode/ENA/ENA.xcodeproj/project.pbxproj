@@ -27,6 +27,8 @@
 		01164CDE26C571DA007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */; };
 		01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE126C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift */; };
 		01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */; };
+		01164CE626C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */; };
+		01164CE826C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE726C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */; };
@@ -1360,6 +1362,8 @@
 		01164CDC26C56F89007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewController.swift; sourceTree = "<group>"; };
 		01164CE126C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinSelectionCellModel.swift; sourceTree = "<group>"; };
 		01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModel.swift; sourceTree = "<group>"; };
+		01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionEmptyStateViewModel.swift; sourceTree = "<group>"; };
+		01164CE726C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfScanQRCodeCellModel.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModel.swift; sourceTree = "<group>"; };
@@ -2797,6 +2801,8 @@
 			children = (
 				01164CDC26C56F89007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift */,
 				01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */,
+				01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */,
+				01164CE726C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift */,
 			);
 			path = TraceLocationSelection;
 			sourceTree = "<group>";
@@ -8404,6 +8410,7 @@
 				EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */,
 				BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
+				01164CE626C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */,
@@ -8872,6 +8879,7 @@
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
 				8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */,
 				BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */,
+				01164CE826C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift in Sources */,
 				BA00FED926BC357F009DA07F /* DMAppFeaturesViewController.swift in Sources */,
 				0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */,
 				35327FF6256D4CE600C36A44 /* UIStackView+prune.swift in Sources */,

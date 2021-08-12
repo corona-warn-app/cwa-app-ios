@@ -67,6 +67,12 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private func showTraceLocationSelectionScreen() {
 		let traceLocationSelectionViewController = OnBehalfTraceLocationSelectionViewController(
 			traceLocations: eventStore.traceLocationsPublisher.value,
+			onScanQRCodeCellTap: { [weak self] in
+				self?.showQRCodeScanner()
+			},
+			onMissingPermissionsButtonTap: { [weak self] in
+				self?.showSettings()
+			},
 			onCompletion: { [weak self] selectedTraceLocation in
 				self?.showDateTimeSelectionSelectionScreen(
 					traceLocation: selectedTraceLocation
@@ -137,6 +143,10 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		)
 
 		navigationController.pushViewController(thankYouViewController, animated: true)
+	}
+
+	private func showSettings() {
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 
 	private func showErrorAlert(
