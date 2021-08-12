@@ -73,6 +73,9 @@ class TraceLocationsCoordinator {
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
 			},
+			onOnBehalfCheckinSubmissionTap: { [weak self] in
+				self?.showOnBehalfCheckinSubmissionFlow()
+			},
 			onAddEntryCellTap: { [weak self] in
 				self?.showTraceLocationTypeSelectionScreen()
 			}
@@ -267,6 +270,10 @@ class TraceLocationsCoordinator {
 			}
 		)
 		parentNavigationController?.present(traceLocationCheckinViewController, animated: true)
+	}
+
+	private func showOnBehalfCheckinSubmissionFlow() {
+
 	}
 	
 }

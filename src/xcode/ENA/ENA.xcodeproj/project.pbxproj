@@ -5021,7 +5021,6 @@
 				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
-				BAA4D72E25E95B1D00821B5C /* Checkin */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
 				BA63815825E69D1000A642BB /* Containers */,
 				BA0073BB25D189E50036DFDD /* DataDonation */,
@@ -5047,7 +5046,6 @@
 				51D420C224583D7B00AD70CA /* Settings */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
 				BAC939CB261F52C9008BECED /* TestOverwriteNotice */,
-				0138F61825EFE61400A9B075 /* TraceLocations */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
 			);
 			path = Scenes;
@@ -5873,6 +5871,8 @@
 			children = (
 				ABE9615925F11FA500D0F699 /* Store */,
 				0138F64125F1173F00A9B075 /* Cells */,
+				BAA4D72E25E95B1D00821B5C /* Checkin */,
+				0138F61825EFE61400A9B075 /* TraceLocations */,
 			);
 			path = Events;
 			sourceTree = "<group>";
