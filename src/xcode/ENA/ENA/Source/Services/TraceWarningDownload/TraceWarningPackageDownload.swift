@@ -181,12 +181,18 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			// Check if we did not discover in the same hour before.
 			if shouldStartPackageDownload(for: country) {
 				countriesDG.enter()
-				
+
+				var unencryptedCheckinsEnabled = false
+
+				#if !RELEASE
 				let appFeatureProvider = AppFeatureUnencryptedEventsDecorator(
 					AppFeatureProvider(appConfig: appConfig),
 					store: store
 				)
-				let unencryptedCheckinsEnabled = appFeatureProvider.value(for: .unencryptedCheckinsEnabled)
+				unencryptedCheckinsEnabled = appFeatureProvider.value(for: .unencryptedCheckinsEnabled)
+				#else
+				unencryptedCheckinsEnabled = AppFeatureProvider(appConfig: appConfig).value(for: .unencryptedCheckinsEnabled)
+				#endif
 
 				// Go now for the real download
 				downloadTraceWarningPackages(
