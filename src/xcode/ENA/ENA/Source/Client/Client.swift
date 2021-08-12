@@ -90,7 +90,7 @@ protocol Client {
 	///   - isFake: flag to indicate a fake request
 	///   - completion: the completion handler of the submission call
 	func submit(
-		payload: CountrySubmissionPayload,
+		payload: SubmissionPayload,
 		isFake: Bool,
 		completion: @escaping KeySubmissionResponse
 	)
@@ -307,7 +307,7 @@ struct PackageDownloadResponse {
 }
 
 /// Combined model for a submit keys request
-struct CountrySubmissionPayload {
+struct SubmissionPayload {
 
 	/// The exposure keys to submit
 	let exposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]

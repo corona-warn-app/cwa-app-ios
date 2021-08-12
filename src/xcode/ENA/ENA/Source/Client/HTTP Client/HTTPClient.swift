@@ -211,7 +211,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
@@ -994,7 +994,7 @@ private extension URLRequest {
 
 	static func keySubmissionRequest(
 		configuration: HTTPClient.Configuration,
-		payload: CountrySubmissionPayload,
+		payload: SubmissionPayload,
 		isFake: Bool
 	) throws -> URLRequest {
 		// construct the request
