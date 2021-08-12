@@ -30,7 +30,7 @@ class ExposureSubmissionCheckinsViewModel {
 		Section.allCases.count
 	}
 	
-	var selecteCheckins: [Checkin] {
+	var selectedCheckins: [Checkin] {
 		checkinCellModels
 			.filter { $0.selected }
 			.map { $0.checkin }
@@ -54,7 +54,7 @@ class ExposureSubmissionCheckinsViewModel {
 		checkContinuePossible()
 	}
 	
-	func toogleSelection(at index: Int) {
+	func toggleSelection(at index: Int) {
 		checkinCellModels[index].selected.toggle()
 		checkContinuePossible()
 	}

@@ -56,7 +56,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		switch type {
 		case .primary:
 			// Submit
-			onCompletion(viewModel.selecteCheckins)
+			onCompletion(viewModel.selectedCheckins)
 		case .secondary:
 			// Skip
 			onSkip()
@@ -106,7 +106,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		case .description:
 			return
 		case .checkins:
-			viewModel.toogleSelection(at: indexPath.row)
+			viewModel.toggleSelection(at: indexPath.row)
 			return
 		default:
 			Log.error("ExposureSubmissionCheckinsViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
