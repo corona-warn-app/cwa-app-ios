@@ -26,7 +26,7 @@ final class TraceLocationCheckinViewModel {
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
 
-		self.duration = TimeInterval(traceLocation.suggestedCheckoutLengthInMinutes() * 60)
+		self.duration = TimeInterval(traceLocation.suggestedCheckoutLengthInMinutes * 60)
 	}
 	
 	// MARK: - Internal

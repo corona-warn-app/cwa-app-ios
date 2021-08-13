@@ -34,7 +34,35 @@ struct TraceLocation {
 		return String(format: "https://e.coronawarn.app?v=1#%@", base64URLEncodedString)
 	}
 
-	func suggestedCheckoutLengthInMinutes(fallback: Int = 15) -> Int {
+	/// Duration from `defaultCheckInLengthInMinutes`, if not set the interval from `startDate` to `endDate`, if not set 15 minutes.
+	/// Rounded to the next 15 minute interval, capped at 23:45h
+	var suggestedCheckoutLengthInMinutes: Int {
+		let fallback = 15
+
+		var duration: Int
+		if let defaultDuration = defaultCheckInLengthInMinutes {
+			duration = defaultDuration
+		} else if let startDate = startDate, startDate.timeIntervalSince1970 > 0,
+				  let endDate = endDate, endDate.timeIntervalSince1970 > 0 {
+			let eventDuration = Calendar.current.dateComponents(
+				[.minute],
+				from: startDate,
+				to: endDate
+			).minute
+
+			duration = eventDuration ?? fallback
+		} else {
+			duration = fallback
+		}
+
+		return roundedTo15Minutes(duration)
+	}
+
+	/// Duration calculated from the interval between `startDate` and `endDate`, if not set `defaultCheckInLengthInMinutes`, if not set 120 minutes.
+	/// Rounded to the next 15 minute interval, capped at 23:45h
+	var suggestedOnBehalfWarningDurationInMinutes: Int {
+		let fallback = 120
+
 		var duration: Int
 		if let startDate = startDate, startDate.timeIntervalSince1970 > 0,
 				  let endDate = endDate, endDate.timeIntervalSince1970 > 0 {
@@ -50,15 +78,8 @@ struct TraceLocation {
 		} else {
 			duration = fallback
 		}
-		// rounding up to 15
-		let durationStep = 15
-		let remainderMinutes = duration % durationStep
-		if remainderMinutes != 0 {
-			duration += (durationStep - remainderMinutes)
-		}
 
-		let maxDurationInMinutes = (23 * 60) + 45
-		return min(duration, maxDurationInMinutes)
+		return roundedTo15Minutes(duration)
 	}
 
 	// MARK: - Private
@@ -89,6 +110,20 @@ struct TraceLocation {
 			$0.crowdNotifierData.publicKey = cnPublicKey
 			$0.crowdNotifierData.cryptographicSeed = cryptographicSeed
 		}.serializedData()
+	}
+
+	private func roundedTo15Minutes(_ duration: Int) -> Int {
+		var duration = duration
+
+		// rounding up to 15
+		let durationStep = 15
+		let remainderMinutes = duration % durationStep
+		if remainderMinutes != 0 {
+			duration += (durationStep - remainderMinutes)
+		}
+
+		let maxDurationInMinutes = (23 * 60) + 45
+		return min(duration, maxDurationInMinutes)
 	}
 
 }

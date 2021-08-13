@@ -82,7 +82,7 @@ final class DMRecentCreatedEventViewModel {
 		cnPublicKey: \(cnPublicKey)
 		idHash: \(optionalidHash)
 		qrCodeURL: \(checkin.qrCodeURL ?? "--")
-		suggestedCheckoutLength: \(checkin.suggestedCheckoutLengthInMinutes())
+		suggestedCheckoutLength: \(checkin.suggestedCheckoutLengthInMinutes)
 		"""
 		return details
 	}

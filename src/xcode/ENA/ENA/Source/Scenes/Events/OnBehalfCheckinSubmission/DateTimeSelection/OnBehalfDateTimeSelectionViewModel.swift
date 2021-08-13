@@ -23,7 +23,7 @@ final class OnBehalfDateTimeSelectionViewModel {
 			selectedDate = Date()
 		}
 
-		selectedDuration = TimeInterval(traceLocation.suggestedCheckoutLengthInMinutes(fallback: 120) * 60)
+		selectedDuration = TimeInterval(traceLocation.suggestedOnBehalfWarningDurationInMinutes * 60)
 	}
 
 	// MARK: - Internal
