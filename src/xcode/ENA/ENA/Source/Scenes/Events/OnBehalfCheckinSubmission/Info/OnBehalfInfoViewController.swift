@@ -28,10 +28,6 @@ class OnBehalfInfoViewController: DynamicTableViewController, DismissHandling, F
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-			dismissHandlingNC.setupTransparentNavigationBar()
-		}
-
 		if let parent = parent, !parent.isKind(of: UINavigationController.self) {
 			parent.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 			parent.navigationItem.hidesBackButton = true
@@ -43,6 +39,22 @@ class OnBehalfInfoViewController: DynamicTableViewController, DismissHandling, F
 		}
 
 		setupTableView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.setupTransparentNavigationBar()
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.restoreOriginalNavigationBar()
+		}
 	}
 
 	// MARK: - DismissHandling

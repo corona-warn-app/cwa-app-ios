@@ -41,7 +41,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private lazy var infoScreen: UIViewController = {
 		let infoViewController = OnBehalfInfoViewController(
 			onPrimaryButtonTap: { [weak self] in
-				self?.navigationController.restoreOriginalNavigationBar()
 				self?.showTraceLocationSelectionScreen()
 			},
 			onDismiss: { [weak self] in
