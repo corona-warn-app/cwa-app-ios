@@ -2116,7 +2116,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Image_AccLabel" = "Abstrakte Darstellung eines Smartphones mit vier Platzhaltern für Informationen";
 
-"Statistics_Info_More_Information_Blog_Description" = "Mehr inhaltliche Details zu einzelnen Kennzahlen finden Sie im %@.";
+"Statistics_Info_Blog_Description" = "Mehr inhaltliche Details zu einzelnen Kennzahlen finden Sie im %@.";
 
 "Statistics_Info_More_Information_Blog" = "Blog";
 

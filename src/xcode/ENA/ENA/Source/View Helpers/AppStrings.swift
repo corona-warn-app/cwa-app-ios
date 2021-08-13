@@ -48,7 +48,7 @@ enum AppStrings {
 		static let healthCertificateValidationFAQ = NSLocalizedString("HealthCertificate_Info_validation_FAQLink", tableName: "Localizable.links", comment: "")
 		static let healthCertificateValidationEU = NSLocalizedString("HealthCertificate_Info_validation_EULink", tableName: "Localizable.links", comment: "")
 		static let invalidSignatureFAQ = NSLocalizedString("HealthCertificate_InvalidSignature_FAQLink", tableName: "Localizable.links", comment: "")
-		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_More_Information_Blog_Link", tableName: "Localizable.links", comment: "")
+		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_Blog_Link", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -1498,7 +1498,7 @@ enum AppStrings {
 			static let trendsStable = NSLocalizedString("Statistics_Info_Trends_Stable", comment: "")
 			static let trendsFootnote = NSLocalizedString("Statistics_Info_Trends_Footnote", comment: "")
 			static let titleImageAccLabel = NSLocalizedString("Statistics_Info_Image_AccLabel", comment: "")
-			static let blogDescription = NSLocalizedString("Statistics_Info_More_Information_Blog_Description", comment: "")
+			static let blogDescription = NSLocalizedString("Statistics_Info_Blog_Description", comment: "")
 			static let blog = NSLocalizedString("Statistics_Info_More_Information_Blog", comment: "")
 		}
 	}
