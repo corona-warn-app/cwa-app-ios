@@ -1024,7 +1024,7 @@
 
 "ExposureNotificationSetting_DescriptionText3" = "Funkcję rejestrowania narażenia można wyłączyć w dowolnym momencie.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Aplikacja nigdy nie gromadzi danych osobowych takich jak imię i nazwisko, adres czy lokalizacja. Takie informacje nie są też przekazywane innym użytkownikom. Nie jest możliwe wykorzystanie losowych identyfikatorów w celu ustalenia tożsamości poszczególnych osób.";
+"ExposureNotificationSetting_DescriptionText4" = "Dane osobowe, takie jak imię i nazwisko, adres czy lokalizacja, nie są nigdy gromadzone przy rejestrowaniu narażenia, ani nie są przekazywane innym użytkownikom. Nie jest możliwe wykorzystanie losowych identyfikatorów w celu ustalenia tożsamości poszczególnych osób.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Włącz Bluetooth";
 

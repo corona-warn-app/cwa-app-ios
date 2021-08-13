@@ -100,13 +100,24 @@ extension DynamicCell {
 		text: String,
 		links: [String: String],
 		linksColor: UIColor = .enaColor(for: .textTint),
+		style: ENAFont = .body,
 		accessibilityIdentifier: String? = nil,
 		accessibilityTraits: UIAccessibilityTraits = .staticText,
 		configure: CellConfigurator? = nil) -> Self {
 		.identifier(CellReuseIdentifier.dynamicTypeTextView) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTableViewTextViewCell else { return }
-			cell.configureAccessibility(label: text, identifier: accessibilityIdentifier, traits: accessibilityTraits)
-			cell.configure(text: text, textFont: .body, links: links, linksColor: linksColor)
+			cell.configureAccessibility(
+				label: text,
+				identifier: accessibilityIdentifier,
+				traits: accessibilityTraits
+			)
+			cell.configure(
+				text: text,
+				textFont: style,
+				links: links,
+				linksColor: linksColor
+			)
+
 			configure?(viewController, cell, indexPath)
 		}
 	}

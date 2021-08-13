@@ -1024,7 +1024,7 @@
 
 "ExposureNotificationSetting_DescriptionText3" = "Puteți utiliza comutatorul pentru a dezactiva în orice moment înregistrarea în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Aplicația nu colectează niciodată date personale, precum numele, adresa sau locația dvs., iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
+"ExposureNotificationSetting_DescriptionText4" = "Datele personale, precum numele, adresa sau locația dvs. nu sunt înregistrate niciodată în timpul înregistrăii în jurnal a expunerilor, iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Porniți Bluetooth";
 
