@@ -14,7 +14,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = Date()
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -33,7 +33,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(-twoHourIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -52,7 +52,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(twoHourIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -71,7 +71,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(-twoHourOneSecondIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -90,7 +90,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		let serverTime = Date()
 		let deviceTime = serverTime.addingTimeInterval(twoHourOneSecondIntevall)
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -103,7 +103,8 @@ final class DeviceTimeCheckTest: CWATestCase {
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInTheFuture_AND_KillSwitchIsActive_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: true)
+		// override device time check
+		fakeStore.dmKillDeviceTimeCheck = true
 
 		let serverTime = Date()
 		guard let deviceTime = Calendar.current.date(byAdding: .minute, value: 121, to: serverTime) else {
@@ -111,7 +112,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 			return
 		}
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
@@ -127,7 +128,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 		fakeStore.deviceTimeCheckResult = .incorrect
 		fakeStore.wasDeviceTimeErrorShown = true
 
-		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
+		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: fakeStore))
 		deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: true)
 
 		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
@@ -136,7 +137,7 @@ final class DeviceTimeCheckTest: CWATestCase {
 
 	private func makeAppConfig(killSwitchIsOn: Bool) -> AppConfigMetadata {
 		var killSwitchFeature = SAP_Internal_V2_AppFeature()
-		killSwitchFeature.label = "disable-device-time-check"
+		killSwitchFeature.label = SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature.disableDeviceTimeCheck.rawValue
 		killSwitchFeature.value = killSwitchIsOn ? 1 : 0
 
 		var fakeAppFeatures = SAP_Internal_V2_AppFeatures()

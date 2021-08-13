@@ -12,6 +12,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	init(
 		riskProvider: RiskProvider,
+		exposureManager: ExposureManager,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
 		eventStore: EventStoring,
@@ -20,6 +21,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
 		self.riskProvider = riskProvider
+		self.exposureManager = exposureManager
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
@@ -44,6 +46,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	///         when the OS calls the expiration handler before all tasks were able to finish.
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
 		Log.info("Starting background task...", log: .background)
+
+		guard store.isOnboarded else {
+			Log.info("Cancelling background task because user is not onboarded yet.", log: .background)
+
+			completion(true)
+			return
+		}
 
 		let group = DispatchGroup()
 
@@ -132,6 +141,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	// MARK: - Private
 
+	private let exposureManager: ExposureManager
 	private let backgroundTaskConsumer = RiskConsumer()
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
@@ -264,7 +274,17 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
 
-		riskProvider.requestRisk(userInitiated: false)
+		if exposureManager.exposureManagerState.status == .unknown {
+			exposureManager.activate { [weak self] error in
+				if let error = error {
+					Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+				}
+
+				self?.riskProvider.requestRisk(userInitiated: false)
+			}
+		} else {
+			riskProvider.requestRisk(userInitiated: false)
+		}
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {

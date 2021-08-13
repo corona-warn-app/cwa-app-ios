@@ -55,26 +55,16 @@ final class RiskProvider: RiskProviding {
 	var exposureManagerState: ExposureManagerState
 	private(set) var activityState: RiskProviderActivityState = .idle
 
-	var riskCalculatonDate: Date? {
-		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
-		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
-			let risk = Risk(enfRiskCalculationResult: enfRiskCalculationResult, checkinCalculationResult: checkinRiskCalculationResult)
-			return risk.details.calculationDate
-		} else {
-			return nil
-		}
-	}
-
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
-			lastExposureDetectionDate: riskCalculatonDate
+			lastExposureDetectionDate: riskCalculationDate
 		)
 	}
 
 	/// Returns the next possible date of a exposureDetection
 	var nextExposureDetectionDate: Date {
 		riskProvidingConfiguration.nextExposureDetectionDate(
-			lastExposureDetectionDate: riskCalculatonDate
+			lastExposureDetectionDate: riskCalculationDate
 		)
 	}
 
@@ -178,6 +168,16 @@ final class RiskProvider: RiskProviding {
 	private var consumers: Set<RiskConsumer> {
 		get { consumersQueue.sync { _consumers } }
 		set { consumersQueue.sync { _consumers = newValue } }
+	}
+
+	private var riskCalculationDate: Date? {
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
+		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
+			let risk = Risk(enfRiskCalculationResult: enfRiskCalculationResult, checkinCalculationResult: checkinRiskCalculationResult)
+			return risk.details.calculationDate
+		} else {
+			return nil
+		}
 	}
 
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
@@ -373,7 +373,7 @@ final class RiskProvider: RiskProviding {
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			deviceTimeCheck: appConfigurationProvider.deviceTimeCheck
 		)
 
 		exposureDetection?.start { [weak self] result in

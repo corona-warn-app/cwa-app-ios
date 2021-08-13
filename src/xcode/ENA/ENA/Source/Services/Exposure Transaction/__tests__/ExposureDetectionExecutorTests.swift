@@ -74,10 +74,12 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 				exposureWindowsHandler: ([mockExposureWindow], nil)
 			)
 		)
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 
 		_ = sut.detectExposureWindows(
@@ -108,10 +110,12 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let expectedError = ENError(.notAuthorized)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector(exposureWindowsHandler: (nil, expectedError)))
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 
 		_ = sut.detectExposureWindows(
@@ -163,10 +167,11 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 				detectionHandler: (nil, expectedError)
 			)
 		)
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)

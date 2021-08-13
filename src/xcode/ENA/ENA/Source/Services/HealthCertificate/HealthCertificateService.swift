@@ -29,7 +29,7 @@ class HealthCertificateService {
 			self.signatureVerifying = signatureVerifying
 			self.dscListProvider = DSCListProvider(client: CachingHTTPClientMock(), store: store)
 			self.client = ClientMock()
-			self.appConfiguration = CachedAppConfigurationMock()
+			self.appConfiguration = CachedAppConfigurationMock(store: store)
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
 			setup()

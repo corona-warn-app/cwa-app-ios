@@ -34,6 +34,7 @@ enum DMMenuItem: Int, CaseIterable {
     case allTraceLocations
 	case mostRecentTraceLocationCheckedInto
 	case adHocPosterGeneration
+	case appFeatures
 }
 
 extension DMMenuItem {
@@ -77,6 +78,7 @@ extension DMMenuItem {
 		case .allTraceLocations: return "All created trace locations"
 		case .mostRecentTraceLocationCheckedInto: return "Most recent trace location checked into"
 		case .adHocPosterGeneration: return "Ad-Hoc Poster Generation"
+		case .appFeatures: return "App Features"
 		}
 	}
 	var subtitle: String {
@@ -108,6 +110,7 @@ extension DMMenuItem {
 		case .allTraceLocations: return "See the data of the created trace locations"
 		case .mostRecentTraceLocationCheckedInto: return "See the calculated ID of the trace location most recently checked into"
 		case .adHocPosterGeneration: return "Generate QR code poster by providing the customized values"
+		case .appFeatures: return "Override App Features here"
 		}
 	}
 }
