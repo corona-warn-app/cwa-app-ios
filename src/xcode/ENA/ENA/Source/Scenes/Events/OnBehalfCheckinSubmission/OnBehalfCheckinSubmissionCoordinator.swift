@@ -24,6 +24,8 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 	func start() {
 		navigationController = DismissHandlingNavigationController(rootViewController: infoScreen)
+		navigationController.navigationBar.prefersLargeTitles = true
+
 		parentViewController.present(navigationController, animated: true)
 	}
 	
@@ -104,7 +106,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
-	func showQRCodeScanner() {
+	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			qrCodeVerificationHelper: QRCodeVerificationHelper(),
 			appConfiguration: appConfiguration,
@@ -120,11 +122,11 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		)
 
 		qrCodeScanner.definesPresentationContext = true
-		DispatchQueue.main.async { [weak self] in
-			let navigationController = UINavigationController(rootViewController: qrCodeScanner)
-			navigationController.modalPresentationStyle = .fullScreen
-			self?.navigationController.present(navigationController, animated: true)
-		}
+
+		let modalNavigationController = UINavigationController(rootViewController: qrCodeScanner)
+		modalNavigationController.modalPresentationStyle = .fullScreen
+
+		navigationController.present(modalNavigationController, animated: true)
 	}
 
 	private func showDateTimeSelectionSelectionScreen(
@@ -233,6 +235,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 			}
 		)
 		alert.addAction(okayAction)
+
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController.present(alert, animated: true, completion: nil)
 		}
