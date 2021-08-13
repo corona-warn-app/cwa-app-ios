@@ -25,7 +25,6 @@ final class OnBehalfDateSelectionCell: UITableViewCell, ReuseIdentifierProviding
 	// MARK: - Internal
 
 	var didSelectDate: ((Date) -> Void)?
-	var didTapInfoButton: (() -> Void)?
 
 	var selectedDate: Date? {
 		didSet {
@@ -75,7 +74,7 @@ final class OnBehalfDateSelectionCell: UITableViewCell, ReuseIdentifierProviding
 
 	private lazy var selectedDateTimeTitle: UILabel = {
 		let label = ENALabel(style: .body)
-		label.text = AppStrings.HealthCertificate.Validation.dateTimeSelectionTitle
+		label.text = AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.start
 		label.numberOfLines = 0
 		return label
 	}()
@@ -115,18 +114,18 @@ final class OnBehalfDateSelectionCell: UITableViewCell, ReuseIdentifierProviding
 	private func createAndLayoutViewHierarchy() {
 		contentView.addSubview(cardContainer)
 		NSLayoutConstraint.activate([
-			cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
+			cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			cardContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
-			cardContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17),
+			cardContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			cardContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 		])
 
 		cardContainer.addSubview(containerStackView)
 		NSLayoutConstraint.activate([
-			containerStackView.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: 19),
-			containerStackView.topAnchor.constraint(equalTo: cardContainer.topAnchor, constant: 8),
-			containerStackView.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -19),
-			containerStackView.bottomAnchor.constraint(equalTo: cardContainer.bottomAnchor, constant: -15)
+			containerStackView.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: 16),
+			containerStackView.topAnchor.constraint(equalTo: cardContainer.topAnchor, constant: 12),
+			containerStackView.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -16),
+			containerStackView.bottomAnchor.constraint(equalTo: cardContainer.bottomAnchor, constant: -12)
 		])
 
 		containerStackView.addArrangedSubview(selectedDateTimeStackView)
@@ -149,11 +148,6 @@ final class OnBehalfDateSelectionCell: UITableViewCell, ReuseIdentifierProviding
 	private func didSelectDate(datePicker: UIDatePicker) {
 		selectedDate = datePicker.date
 		didSelectDate?(datePicker.date)
-	}
-
-	@objc
-	private func didTapInfoButtonAction() {
-		self.didTapInfoButton?()
 	}
 
 }

@@ -26,11 +26,10 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 
 	var didSelectDuration: ((TimeInterval) -> Void)?
 
-	var selectedDuration: TimeInterval? {
+	var selectedDuration: TimeInterval = 15 * 60 {
 		didSet {
-			selectedDurationLabel.text = selectedDuration.map { formattedDuration(for: $0) }
-
-			picker.countDownDuration = selectedDuration ?? 15 * 60
+			selectedDurationLabel.text = formattedDuration(for: selectedDuration)
+			picker.countDownDuration = selectedDuration
 		}
 	}
 
@@ -39,6 +38,13 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 			picker.isHidden = isCollapsed
 			separator.isHidden = isCollapsed
 			selectedDurationLabel.textColor = isCollapsed ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
+
+			// Need to set the countDownDuration after unhiding, otherwise the first valueChanged event is not triggered
+			if !isCollapsed {
+				DispatchQueue.main.async {
+					self.picker.countDownDuration = self.selectedDuration
+				}
+			}
 		}
 	}
 
@@ -56,19 +62,22 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 		let stack = UIStackView()
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical
+		stack.spacing = 15
 		return stack
 	}()
 
 	private lazy var selectedDurationLabel: UILabel = {
 		let label = ENALabel(style: .headline)
 		label.numberOfLines = 0
+		label.setContentHuggingPriority(.required, for: .horizontal)
 		label.textAlignment = .right
+		label.font = .enaFont(for: .headline, weight: .semibold)
 		return label
 	}()
 
 	private lazy var selectedDurationTitle: UILabel = {
 		let label = ENALabel(style: .body)
-		label.text = AppStrings.HealthCertificate.Validation.countrySelectionTitle
+		label.text = AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.duration
 		label.numberOfLines = 0
 		label.setContentHuggingPriority(.required, for: .horizontal)
 		return label
@@ -87,6 +96,8 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 		let picker = UIDatePicker()
 		picker.translatesAutoresizingMaskIntoConstraints = false
 		picker.tintColor = .enaColor(for: .tint)
+		picker.datePickerMode = .countDownTimer
+		picker.minuteInterval = 15
 		picker.addTarget(self, action: #selector(datePickerValueChanged(sender:)), for: .valueChanged)
 		return picker
 	}()
@@ -110,18 +121,18 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 	private func createAndLayoutViewHierarchy() {
 		contentView.addSubview(cardContainer)
 		NSLayoutConstraint.activate([
-			cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
+			cardContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			cardContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
-			cardContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17),
+			cardContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			cardContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 		])
 
 		cardContainer.addSubview(containerStackView)
 		NSLayoutConstraint.activate([
-			containerStackView.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: 19),
-			containerStackView.topAnchor.constraint(equalTo: cardContainer.topAnchor, constant: 8),
-			containerStackView.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -19),
-			containerStackView.bottomAnchor.constraint(equalTo: cardContainer.bottomAnchor, constant: -8)
+			containerStackView.leadingAnchor.constraint(equalTo: cardContainer.leadingAnchor, constant: 16),
+			containerStackView.topAnchor.constraint(equalTo: cardContainer.topAnchor, constant: 12),
+			containerStackView.trailingAnchor.constraint(equalTo: cardContainer.trailingAnchor, constant: -16),
+			containerStackView.bottomAnchor.constraint(equalTo: cardContainer.bottomAnchor, constant: -12)
 		])
 
 		containerStackView.addArrangedSubview(selectedDurationStackView)
@@ -147,7 +158,7 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 	}
 
 	func formattedDuration(for timeInterval: TimeInterval) -> String {
-		guard let formattedDuration = durationFormatter.string(for: timeInterval) else {
+		guard let formattedDuration = durationFormatter.string(from: timeInterval) else {
 			return ""
 		}
 

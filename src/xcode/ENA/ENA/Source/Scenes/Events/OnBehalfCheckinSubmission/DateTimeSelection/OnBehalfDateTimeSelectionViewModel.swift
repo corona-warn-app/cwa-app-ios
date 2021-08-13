@@ -16,6 +16,14 @@ final class OnBehalfDateTimeSelectionViewModel {
 	) {
 		self.traceLocation = traceLocation
 		self.onPrimaryButtonTap = onPrimaryButtonTap
+
+		if let startDate = traceLocation.startDate, startDate.timeIntervalSince1970 > 0 {
+			selectedDate = startDate
+		} else {
+			selectedDate = Date()
+		}
+
+		selectedDuration = TimeInterval(traceLocation.suggestedCheckoutLengthInMinutes(fallback: 120) * 60)
 	}
 
 	// MARK: - Internal
@@ -48,45 +56,16 @@ final class OnBehalfDateTimeSelectionViewModel {
 		DynamicTableViewModel([
 			.section(
 				cells: [
-					.space(height: 8),
-					.body(
-						text: AppStrings.HealthCertificate.Validation.body1,
-						accessibilityIdentifier: ""
+					traceLocationCell(),
+					.subheadline(
+						text: AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.description,
+						color: .enaColor(for: .textPrimary2)
 					),
-					.space(height: 8),
-					.headline(
-						text: AppStrings.HealthCertificate.Validation.headline1,
-						accessibilityIdentifier: ""
-					),
-					durationSelectionCell(),
-					.space(height: 8),
 					dateSelectionCell(),
 					.space(height: 8),
-					.body(
-						text: AppStrings.HealthCertificate.Validation.body2,
-						accessibilityIdentifier: ""
-					),
-					.headline(
-						text: AppStrings.HealthCertificate.Validation.headline2,
-						accessibilityIdentifier: ""
-					),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet1, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet2, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet3, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet4, spacing: .large),
-					.textWithLinks(
-						text: String(
-							format: AppStrings.HealthCertificate.Validation.moreInformation,
-							AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
-						links: [
-							AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
-							AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
-						],
-						linksColor: .enaColor(for: .textTint)
-					),
-					.legal(title: NSAttributedString(string: AppStrings.HealthCertificate.Validation.legalTitle), description: NSAttributedString(string: AppStrings.HealthCertificate.Validation.legalDescription), textBlocks: []),
-					.space(height: 16)
-			])
+					durationSelectionCell()
+				]
+			)
 		])
 	}
 
@@ -95,11 +74,27 @@ final class OnBehalfDateTimeSelectionViewModel {
 	private let traceLocation: TraceLocation
 	private let onPrimaryButtonTap: (Checkin) -> Void
 
-	private var selectedDate: Date = Date()
-	private var selectedDuration: TimeInterval = 15 * 60
+	private var selectedDate: Date
+	private var selectedDuration: TimeInterval
 
 	private var durationSelectionCollapsed = true
 	private var dateSelectionCollapsed = true
+
+	private func traceLocationCell() -> DynamicCell {
+		DynamicCell.custom(
+			withIdentifier: EventTableViewCell.dynamicTableViewCellReuseIdentifier,
+			accessoryAction: .none
+		) { [weak self] _, cell, _ in
+			guard let self = self, let traceLocationCell = cell as? EventTableViewCell else {
+				return
+			}
+
+			traceLocationCell.configure(
+				cellModel: OnBehalfTraceLocationCellModel(traceLocation: self.traceLocation),
+				onButtonTap: {}
+			)
+		}
+	}
 
 	private func dateSelectionCell() -> DynamicCell {
 		DynamicCell.custom(

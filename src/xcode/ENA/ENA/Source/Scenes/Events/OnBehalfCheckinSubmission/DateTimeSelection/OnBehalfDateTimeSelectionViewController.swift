@@ -69,6 +69,11 @@ class OnBehalfDateTimeSelectionViewController: DynamicTableViewController, Foote
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		tableView.register(
+			UINib(nibName: String(describing: EventTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: EventTableViewCell.reuseIdentifier
+		)
+
+		tableView.register(
 			OnBehalfDateSelectionCell.self,
 			forCellReuseIdentifier: OnBehalfDateSelectionCell.reuseIdentifier
 		)

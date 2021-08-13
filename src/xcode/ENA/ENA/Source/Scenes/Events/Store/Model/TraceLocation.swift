@@ -34,29 +34,31 @@ struct TraceLocation {
 		return String(format: "https://e.coronawarn.app?v=1#%@", base64URLEncodedString)
 	}
 
-	var suggestedCheckoutLength: Int {
-		let duration: Int
-		if let defaultDuration = defaultCheckInLengthInMinutes {
-			duration = defaultDuration
-		} else if let startDate = startDate, let endDate = endDate {
+	func suggestedCheckoutLengthInMinutes(fallback: Int = 15) -> Int {
+		var duration: Int
+		if let startDate = startDate, startDate.timeIntervalSince1970 > 0,
+				  let endDate = endDate, endDate.timeIntervalSince1970 > 0 {
 			let eventDuration = Calendar.current.dateComponents(
 				[.minute],
 				from: startDate,
 				to: endDate
 			).minute
 
-			duration = eventDuration ?? 15
+			duration = eventDuration ?? fallback
+		} else if let defaultDuration = defaultCheckInLengthInMinutes {
+			duration = defaultDuration
 		} else {
-			duration = 15
+			duration = fallback
 		}
 		// rounding up to 15
 		let durationStep = 15
 		let remainderMinutes = duration % durationStep
 		if remainderMinutes != 0 {
-			return duration + (durationStep - remainderMinutes)
-		} else {
-			return duration
+			duration += (durationStep - remainderMinutes)
 		}
+
+		let maxDurationInMinutes = (23 * 60) + 45
+		return min(duration, maxDurationInMinutes)
 	}
 
 	// MARK: - Private

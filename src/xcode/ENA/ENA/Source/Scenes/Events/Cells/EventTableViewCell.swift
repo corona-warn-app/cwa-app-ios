@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class EventTableViewCell: UITableViewCell {
+class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Overrides
 
