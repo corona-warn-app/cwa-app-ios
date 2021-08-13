@@ -228,11 +228,9 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		)
 
 		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the height of the description cell …
-		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
-		// … + the height of the scann QR code or camera permission cell
+		// adding top padding for the description and scan QR code or camera permission cell
 		let visibleScanOrCameraPermissionSection = viewModel.numberOfRows(in: 1) == 1 ? 1 : 2
-		emptyStateView.additionalTopPadding += tableView.rectForRow(at: IndexPath(row: 0, section: visibleScanOrCameraPermissionSection)).maxY
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: visibleScanOrCameraPermissionSection)).maxY
 		// … + the height of the navigation bar
 		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
 		// … + the height of the status bar
