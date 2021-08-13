@@ -33,7 +33,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		
 		tableView.separatorStyle = .none
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
-		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
+		tableView.register(TraceLocationCheckinSelectionTableViewCell.self, forCellReuseIdentifier: TraceLocationCheckinSelectionTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
 		
 		viewModel.$continueEnabled
@@ -125,19 +125,12 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinDescriptionTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinDescriptionTableViewCell else {
 			fatalError("Could not dequeue ExposureSubmissionCheckinDescriptionTableViewCell")
 		}
-
-		cell.configure(
-			with: ExposureSubmissionCheckinDescriptionCellModel(
-				description: AppStrings.ExposureSubmissionCheckins.description
-			)
-		)
-
 		return cell
 	}
 	
 	private func checkinCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinTableViewCell else {
-			fatalError("Could not dequeue ExposureSubmissionCheckinTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TraceLocationCheckinSelectionTableViewCell.self), for: indexPath) as? TraceLocationCheckinSelectionTableViewCell else {
+			fatalError("Could not dequeue TraceLocationCheckinSelectionTableViewCell")
 		}
 
 		cell.configure(with: viewModel.checkinCellModels[indexPath.row])

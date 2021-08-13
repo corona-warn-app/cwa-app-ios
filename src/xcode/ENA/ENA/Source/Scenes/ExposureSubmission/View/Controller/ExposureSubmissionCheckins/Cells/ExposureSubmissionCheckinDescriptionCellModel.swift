@@ -8,6 +8,6 @@ struct ExposureSubmissionCheckinDescriptionCellModel {
 
 	// MARK: - Internal
 
-	let description: String
+	let description = AppStrings.ExposureSubmissionCheckins.description
 		
 }

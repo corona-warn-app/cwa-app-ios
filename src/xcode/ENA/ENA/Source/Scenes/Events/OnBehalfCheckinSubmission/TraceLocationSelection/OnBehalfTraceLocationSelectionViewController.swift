@@ -39,6 +39,8 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
+
+		tableView.reloadData()
 		setUpEmptyState()
 		
 		viewModel.$continueEnabled
@@ -143,8 +145,8 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 
 		tableView.register(
-			ExposureSubmissionCheckinDescriptionTableViewCell.self,
-			forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier
+			DynamicTypeTableViewCell.self,
+			forCellReuseIdentifier: String(describing: DynamicTypeTableViewCell.self)
 		)
 
 		tableView.register(
@@ -158,21 +160,29 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		)
 
 		tableView.register(
-			ExposureSubmissionCheckinTableViewCell.self,
-			forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier
+			TraceLocationCheckinSelectionTableViewCell.self,
+			forCellReuseIdentifier: TraceLocationCheckinSelectionTableViewCell.reuseIdentifier
 		)
 	}
 
 	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinDescriptionTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinDescriptionTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DynamicTypeTableViewCell.self), for: indexPath) as? DynamicTypeTableViewCell else {
 			fatalError("Could not dequeue ExposureSubmissionCheckinDescriptionTableViewCell")
 		}
 
 		cell.configure(
-			with: ExposureSubmissionCheckinDescriptionCellModel(
-				description: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.description
-			)
+			text: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.description,
+			color: .enaColor(for: .textPrimary2)
 		)
+
+		let style: ENALabel.Style = .subheadline
+		cell.configureDynamicType(
+			size: style.fontSize,
+			weight: UIFont.Weight(style.fontWeight),
+			style: style.textStyle
+		)
+
+		cell.configureAccessibility()
 
 		return cell
 	}
@@ -203,8 +213,8 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	}
 	
 	private func traceLocationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinTableViewCell else {
-			fatalError("Could not dequeue ExposureSubmissionCheckinTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TraceLocationCheckinSelectionTableViewCell.self), for: indexPath) as? TraceLocationCheckinSelectionTableViewCell else {
+			fatalError("Could not dequeue TraceLocationCheckinSelectionTableViewCell")
 		}
 
 		cell.configure(with: viewModel.traceLocationCellModels[indexPath.row])
@@ -218,8 +228,11 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		)
 
 		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the height of the add cell …
+		// adding top padding for the height of the description cell …
 		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		// … + the height of the scann QR code or camera permission cell
+		let visibleScanOrCameraPermissionSection = viewModel.numberOfRows(in: 1) == 1 ? 1 : 2
+		emptyStateView.additionalTopPadding += tableView.rectForRow(at: IndexPath(row: 0, section: visibleScanOrCameraPermissionSection)).maxY
 		// … + the height of the navigation bar
 		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
 		// … + the height of the status bar

@@ -18,18 +18,14 @@ class ExposureSubmissionCheckinDescriptionTableViewCell: UITableViewCell, ReuseI
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: - Internal
-
-	func configure(with cellModel: ExposureSubmissionCheckinDescriptionCellModel) {
-		descriptionLabel.text = cellModel.description
-	}
 		
 	// MARK: - Private
-
+	
+	private let cellModel = ExposureSubmissionCheckinDescriptionCellModel()
 	private lazy var descriptionLabel: ENALabel = {
 		let label = ENALabel()
 		label.style = .body
+		label.text = cellModel.description
 		label.numberOfLines = 0
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label

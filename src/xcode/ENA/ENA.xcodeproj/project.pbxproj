@@ -1257,7 +1257,7 @@
 		EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */; };
 		EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */; };
 		EB67B5E1262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */; };
-		EB67B5E7262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */; };
+		EB67B5E7262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5E6262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift */; };
 		EB67B5EF262AD6D300218EC7 /* CheckinSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */; };
 		EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */; };
 		EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */; };
@@ -2612,7 +2612,7 @@
 		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewController.swift; sourceTree = "<group>"; };
 		EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewModel.swift; sourceTree = "<group>"; };
-		EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinTableViewCell.swift; sourceTree = "<group>"; };
+		EB67B5E6262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSelectionCellModel.swift; sourceTree = "<group>"; };
 		EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewController.swift; sourceTree = "<group>"; };
 		EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationCell.swift; sourceTree = "<group>"; };
@@ -2803,8 +2803,19 @@
 				01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */,
 				01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */,
 				01164CE726C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift */,
+				01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */,
 			);
 			path = TraceLocationSelection;
+			sourceTree = "<group>";
+		};
+		01164CE926C64892007F9C3E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EB3B3498262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift */,
+				EB3B349D262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift */,
+				EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		0123D5962501381900A91838 /* __test__ */ = {
@@ -2899,12 +2910,8 @@
 				0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */,
 				0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */,
 				01F6701125FF79830069C4F9 /* EventCellModel.swift */,
-				EB67B5E6262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift */,
+				EB67B5E6262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift */,
 				01164CE126C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift */,
-				EB67B5EE262AD6D300218EC7 /* CheckinSelectionCellModel.swift */,
-				01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */,
-				EB3B3498262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift */,
-				EB3B349D262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -7587,6 +7594,7 @@
 			children = (
 				EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */,
 				EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */,
+				01164CE926C64892007F9C3E /* Cells */,
 			);
 			path = ExposureSubmissionCheckins;
 			sourceTree = "<group>";
@@ -8806,7 +8814,7 @@
 				BA00FEDB26BC3587009DA07F /* DMAppFeaturesViewModel.swift in Sources */,
 				01E1026A26690CCF009ED803 /* local_statistics.pb.swift in Sources */,
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
-				EB67B5E7262AD6A100218EC7 /* ExposureSubmissionCheckinTableViewCell.swift in Sources */,
+				EB67B5E7262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
 				BA5B7FDA26458EF400502087 /* HealthCertificateQRCodeCell.swift in Sources */,

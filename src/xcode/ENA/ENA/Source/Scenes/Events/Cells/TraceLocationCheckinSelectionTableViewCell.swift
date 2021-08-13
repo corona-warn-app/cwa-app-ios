@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierProviding {
+class TraceLocationCheckinSelectionTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 	
