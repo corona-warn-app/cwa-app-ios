@@ -77,7 +77,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 			onMissingPermissionsButtonTap: { [weak self] in
 				self?.showSettings()
 			},
-			onCompletion: { [weak self] selectedTraceLocation in
+			onPrimaryButtonTap: { [weak self] selectedTraceLocation in
 				self?.showDateTimeSelectionSelectionScreen(
 					traceLocation: selectedTraceLocation
 				)
@@ -132,7 +132,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	) {
 		let dateTimeSelectionViewController = OnBehalfDateTimeSelectionViewController(
 			traceLocation: traceLocation,
-			onCompletion: { [weak self] checkin in
+			onPrimaryButtonTap: { [weak self] checkin in
 				self?.showTANInputScreen(
 					checkin: checkin
 				)

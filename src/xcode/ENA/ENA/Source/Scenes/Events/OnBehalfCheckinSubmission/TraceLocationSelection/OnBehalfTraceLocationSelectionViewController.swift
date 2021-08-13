@@ -13,13 +13,13 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		viewModel: OnBehalfTraceLocationSelectionViewModel,
 		onScanQRCodeCellTap: @escaping () -> Void,
 		onMissingPermissionsButtonTap: @escaping () -> Void,
-		onCompletion: @escaping (TraceLocation) -> Void,
+		onPrimaryButtonTap: @escaping (TraceLocation) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onScanQRCodeCellTap = onScanQRCodeCellTap
 		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
-		self.onCompletion = onCompletion
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		
 		super.init(style: .plain)
@@ -81,7 +81,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 			return
 		}
 
-		onCompletion(selectedTraceLocation)
+		onPrimaryButtonTap(selectedTraceLocation)
 	}
 	
 	// MARK: - Protocol UITableViewDataSource
@@ -132,7 +132,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	private let viewModel: OnBehalfTraceLocationSelectionViewModel
 	private let onScanQRCodeCellTap: () -> Void
 	private let onMissingPermissionsButtonTap: () -> Void
-	private let onCompletion: (TraceLocation) -> Void
+	private let onPrimaryButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
 
 	private var addEntryCellModel = OnBehalfScanQRCodeCellModel()

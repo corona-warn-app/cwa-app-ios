@@ -29,6 +29,10 @@
 		01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */; };
 		01164CE626C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */; };
 		01164CE826C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CE726C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift */; };
+		01164CF126C65B33007F9C3E /* OnBehalfDateSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CF026C659C9007F9C3E /* OnBehalfDateSelectionCell.swift */; };
+		01164CF226C65B58007F9C3E /* OnBehalfDurationSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CEF26C659C8007F9C3E /* OnBehalfDurationSelectionCell.swift */; };
+		01164CF326C65B72007F9C3E /* OnBehalfDateTimeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CEB26C6599A007F9C3E /* OnBehalfDateTimeSelectionViewController.swift */; };
+		01164CF426C65B76007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01164CEC26C6599D007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */; };
@@ -1364,6 +1368,10 @@
 		01164CE326C57438007F9C3E /* TraceLocationSelectionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModel.swift; sourceTree = "<group>"; };
 		01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		01164CE726C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfScanQRCodeCellModel.swift; sourceTree = "<group>"; };
+		01164CEB26C6599A007F9C3E /* OnBehalfDateTimeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfDateTimeSelectionViewController.swift; sourceTree = "<group>"; };
+		01164CEC26C6599D007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfDateTimeSelectionViewModel.swift; sourceTree = "<group>"; };
+		01164CEF26C659C8007F9C3E /* OnBehalfDurationSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfDurationSelectionCell.swift; sourceTree = "<group>"; };
+		01164CF026C659C9007F9C3E /* OnBehalfDateSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfDateSelectionCell.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModel.swift; sourceTree = "<group>"; };
@@ -2821,8 +2829,20 @@
 		01164CEA26C655A1007F9C3E /* DateTimeSelection */ = {
 			isa = PBXGroup;
 			children = (
+				01164CEB26C6599A007F9C3E /* OnBehalfDateTimeSelectionViewController.swift */,
+				01164CEC26C6599D007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift */,
+				01164CEE26C659BC007F9C3E /* Cells */,
 			);
 			path = DateTimeSelection;
+			sourceTree = "<group>";
+		};
+		01164CEE26C659BC007F9C3E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				01164CEF26C659C8007F9C3E /* OnBehalfDurationSelectionCell.swift */,
+				01164CF026C659C9007F9C3E /* OnBehalfDateSelectionCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		0123D5962501381900A91838 /* __test__ */ = {
@@ -8179,6 +8199,7 @@
 				EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
+				01164CF126C65B33007F9C3E /* OnBehalfDateSelectionCell.swift in Sources */,
 				504E8B2C25D41CBD00CAFBDF /* DMPPAMostRecentData.swift in Sources */,
 				3456D95C25EFE02E00A62F5D /* ErrorReportHistoryCell.swift in Sources */,
 				018FD47A2695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift in Sources */,
@@ -8527,6 +8548,7 @@
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
 				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
+				01164CF326C65B72007F9C3E /* OnBehalfDateTimeSelectionViewController.swift in Sources */,
 				EB3B3499262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
@@ -8607,6 +8629,7 @@
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */,
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
+				01164CF426C65B76007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift in Sources */,
 				BACF83A026A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift in Sources */,
 				0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */,
 				BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */,
@@ -8908,6 +8931,7 @@
 				01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */,
 				017D8DA6263B02F70009E91C /* HealthCertificate.swift in Sources */,
 				35BF067525DB1BA900D3868B /* AppDelegate+QuickActions.swift in Sources */,
+				01164CF226C65B58007F9C3E /* OnBehalfDurationSelectionCell.swift in Sources */,
 				01A2367A2519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift in Sources */,
 				BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */,
 				8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */,
