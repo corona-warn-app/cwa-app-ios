@@ -245,7 +245,7 @@ final class HTTPClient: Client {
 
 		session.response(for: request, isFake: isFake) { result in
 			#if !RELEASE
-			UserDefaults.standard.dmLastonBehalfCheckinSubmissionRequest = request.httpBody
+			UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest = request.httpBody
 			#endif
 
 			switch result {
