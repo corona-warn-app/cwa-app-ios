@@ -182,11 +182,23 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			if shouldStartPackageDownload(for: country) {
 				countriesDG.enter()
 
+				var unencryptedCheckinsEnabled = false
+
+				#if !RELEASE
+				let appFeatureProvider = AppFeatureUnencryptedEventsDecorator(
+					AppFeatureProvider(appConfig: appConfig),
+					store: store
+				)
+				unencryptedCheckinsEnabled = appFeatureProvider.value(for: .unencryptedCheckinsEnabled)
+				#else
+				unencryptedCheckinsEnabled = AppFeatureProvider(appConfig: appConfig).value(for: .unencryptedCheckinsEnabled)
+				#endif
+
 				// Go now for the real download
 				downloadTraceWarningPackages(
 					with: appConfig,
 					for: country,
-					unencrypted: AppFeatureProvider(appConfig: appConfig).value(for: .unencryptedCheckinsEnabled),
+					unencrypted: unencryptedCheckinsEnabled,
 					completion: { result in
 						switch result {
 						case let .success(success):
