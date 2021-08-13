@@ -40,6 +40,40 @@ struct SAP_Internal_Pt_CheckIn {
   init() {}
 }
 
+struct SAP_Internal_Pt_CheckInRecord {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var startIntervalNumber: UInt32 = 0
+
+  var period: UInt32 = 0
+
+  var transmissionRiskLevel: UInt32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct SAP_Internal_Pt_CheckInProtectedReport {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var locationIDHash: Data = Data()
+
+  var iv: Data = Data()
+
+  var encryptedCheckInRecord: Data = Data()
+
+  var mac: Data = Data()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.pt"
@@ -89,6 +123,100 @@ extension SAP_Internal_Pt_CheckIn: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs.startIntervalNumber != rhs.startIntervalNumber {return false}
     if lhs.endIntervalNumber != rhs.endIntervalNumber {return false}
     if lhs.transmissionRiskLevel != rhs.transmissionRiskLevel {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_Pt_CheckInRecord: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CheckInRecord"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "startIntervalNumber"),
+    2: .same(proto: "period"),
+    3: .same(proto: "transmissionRiskLevel"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.startIntervalNumber) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.period) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.transmissionRiskLevel) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.startIntervalNumber != 0 {
+      try visitor.visitSingularUInt32Field(value: self.startIntervalNumber, fieldNumber: 1)
+    }
+    if self.period != 0 {
+      try visitor.visitSingularUInt32Field(value: self.period, fieldNumber: 2)
+    }
+    if self.transmissionRiskLevel != 0 {
+      try visitor.visitSingularUInt32Field(value: self.transmissionRiskLevel, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_Pt_CheckInRecord, rhs: SAP_Internal_Pt_CheckInRecord) -> Bool {
+    if lhs.startIntervalNumber != rhs.startIntervalNumber {return false}
+    if lhs.period != rhs.period {return false}
+    if lhs.transmissionRiskLevel != rhs.transmissionRiskLevel {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_Pt_CheckInProtectedReport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CheckInProtectedReport"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "locationIdHash"),
+    2: .same(proto: "iv"),
+    3: .same(proto: "encryptedCheckInRecord"),
+    4: .same(proto: "mac"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.locationIDHash) }()
+      case 2: try { try decoder.decodeSingularBytesField(value: &self.iv) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.encryptedCheckInRecord) }()
+      case 4: try { try decoder.decodeSingularBytesField(value: &self.mac) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.locationIDHash.isEmpty {
+      try visitor.visitSingularBytesField(value: self.locationIDHash, fieldNumber: 1)
+    }
+    if !self.iv.isEmpty {
+      try visitor.visitSingularBytesField(value: self.iv, fieldNumber: 2)
+    }
+    if !self.encryptedCheckInRecord.isEmpty {
+      try visitor.visitSingularBytesField(value: self.encryptedCheckInRecord, fieldNumber: 3)
+    }
+    if !self.mac.isEmpty {
+      try visitor.visitSingularBytesField(value: self.mac, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_Pt_CheckInProtectedReport, rhs: SAP_Internal_Pt_CheckInProtectedReport) -> Bool {
+    if lhs.locationIDHash != rhs.locationIDHash {return false}
+    if lhs.iv != rhs.iv {return false}
+    if lhs.encryptedCheckInRecord != rhs.encryptedCheckInRecord {return false}
+    if lhs.mac != rhs.mac {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -4,8 +4,8 @@
 
 import Foundation
 
-enum AESEncryptionConstants {
-    static let initializationVector = Data(
+public enum AESEncryptionConstants {
+    public static let zeroInitializationVector = Data(
         [0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0,

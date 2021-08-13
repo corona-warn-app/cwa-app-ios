@@ -135,6 +135,9 @@ class TraceLocationsCoordinator {
 			),
 			didTapPrimaryButton: {
 				navigationController.dismiss(animated: true)
+				
+				// set to true only if user gives the consent
+				self.infoScreenShown = true
 			}
 		)
 		
@@ -144,9 +147,7 @@ class TraceLocationsCoordinator {
 		)
 		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
 		
-		parentNavigationController?.present(navigationController, animated: true) {
-			self.infoScreenShown = true
-		}
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {

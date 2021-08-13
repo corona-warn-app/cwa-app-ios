@@ -6,6 +6,7 @@ import Foundation
 import base45_swift
 import SwiftCBOR
 import JSONSchema
+import ENASecurity
 
 public typealias Base45 = String
 public typealias Base64 = String
@@ -133,7 +134,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
     private func decryptPayload(payload: Data, dataEncryptionKey: Data) -> Result<Data, CertificateDecodingError> {
         let aesEncryption = AESEncryption(
             encryptionKey: dataEncryptionKey,
-            initializationVector: AESEncryptionConstants.initializationVector
+            initializationVector: AESEncryptionConstants.zeroInitializationVector
         )
 
         let decryptedResult = aesEncryption.decrypt(data: payload)

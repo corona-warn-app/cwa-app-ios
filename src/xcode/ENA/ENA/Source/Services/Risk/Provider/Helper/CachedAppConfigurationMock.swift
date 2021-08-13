@@ -6,10 +6,17 @@ import Foundation
 import OpenCombine
 import ZIPFoundation
 
-#if DEBUG
+#if !RELEASE
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+	var featureProvider: AppFeatureProviding {
+		AppFeatureProvider(appConfigurationProvider: self)
+	}
+
+	var deviceTimeCheck: DeviceTimeChecking {
+		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
+	}
 
 	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
 
@@ -37,18 +44,24 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		return staticConfig
 	}()
 
-	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration) {
+	init(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
+		store: AppConfigCaching & DeviceTimeCheckStoring = MockTestStore()
+	) {
 		self.config = config
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
+		self.store = store
 	}
 	
 	init(
 		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
 		isEventSurveyEnabled: Bool,
-		isEventSurveyUrlAvailable: Bool
+		isEventSurveyUrlAvailable: Bool,
+		store: AppConfigCaching & DeviceTimeCheckStoring = MockTestStore()
 	) {
 		self.config = config
 		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
+		self.store = store
 		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
 			isEnabled: isEventSurveyEnabled,
 			isCorrectURL: isEventSurveyUrlAvailable
@@ -71,11 +84,14 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 			return countries.isEmpty ? [.defaultCountry()] : countries
 		}).eraseToAnyPublisher()
 	}
+
 	private func eventDrivenUserSurveyParametersEnabled(isEnabled: Bool, isCorrectURL: Bool) -> SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS {
 		var surveyParameters = SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()
 		surveyParameters.common.surveyOnHighRiskURL = isCorrectURL ? "https://www.test.de" : "https://w.test.de"
 		surveyParameters.common.surveyOnHighRiskEnabled = isEnabled ? true : false
 		return surveyParameters
 	}
+
+	private let store: AppConfigCaching & DeviceTimeCheckStoring
 }
 #endif

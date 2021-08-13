@@ -76,6 +76,48 @@ enum FederalStateName: String, CaseIterable, Codable {
 			return .federalStateTh
 		}
 	}
+	
+	/// mapping to localized names for federal states
+	var localizedName: String {
+		switch self {
+		case .badenWürttemberg:
+			return AppStrings.FederalStateName.badenWuerttemberg
+		case .bayern:
+			return AppStrings.FederalStateName.bayen
+		case .berlin:
+			return AppStrings.FederalStateName.berlin
+		case .brandenburg:
+			return AppStrings.FederalStateName.brandenburg
+		case .bremen:
+			return AppStrings.FederalStateName.bremen
+		case .hamburg:
+			return AppStrings.FederalStateName.hamburg
+		case .hessen:
+			return AppStrings.FederalStateName.hessen
+		case .mecklenburgVorpommern:
+			return AppStrings.FederalStateName.mecklenburgVorpommern
+		case .niedersachsen:
+			return AppStrings.FederalStateName.niedersachsen
+		case .nordrheinWestfalen:
+			return AppStrings.FederalStateName.nordrheinWestfalen
+		case .rheinlandPfalz:
+			return AppStrings.FederalStateName.rheinlandPfalz
+		case .saarland:
+			return AppStrings.FederalStateName.saarland
+		case .sachsen:
+			return AppStrings.FederalStateName.sachsen
+		case .sachsenAnhalt:
+			return AppStrings.FederalStateName.sachsenAnhalt
+		case .schleswigHolstein:
+			return AppStrings.FederalStateName.schleswigHolstein
+		case .thüringen:
+			return AppStrings.FederalStateName.thueringen
+		}
+	}
+	
+	static func byLocalizedName(federalStateString: String) -> FederalStateName? {
+		return FederalStateName.allCases.first(where: { $0.localizedName.elementsEqual(federalStateString) })
+	}
 }
 
 enum FederalStateShortName: String, CaseIterable, Codable {
