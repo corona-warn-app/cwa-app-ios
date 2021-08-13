@@ -2486,6 +2486,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scannen Sie den QR-Code eines Events erneut, um andere in Vertretung zu warnen.";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
+
 /* - Date Time Selection */
 
 "OnBehalfCheckinSubmission_DateTimeSelection_Title" = "In Vertretung warnen";

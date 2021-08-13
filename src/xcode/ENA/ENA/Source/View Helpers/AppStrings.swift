@@ -1920,6 +1920,7 @@ enum AppStrings {
 			enum EmptyState {
 				static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title", comment: "")
 				static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description", comment: "")
+				static let imageDescription = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription", comment: "")
 			}
 		}
 
