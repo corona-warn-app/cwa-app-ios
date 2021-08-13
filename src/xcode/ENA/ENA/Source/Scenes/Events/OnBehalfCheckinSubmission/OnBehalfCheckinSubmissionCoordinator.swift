@@ -36,6 +36,8 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private let eventStore: EventStoringProviding
 	private let client: Client
 
+	private var traceLocationSelectionViewModel: OnBehalfTraceLocationSelectionViewModel?
+
 	// MARK: Show Screens
 
 	private lazy var infoScreen: UIViewController = {
@@ -64,8 +66,11 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	}()
 
 	private func showTraceLocationSelectionScreen() {
+		let viewModel = OnBehalfTraceLocationSelectionViewModel(traceLocations: eventStore.traceLocationsPublisher.value)
+		traceLocationSelectionViewModel = viewModel
+
 		let traceLocationSelectionViewController = OnBehalfTraceLocationSelectionViewController(
-			traceLocations: eventStore.traceLocationsPublisher.value,
+			viewModel: viewModel,
 			onScanQRCodeCellTap: { [weak self] in
 				self?.showQRCodeScanner()
 			},
@@ -109,7 +114,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 				}
 			},
 			dismiss: { [weak self] in
-//				self?.checkinsOverviewViewModel.updateForCameraPermission()
+				self?.traceLocationSelectionViewModel?.updateForCameraPermission()
 				self?.navigationController.dismiss(animated: true)
 			}
 		)

@@ -10,13 +10,13 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	// MARK: - Init
 	
 	init(
-		traceLocations: [TraceLocation],
+		viewModel: OnBehalfTraceLocationSelectionViewModel,
 		onScanQRCodeCellTap: @escaping () -> Void,
 		onMissingPermissionsButtonTap: @escaping () -> Void,
 		onCompletion: @escaping (TraceLocation) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
-		self.viewModel = OnBehalfTraceLocationSelectionViewModel(traceLocations: traceLocations)
+		self.viewModel = viewModel
 		self.onScanQRCodeCellTap = onScanQRCodeCellTap
 		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 		self.onCompletion = onCompletion
@@ -54,6 +54,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 				guard let self = self else { return }
 
 				self.tableView.reloadData()
+				self.setUpEmptyState()
 			}
 			.store(in: &subscriptions)
 	}
