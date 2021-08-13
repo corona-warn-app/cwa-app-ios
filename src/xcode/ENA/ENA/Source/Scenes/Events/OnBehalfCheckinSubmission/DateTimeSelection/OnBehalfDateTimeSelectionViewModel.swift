@@ -146,6 +146,10 @@ final class OnBehalfDateTimeSelectionViewModel {
 					tableViewController.tableView.beginUpdates()
 					tableViewController.tableView.reloadRows(at: [indexPath], with: .none)
 					tableViewController.tableView.endUpdates()
+
+					if !self.durationSelectionCollapsed {
+						tableViewController.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+					}
 				}
 			}),
 			accessoryAction: .none
