@@ -130,7 +130,33 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private func showDateTimeSelectionSelectionScreen(
 		traceLocation: TraceLocation
 	) {
+		let dateTimeSelectionViewController = OnBehalfDateTimeSelectionViewController(
+			traceLocation: traceLocation,
+			onCompletion: { [weak self] checkin in
+				self?.showTANInputScreen(
+					checkin: checkin
+				)
+			},
+			onDismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
 
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.primaryButtonTitle,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: dateTimeSelectionViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
 	private func showTANInputScreen(
