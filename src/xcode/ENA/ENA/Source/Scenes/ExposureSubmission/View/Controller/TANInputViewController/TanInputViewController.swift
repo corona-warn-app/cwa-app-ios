@@ -106,10 +106,9 @@ class TanInputViewController: UITableViewController, FooterViewHandling {
 	private lazy var tanErrorCell = TANErrorCell(style: .default, reuseIdentifier: TANErrorCell.cellIdentifier)
 
 	private func setupViews() {
-		
 		view.backgroundColor = ColorCompatibility.systemBackground
 		
-		parent?.navigationItem.title = AppStrings.ExposureSubmissionTanEntry.title
+		parent?.navigationItem.title = viewModel.title
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 		parent?.navigationController?.navigationBar.sizeToFit()

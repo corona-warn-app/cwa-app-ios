@@ -10,26 +10,10 @@ class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsValid() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
 		let viewModel = TanInputViewModel(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration
-				)
-			),
-			onSuccess: { _, _ in },
+			title: "Title",
+			description: "Description",
+			onPrimaryButtonTap: { _, _ in },
 			givenTan: "234567893D"
 		)
 
@@ -44,26 +28,10 @@ class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_ValidFormattedTanWithInvalidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsInvalid() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = TanInputViewModel(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration
-				)
-			),
-			onSuccess: { _, _ in },
+			title: "Title",
+			description: "Description",
+			onPrimaryButtonTap: { _, _ in },
 			givenTan: "ZBYKEVDBNU"
 		)
 
@@ -78,26 +46,10 @@ class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_wrongCharacterTanString_WHEN_isValidCheck_THEN_isInvalidChecksumIsInvalid() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = TanInputViewModel(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration
-				)
-			),
-			onSuccess: { _, _ in },
+			title: "Title",
+			description: "Description",
+			onPrimaryButtonTap: { _, _ in },
 			givenTan: "ZBYKEVDBNL"
 		)
 

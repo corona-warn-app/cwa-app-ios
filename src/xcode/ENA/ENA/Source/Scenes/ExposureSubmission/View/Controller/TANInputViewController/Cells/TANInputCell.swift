@@ -13,7 +13,7 @@ class TANInputCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let descriptionLabel = ENALabel()
 		descriptionLabel.style = .headline
-		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		descriptionLabel.text = viewModel.description
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		descriptionLabel.numberOfLines = 0

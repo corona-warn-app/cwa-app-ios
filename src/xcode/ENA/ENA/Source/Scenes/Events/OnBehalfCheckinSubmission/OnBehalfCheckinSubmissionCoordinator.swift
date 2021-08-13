@@ -136,7 +136,43 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private func showTANInputScreen(
 		checkin: Checkin
 	) {
+		let tanInputViewModel = TanInputViewModel(
+			title: AppStrings.OnBehalfCheckinSubmission.TANInput.title,
+			description: AppStrings.OnBehalfCheckinSubmission.TANInput.description,
+			onPrimaryButtonTap: { [weak self] tan, isLoading in
+				isLoading(true)
 
+				Log.info("[OnBehalfCheckinSubmission] Submitting with TAN \(private: tan)", log: .checkin)
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+					isLoading(false)
+
+					self?.showThankYouScreen()
+				}
+			}
+		)
+
+		let tanInputViewController = TanInputViewController(
+			viewModel: tanInputViewModel,
+			dismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.OnBehalfCheckinSubmission.TANInput.primaryButtonTitle,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: tanInputViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
 	private func showThankYouScreen() {
