@@ -158,6 +158,16 @@ extension HTTPClient {
 					"diagnosis-keys"
 			)
 		}
+		
+		var onBehalfCheckinSubmissionURL: URL {
+			endpoints
+				.submission
+				.appending(
+					"version",
+					apiVersion,
+					"submission-on-behalf"
+			)
+		}
 
 		var registrationURL: URL {
 			endpoints
