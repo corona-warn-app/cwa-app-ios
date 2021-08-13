@@ -1140,10 +1140,6 @@ enum AppStrings {
 		static let feature28StandardizeNameTitle = NSLocalizedString("NewVersionFeature_28_standardizeName_title", comment: "")
 		
 		static let feature28StandardizeNameDescription = NSLocalizedString("NewVersionFeature_28_standardizeName_description", comment: "")
-		
-		static let feature28CertificateFromTestResultTitle = NSLocalizedString("NewVersionFeature_28_certificateFromTestResult_title", comment: "")
-		
-		static let feature28CertificateFromTestResultDescription = NSLocalizedString("NewVersionFeature_28_certificateFromTestResult_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
