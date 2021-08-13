@@ -24,7 +24,7 @@ extension UserDefaults: DMStore {
 			data(forKey: "dmLastOnBehalfCheckinSubmissionRequest")
 		}
 		set {
-			set(newValue, forKey: "dmLastonBehalfCheckinSubmissionRequest")
+			set(newValue, forKey: "dmLastOnBehalfCheckinSubmissionRequest")
 		}
 	}
 }
