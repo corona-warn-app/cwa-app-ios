@@ -19,7 +19,7 @@ extension UserDefaults: DMStore {
 		}
 	}
 	
-	var dmLastonBehalfCheckinSubmissionRequest: Data? {
+	var dmLastOnBehalfCheckinSubmissionRequest: Data? {
 		get {
 			data(forKey: "dmLastOnBehalfCheckinSubmissionRequest")
 		}
