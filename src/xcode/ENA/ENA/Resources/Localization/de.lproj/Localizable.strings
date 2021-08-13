@@ -665,7 +665,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Falls Sie Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs noch nicht erteilt haben oder seitdem mehr als 5 Tage vergangen sind, erteilen Sie Ihre Erlaubnis bitte im nächsten Schritt.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Sie haben sich entschieden, Ihr Testergebnis nicht zu teilen. Ihre Mitmenschen werden nicht gewarnt.";
 
