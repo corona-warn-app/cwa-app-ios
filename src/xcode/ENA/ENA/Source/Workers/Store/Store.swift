@@ -32,6 +32,8 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
+	var exposureDetectionDate: Date? { get set }
+
 	var enfRiskCalculationResult: ENFRiskCalculationResult? { get set }
 
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
