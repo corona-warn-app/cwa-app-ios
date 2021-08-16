@@ -24,6 +24,8 @@ class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 		durationTitleLabel.text = AppStrings.Checkins.Overview.durationTitle
 		accessibilityTraits = [.button]
+
+		setCellBackgroundColor()
 	}
 
 	override func prepareForReuse() {
@@ -39,7 +41,7 @@ class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		if highlighted {
 			containerView.backgroundColor = .enaColor(for: .listHighlight)
 		} else {
-			containerView.backgroundColor = .enaColor(for: .cellBackground)
+			containerView.backgroundColor = cellBackgroundColor
 		}
 	}
 
@@ -140,6 +142,19 @@ class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var cellModel: EventCellModel?
+	private var cellBackgroundColor: UIColor = .enaColor(for: .cellBackground)
+
+	private func setCellBackgroundColor() {
+		if #available(iOS 13.0, *) {
+			if traitCollection.userInterfaceLevel == .elevated {
+				cellBackgroundColor = .enaColor(for: .cellBackground3)
+			} else {
+				cellBackgroundColor = .enaColor(for: .cellBackground)
+			}
+		}
+
+		containerView.backgroundColor = cellBackgroundColor
+	}
     
 	@IBAction private func didTapButton(_ sender: Any) {
 		onButtonTap?()

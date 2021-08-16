@@ -22,7 +22,7 @@ class TraceLocationCheckinSelectionTableViewCell: UITableViewCell, ReuseIdentifi
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		containerView.backgroundColor = .enaColor(for: .cellBackground)
+		containerView.backgroundColor = .enaColor(for: .cellBackground3)
 		cellModel = nil
 		subscriptions = []
 	}
@@ -32,7 +32,7 @@ class TraceLocationCheckinSelectionTableViewCell: UITableViewCell, ReuseIdentifi
 		if highlighted {
 			containerView.backgroundColor = .enaColor(for: .listHighlight)
 		} else {
-			containerView.backgroundColor = .enaColor(for: .cellBackground)
+			containerView.backgroundColor = .enaColor(for: .cellBackground3)
 		}
 	}
 	
@@ -91,7 +91,7 @@ class TraceLocationCheckinSelectionTableViewCell: UITableViewCell, ReuseIdentifi
 		dateIntervalLabel.textColor = .enaColor(for: .textPrimary1)
 		
 		contentView.addSubview(containerView)
-		containerView.backgroundColor = .enaColor(for: .cellBackground)
+		containerView.backgroundColor = .enaColor(for: .cellBackground3)
 		
 		let textStackView = UIStackView(arrangedSubviews: [descriptionLabel, addressLabel, dateIntervalLabel])
 		textStackView.axis = .vertical

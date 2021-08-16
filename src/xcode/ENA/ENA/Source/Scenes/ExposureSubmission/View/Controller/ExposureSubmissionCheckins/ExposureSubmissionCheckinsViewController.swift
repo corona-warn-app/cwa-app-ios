@@ -32,7 +32,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		tableView.separatorStyle = .none
-		tableView.backgroundColor = .enaColor(for: .darkBackground)
+		tableView.backgroundColor = .enaColor(for: .background)
 		tableView.register(TraceLocationCheckinSelectionTableViewCell.self, forCellReuseIdentifier: TraceLocationCheckinSelectionTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
 		
@@ -90,7 +90,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		}
 		
 		let selectAllButton = UIButton()
-		selectAllButton.backgroundColor = .enaColor(for: .darkBackground)
+		selectAllButton.backgroundColor = .enaColor(for: .background)
 		selectAllButton.contentHorizontalAlignment = .left
 		selectAllButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 		selectAllButton.setTitleColor(.enaColor(for: .textTint), for: .normal)

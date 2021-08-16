@@ -56,6 +56,7 @@ class MissingPermissionsTableViewCell: UITableViewCell, ReuseIdentifierProviding
 	private var cellModel: MissingPermissionsCellModel?
 	private var onButtonTap: (() -> Void)?
 
+	let containerView = UIView()
 	let titleLabel = ENALabel()
 	let descriptionLabel = ENALabel()
 	let button = ENAButton()
@@ -97,34 +98,44 @@ class MissingPermissionsTableViewCell: UITableViewCell, ReuseIdentifierProviding
 		vStackView.distribution = .fill
 		vStackView.spacing = 14.0
 
-		let backgroundView = UIView(frame: .zero)
-		backgroundView.translatesAutoresizingMaskIntoConstraints = false
-		backgroundView.backgroundColor = .enaColor(for: .cellBackground)
-		backgroundView.layer.cornerRadius = 14.0
+		containerView.translatesAutoresizingMaskIntoConstraints = false
+		containerView.layer.cornerRadius = 14.0
+		setCellBackgroundColor()
 
 		if #available(iOS 13.0, *) {
-			backgroundView.layer.cornerCurve = .continuous
+			containerView.layer.cornerCurve = .continuous
 		}
 
-		contentView.addSubview(backgroundView)
-		backgroundView.addSubview(vStackView)
+		contentView.addSubview(containerView)
+		containerView.addSubview(vStackView)
 
 		NSLayoutConstraint.activate(
 			[
 				qrCodeImageView.widthAnchor.constraint(equalToConstant: 28.0),
-				backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.0),
-				backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.0),
-				backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-				backgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+				containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.0),
+				containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.0),
+				containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+				containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
 
-				vStackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16.0),
-				vStackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16.0),
-				vStackView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 14.0),
-				vStackView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -14.0)
+				vStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16.0),
+				vStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16.0),
+				vStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 14.0),
+				vStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -14.0)
 			]
 		)
 	}
 
+	private func setCellBackgroundColor() {
+		if #available(iOS 13.0, *) {
+			if traitCollection.userInterfaceLevel == .elevated {
+				containerView.backgroundColor = .enaColor(for: .cellBackground3)
+			} else {
+				containerView.backgroundColor = .enaColor(for: .cellBackground)
+			}
+		} else {
+			containerView.backgroundColor = .enaColor(for: .cellBackground)
+		}
+	}
 
 	@objc
 	private func didTapButton() {

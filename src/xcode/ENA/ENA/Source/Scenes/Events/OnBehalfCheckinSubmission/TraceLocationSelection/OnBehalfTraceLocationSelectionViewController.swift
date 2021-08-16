@@ -142,7 +142,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 
 	private func setUpTableView() {
 		tableView.separatorStyle = .none
-		tableView.backgroundColor = .enaColor(for: .darkBackground)
+		tableView.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
 			DynamicTypeTableViewCell.self,

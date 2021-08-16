@@ -630,7 +630,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
 			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
 			isPrimaryButtonEnabled: false,
-			backgroundColor: .enaColor(for: .darkBackground)
+			backgroundColor: .enaColor(for: .background)
 		)
 
 		let checkinsVC = ExposureSubmissionCheckinsViewController(
