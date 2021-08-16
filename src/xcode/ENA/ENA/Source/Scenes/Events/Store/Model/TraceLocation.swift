@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TraceLocation {
+struct TraceLocation: Equatable {
 
 	// MARK: - Internal
 
