@@ -698,12 +698,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		guard deltaOnboardingCoordinator == nil else {
+			Log.debug("Skip onboarding call, because onboarding is already running.")
 			completion()
 			return
 		}
 
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
-			guard let self = self else { return }
+			guard let self = self else {
+				Log.debug("Skip onboarding call, because HomeTableViewController was deallocated.")
+				completion()
+				return
+			}
 
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 
@@ -736,10 +741,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				}
 
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
+					Log.debug("Onboarding finished.")
 					self?.deltaOnboardingCoordinator = nil
 					completion()
 				}
 
+				Log.debug("Start onboarding.")
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
 		}.store(in: &subscriptions)
