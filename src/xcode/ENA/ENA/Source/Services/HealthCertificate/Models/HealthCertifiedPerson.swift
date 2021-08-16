@@ -130,14 +130,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		scheduleMostRelevantCertificateTimer()
 	}
 
-	// MARK: - Private
-
-	private var subscriptions = Set<AnyCancellable>()
-	private var healthCertificateSubscriptions = Set<AnyCancellable>()
-
-	private var mostRelevantCertificateTimer: Timer?
-
-	private enum VaccineMedicalProductTye {
+	enum VaccineMedicalProductTye {
 		case biontech
 		case moderna
 		case astraZeneca
@@ -156,6 +149,13 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 		}
 	}
+
+	// MARK: - Private
+
+	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertificateSubscriptions = Set<AnyCancellable>()
+
+	private var mostRelevantCertificateTimer: Timer?
 
 	private var recoveredVaccinationCertificate: HealthCertificate? {
 		return vaccinationCertificates.last { certificate in

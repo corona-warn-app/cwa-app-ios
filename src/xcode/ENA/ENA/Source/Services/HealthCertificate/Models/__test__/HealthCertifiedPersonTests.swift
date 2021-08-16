@@ -77,4 +77,34 @@ class HealthCertifiedPersonTests: CWATestCase {
 		)
 	}
 
+	func testGIVEN_MedicalProductTyeString_WHEN_CreateEnum_THEN_isCorrectType() {
+		// GIVEN
+		let biontechString = "EU/1/20/1528"
+		let modernaString = "EU/1/20/1507"
+		let astraZenecaString = "EU/1/21/1529"
+		let unknownString = "EU/1/19/1501"
+
+		// WHEN
+		let biontechProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: biontechString)
+		let modernaProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: modernaString)
+		let astraZenecaProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: astraZenecaString)
+		let unknownProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: unknownString)
+
+		let biontechProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: biontechString.lowercased())
+		let modernaProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: modernaString.lowercased())
+		let astraZenecaProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: astraZenecaString.lowercased())
+		let unknownProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: unknownString.lowercased())
+
+		// THEN
+		XCTAssertEqual(biontechProductType, .biontech)
+		XCTAssertEqual(modernaProductType, .moderna)
+		XCTAssertEqual(astraZenecaProductType, .astraZeneca)
+		XCTAssertEqual(unknownProductType, .unknown)
+
+		XCTAssertEqual(biontechProductType2, .biontech)
+		XCTAssertEqual(modernaProductType2, .moderna)
+		XCTAssertEqual(astraZenecaProductType2, .astraZeneca)
+		XCTAssertEqual(unknownProductType2, .unknown)
+	}
+
 }
