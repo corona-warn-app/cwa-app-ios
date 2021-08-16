@@ -150,14 +150,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	// MARK: - Private
-
-	private var subscriptions = Set<AnyCancellable>()
-	private var healthCertificateSubscriptions = Set<AnyCancellable>()
-
-	private var mostRelevantCertificateTimer: Timer?
-
-	private var recoveredVaccinationCertificate: HealthCertificate? {
+	var recoveredVaccinationCertificate: HealthCertificate? {
 		return vaccinationCertificates.last { certificate in
 			guard let vaccinationEntry = certificate.vaccinationEntry,
 				  vaccinationEntry.totalSeriesOfDoses == 1,
@@ -168,6 +161,13 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			return true
 		}
 	}
+
+	// MARK: - Private
+
+	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertificateSubscriptions = Set<AnyCancellable>()
+
+	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
 		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
