@@ -714,15 +714,22 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 			#endif
 
-			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
-					DeltaOnboardingDataDonation(store: self.viewModel.store),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
-				]
-				Log.debug("Delta Onboarding list size: \(onboardings.count)")
+			let onboardings: [DeltaOnboarding] = [
+				DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
+				DeltaOnboardingDataDonation(store: self.viewModel.store),
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
+			]
 
-				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+			Log.debug("Delta Onboarding list size: \(onboardings.count)")
+
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+				guard self.presentedViewController == nil else {
+					Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
+					return
+				}
+
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
 					self?.deltaOnboardingCoordinator = nil
 					completion()
