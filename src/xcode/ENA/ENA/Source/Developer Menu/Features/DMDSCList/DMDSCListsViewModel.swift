@@ -23,6 +23,8 @@ final class DMDSCListsViewModel {
 		case reset
 	}
 
+	var presentAlert: ((UIAlertAction, UIAlertAction) -> Void)?
+
 	let itemsCount: Int = 1
 
 	var numberOfSections: Int {
@@ -57,8 +59,21 @@ final class DMDSCListsViewModel {
 				text: "Reset DSC lists",
 				textColor: .enaColor(for: .textContrast),
 				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					Log.info("trigger reset here")
+				action: { [weak self] in
+					self?.presentAlert?(
+						UIAlertAction(
+							title: "Clean it!",
+							style: .destructive,
+							handler: { [weak self] _ in
+								self?.store.dscList = nil
+								exit(0)
+							}
+						),
+						UIAlertAction(
+							title: "no, keep them",
+							style: .default
+						)
+					)
 				}
 			)
 		}

@@ -28,7 +28,8 @@ final class DMDSCListsController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
-		title = "App Features 🪄⚙️"
+		setupAlert()
+		title = "DSC List Magic 🪄"
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -78,6 +79,16 @@ final class DMDSCListsController: UITableViewController {
 		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 		tableView.register(DMStaticTextTableViewCell.self, forCellReuseIdentifier: DMStaticTextTableViewCell.reuseIdentifier)
 	}
+
+	private func setupAlert() {
+		viewModel.presentAlert = { [weak self] accept, decline in
+			let alert = UIAlertController(title: "Reset DSC List?", message: "This will clean the whole list of DSCs.", preferredStyle: .alert)
+			alert.addAction(accept)
+			alert.addAction(decline)
+			self?.present(alert, animated: true)
+		}
+	}
+
 }
 
 #endif
