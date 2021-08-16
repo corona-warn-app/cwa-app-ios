@@ -1,9 +1,8 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
 import XCTest
-import HealthCertificateToolkit
 @testable import ENA
 
 class TanInputViewModelTests: CWATestCase {
