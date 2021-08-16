@@ -137,16 +137,53 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	private var mostRelevantCertificateTimer: Timer?
 
-	private var completeVaccinationProtectionDate: Date? {
-		guard
-			let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-			let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
-			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
-		else {
-			return nil
-		}
+	private enum VaccineMedicalProductTye {
+		case biontech
+		case moderna
+		case astraZeneca
+		case unknown
 
-		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
+		init(value: String) {
+			switch value.uppercased() {
+			case "EU/1/20/1528":
+				self = .biontech
+			case "EU/1/20/1507":
+				self = .moderna
+			case "EU/1/21/1529":
+				self = .astraZeneca
+			default:
+				self = .unknown
+			}
+		}
+	}
+
+	private var recoveredVaccinationCertificate: HealthCertificate? {
+		return vaccinationCertificates.last { certificate in
+			guard let vaccinationEntry = certificate.vaccinationEntry,
+				  vaccinationEntry.totalSeriesOfDoses == 1,
+				  vaccinationEntry.doseNumber == 1,
+				  VaccineMedicalProductTye(value: vaccinationEntry.vaccineMedicinalProduct) != .unknown else {
+				return false
+			}
+			return true
+		}
+	}
+
+	private var completeVaccinationProtectionDate: Date? {
+		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
+		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
+			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
+		} else {
+			guard
+				let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
+				let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
+				let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
+			else {
+				return nil
+			}
+
+			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
+		}
 	}
 
 	private var vaccinationExpirationDate: Date? {
