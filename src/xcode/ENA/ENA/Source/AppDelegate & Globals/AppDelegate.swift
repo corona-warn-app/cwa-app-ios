@@ -147,6 +147,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
+		if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
+			self.exposureManager.activate { error in
+				if let error = error {
+					Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+				}
+			}
+		}
+
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -197,7 +205,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			postOnboardingRoute = route
 			return false
 		}
-		showHome(route)
+		presentHomeVC(route)
 		return true
 	}
 
@@ -450,7 +458,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			healthCertificateService: healthCertificateService,
 			showHome: { [weak self] in
 				// We don't need the Route parameter in the NotificationManager
-				self?.showHome()
+				self?.presentHomeVC()
 			},
 			showTestResultFromNotification: coordinator.showTestResultFromNotification
 		)
@@ -690,7 +698,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupAlertViewAppearance()
 
 		if store.isOnboarded {
-			showHome(route)
+			presentHomeVC(route)
 		} else {
 			postOnboardingRoute = route
 			showOnboarding()
@@ -741,7 +749,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private func presentHomeVC(_ route: Route?) {
+	private func presentHomeVC(_ route: Route? = nil) {
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.exposureManagerState,
 			delegate: self
