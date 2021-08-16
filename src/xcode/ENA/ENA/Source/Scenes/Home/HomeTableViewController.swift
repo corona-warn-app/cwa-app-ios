@@ -697,7 +697,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		guard deltaOnboardingCoordinator == nil else { return }
+		guard deltaOnboardingCoordinator == nil else {
+			completion()
+			return
+		}
 
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
@@ -727,6 +730,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				guard self.presentedViewController == nil else {
 					Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
+					self.deltaOnboardingCoordinator = nil
+					completion()
 					return
 				}
 
