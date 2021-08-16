@@ -764,7 +764,7 @@ class HealthCertificateService {
 			return
 		}
 		
-		Log.info("Cancel all notifications for certificate with id: \(id).", log: .vaccination)
+		Log.info("Cancel all notifications for certificate with id: \(private: id).", log: .vaccination)
 		
 		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)"
 		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
@@ -805,11 +805,11 @@ class HealthCertificateService {
 		date: Date?
 	) {
 		guard let date = date else {
-			Log.error("Could not schedule expiring soon notification for certificate with id: \(id) because we have no expiringSoonDate.", log: .vaccination)
+			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: id) because we have no expiringSoonDate.", log: .vaccination)
 			return
 		}
 		
-		Log.info("Schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)", log: .vaccination)
+		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.expiringSoonTitle
@@ -837,7 +837,7 @@ class HealthCertificateService {
 		id: String,
 		date: Date
 	) {
-		Log.info("Schedule expired notification for certificate with id: \(id) with expirationDate: \(date)", log: .vaccination)
+		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.expiredTitle
@@ -864,7 +864,7 @@ class HealthCertificateService {
 		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			guard !requests.contains(request) else {
 				Log.info(
-					"Did not schedule notification: \(request.identifier) because it is already scheduled.",
+					"Did not schedule notification: \(private: request.identifier) because it is already scheduled.",
 					log: .vaccination
 				)
 				return
@@ -872,7 +872,7 @@ class HealthCertificateService {
 			self?.notificationCenter.add(request) { error in
 				if error != nil {
 					Log.error(
-						"Could not schedule notification: \(request.identifier)",
+						"Could not schedule notification: \(private: request.identifier)",
 						log: .vaccination,
 						error: error
 					)
