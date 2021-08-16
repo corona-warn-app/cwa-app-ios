@@ -147,10 +147,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
-		if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
-			self.exposureManager.activate { error in
-				if let error = error {
-					Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+		// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+		if #available(iOS 13.5, *) {
+			// Do nothing since we can use BGTask in this case.
+		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
+			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
+				self.exposureManager.activate { error in
+					if let error = error {
+						Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+					}
 				}
 			}
 		}
@@ -205,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			postOnboardingRoute = route
 			return false
 		}
-		presentHomeVC(route)
+		showHome(route)
 		return true
 	}
 
@@ -458,7 +463,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			healthCertificateService: healthCertificateService,
 			showHome: { [weak self] in
 				// We don't need the Route parameter in the NotificationManager
-				self?.presentHomeVC()
+				self?.showHome()
 			},
 			showTestResultFromNotification: coordinator.showTestResultFromNotification
 		)
@@ -698,7 +703,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupAlertViewAppearance()
 
 		if store.isOnboarded {
-			presentHomeVC(route)
+			showHome(route)
 		} else {
 			postOnboardingRoute = route
 			showOnboarding()
@@ -737,19 +742,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func showHome(_ route: Route? = nil) {
-		if exposureManager.exposureManagerState.status == .unknown {
-			exposureManager.activate { [weak self] error in
-				if let error = error {
-					Log.error("Cannot activate the ENManager.", log: .api, error: error)
+		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+		if #available(iOS 13.5, *) {
+			if exposureManager.exposureManagerState.status == .unknown {
+				exposureManager.activate { [weak self] error in
+					if let error = error {
+						Log.error("Cannot activate the ENManager.", log: .api, error: error)
+					}
+					self?.presentHomeVC(route)
 				}
-				self?.presentHomeVC(route)
+			} else {
+				presentHomeVC(route)
 			}
-		} else {
+		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
 			presentHomeVC(route)
 		}
 	}
 
-	private func presentHomeVC(_ route: Route? = nil) {
+	private func presentHomeVC(_ route: Route?) {
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.exposureManagerState,
 			delegate: self
