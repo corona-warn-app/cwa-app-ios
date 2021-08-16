@@ -11,7 +11,7 @@ final class DMDSCListsController: UITableViewController {
 	// MARK: - Init
 
 	init(store: Store) {
-		self.viewModel = DMAppFeaturesViewModel(store: store)
+		self.viewModel = DMDSCListsViewModel(store: store)
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
 		} else {
@@ -42,7 +42,7 @@ final class DMDSCListsController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let section = DMAppFeaturesViewModel.Sections(rawValue: indexPath.section) else {
+		guard let section = DMDSCListsViewModel.Sections(rawValue: indexPath.section) else {
 			fatalError("unknown tableview section")
 		}
 
@@ -54,12 +54,13 @@ final class DMDSCListsController: UITableViewController {
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 
-		case .unencryptedEvents:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMSwitchTableViewCell") as? DMSwitchTableViewCell else {
-				let dummy = UITableViewCell(style: .default, reuseIdentifier: "DummyFallBackCell")
-				dummy.textLabel?.text = "Fallback cell"
-				return dummy
-			}
+		case .refresh:
+			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+
+		case .reset:
+			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		}
@@ -68,14 +69,13 @@ final class DMDSCListsController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMAppFeaturesViewModel
+	private let viewModel: DMDSCListsViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
 		tableView.rowHeight = UITableView.automaticDimension
 
-		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "DMSwitchTableViewCell")
-		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
+		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 		tableView.register(DMStaticTextTableViewCell.self, forCellReuseIdentifier: DMStaticTextTableViewCell.reuseIdentifier)
 	}
 }
