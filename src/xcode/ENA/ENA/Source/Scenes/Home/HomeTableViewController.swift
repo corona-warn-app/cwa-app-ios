@@ -336,7 +336,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var onDismissDistrict: (Bool) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
-	private var onboardingIsRunning = false
+	private var deltaOnboardingIsRunning = false
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
@@ -698,12 +698,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		guard !onboardingIsRunning else {
+		guard !deltaOnboardingIsRunning else {
 			Log.debug("Skip onboarding call, because onboarding is already running.")
 			completion()
 			return
 		}
-		self.onboardingIsRunning = true
+		self.deltaOnboardingIsRunning = true
 
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else {
@@ -737,14 +737,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				guard self.presentedViewController == nil else {
 					Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
-					self.onboardingIsRunning = false
+					self.deltaOnboardingIsRunning = false
 					completion()
 					return
 				}
 
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
 					Log.debug("Onboarding finished.")
-					self?.onboardingIsRunning = false
+					self?.deltaOnboardingIsRunning = false
 					completion()
 				}
 
