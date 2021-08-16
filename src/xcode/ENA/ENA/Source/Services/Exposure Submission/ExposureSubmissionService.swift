@@ -261,7 +261,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
 		completion: @escaping ExposureSubmissionHandler
 	) {
-		let payload = CountrySubmissionPayload(
+		let payload = SubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
 			checkins: checkins,
