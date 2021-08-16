@@ -81,12 +81,20 @@ final class DMDSCListsController: UITableViewController {
 	}
 
 	private func setupAlert() {
-		viewModel.presentAlert = { [weak self] accept, decline in
+		viewModel.presentResetAlert = { [weak self] accept, decline in
 			let alert = UIAlertController(title: "Reset DSC List?", message: "This will clean the whole list of DSCs.", preferredStyle: .alert)
 			alert.addAction(accept)
 			alert.addAction(decline)
 			self?.present(alert, animated: true)
 		}
+
+		viewModel.presentRefreshAlert = { [weak self] accept, decline in
+			let alert = UIAlertController(title: "Override refresh?", message: "This will override the timestamp of the last refresh. You may move the app to the background and foreground to trigger the next refresh.", preferredStyle: .alert)
+			alert.addAction(accept)
+			alert.addAction(decline)
+			self?.present(alert, animated: true)
+		}
+
 	}
 
 }

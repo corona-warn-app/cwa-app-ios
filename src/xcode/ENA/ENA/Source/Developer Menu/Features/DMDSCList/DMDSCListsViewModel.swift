@@ -23,7 +23,8 @@ final class DMDSCListsViewModel {
 		case reset
 	}
 
-	var presentAlert: ((UIAlertAction, UIAlertAction) -> Void)?
+	var presentResetAlert: ((UIAlertAction, UIAlertAction) -> Void)?
+	var presentRefreshAlert: ((UIAlertAction, UIAlertAction) -> Void)?
 
 	let itemsCount: Int = 1
 
@@ -50,7 +51,25 @@ final class DMDSCListsViewModel {
 				textColor: .enaColor(for: .textContrast),
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: {
-					Log.info("trigger refresh here")
+					guard var metaData = self.store.dscList else {
+						Log.info("no meta data found to manipulate")
+						return
+					}
+					metaData.timestamp = Date(timeIntervalSinceNow: -DSCListProvider.updateInterval)
+
+					self.presentRefreshAlert?(
+						UIAlertAction(
+							title: "yes, refresh it!",
+							style: .destructive,
+							handler: { [weak self] _ in
+								self?.store.dscList = metaData
+							}
+						),
+						UIAlertAction(
+							title: "no, keep them",
+							style: .default
+						)
+					)
 				}
 			)
 
@@ -59,8 +78,8 @@ final class DMDSCListsViewModel {
 				text: "Reset DSC lists",
 				textColor: .enaColor(for: .textContrast),
 				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: { [weak self] in
-					self?.presentAlert?(
+				action: {
+					self.presentResetAlert?(
 						UIAlertAction(
 							title: "Clean it!",
 							style: .destructive,
