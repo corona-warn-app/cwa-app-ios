@@ -715,12 +715,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 
 			/// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
-			var delay = 10.5
+			var delay = 0.5
 
 			#if DEBUG
 			if isUITesting {
 				/// In UI Testing we need to increase the delay slightly again. Otherwise UI Tests fail.
-				delay = 11.5
+				delay = 1.5
 			}
 			#endif
 
