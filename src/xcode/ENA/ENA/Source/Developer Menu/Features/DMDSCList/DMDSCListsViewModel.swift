@@ -39,7 +39,7 @@ final class DMDSCListsViewModel {
 		switch section {
 		case .notice:
 			return DMStaticTextCellViewModel(
-				staticText: "Reset will clear the DSC list and refresh will update the list without time limits",
+				staticText: "Helper to reset or trigger a refresh of the dsc list. Reset requires a restart. Refresh will happen after the app was in background and reaches foreground mode again.",
 				font: .enaFont(for: .subheadline),
 				textColor: .enaColor(for: .textPrimary1),
 				alignment: .center
