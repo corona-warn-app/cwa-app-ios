@@ -28,6 +28,23 @@ final class OnBehalfDateTimeSelectionViewModel {
 
 	// MARK: - Internal
 
+	var dynamicTableViewModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				cells: [
+					traceLocationCell(),
+					.subheadline(
+						text: AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.description,
+						color: .enaColor(for: .textPrimary2)
+					),
+					dateSelectionCell(),
+					.space(height: 8),
+					durationSelectionCell()
+				]
+			)
+		])
+	}
+
 	func createCheckin() {
 		let checkin: Checkin = Checkin(
 			id: 0,
@@ -50,23 +67,6 @@ final class OnBehalfDateTimeSelectionViewModel {
 		)
 
 		onPrimaryButtonTap(checkin)
-	}
-
-	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			.section(
-				cells: [
-					traceLocationCell(),
-					.subheadline(
-						text: AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.description,
-						color: .enaColor(for: .textPrimary2)
-					),
-					dateSelectionCell(),
-					.space(height: 8),
-					durationSelectionCell()
-				]
-			)
-		])
 	}
 
 	// MARK: - Private
