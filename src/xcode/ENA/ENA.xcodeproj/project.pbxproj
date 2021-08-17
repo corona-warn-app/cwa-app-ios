@@ -10,6 +10,7 @@
 		010172BC26CAAF4D00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172BB26CAAE7A00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift */; };
 		010172BE26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */; };
 		010172C126CAC07700CD1510 /* TraceLocationSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */; };
+		010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */; };
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -1353,6 +1354,7 @@
 		010172BB26CAAE7A00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewModelTests.swift; sourceTree = "<group>"; };
 		010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSelectionCellModelTests.swift; sourceTree = "<group>"; };
 		010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModelTests.swift; sourceTree = "<group>"; };
+		010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewModelTests.swift; sourceTree = "<group>"; };
 		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
 		0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_KeyFigure+Formatting.swift"; sourceTree = "<group>"; };
 		0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModelTest.swift; sourceTree = "<group>"; };
@@ -2753,6 +2755,7 @@
 		010172BF26CAC05600CD1510 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */,
 				010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */,
 			);
 			path = __tests__;
@@ -9010,6 +9013,7 @@
 				50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
 				BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */,
+				010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */,
 				BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */,
 				BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
