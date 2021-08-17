@@ -19,11 +19,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature28StandardizeNameTitle, description: AppStrings.NewVersionFeatures.feature28StandardizeNameDescription)
 		)
-		
-		// Certificate from Test Result
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature28CertificateFromTestResultTitle, description: AppStrings.NewVersionFeatures.feature28CertificateFromTestResultDescription)
-		)
 	}
 
 	// MARK: - Internal

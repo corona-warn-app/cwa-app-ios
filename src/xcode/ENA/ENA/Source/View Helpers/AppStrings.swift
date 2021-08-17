@@ -48,6 +48,7 @@ enum AppStrings {
 		static let healthCertificateValidationFAQ = NSLocalizedString("HealthCertificate_Info_validation_FAQLink", tableName: "Localizable.links", comment: "")
 		static let healthCertificateValidationEU = NSLocalizedString("HealthCertificate_Info_validation_EULink", tableName: "Localizable.links", comment: "")
 		static let invalidSignatureFAQ = NSLocalizedString("HealthCertificate_InvalidSignature_FAQLink", tableName: "Localizable.links", comment: "")
+		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_Blog_Link", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -1140,10 +1141,6 @@ enum AppStrings {
 		static let feature28StandardizeNameTitle = NSLocalizedString("NewVersionFeature_28_standardizeName_title", comment: "")
 		
 		static let feature28StandardizeNameDescription = NSLocalizedString("NewVersionFeature_28_standardizeName_description", comment: "")
-		
-		static let feature28CertificateFromTestResultTitle = NSLocalizedString("NewVersionFeature_28_certificateFromTestResult_title", comment: "")
-		
-		static let feature28CertificateFromTestResultDescription = NSLocalizedString("NewVersionFeature_28_certificateFromTestResult_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
@@ -1501,6 +1498,8 @@ enum AppStrings {
 			static let trendsStable = NSLocalizedString("Statistics_Info_Trends_Stable", comment: "")
 			static let trendsFootnote = NSLocalizedString("Statistics_Info_Trends_Footnote", comment: "")
 			static let titleImageAccLabel = NSLocalizedString("Statistics_Info_Image_AccLabel", comment: "")
+			static let blogDescription = NSLocalizedString("Statistics_Info_Blog_Description", comment: "")
+			static let blog = NSLocalizedString("Statistics_Info_More_Information_Blog", comment: "")
 		}
 	}
 	
@@ -2152,7 +2151,9 @@ enum AppStrings {
 
 				enum Passed {
 					static let title = NSLocalizedString("HealthCertificate_Validation_Passed_title", comment: "")
+					static let unknownTitle = NSLocalizedString("HealthCertificate_Validation_Passed_unknownTitle", comment: "")
 					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Passed_subtitle", comment: "")
+					static let unknownSubtitle = NSLocalizedString("HealthCertificate_Validation_Passed_unknownSubtitle", comment: "")
 					static let description = NSLocalizedString("HealthCertificate_Validation_Passed_description", comment: "")
 					static let hintsTitle = NSLocalizedString("HealthCertificate_Validation_Passed_hintsTitle", comment: "")
 					static let hint1 = NSLocalizedString("HealthCertificate_Validation_Passed_hint1", comment: "")

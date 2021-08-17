@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
+class DMButtonTableViewCell: UITableViewCell, ConfigureableCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -25,7 +25,7 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
 
 	func configure<T>(cellViewModel: T) {
 		guard let cellViewModel = cellViewModel as? DMButtonCellViewModel else {
-			fatalError("CellViewModel doesn't macht expecations")
+			fatalError("CellViewModel doesn't macht expectations")
 		}
 		buttonAction = cellViewModel.action
 		button.setTitle(cellViewModel.text, for: .normal)

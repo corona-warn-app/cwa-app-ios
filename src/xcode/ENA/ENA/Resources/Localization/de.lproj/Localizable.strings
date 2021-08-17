@@ -665,7 +665,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Falls Sie Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs noch nicht erteilt haben oder seitdem mehr als 5 Tage vergangen sind, erteilen Sie Ihre Erlaubnis bitte im nächsten Schritt.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Sie haben sich entschieden, Ihr Testergebnis nicht zu teilen. Ihre Mitmenschen werden nicht gewarnt.";
 
@@ -1604,10 +1604,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_28_standardizeName_description" = "Neben dem Namen in der länderspezifischen Schreibweise wird nun in jedem Zertifikat auch der Name in standardisierter, lateinischer Schreibweise angezeigt.";
 
-"NewVersionFeature_28_certificateFromTestResult_title" = "Zertifikat aus Testergebnis öffnen";
-
-"NewVersionFeature_28_certificateFromTestResult_description" = "Sie können nun in der App direkt aus dem Testergebnis Ihr digitales COVID-Testzertifikat der EU aufrufen, sofern ein Zertifikat verfügbar ist.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
@@ -2119,6 +2115,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Info_Trends_Footnote" = "Die Bewertung des Trends bei den warnenden Personen ändert sich je nach Infektionslage. Deshalb wird dieser Trend immer neutral dargestellt.";
 
 "Statistics_Info_Image_AccLabel" = "Abstrakte Darstellung eines Smartphones mit vier Platzhaltern für Informationen";
+
+"Statistics_Info_Blog_Description" = "Mehr inhaltliche Details zu einzelnen Kennzahlen finden Sie im %@.";
+
+"Statistics_Info_More_Information_Blog" = "Blog";
 
 /* Update OS */
 
@@ -2945,7 +2945,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_title" = "Gültiges Zertifikat";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Zertifikat nicht prüfbar";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
 
