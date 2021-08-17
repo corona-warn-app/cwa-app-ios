@@ -220,6 +220,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
+
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,
 		   let vaccinationExpirationDate = vaccinationExpirationDate {
