@@ -12,6 +12,7 @@
 		010172C126CAC07700CD1510 /* TraceLocationSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */; };
 		010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */; };
 		010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */; };
+		010172C926CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C826CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift */; };
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -1357,6 +1358,7 @@
 		010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModelTests.swift; sourceTree = "<group>"; };
 		010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewModelTests.swift; sourceTree = "<group>"; };
 		010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
+		010172C826CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfScanQRCodeCellModelTests.swift; sourceTree = "<group>"; };
 		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
 		0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_KeyFigure+Formatting.swift"; sourceTree = "<group>"; };
 		0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModelTest.swift; sourceTree = "<group>"; };
@@ -2758,6 +2760,7 @@
 			isa = PBXGroup;
 			children = (
 				010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */,
+				010172C826CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift */,
 				010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */,
 			);
 			path = __tests__;
@@ -9103,6 +9106,7 @@
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
+				010172C926CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift in Sources */,
 				5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */,
 				BA69A80D25CDA80600023265 /* SelectValueViewModelTests.swift in Sources */,
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
