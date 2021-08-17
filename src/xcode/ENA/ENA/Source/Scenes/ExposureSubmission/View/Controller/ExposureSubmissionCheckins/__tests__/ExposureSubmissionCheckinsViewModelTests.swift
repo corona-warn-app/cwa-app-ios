@@ -60,6 +60,7 @@ class ExposureSubmissionCheckinsViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 0)
+		XCTAssertFalse(viewModel.continueEnabled)
 
 		viewModel.selectAll()
 
@@ -70,10 +71,13 @@ class ExposureSubmissionCheckinsViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.selectedCheckins[2].id, 2)
 		XCTAssertEqual(viewModel.selectedCheckins[3].id, 4)
 
+		XCTAssertTrue(viewModel.continueEnabled)
+
 		// Check that second call keeps selection
 		viewModel.selectAll()
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 4)
+		XCTAssertTrue(viewModel.continueEnabled)
 	}
 
 	func testToggleSelection() {
@@ -88,20 +92,26 @@ class ExposureSubmissionCheckinsViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 0)
+		XCTAssertFalse(viewModel.continueEnabled)
 
 		viewModel.toggleSelection(at: 1)
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 1)
 		XCTAssertEqual(viewModel.selectedCheckins[0].id, 2)
 
+		XCTAssertTrue(viewModel.continueEnabled)
+
 		viewModel.toggleSelection(at: 1)
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 0)
+		XCTAssertFalse(viewModel.continueEnabled)
 
 		viewModel.toggleSelection(at: 2)
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 1)
 		XCTAssertEqual(viewModel.selectedCheckins[0].id, 4)
+
+		XCTAssertTrue(viewModel.continueEnabled)
 
 		viewModel.toggleSelection(at: 0)
 
@@ -109,12 +119,16 @@ class ExposureSubmissionCheckinsViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.selectedCheckins[0].id, 0)
 		XCTAssertEqual(viewModel.selectedCheckins[1].id, 4)
 
+		XCTAssertTrue(viewModel.continueEnabled)
+
 		viewModel.toggleSelection(at: 1)
 
 		XCTAssertEqual(viewModel.selectedCheckins.count, 3)
 		XCTAssertEqual(viewModel.selectedCheckins[0].id, 0)
 		XCTAssertEqual(viewModel.selectedCheckins[1].id, 2)
 		XCTAssertEqual(viewModel.selectedCheckins[2].id, 4)
+
+		XCTAssertTrue(viewModel.continueEnabled)
 	}
 
 }
