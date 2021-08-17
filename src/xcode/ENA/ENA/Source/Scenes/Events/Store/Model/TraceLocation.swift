@@ -40,7 +40,7 @@ struct TraceLocation: Equatable {
 		let fallback = 15
 
 		var duration: Int
-		if let defaultDuration = defaultCheckInLengthInMinutes {
+		if let defaultDuration = defaultCheckInLengthInMinutes, defaultDuration > 0 {
 			duration = defaultDuration
 		} else if let startDate = startDate, startDate.timeIntervalSince1970 > 0,
 				  let endDate = endDate, endDate.timeIntervalSince1970 > 0 {
@@ -73,7 +73,7 @@ struct TraceLocation: Equatable {
 			).minute
 
 			duration = eventDuration ?? fallback
-		} else if let defaultDuration = defaultCheckInLengthInMinutes {
+		} else if let defaultDuration = defaultCheckInLengthInMinutes, defaultDuration > 0 {
 			duration = defaultDuration
 		} else {
 			duration = fallback
