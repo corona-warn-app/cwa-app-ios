@@ -525,7 +525,7 @@ class HealthCertificateService {
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-					vaccinationEntries: [VaccinationEntry.fakeSecond()]
+					vaccinationEntries: [VaccinationEntry.fakeSecond(doseNumber: "2")]
 				),
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
