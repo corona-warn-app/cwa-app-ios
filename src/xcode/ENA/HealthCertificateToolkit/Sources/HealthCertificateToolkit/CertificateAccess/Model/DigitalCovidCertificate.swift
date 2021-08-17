@@ -103,32 +103,6 @@ public struct VaccinationEntry: Codable, Equatable {
             uniqueCertificateIdentifier: uniqueCertificateIdentifier
         )
     }
-    
-    public static func fakeSecond(
-        diseaseOrAgentTargeted: String = "840539006",
-        vaccineOrProphylaxis: String = "1119349007",
-        vaccineMedicinalProduct: String = "EU/1/20/1528",
-        marketingAuthorizationHolder: String = "ORG-100030215",
-        doseNumber: Int = 2,
-        totalSeriesOfDoses: Int = 2,
-        dateOfVaccination: String = "2021-04-04",
-        countryOfVaccination: String = "DE",
-        certificateIssuer: String = "Bundesministerium für Gesundheit",
-        uniqueCertificateIdentifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E"
-    ) -> VaccinationEntry {
-        VaccinationEntry(
-            diseaseOrAgentTargeted: diseaseOrAgentTargeted,
-            vaccineOrProphylaxis: vaccineOrProphylaxis,
-            vaccineMedicinalProduct: vaccineMedicinalProduct,
-            marketingAuthorizationHolder: marketingAuthorizationHolder,
-            doseNumber: doseNumber,
-            totalSeriesOfDoses: totalSeriesOfDoses,
-            dateOfVaccination: dateOfVaccination,
-            countryOfVaccination: countryOfVaccination,
-            certificateIssuer: certificateIssuer,
-            uniqueCertificateIdentifier: uniqueCertificateIdentifier
-        )
-    }
 }
 
 public struct TestEntry: Codable, Equatable {
