@@ -1127,6 +1127,9 @@
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
 		BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */; };
 		BAAAF13426739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAAF13326739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift */; };
+		BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */; };
+		BAAC573026CBE9510049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */; };
+		BAAC573226CBEF7C0049B55C /* VaccinationProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */; };
 		BAB0701A266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */; };
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
 		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
@@ -2466,6 +2469,9 @@
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
 		BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModelTests.swift; sourceTree = "<group>"; };
 		BAAAF13326739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewViewModelTests.swift; sourceTree = "<group>"; };
+		BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonOtherVaccinationProductTypeTests.swift; sourceTree = "<group>"; };
+		BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonKnownVaccinationTests.swift; sourceTree = "<group>"; };
+		BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationProductType.swift; sourceTree = "<group>"; };
 		BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateTextViewCell.swift; sourceTree = "<group>"; };
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
 		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
@@ -2990,12 +2996,13 @@
 			isa = PBXGroup;
 			children = (
 				01FE5E532648511100155906 /* __test__ */,
-				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
+				01E05137263C436100D57A5E /* Extensions */,
 				017D8DA4263B02F40009E91C /* HealthCertificate.swift */,
 				01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */,
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
+				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
-				01E05137263C436100D57A5E /* Extensions */,
+				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3653,6 +3660,8 @@
 				5055EC00267239690062C15E /* HealthCertificateTests.swift */,
 				017EE866267B3F0A00CD18F6 /* HealthCertificateArray+MostRelevantTests.swift */,
 				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
+				BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */,
+				BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -8671,6 +8680,7 @@
 				AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
+				BAAC573226CBEF7C0049B55C /* VaccinationProductType.swift in Sources */,
 				3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
 				8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */,
@@ -8860,6 +8870,7 @@
 				BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */,
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
+				BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift in Sources */,
 				BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
@@ -8903,6 +8914,7 @@
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
 				3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */,
 				B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */,
+				BAAC573026CBE9510049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift in Sources */,
 				01E1026E2669658E009ED803 /* DCCRSAKeyPairTests.swift in Sources */,
 				B1221BE22492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift in Sources */,
 				A124E64A249BF4EF00E95F72 /* ExposureDetectionExecutorTests.swift in Sources */,
