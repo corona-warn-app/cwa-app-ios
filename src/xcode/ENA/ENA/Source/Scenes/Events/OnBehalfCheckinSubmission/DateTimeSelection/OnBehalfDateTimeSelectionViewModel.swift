@@ -17,7 +17,7 @@ final class OnBehalfDateTimeSelectionViewModel {
 		self.traceLocation = traceLocation
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
-		if let startDate = traceLocation.startDate, startDate.timeIntervalSince1970 > 0 {
+		if let startDate = traceLocation.startDate, startDate.timeIntervalSince1970 > 0 && startDate <= Date() {
 			selectedDate = startDate
 		} else {
 			selectedDate = Date()
