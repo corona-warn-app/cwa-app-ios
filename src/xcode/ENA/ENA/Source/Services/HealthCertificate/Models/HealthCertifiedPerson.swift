@@ -136,7 +136,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			guard let vaccinationEntry = certificate.vaccinationEntry,
 				  vaccinationEntry.totalSeriesOfDoses == 1,
 				  vaccinationEntry.doseNumber == 1,
-				  VaccinationProductType(value: vaccinationEntry.vaccineMedicinalProduct) != .unknown else {
+				  VaccinationProductType(value: vaccinationEntry.vaccineMedicinalProduct) != .other else {
 				return false
 			}
 			return true

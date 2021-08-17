@@ -1127,7 +1127,7 @@
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
 		BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */; };
 		BAAAF13426739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAAF13326739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift */; };
-		BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonUnknownVaccinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonUnknownVaccinationTests.swift */; };
+		BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */; };
 		BAAC573026CBE9510049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */; };
 		BAAC573226CBEF7C0049B55C /* VaccinationProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */; };
 		BAB0701A266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */; };
@@ -2469,7 +2469,7 @@
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
 		BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModelTests.swift; sourceTree = "<group>"; };
 		BAAAF13326739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewViewModelTests.swift; sourceTree = "<group>"; };
-		BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonUnknownVaccinationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonUnknownVaccinationTests.swift; sourceTree = "<group>"; };
+		BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonOtherVaccinationProductTypeTests.swift; sourceTree = "<group>"; };
 		BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonKnownVaccinationTests.swift; sourceTree = "<group>"; };
 		BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationProductType.swift; sourceTree = "<group>"; };
 		BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateTextViewCell.swift; sourceTree = "<group>"; };
@@ -3661,7 +3661,7 @@
 				017EE866267B3F0A00CD18F6 /* HealthCertificateArray+MostRelevantTests.swift */,
 				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
 				BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */,
-				BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonUnknownVaccinationTests.swift */,
+				BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -8870,7 +8870,7 @@
 				BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */,
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
-				BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonUnknownVaccinationTests.swift in Sources */,
+				BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift in Sources */,
 				BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,

@@ -8,11 +8,11 @@ import XCTest
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
+class HealthCertifiedPersonOtherVaccinationProductTypeTests: XCTestCase {
 
 	// MARK: - unknown vaccination product
 
-	func testGIVEN_UnknownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isFullyVaccinated() throws {
+	func testGIVEN_OtherVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isFullyVaccinated() throws {
 		// GIVEN
 		let expectedDate = Date()
 		let expectedDateString = DateFormatter.packagesDayDateFormatter.string(from: expectedDate)
@@ -51,10 +51,10 @@ class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(validInDays, 15)
-		XCTAssertEqual(vaccinationProductType, .unknown)
+		XCTAssertEqual(vaccinationProductType, .other)
 	}
 
-	func testGIVEN_UnknownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isCompletelyProtected() throws {
+	func testGIVEN_OtherVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isCompletelyProtected() throws {
 		// GIVEN
 		let expectedDate = Date()
 		let vaccinationProduct = "EU/1/20/1509"
@@ -92,10 +92,10 @@ class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
 
 		// THEN
 		XCTAssertTrue(equalWithOutMilliseconds(validUntil, expectedDate))
-		XCTAssertEqual(vaccinationProductType, .unknown)
+		XCTAssertEqual(vaccinationProductType, .other)
 	}
 
-	func testGIVEN_UnknownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isPartiallyVaccinated() throws {
+	func testGIVEN_OtherVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isPartiallyVaccinated() throws {
 		// GIVEN
 		let expectedDate = Date()
 		let vaccinationProduct = "EU/1/20/1509"
@@ -129,7 +129,7 @@ class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(healthCertifiedPerson.vaccinationState, .partiallyVaccinated)
-		XCTAssertEqual(vaccinationProductType, .unknown)
+		XCTAssertEqual(vaccinationProductType, .other)
 	}
 
 	// helper to avoid flaky tests with dates by differing some milliseconds

@@ -88,23 +88,23 @@ class HealthCertifiedPersonTests: CWATestCase {
 		let biontechProductType = VaccinationProductType(value: biontechString)
 		let modernaProductType = VaccinationProductType(value: modernaString)
 		let astraZenecaProductType = VaccinationProductType(value: astraZenecaString)
-		let unknownProductType = VaccinationProductType(value: unknownString)
+		let otherProductType = VaccinationProductType(value: unknownString)
 
 		let biontechProductType2 = VaccinationProductType(value: biontechString.lowercased())
 		let modernaProductType2 = VaccinationProductType(value: modernaString.lowercased())
 		let astraZenecaProductType2 = VaccinationProductType(value: astraZenecaString.lowercased())
-		let unknownProductType2 = VaccinationProductType(value: unknownString.lowercased())
+		let otherProductType2 = VaccinationProductType(value: unknownString.lowercased())
 
 		// THEN
 		XCTAssertEqual(biontechProductType, .biontech)
 		XCTAssertEqual(modernaProductType, .moderna)
 		XCTAssertEqual(astraZenecaProductType, .astraZeneca)
-		XCTAssertEqual(unknownProductType, .unknown)
+		XCTAssertEqual(otherProductType, .other)
 
 		XCTAssertEqual(biontechProductType2, .biontech)
 		XCTAssertEqual(modernaProductType2, .moderna)
 		XCTAssertEqual(astraZenecaProductType2, .astraZeneca)
-		XCTAssertEqual(unknownProductType2, .unknown)
+		XCTAssertEqual(otherProductType2, .other)
 	}
 
 	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateBiontec_THEN_isNotNil() throws {
