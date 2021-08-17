@@ -11,6 +11,7 @@
 		010172BE26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */; };
 		010172C126CAC07700CD1510 /* TraceLocationSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */; };
 		010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */; };
+		010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */; };
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -1355,6 +1356,7 @@
 		010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSelectionCellModelTests.swift; sourceTree = "<group>"; };
 		010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModelTests.swift; sourceTree = "<group>"; };
 		010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewModelTests.swift; sourceTree = "<group>"; };
+		010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
 		0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_KeyFigure+Formatting.swift"; sourceTree = "<group>"; };
 		0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModelTest.swift; sourceTree = "<group>"; };
@@ -2761,6 +2763,21 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		010172C426CBB37E00CD1510 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		010172C526CBB38A00CD1510 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		0105D88B25B87300007E288B /* HomeStatisticsCardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2858,6 +2875,7 @@
 		01164CEA26C655A1007F9C3E /* DateTimeSelection */ = {
 			isa = PBXGroup;
 			children = (
+				010172C426CBB37E00CD1510 /* __tests__ */,
 				01164CEB26C6599A007F9C3E /* OnBehalfDateTimeSelectionViewController.swift */,
 				01164CEC26C6599D007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift */,
 				01164CEE26C659BC007F9C3E /* Cells */,
@@ -2868,6 +2886,7 @@
 		01164CEE26C659BC007F9C3E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				010172C526CBB38A00CD1510 /* __tests__ */,
 				01164CEF26C659C8007F9C3E /* OnBehalfDurationSelectionCell.swift */,
 				01164CF026C659C9007F9C3E /* OnBehalfDateSelectionCell.swift */,
 				01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */,
@@ -9016,6 +9035,7 @@
 				010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */,
 				BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */,
 				BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */,
+				010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
