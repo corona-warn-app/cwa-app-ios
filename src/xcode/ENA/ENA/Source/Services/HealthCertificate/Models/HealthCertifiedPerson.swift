@@ -130,32 +130,13 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		scheduleMostRelevantCertificateTimer()
 	}
 
-	enum VaccineMedicalProductTye {
-		case biontech
-		case moderna
-		case astraZeneca
-		case unknown
-
-		init(value: String) {
-			switch value.uppercased() {
-			case "EU/1/20/1528":
-				self = .biontech
-			case "EU/1/20/1507":
-				self = .moderna
-			case "EU/1/21/1529":
-				self = .astraZeneca
-			default:
-				self = .unknown
-			}
-		}
-	}
-
+	// internal for testing
 	var recoveredVaccinationCertificate: HealthCertificate? {
 		return vaccinationCertificates.first { certificate in
 			guard let vaccinationEntry = certificate.vaccinationEntry,
 				  vaccinationEntry.totalSeriesOfDoses == 1,
 				  vaccinationEntry.doseNumber == 1,
-				  VaccineMedicalProductTye(value: vaccinationEntry.vaccineMedicinalProduct) != .unknown else {
+				  VaccinationProductType(value: vaccinationEntry.vaccineMedicinalProduct) != .unknown else {
 				return false
 			}
 			return true
@@ -166,23 +147,22 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var healthCertificateSubscriptions = Set<AnyCancellable>()
-
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
+
 		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
 		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
+			// if recovery date found -> use it
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
-		} else {
-			guard
-				let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-				let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
-				let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
-			else {
-				return nil
-			}
-
+		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
+				  let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
+				  let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString) {
+			// else if last vaccination date -> use it
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
+		} else {
+			// no date -> completeVaccinationProtectionDate is nil
+			return nil
 		}
 	}
 

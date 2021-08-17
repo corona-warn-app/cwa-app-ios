@@ -47,7 +47,7 @@ class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
 			XCTFail("Unexpected vaccination state")
 			return
 		}
-		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+		let vaccinationProductType = VaccinationProductType(value: vaccinationProduct)
 
 		// THEN
 		XCTAssertEqual(validInDays, 15)
@@ -88,7 +88,7 @@ class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
 			XCTFail("Unexpected vaccination state")
 			return
 		}
-		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+		let vaccinationProductType = VaccinationProductType(value: vaccinationProduct)
 
 		// THEN
 		XCTAssertTrue(equalWithOutMilliseconds(validUntil, expectedDate))
@@ -125,7 +125,7 @@ class HealthCertifiedPersonUnknownVaccinationProductTypeTests: XCTestCase {
 			isPreferredPerson: false
 		)
 		// WHEN
-		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+		let vaccinationProductType = VaccinationProductType(value: vaccinationProduct)
 
 		// THEN
 		XCTAssertEqual(healthCertifiedPerson.vaccinationState, .partiallyVaccinated)

@@ -85,15 +85,15 @@ class HealthCertifiedPersonTests: CWATestCase {
 		let unknownString = "EU/1/19/1501"
 
 		// WHEN
-		let biontechProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: biontechString)
-		let modernaProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: modernaString)
-		let astraZenecaProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: astraZenecaString)
-		let unknownProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: unknownString)
+		let biontechProductType = VaccinationProductType(value: biontechString)
+		let modernaProductType = VaccinationProductType(value: modernaString)
+		let astraZenecaProductType = VaccinationProductType(value: astraZenecaString)
+		let unknownProductType = VaccinationProductType(value: unknownString)
 
-		let biontechProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: biontechString.lowercased())
-		let modernaProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: modernaString.lowercased())
-		let astraZenecaProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: astraZenecaString.lowercased())
-		let unknownProductType2 = HealthCertifiedPerson.VaccineMedicalProductTye(value: unknownString.lowercased())
+		let biontechProductType2 = VaccinationProductType(value: biontechString.lowercased())
+		let modernaProductType2 = VaccinationProductType(value: modernaString.lowercased())
+		let astraZenecaProductType2 = VaccinationProductType(value: astraZenecaString.lowercased())
+		let unknownProductType2 = VaccinationProductType(value: unknownString.lowercased())
 
 		// THEN
 		XCTAssertEqual(biontechProductType, .biontech)
