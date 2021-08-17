@@ -8,15 +8,15 @@ import XCTest
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertifiedPersonTestsUnknownVaccinationTests: XCTestCase {
+class HealthCertifiedPersonKnownVaccinationTests: XCTestCase {
 
-	// MARK: - unknown vaccination product
+	// MARK: - known vaccination product
 
-	func testGIVEN_CertifiedPersonWithunknownVaccination_WHEN_UpdateVaccinationState_THEN_isFullyVaccinated() throws {
+	func testGIVEN_KnownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isCompletelyProtectedRecovery1() throws {
 		// GIVEN
 		let expectedDate = Date()
 		let expectedDateString = DateFormatter.packagesDayDateFormatter.string(from: expectedDate)
-		let vaccinationProduct = "EU/1/20/1509"
+		let vaccinationProduct = "EU/1/20/1528"
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
@@ -43,21 +43,21 @@ class HealthCertifiedPersonTestsUnknownVaccinationTests: XCTestCase {
 		)
 
 		// WHEN
-		guard case let .fullyVaccinated(validInDays) = healthCertifiedPerson.vaccinationState else {
+		guard case let .completelyProtected(validUntil) = healthCertifiedPerson.vaccinationState else {
 			XCTFail("Unexpected vaccination state")
 			return
 		}
-		let unknownVaccination = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
 
 		// THEN
-		XCTAssertEqual(validInDays, 15)
-		XCTAssertEqual(unknownVaccination, .unknown)
+		XCTAssertTrue(equalWithOutMilliseconds(validUntil, expectedDate))
+		XCTAssertEqual(vaccinationProductType, .biontech)
 	}
 
-	func testGIVEN_CertifiedPersonWithunknownVaccination_WHEN_UpdateVaccinationState_THEN_isCompletelyProtected() throws {
+	func testGIVEN_KnownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isCompletelyProtectedRecovery2() throws {
 		// GIVEN
 		let expectedDate = Date()
-		let vaccinationProduct = "EU/1/20/1509"
+		let vaccinationProduct = "EU/1/20/1528"
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
@@ -88,17 +88,59 @@ class HealthCertifiedPersonTestsUnknownVaccinationTests: XCTestCase {
 			XCTFail("Unexpected vaccination state")
 			return
 		}
-		let unknownVaccination = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
 
 		// THEN
 		XCTAssertTrue(equalWithOutMilliseconds(validUntil, expectedDate))
-		XCTAssertEqual(unknownVaccination, .unknown)
+		XCTAssertEqual(vaccinationProductType, .biontech)
 	}
 
-	func testGIVEN_CertifiedPersonWithunknownVaccination_WHEN_UpdateVaccinationState_THEN_isPartiallyVaccinated() throws {
+	func testGIVEN_KnownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isFullyVaccinated() throws {
 		// GIVEN
 		let expectedDate = Date()
-		let vaccinationProduct = "EU/1/20/1509"
+		let expectedDateString = DateFormatter.packagesDayDateFormatter.string(from: expectedDate)
+		let vaccinationProduct = "EU/1/20/1528"
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: vaccinationProduct,
+									doseNumber: 2,
+									totalSeriesOfDoses: 2,
+									dateOfVaccination: expectedDateString
+								)
+							]
+						),
+						and: .fake(expirationTime: expectedDate)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		guard case let .fullyVaccinated(validInDays) = healthCertifiedPerson.vaccinationState else {
+			XCTFail("Unexpected vaccination state")
+			return
+		}
+		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+
+		// THEN
+		XCTAssertEqual(validInDays, 15)
+		XCTAssertEqual(vaccinationProductType, .biontech)
+	}
+
+	func testGIVEN_KnownVaccinationProductType_WHEN_UpdateVaccinationState_THEN_isPartiallyVaccinated() throws {
+		// GIVEN
+		let expectedDate = Date()
+		let vaccinationProduct = "EU/1/20/1528"
 
 		let expectedDateString = DateFormatter.packagesDayDateFormatter.string(from: expectedDate)
 		let healthCertifiedPerson = HealthCertifiedPerson(
@@ -125,11 +167,11 @@ class HealthCertifiedPersonTestsUnknownVaccinationTests: XCTestCase {
 			isPreferredPerson: false
 		)
 		// WHEN
-		let unknownVaccination = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
+		let vaccinationProductType = HealthCertifiedPerson.VaccineMedicalProductTye(value: vaccinationProduct)
 
 		// THEN
 		XCTAssertEqual(healthCertifiedPerson.vaccinationState, .partiallyVaccinated)
-		XCTAssertEqual(unknownVaccination, .unknown)
+		XCTAssertEqual(vaccinationProductType, .biontech)
 	}
 
 	// helper to avoid flaky tests with dates by differing some milliseconds

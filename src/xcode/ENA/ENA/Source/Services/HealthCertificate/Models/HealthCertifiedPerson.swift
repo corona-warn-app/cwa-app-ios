@@ -151,7 +151,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	var recoveredVaccinationCertificate: HealthCertificate? {
-		return vaccinationCertificates.last { certificate in
+		return vaccinationCertificates.first { certificate in
 			guard let vaccinationEntry = certificate.vaccinationEntry,
 				  vaccinationEntry.totalSeriesOfDoses == 1,
 				  vaccinationEntry.doseNumber == 1,
