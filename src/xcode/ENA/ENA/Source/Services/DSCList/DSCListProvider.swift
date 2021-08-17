@@ -13,7 +13,7 @@ final class DSCListProvider: DSCListProviding {
 	init(
 		client: DSCListFetching,
 		store: DSCListCaching,
-		interval: TimeInterval = 12 * 60 * 60  // 12 hours
+		interval: TimeInterval = updateInterval
 	) {
 		self.client = client
 		self.store = store
@@ -32,6 +32,8 @@ final class DSCListProvider: DSCListProviding {
 	private(set) var signingCertificates: CurrentValueSubject<[DCCSigningCertificate], Never>
 
 	// MARK: - Internal
+
+	static let updateInterval: Double = 12 * 60 * 60  // 12 hours
 
 	private(set) var metaData: DSCListMetaData {
 		// on change write to the store and update publisher
