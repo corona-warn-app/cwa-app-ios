@@ -32,8 +32,8 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		tableView.separatorStyle = .none
-		tableView.backgroundColor = .enaColor(for: .darkBackground)
-		tableView.register(ExposureSubmissionCheckinTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinTableViewCell.reuseIdentifier)
+		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.register(TraceLocationCheckinSelectionTableViewCell.self, forCellReuseIdentifier: TraceLocationCheckinSelectionTableViewCell.reuseIdentifier)
 		tableView.register(ExposureSubmissionCheckinDescriptionTableViewCell.self, forCellReuseIdentifier: ExposureSubmissionCheckinDescriptionTableViewCell.reuseIdentifier)
 		
 		viewModel.$continueEnabled
@@ -56,7 +56,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		switch type {
 		case .primary:
 			// Submit
-			onCompletion(viewModel.selecteCheckins)
+			onCompletion(viewModel.selectedCheckins)
 		case .secondary:
 			// Skip
 			onSkip()
@@ -90,7 +90,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		}
 		
 		let selectAllButton = UIButton()
-		selectAllButton.backgroundColor = .enaColor(for: .darkBackground)
+		selectAllButton.backgroundColor = .enaColor(for: .background)
 		selectAllButton.contentHorizontalAlignment = .left
 		selectAllButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 		selectAllButton.setTitleColor(.enaColor(for: .textTint), for: .normal)
@@ -106,7 +106,7 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		case .description:
 			return
 		case .checkins:
-			viewModel.toogleSelection(at: indexPath.row)
+			viewModel.toggleSelection(at: indexPath.row)
 			return
 		default:
 			Log.error("ExposureSubmissionCheckinsViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
@@ -129,10 +129,12 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 	}
 	
 	private func checkinCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExposureSubmissionCheckinTableViewCell.self), for: indexPath) as? ExposureSubmissionCheckinTableViewCell else {
-			fatalError("Could not dequeue ExposureSubmissionCheckinTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TraceLocationCheckinSelectionTableViewCell.self), for: indexPath) as? TraceLocationCheckinSelectionTableViewCell else {
+			fatalError("Could not dequeue TraceLocationCheckinSelectionTableViewCell")
 		}
+
 		cell.configure(with: viewModel.checkinCellModels[indexPath.row])
+
 		return cell
 	}
 		

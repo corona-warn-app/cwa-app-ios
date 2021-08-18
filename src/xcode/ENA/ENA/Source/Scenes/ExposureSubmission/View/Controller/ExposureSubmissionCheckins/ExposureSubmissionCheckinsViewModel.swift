@@ -12,7 +12,7 @@ class ExposureSubmissionCheckinsViewModel {
 	init(checkins: [Checkin]) {
 		self.checkinCellModels = checkins
 			.filter { $0.checkinCompleted } // Only shows completed check-ins
-			.map { ExposureSubmissionCheckinCellModel(checkin: $0) }
+			.map { CheckinSelectionCellModel(checkin: $0) }
 	}
 		
 	// MARK: - Internal
@@ -23,14 +23,14 @@ class ExposureSubmissionCheckinsViewModel {
 	}
 	
 	let title = AppStrings.ExposureSubmissionCheckins.title
-	let checkinCellModels: [ExposureSubmissionCheckinCellModel]
+	let checkinCellModels: [CheckinSelectionCellModel]
 	@OpenCombine.Published private(set) var continueEnabled: Bool = false
 	
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
 	
-	var selecteCheckins: [Checkin] {
+	var selectedCheckins: [Checkin] {
 		checkinCellModels
 			.filter { $0.selected }
 			.map { $0.checkin }
@@ -54,7 +54,7 @@ class ExposureSubmissionCheckinsViewModel {
 		checkContinuePossible()
 	}
 	
-	func toogleSelection(at index: Int) {
+	func toggleSelection(at index: Int) {
 		checkinCellModels[index].selected.toggle()
 		checkContinuePossible()
 	}

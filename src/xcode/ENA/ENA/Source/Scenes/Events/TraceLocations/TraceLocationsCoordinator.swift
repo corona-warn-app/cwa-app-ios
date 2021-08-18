@@ -14,19 +14,21 @@ class TraceLocationsCoordinator {
 		appConfig: AppConfigurationProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
+		client: Client,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
 		self.appConfig = appConfig
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
+		self.client = client
 		self.parentNavigationController = parentNavigationController
 	}
 	
 	// MARK: - Internal
 	
 	func start() {
-		parentNavigationController?.pushViewController(overviewScreen, animated: true)
+		parentNavigationController.pushViewController(overviewScreen, animated: true)
 		
 		#if DEBUG
 		if isUITesting {
@@ -46,11 +48,14 @@ class TraceLocationsCoordinator {
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let qrCodeErrorCorrectionLevelProvider = QRCodeErrorCorrectionLevelProvider()
 	private let eventStore: EventStoringProviding
+	private let client: Client
 
-	private weak var parentNavigationController: UINavigationController?
+	private weak var parentNavigationController: UINavigationController!
 	
 	private var traceLocationDetailsNavigationController: UINavigationController!
 	private var traceLocationAddingNavigationController: UINavigationController!
+
+	private var onBehalfCheckinSubmissionCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	
 	private var infoScreenShown: Bool {
 		get { store.traceLocationsInfoScreenShown }
@@ -72,6 +77,9 @@ class TraceLocationsCoordinator {
 			),
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
+			},
+			onOnBehalfCheckinSubmissionTap: { [weak self] in
+				self?.showOnBehalfCheckinSubmissionFlow()
 			},
 			onAddEntryCellTap: { [weak self] in
 				self?.showTraceLocationTypeSelectionScreen()
@@ -267,6 +275,17 @@ class TraceLocationsCoordinator {
 			}
 		)
 		parentNavigationController?.present(traceLocationCheckinViewController, animated: true)
+	}
+
+	private func showOnBehalfCheckinSubmissionFlow() {
+		onBehalfCheckinSubmissionCoordinator = OnBehalfCheckinSubmissionCoordinator(
+			parentViewController: parentNavigationController,
+			appConfiguration: appConfig,
+			eventStore: eventStore,
+			client: client
+		)
+
+		onBehalfCheckinSubmissionCoordinator?.start()
 	}
 	
 }
