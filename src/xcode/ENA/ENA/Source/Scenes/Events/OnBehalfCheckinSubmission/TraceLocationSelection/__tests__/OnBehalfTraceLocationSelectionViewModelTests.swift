@@ -168,25 +168,4 @@ class OnBehalfTraceLocationSelectionViewModelTests: CWATestCase {
 		XCTAssertFalse(viewModel.isEmptyStateVisible)
 	}
 
-	func testUpdateForCameraPermission() throws {
-		let reloadExpectation = expectation(description: "triggerReload published")
-		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for camera permission
-
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		let cancellable = viewModel.$triggerReload
-			.sink { _ in
-				reloadExpectation.fulfill()
-			}
-
-		viewModel.updateForCameraPermission()
-
-		waitForExpectations(timeout: .medium)
-
-		cancellable.cancel()
-	}
-
 }
