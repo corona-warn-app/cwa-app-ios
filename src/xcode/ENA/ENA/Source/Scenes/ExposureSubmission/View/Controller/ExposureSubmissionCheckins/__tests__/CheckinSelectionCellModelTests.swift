@@ -8,16 +8,19 @@ import XCTest
 class CheckinSelectionCellModelTests: CWATestCase {
 
 	func testInitialSetup() {
+		let description = "Very Nice Trace Location"
+		let address = "Trace Location Address"
+
 		let checkin: Checkin = .mock(
-			traceLocationDescription: "Very Nice Trace Location",
-			traceLocationAddress: "Trace Location Address"
+			traceLocationDescription: description,
+			traceLocationAddress: address
 		)
 
 		let cellModel = CheckinSelectionCellModel(checkin: checkin)
 
 		XCTAssertEqual(cellModel.checkin, checkin)
-		XCTAssertEqual(cellModel.description, "Very Nice Trace Location")
-		XCTAssertEqual(cellModel.address, "Trace Location Address")
+		XCTAssertEqual(cellModel.description, description)
+		XCTAssertEqual(cellModel.address, address)
 	}
 
 	func testSelection() {

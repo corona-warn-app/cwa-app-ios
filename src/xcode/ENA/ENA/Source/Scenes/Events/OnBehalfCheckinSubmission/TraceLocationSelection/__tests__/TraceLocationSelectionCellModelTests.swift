@@ -8,16 +8,19 @@ import XCTest
 class TraceLocationSelectionCellModelTests: CWATestCase {
 
 	func testInitialSetup() {
+		let description = "Very Nice Trace Location"
+		let address = "Trace Location Address"
+
 		let traceLocation: TraceLocation = .mock(
-			description: "Very Nice Trace Location",
-			address: "Trace Location Address"
+			description: description,
+			address: address
 		)
 
 		let cellModel = TraceLocationSelectionCellModel(traceLocation: traceLocation)
 
 		XCTAssertEqual(cellModel.traceLocation, traceLocation)
-		XCTAssertEqual(cellModel.description, "Very Nice Trace Location")
-		XCTAssertEqual(cellModel.address, "Trace Location Address")
+		XCTAssertEqual(cellModel.description, description)
+		XCTAssertEqual(cellModel.address, address)
 	}
 
 	func testSelection() {
