@@ -39,8 +39,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
-
-		tableView.reloadData()
 		setUpEmptyState()
 		
 		viewModel.$continueEnabled
