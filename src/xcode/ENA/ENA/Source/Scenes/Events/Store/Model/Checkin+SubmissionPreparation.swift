@@ -4,6 +4,11 @@
 
 import Foundation
 
+enum TransmissionRiskLevelSource {
+	case symptomsOnset(SymptomsOnset)
+	case fixedValue(Int)
+}
+
 extension Array where Element == Checkin {
 
 	/// Helper function to convert checkins to required form factor for exposure submission
@@ -11,7 +16,7 @@ extension Array where Element == Checkin {
 	/// - Returns: A list of converted checkins
 	func preparedForSubmission(
 		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
-		symptomOnset: SymptomsOnset
+		transmissionRiskLevelSource: TransmissionRiskLevelSource
 	) -> [SAP_Internal_Pt_CheckIn] {
 
 		let css = CheckinSplittingService()
@@ -33,11 +38,17 @@ extension Array where Element == Checkin {
 				var preparedCheckin = checkin.prepareForSubmission()
 				// Determine Transmission Risk Level
 				let transmissionRiskLevel: Int
-				if let ageInDays = Calendar.current.dateComponents([.day], from: checkin.checkinStartDate, to: Date()).day {
-					let riskVector = symptomOnset.transmissionRiskVector
-					transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
-				} else {
-					transmissionRiskLevel = 1
+
+				switch transmissionRiskLevelSource {
+				case .symptomsOnset(let symptomsOnset):
+					if let ageInDays = Calendar.current.dateComponents([.day], from: checkin.checkinStartDate, to: Date()).day {
+						let riskVector = symptomsOnset.transmissionRiskVector
+						transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
+					} else {
+						transmissionRiskLevel = 1
+					}
+				case .fixedValue(let fixedTransmissionRiskLevel):
+					transmissionRiskLevel = fixedTransmissionRiskLevel
 				}
 
 				// Filter out irrelevant checkins, i.e. ones with a risk value of zero
@@ -60,7 +71,7 @@ extension Array where Element == Checkin {
 	/// - Returns: A list of CheckInProtectedReports
 	func preparedProtectedReportsForSubmission(
 		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
-		symptomOnset: SymptomsOnset
+		transmissionRiskLevelSource: TransmissionRiskLevelSource
 	) -> [SAP_Internal_Pt_CheckInProtectedReport] {
 
 		let checkinSplittingService = CheckinSplittingService()
@@ -81,11 +92,17 @@ extension Array where Element == Checkin {
 			.compactMap { checkin -> SAP_Internal_Pt_CheckInProtectedReport? in
 				// Determine Transmission Risk Level
 				let transmissionRiskLevel: Int
-				if let ageInDays = Calendar.current.dateComponents([.day], from: checkin.checkinStartDate, to: Date()).day {
-					let riskVector = symptomOnset.transmissionRiskVector
-					transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
-				} else {
-					transmissionRiskLevel = 1
+
+				switch transmissionRiskLevelSource {
+				case .symptomsOnset(let symptomsOnset):
+					if let ageInDays = Calendar.current.dateComponents([.day], from: checkin.checkinStartDate, to: Date()).day {
+						let riskVector = symptomsOnset.transmissionRiskVector
+						transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
+					} else {
+						transmissionRiskLevel = 1
+					}
+				case .fixedValue(let fixedTransmissionRiskLevel):
+					transmissionRiskLevel = fixedTransmissionRiskLevel
 				}
 
 				// Filter out irrelevant checkins, i.e. ones with a risk value of zero
