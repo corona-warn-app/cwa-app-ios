@@ -146,13 +146,6 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	}
 
 	var expirationDate: Date {
-		#if DEBUG
-		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
-			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
-				cborWebTokenHeader.expirationTime
-		}
-		#endif
-
 		return cborWebTokenHeader.expirationTime
 	}
 

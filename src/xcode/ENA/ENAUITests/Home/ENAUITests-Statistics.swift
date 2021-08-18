@@ -232,6 +232,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title1].swipeRight()
 
 		default:
+			app.swipeLeft()
+
 			cardIncidenceInfoScreenTest(title1)
 			app.staticTexts[title1].swipeLeft()
 			
@@ -318,6 +320,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			cardInfectionsInfoScreenTest(infectionsTitle)
 			app.staticTexts[infectionsTitle].swipeRight()
 		default:
+			app.swipeLeft()
+
 			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7day_incidences")
 			app.staticTexts[incidenceTitle].swipeLeft()
