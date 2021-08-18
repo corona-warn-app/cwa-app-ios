@@ -77,4 +77,259 @@ class HealthCertifiedPersonTests: CWATestCase {
 		)
 	}
 
+	func testGIVEN_MedicalProductTyeString_WHEN_CreateEnum_THEN_isCorrectType() {
+		// GIVEN
+		let biontechString = "EU/1/20/1528"
+		let modernaString = "EU/1/20/1507"
+		let astraZenecaString = "EU/1/21/1529"
+		let unknownString = "EU/1/19/1501"
+
+		// WHEN
+		let biontechProductType = VaccinationProductType(value: biontechString)
+		let modernaProductType = VaccinationProductType(value: modernaString)
+		let astraZenecaProductType = VaccinationProductType(value: astraZenecaString)
+		let otherProductType = VaccinationProductType(value: unknownString)
+
+		let biontechProductType2 = VaccinationProductType(value: biontechString.lowercased())
+		let modernaProductType2 = VaccinationProductType(value: modernaString.lowercased())
+		let astraZenecaProductType2 = VaccinationProductType(value: astraZenecaString.lowercased())
+		let otherProductType2 = VaccinationProductType(value: unknownString.lowercased())
+
+		// THEN
+		XCTAssertEqual(biontechProductType, .biontech)
+		XCTAssertEqual(modernaProductType, .moderna)
+		XCTAssertEqual(astraZenecaProductType, .astraZeneca)
+		XCTAssertEqual(otherProductType, .other)
+
+		XCTAssertEqual(biontechProductType2, .biontech)
+		XCTAssertEqual(modernaProductType2, .moderna)
+		XCTAssertEqual(astraZenecaProductType2, .astraZeneca)
+		XCTAssertEqual(otherProductType2, .other)
+	}
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateBiontec_THEN_isNotNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/20/1528",
+									doseNumber: 1,
+									totalSeriesOfDoses: 1,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNotNil(recoveredVaccinationCertificate)
+	}
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateModerna_THEN_isNotNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/20/1507",
+									doseNumber: 1,
+									totalSeriesOfDoses: 1,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNotNil(recoveredVaccinationCertificate)
+	}
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateAstraZenica_THEN_isNotNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/21/1529",
+									doseNumber: 1,
+									totalSeriesOfDoses: 1,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNotNil(recoveredVaccinationCertificate)
+	}
+
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateBiontec2Doses_THEN_isNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/20/1528",
+									doseNumber: 2,
+									totalSeriesOfDoses: 2,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNil(recoveredVaccinationCertificate)
+	}
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateModerna2Doses_THEN_isNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/20/1507",
+									doseNumber: 1,
+									totalSeriesOfDoses: 2,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNil(recoveredVaccinationCertificate)
+	}
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateAstraZenica2Doses_THEN_isNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/21/1529",
+									doseNumber: 2,
+									totalSeriesOfDoses: 2,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNil(recoveredVaccinationCertificate)
+	}
+
+	func testGIVEN_Certificates_WHEN_getRecoveredVaccinationCertificateUnknonw_THEN_isNil() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try base45Fake(
+						from: DigitalCovidCertificate.fake(
+							name: Name.fake(
+								familyName: "A", givenName: "B"
+							),
+							vaccinationEntries: [
+								VaccinationEntry.fake(
+									vaccineMedicinalProduct: "EU/1/20/1509",
+									doseNumber: 1,
+									totalSeriesOfDoses: 1,
+									dateOfVaccination: "2021-02-02"
+								)
+							]
+						)
+					)
+				)
+			],
+			isPreferredPerson: false
+		)
+
+		// WHEN
+		let recoveredVaccinationCertificate = healthCertifiedPerson.recoveredVaccinationCertificate
+
+		// THEN
+		XCTAssertNil(recoveredVaccinationCertificate)
+	}
+
 }

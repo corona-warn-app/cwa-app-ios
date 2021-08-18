@@ -35,8 +35,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 	let traceLocationCellModels: [TraceLocationSelectionCellModel]
 
 	@OpenCombine.Published private(set) var continueEnabled: Bool = false
-	@OpenCombine.Published var triggerReload: Bool = false
-	
+
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
@@ -75,10 +74,6 @@ class OnBehalfTraceLocationSelectionViewModel {
 		}
 
 		checkContinuePossible()
-	}
-
-	func updateForCameraPermission() {
-		triggerReload = true
 	}
 	
 	// MARK: - Private

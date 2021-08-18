@@ -493,11 +493,45 @@ class HealthCertificateService {
 	#if DEBUG
 	// swiftlint:disable:next cyclomatic_complexity
 	private func configureForLaunchArguments() {
+		var shouldCheckSignatureUpfront = true
+		var expirationTime: Date = Calendar.current.date(byAdding: .day, value: 90, to: Date()) ?? Date()
+
+		if LaunchArguments.healthCertificate.isCertificateInvalid.boolValue {
+			shouldCheckSignatureUpfront = false
+		}
+
+		if LaunchArguments.healthCertificate.isCertificateExpiring.boolValue {
+			expirationTime = Calendar.current.date(byAdding: .day, value: 3, to: Date()) ?? Date()
+		}
+
+		if LaunchArguments.healthCertificate.hasCertificateExpired.boolValue {
+			expirationTime = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date(timeIntervalSinceReferenceDate: -123456789.0) // Feb 2, 1997, 10:26 AM
+		}
+		
 		if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
+			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront)
 		} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
-			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
-			registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+			let firstDose = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					vaccinationEntries: [VaccinationEntry.fake()]
+				),
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			)
+			if case let .success(base45) = firstDose {
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+			}
+			
+			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
+				),
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			)
+			if case let .success(base45) = secondDose {
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+			}
 		}
 
 		if LaunchArguments.healthCertificate.familyCertificates.boolValue {
@@ -542,6 +576,7 @@ class HealthCertificateService {
 				registerHealthCertificate(base45: base45)
 			}
 		}
+
 		if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -551,7 +586,7 @@ class HealthCertificateService {
 				and: CBORWebTokenHeader.fake()
 			)
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 			}
 		}
 
@@ -563,10 +598,11 @@ class HealthCertificateService {
 						RecoveryEntry.fake()
 					]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
+
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 			}
 		}
 	}
@@ -764,7 +800,7 @@ class HealthCertificateService {
 			return
 		}
 		
-		Log.info("Cancel all notifications for certificate with id: \(id).", log: .vaccination)
+		Log.info("Cancel all notifications for certificate with id: \(private: id).", log: .vaccination)
 		
 		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)"
 		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
@@ -805,11 +841,11 @@ class HealthCertificateService {
 		date: Date?
 	) {
 		guard let date = date else {
-			Log.error("Could not schedule expiring soon notification for certificate with id: \(id) because we have no expiringSoonDate.", log: .vaccination)
+			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: id) because we have no expiringSoonDate.", log: .vaccination)
 			return
 		}
 		
-		Log.info("Schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)", log: .vaccination)
+		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.expiringSoonTitle
@@ -837,7 +873,7 @@ class HealthCertificateService {
 		id: String,
 		date: Date
 	) {
-		Log.info("Schedule expired notification for certificate with id: \(id) with expirationDate: \(date)", log: .vaccination)
+		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.expiredTitle
@@ -864,7 +900,7 @@ class HealthCertificateService {
 		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			guard !requests.contains(request) else {
 				Log.info(
-					"Did not schedule notification: \(request.identifier) because it is already scheduled.",
+					"Did not schedule notification: \(private: request.identifier) because it is already scheduled.",
 					log: .vaccination
 				)
 				return
@@ -872,7 +908,7 @@ class HealthCertificateService {
 			self?.notificationCenter.add(request) { error in
 				if error != nil {
 					Log.error(
-						"Could not schedule notification: \(request.identifier)",
+						"Could not schedule notification: \(private: request.identifier)",
 						log: .vaccination,
 						error: error
 					)

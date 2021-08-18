@@ -39,8 +39,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
-
-		tableView.reloadData()
 		setUpEmptyState()
 		
 		viewModel.$continueEnabled
@@ -49,23 +47,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
-
-		viewModel.$triggerReload
-			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] _ in
-				guard let self = self else { return }
-
-				self.tableView.reloadData()
-				self.setUpEmptyState()
-			}
-			.store(in: &subscriptions)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.sizeToFit()
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -125,6 +106,13 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		default:
 			Log.error("ExposureSubmissionCheckinsViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
 		}
+	}
+
+	// MARK: - Internal
+
+	func reload() {
+		self.tableView.reloadData()
+		self.setUpEmptyState()
 	}
 	
 	// MARK: - Private

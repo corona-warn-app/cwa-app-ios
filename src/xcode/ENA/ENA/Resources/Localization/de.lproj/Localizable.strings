@@ -2492,7 +2492,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "OnBehalfCheckinSubmission_DateTimeSelection_Title" = "In Vertretung warnen";
 
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Geben Sie die Aufenhaltsdauer der positiv getesteten Person an, für die gewarnt werden soll. Diese Information erhalten Sie vom Gesundheitsamt. ";
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Geben Sie die Aufenhaltsdauer der positiv getesteten Person an, für die gewarnt werden soll. Diese Information erhalten Sie vom Gesundheitsamt.";
 
 "OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Beginn/Ankunft";
 
@@ -3005,7 +3005,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_title" = "Gültiges Zertifikat";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Zertifikat nicht prüfbar";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
 
