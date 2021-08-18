@@ -7,6 +7,7 @@ import ExposureNotification
 
 
 class SoftRateLimit {
+	
 	// MARK: - Init
 
 	init(
@@ -17,6 +18,7 @@ class SoftRateLimit {
 		self.logger = logger
 	}
 
+	// MARK: - Internal
 	func setup(configuration: RiskProvidingConfiguration) -> Bool {
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 			lastExposureDetectionDate: store.exposureDetectionDate, context: " for soft rate limit"
