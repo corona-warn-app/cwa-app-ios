@@ -28,15 +28,9 @@ class OnBehalfInfoViewController: DynamicTableViewController, DismissHandling, F
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let parent = parent, !parent.isKind(of: UINavigationController.self) {
-			parent.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-			parent.navigationItem.hidesBackButton = true
-			parent.navigationItem.largeTitleDisplayMode = .never
-		} else {
-			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-			navigationItem.hidesBackButton = true
-			navigationItem.largeTitleDisplayMode = .never
-		}
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.largeTitleDisplayMode = .never
 
 		setupTableView()
 	}
