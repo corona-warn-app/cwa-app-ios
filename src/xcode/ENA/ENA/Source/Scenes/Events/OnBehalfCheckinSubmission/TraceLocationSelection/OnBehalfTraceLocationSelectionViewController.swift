@@ -58,13 +58,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 			}
 			.store(in: &subscriptions)
 	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.sizeToFit()
-	}
 	
 	// MARK: - Protocol DismissHandling
 	
