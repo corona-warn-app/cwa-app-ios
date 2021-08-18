@@ -653,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Test sonucunuzu paylaşmayı kabul ederek diğer kullanıcıların uyarılmasına yardımcı olduğunuz için teşekkür ederiz.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Sonraki adımda lütfen “Paylaş” seçeneğine dokunarak test sonucunuzu paylaşın.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Rastgele kimliklere erişim onayı vermediyseniz veya verdiğiniz tarihin üzerinden beş günden uzun süre geçtiyse lütfen sonraki adımda onay verin.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Test sonucunuzu paylaşmamayı seçtiniz. Diğer kullanıcılar uyarılmayacak.";
 
@@ -1564,10 +1564,6 @@
 
 "NewVersionFeature_28_standardizeName_description" = "Artık her bir sertifikada, ülkeye özel yazım biçimindeki ada ek olarak standartlaştırılmış Latin harfleriyle yazımı da görüntülenir.";
 
-"NewVersionFeature_28_certificateFromTestResult_title" = "Test Sonucundan Sertifika Aç";
-
-"NewVersionFeature_28_certificateFromTestResult_description" = "Sertifika varsa, AB dijital COVID test sertifikanızı doğrudan test sertifikanızdan çekebilirsiniz.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
 
@@ -2062,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "Uygulama kullanıcıları tarafından yapılan uyarılara ilişkin trend değerlendirmesi geçerli enfeksiyon seviyesine göre değişiklik gösterir. Bu nedenle trend her zaman nötr olarak görüntülenir.";
 
 "Statistics_Info_Image_AccLabel" = "Bilgi için dört yer tutucu bulunan bir akıllı telefonun soyut resmi";
+
+"Statistics_Info_Blog_Description" = "Münferit önemli değerlerin içeriği hakkında daha ayrıntılı bilgi için %@ sayfamızı okuyun.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
 
 /* Update OS */
 "UpdateOS_title" = "Lütfen iOS sürümünüzü güncelleyin.";
@@ -2844,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Sertifika Geçerli";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Sertifika Doğrulanamıyor";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkede geçerli";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Sertifikanız doğrulanamadı";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Not";
 
