@@ -68,12 +68,12 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		// Open pending test result screen.
 		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.pendingPCRButton].waitAndTap()
-		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .long))
 
 		app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell].waitAndTap()
 		
 		let consentSwitch = app.cells[AccessibilityIdentifiers.ExposureSubmissionTestResultConsent.switchIdentifier]
-		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
+		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .long))
 		XCTAssertEqual(consentSwitch.value as? String, "0")
 		consentSwitch.waitAndTap()
 		XCTAssertEqual(consentSwitch.value as? String, "1")
@@ -426,7 +426,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 		// Check if safari was opened
 		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		XCTAssertTrue(safariApp.state == .runningForeground)
+		let runInForeground = safariApp.wait(for: .runningForeground, timeout: .long)
+		XCTAssertTrue(runInForeground)
 	}
 	
 	// MARK: - Screenshots
