@@ -59,6 +59,7 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 		shadowImage = navigationBar.shadowImage
 		isTranslucent = navigationBar.isTranslucent
 		backgroundColor = view.backgroundColor
+		prefersLargeTitles = navigationBar.prefersLargeTitles
 
 		let emptyImage = UIImage()
 		navigationBar.setBackgroundImage(emptyImage, for: .default)
@@ -80,6 +81,9 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 		backgroundImage = nil
 		shadowImage = nil
 		backgroundColor = nil
+
+		navigationBar.prefersLargeTitles = prefersLargeTitles
+		navigationBar.sizeToFit()
 	}
 
 	// MARK: - Private
@@ -88,6 +92,7 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 	private var shadowImage: UIImage?
 	private var isTranslucent: Bool = false
 	private var backgroundColor: UIColor?
+	private var prefersLargeTitles: Bool = false
 
 	private func setup() {
 		presentationController?.delegate = self

@@ -2373,6 +2373,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informationen";
 
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "In Vertretung warnen";
+
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
 "TraceLocations_Overview_Item_Prefix" = "QR-Code für %@.";
@@ -2453,6 +2455,64 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TraceLocations_Configuration_HoursUnit" = "%@ Std.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "Der QR-Code kann aktuell nicht gespeichert werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+
+/* On Behalf Checkin Submission */
+
+/* - Info */
+
+"OnBehalfCheckinSubmission_Info_Title" = "In Vertretung warnen";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Mehr Sicherheit für Sie und Ihre Gäste";
+
+"OnBehalfCheckinSubmission_Info_Description" = "Sie können Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Wird eine nicht eingecheckte Person später positiv getestet, können die Gäste gewarnt werden, wenn sie sich zur gleichen Zeit oder bis zu 30 Minuten nach der positiv getesteten Person im gleichen Raum aufgehalten haben.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Nur nach Anweisung des Gesundheitsamtes können Sie Ihre Gäste in Vertretung warnen. Sie bekommen dazu vom Gesundheitsamt eine TAN mitgeteilt.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Weiter";
+
+/* - Trace Location Selection */
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "In Vertretung warnen";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Wählen Sie ein Event, für welches Sie in Vertretung einer infizierten Person andere warnen möchten. Oder stellen Sie gelöschte Events wieder her, indem sie den QR-Code des Events erneut einscannen.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "QR-Code scannen";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Weiter";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Keine Events vorhanden";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scannen Sie den QR-Code eines Events erneut, um andere in Vertretung zu warnen.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
+
+/* - Date Time Selection */
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "In Vertretung warnen";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Geben Sie die Aufenhaltsdauer der positiv getesteten Person an, für die gewarnt werden soll. Diese Information erhalten Sie vom Gesundheitsamt.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Beginn/Ankunft";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Dauer";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Weiter";
+
+/* - TAN Input */
+
+"OnBehalfCheckinSubmission_TANInput_Title" = "In Vertretung warnen";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Geben Sie die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Warnung abschicken";
+
+/* - Thank You */
+
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Vielen Dank!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
 
 /* Error Reporting */
 
@@ -2945,7 +3005,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_title" = "Gültiges Zertifikat";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Zertifikat nicht prüfbar";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
 

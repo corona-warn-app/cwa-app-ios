@@ -221,7 +221,6 @@ final class CheckinCoordinator {
 		self.viewController.present(traceLocationCheckinViewController, animated: true)
 	}
 
-	
 	private func showSettings() {
 		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}

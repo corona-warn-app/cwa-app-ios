@@ -71,6 +71,7 @@ class TraceLocationCheckinViewModelTests: CWATestCase {
 		// max checkout Duration should be clipped to 23:45 to match the picker
 		XCTAssertEqual(sut.duration, ((23 * 60) + 45) * 60)
 	}
+
     func testTraceLocationCheckinViewModel_EventStatus_EventWithNoStartAndEndDate() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
@@ -151,6 +152,7 @@ class TraceLocationCheckinViewModelTests: CWATestCase {
 
 		XCTAssertEqual(sut.traceLocationStatus, TraceLocationCheckinViewModel.TraceLocationDateStatus.ended)
 	}
+	
 	func testTraceLocationCheckinViewModel_EventStatus_EventInProgress() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")

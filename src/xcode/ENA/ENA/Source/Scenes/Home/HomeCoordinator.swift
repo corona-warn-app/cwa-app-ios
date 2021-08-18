@@ -339,6 +339,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
+			client: client,
 			parentNavigationController: rootViewController
 		)
 

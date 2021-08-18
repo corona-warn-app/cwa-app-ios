@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierProviding {
+class TraceLocationCheckinSelectionTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 	
@@ -22,7 +22,7 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		containerView.backgroundColor = .enaColor(for: .cellBackground)
+		containerView.backgroundColor = .enaColor(for: .cellBackground3)
 		cellModel = nil
 		subscriptions = []
 	}
@@ -32,25 +32,27 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 		if highlighted {
 			containerView.backgroundColor = .enaColor(for: .listHighlight)
 		} else {
-			containerView.backgroundColor = .enaColor(for: .cellBackground)
+			containerView.backgroundColor = .enaColor(for: .cellBackground3)
 		}
 	}
 	
 	// MARK: - Internal
 	
-	func configure(with cellModel: ExposureSubmissionCheckinCellModel) {
+	func configure(with cellModel: TraceLocationCheckinSelectionCellModel) {
 		self.cellModel = cellModel
 		
 		descriptionLabel.text = cellModel.description
 		addressLabel.text = cellModel.address
+
 		dateIntervalLabel.text = cellModel.dateInterval
+		dateIntervalLabel.isHidden = cellModel.dateInterval == nil
 		
-		cellModel.$checkmarkImage
+		cellModel.checkmarkImage
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.image, on: checkmarkImageView)
 			.store(in: &subscriptions)
 
-		cellModel.$cellIsSelected
+		cellModel.cellIsSelected
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isSelected, on: self)
 			.store(in: &subscriptions)
@@ -58,7 +60,7 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 	
 	// MARK: - Private
 	
-	private var cellModel: ExposureSubmissionCheckinCellModel!
+	private var cellModel: TraceLocationCheckinSelectionCellModel!
 
 	private let containerView = UIView()
 	private let checkmarkImageView = UIImageView()
@@ -89,7 +91,7 @@ class ExposureSubmissionCheckinTableViewCell: UITableViewCell, ReuseIdentifierPr
 		dateIntervalLabel.textColor = .enaColor(for: .textPrimary1)
 		
 		contentView.addSubview(containerView)
-		containerView.backgroundColor = .enaColor(for: .cellBackground)
+		containerView.backgroundColor = .enaColor(for: .cellBackground3)
 		
 		let textStackView = UIStackView(arrangedSubviews: [descriptionLabel, addressLabel, dateIntervalLabel])
 		textStackView.axis = .vertical

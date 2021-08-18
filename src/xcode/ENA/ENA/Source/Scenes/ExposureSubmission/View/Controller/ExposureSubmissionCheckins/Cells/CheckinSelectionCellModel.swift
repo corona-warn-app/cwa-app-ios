@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionCheckinCellModel {
+class CheckinSelectionCellModel: TraceLocationCheckinSelectionCellModel {
 	
 	// MARK: - Init
 	
@@ -25,7 +25,7 @@ class ExposureSubmissionCheckinCellModel {
 		checkin.traceLocationAddress
 	}
 		
-	var dateInterval: String {
+	var dateInterval: String? {
 		let dateFormatter = DateIntervalFormatter()
 		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .short
@@ -35,12 +35,12 @@ class ExposureSubmissionCheckinCellModel {
 	
 	var selected: Bool = false {
 		didSet {
-			cellIsSelected = selected
-			checkmarkImage = selected ? UIImage(named: "Checkin_Checkmark_Selected") : UIImage(named: "Checkin_Checkmark_Unselected")
+			cellIsSelected.value = selected
+			checkmarkImage.value = selected ? UIImage(named: "Checkin_Checkmark_Selected") : UIImage(named: "Checkin_Checkmark_Unselected")
 		}
 	}
 
-	@OpenCombine.Published private(set)  var cellIsSelected: Bool = false
-	@OpenCombine.Published private(set) var checkmarkImage = UIImage(named: "Checkin_Checkmark_Unselected")
+	private(set) var cellIsSelected = CurrentValueSubject<Bool, Never>(false)
+	private(set) var checkmarkImage = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Checkin_Checkmark_Unselected"))
 
 }
