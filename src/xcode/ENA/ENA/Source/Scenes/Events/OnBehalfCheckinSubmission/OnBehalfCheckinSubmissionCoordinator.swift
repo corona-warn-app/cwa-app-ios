@@ -18,6 +18,11 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		self.appConfiguration = appConfiguration
 		self.eventStore = eventStore
 		self.client = client
+
+		self.checkinSubmissionService = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: appConfiguration
+		)
 	}
 	
 	// MARK: - Internal
@@ -37,6 +42,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private let appConfiguration: AppConfigurationProviding
 	private let eventStore: EventStoringProviding
 	private let client: Client
+	private let checkinSubmissionService: OnBehalfCheckinSubmissionService
 
 	private weak var traceLocationSelectionViewController: OnBehalfTraceLocationSelectionViewController?
 
@@ -168,14 +174,24 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		let tanInputViewModel = TanInputViewModel(
 			title: AppStrings.OnBehalfCheckinSubmission.TANInput.title,
 			description: AppStrings.OnBehalfCheckinSubmission.TANInput.description,
-			onPrimaryButtonTap: { [weak self] tan, isLoading in
+			onPrimaryButtonTap: { [weak self] teleTAN, isLoading in
 				isLoading(true)
 
-				Log.info("[OnBehalfCheckinSubmission] Submitting with TAN \(private: tan)", log: .checkin)
-				DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+				Log.info("[OnBehalfCheckinSubmission] Submitting with TAN \(private: teleTAN)", log: .checkin)
+
+				self?.checkinSubmissionService.submit(
+					checkin: checkin,
+					teleTAN: teleTAN
+				) { result in
 					isLoading(false)
 
-					self?.showThankYouScreen()
+					switch result {
+					case .success:
+						self?.showThankYouScreen()
+					case .failure(let error):
+						// TODO: Configure error
+						self?.showErrorAlert(title: "", error: error)
+					}
 				}
 			}
 		)

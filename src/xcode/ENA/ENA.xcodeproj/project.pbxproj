@@ -109,6 +109,7 @@
 		0160CC2B26B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */; };
 		0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */; };
 		016146912487A43E00660992 /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* LinkHelper.swift */; };
+		01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */; };
 		01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */; };
@@ -1459,6 +1460,7 @@
 		0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeView.swift; sourceTree = "<group>"; };
 		0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewModelTests.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
+		01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionService.swift; sourceTree = "<group>"; };
 		01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+SubmissionPreparation.swift"; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
 		016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModel.swift; sourceTree = "<group>"; };
@@ -3092,6 +3094,7 @@
 			isa = PBXGroup;
 			children = (
 				015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */,
+				01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */,
 				01164CCF26C55187007F9C3E /* Info */,
 				01164CDA26C56F70007F9C3E /* TraceLocationSelection */,
 				01164CEA26C655A1007F9C3E /* DateTimeSelection */,
@@ -8826,6 +8829,7 @@
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,
 				01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */,
 				BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */,
+				01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */,
 				8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
 				AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */,
