@@ -336,6 +336,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var onDismissDistrict: (Bool) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+	private var deltaOnboardingIsRunning = false
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
@@ -697,10 +698,19 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		guard deltaOnboardingCoordinator == nil else { return }
+		guard !deltaOnboardingIsRunning else {
+			Log.debug("Skip onboarding call, because onboarding is already running.")
+			completion()
+			return
+		}
+		self.deltaOnboardingIsRunning = true
 
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
-			guard let self = self else { return }
+			guard let self = self else {
+				Log.debug("Skip onboarding call, because HomeTableViewController was deallocated.")
+				completion()
+				return
+			}
 
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 
@@ -714,20 +724,31 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 			#endif
 
-			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
-					DeltaOnboardingDataDonation(store: self.viewModel.store),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
-				]
-				Log.debug("Delta Onboarding list size: \(onboardings.count)")
+			let onboardings: [DeltaOnboarding] = [
+				DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
+				DeltaOnboardingDataDonation(store: self.viewModel.store),
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
+			]
 
-				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+			Log.debug("Delta Onboarding list size: \(onboardings.count)")
+
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+				guard self.presentedViewController == nil else {
+					Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
+					self.deltaOnboardingIsRunning = false
+					completion()
+					return
+				}
+
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
-					self?.deltaOnboardingCoordinator = nil
+					Log.debug("Onboarding finished.")
+					self?.deltaOnboardingIsRunning = false
 					completion()
 				}
 
+				Log.debug("Start onboarding.")
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
 		}.store(in: &subscriptions)

@@ -23,12 +23,30 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([
+		let ruleCount = validationResults.filter({ validationResult in
+			validationResult.rule?.ruleType == .acceptence
+		}).count
+
+		let noRules = ruleCount == 0
+
+		let headlineImage = noRules ?
+			UIImage(imageLiteralResourceName: "Illu_Validation_Unknown") :
+			UIImage(imageLiteralResourceName: "Illu_Validation_Valid")
+
+		let headerText = noRules ?
+			AppStrings.HealthCertificate.Validation.Result.Passed.unknownTitle :
+			AppStrings.HealthCertificate.Validation.Result.Passed.title
+
+		let titleText = noRules ?
+			AppStrings.HealthCertificate.Validation.Result.Passed.unknownSubtitle :
+			AppStrings.HealthCertificate.Validation.Result.Passed.subtitle
+
+		return DynamicTableViewModel([
 			.section(
 				cells: [
 					.headlineWithImage(
-						headerText: AppStrings.HealthCertificate.Validation.Result.Passed.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Validation_Valid")
+						headerText: headerText,
+						image: headlineImage
 					),
 					.footnote(
 						text: String(
@@ -39,13 +57,11 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 						),
 						color: .enaColor(for: .textPrimary2)
 					),
-					.title2(text: AppStrings.HealthCertificate.Validation.Result.Passed.subtitle),
+					.title2(text: titleText),
 					.body(
 						text: String(
 							format: AppStrings.HealthCertificate.Validation.Result.Passed.description,
-							validationResults.filter({ validationResult in
-								validationResult.rule?.ruleType == .acceptence
-							}).count
+							ruleCount
 						)
 					),
 					.space(height: 12),

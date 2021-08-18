@@ -102,9 +102,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.webViews[AccessibilityIdentifiers.General.webView].waitForExistence(timeout: .long))
 		let webView = app.webViews[AccessibilityIdentifiers.General.webView]
 		let firstLink = webView.links.firstMatch
-		XCTAssertTrue(firstLink.exists)
-		XCTAssertTrue(firstLink.isHittable)
-		firstLink.waitAndTap(.medium)
+		firstLink.waitAndTap(.long)
 	}
 
 	func test_0025_AppInformationFlow_terms() throws {

@@ -2151,7 +2151,9 @@ enum AppStrings {
 
 				enum Passed {
 					static let title = NSLocalizedString("HealthCertificate_Validation_Passed_title", comment: "")
+					static let unknownTitle = NSLocalizedString("HealthCertificate_Validation_Passed_unknownTitle", comment: "")
 					static let subtitle = NSLocalizedString("HealthCertificate_Validation_Passed_subtitle", comment: "")
+					static let unknownSubtitle = NSLocalizedString("HealthCertificate_Validation_Passed_unknownSubtitle", comment: "")
 					static let description = NSLocalizedString("HealthCertificate_Validation_Passed_description", comment: "")
 					static let hintsTitle = NSLocalizedString("HealthCertificate_Validation_Passed_hintsTitle", comment: "")
 					static let hint1 = NSLocalizedString("HealthCertificate_Validation_Passed_hint1", comment: "")
