@@ -158,13 +158,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				if unencryptedCheckinsEnabled {
 					unencryptedCheckins = self.checkins.preparedForSubmission(
 						appConfig: appConfig,
-						symptomOnset: self.symptomsOnset
+						transmissionRiskLevelSource: .symptomsOnset(self.symptomsOnset)
 					)
 				}
 
 				let checkinProtectedReports = self.checkins.preparedProtectedReportsForSubmission(
 					appConfig: appConfig,
-					symptomOnset: self.symptomsOnset
+					transmissionRiskLevelSource: .symptomsOnset(self.symptomsOnset)
 				)
 
 				// Request needs to be prepended by the fake request.
