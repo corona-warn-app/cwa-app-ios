@@ -246,6 +246,14 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		
 		XCTAssertNotEqual(viewModel.qrCodeImage?.parsedQRCodeStrings.count, 0, "parsedQRCodeStrings is 0")
 		
+		
+		if let image = viewModel.qrCodeImage?.ciImage {
+			let features = detector?.features(in: image) ?? []
+			XCTAssertNotEqual(features.count, 0, "feature count is 0")
+
+		} else {
+			XCTFail("Image not found")
+		}
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
 			healthCertificate.base45
