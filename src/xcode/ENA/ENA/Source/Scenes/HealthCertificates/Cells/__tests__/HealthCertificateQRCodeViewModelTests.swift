@@ -230,7 +230,9 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-
+		
+		XCTAssertNotNil(viewModel.qrCodeImage, "Image is missing")
+		
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
 			healthCertificate.base45
