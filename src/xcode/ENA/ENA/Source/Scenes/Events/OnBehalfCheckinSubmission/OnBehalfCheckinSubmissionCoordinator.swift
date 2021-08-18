@@ -38,7 +38,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private let eventStore: EventStoringProviding
 	private let client: Client
 
-	private var traceLocationSelectionViewModel: OnBehalfTraceLocationSelectionViewModel?
+	private weak var traceLocationSelectionViewController: OnBehalfTraceLocationSelectionViewController?
 
 	// MARK: Show Screens
 
@@ -69,7 +69,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 	private func showTraceLocationSelectionScreen() {
 		let viewModel = OnBehalfTraceLocationSelectionViewModel(traceLocations: eventStore.traceLocationsPublisher.value)
-		traceLocationSelectionViewModel = viewModel
 
 		let traceLocationSelectionViewController = OnBehalfTraceLocationSelectionViewController(
 			viewModel: viewModel,
@@ -88,6 +87,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 				self?.parentViewController.dismiss(animated: true)
 			}
 		)
+		self.traceLocationSelectionViewController = traceLocationSelectionViewController
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
@@ -116,7 +116,8 @@ final class OnBehalfCheckinSubmissionCoordinator {
 				}
 			},
 			dismiss: { [weak self] in
-				self?.traceLocationSelectionViewModel?.updateForCameraPermission()
+				// Reload to reflect current camera permission state
+				self?.traceLocationSelectionViewController?.reload()
 				self?.navigationController.dismiss(animated: true)
 			}
 		)
