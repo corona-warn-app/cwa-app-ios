@@ -100,7 +100,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_second_vaccination_certificate_details_part2")
 	}
 
-	func test_screenshot_ShowCertificate() throws {
+	func test_screenshot_HealthCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -109,15 +109,69 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		
-		snapshot("screenshot_vaccination_certificate_overview")
+		snapshot("screenshot_vaccination_certificate_valid_overview")
 		certificateTitle.waitAndTap()
 
 		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
 		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
 
-		snapshot("screenshot_vaccination_certificate_overview_part1")
+		snapshot("screenshot_vaccination_certificate_valid_details_part1")
 		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_vaccination_certificate_overview_part2")
+		snapshot("screenshot_vaccination_certificate_valid_details_part2")
+		
+		// Certified Person screen
+		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
+	}
+	
+	func test_screenshot_HealthCertificateInvalid() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateInvalid, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
+		
+		snapshot("screenshot_vaccination_certificate_invalid_overview")
+
+		certificateTitle.waitAndTap()
+
+		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
+		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
+
+		snapshot("screenshot_vaccination_certificate_invalid_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_vaccination_certificate_invalid_details_part2")
+		
+		// Certified Person screen
+		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
+	}
+	
+	func test_screenshot_HealthCertificateExpired() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.hasCertificateExpired, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
+		
+		snapshot("screenshot_vaccination_certificate_expired_overview")
+
+		certificateTitle.waitAndTap()
+
+		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
+		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
+
+		snapshot("screenshot_vaccination_certificate_expired_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_vaccination_certificate_expired_details_part2")
 		
 		// Certified Person screen
 		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
@@ -125,6 +179,33 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 
+	func test_screenshot_HealthCertificateExpiring() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateExpiring, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
+		
+		snapshot("screenshot_vaccination_certificate_expiring_overview")
+
+		certificateTitle.waitAndTap()
+
+		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
+		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
+
+		snapshot("screenshot_vaccination_certificate_expiring_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_vaccination_certificate_expiring_details_part2")
+		
+		// Certified Person screen
+		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
+	}
+	
 	func test_screenshot_TestCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
@@ -136,16 +217,40 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
-		snapshot("screenshot_test_certificate_overview_part1")
+		snapshot("screenshot_test_certificate_valid_overview_part1")
 		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_test_certificate_overview_part2")
+		snapshot("screenshot_test_certificate_valid_overview_part2")
 
 		// Navigatate to test certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 
-		snapshot("screenshot_test_certificate_details_part1")
+		snapshot("screenshot_test_certificate_valid_details_part1")
 		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_test_certificate_details_part2")
+		snapshot("screenshot_test_certificate_valid_details_part2")
+	}
+	
+	func test_screenshot_TestCertificateInvalid() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateInvalid, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+		
+		snapshot("screenshot_test_certificate_invalid_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_test_certificate_invalid_overview_part2")
+
+		// Navigatate to test certificate details screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+
+		snapshot("screenshot_test_certificate_invalid_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_test_certificate_invalid_details_part2")
 	}
   
 	func test_screenshot_RecoveryCertificate() throws {
@@ -159,16 +264,88 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 
-		snapshot("screenshot_recovery_certificate_overview_part1")
+		snapshot("screenshot_recovery_certificate_valid_overview_part1")
 		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_recovery_certificate_overview_part2")
+		snapshot("screenshot_recovery_certificate_valid_overview_part2")
 	
 		// Navigatate to recovery certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 
-		snapshot("screenshot_recovery_certificate_details_part1")
+		snapshot("screenshot_recovery_certificate_valid_details_part1")
 		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_recovery_certificate_details_part2")
+		snapshot("screenshot_recovery_certificate_valid_details_part2")
+	}
+
+	func test_screenshot_RecoveryCertificateInvalid() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateInvalid, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+
+		snapshot("screenshot_recovery_certificate_invalid_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_invalid_overview_part2")
+	
+		// Navigatate to recovery certificate details screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+
+		snapshot("screenshot_recovery_certificate_invalid_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_invalid_details_part2")
+	}
+	
+	func test_screenshot_RecoveryCertificateExpired() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.hasCertificateExpired, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+
+		snapshot("screenshot_recovery_certificate_expired_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_expired_overview_part2")
+	
+		// Navigatate to recovery certificate details screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+
+		snapshot("screenshot_recovery_certificate_expired_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_expired_details_part2")
+	}
+
+	func test_screenshot_RecoveryCertificateExpiring() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateExpiring, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+
+		snapshot("screenshot_recovery_certificate_expiring_overview_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_expiring_overview_part2")
+	
+		// Navigatate to recovery certificate details screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+
+		snapshot("screenshot_recovery_certificate_expiring_details_part1")
+		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_expiring_details_part2")
 	}
 
 	func test_screenshot_CompleteVaccinationProtectionWithTestCertificate() throws {
