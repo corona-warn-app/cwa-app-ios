@@ -38,7 +38,6 @@ class OnBehalfDateTimeSelectionViewController: DynamicTableViewController, Foote
 		parent?.navigationItem.title = AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title
 
 		setupTableView()
-		setupKeyboardAvoidance()
 
 		view.backgroundColor = .enaColor(for: .background)
 	}
@@ -82,57 +81,6 @@ class OnBehalfDateTimeSelectionViewController: DynamicTableViewController, Foote
 			OnBehalfDurationSelectionCell.self,
 			forCellReuseIdentifier: OnBehalfDurationSelectionCell.reuseIdentifier
 		)
-	}
-
-	private func setupKeyboardAvoidance() {
-		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
-			.append(NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillChangeFrameNotification))
-			.sink { [weak self] notification in
-
-				guard let self = self,
-					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-					  let animationCurveRawValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
-					  let animationCurve = UIView.AnimationCurve(rawValue: animationCurveRawValue) else {
-					return
-				}
-
-				var targetRect: CGRect?
-				if let currentResponder = self.view.firstResponder as? UIView {
-					let rect = currentResponder.convert(currentResponder.bounds, to: self.view)
-					if keyboardFrame.intersects(rect) {
-						targetRect = rect
-					}
-				}
-
-				let animator = UIViewPropertyAnimator(duration: animationDuration, curve: animationCurve) { [weak self] in
-					self?.tableView.scrollIndicatorInsets.bottom = keyboardFrame.height
-					self?.tableView.contentInset.bottom = keyboardFrame.height
-					if let targetRect = targetRect {
-						self?.tableView.scrollRectToVisible(targetRect, animated: false)
-					}
-				}
-				animator.startAnimation()
-			}
-			.store(in: &subscriptions)
-
-		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
-			.sink { [weak self] notification in
-
-				guard let self = self,
-					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-					  let animationCurveRawValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int,
-					  let animationCurve = UIView.AnimationCurve(rawValue: animationCurveRawValue) else {
-					return
-				}
-
-				let animator = UIViewPropertyAnimator(duration: animationDuration, curve: animationCurve) { [weak self] in
-					self?.tableView.scrollIndicatorInsets.bottom = 0
-					self?.tableView.contentInset.bottom = 0
-				}
-				animator.startAnimation()
-			}
-			.store(in: &subscriptions)
 	}
 
 }
