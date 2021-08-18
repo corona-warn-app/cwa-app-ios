@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010172BC26CAAF4D00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172BB26CAAE7A00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift */; };
+		010172BE26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */; };
+		010172C126CAC07700CD1510 /* TraceLocationSelectionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */; };
+		010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */; };
+		010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */; };
+		010172C926CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172C826CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift */; };
+		010172CC26CBD8D900CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172CA26CBD83600CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift */; };
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -736,7 +743,7 @@
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
 		8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F9E2613A7E300FD36DA /* EncodingType.swift */; };
 		8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */; };
-		8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */; };
+		8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FDF2616692000FD36DA /* TraceLocationCheckinViewModelTests.swift */; };
 		8FB331B6268BD8EE00804747 /* LocalStatisticsRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B5268BD8EE00804747 /* LocalStatisticsRegion.swift */; };
 		8FB331B8268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */; };
 		8FB331BB268C574900804747 /* LocalStats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8FB331BA268C574900804747 /* LocalStats.bin */; };
@@ -1353,6 +1360,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		010172BB26CAAE7A00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewModelTests.swift; sourceTree = "<group>"; };
+		010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSelectionCellModelTests.swift; sourceTree = "<group>"; };
+		010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationSelectionCellModelTests.swift; sourceTree = "<group>"; };
+		010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationSelectionViewModelTests.swift; sourceTree = "<group>"; };
+		010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
+		010172C826CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfScanQRCodeCellModelTests.swift; sourceTree = "<group>"; };
+		010172CA26CBD83600CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfDateTimeSelectionViewModelTests.swift; sourceTree = "<group>"; };
 		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
 		0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_KeyFigure+Formatting.swift"; sourceTree = "<group>"; };
 		0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModelTest.swift; sourceTree = "<group>"; };
@@ -2095,7 +2109,7 @@
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
 		8FA88F9E2613A7E300FD36DA /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
 		8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVerificationHelper.swift; sourceTree = "<group>"; };
-		8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailViewModelTests.swift; sourceTree = "<group>"; };
+		8FA88FDF2616692000FD36DA /* TraceLocationCheckinViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinViewModelTests.swift; sourceTree = "<group>"; };
 		8FB331B5268BD8EE00804747 /* LocalStatisticsRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsRegion.swift; sourceTree = "<group>"; };
 		8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift"; sourceTree = "<group>"; };
 		8FB331BA268C574900804747 /* LocalStats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = LocalStats.bin; sourceTree = "<group>"; };
@@ -2747,6 +2761,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		010172BA26CAAE6B00CD1510 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				010172BD26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift */,
+				010172BB26CAAE7A00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		010172BF26CAC05600CD1510 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				010172C226CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift */,
+				010172C826CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift */,
+				010172C026CAC06300CD1510 /* TraceLocationSelectionCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		010172C426CBB37E00CD1510 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				010172CA26CBD83600CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		010172C526CBB38A00CD1510 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				010172C626CBB39900CD1510 /* OnBehalfTraceLocationCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		0105D88B25B87300007E288B /* HomeStatisticsCardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2821,6 +2870,7 @@
 		01164CDA26C56F70007F9C3E /* TraceLocationSelection */ = {
 			isa = PBXGroup;
 			children = (
+				010172BF26CAC05600CD1510 /* __tests__ */,
 				01164CDC26C56F89007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift */,
 				01164CDB26C56F88007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift */,
 				01164CE526C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift */,
@@ -2843,6 +2893,7 @@
 		01164CEA26C655A1007F9C3E /* DateTimeSelection */ = {
 			isa = PBXGroup;
 			children = (
+				010172C426CBB37E00CD1510 /* __tests__ */,
 				01164CEB26C6599A007F9C3E /* OnBehalfDateTimeSelectionViewController.swift */,
 				01164CEC26C6599D007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift */,
 				01164CEE26C659BC007F9C3E /* Cells */,
@@ -2853,6 +2904,7 @@
 		01164CEE26C659BC007F9C3E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				010172C526CBB38A00CD1510 /* __tests__ */,
 				01164CEF26C659C8007F9C3E /* OnBehalfDurationSelectionCell.swift */,
 				01164CF026C659C9007F9C3E /* OnBehalfDateSelectionCell.swift */,
 				01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */,
@@ -5347,7 +5399,7 @@
 		8FA88FDE261668EE00FD36DA /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */,
+				8FA88FDF2616692000FD36DA /* TraceLocationCheckinViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7649,6 +7701,7 @@
 		EB67B5E5262AD65900218EC7 /* ExposureSubmissionCheckins */ = {
 			isa = PBXGroup;
 			children = (
+				010172BA26CAAE6B00CD1510 /* __tests__ */,
 				EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */,
 				EB67B5E0262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift */,
 				01164CE926C64892007F9C3E /* Cells */,
@@ -9006,6 +9059,7 @@
 				5065950C25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift in Sources */,
 				50C029AB25E4068D00460FA4 /* TestResultMetadataTests.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
+				010172BC26CAAF4D00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift in Sources */,
 				01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */,
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
 				01A6C30E2626DE8200B6E95A /* HomeTestRegistrationCellModelTests.swift in Sources */,
@@ -9014,8 +9068,10 @@
 				50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
 				BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */,
+				010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */,
 				BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */,
 				BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */,
+				010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
@@ -9084,6 +9140,7 @@
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
+				010172C926CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift in Sources */,
 				5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */,
 				BA69A80D25CDA80600023265 /* SelectValueViewModelTests.swift in Sources */,
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
@@ -9192,6 +9249,7 @@
 				BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */,
 				5039B3E826A1AD5B00ECA6DE /* ValidationResultCellModelTests.swift in Sources */,
 				AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */,
+				010172C126CAC07700CD1510 /* TraceLocationSelectionCellModelTests.swift in Sources */,
 				5058DF8B2667666900858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift in Sources */,
 				A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */,
 				506861E026A0347F0069B78C /* HealthCertificateValidationResultTests.swift in Sources */,
@@ -9219,6 +9277,7 @@
 				012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */,
+				010172BE26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift in Sources */,
 				8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */,
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,
 				0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */,
@@ -9227,6 +9286,7 @@
 				AB68531E25F9235200380F5A /* FMDB+Access.swift in Sources */,
 				AB68880625D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
+				010172CC26CBD8D900CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift in Sources */,
 				BAE106E426710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift in Sources */,
 				50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */,
 				A1E419522495A6F20016E52A /* HTTPClient+TANForExposureSubmitTests.swift in Sources */,
@@ -9278,7 +9338,7 @@
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				4B577C5F26C1D90500641667 /* LoggingTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
-				8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */,
+				8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */,
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,

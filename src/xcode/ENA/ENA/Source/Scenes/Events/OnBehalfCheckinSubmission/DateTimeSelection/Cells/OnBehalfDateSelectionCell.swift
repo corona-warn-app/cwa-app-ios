@@ -92,6 +92,7 @@ final class OnBehalfDateSelectionCell: UITableViewCell, ReuseIdentifierProviding
 		datePicker.translatesAutoresizingMaskIntoConstraints = false
 		datePicker.datePickerMode = .dateAndTime
 		datePicker.tintColor = .enaColor(for: .tint)
+		datePicker.maximumDate = Date()
 
 		if #available(iOS 14.0, *) {
 			datePicker.preferredDatePickerStyle = .inline

@@ -17,7 +17,7 @@ final class OnBehalfDateTimeSelectionViewModel {
 		self.traceLocation = traceLocation
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
-		if let startDate = traceLocation.startDate, startDate.timeIntervalSince1970 > 0 {
+		if let startDate = traceLocation.startDate, startDate.timeIntervalSince1970 > 0 && startDate <= Date() {
 			selectedDate = startDate
 		} else {
 			selectedDate = Date()
@@ -27,6 +27,23 @@ final class OnBehalfDateTimeSelectionViewModel {
 	}
 
 	// MARK: - Internal
+
+	var dynamicTableViewModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				cells: [
+					traceLocationCell(),
+					.subheadline(
+						text: AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.description,
+						color: .enaColor(for: .textPrimary2)
+					),
+					dateSelectionCell(),
+					.space(height: 8),
+					durationSelectionCell()
+				]
+			)
+		])
+	}
 
 	func createCheckin() {
 		let checkin: Checkin = Checkin(
@@ -50,23 +67,6 @@ final class OnBehalfDateTimeSelectionViewModel {
 		)
 
 		onPrimaryButtonTap(checkin)
-	}
-
-	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			.section(
-				cells: [
-					traceLocationCell(),
-					.subheadline(
-						text: AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.description,
-						color: .enaColor(for: .textPrimary2)
-					),
-					dateSelectionCell(),
-					.space(height: 8),
-					durationSelectionCell()
-				]
-			)
-		])
 	}
 
 	// MARK: - Private

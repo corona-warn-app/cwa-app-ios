@@ -41,7 +41,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 	}
 
 	var isEmptyStateVisible: Bool {
-		traceLocationCellModels.isEmpty
+		traceLocationCellModels.isEmpty && !showMissingPermissionSection
 	}
 	
 	var selectedTraceLocation: TraceLocation?
