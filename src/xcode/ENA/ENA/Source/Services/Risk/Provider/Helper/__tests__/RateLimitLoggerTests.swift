@@ -9,10 +9,10 @@ import XCTest
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
-class SoftRateLimitTests: CWATestCase {
+class RateLimitLoggerTests: CWATestCase {
 
 	func testDescription () {
-		let softRateLimit = SoftRateLimit(store: MockTestStore())
+		let softRateLimit = RateLimitLogger(store: MockTestStore())
 
 		let failure = ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime
 		let error = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning)
@@ -43,7 +43,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking = softRateLimit.setup(configuration: config)
@@ -67,7 +67,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking = softRateLimit.setup(configuration: config)
@@ -92,7 +92,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		_ = softRateLimit.setup(configuration: config)
@@ -117,7 +117,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 
@@ -144,7 +144,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.unknown)))
 
@@ -171,7 +171,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
@@ -203,7 +203,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory)))
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
@@ -238,7 +238,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)
@@ -279,7 +279,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = firstExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)
@@ -313,7 +313,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)
@@ -347,7 +347,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)
@@ -381,7 +381,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)
@@ -415,7 +415,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)
@@ -450,7 +450,7 @@ class SoftRateLimitTests: CWATestCase {
 			wrappingComponents: false
 		))
 		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = SoftRateLimit(store: store, logger: mock)
+		let softRateLimit = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
 		let blocking1 = softRateLimit.setup(configuration: config)

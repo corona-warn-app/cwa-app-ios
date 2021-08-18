@@ -13,8 +13,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var hasSeenBackgroundFetchAlert: Bool = false
 	private var _exposureDetectionDate: Date?
 	var exposureDetectionDate: Date? {
-		get { _exposureDetectionDate as Date? ??
-			enfRiskCalculationResult?.calculationDate }
+		get { _exposureDetectionDate as Date? }
 		set { _exposureDetectionDate = newValue }
 	}
 	var enfRiskCalculationResult: ENFRiskCalculationResult?

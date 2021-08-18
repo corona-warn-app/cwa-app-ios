@@ -117,8 +117,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	}
 
 	var exposureDetectionDate: Date? {
-		get { kvStore["exposureDetectionDate"] as Date? ??
-			enfRiskCalculationResult?.calculationDate }
+		get { kvStore["exposureDetectionDate"] as Date? }
 		set { kvStore["exposureDetectionDate"] = newValue }
 	}
 

@@ -6,7 +6,7 @@ import Foundation
 import ExposureNotification
 
 
-class SoftRateLimit {
+class RateLimitLogger {
 	
 	// MARK: - Init
 
@@ -23,13 +23,12 @@ class SoftRateLimit {
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 			lastExposureDetectionDate: store.exposureDetectionDate, context: " for soft rate limit"
 		)
-		let blocking = !enoughTimeHasPassed
-		if blocking {
-			Log.info("Soft rate limit is stricter than effective rate limit", log: .riskDetection, logger: logger)
-		} else {
+		if enoughTimeHasPassed {
 			Log.debug("Soft rate limit is in synch with effective rate limit", log: .riskDetection, logger: logger)
+		} else {
+			Log.info("Soft rate limit is stricter than effective rate limit", log: .riskDetection, logger: logger)
 		}
-		return blocking
+		return !enoughTimeHasPassed
 	}
 
 	func assess(
@@ -39,7 +38,7 @@ class SoftRateLimit {
 		switch result {
 		case .success:
 			if blocking {
-				Log.warning("Soft rate limit is too strict - it would have blocked this successfull exposure detection", log: .riskDetection, logger: logger)
+				Log.warning("Soft rate limit is too strict - it would have blocked this successful exposure detection", log: .riskDetection, logger: logger)
 			}
 			previousErrorCode = nil
 		case .failure(let failure):

@@ -38,7 +38,7 @@ final class RiskProvider: RiskProviding {
 		self.coronaTestService = coronaTestService
 		self.keyPackageDownloadStatus = .idle
 		self.traceWarningDownloadStatus = .idle
-		self.softRateLimit = SoftRateLimit(store: store)
+		self.softRateLimit = RateLimitLogger(store: store)
 
 		self.registerForPackagesDownloadStatusUpdates()
 	}
@@ -164,7 +164,7 @@ final class RiskProvider: RiskProviding {
 	private var subscriptions = [AnyCancellable]()
 	private var keyPackageDownloadStatus: KeyPackageDownloadStatus
 	private var traceWarningDownloadStatus: TraceWarningDownloadStatus
-	private var softRateLimit: SoftRateLimit
+	private var softRateLimit: RateLimitLogger
 	
 	private var _consumers: Set<RiskConsumer> = Set<RiskConsumer>()
 	private var consumers: Set<RiskConsumer> {
