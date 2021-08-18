@@ -232,7 +232,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
 		
 		XCTAssertNotNil(viewModel.qrCodeImage, "Image is missing")
-		XCTAssertNotNil(viewModel.qrCodeImage?.cgImage, "CGImage is missing")
+		XCTAssertNotNil(viewModel.qrCodeImage?.ciImage, "ciImage is missing")
 		
 		let detector = CIDetector(
 			ofType: CIDetectorTypeQRCode,
