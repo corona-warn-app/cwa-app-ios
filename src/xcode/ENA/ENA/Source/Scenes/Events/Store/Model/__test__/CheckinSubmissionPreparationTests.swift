@@ -5,10 +5,9 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionCheckinTests: CWATestCase {
+class CheckinSubmissionPreparationTests: CWATestCase {
 
 	func testCheckinTransmissionPreparationFiltersSubmittedCheckins() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startDate = Date()
@@ -23,8 +22,7 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		]
 
 		// process checkins
-		let preparedCheckins = service.preparedCheckinsForSubmission(
-			checkins: checkins,
+		let preparedCheckins = checkins.preparedForSubmission(
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)
@@ -36,7 +34,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
 	func testCheckinProtectedReportsPreparationFiltersSubmittedCheckins() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startDate = Date()
@@ -51,8 +48,7 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		]
 
 		// process checkins
-		let checkinProtectedReports = service.preparedCheckinProtectedReportsForSubmission(
-			checkins: checkins,
+		let checkinProtectedReports = checkins.preparedProtectedReportsForSubmission(
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)
@@ -80,7 +76,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
     func testCheckinTransmissionPreparation() throws {
-        let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let checkin = Checkin.mock(
@@ -89,8 +84,7 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let preparedCheckins = service.preparedCheckinsForSubmission(
-			checkins: [checkin],
+		let preparedCheckins = [checkin].preparedForSubmission(
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)
@@ -105,7 +99,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
     }
 
 	func testCheckinProtectedReportsPreparation() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let traceLocationId: Data = try XCTUnwrap(Data(base64Encoded: "m686QDEvOYSfRtrRBA8vA58c/6EjjEHp22dTFc+tObY="))
@@ -117,8 +110,7 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let checkinProtectedReports = service.preparedCheckinProtectedReportsForSubmission(
-			checkins: [checkin],
+		let checkinProtectedReports = [checkin].preparedProtectedReportsForSubmission(
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)
@@ -139,7 +131,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
 	func testDerivingWarningTimeInterval() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startOfToday = Calendar.current.startOfDay(for: Date())
@@ -164,8 +155,7 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let preparedCheckins = service.preparedCheckinsForSubmission(
-			checkins: [checkin1, checkin2],
+		let preparedCheckins = [checkin1, checkin2].preparedForSubmission(
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)
@@ -177,7 +167,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
 	func testCheckinProtectedReportsDerivingWarningTimeInterval() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startOfToday = Calendar.current.startOfDay(for: Date())
@@ -206,8 +195,7 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let checkinProtectedReports = service.preparedCheckinProtectedReportsForSubmission(
-			checkins: [checkin1, checkin2],
+		let checkinProtectedReports = [checkin1, checkin2].preparedProtectedReportsForSubmission(
 			appConfig: appConfig,
 			symptomOnset: .daysSinceOnset(0)
 		)

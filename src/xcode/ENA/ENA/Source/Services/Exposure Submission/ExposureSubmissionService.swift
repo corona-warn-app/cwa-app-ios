@@ -156,15 +156,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 				var unencryptedCheckins = [SAP_Internal_Pt_CheckIn]()
 				if unencryptedCheckinsEnabled {
-					unencryptedCheckins = self.preparedCheckinsForSubmission(
-						checkins: self.checkins,
+					unencryptedCheckins = self.checkins.preparedForSubmission(
 						appConfig: appConfig,
 						symptomOnset: self.symptomsOnset
 					)
 				}
 
-				let checkinProtectedReports = self.preparedCheckinProtectedReportsForSubmission(
-					checkins: self.checkins,
+				let checkinProtectedReports = self.checkins.preparedProtectedReportsForSubmission(
 					appConfig: appConfig,
 					symptomOnset: self.symptomsOnset
 				)

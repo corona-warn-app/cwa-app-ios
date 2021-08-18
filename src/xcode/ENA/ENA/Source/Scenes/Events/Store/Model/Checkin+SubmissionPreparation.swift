@@ -4,13 +4,12 @@
 
 import Foundation
 
-extension ExposureSubmissionService {
+extension Array where Element == Checkin {
 
 	/// Helper function to convert checkins to required form factor for exposure submission
 	///
 	/// - Returns: A list of converted checkins
-	func preparedCheckinsForSubmission(
-		checkins: [Checkin],
+	func preparedForSubmission(
 		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
 		symptomOnset: SymptomsOnset
 	) -> [SAP_Internal_Pt_CheckIn] {
@@ -18,7 +17,7 @@ extension ExposureSubmissionService {
 		let css = CheckinSplittingService()
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
-		let preparedCheckins = checkins
+		let preparedCheckins = self
 			.filter { !$0.checkinSubmitted }
 			.compactMap {
 				$0.derivingWarningTimeInterval(config: PresenceTracingSubmissionConfiguration(from: appConfig.presenceTracingParameters.submissionParameters))
@@ -56,11 +55,10 @@ extension ExposureSubmissionService {
 		return preparedCheckins
 	}
 
-	/// Helper function to convert checkins to encryted CheckInProtectedReports.
+	/// Helper function to convert checkins to encrypted CheckInProtectedReports.
 	///
 	/// - Returns: A list of CheckInProtectedReports
-	func preparedCheckinProtectedReportsForSubmission(
-		checkins: [Checkin],
+	func preparedProtectedReportsForSubmission(
 		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
 		symptomOnset: SymptomsOnset
 	) -> [SAP_Internal_Pt_CheckInProtectedReport] {
@@ -68,7 +66,7 @@ extension ExposureSubmissionService {
 		let checkinSplittingService = CheckinSplittingService()
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
-		let preparedCheckins = checkins
+		let preparedCheckins = self
 			.filter { !$0.checkinSubmitted }
 			.compactMap {
 				$0.derivingWarningTimeInterval(config: PresenceTracingSubmissionConfiguration(from: appConfig.presenceTracingParameters.submissionParameters))
@@ -110,4 +108,5 @@ extension ExposureSubmissionService {
 
 		return preparedCheckins
 	}
+
 }
