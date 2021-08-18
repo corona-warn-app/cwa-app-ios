@@ -346,6 +346,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var dccSignatureVerificationService: DCCSignatureVerifying = {
 		#if DEBUG
 		if isUITesting {
+			if LaunchArguments.healthCertificate.isCertificateInvalid.boolValue {
+				return DCCSignatureVerifyingStub(error: .HC_DSC_NOT_YET_VALID)
+			}
 			return DCCSignatureVerifyingStub()
 		}
 		#endif
