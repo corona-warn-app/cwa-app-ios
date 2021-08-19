@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 final class HealthCertificatesCoordinator {
 	
 	// MARK: - Init
