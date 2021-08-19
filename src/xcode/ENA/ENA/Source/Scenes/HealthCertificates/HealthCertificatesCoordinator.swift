@@ -364,6 +364,13 @@ final class HealthCertificatesCoordinator {
 		validationCoordinator?.start()
 	}
 	
+	private func showActionSheet(
+		healthCertificate: HealthCertificate
+	) {
+		
+	
+	}
+	
 	private func showDeleteAlert(
 		certificateType: HealthCertificate.CertificateType,
 		submitAction: UIAlertAction
@@ -397,6 +404,31 @@ final class HealthCertificatesCoordinator {
 		)
 		alert.addAction(submitAction)
 		modalNavigationController.present(alert, animated: true)
+	}
+	
+	private func showPdfGenerationInfo(
+		healthCertificate: HealthCertificate
+	) {
+		
+	}
+	
+	private func showPdfGenerationResult(
+		pdf: Data
+	) {
+		
+	}
+	
+	private func printPdf(
+		pdf: Data
+	) {
+	
+		
+	}
+	
+	private func exportPdf(
+		pdf: Data
+	) {
+		
 	}
 
 	private func showErrorAlert(
