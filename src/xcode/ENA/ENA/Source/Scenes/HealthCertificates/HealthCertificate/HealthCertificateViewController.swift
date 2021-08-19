@@ -15,11 +15,11 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping () -> Void,
-		didTapDeleteButton: @escaping () -> Void
+		didTapActionSheet: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapValidationButton = didTapValidationButton
-		self.didTapDeleteButton = didTapDeleteButton
+		self.didTapActionSheet = didTapActionSheet
 		self.viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
@@ -62,7 +62,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		case .primary:
 			didTapValidationButton()
 		case .secondary:
-			didTapDeleteButton()
+			didTapActionSheet()
 		}
 	}
 
@@ -134,7 +134,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 	private let dismiss: () -> Void
 	private let didTapValidationButton: () -> Void
-	private let didTapDeleteButton: () -> Void
+	private let didTapActionSheet: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
 	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))

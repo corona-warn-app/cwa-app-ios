@@ -2876,6 +2876,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Mehr";
+
 
 /* Vaccination Certificate Details */
 

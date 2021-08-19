@@ -2095,7 +2095,8 @@ enum AppStrings {
 			static let expirationDateTitle = NSLocalizedString("HealthCertificate_Details_expirationDateTitle", comment: "")
 			static let expirationDatePlaceholder = NSLocalizedString("HealthCertificate_Details_expirationDatePlaceholder", comment: "")
 			static let expirationDateDetails = NSLocalizedString("HealthCertificate_Details_expirationDateDetails", comment: "")
-
+			static let moreButtonTitle = NSLocalizedString("HealthCertificate_Details_moreButtonTitle", comment: "")
+			
 			enum VaccinationCertificate {
 				static let oneOfOneHint = NSLocalizedString("VaccinationCertificate_Details_OneOfOneHint", comment: "")
 			}
