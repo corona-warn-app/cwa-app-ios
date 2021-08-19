@@ -2927,6 +2927,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
+/* Health Certificate Print PDF */
+
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Druckversion anzeigen";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Abbrechen";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
