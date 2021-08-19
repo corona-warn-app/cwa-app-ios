@@ -1944,7 +1944,7 @@ enum AppStrings {
 
 		enum Error {
 			static let failed = NSLocalizedString("OnBehalfCheckinSubmissionError_Failed", comment: "")
-			static let invalidTAN = NSLocalizedString("OnBehalfCheckinSubmissionError_TAN", comment: "")
+			static let invalidTAN = NSLocalizedString("OnBehalfCheckinSubmissionError_InvalidTAN", comment: "")
 			static let tryAgain = NSLocalizedString("OnBehalfCheckinSubmissionError_TryAgain", comment: "")
 			static let noNetwork = NSLocalizedString("OnBehalfCheckinSubmissionError_NoNetwork", comment: "")
 		}
