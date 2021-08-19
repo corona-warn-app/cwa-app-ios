@@ -12,7 +12,7 @@ import XCTest
 class RateLimitLoggerTests: CWATestCase {
 
 	func testDescription () {
-		let softRateLimit = RateLimitLogger(store: MockTestStore())
+		let logger = RateLimitLogger(store: MockTestStore())
 
 		let failure = ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime
 		let error = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning)
@@ -21,59 +21,59 @@ class RateLimitLoggerTests: CWATestCase {
 		let enError12 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory))
 		let enError13 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited))
 
-		XCTAssertEqual(softRateLimit.description(reason: failure), "failure")
-		XCTAssertEqual(softRateLimit.description(reason: error), "error")
-		XCTAssertEqual(softRateLimit.description(reason: enError1), "ENError 1")
-		XCTAssertEqual(softRateLimit.description(reason: enError11), "ENError 11")
-		XCTAssertEqual(softRateLimit.description(reason: enError12), "ENError 12")
-		XCTAssertEqual(softRateLimit.description(reason: enError13), "ENError 13")
+		XCTAssertEqual(logger.description(reason: failure), "failure")
+		XCTAssertEqual(logger.description(reason: error), "error")
+		XCTAssertEqual(logger.description(reason: enError1), "ENError 1")
+		XCTAssertEqual(logger.description(reason: enError11), "ENError 11")
+		XCTAssertEqual(logger.description(reason: enError12), "ENError 12")
+		XCTAssertEqual(logger.description(reason: enError13), "ENError 13")
 	}
 
-	func testSetup_WhenEnoughTimeHasPassed_ThenNoRateLimit() throws {
+	func test_WhenEnoughTimeHasPassed_ThenNoRateLimit() throws {
 		let expectedLogMessages = [
 			MockLogger.Item(type: "Debug", message: "Soft rate limit is in synch with effective rate limit")
 		]
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking = softRateLimit.setup(configuration: config)
+		let blocking = logger.logBlocking(configuration: config)
 
 		XCTAssertFalse(blocking, "Soft rate limit should not block exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "No previous error code expected")
+		XCTAssertNil(logger.previousErrorCode, "No previous error code expected")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
-	func testSetup_WhenNotEnoughTimeHasPassed_ThenRateLimit() throws {
+	func test_WhenNotEnoughTimeHasPassed_ThenRateLimit() throws {
 		let expectedLogMessages = [
 			MockLogger.Item(type: "Info", message: "Soft rate limit is stricter than effective rate limit")
 		]
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .second,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking = softRateLimit.setup(configuration: config)
+		let blocking = logger.logBlocking(configuration: config)
 
 		XCTAssertTrue(blocking, "Soft rate limit should block the exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "No previous error code expected")
+		XCTAssertNil(logger.previousErrorCode, "No previous error code expected")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -85,19 +85,19 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		_ = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		let blocking = softRateLimit.setup(configuration: config)
+		_ = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		let blocking = logger.logBlocking(configuration: config)
 
 		XCTAssertTrue(blocking, "Soft rate limit shall block second exposure detection")
 		XCTAssertEqual(mock.data, expectedLogMessages)
@@ -110,23 +110,23 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 
-		let blocking = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		softRateLimit.assess(result: result, blocking: blocking)
+		let blocking = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		logger.logEffect(result: result, blocking: blocking)
 
 		XCTAssertFalse(blocking, "Soft rate limit should not block exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "No error code expected")
+		XCTAssertNil(logger.previousErrorCode, "No error code expected")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -137,23 +137,23 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.unknown)))
 
-		let blocking = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		softRateLimit.assess(result: result, blocking: blocking)
+		let blocking = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		logger.logEffect(result: result, blocking: blocking)
 
 		XCTAssertFalse(blocking, "Soft rate limit should not block exposure detection")
-		XCTAssertEqual(softRateLimit.previousErrorCode, ENError.unknown, "Should remember error code")
+		XCTAssertEqual(logger.previousErrorCode, ENError.unknown, "Should remember error code")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -164,28 +164,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning))
 
-		let blocking = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
-		softRateLimit.assess(result: result0, blocking: blocking)
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should remember success")
-		softRateLimit.assess(result: result1, blocking: blocking)
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
-		softRateLimit.assess(result: result2, blocking: blocking)
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
+		logger.logEffect(result: result0, blocking: blocking)
+		XCTAssertNil(logger.previousErrorCode, "Should remember success")
+		logger.logEffect(result: result1, blocking: blocking)
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
+		logger.logEffect(result: result2, blocking: blocking)
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -196,28 +196,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory)))
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning))
 
-		let blocking = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
-		softRateLimit.assess(result: result0, blocking: blocking)
-		XCTAssertEqual(softRateLimit.previousErrorCode, ENError.insufficientMemory, "Should remember error code")
-		softRateLimit.assess(result: result1, blocking: blocking)
-		XCTAssertEqual(softRateLimit.previousErrorCode, ENError.insufficientMemory, "Should not overwrite error code")
-		softRateLimit.assess(result: result2, blocking: blocking)
-		XCTAssertEqual(softRateLimit.previousErrorCode, ENError.insufficientMemory, "Should not overwrite error code")
+		logger.logEffect(result: result0, blocking: blocking)
+		XCTAssertEqual(logger.previousErrorCode, ENError.insufficientMemory, "Should remember error code")
+		logger.logEffect(result: result1, blocking: blocking)
+		XCTAssertEqual(logger.previousErrorCode, ENError.insufficientMemory, "Should not overwrite error code")
+		logger.logEffect(result: result2, blocking: blocking)
+		XCTAssertEqual(logger.previousErrorCode, ENError.insufficientMemory, "Should not overwrite error code")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 	
@@ -231,28 +231,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited)))
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -278,22 +278,22 @@ class RateLimitLoggerTests: CWATestCase {
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = firstExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = firstExposureDetectionDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = secondExposureDetectionDate
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = secondExposureDetectionDate
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited)))
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertFalse(blocking2, "Soft rate limit does not block second exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -306,28 +306,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -340,28 +340,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory)))
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
-		XCTAssertEqual(softRateLimit.previousErrorCode?.rawValue, 12, "Should remember ENError code")
+		XCTAssertEqual(logger.previousErrorCode?.rawValue, 12, "Should remember ENError code")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -374,28 +374,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning))
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -408,28 +408,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
-		XCTAssertNil(softRateLimit.previousErrorCode, "Should not overwrite success")
+		XCTAssertNil(logger.previousErrorCode, "Should not overwrite success")
 		XCTAssertEqual(mock.data, expectedLogMessages)
 	}
 
@@ -443,28 +443,28 @@ class RateLimitLoggerTests: CWATestCase {
 		let mock = MockLogger()
 		let store = MockTestStore()
 		let calendar = Calendar.current
-		let previousExposureDetectionDate = try XCTUnwrap(calendar.date(
+		let previousReferenceDate = try XCTUnwrap(calendar.date(
 			byAdding: .hour,
 			value: -5,
 			to: Date(),
 			wrappingComponents: false
 		))
-		store.exposureDetectionDate = previousExposureDetectionDate
-		let softRateLimit = RateLimitLogger(store: store, logger: mock)
+		store.referenceDateForRateLimitLogger = previousReferenceDate
+		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
 
-		let blocking1 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking1 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.internal)))
-		softRateLimit.assess(result: result1, blocking: blocking1)
+		logger.logEffect(result: result1, blocking: blocking1)
 
-		let blocking2 = softRateLimit.setup(configuration: config)
-		store.exposureDetectionDate = Date()
+		let blocking2 = logger.logBlocking(configuration: config)
+		store.referenceDateForRateLimitLogger = Date()
 		// Note: according to Apple, ENError does not count against their rate limit.
 		// See https://github.com/corona-warn-app/cwa-app-ios/pull/3284#issuecomment-890104094
 		// Still we test here also this edge case.
 		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited)))
-		softRateLimit.assess(result: result2, blocking: blocking2)
+		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit shall block exposure detection shortly after ENError")
 		XCTAssertEqual(mock.data, expectedLogMessages)

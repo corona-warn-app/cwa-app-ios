@@ -38,7 +38,7 @@ final class RiskProvider: RiskProviding {
 		self.coronaTestService = coronaTestService
 		self.keyPackageDownloadStatus = .idle
 		self.traceWarningDownloadStatus = .idle
-		self.softRateLimit = RateLimitLogger(store: store)
+		self.rateLimitLogger = RateLimitLogger(store: store)
 
 		self.registerForPackagesDownloadStatusUpdates()
 	}
@@ -164,7 +164,7 @@ final class RiskProvider: RiskProviding {
 	private var subscriptions = [AnyCancellable]()
 	private var keyPackageDownloadStatus: KeyPackageDownloadStatus
 	private var traceWarningDownloadStatus: TraceWarningDownloadStatus
-	private var softRateLimit: RateLimitLogger
+	private var rateLimitLogger: RateLimitLogger
 	
 	private var _consumers: Set<RiskConsumer> = Set<RiskConsumer>()
 	private var consumers: Set<RiskConsumer> {
@@ -372,8 +372,8 @@ final class RiskProvider: RiskProviding {
 		
 		self.updateActivityState(.detecting)
 
-		let softBlocking = softRateLimit.setup(configuration: riskProvidingConfiguration)
-		store.exposureDetectionDate = Date()		// is this too early here?
+		let softBlocking = rateLimitLogger.logBlocking(configuration: riskProvidingConfiguration)
+		store.referenceDateForRateLimitLogger = Date()
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
@@ -382,7 +382,7 @@ final class RiskProvider: RiskProviding {
 		)
 
 		exposureDetection?.start { [weak self] result in
-			self?.softRateLimit.assess(result: result, blocking: softBlocking)
+			self?.rateLimitLogger.logEffect(result: result, blocking: softBlocking)
 			switch result {
 			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)

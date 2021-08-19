@@ -19,9 +19,14 @@ class RateLimitLogger {
 	}
 
 	// MARK: - Internal
-	func setup(configuration: RiskProvidingConfiguration) -> Bool {
+	
+	var previousErrorCode: ENError.Code? {
+		_previousErrorCode
+	}
+
+	func logBlocking(configuration: RiskProvidingConfiguration) -> Bool {
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
-			lastExposureDetectionDate: store.exposureDetectionDate, context: " for soft rate limit"
+			lastExposureDetectionDate: store.referenceDateForRateLimitLogger, context: .rateLimitLogger
 		)
 		if enoughTimeHasPassed {
 			Log.debug("Soft rate limit is in synch with effective rate limit", log: .riskDetection, logger: logger)
@@ -31,7 +36,7 @@ class RateLimitLogger {
 		return !enoughTimeHasPassed
 	}
 
-	func assess(
+	func logEffect(
 		result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason>,
 		blocking: Bool
 	) {
@@ -40,24 +45,21 @@ class RateLimitLogger {
 			if blocking {
 				Log.warning("Soft rate limit is too strict - it would have blocked this successful exposure detection", log: .riskDetection, logger: logger)
 			}
-			previousErrorCode = nil
-		case .failure(let failure):
+			_previousErrorCode = nil
+		case let .failure(failure):
 			switch failure {
-			case .noExposureWindows(let error):
-				if let enError = error as? ENError {
-					if enError.code == .rateLimited {
-						let str1 = blocking ? "" : " NOT"
-						Log.info("Soft rate limit would\(str1) have prevented this \(description(reason: failure))", log: .riskDetection, logger: logger)
-						if let prevCode = previousErrorCode {
-							Log.info("Previous ENError code = \(prevCode.rawValue)", log: .riskDetection, logger: logger)
-						} else {
-							Log.info("Previous call to ENF was successful", log: .riskDetection, logger: logger)
-						}
-						return
+			case let .noExposureWindows(error as ENError):
+				guard error.code != .rateLimited else {
+					let qualifier = blocking ? "" : " NOT"
+					Log.info("Soft rate limit would\(qualifier) have prevented this \(description(reason: failure))", log: .riskDetection, logger: logger)
+					if let prevCode = previousErrorCode {
+						Log.info("Previous ENError code = \(prevCode.rawValue)", log: .riskDetection, logger: logger)
 					} else {
-						previousErrorCode = enError.code
+						Log.info("Previous call to ENF was successful", log: .riskDetection, logger: logger)
 					}
+					return
 				}
+				_previousErrorCode = error.code
 			default:
 				break
 			}
@@ -80,7 +82,9 @@ class RateLimitLogger {
 		}
 	}
 	
-	var previousErrorCode: ENError.Code?
+	// MARK: - Private
+
 	private let store: Store
+	private var _previousErrorCode: ENError.Code?
 	private var logger: Logging?
 }

@@ -11,10 +11,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	private var _exposureDetectionDate: Date?
-	var exposureDetectionDate: Date? {
-		get { _exposureDetectionDate as Date? }
-		set { _exposureDetectionDate = newValue }
+	private var _referenceDateForRateLimitLogger: Date?
+	var referenceDateForRateLimitLogger: Date? {
+		get { _referenceDateForRateLimitLogger as Date? }
+		set { _referenceDateForRateLimitLogger = newValue }
 	}
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
