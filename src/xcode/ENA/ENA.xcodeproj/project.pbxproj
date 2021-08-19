@@ -4556,13 +4556,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		50A7168626CE82C700D5EDFC /* PdfGeneration */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PdfGeneration;
-			sourceTree = "<group>";
-		};
 		50AA51F825FA4D3F000C77BB /* TraceWarningDownload */ = {
 			isa = PBXGroup;
 			children = (
@@ -5715,6 +5708,13 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		AB51905F26CEA72400E2E4EE /* PDFGeneration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PDFGeneration;
+			sourceTree = "<group>";
+		};
 		AB5F84A924F8F6C7000400D4 /* Migration */ = {
 			isa = PBXGroup;
 			children = (
@@ -6670,7 +6670,7 @@
 				BA5B7FC326458EF400502087 /* HealthCertifiedPerson */,
 				BA5B7FB226458EF400502087 /* QRCodeScanner */,
 				01E0D3AA268F02DF00E32CF9 /* Validation */,
-				50A7168626CE82C700D5EDFC /* PdfGeneration */,
+				AB51905F26CEA72400E2E4EE /* PDFGeneration */,
 			);
 			path = HealthCertificates;
 			sourceTree = "<group>";
