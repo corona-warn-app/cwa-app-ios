@@ -299,7 +299,34 @@ final class HealthCertificatesCoordinator {
 				}
 			},
 			didTapActionSheet: { [weak self] in
-				self?.showActionSheet(healthCertificate: healthCertificate)
+				self?.showActionSheet(
+					healthCertificate: healthCertificate,
+					removeAction: { [weak self] in
+						// pass this as closure instead of passing several properties to showActionSheet().
+						self?.showDeleteAlert(
+							certificateType: healthCertificate.type,
+							submitAction: UIAlertAction(
+								title: AppStrings.HealthCertificate.Alert.deleteButton,
+								style: .destructive,
+								handler: { _ in
+									guard let self = self else {
+										Log.error("Could not create strong self")
+										return
+									}
+									self.healthCertificateService.removeHealthCertificate(healthCertificate)
+									let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
+
+									// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
+									if shouldPushOnModalNavigationController && isPersonStillExistent {
+										self.modalNavigationController.popToRootViewController(animated: true)
+									} else {
+										self.modalNavigationController.dismiss(animated: true)
+									}
+								}
+							)
+						)
+					}
+				)
 			}
 		)
 		
@@ -333,13 +360,24 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showActionSheet(
-		healthCertificate: HealthCertificate
+		healthCertificate: HealthCertificate,
+		removeAction: @escaping () -> Void
 	) {
+		let actionSheet = UIAlertController(
+			title: nil,
+			message: nil,
+			preferredStyle: .actionSheet
+		)
 		
-		
-		/*
-		
-		
+		let printAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
+			style: .default,
+			handler: { [weak self] _ in
+//				self?.onInfoButtonTap()
+			}
+		)
+		actionSheet.addAction(printAction)
+
 		let deleteButtonTitle: String
 		switch healthCertificate.type {
 		case .vaccination:
@@ -350,29 +388,30 @@ final class HealthCertificatesCoordinator {
 			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
 		}
 		
-		// action for delete
-		self.showDeleteAlert(
-			certificateType: healthCertificate.type,
-			submitAction: UIAlertAction(
-				title: AppStrings.HealthCertificate.Alert.deleteButton,
-				style: .destructive,
-				handler: { _ in
-					guard let self = self else {
-						Log.error("Could not create strong self")
-						return
-					}
-					self.healthCertificateService.removeHealthCertificate(healthCertificate)
-					let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
-
-					// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
-					if shouldPushOnModalNavigationController && isPersonStillExistent {
-						self.modalNavigationController.popToRootViewController(animated: true)
-					} else {
-						self.modalNavigationController.dismiss(animated: true)
-					}
-				}
-			)
+		let removeAction = UIAlertAction(
+			title: deleteButtonTitle,
+			style: .destructive,
+			handler: { _ in
+				removeAction()
+			}
 		)
+		actionSheet.addAction(removeAction)
+		
+		let cancelAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.cancel,
+			style: .cancel,
+			handler: nil
+		)
+		actionSheet.addAction(cancelAction)
+		modalNavigationController.present(actionSheet, animated: true, completion: nil)
+
+		/*
+		
+		
+		
+		
+		// action for delete
+		
 	*/
 	}
 	
