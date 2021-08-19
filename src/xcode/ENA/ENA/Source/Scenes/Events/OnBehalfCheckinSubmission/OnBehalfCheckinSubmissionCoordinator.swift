@@ -189,8 +189,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 					case .success:
 						self?.showThankYouScreen()
 					case .failure(let error):
-						// TODO: Configure error
-						self?.showErrorAlert(title: "", error: error)
+						self?.showErrorAlert(error: error)
 					}
 				}
 			}
@@ -235,23 +234,9 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	}
 
 	private func showErrorAlert(
-		title: String,
 		error: Error
 	) {
-		let alert = UIAlertController(
-			title: title,
-			message: error.localizedDescription,
-			preferredStyle: .alert
-		)
-
-		let okayAction = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
-			}
-		)
-		alert.addAction(okayAction)
+		let alert = UIAlertController.errorAlert(message: error.localizedDescription)
 
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController.present(alert, animated: true, completion: nil)
