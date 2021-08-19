@@ -3094,7 +3094,6 @@
 			isa = PBXGroup;
 			children = (
 				015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */,
-				01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */,
 				01164CCF26C55187007F9C3E /* Info */,
 				01164CDA26C56F70007F9C3E /* TraceLocationSelection */,
 				01164CEA26C655A1007F9C3E /* DateTimeSelection */,
@@ -3169,6 +3168,14 @@
 				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		018B852326CE30140037DD54 /* OnBehalfCheckinSubmission */ = {
+			isa = PBXGroup;
+			children = (
+				01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */,
+			);
+			path = OnBehalfCheckinSubmission;
 			sourceTree = "<group>";
 		};
 		018FD4782695EEC8000088F8 /* Result */ = {
@@ -5282,6 +5289,7 @@
 				50690CB12696F96600127CB2 /* HealthCertificateValidationOnboardedCountries */,
 				341DC32D26823DDB0003E6BA /* LocalStatistics */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
+				018B852326CE30140037DD54 /* OnBehalfCheckinSubmission */,
 				504C9CC725C44BE60005875B /* OTP */,
 				BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */,
 				5008F60125DC0219008B516F /* PPAnalyticsCollector */,
