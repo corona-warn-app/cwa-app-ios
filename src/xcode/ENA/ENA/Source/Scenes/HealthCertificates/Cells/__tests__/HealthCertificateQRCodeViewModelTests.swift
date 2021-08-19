@@ -333,7 +333,7 @@ private extension UIImage {
 			XCTFail("No Features detected")
 			return []
 		}
-		
+		XCTAssertEqual(features.count, 0, "feature count is")
 		return features.compactMap {
 			($0 as? CIQRCodeFeature)?.messageString
 		}
