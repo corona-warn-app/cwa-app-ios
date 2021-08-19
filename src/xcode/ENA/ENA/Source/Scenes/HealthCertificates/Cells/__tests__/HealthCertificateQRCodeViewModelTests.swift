@@ -326,7 +326,7 @@ private extension UIImage {
 		let detector = CIDetector(
 			ofType: CIDetectorTypeQRCode,
 			context: nil,
-			options: [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+			options: [CIDetectorAccuracy: CIDetectorAccuracyLow]
 		)
 
 		guard let features = detector?.features(in: image) else {
