@@ -5,12 +5,6 @@
 import Foundation
 import OpenCombine
 
-enum OnBehalfCheckinSubmissionError: Error {
-	case registrationTokenError(URLSession.Response.Failure)
-	case submissionTANError(URLSession.Response.Failure)
-	case submissionError(SubmissionError)
-}
-
 class OnBehalfCheckinSubmissionService {
 
 	// MARK: - Init

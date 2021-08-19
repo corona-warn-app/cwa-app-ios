@@ -241,7 +241,7 @@ protocol Client {
 }
 
 enum SubmissionError: Error {
-	case other(Error)
+	case other(URLSession.Response.Failure)
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case serverError(Int)
