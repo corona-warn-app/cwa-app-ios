@@ -1942,6 +1942,13 @@ enum AppStrings {
 			static let description = NSLocalizedString("OnBehalfCheckinSubmission_ThankYou_Description", comment: "")
 		}
 
+		enum Error {
+			static let failed = NSLocalizedString("OnBehalfCheckinSubmissionError_Failed", comment: "")
+			static let invalidTAN = NSLocalizedString("OnBehalfCheckinSubmissionError_TAN", comment: "")
+			static let tryAgain = NSLocalizedString("OnBehalfCheckinSubmissionError_TryAgain", comment: "")
+			static let noNetwork = NSLocalizedString("OnBehalfCheckinSubmissionError_NoNetwork", comment: "")
+		}
+
 	}
 
 	enum AntigenProfile {
