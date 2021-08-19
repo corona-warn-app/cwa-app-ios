@@ -147,6 +147,7 @@
 		0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */; };
 		01887D3B25DAB4E400FCAFB2 /* DiarySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */; };
 		018B852526CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */; };
+		018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */; };
 		018FD4762695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD4742695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift */; };
 		018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD4752695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift */; };
 		018FD47A2695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD4792695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift */; };
@@ -1495,6 +1496,7 @@
 		0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewModel.swift; sourceTree = "<group>"; };
 		01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySegmentedControl.swift; sourceTree = "<group>"; };
 		018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionError.swift; sourceTree = "<group>"; };
+		018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionServiceTests.swift; sourceTree = "<group>"; };
 		018FD4742695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationResultViewController.swift; sourceTree = "<group>"; };
 		018FD4752695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationResultViewModel.swift; sourceTree = "<group>"; };
 		018FD4792695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationPassedViewModel.swift; sourceTree = "<group>"; };
@@ -3175,10 +3177,19 @@
 		018B852326CE30140037DD54 /* OnBehalfCheckinSubmission */ = {
 			isa = PBXGroup;
 			children = (
+				018B852626CE995F0037DD54 /* __tests__ */,
 				01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */,
 				018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */,
 			);
 			path = OnBehalfCheckinSubmission;
+			sourceTree = "<group>";
+		};
+		018B852626CE995F0037DD54 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		018FD4782695EEC8000088F8 /* Result */ = {
@@ -9155,6 +9166,7 @@
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
+				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
 				010172C926CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift in Sources */,
 				5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */,
