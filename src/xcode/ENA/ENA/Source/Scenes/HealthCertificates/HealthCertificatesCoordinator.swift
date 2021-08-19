@@ -374,6 +374,11 @@ final class HealthCertificatesCoordinator {
 			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
 			style: .default,
 			handler: { [weak self] _ in
+				// Check first if the certificate is obtained in DE. If not, show error alert.
+				guard healthCertificate.cborWebTokenHeader.issuer == "DE" else {
+					self?.showPdfPrintErrorAlert()
+					return
+				}
 				self?.showPdfGenerationInfo(
 					healthCertificate: healthCertificate
 				)
@@ -481,6 +486,35 @@ final class HealthCertificatesCoordinator {
 
 		let okayAction = UIAlertAction(
 			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		modalNavigationController.present(alert, animated: true, completion: nil)
+	}
+	
+	private func showPdfPrintErrorAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.message,
+			preferredStyle: .alert
+		)
+		
+		let faqAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.faq,
+			style: .default,
+			handler: { _ in
+				// TODO
+				LinkHelper.open(urlString: AppStrings.Links.appFaq)
+			}
+		)
+		alert.addAction(faqAction)
+		
+		let okayAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.ok,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true)
