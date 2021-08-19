@@ -301,7 +301,7 @@ class RateLimitLoggerTests: CWATestCase {
 		let expectedLogMessages = [
 			MockLogger.Item(type: "Debug", message: "Soft rate limit is in synch with effective rate limit"),
 			MockLogger.Item(type: "Info", message: "Soft rate limit is stricter than effective rate limit"),
-			MockLogger.Item(type: "Warning", message: "Soft rate limit is too strict - it would have blocked this successfull exposure detection")
+			MockLogger.Item(type: "Warning", message: "Soft rate limit is too strict - it would have blocked this successful exposure detection")
 		]
 		let mock = MockLogger()
 		let store = MockTestStore()
