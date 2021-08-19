@@ -373,7 +373,9 @@ final class HealthCertificatesCoordinator {
 			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
 			style: .default,
 			handler: { [weak self] _ in
-//				self?.onInfoButtonTap()
+				self?.showPdfGenerationInfo(
+					healthCertificate: healthCertificate
+				)
 			}
 		)
 		actionSheet.addAction(printAction)
@@ -404,15 +406,6 @@ final class HealthCertificatesCoordinator {
 		)
 		actionSheet.addAction(cancelAction)
 		modalNavigationController.present(actionSheet, animated: true, completion: nil)
-
-		/*
-		
-		
-		
-		
-		// action for delete
-		
-	*/
 	}
 	
 	private func showDeleteAlert(
