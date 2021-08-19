@@ -28,7 +28,7 @@ struct HealthCertificateQRCodeViewModel {
 			qrCodeString = healthCertificate.base45
 		}
 
-		let qrCodeSize = UIScreen.main.bounds.width - 100
+		let qrCodeSize = 500
 
 		return UIImage.qrCode(
 			with: qrCodeString,
