@@ -230,30 +230,6 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		
-		XCTAssertNotNil(viewModel.qrCodeImage, "Image is missing")
-		XCTAssertNotNil(viewModel.qrCodeImage?.ciImage, "ciImage is missing")
-		
-		let detector = CIDetector(
-			ofType: CIDetectorTypeQRCode,
-			context: nil,
-			options: [CIDetectorAccuracy: CIDetectorAccuracyHigh]
-		)
-		
-		XCTAssertNotNil(detector, "detector is missing")
-
-		
-		
-		XCTAssertNotEqual(viewModel.qrCodeImage?.parsedQRCodeStrings.count, 0, "parsedQRCodeStrings is 0")
-		
-		
-		if let image = viewModel.qrCodeImage?.ciImage {
-			let features = detector?.features(in: image) ?? []
-			XCTAssertNotEqual(features.count, 0, "feature count is 0")
-
-		} else {
-			XCTFail("Image not found")
-		}
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
 			healthCertificate.base45
@@ -343,6 +319,7 @@ private extension UIImage {
 
 	var parsedQRCodeStrings: [String] {
 		guard let image = self.ciImage else {
+			XCTFail("ciImage missing")
 			return []
 		}
 
@@ -352,9 +329,12 @@ private extension UIImage {
 			options: [CIDetectorAccuracy: CIDetectorAccuracyHigh]
 		)
 
-		let features = detector?.features(in: image) ?? []
-
-		return features.compactMap {
+		guard let features = detector?.features(in: image) else {
+			XCTFail("No Features detected")
+			return []
+		}
+		
+		features.compactMap {
 			($0 as? CIQRCodeFeature)?.messageString
 		}
 	}
