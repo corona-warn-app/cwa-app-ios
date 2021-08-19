@@ -334,7 +334,7 @@ private extension UIImage {
 			return []
 		}
 		
-		features.compactMap {
+		return features.compactMap {
 			($0 as? CIQRCodeFeature)?.messageString
 		}
 	}
