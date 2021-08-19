@@ -2514,6 +2514,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "OnBehalfCheckinSubmission_ThankYou_Description" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
 
+/* - Errors */
+
+"OnBehalfCheckinSubmissionError_Failed" = "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe oder kontaktieren Sie die Stelle, die Ihnen die TAN mitgeteilt hat.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
