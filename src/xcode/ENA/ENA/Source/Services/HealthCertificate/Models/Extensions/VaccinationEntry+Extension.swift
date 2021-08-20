@@ -11,7 +11,7 @@ extension VaccinationEntry {
 		doseNumber == totalSeriesOfDoses
 	}
 
-	var isBoost: Bool {
+	var isBooster: Bool {
 		doseNumber > totalSeriesOfDoses
 	}
 
