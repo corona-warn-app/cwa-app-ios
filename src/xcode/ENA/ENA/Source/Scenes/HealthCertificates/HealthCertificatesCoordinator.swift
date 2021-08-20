@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 final class HealthCertificatesCoordinator {
 	
 	// MARK: - Init
@@ -256,26 +257,15 @@ final class HealthCertificatesCoordinator {
 		healthCertificate: HealthCertificate,
 		shouldPushOnModalNavigationController: Bool
 	) {
-		let deleteButtonTitle: String
-		switch healthCertificate.type {
-		case .vaccination:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
-		case .test:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
-		case .recovery:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
-		}
-
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
-			secondaryButtonName: deleteButtonTitle,
+			secondaryButtonName: AppStrings.HealthCertificate.Details.moreButtonTitle,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
 			isSecondaryButtonHidden: false,
 			primaryButtonInverted: false,
 			secondaryButtonInverted: true,
-			backgroundColor: .enaColor(for: .cellBackground),
-			secondaryTextColor: .systemRed
+			backgroundColor: .enaColor(for: .cellBackground)
 		)
 
 		let footerViewController = FooterViewController(footerViewModel)
@@ -309,28 +299,34 @@ final class HealthCertificatesCoordinator {
 					}
 				}
 			},
-			didTapDeleteButton: { [weak self] in
-				self?.showDeleteAlert(
-					certificateType: healthCertificate.type,
-					submitAction: UIAlertAction(
-						title: AppStrings.HealthCertificate.Alert.deleteButton,
-						style: .destructive,
-						handler: { _ in
-							guard let self = self else {
-								Log.error("Could not create strong self")
-								return
-							}
-							self.healthCertificateService.removeHealthCertificate(healthCertificate)
-							let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
+			didTapMoreButton: { [weak self] in
+				self?.showActionSheet(
+					healthCertificate: healthCertificate,
+					removeAction: { [weak self] in
+						// pass this as closure instead of passing several properties to showActionSheet().
+						self?.showDeleteAlert(
+							certificateType: healthCertificate.type,
+							submitAction: UIAlertAction(
+								title: AppStrings.HealthCertificate.Alert.deleteButton,
+								style: .destructive,
+								handler: { _ in
+									guard let self = self else {
+										Log.error("Could not create strong self")
+										return
+									}
+									self.healthCertificateService.removeHealthCertificate(healthCertificate)
+									let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
 
-							// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
-							if shouldPushOnModalNavigationController && isPersonStillExistent {
-								self.modalNavigationController.popToRootViewController(animated: true)
-							} else {
-								self.modalNavigationController.dismiss(animated: true)
-							}
-						}
-					)
+									// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
+									if shouldPushOnModalNavigationController && isPersonStillExistent {
+										self.modalNavigationController.popToRootViewController(animated: true)
+									} else {
+										self.modalNavigationController.dismiss(animated: true)
+									}
+								}
+							)
+						)
+					}
 				)
 			}
 		)
@@ -365,10 +361,52 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showActionSheet(
-		healthCertificate: HealthCertificate
+		healthCertificate: HealthCertificate,
+		removeAction: @escaping () -> Void
 	) {
+		let actionSheet = UIAlertController(
+			title: nil,
+			message: nil,
+			preferredStyle: .actionSheet
+		)
 		
-	
+		let printAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
+			style: .default,
+			handler: { [weak self] _ in
+				self?.showPdfGenerationInfo(
+					healthCertificate: healthCertificate
+				)
+			}
+		)
+		actionSheet.addAction(printAction)
+
+		let deleteButtonTitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
+		case .test:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		case .recovery:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
+		}
+		
+		let removeAction = UIAlertAction(
+			title: deleteButtonTitle,
+			style: .destructive,
+			handler: { _ in
+				removeAction()
+			}
+		)
+		actionSheet.addAction(removeAction)
+		
+		let cancelAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.cancel,
+			style: .cancel,
+			handler: nil
+		)
+		actionSheet.addAction(cancelAction)
+		modalNavigationController.present(actionSheet, animated: true, completion: nil)
 	}
 	
 	private func showDeleteAlert(
