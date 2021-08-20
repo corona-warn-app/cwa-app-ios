@@ -2933,6 +2933,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_cancelActionSheet" = "Abbrechen";
 
+/* Health Certificate Print PDF Error Alert */
+
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Druckversion anzeigen nicht möglich";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat nicht in Deutschland ausgestellt wurde.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ zur Druckversion";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
