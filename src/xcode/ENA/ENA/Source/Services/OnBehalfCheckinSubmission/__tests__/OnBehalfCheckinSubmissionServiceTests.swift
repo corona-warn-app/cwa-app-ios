@@ -205,4 +205,100 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testSubmissionWithSubmissionTANRequestError40x() {
+		let client = ClientMock()
+
+		let getTANForExposureSubmitExpectation = expectation(description: "getTANForExposureSubmit called")
+		client.onGetTANForExposureSubmit = { _, _, completion in
+			completion(.failure(.serverError(400)))
+			getTANForExposureSubmitExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .submissionTANError(.serverError(400)))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ein Fehler ist aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (TAN_OB_CLIENT_ERROR)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testSubmissionWithSubmissionTANRequestError50x() {
+		let client = ClientMock()
+
+		let getTANForExposureSubmitExpectation = expectation(description: "getTANForExposureSubmit called")
+		client.onGetTANForExposureSubmit = { _, _, completion in
+			completion(.failure(.serverError(500)))
+			getTANForExposureSubmitExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .submissionTANError(.serverError(500)))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (TAN_OB_SERVER_ERROR)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testSubmissionWithSubmissionTANRequestNoNetworkError() {
+		let client = ClientMock()
+
+		let getTANForExposureSubmitExpectation = expectation(description: "getTANForExposureSubmit called")
+		client.onGetTANForExposureSubmit = { _, _, completion in
+			completion(.failure(.noNetworkConnection))
+			getTANForExposureSubmitExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .submissionTANError(.noNetworkConnection))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (TAN_OB_NO_NETWORK)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 }
