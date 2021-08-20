@@ -621,6 +621,14 @@ enum AccessibilityIdentifiers {
 		}
 		
 	}
+
+	enum OnBehalfCheckinSubmission {
+
+		enum TraceLocationSelection {
+			static let selectionCell = "OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell"
+		}
+
+	}
 	
 	enum AntigenProfile {
 		
