@@ -6,6 +6,7 @@ import XCTest
 @testable import ENA
 import HealthCertificateToolkit
 
+// swiftlint:disable type_body_length
 class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testViewModelWithValidIncompleteVaccinationCertificate() throws {
