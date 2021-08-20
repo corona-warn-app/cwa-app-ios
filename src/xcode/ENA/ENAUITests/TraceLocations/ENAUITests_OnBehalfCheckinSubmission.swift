@@ -28,7 +28,7 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 	
 	// MARK: - Test cases.
 
-	func testOnBehalfCheckinSubmissionWithExistingTraceLocation() throws {
+	func test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation() throws {
 		// GIVEN
 		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
 
@@ -57,6 +57,8 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 		// Wait for info screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.Info.title)].waitForExistence(timeout: .short))
 
+		snapshot("onbehalfwarning_info")
+
 		// Tap continue
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 
@@ -70,12 +72,16 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 
 		app.cells[AccessibilityIdentifiers.OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell].firstMatch.waitAndTap()
 
+		snapshot("onbehalfwarning_location_selection")
+
 		// Tap continue
 		XCTAssertTrue(selectionContinueButton.isEnabled)
 		selectionContinueButton.waitAndTap()
 
 		// Wait for date and time selection screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title)].waitForExistence(timeout: .short))
+
+		snapshot("onbehalfwarning_date_time_selection")
 
 		// Tap continue
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
@@ -87,6 +93,8 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 		XCTAssertTrue(tanContinueButton.waitForExistence(timeout: .medium))
 		XCTAssertFalse(tanContinueButton.isEnabled)
 
+		snapshot("onbehalfwarning_tan")
+
 		// Fill in dummy TAN.
 		type(app, text: "qwdzxcsrhe")
 
@@ -96,6 +104,8 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 
 		// Wait for thank you screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.ThankYou.title)].waitForExistence(timeout: .short))
+
+		snapshot("onbehalfwarning_thank_you")
 	}
 
 	func testOnBehalfCheckinSubmissionWithQRCodeScan() throws {
