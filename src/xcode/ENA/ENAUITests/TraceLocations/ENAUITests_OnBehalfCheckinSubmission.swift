@@ -81,6 +81,8 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 		// Wait for date and time selection screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title)].waitForExistence(timeout: .short))
 
+		app.cells[AccessibilityIdentifiers.OnBehalfCheckinSubmission.DateTimeSelection.durationCell].waitAndTap(.extraLong)
+
 		snapshot("onbehalfwarning_date_time_selection")
 
 		// Tap continue
