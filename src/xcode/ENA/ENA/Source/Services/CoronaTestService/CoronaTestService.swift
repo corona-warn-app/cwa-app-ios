@@ -60,6 +60,8 @@ class CoronaTestService {
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
+		healthCertificateService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+
 		setup()
 	}
 
@@ -466,6 +468,19 @@ class CoronaTestService {
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 		store.positiveTestResultWasShown = false
 		store.isSubmissionConsentGiven = false
+	}
+
+	func setUniqueCertificateIdentifier(set testCertificateRequest: TestCertificateRequest, with uniqueCertificateIdentifier: String) {
+		switch testCertificateRequest.coronaTestType {
+		case .pcr:
+			if self.pcrTest?.registrationToken == testCertificateRequest.registrationToken {
+				pcrTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		case .antigen:
+			if self.antigenTest?.registrationToken == testCertificateRequest.registrationToken {
+				self.antigenTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		}
 	}
 
 	// MARK: - Private
