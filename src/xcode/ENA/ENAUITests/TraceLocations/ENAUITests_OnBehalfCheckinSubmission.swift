@@ -40,7 +40,7 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 
-		createTraceLocation(event: "Bäckerei", location: "Innenstadt")
+		createTraceLocation(event: "Konzert", location: "Konzerthalle Innenstadt")
 
 		// Wait for trace locations screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
@@ -184,9 +184,9 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 	private func createTraceLocation(event: String, location: String) {
 		// add trace location
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitAndTap()
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.foodService)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.temporary.subtitle.culturalEvent)].waitForExistence(timeout: .short))
 
-		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.foodService)].waitAndTap()
+		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.temporary.subtitle.culturalEvent)].waitAndTap()
 		let descriptionInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder]
 		let locationInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder]
 		descriptionInputField.waitAndTap()
