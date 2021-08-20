@@ -61,6 +61,7 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	enum CertificateEntry {
 		case vaccination(VaccinationEntry)
+		case boostVaccination(VaccinationEntry)
 		case test(TestEntry)
 		case recovery(RecoveryEntry)
 	}
@@ -124,7 +125,7 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	var type: CertificateType {
 		switch entry {
-		case .vaccination:
+		case .vaccination, .boostVaccination:
 			return .vaccination
 		case .test:
 			return .test
@@ -135,7 +136,10 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	var entry: CertificateEntry {
 		if let vaccinationEntry = vaccinationEntry {
-			return .vaccination(vaccinationEntry)
+			// check booster for vaccination certificate
+			return vaccinationEntry.doseNumber > vaccinationEntry.totalSeriesOfDoses ?
+				.boostVaccination(vaccinationEntry) :
+				.vaccination(vaccinationEntry)
 		} else if let testEntry = testEntry {
 			return .test(testEntry)
 		} else if let recoveryEntry = recoveryEntry {
@@ -169,7 +173,7 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	private var sortDate: Date? {
 		switch entry {
-		case .vaccination(let vaccinationEntry):
+		case .vaccination(let vaccinationEntry), .boostVaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate
 		case .test(let testEntry):
 			return testEntry.sampleCollectionDate

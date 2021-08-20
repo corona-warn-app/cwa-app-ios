@@ -259,7 +259,7 @@ final class HealthCertificateViewModel {
 
 	private func updateHealthCertificateKeyValueCellViewModels() {
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry):
+		case .vaccination(let vaccinationEntry), .boostVaccination(let vaccinationEntry):
 			updateVaccinationCertificateKeyValueCellViewModels(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
 			updateTestCertificateKeyValueCellViewModels(testEntry: testEntry)

@@ -47,6 +47,8 @@ final class HealthCertificateCellViewModel {
 				vaccinationEntry.doseNumber,
 				vaccinationEntry.totalSeriesOfDoses
 			)
+		case .boostVaccination:
+			return AppStrings.HealthCertificate.Person.VaccinationCertificate.booster
 		case .test(let testEntry) where testEntry.coronaTestType == .pcr:
 			return AppStrings.HealthCertificate.Person.TestCertificate.pcrTest
 		case .test(let testEntry) where testEntry.coronaTestType == .antigen:
@@ -61,7 +63,7 @@ final class HealthCertificateCellViewModel {
 
 	var detail: String? {
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry):
+		case .vaccination(let vaccinationEntry), .boostVaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate.map {
 				String(
 					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,
@@ -124,6 +126,8 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 			}
+		case .boostVaccination:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 		case .test:
 			return UIImage(imageLiteralResourceName: "TestCertificate_Icon")
 		case .recovery:
