@@ -15,7 +15,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.featureVersion = "2.9"
 		
-		// Warn Proxy
+		// Warn Guest
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature29WarnGuestTitle, description: AppStrings.NewVersionFeatures.feature29WarnGuestDescription)
 		)
