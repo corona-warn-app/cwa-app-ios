@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-enum OnBehalfCheckinSubmissionError: LocalizedError {
+enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 	case registrationTokenError(URLSession.Response.Failure)
 	case submissionTANError(URLSession.Response.Failure)
 	case submissionError(SubmissionError)

@@ -240,7 +240,7 @@ protocol Client {
 	)
 }
 
-enum SubmissionError: Error {
+enum SubmissionError: Error, Equatable {
 	case other(URLSession.Response.Failure)
 	case invalidPayloadOrHeaders
 	case invalidTan
