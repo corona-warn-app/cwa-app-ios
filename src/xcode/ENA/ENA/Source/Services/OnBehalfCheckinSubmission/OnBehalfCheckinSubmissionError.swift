@@ -39,13 +39,13 @@ enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 		case .submissionError(let submissionError):
 			switch submissionError {
 			case .invalidPayloadOrHeaders, .invalidTan:
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (TAN_OB_CLIENT_ERROR)"
+				return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (SUBMISSION_OB_CLIENT_ERROR)"
 			case .serverError(let statusCode) where (400...409).contains(statusCode):
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (TAN_OB_CLIENT_ERROR)"
+				return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (SUBMISSION_OB_CLIENT_ERROR)"
 			case .serverError(let statusCode) where (500...509).contains(statusCode):
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (TAN_OB_SERVER_ERROR)"
+				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (SUBMISSION_OB_SERVER_ERROR)"
 			case .other(.noNetworkConnection):
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.noNetwork) (TAN_OB_NO_NETWORK)"
+				return "\(AppStrings.OnBehalfCheckinSubmission.Error.noNetwork) (SUBMISSION_OB_NO_NETWORK)"
 			default:
 				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(submissionError))"
 			}
