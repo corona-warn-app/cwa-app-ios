@@ -42,8 +42,12 @@ class OnBehalfCheckinSubmissionService {
 							completion: { result in
 								switch result {
 								case .success:
+									Log.info("[OnBehalfCheckinSubmissionService] Submission succeeded", log: .api)
+
 									completion(.success(()))
 								case .failure(let error):
+									Log.error("[OnBehalfCheckinSubmissionService] Submission failed", log: .api, error: error)
+
 									completion(.failure(.submissionError(error)))
 								}
 							}
