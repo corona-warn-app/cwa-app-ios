@@ -82,7 +82,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			healthCertificate.validityState == .invalid ||
 			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
 			switch healthCertificate.entry {
-			case .vaccination, .boostVaccination:
+			case .vaccination:
 				return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
 			case .test:
 				return AppStrings.HealthCertificate.Person.TestCertificate.headline
@@ -97,7 +97,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	var subtitle: String? {
 		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon || (healthCertificate.type == .test && healthCertificate.validityState == .expired)) {
 			switch healthCertificate.entry {
-			case .vaccination(let vaccinationEntry), .boostVaccination(let vaccinationEntry):
+			case .vaccination(let vaccinationEntry):
 				return vaccinationEntry.localVaccinationDate.map {
 					String(
 						format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationDate,

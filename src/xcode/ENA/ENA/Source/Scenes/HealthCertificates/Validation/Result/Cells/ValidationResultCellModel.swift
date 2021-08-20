@@ -147,7 +147,7 @@ final class ValidationResultCellModel {
 
 	private func updateKeyValuePairs() {
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry), .boostVaccination(let vaccinationEntry):
+		case .vaccination(let vaccinationEntry):
 			updateKeyValuePairs(vaccinationEntry: vaccinationEntry)
 		case .test(let testEntry):
 			updateKeyValuePairs(testEntry: testEntry)
