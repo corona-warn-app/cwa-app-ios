@@ -13,11 +13,16 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.8"
+		self.featureVersion = "2.9"
 		
-		// Standardize  Name
+		// Warn Proxy
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature28StandardizeNameTitle, description: AppStrings.NewVersionFeatures.feature28StandardizeNameDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature29WarnGuestTitle, description: AppStrings.NewVersionFeatures.feature29WarnGuestDescription)
+		)
+		
+		// Vaccination Status for recovered
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature29VaccinationStatusRecoveredTitle, description: AppStrings.NewVersionFeatures.feature29VaccinationStatusRecoveredDescription)
 		)
 	}
 
