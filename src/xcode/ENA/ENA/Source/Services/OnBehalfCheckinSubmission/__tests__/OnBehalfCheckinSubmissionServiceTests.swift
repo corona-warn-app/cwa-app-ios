@@ -45,4 +45,164 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testSubmissionWithRegistrationTokenRequestErrorTeleTanAlreadyUsed() {
+		let client = ClientMock()
+
+		let getRegistrationTokenExpectation = expectation(description: "getRegistrationTokenExpectation called")
+		client.onGetRegistrationToken = { _, _, _, _, completion in
+			completion(.failure(.teleTanAlreadyUsed))
+			getRegistrationTokenExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .registrationTokenError(.teleTanAlreadyUsed))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe oder kontaktieren Sie die Stelle, die Ihnen die TAN mitgeteilt hat. (REGTOKEN_OB_CLIENT_ERROR)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testSubmissionWithRegistrationTokenRequestErrorQRAlreadyUsed() {
+		let client = ClientMock()
+
+		let getRegistrationTokenExpectation = expectation(description: "getRegistrationTokenExpectation called")
+		client.onGetRegistrationToken = { _, _, _, _, completion in
+			completion(.failure(.qrAlreadyUsed))
+			getRegistrationTokenExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .registrationTokenError(.qrAlreadyUsed))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe oder kontaktieren Sie die Stelle, die Ihnen die TAN mitgeteilt hat. (REGTOKEN_OB_CLIENT_ERROR)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testSubmissionWithRegistrationTokenRequestError40x() {
+		let client = ClientMock()
+
+		let getRegistrationTokenExpectation = expectation(description: "getRegistrationTokenExpectation called")
+		client.onGetRegistrationToken = { _, _, _, _, completion in
+			completion(.failure(.serverError(400)))
+			getRegistrationTokenExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .registrationTokenError(.serverError(400)))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe oder kontaktieren Sie die Stelle, die Ihnen die TAN mitgeteilt hat. (REGTOKEN_OB_CLIENT_ERROR)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testSubmissionWithRegistrationTokenRequestError50x() {
+		let client = ClientMock()
+
+		let getRegistrationTokenExpectation = expectation(description: "getRegistrationTokenExpectation called")
+		client.onGetRegistrationToken = { _, _, _, _, completion in
+			completion(.failure(.serverError(500)))
+			getRegistrationTokenExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .registrationTokenError(.serverError(500)))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (REGTOKEN_OB_SERVER_ERROR)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testSubmissionWithRegistrationTokenRequestNoNetworkError() {
+		let client = ClientMock()
+
+		let getRegistrationTokenExpectation = expectation(description: "getRegistrationTokenExpectation called")
+		client.onGetRegistrationToken = { _, _, _, _, completion in
+			completion(.failure(.noNetworkConnection))
+			getRegistrationTokenExpectation.fulfill()
+		}
+
+		let service = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let completionExpectation = expectation(description: "completion called")
+		service.submit(checkin: .mock(), teleTAN: "2222222223") { result in
+			switch result {
+			case .success:
+				XCTFail("Expected failure")
+			case .failure(let error):
+				XCTAssertEqual(error, .registrationTokenError(.noNetworkConnection))
+				XCTAssertEqual(
+					error.localizedDescription,
+					"Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (REGTOKEN_OB_NO_NETWORK)"
+				)
+			}
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 }
