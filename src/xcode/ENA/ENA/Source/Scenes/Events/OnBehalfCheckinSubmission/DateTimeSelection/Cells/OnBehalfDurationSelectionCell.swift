@@ -13,7 +13,7 @@ final class OnBehalfDurationSelectionCell: UITableViewCell, ReuseIdentifierProvi
 		super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		backgroundColor = .clear
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Validation.countrySelection
+		accessibilityIdentifier = AccessibilityIdentifiers.OnBehalfCheckinSubmission.DateTimeSelection.durationCell
 		accessibilityTraits = .button
 		createAndLayoutViewHierarchy()
 	}
