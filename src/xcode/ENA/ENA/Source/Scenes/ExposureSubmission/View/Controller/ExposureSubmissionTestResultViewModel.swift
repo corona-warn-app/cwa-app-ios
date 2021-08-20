@@ -706,6 +706,25 @@ extension ExposureSubmissionTestResultViewModel {
 extension ExposureSubmissionTestResultViewModel {
 	
 	private var expiredTestResultSections: [DynamicSection] {
+//		var cells = [ DynamicCell.identifier(
+//			ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+//			configure: { view, _, _ in
+//					(view as? HealthCertificateCell)?.configure(
+//						HealthCertificateCellViewModel(
+//							healthCertificate: nil,
+//							healthCertifiedPerson: nil
+//						)
+//				)
+//			})
+//		]
+//		
+//		cells.append(contentsOf: [
+//			DynamicCell.title2(
+//				text: AppStrings.ExposureSubmissionResult.procedure,
+//				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
+//			)
+//		])
+		
 		var cells = [
 			DynamicCell.title2(
 				text: AppStrings.ExposureSubmissionResult.procedure,

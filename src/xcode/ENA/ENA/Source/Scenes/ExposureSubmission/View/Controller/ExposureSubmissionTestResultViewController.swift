@@ -92,6 +92,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.pcrTestResult.rawValue
 		)
 		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.healthCertificateCell.rawValue
+		)
+		tableView.register(
 			AntigenExposureSubmissionNegativeTestResultHeaderView.self,
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.antigenTestResult.rawValue
 		)
@@ -195,5 +199,6 @@ extension ExposureSubmissionTestResultViewController {
 extension ExposureSubmissionTestResultViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
+		case healthCertificateCell
 	}
 }
