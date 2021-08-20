@@ -507,8 +507,7 @@ final class HealthCertificatesCoordinator {
 			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.faq,
 			style: .default,
 			handler: { _ in
-				// TODO
-				LinkHelper.open(urlString: AppStrings.Links.appFaq)
+				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
 			}
 		)
 		alert.addAction(faqAction)
