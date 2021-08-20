@@ -79,8 +79,6 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 		return captureSession
 	}()
 
-	private let appConfiguration: AppConfigurationProviding
-	private let verificationHelper: QRCodeVerificationHelper
 	var onSuccess: (TraceLocation) -> Void
 	var onError: ((CheckinQRScannerError) -> Void)?
 	/// get current torchMode by device state
@@ -155,6 +153,9 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 	// MARK: - Private
 
 	private let captureDevice: AVCaptureDevice?
+	private let appConfiguration: AppConfigurationProviding
+	private let verificationHelper: QRCodeVerificationHelper
+
 	var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
 	}
@@ -178,4 +179,5 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 			Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
 		}
 	}
+	
 }
