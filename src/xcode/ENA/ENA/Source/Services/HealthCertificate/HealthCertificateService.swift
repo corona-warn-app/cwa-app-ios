@@ -55,7 +55,8 @@ class HealthCertificateService {
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
-
+	var didRegisterTestCertificate: ((TestCertificateRequest, String) -> Void)?
+	
 	var nextValidityTimer: Timer?
 
 	var nextFireDate: Date? {
@@ -764,8 +765,11 @@ class HealthCertificateService {
 				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
 
 				switch registerResult {
-				case .success:
+				case .success((_, let healthCertificate)):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
+					
+					didRegisterTestCertificate?(testCertificateRequest, healthCertificate.uniqueCertificateIdentifier ?? "")
+					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
 				case .failure(let error):
