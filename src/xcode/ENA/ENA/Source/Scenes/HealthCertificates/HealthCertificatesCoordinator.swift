@@ -299,7 +299,7 @@ final class HealthCertificatesCoordinator {
 					}
 				}
 			},
-			didTapActionSheet: { [weak self] in
+			didTapMoreButton: { [weak self] in
 				self?.showActionSheet(
 					healthCertificate: healthCertificate,
 					removeAction: { [weak self] in
