@@ -2971,7 +2971,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Body2" = "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.";
 
-"HealthCertificate_Validation_Headline2" = "Hinweis";
+"HealthCertificate_Validation_Headline2" = "Hinweise";
 
 "HealthCertificate_Validation_Bullet1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
@@ -3011,7 +3011,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
+"HealthCertificate_Validation_Passed_hintsTitle" = "Hinweise";
 
 "HealthCertificate_Validation_Passed_hint1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
@@ -3029,7 +3029,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Open_subtitle" = "Ihr Zertifikat konnte nicht vollständig geprüft werden";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Hinweis";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Hinweise";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
 
