@@ -49,7 +49,7 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 		app.navigationBars.buttons[AccessibilityIdentifiers.TraceLocation.Overview.menueButton].waitAndTap()
 
 		// verify the buttons
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.infoTitle)].exists)
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].exists)
 
 		// tap "In Vertretung warnen" button
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].waitAndTap()
@@ -115,7 +115,7 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 		app.navigationBars.buttons[AccessibilityIdentifiers.TraceLocation.Overview.menueButton].waitAndTap()
 
 		// verify the buttons
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.infoTitle)].exists)
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].exists)
 
 		// tap "In Vertretung warnen" button
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].waitAndTap()
@@ -176,7 +176,7 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.addButtonTitle)].waitAndTap()
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.foodService)].waitForExistence(timeout: .short))
 
-		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.workplace)].waitAndTap()
+		app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.subtitle.foodService)].waitAndTap()
 		let descriptionInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder]
 		let locationInputField = app.textFields[AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder]
 		descriptionInputField.waitAndTap()
