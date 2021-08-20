@@ -20,10 +20,8 @@ class RateLimitLogger {
 
 	// MARK: - Internal
 	
-	var previousErrorCode: ENError.Code? {
-		_previousErrorCode
-	}
-
+	var previousErrorCode: ENError.Code?
+	
 	func logBlocking(configuration: RiskProvidingConfiguration) -> Bool {
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 			lastExposureDetectionDate: store.referenceDateForRateLimitLogger, context: .rateLimitLogger
@@ -45,7 +43,7 @@ class RateLimitLogger {
 			if blocking {
 				Log.warning("Soft rate limit is too strict - it would have blocked this successful exposure detection", log: .riskDetection, logger: logger)
 			}
-			_previousErrorCode = nil
+			previousErrorCode = nil
 		case let .failure(failure):
 			switch failure {
 			case let .noExposureWindows(error as ENError):
@@ -59,7 +57,7 @@ class RateLimitLogger {
 					}
 					return
 				}
-				_previousErrorCode = error.code
+				previousErrorCode = error.code
 			default:
 				break
 			}
@@ -85,6 +83,5 @@ class RateLimitLogger {
 	// MARK: - Private
 
 	private let store: Store
-	private var _previousErrorCode: ENError.Code?
 	private var logger: Logging?
 }
