@@ -653,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Dziękujemy za wyrażenie zgody na udostępnienie wyniku testu i pomoc w ostrzeganiu innych osób.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "W następnym kroku udostępnij wynik testu, klikając opcję „Udostępnij”.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Jeśli nie wyraziłeś swojej zgody na dostęp do losowych identyfikatorów lub jeśli od wyrażenia zgody upłynęło ponad pięć dni, wyraź zgodę w następnym kroku.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Zdecydowałeś(-aś) się nie udostępniać wyniku testu. Inne osoby nie zostaną ostrzeżone.";
 
@@ -1564,10 +1564,6 @@
 
 "NewVersionFeature_28_standardizeName_description" = "Poza nazwą w pisowni specyficznej dla kraju każdy certyfikat ma wyświetlaną również nazwę w standardowych znakach łacińskich.";
 
-"NewVersionFeature_28_certificateFromTestResult_title" = "Otwórz certyfikat z wyniku testu";
-
-"NewVersionFeature_28_certificateFromTestResult_description" = "Teraz możesz wywołać swój unijny cyfrowy certyfikat testu na COVID ze swojego wyniku testu, jeśli jest on dostępny.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
 
@@ -2062,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "Ocena trendu dotyczącego ostrzeżeń wysyłanych przez użytkowników aplikacji zmienia się w zależności od aktualnych poziomów zakażenia, dlatego trend ten jest zawsze wyświetlany jako neutralny.";
 
 "Statistics_Info_Image_AccLabel" = "Abstrakcyjne zdjęcie smartfona z czterema symbolami zastępczymi do celów informacyjnych";
+
+"Statistics_Info_Blog_Description" = "Aby uzyskać więcej informacji dotyczących zawartości poszczególnych wskaźników, przeczytaj nasz %@.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
 
 /* Update OS */
 "UpdateOS_title" = "Zaktualizuj swój iOS.";
@@ -2844,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Certyfikat jest ważny.";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Walidacja certyfikatu jest niemożliwa";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Twój certyfikat jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Twój certyfikat nie mógł zostać zweryfikowany";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Uwaga";
 
