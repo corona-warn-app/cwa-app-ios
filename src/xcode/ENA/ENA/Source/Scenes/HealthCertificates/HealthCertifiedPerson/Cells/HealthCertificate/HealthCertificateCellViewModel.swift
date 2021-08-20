@@ -41,7 +41,7 @@ final class HealthCertificateCellViewModel {
 
 	var subheadline: String? {
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBoostVaccination:
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBoost:
 			return AppStrings.HealthCertificate.Person.VaccinationCertificate.booster
 		case .vaccination(let vaccinationEntry):
 			return String(
@@ -116,7 +116,7 @@ final class HealthCertificateCellViewModel {
 		}
 
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBoostVaccination:
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBoost:
 			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries:
 			if case .completelyProtected = healthCertifiedPerson.vaccinationState {
