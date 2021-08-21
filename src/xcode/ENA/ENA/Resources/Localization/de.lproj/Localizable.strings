@@ -526,7 +526,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe. Sie werden auf eine externe Website des RKI weitergeleitet.";
 
 /* Exposure Submission Hotline */
 
