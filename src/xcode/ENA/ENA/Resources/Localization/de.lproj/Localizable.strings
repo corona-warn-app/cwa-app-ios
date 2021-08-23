@@ -526,7 +526,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe. Sie werden auf eine externe Website des RKI weitergeleitet.";
 
 /* Exposure Submission Hotline */
 
@@ -2825,6 +2825,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+"HealthCertifiedPerson_VaccinationCertificate_booster" = "Auffrischungsimpfung";
 
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
