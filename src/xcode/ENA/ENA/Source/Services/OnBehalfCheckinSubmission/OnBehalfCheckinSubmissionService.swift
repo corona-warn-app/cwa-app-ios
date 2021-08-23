@@ -13,6 +13,15 @@ class OnBehalfCheckinSubmissionService {
 		client: Client,
 		appConfigurationProvider: AppConfigurationProviding
 	) {
+		#if DEBUG
+		if isUITesting {
+			self.client = ClientMock()
+			self.appConfigurationProvider = CachedAppConfigurationMock()
+
+			return
+		}
+		#endif
+
 		self.client = client
 		self.appConfigurationProvider = appConfigurationProvider
 	}
