@@ -18,7 +18,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 		self.client = client
 		self.store = store
-		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(Self.defaultAppConfig)
+		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(store.appConfigMetadata?.appConfig ?? Self.defaultAppConfig)
 
 		guard shouldFetch() else { return }
 
