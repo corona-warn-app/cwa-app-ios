@@ -12,7 +12,7 @@ extension HealthCertificate {
 		case pdfDocumentCreationFailed
 	}
 
-	func generatePDF() throws -> PDFDocument {
+	func generatePDF(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFDocument {
 		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
 			throw PDFGenerationError.pdfDocumentCreationFailed
 		}
@@ -29,24 +29,22 @@ extension HealthCertificate {
 		try pdfDocument.embedImageAndText(
 			image: qrCodeImage,
 			at: CGPoint(x: 132, y: 436),
-			texts: texts
+			texts: texts(with: valueSets)
 		)
 
 		return pdfDocument
 	}
 
 	private var pdfTemplate: Data {
-//		let templateName: String
-//		switch type {
-//		case .vaccination:
-//			templateName = "VaccinationCertificateTemplate_v4.1"
-//		case .test:
-//			templateName = "TestCertificateTemplate_v4.1"
-//		case .recovery:
-//			templateName = "RecoveryCertificateTemplate_v4.1"
-//		}
-
-		let templateName = "TestCertificateTemplate_v4.1"
+		let templateName: String
+		switch type {
+		case .vaccination:
+			templateName = "VaccinationCertificateTemplate_v4.1"
+		case .test:
+			templateName = "TestCertificateTemplate_v4.1"
+		case .recovery:
+			templateName = "RecoveryCertificateTemplate_v4.1"
+		}
 
 		guard let tempalteURL = Bundle.main.url(forResource: templateName, withExtension: "pdf"),
 			  let templateData = FileManager.default.contents(atPath: tempalteURL.path) else {
@@ -55,18 +53,18 @@ extension HealthCertificate {
 		return templateData
 	}
 
-	private var texts: [PDFText] {
+	private func texts(with valueSets: SAP_Internal_Dgc_ValueSets) -> [PDFText] {
 		switch entry {
 		case .vaccination(let entry):
-			return vaccinationTexts(for: entry)
+			return vaccinationTexts(for: entry, with: valueSets)
 		case .test(let entry):
-			return testTexts(for: entry)
-		default:
-			return []
+			return testTexts(for: entry, with: valueSets)
+		case .recovery(let entry):
+			return recoveryTexts(for: entry, with: valueSets)
 		}
 	}
 
-	private func vaccinationTexts(for entry: VaccinationEntry) -> [PDFText] {
+	private func vaccinationTexts(for entry: VaccinationEntry, with valueSets: SAP_Internal_Dgc_ValueSets) -> [PDFText] {
 		[
 			PDFText(
 				text: entry.certificateIssuer,
@@ -90,28 +88,28 @@ extension HealthCertificate {
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.marketingAuthorizationHolder,
+				text: entry.formattedValue(for: \VaccinationEntry.marketingAuthorizationHolder, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 158, y: 173, width: 126, height: 23),
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.vaccineMedicinalProduct,
+				text: entry.formattedValue(for: \VaccinationEntry.vaccineMedicinalProduct, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 158, y: 230, width: 126, height: 23),
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.vaccineOrProphylaxis,
+				text: entry.formattedValue(for: \VaccinationEntry.vaccineOrProphylaxis, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 19, y: 303, width: 126, height: 23),
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.diseaseOrAgentTargeted,
+				text: entry.formattedValue(for: \VaccinationEntry.diseaseOrAgentTargeted, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 19, y: 331, width: 126, height: 23),
@@ -148,7 +146,7 @@ extension HealthCertificate {
 		]
 	}
 
-	private func testTexts(for entry: TestEntry) -> [PDFText] {
+	private func testTexts(for entry: TestEntry, with valueSets: SAP_Internal_Dgc_ValueSets) -> [PDFText] {
 		[
 			PDFText(
 				text: entry.certificateIssuer,
@@ -172,7 +170,7 @@ extension HealthCertificate {
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.testResult,
+				text: entry.formattedValue(for: \TestEntry.testResult, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 7, y: 108, width: 112, height: 21),
@@ -186,7 +184,7 @@ extension HealthCertificate {
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.ratTestName ?? "",
+				text: entry.formattedValue(for: \TestEntry.ratTestName, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 171, y: 190, width: 112, height: 21),
@@ -200,14 +198,14 @@ extension HealthCertificate {
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.typeOfTest,
+				text: entry.formattedValue(for: \TestEntry.typeOfTest, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 7, y: 305, width: 112, height: 21),
 				upsideDown: true
 			),
 			PDFText(
-				text: entry.diseaseOrAgentTargeted,
+				text: entry.formattedValue(for: \TestEntry.diseaseOrAgentTargeted, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 7, y: 333, width: 112, height: 21),
@@ -238,6 +236,74 @@ extension HealthCertificate {
 		]
 	}
 
+	private func recoveryTexts(for entry: RecoveryEntry, with valueSets: SAP_Internal_Dgc_ValueSets) -> [PDFText] {
+		[
+			PDFText(
+				text: entry.certificateValidUntil,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 14, y: 55, width: 125, height: 47),
+				upsideDown: true
+			),
+			PDFText(
+				text: entry.certificateValidFrom,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 14, y: 118, width: 125, height: 23),
+				upsideDown: true
+			),
+			PDFText(
+				text: entry.certificateIssuer,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 14, y: 163, width: 125, height: 23),
+				upsideDown: true
+			),
+			PDFText(
+				text: entry.countryOfTest,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 14, y: 209, width: 125, height: 23),
+				upsideDown: true
+			),
+			PDFText(
+				text: entry.dateOfFirstPositiveNAAResult,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 14, y: 264, width: 125, height: 19),
+				upsideDown: true
+			),
+			PDFText(
+				text: entry.formattedValue(for: \RecoveryEntry.diseaseOrAgentTargeted, valueSets: valueSets) ?? "",
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 14, y: 326, width: 125, height: 28),
+				upsideDown: true
+			),
+			PDFText(
+				text: name.reversedFullNameWithoutFallback,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 29, y: 693, width: 267, height: 23),
+				upsideDown: false
+			),
+			PDFText(
+				text: dateOfBirth,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 29, y: 740, width: 267, height: 23),
+				upsideDown: false
+			),
+			PDFText(
+				text: entry.uniqueCertificateIdentifier,
+				color: textColor,
+				font: HealthCertificate.openSansFont,
+				rect: CGRect(x: 29, y: 785, width: 267, height: 23),
+				upsideDown: false
+			)
+		]
+	}
+
 	private static var openSansFont: UIFont = {
 		guard let font = UIFont(name: "OpenSans-Regular", size: 8) else {
 			fatalError("Could not find OpenSans-Font.")
@@ -249,10 +315,10 @@ extension HealthCertificate {
 		.enaColor(for: .certificatePDFBlue)
 	}
 
-	func createPdfView() throws -> PDFView {
+	func createPdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
 
 		let pdfView = PDFView()
-		let pdfDocument = try generatePDF()
+		let pdfDocument = try generatePDF(with: valueSets)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
