@@ -5,7 +5,7 @@ set -euo pipefail
 SCREENSHOT_URL=$1
 
 if curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"; then
-  curl --output /dev/null --silent $SAP_TEAMS_WEBHOOK \
+  curl --output /dev/null --silent $SAP_TEAMS_SCREENSHOTS_WEBHOOK \
   -H 'Content-Type: application/json' \
   --data-binary @- << EOF
 {
