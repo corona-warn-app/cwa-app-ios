@@ -47,7 +47,7 @@ extension RiskProvidingConfiguration {
 	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
 	///     - currentDate: Current timestamp.
 	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?, currentDate: Date = Date(), context: ExposureDetectionContext = .other) -> Bool {
-		Log.debug("[RiskProvidingConfiguration] Last exposure date input\(context.description): \(String(describing: lastExposureDetectionDate))", log: .riskDetection)
+		Log.debug("[RiskProvidingConfiguration] Last exposure date input\(context.loggingExtension): \(String(describing: lastExposureDetectionDate))", log: .riskDetection)
 		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
 			// It is not valid to have a future exposure detection date.
 			return true
@@ -75,7 +75,8 @@ enum ExposureDetectionContext {
 }
 
 extension ExposureDetectionContext {
-	var description: String {
+	// will be concatenated into the logging message
+	var loggingExtension: String {
 		switch self {
 		case .rateLimitLogger:
 			return " for rate limit logging"
