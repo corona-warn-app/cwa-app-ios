@@ -17,15 +17,11 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 								
 			// Illustration with information text
 			.section(
-				header:
-					.image(
-						UIImage(
-							imageLiteralResourceName: "Illu_Print"
-						),
-						accessibilityLabel: AppStrings.HealthCertificate.PrintPDF.Info.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.PrintPdf.imageDescription
-					),
 				cells: [
+					.headlineWithImage(
+						headerText: AppStrings.HealthCertificate.PrintPDF.Info.title,
+						image: UIImage(imageLiteralResourceName: "Illu_Print")
+					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
 						text: .string(AppStrings.HealthCertificate.PrintPDF.Info.section01),
