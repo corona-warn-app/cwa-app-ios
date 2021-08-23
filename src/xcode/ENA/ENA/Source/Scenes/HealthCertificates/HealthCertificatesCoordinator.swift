@@ -458,7 +458,7 @@ final class HealthCertificatesCoordinator {
 				self?.showPdfGenerationResult(pdfView: pdfView)
 			},
 			onDismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
+				self?.modalNavigationController.dismiss(animated: true)
 			}
 		)
 		
@@ -477,7 +477,8 @@ final class HealthCertificatesCoordinator {
 			bottomController: footerViewController
 		)
 		
-		modalNavigationController.pushViewController(topBottomContainerViewController, animated: true)
+		let navigationController = DismissHandlingNavigationController(rootViewController: topBottomContainerViewController)
+		modalNavigationController.present(navigationController, animated: true)
 	}
 	
 	private func showPdfGenerationResult(
