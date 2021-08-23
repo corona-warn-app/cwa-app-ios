@@ -216,6 +216,9 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 					let dscListResponse = DSCListResponse(dscList: DSCList, eTag: responseETag)
 					Log.info("Received DSCList \(try DSCList.jsonString())", log: .vaccination)
 					completion(.success(dscListResponse))
+				} catch URLSessionError.notModified {
+					Log.error("Server not modified since last update", log: .api)
+					completion(.failure(URLSessionError.notModified))
 				} catch {
 					Log.error("Failed to unpack / parse data from the response to expected data structure", log: .api)
 					completion(.failure(error))
