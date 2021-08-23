@@ -526,7 +526,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe. Sie werden auf eine externe Website des RKI weitergeleitet.";
 
 /* Exposure Submission Hotline */
 
@@ -1600,9 +1600,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Version 2.8 */
 
-"NewVersionFeature_28_standardizeName_title" = "Standardisierter Name";
+"NewVersionFeature_29_warnGuest_title" = "In Vertretung warnen";
 
-"NewVersionFeature_28_standardizeName_description" = "Neben dem Namen in der länderspezifischen Schreibweise wird nun in jedem Zertifikat auch der Name in standardisierter, lateinischer Schreibweise angezeigt.";
+"NewVersionFeature_29_warnGuest_description" = "Als Organisator eines Events können Sie nun Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Sofortige Impfstatusanzeige für Genesene";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Für Genesene wird ab jetzt direkt nach der ersten Impfung der vollständige Impfschutz in der Corona-Warn-App angezeigt. Die zweiwöchige Wartezeit entfällt bei fast allen Impfstoffen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
