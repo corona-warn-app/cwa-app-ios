@@ -85,7 +85,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 		case dataVerificationError(message: String?)
 	}
 
-	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+	let currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
 
 	var featureProvider: AppFeatureProviding {
 		let appFeatureProvider = AppFeatureProvider(appConfigurationProvider: self)
