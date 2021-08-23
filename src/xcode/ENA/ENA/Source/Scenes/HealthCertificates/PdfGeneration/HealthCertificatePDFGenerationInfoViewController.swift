@@ -29,9 +29,28 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		setupNavigationBar()
+		
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.largeTitleDisplayMode = .never
+		
 		setupView()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.setupTransparentNavigationBar()
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.restoreOriginalNavigationBar()
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -59,23 +78,6 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 	private let onTapContinue: (PDFView) -> Void
 	private let onDismiss: () -> Void
 	
-	private func setupNavigationBar() {
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		
-		if #available(iOS 13.0, *) {
-			parent?.isModalInPresentation = true
-		}
-		// we need to "reset" the normal nav bar behaviour because we modified it in the screen before (HealthCertificateViewController)
-		navigationItem.largeTitleDisplayMode = .automatic
-		navigationItem.title = viewModel.title
-		
-		if traitCollection.userInterfaceStyle == .dark {
-			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
-		} else {
-			navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
-		}
-	}
-
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
 
