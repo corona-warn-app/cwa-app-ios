@@ -41,6 +41,8 @@ final class HealthCertificateCellViewModel {
 
 	var subheadline: String? {
 		switch healthCertificate.entry {
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBooster:
+			return AppStrings.HealthCertificate.Person.VaccinationCertificate.booster
 		case .vaccination(let vaccinationEntry):
 			return String(
 				format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
@@ -114,16 +116,16 @@ final class HealthCertificateCellViewModel {
 		}
 
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry):
-			if vaccinationEntry.isLastDoseInASeries {
-				if case .completelyProtected = healthCertifiedPerson.vaccinationState {
-					return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
-				} else {
-					return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
-				}
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBooster:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries:
+			if case .completelyProtected = healthCertifiedPerson.vaccinationState {
+				return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 			} else {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
+				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
 			}
+		case .vaccination:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 		case .test:
 			return UIImage(imageLiteralResourceName: "TestCertificate_Icon")
 		case .recovery:

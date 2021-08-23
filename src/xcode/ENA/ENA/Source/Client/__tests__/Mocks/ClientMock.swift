@@ -52,7 +52,8 @@ final class ClientMock {
 	// MARK: - Configurable Mock Callbacks.
 
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
-	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
+	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
+	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onGetRegistrationToken: ((String, String, String?, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
@@ -137,8 +138,12 @@ extension ClientMock: Client {
 		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
 	}
 
-	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitCountries(payload, isFake, completion)
+	}
+	
+	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		onSubmitOnBehalf(payload, isFake, completion)
 	}
 
 	func getRegistrationToken(

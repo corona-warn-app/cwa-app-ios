@@ -91,9 +91,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
-			coronaTestService: model.coronaTestService,
-			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.showOverrideTestNoticeIfNecessary(testRegistrationInformation: testRegistrationInformation, submissionConsentGiven: false, isLoading: isLoading)
+			title: AppStrings.ExposureSubmissionTanEntry.title,
+			description: AppStrings.ExposureSubmissionTanEntry.description,
+			onPrimaryButtonTap: { [weak self] tan, isLoading in
+				self?.showOverrideTestNoticeIfNecessary(
+					testRegistrationInformation: .teleTAN(tan: tan),
+					submissionConsentGiven: false,
+					isLoading: isLoading
+				)
 			}
 		)
 
@@ -625,7 +630,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
 			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
 			isPrimaryButtonEnabled: false,
-			backgroundColor: .enaColor(for: .darkBackground)
+			backgroundColor: .enaColor(for: .background)
 		)
 
 		let checkinsVC = ExposureSubmissionCheckinsViewController(

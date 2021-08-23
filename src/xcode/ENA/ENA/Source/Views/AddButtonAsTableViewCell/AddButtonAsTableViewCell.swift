@@ -15,6 +15,8 @@ class AddButtonAsTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		isAccessibilityElement = false
 		containerView.isAccessibilityElement = true
 		containerView.accessibilityTraits = .button
+
+		setCellBackgroundColor()
 	}
 
 	override func prepareForReuse() {
@@ -29,7 +31,7 @@ class AddButtonAsTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		if highlighted {
 			containerView.backgroundColor = .enaColor(for: .listHighlight)
 		} else {
-			containerView.backgroundColor = .enaColor(for: .cellBackground)
+			containerView.backgroundColor = cellBackgroundColor
 		}
 	}
 
@@ -62,6 +64,20 @@ class AddButtonAsTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	@IBOutlet private weak var label: ENALabel!
 
 	private var subscriptions = Set<AnyCancellable>()
+
 	private var cellModel: AddButtonAsTableViewCelling?
+	private var cellBackgroundColor: UIColor = .enaColor(for: .cellBackground)
+
+	private func setCellBackgroundColor() {
+		if #available(iOS 13.0, *) {
+			if traitCollection.userInterfaceLevel == .elevated {
+				cellBackgroundColor = .enaColor(for: .cellBackground3)
+			} else {
+				cellBackgroundColor = .enaColor(for: .cellBackground)
+			}
+		}
+
+		containerView.backgroundColor = cellBackgroundColor
+	}
     
 }

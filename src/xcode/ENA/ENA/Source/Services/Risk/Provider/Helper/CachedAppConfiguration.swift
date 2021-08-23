@@ -18,7 +18,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 
 		self.client = client
 		self.store = store
-		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(Self.defaultAppConfig)
+		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(store.appConfigMetadata?.appConfig ?? Self.defaultAppConfig)
 
 		guard shouldFetch() else { return }
 
@@ -85,7 +85,7 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 		case dataVerificationError(message: String?)
 	}
 
-	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+	let currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
 
 	var featureProvider: AppFeatureProviding {
 		let appFeatureProvider = AppFeatureProvider(appConfigurationProvider: self)
@@ -234,15 +234,15 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	private func resolvePromises(with result: Result<CachedAppConfiguration.AppConfigResponse, Never>) {
 		Log.debug("resolvePromises count: \(self.promises.count).", log: .appConfig)
 
-		for promise in self.promises {
-			promise(result)
-		}
-
 		if case let .success(appConfigResponse) = result,
 		   currentAppConfig.value != appConfigResponse.config {
 			currentAppConfig.value = appConfigResponse.config
 		}
 
-		promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
+		for promise in self.promises {
+			promise(result)
+		}
+
+		promises = []
 	}
 }
