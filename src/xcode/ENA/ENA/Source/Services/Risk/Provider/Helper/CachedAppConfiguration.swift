@@ -234,15 +234,15 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	private func resolvePromises(with result: Result<CachedAppConfiguration.AppConfigResponse, Never>) {
 		Log.debug("resolvePromises count: \(self.promises.count).", log: .appConfig)
 
-		for promise in self.promises {
-			promise(result)
-		}
-
 		if case let .success(appConfigResponse) = result,
 		   currentAppConfig.value != appConfigResponse.config {
 			currentAppConfig.value = appConfigResponse.config
 		}
 
-		promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
+		for promise in self.promises {
+			promise(result)
+		}
+
+		promises = []
 	}
 }
