@@ -5,10 +5,9 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionCheckinTests: CWATestCase {
+class CheckinSubmissionPreparationTests: CWATestCase {
 
 	func testCheckinTransmissionPreparationFiltersSubmittedCheckins() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startDate = Date()
@@ -23,10 +22,9 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		]
 
 		// process checkins
-		let preparedCheckins = service.preparedCheckinsForSubmission(
-			checkins: checkins,
+		let preparedCheckins = checkins.preparedForSubmission(
 			appConfig: appConfig,
-			symptomOnset: .daysSinceOnset(0)
+			transmissionRiskLevelSource: .symptomsOnset(.daysSinceOnset(0))
 		)
 
 		XCTAssertEqual(preparedCheckins.count, 2)
@@ -36,7 +34,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
 	func testCheckinProtectedReportsPreparationFiltersSubmittedCheckins() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startDate = Date()
@@ -51,10 +48,9 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		]
 
 		// process checkins
-		let checkinProtectedReports = service.preparedCheckinProtectedReportsForSubmission(
-			checkins: checkins,
+		let checkinProtectedReports = checkins.preparedProtectedReportsForSubmission(
 			appConfig: appConfig,
-			symptomOnset: .daysSinceOnset(0)
+			transmissionRiskLevelSource: .symptomsOnset(.daysSinceOnset(0))
 		)
 
 		XCTAssertEqual(checkinProtectedReports.count, 2)
@@ -80,7 +76,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
     func testCheckinTransmissionPreparation() throws {
-        let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let checkin = Checkin.mock(
@@ -89,10 +84,9 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let preparedCheckins = service.preparedCheckinsForSubmission(
-			checkins: [checkin],
+		let preparedCheckins = [checkin].preparedForSubmission(
 			appConfig: appConfig,
-			symptomOnset: .daysSinceOnset(0)
+			transmissionRiskLevelSource: .symptomsOnset(.daysSinceOnset(0))
 		)
 
 		XCTAssertEqual(preparedCheckins.count, 5)
@@ -104,8 +98,26 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		XCTAssertEqual(preparedCheckins[4].transmissionRiskLevel, 8)
     }
 
+	func testCheckinTransmissionPreparationWithFixedTransmissionRiskLevel() throws {
+		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
+
+		let checkin = Checkin.mock(
+			checkinStartDate: try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -20, to: Date())),
+			checkinEndDate: Date()
+		)
+
+		// process checkins
+		let preparedCheckins = [checkin].preparedForSubmission(
+			appConfig: appConfig,
+			transmissionRiskLevelSource: .fixedValue(5)
+		)
+
+		XCTAssertEqual(preparedCheckins.count, 21)
+
+		XCTAssertTrue(preparedCheckins.allSatisfy { $0.transmissionRiskLevel == 5 })
+	}
+
 	func testCheckinProtectedReportsPreparation() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let traceLocationId: Data = try XCTUnwrap(Data(base64Encoded: "m686QDEvOYSfRtrRBA8vA58c/6EjjEHp22dTFc+tObY="))
@@ -117,10 +129,9 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let checkinProtectedReports = service.preparedCheckinProtectedReportsForSubmission(
-			checkins: [checkin],
+		let checkinProtectedReports = [checkin].preparedProtectedReportsForSubmission(
 			appConfig: appConfig,
-			symptomOnset: .daysSinceOnset(0)
+			transmissionRiskLevelSource: .symptomsOnset(.daysSinceOnset(0))
 		)
 
 		XCTAssertEqual(checkinProtectedReports.count, 5)
@@ -138,8 +149,35 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		XCTAssertEqual(checkinRecords[4].transmissionRiskLevel, 8)
 	}
 
+	func testCheckinProtectedReportsPreparationWithFixedTransmissionRiskLevel() throws {
+		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
+
+		let traceLocationId: Data = try XCTUnwrap(Data(base64Encoded: "m686QDEvOYSfRtrRBA8vA58c/6EjjEHp22dTFc+tObY="))
+
+		let checkin = Checkin.mock(
+			traceLocationId: traceLocationId,
+			checkinStartDate: try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -20, to: Date())),
+			checkinEndDate: Date()
+		)
+
+		// process checkins
+		let checkinProtectedReports = [checkin].preparedProtectedReportsForSubmission(
+			appConfig: appConfig,
+			transmissionRiskLevelSource: .fixedValue(5)
+		)
+
+		XCTAssertEqual(checkinProtectedReports.count, 21)
+
+		let checkinRecords = checkinProtectedReports.compactMap {
+			self.checkinRecord(for: $0, traceLocationId: traceLocationId)
+		}.sorted {
+			$0.startIntervalNumber < $1.startIntervalNumber
+		}
+
+		XCTAssertTrue(checkinRecords.allSatisfy { $0.transmissionRiskLevel == 5 })
+	}
+
 	func testDerivingWarningTimeInterval() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startOfToday = Calendar.current.startOfDay(for: Date())
@@ -164,10 +202,9 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let preparedCheckins = service.preparedCheckinsForSubmission(
-			checkins: [checkin1, checkin2],
+		let preparedCheckins = [checkin1, checkin2].preparedForSubmission(
 			appConfig: appConfig,
-			symptomOnset: .daysSinceOnset(0)
+			transmissionRiskLevelSource: .symptomsOnset(.daysSinceOnset(0))
 		)
 
 		XCTAssertEqual(preparedCheckins.count, 1)
@@ -177,7 +214,6 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 	}
 
 	func testCheckinProtectedReportsDerivingWarningTimeInterval() throws {
-		let service = MockExposureSubmissionService()
 		let appConfig = CachedAppConfigurationMock.defaultAppConfiguration
 
 		let startOfToday = Calendar.current.startOfDay(for: Date())
@@ -206,10 +242,9 @@ class ExposureSubmissionCheckinTests: CWATestCase {
 		)
 
 		// process checkins
-		let checkinProtectedReports = service.preparedCheckinProtectedReportsForSubmission(
-			checkins: [checkin1, checkin2],
+		let checkinProtectedReports = [checkin1, checkin2].preparedProtectedReportsForSubmission(
 			appConfig: appConfig,
-			symptomOnset: .daysSinceOnset(0)
+			transmissionRiskLevelSource: .symptomsOnset(.daysSinceOnset(0))
 		)
 
 		let protectedReport = checkinProtectedReports[0]
