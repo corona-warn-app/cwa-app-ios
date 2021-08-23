@@ -581,6 +581,8 @@
 		5093B9A9260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */; };
 		5093B9AA260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */; };
 		5093B9AB260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093B9A8260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift */; };
+		509B1E4026D3F832007B97E0 /* HealthCertificatePrintVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3F26D3F832007B97E0 /* HealthCertificatePrintVersionViewModel.swift */; };
+		509B1E4126D3F832007B97E0 /* HealthCertificatePrintVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3E26D3F832007B97E0 /* HealthCertificatePrintVersionViewController.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50A7168826CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */; };
 		50A7168A26CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */; };
@@ -1933,6 +1935,8 @@
 		5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TraceLocationCheckinViewController.xib; sourceTree = "<group>"; };
 		5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinViewController.swift; sourceTree = "<group>"; };
 		5093B9A8260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinViewModel.swift; sourceTree = "<group>"; };
+		509B1E3E26D3F832007B97E0 /* HealthCertificatePrintVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePrintVersionViewController.swift; sourceTree = "<group>"; };
+		509B1E3F26D3F832007B97E0 /* HealthCertificatePrintVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePrintVersionViewModel.swift; sourceTree = "<group>"; };
 		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewController.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewController.swift; sourceTree = SOURCE_ROOT; };
 		50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModel.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -5717,6 +5721,8 @@
 			children = (
 				50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */,
 				50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */,
+				509B1E3E26D3F832007B97E0 /* HealthCertificatePrintVersionViewController.swift */,
+				509B1E3F26D3F832007B97E0 /* HealthCertificatePrintVersionViewModel.swift */,
 			);
 			path = PDFGeneration;
 			sourceTree = "<group>";
@@ -8360,6 +8366,7 @@
 				50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */,
 				01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
+				509B1E4026D3F832007B97E0 /* HealthCertificatePrintVersionViewModel.swift in Sources */,
 				2E190D96265D058A00AA95D5 /* TANInputCell.swift in Sources */,
 				BA94BBB5260DF507005CF38F /* CheckInDatePickerCell.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
@@ -8707,6 +8714,7 @@
 				017AD114259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift in Sources */,
 				0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */,
 				BAB8F2F12695F5CA00AF68A3 /* ValidationInformationViewModel.swift in Sources */,
+				509B1E4126D3F832007B97E0 /* HealthCertificatePrintVersionViewController.swift in Sources */,
 				50A7168A26CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift in Sources */,
 				BA75BF6026360963001B1FC0 /* QRCodeCellViewModel.swift in Sources */,
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
