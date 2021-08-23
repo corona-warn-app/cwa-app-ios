@@ -1136,11 +1136,15 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.8 */
+		/* Version 2.9 */
 		
-		static let feature28StandardizeNameTitle = NSLocalizedString("NewVersionFeature_28_standardizeName_title", comment: "")
+		static let feature29WarnGuestTitle = NSLocalizedString("NewVersionFeature_29_warnGuest_title", comment: "")
 		
-		static let feature28StandardizeNameDescription = NSLocalizedString("NewVersionFeature_28_standardizeName_description", comment: "")
+		static let feature29WarnGuestDescription = NSLocalizedString("NewVersionFeature_29_warnGuest_description", comment: "")
+		
+		static let feature29VaccinationStatusRecoveredTitle = NSLocalizedString("NewVersionFeature_29_vaccinationStatusRecovered_title", comment: "")
+		
+		static let feature29VaccinationStatusRecoveredDescription = NSLocalizedString("NewVersionFeature_29_vaccinationStatusRecovered_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
@@ -2064,6 +2068,7 @@ enum AppStrings {
 				static let headline = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_headline", comment: "")
 				static let vaccinationCount = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_vaccinationCount", comment: "")
 				static let vaccinationDate = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_vaccinationDate", comment: "")
+				static let booster = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_booster", comment: "")
 			}
 
 			enum TestCertificate {
