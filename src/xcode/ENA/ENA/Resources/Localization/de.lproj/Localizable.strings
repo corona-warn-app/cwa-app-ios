@@ -2943,6 +2943,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_Info_primaryButton" = "Weiter";
 
+"HealthCertificate_PrintPdf_Share_title" = "Druckversion des digitalen Zertifikates";
+
 /* Health Certificate Print PDF Error Alert */
 
 "HealthCertificate_PrintPdf_ErrorAlert_Title" = "Druckversion anzeigen nicht möglich";
