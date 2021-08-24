@@ -6,7 +6,7 @@ import UIKit
 import OpenCombine
 import HealthCertificateToolkit
 
-class HealthCertifiedPerson: Codable, Equatable, Comparable {
+public class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -27,7 +27,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case isPreferredPerson
 	}
 
-	required init(from decoder: Decoder) throws {
+	public required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates).compactMap { $0.healthCertificate }
@@ -36,7 +36,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		setup()
 	}
 
-	func encode(to encoder: Encoder) throws {
+	public func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
@@ -45,13 +45,13 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	// MARK: - Protocol Equatable
 
-	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
+	public static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
 		lhs.healthCertificates == rhs.healthCertificates && lhs.isPreferredPerson == rhs.isPreferredPerson
 	}
 
 	// MARK: - Protocol Comparable
 
-	static func < (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
+	public static func < (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
 		let preferredPersonPrecedesNonPreferred = lhs.isPreferredPerson && !rhs.isPreferredPerson
 		let haveSamePreferredStateAndAreInAlphabeticalOrder = lhs.isPreferredPerson == rhs.isPreferredPerson && lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
 
