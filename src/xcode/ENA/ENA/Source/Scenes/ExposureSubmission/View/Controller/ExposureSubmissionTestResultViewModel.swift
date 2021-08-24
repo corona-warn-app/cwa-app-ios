@@ -542,7 +542,31 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		}
 		
-		var cells = [DynamicCell.title2(
+		var cells = [DynamicCell]()
+
+		if coronaTest.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: coronaTest.uniqueCertificateIdentifier ?? "") {
+			
+			cells.append(DynamicCell.identifier(
+				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+				action: .execute { _, _ in
+					self.onTestCertificateTapped(healthTuple.certificate, healthTuple.certifiedPerson)
+				},
+				configure: { _, cell, _ in
+					guard let cell = cell as? HealthCertificateCell else {
+						fatalError("could not initialize cell of type `HealthCertificateCell`")
+					}
+					
+					cell.configure(
+						HealthCertificateCellViewModel(
+							healthCertificate: healthTuple.certificate,
+							healthCertifiedPerson: healthTuple.certifiedPerson
+						)
+					)
+				})
+			)
+		}
+
+		cells = [DynamicCell.title2(
 			text: AppStrings.ExposureSubmissionResult.procedure,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
 		)]
