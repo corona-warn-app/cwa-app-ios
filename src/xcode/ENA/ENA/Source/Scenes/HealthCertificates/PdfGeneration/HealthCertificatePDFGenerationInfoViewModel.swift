@@ -4,8 +4,19 @@
 
 import UIKit
 import PDFKit
+import OpenCombine
 
-struct HealthCertificatePDFGenerationInfoViewModel {
+final class HealthCertificatePDFGenerationInfoViewModel {
+	
+	// MARK: - Init
+	
+	init(
+		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	) {
+		self.healthCertificate = healthCertificate
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+	}
 	
 	// MARK: - Internal
 	
@@ -44,12 +55,36 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 	func generatePDFData(
 		completion: @escaping (PDFView) -> Void
 	) {
-		
-		
-		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-			completion(PDFView())
-		}
-		
+		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+			.sink(
+				receiveCompletion: { result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							Log.error("Signature verification error.", log: .vaccination, error: error)
+						}
+						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
+					}
+				}, receiveValue: { [weak self] valueSets in
+					guard let self = self else {
+						fatalError("Could not create strong self")
+					}
+					do {
+						let pdfView = try self.healthCertificate.createPdfView(with: valueSets)
+						completion(pdfView)
+					} catch {
+						fatalError("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
+					}
+				}
+			)
+			.store(in: &subscriptions)
 	}
+	
+	// MARK: - Private
+	
+	private let healthCertificate: HealthCertificate
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private var subscriptions = Set<AnyCancellable>()
 }
