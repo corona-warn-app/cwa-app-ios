@@ -7,9 +7,8 @@ import PDFKit
 
 struct HealthCertificatePDFGenerationInfoViewModel {
 	
-	// MARK: - Init
-	
 	// MARK: - Internal
+	
 	let title: String = AppStrings.HealthCertificate.PrintPDF.Info.title
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -50,7 +49,4 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 		}
 		
 	}
-	
-	// MARK: - Private
-	
 }
