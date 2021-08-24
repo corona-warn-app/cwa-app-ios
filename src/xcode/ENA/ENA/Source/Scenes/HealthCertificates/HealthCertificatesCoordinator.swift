@@ -458,7 +458,10 @@ final class HealthCertificatesCoordinator {
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			onTapContinue: { [weak self] pdfView in
-				self?.showPdfGenerationResult(pdfView: pdfView)
+				self?.showPdfGenerationResult(
+					healthCertificate: healthCertificate,
+					pdfView: pdfView
+				)
 			},
 			onDismiss: { [weak self] in
 				self?.modalNavigationController.dismiss(animated: true)
@@ -488,6 +491,7 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showPdfGenerationResult(
+		healthCertificate: HealthCertificate,
 		pdfView: PDFView
 	) {
 		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
@@ -495,6 +499,7 @@ final class HealthCertificatesCoordinator {
 		)
 		
 		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
+			healthCertificate: healthCertificate,
 			viewModel: healthCertificatePDFVersionViewModel,
 			onTapPrintPdf: printPdf,
 			onTapExportPdf: exportPdf,
