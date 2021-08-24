@@ -10,7 +10,9 @@ class HealthCertificatePrintVersionViewController: UIViewController, UIActivityI
 
 	// MARK: - Init
 
-	init(viewModel: HealthCertificatePrintVersionViewModel) {
+	init(
+		viewModel: HealthCertificatePrintVersionViewModel
+	) {
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
@@ -73,13 +75,13 @@ class HealthCertificatePrintVersionViewController: UIViewController, UIActivityI
 	private func didTapShareButton() {
 		guard let data = viewModel.pdfView.document?.dataRepresentation() else { return }
 		let temporaryFolder = FileManager.default.temporaryDirectory
-		let pdfFileName = "cwa-qr-code.pdf"
+		let pdfFileName = "healthCertificate.pdf"
 		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
 		
 		do {
 			try data.write(to: pdfFileURL)
 		} catch {
-			Log.error("Could not write the template data to the pdf file.", log: .qrCode, error: error)
+			Log.error("Could not write the template data to the pdf file.", log: .vaccination, error: error)
 		}
 		
 		let exportItem = PDFExportItem(subject: viewModel.shareTitle, fileURL: pdfFileURL)

@@ -11,19 +11,16 @@ class HealthCertificatePrintVersionViewModel {
 	// MARK: - Init
 
 	init(
-		pdfView: PDFView,
-		traceLocation: TraceLocation
+		pdfView: PDFView
 	) {
 		self.pdfView = pdfView
-		self.traceLocation = traceLocation
 	}
 
 	// MARK: - Internal
 
 	let pdfView: PDFView
-	let traceLocation: TraceLocation
 
 	var shareTitle: String {
-		return traceLocation.description
+		return ""
 	}
 }
