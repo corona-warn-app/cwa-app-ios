@@ -127,6 +127,8 @@ class TraceLocationCheckinSelectionTableViewCell: UITableViewCell, ReuseIdentifi
 		if #available(iOS 13.0, *) {
 			containerView.layer.cornerCurve = .continuous
 		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell
 	}
 	
 }

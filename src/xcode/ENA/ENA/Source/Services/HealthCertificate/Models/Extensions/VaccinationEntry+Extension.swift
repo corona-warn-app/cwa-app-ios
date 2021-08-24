@@ -11,6 +11,10 @@ extension VaccinationEntry {
 		doseNumber == totalSeriesOfDoses
 	}
 
+	var isBooster: Bool {
+		doseNumber > totalSeriesOfDoses
+	}
+
 	var localVaccinationDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfVaccination)
 	}
