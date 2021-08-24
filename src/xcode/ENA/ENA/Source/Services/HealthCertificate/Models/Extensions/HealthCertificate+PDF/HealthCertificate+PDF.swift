@@ -316,7 +316,6 @@ extension HealthCertificate {
 	}
 
 	func createPdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
-
 		let pdfView = PDFView()
 		let pdfDocument = try generatePDF(with: valueSets)
 

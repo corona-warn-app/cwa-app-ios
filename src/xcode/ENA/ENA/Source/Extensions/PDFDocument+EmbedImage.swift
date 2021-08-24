@@ -53,20 +53,7 @@ private extension String {
 		ctx.rotate(by: 180.degreesToRadians)
 		ctx.translateBy(x: -rect.size.width / 2, y: -rect.size.height / 2)
 
-//		guard let ctx = UIGraphicsGetCurrentContext() else { return }
-//		ctx.setFillColor(UIColor.lightGray.cgColor)
-//		ctx.setStrokeColor(UIColor.red.cgColor)
-//		ctx.setLineWidth(1)
-//		ctx.addRect(CGRect(origin: .zero, size: rect.size))
-//
-//		ctx.drawPath(using: .fillStroke)
-
 		self.draw(in: CGRect(origin: .zero, size: rect.size), withAttributes: attributes)
-
-		// Center point of context
-//		ctx.addRect(CGRect(x: 0, y: 0, width: 10, height: 10))
-//		ctx.drawPath(using: .fillStroke)
-
 	}
 
 }
