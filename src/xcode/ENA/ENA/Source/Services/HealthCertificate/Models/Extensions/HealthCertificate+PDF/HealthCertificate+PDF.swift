@@ -215,21 +215,21 @@ extension HealthCertificate {
 				text: name.reversedFullNameWithoutFallback,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 29, y: 693, width: 267, height: 23),
+				rect: CGRect(x: 29, y: 694, width: 266, height: 23),
 				upsideDown: false
 			),
 			PDFText(
 				text: dateOfBirth,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 29, y: 740, width: 267, height: 23),
+				rect: CGRect(x: 29, y: 740, width: 266, height: 23),
 				upsideDown: false
 			),
 			PDFText(
 				text: entry.uniqueCertificateIdentifier,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 29, y: 785, width: 267, height: 23),
+				rect: CGRect(x: 29, y: 785, width: 266, height: 23),
 				upsideDown: false
 			)
 			
@@ -284,21 +284,21 @@ extension HealthCertificate {
 				text: name.reversedFullNameWithoutFallback,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 29, y: 693, width: 267, height: 23),
+				rect: CGRect(x: 28, y: 694, width: 266, height: 23),
 				upsideDown: false
 			),
 			PDFText(
 				text: dateOfBirth,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 29, y: 740, width: 267, height: 23),
+				rect: CGRect(x: 28, y: 740, width: 266, height: 23),
 				upsideDown: false
 			),
 			PDFText(
 				text: entry.uniqueCertificateIdentifier,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 29, y: 785, width: 267, height: 23),
+				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
 				upsideDown: false
 			)
 		]
