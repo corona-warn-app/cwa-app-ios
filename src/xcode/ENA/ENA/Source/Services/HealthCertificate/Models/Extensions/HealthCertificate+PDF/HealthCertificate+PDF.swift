@@ -242,7 +242,7 @@ extension HealthCertificate {
 				text: entry.certificateValidUntil,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 14, y: 55, width: 125, height: 47),
+				rect: CGRect(x: 14, y: 56, width: 125, height: 47),
 				upsideDown: true
 			),
 			PDFText(
@@ -270,7 +270,7 @@ extension HealthCertificate {
 				text: entry.dateOfFirstPositiveNAAResult,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 14, y: 264, width: 125, height: 19),
+				rect: CGRect(x: 14, y: 263, width: 125, height: 19),
 				upsideDown: true
 			),
 			PDFText(
