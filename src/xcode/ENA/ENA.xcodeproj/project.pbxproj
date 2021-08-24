@@ -933,14 +933,9 @@
 		ABE961EE25F61E0F00D0F699 /* EventStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961ED25F61E0F00D0F699 /* EventStore+Creation.swift */; };
 		ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */; };
 		ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */; };
-		ABEA874D26CFD1D300A8E950 /* HealthCertificatePrintVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEA874B26CFD1D300A8E950 /* HealthCertificatePrintVersionViewController.swift */; };
-		ABEA874E26CFD1D300A8E950 /* HealthCertificatePrintVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEA874C26CFD1D300A8E950 /* HealthCertificatePrintVersionViewModel.swift */; };
 		ABEA875B26D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */; };
-		ABEA875C26D3811100A8E950 /* RecoveryCertificateTemplate_v4.1_with_placeholders.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875626D3811100A8E950 /* RecoveryCertificateTemplate_v4.1_with_placeholders.pdf */; };
-		ABEA875D26D3811100A8E950 /* TestCertificateTemplate_v4.1_with_placeholders.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875726D3811100A8E950 /* TestCertificateTemplate_v4.1_with_placeholders.pdf */; };
 		ABEA875E26D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875826D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf */; };
 		ABEA875F26D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
-		ABEA876026D3811100A8E950 /* VaccinationCertificateTemplate_v4.1_with_placeholders-2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875A26D3811100A8E950 /* VaccinationCertificateTemplate_v4.1_with_placeholders-2.pdf */; };
 		ABEA876D26D38ABA00A8E950 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA876226D38AB900A8E950 /* OpenSans-ExtraBoldItalic.ttf */; };
 		ABEA876E26D38ABA00A8E950 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA876326D38AB900A8E950 /* OpenSans-Light.ttf */; };
 		ABEA876F26D38ABA00A8E950 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA876426D38AB900A8E950 /* OpenSans-SemiBold.ttf */; };
@@ -2323,14 +2318,9 @@
 		ABE961ED25F61E0F00D0F699 /* EventStore+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventStore+Creation.swift"; sourceTree = "<group>"; };
 		ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceTimeIntervalMatch.swift; sourceTree = "<group>"; };
 		ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageMetadata.swift; sourceTree = "<group>"; };
-		ABEA874B26CFD1D300A8E950 /* HealthCertificatePrintVersionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificatePrintVersionViewController.swift; sourceTree = "<group>"; };
-		ABEA874C26CFD1D300A8E950 /* HealthCertificatePrintVersionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificatePrintVersionViewModel.swift; sourceTree = "<group>"; };
 		ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = RecoveryCertificateTemplate_v4.1.pdf; sourceTree = "<group>"; };
-		ABEA875626D3811100A8E950 /* RecoveryCertificateTemplate_v4.1_with_placeholders.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = RecoveryCertificateTemplate_v4.1_with_placeholders.pdf; sourceTree = "<group>"; };
-		ABEA875726D3811100A8E950 /* TestCertificateTemplate_v4.1_with_placeholders.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestCertificateTemplate_v4.1_with_placeholders.pdf; sourceTree = "<group>"; };
 		ABEA875826D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestCertificateTemplate_v4.1.pdf; sourceTree = "<group>"; };
 		ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = VaccinationCertificateTemplate_v4.1.pdf; sourceTree = "<group>"; };
-		ABEA875A26D3811100A8E950 /* VaccinationCertificateTemplate_v4.1_with_placeholders-2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "VaccinationCertificateTemplate_v4.1_with_placeholders-2.pdf"; sourceTree = "<group>"; };
 		ABEA876226D38AB900A8E950 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../../../../../../../../../../../../../../../Downloads/Open_Sans/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		ABEA876326D38AB900A8E950 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "../../../../../../../../../../../../../../../Downloads/Open_Sans/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		ABEA876426D38AB900A8E950 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-SemiBold.ttf"; path = "../../../../../../../../../../../../../../../Downloads/Open_Sans/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -5752,8 +5742,6 @@
 		AB51905F26CEA72400E2E4EE /* PDFGeneration */ = {
 			isa = PBXGroup;
 			children = (
-				ABEA874B26CFD1D300A8E950 /* HealthCertificatePrintVersionViewController.swift */,
-				ABEA874C26CFD1D300A8E950 /* HealthCertificatePrintVersionViewModel.swift */,
 			);
 			path = PDFGeneration;
 			sourceTree = "<group>";
@@ -6168,9 +6156,6 @@
 			isa = PBXGroup;
 			children = (
 				ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */,
-				ABEA875626D3811100A8E950 /* RecoveryCertificateTemplate_v4.1_with_placeholders.pdf */,
-				ABEA875726D3811100A8E950 /* TestCertificateTemplate_v4.1_with_placeholders.pdf */,
-				ABEA875A26D3811100A8E950 /* VaccinationCertificateTemplate_v4.1_with_placeholders-2.pdf */,
 				ABEA875826D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf */,
 				ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */,
 			);
@@ -8097,7 +8082,6 @@
 				ABEA877626D38ABA00A8E950 /* OpenSans-Regular.ttf in Resources */,
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */,
-				ABEA876026D3811100A8E950 /* VaccinationCertificateTemplate_v4.1_with_placeholders-2.pdf in Resources */,
 				EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				01D02759258BD55A00B6389A /* NotificationSettingsViewController.xib in Resources */,
@@ -8134,7 +8118,6 @@
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				016E25F425AF13EA0077C64C /* HomeStatisticsTableViewCell.xib in Resources */,
 				01D0262E258A791C00B6389A /* OnboardingInfoViewController.xib in Resources */,
-				ABEA875D26D3811100A8E950 /* TestCertificateTemplate_v4.1_with_placeholders.pdf in Resources */,
 				AB628A1F251CDADE00CF61D2 /* Environments.json in Resources */,
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
 				01D0272E258BD2B100B6389A /* BackgroundAppRefreshViewController.xib in Resources */,
@@ -8148,7 +8131,6 @@
 				BAFC6ABC26A716CC00F18BBE /* default_dsc_list.bin in Resources */,
 				50293D57267A41C1004B3EBE /* AddButtonAsTableViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
-				ABEA875C26D3811100A8E950 /* RecoveryCertificateTemplate_v4.1_with_placeholders.pdf in Resources */,
 				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
 				0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */,
 				01D02733258BD36800B6389A /* MainSettingsCell.xib in Resources */,
@@ -8676,7 +8658,6 @@
 				BA72C08126CA899D00ED378F /* DMDSCListsController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
-				ABEA874E26CFD1D300A8E950 /* HealthCertificatePrintVersionViewModel.swift in Sources */,
 				50FEB18A26580B1B005C3322 /* DMPPAActualDataViewController.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
@@ -9111,7 +9092,6 @@
 				01E10277266BC4B1009ED803 /* TestCertificateRequestTableViewCell.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */,
-				ABEA874D26CFD1D300A8E950 /* HealthCertificatePrintVersionViewController.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
 				8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */,
