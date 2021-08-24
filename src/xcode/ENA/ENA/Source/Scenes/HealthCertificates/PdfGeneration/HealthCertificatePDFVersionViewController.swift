@@ -11,13 +11,11 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, Dis
 	// MARK: - Init
 
 	init(
-		healthCertificate: HealthCertificate,
 		viewModel: HealthCertificatePDFVersionViewModel,
 		onTapPrintPdf: @escaping (Data) -> Void,
 		onTapExportPdf: @escaping (PDFExportItem) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
-		self.healthCertificate = healthCertificate
 		self.viewModel = viewModel
 		self.onTapPrintPdf = onTapPrintPdf
 		self.onTapExportPdf = onTapExportPdf
@@ -90,7 +88,6 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, Dis
 
 	// MARK: - Private
 
-	private let healthCertificate: HealthCertificate
 	private let viewModel: HealthCertificatePDFVersionViewModel
 	private let onTapPrintPdf: (Data) -> Void
 	private let onTapExportPdf: (PDFExportItem) -> Void
@@ -112,7 +109,7 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, Dis
 			return
 		}
 		let temporaryFolder = FileManager.default.temporaryDirectory
-		let pdfFileName = "healthCertificate_\(healthCertificate.name).pdf"
+		let pdfFileName = "healthCertificate_\(viewModel.certificatePersonName).pdf"
 		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
 		
 		do {

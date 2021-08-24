@@ -495,11 +495,11 @@ final class HealthCertificatesCoordinator {
 		pdfView: PDFView
 	) {
 		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
+			healthCertificate: healthCertificate,
 			pdfView: pdfView
 		)
 		
 		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
-			healthCertificate: healthCertificate,
 			viewModel: healthCertificatePDFVersionViewModel,
 			onTapPrintPdf: printPdf,
 			onTapExportPdf: exportPdf,
