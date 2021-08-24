@@ -483,12 +483,12 @@ class CoronaTestService {
 		}
 	}
 	
-	func getHealthCertificateTuple(for uniqueCertificateIdentifier: String) -> (HealthCertifiedPerson, HealthCertificate)? {
-		var healthTuple: (HealthCertifiedPerson, HealthCertificate)?
+	func getHealthCertificateTuple(for uniqueCertificateIdentifier: String) -> HealthCertificateTuple? {
+		var healthTuple: HealthCertificateTuple?
 		self.healthCertificateService.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				if healthCertificate.uniqueCertificateIdentifier == uniqueCertificateIdentifier {
-					healthTuple = (healthCertifiedPerson, healthCertificate)
+					healthTuple = HealthCertificateTuple(certificate: healthCertificate, certifiedPerson: healthCertifiedPerson)
 				}
 			}
 		}
