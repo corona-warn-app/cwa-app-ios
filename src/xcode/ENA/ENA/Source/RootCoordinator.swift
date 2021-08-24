@@ -20,7 +20,7 @@ protocol CoordinatorDelegate: AnyObject {
 	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transfering state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
-class RootCoordinator: RequiresAppDependencies {
+class RootCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Init
 	
@@ -142,6 +142,7 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
+		tabBarController.delegate = self
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.clearChildViewController()
@@ -243,5 +244,53 @@ extension RootCoordinator: ENStateHandlerUpdating {
 				updating.updateEnState(state)
 			}
 		}
+	}
+}
+
+// MARK: - Protocol UITabBarControllerDelegate
+
+extension RootCoordinator: UITabBarControllerDelegate {
+	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+		if viewController == tabBarController.selectedViewController {
+			if let naviVC = viewController as? UINavigationController {
+				naviVC.scrollEmbeddedTableToTop()
+			}
+		}
+		return true
+	}
+}
+
+extension UINavigationController {
+	// only if on top level of the navigation hierarchy: scroll the embedded table view up
+	func scrollEmbeddedTableToTop() {
+		guard !isEditing && presentedViewController == nil && viewControllers.count == 1 else {
+			return
+		}
+		if let tableView = topViewController?.embeddedTableView {
+			scrollTableToTop(tableView)
+		}
+	}
+
+	private func scrollTableToTop(_ tableView: UITableView) {
+		guard !tableView.isEditing else {
+			return
+		}
+		tableView.scrollToRow(at: IndexPath(indexes: [0, 0]), at: .top, animated: true)
+	}
+}
+
+private extension UIViewController {
+	var embeddedTableView: UITableView? {
+		([view] + view.subviews).first(ofType: UITableView.self)
+	}
+}
+
+private extension Array {
+	func first<T>(ofType _: T.Type) -> T? {
+		first(where: { $0 is T }) as? T
+	}
+
+	func last<T>(ofType _: T.Type) -> T? {
+		last(where: { $0 is T }) as? T
 	}
 }
