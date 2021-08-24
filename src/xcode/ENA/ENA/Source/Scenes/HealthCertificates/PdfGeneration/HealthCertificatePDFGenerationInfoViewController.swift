@@ -10,12 +10,17 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 	// MARK: - Init
 	
 	init(
+		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		onTapContinue: @escaping (PDFView) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.onTapContinue = onTapContinue
 		self.onDismiss = onDismiss
-		self.viewModel = HealthCertificatePDFGenerationInfoViewModel()
+		self.viewModel = HealthCertificatePDFGenerationInfoViewModel(
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -65,9 +70,11 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		if type == .primary {
 			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 			
-			viewModel.generatePDFData(completion: { [weak self] pdfView in
-				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-				self?.onTapContinue(pdfView)
+			viewModel.generatePDFData(completion: { pdfView in
+				DispatchQueue.main.async { [weak self] in
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+					self?.onTapContinue(pdfView)
+				}
 			})
 		}
 	}
