@@ -526,7 +526,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe. Sie werden auf eine externe Website des RKI weitergeleitet.";
 
 /* Exposure Submission Hotline */
 
@@ -1600,9 +1600,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Version 2.8 */
 
-"NewVersionFeature_28_standardizeName_title" = "Standardisierter Name";
+"NewVersionFeature_29_warnGuest_title" = "In Vertretung warnen";
 
-"NewVersionFeature_28_standardizeName_description" = "Neben dem Namen in der länderspezifischen Schreibweise wird nun in jedem Zertifikat auch der Name in standardisierter, lateinischer Schreibweise angezeigt.";
+"NewVersionFeature_29_warnGuest_description" = "Als Organisator eines Events können Sie nun Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Sofortige Impfstatusanzeige für Genesene";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Für Genesene wird ab jetzt direkt nach der ersten Impfung der vollständige Impfschutz in der Corona-Warn-App angezeigt. Die zweiwöchige Wartezeit entfällt bei fast allen Impfstoffen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2514,6 +2518,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "OnBehalfCheckinSubmission_ThankYou_Description" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
 
+/* - Errors */
+
+"OnBehalfCheckinSubmissionError_Failed" = "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe oder kontaktieren Sie die Stelle, die Ihnen die TAN mitgeteilt hat.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
@@ -2822,6 +2836,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
 
+"HealthCertifiedPerson_VaccinationCertificate_booster" = "Auffrischungsimpfung";
+
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR-Test";
@@ -2876,6 +2892,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Mehr";
+
 
 /* Vaccination Certificate Details */
 
@@ -2925,6 +2943,32 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
 
+/* Health Certificate Print PDF */
+
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Druckversion anzeigen";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Abbrechen";
+
+"HealthCertificate_PrintPdf_Info_title" = "Erstellung des EU-Ausdrucks";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Sie können das Zertifikat als PDF-Dokument speichern. Die Speicherung ist freiwillig. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Weiter";
+
+/* Health Certificate Print PDF Error Alert */
+
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Druckversion anzeigen nicht möglich";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat nicht in Deutschland ausgestellt wurde.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ zur Druckversion";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
@@ -2971,7 +3015,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Body2" = "Ein COVID-Zertifikat gilt bei Reisen innerhalb der EU als Nachweis.";
 
-"HealthCertificate_Validation_Headline2" = "Hinweis";
+"HealthCertificate_Validation_Headline2" = "Hinweise";
 
 "HealthCertificate_Validation_Bullet1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
@@ -3011,7 +3055,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Hinweis";
+"HealthCertificate_Validation_Passed_hintsTitle" = "Hinweise";
 
 "HealthCertificate_Validation_Passed_hint1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
@@ -3029,7 +3073,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Open_subtitle" = "Ihr Zertifikat konnte nicht vollständig geprüft werden";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Hinweis";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Hinweise";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "Nachfolgende Regeln konnten nicht geprüft werden. Vergewissern Sie sich, dass das Zertifikat den Regeln Ihres Reiselandes entspricht.";
 

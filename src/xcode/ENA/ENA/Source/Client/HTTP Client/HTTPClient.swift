@@ -236,7 +236,6 @@ final class HTTPClient: Client {
 		}
 	}
 	
-	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		guard let request = try? URLRequest.onBehalfCheckinSubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
@@ -1082,7 +1081,7 @@ private extension URLRequest {
 			$0.checkIns = payload.checkins
 			$0.checkInProtectedReports = payload.checkinProtectedReports
 			$0.consentToFederation = false
-			$0.submissionType = payload.submissionType // Needs clarification in Spec!
+			$0.submissionType = payload.submissionType
 		}
 		let payloadData = try submPayload.serializedData()
 		let url = configuration.onBehalfCheckinSubmissionURL

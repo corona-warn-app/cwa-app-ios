@@ -13,7 +13,7 @@ final class OnBehalfDateSelectionCell: UITableViewCell, ReuseIdentifierProviding
 		super.init(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		backgroundColor = .clear
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection
+		accessibilityIdentifier = AccessibilityIdentifiers.OnBehalfCheckinSubmission.DateTimeSelection.dateCell
 		accessibilityTraits = .button
 		createAndLayoutViewHierarchy()
 	}
