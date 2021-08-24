@@ -44,6 +44,9 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 	func generatePDFData(
 		completion: @escaping (PDFView) -> Void
 	) {
+		
+		
+		
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 			completion(PDFView())
 		}

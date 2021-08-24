@@ -6,12 +6,12 @@ import UIKit
 import PDFKit
 import LinkPresentation
 
-class HealthCertificatePrintVersionViewController: UIViewController, UIActivityItemSource {
+class HealthCertificatePDFVersionViewController: UIViewController, UIActivityItemSource {
 
 	// MARK: - Init
 
 	init(
-		viewModel: HealthCertificatePrintVersionViewModel
+		viewModel: HealthCertificatePDFVersionViewModel
 	) {
 		self.viewModel = viewModel
 
@@ -69,7 +69,7 @@ class HealthCertificatePrintVersionViewController: UIViewController, UIActivityI
 
 	// MARK: - Private
 
-	private let viewModel: HealthCertificatePrintVersionViewModel
+	private let viewModel: HealthCertificatePDFVersionViewModel
 
 	@objc
 	private func didTapShareButton() {

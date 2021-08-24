@@ -6,7 +6,7 @@ import Foundation
 import PDFKit
 import OpenCombine
 
-class HealthCertificatePrintVersionViewModel {
+class HealthCertificatePDFVersionViewModel {
 
 	// MARK: - Init
 

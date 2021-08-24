@@ -487,7 +487,7 @@ final class HealthCertificatesCoordinator {
 	private func showPdfGenerationResult(
 		pdfView: PDFView
 	) {
-		let healthCertificatePrintVersionViewModel = HealthCertificatePrintVersionViewModel(
+		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
 			pdfView: pdfView
 		)
 	}
