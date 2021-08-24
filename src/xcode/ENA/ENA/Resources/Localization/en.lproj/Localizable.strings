@@ -2005,7 +2005,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
-"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app";
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
 
