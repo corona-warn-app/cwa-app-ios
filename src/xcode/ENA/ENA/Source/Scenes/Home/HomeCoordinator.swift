@@ -108,10 +108,11 @@ class HomeCoordinator: RequiresAppDependencies {
 				)
 			},
 			onAddDistrict: { [weak self] selectValueViewController in
-				self?.rootViewController.presentedViewController?.present(
-					UINavigationController(rootViewController: selectValueViewController),
-					animated: true
-				)
+				guard let navigationController = self?.rootViewController.presentedViewController as? UINavigationController else {
+					Log.error("add statistics Navigation controller should be presented")
+					return
+				}
+				navigationController.pushViewController(selectValueViewController, animated: true)
 			},
 			onDismissState: { [weak self] in
 				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
