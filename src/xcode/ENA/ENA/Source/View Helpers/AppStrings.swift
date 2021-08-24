@@ -2118,6 +2118,7 @@ enum AppStrings {
 		enum PrintPDF {
 			static let showVersion = NSLocalizedString("HealthCertificate_PrintPdf_showPrintableVersion", comment: "")
 			static let cancel = NSLocalizedString("HealthCertificate_PrintPdf_cancelActionSheet", comment: "")
+			static let shareTitle = NSLocalizedString("HealthCertificate_PrintPdf_Share_title", comment: "")
 			
 			enum Info {
 				static let title = NSLocalizedString("HealthCertificate_PrintPdf_Info_title", comment: "")
