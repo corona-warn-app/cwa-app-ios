@@ -55,7 +55,7 @@ class HealthCertificateService {
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
-	var didRegisterTestCertificate: ((TestCertificateRequest, String) -> Void)?
+	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
 	var nextValidityTimer: Timer?
 
@@ -768,7 +768,7 @@ class HealthCertificateService {
 				case .success((_, let healthCertificate)):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(testCertificateRequest, healthCertificate.uniqueCertificateIdentifier ?? "")
+					didRegisterTestCertificate?(healthCertificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
