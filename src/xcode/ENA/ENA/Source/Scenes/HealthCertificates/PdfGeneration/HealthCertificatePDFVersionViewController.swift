@@ -6,14 +6,20 @@ import UIKit
 import PDFKit
 import LinkPresentation
 
-class HealthCertificatePDFVersionViewController: UIViewController, UIActivityItemSource {
+class HealthCertificatePDFVersionViewController: DynamicTableViewController, DismissHandling, UIActivityItemSource {
 
 	// MARK: - Init
 
 	init(
-		viewModel: HealthCertificatePDFVersionViewModel
+		viewModel: HealthCertificatePDFVersionViewModel,
+		onTapPrintPdf: @escaping (Data) -> Void,
+		onTapExportPdf: @escaping (PDFExportItem) -> Void,
+		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.onTapPrintPdf = onTapPrintPdf
+		self.onTapExportPdf = onTapExportPdf
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -30,7 +36,7 @@ class HealthCertificatePDFVersionViewController: UIViewController, UIActivityIte
 
 		view = viewModel.pdfView
 		view.backgroundColor = .enaColor(for: .background)
-		navigationController?.navigationBar.prefersLargeTitles = false
+		
 
 		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Printer"), style: .plain, target: self, action: #selector(didTapPrintButton))
 		let shareButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(didTapShareButton))
@@ -40,6 +46,19 @@ class HealthCertificatePDFVersionViewController: UIViewController, UIActivityIte
 		} else {
 			navigationItem.rightBarButtonItem = shareButton
 		}
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = false
+		// Must be set here, otherwise navBar will be translucent.
+		navigationController?.navigationBar.isTranslucent = false
+	}
+	
+	// MARK: - DismissHandling
+	
+	func wasAttemptedToBeDismissed() {
+		onDismiss()
 	}
 
 	// MARK: - Protocol UIActivityItemSource
@@ -70,10 +89,25 @@ class HealthCertificatePDFVersionViewController: UIViewController, UIActivityIte
 	// MARK: - Private
 
 	private let viewModel: HealthCertificatePDFVersionViewModel
-
+	private let onTapPrintPdf: (Data) -> Void
+	private let onTapExportPdf: (PDFExportItem) -> Void
+	private let onDismiss: () -> Void
+	
+	@objc
+	private func didTapPrintButton() {
+		guard let data = viewModel.pdfView.document?.dataRepresentation() else {
+			Log.error("Could not create data representation of pdf to print", log: .vaccination)
+			return
+		}
+		onTapPrintPdf(data)
+	}
+	
 	@objc
 	private func didTapShareButton() {
-		guard let data = viewModel.pdfView.document?.dataRepresentation() else { return }
+		guard let data = viewModel.pdfView.document?.dataRepresentation() else {
+			Log.error("Could not create data representation of pdf to print", log: .vaccination)
+			return
+		}
 		let temporaryFolder = FileManager.default.temporaryDirectory
 		let pdfFileName = "healthCertificate.pdf"
 		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
@@ -85,16 +119,6 @@ class HealthCertificatePDFVersionViewController: UIViewController, UIActivityIte
 		}
 		
 		let exportItem = PDFExportItem(subject: viewModel.shareTitle, fileURL: pdfFileURL)
-		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
-		present(activityViewController, animated: true, completion: nil)
-	}
-
-	@objc
-	private func didTapPrintButton() {
-		guard let data = viewModel.pdfView.document?.dataRepresentation() else { return }
-		
-		let printController = UIPrintInteractionController.shared
-		printController.printingItem = data
-		printController.present(animated: true, completionHandler: nil)
+		onTapExportPdf(exportItem)
 	}
 }

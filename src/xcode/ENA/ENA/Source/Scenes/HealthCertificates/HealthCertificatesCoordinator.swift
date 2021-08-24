@@ -495,23 +495,29 @@ final class HealthCertificatesCoordinator {
 		)
 		
 		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
-			viewModel: healthCertificatePDFVersionViewModel
+			viewModel: healthCertificatePDFVersionViewModel,
+			onTapPrintPdf: printPdf,
+			onTapExportPdf: exportPdf,
+			onDismiss: { [weak self] in
+				self?.modalNavigationController.dismiss(animated: true)
+			}
 		)
-		
 		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
 	}
 	
 	private func printPdf(
-		pdfView: PDFView
+		pdfData: Data
 	) {
-	
-		
+		let printController = UIPrintInteractionController.shared
+		printController.printingItem = pdfData
+		printController.present(animated: true, completionHandler: nil)
 	}
 	
 	private func exportPdf(
-		pdfView: PDFView
+		exportItem: PDFExportItem
 	) {
-		
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
+		printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 
 	private func showErrorAlert(
