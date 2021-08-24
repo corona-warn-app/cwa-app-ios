@@ -53,6 +53,7 @@ final class ClientMock {
 
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
+	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onGetRegistrationToken: ((String, String, String?, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
@@ -142,7 +143,7 @@ extension ClientMock: Client {
 	}
 	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		onSubmitCountries(payload, isFake, completion)
+		onSubmitOnBehalf(payload, isFake, completion)
 	}
 
 	func getRegistrationToken(
