@@ -58,7 +58,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			},
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -114,7 +115,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				},
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onTestCertificateTapped: { _,_ in }
 			)
 			
 			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -168,7 +170,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			},
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -215,7 +218,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		do {
@@ -284,7 +288,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		model.didTapPrimaryButton()
@@ -325,7 +330,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 
 		client.onGetTestResult = { _, _, completion in
@@ -390,7 +396,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -432,7 +439,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onTestCertificateTapped: { _,_ in }
 			)
 			
 			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -477,7 +485,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onChangeToPositiveTestResult: { },
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
-			}
+			},
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		model.deleteTest()
@@ -516,7 +525,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onTestCertificateTapped: { _,_ in }
 			)
 			
 			let footerViewModel = try XCTUnwrap(model.footerViewModel)
@@ -564,7 +574,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onTestCertificateTapped: { _,_ in }
 			)
 			
 			let footerViewModel = try XCTUnwrap(model.footerViewModel)
@@ -614,7 +625,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					onContinueWithSymptomsFlowButtonTap: { },
 					onContinueWarnOthersButtonTap: { _ in },
 					onChangeToPositiveTestResult: { },
-					onTestDeleted: { }
+					onTestDeleted: { },
+					onTestCertificateTapped: { _,_ in }
 				)
 				
 				let footerViewModel = try XCTUnwrap(model.footerViewModel)
@@ -663,7 +675,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
@@ -718,7 +731,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
@@ -793,7 +807,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
@@ -848,7 +863,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 2)
@@ -907,7 +923,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
+			onTestDeleted: { },
+			onTestCertificateTapped: { _,_ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
