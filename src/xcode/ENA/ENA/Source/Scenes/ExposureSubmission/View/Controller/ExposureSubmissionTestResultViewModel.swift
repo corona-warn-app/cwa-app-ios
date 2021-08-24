@@ -16,7 +16,8 @@ class ExposureSubmissionTestResultViewModel {
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onChangeToPositiveTestResult: @escaping () -> Void,
-		onTestDeleted: @escaping () -> Void
+		onTestDeleted: @escaping () -> Void,
+		onTestCertificateTapped: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.coronaTestType = coronaTestType
 		self.coronaTestService = coronaTestService
@@ -25,6 +26,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
 		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
+		self.onTestCertificateTapped = onTestCertificateTapped
 
 		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
 			onTestDeleted()
@@ -120,6 +122,7 @@ class ExposureSubmissionTestResultViewModel {
 
 	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
+	private let onTestCertificateTapped: (HealthCertificate, HealthCertifiedPerson) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 	
@@ -522,7 +525,7 @@ extension ExposureSubmissionTestResultViewModel {
 	private var negativeTestResultSections: [DynamicSection] {
 		
 		let header: DynamicHeader
-		
+
 		if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
 			header = .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
@@ -616,6 +619,28 @@ extension ExposureSubmissionTestResultViewModel {
 	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
+		if test.certificateRequested, let healthTuple = coronaTestService.getHealthCertifiedPerson(for: test.uniqueCertificateIdentifier ?? "") {
+			
+			cells.append(DynamicCell.identifier(
+				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+				action: .execute { _, _ in
+					self.onTestCertificateTapped(healthTuple.1, healthTuple.0)
+				},
+				configure: { _, cell, _ in
+					guard let cell = cell as? HealthCertificateCell else {
+						fatalError("could not initialize cell of type `HealthCertificateCell`")
+					}
+					
+					cell.configure(
+						HealthCertificateCellViewModel(
+							healthCertificate: healthTuple.1,
+							healthCertifiedPerson: healthTuple.0
+						)
+					)
+				})
+			)
+		}
+
 		if test.testedPerson.fullName != nil && test.testedPerson.dateOfBirth != nil {
 			cells.append(contentsOf: [
 				.title2(
@@ -639,7 +664,7 @@ extension ExposureSubmissionTestResultViewModel {
 				)
 			])
 		}
-
+		
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.procedure,
@@ -706,25 +731,6 @@ extension ExposureSubmissionTestResultViewModel {
 extension ExposureSubmissionTestResultViewModel {
 	
 	private var expiredTestResultSections: [DynamicSection] {
-//		var cells = [ DynamicCell.identifier(
-//			ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
-//			configure: { view, _, _ in
-//					(view as? HealthCertificateCell)?.configure(
-//						HealthCertificateCellViewModel(
-//							healthCertificate: nil,
-//							healthCertifiedPerson: nil
-//						)
-//				)
-//			})
-//		]
-//		
-//		cells.append(contentsOf: [
-//			DynamicCell.title2(
-//				text: AppStrings.ExposureSubmissionResult.procedure,
-//				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
-//			)
-//		])
-		
 		var cells = [
 			DynamicCell.title2(
 				text: AppStrings.ExposureSubmissionResult.procedure,
