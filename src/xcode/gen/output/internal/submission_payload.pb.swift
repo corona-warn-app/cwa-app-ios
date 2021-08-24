@@ -77,6 +77,7 @@ struct SAP_Internal_SubmissionPayload {
     typealias RawValue = Int
     case pcrTest // = 0
     case rapidTest // = 1
+    case hostWarning // = 2
 
     init() {
       self = .pcrTest
@@ -86,6 +87,7 @@ struct SAP_Internal_SubmissionPayload {
       switch rawValue {
       case 0: self = .pcrTest
       case 1: self = .rapidTest
+      case 2: self = .hostWarning
       default: return nil
       }
     }
@@ -94,6 +96,7 @@ struct SAP_Internal_SubmissionPayload {
       switch self {
       case .pcrTest: return 0
       case .rapidTest: return 1
+      case .hostWarning: return 2
       }
     }
 
@@ -197,5 +200,6 @@ extension SAP_Internal_SubmissionPayload.SubmissionType: SwiftProtobuf._ProtoNam
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "SUBMISSION_TYPE_PCR_TEST"),
     1: .same(proto: "SUBMISSION_TYPE_RAPID_TEST"),
+    2: .same(proto: "SUBMISSION_TYPE_HOST_WARNING"),
   ]
 }
