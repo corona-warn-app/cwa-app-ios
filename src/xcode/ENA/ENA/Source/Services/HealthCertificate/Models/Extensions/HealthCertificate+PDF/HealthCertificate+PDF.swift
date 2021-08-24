@@ -14,9 +14,9 @@ extension HealthCertificate {
 
 	// MARK: - Internal
 
-	func createPdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
+	func createPdfView(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle = Bundle.main) throws -> PDFView {
 		let pdfView = PDFView()
-		let pdfDocument = try generatePDF(with: valueSets)
+		let pdfDocument = try generatePDF(with: valueSets, from: bundle)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
@@ -26,7 +26,9 @@ extension HealthCertificate {
 
 	// MARK: - Private
 
-	private func generatePDF(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFDocument {
+	private func generatePDF(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle) throws -> PDFDocument {
+		let pdfTemplate = pdfTemplate(from: bundle)
+
 		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
 			throw PDFGenerationError.pdfDocumentCreationFailed
 		}
@@ -49,7 +51,7 @@ extension HealthCertificate {
 		return pdfDocument
 	}
 
-	private var pdfTemplate: Data {
+	private func pdfTemplate(from bundle: Bundle) -> Data {
 		let templateName: String
 		switch type {
 		case .vaccination:
@@ -60,7 +62,7 @@ extension HealthCertificate {
 			templateName = "RecoveryCertificateTemplate_v4.1"
 		}
 
-		guard let tempalteURL = Bundle.main.url(forResource: templateName, withExtension: "pdf"),
+		guard let tempalteURL = bundle.url(forResource: templateName, withExtension: "pdf"),
 			  let templateData = FileManager.default.contents(atPath: tempalteURL.path) else {
 			fatalError("Could not load pdf template.")
 		}
