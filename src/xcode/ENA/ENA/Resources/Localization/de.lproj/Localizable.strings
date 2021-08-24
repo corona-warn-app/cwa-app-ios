@@ -2933,8 +2933,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_cancelActionSheet" = "Abbrechen";
 
-"HealthCertificate_PrintPdf_Info_imageDescription" = "Ein Smartphone sendet Daten an einen Drucker";
-
 "HealthCertificate_PrintPdf_Info_title" = "Erstellung des EU-Ausdrucks";
 
 "HealthCertificate_PrintPdf_Info_section01" = "Sie können das Zertifikat als PDF-Dokument speichern. Die Speicherung ist freiwillig. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";

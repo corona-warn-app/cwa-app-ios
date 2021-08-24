@@ -7,9 +7,8 @@ import PDFKit
 
 struct HealthCertificatePDFGenerationInfoViewModel {
 	
-	// MARK: - Init
-	
 	// MARK: - Internal
+	
 	let title: String = AppStrings.HealthCertificate.PrintPDF.Info.title
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -20,7 +19,7 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.HealthCertificate.PrintPDF.Info.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Print")
+						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Export")
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
@@ -50,7 +49,4 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 		}
 		
 	}
-	
-	// MARK: - Private
-	
 }

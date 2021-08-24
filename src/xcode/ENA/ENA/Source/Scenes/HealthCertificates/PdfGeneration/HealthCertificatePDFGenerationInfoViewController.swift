@@ -80,8 +80,9 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 	
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.contentInsetAdjustmentBehavior = .never
 		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 }

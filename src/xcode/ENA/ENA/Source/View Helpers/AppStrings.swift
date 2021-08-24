@@ -2120,7 +2120,6 @@ enum AppStrings {
 			static let cancel = NSLocalizedString("HealthCertificate_PrintPdf_cancelActionSheet", comment: "")
 			
 			enum Info {
-				static let imageDescription = NSLocalizedString("HealthCertificate_PrintPdf_Info_imageDescription", comment: "")
 				static let title = NSLocalizedString("HealthCertificate_PrintPdf_Info_title", comment: "")
 				static let section01 = NSLocalizedString("HealthCertificate_PrintPdf_Info_section01", comment: "")
 				static let section02 = NSLocalizedString("HealthCertificate_PrintPdf_Info_section02", comment: "")
