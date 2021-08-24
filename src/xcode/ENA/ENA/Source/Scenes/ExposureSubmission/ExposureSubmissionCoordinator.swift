@@ -756,14 +756,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 								return
 							}
 							self.healthCertificateService.removeHealthCertificate(healthCertificate)
-							let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
-
-							// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
-							if isPersonStillExistent {
-								self.navigationController?.popToRootViewController(animated: true)
-							} else {
-								self.dismiss()
-							}
+							self.navigationController?.popViewController(animated: true)
 						}
 					)
 				)
