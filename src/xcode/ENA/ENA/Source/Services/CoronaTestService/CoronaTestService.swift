@@ -470,7 +470,7 @@ class CoronaTestService {
 		store.isSubmissionConsentGiven = false
 	}
 
-	func setUniqueCertificateIdentifier(set uniqueCertificateIdentifier: String, with testCertificateRequest: TestCertificateRequest) {
+	private func setUniqueCertificateIdentifier(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
 		switch testCertificateRequest.coronaTestType {
 		case .pcr:
 			if self.pcrTest?.registrationToken == testCertificateRequest.registrationToken {
