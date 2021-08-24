@@ -21,6 +21,6 @@ class HealthCertificatePDFVersionViewModel {
 	let pdfView: PDFView
 
 	var shareTitle: String {
-		return ""
+		return AppStrings.HealthCertificate.PrintPDF.shareTitle
 	}
 }
