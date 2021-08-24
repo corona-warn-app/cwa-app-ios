@@ -23,9 +23,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 	let title: String = AppStrings.HealthCertificate.PrintPDF.Info.title
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-								
-			// Illustration with information text
+		DynamicTableViewModel([								
 			.section(
 				cells: [
 					.headlineWithImage(
