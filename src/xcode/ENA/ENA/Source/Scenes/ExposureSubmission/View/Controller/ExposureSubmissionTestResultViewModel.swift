@@ -619,7 +619,7 @@ extension ExposureSubmissionTestResultViewModel {
 	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
-		if test.certificateRequested, let healthTuple = coronaTestService.getHealthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
+		if test.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
 			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
