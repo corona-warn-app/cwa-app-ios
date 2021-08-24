@@ -653,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Thank you for agreeing to share your test result and helping to warn others as a result.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "In the next step, please share your test result by tapping “Share”.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "If you have not granted your consent to access the random IDs or if more than five days have passed since then, please grant your consent in the next step.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "You have chosen not to share your test result. Others will not be warned.";
 
@@ -1564,10 +1564,6 @@
 
 "NewVersionFeature_28_standardizeName_description" = "In addition to the name in the country-specific spelling, each certificate now also displays the name in standardized Latin characters.";
 
-"NewVersionFeature_28_certificateFromTestResult_title" = "Open Certificate from Test Result";
-
-"NewVersionFeature_28_certificateFromTestResult_description" = "You can now call up your EU digital COVID test certificate directly from your test result, provided a certificate is available.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
 
@@ -2009,7 +2005,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
-"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app";
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
 
@@ -2062,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "The assessment of the trend for warnings by app users changes depending on current infection levels, which is why this trend is always displayed as neutral.";
 
 "Statistics_Info_Image_AccLabel" = "Abstract picture of a smartphone with four placeholders for information";
+
+"Statistics_Info_Blog_Description" = "For more details about the content of the individual key figures, read our %@.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
 
 /* Update OS */
 "UpdateOS_title" = "Please update your iOS.";
@@ -2844,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Certificate Is Valid";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Certificate Cannot Be Validated";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid in the selected country";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Your certificate could not be validated";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Note";
 

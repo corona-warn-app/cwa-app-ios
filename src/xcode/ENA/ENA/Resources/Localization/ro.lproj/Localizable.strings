@@ -653,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vă mulțumim pentru că sunteți de acord să partajați rezultatul testului dvs. și să ajutați astfel la avertizarea celorlalți.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "La pasul următor, partajați rezultatul testului dvs. apăsând „Partajare”.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Dacă nu ați acordat consimțământul pentru a accesa ID-urile aleatorii sau dacă au trecut mai mult de cinci zile de atunci, acordați consimțământul la pasul următor.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Ați ales să nu partajați rezultatul testului dvs. Ceilalți nu vor fi avertizați.";
 
@@ -1564,10 +1564,6 @@
 
 "NewVersionFeature_28_standardizeName_description" = "Pe lângă numele afișat în ortografia specifică țării, acum fiecare certificat afișează numele și sub formă de caractere latine standardizate.";
 
-"NewVersionFeature_28_certificateFromTestResult_title" = "Deschidere certificat de la rezultat de test";
-
-"NewVersionFeature_28_certificateFromTestResult_description" = "Acum puteți apela certificatul de test COVID digital UE direct din rezultatul testului, cu condiția să existe un certificat disponibil.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
 
@@ -2062,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "Evaluarea tendinței pentru avertizările de către utilizatorii aplicației se modifică în funcție de nivelul de infectare curent, de aceea această tendință este afișată întotdeauna ca neutră.";
 
 "Statistics_Info_Image_AccLabel" = "O imagine abstractă a unui smartphone cu patru substituenți pentru informații";
+
+"Statistics_Info_Blog_Description" = "Pentru mai multe detalii despre indicatorii individuali, citiți %@ nostru.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
 
 /* Update OS */
 "UpdateOS_title" = "Vă rugăm să vă actualizați versiunea iOS.";
@@ -2844,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Certificatul este valabil";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Certificatul nu poate fi validat";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Certificatul dvs. este valabil în țara selectată";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Certificatul dvs. nu a putut fi validat";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Notă";
 
