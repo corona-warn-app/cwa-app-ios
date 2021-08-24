@@ -4,6 +4,7 @@
 
 import UIKit
 import OpenCombine
+import PDFKit
 
 // swiftlint:disable type_body_length
 final class HealthCertificatesCoordinator {
@@ -452,24 +453,52 @@ final class HealthCertificatesCoordinator {
 	private func showPdfGenerationInfo(
 		healthCertificate: HealthCertificate
 	) {
+		let healthCertificatePDFGenerationInfoViewController = HealthCertificatePDFGenerationInfoViewController(
+			onTapContinue: { [weak self] pdfView in
+				self?.showPdfGenerationResult(pdfView: pdfView)
+			},
+			onDismiss: { [weak self] in
+				self?.modalNavigationController.dismiss(animated: true)
+			}
+		)
 		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.PrintPDF.Info.primaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificatePDFGenerationInfoViewController,
+			bottomController: footerViewController
+		)
+		
+		let navigationController = DismissHandlingNavigationController(
+			rootViewController: topBottomContainerViewController,
+			transparent: true
+		)
+		modalNavigationController.present(navigationController, animated: true)
 	}
 	
 	private func showPdfGenerationResult(
-		pdf: Data
+		pdfView: PDFView
 	) {
-		
+
 	}
 	
 	private func printPdf(
-		pdf: Data
+		pdfView: PDFView
 	) {
 	
 		
 	}
 	
 	private func exportPdf(
-		pdf: Data
+		pdfView: PDFView
 	) {
 		
 	}

@@ -689,6 +689,10 @@ enum AccessibilityIdentifiers {
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
 		}
+		
+		enum PrintPdf {
+			static let imageDescription = "AppStrings.HealthCertificate.PrintPDF.imageDescription"
+		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
 	}

@@ -2130,6 +2130,15 @@ enum AppStrings {
 		enum PrintPDF {
 			static let showVersion = NSLocalizedString("HealthCertificate_PrintPdf_showPrintableVersion", comment: "")
 			static let cancel = NSLocalizedString("HealthCertificate_PrintPdf_cancelActionSheet", comment: "")
+			
+			enum Info {
+				static let title = NSLocalizedString("HealthCertificate_PrintPdf_Info_title", comment: "")
+				static let section01 = NSLocalizedString("HealthCertificate_PrintPdf_Info_section01", comment: "")
+				static let section02 = NSLocalizedString("HealthCertificate_PrintPdf_Info_section02", comment: "")
+				static let section03 = NSLocalizedString("HealthCertificate_PrintPdf_Info_section03", comment: "")
+				static let primaryButton = NSLocalizedString("HealthCertificate_PrintPdf_Info_primaryButton", comment: "")
+			}
+			
 			enum ErrorAlert {
 				static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Title", comment: "")
 				static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Message", comment: "")
