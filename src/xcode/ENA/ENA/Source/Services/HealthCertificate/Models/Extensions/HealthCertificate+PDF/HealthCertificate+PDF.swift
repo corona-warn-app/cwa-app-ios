@@ -14,9 +14,9 @@ extension HealthCertificate {
 
 	// MARK: - Internal
 
-	func createPdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
+	func pdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
 		let pdfView = PDFView()
-		let pdfDocument = try generatePDF(with: valueSets)
+		let pdfDocument = try pdfDocument(with: valueSets)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
@@ -26,7 +26,7 @@ extension HealthCertificate {
 
 	// MARK: - Private
 
-	private func generatePDF(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFDocument {
+	private func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFDocument {
 		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
 			throw PDFGenerationError.pdfDocumentCreationFailed
 		}
@@ -151,7 +151,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier,
+				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
@@ -240,7 +240,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier,
+				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 29, y: 785, width: 266, height: 23),
@@ -309,7 +309,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier,
+				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
@@ -327,5 +327,12 @@ extension HealthCertificate {
 
 	private var textColor: UIColor {
 		.enaColor(for: .certificatePDFBlue)
+	}
+}
+
+private extension String {
+
+	func removeURNPrefix() -> String {
+		return replacingOccurrences(of: "URN:UVCI:", with: "")
 	}
 }
