@@ -51,6 +51,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
 				onTestDeleted: { }
+				
 			),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onDismiss: { _, _ in }
