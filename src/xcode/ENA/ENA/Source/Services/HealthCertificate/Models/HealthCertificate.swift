@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-public final class HealthCertificate: Encodable, Equatable, Comparable {
+final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	// MARK: - Init
 
@@ -28,7 +28,7 @@ public final class HealthCertificate: Encodable, Equatable, Comparable {
 		case validityState
 	}
 
-	public func encode(to encoder: Encoder) throws {
+	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(base45, forKey: .base45)
@@ -37,13 +37,13 @@ public final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	// MARK: - Protocol Equatable
 
-	public static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
+	static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
 		lhs.base45 == rhs.base45 && lhs.validityState == rhs.validityState
 	}
 
 	// MARK: - Protocol Comparable
 
-	public static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
+	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
 		if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
 			return lhsDate < rhsDate
 		}
