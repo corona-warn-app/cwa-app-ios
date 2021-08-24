@@ -477,7 +477,10 @@ final class HealthCertificatesCoordinator {
 			bottomController: footerViewController
 		)
 		
-		let navigationController = DismissHandlingNavigationController(rootViewController: topBottomContainerViewController)
+		let navigationController = DismissHandlingNavigationController(
+			rootViewController: topBottomContainerViewController,
+			transparent: true
+		)
 		modalNavigationController.present(navigationController, animated: true)
 	}
 	

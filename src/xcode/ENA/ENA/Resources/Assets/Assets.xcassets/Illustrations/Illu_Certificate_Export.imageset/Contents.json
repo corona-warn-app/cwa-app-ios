@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Print_Light.pdf",
+      "filename" : "Illu_Certificate_Export.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_Print_Dark.pdf",
+      "filename" : "Illu_Certificate_Export_dark.pdf",
       "idiom" : "universal"
     }
   ],
@@ -20,6 +20,6 @@
     "version" : 1
   },
   "properties" : {
-    "template-rendering-intent" : "original"
+    "preserves-vector-representation" : true
   }
 }

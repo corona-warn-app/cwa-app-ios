@@ -20,7 +20,7 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.HealthCertificate.PrintPDF.Info.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Print")
+						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Export")
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
