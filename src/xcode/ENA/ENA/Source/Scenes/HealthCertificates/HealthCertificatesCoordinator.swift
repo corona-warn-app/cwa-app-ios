@@ -68,6 +68,7 @@ final class HealthCertificatesCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var modalNavigationController: UINavigationController!
+	private var printNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -454,6 +455,8 @@ final class HealthCertificatesCoordinator {
 		healthCertificate: HealthCertificate
 	) {
 		let healthCertificatePDFGenerationInfoViewController = HealthCertificatePDFGenerationInfoViewController(
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			onTapContinue: { [weak self] pdfView in
 				self?.showPdfGenerationResult(pdfView: pdfView)
 			},
@@ -477,11 +480,11 @@ final class HealthCertificatesCoordinator {
 			bottomController: footerViewController
 		)
 		
-		let navigationController = DismissHandlingNavigationController(
+		printNavigationController = DismissHandlingNavigationController(
 			rootViewController: topBottomContainerViewController,
 			transparent: true
 		)
-		modalNavigationController.present(navigationController, animated: true)
+		modalNavigationController.present(printNavigationController, animated: true)
 	}
 	
 	private func showPdfGenerationResult(
@@ -490,6 +493,12 @@ final class HealthCertificatesCoordinator {
 		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
 			pdfView: pdfView
 		)
+		
+		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
+			viewModel: healthCertificatePDFVersionViewModel
+		)
+		
+		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
 	}
 	
 	private func printPdf(
