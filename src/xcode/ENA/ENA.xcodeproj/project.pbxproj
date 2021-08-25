@@ -585,6 +585,7 @@
 		5093B9A9260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */; };
 		5093B9AA260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */; };
 		5093B9AB260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093B9A8260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift */; };
+		5096A49626D66E7300462A06 /* HealthCertificatePDFVersionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5096A49526D66E7300462A06 /* HealthCertificatePDFVersionViewModelTests.swift */; };
 		509B1E4026D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3F26D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift */; };
 		509B1E4126D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3E26D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift */; };
 		509B1E4426D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */; };
@@ -1959,6 +1960,7 @@
 		5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TraceLocationCheckinViewController.xib; sourceTree = "<group>"; };
 		5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinViewController.swift; sourceTree = "<group>"; };
 		5093B9A8260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinViewModel.swift; sourceTree = "<group>"; };
+		5096A49526D66E7300462A06 /* HealthCertificatePDFVersionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFVersionViewModelTests.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/__tests__/HealthCertificatePDFVersionViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		509B1E3E26D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePDFVersionViewController.swift; sourceTree = "<group>"; };
 		509B1E3F26D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePDFVersionViewModel.swift; sourceTree = "<group>"; };
 		509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModelTests.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/__tests__/HealthCertificatePDFGenerationInfoViewModelTests.swift; sourceTree = SOURCE_ROOT; };
@@ -4626,6 +4628,7 @@
 			isa = PBXGroup;
 			children = (
 				509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */,
+				5096A49526D66E7300462A06 /* HealthCertificatePDFVersionViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9294,6 +9297,7 @@
 				5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */,
 				BA69A80D25CDA80600023265 /* SelectValueViewModelTests.swift in Sources */,
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
+				5096A49626D66E7300462A06 /* HealthCertificatePDFVersionViewModelTests.swift in Sources */,
 				BACD176B2624978200104AD9 /* TestOverwriteNoticeViewModelTests.swift in Sources */,
 				94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift in Sources */,
 				8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */,
