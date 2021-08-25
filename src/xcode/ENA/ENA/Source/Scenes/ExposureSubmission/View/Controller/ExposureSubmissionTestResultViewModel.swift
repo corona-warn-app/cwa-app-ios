@@ -17,7 +17,7 @@ class ExposureSubmissionTestResultViewModel {
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void,
-		onTestCertificateTapped: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
+		onTestCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.coronaTestType = coronaTestType
 		self.coronaTestService = coronaTestService
