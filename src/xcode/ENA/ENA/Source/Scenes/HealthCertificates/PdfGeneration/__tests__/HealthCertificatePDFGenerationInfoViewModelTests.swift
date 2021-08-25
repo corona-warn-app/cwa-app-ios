@@ -27,6 +27,7 @@ class HealthCertificatePDFGenerationInfoViewModelTests: CWATestCase {
 		// THEN
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfSection, 1)
 	}
+	
 	func testGIVEN_HealthCertificatePDFGenerationInfoViewModel_WHEN_Created_THEN_TitleIsCorrect() {
 		// GIVEN
 		
@@ -45,6 +46,8 @@ class HealthCertificatePDFGenerationInfoViewModelTests: CWATestCase {
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.PrintPDF.Info.title)
 	}
+	
+	func testGIVEN_HealthCertificatePDFGenerationInfoViewModel_WHEN_generatePDFDataIsCalled_THEN_PDFViewIsReturned() {
 		// GIVEN
 	
 		let healthCertificate = HealthCertificate.mock()
@@ -70,7 +73,5 @@ class HealthCertificatePDFGenerationInfoViewModelTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertNotNil(pdfViewResult)
-	
 	}
-
 }
