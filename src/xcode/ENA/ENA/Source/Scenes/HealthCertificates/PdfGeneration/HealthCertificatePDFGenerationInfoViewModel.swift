@@ -70,7 +70,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 						fatalError("Could not create strong self")
 					}
 					do {
-						let pdfView = try self.healthCertificate.createPdfView(with: valueSets)
+						let pdfView = try self.healthCertificate.pdfView(with: valueSets)
 						completion(pdfView)
 					} catch {
 						fatalError("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
