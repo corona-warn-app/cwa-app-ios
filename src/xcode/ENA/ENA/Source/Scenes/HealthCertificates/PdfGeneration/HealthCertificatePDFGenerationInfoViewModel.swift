@@ -64,6 +64,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 							Log.error("Signature verification error.", log: .vaccination, error: error)
 						}
 						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
+						fatalError("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
 					}
 				}, receiveValue: { [weak self] valueSets in
 					guard let self = self else {
