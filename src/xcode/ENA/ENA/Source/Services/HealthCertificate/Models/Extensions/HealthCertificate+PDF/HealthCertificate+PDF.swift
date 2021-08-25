@@ -27,7 +27,8 @@ extension HealthCertificate {
 	// MARK: - Private
 
 	private func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle) throws -> PDFDocument {
-		let pdfTemplate = pdfTemplate(from: bundle)
+		let pdfTemplate = self.pdfTemplate(from: bundle)
+		
 		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
 			throw PDFGenerationError.pdfDocumentCreationFailed
 		}
