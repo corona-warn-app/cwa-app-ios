@@ -12,7 +12,7 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 	init(
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
-		onTapContinue: @escaping (PDFView) -> Void,
+		onTapContinue: @escaping (PDFDocument) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.onTapContinue = onTapContinue
@@ -70,19 +70,19 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		if type == .primary {
 			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 			
-			viewModel.generatePDFData(completion: { pdfView in
-				DispatchQueue.main.async { [weak self] in
+			DispatchQueue.main.async { [weak self] in
+				self?.viewModel.generatePDFData(completion: { pdfDocument in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-					self?.onTapContinue(pdfView)
-				}
-			})
+					self?.onTapContinue(pdfDocument)
+				})
+			}
 		}
 	}
 	
 	// MARK: - Private
 	
 	private let viewModel: HealthCertificatePDFGenerationInfoViewModel
-	private let onTapContinue: (PDFView) -> Void
+	private let onTapContinue: (PDFDocument) -> Void
 	private let onDismiss: () -> Void
 	
 	private func setupView() {

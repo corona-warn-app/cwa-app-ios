@@ -12,16 +12,16 @@ class HealthCertificatePDFVersionViewModel {
 
 	init(
 		healthCertificate: HealthCertificate,
-		pdfView: PDFView
+		pdfDocument: PDFDocument
 	) {
 		self.healthCertificate = healthCertificate
-		self.pdfView = pdfView
+		self.pdfDocument = pdfDocument
 	}
 
 	// MARK: - Internal
 
 	let healthCertificate: HealthCertificate
-	let pdfView: PDFView
+	let pdfDocument: PDFDocument
 
 	var certificatePersonName: String {
 		return healthCertificate.name.fullName
