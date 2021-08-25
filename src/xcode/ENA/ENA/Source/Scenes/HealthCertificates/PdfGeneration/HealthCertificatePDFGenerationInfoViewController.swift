@@ -70,12 +70,12 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		if type == .primary {
 			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 			
-			viewModel.generatePDFData(completion: { pdfView in
-				DispatchQueue.main.async { [weak self] in
+			DispatchQueue.main.async { [weak self] in
+				self?.viewModel.generatePDFData(completion: { pdfView in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 					self?.onTapContinue(pdfView)
-				}
-			})
+				})
+			}
 		}
 	}
 	
