@@ -348,7 +348,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onTestDeleted: { [weak self] in
 				self?.dismiss()
 			},
-			onTestCertificateTapped: { [weak self] healthCertificate, healthCertifiedPerson in
+			onTestCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
 				self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate)
 			}
 		)

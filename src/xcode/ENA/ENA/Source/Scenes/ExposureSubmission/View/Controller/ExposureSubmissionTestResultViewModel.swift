@@ -637,7 +637,7 @@ extension ExposureSubmissionTestResultViewModel {
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
-					self.onTestCertificateTapped(healthTuple.certificate, healthTuple.certifiedPerson)
+					self.onTestCertificateCellTap(healthTuple.certificate, healthTuple.certifiedPerson)
 				},
 				configure: { _, cell, _ in
 					guard let cell = cell as? HealthCertificateCell else {
