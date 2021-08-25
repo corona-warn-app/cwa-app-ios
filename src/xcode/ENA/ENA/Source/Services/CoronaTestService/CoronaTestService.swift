@@ -469,19 +469,6 @@ class CoronaTestService {
 		store.positiveTestResultWasShown = false
 		store.isSubmissionConsentGiven = false
 	}
-
-	private func setUniqueCertificateIdentifier(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
-		switch testCertificateRequest.coronaTestType {
-		case .pcr:
-			if self.pcrTest?.registrationToken == testCertificateRequest.registrationToken {
-				pcrTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
-			}
-		case .antigen:
-			if self.antigenTest?.registrationToken == testCertificateRequest.registrationToken {
-				self.antigenTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
-			}
-		}
-	}
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
 		var healthTuple: (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
@@ -873,6 +860,19 @@ class CoronaTestService {
 
 		guard let outdatedStateTimer = outdatedStateTimer else { return }
 		RunLoop.current.add(outdatedStateTimer, forMode: .common)
+	}
+
+	private func setUniqueCertificateIdentifier(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
+		switch testCertificateRequest.coronaTestType {
+		case .pcr:
+			if self.pcrTest?.registrationToken == testCertificateRequest.registrationToken {
+				pcrTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		case .antigen:
+			if self.antigenTest?.registrationToken == testCertificateRequest.registrationToken {
+				self.antigenTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		}
 	}
 
 	@objc
