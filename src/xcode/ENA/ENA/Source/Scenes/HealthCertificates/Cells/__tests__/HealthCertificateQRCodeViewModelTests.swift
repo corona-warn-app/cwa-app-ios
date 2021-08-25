@@ -322,10 +322,14 @@ private extension UIImage {
 			XCTFail("ciImage missing")
 			return []
 		}
-
+		let attachment = XCTAttachment(image: self)
+		attachment.lifetime = .keepAlways
+		XCTContext.runActivity(named: "Image Capture") { activity in
+			activity.add(attachment)
+		}
 		let detector = CIDetector(
 			ofType: CIDetectorTypeQRCode,
-			context: nil,
+			context: CIContext(options: [CIContextOption.useSoftwareRenderer: true]),
 			options: [CIDetectorAccuracy: CIDetectorAccuracyLow]
 		)
 		XCTAssertNotNil(detector, "Detector is missing")
