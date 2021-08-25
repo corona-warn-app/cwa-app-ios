@@ -26,7 +26,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
 		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
-		self.onTestCertificateTapped = onTestCertificateTapped
+		self.onTestCertificateCellTap = onTestCertificateCellTap
 
 		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
 			onTestDeleted()
