@@ -609,17 +609,6 @@ extension ExposureSubmissionTestResultViewModel {
 			
 		])
 
-		if coronaTest.certificateRequested {
-			cells.append(
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
-					icon: UIImage(named: "certificate-qr-light"),
-					hairline: .none
-				)
-			)
-		}
-
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
@@ -713,17 +702,7 @@ extension ExposureSubmissionTestResultViewModel {
 				hairline: test.certificateRequested ? .iconAttached : .none
 			)
 		])
-		
-		if test.certificateRequested {
-			cells.append(
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.testCertificateAvailableInTheTab,
-					icon: UIImage(named: "certificate-qr-light"),
-					hairline: .none
-				)
-			)
-		}
+
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
