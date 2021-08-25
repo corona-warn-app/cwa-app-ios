@@ -122,7 +122,7 @@ class ExposureSubmissionTestResultViewModel {
 
 	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
-	private let onTestCertificateTapped: (HealthCertificate, HealthCertifiedPerson) -> Void
+	private let onTestCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 	
