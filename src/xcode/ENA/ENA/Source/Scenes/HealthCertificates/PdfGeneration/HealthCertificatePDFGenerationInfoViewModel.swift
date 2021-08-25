@@ -12,7 +12,7 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 	let title: String = AppStrings.HealthCertificate.PrintPDF.Info.title
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([								
+		DynamicTableViewModel([
 			.section(
 				cells: [
 					.headlineWithImage(
