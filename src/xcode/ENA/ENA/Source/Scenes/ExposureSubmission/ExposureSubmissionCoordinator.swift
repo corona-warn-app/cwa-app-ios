@@ -18,12 +18,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
 		eventProvider: EventProviding,
-		antigenTestProfileStore: AntigenTestProfileStoring
+		antigenTestProfileStore: AntigenTestProfileStoring,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+		
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.antigenTestProfileStore = antigenTestProfileStore
-		
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
+
+		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
+
 		super.init()
 
 		model = ExposureSubmissionCoordinatorModel(
@@ -184,6 +194,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private var model: ExposureSubmissionCoordinatorModel!
 	private let antigenTestProfileStore: AntigenTestProfileStoring
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+
+	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private var validationCoordinator: HealthCertificateValidationCoordinator?
 	
 	private func push(_ vc: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
@@ -331,6 +347,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			onTestDeleted: { [weak self] in
 				self?.dismiss()
+			},
+			onTestCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+				self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate)
 			}
 		)
 		
@@ -666,6 +685,166 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomController: footerVC)
 		
 		push(topBottomVC)
+	}
+
+	private func showHealthCertificate(
+		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertificate: HealthCertificate
+	) {
+		let deleteButtonTitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
+		case .test:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		case .recovery:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
+		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
+			secondaryButtonName: deleteButtonTitle,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isSecondaryButtonHidden: false,
+			primaryButtonInverted: false,
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .cellBackground),
+			secondaryTextColor: .systemRed
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+
+		let healthCertificateViewController = HealthCertificateViewController(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			dismiss: { [weak self] in
+				self?.dismiss()
+			},
+			didTapValidationButton: { [weak self] in
+				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
+				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
+
+				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
+					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
+					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
+
+					switch result {
+					case .success(let countries):
+						self?.showValidationFlow(
+							healthCertificate: healthCertificate,
+							countries: countries
+						)
+					case .failure(let error):
+						self?.showValidationErrorAlert(
+							title: AppStrings.HealthCertificate.Validation.Error.title,
+							error: error
+						)
+					}
+				}
+			},
+			didTapDeleteButton: { [weak self] in
+				self?.showDeleteAlert(
+					certificateType: healthCertificate.type,
+					submitAction: UIAlertAction(
+						title: AppStrings.HealthCertificate.Alert.deleteButton,
+						style: .destructive,
+						handler: { _ in
+							guard let self = self else {
+								Log.error("Could not create strong self")
+								return
+							}
+							self.healthCertificateService.removeHealthCertificate(healthCertificate)
+							self.navigationController?.popViewController(animated: true)
+						}
+					)
+				)
+			}
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificateViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController?.pushViewController(topBottomContainerViewController, animated: true)
+	}
+
+	private func showValidationFlow(
+		healthCertificate: HealthCertificate,
+		countries: [Country]
+	) {
+		guard let parentViewController = navigationController else { return }
+
+		validationCoordinator = HealthCertificateValidationCoordinator(
+			parentViewController: parentViewController,
+			healthCertificate: healthCertificate,
+			countries: countries,
+			store: store,
+			healthCertificateValidationService: healthCertificateValidationService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+
+		validationCoordinator?.start()
+	}
+	
+	private func showDeleteAlert(
+		certificateType: HealthCertificate.CertificateType,
+		submitAction: UIAlertAction
+	) {
+		let title: String
+		let message: String
+
+		switch certificateType {
+		case .vaccination:
+			title = AppStrings.HealthCertificate.Alert.VaccinationCertificate.title
+			message = AppStrings.HealthCertificate.Alert.VaccinationCertificate.message
+		case .test:
+			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
+			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
+		case .recovery:
+			title = AppStrings.HealthCertificate.Alert.RecoveryCertificate.title
+			message = AppStrings.HealthCertificate.Alert.RecoveryCertificate.message
+		}
+
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Alert.cancelButton,
+				style: .cancel,
+				handler: nil
+			)
+		)
+		alert.addAction(submitAction)
+		
+		navigationController?.present(alert, animated: true)
+	}
+
+	private func showValidationErrorAlert(
+		title: String,
+		error: Error
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	// MARK: Late consent
