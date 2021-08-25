@@ -125,7 +125,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	var hasBoosterVaccinationCertificate: Bool {
-		return healthCertificates.first { $0.vaccinationEntry?.isBooster ?? false } != nil
+		return healthCertificates.contains { $0.vaccinationEntry?.isBooster ?? false }
 	}
 
 	@objc
