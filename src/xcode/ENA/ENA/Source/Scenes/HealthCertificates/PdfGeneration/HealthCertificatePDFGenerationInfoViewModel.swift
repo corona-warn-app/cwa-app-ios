@@ -51,7 +51,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 	}
 	
 	func generatePDFData(
-		completion: @escaping (PDFView) -> Void
+		completion: @escaping (PDFDocument) -> Void
 	) {
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
@@ -71,8 +71,8 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 						fatalError("Could not create strong self")
 					}
 					do {
-						let pdfView = try self.healthCertificate.pdfView(with: valueSets)
-						completion(pdfView)
+						let pdfDocument = try self.healthCertificate.pdfDocument(with: valueSets)
+						completion(pdfDocument)
 					} catch {
 						fatalError("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
 					}

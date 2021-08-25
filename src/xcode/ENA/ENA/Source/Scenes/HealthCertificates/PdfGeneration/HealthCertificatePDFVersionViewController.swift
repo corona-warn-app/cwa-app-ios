@@ -31,8 +31,14 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		let pdfView = PDFView()
 
-		view = viewModel.pdfView
+		pdfView.document = viewModel.pdfDocument
+		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
+		pdfView.autoScales = true
+
+		view = pdfView
 		view.backgroundColor = .enaColor(for: .background)
 		
 
@@ -86,7 +92,8 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 	
 	@objc
 	private func didTapPrintButton() {
-		guard let data = viewModel.pdfView.document?.dataRepresentation() else {
+		guard let pdfView = view as? PDFView,
+			let data = pdfView.document?.dataRepresentation() else {
 			Log.error("Could not create data representation of pdf to print", log: .vaccination)
 			return
 		}
@@ -95,7 +102,8 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 	
 	@objc
 	private func didTapShareButton() {
-		guard let data = viewModel.pdfView.document?.dataRepresentation() else {
+		guard let pdfView = view as? PDFView,
+			  let data = pdfView.document?.dataRepresentation() else {
 			Log.error("Could not create data representation of pdf to print", log: .vaccination)
 			return
 		}
