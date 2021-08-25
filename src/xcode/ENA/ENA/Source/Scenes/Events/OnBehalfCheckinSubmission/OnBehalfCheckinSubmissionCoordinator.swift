@@ -18,6 +18,11 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		self.appConfiguration = appConfiguration
 		self.eventStore = eventStore
 		self.client = client
+
+		self.checkinSubmissionService = OnBehalfCheckinSubmissionService(
+			client: client,
+			appConfigurationProvider: appConfiguration
+		)
 	}
 	
 	// MARK: - Internal
@@ -37,6 +42,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private let appConfiguration: AppConfigurationProviding
 	private let eventStore: EventStoringProviding
 	private let client: Client
+	private let checkinSubmissionService: OnBehalfCheckinSubmissionService
 
 	private weak var traceLocationSelectionViewController: OnBehalfTraceLocationSelectionViewController?
 
@@ -168,14 +174,23 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		let tanInputViewModel = TanInputViewModel(
 			title: AppStrings.OnBehalfCheckinSubmission.TANInput.title,
 			description: AppStrings.OnBehalfCheckinSubmission.TANInput.description,
-			onPrimaryButtonTap: { [weak self] tan, isLoading in
+			onPrimaryButtonTap: { [weak self] teleTAN, isLoading in
 				isLoading(true)
 
-				Log.info("[OnBehalfCheckinSubmission] Submitting with TAN \(private: tan)", log: .checkin)
-				DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+				Log.info("[OnBehalfCheckinSubmission] Submitting with TAN \(private: teleTAN)", log: .checkin)
+
+				self?.checkinSubmissionService.submit(
+					checkin: checkin,
+					teleTAN: teleTAN
+				) { result in
 					isLoading(false)
 
-					self?.showThankYouScreen()
+					switch result {
+					case .success:
+						self?.showThankYouScreen()
+					case .failure(let error):
+						self?.showErrorAlert(error: error)
+					}
 				}
 			}
 		)
@@ -219,23 +234,9 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	}
 
 	private func showErrorAlert(
-		title: String,
 		error: Error
 	) {
-		let alert = UIAlertController(
-			title: title,
-			message: error.localizedDescription,
-			preferredStyle: .alert
-		)
-
-		let okayAction = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
-			}
-		)
-		alert.addAction(okayAction)
+		let alert = UIAlertController.errorAlert(message: error.localizedDescription)
 
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController.present(alert, animated: true, completion: nil)

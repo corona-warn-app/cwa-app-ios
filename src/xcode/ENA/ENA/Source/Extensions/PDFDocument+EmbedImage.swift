@@ -11,6 +11,27 @@ enum PDFEmbeddingError: Error {
 }
 
 struct PDFText {
+
+	// MARK: - Init
+
+	init(
+		text: String,
+		size: CGFloat = 10,
+		color: UIColor,
+		font: UIFont? = nil,
+		rect: CGRect,
+		upsideDown: Bool = false
+	) {
+		self.text = text
+		self.size = size
+		self.color = color
+		self.font = font ?? UIFont.preferredFont(forTextStyle: .body).scaledFont(size: size, weight: .regular)
+		self.rect = rect
+		self.upsideDown = upsideDown
+	}
+
+	// MARK: - Internal
+
 	let text: String
 	let size: CGFloat
 	let color: UIColor
@@ -19,26 +40,7 @@ struct PDFText {
 	let upsideDown: Bool
 }
 
-extension PDFText {
-
-	init(
-		text: String,
-		size: CGFloat? = nil,
-		color: UIColor,
-		font: UIFont? = nil,
-		rect: CGRect,
-		upsideDown: Bool = false
-	) {
-		self.text = text
-		self.size = size ?? 10
-		self.color = color
-		self.font = font ?? UIFont.preferredFont(forTextStyle: .body).scaledFont(size: size, weight: .regular)
-		self.rect = rect
-		self.upsideDown = upsideDown
-	}
-}
-
-extension BinaryInteger {
+private extension BinaryInteger {
 	var degreesToRadians: CGFloat { CGFloat(self) * .pi / 180 }
 }
 

@@ -621,6 +621,19 @@ enum AccessibilityIdentifiers {
 		}
 		
 	}
+
+	enum OnBehalfCheckinSubmission {
+
+		enum TraceLocationSelection {
+			static let selectionCell = "OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell"
+		}
+
+		enum DateTimeSelection {
+			static let dateCell = "OnBehalfCheckinSubmission.DateTimeSelection.dateCell"
+			static let durationCell = "OnBehalfCheckinSubmission.DateTimeSelection.durationCell"
+		}
+
+	}
 	
 	enum AntigenProfile {
 		
@@ -675,6 +688,10 @@ enum AccessibilityIdentifiers {
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
+		}
+		
+		enum PrintPdf {
+			static let imageDescription = "AppStrings.HealthCertificate.PrintPDF.imageDescription"
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
