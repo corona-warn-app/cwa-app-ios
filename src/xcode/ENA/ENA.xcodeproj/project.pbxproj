@@ -917,6 +917,10 @@
 		AB9B991726D522B700F2506D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB9B990C26D522B700F2506D /* OpenSans-Regular.ttf */; };
 		AB9B991826D522B700F2506D /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB9B990D26D522B700F2506D /* OpenSans-Italic.ttf */; };
 		AB9B991926D522B700F2506D /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB9B990E26D522B700F2506D /* OpenSans-SemiBoldItalic.ttf */; };
+		AB9B991C26D5389100F2506D /* HealthCertificate+PDFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */; };
+		AB9B991D26D53C7300F2506D /* TestCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875826D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf */; };
+		AB9B991E26D5416F00F2506D /* RecoveryCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */; };
+		AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
 		AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E9E79261308C000515408 /* RiskTests.swift */; };
 		ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC9D2D2624938100EB183F /* TestResultTests.swift */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
@@ -2305,6 +2309,7 @@
 		AB9B990C26D522B700F2506D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		AB9B990D26D522B700F2506D /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		AB9B990E26D522B700F2506D /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDFTests.swift"; sourceTree = "<group>"; };
 		AB9E9E79261308C000515408 /* RiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskTests.swift; sourceTree = "<group>"; };
 		ABAC9D2D2624938100EB183F /* TestResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultTests.swift; sourceTree = "<group>"; };
 		ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1.swift; sourceTree = "<group>"; };
@@ -3884,6 +3889,7 @@
 				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
 				BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */,
 				BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */,
+				AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -8210,13 +8216,16 @@
 				EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */,
 				5078DCAB2686122200535917 /* api-response-onboardedCountries in Resources */,
 				01BA0760262096D100237DD8 /* checkin-timeinterval-derivation.json in Resources */,
+				AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */,
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
+				AB9B991E26D5416F00F2506D /* RecoveryCertificateTemplate_v4.1.pdf in Resources */,
 				AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 				50412F32268AFA3500E4087C /* api-response-rule in Resources */,
+				AB9B991D26D53C7300F2506D /* TestCertificateTemplate_v4.1.pdf in Resources */,
 				BA7D178125D549B3006B9EBF /* testData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9231,6 +9240,7 @@
 				BAAC573026CBE9510049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift in Sources */,
 				01E1026E2669658E009ED803 /* DCCRSAKeyPairTests.swift in Sources */,
 				B1221BE22492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift in Sources */,
+				AB9B991C26D5389100F2506D /* HealthCertificate+PDFTests.swift in Sources */,
 				A124E64A249BF4EF00E95F72 /* ExposureDetectionExecutorTests.swift in Sources */,
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
 				01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */,
