@@ -604,7 +604,7 @@ extension ExposureSubmissionTestResultViewModel {
 				title: AppStrings.ExposureSubmissionResult.testRemove,
 				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
-				hairline: coronaTest.certificateRequested ? .iconAttached : .none
+				hairline: .none
 			)
 			
 		])
@@ -699,7 +699,7 @@ extension ExposureSubmissionTestResultViewModel {
 				title: AppStrings.ExposureSubmissionResult.testRemove,
 				description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
-				hairline: test.certificateRequested ? .iconAttached : .none
+				hairline: .none
 			)
 		])
 
