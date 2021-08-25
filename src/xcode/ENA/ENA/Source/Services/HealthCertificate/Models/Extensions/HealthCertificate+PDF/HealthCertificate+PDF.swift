@@ -332,7 +332,7 @@ extension HealthCertificate {
 
 private extension String {
 
-	func removeURNPrefix() -> String {
+	func removingURNPrefix() -> String {
 		return replacingOccurrences(of: "URN:UVCI:", with: "")
 	}
 }
