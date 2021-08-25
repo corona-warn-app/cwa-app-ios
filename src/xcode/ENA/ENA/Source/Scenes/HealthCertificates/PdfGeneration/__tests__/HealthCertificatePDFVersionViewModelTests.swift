@@ -32,15 +32,7 @@ class HealthCertificatePDFVersionViewModelTests: XCTestCase {
 					  from: DigitalCovidCertificate.fake(
 						  name: Name.fake(
 							  familyName: "Duck", givenName: "Donald"
-						  ),
-						  vaccinationEntries: [
-							  VaccinationEntry.fake(
-								  vaccineMedicinalProduct: "EU/1/11/9999",
-								  doseNumber: 1,
-								  totalSeriesOfDoses: 1,
-								  dateOfVaccination: "2021-08-25"
-							  )
-						  ]
+						  )
 					  )
 				  )
 			  )
