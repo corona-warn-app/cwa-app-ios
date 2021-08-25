@@ -309,7 +309,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
+				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
