@@ -6,20 +6,18 @@ import UIKit
 import PDFKit
 import LinkPresentation
 
-class HealthCertificatePDFVersionViewController: DynamicTableViewController, DismissHandling, UIActivityItemSource {
+class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIActivityItemSource {
 
 	// MARK: - Init
 
 	init(
 		viewModel: HealthCertificatePDFVersionViewModel,
 		onTapPrintPdf: @escaping (Data) -> Void,
-		onTapExportPdf: @escaping (PDFExportItem) -> Void,
-		onDismiss: @escaping () -> Void
+		onTapExportPdf: @escaping (PDFExportItem) -> Void
 	) {
 		self.viewModel = viewModel
 		self.onTapPrintPdf = onTapPrintPdf
 		self.onTapExportPdf = onTapExportPdf
-		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -54,12 +52,6 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, Dis
 		// Must be set here, otherwise navBar will be translucent.
 		navigationController?.navigationBar.isTranslucent = false
 	}
-	
-	// MARK: - DismissHandling
-	
-	func wasAttemptedToBeDismissed() {
-		onDismiss()
-	}
 
 	// MARK: - Protocol UIActivityItemSource
 
@@ -91,7 +83,6 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, Dis
 	private let viewModel: HealthCertificatePDFVersionViewModel
 	private let onTapPrintPdf: (Data) -> Void
 	private let onTapExportPdf: (PDFExportItem) -> Void
-	private let onDismiss: () -> Void
 	
 	@objc
 	private func didTapPrintButton() {

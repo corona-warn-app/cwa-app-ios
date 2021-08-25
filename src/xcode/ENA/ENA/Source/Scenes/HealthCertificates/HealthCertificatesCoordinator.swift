@@ -502,10 +502,7 @@ final class HealthCertificatesCoordinator {
 		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
 			viewModel: healthCertificatePDFVersionViewModel,
 			onTapPrintPdf: printPdf,
-			onTapExportPdf: exportPdf,
-			onDismiss: { [weak self] in
-				self?.modalNavigationController.dismiss(animated: true)
-			}
+			onTapExportPdf: exportPdf
 		)
 		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
 	}
