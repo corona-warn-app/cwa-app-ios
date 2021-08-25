@@ -158,4 +158,12 @@ enum CoronaTest: Equatable {
 		}
 	}
 
+	var uniqueCertificateIdentifier: String? {
+		switch self {
+		case .pcr(let test):
+			return test.uniqueCertificateIdentifier
+		case .antigen(let test):
+			return test.uniqueCertificateIdentifier
+		}
+	}
 }
