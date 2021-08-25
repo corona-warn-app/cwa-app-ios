@@ -210,4 +210,3 @@ private extension UIViewController {
 		([view] + view.subviews).first(ofType: UITableView.self)
 	}
 }
-
