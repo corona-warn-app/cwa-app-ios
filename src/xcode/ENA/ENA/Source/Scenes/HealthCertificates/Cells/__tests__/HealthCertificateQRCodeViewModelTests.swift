@@ -322,11 +322,11 @@ private extension UIImage {
 			XCTFail("ciImage missing")
 			return []
 		}
-		let attachment = XCTAttachment(image: self)
-		attachment.lifetime = .keepAlways
-		XCTContext.runActivity(named: "Image Capture") { activity in
-			activity.add(attachment)
-		}
+//		let attachment = XCTAttachment(image: self)
+//		attachment.lifetime = .keepAlways
+//		XCTContext.runActivity(named: "Image Capture") { activity in
+//			activity.add(attachment)
+//		}
 		let detector = CIDetector(
 			ofType: CIDetectorTypeQRCode,
 			context: CIContext(options: [CIContextOption.useSoftwareRenderer: true]),
