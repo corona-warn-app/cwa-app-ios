@@ -328,12 +328,13 @@ private extension UIImage {
 			context: nil,
 			options: [CIDetectorAccuracy: CIDetectorAccuracyLow]
 		)
+		XCTAssertNotNil(detector, "Detector is missing")
 
 		guard let features = detector?.features(in: image) else {
 			XCTFail("No Features detected")
 			return []
 		}
-		XCTAssertEqual(features.count, 0, "feature count is")
+		XCTAssertNotEqual(features.count, 0, "No Features detected")
 		return features.compactMap {
 			($0 as? CIQRCodeFeature)?.messageString
 		}
