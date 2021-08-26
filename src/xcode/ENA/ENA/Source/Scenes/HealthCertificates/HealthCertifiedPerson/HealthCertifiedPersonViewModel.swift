@@ -131,6 +131,10 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var vaccinationHintIsVisible: Bool {
+		guard !healthCertifiedPerson.hasBoosterVaccinationCertificate else {
+			// we hide vaccination notice if a booster certificate is available
+			return false
+		}
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated, .fullyVaccinated:
 			return true
