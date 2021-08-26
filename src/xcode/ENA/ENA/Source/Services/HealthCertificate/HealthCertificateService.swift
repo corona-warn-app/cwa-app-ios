@@ -511,12 +511,17 @@ class HealthCertificateService {
 		if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
 			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront)
 		} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
+
+			// We need the specific case of issuer == "DE" to test the printing of health certificate.
+			// If the issuer is not "DE", printing is not allowed.
+			let issuer = LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE.boolValue ? "DE" : "Other"
+
 			let firstDose = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake()]
 				),
-				and: CBORWebTokenHeader.fake(issuer:"DE", expirationTime: expirationTime)
+				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = firstDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
@@ -527,7 +532,7 @@ class HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
 				),
-				and: CBORWebTokenHeader.fake(issuer:"DE", expirationTime: expirationTime)
+				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)

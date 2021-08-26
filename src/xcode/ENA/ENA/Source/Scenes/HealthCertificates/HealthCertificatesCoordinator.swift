@@ -562,6 +562,7 @@ final class HealthCertificatesCoordinator {
 				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
 			}
 		)
+		faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
 		alert.addAction(faqAction)
 		
 		let okayAction = UIAlertAction(
@@ -571,6 +572,7 @@ final class HealthCertificatesCoordinator {
 				alert.dismiss(animated: true)
 			}
 		)
+		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
 		modalNavigationController.present(alert, animated: true, completion: nil)
