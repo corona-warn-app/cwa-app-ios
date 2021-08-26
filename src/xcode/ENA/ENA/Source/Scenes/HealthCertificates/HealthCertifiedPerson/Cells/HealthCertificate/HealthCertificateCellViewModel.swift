@@ -17,8 +17,10 @@ final class HealthCertificateCellViewModel {
 	}
 
 	// MARK: - Internal
+	
+	let healthCertificate: HealthCertificate
 
-	var gradientType: GradientView.GradientType {
+	lazy var gradientType: GradientView.GradientType = {
 		if healthCertificate.validityState == .invalid ||
 			(healthCertificate.type != .test && healthCertificate.validityState == .expired) ||
 			healthCertificate != healthCertifiedPerson.mostRelevantHealthCertificate {
@@ -26,9 +28,9 @@ final class HealthCertificateCellViewModel {
 		} else {
 			return .lightBlue(withStars: false)
 		}
-	}
+	}()
 
-	var headline: String? {
+	lazy var headline: String? = {
 		switch healthCertificate.type {
 		case .vaccination:
 			return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
@@ -37,9 +39,9 @@ final class HealthCertificateCellViewModel {
 		case .recovery:
 			return AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
 		}
-	}
+	}()
 
-	var subheadline: String? {
+	lazy var subheadline: String? = {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBooster:
 			return AppStrings.HealthCertificate.Person.VaccinationCertificate.booster
@@ -59,9 +61,9 @@ final class HealthCertificateCellViewModel {
 		case .recovery:
 			return nil
 		}
-	}
+	}()
 
-	var detail: String? {
+	lazy var detail: String? = {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate.map {
@@ -85,9 +87,9 @@ final class HealthCertificateCellViewModel {
 				)
 			}
 		}
-	}
+	}()
 
-	var validityStateInfo: String? {
+	lazy var validityStateInfo: String? = {
 		if healthCertificate.validityState == .invalid ||
 			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
 			switch healthCertificate.validityState {
@@ -107,9 +109,9 @@ final class HealthCertificateCellViewModel {
 		} else {
 			return nil
 		}
-	}
+	}()
 
-	var image: UIImage {
+	lazy var image: UIImage = {
 		if healthCertificate.validityState == .invalid ||
 			(healthCertificate.type != .test && healthCertificate.validityState == .expired) {
 			return UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small")
@@ -131,15 +133,14 @@ final class HealthCertificateCellViewModel {
 		case .recovery:
 			return UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon")
 		}
-	}
+	}()
 
-	var isCurrentlyUsedCertificateHintVisible: Bool {
+	lazy var isCurrentlyUsedCertificateHintVisible: Bool = {
 		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
-	}
+	}()
 
 	// MARK: - Private
 
-	private let healthCertificate: HealthCertificate
 	private let healthCertifiedPerson: HealthCertifiedPerson
 
 }
