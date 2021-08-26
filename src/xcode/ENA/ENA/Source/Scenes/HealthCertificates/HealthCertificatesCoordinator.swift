@@ -70,7 +70,6 @@ final class HealthCertificatesCoordinator {
 	private var modalNavigationController: UINavigationController!
 	private var printNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
-
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var infoScreenShown: Bool {
@@ -139,7 +138,6 @@ final class HealthCertificatesCoordinator {
 			topController: consentScreen,
 			bottomController: footerViewController
 		)
-
 		return topBottomContainerViewController
 	}
 
@@ -182,7 +180,6 @@ final class HealthCertificatesCoordinator {
 		)
 
 		qrCodeScannerViewController.definesPresentationContext = true
-
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
 		qrCodeNavigationController.modalPresentationStyle = .fullScreen
 
@@ -249,7 +246,6 @@ final class HealthCertificatesCoordinator {
 				)
 			}
 		)
-
 		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)
 		viewController.present(modalNavigationController, animated: true)
 	}
@@ -467,12 +463,10 @@ final class HealthCertificatesCoordinator {
 				self?.modalNavigationController.dismiss(animated: true)
 			},
 			showErrorAlert: { [weak self] error in
-				Log.error("Could not generate PDF due to underlying error: \(error)", log: .vaccination, error: error)
 				self?.showErrorAlert(
 					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
 					error: error
 				)
-				
 			}
 		)
 		
@@ -559,7 +553,6 @@ final class HealthCertificatesCoordinator {
 				self.printNavigationController.present(alert, animated: true, completion: nil)
 			}
 		}
-		
 	}
 	
 	private func showPdfPrintErrorAlert() {
@@ -602,5 +595,4 @@ final class HealthCertificatesCoordinator {
 	private func showSettings() {
 		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
-	
 }

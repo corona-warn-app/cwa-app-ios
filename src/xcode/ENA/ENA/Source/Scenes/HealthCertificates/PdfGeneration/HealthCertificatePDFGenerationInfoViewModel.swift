@@ -85,7 +85,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 					}
 					do {
 						let pdfDocument = try self.healthCertificate.pdfDocument(with: valueSets)
-						completion(.failure(.createStrongPointer))//completion(.success(pdfDocument))
+						completion(.success(pdfDocument))
 					} catch {
 						Log.error("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
 						completion(.failure(.fetchValueSets))
