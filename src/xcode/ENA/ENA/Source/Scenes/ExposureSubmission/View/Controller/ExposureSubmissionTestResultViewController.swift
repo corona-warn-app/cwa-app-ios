@@ -41,6 +41,18 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		viewModel.updateTestResultIfPossible()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		setUpNavigationBarAppearance()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		parent?.navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
+	}
+	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 	
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -84,12 +96,22 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		setUpDynamicTableView()
 	}
 
+	private func setUpNavigationBarAppearance() {
+		parent?.navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationItem.largeTitleDisplayMode = .always
+	}
+	
 	private func setUpDynamicTableView() {
 		tableView.separatorStyle = .none
 
 		tableView.register(
 			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.pcrTestResult.rawValue
+		)
+		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.healthCertificateCell.rawValue
 		)
 		tableView.register(
 			AntigenExposureSubmissionNegativeTestResultHeaderView.self,
@@ -195,5 +217,6 @@ extension ExposureSubmissionTestResultViewController {
 extension ExposureSubmissionTestResultViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
+		case healthCertificateCell
 	}
 }

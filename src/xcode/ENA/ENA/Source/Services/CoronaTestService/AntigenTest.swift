@@ -32,6 +32,8 @@ struct AntigenTest: Equatable {
 	var certificateConsentGiven: Bool
 	var certificateRequested: Bool
 
+	var uniqueCertificateIdentifier: String?
+
 	var testDate: Date {
 		return sampleCollectionDate ?? pointOfCareConsentDate
 	}
@@ -58,6 +60,7 @@ extension AntigenTest: Codable {
 		case certificateSupportedByPointOfCare
 		case certificateConsentGiven
 		case certificateRequested
+		case uniqueCertificateIdentifier
 	}
 
 	init(from decoder: Decoder) throws {
@@ -83,6 +86,8 @@ extension AntigenTest: Codable {
 		certificateSupportedByPointOfCare = try container.decodeIfPresent(Bool.self, forKey: .certificateSupportedByPointOfCare) ?? false
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
+		
+		uniqueCertificateIdentifier = try container.decodeIfPresent(String.self, forKey: .uniqueCertificateIdentifier)
 	}
 
 }
