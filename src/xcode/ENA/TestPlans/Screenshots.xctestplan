@@ -79,6 +79,7 @@
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificateExpired()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificateExpiring()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificateInvalid()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificate_printPDF()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_MultipleFamilyTestCertificates()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_RecoveryCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_RecoveryCertificateExpired()",
