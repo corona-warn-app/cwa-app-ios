@@ -6,6 +6,7 @@ import Foundation
 import UIKit
 import OpenCombine
 import ExposureNotification
+import PDFKit
 
 // swiftlint:disable file_length
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
@@ -200,6 +201,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
+	private var printNavigationController: UINavigationController!
 	
 	private func push(_ vc: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
@@ -744,21 +746,26 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					}
 				}
 			},
-			didTapDeleteButton: { [weak self] in
-				self?.showDeleteAlert(
-					certificateType: healthCertificate.type,
-					submitAction: UIAlertAction(
-						title: AppStrings.HealthCertificate.Alert.deleteButton,
-						style: .destructive,
-						handler: { _ in
-							guard let self = self else {
-								Log.error("Could not create strong self")
-								return
-							}
-							self.healthCertificateService.removeHealthCertificate(healthCertificate)
-							self.navigationController?.popViewController(animated: true)
-						}
-					)
+			didTapMoreButton: { [weak self] in
+				self?.showActionSheet(
+					healthCertificate: healthCertificate,
+					removeAction: { [weak self] in
+						self?.showDeleteAlert(
+							certificateType: healthCertificate.type,
+							submitAction: UIAlertAction(
+								title: AppStrings.HealthCertificate.Alert.deleteButton,
+								style: .destructive,
+								handler: { _ in
+									guard let self = self else {
+										Log.error("Could not create strong self")
+										return
+									}
+									self.healthCertificateService.removeHealthCertificate(healthCertificate)
+									self.navigationController?.popViewController(animated: true)
+								}
+							)
+						)
+					}
 				)
 			}
 		)
@@ -787,6 +794,131 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 
 		validationCoordinator?.start()
+	}
+	
+	private func showActionSheet(
+		healthCertificate: HealthCertificate,
+		removeAction: @escaping () -> Void
+	) {
+		let actionSheet = UIAlertController(
+			title: nil,
+			message: nil,
+			preferredStyle: .actionSheet
+		)
+		
+		let printAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
+			style: .default,
+			handler: { [weak self] _ in
+				// Check first if the certificate is obtained in DE. If not, show error alert.
+				guard healthCertificate.cborWebTokenHeader.issuer == "DE" else {
+					self?.showPdfPrintErrorAlert()
+					return
+				}
+				self?.showPdfGenerationInfo(
+					healthCertificate: healthCertificate
+				)
+			}
+		)
+		actionSheet.addAction(printAction)
+
+		let deleteButtonTitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
+		case .test:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		case .recovery:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
+		}
+		
+		let removeAction = UIAlertAction(
+			title: deleteButtonTitle,
+			style: .destructive,
+			handler: { _ in
+				removeAction()
+			}
+		)
+		actionSheet.addAction(removeAction)
+		
+		let cancelAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.cancel,
+			style: .cancel,
+			handler: nil
+		)
+		actionSheet.addAction(cancelAction)
+		navigationController?.present(actionSheet, animated: true, completion: nil)
+	}
+	
+	private func showPdfGenerationInfo(
+		healthCertificate: HealthCertificate
+	) {
+		let healthCertificatePDFGenerationInfoViewController = HealthCertificatePDFGenerationInfoViewController(
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			onTapContinue: { [weak self] pdfDocument in
+				self?.showPdfGenerationResult(
+					healthCertificate: healthCertificate,
+					pdfDocument: pdfDocument
+				)
+			},
+			onDismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.PrintPDF.Info.primaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificatePDFGenerationInfoViewController,
+			bottomController: footerViewController
+		)
+		
+		printNavigationController = DismissHandlingNavigationController(
+			rootViewController: topBottomContainerViewController,
+			transparent: true
+		)
+		navigationController?.present(printNavigationController, animated: true)
+	}
+	
+	private func showPdfGenerationResult(
+		healthCertificate: HealthCertificate,
+		pdfDocument: PDFDocument
+	) {
+		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
+			healthCertificate: healthCertificate,
+			pdfDocument: pdfDocument
+		)
+		
+		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
+			viewModel: healthCertificatePDFVersionViewModel,
+			onTapPrintPdf: printPdf,
+			onTapExportPdf: exportPdf
+		)
+		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
+	}
+	
+	private func printPdf(
+		pdfData: Data
+	) {
+		let printController = UIPrintInteractionController.shared
+		printController.printingItem = pdfData
+		printController.present(animated: true, completionHandler: nil)
+	}
+	
+	private func exportPdf(
+		exportItem: PDFExportItem
+	) {
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
+		printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 	
 	private func showDeleteAlert(
@@ -823,6 +955,34 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		alert.addAction(submitAction)
 		
 		navigationController?.present(alert, animated: true)
+	}
+	
+	private func showPdfPrintErrorAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.message,
+			preferredStyle: .alert
+		)
+		
+		let faqAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.faq,
+			style: .default,
+			handler: { _ in
+				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
+			}
+		)
+		alert.addAction(faqAction)
+		
+		let okayAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.ok,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	private func showValidationErrorAlert(
