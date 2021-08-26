@@ -853,6 +853,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			onDismiss: { [weak self] in
 				self?.navigationController?.dismiss(animated: true)
+			},
+			showErrorAlert: { [weak self] error in
+				self?.showErrorAlert(
+					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+					error: error
+				)
 			}
 		)
 		
@@ -946,15 +952,47 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
+	private func showErrorAlert(
+		title: String,
+		error: Error
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				fatalError("Could not create strong self")
+			}
+			
+			if let navigationController = self.navigationController,
+			   navigationController.isBeingPresented {
+				self.navigationController?.present(alert, animated: true, completion: nil)
+			} else {
+				self.printNavigationController.present(alert, animated: true, completion: nil)
+			}
+		}
+	}
+	
 	private func showPdfPrintErrorAlert() {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.message,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
 			preferredStyle: .alert
 		)
 		
 		let faqAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.faq,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
 			style: .default,
 			handler: { _ in
 				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
@@ -963,7 +1001,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		alert.addAction(faqAction)
 		
 		let okayAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.ok,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true)
