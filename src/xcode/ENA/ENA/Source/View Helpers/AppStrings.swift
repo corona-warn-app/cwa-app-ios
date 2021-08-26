@@ -1027,10 +1027,8 @@ enum AppStrings {
 		static let detectExposureBody = NSLocalizedString("local_notifications_detectexposure_body", comment: "")
 		static let testResultsTitle = NSLocalizedString("local_notifications_testresults_title", comment: "")
 		static let testResultsBody = NSLocalizedString("local_notifications_testresults_body", comment: "")
-		static let expiringSoonTitle = NSLocalizedString("local_notifications_expiringSoon_title", comment: "")
-		static let expiringSoonBody = NSLocalizedString("local_notifications_expiringSoon_body", comment: "")
-		static let expiredTitle = NSLocalizedString("local_notifications_expired_title", comment: "")
-		static let expiredBody = NSLocalizedString("local_notifications_expired_body", comment: "")
+		static let certificateGenericTitle = NSLocalizedString("local_notifications_certificate_title", comment: "")
+		static let certificateGenericBody = NSLocalizedString("local_notifications_certificate_body", comment: "")
 	}
 
 	enum RiskLegend {
