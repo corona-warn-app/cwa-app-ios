@@ -89,6 +89,8 @@ class RootCoordinator: RequiresAppDependencies {
 			ppacService: ppacService,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
 			elsService: elsService
 		)
 		self.homeCoordinator = homeCoordinator

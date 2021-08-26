@@ -5,6 +5,7 @@
 @testable import ENA
 import Foundation
 import XCTest
+import CertLogic
 import HealthCertificateToolkit
 
 class ExposureSubmissionCoordinatorTests: CWATestCase {
@@ -15,6 +16,10 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	private var exposureSubmissionService: MockExposureSubmissionService!
 	private var store: Store!
 	private var coronaTestService: CoronaTestService!
+	private var healthCertificateService: HealthCertificateService!
+	private var healthCertificateValidationService: HealthCertificateValidationService!
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider!
+	private var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider!
 
 	// MARK: - Setup and teardown methods.
 
@@ -41,7 +46,53 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				appConfiguration: appConfiguration
 			)
 		)
+		
+		healthCertificateService = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: appConfiguration
+		)
+		
+		vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		
+		healthCertificateValidationOnboardedCountriesProvider = HealthCertificateValidationOnboardedCountriesProvider(
+			store: store,
+			client: client,
+			signatureVerifier: MockVerifier()
+		)
+		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+		
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "B"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "C"), result: .passed)
+		]
+		
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		
+		healthCertificateValidationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
+			validationRulesAccess: validationRulesAccess,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider
+		)
 	}
+
 
 	// MARK: - Helper methods.
 
@@ -53,8 +104,12 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: MockEventStore(),
-			antigenTestProfileStore: store
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
 		)
 	}
 

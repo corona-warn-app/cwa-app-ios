@@ -514,6 +514,8 @@
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
 		4B577C5F26C1D90500641667 /* LoggingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B577C5E26C1D90500641667 /* LoggingTests.swift */; };
+		4BAB48F426C9B4FB00CC4C11 /* RateLimitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */; };
+		4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */; };
 		500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */; };
 		500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */; };
 		500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */; };
@@ -1888,6 +1890,8 @@
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
 		4B577C5E26C1D90500641667 /* LoggingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingTests.swift; sourceTree = "<group>"; };
+		4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLogger.swift; sourceTree = "<group>"; };
+		4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLoggerTests.swift; sourceTree = "<group>"; };
 		500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesCache.swift; sourceTree = "<group>"; };
 		500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationServiceValidationTests.swift; sourceTree = "<group>"; };
 		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
@@ -6704,6 +6708,7 @@
 				B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */,
 				3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */,
 				352E0F18255D537C00DC3E20 /* AppConfiguration+Validation.swift */,
+				4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -6718,6 +6723,7 @@
 				356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */,
 				352DEA6E25B08966006751D1 /* StatisticsProviderTests.swift */,
 				BA52627626BACA6100C4F12F /* AppConfiguration+FeaturesTests.swift */,
+				4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8890,6 +8896,7 @@
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
 				AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */,
+				4BAB48F426C9B4FB00CC4C11 /* RateLimitLogger.swift in Sources */,
 				AB190ED725FBC45D00FBFF0D /* FMDB+Utils.swift in Sources */,
 				AB86B2AA26026AB5007C77B3 /* EventCheckoutService.swift in Sources */,
 				5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */,
@@ -9407,6 +9414,7 @@
 				8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */,
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
+				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
 				01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */,

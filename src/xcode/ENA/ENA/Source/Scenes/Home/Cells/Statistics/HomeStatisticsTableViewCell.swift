@@ -327,14 +327,13 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	@discardableResult
 	private func configureBaselines(statisticsCardView: HomeStatisticsCardView) -> [NSLayoutConstraint] {
-		let cardViewCount = stackView.arrangedSubviews.count
-		if cardViewCount > 2, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+		if stackView.arrangedSubviews.count > 2, let firstStatisticsCardView = stackView.arrangedSubviews[1] as? HomeStatisticsCardView {
 			let constraints = [
-				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
-				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
-				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primarySubtitleLabel.firstBaselineAnchor),
-				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor)
+				statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.titleLabel.firstBaselineAnchor),
+				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.primaryTitleLabel.firstBaselineAnchor),
+				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.secondaryTitleLabel.firstBaselineAnchor),
+				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.primarySubtitleLabel.firstBaselineAnchor),
+				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.tertiaryTitleLabel.firstBaselineAnchor)
 			]
 
 			NSLayoutConstraint.activate(constraints)
