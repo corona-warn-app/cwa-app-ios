@@ -19,7 +19,6 @@ final class HealthCertificateCellViewModel {
 	// MARK: - Internal
 	
 	let healthCertificate: HealthCertificate
-	let healthCertifiedPerson: HealthCertifiedPerson
 
 	lazy var gradientType: GradientView.GradientType = {
 		if healthCertificate.validityState == .invalid ||
@@ -139,4 +138,9 @@ final class HealthCertificateCellViewModel {
 	lazy var isCurrentlyUsedCertificateHintVisible: Bool = {
 		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 	}()
+
+	// MARK: - Private
+
+	private let healthCertifiedPerson: HealthCertifiedPerson
+
 }
