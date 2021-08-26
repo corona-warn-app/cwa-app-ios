@@ -13,10 +13,12 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		onTapContinue: @escaping (PDFDocument) -> Void,
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping () -> Void,
+		showErrorAlert: @escaping (HealthCertificatePDFGenerationError) -> Void
 	) {
 		self.onTapContinue = onTapContinue
 		self.onDismiss = onDismiss
+		self.showErrorAlert = showErrorAlert
 		self.viewModel = HealthCertificatePDFGenerationInfoViewModel(
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
@@ -71,9 +73,14 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 			
 			DispatchQueue.main.async { [weak self] in
-				self?.viewModel.generatePDFData(completion: { pdfDocument in
+				self?.viewModel.generatePDFData(completion: { result in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-					self?.onTapContinue(pdfDocument)
+					switch result {
+					case let .success(pdfDocument):
+						self?.onTapContinue(pdfDocument)
+					case let .failure(error):
+						self?.showErrorAlert(error)
+					}
 				})
 			}
 		}
@@ -84,6 +91,7 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 	private let viewModel: HealthCertificatePDFGenerationInfoViewModel
 	private let onTapContinue: (PDFDocument) -> Void
 	private let onDismiss: () -> Void
+	private let showErrorAlert: (HealthCertificatePDFGenerationError) -> Void
 	
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

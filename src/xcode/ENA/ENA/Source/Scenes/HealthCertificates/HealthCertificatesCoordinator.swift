@@ -465,6 +465,14 @@ final class HealthCertificatesCoordinator {
 			},
 			onDismiss: { [weak self] in
 				self?.modalNavigationController.dismiss(animated: true)
+			},
+			showErrorAlert: { [weak self] error in
+				Log.error("Could not generate PDF due to underlying error: \(error)", log: .vaccination, error: error)
+				self?.showErrorAlert(
+					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+					error: error
+				)
+				
 			}
 		)
 		
@@ -540,19 +548,29 @@ final class HealthCertificatesCoordinator {
 			}
 		)
 		alert.addAction(okayAction)
-
-		modalNavigationController.present(alert, animated: true, completion: nil)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				fatalError("Could not create strong self")
+			}
+			
+			if self.modalNavigationController.isBeingPresented {
+				self.modalNavigationController.present(alert, animated: true, completion: nil)
+			} else {
+				self.printNavigationController.present(alert, animated: true, completion: nil)
+			}
+		}
+		
 	}
 	
 	private func showPdfPrintErrorAlert() {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.message,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
 			preferredStyle: .alert
 		)
 		
 		let faqAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.faq,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
 			style: .default,
 			handler: { _ in
 				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
@@ -561,7 +579,7 @@ final class HealthCertificatesCoordinator {
 		alert.addAction(faqAction)
 		
 		let okayAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.ok,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true)
