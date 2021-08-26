@@ -178,6 +178,39 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
             XCTAssertEqual(keyIdentifier, expectedKeyIdentifier)
         }
     }
+    
+    func test_When_CBORHasNullValues_Then_SchemaValidationSucceeds() {
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = certificateAccess.extractDigitalCovidCertificate(from: vaccinationCertificateWithNillValuesBase45String)
+
+        guard case .success = result else {
+            XCTFail("Schema validation success is expected.")
+            return
+        }
+    }
+    
+    func test_When_CBORValuesContainWhiteSpace_Then_WhiteSpaceIsRemoved() {
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = certificateAccess.extractDigitalCovidCertificate(from: vaccinationCertificateWithWhiteSpacesBase45String)
+
+        guard case let .success(certificate) = result else {
+            XCTFail("Schema validation success is expected.")
+            return
+        }
+
+        guard let vaccinationEntry = certificate.vaccinationEntries?.first else {
+            XCTFail("Vaccination entry is expected.")
+            return
+        }
+
+        XCTAssertEqual(vaccinationEntry.countryOfVaccination, "DE")
+        XCTAssertEqual(vaccinationEntry.uniqueCertificateIdentifier, "URN:UVCI:01DE/IZ12345A/5CWLU12RNOB9RXSEOP6FG8#W")
+        XCTAssertEqual(vaccinationEntry.certificateIssuer, "Robert Koch-Institut")
+    }
+    
+    private lazy var vaccinationCertificateWithNillValuesBase45String = hcPrefix + "6BFN%BEJM+J2DO31ACLW5655-TMC A$RGDBI94WU2T +JZ%5.UI::KAHL.A8QUG52GZ:BZUILM1*RFFFG-FD3P2BM7:M9*N0C93-D4*19-M08Y29MOXD8UJNNUA.BOJZV1XA883E:ND-L7DUR3S8:J:7VM43Y3O%/OCIN3%JHD7TONYRE4RESD6VP6$$LQM6%9M:D3EC9N%FI69OXKJPH5PUU7PWHAPRHZ%CXVAGJCRRU:Z9AJC5JLDO2PN9F2J6PUTW341KFUGSDNU-3F6A3.O$D0W$75HU8YTNMU86IZZOQ45QOA+JQSH5LW3TTDUUF7%TMN0EB4R TAD6W7WK8R-A14DA0TO:CGV 5MCKV0SY*GHMEXF6CAH4.06S3NBUKQKI.9TYMR.LP/QYYGM.HPJ4MOLB:INK2PA75V9H7A/3H02KXZ02-IO115MNDF1YJT 1S:WC1XRND4FM7HL7%:0Z272%NW5LC9LW-3RVTCT4BL20Z1FJD94I JUKZEIYOK%V-CUX0Q48JJMEFVLE0G.+FP5B09IQ5BZQOGIJBVK8FVGV647V$8T$Z9+AF8:B1DC:0F4/O*4BC5G%X0X9P05W*IR8NI"
+    
+    private lazy var vaccinationCertificateWithWhiteSpacesBase45String = hcPrefix + "6BFOXN*TS0BI$ZD8UHRTHZDE+VJG$L20I-VE1RO4.S-OP3/IAQJNK0SSAVDT2D0F/8X*G-O9PRATVIAO2CO1-.P9UE+R54W1AO2:PI/E2$4JY/KT80Z$FJRHQJA/IE1F83-S-YN:AI69D3BH4DI$UKJ7KDH86LFB2L.LG3DA2.EM6A-Z75R0/M1W+UTTAQ59YPD.+IKYJTFCQAK:H3J1D1I3-*TW C%JTJRLL93*8DQVD.TTU6EQT3KK247D9.S*BUU73/B2+QTBBC+5TOGK Z1L%65083E88-OJEPUKPSH9U70.PDG8C5DL-9C.PDT619.P33M+6A05131A.V56GAU3QO6QE3VTK5KJPB95F70D4T4 2385./0LWTKD33238J3HKBC8G H1-9GEM1R270:6NEQ0R6A36OKH56L X45%K$E509B-43.E3KD3X9J/W0ED13IK/8DXED$B0S60VM9UM97H98$QP3R8BHZJTIUAU2QG:6S:H15LO-HLQM/T3TTE-0D3DFM4QZSS-IR2MVMAUS8QHO57NQF:QELL2KN JM2NOXK1ND7.0B/VR UMOUT5CUG0M:PLKS0K8V43H"
 
     private lazy var testDataVaccinationCertificate: TestData = {
         TestData(

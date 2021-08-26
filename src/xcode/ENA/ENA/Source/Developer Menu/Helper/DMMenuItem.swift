@@ -13,6 +13,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case appConfiguration
 	case backendConfiguration
 	case lastSubmissionRequest
+	case lastOnBehalfSubmissionRequest
 	case manuallyRequestRisk
 	case debugRiskCalculation
 	case errorLog
@@ -34,6 +35,8 @@ enum DMMenuItem: Int, CaseIterable {
     case allTraceLocations
 	case mostRecentTraceLocationCheckedInto
 	case adHocPosterGeneration
+	case appFeatures
+	case dscLists
 }
 
 extension DMMenuItem {
@@ -56,6 +59,7 @@ extension DMMenuItem {
 		case .appConfiguration: return "App Configuration"
 		case .backendConfiguration: return "Backend Configuration"
 		case .lastSubmissionRequest: return "Last Submission Request"
+		case .lastOnBehalfSubmissionRequest: return "Last on behalf Submission"
 		case .manuallyRequestRisk: return "Manually Request Risk"
 		case .debugRiskCalculation: return "Debug Risk Calculation"
 		case .errorLog: return "Error Log"
@@ -77,6 +81,8 @@ extension DMMenuItem {
 		case .allTraceLocations: return "All created trace locations"
 		case .mostRecentTraceLocationCheckedInto: return "Most recent trace location checked into"
 		case .adHocPosterGeneration: return "Ad-Hoc Poster Generation"
+		case .appFeatures: return "App Features"
+		case .dscLists: return "DSC Lists"
 		}
 	}
 	var subtitle: String {
@@ -87,6 +93,7 @@ extension DMMenuItem {
 		case .appConfiguration: return "See the current app configuration"
 		case .backendConfiguration: return "See the current backend configuration"
 		case .lastSubmissionRequest: return "Export the last executed submission request"
+		case .lastOnBehalfSubmissionRequest: return "Export the last executed submission ob behalf request"
 		case .manuallyRequestRisk: return "Manually requests the current risk"
 		case .debugRiskCalculation: return "See the most recent risk calculation values"
 		case .errorLog: return "View all errors logged by the app"
@@ -108,6 +115,8 @@ extension DMMenuItem {
 		case .allTraceLocations: return "See the data of the created trace locations"
 		case .mostRecentTraceLocationCheckedInto: return "See the calculated ID of the trace location most recently checked into"
 		case .adHocPosterGeneration: return "Generate QR code poster by providing the customized values"
+		case .appFeatures: return "Override App Features here"
+		case .dscLists: return "Change DSC Lists"
 		}
 	}
 }

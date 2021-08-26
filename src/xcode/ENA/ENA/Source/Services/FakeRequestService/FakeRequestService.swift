@@ -46,10 +46,11 @@ class FakeRequestService {
 
 	/// This method represents a dummy method that is sent to the submission server.
 	func fakeSubmissionServerRequest(completion: (() -> Void)? = nil) {
-		let payload = CountrySubmissionPayload(
+		let payload = SubmissionPayload(
 			exposureKeys: [],
 			visitedCountries: [],
 			checkins: [],
+			checkinProtectedReports: [],
 			tan: Self.fakeSubmissionTan,
 			submissionType: SAP_Internal_SubmissionPayload.SubmissionType(
 				rawValue: Int.random(in: 0...1)

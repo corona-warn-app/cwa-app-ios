@@ -56,7 +56,7 @@ enum OTPError: Error, Equatable, LocalizedError {
 		case .noNetworkConnection:
 			return AppStrings.Common.noNetworkConnection
 		default:
-			return localizedDescription
+			return description
 		}
 	}
 

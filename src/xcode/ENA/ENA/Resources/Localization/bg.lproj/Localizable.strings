@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "Възникна грешка.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Списък на участващите държави можете да видите в подробните данни за регистриране на излаганията.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -649,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Благодарим Ви, че се съгласихте да споделите резултата от Вашия тест и да помогнете, като предупредите останалите.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "В следващата стъпка, моля, споделете резултата от теста си, като натиснете „Споделяне“.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Ако не сте дали съгласието си за достъп до случайно генерираните ИД или ако са минали повече от 5 дни след това, моля дайте съгласието си в следващата стъпка.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Избрали сте да не споделяте резултата от теста си. Останалите няма да бъдат предупредени.";
 
@@ -1020,7 +1024,7 @@
 
 "ExposureNotificationSetting_DescriptionText3" = "Превключвателят Ви позволява да дезактивирате регистрирането на излаганията на риск по всяко време.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Приложението никога не събира лични данни като Вашето име, адрес или местоположение и не предава подобна информация на останалите потребители. Самоличността на отделните потребители не може да бъде определена по техните случайни ИД.";
+"ExposureNotificationSetting_DescriptionText4" = "При регистрирането на излаганията на риск приложението никога не събира лични данни като Вашето име, адрес или местоположение и не предава подобна информация на останалите потребители. Самоличността на отделните потребители не може да бъде определена по техните случайни ИД.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Включете функцията Bluetooth";
 
@@ -1555,14 +1559,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "Версия на подписа";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Стандартизирано име";
 
-"NewVersionFeature_27_sigCheck_description" = "Когато добавяте своите сертификати в Corona-Warn-App, те преминават проверка за валидност и автентичност. Могат да бъдат импортирани само сертификати, издадени от оторизиран орган.";
-
-"NewVersionFeature_27_technicalValidity_title" = "Техническа проверка за валидност";
-
-"NewVersionFeature_27_technicalValidity_description" = "Corona-Warn-App вече показва техническата дата на изтичане на сертификатите за ваксинация и възстановяване, които сте добавили. Приложението може да Ви известява за наближаващо изтичане на валидността на някой от сертификатите.";
+"NewVersionFeature_28_standardizeName_description" = "Името на всеки сертификат вече се показва не само с оригиналното изписване в съответната държава, но и със стандартизирани латински букви.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1667,6 +1667,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Изтриване на тест";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Меню";
 
@@ -1854,6 +1855,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "Имейл";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Тенденция: Нагоре";
 
@@ -2056,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "Оценката на тенденцията за броя предупреждения от потребители на приложението се променя в зависимост от текущите нива на заразяване, поради което тази тенденция винаги се показва като неутрална.";
 
 "Statistics_Info_Image_AccLabel" = "Абстрактно изображение на смартфон с 4 контейнера за данни";
+
+"Statistics_Info_Blog_Description" = "За повече подробности относно съдържанието на отделните показатели, прочетете %@.";
+
+"Statistics_Info_More_Information_Blog" = "блог";
 
 /* Update OS */
 "UpdateOS_title" = "Моля, актуализирайте своята iOS.";
@@ -2838,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Сертификатът е валиден";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Сертификатът не може да бъде валидиран";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Сертификатът ви е валиден в избраната държава";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Сертификатът ви не беше валидиран";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Забележка";
 
@@ -2903,4 +2913,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Сертификатът (подписът) е невалиден";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Баден-Вюртемберг";
+
+"FederalState_Bayern" = "Бавария";
+
+"FederalState_Berlin" = "Берлин";
+
+"FederalState_Brandenburg" = "Бранденбург";
+
+"FederalState_Bremen" = "Бремен";
+
+"FederalState_Hamburg" = "Хамбург";
+
+"FederalState_Hessen" = "Хесен";
+
+"FederalState_MecklenburgVorpommern" = "Мекленбург-Западна Померания";
+
+"FederalState_Niedersachsen" = "Долна Саксония";
+
+"FederalState_NordrheinWestfalen" = "Северен Рейн-Вестфалия";
+
+"FederalState_RheinlandPfalz" = "Рейнланд-Пфалц";
+
+"FederalState_Saarland" = "Саарланд";
+
+"FederalState_Sachsen" = "Саксония";
+
+"FederalState_SachsenAnhalt" = "Саксония-Анхалт";
+
+"FederalState_SchleswigHolstein" = "Шлезвиг-Холщайн";
+
+"FederalState_Thueringen" = "Тюрингия";
 

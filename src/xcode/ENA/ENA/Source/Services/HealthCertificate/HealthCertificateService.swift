@@ -29,7 +29,7 @@ class HealthCertificateService {
 			self.signatureVerifying = signatureVerifying
 			self.dscListProvider = DSCListProvider(client: CachingHTTPClientMock(), store: store)
 			self.client = ClientMock()
-			self.appConfiguration = CachedAppConfigurationMock()
+			self.appConfiguration = CachedAppConfigurationMock(store: store)
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
 			setup()
@@ -55,7 +55,8 @@ class HealthCertificateService {
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
-
+	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
+	
 	var nextValidityTimer: Timer?
 
 	var nextFireDate: Date? {
@@ -74,7 +75,8 @@ class HealthCertificateService {
 
 	@discardableResult
 	func registerHealthCertificate(
-		base45: Base45
+		base45: Base45,
+		checkSignatureUpfront: Bool = true
 	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
@@ -82,12 +84,14 @@ class HealthCertificateService {
 			let healthCertificate = try HealthCertificate(base45: base45)
 
 			// check signature
-			if case .failure(let error) = signatureVerifying.verify(
-				certificate: base45,
-				with: dscListProvider.signingCertificates.value,
-				and: Date()
-			) {
-				return .failure(.invalidSignature(error))
+			if checkSignatureUpfront {
+				if case .failure(let error) = signatureVerifying.verify(
+					certificate: base45,
+					with: dscListProvider.signingCertificates.value,
+					and: Date()
+				) {
+					return .failure(.invalidSignature(error))
+				}
 			}
 
 			let healthCertifiedPerson = healthCertifiedPersons.value
@@ -428,14 +432,18 @@ class HealthCertificateService {
 
 		healthCertifiedPersons
 			.sink { [weak self] in
-				self?.store.healthCertifiedPersons = $0
+				if $0 != self?.store.healthCertifiedPersons {
+					self?.store.healthCertifiedPersons = $0
+				}
 				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
 
 		testCertificateRequests
 			.sink { [weak self] in
-				self?.store.testCertificateRequests = $0
+				if $0 != self?.store.testCertificateRequests {
+					self?.store.testCertificateRequests = $0
+				}
 				self?.updateTestCertificateRequestSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
@@ -486,11 +494,45 @@ class HealthCertificateService {
 	#if DEBUG
 	// swiftlint:disable:next cyclomatic_complexity
 	private func configureForLaunchArguments() {
+		var shouldCheckSignatureUpfront = true
+		var expirationTime: Date = Calendar.current.date(byAdding: .day, value: 90, to: Date()) ?? Date()
+
+		if LaunchArguments.healthCertificate.isCertificateInvalid.boolValue {
+			shouldCheckSignatureUpfront = false
+		}
+
+		if LaunchArguments.healthCertificate.isCertificateExpiring.boolValue {
+			expirationTime = Calendar.current.date(byAdding: .day, value: 3, to: Date()) ?? Date()
+		}
+
+		if LaunchArguments.healthCertificate.hasCertificateExpired.boolValue {
+			expirationTime = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date(timeIntervalSinceReferenceDate: -123456789.0) // Feb 2, 1997, 10:26 AM
+		}
+		
 		if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
+			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront)
 		} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
-			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock)
-			registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+			let firstDose = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					vaccinationEntries: [VaccinationEntry.fake()]
+				),
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			)
+			if case let .success(base45) = firstDose {
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+			}
+			
+			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
+				),
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			)
+			if case let .success(base45) = secondDose {
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+			}
 		}
 
 		if LaunchArguments.healthCertificate.familyCertificates.boolValue {
@@ -535,6 +577,7 @@ class HealthCertificateService {
 				registerHealthCertificate(base45: base45)
 			}
 		}
+
 		if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -544,7 +587,7 @@ class HealthCertificateService {
 				and: CBORWebTokenHeader.fake()
 			)
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 			}
 		}
 
@@ -553,13 +596,14 @@ class HealthCertificateService {
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
-					 RecoveryEntry.fake()
-				 ]
-			 ),
-				and: CBORWebTokenHeader.fake()
+						RecoveryEntry.fake()
+					]
+				),
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
+
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 			}
 		}
 	}
@@ -643,6 +687,7 @@ class HealthCertificateService {
 				self?.testCertificateRequests.value.forEach {
 					self?.executeTestCertificateRequest($0, retryIfCertificateIsPending: false)
 				}
+				self?.updateValidityStatesAndNotifications()
 			}
 			.store(in: &subscriptions)
 	}
@@ -717,11 +762,14 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-				let registerResult = registerHealthCertificate(base45: healthCertificateBase45)
+				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
 
 				switch registerResult {
-				case .success:
+				case .success((_, let healthCertificate)):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
+					
+					didRegisterTestCertificate?(healthCertificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
+					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
 				case .failure(let error):
@@ -756,7 +804,7 @@ class HealthCertificateService {
 			return
 		}
 		
-		Log.info("Cancel all notifications for certificate with id: \(id).", log: .vaccination)
+		Log.info("Cancel all notifications for certificate with id: \(private: id).", log: .vaccination)
 		
 		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)"
 		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
@@ -797,11 +845,11 @@ class HealthCertificateService {
 		date: Date?
 	) {
 		guard let date = date else {
-			Log.error("Could not schedule expiring soon notification for certificate with id: \(id) because we have no expiringSoonDate.", log: .vaccination)
+			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: id) because we have no expiringSoonDate.", log: .vaccination)
 			return
 		}
 		
-		Log.info("Schedule expiring soon notification for certificate with id: \(id) with expiringSoonDate: \(date)", log: .vaccination)
+		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.expiringSoonTitle
@@ -829,7 +877,7 @@ class HealthCertificateService {
 		id: String,
 		date: Date
 	) {
-		Log.info("Schedule expired notification for certificate with id: \(id) with expirationDate: \(date)", log: .vaccination)
+		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.expiredTitle
@@ -856,7 +904,7 @@ class HealthCertificateService {
 		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			guard !requests.contains(request) else {
 				Log.info(
-					"Did not schedule notification: \(request.identifier) because it is already scheduled.",
+					"Did not schedule notification: \(private: request.identifier) because it is already scheduled.",
 					log: .vaccination
 				)
 				return
@@ -864,7 +912,7 @@ class HealthCertificateService {
 			self?.notificationCenter.add(request) { error in
 				if error != nil {
 					Log.error(
-						"Could not schedule notification: \(request.identifier)",
+						"Could not schedule notification: \(private: request.identifier)",
 						log: .vaccination,
 						error: error
 					)

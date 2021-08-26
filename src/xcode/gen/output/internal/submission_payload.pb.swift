@@ -69,12 +69,15 @@ struct SAP_Internal_SubmissionPayload {
   /// Clears the value of `submissionType`. Subsequent reads from it will return its default value.
   mutating func clearSubmissionType() {self._submissionType = nil}
 
+  var checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum SubmissionType: SwiftProtobuf.Enum {
     typealias RawValue = Int
     case pcrTest // = 0
     case rapidTest // = 1
+    case hostWarning // = 2
 
     init() {
       self = .pcrTest
@@ -84,6 +87,7 @@ struct SAP_Internal_SubmissionPayload {
       switch rawValue {
       case 0: self = .pcrTest
       case 1: self = .rapidTest
+      case 2: self = .hostWarning
       default: return nil
       }
     }
@@ -92,6 +96,7 @@ struct SAP_Internal_SubmissionPayload {
       switch self {
       case .pcrTest: return 0
       case .rapidTest: return 1
+      case .hostWarning: return 2
       }
     }
 
@@ -127,6 +132,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     5: .same(proto: "consentToFederation"),
     6: .same(proto: "checkIns"),
     7: .same(proto: "submissionType"),
+    8: .same(proto: "checkInProtectedReports"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -142,6 +148,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
       case 5: try { try decoder.decodeSingularBoolField(value: &self._consentToFederation) }()
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.checkIns) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self._submissionType) }()
+      case 8: try { try decoder.decodeRepeatedMessageField(value: &self.checkInProtectedReports) }()
       default: break
       }
     }
@@ -169,6 +176,9 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if let v = self._submissionType {
       try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
     }
+    if !self.checkInProtectedReports.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.checkInProtectedReports, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -180,6 +190,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs._consentToFederation != rhs._consentToFederation {return false}
     if lhs.checkIns != rhs.checkIns {return false}
     if lhs._submissionType != rhs._submissionType {return false}
+    if lhs.checkInProtectedReports != rhs.checkInProtectedReports {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -189,5 +200,6 @@ extension SAP_Internal_SubmissionPayload.SubmissionType: SwiftProtobuf._ProtoNam
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "SUBMISSION_TYPE_PCR_TEST"),
     1: .same(proto: "SUBMISSION_TYPE_RAPID_TEST"),
+    2: .same(proto: "SUBMISSION_TYPE_HOST_WARNING"),
   ]
 }

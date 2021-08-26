@@ -116,6 +116,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["appInstallationDate"] = newValue }
 	}
 
+	var referenceDateForRateLimitLogger: Date? {
+		get { kvStore["referenceDateForRateLimitLogger"] as Date? }
+		set { kvStore["referenceDateForRateLimitLogger"] = newValue }
+	}
+
 	var enfRiskCalculationResult: ENFRiskCalculationResult? {
 		// Old named key matches not to property name to avoid migration.
 		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }
@@ -348,7 +353,7 @@ extension SecureStore: WarnOthersTimeIntervalStoring {
 
 }
 
-extension SecureStore: DeviceTimeChecking {
+extension SecureStore: DeviceTimeCheckStoring {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
 		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
 		set { kvStore["deviceTimeCheckResult"] = newValue }
@@ -363,11 +368,18 @@ extension SecureStore: DeviceTimeChecking {
 		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
+}
 
+extension SecureStore: AppFeaturesStoring {
 	#if !RELEASE
 	var dmKillDeviceTimeCheck: Bool {
 		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
+
+	var unencryptedCheckinsEnabled: Bool {
+		get { kvStore["unencryptedCheckinsEnabled"] as Bool? ?? false }
+		set { kvStore["unencryptedCheckinsEnabled"] = newValue }
 	}
 	#endif
 }

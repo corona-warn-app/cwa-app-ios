@@ -34,7 +34,7 @@ class ExposureSubmissionCheckinDescriptionTableViewCell: UITableViewCell, ReuseI
 	private func setupView() {
 		selectionStyle = .none
 		
-		backgroundColor = .enaColor(for: .darkBackground)
+		backgroundColor = .enaColor(for: .background)
 
 		contentView.addSubview(descriptionLabel)
 		NSLayoutConstraint.activate([

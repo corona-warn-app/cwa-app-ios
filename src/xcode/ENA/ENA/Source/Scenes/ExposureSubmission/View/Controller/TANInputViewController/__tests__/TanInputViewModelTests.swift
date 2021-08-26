@@ -1,35 +1,36 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
 import XCTest
-import HealthCertificateToolkit
 @testable import ENA
 
 class TanInputViewModelTests: CWATestCase {
 
-	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsValid() {
+	func testGIVEN_TitleAndDescription_WHEN_GettingTitleAndDescription_THEN_CorrectTitleAndDescriptionAreReturned() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
 		let viewModel = TanInputViewModel(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration
-				)
-			),
-			onSuccess: { _, _ in },
+			title: "Title",
+			description: "Description",
+			onPrimaryButtonTap: { _, _ in },
+			givenTan: ""
+		)
+
+		// WHEN
+		let title = viewModel.title
+		let description = viewModel.description
+
+		// THEN
+		XCTAssertEqual(title, "Title")
+		XCTAssertEqual(description, "Description")
+	}
+
+	func testGIVEN_ValidFormattedTanWithValidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChecksumIsValid() {
+		// GIVEN
+		let viewModel = TanInputViewModel(
+			title: "",
+			description: "",
+			onPrimaryButtonTap: { _, _ in },
 			givenTan: "234567893D"
 		)
 
@@ -42,28 +43,12 @@ class TanInputViewModelTests: CWATestCase {
 		XCTAssertTrue(isChecksumValid, "tan checksum is invalid")
 	}
 
-	func testGIVEN_ValidFormattedTanWithInvalidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsInvalid() {
+	func testGIVEN_ValidFormattedTanWithInvalidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChecksumIsInvalid() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = TanInputViewModel(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration
-				)
-			),
-			onSuccess: { _, _ in },
+			title: "",
+			description: "",
+			onPrimaryButtonTap: { _, _ in },
 			givenTan: "ZBYKEVDBNU"
 		)
 
@@ -78,26 +63,10 @@ class TanInputViewModelTests: CWATestCase {
 
 	func testGIVEN_wrongCharacterTanString_WHEN_isValidCheck_THEN_isInvalidChecksumIsInvalid() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = TanInputViewModel(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration
-				)
-			),
-			onSuccess: { _, _ in },
+			title: "",
+			description: "",
+			onPrimaryButtonTap: { _, _ in },
 			givenTan: "ZBYKEVDBNL"
 		)
 

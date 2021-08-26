@@ -158,7 +158,7 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 		let fakeClient = HTTPClient.makeWith(mock: fakeStack)
 
 		// Test.
-		let payload = CountrySubmissionPayload(exposureKeys: [], visitedCountries: [], checkins: [], tan: "dummyTan", submissionType: .pcrTest)
+		let payload = SubmissionPayload(exposureKeys: [], visitedCountries: [], checkins: [], checkinProtectedReports: [], tan: "dummyTan", submissionType: .pcrTest)
 		realClient.submit(payload: payload, isFake: false, completion: { _ in expectation.fulfill() })
 		fakeClient.submit(payload: payload, isFake: true, completion: { _ in expectation.fulfill() })
 

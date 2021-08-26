@@ -101,6 +101,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
+		case .lastOnBehalfSubmissionRequest:
+			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest)
 		case .errorLog:
 			vc = DMLogsViewController()
 		case .els:
@@ -143,6 +145,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
 		case .adHocPosterGeneration:
 			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: true)
+		case .appFeatures:
+			vc = DMAppFeaturesViewController(store: store)
+		case .dscLists:
+			vc = DMDSCListsController(store: store)
 		}
 
 		if let vc = vc {

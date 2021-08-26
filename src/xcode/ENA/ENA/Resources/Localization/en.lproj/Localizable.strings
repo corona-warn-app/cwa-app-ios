@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "An error occurred.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "You can view the participating countries in the exposure logging details.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -649,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Thank you for agreeing to share your test result and helping to warn others as a result.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "In the next step, please share your test result by tapping “Share”.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "If you have not granted your consent to access the random IDs or if more than five days have passed since then, please grant your consent in the next step.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "You have chosen not to share your test result. Others will not be warned.";
 
@@ -1020,7 +1024,7 @@
 
 "ExposureNotificationSetting_DescriptionText3" = "You can use the toggle switch to disable exposure logging at any time.";
 
-"ExposureNotificationSetting_DescriptionText4" = "The app never collects personal data such as your name, address or location, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
+"ExposureNotificationSetting_DescriptionText4" = "Personal data, such as your name, address, or location, is never collected during exposure logging, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
 
@@ -1555,14 +1559,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "Signature Verification";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Standardized Name";
 
-"NewVersionFeature_27_sigCheck_description" = "When you add your certificates in the Corona-Warn-App, they are checked for validity and authenticity. Therefore, only certificates that were issued by an authorized body can be imported.";
-
-"NewVersionFeature_27_technicalValidity_title" = "Technical Validity Check";
-
-"NewVersionFeature_27_technicalValidity_description" = "The Corona-Warn-App now shows you the technical expiration date of the vaccination certificates and certificates of recovery you add. The app can notify you of an expiring certificate in advance.";
+"NewVersionFeature_28_standardizeName_description" = "In addition to the name in the country-specific spelling, each certificate now also displays the name in standardized Latin characters.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1667,6 +1667,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Delete Test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menu";
 
@@ -1854,6 +1855,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";
 
@@ -2003,7 +2005,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
-"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app";
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
 
@@ -2056,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "The assessment of the trend for warnings by app users changes depending on current infection levels, which is why this trend is always displayed as neutral.";
 
 "Statistics_Info_Image_AccLabel" = "Abstract picture of a smartphone with four placeholders for information";
+
+"Statistics_Info_Blog_Description" = "For more details about the content of the individual key figures, read our %@.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
 
 /* Update OS */
 "UpdateOS_title" = "Please update your iOS.";
@@ -2838,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Certificate Is Valid";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Certificate Cannot Be Validated";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid in the selected country";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Your certificate could not be validated";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Note";
 
@@ -2903,4 +2913,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hesse";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Western Pomerania";
+
+"FederalState_Niedersachsen" = "Lower Saxony";
+
+"FederalState_NordrheinWestfalen" = "North Rhine-Westphalia";
+
+"FederalState_RheinlandPfalz" = "Rhineland-Palatinate";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saxony";
+
+"FederalState_SachsenAnhalt" = "Saxony-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Thuringia";
 

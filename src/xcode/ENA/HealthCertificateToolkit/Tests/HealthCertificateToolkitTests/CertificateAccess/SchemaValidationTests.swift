@@ -48,11 +48,6 @@ class SchemaValidationTests: XCTestCase {
             XCTFail("VALIDATION_RESULT_FAILED expected.")
             return
         }
-
-        let containsNODateOfBirthError = innerSchemaErrors.contains {
-            $0.description.contains("'NODateOfBirth' does not match pattern")
-        }
-
         let containsNODateOfVaccination = innerSchemaErrors.contains {
             $0.description.contains("'NODateOfVaccination' does not match pattern")
         }
@@ -61,8 +56,7 @@ class SchemaValidationTests: XCTestCase {
             $0.description == "Length of string is larger than max length 80"
         }
 
-        XCTAssertEqual(innerSchemaErrors.count, 3)
-        XCTAssertTrue(containsNODateOfBirthError)
+        XCTAssertEqual(innerSchemaErrors.count, 2)
         XCTAssertTrue(containsNODateOfVaccination)
         XCTAssertTrue(containsLengthError)
     }
@@ -108,10 +102,6 @@ class SchemaValidationTests: XCTestCase {
             return
         }
 
-        let containsDateOfBirthError = innerSchemaErrors.contains {
-            $0.description.contains("NotADateOfBirth' does not match pattern")
-        }
-
         let containsDateTimeOfSampleCollectionError = innerSchemaErrors.contains {
             $0.description.contains("NotADateTimeOfSampleCollection' is not a valid RFC 3339 formatted date")
         }
@@ -120,8 +110,7 @@ class SchemaValidationTests: XCTestCase {
             $0.description == "Length of string is larger than max length 80"
         }
 
-        XCTAssertEqual(innerSchemaErrors.count, 3)
-        XCTAssertTrue(containsDateOfBirthError)
+        XCTAssertEqual(innerSchemaErrors.count, 2)
         XCTAssertTrue(containsDateTimeOfSampleCollectionError)
         XCTAssertTrue(containsLengthError)
     }
@@ -168,10 +157,6 @@ class SchemaValidationTests: XCTestCase {
             return
         }
 
-        let containsDateOfBirthError = innerSchemaErrors.contains {
-            $0.description.contains("NotADateOfBirth' does not match pattern")
-        }
-
         let containsDateOfFirstPositiveNAAResultError = innerSchemaErrors.contains {
             $0.description.contains("NotADateOfFirstPositiveNAAResult' does not match pattern")
         }
@@ -188,8 +173,7 @@ class SchemaValidationTests: XCTestCase {
             $0.description == "Length of string is larger than max length 80"
         }
 
-        XCTAssertEqual(innerSchemaErrors.count, 5)
-        XCTAssertTrue(containsDateOfBirthError)
+        XCTAssertEqual(innerSchemaErrors.count, 4)
         XCTAssertTrue(containsDateOfFirstPositiveNAAResultError)
         XCTAssertTrue(containsCertificateValidFromError)
         XCTAssertTrue(containsCertificateValidUntilError)

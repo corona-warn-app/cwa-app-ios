@@ -48,6 +48,8 @@ class BirthdayDatePickerCell: UITableViewCell, ReuseIdentifierProviding, UITextF
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(textField)
 
+		backgroundColor = .enaColor(for: .background)
+
 		NSLayoutConstraint.activate(
 			[
 				textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.0),

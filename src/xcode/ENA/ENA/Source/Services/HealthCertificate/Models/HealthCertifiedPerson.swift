@@ -30,7 +30,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		healthCertificates = try container.decode([HealthCertificate].self, forKey: .healthCertificates)
+		healthCertificates = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates).compactMap { $0.healthCertificate }
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 
 		setup()
@@ -46,7 +46,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.healthCertificates == rhs.healthCertificates
+		lhs.healthCertificates == rhs.healthCertificates && lhs.isPreferredPerson == rhs.isPreferredPerson
 	}
 
 	// MARK: - Protocol Comparable
@@ -130,23 +130,40 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		scheduleMostRelevantCertificateTimer()
 	}
 
+	// internal for testing
+	var recoveredVaccinationCertificate: HealthCertificate? {
+		return vaccinationCertificates.first { certificate in
+			guard let vaccinationEntry = certificate.vaccinationEntry,
+				  vaccinationEntry.totalSeriesOfDoses == 1,
+				  vaccinationEntry.doseNumber == 1,
+				  VaccinationProductType(value: vaccinationEntry.vaccineMedicinalProduct) != .other else {
+				return false
+			}
+			return true
+		}
+	}
+
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var healthCertificateSubscriptions = Set<AnyCancellable>()
-
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
-		guard
-			let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-			let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
-			let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
-		else {
+
+		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
+		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
+			// if recovery date found -> use it
+			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
+		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
+				  let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
+				  let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString) {
+			// else if last vaccination date -> use it
+			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
+		} else {
+			// no date -> completeVaccinationProtectionDate is nil
 			return nil
 		}
-
-		return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 	}
 
 	private var vaccinationExpirationDate: Date? {
@@ -182,6 +199,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				.store(in: &healthCertificateSubscriptions)
 		}
 	}
+
 
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,

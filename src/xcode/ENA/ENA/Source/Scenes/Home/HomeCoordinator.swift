@@ -14,6 +14,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
 		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding
 	) {
 		self.delegate = delegate
@@ -21,6 +23,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
 	}
 
@@ -108,10 +112,11 @@ class HomeCoordinator: RequiresAppDependencies {
 				)
 			},
 			onAddDistrict: { [weak self] selectValueViewController in
-				self?.rootViewController.presentedViewController?.present(
-					UINavigationController(rootViewController: selectValueViewController),
-					animated: true
-				)
+				guard let navigationController = self?.rootViewController.presentedViewController as? UINavigationController else {
+					Log.error("add statistics Navigation controller should be presented")
+					return
+				}
+				navigationController.pushViewController(selectValueViewController, animated: true)
 			},
 			onDismissState: { [weak self] in
 				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
@@ -160,6 +165,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestService
 	private let elsService: ErrorLogSubmissionProviding
+	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -175,11 +182,12 @@ class HomeCoordinator: RequiresAppDependencies {
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		#if DEBUG
 		if isUITesting {
+			let store = MockTestStore()
 			return ENAExposureSubmissionService(
 				diagnosisKeysRetrieval: exposureManager,
-				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
 				client: ClientMock(),
-				store: MockTestStore(),
+				store: store,
 				eventStore: eventStore,
 				coronaTestService: coronaTestService
 			)
@@ -228,12 +236,26 @@ class HomeCoordinator: RequiresAppDependencies {
 			)
 		}()
 
-		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
-			return QRCodePosterTemplateProvider(
-				client: CachingHTTPClient(),
-				store: store
-			)
-		}()
+	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+		return QRCodePosterTemplateProvider(
+			client: CachingHTTPClient(),
+			store: store
+		)
+	}()
+	
+	private lazy var vaccinationValueSetsProvider: VaccinationValueSetsProvider = {
+		return VaccinationValueSetsProvider(
+			client: CachingHTTPClient(),
+			store: store
+		)
+	}()
+
+	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider = {
+		return HealthCertificateValidationOnboardedCountriesProvider(
+			store: store,
+			client: client
+		)
+	}()
 
 	private func selectHomeTabSection(route: Route?) {
 		DispatchQueue.main.async { [weak self] in
@@ -308,8 +330,12 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
-			antigenTestProfileStore: store
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
 		)
 
 		if let testInformationResult = testInformationResult {
@@ -338,6 +364,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
+			client: client,
 			parentNavigationController: rootViewController
 		)
 

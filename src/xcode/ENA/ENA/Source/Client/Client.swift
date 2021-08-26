@@ -10,7 +10,7 @@ protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias KeySubmissionResponse = (Result<Void, Error>) -> Void
+	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
@@ -90,11 +90,22 @@ protocol Client {
 	///   - isFake: flag to indicate a fake request
 	///   - completion: the completion handler of the submission call
 	func submit(
-		payload: CountrySubmissionPayload,
+		payload: SubmissionPayload,
 		isFake: Bool,
 		completion: @escaping KeySubmissionResponse
 	)
-
+	
+	/// Submits Checkins to the backend on behalf.
+	/// - Parameters:
+	///   - payload: A set of properties to provide during the submission process
+	///   - isFake: flag to indicate a fake request
+	///   - completion: the completion handler of the submission call
+	func submitOnBehalf(
+		payload: SubmissionPayload,
+		isFake: Bool,
+		completion: @escaping KeySubmissionResponse
+	)
+	
 	// MARK: OTP Authorization
 
 	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
@@ -161,6 +172,7 @@ protocol Client {
 	///   - country: The country.ID for which country we want the IDs.
 	///   - completion: The completion handler of the get call, which contains the set of availablePackagesOnCDN.
 	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	)
@@ -171,6 +183,7 @@ protocol Client {
 	///   - packageId: The packageID for the package we want to download
 	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
@@ -227,8 +240,8 @@ protocol Client {
 	)
 }
 
-enum SubmissionError: Error {
-	case other(Error)
+enum SubmissionError: Error, Equatable {
+	case other(URLSession.Response.Failure)
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case serverError(Int)
@@ -305,7 +318,7 @@ struct PackageDownloadResponse {
 }
 
 /// Combined model for a submit keys request
-struct CountrySubmissionPayload {
+struct SubmissionPayload {
 
 	/// The exposure keys to submit
 	let exposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]
@@ -314,6 +327,8 @@ struct CountrySubmissionPayload {
 	let visitedCountries: [Country]
 
 	let checkins: [SAP_Internal_Pt_CheckIn]
+
+	let checkinProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport]
 
 	/// a transaction number
 	let tan: String

@@ -74,9 +74,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// GIVEN
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let eventStore = MockEventStore()
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
 		
@@ -112,10 +113,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let checkin = Checkin.mock()
 		eventStore.createCheckin(checkin)
-		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
 		
@@ -155,10 +156,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
 		
@@ -208,13 +209,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
-			eventStore: eventStore,
-			signatureVerifier: MockVerifier()
+			store: store,
+			eventStore: eventStore
 		)
-		
+
 		let successExpectation = expectation(description: "TraceWarningPackage SinglePackageIsEmpty_THEN_Success.")
 		
 		// WHEN
@@ -250,12 +251,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-		
+
 		let successExpectation = expectation(description: "TraceWarningPackage DownloadIsAlreadyInProgress_THEN_DownloadIsRunning.")
 		successExpectation.expectedFulfillmentCount = 2
 		var responseCodeSuccess: TraceWarningSuccess?
@@ -313,7 +315,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			store: store,
 			eventStore: eventStore
 		)
-		
+
 		let expect = expectation(description: "TraceWarningPackage DiscoveryIsFailing_THEN_InvalidResponseError.")
 		var responseCodeError: TraceWarningError?
 		
@@ -357,12 +359,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-		
+
 		let expect = expectation(description: "TraceWarningPackage DownloadIsFailing_THEN_InvalidResponseError.")
 		var responseCodeError: TraceWarningError?
 		
@@ -407,12 +410,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-		
+
 		let expect = expectation(description: "TraceWarningPackage DownloadIsFailing_THEN_InvalidResponseError.")
 		var responseCodeError: TraceWarningError?
 		
@@ -458,12 +462,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-		
+
 		let expect = expectation(description: "TraceWarningPackage EtagMissing_THEN_IdenticationError.")
 		var responseCodeError: TraceWarningError?
 		
@@ -511,12 +516,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-		
+
 		let expect = expectation(description: "TraceWarningPackage VerificationFails_THEN_VerificationError.")
 		var responseCodeError: TraceWarningError?
 		
@@ -554,7 +560,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			store: store,
 			eventStore: MockEventStore()
 		)
-		
+
 		// THEN
 		let result = traceWarningPackageDownload.shouldStartPackageDownload(for: "DE")
 		XCTAssertTrue(result)
@@ -577,7 +583,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			store: store,
 			eventStore: eventStore
 		)
-		
+
 		// WHEN
 		let result = traceWarningPackageDownload.shouldStartPackageDownload(for: "DE")
 	
@@ -597,12 +603,13 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			SAP_Internal_V2_TraceWarningPackageMetadata.with { $0.etag = "654" },
 			SAP_Internal_V2_TraceWarningPackageMetadata.with { $0.etag = "987" }
 		]
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-	
+
 		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 3)
 		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.eTag == "123" }))
 		
@@ -624,13 +631,14 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: earliestPackageId.dateFromUnixTimestampInHours ?? Date()))
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: earliestPackageIdPlusOne.dateFromUnixTimestampInHours ?? Date()))
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: earliestPackageIdPlusTwo.dateFromUnixTimestampInHours ?? Date()))
-		
+
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-	
+
 		XCTAssertEqual(eventStore.checkinsPublisher.value.count, 3)
 		
 		// WHEN
@@ -656,13 +664,14 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusTwo, region: "DE", eTag: "FakeETag"))
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusThree, region: "DE", eTag: "FakeETag"))
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusFour, region: "DE", eTag: "FakeETag"))
-		
+
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
-	
+
 		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 5)
 		
 		// WHEN
@@ -691,9 +700,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusOne, region: "DE", eTag: "FakeETag"))
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusThree, region: "DE", eTag: "FakeETag"))
 		
+		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
 		let availables = [earliestPackageId, earliestPackageIdPlusOne, earliestPackageIdPlusTwo, earliestPackageIdPlusThree, earliestPackageIdPlusFour]

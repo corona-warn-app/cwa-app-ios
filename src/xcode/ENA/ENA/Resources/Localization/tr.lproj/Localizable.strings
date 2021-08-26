@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "Bir hata oluştu.";
 
@@ -446,6 +449,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Katılımcı ülkeleri, maruz kalma günlüğü ayrıntılarında görüntüleyebilirsiniz.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -649,7 +653,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Test sonucunuzu paylaşmayı kabul ederek diğer kullanıcıların uyarılmasına yardımcı olduğunuz için teşekkür ederiz.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Sonraki adımda lütfen “Paylaş” seçeneğine dokunarak test sonucunuzu paylaşın.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Rastgele kimliklere erişim onayı vermediyseniz veya verdiğiniz tarihin üzerinden beş günden uzun süre geçtiyse lütfen sonraki adımda onay verin.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Test sonucunuzu paylaşmamayı seçtiniz. Diğer kullanıcılar uyarılmayacak.";
 
@@ -1020,7 +1024,7 @@
 
 "ExposureNotificationSetting_DescriptionText3" = "Düğmeyi kullanarak dilediğiniz zaman maruz kalma günlüğünü devre dışı bırakabilirsiniz.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Uygulama hiçbir durumda adınız, adresiniz veya konumunuz gibi kişisel verileri toplamaz ve bu bilgileri diğer kullanıcılara aktarmaz. Rastgele kimlikleri kullanarak kişilerin kimlikleri hakkında sonuçlar çıkarılamaz.";
+"ExposureNotificationSetting_DescriptionText4" = "Maruz kalma günlüğü özelliği sırasında asla adınız, adresiniz veya konumunuz gibi kişisel veriler toplanmaz ve bu bilgiler diğer kullanıcılara aktarılmaz. Rastgele kimlikleri kullanarak kişilerin kimlikleri hakkında sonuçlar çıkarılamaz.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth'u aç";
 
@@ -1555,14 +1559,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.7 */
-"NewVersionFeature_27_sigCheck_title" = "İmza Doğrulama";
+/* Version 2.8 */
+"NewVersionFeature_28_standardizeName_title" = "Standartlaştırılmış Ad";
 
-"NewVersionFeature_27_sigCheck_description" = "Sertifikalarınızı Corona-Warn-App'e eklediğinizde sertifikalarınız geçerlilik ve doğruluk açısından konrol edilir. Bu nedenle, yalnızca onaylanmış bir kuruluş tarafından düzenlenen sertifikalar içe aktarılabilir.";
-
-"NewVersionFeature_27_technicalValidity_title" = "Teknik Geçerlilik Kontrolü";
-
-"NewVersionFeature_27_technicalValidity_description" = "Corona-Warn-App artık eklediğiniz aşı sertifikalarının ve iyileşme sertifikalarının teknik sona erme tarihini gösterir. Uygulama, süresi olmak üzere olan sertifikalar konusunda sizi önceden uyarabilir.";
+"NewVersionFeature_28_standardizeName_description" = "Artık her bir sertifikada, ülkeye özel yazım biçimindeki ada ek olarak standartlaştırılmış Latin harfleriyle yazımı da görüntülenir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1667,6 +1667,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Testi Sil";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menü";
 
@@ -1854,6 +1855,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-posta";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
 
@@ -2056,6 +2058,10 @@
 "Statistics_Info_Trends_Footnote" = "Uygulama kullanıcıları tarafından yapılan uyarılara ilişkin trend değerlendirmesi geçerli enfeksiyon seviyesine göre değişiklik gösterir. Bu nedenle trend her zaman nötr olarak görüntülenir.";
 
 "Statistics_Info_Image_AccLabel" = "Bilgi için dört yer tutucu bulunan bir akıllı telefonun soyut resmi";
+
+"Statistics_Info_Blog_Description" = "Münferit önemli değerlerin içeriği hakkında daha ayrıntılı bilgi için %@ sayfamızı okuyun.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
 
 /* Update OS */
 "UpdateOS_title" = "Lütfen iOS sürümünüzü güncelleyin.";
@@ -2838,7 +2844,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Sertifika Geçerli";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Sertifika Doğrulanamıyor";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkede geçerli";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Sertifikanız doğrulanamadı";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Not";
 
@@ -2903,4 +2913,37 @@
 "HealthCertificate_ValidityState_Invalid" = "Sertifika (İmza) Geçersiz";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavyera";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessen";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Vorpommern";
+
+"FederalState_Niedersachsen" = "Aşağı Saksonya";
+
+"FederalState_NordrheinWestfalen" = "Kuzey Ren-Vestfalya";
+
+"FederalState_RheinlandPfalz" = "Renanya-Palatina";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saksonya";
+
+"FederalState_SachsenAnhalt" = "Saksonya-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Türingiya";
 
