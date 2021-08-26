@@ -1082,6 +1082,8 @@
 		BA5B7FDB26458EF400502087 /* HealthCertifiedPersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */; };
 		BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */; };
 		BA5B7FDD26458F7800502087 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FB626458EF400502087 /* HealthCertificateQRCodeScannerViewModelTests.swift */; };
+		BA64FA8226D79C2300DD4705 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8126D79C2300DD4705 /* RestService.swift */; };
+		BA64FA8426D7A12400DD4705 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8326D7A12400DD4705 /* Resource.swift */; };
 		BA6898CD25ED49E00037A3EE /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6898CC25ED49E00037A3EE /* Route.swift */; };
 		BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */; };
 		BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */; };
@@ -2456,6 +2458,8 @@
 		BA5B7FC826458EF400502087 /* HealthCertificateQRCodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCell.swift; sourceTree = "<group>"; };
 		BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewModel.swift; sourceTree = "<group>"; };
 		BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewController.swift; sourceTree = "<group>"; };
+		BA64FA8126D79C2300DD4705 /* RestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestService.swift; sourceTree = "<group>"; };
+		BA64FA8326D7A12400DD4705 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		BA6898CC25ED49E00037A3EE /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewController.swift; sourceTree = "<group>"; };
 		BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueViewModel.swift; sourceTree = "<group>"; };
@@ -4923,7 +4927,6 @@
 				948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */,
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
-				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 				3558CC8625F6225500624F5E /* FileManager+FileSize.swift */,
 				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
 				34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */,
@@ -4950,6 +4953,7 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				BA64FA7F26D79BCB00DD4705 /* HTTPClient */,
 				35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */,
 				AB126871254C0598006E9194 /* Utils */,
 				AB1FCBCA2521FC21005930BA /* Environment */,
@@ -6974,6 +6978,24 @@
 			path = FooterViewController;
 			sourceTree = "<group>";
 		};
+		BA64FA7F26D79BCB00DD4705 /* HTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
+				BA64FA8026D79BFD00DD4705 /* Resources */,
+				BA64FA8126D79C2300DD4705 /* RestService.swift */,
+			);
+			path = HTTPClient;
+			sourceTree = "<group>";
+		};
+		BA64FA8026D79BFD00DD4705 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA64FA8326D7A12400DD4705 /* Resource.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BA69A7D625CD782900023265 /* SelectValueViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -8398,6 +8420,7 @@
 				52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */,
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */,
+				BA64FA8426D7A12400DD4705 /* Resource.swift in Sources */,
 				AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */,
 				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
 				94ECCF7426A7E3B100AB98EC /* MockHealthCertificateValidationService.swift in Sources */,
@@ -8705,6 +8728,7 @@
 				01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */,
 				010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */,
 				BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */,
+				BA64FA8226D79C2300DD4705 /* RestService.swift in Sources */,
 				BA00FECE26BC2D14009DA07F /* AppFeatureProvider.swift in Sources */,
 				BA6F0073265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift in Sources */,
 				01A6C3032626DE2500B6E95A /* HomeTestResultTableViewCell.swift in Sources */,
