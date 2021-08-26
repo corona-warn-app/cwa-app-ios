@@ -39,8 +39,10 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, Dis
 		
 
 		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Printer"), style: .plain, target: self, action: #selector(didTapPrintButton))
+		printButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.printButton
 		let shareButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(didTapShareButton))
-		
+		shareButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.shareButton
+
 		if UIPrintInteractionController.isPrintingAvailable {
 			navigationItem.rightBarButtonItems = [shareButton, printButton]
 		} else {

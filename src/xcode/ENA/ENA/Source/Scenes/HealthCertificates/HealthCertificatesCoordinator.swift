@@ -471,6 +471,7 @@ final class HealthCertificatesCoordinator {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.HealthCertificate.PrintPDF.Info.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.HealthCertificate.PrintPdf.infoPrimaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
