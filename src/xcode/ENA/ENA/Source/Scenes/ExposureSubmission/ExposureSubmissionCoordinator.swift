@@ -693,26 +693,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate
 	) {
-		let deleteButtonTitle: String
-		switch healthCertificate.type {
-		case .vaccination:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
-		case .test:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
-		case .recovery:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
-		}
-
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
-			secondaryButtonName: deleteButtonTitle,
+			secondaryButtonName: AppStrings.HealthCertificate.Details.moreButtonTitle,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
 			isSecondaryButtonHidden: false,
 			primaryButtonInverted: false,
 			secondaryButtonInverted: true,
-			backgroundColor: .enaColor(for: .cellBackground),
-			secondaryTextColor: .systemRed
+			backgroundColor: .enaColor(for: .cellBackground)
 		)
 
 		let footerViewController = FooterViewController(footerViewModel)
