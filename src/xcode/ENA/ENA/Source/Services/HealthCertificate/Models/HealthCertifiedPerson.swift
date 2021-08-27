@@ -124,6 +124,11 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
+	var hasBoosterVaccinationCertificate: Bool {
+		return true
+//		return healthCertificates.contains { $0.vaccinationEntry?.isBooster ?? false }
+	}
+
 	@objc
 	func triggerMostRelevantCertificateUpdate() {
 		updateMostRelevantHealthCertificate()
@@ -143,6 +148,26 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
+	var completeBoosterVaccinationProtectionDate: Date? {
+		healthCertificates.compactMap({ healthCertificate -> Date? in
+			guard let vaccinationEntry = healthCertificate.vaccinationEntry else {
+				return nil
+			}
+			// look for a booster date -> astra, modern and biontech if dose is 3 or more
+			let product = vaccinationEntry.vaccineMedicinalProduct
+			switch VaccinationProductType(value: product) {
+			case .biontech  where vaccinationEntry.doseNumber > 2,
+				 .moderna where vaccinationEntry.doseNumber > 2,
+				 .astraZeneca where vaccinationEntry.doseNumber > 2,
+				 .other where vaccinationEntry.doseNumber > 1 && vaccinationEntry.totalSeriesOfDoses == 1 :
+				return vaccinationEntry.localVaccinationDate
+			default:
+				return nil
+			}
+		})
+		.min()
+	}
+
 	// MARK: - Private
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -150,7 +175,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
-
+		// check if we find a booster shot -> this will impact the date of complete protection
+		guard completeBoosterVaccinationProtectionDate == nil else {
+			return completeBoosterVaccinationProtectionDate
+		}
 		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
 		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
 			// if recovery date found -> use it
@@ -167,6 +195,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	private var vaccinationExpirationDate: Date? {
+		guard completeBoosterVaccinationProtectionDate == nil else {
+			return vaccinationCertificates.last?.expirationDate
+		}
 		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }) else {
 			return nil
 		}
@@ -199,7 +230,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				.store(in: &healthCertificateSubscriptions)
 		}
 	}
-
 
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,
