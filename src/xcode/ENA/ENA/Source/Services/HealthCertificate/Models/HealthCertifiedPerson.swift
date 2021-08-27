@@ -124,11 +124,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
-	var hasBoosterVaccinationCertificate: Bool {
-		return true
-//		return healthCertificates.contains { $0.vaccinationEntry?.isBooster ?? false }
-	}
-
 	@objc
 	func triggerMostRelevantCertificateUpdate() {
 		updateMostRelevantHealthCertificate()
@@ -195,6 +190,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	private var vaccinationExpirationDate: Date? {
+		// look if a booster was found, if last in series check is not needed
 		guard completeBoosterVaccinationProtectionDate == nil else {
 			return vaccinationCertificates.last?.expirationDate
 		}
