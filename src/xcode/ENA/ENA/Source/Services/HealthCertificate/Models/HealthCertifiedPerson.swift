@@ -124,10 +124,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
-	var hasBoosterVaccinationCertificate: Bool {
-		return healthCertificates.contains { $0.vaccinationEntry?.isBooster ?? false }
-	}
-
 	@objc
 	func triggerMostRelevantCertificateUpdate() {
 		updateMostRelevantHealthCertificate()
