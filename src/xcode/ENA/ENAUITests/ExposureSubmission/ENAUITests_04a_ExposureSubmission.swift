@@ -658,7 +658,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		// Open test certificate.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
-		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline].waitForExistence(timeout: .medium))
+
 		snapshot("screenshot_test_certificate_button_test_result_negative_test_details")
 	}
 
