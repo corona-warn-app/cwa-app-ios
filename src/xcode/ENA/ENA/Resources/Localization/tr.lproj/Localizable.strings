@@ -515,7 +515,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Test Merkezi Bul";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Yakınınızdaki test merkezlerini bulun.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Yakınınızdaki test merkezlerini bulun. Bir harici RKI web sitesine yönlendirileceksiniz.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "PCR Testi için TAN talebinde bulunun";
@@ -1467,13 +1467,9 @@
 
 "local_notifications_testresults_body" = "Corona-Warn-App uygulamasından yeni mesajlarınız var.";
 
-"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+"local_notifications_certificate_title" = "Corona-Warn-App";
 
-"local_notifications_expiringSoon_body" = "Sertifikalarınızın geçerliliğini kontrol edin.";
-
-"local_notifications_expired_title" = "Corona-Warn-App";
-
-"local_notifications_expired_body" = "Sertifikalarınızın geçerliliğini kontrol edin.";
+"local_notifications_certificate_body" = "Corona-Warn-App uygulamasından yeni mesajlarınız var.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Genel Bakış";
@@ -1560,9 +1556,13 @@
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
 /* Version 2.8 */
-"NewVersionFeature_28_standardizeName_title" = "Standartlaştırılmış Ad";
+"NewVersionFeature_29_warnGuest_title" = "Diğer Kullanıcılara Uyarı";
 
-"NewVersionFeature_28_standardizeName_description" = "Artık her bir sertifikada, ülkeye özel yazım biçimindeki ada ek olarak standartlaştırılmış Latin harfleriyle yazımı da görüntülenir.";
+"NewVersionFeature_29_warnGuest_description" = "Kamu sağlığı yetkililerince belirtilen durumlarda artık etkinlik organizatörü olarak misafirlerinize, koronavirüs tanısı almış ve etkinliğe katılmış ancak Corona-Warn-App ile check in yapmamış başka kişilerin adına uyarıda bulunabilirsiniz.";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_title" = "İyileşen Kişiler İçin Anlık Aşı Durumu Görüntülemesi";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Corona-Warn-App artık iyileşen kişiler için doğrudan ilk aşıdan sonra tam aşı koruması ibaresini görüntülemektedir. Johnson & Johnson haricindeki tüm aşılar için iki haftalık bekleme süresi kaldırılmıştır.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2005,7 +2005,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
 
-"Statistics_Info_KeySubmissions_Text" = "PCR testi ile koronavirüs tanısı alan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı";
+"Statistics_Info_KeySubmissions_Text" = "PCR testi ile koronavirüs tanısı alan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7 Günlük R Değeri";
 
@@ -2307,6 +2307,8 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Bilgi";
 
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Diğer Kullanıcılara Uyarı";
+
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Düzenle";
 
 "TraceLocations_Overview_Item_Prefix" = "%@ QR kodu.";
@@ -2385,6 +2387,67 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ sa.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "QR kod şu anda kaydedilemiyor. Lütfen daha sonra tekrar deneyin (hata kodu: %@).";
+
+/* On Behalf Checkin Submission */
+/* - Info */
+"OnBehalfCheckinSubmission_Info_Title" = "Diğer Kullanıcılara Uyarı";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Siz ve Konuklarınız için Daha Yüksek Düzeyde Güvenlik";
+
+"OnBehalfCheckinSubmission_Info_Description" = "Koronavirüs tanısı almış ve etkinliğe katılmış ancak Corona-Warn-App ile check-in yapmamış başka kişiler adına misafirlerinizi uyarabilirsiniz.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Bu etkinliğe veya yere check in yapmamış biri daha sonra koronavirüs tanısı alırsa tanı alan kişi ile aynı anda ya da bu kişi odadan çıktıktan sonra en fazla 30 dakika içinde aynı odada bulunmuşlarsa konuklara uyarı gönderilebilir.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Misafirlerinizi bir başkası adına uyarabilmeniz kamu sağlığı yetkililerinin bu yönde bir talimatının olması koşuluna bağlıdır. Böyle bir durumda size bir TAN göndereceklerdir.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Devam Et";
+
+/* - Trace Location Selection */
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Diğer Kullanıcılara Uyarı";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Koronavirüs tanısı almış bir kişi adına diğer kullanıcıları uyarmak istediğiniz bir etkinliği seçin ya da tekrar etkinliğin QR kodunu tarayarak silinmiş bir etkinliği geri yükleyin.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "QR Kodu Tara";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Devam Et";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Etkinlik Yok";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Başka kişiler adına uyarıda bulunmak için tekrar ilgili etkinliğin QR kodunu tarayın.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Akıllı telefon";
+
+/* - Date Time Selection */
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Diğer Kullanıcılara Uyarı";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Adına diğer kullanıcıları uyarmak istediğiniz koronavirüs tanısı almış kişinin kalış süresini belirtin. Bu bilgiyi kamu sağlığı yetkililerinden alacaksınız.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Başlangıç/Varış";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Süre";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Devam Et";
+
+/* - TAN Input */
+"OnBehalfCheckinSubmission_TANInput_Title" = "Diğer Kullanıcılara Uyarı";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Size verilen 10 basamaklı TAN'yi girin.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Uyarı Gönder";
+
+/* - Thank You */
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Teşekkür ederiz!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Desteğiniz sayesinde artık diğer kullanıcılar uyarılabilir ve buna uygun şekilde hareket edebilir.";
+
+/* - Errors */
+"OnBehalfCheckinSubmissionError_Failed" = "Bir hata oluştu. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "TAN geçersiz. Lütfen girişinizi kontrol edin veya size TAN'yi gönderen kuruluşla iletişime geçin.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve tekrar deneyin.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Hata Raporları";
@@ -2675,6 +2738,8 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "aşı tarihi: %@";
 
+"HealthCertifiedPerson_VaccinationCertificate_booster" = "Hatırlatma Aşısı";
+
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Sertifikası";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Testi";
@@ -2812,7 +2877,7 @@
 
 "HealthCertificate_Validation_Body2" = "COVID sertifikası, AB'de seyahat için geçerli bir kanıttır.";
 
-"HealthCertificate_Validation_Headline2" = "Not";
+"HealthCertificate_Validation_Headline2" = "Notlar";
 
 "HealthCertificate_Validation_Bullet1" = "Giriş kurallarında değişiklik yapılabileceğini lütfen unutmayın. Bu nedenle, lütfen gideceğiniz ülkeye girmeden kısa bir süre (en fazla 48 saat) önce sertifikayı kontrol edin.";
 
@@ -2850,7 +2915,7 @@
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Sertifikanız doğrulanamadı";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Not";
+"HealthCertificate_Validation_Passed_hintsTitle" = "Notlar";
 
 "HealthCertificate_Validation_Passed_hint1" = "Giriş kurallarında değişiklik yapılabileceğini lütfen unutmayın. Bu nedenle, lütfen gideceğiniz ülkeye girmeden kısa bir süre (en fazla 48 saat) önce sertifikayı kontrol edin.";
 
@@ -2867,7 +2932,7 @@
 
 "HealthCertificate_Validation_Open_subtitle" = "Sertifikanız tamamen doğrulanamadı";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Not";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Notlar";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "Aşağıdaki kurallar kontrol edilemedi. Lütfen sertifikanın, gideceğiniz ülkenin kurallarına uygun olduğundan emin olun.";
 
