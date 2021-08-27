@@ -43,8 +43,6 @@ final class HealthCertificateCellViewModel {
 
 	lazy var subheadline: String? = {
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBooster:
-			return AppStrings.HealthCertificate.Person.VaccinationCertificate.booster
 		case .vaccination(let vaccinationEntry):
 			return String(
 				format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
@@ -118,8 +116,6 @@ final class HealthCertificateCellViewModel {
 		}
 
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBooster:
-			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries:
 			if case .completelyProtected = healthCertifiedPerson.vaccinationState {
 				return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
