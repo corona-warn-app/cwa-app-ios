@@ -122,6 +122,8 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
 			}
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isBoosterVaccination:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 		case .vaccination:
 			return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 		case .test:

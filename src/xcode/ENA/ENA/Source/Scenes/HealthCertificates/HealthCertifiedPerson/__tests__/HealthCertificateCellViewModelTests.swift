@@ -71,7 +71,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subheadline, "Auffrischungsimpfung")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 3 von 2")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
