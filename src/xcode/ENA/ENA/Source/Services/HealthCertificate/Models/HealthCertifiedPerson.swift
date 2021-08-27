@@ -148,7 +148,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			guard let vaccinationEntry = healthCertificate.vaccinationEntry else {
 				return nil
 			}
-			// look for a booster date -> astra, modern and biontech if dose is 3 or more
+			// look for a booster date -> AstraZeneca, Moderna and BioNTech if dose is 3 or more, Johnson & Johnson if dose is 2 or more
 			let product = vaccinationEntry.vaccineMedicinalProduct
 			switch VaccinationProductType(value: product) {
 			case .biontech  where vaccinationEntry.doseNumber > 2,
