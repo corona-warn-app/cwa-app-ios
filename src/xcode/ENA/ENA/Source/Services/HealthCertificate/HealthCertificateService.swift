@@ -76,12 +76,13 @@ class HealthCertificateService {
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
-		checkSignatureUpfront: Bool = true
+		checkSignatureUpfront: Bool = true,
+		markAsNew: Bool = false
 	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
-			let healthCertificate = try HealthCertificate(base45: base45)
+			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
 
 			// check signature
 			if checkSignatureUpfront {
@@ -762,7 +763,11 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
+				let registerResult = registerHealthCertificate(
+					base45: healthCertificateBase45,
+					checkSignatureUpfront: false,
+					markAsNew: true
+				)
 
 				switch registerResult {
 				case .success((_, let healthCertificate)):
