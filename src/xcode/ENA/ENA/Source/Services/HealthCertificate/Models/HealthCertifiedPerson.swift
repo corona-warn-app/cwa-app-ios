@@ -188,10 +188,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	private var vaccinationExpirationDate: Date? {
-		// look if a booster was found, if last in series check is not needed
-		guard completeBoosterVaccinationProtectionDate == nil else {
-			return vaccinationCertificates.last?.expirationDate
-		}
 		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }) else {
 			return nil
 		}
