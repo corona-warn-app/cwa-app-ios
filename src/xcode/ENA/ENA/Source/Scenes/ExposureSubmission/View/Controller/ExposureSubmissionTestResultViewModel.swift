@@ -568,26 +568,8 @@ extension ExposureSubmissionTestResultViewModel {
 
 		#if DEBUG
 
-		if isUITesting {
-			if LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
-				cells.append(DynamicCell.identifier(
-					ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
-					action: .execute { _, _ in
-						self.onTestCertificateCellTap(healthTuple.certificate, healthTuple.certifiedPerson)
-					},
-					configure: { _, cell, _ in
-						guard let cell = cell as? HealthCertificateCell else {
-							fatalError("could not initialize cell of type `HealthCertificateCell`")
-						}
-						cell.configure(
-							HealthCertificateCellViewModel(
-								healthCertificate: healthTuple.certificate,
-								healthCertifiedPerson: healthTuple.certifiedPerson
-							)
-						)
-					})
-				)
-			}
+		if isUITesting && LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
+			cells.append(mockTestCertificateCell(certificate: healthTuple.certificate, certifiedPerson: healthTuple.certifiedPerson))
 		}
 		
 		#endif
@@ -682,26 +664,8 @@ extension ExposureSubmissionTestResultViewModel {
 
 		#if DEBUG
 
-        if isUITesting {
-			if LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
-				cells.append(DynamicCell.identifier(
-					ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
-					action: .execute { _, _ in
-						self.onTestCertificateCellTap(healthTuple.certificate, healthTuple.certifiedPerson)
-					},
-					configure: { _, cell, _ in
-						guard let cell = cell as? HealthCertificateCell else {
-							fatalError("could not initialize cell of type `HealthCertificateCell`")
-						}
-						cell.configure(
-							HealthCertificateCellViewModel(
-								healthCertificate: healthTuple.certificate,
-								healthCertifiedPerson: healthTuple.certifiedPerson
-							)
-						)
-					})
-				)
-			}
+		if isUITesting && LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
+			cells.append(mockTestCertificateCell(certificate: healthTuple.certificate, certifiedPerson: healthTuple.certifiedPerson))
 		}
 		
 		#endif
@@ -779,6 +743,29 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
+	
+	#if DEBUG
+
+	private func mockTestCertificateCell(certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson) -> DynamicCell {
+		return DynamicCell.identifier(
+			ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+			action: .execute { _, _ in
+				self.onTestCertificateCellTap(certificate, certifiedPerson)
+			},
+			configure: { _, cell, _ in
+				guard let cell = cell as? HealthCertificateCell else {
+					fatalError("could not initialize cell of type `HealthCertificateCell`")
+				}
+				cell.configure(
+					HealthCertificateCellViewModel(
+						healthCertificate: certificate,
+						healthCertifiedPerson: certifiedPerson
+					)
+				)
+			})
+	}
+	
+	#endif
 }
 
 
