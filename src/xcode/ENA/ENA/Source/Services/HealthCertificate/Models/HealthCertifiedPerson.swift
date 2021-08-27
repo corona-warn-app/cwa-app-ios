@@ -159,7 +159,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			case .biontech  where vaccinationEntry.doseNumber > 2,
 				 .moderna where vaccinationEntry.doseNumber > 2,
 				 .astraZeneca where vaccinationEntry.doseNumber > 2,
-				 .other where vaccinationEntry.doseNumber > 1 && vaccinationEntry.totalSeriesOfDoses == 1 :
+				 .other where vaccinationEntry.doseNumber > 1:
 				return vaccinationEntry.localVaccinationDate
 			default:
 				return nil
