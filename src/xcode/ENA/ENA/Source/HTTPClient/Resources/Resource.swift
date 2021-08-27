@@ -23,6 +23,9 @@ enum ResourceError: Error {
 ///
 protocol HTTPResource {
 
+	// M is type of the model
+	associatedtype Model where Model: Decodable
+
 	// universal resource locator
 	var url: URL { get }
 
@@ -30,11 +33,10 @@ protocol HTTPResource {
 	var method: HTTP.Method { get }
 
 	// this will usably be the body
-	func decode<M>(_ data: Data?) -> M? where M: Decodable
-
+	func decode(_ data: Data?) -> Result<Model, ResourceError>
 }
 
-struct JSONResource: HTTPResource {
+struct JSONResource<M: Decodable>: HTTPResource {
 
 	// MARK: - Init
 
@@ -42,15 +44,18 @@ struct JSONResource: HTTPResource {
 
 	// MARK: - Protocol HTTPResource
 
+	typealias Model = M
+
 	let url: URL
 	let method: HTTP.Method
 
-	func decode<M>(_ data: Data?) -> M? where M: Decodable {
+	func decode(_ data: Data?) -> Result<M, ResourceError> {
 		guard let data = data else {
-			return nil
+			return .failure(.missingData)
 		}
 		do {
-			return try decoder.decode(M.self, from: data)
+			let model = try decoder.decode(M.self, from: data)
+			return .success(model)
 		} catch let DecodingError.keyNotFound(key, context) {
 			Log.debug("missing key: \(key.stringValue)", log: .client)
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
@@ -65,7 +70,7 @@ struct JSONResource: HTTPResource {
 		} catch {
 			Log.debug("Failed to parse JSON answer - unhandled error", log: .client)
 		}
-		return nil
+		return .failure(.decodeError)
 	}
 
 	// MARK: - Public

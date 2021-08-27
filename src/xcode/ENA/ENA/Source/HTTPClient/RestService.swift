@@ -28,9 +28,7 @@ class RestService {
 		case decodeError
 	}
 
-	func load<M>(resource: HTTPResource, completion: @escaping (Result<M?, ServiceError>) -> Void)
-	where M: Decodable {
-
+	func load<T: HTTPResource>(resource: T, completion: @escaping (Result<T.Model?, ServiceError>) -> Void) {
 		// better create the request on a 'generic' place
 		let request = URLRequest(url: URL(staticString: "http://dummy"), cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60.0)
 		session.dataTask(with: request) { bodyData, response, error in
@@ -41,11 +39,16 @@ class RestService {
 				return
 			}
 			#if DEBUG
-			Log.debug("URL Response \(urlResponse.statusCode)")
+			Log.debug("URL Response \(urlResponse.statusCode)", log: .client)
 			#endif
 			switch urlResponse.statusCode {
 			case 200:
-				completion(.success(resource.decode(bodyData)))
+				switch resource.decode(bodyData) {
+				case .success(let model):
+					completion(.success(model))
+				case .failure:
+					completion(.failure(.decodeError))
+				}
 			case 201...204:
 				completion(.success(nil))
 
@@ -60,5 +63,21 @@ class RestService {
 	// MARK: - Private
 
 	private let session: URLSession
+
+}
+
+
+struct RestServiceTest {
+
+	func load() {
+		let restService = RestService()
+		let jsonResource = JSONResource<String>(url: URL(staticString: "http://www.test.de"), method: .get)
+		restService.load(resource: jsonResource) { result in
+			if case let .success(model) = result {
+				Log.debug("did load some model data \(model)")
+			}
+		}
+
+	}
 
 }
