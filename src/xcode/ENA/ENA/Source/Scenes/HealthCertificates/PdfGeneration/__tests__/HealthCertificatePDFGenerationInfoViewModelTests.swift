@@ -62,16 +62,21 @@ class HealthCertificatePDFGenerationInfoViewModelTests: CWATestCase {
 		)
 		let expectation = self.expectation(description: "Test should succeed")
 
-		var pdfViewResult: PDFView?
+		var pdfDocumentResult: PDFDocument?
 		
 		// WHEN
-		viewModel.generatePDFData(completion: { pdfView in
-			pdfViewResult = pdfView
-			expectation.fulfill()
+		viewModel.generatePDFData(completion: { result in
+			switch result {
+			case let .success(pdfDocument):
+				pdfDocumentResult = pdfDocument
+				expectation.fulfill()
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
 		})
 	
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertNotNil(pdfViewResult)
+		XCTAssertNotNil(pdfDocumentResult)
 	}
 }

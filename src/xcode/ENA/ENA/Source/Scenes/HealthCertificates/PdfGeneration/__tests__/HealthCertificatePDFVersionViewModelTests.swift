@@ -17,7 +17,7 @@ class HealthCertificatePDFVersionViewModelTests: XCTestCase {
 		// WHEN
 		let viewModel = HealthCertificatePDFVersionViewModel(
 			healthCertificate: healthCertificate,
-			pdfView: PDFView()
+			pdfDocument: PDFDocument()
 		)
 	
 		// THEN
@@ -40,7 +40,7 @@ class HealthCertificatePDFVersionViewModelTests: XCTestCase {
 		// WHEN
 		let viewModel = HealthCertificatePDFVersionViewModel(
 			healthCertificate: healthCertificate,
-			pdfView: PDFView()
+			pdfDocument: PDFDocument()
 		)
 	
 		// THEN
