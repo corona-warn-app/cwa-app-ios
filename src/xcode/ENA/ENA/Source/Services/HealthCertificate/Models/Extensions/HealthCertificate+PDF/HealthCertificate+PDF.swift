@@ -16,7 +16,7 @@ extension HealthCertificate {
 
 	func pdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
 		let pdfView = PDFView()
-		let pdfDocument = try pdfDocument(with: valueSets)
+		let pdfDocument = try self.pdfDocument(with: valueSets)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
