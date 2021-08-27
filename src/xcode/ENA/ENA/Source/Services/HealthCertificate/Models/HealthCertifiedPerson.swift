@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 import HealthCertificateToolkit
+import class CertLogic.Rule
 
 class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
@@ -12,10 +13,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	init(
 		healthCertificates: [HealthCertificate],
-		isPreferredPerson: Bool = false
+		isPreferredPerson: Bool = false,
+		boosterRule: Rule? = nil,
+		isNewBoosterRule: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
+		self.boosterRule = boosterRule
+		self.isNewBoosterRule = isNewBoosterRule
 
 		setup()
 	}
@@ -25,6 +30,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
 		case isPreferredPerson
+		case boosterRule
+		case isNewBoosterRule
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -32,6 +39,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		healthCertificates = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates).compactMap { $0.healthCertificate }
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
+		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
+		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
 
 		setup()
 	}
@@ -107,6 +116,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+
+	var boosterRule: Rule?
+	var isNewBoosterRule: Bool
 
 	var name: Name? {
 		healthCertificates.first?.name
