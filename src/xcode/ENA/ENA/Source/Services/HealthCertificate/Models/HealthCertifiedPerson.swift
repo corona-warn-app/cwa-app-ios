@@ -158,6 +158,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				return vaccinationEntry.localVaccinationDate
 			case .other:
 				return nil
+			default:
+				return nil
 			}
 		})
 		.min()
