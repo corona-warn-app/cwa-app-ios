@@ -13,7 +13,7 @@ class HealthCertifiedPersonBoosterTests: CWATestCase {
 	private let biontechString = "EU/1/20/1528"
 	private let modernaString = "EU/1/20/1507"
 	private let astraZenecaString = "EU/1/21/1529"
-	private let unknownString = "EU/1/19/1501"
+	private let johnsonAndJohnson = "EU/1/20/1525"
 
 	// MARK: - all booster states
 
@@ -125,7 +125,7 @@ class HealthCertifiedPersonBoosterTests: CWATestCase {
 							),
 							vaccinationEntries: [
 								VaccinationEntry.fake(
-									vaccineMedicinalProduct: unknownString,
+									vaccineMedicinalProduct: johnsonAndJohnson,
 									doseNumber: 2,
 									totalSeriesOfDoses: 2,
 									dateOfVaccination: "2021-02-02"
@@ -255,7 +255,7 @@ class HealthCertifiedPersonBoosterTests: CWATestCase {
 							),
 							vaccinationEntries: [
 								VaccinationEntry.fake(
-									vaccineMedicinalProduct: unknownString,
+									vaccineMedicinalProduct: johnsonAndJohnson,
 									doseNumber: 1,
 									totalSeriesOfDoses: 1,
 									dateOfVaccination: "2021-02-02"

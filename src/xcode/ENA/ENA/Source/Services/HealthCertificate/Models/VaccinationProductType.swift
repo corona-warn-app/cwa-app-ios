@@ -8,6 +8,7 @@ enum VaccinationProductType {
 	case biontech
 	case moderna
 	case astraZeneca
+	case johnsonAndJohnson
 	case other
 
 	// MARK: - Init
@@ -20,6 +21,8 @@ enum VaccinationProductType {
 			self = .moderna
 		case "EU/1/21/1529":
 			self = .astraZeneca
+		case "EU/1/20/1525":
+			self = .johnsonAndJohnson
 		default:
 			self = .other
 		}
