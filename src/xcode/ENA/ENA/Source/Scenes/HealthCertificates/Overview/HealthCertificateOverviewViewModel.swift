@@ -95,10 +95,6 @@ class HealthCertificateOverviewViewModel {
 		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
 	}
 
-	func resetBadgeCount() {
-		healthCertificateService.resetUnseenTestCertificateCount()
-	}
-
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService

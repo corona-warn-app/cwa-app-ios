@@ -422,10 +422,11 @@ final class HealthCertificatesCoordinator {
 	}
 
 	private func setupCertificateBadgeCount() {
-		healthCertificateService.unseenTestCertificateCount
+		healthCertificateService.healthCertifiedPersons
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
-				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+				let unseenNewsCount = $0.map { $0.unseenNewsCount }.reduce(0, +)
+				self?.viewController.tabBarItem.badgeValue = unseenNewsCount > 0 ? String(unseenNewsCount) : nil
 			}
 			.store(in: &subscriptions)
 	}

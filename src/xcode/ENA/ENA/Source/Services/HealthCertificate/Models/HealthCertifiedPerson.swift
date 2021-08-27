@@ -136,6 +136,12 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
+	var unseenNewsCount: Int {
+		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
+
+		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
+	}
+
 	@objc
 	func triggerMostRelevantCertificateUpdate() {
 		updateMostRelevantHealthCertificate()
