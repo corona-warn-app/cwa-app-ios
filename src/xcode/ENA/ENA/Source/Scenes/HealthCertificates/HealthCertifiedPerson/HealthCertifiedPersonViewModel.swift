@@ -22,9 +22,13 @@ final class HealthCertifiedPersonViewModel {
 		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
+		
+		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
 		healthCertifiedPerson.objectDidChange
 			.sink { [weak self] person in
+				self?.constructHealthCertificateCellViewModels(for: person)
+				
 				guard !person.healthCertificates.isEmpty else {
 					// Prevent trigger reload if we the person was removed before because we removed their last certificate.
 					self?.triggerReload = false
@@ -131,6 +135,10 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var vaccinationHintIsVisible: Bool {
+		guard !healthCertifiedPerson.hasBoosterVaccinationCertificate else {
+			// we hide vaccination notice if a booster certificate is available
+			return false
+		}
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated, .fullyVaccinated:
 			return true
@@ -171,10 +179,7 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
-		HealthCertificateCellViewModel(
-			healthCertificate: sortedHealthCertificates[row],
-			healthCertifiedPerson: healthCertifiedPerson
-		)
+		return healthCertificateCellViewModels[row]
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
@@ -182,7 +187,7 @@ final class HealthCertifiedPersonViewModel {
 			return nil
 		}
 
-		return sortedHealthCertificates[safe: indexPath.row]
+		return healthCertificateCellViewModels[safe: indexPath.row]?.healthCertificate
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -194,7 +199,7 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(sortedHealthCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(healthCertificateCellViewModels[indexPath.row].healthCertificate)
 	}
 
 	// MARK: - Private
@@ -207,8 +212,15 @@ final class HealthCertifiedPersonViewModel {
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private var sortedHealthCertificates: [HealthCertificate] {
-		healthCertifiedPerson.healthCertificates.sorted(by: >)
-	}
+	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 
+	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
+		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
+		healthCertificateCellViewModels = sortedHealthCertificates.map {
+			HealthCertificateCellViewModel(
+				healthCertificate: $0,
+				healthCertifiedPerson: person
+			)
+		}
+	}
 }
