@@ -566,10 +566,36 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		}
 
-		cells = [DynamicCell.title2(
+		#if DEBUG
+
+		if isUITesting {
+			if LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
+				cells.append(DynamicCell.identifier(
+					ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+					action: .execute { _, _ in
+						self.onTestCertificateCellTap(healthTuple.certificate, healthTuple.certifiedPerson)
+					},
+					configure: { _, cell, _ in
+						guard let cell = cell as? HealthCertificateCell else {
+							fatalError("could not initialize cell of type `HealthCertificateCell`")
+						}
+						cell.configure(
+							HealthCertificateCellViewModel(
+								healthCertificate: healthTuple.certificate,
+								healthCertifiedPerson: healthTuple.certifiedPerson
+							)
+						)
+					})
+				)
+			}
+		}
+		
+		#endif
+
+		cells.append(DynamicCell.title2(
 			text: AppStrings.ExposureSubmissionResult.procedure,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
-		)]
+		))
 		
 		switch coronaTest.type {
 		case .pcr:
@@ -653,6 +679,32 @@ extension ExposureSubmissionTestResultViewModel {
 				})
 			)
 		}
+
+		#if DEBUG
+
+        if isUITesting {
+			if LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
+				cells.append(DynamicCell.identifier(
+					ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+					action: .execute { _, _ in
+						self.onTestCertificateCellTap(healthTuple.certificate, healthTuple.certifiedPerson)
+					},
+					configure: { _, cell, _ in
+						guard let cell = cell as? HealthCertificateCell else {
+							fatalError("could not initialize cell of type `HealthCertificateCell`")
+						}
+						cell.configure(
+							HealthCertificateCellViewModel(
+								healthCertificate: healthTuple.certificate,
+								healthCertifiedPerson: healthTuple.certifiedPerson
+							)
+						)
+					})
+				)
+			}
+		}
+		
+		#endif
 
 		if test.testedPerson.fullName != nil && test.testedPerson.dateOfBirth != nil {
 			cells.append(contentsOf: [
