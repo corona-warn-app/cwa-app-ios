@@ -24,7 +24,7 @@ class HealthCertificate_PDFTests: XCTestCase {
 			return
 		}
 
-		_ = try vaccinationCertificate.pdfView(
+		_ = try vaccinationCertificate.pdfDocument(
 			with: SAP_Internal_Dgc_ValueSets(),
 			from: testBundle
 		)
@@ -46,7 +46,7 @@ class HealthCertificate_PDFTests: XCTestCase {
 			return
 		}
 
-		_ = try testCertificate.pdfView(
+		_ = try testCertificate.pdfDocument(
 			with: SAP_Internal_Dgc_ValueSets(),
 			from: testBundle
 		)
@@ -68,7 +68,7 @@ class HealthCertificate_PDFTests: XCTestCase {
 			return
 		}
 
-		_ = try recoveryCertificate.pdfView(
+		_ = try recoveryCertificate.pdfDocument(
 			with: SAP_Internal_Dgc_ValueSets(),
 			from: testBundle
 		)
