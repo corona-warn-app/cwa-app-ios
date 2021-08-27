@@ -40,7 +40,7 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		parent?.navigationItem.hidesBackButton = true
 		parent?.navigationItem.largeTitleDisplayMode = .never
-		
+
 		setupView()
 	}
 	

@@ -9,10 +9,11 @@ import OpenCombine
 enum HealthCertificatePDFGenerationError: LocalizedError {
 	case fetchValueSets
 	case createStrongPointer
+	case pdfGenerationFailed
 	
 	var errorDescription: String? {
 		switch self {
-		case .fetchValueSets, .createStrongPointer:
+		case .fetchValueSets, .createStrongPointer, .pdfGenerationFailed:
 			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.message)"
 		}
 	}
@@ -88,7 +89,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 						completion(.success(pdfDocument))
 					} catch {
 						Log.error("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
-						completion(.failure(.fetchValueSets))
+						completion(.failure(.pdfGenerationFailed))
 					}
 				}
 			)

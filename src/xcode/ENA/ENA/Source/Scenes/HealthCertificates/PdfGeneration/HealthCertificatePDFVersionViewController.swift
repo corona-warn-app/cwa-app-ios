@@ -41,7 +41,6 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 		view = pdfView
 		view.backgroundColor = .enaColor(for: .background)
 		
-
 		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Printer"), style: .plain, target: self, action: #selector(didTapPrintButton))
 		let shareButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(didTapShareButton))
 		
@@ -113,11 +112,10 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 		
 		do {
 			try data.write(to: pdfFileURL)
+			let exportItem = PDFExportItem(subject: viewModel.shareTitle, fileURL: pdfFileURL)
+			onTapExportPdf(exportItem)
 		} catch {
 			Log.error("Could not write the template data to the pdf file.", log: .vaccination, error: error)
 		}
-		
-		let exportItem = PDFExportItem(subject: viewModel.shareTitle, fileURL: pdfFileURL)
-		onTapExportPdf(exportItem)
 	}
 }
