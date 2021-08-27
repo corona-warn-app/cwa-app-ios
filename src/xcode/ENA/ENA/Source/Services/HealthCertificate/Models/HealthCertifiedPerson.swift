@@ -156,7 +156,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				 .astraZeneca where vaccinationEntry.doseNumber > 2,
 				 .johnsonAndJohnson where vaccinationEntry.doseNumber > 1:
 				return vaccinationEntry.localVaccinationDate
-			default:
+			case .other:
 				return nil
 			}
 		})
