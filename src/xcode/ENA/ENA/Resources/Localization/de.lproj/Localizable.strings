@@ -2959,6 +2959,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_Info_primaryButton" = "Weiter";
 
+"HealthCertificate_PrintPdf_Share_title" = "Druckversion des digitalen Zertifikats";
+
 /* Health Certificate Print PDF Error Alert */
 
 "HealthCertificate_PrintPdf_ErrorAlert_Title" = "Druckversion anzeigen nicht möglich";
@@ -2968,6 +2970,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ zur Druckversion";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Druckversion anzeigen nicht möglich";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
 
 /* Health Certificate Errors */
 

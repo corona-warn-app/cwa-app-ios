@@ -2130,6 +2130,7 @@ enum AppStrings {
 		enum PrintPDF {
 			static let showVersion = NSLocalizedString("HealthCertificate_PrintPdf_showPrintableVersion", comment: "")
 			static let cancel = NSLocalizedString("HealthCertificate_PrintPdf_cancelActionSheet", comment: "")
+			static let shareTitle = NSLocalizedString("HealthCertificate_PrintPdf_Share_title", comment: "")
 			
 			enum Info {
 				static let title = NSLocalizedString("HealthCertificate_PrintPdf_Info_title", comment: "")
@@ -2140,10 +2141,16 @@ enum AppStrings {
 			}
 			
 			enum ErrorAlert {
-				static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Title", comment: "")
-				static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Message", comment: "")
-				static let faq = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_FAQ", comment: "")
-				static let ok = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_OK", comment: "")
+				enum pdfGeneration {
+					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Title", comment: "")
+					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Message", comment: "")
+					static let faq = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_FAQ", comment: "")
+					static let ok = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_OK", comment: "")
+				}
+				enum fetchValueSets {
+					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title", comment: "")
+					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message", comment: "")
+				}
 			}
 		}
 

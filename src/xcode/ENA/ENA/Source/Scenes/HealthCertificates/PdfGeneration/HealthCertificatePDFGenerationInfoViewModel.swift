@@ -4,8 +4,32 @@
 
 import UIKit
 import PDFKit
+import OpenCombine
 
-struct HealthCertificatePDFGenerationInfoViewModel {
+enum HealthCertificatePDFGenerationError: LocalizedError {
+	case fetchValueSets
+	case createStrongPointer
+	case pdfGenerationFailed
+	
+	var errorDescription: String? {
+		switch self {
+		case .fetchValueSets, .createStrongPointer, .pdfGenerationFailed:
+			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.message)"
+		}
+	}
+}
+
+final class HealthCertificatePDFGenerationInfoViewModel {
+	
+	// MARK: - Init
+	
+	init(
+		healthCertificate: HealthCertificate,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	) {
+		self.healthCertificate = healthCertificate
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+	}
 	
 	// MARK: - Internal
 	
@@ -40,9 +64,41 @@ struct HealthCertificatePDFGenerationInfoViewModel {
 	}
 	
 	func generatePDFData(
-		completion: @escaping (PDFView) -> Void
+		completion: @escaping (Result<PDFDocument, HealthCertificatePDFGenerationError>) -> Void
 	) {
-		// will be completed correct with following PR
-		completion(PDFView())
+		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+			.sink(
+				receiveCompletion: { result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							Log.error("Signature verification error.", log: .vaccination, error: error)
+						}
+						Log.error("Could not fetch value sets and so failed to create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
+						completion(.failure(.fetchValueSets))
+					}
+				}, receiveValue: { [weak self] valueSets in
+					guard let self = self else {
+						completion(.failure(.createStrongPointer))
+						return
+					}
+					do {
+						let pdfDocument = try self.healthCertificate.pdfDocument(with: valueSets)
+						completion(.success(pdfDocument))
+					} catch {
+						Log.error("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
+						completion(.failure(.pdfGenerationFailed))
+					}
+				}
+			)
+			.store(in: &subscriptions)
 	}
+	
+	// MARK: - Private
+	
+	private let healthCertificate: HealthCertificate
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private var subscriptions = Set<AnyCancellable>()
 }

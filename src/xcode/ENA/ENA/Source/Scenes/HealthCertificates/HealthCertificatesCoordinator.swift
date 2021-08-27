@@ -68,8 +68,8 @@ final class HealthCertificatesCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var modalNavigationController: UINavigationController!
+	private var printNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
-
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var infoScreenShown: Bool {
@@ -138,7 +138,6 @@ final class HealthCertificatesCoordinator {
 			topController: consentScreen,
 			bottomController: footerViewController
 		)
-
 		return topBottomContainerViewController
 	}
 
@@ -181,7 +180,6 @@ final class HealthCertificatesCoordinator {
 		)
 
 		qrCodeScannerViewController.definesPresentationContext = true
-
 		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
 		qrCodeNavigationController.modalPresentationStyle = .fullScreen
 
@@ -248,7 +246,6 @@ final class HealthCertificatesCoordinator {
 				)
 			}
 		)
-
 		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)
 		viewController.present(modalNavigationController, animated: true)
 	}
@@ -454,11 +451,22 @@ final class HealthCertificatesCoordinator {
 		healthCertificate: HealthCertificate
 	) {
 		let healthCertificatePDFGenerationInfoViewController = HealthCertificatePDFGenerationInfoViewController(
-			onTapContinue: { [weak self] pdfView in
-				self?.showPdfGenerationResult(pdfView: pdfView)
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			onTapContinue: { [weak self] pdfDocument in
+				self?.showPdfGenerationResult(
+					healthCertificate: healthCertificate,
+					pdfDocument: pdfDocument
+				)
 			},
 			onDismiss: { [weak self] in
 				self?.modalNavigationController.dismiss(animated: true)
+			},
+			showErrorAlert: { [weak self] error in
+				self?.showErrorAlert(
+					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+					error: error
+				)
 			}
 		)
 		
@@ -477,30 +485,43 @@ final class HealthCertificatesCoordinator {
 			bottomController: footerViewController
 		)
 		
-		let navigationController = DismissHandlingNavigationController(
+		printNavigationController = DismissHandlingNavigationController(
 			rootViewController: topBottomContainerViewController,
 			transparent: true
 		)
-		modalNavigationController.present(navigationController, animated: true)
+		modalNavigationController.present(printNavigationController, animated: true)
 	}
 	
 	private func showPdfGenerationResult(
-		pdfView: PDFView
+		healthCertificate: HealthCertificate,
+		pdfDocument: PDFDocument
 	) {
-
+		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
+			healthCertificate: healthCertificate,
+			pdfDocument: pdfDocument
+		)
+		
+		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
+			viewModel: healthCertificatePDFVersionViewModel,
+			onTapPrintPdf: printPdf,
+			onTapExportPdf: exportPdf
+		)
+		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
 	}
 	
 	private func printPdf(
-		pdfView: PDFView
+		pdfData: Data
 	) {
-	
-		
+		let printController = UIPrintInteractionController.shared
+		printController.printingItem = pdfData
+		printController.present(animated: true, completionHandler: nil)
 	}
 	
 	private func exportPdf(
-		pdfView: PDFView
+		exportItem: PDFExportItem
 	) {
-		
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
+		printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 
 	private func showErrorAlert(
@@ -521,19 +542,28 @@ final class HealthCertificatesCoordinator {
 			}
 		)
 		alert.addAction(okayAction)
-
-		modalNavigationController.present(alert, animated: true, completion: nil)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				fatalError("Could not create strong self")
+			}
+			
+			if self.modalNavigationController.isBeingPresented {
+				self.modalNavigationController.present(alert, animated: true, completion: nil)
+			} else {
+				self.printNavigationController.present(alert, animated: true, completion: nil)
+			}
+		}
 	}
 	
 	private func showPdfPrintErrorAlert() {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.message,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
 			preferredStyle: .alert
 		)
 		
 		let faqAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.faq,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
 			style: .default,
 			handler: { _ in
 				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
@@ -542,7 +572,7 @@ final class HealthCertificatesCoordinator {
 		alert.addAction(faqAction)
 		
 		let okayAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.ok,
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true)
@@ -565,5 +595,4 @@ final class HealthCertificatesCoordinator {
 	private func showSettings() {
 		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
-	
 }

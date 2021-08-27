@@ -14,19 +14,7 @@ extension HealthCertificate {
 
 	// MARK: - Internal
 
-	func pdfView(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle = Bundle.main) throws -> PDFView {
-		let pdfView = PDFView()
-		let pdfDocument = try self.pdfDocument(with: valueSets, from: bundle)
-
-		pdfView.document = pdfDocument
-		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
-		pdfView.autoScales = true
-		return pdfView
-	}
-
-	// MARK: - Private
-
-	private func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle) throws -> PDFDocument {
+	 func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle = Bundle.main) throws -> PDFDocument {
 		let pdfTemplate = self.pdfTemplate(from: bundle)
 		
 		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
@@ -50,6 +38,8 @@ extension HealthCertificate {
 
 		return pdfDocument
 	}
+	
+	// MARK: - Private
 
 	private func pdfTemplate(from bundle: Bundle) -> Data {
 		let templateName: String
