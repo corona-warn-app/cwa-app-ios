@@ -132,37 +132,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	// internal for testing
 	var recoveredVaccinationCertificate: HealthCertificate? {
-		return vaccinationCertificates.first { certificate in
-			guard let vaccinationEntry = certificate.vaccinationEntry,
-				  vaccinationEntry.totalSeriesOfDoses == 1,
-				  vaccinationEntry.doseNumber == 1,
-				  VaccinationProductType(value: vaccinationEntry.vaccineMedicinalProduct) != .other else {
-				return false
-			}
-			return true
-		}
+		return vaccinationCertificates.first { $0.vaccinationEntry?.isRecoveredVaccination ?? false }
 	}
 
 	var completeBoosterVaccinationProtectionDate: Date? {
-		healthCertificates.compactMap({ healthCertificate -> Date? in
-			guard let vaccinationEntry = healthCertificate.vaccinationEntry else {
-				return nil
-			}
-			// look for a booster date -> AstraZeneca, Moderna and BioNTech if dose is 3 or more, Johnson & Johnson if dose is 2 or more
-			let product = vaccinationEntry.vaccineMedicinalProduct
-			switch VaccinationProductType(value: product) {
-			case .biontech  where vaccinationEntry.doseNumber > 2,
-				 .moderna where vaccinationEntry.doseNumber > 2,
-				 .astraZeneca where vaccinationEntry.doseNumber > 2,
-				 .johnsonAndJohnson where vaccinationEntry.doseNumber > 1:
-				return vaccinationEntry.localVaccinationDate
-			case .other:
-				return nil
-			default:
-				return nil
-			}
-		})
-		.min()
+		healthCertificates
+			.filter { $0.vaccinationEntry?.isBoosterVaccination ?? false }
+			.compactMap { $0.vaccinationEntry?.localVaccinationDate }
+			.max()
 	}
 
 	// MARK: - Private
