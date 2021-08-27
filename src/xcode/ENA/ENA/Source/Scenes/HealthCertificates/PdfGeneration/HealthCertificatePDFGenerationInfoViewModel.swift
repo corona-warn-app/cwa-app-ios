@@ -6,6 +6,19 @@ import UIKit
 import PDFKit
 import OpenCombine
 
+enum HealthCertificatePDFGenerationError: LocalizedError {
+	case fetchValueSets
+	case createStrongPointer
+	case pdfGenerationFailed
+	
+	var errorDescription: String? {
+		switch self {
+		case .fetchValueSets, .createStrongPointer, .pdfGenerationFailed:
+			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.message)"
+		}
+	}
+}
+
 final class HealthCertificatePDFGenerationInfoViewModel {
 	
 	// MARK: - Init
@@ -51,7 +64,7 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 	}
 	
 	func generatePDFData(
-		completion: @escaping (PDFView) -> Void
+		completion: @escaping (Result<PDFDocument, HealthCertificatePDFGenerationError>) -> Void
 	) {
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 			.sink(
@@ -63,17 +76,20 @@ final class HealthCertificatePDFGenerationInfoViewModel {
 						if case CachingHTTPClient.CacheError.dataVerificationError = error {
 							Log.error("Signature verification error.", log: .vaccination, error: error)
 						}
-						Log.error("Could not fetch Vaccination value sets protobuf.", log: .vaccination, error: error)
+						Log.error("Could not fetch value sets and so failed to create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
+						completion(.failure(.fetchValueSets))
 					}
 				}, receiveValue: { [weak self] valueSets in
 					guard let self = self else {
-						fatalError("Could not create strong self")
+						completion(.failure(.createStrongPointer))
+						return
 					}
 					do {
-						let pdfView = try self.healthCertificate.pdfView(with: valueSets)
-						completion(pdfView)
+						let pdfDocument = try self.healthCertificate.pdfDocument(with: valueSets)
+						completion(.success(pdfDocument))
 					} catch {
-						fatalError("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
+						Log.error("Could not create pdf view of healthCertificate: \(private: self.healthCertificate) with error: \(error)")
+						completion(.failure(.pdfGenerationFailed))
 					}
 				}
 			)

@@ -14,19 +14,9 @@ extension HealthCertificate {
 
 	// MARK: - Internal
 
-	func pdfView(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFView {
-		let pdfView = PDFView()
-		let pdfDocument = try self.pdfDocument(with: valueSets)
-
-		pdfView.document = pdfDocument
-		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
-		pdfView.autoScales = true
-		return pdfView
-	}
-
-	// MARK: - Private
-
-	private func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets) throws -> PDFDocument {
+	 func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle = Bundle.main) throws -> PDFDocument {
+		let pdfTemplate = self.pdfTemplate(from: bundle)
+		
 		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
 			throw PDFGenerationError.pdfDocumentCreationFailed
 		}
@@ -48,8 +38,10 @@ extension HealthCertificate {
 
 		return pdfDocument
 	}
+	
+	// MARK: - Private
 
-	private var pdfTemplate: Data {
+	private func pdfTemplate(from bundle: Bundle) -> Data {
 		let templateName: String
 		switch type {
 		case .vaccination:
@@ -60,7 +52,7 @@ extension HealthCertificate {
 			templateName = "RecoveryCertificateTemplate_v4.1"
 		}
 
-		guard let tempalteURL = Bundle.main.url(forResource: templateName, withExtension: "pdf"),
+		guard let tempalteURL = bundle.url(forResource: templateName, withExtension: "pdf"),
 			  let templateData = FileManager.default.contents(atPath: tempalteURL.path) else {
 			fatalError("Could not load pdf template.")
 		}
@@ -151,7 +143,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
+				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
@@ -240,7 +232,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
+				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 29, y: 785, width: 266, height: 23),
@@ -309,7 +301,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removeURNPrefix(),
+				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
@@ -332,7 +324,7 @@ extension HealthCertificate {
 
 private extension String {
 
-	func removeURNPrefix() -> String {
+	func removingURNPrefix() -> String {
 		return replacingOccurrences(of: "URN:UVCI:", with: "")
 	}
 }
