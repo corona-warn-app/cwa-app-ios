@@ -170,11 +170,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
-		// check if we find a booster shot -> this will impact the date of complete protection
-		guard completeBoosterVaccinationProtectionDate == nil else {
+		if let completeBoosterVaccinationProtectionDate = self.completeBoosterVaccinationProtectionDate {
 			return completeBoosterVaccinationProtectionDate
-		}
-		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
+		} else if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
 		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
 			// if recovery date found -> use it
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
