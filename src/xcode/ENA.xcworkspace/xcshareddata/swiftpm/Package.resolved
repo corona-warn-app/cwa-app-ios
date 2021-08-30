@@ -57,11 +57,11 @@
       },
       {
         "package": "JSONSchema",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
+        "repositoryURL": "https://github.com/corona-warn-app/JSONSchema.swift",
         "state": {
           "branch": null,
-          "revision": "c21d82683c426097700afc90dfe63fe06ed5127c",
-          "version": "0.6.0"
+          "revision": "4a46b92510fb85ac5e84dbe95d88c6f5d1736341",
+          "version": null
         }
       },
       {
