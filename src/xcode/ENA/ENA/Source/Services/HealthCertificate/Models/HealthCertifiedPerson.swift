@@ -120,8 +120,21 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 
-	var boosterRule: Rule?
-	var isNewBoosterRule: Bool
+	@DidSetPublished var boosterRule: Rule? {
+		didSet {
+			if boosterRule != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var isNewBoosterRule: Bool {
+		didSet {
+			if isNewBoosterRule != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
 
 	var name: Name? {
 		healthCertificates.first?.name
