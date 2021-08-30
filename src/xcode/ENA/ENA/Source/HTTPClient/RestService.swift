@@ -28,7 +28,10 @@ class RestService {
 		case decodeError
 	}
 
-	func load<T: HTTPResource>(resource: T, completion: @escaping (Result<T.Model?, ServiceError>) -> Void) {
+	func load<T>(
+		resource: T,
+		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
+	) where T: HTTPResource {
 		// better create the request on a 'generic' place
 		let request = URLRequest(url: URL(staticString: "http://dummy"), cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60.0)
 		session.dataTask(with: request) { bodyData, response, error in

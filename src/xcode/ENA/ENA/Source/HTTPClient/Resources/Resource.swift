@@ -24,7 +24,7 @@ enum ResourceError: Error {
 protocol HTTPResource {
 
 	// M is type of the model
-	associatedtype Model where Model: Decodable
+	associatedtype Model
 
 	// universal resource locator
 	var url: URL { get }
