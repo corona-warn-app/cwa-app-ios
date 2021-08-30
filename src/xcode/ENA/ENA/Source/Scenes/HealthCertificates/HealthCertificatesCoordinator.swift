@@ -153,7 +153,6 @@ final class HealthCertificatesCoordinator {
 				navigationController.pushViewController(detailViewController, animated: true)
 			}
 		)
-
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
 		navigationController = UINavigationController(rootViewController: infoVC)
@@ -473,6 +472,7 @@ final class HealthCertificatesCoordinator {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.HealthCertificate.PrintPDF.Info.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.HealthCertificate.PrintPdf.infoPrimaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
@@ -569,6 +569,7 @@ final class HealthCertificatesCoordinator {
 				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
 			}
 		)
+		faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
 		alert.addAction(faqAction)
 		
 		let okayAction = UIAlertAction(
@@ -578,6 +579,7 @@ final class HealthCertificatesCoordinator {
 				alert.dismiss(animated: true)
 			}
 		)
+		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
 		modalNavigationController.present(alert, animated: true, completion: nil)
