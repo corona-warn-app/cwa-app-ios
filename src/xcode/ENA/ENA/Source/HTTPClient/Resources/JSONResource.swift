@@ -4,40 +4,6 @@
 
 import Foundation
 
-enum HTTP {
-	enum Method: String {
-		case get = "GET"
-		case post = "POST"
-		case put = "PUT"
-		case delete = "DELETE"
-		case patch = "PATCH"
-	}
-}
-
-enum ResourceError: Error {
-	case missingData
-	case decoding
-	case packageCreation
-	case signatureVerification
-}
-
-/// describes a resource
-///
-protocol HTTPResource {
-
-	// M is type of the model
-	associatedtype Model
-
-	// universal resource locator
-	var url: URL { get }
-
-	// protocol
-	var method: HTTP.Method { get }
-
-	// this will usably be the body
-	func decode(_ data: Data?) -> Result<Model, ResourceError>
-}
-
 struct JSONResource<M: Decodable>: HTTPResource {
 
 	// MARK: - Init
@@ -48,8 +14,7 @@ struct JSONResource<M: Decodable>: HTTPResource {
 
 	typealias Model = M
 
-	let url: URL
-	let method: HTTP.Method
+	let resourceLocator: ResourceLocator = ResourceLocator(url: URL(staticString: "http://"), method: .get, headers: ["Content-Type": "application/json"])
 
 	func decode(_ data: Data?) -> Result<M, ResourceError> {
 		guard let data = data else {

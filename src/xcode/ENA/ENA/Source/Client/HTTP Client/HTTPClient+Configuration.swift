@@ -382,11 +382,11 @@ extension HTTPClient.Configuration {
 		init(
 			baseURL: URL,
 			requiresTrailingSlash: Bool,
-			requiresTrailingIndex _: Bool = true
+			requiresTrailingIndex: Bool = true
 		) {
 			self.baseURL = baseURL
 			self.requiresTrailingSlash = requiresTrailingSlash
-			requiresTrailingIndex = false
+			self.requiresTrailingIndex = false
 		}
 
 		// MARK: Properties

@@ -10,8 +10,12 @@ class RestService {
 
 	// MARK: - Init
 
-	init() {
-		self.session = URLSession(configuration: .coronaWarnSessionConfiguration())
+	init(
+		session: URLSession = URLSession(configuration: .coronaWarnSessionConfiguration()),
+		environment: EnvironmentProviding = Environments()
+	) {
+		self.session = session
+		self.environment = environment
 	}
 
 	// MARK: - Overrides
@@ -66,15 +70,28 @@ class RestService {
 	// MARK: - Private
 
 	private let session: URLSession
+	private let environment: EnvironmentProviding
+
+
+	/*
+	private func urlRequest() -> URLRequest {
+		let env = environment.currentEnvironment()
+
+	}
+*/
 
 }
 
-
+/*
 struct RestServiceTest {
 
 	func load() {
 		let restService = RestService()
+		let locator = ResourceLocator(method: .get, headers: [:])
+
 		let configuration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+//		let url = configuration.url(with: parameters)
+//		let url2 = URL.appConfig(parameters)
 
 //		let jsonResource = JSONResource<String>(url: URL(staticString: "http://www.test.de"), method: .get)
 		restService.load(resource: configuration) { result in
@@ -86,3 +103,4 @@ struct RestServiceTest {
 	}
 
 }
+*/

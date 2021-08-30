@@ -8,22 +8,16 @@ import SwiftProtobuf
 struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 
 	init(
-//		environmentProvider: EnvironmentProviding = Environments(),
-//		session: URLSession = .coronaWarnSession(
-//			configuration: .cachingSessionConfiguration()
-//		),
+		resourceLocator: ResourceLocator,
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
-//		self.session = session
-//		self.environmentProvider = environmentProvider
+		self.resourceLocator = resourceLocator
 		self.signatureVerifier = signatureVerifier
 	}
 
 	typealias Model = P
 
-	var url: URL = URL(staticString: "http://")
-
-	var method: HTTP.Method = .get
+	let resourceLocator: ResourceLocator
 
 	func decode(_ data: Data?) -> Result<P, ResourceError> {
 		guard let data = data else {
@@ -46,3 +40,39 @@ struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 
 	private let signatureVerifier: SignatureVerifier
 }
+
+
+struct ResourceLocator {
+
+	let url: URL //= URL(staticString: "http://")
+	let method: HTTP.Method
+	let headers: [String: String]
+
+	/*
+	.appending(
+		"version",
+		"v2",
+		"app_config_ios"
+)
+*/
+
+
+	static func appConfiguration(eTag: String? = nil) -> ResourceLocator {
+		if let eTag = eTag {
+			return ResourceLocator(
+				url: URL(staticString: "http"),
+				method: .get,
+				headers: ["If-None-Match": eTag]
+			)
+		} else {
+			return ResourceLocator(
+				url: URL(staticString: "http"),
+				method: .get,
+				headers: [:]
+			)
+		}
+
+	}
+
+}
+

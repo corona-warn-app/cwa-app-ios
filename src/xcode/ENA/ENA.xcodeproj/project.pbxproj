@@ -1040,6 +1040,7 @@
 		BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */; };
 		BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */; };
 		BA076B2426DD0D2A002063A7 /* ProtobufResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */; };
+		BA076B2626DD1765002063A7 /* JSONResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA076B2526DD1765002063A7 /* JSONResource.swift */; };
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
 		BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */; };
 		BA0A1E3F26A5CC090045E712 /* dsc_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */; };
@@ -1085,7 +1086,7 @@
 		BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */; };
 		BA5B7FDD26458F7800502087 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FB626458EF400502087 /* HealthCertificateQRCodeScannerViewModelTests.swift */; };
 		BA64FA8226D79C2300DD4705 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8126D79C2300DD4705 /* RestService.swift */; };
-		BA64FA8426D7A12400DD4705 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8326D7A12400DD4705 /* Resource.swift */; };
+		BA64FA8426D7A12400DD4705 /* _Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8326D7A12400DD4705 /* _Resource.swift */; };
 		BA6898CD25ED49E00037A3EE /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6898CC25ED49E00037A3EE /* Route.swift */; };
 		BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */; };
 		BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */; };
@@ -2414,6 +2415,7 @@
 		BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryModel.swift; sourceTree = "<group>"; };
 		BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsManagerTests.swift; sourceTree = "<group>"; };
 		BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufResource.swift; sourceTree = "<group>"; };
+		BA076B2526DD1765002063A7 /* JSONResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResource.swift; sourceTree = "<group>"; };
 		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
 		BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Link.swift"; sourceTree = "<group>"; };
 		BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dsc_list.pb.swift; sourceTree = "<group>"; };
@@ -2463,7 +2465,7 @@
 		BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewModel.swift; sourceTree = "<group>"; };
 		BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewController.swift; sourceTree = "<group>"; };
 		BA64FA8126D79C2300DD4705 /* RestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestService.swift; sourceTree = "<group>"; };
-		BA64FA8326D7A12400DD4705 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		BA64FA8326D7A12400DD4705 /* _Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Resource.swift; sourceTree = "<group>"; };
 		BA6898CC25ED49E00037A3EE /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewController.swift; sourceTree = "<group>"; };
 		BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueViewModel.swift; sourceTree = "<group>"; };
@@ -6996,7 +6998,8 @@
 		BA64FA8026D79BFD00DD4705 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA64FA8326D7A12400DD4705 /* Resource.swift */,
+				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
+				BA076B2526DD1765002063A7 /* JSONResource.swift */,
 				BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */,
 			);
 			path = Resources;
@@ -8427,7 +8430,7 @@
 				52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */,
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */,
-				BA64FA8426D7A12400DD4705 /* Resource.swift in Sources */,
+				BA64FA8426D7A12400DD4705 /* _Resource.swift in Sources */,
 				AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */,
 				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
 				94ECCF7426A7E3B100AB98EC /* MockHealthCertificateValidationService.swift in Sources */,
@@ -8491,6 +8494,7 @@
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */,
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
+				BA076B2626DD1765002063A7 /* JSONResource.swift in Sources */,
 				BA0073EA25D196900036DFDD /* DefaultDataDonationViewModel.swift in Sources */,
 				35AAA19126139FE500D3A4C1 /* Array+SaveAccess.swift in Sources */,
 				50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */,
