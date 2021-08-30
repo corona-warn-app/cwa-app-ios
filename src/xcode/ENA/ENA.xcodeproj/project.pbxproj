@@ -513,6 +513,7 @@
 		35F929B02682176B006115BB /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 35F929AF2682176B006115BB /* style.css */; };
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
+		4B54B35226D52B8F00A49EB9 /* MockENManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54B35126D52B8F00A49EB9 /* MockENManager.swift */; };
 		4B577C5F26C1D90500641667 /* LoggingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B577C5E26C1D90500641667 /* LoggingTests.swift */; };
 		4BAB48F426C9B4FB00CC4C11 /* RateLimitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */; };
 		4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */; };
@@ -1891,6 +1892,7 @@
 		35F929AF2682176B006115BB /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
+		4B54B35126D52B8F00A49EB9 /* MockENManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockENManager.swift; sourceTree = "<group>"; };
 		4B577C5E26C1D90500641667 /* LoggingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingTests.swift; sourceTree = "<group>"; };
 		4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLogger.swift; sourceTree = "<group>"; };
 		4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLoggerTests.swift; sourceTree = "<group>"; };
@@ -4853,6 +4855,7 @@
 				941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */,
 				514E81332461B97700636861 /* ExposureManager.swift */,
 				CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */,
+				4B54B35126D52B8F00A49EB9 /* MockENManager.swift */,
 				518A69FA24687D5800444E66 /* RiskLevel.swift */,
 				01D307892562B03B00ADB67B /* RiskState.swift */,
 				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */,
@@ -8692,6 +8695,7 @@
 				BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				01164CE626C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift in Sources */,
+				4B54B35226D52B8F00A49EB9 /* MockENManager.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */,
