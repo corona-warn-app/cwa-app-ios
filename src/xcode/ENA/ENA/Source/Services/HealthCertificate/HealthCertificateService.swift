@@ -339,6 +339,8 @@ class HealthCertificateService {
 					and: Date()
 				)
 
+				let previousValidityState = healthCertificate.validityState
+
 				switch signatureVerificationResult {
 				case .success:
 					if Date() >= healthCertificate.expirationDate {
@@ -351,6 +353,11 @@ class HealthCertificateService {
 				case .failure:
 					healthCertificate.validityState = .invalid
 				}
+
+				if healthCertificate.validityState != previousValidityState {
+					healthCertificate.isValidityStateNew = true
+				}
+
 				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
 			}
 		}
