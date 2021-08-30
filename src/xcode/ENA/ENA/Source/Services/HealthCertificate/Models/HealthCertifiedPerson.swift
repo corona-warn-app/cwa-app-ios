@@ -123,6 +123,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	@DidSetPublished var boosterRule: Rule? {
 		didSet {
 			if boosterRule != oldValue {
+				isNewBoosterRule = boosterRule != nil
 				objectDidChange.send(self)
 			}
 		}
