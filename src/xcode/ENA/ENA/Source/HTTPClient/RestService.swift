@@ -74,8 +74,10 @@ struct RestServiceTest {
 
 	func load() {
 		let restService = RestService()
-		let jsonResource = JSONResource<String>(url: URL(staticString: "http://www.test.de"), method: .get)
-		restService.load(resource: jsonResource) { result in
+		let configuration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+
+//		let jsonResource = JSONResource<String>(url: URL(staticString: "http://www.test.de"), method: .get)
+		restService.load(resource: configuration) { result in
 			if case let .success(model) = result {
 				Log.debug("did load some model data \(model)")
 			}

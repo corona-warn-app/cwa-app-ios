@@ -1039,6 +1039,7 @@
 		BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */; };
 		BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */; };
 		BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */; };
+		BA076B2426DD0D2A002063A7 /* ProtobufResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */; };
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
 		BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */; };
 		BA0A1E3F26A5CC090045E712 /* dsc_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */; };
@@ -2412,6 +2413,7 @@
 		BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryModel.swift; sourceTree = "<group>"; };
 		BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsManagerTests.swift; sourceTree = "<group>"; };
+		BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufResource.swift; sourceTree = "<group>"; };
 		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
 		BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Link.swift"; sourceTree = "<group>"; };
 		BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dsc_list.pb.swift; sourceTree = "<group>"; };
@@ -6995,6 +6997,7 @@
 			isa = PBXGroup;
 			children = (
 				BA64FA8326D7A12400DD4705 /* Resource.swift */,
+				BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -8392,6 +8395,7 @@
 				354642F8262E07840004618A /* AccessibleStackView.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
+				BA076B2426DD0D2A002063A7 /* ProtobufResource.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
 				BA00FED226BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,

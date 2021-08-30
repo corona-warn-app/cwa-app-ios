@@ -16,7 +16,9 @@ enum HTTP {
 
 enum ResourceError: Error {
 	case missingData
-	case decodeError
+	case decoding
+	case packageCreation
+	case signatureVerification
 }
 
 /// describes a resource
@@ -70,7 +72,7 @@ struct JSONResource<M: Decodable>: HTTPResource {
 		} catch {
 			Log.debug("Failed to parse JSON answer - unhandled error", log: .client)
 		}
-		return .failure(.decodeError)
+		return .failure(.decoding)
 	}
 
 	// MARK: - Public
