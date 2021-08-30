@@ -2066,7 +2066,6 @@ enum AppStrings {
 				static let headline = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_headline", comment: "")
 				static let vaccinationCount = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_vaccinationCount", comment: "")
 				static let vaccinationDate = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_vaccinationDate", comment: "")
-				static let booster = NSLocalizedString("HealthCertifiedPerson_VaccinationCertificate_booster", comment: "")
 			}
 
 			enum TestCertificate {

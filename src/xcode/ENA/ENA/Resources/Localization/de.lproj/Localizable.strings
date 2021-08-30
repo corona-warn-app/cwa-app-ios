@@ -2832,8 +2832,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Auffrischungsimpfung";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR-Test";
