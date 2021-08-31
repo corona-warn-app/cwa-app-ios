@@ -49,8 +49,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		validityStateStackView.isHidden = cellModel.validityStateIcon == nil && cellModel.validityStateTitle == nil
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.validityStateTitle != nil)
-		
-		accessoryIconView.image = cellModel.accessoryIcon
 	}
 	
 	// MARK: - Private
@@ -126,7 +124,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private let qrCodeView = HealthCertificateQRCodeView()
-	private let accessoryIconView = UIImageView()
+	
+	private let accessoryIconView: UIImageView = {
+		return UIImageView(image: UIImage(imageLiteralResourceName: "Icons_Chevron_plain_white"))
+	}()
 
 	private lazy var validityStateStackView: UIStackView = {
 		let validityStateStackView = UIStackView(arrangedSubviews: [validityStateIconImageView, validityStateTitleLabel])
@@ -220,7 +221,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				
 				stackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
 				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
-				stackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -15.0),
+				stackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
 
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20.0),
