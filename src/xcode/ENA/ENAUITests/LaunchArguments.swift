@@ -118,6 +118,7 @@ enum LaunchArguments {
 		static let noHealthCertificate = LaunchArgument(name: "noHealthCertificate")
 		static let firstHealthCertificate = LaunchArgument(name: "firstHealthCertificate")
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
+		static let firstAndSecondHealthCertificateIssuerDE = LaunchArgument(name: "firstAndSecondHealthCertificateIssuerDE")
 		static let isCertificateInvalid = LaunchArgument(name: "isCertificateInvalid")
 		static let isCertificateExpiring = LaunchArgument(name: "isCertificateExpiring")
 		static let hasCertificateExpired = LaunchArgument(name: "hasCertificateExpired")
@@ -125,5 +126,6 @@ enum LaunchArguments {
 		static let recoveryCertificateRegistered = LaunchArgument(name: "recoveryCertificateRegistered")
 		static let familyCertificates = LaunchArgument(name: "familyCertificates")
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
+		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
 	}
 }

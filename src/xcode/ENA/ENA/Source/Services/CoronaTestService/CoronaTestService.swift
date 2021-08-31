@@ -949,6 +949,13 @@ class CoronaTestService {
 		}
 	}
 
+	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
+		guard let certificate = self.healthCertificateService.healthCertifiedPersons.value[0].testCertificates.first else { return nil }
+		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons.value[0]
+		
+		return (certificate: certificate, certifiedPerson: certifiedPerson)
+	}
+
 	#endif
 
 	// swiftlint:disable:next file_length

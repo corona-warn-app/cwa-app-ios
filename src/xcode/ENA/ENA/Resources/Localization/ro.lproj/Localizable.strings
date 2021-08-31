@@ -515,7 +515,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Găsire centru de testare";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs. Veți fi redirecționat către un site web RKI extern.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Solicitare cod TAN pentru testul PCR";
@@ -1467,13 +1467,9 @@
 
 "local_notifications_testresults_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
 
-"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+"local_notifications_certificate_title" = "Corona-Warn-App";
 
-"local_notifications_expiringSoon_body" = "Verificați valabilitatea certificatelor dvs.";
-
-"local_notifications_expired_title" = "Corona-Warn-App";
-
-"local_notifications_expired_body" = "Verificați valabilitatea certificatelor dvs.";
+"local_notifications_certificate_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Sumar";
@@ -1560,9 +1556,13 @@
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
 /* Version 2.8 */
-"NewVersionFeature_28_standardizeName_title" = "Nume standardizat";
+"NewVersionFeature_29_warnGuest_title" = "Avertizarea altor persoane";
 
-"NewVersionFeature_28_standardizeName_description" = "Pe lângă numele afișat în ortografia specifică țării, acum fiecare certificat afișează numele și sub formă de caractere latine standardizate.";
+"NewVersionFeature_29_warnGuest_description" = "În calitate de organizator al evenimentului, dacă vi se solicită din partea autorităților de sănătate publică, acum vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Afișarea imediată a stării de vaccinare pentru persoanele care s-au recuperat după boală";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Corona-Warn-App afișează acum protecția prin vaccinarea completă pentru persoanele care s-au recuperat după boală direct după prima vaccinare. Se poate renunța la timpul de așteptare de două săptămâni cu excepția Johnson & Johnson.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2005,7 +2005,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
 
-"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus prin test PCR și care i-au avertizat pe ceilalți prin aplicație";
+"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus prin test PCR și care i-au avertizat pe ceilalți prin aplicație.";
 
 "Statistics_Info_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
 
@@ -2307,6 +2307,8 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informații";
 
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Avertizarea altor persoane";
+
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Editare";
 
 "TraceLocations_Overview_Item_Prefix" = "Cod QR pentru %@.";
@@ -2385,6 +2387,67 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ ore.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+
+/* On Behalf Checkin Submission */
+/* - Info */
+"OnBehalfCheckinSubmission_Info_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Siguranță crescută pentru dvs. și invitații dvs.";
+
+"OnBehalfCheckinSubmission_Info_Description" = "Vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Dacă o persoană care nu a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, invitații pot fi notificați dacă au fost în aceeași cameră în același timp sau în decurs de 30 de minute după persoana diagnosticată.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Vă puteți avertiza invitații în numele altor persoane doar dacă vi se solicită acest lucru de către autoritățile de sănătate publică. Acestea vă vor trimite un TAN, în acest caz.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Continuare";
+
+/* - Trace Location Selection */
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Selectați un eveniment pentru care doriți să avertizați alte persoane în numele unei persoane care a fost diagnosticată cu coronavirus sau să restaurați un eveniment șters scanând din nou codul QR al evenimentului respectiv.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scanare cod QR";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continuare";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Nu există evenimente disponibile";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scanați codul QR al evenimentului relevant din nou pentru a avertiza în numele altor persoane.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
+
+/* - Date Time Selection */
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Specificați durata șederii persoanei care a fost diagnosticată cu coronavirus în numele căreia doriți să avertizați alte persoane. Primiți această informație de la autoritățile de sănătate publică.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Început/Sosire";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Durată";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Continuare";
+
+/* - TAN Input */
+"OnBehalfCheckinSubmission_TANInput_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Introduceți codul TAN din 10 caractere pe care l-ați primit.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Trimitere avertizare";
+
+/* - Thank You */
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Vă mulțumim!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Datorită sprijinului dvs., alte persoane pot fi acum avertizate și pot reacționa adecvat.";
+
+/* - Errors */
+"OnBehalfCheckinSubmissionError_Failed" = "A apărut o eroare. Contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "TAN nevalabil. Verificați intrarea dvs. sau contactați organizația care v-a trimis TAN-ul.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Conexiunea dvs. la internet a fost pierdută. Verificați conexiunea și încercați din nou.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
@@ -2675,6 +2738,8 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinat(ă) pe %@";
 
+"HealthCertifiedPerson_VaccinationCertificate_booster" = "Vaccinarea de rapel";
+
 "HealthCertifiedPerson_TestCertificate_headline" = "Certificat de test";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";
@@ -2812,7 +2877,7 @@
 
 "HealthCertificate_Validation_Body2" = "Un certificat COVID este o dovadă valabilă pentru deplasarea în UE.";
 
-"HealthCertificate_Validation_Headline2" = "Notă";
+"HealthCertificate_Validation_Headline2" = "Note";
 
 "HealthCertificate_Validation_Bullet1" = "Rețineți că regulile de intrare se supun modificărilor. În consecință, verificați certificatul cu puțin timp înainte de a intra în țara de destinație (cu maximum 48 de ore înainte).";
 
@@ -2850,7 +2915,7 @@
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Certificatul dvs. nu a putut fi validat";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Notă";
+"HealthCertificate_Validation_Passed_hintsTitle" = "Note";
 
 "HealthCertificate_Validation_Passed_hint1" = "Rețineți că regulile de intrare se supun modificărilor. În consecință, verificați certificatul cu puțin timp înainte de a intra în țara de destinație (cu maximum 48 de ore înainte).";
 
@@ -2867,7 +2932,7 @@
 
 "HealthCertificate_Validation_Open_subtitle" = "Certificatul dvs. nu a putut fi validat complet";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Notă";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Note";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "Următoarele reguli nu au putut fi verificate. Asigurați-vă că certificatul îndeplinește regulile țării de destinație.";
 

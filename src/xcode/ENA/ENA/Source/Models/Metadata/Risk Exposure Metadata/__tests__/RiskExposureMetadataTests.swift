@@ -39,6 +39,20 @@ class RiskExposureMetadataTests: CWATestCase {
 		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
 	}
 	
+	func testGIVEN_RiskExposureMetadata_WHEN_ENF_NoMostRecentDateAtRiskLevelIsLogged_THEN_mostRecentDateAtRiskLevelShouldBeMinusOne() throws {
+		let store = MockTestStore()
+		store.currentENFRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			dateChangedComparedToPreviousSubmission: false
+		)
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, .low)
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false)
+		XCTAssertNil(store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel)
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false)
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+	}
+	
 	func testGIVEN_RiskExposureMetadata_WHEN_Checkin_Current_HighRisk_IsSaved_THEN_OnlyCheckinCurrentRiskExposureMetadataIsSaved() throws {
 		let store = MockTestStore()
 		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
@@ -67,6 +81,20 @@ class RiskExposureMetadataTests: CWATestCase {
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevel, .low)
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false)
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel, weekBefore)
+		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false)
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
+	}
+	
+	func testGIVEN_RiskExposureMetadata_WHEN_Checkin_NoMostRecentDateAtRiskLevelIsLogged_THEN_mostRecentDateAtRiskLevelShouldBeMinusOne() throws {
+		let store = MockTestStore()
+		store.currentCheckinRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			dateChangedComparedToPreviousSubmission: false
+		)
+		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevel, .low)
+		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false)
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel)
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false)
 		XCTAssertNil(store.currentENFRiskExposureMetadata)
 	}

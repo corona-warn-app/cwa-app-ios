@@ -124,6 +124,77 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
+
+	func test_screenshot_HealthCertificate_printPDF() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
+		certificateTitle.waitAndTap()
+
+		app.swipeUp(velocity: .slow)
+
+		let certificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].firstMatch
+		certificateCell.waitAndTap()
+
+		let moreButton = app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton]
+		moreButton.waitAndTap()
+
+		snapshot("screenshot_vaccination_certificate_print_pdf_actionsheet")
+
+		let startPrintButton = app.sheets.buttons.firstMatch
+		startPrintButton.waitAndTap()
+
+		snapshot("screenshot_vaccination_certificate_print_pdf_infoscreen")
+
+		let nextButton = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.infoPrimaryButton]
+		nextButton.waitAndTap()
+
+		snapshot("screenshot_vaccination_certificate_print_pdf_pdfscreen")
+
+		let printButton = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.printButton]
+		XCTAssertTrue(printButton.waitForExistence(timeout: .short))
+
+		let shareButton = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.printButton]
+		XCTAssertTrue(shareButton.waitForExistence(timeout: .short))
+	}
+
+	func test_screenshot_HealthCertificate_printPDF_NotAllowed() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+
+		// With an issuer != "DE" it is not possible to print certificates.
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE, to: false)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
+		certificateTitle.waitAndTap()
+
+		app.swipeUp(velocity: .slow)
+
+		let certificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].firstMatch
+		certificateCell.waitAndTap()
+
+		let moreButton = app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton]
+		moreButton.waitAndTap()
+
+		let startPrintButton = app.sheets.buttons.firstMatch
+		startPrintButton.waitAndTap()
+
+		snapshot("screenshot_vaccination_certificate_print_pdf_not_allowed")
+
+		let faqAction = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction]
+		XCTAssertTrue(faqAction.waitForExistence(timeout: .short))
+
+		let okAction = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction]
+		XCTAssertTrue(okAction.waitForExistence(timeout: .short))
+	}
 	
 	func test_screenshot_HealthCertificateInvalid() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateInvalid, to: true)
