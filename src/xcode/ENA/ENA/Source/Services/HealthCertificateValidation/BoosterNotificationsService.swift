@@ -11,9 +11,9 @@ protocol BoosterNotificationsServiceProviding {
 	)
 }
 
- /*
-	This service is responsible for handling the logic for the Booster Notifications rules
-	Currently it is using the rules download service to fetch the latest Booster Notifications rules
+/*
+This service is responsible for handling the logic for the Booster Notifications rules
+Currently it is using the rules download service to fetch the latest Booster Notifications rules
 */
 
 class BoosterNotificationsService {
@@ -39,5 +39,5 @@ class BoosterNotificationsService {
 	
 	// MARK: - Private
 	
-	private var rulesDownloadService: RulesDownloadServiceProviding?
+	private let rulesDownloadService: RulesDownloadServiceProviding
 }

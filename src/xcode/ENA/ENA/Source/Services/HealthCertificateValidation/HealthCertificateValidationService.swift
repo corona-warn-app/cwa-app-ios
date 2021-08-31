@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 import HealthCertificateToolkit
-
+// Do not import everything, just the datatypes we need to make a clean cut.
 import enum CertLogic.RuleType
 import enum CertLogic.CertificateType
 import class CertLogic.Rule
@@ -110,7 +110,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	// MARK: - Private
 	
-	private var rulesDownloadService: RulesDownloadServiceProviding?
+	private let rulesDownloadService: RulesDownloadServiceProviding
 	private let store: Store
 	private let client: Client
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
@@ -180,7 +180,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		// 1. update/ download acceptance rules
-		self.rulesDownloadService?.downloadRules(
+		self.rulesDownloadService.downloadRules(
 			ruleType: .acceptance,
 			completion: { [weak self] result in
 				switch result {
@@ -210,7 +210,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		// 2. update/ download invalidation rules
-		self.rulesDownloadService?.downloadRules(
+		self.rulesDownloadService.downloadRules(
 			ruleType: .invalidation,
 			completion: { [weak self] result in
 				switch result {
