@@ -90,4 +90,12 @@
     "license": "Apache 2.0 License",
     "licenseUrl": "https://raw.githubusercontent.com/Digitaler-Impfnachweis/covpass-ios/main/LICENSE"
   }
+  ,
+  {
+    "component": "OpenSans",
+    "licensor": "Google",
+    "website": "https://fonts.google.com/specimen/Open+Sans",
+    "license": "Apache 2.0 License",
+    "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+  }
 ]
