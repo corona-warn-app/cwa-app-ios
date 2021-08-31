@@ -39,7 +39,7 @@ extension XCTestCase {
 		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
 		let vaccinationEntry = VaccinationEntry.fake(
 			doseNumber: doseNumber,
-			totalSeriesOfDoses: 2,
+			totalSeriesOfDoses: totalSeriesOfDoses,
 			dateOfVaccination: ISO8601DateFormatter.justUTCDateFormatter.string(from: try XCTUnwrap(date)),
 			uniqueCertificateIdentifier: identifier
 		)

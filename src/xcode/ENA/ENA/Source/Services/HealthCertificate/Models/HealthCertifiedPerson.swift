@@ -124,10 +124,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
 
-	var hasBoosterVaccinationCertificate: Bool {
-		return healthCertificates.contains { $0.vaccinationEntry?.isBooster ?? false }
-	}
-
 	@objc
 	func triggerMostRelevantCertificateUpdate() {
 		updateMostRelevantHealthCertificate()
@@ -136,15 +132,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	// internal for testing
 	var recoveredVaccinationCertificate: HealthCertificate? {
-		return vaccinationCertificates.first { certificate in
-			guard let vaccinationEntry = certificate.vaccinationEntry,
-				  vaccinationEntry.totalSeriesOfDoses == 1,
-				  vaccinationEntry.doseNumber == 1,
-				  VaccinationProductType(value: vaccinationEntry.vaccineMedicinalProduct) != .other else {
-				return false
-			}
-			return true
-		}
+		return vaccinationCertificates.first { $0.vaccinationEntry?.isRecoveredVaccination ?? false }
+	}
+
+	var completeBoosterVaccinationProtectionDate: Date? {
+		healthCertificates
+			.filter { $0.vaccinationEntry?.isBoosterVaccination ?? false }
+			.compactMap { $0.vaccinationEntry?.localVaccinationDate }
+			.max()
 	}
 
 	// MARK: - Private
@@ -154,8 +149,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
-
-		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
+		if let completeBoosterVaccinationProtectionDate = self.completeBoosterVaccinationProtectionDate {
+			return completeBoosterVaccinationProtectionDate
+		} else if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
 		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
 			// if recovery date found -> use it
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
@@ -203,7 +199,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				.store(in: &healthCertificateSubscriptions)
 		}
 	}
-
 
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,
