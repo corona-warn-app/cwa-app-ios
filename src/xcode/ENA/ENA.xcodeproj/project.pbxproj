@@ -625,6 +625,8 @@
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
 		50D7BD7026DE405100494FB7 /* ResourceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */; };
+		50D7BD7426DE716A00494FB7 /* DMNHCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */; };
+		50D7BD7526DE716A00494FB7 /* DMNHCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
 		50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */; };
@@ -1987,6 +1989,8 @@
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
 		50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceAdditions.swift; sourceTree = "<group>"; };
+		50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewController.swift; sourceTree = "<group>"; };
+		50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewModel.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
 		50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicAction.swift; sourceTree = "<group>"; };
@@ -4755,6 +4759,15 @@
 			path = DataDonation;
 			sourceTree = "<group>";
 		};
+		50D7BD7126DE6E3F00494FB7 /* DMNewHttpCommunication */ = {
+			isa = PBXGroup;
+			children = (
+				50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */,
+				50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */,
+			);
+			path = DMNewHttpCommunication;
+			sourceTree = "<group>";
+		};
 		50FA07822609EC6A003C1E46 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -6421,6 +6434,7 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				50D7BD7126DE6E3F00494FB7 /* DMNewHttpCommunication */,
 				BA6D164E255ADDA300ED3492 /* ConfigureAbleCells */,
 				01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */,
 				B1F82DF124718C7300E2E56A /* DMBackendConfigurationViewController.swift */,
@@ -8480,6 +8494,7 @@
 				0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
+				50D7BD7526DE716A00494FB7 /* DMNHCViewModel.swift in Sources */,
 				AB190E7D25FB5FE500FBFF0D /* StoreQuery.swift in Sources */,
 				504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */,
 				EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */,
@@ -8723,6 +8738,7 @@
 				50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
 				019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */,
+				50D7BD7426DE716A00494FB7 /* DMNHCViewController.swift in Sources */,
 				508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */,
 				BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */,
 				01A4DC6C25922EB4007D5794 /* HomeRiskTableViewCell.swift in Sources */,
