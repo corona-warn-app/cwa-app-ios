@@ -11,11 +11,17 @@ protocol BoosterNotificationsServiceProviding {
 	)
 }
 
+ /*
+	This service is responsible for handling the logic for the Booster Notifications rules
+	Currently it is using the rules download service to fetch the latest Booster Notifications rules
+*/
+
 class BoosterNotificationsService {
+	
 	// MARK: - Init
-	init(store: Store, client: Client) {
-		self.store = store
-		self.client = client
+	
+	init(rulesDownloadService: RulesDownloadServiceProviding) {
+		self.rulesDownloadService = rulesDownloadService
 	}
 	
 	// MARK: - Protocol BoosterNotificationsServiceProviding
@@ -23,15 +29,15 @@ class BoosterNotificationsService {
 	func downloadBoosterNotifications(
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
-		self.rulesDownloadService = RulesDownloadService(store: self.store, client: self.client)
-		self.rulesDownloadService?.downloadBoosterNotificationRules(completion: { result in
-			Log.info("Rules has been downloaded, please do farther processing here")
-		})
+//		self.rulesDownloadService?.downloadRules(
+//			ruleType: .boosterNotification,
+//			completion: { result in
+//				Log.info("Rules has been downloaded, please do farther processing here")
+//			}
+//		)
 	}
 	
 	// MARK: - Private
 	
-	private let store: Store
-	private let client: Client
-	private var rulesDownloadService: BoosterNotificationsRulesDownloadServiceProviding?
+	private var rulesDownloadService: RulesDownloadServiceProviding?
 }
