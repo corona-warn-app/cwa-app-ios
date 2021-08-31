@@ -857,8 +857,8 @@ class HealthCertificateService {
 		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expiringSoonTitle
-		content.body = AppStrings.LocalNotifications.expiringSoonBody
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let expiringSoonDateComponents = Calendar.current.dateComponents(
@@ -885,8 +885,8 @@ class HealthCertificateService {
 		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expiredTitle
-		content.body = AppStrings.LocalNotifications.expiredBody
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let expiredDateComponents = Calendar.current.dateComponents(
