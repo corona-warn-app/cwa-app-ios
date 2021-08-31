@@ -80,7 +80,8 @@ extension TestEntry {
 			let customDateFormatter = DateFormatter()
 			customDateFormatter.dateFormat = "yyyy-MM-dd HH:mm 'UTC' x"
 			// Dates for certificates are formatted in Gregorian calendar, even if the user setting is different
-			customDateFormatter.calendar = .gregorian()
+			customDateFormatter.calendar = .gregorian(with: Locale(identifier: "en_US_POSIX"))
+			customDateFormatter.locale = Locale(identifier: "en_US_POSIX")
 			return sampleCollectionDate.flatMap {
 				customDateFormatter.string(from: $0)
 			} ?? dateTimeOfSampleCollection
