@@ -112,6 +112,10 @@ extension ClientMock: ClientWifiOnly {
 }
 
 extension ClientMock: Client {
+	func getBoosterNotificationRules(eTag: String?, isFake: Bool, completion: @escaping DCCRulesCompletionHandler) {
+		// TODO add the mock result in the unit testing task
+	}
+	
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
