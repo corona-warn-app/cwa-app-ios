@@ -238,6 +238,12 @@ protocol Client {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	)
+	
+	func getBoosterNotificationRules(
+		eTag: String?,
+		isFake: Bool,
+		completion: @escaping DCCRulesCompletionHandler
+	)
 }
 
 enum SubmissionError: Error, Equatable {
