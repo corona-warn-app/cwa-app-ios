@@ -642,6 +642,26 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_test_result_negative")
 	}
+	
+	func test_screenshot_test_certificate_test_result_negative() {
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.showTestCertificateOnTestResult, to: true)
+		launch()
+
+		// Open test result screen.
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton].waitAndTap()
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
+
+		snapshot("screenshot_test_certificate_button_test_result_negative")
+		
+		// Open test certificate.
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline].waitForExistence(timeout: .medium))
+
+		snapshot("screenshot_test_certificate_button_test_result_negative_test_details")
+	}
 
 	func test_screenshot_test_result_positive() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
