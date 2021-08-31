@@ -18,9 +18,9 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/unrelentingtech/SwiftCBOR", .upToNextMajor(from: "0.4.3")),
         .package(url: "https://github.com/corona-warn-app/base45-swift", .branch("distribution/swiftpackage")),
-        .package(name: "JSONSchema", url: "https://github.com/eu-digital-green-certificates/JSONSchema.swift", .upToNextMajor(from: "0.6.0")),
+        .package(name: "JSONSchema", url: "https://github.com/corona-warn-app/JSONSchema.swift", .revision("4a46b92510fb85ac5e84dbe95d88c6f5d1736341")),
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0")),
-        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("8f07a22ec2adc2335b4a4cb75b408c8c93d86208")),
+        .package(name: "CertLogic", url: "https://github.com/corona-warn-app/dgc-certlogic-ios", .revision("ed41cc80319f242a8aea29081eae5013e324b736")),
         .package(url: "https://github.com/filom/ASN1Decoder", .upToNextMajor(from: "1.8.0")),
         .package(name: "ENASecurity", path: "ENA/ENASecurity")
     ],

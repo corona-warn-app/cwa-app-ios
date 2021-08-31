@@ -566,10 +566,18 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		}
 
-		cells = [DynamicCell.title2(
+		#if DEBUG
+
+		if isUITesting && LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
+			cells.append(mockTestCertificateCell(certificate: healthTuple.certificate, certifiedPerson: healthTuple.certifiedPerson))
+		}
+		
+		#endif
+
+		cells.append(DynamicCell.title2(
 			text: AppStrings.ExposureSubmissionResult.procedure,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
-		)]
+		))
 		
 		switch coronaTest.type {
 		case .pcr:
@@ -654,6 +662,14 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		}
 
+		#if DEBUG
+
+		if isUITesting && LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
+			cells.append(mockTestCertificateCell(certificate: healthTuple.certificate, certifiedPerson: healthTuple.certifiedPerson))
+		}
+		
+		#endif
+
 		if test.testedPerson.fullName != nil && test.testedPerson.dateOfBirth != nil {
 			cells.append(contentsOf: [
 				.title2(
@@ -727,6 +743,29 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		]
 	}
+	
+	#if DEBUG
+
+	private func mockTestCertificateCell(certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson) -> DynamicCell {
+		return DynamicCell.identifier(
+			ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+			action: .execute { _, _ in
+				self.onTestCertificateCellTap(certificate, certifiedPerson)
+			},
+			configure: { _, cell, _ in
+				guard let cell = cell as? HealthCertificateCell else {
+					fatalError("could not initialize cell of type `HealthCertificateCell`")
+				}
+				cell.configure(
+					HealthCertificateCellViewModel(
+						healthCertificate: certificate,
+						healthCertifiedPerson: certifiedPerson
+					)
+				)
+			})
+	}
+	
+	#endif
 }
 
 
