@@ -1493,132 +1493,133 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		}
 		XCTAssertEqual(error, .RULES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
-	
-	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
-		// GIVEN
-		let store = MockTestStore()
-		let dscListProvider = DSCListProvider(
-			client: CachingHTTPClientMock(),
-			store: MockTestStore()
-		)
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
-			client: CachingHTTPClientMock(),
-			store: store
-		)
-		let validationService = HealthCertificateValidationService(
-			store: store,
-			client: ClientMock(),
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
-		)
-		
-		
-		// WHEN
-		let countryCodes = validationService.allCountryCodes
-		
-		// THEN
-		// Picked some random codes
-		XCTAssertTrue(countryCodes.contains("DE"))
-		XCTAssertTrue(countryCodes.contains("PY"))
-		XCTAssertTrue(countryCodes.contains("ZW"))
-		XCTAssertTrue(countryCodes.contains("FR"))
-		
-		XCTAssertFalse(countryCodes.contains("AA"))
-		XCTAssertFalse(countryCodes.contains("ZZ"))
-		XCTAssertFalse(countryCodes.contains("HA"))
-		XCTAssertFalse(countryCodes.contains("FF"))
-	}
-	
-	func testGIVEN_ValidationService_WHEN_MappingCertificateTypes_THEN_MappingIsCorrect() {
-		// GIVEN
-		let store = MockTestStore()
-		let dscListProvider = DSCListProvider(
-			client: CachingHTTPClientMock(),
-			store: MockTestStore()
-		)
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
-			client: CachingHTTPClientMock(),
-			store: store
-		)
-		let validationService = HealthCertificateValidationService(
-			store: store,
-			client: ClientMock(),
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
-		)
-		
-		
-		// WHEN
-		let mappedTest = validationService.mapCertificateType(.test)
-		let mappedRecovery = validationService.mapCertificateType(.recovery)
-		let mappedVaccination = validationService.mapCertificateType(.vaccination)
-		
-		// THEN
-		XCTAssertEqual(mappedTest, CertLogic.CertificateType.test)
-		XCTAssertEqual(mappedRecovery, CertLogic.CertificateType.recovery)
-		XCTAssertEqual(mappedVaccination, CertLogic.CertificateType.vaccination)
-	}
-	
-	func testGIVEN_ValidationService_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
-		// GIVEN
-		let store = MockTestStore()
-		let dscListProvider = DSCListProvider(
-			client: CachingHTTPClientMock(),
-			store: MockTestStore()
-		)
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
-			client: CachingHTTPClientMock(),
-			store: store
-		)
-		let validationService = HealthCertificateValidationService(
-			store: store,
-			client: ClientMock(),
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
-		)
-		
-		let countryCodes = validationService.allCountryCodes
-		let tcTrKey = "tcTr key"
-		let tcMaKey = "tcMa key"
-		let tcTtKey = "tcTt key"
-		let tgKey = "tg key"
-		let vpKey = "vp key"
-		let maKey = "ma key"
-		let mpKey = "mp key"
-		
-		let originalValueSet = SAP_Internal_Dgc_ValueSets.with {
-			$0.tcTr = valueSet(key: tcTrKey)
-			$0.tcMa = valueSet(key: tcMaKey)
-			$0.tcTt = valueSet(key: tcTtKey)
-			$0.tg = valueSet(key: tgKey)
-			$0.vp = valueSet(key: vpKey)
-			$0.ma = valueSet(key: maKey)
-			$0.mp = valueSet(key: mpKey)
-		}
-		
-		// WHEN
-		let mappedSet = validationService.mapValueSets(valueSet: originalValueSet)
-		
-		// THEN
-		XCTAssertEqual(mappedSet["country-2-codes"], countryCodes)
-		XCTAssertEqual(mappedSet["covid-19-lab-result"]?.first, tcTrKey)
-		XCTAssertEqual(mappedSet["covid-19-lab-test-manufacturer-and-name"]?.first, tcMaKey)
-		XCTAssertEqual(mappedSet["covid-19-lab-test-type"]?.first, tcTtKey)
-		XCTAssertEqual(mappedSet["disease-agent-targeted"]?.first, tgKey)
-		XCTAssertEqual(mappedSet["sct-vaccines-covid-19"]?.first, vpKey)
-		XCTAssertEqual(mappedSet["vaccines-covid-19-auth-holders"]?.first, maKey)
-		XCTAssertEqual(mappedSet["vaccines-covid-19-names"]?.first, mpKey)
-	}
-	
+	// TODO move this test to the RulesDownloadServiceTests
+
+//	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
+//		// GIVEN
+//		let store = MockTestStore()
+//		let dscListProvider = DSCListProvider(
+//			client: CachingHTTPClientMock(),
+//			store: MockTestStore()
+//		)
+//		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+//			client: CachingHTTPClientMock(),
+//			store: store
+//		)
+//		let validationService = HealthCertificateValidationService(
+//			store: store,
+//			client: ClientMock(),
+//			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+//			signatureVerifier: MockVerifier(),
+//			validationRulesAccess: MockValidationRulesAccess(),
+//			signatureVerifying: DCCSignatureVerifyingStub(),
+//			dscListProvider: dscListProvider
+//		)
+//		
+//		
+//		// WHEN
+//		let countryCodes = validationService.allCountryCodes
+//		
+//		// THEN
+//		// Picked some random codes
+//		XCTAssertTrue(countryCodes.contains("DE"))
+//		XCTAssertTrue(countryCodes.contains("PY"))
+//		XCTAssertTrue(countryCodes.contains("ZW"))
+//		XCTAssertTrue(countryCodes.contains("FR"))
+//		
+//		XCTAssertFalse(countryCodes.contains("AA"))
+//		XCTAssertFalse(countryCodes.contains("ZZ"))
+//		XCTAssertFalse(countryCodes.contains("HA"))
+//		XCTAssertFalse(countryCodes.contains("FF"))
+//	}
+//	
+//	func testGIVEN_ValidationService_WHEN_MappingCertificateTypes_THEN_MappingIsCorrect() {
+//		// GIVEN
+//		let store = MockTestStore()
+//		let dscListProvider = DSCListProvider(
+//			client: CachingHTTPClientMock(),
+//			store: MockTestStore()
+//		)
+//		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+//			client: CachingHTTPClientMock(),
+//			store: store
+//		)
+//		let validationService = HealthCertificateValidationService(
+//			store: store,
+//			client: ClientMock(),
+//			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+//			signatureVerifier: MockVerifier(),
+//			validationRulesAccess: MockValidationRulesAccess(),
+//			signatureVerifying: DCCSignatureVerifyingStub(),
+//			dscListProvider: dscListProvider
+//		)
+//		
+//		
+//		// WHEN
+//		let mappedTest = validationService.mapCertificateType(.test)
+//		let mappedRecovery = validationService.mapCertificateType(.recovery)
+//		let mappedVaccination = validationService.mapCertificateType(.vaccination)
+//		
+//		// THEN
+//		XCTAssertEqual(mappedTest, CertLogic.CertificateType.test)
+//		XCTAssertEqual(mappedRecovery, CertLogic.CertificateType.recovery)
+//		XCTAssertEqual(mappedVaccination, CertLogic.CertificateType.vaccination)
+//	}
+//	
+//	func testGIVEN_ValidationService_WHEN_MappingValueSets_THEN_MappingIsCorrect() {
+//		// GIVEN
+//		let store = MockTestStore()
+//		let dscListProvider = DSCListProvider(
+//			client: CachingHTTPClientMock(),
+//			store: MockTestStore()
+//		)
+//		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+//			client: CachingHTTPClientMock(),
+//			store: store
+//		)
+//		let validationService = HealthCertificateValidationService(
+//			store: store,
+//			client: ClientMock(),
+//			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+//			signatureVerifier: MockVerifier(),
+//			validationRulesAccess: MockValidationRulesAccess(),
+//			signatureVerifying: DCCSignatureVerifyingStub(),
+//			dscListProvider: dscListProvider
+//		)
+//		
+//		let countryCodes = validationService.allCountryCodes
+//		let tcTrKey = "tcTr key"
+//		let tcMaKey = "tcMa key"
+//		let tcTtKey = "tcTt key"
+//		let tgKey = "tg key"
+//		let vpKey = "vp key"
+//		let maKey = "ma key"
+//		let mpKey = "mp key"
+//		
+//		let originalValueSet = SAP_Internal_Dgc_ValueSets.with {
+//			$0.tcTr = valueSet(key: tcTrKey)
+//			$0.tcMa = valueSet(key: tcMaKey)
+//			$0.tcTt = valueSet(key: tcTtKey)
+//			$0.tg = valueSet(key: tgKey)
+//			$0.vp = valueSet(key: vpKey)
+//			$0.ma = valueSet(key: maKey)
+//			$0.mp = valueSet(key: mpKey)
+//		}
+//		
+//		// WHEN
+//		let mappedSet = validationService.mapValueSets(valueSet: originalValueSet)
+//		
+//		// THEN
+//		XCTAssertEqual(mappedSet["country-2-codes"], countryCodes)
+//		XCTAssertEqual(mappedSet["covid-19-lab-result"]?.first, tcTrKey)
+//		XCTAssertEqual(mappedSet["covid-19-lab-test-manufacturer-and-name"]?.first, tcMaKey)
+//		XCTAssertEqual(mappedSet["covid-19-lab-test-type"]?.first, tcTtKey)
+//		XCTAssertEqual(mappedSet["disease-agent-targeted"]?.first, tgKey)
+//		XCTAssertEqual(mappedSet["sct-vaccines-covid-19"]?.first, vpKey)
+//		XCTAssertEqual(mappedSet["vaccines-covid-19-auth-holders"]?.first, maKey)
+//		XCTAssertEqual(mappedSet["vaccines-covid-19-names"]?.first, mpKey)
+//	}
+//	
 	func testGIVEN_ValidationService_WHEN_MappingUnixTime_THEN_MappingIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
