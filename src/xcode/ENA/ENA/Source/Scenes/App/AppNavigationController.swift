@@ -175,7 +175,7 @@ extension NavigationBarOpacityDelegate {
 
 // MARK: - Protocol UITabBarControllerDelegate
 
-extension AppNavigationController: UITabBarControllerDelegate {
+class TabBarScrolling: NSObject, UITabBarControllerDelegate {
 	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 		if viewController == tabBarController.selectedViewController {
 			if let naviVC = viewController as? UINavigationController {

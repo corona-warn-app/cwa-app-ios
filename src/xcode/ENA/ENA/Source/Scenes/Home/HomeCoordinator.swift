@@ -34,7 +34,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	// MARK: - Internal
 
-	let rootViewController: AppNavigationController = AppNavigationController(rootViewController: UIViewController())
+	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {

@@ -144,9 +144,9 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
-		tabBarController.delegate = homeCoordinator.rootViewController
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
-		
+		tabBarController.delegate = tabBarScrolling
+
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
 	}
@@ -213,6 +213,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let tabBarController = UITabBarController()
+	private let tabBarScrolling = TabBarScrolling()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
