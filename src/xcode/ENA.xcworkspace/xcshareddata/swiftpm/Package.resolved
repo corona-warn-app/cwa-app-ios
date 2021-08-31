@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/tsolomko/BitByteData",
         "state": {
           "branch": null,
-          "revision": "0969ebfb79ccbee05384249e818067a984337dc2",
-          "version": "1.4.4"
+          "revision": "c119e12decae8f56066df3345a4ac1a05b2f06d5",
+          "version": "2.0.1"
         }
       },
       {
@@ -57,11 +57,11 @@
       },
       {
         "package": "JSONSchema",
-        "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
+        "repositoryURL": "https://github.com/corona-warn-app/JSONSchema.swift",
         "state": {
           "branch": null,
-          "revision": "c21d82683c426097700afc90dfe63fe06ed5127c",
-          "version": "0.6.0"
+          "revision": "4a46b92510fb85ac5e84dbe95d88c6f5d1736341",
+          "version": null
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/tsolomko/SWCompression.git",
         "state": {
           "branch": null,
-          "revision": "594cc1968e99f7df2b2d6e1d3ee76dec70ac9cc4",
-          "version": "4.5.11"
+          "revision": "ff8113eb32ac04124b06372f030c08efdfcfc9fc",
+          "version": "4.6.0"
         }
       },
       {
