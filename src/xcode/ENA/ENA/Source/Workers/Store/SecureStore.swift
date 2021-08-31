@@ -271,6 +271,13 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["invalidationRulesCache"] = newValue }
 	}
 	
+	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
+	
+	var boosterRulesCache: ValidationRulesCache? {
+		get { kvStore["boosterRulesCache"] as ValidationRulesCache? ?? nil }
+		set { kvStore["boosterRulesCache"] = newValue }
+	}
+
 	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE

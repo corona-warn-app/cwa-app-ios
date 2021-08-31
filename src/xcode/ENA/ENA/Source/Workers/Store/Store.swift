@@ -247,6 +247,12 @@ protocol HealthCertificateValidationCaching: AnyObject {
 	var invalidationRulesCache: ValidationRulesCache? { get set }
 }
 
+protocol HealthCertificateBoosterNotificationCaching: AnyObject {
+	
+	/// The cache for the Booster notification rules. Contains the eTag and the Booster rules received before or nil, when never cached.
+	var boosterRulesCache: ValidationRulesCache? { get set }
+}
+
 protocol DSCListCaching: AnyObject {
 	// the cache for last fetched DSC List
 	var dscList: DSCListMetaData? { get set }
@@ -260,6 +266,7 @@ protocol Store:
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
 	HealthCertificateValidationCaching,
+	HealthCertificateBoosterNotificationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
