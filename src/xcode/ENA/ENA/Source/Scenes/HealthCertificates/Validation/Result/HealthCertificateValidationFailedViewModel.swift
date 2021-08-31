@@ -80,7 +80,16 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 				color: .enaColor(for: .textPrimary2)
 			),
 			.title2(text: AppStrings.HealthCertificate.Validation.Result.Failed.subtitle),
-			.space(height: 10),
+			.textWithLinks(
+				text: String(
+					format: AppStrings.HealthCertificate.Validation.moreInformation,
+					AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
+				links: [
+					AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
+					AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
+				],
+				linksColor: .enaColor(for: .textTint)
+			),
 			.headline(text: AppStrings.HealthCertificate.Validation.Result.Failed.failedSectionTitle),
 			.body(text: AppStrings.HealthCertificate.Validation.Result.Failed.failedSectionDescription)
 		]
@@ -96,19 +105,6 @@ struct HealthCertificateValidationFailedViewModel: HealthCertificateValidationRe
 
 			cells.append(contentsOf: openValidationResults.map { .validationResult($0, healthCertificate: healthCertificate, vaccinationValueSetsProvider: vaccinationValueSetsProvider) })
 		}
-
-		cells.append(
-			.textWithLinks(
-				text: String(
-					format: AppStrings.HealthCertificate.Validation.moreInformation,
-					AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ, AppStrings.Links.healthCertificateValidationEU),
-				links: [
-					AppStrings.HealthCertificate.Validation.moreInformationPlaceholderFAQ: AppStrings.Links.healthCertificateValidationFAQ,
-					AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
-				],
-				linksColor: .enaColor(for: .textTint)
-			)
-		)
 
 		return DynamicTableViewModel([
 			.section(

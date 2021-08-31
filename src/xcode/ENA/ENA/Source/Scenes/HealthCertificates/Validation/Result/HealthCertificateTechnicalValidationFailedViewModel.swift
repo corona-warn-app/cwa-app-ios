@@ -36,10 +36,6 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 					color: .enaColor(for: .textPrimary2)
 				),
 				.title2(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.subtitle),
-				.space(height: 10),
-				.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
-				.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription),
-				.technicalFailedRulesCell(signatureInvalid: signatureInvalid, expirationDate: expirationDate),
 				.textWithLinks(
 					text: String(
 						format: AppStrings.HealthCertificate.Validation.moreInformation,
@@ -49,7 +45,10 @@ struct HealthCertificateTechnicalValidationFailedViewModel: HealthCertificateVal
 						AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
 					],
 					linksColor: .enaColor(for: .textTint)
-				)
+				),
+				.headline(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionTitle),
+				.body(text: AppStrings.HealthCertificate.Validation.Result.TechnicalFailed.failedSectionDescription),
+				.technicalFailedRulesCell(signatureInvalid: signatureInvalid, expirationDate: expirationDate)
 			])
 		])
 	}
