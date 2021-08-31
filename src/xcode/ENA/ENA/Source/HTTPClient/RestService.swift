@@ -97,24 +97,3 @@ class RestService {
 		}
 	}
 }
-
-
-struct RestServiceTest {
-
-	func load() {
-		let restService = RestService()
-		let locator = ResourceLocator.appConfiguration(eTag: "FakeETag")
-
-		let configuration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(resourceLocator: locator)
-//		let url = configuration.url(with: parameters)
-//		let url2 = URL.appConfig(parameters)
-
-//		let jsonResource = JSONResource<String>(url: URL(staticString: "http://www.test.de"), method: .get)
-		restService.load(resource: configuration) { result in
-			if case let .success(model) = result {
-				Log.debug("did load some model data \(String(describing: model))")
-			}
-		}
-
-	}
-}
