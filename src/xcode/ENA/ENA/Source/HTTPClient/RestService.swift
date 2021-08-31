@@ -112,7 +112,7 @@ struct RestServiceTest {
 //		let jsonResource = JSONResource<String>(url: URL(staticString: "http://www.test.de"), method: .get)
 		restService.load(resource: configuration) { result in
 			if case let .success(model) = result {
-				Log.debug("did load some model data \(model)")
+				Log.debug("did load some model data \(String(describing: model))")
 			}
 		}
 
