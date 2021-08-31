@@ -36,8 +36,8 @@ class RestService {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: HTTPResource {
-		// better create the request on a 'generic' place
-		let request = URLRequest(url: URL(staticString: "http://dummy"), cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 60.0)
+		
+		let request = URLRequest(url: createURL(for: resource.resourceLocator))
 		session.dataTask(with: request) { bodyData, response, error in
 			guard error == nil,
 				  let urlResponse = response as? HTTPURLResponse else {
@@ -71,25 +71,41 @@ class RestService {
 
 	private let session: URLSession
 	private let environment: EnvironmentProviding
-
-
-	/*
-	private func urlRequest() -> URLRequest {
-		let env = environment.currentEnvironment()
-
+		
+	private func createURL(for locator: ResourceLocator) -> URL {
+		let endpointUrl = endpointUrl(for: locator.endpoint)
+		let url = locator.paths.reduce(endpointUrl) { result, component in
+			result.appendingPathComponent(component, isDirectory: false)
+		}
+		return url
 	}
-*/
-
+	
+	private func endpointUrl(for endpoint: Endpoint) -> URL {
+		switch endpoint {
+		case .distribution:
+			return environment.currentEnvironment().distributionURL
+		case .submission:
+			return environment.currentEnvironment().submissionURL
+		case .verification:
+			return environment.currentEnvironment().verificationURL
+		case .errorLogSubmission:
+			return environment.currentEnvironment().errorLogSubmissionURL
+		case .dcc:
+			return environment.currentEnvironment().dccURL
+		case .dataDonation:
+			return environment.currentEnvironment().dataDonationURL
+		}
+	}
 }
 
-/*
+
 struct RestServiceTest {
 
 	func load() {
 		let restService = RestService()
-		let locator = ResourceLocator(method: .get, headers: [:])
+		let locator = ResourceLocator.appConfiguration(eTag: "FakeETag")
 
-		let configuration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+		let configuration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(resourceLocator: locator)
 //		let url = configuration.url(with: parameters)
 //		let url2 = URL.appConfig(parameters)
 
@@ -101,6 +117,4 @@ struct RestServiceTest {
 		}
 
 	}
-
 }
-*/

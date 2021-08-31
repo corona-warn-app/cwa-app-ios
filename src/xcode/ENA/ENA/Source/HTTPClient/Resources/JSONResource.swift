@@ -14,7 +14,12 @@ struct JSONResource<M: Decodable>: HTTPResource {
 
 	typealias Model = M
 
-	let resourceLocator: ResourceLocator = ResourceLocator(url: URL(staticString: "http://"), method: .get, headers: ["Content-Type": "application/json"])
+	let resourceLocator: ResourceLocator = ResourceLocator(
+		endpoint: .dataDonation,
+		paths: URL(staticString: "http://"),
+		method: .get,
+		headers: ["Content-Type": "application/json"]
+	)
 
 	func decode(_ data: Data?) -> Result<M, ResourceError> {
 		guard let data = data else {

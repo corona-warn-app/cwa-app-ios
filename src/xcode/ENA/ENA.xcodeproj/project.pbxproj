@@ -624,6 +624,7 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50D7BD7026DE405100494FB7 /* ResourceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
 		50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */; };
@@ -1985,6 +1986,7 @@
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
+		50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceAdditions.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
 		50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicAction.swift; sourceTree = "<group>"; };
@@ -6991,6 +6993,7 @@
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 				BA64FA8026D79BFD00DD4705 /* Resources */,
 				BA64FA8126D79C2300DD4705 /* RestService.swift */,
+				50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -8635,6 +8638,7 @@
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
 				50FEB18A26580B1B005C3322 /* DMPPAActualDataViewController.swift in Sources */,
+				50D7BD7026DE405100494FB7 /* ResourceAdditions.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,

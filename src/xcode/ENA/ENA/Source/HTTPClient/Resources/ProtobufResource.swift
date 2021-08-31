@@ -40,39 +40,3 @@ struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 
 	private let signatureVerifier: SignatureVerifier
 }
-
-
-struct ResourceLocator {
-
-	let url: URL //= URL(staticString: "http://")
-	let method: HTTP.Method
-	let headers: [String: String]
-
-	/*
-	.appending(
-		"version",
-		"v2",
-		"app_config_ios"
-)
-*/
-
-
-	static func appConfiguration(eTag: String? = nil) -> ResourceLocator {
-		if let eTag = eTag {
-			return ResourceLocator(
-				url: URL(staticString: "http"),
-				method: .get,
-				headers: ["If-None-Match": eTag]
-			)
-		} else {
-			return ResourceLocator(
-				url: URL(staticString: "http"),
-				method: .get,
-				headers: [:]
-			)
-		}
-
-	}
-
-}
-
