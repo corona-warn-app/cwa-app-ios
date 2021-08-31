@@ -49,6 +49,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		validityStateStackView.isHidden = cellModel.validityStateIcon == nil && cellModel.validityStateTitle == nil
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.validityStateTitle != nil)
+		
+		accessoryIconView.image = cellModel.accessoryIcon
 	}
 	
 	// MARK: - Private
@@ -59,7 +61,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 		return cardView
 	}()
-
+	
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel(style: .body)
 		titleLabel.numberOfLines = 0
@@ -124,6 +126,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private let qrCodeView = HealthCertificateQRCodeView()
+	private let accessoryIconView = UIImageView()
 
 	private lazy var validityStateStackView: UIStackView = {
 		let validityStateStackView = UIStackView(arrangedSubviews: [validityStateIconImageView, validityStateTitleLabel])
@@ -169,6 +172,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		cardView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(cardView)
 
+		accessoryIconView.translatesAutoresizingMaskIntoConstraints = false
+		gradientView.addSubview(accessoryIconView)
+
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(gradientView)
 
@@ -206,6 +212,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				bottomView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
 				bottomView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
 
+				// placement is based on new figma design
+				accessoryIconView.widthAnchor.constraint(equalToConstant: 12.0),
+				accessoryIconView.heightAnchor.constraint(equalToConstant: 21.0),
+				accessoryIconView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 35.0),
+				accessoryIconView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -18.0),
+				
 				stackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
 				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				stackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -15.0),

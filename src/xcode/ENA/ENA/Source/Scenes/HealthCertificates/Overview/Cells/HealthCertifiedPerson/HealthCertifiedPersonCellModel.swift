@@ -51,6 +51,8 @@ class HealthCertifiedPersonCellModel {
 			self.validityStateIcon = nil
 			self.validityStateTitle = nil
 		}
+		
+		accessoryIcon = UIImage(imageLiteralResourceName: "Icons_Chevron_plain_white")
 	}
 
 	// MARK: - Internal
@@ -64,5 +66,6 @@ class HealthCertifiedPersonCellModel {
 
 	let validityStateIcon: UIImage?
 	let validityStateTitle: String?
-
+	
+	let accessoryIcon: UIImage
 }
