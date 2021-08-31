@@ -30,8 +30,28 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		healthCertificates = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates).compactMap { $0.healthCertificate }
+		healthCertificates = []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
+
+		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
+
+		decodingContainers.forEach {
+			do {
+				healthCertificates.append(
+					try HealthCertificate(
+						base45: $0.base45,
+						validityState: $0.validityState ?? .valid
+					)
+				)
+			} catch {
+				decodingFailedHealthCertificates.append(
+					DecodingFailedHealthCertificate(
+						base45: $0.base45,
+						error: error
+					)
+				)
+			}
+		}
 
 		setup()
 	}
@@ -81,6 +101,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 		}
 	}
+
+	var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
 
 	@DidSetPublished var isPreferredPerson: Bool {
 		didSet {
