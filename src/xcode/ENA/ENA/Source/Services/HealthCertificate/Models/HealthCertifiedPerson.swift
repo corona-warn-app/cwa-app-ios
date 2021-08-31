@@ -37,19 +37,19 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		decodingContainers.forEach {
 			do {
-				healthCertificates.append(
-					try HealthCertificate(
-						base45: $0.base45,
-						validityState: $0.validityState ?? .valid
-					)
+				let healthCertificate = try HealthCertificate(
+					base45: $0.base45,
+					validityState: $0.validityState ?? .valid
 				)
+
+				healthCertificates.append(healthCertificate)
 			} catch {
-				decodingFailedHealthCertificates.append(
-					DecodingFailedHealthCertificate(
-						base45: $0.base45,
-						error: error
-					)
+				let decodingFailedHealthCertificate = DecodingFailedHealthCertificate(
+					base45: $0.base45,
+					error: error
 				)
+
+				decodingFailedHealthCertificates.append(decodingFailedHealthCertificate)
 			}
 		}
 
