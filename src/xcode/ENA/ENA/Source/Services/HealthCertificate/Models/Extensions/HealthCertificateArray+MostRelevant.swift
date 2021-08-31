@@ -87,7 +87,7 @@ extension Array where Element == HealthCertificate {
 			return currentAntigenTest
 		}
 
-		// Series-completing Vaccination Certificate > 14 days
+		// Series-completing Vaccination Certificate > 14 days and no booster is available
 
 		let hasNoBoosterVaccination = allSatisfy { $0.vaccinationEntry?.isBoosterVaccination ?? false == false }
 		let protectingVaccinationCertificate = last {
