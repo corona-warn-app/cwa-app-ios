@@ -60,8 +60,7 @@ extension Array where Element == HealthCertificate {
 		
 		// PCR Test Certificate < 48 hours
 
-			
-		let currentPCRTest = last {
+		let currentPCRTestCertificate = last {
 			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 				return false
 			}
@@ -69,13 +68,13 @@ extension Array where Element == HealthCertificate {
 			return coronaTestType == .pcr && ageInHours < 48
 		}
 
-		if let currentPCRTest = currentPCRTest {
-			return currentPCRTest
+		if let currentPCRTestCertificate = currentPCRTestCertificate {
+			return currentPCRTestCertificate
 		}
 
 		// RAT Test Certificate < 24 hours
 
-		let currentAntigenTest = last {
+		let currentAntigenTestCertificate = last {
 			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 				return false
 			}
@@ -83,14 +82,14 @@ extension Array where Element == HealthCertificate {
 			return coronaTestType == .antigen && ageInHours < 24
 		}
 
-		if let currentAntigenTest = currentAntigenTest {
-			return currentAntigenTest
+		if let currentAntigenTestCertificate = currentAntigenTestCertificate {
+			return currentAntigenTestCertificate
 		}
 
-		// look for a booster vaccination
+		// Booster Vaccination Certificate
 		
-		if let boosterVaccination = last(where: { $0.vaccinationEntry?.isBoosterVaccination ?? false }) {
-			return boosterVaccination
+		if let boosterVaccinationCertificate = last(where: { $0.vaccinationEntry?.isBoosterVaccination ?? false }) {
+			return boosterVaccinationCertificate
 		}
 
 		// Series-completing Vaccination Certificate > 14 days
