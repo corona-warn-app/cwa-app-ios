@@ -64,5 +64,4 @@ class HealthCertifiedPersonCellModel {
 
 	let validityStateIcon: UIImage?
 	let validityStateTitle: String?
-
 }
