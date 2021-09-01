@@ -28,7 +28,7 @@ protocol Resource {
 	// Model is type of the model
 	associatedtype Model
 
-	var resourceLocator: Locator { get set }
+	var locator: Locator { get set }
 
 	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
@@ -38,7 +38,7 @@ protocol Resource {
 
 extension Resource {
 	mutating func addHeaders(customHeaders: [String: String]) {
-		resourceLocator.headers.merge(customHeaders) { current, _ in current }
+		locator.headers.merge(customHeaders) { current, _ in current }
 	}
 
 }

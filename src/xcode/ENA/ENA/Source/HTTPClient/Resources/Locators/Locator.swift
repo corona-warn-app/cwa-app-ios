@@ -6,6 +6,20 @@ import Foundation
 
 struct Locator {
 
+	// MARK: - Init
+
+	init(
+		endpoint: Endpoint,
+		paths: [String],
+		method: HTTP.Method,
+		defaultHeaders: [String: String] = [:]
+	) {
+		self.endpoint = endpoint
+		self.paths = paths
+		self.method = method
+		self.headers = defaultHeaders
+	}
+
 	// MARK: - Internal
 
 	let endpoint: Endpoint

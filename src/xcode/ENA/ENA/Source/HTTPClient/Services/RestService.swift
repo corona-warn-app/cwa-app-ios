@@ -26,7 +26,7 @@ class RestService: Service {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-		let request = resource.resourceLocator.urlRequest(environmentData: environment.currentEnvironment())
+		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
 		session.dataTask(with: request) { bodyData, response, error in
 			guard error == nil,
 				  let urlResponse = response as? HTTPURLResponse else {

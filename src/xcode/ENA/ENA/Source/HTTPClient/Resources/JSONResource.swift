@@ -14,7 +14,7 @@ struct JSONResource<M: Decodable>: Resource {
 
 	typealias Model = M
 	
-	var resourceLocator: Locator
+	var locator: Locator
 /*
 	let resourceLocator: ResourceLocator = ResourceLocator(
 		endpoint: .dataDonation,
