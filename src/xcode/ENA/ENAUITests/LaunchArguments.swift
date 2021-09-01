@@ -97,6 +97,10 @@ enum LaunchArguments {
 		/// To use the mock data for statistics
 		static let useMockDataForStatistics = LaunchArgument(name: "useMockDataForStatistics")
 	}
+	enum traceLocation {
+		/// To set the tracelocations view model to empty
+		static let emptyTraceLocations = LaunchArgument(name: "emptyTraceLocations")
+	}
 	enum errorReport {
 		/// To show if els logging should be active when starting the app
 		static let elsLogActive = LaunchArgument(name: "elsLogActive")
