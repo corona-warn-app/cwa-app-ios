@@ -52,7 +52,7 @@ final class DMNHCViewModel {
 						
 						switch result {
 						
-						case let .success(model):
+						case let .success((model, _)):
 							print(model?.appFeatures)
 							print("HTTP CALL SUCCESS")
 						case let .failure(error):

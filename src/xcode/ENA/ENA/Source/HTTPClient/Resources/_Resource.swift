@@ -33,6 +33,8 @@ protocol Resource {
 	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
 
+	func data(from model: Model) -> Data?
+
 	mutating func addHeaders(customHeaders: [String: String])
 }
 
@@ -40,5 +42,13 @@ extension Resource {
 	mutating func addHeaders(customHeaders: [String: String]) {
 		locator.headers.merge(customHeaders) { current, _ in current }
 	}
-
 }
+
+/*
+protocol CachedModel {
+	associatedtype Model
+	var eTag: String? { get set }
+	var model: Model { get set }
+	var timestampe: Date { get set }
+}
+*/

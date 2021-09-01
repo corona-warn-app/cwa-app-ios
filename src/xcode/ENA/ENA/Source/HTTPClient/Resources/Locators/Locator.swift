@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct Locator {
+struct Locator: Hashable {
 
 	// MARK: - Init
 
@@ -32,6 +32,11 @@ struct Locator {
 		let url = paths.reduce(endpointURL) { result, component in
 			result.appendingPathComponent(component, isDirectory: false)
 		}
-		return URLRequest(url: url)
+		var urlRequest = URLRequest(url: url)
+		headers.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+
+		return urlRequest
 	}
 }

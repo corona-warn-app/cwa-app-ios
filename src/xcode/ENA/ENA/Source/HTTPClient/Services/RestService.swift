@@ -24,29 +24,29 @@ class RestService: Service {
 
 	func load<T>(
 		resource: T,
-		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
+		completion: @escaping (Result<(T.Model?, HTTPURLResponse?), ServiceError>) -> Void
 	) where T: Resource {
 		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
 		session.dataTask(with: request) { bodyData, response, error in
 			guard error == nil,
-				  let urlResponse = response as? HTTPURLResponse else {
+				  let response = response as? HTTPURLResponse else {
 				Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
 				completion(.failure(.serverError(error)))
 				return
 			}
 			#if DEBUG
-			Log.debug("URL Response \(urlResponse.statusCode)", log: .client)
+			Log.debug("URL Response \(response.statusCode)", log: .client)
 			#endif
-			switch urlResponse.statusCode {
+			switch response.statusCode {
 			case 200:
 				switch resource.decode(bodyData) {
 				case .success(let model):
-					completion(.success(model))
+					completion(.success((model, response)))
 				case .failure:
 					completion(.failure(.decodeError))
 				}
 			case 201...204:
-				completion(.success(nil))
+				completion(.success((nil, response)))
 
 			case 304:
 				completion(.failure(.notModified))
@@ -54,7 +54,7 @@ class RestService: Service {
 			// handle error / notModified cases here
 
 			default:
-				completion(.failure(.unexpectedResponse(urlResponse.statusCode)))
+				completion(.failure(.unexpectedResponse(response.statusCode)))
 			}
 		}.resume()
 	}

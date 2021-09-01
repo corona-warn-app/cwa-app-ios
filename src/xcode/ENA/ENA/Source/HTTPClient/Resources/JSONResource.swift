@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct JSONResource<M: Decodable>: Resource {
+struct JSONResource<M: Codable>: Resource {
 
 	// MARK: - Init
 
@@ -47,6 +47,10 @@ struct JSONResource<M: Decodable>: Resource {
 		return .failure(.decoding)
 	}
 
+	func data(from model: M) -> Data? {
+		return try? encoder.encode(model)
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -54,5 +58,6 @@ struct JSONResource<M: Decodable>: Resource {
 	// MARK: - Private
 
 	private let decoder = JSONDecoder()
+	private let encoder = JSONEncoder()
 
 }

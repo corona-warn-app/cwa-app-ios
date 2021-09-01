@@ -44,6 +44,10 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 		}
 	}
 
+	func data(from model: P) -> Data? {
+		return try? model.serializedData()
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
