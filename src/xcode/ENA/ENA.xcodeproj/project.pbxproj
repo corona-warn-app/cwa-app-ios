@@ -1270,6 +1270,7 @@
 		BAF640EC26DF868B00B3A18E /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */; };
 		BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640ED26DF86BF00B3A18E /* Endpoint.swift */; };
 		BAF640F126DFA0FA00B3A18E /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */; };
+		BAF640F326DFB9CA00B3A18E /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */; };
 		BAFAED5726A8489700AC1DD6 /* DSCListProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		BAFC6ABC26A716CC00F18BBE /* default_dsc_list.bin in Resources */ = {isa = PBXBuildFile; fileRef = BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */; };
@@ -2678,6 +2679,7 @@
 		BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		BAF640ED26DF86BF00B3A18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiOnlyRestService.swift; sourceTree = "<group>"; };
+		BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedRestService.swift; sourceTree = "<group>"; };
 		BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviderTests.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_dsc_list.bin; sourceTree = "<group>"; };
@@ -7773,6 +7775,7 @@
 			children = (
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				BA64FA8126D79C2300DD4705 /* RestService.swift */,
+				BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */,
 				BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */,
 			);
 			path = Services;
@@ -8596,6 +8599,7 @@
 				01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
 				509B1E4026D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift in Sources */,
+				BAF640F326DFB9CA00B3A18E /* CachedRestService.swift in Sources */,
 				2E190D96265D058A00AA95D5 /* TANInputCell.swift in Sources */,
 				BA94BBB5260DF507005CF38F /* CheckInDatePickerCell.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,

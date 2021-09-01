@@ -48,6 +48,9 @@ class RestService: Service {
 			case 201...204:
 				completion(.success(nil))
 
+			case 304:
+				completion(.failure(.notModified))
+
 			// handle error / notModified cases here
 
 			default:

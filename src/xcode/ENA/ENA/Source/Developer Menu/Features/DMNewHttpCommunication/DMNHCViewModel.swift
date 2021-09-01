@@ -15,7 +15,7 @@ final class DMNHCViewModel {
 		store: Store
 	) {
 		self.store = store
-		self.restService = WifiOnlyRestService(wrappedService: RestService())
+		self.restService = CachedRestService(wrappedService: RestService())
 	}
 
 	// MARK: - Internal
