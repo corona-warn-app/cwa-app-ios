@@ -19,6 +19,12 @@ class OnBehalfTraceLocationSelectionViewModel {
 		self.traceLocationCellModels = traceLocations
 			.map { TraceLocationSelectionCellModel(traceLocation: $0) }
 		self.cameraAuthorizationStatus = cameraAuthorizationStatus
+		
+		#if DEBUG
+		if isUITesting && LaunchArguments.traceLocation.emptyTraceLocations.boolValue == true {
+			self.traceLocationCellModels = []
+		}
+		#endif
 	}
 		
 	// MARK: - Internal
@@ -32,7 +38,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 	
 	let title = AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.title
 
-	let traceLocationCellModels: [TraceLocationSelectionCellModel]
+	var traceLocationCellModels: [TraceLocationSelectionCellModel]
 
 	@OpenCombine.Published private(set) var continueEnabled: Bool = false
 
@@ -41,7 +47,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 	}
 
 	var isEmptyStateVisible: Bool {
-		traceLocationCellModels.isEmpty && !showMissingPermissionSection
+		return traceLocationCellModels.isEmpty && !showMissingPermissionSection
 	}
 	
 	var selectedTraceLocation: TraceLocation?
@@ -55,11 +61,6 @@ class OnBehalfTraceLocationSelectionViewModel {
 		case .missingCameraPermission:
 			return showMissingPermissionSection ? 1 : 0
 		case .traceLocations:
-			#if DEBUG
-			if isUITesting && LaunchArguments.traceLocation.emptyTraceLocations.boolValue == true {
-				return 0
-			}
-			#endif
 			return traceLocationCellModels.count
 		case .none:
 			Log.error("ExposureSubmissionCheckinsViewModel: numberOfRows asked for unknown section", log: .ui, error: nil)
