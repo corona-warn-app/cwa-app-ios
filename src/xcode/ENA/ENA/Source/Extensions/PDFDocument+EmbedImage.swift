@@ -11,10 +11,53 @@ enum PDFEmbeddingError: Error {
 }
 
 struct PDFText {
+
+	// MARK: - Init
+
+	init(
+		text: String,
+		size: CGFloat = 10,
+		color: UIColor,
+		font: UIFont? = nil,
+		rect: CGRect,
+		upsideDown: Bool = false
+	) {
+		self.text = text
+		self.size = size
+		self.color = color
+		self.font = font ?? UIFont.preferredFont(forTextStyle: .body).scaledFont(size: size, weight: .regular)
+		self.rect = rect
+		self.upsideDown = upsideDown
+	}
+
+	// MARK: - Internal
+
 	let text: String
 	let size: CGFloat
 	let color: UIColor
+	let font: UIFont
 	let rect: CGRect
+	let upsideDown: Bool
+}
+
+private extension BinaryInteger {
+	var degreesToRadians: CGFloat { CGFloat(self) * .pi / 180 }
+}
+
+private extension String {
+
+	func drawUpsideDown(in rect: CGRect, withAttributes attributes: [NSAttributedString.Key: Any]) {
+		guard let ctx = UIGraphicsGetCurrentContext() else { return }
+		ctx.saveGState()
+		defer { ctx.restoreGState() }
+
+		ctx.translateBy(x: rect.origin.x + rect.size.width / 2, y: rect.origin.y + rect.size.height / 2)
+		ctx.rotate(by: 180.degreesToRadians)
+		ctx.translateBy(x: -rect.size.width / 2, y: -rect.size.height / 2)
+
+		self.draw(in: CGRect(origin: .zero, size: rect.size), withAttributes: attributes)
+	}
+
 }
 
 extension PDFDocument {
@@ -52,16 +95,17 @@ extension PDFDocument {
 			image.draw(in: imageRect)
 			
 			for pdfText in texts {
-				// Set the font as per the font size provided
-				let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: pdfText.size, weight: .regular)
-
 				let textFontAttributes: [NSAttributedString.Key: Any] = [
-					NSAttributedString.Key.font: font,
+					NSAttributedString.Key.font: pdfText.font,
 					NSAttributedString.Key.foregroundColor: pdfText.color
 				]
 
 				// Draw text onto the context
-				pdfText.text.draw(in: pdfText.rect, withAttributes: textFontAttributes)
+				if pdfText.upsideDown {
+					pdfText.text.drawUpsideDown(in: pdfText.rect, withAttributes: textFontAttributes)
+				} else {
+					pdfText.text.draw(in: pdfText.rect, withAttributes: textFontAttributes)
+				}
 			}
 			
 		}

@@ -901,6 +901,59 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(protobuf.first?.ptDateChangedComparedToPreviousSubmission, store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, "Wrong dateChangedComparedToPreviousSubmission")
 	}
 	
+	func testGatherRiskExposureMetadataWithoutMostRecentDate() {
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let analyticsSubmitter = createMockSubmitter(with: store)
+
+		// Setup Collector
+		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
+		
+		// Collect RiskExposureMetadata
+		let numberOfDaysWithHighRisk = 25
+		let riskLevel: RiskLevel = .high
+		guard let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: Date()) else {
+			XCTFail("Could not create mostRecentDayWithRisk")
+			return
+		}
+
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
+			riskLevel: riskLevel,
+			minimumDistinctEncountersWithLowRisk: 6,
+			minimumDistinctEncountersWithHighRisk: 2,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: numberOfDaysWithHighRisk,
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		
+		let checkinIdWithRisk = CheckinIdWithRisk(
+			checkinId: 007,
+			riskLevel: riskLevel
+		)
+		
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
+			checkinIdsWithRiskPerDate: [mostRecentDayWithRisk: [checkinIdWithRisk]],
+			riskLevelPerDate: [:]
+		)
+
+		Analytics.collect(.riskExposureMetadata(.update))
+		XCTAssertNil(store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel, "should be nil as it was not set")
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel, "should be nil as it was not set")
+		
+		// Mapping to protobuf
+		let protobuf = analyticsSubmitter.gatherExposureRiskMetadata()
+		XCTAssertFalse(protobuf.isEmpty, "There should be at least one item in the array")
+		
+		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
+		XCTAssertEqual(protobuf.first?.ptMostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
+
+	}
+	
 	func testGatherExposureWindowsMetadata() {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true

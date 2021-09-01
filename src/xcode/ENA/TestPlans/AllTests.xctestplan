@@ -116,6 +116,7 @@
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_TestCertificateScreen()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_exposureSubmissionSuccess_screen()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_symptoms_onset_date_option()",
+        "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_certificate_test_result_negative()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_available()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_negative()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_pending()",
