@@ -17,10 +17,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "CreateHealthCertificate\/test_CreateAntigenTestProfileWithFirstCertificate_THEN_DeleteProfile()",
-        "CreateHealthCertificate\/test_CreateAntigenTestProfileWithLastCertificate_THEN_DeleteProfile()",
-        "CreateHealthCertificate\/test_ShowCertificate()",
-        "CreateHealthCertificate\/test_shownConsentScreenAndDisclaimer()",
         "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
         "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",
         "ENAUITests\/test_0002_Generate_Screenshot_For_AppStore_Statistics()",
@@ -81,6 +77,7 @@
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificateExpiring()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificateInvalid()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificate_printPDF()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_HealthCertificate_printPDF_NotAllowed()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_MultipleFamilyTestCertificates()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_RecoveryCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_RecoveryCertificateExpired()",
@@ -93,10 +90,7 @@
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()",
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_invalid()",
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_valid()",
-        "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()",
-        "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_country_picker()",
-        "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()",
-        "ENAUITests_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()"
+        "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
