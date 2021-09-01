@@ -5,7 +5,7 @@
 import Foundation
 import SwiftProtobuf
 
-struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
+struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 
 	// MARK: - Init
 
@@ -19,7 +19,7 @@ struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol HTTPResource
+	// MARK: - Protocol Resource
 
 	typealias Model = P
 

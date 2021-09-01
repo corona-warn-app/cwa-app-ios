@@ -6,7 +6,7 @@ import Foundation
 
 /// this service can communicate with a rest server
 ///
-class RestService {
+class RestService: Service {
 
 	// MARK: - Init
 
@@ -20,22 +20,12 @@ class RestService {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	enum ServiceError: Error {
-		case serverError(Error?)
-		case unexpectedResponse(Int)
-		case decodeError
-	}
+	// MARK: - Protocol Service
 
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: HTTPResource {
+	) where T: Resource {
 		let request = resource.resourceLocator.urlRequest(environmentData: environment.currentEnvironment())
 		session.dataTask(with: request) { bodyData, response, error in
 			guard error == nil,
@@ -65,6 +55,10 @@ class RestService {
 			}
 		}.resume()
 	}
+
+	// MARK: - Public
+
+	// MARK: - Internal
 
 	// MARK: - Private
 

@@ -23,7 +23,7 @@ enum ResourceError: Error {
 
 /// describes a resource
 ///
-protocol HTTPResource {
+protocol Resource {
 
 	// Model is type of the model
 	associatedtype Model

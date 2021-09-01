@@ -4,13 +4,13 @@
 
 import Foundation
 
-struct JSONResource<M: Decodable>: HTTPResource {
+struct JSONResource<M: Decodable>: Resource {
 
 	// MARK: - Init
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol HTTPResource
+	// MARK: - Protocol Resource
 
 	typealias Model = M
 	

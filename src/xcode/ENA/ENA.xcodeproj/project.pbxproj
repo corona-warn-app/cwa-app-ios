@@ -630,7 +630,7 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
-		50D7BD7026DE405100494FB7 /* ResourceAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */; };
+		50D7BD7026DE405100494FB7 /* ResourceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* ResourceLocator.swift */; };
 		50D7BD7426DE716A00494FB7 /* DMNHCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */; };
 		50D7BD7526DE716A00494FB7 /* DMNHCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
@@ -1266,6 +1266,9 @@
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
 		BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */; };
 		BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */; };
+		BAF640E826DF85A600B3A18E /* _Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640E726DF85A600B3A18E /* _Service.swift */; };
+		BAF640EC26DF868B00B3A18E /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */; };
+		BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640ED26DF86BF00B3A18E /* Endpoint.swift */; };
 		BAFAED5726A8489700AC1DD6 /* DSCListProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		BAFC6ABC26A716CC00F18BBE /* default_dsc_list.bin in Resources */ = {isa = PBXBuildFile; fileRef = BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */; };
@@ -2020,7 +2023,7 @@
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
-		50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceAdditions.swift; sourceTree = "<group>"; };
+		50D7BD6F26DE405100494FB7 /* ResourceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLocator.swift; sourceTree = "<group>"; };
 		50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewController.swift; sourceTree = "<group>"; };
 		50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewModel.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
@@ -2670,6 +2673,9 @@
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
 		BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeCell.swift; sourceTree = "<group>"; };
+		BAF640E726DF85A600B3A18E /* _Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Service.swift; sourceTree = "<group>"; };
+		BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		BAF640ED26DF86BF00B3A18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviderTests.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_dsc_list.bin; sourceTree = "<group>"; };
@@ -7116,10 +7122,9 @@
 		BA64FA7F26D79BCB00DD4705 /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
-				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 				BA64FA8026D79BFD00DD4705 /* Resources */,
-				BA64FA8126D79C2300DD4705 /* RestService.swift */,
-				50D7BD6F26DE405100494FB7 /* ResourceAdditions.swift */,
+				BAF640E926DF862800B3A18E /* Services */,
+				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -7128,8 +7133,10 @@
 			isa = PBXGroup;
 			children = (
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
+				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
+				50D7BD6F26DE405100494FB7 /* ResourceLocator.swift */,
+				BAF640EA26DF866500B3A18E /* ProtobufResources */,
 				BA076B2526DD1765002063A7 /* JSONResource.swift */,
-				BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -7757,6 +7764,24 @@
 				BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		BAF640E926DF862800B3A18E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BAF640E726DF85A600B3A18E /* _Service.swift */,
+				BA64FA8126D79C2300DD4705 /* RestService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BAF640EA26DF866500B3A18E /* ProtobufResources */ = {
+			isa = PBXGroup;
+			children = (
+				BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */,
+				BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */,
+			);
+			path = ProtobufResources;
 			sourceTree = "<group>";
 		};
 		BAFAED5526A81C0F00AC1DD6 /* Default */ = {
@@ -8608,6 +8633,7 @@
 				50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */,
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
 				013A5552260CEE340092B5B1 /* TimeInterval+Minutes.swift in Sources */,
+				BAF640E826DF85A600B3A18E /* _Service.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
 				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
@@ -8626,6 +8652,7 @@
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				50D7BD7526DE716A00494FB7 /* DMNHCViewModel.swift in Sources */,
+				BAF640EC26DF868B00B3A18E /* AppConfiguration.swift in Sources */,
 				AB190E7D25FB5FE500FBFF0D /* StoreQuery.swift in Sources */,
 				504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */,
 				EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */,
@@ -8723,6 +8750,7 @@
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
 				EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
+				BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */,
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				BAA4D73625E9613200821B5C /* CheckinQRCodeScannerViewController.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
@@ -8785,7 +8813,7 @@
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
 				50FEB18A26580B1B005C3322 /* DMPPAActualDataViewController.swift in Sources */,
-				50D7BD7026DE405100494FB7 /* ResourceAdditions.swift in Sources */,
+				50D7BD7026DE405100494FB7 /* ResourceLocator.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
