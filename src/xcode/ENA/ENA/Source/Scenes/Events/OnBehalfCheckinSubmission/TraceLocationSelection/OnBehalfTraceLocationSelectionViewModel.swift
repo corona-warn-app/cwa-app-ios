@@ -55,6 +55,11 @@ class OnBehalfTraceLocationSelectionViewModel {
 		case .missingCameraPermission:
 			return showMissingPermissionSection ? 1 : 0
 		case .traceLocations:
+			#if DEBUG
+			if isUITesting && LaunchArguments.traceLocation.emptyTraceLocations.boolValue == true {
+				return 0
+			}
+			#endif
 			return traceLocationCellModels.count
 		case .none:
 			Log.error("ExposureSubmissionCheckinsViewModel: numberOfRows asked for unknown section", log: .ui, error: nil)
