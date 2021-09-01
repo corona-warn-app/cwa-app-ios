@@ -15,14 +15,14 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.featureVersion = "2.10"
 		
-		// Warn Guest
+		// Booster Vaccination
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature29WarnGuestTitle, description: AppStrings.NewVersionFeatures.feature29WarnGuestDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature210BoosterVaccinationTitle, description: AppStrings.NewVersionFeatures.feature210BoosterVaccinationDescription)
 		)
 		
-		// Vaccination Status for recovered
+		// Print verson of vaccination certificate
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature29VaccinationStatusRecoveredTitle, description: AppStrings.NewVersionFeatures.feature29VaccinationStatusRecoveredDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature210PrintVersionVaccinationCertificateTitle, description: AppStrings.NewVersionFeatures.feature210PrintVersionVaccinationCertificateDescription)
 		)
 	}
 
