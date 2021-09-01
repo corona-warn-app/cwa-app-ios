@@ -20,8 +20,6 @@ public struct CBORWebTokenHeader: Codable, Equatable {
     public let issuedAt: Date
     public let expirationTime: Date
 
-    #if DEBUG
-
     public static func fake(
         issuer: String = "issuer",
         issuedAt: Date = Date(),
@@ -33,6 +31,4 @@ public struct CBORWebTokenHeader: Codable, Equatable {
             expirationTime: expirationTime
         )
     }
-
-    #endif
 }

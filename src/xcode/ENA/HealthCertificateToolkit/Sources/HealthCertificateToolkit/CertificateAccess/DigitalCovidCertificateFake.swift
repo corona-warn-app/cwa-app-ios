@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-#if DEBUG
-
 import Foundation
 import base45_swift
 import SwiftCBOR
@@ -112,5 +110,3 @@ public enum DigitalCovidCertificateFake {
     }
 
 }
-
-#endif
