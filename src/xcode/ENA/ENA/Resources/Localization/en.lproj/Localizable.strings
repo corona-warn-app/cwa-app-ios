@@ -515,7 +515,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Find Testing Center";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Find test centers near you.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Find test centers near you. You will be forwarded to an external RKI website.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Request TAN for PCR Test";
@@ -1467,13 +1467,9 @@
 
 "local_notifications_testresults_body" = "You have new messages from your Corona-Warn-App.";
 
-"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+"local_notifications_certificate_title" = "Corona-Warn-App";
 
-"local_notifications_expiringSoon_body" = "Check the validity of your certificates.";
-
-"local_notifications_expired_title" = "Corona-Warn-App";
-
-"local_notifications_expired_body" = "Check the validity of your certificates.";
+"local_notifications_certificate_body" = "You have new messages from your Corona-Warn-App.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Overview";
@@ -1560,9 +1556,13 @@
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
 /* Version 2.8 */
-"NewVersionFeature_28_standardizeName_title" = "Standardized Name";
+"NewVersionFeature_29_warnGuest_title" = "Warn for Others";
 
-"NewVersionFeature_28_standardizeName_description" = "In addition to the name in the country-specific spelling, each certificate now also displays the name in standardized Latin characters.";
+"NewVersionFeature_29_warnGuest_description" = "As the organizer of an event, you can now – when instructed to do so by the public health authorities – warn your guests on behalf of someone who has been diagnosed with coronavirus and who attended the event, but was not checked in with the Corona-Warn-App.";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Immediate Display of Vaccination Status for Recovered Persons";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_description" = "The Corona-Warn-App now displays full vaccination protection for recovered persons directly after the first vaccination. The two-week waiting time is waived for all vaccines except Johnson & Johnson.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2307,6 +2307,8 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Information";
 
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Warn for Others";
+
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edit";
 
 "TraceLocations_Overview_Item_Prefix" = "QR code for %@.";
@@ -2385,6 +2387,67 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ hrs.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "The QR code cannot be saved right now. Please try again later (error code %@).";
+
+/* On Behalf Checkin Submission */
+/* - Info */
+"OnBehalfCheckinSubmission_Info_Title" = "Warn for Others";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Increased Safety for You and Your Guests";
+
+"OnBehalfCheckinSubmission_Info_Description" = "You can warn your guests on behalf of someone who has been diagnosed with coronavirus and who attended the event, but was not checked in with the Corona-Warn-App.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "If someone who did not check in to this event or place is diagnosed with coronavirus later, the guests can be notified if they were in the same room at the same time or up to 30 minutes after the diagnosed person.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "You can only warn your guests on behalf of others if you have been instructed to do so by the public health authorities. They will send you a TAN in this case.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Continue";
+
+/* - Trace Location Selection */
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Warn for Others";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus, or restore a deleted event by scanning the QR code of that event again.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scan QR Code";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continue";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "No Events Available";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scan the QR code of the relevant event again to warn on behalf of others.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
+
+/* - Date Time Selection */
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Warn for Others";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Specify the length of stay of the person who has been diagnosed with coronavirus, on behalf of whom you want to warn others. You receive this information from the public health authorities.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Start/Arrival";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Duration";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Continue";
+
+/* - TAN Input */
+"OnBehalfCheckinSubmission_TANInput_Title" = "Warn for Others";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Enter the 10-place TAN that you were given.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Send Warning";
+
+/* - Thank You */
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Thank you!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Thanks to your support, other people can now be warned and respond appropriately.";
+
+/* - Errors */
+"OnBehalfCheckinSubmissionError_Failed" = "An error has occurred. Please contact the technical hotline via App Information -> Technical Hotline.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "Invalid TAN. Please check your entry or contact the organization that sent you the TAN.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Your Internet connection was lost. Please check the connection and try again.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Error Reports";
@@ -2675,6 +2738,8 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinated on %@";
 
+"HealthCertifiedPerson_VaccinationCertificate_booster" = "Booster Vaccination";
+
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Certificate";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Test";
@@ -2812,7 +2877,7 @@
 
 "HealthCertificate_Validation_Body2" = "A COVID certificate is valid proof for travel within the EU.";
 
-"HealthCertificate_Validation_Headline2" = "Note";
+"HealthCertificate_Validation_Headline2" = "Notes";
 
 "HealthCertificate_Validation_Bullet1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
 
@@ -2850,7 +2915,7 @@
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Your certificate could not be validated";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Note";
+"HealthCertificate_Validation_Passed_hintsTitle" = "Notes";
 
 "HealthCertificate_Validation_Passed_hint1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
 
@@ -2867,7 +2932,7 @@
 
 "HealthCertificate_Validation_Open_subtitle" = "Your certificate could not be validated completely";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Note";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Notes";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "The following rules could not be checked. Please make sure that the certificate satisfies the rules of your destination country.";
 

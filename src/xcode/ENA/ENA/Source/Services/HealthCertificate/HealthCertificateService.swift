@@ -512,12 +512,17 @@ class HealthCertificateService {
 		if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
 			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront)
 		} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
+
+			// We need the specific case of issuer == "DE" to test the printing of health certificate.
+			// If the issuer is not "DE", printing is not allowed.
+			let issuer = LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE.boolValue ? "DE" : "Other"
+
 			let firstDose = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake()]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = firstDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
@@ -528,7 +533,7 @@ class HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
@@ -852,8 +857,8 @@ class HealthCertificateService {
 		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expiringSoonTitle
-		content.body = AppStrings.LocalNotifications.expiringSoonBody
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let expiringSoonDateComponents = Calendar.current.dateComponents(
@@ -880,8 +885,8 @@ class HealthCertificateService {
 		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expiredTitle
-		content.body = AppStrings.LocalNotifications.expiredBody
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let expiredDateComponents = Calendar.current.dateComponents(

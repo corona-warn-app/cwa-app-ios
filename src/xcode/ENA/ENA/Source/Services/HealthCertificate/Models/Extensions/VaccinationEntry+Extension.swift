@@ -11,16 +11,33 @@ extension VaccinationEntry {
 		doseNumber == totalSeriesOfDoses
 	}
 
-	var isBooster: Bool {
-		doseNumber > totalSeriesOfDoses
-	}
-
 	var localVaccinationDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfVaccination)
 	}
 
 	var doseNumberAndTotalSeriesOfDoses: String {
 		"\(doseNumber) of \(totalSeriesOfDoses)"
+	}
+
+	var isRecoveredVaccination: Bool {
+		switch VaccinationProductType(value: vaccineMedicinalProduct) {
+		case .biontech, .astraZeneca, .moderna:
+			return totalSeriesOfDoses == 1 && doseNumber == 1
+		case .johnsonAndJohnson, .other:
+			return false
+		}
+	}
+
+	// is booster if -> AstraZeneca, Moderna and BioNTech, dose is 3 or more, Johnson & Johnson if dose is 2 or more
+	var isBoosterVaccination: Bool {
+		switch VaccinationProductType(value: vaccineMedicinalProduct) {
+		case .biontech, .astraZeneca, .moderna:
+			return doseNumber > 2
+		case .johnsonAndJohnson:
+			return doseNumber > 1
+		case .other:
+			return false
+		}
 	}
 
 	// swiftlint:disable:next cyclomatic_complexity

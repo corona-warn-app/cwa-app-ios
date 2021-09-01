@@ -59,6 +59,10 @@ public enum ENAColor: String, CaseIterable {
 
 	// MARK: - Textfield
 	case textField = "ENA Textfield Color"
+
+	// MARK: - Certificate-PDF
+	case certificatePDFBlue = "Certificate-PDF Blue"
+
 }
 
 public extension UIColor {
