@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+#if DEBUG
+
 import CertLogic
 import SwiftyJSON
 import Foundation
@@ -106,3 +108,5 @@ public func rulesCBORDataFake() throws -> Data {
 
     return try CodableCBOREncoder().encode(rules)
 }
+
+#endif

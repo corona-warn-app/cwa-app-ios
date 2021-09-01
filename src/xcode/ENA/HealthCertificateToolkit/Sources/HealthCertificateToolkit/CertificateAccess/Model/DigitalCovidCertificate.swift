@@ -27,6 +27,8 @@ public struct DigitalCovidCertificate: Codable, Equatable {
     public let testEntries: [TestEntry]?
     public let recoveryEntries: [RecoveryEntry]?
 
+    #if DEBUG
+
     public static func fake(
         version: String = "1.3.0",
         name: Name = .fake(),
@@ -44,6 +46,8 @@ public struct DigitalCovidCertificate: Codable, Equatable {
             recoveryEntries: recoveryEntries
         )
     }
+
+    #endif
 }
 
 public struct VaccinationEntry: Codable, Equatable {
@@ -78,6 +82,8 @@ public struct VaccinationEntry: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
+    #if DEBUG
+
     public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         vaccineOrProphylaxis: String = "1119349007",
@@ -103,6 +109,8 @@ public struct VaccinationEntry: Codable, Equatable {
             uniqueCertificateIdentifier: uniqueCertificateIdentifier
         )
     }
+
+    #endif
 }
 
 public struct TestEntry: Codable, Equatable {
@@ -162,6 +170,8 @@ public struct TestEntry: Codable, Equatable {
     public let certificateIssuer: String
     public let uniqueCertificateIdentifier: String
 
+    #if DEBUG
+
     public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         typeOfTest: String = "LP6464-4",
@@ -187,6 +197,9 @@ public struct TestEntry: Codable, Equatable {
             uniqueCertificateIdentifier: uniqueCertificateIdentifier
         )
     }
+
+    #endif
+
 }
 
 public struct RecoveryEntry: Codable, Equatable {
@@ -233,6 +246,8 @@ public struct RecoveryEntry: Codable, Equatable {
     public let certificateValidUntil: String
     public let uniqueCertificateIdentifier: String
 
+    #if DEBUG
+
     public static func fake(
         diseaseOrAgentTargeted: String = "840539006",
         dateOfFirstPositiveNAAResult: String = "2021-04-21",
@@ -253,6 +268,8 @@ public struct RecoveryEntry: Codable, Equatable {
             uniqueCertificateIdentifier: uniqueCertificateIdentifier
         )
     }
+
+    #endif
 }
 
 public struct Name: Codable, Equatable {
@@ -287,6 +304,8 @@ public struct Name: Codable, Equatable {
     public let standardizedFamilyName: String
     public let standardizedGivenName: String?
 
+    #if DEBUG
+
     public static func fake(
         familyName: String? = nil,
         givenName: String? = nil,
@@ -300,5 +319,7 @@ public struct Name: Codable, Equatable {
             standardizedGivenName: standardizedGivenName
         )
     }
+
+    #endif
 
 }

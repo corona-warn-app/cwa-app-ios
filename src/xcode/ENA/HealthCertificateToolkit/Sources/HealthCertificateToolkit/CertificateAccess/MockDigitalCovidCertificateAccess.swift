@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+#if DEBUG
+
 import Foundation
 
 public struct MockDigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol {
@@ -44,3 +46,5 @@ public struct MockDigitalCovidCertificateAccess: DigitalCovidCertificateAccessPr
     }
 
 }
+
+#endif
