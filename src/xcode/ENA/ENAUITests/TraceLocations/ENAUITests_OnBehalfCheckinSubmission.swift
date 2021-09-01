@@ -113,7 +113,7 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 	func testOnBehalfCheckinSubmissionWithQRCodeScan() throws {
 		// GIVEN
 		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
-		
+
 		// WHEN
 		app.launch()
 
