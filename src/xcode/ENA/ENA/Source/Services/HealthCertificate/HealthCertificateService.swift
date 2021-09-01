@@ -54,6 +54,7 @@ class HealthCertificateService {
 
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
+	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
 	var nextValidityTimer: Timer?
@@ -436,6 +437,12 @@ class HealthCertificateService {
 				if $0 != self?.store.healthCertifiedPersons {
 					self?.store.healthCertifiedPersons = $0
 				}
+
+				let unseenNewsCount = $0.map { $0.unseenNewsCount }.reduce(0, +)
+				if self?.unseenNewsCount.value != unseenNewsCount {
+					self?.unseenNewsCount.value = unseenNewsCount
+				}
+
 				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
