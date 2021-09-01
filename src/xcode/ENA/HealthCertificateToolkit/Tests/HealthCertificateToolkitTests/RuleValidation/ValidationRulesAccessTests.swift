@@ -40,4 +40,132 @@ class ValidationRulesAccessTests: XCTestCase {
             return
         }
     }
+
+    func test_when_applyBoosterNotificationValidationRules_then_passedResultReturned() {
+        let rules = [Rule.fake()]
+
+        let certificates = [
+            DigitalCovidCertificateWithHeader.fake(
+                header: CBORWebTokenHeader.fake(
+                    expirationTime: Date.distantFuture
+                ),
+                certificate: DigitalCovidCertificate.fake(
+                    vaccinationEntries: [.fake()]
+                )
+            ),
+            DigitalCovidCertificateWithHeader.fake(
+                header: CBORWebTokenHeader.fake(
+                    expirationTime: Date.distantFuture
+                ),
+                certificate: DigitalCovidCertificate.fake(
+                    recoveryEntries: [.fake()]
+                )
+            )
+        ]
+
+        let passedResult = ValidationResult(rule: nil, result: .passed, validationErrors: nil)
+        let certLogicStub = CertLogicEngineStub(validationResult: [
+            passedResult,
+            ValidationResult(rule: nil, result: .open, validationErrors: nil)
+        ])
+        let result = ValidationRulesAccess().applyBoosterNotificationValidationRules(
+            certificates: certificates,
+            rules: rules,
+            certLogicEngine: certLogicStub,
+            log: { _ in }
+        )
+
+        guard case .success(let validationResult) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        XCTAssertEqual(validationResult, passedResult)
+    }
+
+    func test_when_applyBoosterNotificationValidationRules_then_noPassedResultFailureReturned() {
+        let rules = [Rule.fake()]
+
+        let certificates = [
+            DigitalCovidCertificateWithHeader.fake(
+                header: CBORWebTokenHeader.fake(
+                    expirationTime: Date.distantFuture
+                ),
+                certificate: DigitalCovidCertificate.fake(
+                    vaccinationEntries: [.fake()]
+                )
+            )
+        ]
+
+        let certLogicStub = CertLogicEngineStub(validationResult: [
+            ValidationResult(rule: nil, result: .open, validationErrors: nil)
+        ])
+        let result = ValidationRulesAccess().applyBoosterNotificationValidationRules(
+            certificates: certificates,
+            rules: rules,
+            certLogicEngine: certLogicStub,
+            log: { _ in }
+        )
+
+        guard case .failure(let error) = result,
+              case .NO_PASSED_RESULT = error else {
+            XCTFail("NO_PASSED_RESULT error expected.")
+            return
+        }
+    }
+
+    func test_when_applyBoosterNotificationValidationRules_then_noVaccinationFailureReturned() {
+        let rules = [Rule.fake()]
+
+        let certificates = [
+            DigitalCovidCertificateWithHeader.fake(
+                header: CBORWebTokenHeader.fake(
+                    expirationTime: Date.distantFuture
+                ),
+                certificate: DigitalCovidCertificate.fake(
+                    testEntries: [.fake()]
+                )
+            )
+        ]
+
+        let certLogicStub = CertLogicEngineStub(validationResult: [
+            ValidationResult(rule: nil, result: .passed, validationErrors: nil)
+        ])
+        let result = ValidationRulesAccess().applyBoosterNotificationValidationRules(
+            certificates: certificates,
+            rules: rules,
+            certLogicEngine: certLogicStub,
+            log: { _ in }
+        )
+
+        guard case .failure(let error) = result,
+              case .NO_VACCINATION_CERTIFICATE = error else {
+            XCTFail("NO_VACCINATION_CERTIFICATE error expected.")
+            return
+        }
+    }
+}
+
+private class CertLogicEngineStub: CertLogicEnginable {
+
+    // MARK: - Init
+
+    required init(schema: String, rules: [Rule]) {
+        self.validationResult = []
+    }
+
+    init(validationResult: [ValidationResult]) {
+        self.validationResult = validationResult
+    }
+
+    // MARK: - Internal
+
+    func validate(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
+        return validationResult
+    }
+
+    // MARK: - Private
+
+    private let validationResult: [ValidationResult]
+
 }

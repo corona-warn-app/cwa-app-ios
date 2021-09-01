@@ -31,5 +31,4 @@ public struct CBORWebTokenHeader: Codable, Equatable {
             expirationTime: expirationTime
         )
     }
-
 }
