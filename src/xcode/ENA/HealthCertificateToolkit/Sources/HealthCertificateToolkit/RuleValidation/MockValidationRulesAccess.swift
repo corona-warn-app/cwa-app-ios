@@ -5,8 +5,6 @@
 import Foundation
 import CertLogic
 
-#if DEBUG
-
 public struct MockValidationRulesAccess: ValidationRulesAccessing {
     
     // MARK: - Init
@@ -46,5 +44,3 @@ public struct MockValidationRulesAccess: ValidationRulesAccessing {
         return expectedValidationResult
     }
 }
-
-#endif
