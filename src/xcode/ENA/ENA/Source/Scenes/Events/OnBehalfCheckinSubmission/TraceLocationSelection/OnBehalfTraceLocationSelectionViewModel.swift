@@ -32,7 +32,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 	
 	let title = AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.title
 
-	var traceLocationCellModels: [TraceLocationSelectionCellModel]
+	let traceLocationCellModels: [TraceLocationSelectionCellModel]
 
 	@OpenCombine.Published private(set) var continueEnabled: Bool = false
 
