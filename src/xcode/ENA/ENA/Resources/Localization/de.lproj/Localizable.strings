@@ -1504,13 +1504,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "local_notifications_testresults_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App.";
 
-"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+"local_notifications_certificate_title" = "Corona-Warn-App";
 
-"local_notifications_expiringSoon_body" = "Überprüfen Sie die Gültigkeit Ihrer Zertifikate.";
-
-"local_notifications_expired_title" = "Corona-Warn-App";
-
-"local_notifications_expired_body" = "Überprüfen Sie die Gültigkeit Ihrer Zertifikate.";
+"local_notifications_certificate_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Überblick";
@@ -1598,15 +1594,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.8 */
+/* Version 2.10 */
 
-"NewVersionFeature_29_warnGuest_title" = "In Vertretung warnen";
+"NewVersionFeature_210_boosterVaccination_title" = "Information zu Auffrischungsimpfung";
 
-"NewVersionFeature_29_warnGuest_description" = "Als Organisator eines Events können Sie nun nach Aufforderung durch das Gesundheitsamt Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+"NewVersionFeature_210_boosterVaccination_description" = "Die App kann Ihnen nun eine Mitteilung anzeigen, die Sie über eine eventuell anstehende Auffrischungsimpfung informiert.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Sofortige Impfstatusanzeige für Genesene";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Druckversion von Impfzertifikaten";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Für Genesene wird ab jetzt direkt nach der ersten Impfung der vollständige Impfschutz in der Corona-Warn-App angezeigt. Die zweiwöchige Wartezeit entfällt bei allen Impfstoffen außer bei Johnson & Johnson.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Sie können nun eine Druckversion Ihrer Impfzertifikate anzeigen, die es Ihnen ermöglicht, die Zertifikate als PDF-Dokument zu speichern oder auszudrucken.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2836,8 +2832,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Auffrischungsimpfung";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR-Test";
@@ -2892,6 +2886,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Mehr";
+
 
 /* Vaccination Certificate Details */
 
@@ -2940,6 +2936,38 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
 
 "RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+
+/* Health Certificate Print PDF */
+
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Druckversion anzeigen";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Abbrechen";
+
+"HealthCertificate_PrintPdf_Info_title" = "Erstellung des EU-Ausdrucks";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Sie können das Zertifikat als PDF-Dokument speichern. Die Speicherung ist freiwillig. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Weiter";
+
+"HealthCertificate_PrintPdf_Share_title" = "Druckversion des digitalen Zertifikats";
+
+/* Health Certificate Print PDF Error Alert */
+
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Druckversion anzeigen nicht möglich";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat nicht in Deutschland ausgestellt wurde.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ zur Druckversion";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Druckversion anzeigen nicht möglich";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
 
 /* Health Certificate Errors */
 

@@ -105,6 +105,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
 			return healthCertifiedPersonCell(forRowAt: indexPath)
+		case .decodingFailedHealthCertificates:
+			return decodingFailedHealthCertificateCell(forRowAt: indexPath)
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -122,6 +124,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			break
 		case .healthCertificate:
 			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
+		case .decodingFailedHealthCertificates:
+			break
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -227,12 +231,29 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	
 	private func healthCertifiedPersonCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertifiedPersonTableViewCell else {
-			fatalError("Could not dequeue HomeHealthCertifiedPersonTableViewCell")
+			fatalError("Could not dequeue HealthCertifiedPersonTableViewCell")
 		}
 
 		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson
+			  ) else {
+			return UITableViewCell()
+		}
+
+		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func decodingFailedHealthCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier, for: indexPath) as? HealthCertifiedPersonTableViewCell else {
+			fatalError("Could not dequeue HealthCertifiedPersonTableViewCell")
+		}
+
+		guard let decodingFailedHealthCertificate = viewModel.decodingFailedHealthCertificates[safe: indexPath.row],
+			  let cellModel = HealthCertifiedPersonCellModel(
+				decodingFailedHealthCertificate: decodingFailedHealthCertificate
 			  ) else {
 			return UITableViewCell()
 		}
