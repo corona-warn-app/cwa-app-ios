@@ -24,8 +24,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
-		// One for registration and one for the validity state update
-		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 2
+		// One for registration, one for the validity state update and one for is validity state new update
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 
 		let subscription = service.healthCertifiedPersons
 			.dropFirst()
@@ -82,6 +82,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		var subscriptions = Set<AnyCancellable>()
 
 		let healthCertifiedPersonExpectation = expectation(description: "healthCertifiedPerson objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertifiedPersonExpectation.expectedFulfillmentCount = 2
 
 		healthCertifiedPerson
 			.objectDidChange
@@ -570,6 +572,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -615,6 +619,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -660,6 +666,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -718,6 +726,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -771,6 +781,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -846,7 +858,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -854,11 +866,11 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
-		let expectedCounts = [0, 1, 0]
+		let expectedCounts = [0, 1]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = expectedCounts.count
 		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestCertificateCount
+		let countSubscription = service.unseenNewsCount
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -874,8 +886,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		) { _ in
 			completionExpectation.fulfill()
 		}
-
-		service.resetUnseenTestCertificateCount()
 
 		waitForExpectations(timeout: .medium)
 
@@ -940,7 +950,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1026,7 +1036,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1114,7 +1124,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1264,7 +1274,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
