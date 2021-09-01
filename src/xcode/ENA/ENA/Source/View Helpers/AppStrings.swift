@@ -1135,15 +1135,15 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.9 */
+		/* Version 2.10 */
 		
-		static let feature29WarnGuestTitle = NSLocalizedString("NewVersionFeature_29_warnGuest_title", comment: "")
+		static let feature210BoosterVaccinationTitle = NSLocalizedString("NewVersionFeature_210_boosterVaccination_title", comment: "")
 		
-		static let feature29WarnGuestDescription = NSLocalizedString("NewVersionFeature_29_warnGuest_description", comment: "")
+		static let feature210BoosterVaccinationDescription = NSLocalizedString("NewVersionFeature_210_boosterVaccination_description", comment: "")
 		
-		static let feature29VaccinationStatusRecoveredTitle = NSLocalizedString("NewVersionFeature_29_vaccinationStatusRecovered_title", comment: "")
+		static let feature210PrintVersionVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_210_printVersionVaccinationCertificate_title", comment: "")
 		
-		static let feature29VaccinationStatusRecoveredDescription = NSLocalizedString("NewVersionFeature_29_vaccinationStatusRecovered_description", comment: "")
+		static let feature210PrintVersionVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_210_printVersionVaccinationCertificate_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
