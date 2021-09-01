@@ -140,6 +140,7 @@
         "ENAUITests_12_AntigenTestProfile\/test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
         "ENAUITests_13_CreateHealthCertificate",
         "ENAUITests_14_ValidateHealthCertificate",
+        "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()",
         "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_country_picker()",
         "ENAUITests_42_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()"
       ],
