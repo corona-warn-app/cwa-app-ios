@@ -172,3 +172,41 @@ extension NavigationBarOpacityDelegate {
 	var preferredLargeTitleBackgroundColor: UIColor? { nil }
 	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }
+
+// MARK: - Protocol UITabBarControllerDelegate
+
+class TabBarScrolling: NSObject, UITabBarControllerDelegate {
+	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+		if viewController == tabBarController.selectedViewController {
+			if let naviVC = viewController as? UINavigationController {
+				naviVC.scrollEmbeddedTableToTop()
+			}
+		}
+		return true
+	}
+}
+
+extension UINavigationController {
+	// only if on top level of the navigation hierarchy: scroll the embedded table view up
+	func scrollEmbeddedTableToTop() {
+		guard !isEditing && presentedViewController == nil && viewControllers.count == 1 else {
+			return
+		}
+		if let tableView = topViewController?.embeddedTableView {
+			scrollTableToTop(tableView)
+		}
+	}
+
+	private func scrollTableToTop(_ tableView: UITableView) {
+		guard !tableView.isEditing else {
+			return
+		}
+		tableView.scrollToRow(at: IndexPath(indexes: [0, 0]), at: .top, animated: true)
+	}
+}
+
+private extension UIViewController {
+	var embeddedTableView: UITableView? {
+		([view] + view.subviews).first(ofType: UITableView.self)
+	}
+}
