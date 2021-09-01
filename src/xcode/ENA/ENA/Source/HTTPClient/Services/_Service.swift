@@ -17,4 +17,5 @@ protocol Service {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource
+	
 }

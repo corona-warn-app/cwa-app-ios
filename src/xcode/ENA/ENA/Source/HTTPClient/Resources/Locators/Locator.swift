@@ -4,14 +4,14 @@
 
 import Foundation
 
-struct ResourceLocator {
+struct Locator {
 
 	// MARK: - Internal
 
 	let endpoint: Endpoint
 	let paths: [String]
 	let method: HTTP.Method
-	let headers: [String: String]
+	var headers: [String: String]
 
 	func urlRequest(environmentData: EnvironmentData) -> URLRequest {
 		let endpointURL = endpoint.url(environmentData)

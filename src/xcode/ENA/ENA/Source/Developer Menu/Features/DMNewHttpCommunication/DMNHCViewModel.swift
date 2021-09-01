@@ -15,7 +15,7 @@ final class DMNHCViewModel {
 		store: Store
 	) {
 		self.store = store
-		self.restService = RestService()
+		self.restService = WifiOnlyRestService(wrappedService: RestService())
 	}
 
 	// MARK: - Internal
@@ -47,8 +47,7 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					
-					let locator = ResourceLocator.appConfiguration()
-					let resource = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(resourceLocator: locator)
+					let resource = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(resourceLocator: .appConfiguration())
 					self?.restService.load(resource: resource) { result in
 						
 						switch result {
@@ -93,6 +92,6 @@ final class DMNHCViewModel {
 	}
 
 	private let store: Store
-	private let restService: RestService
+	private let restService: Service
 }
 #endif

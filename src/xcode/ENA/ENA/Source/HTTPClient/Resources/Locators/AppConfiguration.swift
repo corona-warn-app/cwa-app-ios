@@ -4,10 +4,10 @@
 
 import Foundation
 
-extension ResourceLocator {
+extension Locator {
 
-	static func appConfiguration() -> ResourceLocator {
-		return ResourceLocator(
+	static func appConfiguration() -> Locator {
+		return Locator(
 			endpoint: .distribution,
 			paths: ["version", "v2", "app_config_ios"],
 			method: .get,

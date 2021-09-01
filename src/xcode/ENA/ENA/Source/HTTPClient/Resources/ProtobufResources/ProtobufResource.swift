@@ -10,7 +10,7 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 	// MARK: - Init
 
 	init(
-		resourceLocator: ResourceLocator,
+		resourceLocator: Locator,
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
 		self.resourceLocator = resourceLocator
@@ -23,7 +23,7 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 
 	typealias Model = P
 
-	let resourceLocator: ResourceLocator
+	var resourceLocator: Locator
 
 	func decode(_ data: Data?) -> Result<P, ResourceError> {
 		guard let data = data else {
