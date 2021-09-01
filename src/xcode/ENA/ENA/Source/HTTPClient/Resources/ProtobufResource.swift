@@ -7,6 +7,8 @@ import SwiftProtobuf
 
 struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 
+	// MARK: - Init
+
 	init(
 		resourceLocator: ResourceLocator,
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
@@ -14,6 +16,10 @@ struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 		self.resourceLocator = resourceLocator
 		self.signatureVerifier = signatureVerifier
 	}
+
+	// MARK: - Overrides
+
+	// MARK: - Protocol HTTPResource
 
 	typealias Model = P
 
@@ -37,6 +43,12 @@ struct ProtobufResource<P>: HTTPResource where P: SwiftProtobuf.Message {
 			return Result.failure(.decoding)
 		}
 	}
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	// MARK: - Private
 
 	private let signatureVerifier: SignatureVerifier
 }

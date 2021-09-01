@@ -25,7 +25,7 @@ enum ResourceError: Error {
 ///
 protocol HTTPResource {
 
-	// M is type of the model
+	// Model is type of the model
 	associatedtype Model
 
 	var resourceLocator: ResourceLocator { get }
