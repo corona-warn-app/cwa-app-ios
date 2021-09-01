@@ -224,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
 	let eventStore: EventStoringProviding = {
 		#if DEBUG
-			if isUITesting {
+		if isUITesting {
 			return MockEventStore()
 		}
 		#endif
