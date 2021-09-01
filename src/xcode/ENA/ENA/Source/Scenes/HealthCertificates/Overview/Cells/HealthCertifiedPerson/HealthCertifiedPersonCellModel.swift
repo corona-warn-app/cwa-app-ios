@@ -53,6 +53,24 @@ class HealthCertifiedPersonCellModel {
 		}
 	}
 
+	init?(
+		decodingFailedHealthCertificate: DecodingFailedHealthCertificate
+	) {
+		backgroundGradientType = .solidGrey(withStars: true)
+
+		title = AppStrings.HealthCertificate.Overview.covidTitle
+		name = ""
+
+		qrCodeViewModel = HealthCertificateQRCodeViewModel(
+			base45: decodingFailedHealthCertificate.base45,
+			shouldBlockCertificateCode: false,
+			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription
+		)
+
+		validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
+		validityStateTitle = "\(decodingFailedHealthCertificate.error)"
+	}
+
 	// MARK: - Internal
 
 	let backgroundGradientType: GradientView.GradientType
@@ -64,5 +82,4 @@ class HealthCertifiedPersonCellModel {
 
 	let validityStateIcon: UIImage?
 	let validityStateTitle: String?
-
 }
