@@ -28,71 +28,6 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 	
 	// MARK: - Test cases.
 
-	func testOnBehalfCheckinSubmissionWithQRCodeScan() throws {
-		// GIVEN
-		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
-		
-		// WHEN
-		app.launch()
-
-		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
-		traceLocationsCardButton.waitAndTap()
-
-		// Wait for trace locations screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
-
-		// tap the "more" button
-		app.navigationBars.buttons[AccessibilityIdentifiers.TraceLocation.Overview.menueButton].waitAndTap()
-
-		// verify the buttons
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].exists)
-
-		// tap "In Vertretung warnen" button
-		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].waitAndTap()
-
-		// Wait for info screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.Info.title)].waitForExistence(timeout: .short))
-
-		// Tap continue
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-
-		// Wait for trace location selection screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.title)].waitForExistence(timeout: .short))
-
-		// Check that button is disabled
-		let selectionContinueButton = app.buttons[AccessibilityIdentifiers.General.primaryFooterButton]
-		XCTAssertTrue(selectionContinueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(selectionContinueButton.isEnabled)
-
-		// Check that empty state view is there
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.EmptyState.title)].waitForExistence(timeout: .short))
-
-		app.buttons[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.scanButtonTitle)].waitAndTap()
-
-		// Wait for date and time selection screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title)].waitForExistence(timeout: .short))
-
-		// Tap continue
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-
-		// Wait for tan input screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TANInput.title)].waitForExistence(timeout: .short))
-
-		let tanContinueButton = app.buttons[AccessibilityIdentifiers.General.primaryFooterButton]
-		XCTAssertTrue(tanContinueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(tanContinueButton.isEnabled)
-
-		// Fill in dummy TAN.
-		type(app, text: "qwdzxcsrhe")
-
-		// Tap continue
-		XCTAssertTrue(tanContinueButton.isEnabled)
-		tanContinueButton.waitAndTap()
-
-		// Wait for thank you screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.ThankYou.title)].waitForExistence(timeout: .short))
-	}
-
 	func test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation() throws {
 		// GIVEN
 		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
@@ -173,6 +108,71 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.ThankYou.title)].waitForExistence(timeout: .short))
 
 		snapshot("onbehalfwarning_thank_you")
+	}
+
+	func testOnBehalfCheckinSubmissionWithQRCodeScan() throws {
+		// GIVEN
+		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
+		
+		// WHEN
+		app.launch()
+
+		let traceLocationsCardButton = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		traceLocationsCardButton.waitAndTap()
+
+		// Wait for trace locations screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.title)].waitForExistence(timeout: .short))
+
+		// tap the "more" button
+		app.navigationBars.buttons[AccessibilityIdentifiers.TraceLocation.Overview.menueButton].waitAndTap()
+
+		// verify the buttons
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].exists)
+
+		// tap "In Vertretung warnen" button
+		app.buttons[AccessibilityLabels.localized(AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle)].waitAndTap()
+
+		// Wait for info screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.Info.title)].waitForExistence(timeout: .short))
+
+		// Tap continue
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+		// Wait for trace location selection screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.title)].waitForExistence(timeout: .short))
+
+		// Check that button is disabled
+		let selectionContinueButton = app.buttons[AccessibilityIdentifiers.General.primaryFooterButton]
+		XCTAssertTrue(selectionContinueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(selectionContinueButton.isEnabled)
+
+		// Check that empty state view is there
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.EmptyState.title)].waitForExistence(timeout: .short))
+
+		app.buttons[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.scanButtonTitle)].waitAndTap()
+
+		// Wait for date and time selection screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title)].waitForExistence(timeout: .short))
+
+		// Tap continue
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+		// Wait for tan input screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.TANInput.title)].waitForExistence(timeout: .short))
+
+		let tanContinueButton = app.buttons[AccessibilityIdentifiers.General.primaryFooterButton]
+		XCTAssertTrue(tanContinueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(tanContinueButton.isEnabled)
+
+		// Fill in dummy TAN.
+		type(app, text: "qwdzxcsrhe")
+
+		// Tap continue
+		XCTAssertTrue(tanContinueButton.isEnabled)
+		tanContinueButton.waitAndTap()
+
+		// Wait for thank you screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.ThankYou.title)].waitForExistence(timeout: .short))
 	}
 
 	// MARK: - Private
