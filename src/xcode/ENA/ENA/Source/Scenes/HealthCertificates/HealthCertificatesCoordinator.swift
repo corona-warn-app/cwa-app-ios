@@ -598,4 +598,6 @@ final class HealthCertificatesCoordinator {
 	private func showSettings() {
 		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
+
+	// swiftlint:disable file_length
 }
