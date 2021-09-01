@@ -81,6 +81,9 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
 		
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 	}
 
 	// MARK: - Private
