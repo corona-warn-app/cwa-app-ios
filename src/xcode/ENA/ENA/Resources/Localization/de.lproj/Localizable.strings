@@ -1594,15 +1594,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.8 */
+/* Version 2.10 */
 
-"NewVersionFeature_29_warnGuest_title" = "In Vertretung warnen";
+"NewVersionFeature_210_boosterVaccination_title" = "Information zu Auffrischungsimpfung";
 
-"NewVersionFeature_29_warnGuest_description" = "Als Organisator eines Events können Sie nun nach Aufforderung durch das Gesundheitsamt Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+"NewVersionFeature_210_boosterVaccination_description" = "Die App kann Ihnen nun eine Mitteilung anzeigen, die Sie über eine eventuell anstehende Auffrischungsimpfung informiert.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Sofortige Impfstatusanzeige für Genesene";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Druckversion von Impfzertifikaten";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Für Genesene wird ab jetzt direkt nach der ersten Impfung der vollständige Impfschutz in der Corona-Warn-App angezeigt. Die zweiwöchige Wartezeit entfällt bei allen Impfstoffen außer bei Johnson & Johnson.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Sie können nun eine Druckversion Ihrer Impfzertifikate anzeigen, die es Ihnen ermöglicht, die Zertifikate als PDF-Dokument zu speichern oder auszudrucken.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
