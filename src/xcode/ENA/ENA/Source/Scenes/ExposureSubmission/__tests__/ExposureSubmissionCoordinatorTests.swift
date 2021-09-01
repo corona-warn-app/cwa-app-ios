@@ -81,16 +81,15 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
-
+		
 		healthCertificateValidationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
 			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider,
-			rulesDownloadService: rulesDownloadService
+			dscListProvider: dscListProvider
 		)
 	}
 

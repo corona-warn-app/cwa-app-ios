@@ -41,6 +41,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		store: Store,
 		client: Client,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		signatureVerifier: SignatureVerification = SignatureVerifier(),
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
 		signatureVerifying: DCCSignatureVerifying,
 		dscListProvider: DSCListProviding,
@@ -49,7 +50,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		self.store = store
 		self.client = client
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
- 		self.validationRulesAccess = validationRulesAccess
+		self.signatureVerifier = signatureVerifier
+		self.validationRulesAccess = validationRulesAccess
 		self.signatureVerifying = signatureVerifying
 		self.dscListProvider = dscListProvider
 		self.rulesDownloadService = rulesDownloadService
@@ -112,6 +114,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let store: Store
 	private let client: Client
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
 	private let signatureVerifying: DCCSignatureVerifying
 	private let dscListProvider: DSCListProviding
