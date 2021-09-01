@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ResourceLocator {
 
@@ -10,7 +11,6 @@ struct ResourceLocator {
 	let paths: [String]
 	let method: HTTP.Method
 	let headers: [String: String]
-
 	
 	static func appConfiguration(eTag: String? = nil) -> ResourceLocator {
 		if let eTag = eTag {
@@ -30,6 +30,13 @@ struct ResourceLocator {
 		}
 	}
 
+	func urlRequest(environmentData: EnvironmentData) -> URLRequest {
+		let endpointURL = endpoint.url(environmentData)
+		let url = paths.reduce(endpointURL) { result, component in
+			result.appendingPathComponent(component, isDirectory: false)
+		}
+		return URLRequest(url: url)
+	}
 }
 
 enum Endpoint {
@@ -39,4 +46,22 @@ enum Endpoint {
 	case dataDonation
 	case errorLogSubmission
 	case dcc
+
+	func url(_ environmentData: EnvironmentData) -> URL {
+		switch self {
+		case .distribution:
+			return environmentData.distributionURL
+		case .submission:
+			return environmentData.submissionURL
+		case .verification:
+			return environmentData.verificationURL
+		case .errorLogSubmission:
+			return environmentData.errorLogSubmissionURL
+		case .dcc:
+			return environmentData.dccURL
+		case .dataDonation:
+			return environmentData.dataDonationURL
+		}
+	}
+
 }
