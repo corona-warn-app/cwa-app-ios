@@ -19,12 +19,6 @@ class OnBehalfTraceLocationSelectionViewModel {
 		self.traceLocationCellModels = traceLocations
 			.map { TraceLocationSelectionCellModel(traceLocation: $0) }
 		self.cameraAuthorizationStatus = cameraAuthorizationStatus
-		
-		#if DEBUG
-		if isUITesting && LaunchArguments.traceLocation.emptyTraceLocations.boolValue == true {
-			self.traceLocationCellModels = []
-		}
-		#endif
 	}
 		
 	// MARK: - Internal

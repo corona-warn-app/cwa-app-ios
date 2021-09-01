@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
+class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 	
 	// MARK: - Setup.
 	
@@ -113,7 +113,6 @@ class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 	func testOnBehalfCheckinSubmissionWithQRCodeScan() throws {
 		// GIVEN
 		app.setLaunchArgument(LaunchArguments.infoScreen.traceLocationsInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.traceLocation.emptyTraceLocations, to: true)
 		
 		// WHEN
 		app.launch()
