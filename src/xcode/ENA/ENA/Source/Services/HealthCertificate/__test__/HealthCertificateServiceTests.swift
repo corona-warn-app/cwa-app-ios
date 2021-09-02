@@ -858,7 +858,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
+		personsExpectation.expectedFulfillmentCount = 5
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -866,7 +866,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				}
 			}
 
-		let expectedCounts = [0, 1]
+		let expectedCounts = [0, 1, 0]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = expectedCounts.count
 		var receivedCounts = [Int]()
@@ -886,6 +886,12 @@ class HealthCertificateServiceTests: CWATestCase {
 		) { _ in
 			completionExpectation.fulfill()
 		}
+
+		// Wait for certificate registration to succeed
+		wait(for: [completionExpectation], timeout: .medium)
+
+		service.healthCertifiedPersons.value.first?.healthCertificates.first?.isValidityStateNew = false
+		service.healthCertifiedPersons.value.first?.healthCertificates.first?.isNew = false
 
 		waitForExpectations(timeout: .medium)
 
