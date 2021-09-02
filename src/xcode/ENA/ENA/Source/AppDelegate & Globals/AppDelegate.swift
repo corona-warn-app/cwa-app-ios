@@ -324,7 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
-		signatureVerifying: dccSignatureVerificationService,
+		dccSignatureVerifier: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
 		client: client,
 		appConfiguration: appConfigurationProvider
@@ -401,7 +401,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifying: dccSignatureVerificationService,
+			dccSignatureVerifier: dccSignatureVerificationService,
 			dscListProvider: dscListProvider
 		)
 	}()
@@ -469,7 +469,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventStore: self.eventStore,
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			healthCertificateService: self.healthCertificateService
 		)
 	}()
 

@@ -20,10 +20,11 @@ extension HealthCertificate {
 
 	static func mock(
 		base45: String = HealthCertificateMocks.mockBase45,
-		validityState: HealthCertificateValidityState = .valid
+		validityState: HealthCertificateValidityState = .valid,
+		didShowInavlidNotification: Bool = false
 	) -> HealthCertificate {
 		do {
-			return try HealthCertificate(base45: base45, validityState: validityState)
+			return try HealthCertificate(base45: base45, validityState: validityState, didShowInavlidNotification: didShowInavlidNotification)
 		} catch {
 			fatalError("Could not decode mock base45 string: \(error.localizedDescription)")
 		}

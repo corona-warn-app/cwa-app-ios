@@ -57,7 +57,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -156,7 +156,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -256,7 +256,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -348,7 +348,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -428,7 +428,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -490,7 +490,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
 			dscListProvider: dscListProvider
 		)
 		
@@ -554,7 +554,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -618,7 +618,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -678,7 +678,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -738,7 +738,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -809,7 +809,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -875,7 +875,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -941,7 +941,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1007,7 +1007,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1070,7 +1070,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1137,7 +1137,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1198,7 +1198,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1260,7 +1260,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1322,7 +1322,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1384,7 +1384,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1458,7 +1458,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1511,7 +1511,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1549,7 +1549,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1582,7 +1582,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		
@@ -1636,7 +1636,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifier: MockVerifier(),
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider
 		)
 		// Exact Time for 9.7.2021, 10:30:00
@@ -1708,7 +1708,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				vaccinationValueSetsProvider: valueSetsStub,
 				signatureVerifier: mockVerifier,
 				validationRulesAccess: ValidationRulesAccess(),
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: dscListProvider
 			)
 

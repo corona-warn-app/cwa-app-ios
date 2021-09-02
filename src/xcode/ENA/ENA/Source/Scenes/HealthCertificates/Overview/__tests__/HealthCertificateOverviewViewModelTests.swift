@@ -43,7 +43,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	private let service: HealthCertificateService = {
 		HealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()

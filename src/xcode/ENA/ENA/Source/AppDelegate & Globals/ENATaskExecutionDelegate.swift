@@ -5,6 +5,8 @@
 import BackgroundTasks
 import Foundation
 import UIKit
+import HealthCertificateToolkit
+import OpenCombine
 
 class TaskExecutionHandler: ENATaskExecutionDelegate {
 
@@ -18,22 +20,24 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		eventStore: EventStoring,
 		eventCheckoutService: EventCheckoutService,
 		store: Store,
-		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.riskProvider = riskProvider
 		self.exposureManager = exposureManager
-		self.pdService = plausibleDeniabilityService
+		self.plausibleDeniabilitydService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
+		self.healthCertificateService = healthCertificateService
 	}
 
 
 	// MARK: - Protocol ENATaskExecutionDelegate
 
-	var pdService: PlausibleDeniability
+	var plausibleDeniabilitydService: PlausibleDeniability
 	var dependencies: ExposureSubmissionServiceDependencies
 	var contactDiaryStore: DiaryStoring
 
@@ -85,7 +89,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				group.enter()
 				DispatchQueue.global().async {
 					Log.info("Starting FakeRequests...", log: .background)
-					self.pdService.executeFakeRequests {
+					self.plausibleDeniabilitydService.executeFakeRequests {
 						group.leave()
 						Log.info("Done sending FakeRequests...", log: .background)
 					}
@@ -145,6 +149,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let backgroundTaskConsumer = RiskConsumer()
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
+	private let healthCertificateService: HealthCertificateService
+	private var subscriptions = Set<AnyCancellable>()
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
@@ -299,5 +305,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			}
 			completion()
 		})
+	}
+
+	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
 	}
 }
