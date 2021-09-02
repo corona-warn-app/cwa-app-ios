@@ -9,12 +9,10 @@ final class MockENManager: NSObject {
 
 	// MARK: Creating a Mocked ENManager
 
-	init(
-		enError: ENError?,
-		diagnosisKeysResult: MockDiagnosisKeysResult?
+	override init(
 	) {
-		self.enError = enError
-		self.diagnosisKeysResult = diagnosisKeysResult
+		super.init()
+		self.diagnosisKeysResult = (keys, enError)
 
 		#if RELEASE
 		// This whole class would/should be wrapped in a DEBUG block. However, there were some
@@ -27,15 +25,18 @@ final class MockENManager: NSObject {
 	// MARK: - Activating
 
 	func activate(completionHandler: @escaping ENErrorHandler) {
-		DispatchQueue.main.async {
+		dispatchQueue.async {
 			completionHandler(nil)
 		}
 	}
 
 	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {
-		self.enabled = enabled
-		DispatchQueue.main.async {
-			completionHandler(nil)
+		let dispatchQueue = self.dispatchQueue
+		ownWorkerQueue.async {
+			self.enabled = enabled
+			dispatchQueue.async {
+				completionHandler(nil)
+			}
 		}
 	}
 
@@ -126,9 +127,13 @@ final class MockENManager: NSObject {
 
 	// MARK: - Private
 
-	private let enError: ENError?
-	private let diagnosisKeysResult: MockDiagnosisKeysResult?
 	private let minDistanceBetweenCalls: TimeInterval = 4 * 3600
+	private let ownWorkerQueue = DispatchQueue(label: "com.sap.MockENManager")
+	
+	private var enError: ENError?
+	private var keys = [ENTemporaryExposureKey()]
+	private var diagnosisKeysResult: MockDiagnosisKeysResult?
+
 	private var enabled: Bool = true
 	private var lastCall: Date?
 
