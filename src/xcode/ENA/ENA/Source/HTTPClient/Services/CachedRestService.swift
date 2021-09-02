@@ -8,14 +8,10 @@ class CachedRestService: Service {
 
 	// MARK: - Init
 
-	init(
-		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		environment: EnvironmentProviding = Environments(),
-		wrappedService: Service? = nil
+	required init(
+		environment: EnvironmentProviding = Environments()
 	) {
-		self.session = session
 		self.environment = environment
-		self.wrappedService = wrappedService ?? RestService(session: session, environment: environment)
 	}
 
 	// MARK: - Overrides
@@ -26,15 +22,44 @@ class CachedRestService: Service {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-		// ToDo - lookup an eTag in the cache for requested resource
-		// use the dummy at the moment only
-		var mutableResource = resource
+
+		var resource = resource
 		if let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) {
-			mutableResource.addHeaders(customHeaders: ["If-None-Match": cachedModel.eTag])
+			resource.addHeaders(customHeaders: ["If-None-Match": cachedModel.eTag])
 		}
-		wrappedService.load(resource: mutableResource) { [weak self] result in
-			switch result {
-			case let .failure(notModifiedError) where notModifiedError == .notModified:
+
+		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
+		session.dataTask(with: request) { [weak self] bodyData, response, error in
+			guard error == nil,
+				  let response = response as? HTTPURLResponse else {
+				Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
+				completion(.failure(.serverError(error)))
+				return
+			}
+			#if DEBUG
+			Log.debug("URL Response \(response.statusCode)", log: .client)
+			#endif
+			switch response.statusCode {
+			case 200:
+				switch resource.decode(bodyData) {
+				case .success(let model):
+					guard let eTag = response.value(forCaseInsensitiveHeaderField: "ETag"),
+						  let data = bodyData else {
+						completion(.success(model))
+						Log.debug("ETag not found - cache problem")
+						return
+					}
+					let serverDate = response.dateHeader ?? Date()
+					let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
+					self?.cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
+					completion(.success(model))
+				case .failure:
+					completion(.failure(.decodeError))
+				}
+			case 201...204:
+				completion(.success(nil))
+
+			case 304:
 				if let cachedModel = self?.cache.object(forKey: NSNumber(value: resource.locator.hashValue)) {
 					switch resource.decode(cachedModel.data) {
 					case .success(let model):
@@ -45,43 +70,37 @@ class CachedRestService: Service {
 				} else {
 					completion(.failure(.cacheError))
 				}
-				// return the model from the cache - at the moment this nil only
-			case let .success(model):
-				guard let model = model else {
-					completion(.failure(.serverError(nil)))
-					return
-				}
-				let serverDate = response?.dateHeader ?? Date()
-				let cachedModel = CacheData(data: modelData, eTag: eTag, date: serverDate)
-				self?.cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
-				completion(.success(model))
-			case let .failure(error):
-				completion(.failure(error))
+
+			default:
+				completion(.failure(.unexpectedResponse(response.statusCode)))
 			}
-		}
+		}.resume()
 	}
-
-	func didDecodeModelSuccessfully<T>(resource: T, bodyData: Data?, response: HTTPURLResponse) where T: Resource {
-		guard let eTag = response.value(forCaseInsensitiveHeaderField: "ETag") else {
-			Log.debug("no eTag found - stop cache logic here")
-			return
-		}
-//		let responseDate = response.dateHeader ?? Date()
-//		return CacheData(data: bodyData, eTag: eTag, date: responseDate)
-	}
-
 
 	// MARK: - Public
 
 	// MARK: - Internal
-
+	
 	// MARK: - Private
 
-	private let session: URLSession
+	private lazy var session: URLSession = {
+		URLSession(configuration: .cachingSessionConfiguration())
+	}()
+
 	private let environment: EnvironmentProviding
-	private let wrappedService: Service
-
-	private let cache: NSCache<NSNumber, CacheData> = NSCache()
-
+	// dummy cache for the moment
+	private let cache: NSCache<NSNumber, CacheData> = NSCache<NSNumber, CacheData>()
 }
 
+class CacheData: NSObject {
+
+	init(data: Data, eTag: String, date: Date) {
+		self.data = data
+		self.eTag = eTag
+		self.date = date
+	}
+
+	let data: Data
+	let eTag: String
+	let date: Date
+}

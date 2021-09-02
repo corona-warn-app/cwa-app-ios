@@ -1091,6 +1091,8 @@
 		BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */; };
 		BA3EE65D26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */; };
 		BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */; };
+		BA43CB6626E1203C00B86132 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */; };
+		BA43CB6726E1203C00B86132 /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
 		BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4985E326385928009D395C /* Dateformatter+vCard.swift */; };
@@ -1113,7 +1115,7 @@
 		BA5B7FDB26458EF400502087 /* HealthCertifiedPersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */; };
 		BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */; };
 		BA5B7FDD26458F7800502087 /* HealthCertificateQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FB626458EF400502087 /* HealthCertificateQRCodeScannerViewModelTests.swift */; };
-		BA64FA8226D79C2300DD4705 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8126D79C2300DD4705 /* RestService.swift */; };
+		BA64FA8226D79C2300DD4705 /* DefaultRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8126D79C2300DD4705 /* DefaultRestService.swift */; };
 		BA64FA8426D7A12400DD4705 /* _Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8326D7A12400DD4705 /* _Resource.swift */; };
 		BA6898CD25ED49E00037A3EE /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6898CC25ED49E00037A3EE /* Route.swift */; };
 		BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */; };
@@ -1269,7 +1271,6 @@
 		BAF640E826DF85A600B3A18E /* _Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640E726DF85A600B3A18E /* _Service.swift */; };
 		BAF640EC26DF868B00B3A18E /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */; };
 		BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640ED26DF86BF00B3A18E /* Endpoint.swift */; };
-		BAF640F426DFCB8600B3A18E /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */; };
 		BAFAED5726A8489700AC1DD6 /* DSCListProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		BAFC6ABC26A716CC00F18BBE /* default_dsc_list.bin in Resources */ = {isa = PBXBuildFile; fileRef = BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */; };
@@ -2522,7 +2523,7 @@
 		BA5B7FC826458EF400502087 /* HealthCertificateQRCodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCell.swift; sourceTree = "<group>"; };
 		BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewModel.swift; sourceTree = "<group>"; };
 		BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewController.swift; sourceTree = "<group>"; };
-		BA64FA8126D79C2300DD4705 /* RestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestService.swift; sourceTree = "<group>"; };
+		BA64FA8126D79C2300DD4705 /* DefaultRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRestService.swift; sourceTree = "<group>"; };
 		BA64FA8326D7A12400DD4705 /* _Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Resource.swift; sourceTree = "<group>"; };
 		BA6898CC25ED49E00037A3EE /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewController.swift; sourceTree = "<group>"; };
@@ -7774,7 +7775,7 @@
 			isa = PBXGroup;
 			children = (
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
-				BA64FA8126D79C2300DD4705 /* RestService.swift */,
+				BA64FA8126D79C2300DD4705 /* DefaultRestService.swift */,
 				BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */,
 				BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */,
 			);
@@ -8676,6 +8677,7 @@
 				BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */,
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
 				BA076B2626DD1765002063A7 /* JSONResource.swift in Sources */,
+				BA43CB6626E1203C00B86132 /* CachedRestService.swift in Sources */,
 				BA0073EA25D196900036DFDD /* DefaultDataDonationViewModel.swift in Sources */,
 				35AAA19126139FE500D3A4C1 /* Array+SaveAccess.swift in Sources */,
 				50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */,
@@ -8925,7 +8927,7 @@
 				01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */,
 				010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */,
 				BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */,
-				BA64FA8226D79C2300DD4705 /* RestService.swift in Sources */,
+				BA64FA8226D79C2300DD4705 /* DefaultRestService.swift in Sources */,
 				BA00FECE26BC2D14009DA07F /* AppFeatureProvider.swift in Sources */,
 				BA6F0073265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift in Sources */,
 				01A6C3032626DE2500B6E95A /* HomeTestResultTableViewCell.swift in Sources */,
@@ -9142,7 +9144,7 @@
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
 				019C9F34258951BB00B26392 /* DiaryDay.swift in Sources */,
 				AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */,
-				BAF640F426DFCB8600B3A18E /* WifiOnlyRestService.swift in Sources */,
+				BA43CB6726E1203C00B86132 /* WifiOnlyRestService.swift in Sources */,
 				018FD47E2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift in Sources */,
 				B1E8C99D2479D4E7006DC678 /* DMSubmissionStateViewController.swift in Sources */,
 				2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */,

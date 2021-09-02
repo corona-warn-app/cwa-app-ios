@@ -8,14 +8,10 @@ class WifiOnlyRestService: Service {
 
 	// MARK: - Init
 
-	init(
-		session: URLSession = URLSession(configuration: .coronaWarnSessionConfigurationWifiOnly()),
-		environment: EnvironmentProviding = Environments(),
-		wrappedService: Service? = nil
+	required init(
+		environment: EnvironmentProviding = Environments()
 	) {
-		self.session = session
 		self.environment = environment
-		self.wrappedService = wrappedService ?? RestService()
 	}
 
 	// MARK: - Overrides
@@ -26,7 +22,7 @@ class WifiOnlyRestService: Service {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-		wrappedService.load(resource: resource, completion: completion)
+//		wrappedService.load(resource: resource, completion: completion)
 	}
 
 	// MARK: - Public
@@ -35,8 +31,10 @@ class WifiOnlyRestService: Service {
 
 	// MARK: - Private
 
-	private let session: URLSession
+	private lazy var session: URLSession = {
+		URLSession(configuration: .coronaWarnSessionConfigurationWifiOnly())
+	}()
+
 	private let environment: EnvironmentProviding
-	private let wrappedService: Service
 
 }

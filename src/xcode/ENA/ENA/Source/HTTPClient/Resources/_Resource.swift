@@ -21,9 +21,11 @@ enum ResourceError: Error {
 	case signatureVerification
 }
 
-enum ResourceCachingMode {
-	case none
-	case always
+enum ResourceType {
+	case `default`
+	case caching
+	case wifiOnly
+	case retrying
 }
 
 /// describes a resource

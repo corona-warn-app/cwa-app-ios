@@ -11,7 +11,7 @@ extension Locator {
 			endpoint: .distribution,
 			paths: ["version", "v2", "app_config_ios"],
 			method: .get,
-			cachingMode: .always
+			type: .default
 		)
 	}
 

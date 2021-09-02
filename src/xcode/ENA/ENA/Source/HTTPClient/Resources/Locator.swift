@@ -13,13 +13,13 @@ struct Locator: Hashable {
 		paths: [String],
 		method: HTTP.Method,
 		defaultHeaders: [String: String] = [:],
-		cachingMode: ResourceCachingMode = .none
+		type: ResourceType = .default
 	) {
 		self.endpoint = endpoint
 		self.paths = paths
 		self.method = method
 		self.headers = defaultHeaders
-		self.cachingMode = cachingMode
+		self.type = type
 	}
 
 	// MARK: - Internal
@@ -27,7 +27,7 @@ struct Locator: Hashable {
 	let endpoint: Endpoint
 	let paths: [String]
 	let method: HTTP.Method
-	let cachingMode: ResourceCachingMode
+	let type: ResourceType
 	var headers: [String: String]
 
 	func urlRequest(environmentData: EnvironmentData) -> URLRequest {
