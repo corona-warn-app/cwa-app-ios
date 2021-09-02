@@ -382,9 +382,11 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 0]).unseenNewsCount, 0)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 
 		// Expired state increases unseen news count
 		XCTAssertEqual(service.unseenNewsCount.value, 3)
@@ -392,6 +394,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .darkBlue(withStars: true))
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 2]).unseenNewsCount, 2)
 
 		// Set last person as preferred person and check that positions switched and gradients are correct
 
