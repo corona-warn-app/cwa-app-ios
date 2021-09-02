@@ -15,6 +15,9 @@ final class HealthCertificateDecodingContainer: Codable {
 	let base45: Base45
 	let validityState: HealthCertificateValidityState?
 
+	let isNew: Bool?
+	let isValidityStateNew: Bool?
+
 }
 
 struct DecodingFailedHealthCertificate {
