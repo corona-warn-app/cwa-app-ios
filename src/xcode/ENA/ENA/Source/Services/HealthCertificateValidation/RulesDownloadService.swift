@@ -197,6 +197,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 		})
 	}
 	
+	// swiftlint:disable cyclomatic_complexity
 	private func rulesDownloadingFailure(
 		ruleType: HealthCertificateValidationRuleType,
 		failure: URLSession.Response.Failure,

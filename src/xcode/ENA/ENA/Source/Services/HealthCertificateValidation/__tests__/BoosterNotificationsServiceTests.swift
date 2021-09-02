@@ -80,7 +80,7 @@ class BoosterNotificationsServiceTests: XCTestCase {
 		// WHEN
 		validationService.downloadBoosterNotifications { result in
 			switch result {
-			case let .success:
+			case .success:
 				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
