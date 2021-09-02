@@ -300,5 +300,4 @@ public struct Name: Codable, Equatable {
             standardizedGivenName: standardizedGivenName
         )
     }
-
 }
