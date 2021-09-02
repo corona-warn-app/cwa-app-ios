@@ -10,9 +10,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Init
 
 	init(
-		viewModel: DataDonationViewModelProtocol
+		viewModel: DataDonationViewModelProtocol,
+		largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode
 	) {
 		self.viewModel = viewModel
+		self.largeTitleDisplayMode = largeTitleDisplayMode
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -26,10 +28,23 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		parent?.navigationItem.title = AppStrings.DataDonation.Info.title
-		parent?.navigationItem.largeTitleDisplayMode = .never
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		var effectiveNavigationItem: UINavigationItem?
+		if parent is UINavigationController {
+			// the view controller is direct child of a navigation controller and can use its own navigation item
+			effectiveNavigationItem = navigationItem
+		} else {
+			// indirect child of navigation controller, e.g. embedded in a custom container view controller
+			effectiveNavigationItem = parent?.navigationItem
+		}
+		effectiveNavigationItem?.title = AppStrings.DataDonation.Info.title
+		effectiveNavigationItem?.largeTitleDisplayMode = largeTitleDisplayMode
+		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
@@ -40,6 +55,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	private let viewModel: DataDonationViewModelProtocol
 	private var subscriptions: [AnyCancellable] = []
+	private var largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)

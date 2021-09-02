@@ -162,7 +162,7 @@ final class OnboardingInfoViewController: UIViewController {
 			)
 		)
 
-		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
+		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel, largeTitleDisplayMode: .never)
 
 		let containerViewController = TopBottomContainerViewController(
 			topController: dataDonationViewController,
