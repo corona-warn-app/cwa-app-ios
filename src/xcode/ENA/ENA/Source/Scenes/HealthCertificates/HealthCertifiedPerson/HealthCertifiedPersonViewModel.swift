@@ -145,8 +145,7 @@ final class HealthCertifiedPersonViewModel {
 
 	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateService: healthCertificateService
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
