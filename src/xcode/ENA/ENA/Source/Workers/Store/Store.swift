@@ -195,8 +195,6 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var testCertificateRequests: [TestCertificateRequest] { get set }
 
-	var unseenTestCertificateCount: Int { get set }
-
 	var lastSelectedValidationCountry: Country { get set }
 
 	var lastSelectedValidationDate: Date { get set }
