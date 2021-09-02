@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/tsolomko/BitByteData",
         "state": {
           "branch": null,
-          "revision": "0969ebfb79ccbee05384249e818067a984337dc2",
-          "version": "1.4.4"
+          "revision": "c119e12decae8f56066df3345a4ac1a05b2f06d5",
+          "version": "2.0.1"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
           "branch": null,
-          "revision": "e59a317e03491abe1f04c87b965a52abae243ddd",
-          "version": "1.1.8"
+          "revision": "fbd69786326af0059d64315c2df139e79632e8df",
+          "version": "1.1.7"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/tsolomko/SWCompression.git",
         "state": {
           "branch": null,
-          "revision": "594cc1968e99f7df2b2d6e1d3ee76dec70ac9cc4",
-          "version": "4.5.11"
+          "revision": "ff8113eb32ac04124b06372f030c08efdfcfc9fc",
+          "version": "4.6.0"
         }
       },
       {
