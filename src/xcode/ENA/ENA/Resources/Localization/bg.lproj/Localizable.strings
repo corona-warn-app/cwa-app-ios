@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Дата на ваксинация: %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Ваксиниране с бустерна доза";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Сертификат за тест";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR тест";
