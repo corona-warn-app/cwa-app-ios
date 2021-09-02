@@ -19,7 +19,7 @@ final class HealthCertifiedPersonViewModel {
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
+		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
 		
@@ -201,7 +201,7 @@ final class HealthCertifiedPersonViewModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
-	private let healtCertificateValueSetsProvider: VaccinationValueSetsProviding
+	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 
