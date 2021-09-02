@@ -33,7 +33,7 @@ final class PreferredPersonCellModel {
 				DCCDateStringFormatter.localizedFormattedString(from: $0)
 			}
 			.flatMap {
-				String(format: AppStrings.HealthCertificate.Person.dateOfBirth, $0)
+				String(format: AppStrings.HealthCertificate.Person.PreferredPerson.dateOfBirth, $0)
 			}
 	}
 
@@ -42,7 +42,7 @@ final class PreferredPersonCellModel {
 			return nil
 		}
 
-		return String(format: AppStrings.HealthCertificate.Person.preferredPersonDescription, name)
+		return String(format: AppStrings.HealthCertificate.Person.PreferredPerson.description, name)
 	}
 
 	@DidSetPublished var isPreferredPerson: Bool = false

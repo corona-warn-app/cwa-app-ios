@@ -113,10 +113,10 @@ final class HealthCertifiedPersonViewModel {
 
 		switch healthCertifiedPerson.vaccinationState {
 		case .partiallyVaccinated:
-			text = AppStrings.HealthCertificate.Person.partiallyVaccinated
+			text = AppStrings.HealthCertificate.Person.VaccinationHint.partiallyVaccinated
 		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
 			text = String(
-				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+				format: AppStrings.HealthCertificate.Person.VaccinationHint.daysUntilCompleteProtection,
 				daysUntilCompleteProtection
 			)
 		case .notVaccinated, .completelyProtected:
