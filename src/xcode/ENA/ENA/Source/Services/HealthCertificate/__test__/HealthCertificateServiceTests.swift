@@ -191,9 +191,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
 
+		// By default added certificate are not marked as new
+		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 0]).isNew)
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
+
 		// Try to register same certificate twice
 
-		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45, markAsNew: true)
 
 		if case .failure(let error) = registrationResult, case .certificateAlreadyRegistered = error { } else {
 			XCTFail("Double registration of the same certificate should fail")
@@ -201,6 +205,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+
+		// Certificates that were not added successfully don't change unseenNewsCount
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
 
 		// Try to register certificate with too many entries
 
@@ -241,7 +248,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
 
-		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
 		case let .success((healthCertifiedPerson, _)):
@@ -252,6 +259,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate, secondTestCertificate])
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 1]).isNew)
 
 		// Register vaccination certificate for same person
 
@@ -267,7 +278,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
 
-		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
 		case let .success((healthCertifiedPerson, _)):
@@ -279,6 +290,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 0]).isNew)
 
 		// Register vaccination certificate for other person
 
@@ -370,6 +385,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
+
+		// Expired state increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 3)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .darkBlue(withStars: true))
@@ -1709,4 +1728,5 @@ class HealthCertificateServiceTests: CWATestCase {
 		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
 	}
+
 }
