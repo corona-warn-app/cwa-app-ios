@@ -1732,4 +1732,71 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
 	}
 
+	func testBoosterRuleIncreasesUnseenNewsCount() throws {
+		let store = MockTestStore()
+
+		let service = HealthCertificateService(
+			store: store,
+			signatureVerifying: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
+
+		// Register vaccination certificate
+
+		let firstVaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					doseNumber: 2,
+					totalSeriesOfDoses: 2,
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "2"
+				)]
+			),
+			and: .fake(expirationTime: .distantFuture)
+		)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+
+		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+
+		switch registrationResult {
+		case let .success((healthCertifiedPerson, _)):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates.first).isNew)
+
+		// Setting booster rule increases unseen news count
+		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting to same booster rule leaves unseen news count unchanged
+		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting booster rule to nil decreases unseen news count
+		store.healthCertifiedPersons.first?.boosterRule = nil
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Setting booster rule increases unseen news count
+		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Marking certificate as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Marking booster rule as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.isNewBoosterRule = false
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
+	}
+
 }
