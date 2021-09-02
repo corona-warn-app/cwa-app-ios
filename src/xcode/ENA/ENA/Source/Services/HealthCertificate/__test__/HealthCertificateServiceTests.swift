@@ -1776,26 +1776,32 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Setting booster rule increases unseen news count
 		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
 
 		// Setting to same booster rule leaves unseen news count unchanged
 		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
 
 		// Setting booster rule to nil decreases unseen news count
 		store.healthCertifiedPersons.first?.boosterRule = nil
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
 		XCTAssertEqual(service.unseenNewsCount.value, 1)
 
 		// Setting booster rule increases unseen news count
 		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
 
 		// Marking certificate as seen decreases unseen news count
 		store.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
 		XCTAssertEqual(service.unseenNewsCount.value, 1)
 
 		// Marking booster rule as seen decreases unseen news count
 		store.healthCertifiedPersons.first?.isNewBoosterRule = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 0)
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
 
