@@ -35,8 +35,6 @@ protocol Resource {
 
 	var locator: Locator { get set }
 
-	var cachingMode: ResourceCachingMode { get }
-
 	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
 

@@ -30,13 +30,13 @@ class RestService: Service {
 	) where T: Resource {
 
 		var resource = resource
-		if resource.cachingMode == .always,
+		if resource.locator.cachingMode == .always,
 		   let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) {
 			resource.addHeaders(customHeaders: ["If-None-Match": cachedModel.eTag])
 		}
 
 		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
-		let session = resource.cachingMode == .always ? cachedSession : defaultSession
+		let session = resource.locator.cachingMode == .always ? cachedSession : defaultSession
 		session.dataTask(with: request) { [weak self] bodyData, response, error in
 			guard error == nil,
 				  let response = response as? HTTPURLResponse else {
@@ -51,7 +51,7 @@ class RestService: Service {
 			case 200:
 				switch resource.decode(bodyData) {
 				case .success(let model):
-					switch resource.cachingMode {
+					switch resource.locator.cachingMode {
 					case .none:
 						completion(.success(model))
 					case .always:
@@ -64,6 +64,7 @@ class RestService: Service {
 						let serverDate = response.dateHeader ?? Date()
 						let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
 						self?.cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
+						completion(.success(model))
 					}
 				case .failure:
 					completion(.failure(.decodeError))
@@ -72,7 +73,7 @@ class RestService: Service {
 				completion(.success(nil))
 
 			case 304:
-				switch resource.cachingMode {
+				switch resource.locator.cachingMode {
 				case .none:
 					completion(.failure(.notModified))
 				case .always:
@@ -83,6 +84,8 @@ class RestService: Service {
 						case .failure:
 							completion(.failure(.decodeError))
 						}
+					} else {
+						completion(.failure(.cacheError))
 					}
 				}
 
@@ -102,7 +105,7 @@ class RestService: Service {
 	private let cachedSession: URLSession
 	private let environment: EnvironmentProviding
 	// dummy cache for the moment
-	private let cache: NSCache<NSNumber, CacheData> = NSCache()
+	private let cache: NSCache<NSNumber, CacheData> = NSCache<NSNumber, CacheData>()
 }
 
 class CacheData: NSObject {

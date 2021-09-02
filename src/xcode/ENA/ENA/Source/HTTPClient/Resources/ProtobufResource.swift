@@ -11,12 +11,10 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 
 	init(
 		_ locator: Locator,
-		signatureVerifier: SignatureVerifier = SignatureVerifier(),
-		cachingMode: ResourceCachingMode = .none
+		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
 		self.locator = locator
 		self.signatureVerifier = signatureVerifier
-		self.cachingMode = cachingMode
 	}
 
 	// MARK: - Overrides
@@ -26,8 +24,6 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 	typealias Model = P
 
 	var locator: Locator
-
-	let cachingMode: ResourceCachingMode
 
 	func decode(_ data: Data?) -> Result<P, ResourceError> {
 		guard let data = data else {

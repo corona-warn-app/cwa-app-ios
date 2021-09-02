@@ -15,7 +15,6 @@ struct JSONResource<M: Codable>: Resource {
 	typealias Model = M
 	
 	var locator: Locator
-	let cachingMode: ResourceCachingMode = .none
 /*
 	let resourceLocator: ResourceLocator = ResourceLocator(
 		endpoint: .dataDonation,

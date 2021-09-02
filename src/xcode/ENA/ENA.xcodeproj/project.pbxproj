@@ -7139,6 +7139,7 @@
 				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
 				BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */,
 				BA076B2526DD1765002063A7 /* JSONResource.swift */,
+				50D7BD6F26DE405100494FB7 /* Locator.swift */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 			);
 			path = Resources;
@@ -7783,7 +7784,6 @@
 		BAF640EF26DFA08E00B3A18E /* Locators */ = {
 			isa = PBXGroup;
 			children = (
-				50D7BD6F26DE405100494FB7 /* Locator.swift */,
 				BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */,
 			);
 			path = Locators;
