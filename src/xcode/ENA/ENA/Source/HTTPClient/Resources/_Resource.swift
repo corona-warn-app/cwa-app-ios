@@ -21,6 +21,11 @@ enum ResourceError: Error {
 	case signatureVerification
 }
 
+enum ResourceCachingMode {
+	case none
+	case always
+}
+
 /// describes a resource
 ///
 protocol Resource {
@@ -30,10 +35,10 @@ protocol Resource {
 
 	var locator: Locator { get set }
 
+	var cachingMode: ResourceCachingMode { get }
+
 	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
-
-	func data(from model: Model) -> Data?
 
 	mutating func addHeaders(customHeaders: [String: String])
 }
@@ -44,11 +49,9 @@ extension Resource {
 	}
 }
 
-/*
-protocol CachedModel {
-	associatedtype Model
-	var eTag: String? { get set }
-	var model: Model { get set }
-	var timestampe: Date { get set }
+protocol Caching {
+	func load()
+	func save()
 }
-*/
+
+protocol CachedResource: Resource & Caching {}

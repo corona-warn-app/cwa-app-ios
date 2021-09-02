@@ -15,6 +15,7 @@ struct JSONResource<M: Codable>: Resource {
 	typealias Model = M
 	
 	var locator: Locator
+	let cachingMode: ResourceCachingMode = .none
 /*
 	let resourceLocator: ResourceLocator = ResourceLocator(
 		endpoint: .dataDonation,
@@ -45,10 +46,6 @@ struct JSONResource<M: Codable>: Resource {
 			Log.debug("Failed to parse JSON answer - unhandled error", log: .client)
 		}
 		return .failure(.decoding)
-	}
-
-	func data(from model: M) -> Data? {
-		return try? encoder.encode(model)
 	}
 
 	// MARK: - Public

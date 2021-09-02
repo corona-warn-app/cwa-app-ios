@@ -49,7 +49,7 @@ protocol Service {
 
 	func load<T>(
 		resource: T,
-		completion: @escaping (Result<(T.Model?, HTTPURLResponse?), ServiceError>) -> Void
+		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource
 
 }

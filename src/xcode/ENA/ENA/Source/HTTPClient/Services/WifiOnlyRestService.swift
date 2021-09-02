@@ -15,7 +15,7 @@ class WifiOnlyRestService: Service {
 	) {
 		self.session = session
 		self.environment = environment
-		self.wrappedService = wrappedService ?? RestService(session: session, environment: environment)
+		self.wrappedService = wrappedService ?? RestService()
 	}
 
 	// MARK: - Overrides
@@ -24,7 +24,7 @@ class WifiOnlyRestService: Service {
 
 	func load<T>(
 		resource: T,
-		completion: @escaping (Result<(T.Model?, HTTPURLResponse?), ServiceError>) -> Void
+		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
 		wrappedService.load(resource: resource, completion: completion)
 	}

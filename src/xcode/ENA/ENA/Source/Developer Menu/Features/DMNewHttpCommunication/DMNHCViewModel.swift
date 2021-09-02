@@ -15,7 +15,7 @@ final class DMNHCViewModel {
 		store: Store
 	) {
 		self.store = store
-		self.restService = CachedRestService(wrappedService: RestService())
+		self.restService = RestService()
 	}
 
 	// MARK: - Internal
@@ -47,12 +47,12 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					
-					let resource = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration)
+					let resource = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, cachingMode: .always)
 					self?.restService.load(resource: resource) { result in
 						
 						switch result {
 						
-						case let .success((model, _)):
+						case let .success(model):
 							print(model?.appFeatures)
 							print("HTTP CALL SUCCESS")
 						case let .failure(error):
