@@ -4,8 +4,6 @@
 
 import Foundation
 
-/// this service can communicate with a rest server
-///
 class DefaultRestService: Service {
 
 	// MARK: - Init
