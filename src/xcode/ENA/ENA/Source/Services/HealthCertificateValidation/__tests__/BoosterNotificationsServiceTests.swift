@@ -1,0 +1,166 @@
+//
+// 🦠 Corona-Warn-App
+//
+
+@testable import ENA
+import HealthCertificateToolkit
+import XCTest
+import SwiftCBOR
+import CertLogic
+import OpenCombine
+import ZIPFoundation
+
+class BoosterNotificationsServiceTests: XCTestCase {
+	
+	func testGIVEN_BoosterService_WHEN_HappyCaseCachedIsNotUsed_THEN_NewRulesAreDownloadedAndPassedShouldBeReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetBoosterNotificationsRules = { [weak self] _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyRulesResponse))
+		}
+		
+		let store = MockTestStore()
+		let rulesDownloadService = RulesDownloadService(signatureVerifier: MockVerifier(), store: store, client: client)
+		let boosterService = BoosterNotificationsService(rulesDownloadService: rulesDownloadService)
+				
+		let expectation = self.expectation(description: "Test should success with .passed")
+		var responseRules: [Rule]?
+		
+		// WHEN
+		boosterService.downloadBoosterNotifications { result in
+			switch result {
+			case let .success(rules):
+				responseRules = rules
+				expectation.fulfill()
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
+		}
+				
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertNotNil(responseRules)
+	}
+	
+	func testGIVEN_BoosterService_WHEN_HappyCaseCachedIsUsed_THEN_CachedRulesAreUsedAndPassedShouldBeReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		
+		client.onGetBoosterNotificationsRules = { _, completion in
+			completion(.failure(.notModified))
+		}
+		
+		let store = MockTestStore()
+		let cachedRule = Rule.fake(identifier: "Number One")
+		store.boosterRulesCache = ValidationRulesCache(
+			lastValidationRulesETag: "FakeEtag",
+			validationRules: [cachedRule]
+			
+		)
+		XCTAssertNotNil(store.boosterRulesCache)
+
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "Rule A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule B"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "Rule C"), result: .passed)
+		]
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, store: store, client: client)
+		let validationService = BoosterNotificationsService(rulesDownloadService: rulesDownloadService)
+				
+		let expectation = self.expectation(description: "Test should success with .passed")
+		// WHEN
+		validationService.downloadBoosterNotifications { result in
+			switch result {
+			case let .success:
+				expectation.fulfill()
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
+		}
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+	
+		
+		guard let boosterRulesCache = store.boosterRulesCache else {
+			XCTFail("cached rules must not be nil")
+			return
+		}
+		// The cached rules must not be changed, if so we would have downloaded new ones.
+		XCTAssertEqual(boosterRulesCache.validationRules, [cachedRule])
+		XCTAssertEqual(boosterRulesCache.validationRules.count, 1)
+
+	}
+	func testGIVEN_BoosterService_WHEN_signatureIsInvalid_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		client.onGetBoosterNotificationsRules = { [weak self] _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			completion(.success(self.dummyRulesResponse))
+		}
+		
+		let store = MockTestStore()
+		
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: MockValidationRulesAccess(),
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
+
+		let validationService = BoosterNotificationsService(rulesDownloadService: rulesDownloadService)
+				
+		let expectation = self.expectation(description: "Test should fail with .TECHNICAL_VALIDATION_FAILED")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationService.downloadBoosterNotifications { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed.")
+			case let .failure(error):
+				responseError = error
+				expectation.fulfill()
+			}
+		}
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(responseError, .RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))
+	}
+	
+	private lazy var dummyRulesResponse: PackageDownloadResponse = {
+		do {
+			let fakeData = try rulesCBORDataFake()
+			let package = SAPDownloadedPackage(
+				keysBin: fakeData,
+				signature: Data()
+			)
+			let response = PackageDownloadResponse(
+				package: package,
+				etag: "FakeEtag"
+			)
+			return response
+		} catch {
+			XCTFail("Could not create rules CBOR fake data")
+			let response = PackageDownloadResponse(
+				package: nil,
+				etag: "FailStateETag"
+			)
+			return response
+		}
+	}()
+
+}

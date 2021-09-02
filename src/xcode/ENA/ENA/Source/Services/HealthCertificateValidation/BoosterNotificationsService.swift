@@ -29,12 +29,12 @@ class BoosterNotificationsService {
 	func downloadBoosterNotifications(
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
-//		self.rulesDownloadService?.downloadRules(
-//			ruleType: .boosterNotification,
-//			completion: { result in
-//				Log.info("Rules has been downloaded, please do farther processing here")
-//			}
-//		)
+		self.rulesDownloadService.downloadRules(
+			ruleType: .boosterNotification,
+			completion: { result in
+				completion(result)
+			}
+		)
 	}
 	
 	// MARK: - Private
