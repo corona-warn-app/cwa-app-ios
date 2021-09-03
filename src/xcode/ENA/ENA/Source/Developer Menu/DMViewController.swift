@@ -85,6 +85,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .notifications:
+			vc = DMLocalNotificationsViewController()
 		case .wifiClient:
 			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:

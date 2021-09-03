@@ -8,6 +8,7 @@ import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
 	case keys = 0
+	case notifications
 	case wifiClient
 	case checkSubmittedKeys
 	case appConfiguration
@@ -54,6 +55,7 @@ extension DMMenuItem {
 	var title: String {
 		switch self {
 		case .keys: return "Keys"
+		case .notifications: return "Notifications"
 		case .wifiClient: return "Hourly packages over Wifi only"
 		case .checkSubmittedKeys: return "Check submitted Keys"
 		case .appConfiguration: return "App Configuration"
@@ -88,6 +90,7 @@ extension DMMenuItem {
 	var subtitle: String {
 		switch self {
 		case .keys: return "View local Keys & generate test Keys"
+		case .notifications: return "Trigger test notifications"
 		case .wifiClient: return "Change hourly packages network connection type"
 		case .checkSubmittedKeys: return "Check the state of your local keys"
 		case .appConfiguration: return "See the current app configuration"

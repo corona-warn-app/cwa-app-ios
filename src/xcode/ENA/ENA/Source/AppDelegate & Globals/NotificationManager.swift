@@ -36,6 +36,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
+		
 		case ActionableNotificationIdentifier.riskDetection.identifier,
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
 			showHome()
@@ -68,13 +69,17 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			case .expired, .pending:
 				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
-
 		default: break
 		}
 
+		if let expiredHealthCertificateId = extractId(LocalNotificationIdentifier.certificateExpired.rawValue, from: response.notification.request.identifier) {
+			Log.debug("expiredHealthCertificateId found: \(expiredHealthCertificateId)")
+		} else if let expireSoonHealthCertificateId = extractId(LocalNotificationIdentifier.certificateExpiringSoon.rawValue, from: response.notification.request.identifier) {
+			Log.debug("expireSoonHealthCertificateId found: \(expireSoonHealthCertificateId)")
+		}
 		completionHandler()
 	}
-	
+
 	// MARK: - Internal
 	
 	// MARK: - Private
@@ -98,4 +103,12 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			showTestResultFromNotification(.antigen)
 		}
 	}
+
+	private func extractId(_ prefix: String, from: String) -> String? {
+		guard from.hasPrefix(prefix) else {
+			return nil
+		}
+		return String(from.dropFirst(prefix.count))
+	}
+
 }
