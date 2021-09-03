@@ -85,7 +85,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			return cell
 
 		case .vaccinationHint:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: VaccinationHintTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationHintCellViewModel)
 			return cell
 
@@ -273,6 +273,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		tableView.register(
 			PreferredPersonTableViewCell.self,
 			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			VaccinationHintTableViewCell.self,
+			forCellReuseIdentifier: VaccinationHintTableViewCell.reuseIdentifier
 		)
 	}
 

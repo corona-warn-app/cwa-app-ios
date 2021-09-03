@@ -22,7 +22,8 @@ final class HealthCertifiedPersonViewModel {
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
-		
+
+		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
 		healthCertifiedPerson.objectDidChange
@@ -88,6 +89,8 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}()
 
+	let vaccinationHintCellViewModel: VaccinationHintCellModel
+
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
@@ -108,39 +111,8 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var vaccinationHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		let text: String
-
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated:
-			text = AppStrings.HealthCertificate.Person.VaccinationHint.partiallyVaccinated
-		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
-			text = String(
-				format: AppStrings.HealthCertificate.Person.VaccinationHint.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			)
-		case .notVaccinated, .completelyProtected:
-			fatalError("Cell cannot be shown in any other vaccination state than .partiallyVaccinated or .fullyVaccinated")
-		}
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			textAlignment: .left,
-			text: text,
-			topSpace: 16.0,
-			font: .enaFont(for: .body),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
-		)
-	}
-
 	var vaccinationHintIsVisible: Bool {
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated, .fullyVaccinated:
-			return true
-		case .notVaccinated, .completelyProtected:
-			return false
-		}
+		return !healthCertifiedPerson.vaccinationCertificates.isEmpty
 	}
 
 	var preferredPersonCellModel: PreferredPersonCellModel {
