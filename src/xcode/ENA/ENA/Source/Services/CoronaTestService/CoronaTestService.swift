@@ -60,6 +60,8 @@ class CoronaTestService {
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
+		healthCertificateService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+
 		setup()
 	}
 
@@ -467,6 +469,18 @@ class CoronaTestService {
 		store.positiveTestResultWasShown = false
 		store.isSubmissionConsentGiven = false
 	}
+	
+	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
+		var healthTuple: (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
+		self.healthCertificateService.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				if healthCertificate.uniqueCertificateIdentifier == uniqueCertificateIdentifier {
+					healthTuple = (certificate: healthCertificate, certifiedPerson: healthCertifiedPerson)
+				}
+			}
+		}
+		return healthTuple
+	}
 
 	// MARK: - Private
 
@@ -848,6 +862,19 @@ class CoronaTestService {
 		RunLoop.current.add(outdatedStateTimer, forMode: .common)
 	}
 
+	private func setUniqueCertificateIdentifier(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
+		switch testCertificateRequest.coronaTestType {
+		case .pcr:
+			if self.pcrTest?.registrationToken == testCertificateRequest.registrationToken {
+				pcrTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		case .antigen:
+			if self.antigenTest?.registrationToken == testCertificateRequest.registrationToken {
+				self.antigenTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		}
+	}
+
 	@objc
 	private func invalidateTimer() {
 		outdatedStateTimer?.invalidate()
@@ -920,6 +947,13 @@ class CoronaTestService {
 		case .antigen:
 			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		}
+	}
+
+	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
+		guard let certificate = self.healthCertificateService.healthCertifiedPersons.value[0].testCertificates.first else { return nil }
+		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons.value[0]
+		
+		return (certificate: certificate, certifiedPerson: certifiedPerson)
 	}
 
 	#endif

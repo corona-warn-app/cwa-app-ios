@@ -515,7 +515,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Znajdź ośrodek testujący";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu. Zostaniesz przekierowany(-a) na zewnętrzną stronę internetową RKI.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Poproś o TAN do testu PCR";
@@ -1467,13 +1467,9 @@
 
 "local_notifications_testresults_body" = "Masz nowe wiadomości od Corona-Warn-App.";
 
-"local_notifications_expiringSoon_title" = "Corona-Warn-App";
+"local_notifications_certificate_title" = "Corona-Warn-App";
 
-"local_notifications_expiringSoon_body" = "Sprawdź ważność swoich certyfikatów.";
-
-"local_notifications_expired_title" = "Corona-Warn-App";
-
-"local_notifications_expired_body" = "Sprawdź ważność swoich certyfikatów.";
+"local_notifications_certificate_body" = "Masz nowe wiadomości od Corona-Warn-App.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Przegląd";
@@ -1560,9 +1556,13 @@
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
 /* Version 2.8 */
-"NewVersionFeature_28_standardizeName_title" = "Standardowa nazwa";
+"NewVersionFeature_29_warnGuest_title" = "Ostrzegaj w imieniu innych";
 
-"NewVersionFeature_28_standardizeName_description" = "Poza nazwą w pisowni specyficznej dla kraju każdy certyfikat ma wyświetlaną również nazwę w standardowych znakach łacińskich.";
+"NewVersionFeature_29_warnGuest_description" = "Jako organizator wydarzenia możesz teraz – na polecenie organów zdrowia publicznego – ostrzegać swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się w aplikacji Corona- Warn-App.";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Natychmiastowe wyświetlanie statusu szczepień ozdrowieńców";
+
+"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Aplikacja Corona-Warn-App wyświetla teraz pełną ochronę poszczepienną dla ozdrowieńców bezpośrednio po pierwszym szczepieniu. Dwutygodniowy okres oczekiwania zostaje zniesiony w przypadku wszystkich szczepionek z wyjątkiem Johnson & Johnson.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2005,7 +2005,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
 
-"Statistics_Info_KeySubmissions_Text" = "Liczba użytkowników aplikacji ze zdiagnozowanym za pomocą testu PCR zakażeniem koronawirusem, którzy ostrzegli innych za pomocą aplikacji";
+"Statistics_Info_KeySubmissions_Text" = "Liczba użytkowników aplikacji ze zdiagnozowanym za pomocą testu PCR zakażeniem koronawirusem, którzy ostrzegli innych za pomocą aplikacji.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-dniowa wartość R";
 
@@ -2307,6 +2307,8 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informacje";
 
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Ostrzegaj w imieniu innych";
+
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edytuj";
 
 "TraceLocations_Overview_Item_Prefix" = "Kod QR do %@.";
@@ -2385,6 +2387,67 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ godz.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "W tej chwili nie można zapisać kodu QR. Spróbuj ponownie później (kod błędu %@).";
+
+/* On Behalf Checkin Submission */
+/* - Info */
+"OnBehalfCheckinSubmission_Info_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Większe bezpieczeństwo dla Ciebie i Twoich gości";
+
+"OnBehalfCheckinSubmission_Info_Description" = "Możesz ostrzec swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się za pomocą aplikacji Corona-Warn-App.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Jeśli u osoby, która nie zameldowała swojej obecność w takim wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, goście zostaną powiadomieni, jeśli przebywali w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Możesz ostrzegać swoich gości w imieniu innych osób tylko po otrzymaniu takiego polecenia od organu ds. zdrowia publicznego. W takim przypadku organ prześle Ci numer TAN.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Kontynuuj";
+
+/* - Trace Location Selection */
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Wybierz wydarzenie, o którym chcesz ostrzec innych w imieniu osoby, u której zdiagnozowano koronawirusa, lub przywróć usunięte wydarzenie, skanując ponownie kod QR tego wydarzenia.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Skanuj kod QR";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Kontynuuj";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Brak dostępnych wydarzeń";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Zeskanuj ponownie kod QR odpowiedniego wydarzenia, aby ostrzegać w imieniu innych.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartfon";
+
+/* - Date Time Selection */
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Określ długość pobytu osoby ze zdiagnozowanym koronawirusem, w imieniu której chcesz ostrzec innych. Otrzymasz te informacje od organów ds. zdrowia publicznego.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Początek/Przyjazd";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Czas trwania";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Kontynuuj";
+
+/* - TAN Input */
+"OnBehalfCheckinSubmission_TANInput_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Wprowadź otrzymany 10-miejscowy numer TAN.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Wyślij ostrzeżenie";
+
+/* - Thank You */
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Dziękujemy!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
+
+/* - Errors */
+"OnBehalfCheckinSubmissionError_Failed" = "Wystąpił błąd. Skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "Nieprawidłowy numer TAN. Sprawdź swój wpis lub skontaktuj się z organizacją, która przesłała Ci numer TAN.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Połączenie internetowe zostało utracone. Sprawdź połączenie i spróbuj ponownie.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Raporty o błędach";
@@ -2812,7 +2875,7 @@
 
 "HealthCertificate_Validation_Body2" = "Certyfikat COVID jest ważnym dowodem w przypadku podróży na terenie UE.";
 
-"HealthCertificate_Validation_Headline2" = "Uwaga";
+"HealthCertificate_Validation_Headline2" = "Uwagi";
 
 "HealthCertificate_Validation_Bullet1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
 
@@ -2850,7 +2913,7 @@
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Twój certyfikat nie mógł zostać zweryfikowany";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Uwaga";
+"HealthCertificate_Validation_Passed_hintsTitle" = "Uwagi";
 
 "HealthCertificate_Validation_Passed_hint1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
 
@@ -2867,7 +2930,7 @@
 
 "HealthCertificate_Validation_Open_subtitle" = "Twój certyfikat nie mógł zostać całkowicie zweryfikowany";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Uwaga";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Uwagi";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "Nie udało się sprawdzić poniższych zasad. Upewnij się, że certyfikat jest zgodny z zasadami obowiązującymi w kraju docelowym.";
 

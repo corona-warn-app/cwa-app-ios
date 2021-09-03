@@ -55,7 +55,8 @@ class HealthCertificateService {
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
 	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
-
+	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
+	
 	var nextValidityTimer: Timer?
 
 	var nextFireDate: Date? {
@@ -764,8 +765,11 @@ class HealthCertificateService {
 				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
 
 				switch registerResult {
-				case .success:
+				case .success((_, let healthCertificate)):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
+					
+					didRegisterTestCertificate?(healthCertificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
+					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
 				case .failure(let error):
@@ -848,8 +852,8 @@ class HealthCertificateService {
 		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expiringSoonTitle
-		content.body = AppStrings.LocalNotifications.expiringSoonBody
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let expiringSoonDateComponents = Calendar.current.dateComponents(
@@ -876,8 +880,8 @@ class HealthCertificateService {
 		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.expiredTitle
-		content.body = AppStrings.LocalNotifications.expiredBody
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let expiredDateComponents = Calendar.current.dateComponents(

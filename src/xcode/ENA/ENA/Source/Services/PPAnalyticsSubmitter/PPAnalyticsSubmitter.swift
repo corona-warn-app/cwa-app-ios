@@ -437,9 +437,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let enfRiskLevelChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
 				$0.riskLevelChangedComparedToPreviousSubmission = enfRiskLevelChangedComparedToPreviousSubmission
 			}
-			if let enfMostRecentDateAtRiskLevel = store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: enfMostRecentDateAtRiskLevel)
-			}
+
+			// must be set to ensure sending -1 when we have no date
+			$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel)
+			
 			if let enfDateChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.dateChangedComparedToPreviousSubmission = enfDateChangedComparedToPreviousSubmission
 			}
@@ -450,9 +451,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let checkinRiskLevelChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
 				$0.ptRiskLevelChangedComparedToPreviousSubmission = checkinRiskLevelChangedComparedToPreviousSubmission
 			}
-			if let checkinMostRecentDateAtRiskLevel = store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: checkinMostRecentDateAtRiskLevel)
-			}
+			
+			// must be set to ensure sending -1 when we have no date
+			$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel)
+			
 			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
 			}
