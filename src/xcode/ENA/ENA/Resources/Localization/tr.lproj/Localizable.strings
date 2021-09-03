@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "aşı tarihi: %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Hatırlatma Aşısı";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Sertifikası";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Testi";

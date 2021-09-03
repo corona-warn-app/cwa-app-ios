@@ -232,11 +232,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["testCertificateRequests"] = newValue }
 	}
 
-	var unseenTestCertificateCount: Int {
-		get { kvStore["unseenTestCertificateCount"] as Int? ?? 0 }
-		set { kvStore["unseenTestCertificateCount"] = newValue }
-	}
-
 	var lastSelectedValidationCountry: Country {
 		get { kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry() }
 		set { kvStore["lastSelectedValidationCountry"] = newValue }
