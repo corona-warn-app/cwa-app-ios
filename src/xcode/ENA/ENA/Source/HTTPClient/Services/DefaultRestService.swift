@@ -35,6 +35,19 @@ class DefaultRestService: Service {
 				completion(.failure(.serverError(error)))
 				return
 			}
+			
+			// TODO: Handling for noNetwork:
+			/*
+			if let error = error as NSError?,
+			   error.domain == NSURLErrorDomain,
+			   error.code == NSURLErrorNotConnectedToInternet {
+				Log.error("No network connection", log: .api, error: error)
+				completion(.failure(.noNetworkConnection))
+				return
+			}
+			*/
+			
+			
 			#if DEBUG
 			Log.debug("URL Response \(response.statusCode)", log: .client)
 			#endif
@@ -61,20 +74,19 @@ class DefaultRestService: Service {
 			// special handling for submissionKeys
 			// special handling for submitOnBehalf
 			// special handling for authorizeOTPEdus
+			// special handling for authorizeOTPEls
 			
 			// TODO:
 			//case 401:
 			// special handling for authorizeOTPEdus
-			
-			// TODO:
-			//case 403:
-			// special handling for submissionKeys
-			// special handling for authorizeOTPEdus
+			// special handling for authorizeOTPEls
 			
 			// TODO:
 			//case 403:
 			// special handling for submissionKeys
 			// special handling for submitOnBehalf
+			// special handling for authorizeOTPEdus
+			// special handling for authorizeOTPEls
 			
 			// TODO:
 			//case 429:
@@ -83,6 +95,7 @@ class DefaultRestService: Service {
 			// TODO:
 			//case 500:
 			// special handling for authorizeOTPEdus
+			// special handling for authorizeOTPEls
 			
 			// handle error / notModified cases here
 
