@@ -119,10 +119,6 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 		guard section == .euTracingCell else { return }
 		
-		if #available(iOS 13, *) {
-		} else {
-			navigationItem.largeTitleDisplayMode = .never
-		}
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
 		navigationController?.pushViewController(vc, animated: true)
 	}
