@@ -55,6 +55,8 @@ class DefaultRestService: Service {
 			// TODO: special case response.hasAcceptableStatusCode -> 200...299
 			// TODO: special case submitPPA: only success for 204, NOT for 200
 			// TODO: special case dccRegisterPublicKey: only success for 201, NOT for 200
+			// TODO: special case submitELS: only success for 201, NOT for 200
+
 			// TODO: special case traceWarningPackageDownload: response.httpResponse.expectedContentLength is handled
 			case 200:
 				switch resource.decode(bodyData) {
@@ -95,6 +97,7 @@ class DefaultRestService: Service {
 			// special handling for authorizeOTPEls
 			// special handling for submitPPA
 			// special handling for dccRegisterPublicKey
+			// special handling for submitELS
 			
 			// TODO:
 			//case 409:
