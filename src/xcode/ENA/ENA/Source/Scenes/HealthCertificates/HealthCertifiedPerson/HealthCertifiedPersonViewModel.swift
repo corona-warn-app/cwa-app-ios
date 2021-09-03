@@ -61,8 +61,8 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
-		case person
 		case vaccinationHint
+		case person
 		case certificates
 
 		static var numberOfSections: Int {
