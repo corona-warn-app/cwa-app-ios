@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 import HealthCertificateToolkit
+import class CertLogic.Rule
 
 class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
@@ -12,10 +13,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	init(
 		healthCertificates: [HealthCertificate],
-		isPreferredPerson: Bool = false
+		isPreferredPerson: Bool = false,
+		boosterRule: Rule? = nil,
+		isNewBoosterRule: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
+		self.boosterRule = boosterRule
+		self.isNewBoosterRule = isNewBoosterRule
 
 		setup()
 	}
@@ -25,13 +30,39 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
 		case isPreferredPerson
+		case boosterRule
+		case isNewBoosterRule
 	}
 
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		healthCertificates = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates).compactMap { $0.healthCertificate }
+		healthCertificates = []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
+		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
+		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
+
+		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
+
+		decodingContainers.forEach {
+			do {
+				let healthCertificate = try HealthCertificate(
+					base45: $0.base45,
+					validityState: $0.validityState ?? .valid,
+					isNew: $0.isNew ?? false,
+					isValidityStateNew: $0.isValidityStateNew ?? false
+				)
+
+				healthCertificates.append(healthCertificate)
+			} catch {
+				let decodingFailedHealthCertificate = DecodingFailedHealthCertificate(
+					base45: $0.base45,
+					error: error
+				)
+
+				decodingFailedHealthCertificates.append(decodingFailedHealthCertificate)
+			}
+		}
 
 		setup()
 	}
@@ -46,7 +77,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.healthCertificates == rhs.healthCertificates && lhs.isPreferredPerson == rhs.isPreferredPerson
+		lhs.healthCertificates == rhs.healthCertificates &&
+		lhs.isPreferredPerson == rhs.isPreferredPerson &&
+		lhs.boosterRule == rhs.boosterRule &&
+		lhs.isNewBoosterRule == rhs.isNewBoosterRule
 	}
 
 	// MARK: - Protocol Comparable
@@ -82,6 +116,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
+	var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
+
 	@DidSetPublished var isPreferredPerson: Bool {
 		didSet {
 			if isPreferredPerson != oldValue {
@@ -108,6 +144,23 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 
+	@DidSetPublished var boosterRule: Rule? {
+		didSet {
+			if boosterRule != oldValue {
+				isNewBoosterRule = boosterRule != nil
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var isNewBoosterRule: Bool {
+		didSet {
+			if isNewBoosterRule != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
 	var name: Name? {
 		healthCertificates.first?.name
 	}
@@ -122,6 +175,12 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	var testCertificates: [HealthCertificate] {
 		healthCertificates.filter { $0.testEntry != nil }
+	}
+
+	var unseenNewsCount: Int {
+		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
+
+		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
 	}
 
 	@objc

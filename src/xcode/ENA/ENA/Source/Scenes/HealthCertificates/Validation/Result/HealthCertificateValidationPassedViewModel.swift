@@ -64,12 +64,6 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 							ruleCount
 						)
 					),
-					.space(height: 12),
-					.headline(text: AppStrings.HealthCertificate.Validation.Result.Passed.hintsTitle),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint1, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint3, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint4, spacing: .large),
 					.textWithLinks(
 						text: String(
 							format: AppStrings.HealthCertificate.Validation.moreInformation,
@@ -79,7 +73,13 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 							AppStrings.Links.healthCertificateValidationEU: AppStrings.Links.healthCertificateValidationEU
 						],
 						linksColor: .enaColor(for: .textTint)
-					)
+					),
+					.space(height: 8),
+					.headline(text: AppStrings.HealthCertificate.Validation.Result.Passed.hintsTitle),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint1, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint3, spacing: .large),
+					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint4, spacing: .large)
 				]
 			)
 		])

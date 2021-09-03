@@ -222,7 +222,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
-	let eventStore: EventStoringProviding = EventStore.make()
+	let eventStore: EventStoringProviding = {
+		#if DEBUG
+		if isUITesting {
+			return MockEventStore()
+		}
+		#endif
+		
+		return EventStore.make()
+	}()
     let environmentProvider: EnvironmentProviding
 	var store: Store
 
@@ -388,13 +396,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return mock
 		}
 		#endif
-		
+		let rulesDownloadService = RulesDownloadService(store: store, client: client)
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifying: dccSignatureVerificationService,
-			dscListProvider: dscListProvider
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 	}()
 	

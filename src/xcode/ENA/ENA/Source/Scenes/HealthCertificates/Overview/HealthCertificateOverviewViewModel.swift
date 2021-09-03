@@ -20,7 +20,12 @@ class HealthCertificateOverviewViewModel {
 		self.cameraAuthorizationStatus = cameraAuthorizationStatus
 		
 		healthCertificateService.healthCertifiedPersons
-			.sink { self.healthCertifiedPersons = $0 }
+			.sink {
+				self.healthCertifiedPersons = $0
+					.filter { !$0.healthCertificates.isEmpty }
+				self.decodingFailedHealthCertificates = $0
+					.flatMap { $0.decodingFailedHealthCertificates }
+			}
 			.store(in: &subscriptions)
 
 		healthCertificateService.testCertificateRequests
@@ -42,15 +47,18 @@ class HealthCertificateOverviewViewModel {
 		case missingPermission
 		case testCertificateRequest
 		case healthCertificate
+		case decodingFailedHealthCertificates
 	}
 
 	@DidSetPublished var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	@DidSetPublished var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
 
 	var isEmpty: Bool {
 		numberOfRows(in: Section.testCertificateRequest.rawValue) == 0 &&
-		numberOfRows(in: Section.healthCertificate.rawValue) == 0
+		numberOfRows(in: Section.healthCertificate.rawValue) == 0 &&
+		numberOfRows(in: Section.decodingFailedHealthCertificates.rawValue) == 0
 	}
 
 	var isEmptyStateVisible: Bool {
@@ -71,6 +79,8 @@ class HealthCertificateOverviewViewModel {
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
+		case .decodingFailedHealthCertificates:
+			return decodingFailedHealthCertificates.count
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -93,10 +103,6 @@ class HealthCertificateOverviewViewModel {
 
 	func remove(testCertificateRequest: TestCertificateRequest) {
 		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
-	}
-
-	func resetBadgeCount() {
-		healthCertificateService.resetUnseenTestCertificateCount()
 	}
 
 	// MARK: - Private

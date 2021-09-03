@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinated on %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Booster Vaccination";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Certificate";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Test";
