@@ -215,8 +215,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			// if recovery date found -> use it
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-				  let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
-				  let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString) {
+				  let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
 			// else if last vaccination date -> use it
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else {
