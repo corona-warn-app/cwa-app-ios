@@ -6,7 +6,7 @@ import Foundation
 
 extension Locator {
 
-	static func submitOnBehalf(
+	static func authorizeOtpEdus(
 		forceApiTokenHeader: Bool = false,
 		isFake: Bool
 	) -> Locator {
