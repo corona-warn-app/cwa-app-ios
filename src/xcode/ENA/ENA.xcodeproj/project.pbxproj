@@ -532,6 +532,7 @@
 		5001DE8826E20903004242FA /* SubmitOnBehalf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8726E20903004242FA /* SubmitOnBehalf.swift */; };
 		5001DE8A26E20AC6004242FA /* AuthorizeOtpEdus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */; };
 		5001DE8C26E20C4B004242FA /* AuthorizeOtpEls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */; };
+		5001DE8E26E20D76004242FA /* SubmitPPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8D26E20D76004242FA /* SubmitPPA.swift */; };
 		500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */; };
 		500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */; };
 		5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006C274260E2A4900533CAA /* CheckinWithRisk.swift */; };
@@ -1938,6 +1939,7 @@
 		5001DE8726E20903004242FA /* SubmitOnBehalf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitOnBehalf.swift; sourceTree = "<group>"; };
 		5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeOtpEdus.swift; sourceTree = "<group>"; };
 		5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeOtpEls.swift; sourceTree = "<group>"; };
+		5001DE8D26E20D76004242FA /* SubmitPPA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPPA.swift; sourceTree = "<group>"; };
 		500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesCache.swift; sourceTree = "<group>"; };
 		500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationServiceValidationTests.swift; sourceTree = "<group>"; };
 		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
@@ -7831,6 +7833,7 @@
 				5001DE8726E20903004242FA /* SubmitOnBehalf.swift */,
 				5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */,
 				5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */,
+				5001DE8D26E20D76004242FA /* SubmitPPA.swift */,
 			);
 			path = Locators;
 			sourceTree = "<group>";
@@ -9292,6 +9295,7 @@
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */,
 				ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */,
+				5001DE8E26E20D76004242FA /* SubmitPPA.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
 				EB43DB9B2624439D0063687D /* corona_test_parameters.pb.swift in Sources */,

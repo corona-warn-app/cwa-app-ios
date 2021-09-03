@@ -53,6 +53,7 @@ class DefaultRestService: Service {
 			#endif
 			switch response.statusCode {
 			// TODO: special case response.hasAcceptableStatusCode -> 200...299
+			// TODO special case submitPPA: only success for 204, NOT for 200
 			case 200:
 				switch resource.decode(bodyData) {
 				case .success(let model):
@@ -75,11 +76,13 @@ class DefaultRestService: Service {
 			// special handling for submitOnBehalf
 			// special handling for authorizeOTPEdus
 			// special handling for authorizeOTPEls
+			// special handling for submitPPA
 			
 			// TODO:
 			//case 401:
 			// special handling for authorizeOTPEdus
 			// special handling for authorizeOTPEls
+			// special handling for submitPPA
 			
 			// TODO:
 			//case 403:
@@ -87,15 +90,18 @@ class DefaultRestService: Service {
 			// special handling for submitOnBehalf
 			// special handling for authorizeOTPEdus
 			// special handling for authorizeOTPEls
+			// special handling for submitPPA
 			
 			// TODO:
 			//case 429:
 			// special handling for authorizeOTPEdus
+			// special handling for submitPPA
 
 			// TODO:
 			//case 500:
 			// special handling for authorizeOTPEdus
 			// special handling for authorizeOTPEls
+			// special handling for submitPPA
 			
 			// handle error / notModified cases here
 
