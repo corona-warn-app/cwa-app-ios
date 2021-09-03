@@ -396,14 +396,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return mock
 		}
 		#endif
-		
+		let rulesDownloadService = RulesDownloadService(store: store, client: client)
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			signatureVerifying: dccSignatureVerificationService,
 			dscListProvider: dscListProvider,
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: rulesDownloadService
 		)
 	}()
 	

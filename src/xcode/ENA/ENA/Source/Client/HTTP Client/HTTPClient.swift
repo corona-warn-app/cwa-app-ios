@@ -705,7 +705,7 @@ final class HTTPClient: Client {
 	func getBoosterNotificationRules(
 		eTag: String? = nil,
 		isFake: Bool = false,
-		completion: @escaping DCCRulesCompletionHandler
+		completion: @escaping BoosterRulesCompletionHandler
 	) {
 		guard let request = try? URLRequest.boosterRulesRequest(
 				configuration: configuration,

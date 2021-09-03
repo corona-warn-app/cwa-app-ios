@@ -27,7 +27,8 @@ protocol Client {
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	typealias ValidationOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	
+	typealias BoosterRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.
@@ -246,7 +247,7 @@ protocol Client {
 	func getBoosterNotificationRules(
 		eTag: String?,
 		isFake: Bool,
-		completion: @escaping DCCRulesCompletionHandler
+		completion: @escaping BoosterRulesCompletionHandler
 	)
 }
 
