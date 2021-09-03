@@ -41,15 +41,9 @@ final class DMLocalNotificationsViewModel {
 				textColor: .enaColor(for: .textContrast),
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					Log.debug("button hit")
-					guard let in5Seconds = Calendar.current.date(byAdding: .second, value: 5, to: Date()) else {
-						Log.error("Failed to schedule local notification")
-						return
-					}
 					self?.scheduleNotificationForExpired(id: "expiredTest")
 				}
 			)
-
 		}
 	}
 
@@ -101,7 +95,7 @@ final class DMLocalNotificationsViewModel {
 	private func notificationSettings() {
 		let center = UNUserNotificationCenter.current()
 
-		center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+		center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
 			guard granted else {
 				Log.debug("notifications not allowed")
 				return

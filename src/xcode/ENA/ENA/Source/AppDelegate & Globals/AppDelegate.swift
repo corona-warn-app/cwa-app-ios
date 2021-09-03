@@ -483,7 +483,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// We don't need the Route parameter in the NotificationManager
 				self?.showHome()
 			},
-			showTestResultFromNotification: coordinator.showTestResultFromNotification
+			showTestResultFromNotification: coordinator.showTestResultFromNotification,
+			showHealthCertificate: { certifiedPerson, certificate in
+				Log.debug("Show healthcertificate")
+			}
 		)
 		return notificationManager
 	}()
