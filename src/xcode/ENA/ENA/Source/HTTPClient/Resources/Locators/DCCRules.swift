@@ -7,7 +7,7 @@ import Foundation
 extension Locator {
 
 	static func DCCRules(
-		rulePath: String
+		rulePath: String,
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
