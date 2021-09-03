@@ -56,6 +56,7 @@ class DefaultRestService: Service {
 			// TODO: special case submitPPA: only success for 204, NOT for 200
 			// TODO: special case dccRegisterPublicKey: only success for 201, NOT for 200
 			// TODO: special case submitELS: only success for 201, NOT for 200
+			// TODO: special case digitalCovid19cert: 202
 
 			// TODO: special case traceWarningPackageDownload: response.httpResponse.expectedContentLength is handled
 			case 200:
@@ -82,6 +83,7 @@ class DefaultRestService: Service {
 			// special handling for authorizeOTPEls
 			// special handling for submitPPA
 			// special handling for dccRegisterPublicKey
+			// special handling for digitalCovid19cert
 			
 			// TODO:
 			//case 401:
@@ -100,8 +102,20 @@ class DefaultRestService: Service {
 			// special handling for submitELS
 			
 			// TODO:
+			//case 404:
+			// special handling for digitalCovid19cert
+			
+			// TODO:
 			//case 409:
 			// special handling for dccRegisterPublicKey
+			
+			// TODO:
+			//case 410:
+			// special handling for digitalCovid19cert
+			
+			// TODO:
+			//case 412:
+			// special handling for digitalCovid19cert
 			
 			// TODO:
 			//case 429:
@@ -114,7 +128,9 @@ class DefaultRestService: Service {
 			// special handling for authorizeOTPEls
 			// special handling for submitPPA
 			// special handling for dccRegisterPublicKey
-
+			// SUPER special handling for digitalCovid19cert, with decoding the 500 response
+			
+			
 			// handle error / notModified cases here
 
 			default:
