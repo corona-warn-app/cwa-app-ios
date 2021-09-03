@@ -53,7 +53,8 @@ class DefaultRestService: Service {
 			#endif
 			switch response.statusCode {
 			// TODO: special case response.hasAcceptableStatusCode -> 200...299
-			// TODO special case submitPPA: only success for 204, NOT for 200
+			// TODO: special case submitPPA: only success for 204, NOT for 200
+			// TODO: special case traceWarningPackageDownload: response.httpResponse.expectedContentLength is handled
 			case 200:
 				switch resource.decode(bodyData) {
 				case .success(let model):
