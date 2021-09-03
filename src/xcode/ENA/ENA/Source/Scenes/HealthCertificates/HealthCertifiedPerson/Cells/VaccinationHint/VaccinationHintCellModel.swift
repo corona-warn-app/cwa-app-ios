@@ -13,12 +13,6 @@ final class VaccinationHintCellModel {
 		healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
-
-		healthCertifiedPerson.$isPreferredPerson
-			.sink { [weak self] in
-				self?.isPreferredPerson = $0
-			}
-			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -59,16 +53,8 @@ final class VaccinationHintCellModel {
 		}
 	}
 
-	@DidSetPublished var isPreferredPerson: Bool = false
-
-	func setAsPreferredPerson(_ newValue: Bool) {
-		healthCertifiedPerson.isPreferredPerson = newValue
-	}
-
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson
-
-	private var subscriptions = Set<AnyCancellable>()
 
 }
