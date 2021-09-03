@@ -23,7 +23,12 @@ class DefaultRestService: Service {
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
 		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
+		// TODO: add headers is missing
 		session.dataTask(with: request) { bodyData, response, error in
+			
+			// TODO: special handling: UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+			// TODO: special handling:UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest = request.httpBody
+
 			guard error == nil,
 				  let response = response as? HTTPURLResponse else {
 				Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
@@ -34,6 +39,7 @@ class DefaultRestService: Service {
 			Log.debug("URL Response \(response.statusCode)", log: .client)
 			#endif
 			switch response.statusCode {
+			// TODO: special case response.hasAcceptableStatusCode -> 200...299
 			case 200:
 				switch resource.decode(bodyData) {
 				case .success(let model):
@@ -46,6 +52,19 @@ class DefaultRestService: Service {
 
 			case 304:
 				completion(.failure(.notModified))
+				
+			// TODO:
+			//case 400:
+			// special handling for registrationTokenResponse
+			// special handling for getTestResult
+			// special handling for getTANForExposureSubmit
+			// special handling for submissionKeys
+			// special handling for submitOnBehalf
+			
+			// TODO:
+			//case 403:
+			// special handling for submissionKeys
+			// special handling for submitOnBehalf
 
 			// handle error / notModified cases here
 
