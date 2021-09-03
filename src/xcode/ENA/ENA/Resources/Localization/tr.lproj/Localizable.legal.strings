@@ -127,7 +127,7 @@
 
 "errorReport_Legal_SendReports_Headline" = "Rıza beyanınız";
 
-"errorReport_Legal_SendReports_Subline" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+"errorReport_Legal_SendReports_Subline" = "“Kabul Et ve Gönder”e tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
 "errorReport_Legal_SendReports_Bullet1_Part1" = "Tarafınızdan oluşturulan hata raporu, hata analizinin gerçekleştirilmesi için RKI’ye aktarılır.";
 
