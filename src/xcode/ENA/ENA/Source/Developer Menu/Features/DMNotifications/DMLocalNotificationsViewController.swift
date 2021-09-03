@@ -10,8 +10,8 @@ final class DMLocalNotificationsViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init() {
-		self.viewModel = DMLocalNotificationsViewModel()
+	init(healthCertificateService: HealthCertificateService) {
+		self.viewModel = DMLocalNotificationsViewModel(healthCertificateService: healthCertificateService)
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
 		} else {
@@ -38,23 +38,14 @@ final class DMLocalNotificationsViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		viewModel.itemsCount
+		viewModel.items(section: section)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let section = DMLocalNotificationsViewModel.Sections(rawValue: indexPath.section) else {
-			fatalError("unknown tableview section")
-		}
-
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
-		switch section {
-
-		case .expired:
-			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-		}
-
+		let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
+		cell.configure(cellViewModel: cellViewModel)
+		return cell
 	}
 
 	// MARK: - Private

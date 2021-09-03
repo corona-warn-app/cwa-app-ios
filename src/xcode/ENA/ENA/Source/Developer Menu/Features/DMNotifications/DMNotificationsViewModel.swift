@@ -13,43 +13,47 @@ final class DMLocalNotificationsViewModel {
 
 	// MARK: - Init
 
-	init() {
+	init(healthCertificateService: HealthCertificateService) {
+		self.healthCertificateService = healthCertificateService
+
 		notificationSettings()
 	}
 
 	// MARK: - Internal
 
-	enum Sections: Int, CaseIterable {
-		case expired
-	}
-
-	let itemsCount: Int = 1
+//	enum Sections: Int, CaseIterable {
+//		case expired
+//	}
 
 	var numberOfSections: Int {
-		return Sections.allCases.count
+		healthCertificateService.healthCertifiedPersons.value.count
+	}
+
+	func items(section: Int) -> Int {
+		let persons = healthCertificateService.healthCertifiedPersons.value
+		return persons[section].healthCertificates.count
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> Any {
-		guard let section = Sections(rawValue: indexPath.section) else {
-			fatalError("Invalid tableview section")
-		}
-		switch section {
 
-		case .expired:
-			return DMButtonCellViewModel(
-				text: "Trigger expired local notification",
-				textColor: .enaColor(for: .textContrast),
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: { [weak self] in
-					self?.scheduleNotificationForExpired(id: "expiredTest")
-				}
-			)
+		guard let identifier = healthCertificateService.healthCertifiedPersons.value[indexPath.section].healthCertificates[indexPath.row].uniqueCertificateIdentifier else {
+			fatalError("Failed to find matching identifier")
 		}
+
+		return DMButtonCellViewModel(
+			text: "Person: \(indexPath.section), Healthcertificate \(indexPath.row)",
+			textColor: .enaColor(for: .textContrast),
+			backgroundColor: .enaColor(for: .buttonPrimary),
+			action: { [weak self] in
+				self?.scheduleNotificationForExpired(id: identifier)
+			}
+		)
 	}
 
 	// MARK: - Private
 
-	let notificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
+	private let notificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
+	private let healthCertificateService: HealthCertificateService
 
 	private func scheduleNotificationForExpired(
 		id: String

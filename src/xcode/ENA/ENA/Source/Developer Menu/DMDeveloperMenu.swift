@@ -51,7 +51,9 @@ final class DMDeveloperMenu {
 		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		healthCertificateService: HealthCertificateService
+
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -66,6 +68,7 @@ final class DMDeveloperMenu {
 		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
+		self.healthCertificateService = healthCertificateService
 	}
 
 	// MARK: - Internal
@@ -91,7 +94,8 @@ final class DMDeveloperMenu {
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
-			ppacService: ppacService
+			ppacService: ppacService,
+			healthCertificateService: healthCertificateService
 		)
 		
 		let closeBarButtonItem = UIBarButtonItem(
@@ -133,7 +137,8 @@ final class DMDeveloperMenu {
 	private let coronaTestService: CoronaTestService
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
-	
+	private let healthCertificateService: HealthCertificateService
+
 	@objc
 	private func _showDeveloperMenu(_: UITapGestureRecognizer) {
 		showDeveloperMenu()
