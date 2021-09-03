@@ -519,6 +519,7 @@
 		4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */; };
 		500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */; };
 		5001DE7126E1FFB4004242FA /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7026E1FFB4004242FA /* Statistics.swift */; };
+		5001DE7326E200DC004242FA /* QRPosterTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7226E200DC004242FA /* QRPosterTemplate.swift */; };
 		500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */; };
 		500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */; };
 		5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006C274260E2A4900533CAA /* CheckinWithRisk.swift */; };
@@ -1912,6 +1913,7 @@
 		4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLogger.swift; sourceTree = "<group>"; };
 		4BAB490326C9B70900CC4C11 /* RateLimitLoggerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLoggerTests.swift; sourceTree = "<group>"; };
 		5001DE7026E1FFB4004242FA /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		5001DE7226E200DC004242FA /* QRPosterTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPosterTemplate.swift; sourceTree = "<group>"; };
 		500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesCache.swift; sourceTree = "<group>"; };
 		500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationServiceValidationTests.swift; sourceTree = "<group>"; };
 		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
@@ -7792,6 +7794,7 @@
 			children = (
 				BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */,
 				5001DE7026E1FFB4004242FA /* Statistics.swift */,
+				5001DE7226E200DC004242FA /* QRPosterTemplate.swift */,
 			);
 			path = Locators;
 			sourceTree = "<group>";
@@ -8861,6 +8864,7 @@
 				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */,
 				5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */,
+				5001DE7326E200DC004242FA /* QRPosterTemplate.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				50AA525425FB9ACA000C77BB /* TraceWarningDiscovery.swift in Sources */,
 				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
