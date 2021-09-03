@@ -2067,6 +2067,8 @@ enum AppStrings {
 				static let partiallyVaccinated = NSLocalizedString("HealthCertifiedPerson_partiallyVaccinated", comment: "")
 				static let daysUntilCompleteProtection = NSLocalizedString("HealthCertifiedPerson_daysUntilCompleteProtection", comment: "")
 				static let completelyProtected = NSLocalizedString("HealthCertifiedPerson_completelyProtected", comment: "")
+				static let boosterRuleFAQ = NSLocalizedString("HealthCertifiedPerson_boosterRuleFAQ", comment: "")
+				static let boosterRuleFAQPlaceholder = NSLocalizedString("HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ", comment: "")
 			}
 
 			enum PreferredPerson {

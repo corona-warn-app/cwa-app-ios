@@ -4,6 +4,7 @@
 
 import Foundation
 import OpenCombine
+import UIKit.UIFont
 
 final class VaccinationHintCellModel {
 
@@ -20,8 +21,6 @@ final class VaccinationHintCellModel {
 	let title = AppStrings.HealthCertificate.Person.VaccinationHint.title
 
 	var subtitle: String? {
-
-
 		guard let lastVaccinationDate = healthCertifiedPerson.vaccinationCertificates.last?.vaccinationEntry?.localVaccinationDate,
 			  let daysSinceLastVaccination = Calendar.autoupdatingCurrent.dateComponents([.day], from: lastVaccinationDate, to: Date()).day else {
 				  fatalError("Cell cannot be shown if person is not vaccinated")
@@ -51,6 +50,37 @@ final class VaccinationHintCellModel {
 		case .notVaccinated:
 			fatalError("Cell cannot be shown if person is not vaccinated")
 		}
+	}
+
+	var faqLink: NSAttributedString? {
+		guard healthCertifiedPerson.boosterRule != nil else {
+			return nil
+		}
+
+		let text = String(
+			format: AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQ,
+			AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQPlaceholder
+		)
+
+		let textAttributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.preferredFont(forTextStyle: ENAFont.body.textStyle)
+				.scaledFont(
+					size: ENAFont.body.fontSize,
+					weight: ENAFont.body.fontWeight
+				),
+			.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+		let attributedString = NSMutableAttributedString(
+			string: text,
+			attributes: textAttributes
+		)
+
+		attributedString.mark(
+			AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQPlaceholder,
+			with: AppStrings.Links.healthCertificateBoosterFAQ
+		)
+
+		return attributedString
 	}
 
 	// MARK: - Private

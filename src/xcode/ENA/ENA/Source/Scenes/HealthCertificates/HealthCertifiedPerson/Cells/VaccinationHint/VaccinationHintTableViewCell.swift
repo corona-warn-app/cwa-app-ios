@@ -33,8 +33,10 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(with cellModel: VaccinationHintCellModel) {
 		titleLabel.text = cellModel.title
 		subtitleLabel.text = cellModel.subtitle
-
 		descriptionLabel.text = cellModel.description
+
+		faqLinkTextView.attributedText = cellModel.faqLink
+		faqLinkTextView.isHidden = cellModel.faqLink == nil
 	}
 
 	// MARK: - Private
@@ -83,17 +85,21 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		return descriptionLabel
 	}()
 
-	private let linkTextView: UITextView = {
-		let linkTextView = UITextView()
-		linkTextView.backgroundColor = .enaColor(for: .background)
-		linkTextView.isScrollEnabled = false
-		linkTextView.isEditable = false
-		linkTextView.textContainerInset = .zero
-		linkTextView.textContainer.lineFragmentPadding = .zero
-		linkTextView.textColor = .enaColor(for: .textPrimary1)
-		linkTextView.tintColor = .enaColor(for: .textTint)
+	private let faqLinkTextView: UITextView = {
+		let faqLinkTextView = UITextView()
+		faqLinkTextView.backgroundColor = .enaColor(for: .background)
+		faqLinkTextView.isScrollEnabled = false
+		faqLinkTextView.isEditable = false
+		faqLinkTextView.textContainerInset = .zero
+		faqLinkTextView.textContainer.lineFragmentPadding = .zero
+		faqLinkTextView.textColor = .enaColor(for: .textPrimary1)
+		faqLinkTextView.tintColor = .enaColor(for: .textTint)
+		faqLinkTextView.linkTextAttributes = [
+			.foregroundColor: UIColor.enaColor(for: .textTint),
+			.underlineColor: UIColor.clear
+		]
 
-		return linkTextView
+		return faqLinkTextView
 	}()
 
 	private func setupView() {
@@ -113,6 +119,8 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		contentStackView.setCustomSpacing(0, after: titleLabel)
 		contentStackView.addArrangedSubview(subtitleLabel)
 		contentStackView.addArrangedSubview(descriptionLabel)
+		contentStackView.setCustomSpacing(16, after: descriptionLabel)
+		contentStackView.addArrangedSubview(faqLinkTextView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -127,8 +135,6 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
-
-//		accessibilityElements = [personalDataStackView as Any, preferredPersonSwitch as Any]
 	}
 
 	private func updateBorderWidth() {
