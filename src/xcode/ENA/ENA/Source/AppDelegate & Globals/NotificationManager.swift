@@ -30,16 +30,6 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		if notification.request.identifier.contains(LocalNotificationIdentifier.checkout.rawValue) {
 			eventCheckoutService.checkoutOverdueCheckins()
 		}
-		
-		// Show badge on certificates tab when certificate is expired.
-		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpired.rawValue) {
-			healthCertificateService.unseenTestCertificateCount.value += 1
-		}
-		
-		// Show badge on certificates tab when certificate expires soon.
-		if notification.request.identifier.contains(LocalNotificationIdentifier.certificateExpiringSoon.rawValue) {
-			healthCertificateService.unseenTestCertificateCount.value += 1
-		}
 
 		completionHandler([.alert, .badge, .sound])
 	}

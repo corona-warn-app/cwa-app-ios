@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "zaszczepiono dnia %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Szczepienie przypominające";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Certyfikat testu";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";
