@@ -60,12 +60,30 @@ class DefaultRestService: Service {
 			// special handling for getTANForExposureSubmit
 			// special handling for submissionKeys
 			// special handling for submitOnBehalf
+			// special handling for authorizeOTPEdus
+			
+			// TODO:
+			//case 401:
+			// special handling for authorizeOTPEdus
+			
+			// TODO:
+			//case 403:
+			// special handling for submissionKeys
+			// special handling for authorizeOTPEdus
 			
 			// TODO:
 			//case 403:
 			// special handling for submissionKeys
 			// special handling for submitOnBehalf
+			
+			// TODO:
+			//case 429:
+			// special handling for authorizeOTPEdus
 
+			// TODO:
+			//case 500:
+			// special handling for authorizeOTPEdus
+			
 			// handle error / notModified cases here
 
 			default:
