@@ -21,9 +21,9 @@ final class DMLocalNotificationsViewModel {
 
 	// MARK: - Internal
 
-//	enum Sections: Int, CaseIterable {
-//		case expired
-//	}
+	enum Sections: Int, CaseIterable {
+		case expired
+	}
 
 	var numberOfSections: Int {
 		healthCertificateService.healthCertifiedPersons.value.count

@@ -484,9 +484,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				self?.showHome()
 			},
 			showTestResultFromNotification: coordinator.showTestResultFromNotification,
-			showHealthCertificate: { certifiedPerson, certificate in
-				Log.debug("Show healthcertificate")
-			}
+			showHealthCertificate: coordinator.showHealthCertificateFromNotification
 		)
 		return notificationManager
 	}()

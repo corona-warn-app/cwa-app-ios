@@ -155,6 +155,31 @@ class RootCoordinator: RequiresAppDependencies {
 		homeCoordinator?.showTestResultFromNotification(with: testType)
 	}
 	
+	func showHealthCertificateFromNotification(for person: HealthCertifiedPerson, with certificate: HealthCertificate) {
+
+		// ensure that the healthCertificateCoordinator is created
+		
+		// then switch the tabBarController tab
+		
+		// show the certificate screen on the healthCertificateCoordinator's viewController
+		
+		if healthCertificatesCoordinator == nil {
+			healthCertificatesCoordinator = HealthCertificatesCoordinator(
+				store: store,
+				healthCertificateService: healthCertificateService,
+				healthCertificateValidationService: healthCertificateValidationService,
+				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			)
+		}
+		
+		healthCertificatesCoordinator?.showHealthCertificate(
+			healthCertifiedPerson: person,
+			healthCertificate: certificate,
+			shouldPushOnModalNavigationController: false
+		)
+	}
+	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(
 			pageType: .togetherAgainstCoronaPage,
