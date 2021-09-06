@@ -325,7 +325,7 @@ class CoronaTestService {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
 		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
-			Log.info("recieved test result from getTestResult: \(private: result)")
+			Log.info("received test result from getTestResult: \(private: result)")
 			
 			guard let self = self else {
 				completion(result)
