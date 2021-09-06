@@ -30,6 +30,7 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureableCell, ReuseIdentifier
 		buttonAction = cellViewModel.action
 		button.setTitle(cellViewModel.text, for: .normal)
 		button.setTitleColor(cellViewModel.textColor, for: .normal)
+		button.titleLabel?.numberOfLines = 0
 		let backgroundImage = UIImage.with(color: cellViewModel.backgroundColor)
 		button.setBackgroundImage(backgroundImage, for: .normal)
 		button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)

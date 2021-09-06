@@ -15,11 +15,11 @@ final class DMLocalNotificationsViewModel {
 
 	init(healthCertificateService: HealthCertificateService) {
 		self.healthCertificateService = healthCertificateService
-
 		notificationSettings()
 	}
 
 	// MARK: - Internal
+	var showAlert: (UIAlertController) -> Void = { _ in }
 
 	enum Sections: Int, CaseIterable {
 		case expired
@@ -45,7 +45,7 @@ final class DMLocalNotificationsViewModel {
 			textColor: .enaColor(for: .textContrast),
 			backgroundColor: .enaColor(for: .buttonPrimary),
 			action: { [weak self] in
-				self?.scheduleNotificationForExpired(id: identifier)
+				self?.showSelectionAlert(id: identifier)
 			}
 		)
 	}
@@ -54,6 +54,24 @@ final class DMLocalNotificationsViewModel {
 
 	private let notificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
 	private let healthCertificateService: HealthCertificateService
+
+	private func showSelectionAlert(id: String) {
+		let alert = UIAlertController(
+			title: "Schedule local notification",
+			message: "This will end the app and schedule a local notification", preferredStyle: .alert
+		)
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		let expiredAction = UIAlertAction(title: "Expired notification", style: .default) { [weak self] _ in
+			self?.scheduleNotificationForExpired(id: id)
+		}
+		let expiredSoonAction = UIAlertAction(title: "Expired notification", style: .default) { [weak self] _ in
+			self?.scheduleNotificationForExpiringSoon(id: id)
+		}
+		alert.addAction(expiredAction)
+		alert.addAction(expiredSoonAction)
+		alert.addAction(cancelAction)
+		showAlert(alert)
+	}
 
 	private func scheduleNotificationForExpired(
 		id: String
@@ -66,6 +84,23 @@ final class DMLocalNotificationsViewModel {
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			content: content,
+			trigger: trigger
+		)
+		addNotification(request: request)
+	}
+
+	private func scheduleNotificationForExpiringSoon(
+		id: String
+	) {
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.sound = .default
+
+		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)",
 			content: content,
 			trigger: trigger
 		)

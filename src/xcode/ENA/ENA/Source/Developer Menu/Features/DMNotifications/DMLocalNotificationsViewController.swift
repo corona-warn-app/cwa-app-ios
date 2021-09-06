@@ -17,6 +17,11 @@ final class DMLocalNotificationsViewController: UITableViewController {
 		} else {
 			super.init(style: .grouped)
 		}
+		self.viewModel.showAlert = { alert in
+			DispatchQueue.main.async { [weak self] in
+				self?.present(alert, animated: true)
+			}
+		}
 	}
 
 	required init?(coder: NSCoder) {
