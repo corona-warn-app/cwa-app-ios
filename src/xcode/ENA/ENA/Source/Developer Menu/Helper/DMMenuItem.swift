@@ -8,7 +8,6 @@ import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
 	case keys = 0
-	case notifications
 	case wifiClient
 	case checkSubmittedKeys
 	case appConfiguration
@@ -38,6 +37,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case adHocPosterGeneration
 	case appFeatures
 	case dscLists
+	case notifications
 }
 
 extension DMMenuItem {
@@ -55,7 +55,6 @@ extension DMMenuItem {
 	var title: String {
 		switch self {
 		case .keys: return "Keys"
-		case .notifications: return "Notifications"
 		case .wifiClient: return "Hourly packages over Wifi only"
 		case .checkSubmittedKeys: return "Check submitted Keys"
 		case .appConfiguration: return "App Configuration"
@@ -85,12 +84,12 @@ extension DMMenuItem {
 		case .adHocPosterGeneration: return "Ad-Hoc Poster Generation"
 		case .appFeatures: return "App Features"
 		case .dscLists: return "DSC Lists"
+		case .notifications: return "Trigger Notifications"
 		}
 	}
 	var subtitle: String {
 		switch self {
 		case .keys: return "View local Keys & generate test Keys"
-		case .notifications: return "Trigger test notifications"
 		case .wifiClient: return "Change hourly packages network connection type"
 		case .checkSubmittedKeys: return "Check the state of your local keys"
 		case .appConfiguration: return "See the current app configuration"
@@ -120,6 +119,7 @@ extension DMMenuItem {
 		case .adHocPosterGeneration: return "Generate QR code poster by providing the customized values"
 		case .appFeatures: return "Override App Features here"
 		case .dscLists: return "Change DSC Lists"
+		case .notifications: return "Trigger Certificate notifications only"
 		}
 	}
 }

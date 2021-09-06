@@ -28,7 +28,7 @@ final class DMLocalNotificationsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
-		title = "Notifications 🪄"
+		title = "Trigger certificate notifications 🪄"
 	}
 
 	// MARK: - Protocol UITableViewDataSource

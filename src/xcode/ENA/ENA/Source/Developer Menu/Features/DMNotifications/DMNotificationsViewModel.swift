@@ -41,7 +41,7 @@ final class DMLocalNotificationsViewModel {
 		}
 
 		return DMButtonCellViewModel(
-			text: "Person: \(indexPath.section), Healthcertificate \(indexPath.row)",
+			text: "Trigger expired notification for person: \(indexPath.section), healthCertificate \(indexPath.row)",
 			textColor: .enaColor(for: .textContrast),
 			backgroundColor: .enaColor(for: .buttonPrimary),
 			action: { [weak self] in

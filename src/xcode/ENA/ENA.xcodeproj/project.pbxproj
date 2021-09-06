@@ -6538,7 +6538,6 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				BA6D164E255ADDA300ED3492 /* ConfigureAbleCells */,
 				01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */,
 				B1F82DF124718C7300E2E56A /* DMBackendConfigurationViewController.swift */,
 				013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */,
@@ -6552,7 +6551,7 @@
 				B18755D024DC45CA00A9202E /* DMStoreViewController.swift */,
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
 				94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */,
-				BA1FC82726E2508000CCCC17 /* DMNotifications */,
+				BA6D164E255ADDA300ED3492 /* ConfigureAbleCells */,
 				BA00FED726BC3542009DA07F /* DMAppFeatures */,
 				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
 				BA72C07D26CA88B400ED378F /* DMDSCList */,
@@ -6560,6 +6559,7 @@
 				ABE9612925EFEB4E00D0F699 /* DMInstallationDate */,
 				358249E925E910AF00BFF303 /* DMLogging */,
 				50680B8A26163A97002EA256 /* DMMostRecentTraceLocationCheckedInto */,
+				BA1FC82726E2508000CCCC17 /* DMNotifications */,
 				50B5058725CAF3C500EEA380 /* DMOTPService */,
 				3494D91D261DD41700EC532C /* DMPosterGeneration */,
 				506AB7492658007A004AE743 /* DMPPAActualData */,
