@@ -80,6 +80,14 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 	// MARK: - Internal
 	
+	// Internal for testing
+	func extract(_ prefix: String, from: String) -> (HealthCertifiedPerson, HealthCertificate)? {
+		guard from.hasPrefix(prefix) else {
+			return nil
+		}
+		return findHealthCertificate(String(from.dropFirst(prefix.count)))
+	}
+	
 	// MARK: - Private
 	
 	private let coronaTestService: CoronaTestService
@@ -118,14 +126,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			showHealthCertificate(route)
 		}
 	}
-
-	private func extract(_ prefix: String, from: String) -> (HealthCertifiedPerson, HealthCertificate)? {
-		guard from.hasPrefix(prefix) else {
-			return nil
-		}
-		return findHealthCertificate(String(from.dropFirst(prefix.count)))
-	}
-
+	
 	private func findHealthCertificate(_ identifier: String) -> (HealthCertifiedPerson, HealthCertificate)? {
 		for person in healthCertificateService.healthCertifiedPersons.value {
 			if let certificate = person.$healthCertificates.value
@@ -135,5 +136,4 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		}
 		return nil
 	}
-
 }
