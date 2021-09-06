@@ -72,7 +72,7 @@ class RootCoordinator: RequiresAppDependencies {
 			if case let .checkIn(guid) = route {
 				showEvent(guid)
 			}
-			// dispatch event route handling to showCertificate
+			// route handling to showCertificate from notification
 			else if case let .healthCertificateFromNotification(healthCertifiedPerson, healthCertificate) = route {
 				showHealthCertificateFromNotification(for: healthCertifiedPerson, with: healthCertificate)
 			}
@@ -164,8 +164,9 @@ class RootCoordinator: RequiresAppDependencies {
 		with healthCertificate: HealthCertificate
 	) {
 		
-		guard let HealthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
-			  let index = tabBarController.viewControllers?.firstIndex(of: HealthCertificateNavigationController) else {
+		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
+			Log.warning("Could not show certificate because i could find the corresponding navigation controller.")
 			return
 		}
 

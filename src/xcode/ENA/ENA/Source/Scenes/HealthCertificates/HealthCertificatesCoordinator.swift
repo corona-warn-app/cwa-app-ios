@@ -63,6 +63,7 @@ final class HealthCertificatesCoordinator {
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
 	) {
+				
 		showHealthCertificate(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
@@ -197,8 +198,7 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showHealthCertifiedPerson(
-		_ healthCertifiedPerson: HealthCertifiedPerson,
-		animated: Bool = true
+		_ healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificateService: healthCertificateService,
