@@ -38,7 +38,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		navigationItem.title = AppStrings.ExposureNotificationSetting.title
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
+
 		registerCells()
 
 		tableView.sectionFooterHeight = 0.0
@@ -50,6 +50,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		super.viewWillAppear(animated)
 		
 		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
 		tableView.reloadData()
 	}
 
