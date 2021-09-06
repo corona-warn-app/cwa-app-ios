@@ -485,7 +485,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			},
 			showTestResultFromNotification: coordinator.showTestResultFromNotification,
 			showHealthCertificate: { [weak self] route in
-				self?.showHome(route)
+				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				self?.route = route
 			}
 		)
 		return notificationManager
