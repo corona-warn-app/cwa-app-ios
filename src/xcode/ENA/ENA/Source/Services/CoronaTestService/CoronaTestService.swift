@@ -291,7 +291,8 @@ class CoronaTestService {
 
 		for coronaTestType in CoronaTestType.allCases {
 			group.enter()
-
+			Log.info("Dispatch group entered for updateTestResults")
+			
 			updateTestResult(for: coronaTestType, force: force, presentNotification: presentNotification) { result in
 				switch result {
 				case .failure(let error):
@@ -301,6 +302,7 @@ class CoronaTestService {
 					break
 				}
 
+				Log.info("Dispatch group exited for updateTestResults")
 				group.leave()
 			}
 		}
@@ -322,7 +324,15 @@ class CoronaTestService {
 	) {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
-		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
+			Log.info("recieved test result from getTestResult: \(private: result)")
+			
+			guard let self = self else {
+				completion(result)
+				Log.warning("Could not get self, skipping fakeRequestService call")
+				return
+			}
+
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
