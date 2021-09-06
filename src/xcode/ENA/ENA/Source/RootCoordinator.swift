@@ -72,6 +72,10 @@ class RootCoordinator: RequiresAppDependencies {
 			if case let .checkIn(guid) = route {
 				showEvent(guid)
 			}
+			// dispatch event route handling to showCertificate
+			else if case let .healthCertificateFromNotification(healthCertifiedPerson, healthCertificate) = route {
+				showHealthCertificateFromNotification(for: healthCertifiedPerson, with: healthCertificate)
+			}
 		}
 
 		guard let delegate = delegate,
@@ -155,28 +159,23 @@ class RootCoordinator: RequiresAppDependencies {
 		homeCoordinator?.showTestResultFromNotification(with: testType)
 	}
 	
-	func showHealthCertificateFromNotification(for person: HealthCertifiedPerson, with certificate: HealthCertificate) {
-
-		// ensure that the healthCertificateCoordinator is created
+	func showHealthCertificateFromNotification(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		with healthCertificate: HealthCertificate
+	) {
 		
-		// then switch the tabBarController tab
-		
-		// show the certificate screen on the healthCertificateCoordinator's viewController
-		
-		if healthCertificatesCoordinator == nil {
-			healthCertificatesCoordinator = HealthCertificatesCoordinator(
-				store: store,
-				healthCertificateService: healthCertificateService,
-				healthCertificateValidationService: healthCertificateValidationService,
-				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-				vaccinationValueSetsProvider: vaccinationValueSetsProvider
-			)
+		guard let HealthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: HealthCertificateNavigationController) else {
+			return
 		}
-		
-		healthCertificatesCoordinator?.showHealthCertificate(
-			healthCertifiedPerson: person,
-			healthCertificate: certificate,
-			shouldPushOnModalNavigationController: false
+
+		// Close all modal screens that would prevent showing the certificate.
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+				
+		healthCertificatesCoordinator?.showCertifiedPersonWithCertificateFromNotification(
+			for: healthCertifiedPerson,
+			with: healthCertificate
 		)
 	}
 	

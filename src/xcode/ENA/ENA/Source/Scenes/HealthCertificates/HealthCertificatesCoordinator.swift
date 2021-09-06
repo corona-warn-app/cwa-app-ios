@@ -59,6 +59,17 @@ final class HealthCertificatesCoordinator {
 		}
 	}()
 	
+	func showCertifiedPersonWithCertificateFromNotification(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		with healthCertificate: HealthCertificate
+	) {
+		showHealthCertificate(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificate: healthCertificate,
+			shouldPushOnModalNavigationController: false
+		)
+	}
+	
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
@@ -186,7 +197,8 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showHealthCertifiedPerson(
-		_ healthCertifiedPerson: HealthCertifiedPerson
+		_ healthCertifiedPerson: HealthCertifiedPerson,
+		animated: Bool = true
 	) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
 			healthCertificateService: healthCertificateService,

@@ -484,7 +484,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				self?.showHome()
 			},
 			showTestResultFromNotification: coordinator.showTestResultFromNotification,
-			showHealthCertificate: coordinator.showHealthCertificateFromNotification
+			showHealthCertificate: { [weak self] route in
+				self?.showHome(route)
+			}
 		)
 		return notificationManager
 	}()

@@ -15,7 +15,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
 		showTestResultFromNotification: @escaping (CoronaTestType) -> Void,
-		showHealthCertificate: @escaping (HealthCertifiedPerson, HealthCertificate) -> Void
+		showHealthCertificate: @escaping (Route) -> Void
 	) {
 		self.coronaTestService = coronaTestService
 		self.eventCheckoutService = eventCheckoutService
@@ -87,7 +87,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
 	private let showTestResultFromNotification: (CoronaTestType) -> Void
-	private let showHealthCertificate: (HealthCertifiedPerson, HealthCertificate) -> Void
+	private let showHealthCertificate: (Route) -> Void
 	
 	private func showPositivePCRTestResultIfNeeded() {
 		if let pcrTest = coronaTestService.pcrTest,
@@ -105,9 +105,17 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 	private func checkForLocalNotificationsActions(_ identifier: String) {
 		if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateExpired.rawValue, from: identifier) {
-			showHealthCertificate(certifiedPerson, healthCertificate)
+			let route = Route(
+				healthCertifiedPerson: certifiedPerson,
+				healthCertificate: healthCertificate
+			)
+			showHealthCertificate(route)
 		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateExpiringSoon.rawValue, from: identifier) {
-			showHealthCertificate(certifiedPerson, healthCertificate)
+			let route = Route(
+				healthCertifiedPerson: certifiedPerson,
+				healthCertificate: healthCertificate
+			)
+			showHealthCertificate(route)
 		}
 	}
 
