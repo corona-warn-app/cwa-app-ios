@@ -33,6 +33,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		navigationItem.largeTitleDisplayMode = .never
 		setupView()
 	}
 
