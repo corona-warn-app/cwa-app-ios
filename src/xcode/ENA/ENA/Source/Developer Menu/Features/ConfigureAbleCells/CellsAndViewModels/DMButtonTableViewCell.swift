@@ -59,7 +59,7 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureableCell, ReuseIdentifier
 			button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
 			button.topAnchor.constraint(equalTo: contentView.topAnchor),
 			button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 35.0)
+			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45.0)
 		])
 
 	}
