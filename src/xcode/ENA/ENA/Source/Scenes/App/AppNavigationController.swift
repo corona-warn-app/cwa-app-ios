@@ -179,7 +179,7 @@ class TabBarScrolling: NSObject, UITabBarControllerDelegate {
 	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 		if viewController == tabBarController.selectedViewController {
 			if let naviVC = viewController as? UINavigationController {
-				naviVC.scrollEmbeddedTableToTop()
+				naviVC.scrollEmbeddedViewToTop()
 			}
 		}
 		return true
@@ -187,26 +187,20 @@ class TabBarScrolling: NSObject, UITabBarControllerDelegate {
 }
 
 extension UINavigationController {
-	// only if on top level of the navigation hierarchy: scroll the embedded table view up
-	func scrollEmbeddedTableToTop() {
+	// only if on top level of the navigation hierarchy: scroll the embedded view up
+	func scrollEmbeddedViewToTop() {
 		guard !isEditing && presentedViewController == nil && viewControllers.count == 1 else {
 			return
 		}
-		if let tableView = topViewController?.embeddedTableView {
-			scrollTableToTop(tableView)
+		if let embeddedScrollView = topViewController?.scrollView {
+			scrollViewToTop(embeddedScrollView)
 		}
 	}
 
-	private func scrollTableToTop(_ tableView: UITableView) {
-		guard !tableView.isEditing else {
-			return
+	private func scrollViewToTop(_ scrollView: UIScrollView) {
+		scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)	// no large title
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+			self.navigationBar.sizeToFit()
 		}
-		tableView.scrollToRow(at: IndexPath(indexes: [0, 0]), at: .top, animated: true)
-	}
-}
-
-private extension UIViewController {
-	var embeddedTableView: UITableView? {
-		([view] + view.subviews).first(ofType: UITableView.self)
 	}
 }
