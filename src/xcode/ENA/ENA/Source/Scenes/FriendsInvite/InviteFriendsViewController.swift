@@ -45,6 +45,11 @@ final class InviteFriendsViewController: UIViewController, UIActivityItemSource 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = true
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
