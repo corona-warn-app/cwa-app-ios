@@ -13,11 +13,11 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	init(
 		base45: Base45,
 		validityState: HealthCertificateValidityState = .valid,
-		didShowInavlidNotification: Bool = false
+		didShowInvalidNotification: Bool = false
 	) throws {
 		self.base45 = base45
 		self.validityState = validityState
-		self.didShowInavlidNotification = didShowInavlidNotification
+		self.didShowInvalidNotification = didShowInvalidNotification
 
 		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
@@ -39,7 +39,7 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 		try container.encode(base45, forKey: .base45)
 		try container.encode(validityState, forKey: .validityState)
-		try container.encode(didShowInavlidNotification, forKey: .didShowInavlidNotification)
+		try container.encode(didShowInvalidNotification, forKey: .didShowInavlidNotification)
 	}
 
 	// MARK: - Protocol Equatable
@@ -87,9 +87,9 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 		}
 	}
 
-	@DidSetPublished var didShowInavlidNotification: Bool {
+	@DidSetPublished var didShowInvalidNotification: Bool {
 		didSet {
-			if didShowInavlidNotification != oldValue {
+			if didShowInvalidNotification != oldValue {
 				objectDidChange.send(self)
 			}
 		}

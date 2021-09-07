@@ -25,7 +25,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	) {
 		self.riskProvider = riskProvider
 		self.exposureManager = exposureManager
-		self.plausibleDeniabilitydService = plausibleDeniabilityService
+		self.plausibleDeniabilityService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
@@ -37,7 +37,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	// MARK: - Protocol ENATaskExecutionDelegate
 
-	var plausibleDeniabilitydService: PlausibleDeniability
+	var plausibleDeniabilityService: PlausibleDeniability
 	var dependencies: ExposureSubmissionServiceDependencies
 	var contactDiaryStore: DiaryStoring
 
@@ -89,7 +89,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				group.enter()
 				DispatchQueue.global().async {
 					Log.info("Starting FakeRequests...", log: .background)
-					self.plausibleDeniabilitydService.executeFakeRequests {
+					self.plausibleDeniabilityService.executeFakeRequests {
 						group.leave()
 						Log.info("Done sending FakeRequests...", log: .background)
 					}

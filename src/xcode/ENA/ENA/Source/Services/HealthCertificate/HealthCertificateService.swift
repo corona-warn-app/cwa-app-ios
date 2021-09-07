@@ -857,10 +857,10 @@ class HealthCertificateService {
 		scheduleNotificationForExpired(id: id, date: expirationDate)
 
 		// Schedule an 'invalid' notification, if it was not scheduled before.
-		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInavlidNotification {
+		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
 
 			scheduleInvalidNotification(id: id)
-			healthCertificate.didShowInavlidNotification = true
+			healthCertificate.didShowInvalidNotification = true
 		}
 	}
 	
@@ -934,7 +934,7 @@ class HealthCertificateService {
 		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
-		// Trigger the notificate immediatly.
+		// Trigger the notification immediately.
 		// 'timeInterval' may not be 0. From the docs: "This value must be greater than zero." 🤷‍♂️
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 

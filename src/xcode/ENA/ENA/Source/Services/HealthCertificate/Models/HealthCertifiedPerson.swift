@@ -40,7 +40,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				let healthCertificate = try HealthCertificate(
 					base45: $0.base45,
 					validityState: $0.validityState ?? .valid,
-					didShowInavlidNotification: $0.didShowInavlidNotification ?? false
+					didShowInvalidNotification: $0.didShowInavlidNotification ?? false
 				)
 
 				healthCertificates.append(healthCertificate)

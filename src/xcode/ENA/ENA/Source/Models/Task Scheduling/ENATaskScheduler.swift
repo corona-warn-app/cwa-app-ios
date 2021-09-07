@@ -17,7 +17,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	var plausibleDeniabilitydService: PlausibleDeniability { get set }
+	var plausibleDeniabilityService: PlausibleDeniability { get set }
 	var contactDiaryStore: DiaryStoring { get set }
 	var dependencies: ExposureSubmissionServiceDependencies { get set }
 
