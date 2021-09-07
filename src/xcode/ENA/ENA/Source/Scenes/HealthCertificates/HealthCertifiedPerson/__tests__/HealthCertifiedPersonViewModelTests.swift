@@ -114,13 +114,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
-		XCTAssertEqual(vaccinationHintCellViewModel.backgroundColor, .enaColor(for: .cellBackground2))
-		XCTAssertEqual(vaccinationHintCellViewModel.textAlignment, .left)
-		XCTAssertEqual(vaccinationHintCellViewModel.text, AppStrings.HealthCertificate.Person.partiallyVaccinated)
-		XCTAssertEqual(vaccinationHintCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(vaccinationHintCellViewModel.font, .enaFont(for: .body))
-		XCTAssertEqual(vaccinationHintCellViewModel.borderColor, .enaColor(for: .hairline))
-		XCTAssertEqual(vaccinationHintCellViewModel.accessibilityTraits, .staticText)
+		XCTAssertEqual(vaccinationHintCellViewModel.description, AppStrings.HealthCertificate.Person.VaccinationHint.partiallyVaccinated)
 	}
 
 	func testGIVEN_FullyVaccinatedHealthCertifiedPersonViewModel_THEN_isSetupCorrect() throws {
@@ -158,16 +152,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
-		XCTAssertEqual(vaccinationHintCellViewModel.backgroundColor, .enaColor(for: .cellBackground2))
-		XCTAssertEqual(vaccinationHintCellViewModel.textAlignment, .left)
-		XCTAssertEqual(vaccinationHintCellViewModel.text, String(
-			format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
+		XCTAssertEqual(vaccinationHintCellViewModel.description, String(
+			format: AppStrings.HealthCertificate.Person.VaccinationHint.daysUntilCompleteProtection,
 			daysUntilCompleteProtection
 		))
-		XCTAssertEqual(vaccinationHintCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(vaccinationHintCellViewModel.font, .enaFont(for: .body))
-		XCTAssertEqual(vaccinationHintCellViewModel.borderColor, .enaColor(for: .hairline))
-		XCTAssertEqual(vaccinationHintCellViewModel.accessibilityTraits, .staticText)
 	}
 
 	func testHeightForFooter() throws {

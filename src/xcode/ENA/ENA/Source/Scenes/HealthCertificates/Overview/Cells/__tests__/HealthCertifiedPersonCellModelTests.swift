@@ -31,8 +31,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithSoonExpiringVaccinationCertificate() throws {
@@ -148,8 +147,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithSoonExpiringTestCertificate() throws {
@@ -176,8 +174,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithExpiredTestCertificate() throws {
@@ -203,8 +200,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithInvalidTestCertificate() throws {
@@ -257,8 +253,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithSoonExpiringRecoveryCertificate() throws {
