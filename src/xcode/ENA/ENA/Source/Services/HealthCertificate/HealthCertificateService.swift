@@ -946,5 +946,34 @@ class HealthCertificateService {
 		}
 	}
 	
+	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson) {
+		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
+			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
+		}
+		boosterNotificationsService.applyRulesForCertificates(certificates: healthCertificatesWithHeader, completion: { result in
+			switch result {
+			case .success(let validationResult):
+				let previousSavedBoosterRule = healthCertifiedPerson.boosterRule
+				healthCertifiedPerson.boosterRule = validationResult.rule
+				
+				if let currentRule = healthCertifiedPerson.boosterRule, currentRule.identifier != previousSavedBoosterRule?.identifier {
+					
+					// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
+					guard let name = healthCertifiedPerson.name?.standardizedName,
+						  let dateOfBirth = healthCertifiedPerson.dateOfBirth else {
+						Log.error("standardizedName or dateOfBirth is nil, will not trigger notification", log: .vaccination, error: nil)
+						return
+					}
+					let id = ENAHasher.sha256(name + dateOfBirth)
+					self.scheduleNotificationForBoosterNotification(id: id)
+				} else {
+					Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
+				}
+				
+			case .failure(let validationError):
+				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
+			}
+		})
+	}
 	// swiftlint:disable:next file_length
 }
