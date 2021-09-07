@@ -109,7 +109,7 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let faqLinkTextView: UITextView = {
 		let faqLinkTextView = UITextView()
-		faqLinkTextView.backgroundColor = .enaColor(for: .background)
+		faqLinkTextView.backgroundColor = .enaColor(for: .cellBackground2)
 		faqLinkTextView.isScrollEnabled = false
 		faqLinkTextView.isEditable = false
 		faqLinkTextView.textContainerInset = .zero
