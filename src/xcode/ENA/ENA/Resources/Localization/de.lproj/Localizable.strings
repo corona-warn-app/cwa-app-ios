@@ -2856,6 +2856,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
+"HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
+
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";

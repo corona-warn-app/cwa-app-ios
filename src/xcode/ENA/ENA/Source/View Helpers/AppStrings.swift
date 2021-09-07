@@ -2061,6 +2061,8 @@ enum AppStrings {
 
 			static let QRCodeImageDescription = NSLocalizedString("HealthCertifiedPerson_QRCode_Image_Description", comment: "")
 			static let validationButtonTitle = NSLocalizedString("HealthCertifiedPerson_validationButtonTitle", comment: "")
+			static let currentlyUsedCertificate = NSLocalizedString("HealthCertifiedPerson_currentlyUsedCertificate", comment: "")
+			static let newlyAddedCertificate = NSLocalizedString("HealthCertifiedPerson_newlyAddedCertificate", comment: "")
 
 			enum VaccinationHint {
 				static let title = NSLocalizedString("HealthCertifiedPerson_VaccinationHint_title", comment: "")
@@ -2095,7 +2097,6 @@ enum AppStrings {
 				static let validityDate = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_validityDate", comment: "")
 			}
 
-			static let currentlyUsedCertificate = NSLocalizedString("HealthCertifiedPerson_currentlyUsedCertificate", comment: "")
 		}
 
 		enum Details {
