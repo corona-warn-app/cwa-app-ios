@@ -3,11 +3,16 @@
 //
 
 import Foundation
+import HealthCertificateToolkit
+
 import class CertLogic.Rule
+import class CertLogic.CertLogicEngine
+import class CertLogic.ValidationResult
 
 protocol BoosterNotificationsServiceProviding {
-	func downloadBoosterNotificationRules(
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
+	func applyRulesForCertificates(
+		certificates: [DigitalCovidCertificateWithHeader],
+		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>) -> Void
 	)
 }
 
