@@ -15,7 +15,7 @@ final class DMNHCViewModel {
 		store: Store
 	) {
 		self.store = store
-		self.restService = DefaultRestService()
+		self.restService = RestService()
 	}
 
 	// MARK: - Internal
