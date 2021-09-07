@@ -15,7 +15,7 @@ public struct DigitalCovidCertificateWithHeader: Codable, Equatable {
 
     #if DEBUG
     
-    static func fake(
+    public static func fake(
         header: CBORWebTokenHeader = .fake(),
         certificate: DigitalCovidCertificate = .fake()
     ) -> DigitalCovidCertificateWithHeader {

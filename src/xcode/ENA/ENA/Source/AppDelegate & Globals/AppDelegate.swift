@@ -490,6 +490,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
 				self?.route = route
+			}, showHealthCertifiedPerson: { [weak self] route in
+				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				self?.showHome(route)
 			}
 		)
 		return notificationManager

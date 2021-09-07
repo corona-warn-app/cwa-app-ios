@@ -31,6 +31,20 @@ extension Route: Equatable {
 			return false
 		case (.rapidAntigen, .healthCertificateFromNotification):
 			return false
+		case (.healthCertifiedPersonFromNotification(let lhsHealthCertifiedPerson), .healthCertifiedPersonFromNotification(let rhsHealthCertifiedPerson)):
+			return lhsHealthCertifiedPerson == rhsHealthCertifiedPerson
+		case (.healthCertifiedPersonFromNotification, .checkIn):
+			return false
+		case (.healthCertifiedPersonFromNotification, .rapidAntigen):
+			return false
+		case (.healthCertifiedPersonFromNotification, .healthCertificateFromNotification):
+			return false
+		case (.healthCertificateFromNotification, .healthCertifiedPersonFromNotification):
+			return false
+		case (.checkIn, .healthCertifiedPersonFromNotification):
+			return false
+		case (.rapidAntigen, .healthCertifiedPersonFromNotification):
+			return false
 		}
 	}
 }
