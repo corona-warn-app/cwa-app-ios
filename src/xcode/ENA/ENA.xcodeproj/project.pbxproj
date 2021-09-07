@@ -7835,6 +7835,43 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BAF45AE726E7B93700B80391 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */,
+				5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */,
+				5001DE9326E2114F004242FA /* DCCRegisterPublicKey.swift */,
+				5001DE9726E2137D004242FA /* DigitalCovid19Certificate.swift */,
+				5001DE8526E20791004242FA /* KeySubmission.swift */,
+				5001DE7F26E202B3004242FA /* RegistrationToken.swift */,
+				5001DE9526E21272004242FA /* SubmitELS.swift */,
+				5001DE8726E20903004242FA /* SubmitOnBehalf.swift */,
+				5001DE8D26E20D76004242FA /* SubmitPPA.swift */,
+				5001DE8326E206AB004242FA /* TANForExposureSubmit.swift */,
+				5001DE8126E2057C004242FA /* TestResultDownload.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		BAF45AE826E7B94200B80391 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */,
+				5001DE7B26E201FE004242FA /* AvailableDays.swift */,
+				5001DE9B26E2155C004242FA /* DCCRules.swift */,
+				5001DE7D26E20257004242FA /* DiagnosisKeys.swift */,
+				5001DE7726E2016D004242FA /* DSCList.swift */,
+				5001DE7926E2019A004242FA /* LocalStatistics.swift */,
+				5001DE7226E200DC004242FA /* QRPosterTemplate.swift */,
+				5001DE7026E1FFB4004242FA /* Statistics.swift */,
+				5001DE8F26E20E52004242FA /* TWPDiscovery.swift */,
+				5001DE9126E20F64004242FA /* TWPDownload.swift */,
+				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
+				5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -7858,29 +7895,8 @@
 		BAF640EF26DFA08E00B3A18E /* Locators */ = {
 			isa = PBXGroup;
 			children = (
-				BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */,
-				5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */,
-				5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */,
-				5001DE7B26E201FE004242FA /* AvailableDays.swift */,
-				5001DE9326E2114F004242FA /* DCCRegisterPublicKey.swift */,
-				5001DE9B26E2155C004242FA /* DCCRules.swift */,
-				5001DE7D26E20257004242FA /* DiagnosisKeys.swift */,
-				5001DE9726E2137D004242FA /* DigitalCovid19Certificate.swift */,
-				5001DE7726E2016D004242FA /* DSCList.swift */,
-				5001DE8526E20791004242FA /* KeySubmission.swift */,
-				5001DE7926E2019A004242FA /* LocalStatistics.swift */,
-				5001DE7226E200DC004242FA /* QRPosterTemplate.swift */,
-				5001DE7F26E202B3004242FA /* RegistrationToken.swift */,
-				5001DE7026E1FFB4004242FA /* Statistics.swift */,
-				5001DE9526E21272004242FA /* SubmitELS.swift */,
-				5001DE8726E20903004242FA /* SubmitOnBehalf.swift */,
-				5001DE8D26E20D76004242FA /* SubmitPPA.swift */,
-				5001DE8326E206AB004242FA /* TANForExposureSubmit.swift */,
-				5001DE8126E2057C004242FA /* TestResultDownload.swift */,
-				5001DE8F26E20E52004242FA /* TWPDiscovery.swift */,
-				5001DE9126E20F64004242FA /* TWPDownload.swift */,
-				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
-				5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */,
+				BAF45AE826E7B94200B80391 /* Response */,
+				BAF45AE726E7B93700B80391 /* Request */,
 			);
 			path = Locators;
 			sourceTree = "<group>";
