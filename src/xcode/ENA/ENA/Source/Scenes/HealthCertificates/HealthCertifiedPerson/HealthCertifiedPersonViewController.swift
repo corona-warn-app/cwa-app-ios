@@ -49,6 +49,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		setupViewModel()
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		viewModel.markBoosterRuleAsSeen()
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false

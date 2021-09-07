@@ -169,6 +169,10 @@ final class HealthCertifiedPersonViewModel {
 		healthCertificateService.removeHealthCertificate(healthCertificateCellViewModels[indexPath.row].healthCertificate)
 	}
 
+	func markBoosterRuleAsSeen() {
+		healthCertifiedPerson.isNewBoosterRule = false
+	}
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
