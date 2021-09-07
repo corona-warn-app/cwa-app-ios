@@ -4,7 +4,14 @@
 
 import Foundation
 
-class RestService: Service {
+protocol RestServiceProviding {
+	func load<T>(
+		resource: T,
+		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
+	) where T: Resource
+}
+
+class RestService: RestServiceProviding {
 
 	required init(
 		environment: EnvironmentProviding = Environments()

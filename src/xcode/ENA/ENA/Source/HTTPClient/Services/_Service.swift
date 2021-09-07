@@ -45,12 +45,89 @@ enum ServiceError: Error, Equatable {
 	}
 }
 
-protocol Service {
+protocol Service: RestServiceProviding {
+
 	init(environment: EnvironmentProviding)
+
+	var session: URLSession { get }
+	var environment: EnvironmentProviding { get }
+
+	func decodeModel<T>(
+		resource: T,
+		_ bodyData: Data?,
+		_ response: HTTPURLResponse?
+	) -> Result<T.Model, ResourceError> where T: Resource
+
+	func cached<T>(
+		resource: T
+	) -> Result<T.Model, ResourceError> where T: Resource
+
+	func eTag<T>(for resource: T) -> String? where T: Resource
+}
+
+
+extension Service {
 
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: Resource
+	) where T: Resource {
+		let request = resource.locator.urlRequest(
+			environmentData: environment.currentEnvironment(),
+			eTag: eTag(for: resource)
+		)
+		session.dataTask(with: request) { bodyData, response, error in
+			guard error == nil,
+				  let response = response as? HTTPURLResponse else {
+				Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
+				completion(.failure(.serverError(error)))
+				return
+			}
+			#if DEBUG
+			Log.debug("URL Response \(response.statusCode)", log: .client)
+			#endif
+			switch response.statusCode {
+			case 200:
+				switch self.decodeModel(resource: resource, bodyData, response) {
+				case .success(let model):
+					completion(.success(model))
+				case .failure:
+					completion(.failure(.decodeError))
+				}
+
+			case 201...204:
+				completion(.success(nil))
+
+			case 304:
+				switch self.cached(resource: resource) {
+				case .success(let model):
+					completion(.success(model))
+				case .failure:
+					completion(.failure(.cacheError))
+				}
+
+			default:
+				completion(.failure(.unexpectedResponse(response.statusCode)))
+			}
+		}.resume()
+	}
+
+	func decodeModel<T>(
+		resource: T,
+		_ bodyData: Data?,
+		_ response: HTTPURLResponse?
+	) -> Result<T.Model, ResourceError> where T: Resource {
+		return resource.decode(bodyData)
+	}
+
+	func cached<T>(
+		resource: T
+	) -> Result<T.Model, ResourceError> where T: Resource {
+		return .failure(.missingData)
+	}
+
+	func eTag<T>(for resource: T) -> String? where T : Resource {
+		return nil
+	}
 
 }

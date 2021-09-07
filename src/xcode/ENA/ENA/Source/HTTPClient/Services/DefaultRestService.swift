@@ -18,11 +18,20 @@ class DefaultRestService: Service {
 
 	// MARK: - Protocol Service
 
+	let environment: EnvironmentProviding
+
+	lazy var session: URLSession = {
+		URLSession(configuration: .coronaWarnSessionConfiguration())
+	}()
+
+/*
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
+		let request = resource.locator.urlRequest(
+			environmentData: environment.currentEnvironment()
+		)
 		// TODO: add headers is missing
 		session.dataTask(with: request) { bodyData, response, error in
 			
@@ -138,16 +147,11 @@ class DefaultRestService: Service {
 			}
 		}.resume()
 	}
-
+*/
 	// MARK: - Public
 
 	// MARK: - Internal
 
 	// MARK: - Private
 
-	private lazy var session: URLSession = {
-		URLSession(configuration: .coronaWarnSessionConfiguration())
-	}()
-
-	private let environment: EnvironmentProviding
 }

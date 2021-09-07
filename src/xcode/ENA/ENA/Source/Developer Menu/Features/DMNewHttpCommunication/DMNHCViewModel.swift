@@ -92,6 +92,6 @@ final class DMNHCViewModel {
 	}
 
 	private let store: Store
-	private let restService: Service
+	private let restService: RestServiceProviding
 }
 #endif
