@@ -104,6 +104,8 @@ final class HealthCertificateCellViewModel {
 			case .invalid:
 				return AppStrings.HealthCertificate.ValidityState.invalid
 			}
+		} else if healthCertificate.isNew {
+			return AppStrings.HealthCertificate.Person.newlyAddedCertificate
 		} else {
 			return nil
 		}
