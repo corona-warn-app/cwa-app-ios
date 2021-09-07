@@ -5,6 +5,11 @@
 import Foundation
 
 public struct DigitalCovidCertificateWithHeader: Codable, Equatable {
+    public init(header: CBORWebTokenHeader, certificate: DigitalCovidCertificate) {
+        self.header = header
+        self.certificate = certificate
+    }
+    
     let header: CBORWebTokenHeader
     let certificate: DigitalCovidCertificate
 
