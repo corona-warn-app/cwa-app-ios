@@ -19,6 +19,7 @@ enum ResourceError: Error {
 	case decoding
 	case packageCreation
 	case signatureVerification
+	case notModified
 }
 
 enum ResourceType {

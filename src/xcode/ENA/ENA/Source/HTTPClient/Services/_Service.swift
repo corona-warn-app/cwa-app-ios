@@ -7,9 +7,7 @@ import Foundation
 enum ServiceError: Error, Equatable {
 	case serverError(Error?)
 	case unexpectedResponse(Int)
-	case notModified
-	case decodeError
-	case cacheError
+	case resourceError(ResourceError)
 
 	// MARK: - Protocol Equatable
 
@@ -26,21 +24,10 @@ enum ServiceError: Error, Equatable {
 		case (.unexpectedResponse, _):
 			return false
 
-		case (.notModified, .notModified):
-			return true
-		case (.notModified, _):
+		case let (.resourceError(lResourceError), .resourceError(rResourceError)):
+			return lResourceError == rResourceError
+		case (.resourceError, _):
 			return false
-
-		case (.decodeError, .decodeError):
-			return true
-		case (.decodeError, _):
-			return false
-
-		case (.cacheError, .cacheError):
-			return true
-		case (.cacheError, _):
-			return false
-
 		}
 	}
 }
@@ -91,8 +78,8 @@ extension Service {
 				switch self.decodeModel(resource: resource, bodyData, response) {
 				case .success(let model):
 					completion(.success(model))
-				case .failure:
-					completion(.failure(.decodeError))
+				case .failure(let resourceError):
+					completion(.failure(.resourceError(resourceError)))
 				}
 
 			case 201...204:
@@ -102,8 +89,8 @@ extension Service {
 				switch self.cached(resource: resource) {
 				case .success(let model):
 					completion(.success(model))
-				case .failure:
-					completion(.failure(.cacheError))
+				case .failure(let resourceError):
+					completion(.failure(.resourceError(resourceError)))
 				}
 
 			default:
@@ -123,10 +110,10 @@ extension Service {
 	func cached<T>(
 		resource: T
 	) -> Result<T.Model, ResourceError> where T: Resource {
-		return .failure(.missingData)
+		return .failure(.notModified)
 	}
 
-	func eTag<T>(for resource: T) -> String? where T : Resource {
+	func eTag<T>(for resource: T) -> String? where T: Resource {
 		return nil
 	}
 
