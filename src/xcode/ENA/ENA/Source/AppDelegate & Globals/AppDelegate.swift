@@ -328,7 +328,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		signatureVerifying: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
 		client: client,
-		appConfiguration: appConfigurationProvider
+		appConfiguration: appConfigurationProvider,
+		boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
 	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
