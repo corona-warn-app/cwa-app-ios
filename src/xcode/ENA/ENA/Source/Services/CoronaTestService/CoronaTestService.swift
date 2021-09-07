@@ -291,7 +291,7 @@ class CoronaTestService {
 
 		for coronaTestType in CoronaTestType.allCases {
 			group.enter()
-			Log.info("Dispatch group entered for updateTestResults")
+			Log.info("[CoronaTestService] Dispatch group entered in updateTestResults for (coronaTestType: \(coronaTestType))")
 			
 			updateTestResult(for: coronaTestType, force: force, presentNotification: presentNotification) { result in
 				switch result {
@@ -302,7 +302,7 @@ class CoronaTestService {
 					break
 				}
 
-				Log.info("Dispatch group exited for updateTestResults")
+				Log.info("[CoronaTestService] Dispatch group exited in updateTestResults for (coronaTestType: \(coronaTestType))")
 				group.leave()
 			}
 		}
@@ -325,7 +325,7 @@ class CoronaTestService {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
 		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
-			Log.info("received test result from getTestResult: \(private: result)")
+			Log.info("[CoronaTestService] Received test result from getTestResult: \(private: result)")
 			
 			guard let self = self else {
 				completion(result)
