@@ -31,7 +31,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 		navigationItem.title = AppStrings.NotificationSettings.navigationBarTitle
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
+
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(willEnterForeground),
@@ -44,6 +44,11 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 		setupView()
 
 		notificationSettings()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	override func viewDidLayoutSubviews() {
