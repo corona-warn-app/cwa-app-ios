@@ -359,11 +359,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		let infoButton = UIButton(type: .infoLight)
 		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		#if !RELEASE
-		let devMenuButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(devMenuTapped))
-		#endif
 		
 		#if !RELEASE
+		let devMenuButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(devMenuTapped))
 		navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), devMenuButton]
 		#else
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
