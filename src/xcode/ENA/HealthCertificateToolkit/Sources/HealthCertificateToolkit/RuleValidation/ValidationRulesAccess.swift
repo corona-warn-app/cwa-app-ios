@@ -19,7 +19,16 @@ public protocol ValidationRulesAccessing {
     ) -> Swift.Result<[ValidationResult], RuleValidationError>
 }
 
-public struct ValidationRulesAccess: ValidationRulesAccessing {
+public protocol BoosterRulesAccessing {
+    func applyBoosterNotificationValidationRules(
+    certificates: [DigitalCovidCertificateWithHeader],
+    rules: [Rule],
+    certLogicEngine: CertLogicEnginable?,
+    log: (String) -> Void
+    ) -> Swift.Result<ValidationResult, BoosterNotificationRuleValidationError>
+}
+
+public struct ValidationRulesAccess: ValidationRulesAccessing, BoosterRulesAccessing {
 
     public init() {}
 
