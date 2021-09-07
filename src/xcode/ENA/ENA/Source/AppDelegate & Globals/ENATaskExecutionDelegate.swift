@@ -127,6 +127,14 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 						Log.info("Done triggering analytics submission…", log: .background)
 					}
 				}
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Check for invalid certificates", log: .background)
+					self.checkCertificateValidityStates {
+						group.leave()
+						Log.info("Done checking for invalid certificates.", log: .background)
+					}
+				}
 				
 				group.leave() // Leave from the Exposure detection
 
