@@ -24,7 +24,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
-		updateBorderWidth()
+		updateBorders()
 	}
 
 	// MARK: - Internal
@@ -60,6 +60,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let currentlyUsedImageView = UIImageView()
 	private let currentlyUsedLabel = ENALabel()
 	private let iconImageView = UIImageView()
+	private let unseenNewsIndicator = UIView()
 	private let gradientBackground = GradientView()
 
 	private func setupView() {
@@ -76,7 +77,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		updateBorderWidth()
+		updateBorders()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
@@ -149,6 +150,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		hStackView.alignment = .top
 		backgroundContainerView.addSubview(hStackView)
 
+		unseenNewsIndicator.backgroundColor = .systemRed
+		unseenNewsIndicator.layer.cornerRadius = 6.5
+		unseenNewsIndicator.layer.borderWidth = 2
+		unseenNewsIndicator.translatesAutoresizingMaskIntoConstraints = false
+		backgroundContainerView.insertSubview(unseenNewsIndicator, aboveSubview: gradientBackground)
+
 		NSLayoutConstraint.activate(
 			[
 				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4.0),
@@ -163,6 +170,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				iconImageView.heightAnchor.constraint(equalTo: gradientBackground.heightAnchor),
 				iconImageView.centerXAnchor.constraint(equalTo: gradientBackground.centerXAnchor),
 				iconImageView.centerYAnchor.constraint(equalTo: gradientBackground.centerYAnchor),
+
+				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 13),
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 13),
+				unseenNewsIndicator.centerXAnchor.constraint(equalTo: gradientBackground.trailingAnchor, constant: -4),
+				unseenNewsIndicator.centerYAnchor.constraint(equalTo: gradientBackground.topAnchor, constant: 4),
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),
@@ -192,8 +204,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
-	private func updateBorderWidth() {
+	private func updateBorders() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
+		unseenNewsIndicator.layer.borderColor = UIColor.enaColor(for: .cellBackground2).cgColor
 	}
 
 }

@@ -135,6 +135,10 @@ final class HealthCertificateCellViewModel {
 		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 	}()
 
+	lazy var isUnseenNewsIndicatorVisible: Bool = {
+		healthCertificate.isNew || healthCertificate.isValidityStateNew
+	}()
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
