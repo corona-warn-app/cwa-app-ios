@@ -5,6 +5,7 @@
 import Foundation
 // swiftlint:disable pattern_matching_keywords
 extension Route: Equatable {
+	// swiftlint:disable:next cyclomatic_complexity
 	static func == (lhs: Route, rhs: Route) -> Bool {
 		switch (lhs, rhs) {
 		case (.rapidAntigen(let lhsResult), .rapidAntigen(let rhsResult)):
@@ -19,6 +20,16 @@ extension Route: Equatable {
 		case (.checkIn(let lhsUrlString), .checkIn(let rhsUrlString)):
 			return lhsUrlString == rhsUrlString
 		case (.checkIn, .rapidAntigen), (.rapidAntigen, .checkIn):
+			return false
+		case (.healthCertificateFromNotification(_, let lhsHealthCertificate), .healthCertificateFromNotification(_, let rhsHealthCertificate)):
+			return lhsHealthCertificate == rhsHealthCertificate
+		case (.healthCertificateFromNotification, .checkIn):
+			return false
+		case (.healthCertificateFromNotification, .rapidAntigen):
+			return false
+		case (.checkIn, .healthCertificateFromNotification):
+			return false
+		case (.rapidAntigen, .healthCertificateFromNotification):
 			return false
 		}
 	}

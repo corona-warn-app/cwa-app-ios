@@ -486,7 +486,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// We don't need the Route parameter in the NotificationManager
 				self?.showHome()
 			},
-			showTestResultFromNotification: coordinator.showTestResultFromNotification
+			showTestResultFromNotification: coordinator.showTestResultFromNotification,
+			showHealthCertificate: { [weak self] route in
+				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				self?.route = route
+			}
 		)
 		return notificationManager
 	}()
