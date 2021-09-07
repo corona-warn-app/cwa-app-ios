@@ -180,3 +180,16 @@ public struct ValidationRulesAccess: ValidationRulesAccessing, BoosterRulesAcces
         return .success(firstPassedRule)
     }
 }
+
+public extension CertLogicEngine {
+    public convenience init (rules: [Rule]) {
+        guard let schemaURL = Bundle.module.url(forResource: "dcc-validation-rule", withExtension: "json"),
+              let schemaData = FileManager.default.contents(atPath: schemaURL.path),
+              let schemaString = String(data: schemaData, encoding: .utf8) else {
+            // Log.error("Failed to decode the JSON file", log: .localData, error: nil)
+            self.init(schema: "", rules: rules)
+                return
+        }
+        self.init(schema: schemaString, rules: rules)
+    }
+}
