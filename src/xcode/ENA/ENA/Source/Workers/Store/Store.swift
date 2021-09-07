@@ -67,6 +67,8 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
+	var lastBoosterNotificationsExecutionDate: Date? { get set }
+
 	func wipeAll(key: String?)
 
 	#if !RELEASE
