@@ -119,7 +119,7 @@ final class DMLocalNotificationsViewModel {
 		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
-		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
+		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(id)",
 			content: content,
