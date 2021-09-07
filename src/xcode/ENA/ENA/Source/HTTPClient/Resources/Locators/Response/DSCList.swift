@@ -10,8 +10,7 @@ extension Locator {
 		Locator(
 			endpoint: .distribution,
 			paths: ["version", "v1", "ehn-dgc", "dscs"],
-			method: .get,
-			type: .caching
+			method: .get
 		)
 	}
 

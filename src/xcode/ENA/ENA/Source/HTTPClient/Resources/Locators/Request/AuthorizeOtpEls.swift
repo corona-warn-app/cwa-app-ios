@@ -16,10 +16,9 @@ extension Locator {
 			endpoint: .dataDonation,
 			paths: ["version", "v1", "ios", "els"],
 			method: .post,
-			defaultHeaders: [fake: "cwa-fake", forceApiHeader: "cwa-ppac-ios-accept-api-token"],
+			defaultHeaders: [fake: "cwa-fake", forceApiHeader: "cwa-ppac-ios-accept-api-token"]
 			// TODO: "application/x-protobuf" as Content Type?
 			// TODO: Body (Protobuf) is missing here
-			type: .default
 		)
 	}
 

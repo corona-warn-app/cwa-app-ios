@@ -13,8 +13,7 @@ extension Locator {
 		Locator(
 			endpoint: .distribution,
 			paths: ["version", "v1", "diagnosis-keys", "country", country, "date", day],
-			method: .get,
-			type: .retrying
+			method: .get
 		)
 	}
 

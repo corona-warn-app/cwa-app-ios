@@ -15,6 +15,7 @@ struct JSONResource<M: Codable>: Resource {
 	typealias Model = M
 	
 	var locator: Locator
+	var type: ResourceType = .default
 /*
 	let resourceLocator: ResourceLocator = ResourceLocator(
 		endpoint: .dataDonation,

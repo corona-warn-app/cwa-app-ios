@@ -14,9 +14,8 @@ extension Locator {
 			endpoint: .distribution,
 			paths: ["version", "v1", "diagnosis-keys", "registrationToken"],
 			method: .post,
-			defaultHeaders: [fake: "cwa-fake", "": "cwa-header-padding"],
+			defaultHeaders: [fake: "cwa-fake", "": "cwa-header-padding"]
 			// TODO: Body is missing here
-			type: .default
 		)
 	}
 

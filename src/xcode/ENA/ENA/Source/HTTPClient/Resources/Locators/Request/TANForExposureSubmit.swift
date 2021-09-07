@@ -15,9 +15,8 @@ extension Locator {
 			endpoint: .distribution,
 			paths: ["version", "v1", "tan"],
 			method: .post,
-			defaultHeaders: [fake: "cwa-fake", String.getRandomString(of: 14): "cwa-header-padding"],
+			defaultHeaders: [fake: "cwa-fake", String.getRandomString(of: 14): "cwa-header-padding"]
 			// TODO: Body is missing here
-			type: .default
 		)
 	}
 

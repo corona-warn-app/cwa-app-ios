@@ -14,9 +14,8 @@ extension Locator {
 			endpoint: .dcc,
 			paths: ["version", "v1", "publicKey"],
 			method: .post,
-			defaultHeaders: [fake: "cwa-fake", String.getRandomString(of: 14): "cwa-header-padding"],
+			defaultHeaders: [fake: "cwa-fake", String.getRandomString(of: 14): "cwa-header-padding"]
 			// TODO: Body (Protobuf) is missing here
-			type: .default
 		)
 	}
 

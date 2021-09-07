@@ -12,8 +12,7 @@ extension Locator {
 		Locator(
 			endpoint: .distribution,
 			paths: ["version", "v1", "local_stats_\(groupID)"],
-			method: .get,
-			type: .caching
+			method: .get
 		)
 	}
 

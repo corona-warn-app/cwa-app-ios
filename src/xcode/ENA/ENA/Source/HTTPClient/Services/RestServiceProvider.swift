@@ -25,7 +25,7 @@ class RestServiceProvider: RestServiceProviding {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-		switch resource.locator.type {
+		switch resource.type {
 		case .default:
 			restService.load(resource: resource, completion: completion)
 		case .caching:

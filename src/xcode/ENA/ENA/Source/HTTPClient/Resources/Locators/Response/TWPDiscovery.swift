@@ -17,8 +17,7 @@ extension Locator {
 			endpoint: .distribution,
 			paths: ["version", apiVersion, "twp", "country", country, "hour"],
 			method: .get,
-			defaultHeaders: [fake: "cwa-fake"],
-			type: .default
+			defaultHeaders: [fake: "cwa-fake"]
 		)
 	}
 

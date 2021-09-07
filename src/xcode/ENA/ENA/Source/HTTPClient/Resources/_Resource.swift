@@ -36,8 +36,9 @@ protocol Resource {
 	// Model is type of the model
 	associatedtype Model
 
-	var locator: Locator { get set }
-
+	var locator: Locator { get }
+	var type: ResourceType { get }
+	
 	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
 
