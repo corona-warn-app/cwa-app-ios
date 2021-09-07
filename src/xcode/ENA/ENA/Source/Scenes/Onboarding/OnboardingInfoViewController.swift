@@ -112,11 +112,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		if #available(iOS 13, *) {
-			navigationItem.largeTitleDisplayMode = .always
-		} else {
-			navigationItem.largeTitleDisplayMode = .never
-		}
+		navigationItem.largeTitleDisplayMode = .never
 	}
 	
 	private func openSettings() {

@@ -72,6 +72,10 @@ class RootCoordinator: RequiresAppDependencies {
 			if case let .checkIn(guid) = route {
 				showEvent(guid)
 			}
+			// route handling to showCertificate from notification
+			else if case let .healthCertificateFromNotification(healthCertifiedPerson, healthCertificate) = route {
+				showHealthCertificateFromNotification(for: healthCertifiedPerson, with: healthCertificate)
+			}
 		}
 
 		guard let delegate = delegate,
@@ -153,6 +157,27 @@ class RootCoordinator: RequiresAppDependencies {
 
 	func showTestResultFromNotification(with testType: CoronaTestType) {
 		homeCoordinator?.showTestResultFromNotification(with: testType)
+	}
+	
+	func showHealthCertificateFromNotification(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		with healthCertificate: HealthCertificate
+	) {
+		
+		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
+			Log.warning("Could not show certificate because i could find the corresponding navigation controller.")
+			return
+		}
+
+		// Close all modal screens that would prevent showing the certificate.
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+				
+		healthCertificatesCoordinator?.showCertifiedPersonWithCertificateFromNotification(
+			for: healthCertifiedPerson,
+			with: healthCertificate
+		)
 	}
 	
 	func showOnboarding() {

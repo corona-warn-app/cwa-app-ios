@@ -27,7 +27,8 @@ protocol Client {
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	typealias ValidationOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	
+	typealias BoosterRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.
@@ -237,6 +238,16 @@ protocol Client {
 		isFake: Bool,
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
+	)
+	
+	/// GET call to receive the Booster notifications rules as a PackageDownloadResponse. Must be extracted and verified afterwards.
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
+	func getBoosterNotificationRules(
+		eTag: String?,
+		isFake: Bool,
+		completion: @escaping BoosterRulesCompletionHandler
 	)
 }
 
