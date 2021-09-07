@@ -1731,6 +1731,46 @@ class HealthCertificateServiceTests: CWATestCase {
 		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
 	}
+	
+	func testGIVEN_HealthCertificate_WHEN_CertificatesIsInvalid_THEN_NotificationForInvalidShouldBeCreated() throws {
+		
+		// GIVEN
+		let notificationCenter = MockUserNotificationCenter()
+		let store = MockTestStore()
+				
+		let vaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-09-04",
+					uniqueCertificateIdentifier: "91"
+				)]
+			)
+		)
+		let healthCertificate = HealthCertificate.mock(base45: vaccinationCertificateBase45, validityState: .invalid)
+		
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				   healthCertificate
+			   ]
+		   )
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+		
+		// WHEN
+		// When creating the service with the store, all certificates are checked for their validityStatus and thus their notifications are created.
+		_ = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_EXPIRED),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
+			notificationCenter: notificationCenter
+		)
+		
+		// There should be now 1 notifications for invalid, 1 for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+	}
 
 	func testBoosterRuleIncreasesUnseenNewsCount() throws {
 		let store = MockTestStore()

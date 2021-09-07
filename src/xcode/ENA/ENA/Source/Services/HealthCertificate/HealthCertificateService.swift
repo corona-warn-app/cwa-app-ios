@@ -851,12 +851,6 @@ class HealthCertificateService {
 			return
 		}
 		
-		// Only notifications for recovery and vaccination certificates.
-		guard healthCertificate.type != .test else {
-			Log.debug("Will skip creating notifications for test certificate: \(private: healthCertificate).")
-			return
-		}
-		
 		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(
 			byAdding: .day,
