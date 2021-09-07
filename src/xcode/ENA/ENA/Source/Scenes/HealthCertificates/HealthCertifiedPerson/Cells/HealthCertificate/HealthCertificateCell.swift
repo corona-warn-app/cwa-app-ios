@@ -151,7 +151,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.addSubview(hStackView)
 
 		unseenNewsIndicator.backgroundColor = .systemRed
-		unseenNewsIndicator.layer.cornerRadius = 6.5
+		unseenNewsIndicator.layer.cornerRadius = 7.5
 		unseenNewsIndicator.layer.borderWidth = 2
 		unseenNewsIndicator.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.insertSubview(unseenNewsIndicator, aboveSubview: gradientBackground)
@@ -171,8 +171,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				iconImageView.centerXAnchor.constraint(equalTo: gradientBackground.centerXAnchor),
 				iconImageView.centerYAnchor.constraint(equalTo: gradientBackground.centerYAnchor),
 
-				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 13),
-				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 13),
+				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 15),
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 15),
 				unseenNewsIndicator.centerXAnchor.constraint(equalTo: gradientBackground.trailingAnchor, constant: -4),
 				unseenNewsIndicator.centerYAnchor.constraint(equalTo: gradientBackground.topAnchor, constant: 4),
 
