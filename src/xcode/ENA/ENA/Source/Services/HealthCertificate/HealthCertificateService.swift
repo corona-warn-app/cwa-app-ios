@@ -19,7 +19,8 @@ class HealthCertificateService {
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
-		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
+		boosterNotificationsService: BoosterNotificationsServiceProviding
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -32,6 +33,7 @@ class HealthCertificateService {
 			self.appConfiguration = CachedAppConfigurationMock(store: store)
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
+			self.boosterNotificationsService = boosterNotificationsService
 			setup()
 			configureForLaunchArguments()
 
@@ -46,6 +48,7 @@ class HealthCertificateService {
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.notificationCenter = notificationCenter
+		self.boosterNotificationsService = boosterNotificationsService
 
 		setup()
 	}
@@ -58,7 +61,7 @@ class HealthCertificateService {
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
 	var nextValidityTimer: Timer?
-
+	var boosterNotificationsService: BoosterNotificationsServiceProviding
 	var nextFireDate: Date? {
 		let healthCertificates = healthCertifiedPersons.value
 			.flatMap { $0.healthCertificates }
