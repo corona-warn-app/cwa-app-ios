@@ -2476,7 +2476,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "In Vertretung warnen";
 
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Wählen Sie ein Event, für welches Sie in Vertretung einer infizierten Person andere warnen möchten. Oder stellen Sie gelöschte Events wieder her, indem sie den QR-Code des Events erneut einscannen.";
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Wählen Sie ein Event, für welches Sie in Vertretung einer infizierten Person andere warnen möchten. Oder stellen Sie gelöschte Events wieder her, indem Sie den QR-Code des Events erneut einscannen.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "QR-Code scannen";
 
