@@ -50,12 +50,12 @@ class CachedRestService: Service {
 		return decodeModel(resource: resource, cachedModel.data)
 	}
 
-	func eTag<T>(for resource: T) -> String? where T: Resource {
+	func customHeaders<T>(for resource: T) -> [String: String]? where T: Resource {
 		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
 			Log.debug("Resource not found in cache", log: .client)
 			return nil
 		}
-		return cachedModel.eTag
+		return ["If-None-Match": cachedModel.eTag]
 	}
 
 	// MARK: - Public

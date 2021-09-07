@@ -49,9 +49,8 @@ protocol Service: RestServiceProviding {
 		resource: T
 	) -> Result<T.Model, ResourceError> where T: Resource
 
-	func eTag<T>(for resource: T) -> String? where T: Resource
+	func customHeaders<T>(for resource: T) -> [String: String]? where T: Resource
 }
-
 
 extension Service {
 
@@ -61,7 +60,7 @@ extension Service {
 	) where T: Resource {
 		let request = resource.locator.urlRequest(
 			environmentData: environment.currentEnvironment(),
-			eTag: eTag(for: resource)
+			customHeader: customHeaders(for: resource)
 		)
 		session.dataTask(with: request) { bodyData, response, error in
 			guard error == nil,
@@ -113,7 +112,7 @@ extension Service {
 		return .failure(.notModified)
 	}
 
-	func eTag<T>(for resource: T) -> String? where T: Resource {
+	func customHeaders<T>(for resource: T) -> [String: String]? where T: Resource {
 		return nil
 	}
 

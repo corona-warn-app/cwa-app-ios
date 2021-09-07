@@ -30,7 +30,7 @@ struct Locator: Hashable {
 	let type: ResourceType
 	let headers: [String: String]
 
-	func urlRequest(environmentData: EnvironmentData, eTag: String? = nil) -> URLRequest {
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
 		let endpointURL = endpoint.url(environmentData)
 		let url = paths.reduce(endpointURL) { result, component in
 			result.appendingPathComponent(component, isDirectory: false)
@@ -40,8 +40,8 @@ struct Locator: Hashable {
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
 
-		if let eTag = eTag {
-			urlRequest.setValue(eTag, forHTTPHeaderField: "If-None-Match")
+		customHeader?.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
 
 		return urlRequest
