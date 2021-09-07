@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinat(ă) pe %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Vaccinarea de rapel";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Certificat de test";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";

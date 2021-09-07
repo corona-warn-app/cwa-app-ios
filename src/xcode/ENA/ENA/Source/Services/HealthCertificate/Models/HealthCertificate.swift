@@ -13,12 +13,15 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	init(
 		base45: Base45,
 		validityState: HealthCertificateValidityState = .valid,
-		didShowInvalidNotification: Bool = false
+		didShowInvalidNotification: Bool = false,
+		isNew: Bool = false,
+		isValidityStateNew: Bool = false
 	) throws {
 		self.base45 = base45
 		self.validityState = validityState
 		self.didShowInvalidNotification = didShowInvalidNotification
-
+		self.isNew = isNew
+		self.isValidityStateNew = isValidityStateNew
 		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
 		keyIdentifier = Self.extractKeyIdentifier(from: base45)
@@ -90,6 +93,22 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	@DidSetPublished var didShowInvalidNotification: Bool {
 		didSet {
 			if didShowInvalidNotification != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+				
+	@DidSetPublished var isNew: Bool {
+		didSet {
+			if isNew != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var isValidityStateNew: Bool {
+		didSet {
+			if isValidityStateNew != oldValue {
 				objectDidChange.send(self)
 			}
 		}

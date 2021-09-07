@@ -59,6 +59,18 @@ final class HealthCertificatesCoordinator {
 		}
 	}()
 	
+	func showCertifiedPersonWithCertificateFromNotification(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		with healthCertificate: HealthCertificate
+	) {
+				
+		showHealthCertificate(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificate: healthCertificate,
+			shouldPushOnModalNavigationController: false
+		)
+	}
+	
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
@@ -586,7 +598,7 @@ final class HealthCertificatesCoordinator {
 	}
 
 	private func setupCertificateBadgeCount() {
-		healthCertificateService.unseenTestCertificateCount
+		healthCertificateService.unseenNewsCount
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
@@ -597,4 +609,6 @@ final class HealthCertificatesCoordinator {
 	private func showSettings() {
 		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
+
+	// swiftlint:disable file_length
 }

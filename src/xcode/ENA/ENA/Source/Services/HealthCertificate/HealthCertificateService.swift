@@ -54,7 +54,7 @@ class HealthCertificateService {
 
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
-	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
+	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
 	var nextValidityTimer: Timer?
@@ -76,12 +76,13 @@ class HealthCertificateService {
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
-		checkSignatureUpfront: Bool = true
+		checkSignatureUpfront: Bool = true,
+		markAsNew: Bool = false
 	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
-			let healthCertificate = try HealthCertificate(base45: base45)
+			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
 
 			// check signature
 			if checkSignatureUpfront {
@@ -110,7 +111,7 @@ class HealthCertificateService {
 					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
-				Log.error("[HealthCertificateService] Registering health certificate failed:  certificate already registered", log: .api)
+				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
@@ -176,7 +177,6 @@ class HealthCertificateService {
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)
-		unseenTestCertificateCount.value += 1
 
 		executeTestCertificateRequest(
 			testCertificateRequest,
@@ -316,16 +316,11 @@ class HealthCertificateService {
 		}
 	}
 
-	func resetUnseenTestCertificateCount() {
-		unseenTestCertificateCount.value = 0
-	}
-
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
 		healthCertifiedPersons.value = store.healthCertifiedPersons
 		testCertificateRequests.value = store.testCertificateRequests
-		unseenTestCertificateCount.value = store.unseenTestCertificateCount
 	}
 
 	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
@@ -357,6 +352,8 @@ class HealthCertificateService {
 					and: Date()
 				)
 
+				let previousValidityState = healthCertificate.validityState
+
 				switch signatureVerificationResult {
 				case .success:
 					if Date() >= healthCertificate.expirationDate {
@@ -369,6 +366,11 @@ class HealthCertificateService {
 				case .failure:
 					healthCertificate.validityState = .invalid
 				}
+
+				if healthCertificate.validityState != previousValidityState {
+					healthCertificate.isValidityStateNew = true
+				}
+
 				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
 			}
 		}
@@ -447,6 +449,12 @@ class HealthCertificateService {
 				if $0 != self?.store.healthCertifiedPersons {
 					self?.store.healthCertifiedPersons = $0
 				}
+
+				let unseenNewsCount = $0.map { $0.unseenNewsCount }.reduce(0, +)
+				if self?.unseenNewsCount.value != unseenNewsCount {
+					self?.unseenNewsCount.value = unseenNewsCount
+				}
+
 				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
@@ -457,12 +465,6 @@ class HealthCertificateService {
 					self?.store.testCertificateRequests = $0
 				}
 				self?.updateTestCertificateRequestSubscriptions(for: $0)
-			}
-			.store(in: &subscriptions)
-
-		unseenTestCertificateCount
-			.sink { [weak self] in
-				self?.store.unseenTestCertificateCount = $0
 			}
 			.store(in: &subscriptions)
 
@@ -779,7 +781,11 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
+				let registerResult = registerHealthCertificate(
+					base45: healthCertificateBase45,
+					checkSignatureUpfront: false,
+					markAsNew: true
+				)
 
 				switch registerResult {
 				case .success((_, let healthCertificate)):

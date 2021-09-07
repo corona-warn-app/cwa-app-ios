@@ -140,7 +140,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var healthCertificateInfoScreenShown: Bool = false
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
 	var testCertificateRequests: [TestCertificateRequest] = []
-	var unseenTestCertificateCount: Int = 0
 	var lastSelectedValidationCountry: Country = .defaultCountry()
 	var lastSelectedValidationDate: Date = Date()
 
@@ -153,6 +152,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache?
 	var acceptanceRulesCache: ValidationRulesCache?
 	var invalidationRulesCache: ValidationRulesCache?
+
+	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
+
+	var boosterRulesCache: ValidationRulesCache?
 
 	// MARK: - CoronaTestStoringLegacy
 
