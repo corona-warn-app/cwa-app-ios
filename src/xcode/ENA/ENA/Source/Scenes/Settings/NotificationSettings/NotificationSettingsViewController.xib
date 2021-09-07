@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -163,13 +163,13 @@
     </objects>
     <designables>
         <designable name="73l-bO-Ic1">
-            <size key="intrinsicContentSize" width="235" height="50"/>
+            <size key="intrinsicContentSize" width="188" height="30"/>
         </designable>
         <designable name="Gl8-ki-99s">
-            <size key="intrinsicContentSize" width="244" height="20.5"/>
+            <size key="intrinsicContentSize" width="232.5" height="20.5"/>
         </designable>
         <designable name="MJ4-a5-yvq">
-            <size key="intrinsicContentSize" width="64" height="26.5"/>
+            <size key="intrinsicContentSize" width="47.5" height="20.5"/>
         </designable>
         <designable name="woh-IT-fvE">
             <size key="intrinsicContentSize" width="79.5" height="20.5"/>

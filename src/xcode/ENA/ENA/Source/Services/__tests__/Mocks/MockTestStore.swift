@@ -153,6 +153,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var acceptanceRulesCache: ValidationRulesCache?
 	var invalidationRulesCache: ValidationRulesCache?
 
+	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
+
+	var boosterRulesCache: ValidationRulesCache?
+
 	// MARK: - CoronaTestStoringLegacy
 
 	var registrationToken: String?

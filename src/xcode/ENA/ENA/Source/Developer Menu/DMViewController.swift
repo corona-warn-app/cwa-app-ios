@@ -20,7 +20,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -30,6 +31,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
+		self.healthCertificateService = healthCertificateService
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -89,6 +91,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .notifications:
+			vc = DMLocalNotificationsViewController(healthCertificateService: healthCertificateService)
 		case .wifiClient:
 			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:
@@ -180,6 +184,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let eventStore: EventStoringProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
+	private let healthCertificateService: HealthCertificateService
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {

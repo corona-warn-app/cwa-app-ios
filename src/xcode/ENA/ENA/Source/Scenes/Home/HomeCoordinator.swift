@@ -68,6 +68,11 @@ class HomeCoordinator: RequiresAppDependencies {
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
+			onDevMenuTap: { [weak self] in
+				#if !RELEASE
+				self?.developerMenu?.showDeveloperMenu()
+				#endif
+			},
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
 			},
@@ -437,7 +442,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
-			ppacService: ppacService
+			ppacService: ppacService,
+			healthCertificateService: healthCertificateService
 		)
 		developerMenu?.enableIfAllowed()
 	}
