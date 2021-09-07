@@ -55,13 +55,13 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		switch cellModel.caption {
 		case .unseenNews(count: let unseenNewsCount):
 			captionImageView.isHidden = true
-			captionCountLabel.isHidden = false
+			captionCountView.isHidden = false
 
 			captionCountLabel.text = String(unseenNewsCount)
 			captionLabel.text = AppStrings.HealthCertificate.Overview.news
 		case let .validityState(image: validityStateIcon, description: validityStateDescription):
 			captionImageView.isHidden = false
-			captionCountLabel.isHidden = true
+			captionCountView.isHidden = true
 
 			captionImageView.image = validityStateIcon
 			captionLabel.text = validityStateDescription
