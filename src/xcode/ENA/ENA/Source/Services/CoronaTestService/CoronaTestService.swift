@@ -329,7 +329,7 @@ class CoronaTestService {
 			
 			guard let self = self else {
 				completion(result)
-				Log.warning("Could not get self, skipping fakeRequestService call")
+				Log.warning("[CoronaTestService] Could not get self, skipping fakeRequestService call")
 				return
 			}
 

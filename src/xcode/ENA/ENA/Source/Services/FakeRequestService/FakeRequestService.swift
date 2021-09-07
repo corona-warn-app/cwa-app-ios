@@ -66,7 +66,7 @@ class FakeRequestService {
 	func fakeVerificationAndSubmissionServerRequest(completion: (() -> Void)? = nil) {
 		fakeVerificationServerRequest { [weak self] in
 			guard let self = self else {
-				Log.warning("Could not get self, skipping fakeSubmissionServerRequest call")
+				Log.warning("[FakeRequestService] Could not get self, skipping fakeSubmissionServerRequest call")
 				completion?()
 				return
 			}
