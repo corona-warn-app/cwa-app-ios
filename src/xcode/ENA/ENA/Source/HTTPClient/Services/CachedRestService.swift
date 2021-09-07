@@ -22,13 +22,10 @@ class CachedRestService: Service {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-
-		var resource = resource
-		if let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) {
-			resource.addHeaders(customHeaders: ["If-None-Match": cachedModel.eTag])
-		}
-
-		let request = resource.locator.urlRequest(environmentData: environment.currentEnvironment())
+		let request = resource.locator.urlRequest(
+			environmentData: environment.currentEnvironment(),
+			eTag: eTag(for: resource)
+		)
 		session.dataTask(with: request) { [weak self] bodyData, response, error in
 			guard error == nil,
 				  let response = response as? HTTPURLResponse else {
@@ -90,6 +87,15 @@ class CachedRestService: Service {
 	private let environment: EnvironmentProviding
 	// dummy cache for the moment
 	private let cache: NSCache<NSNumber, CacheData> = NSCache<NSNumber, CacheData>()
+
+	func eTag<T>(for resource: T) -> String? where T: Resource {
+		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
+			Log.debug("Resource not found in cache", log: .client)
+			return nil
+		}
+		return cachedModel.eTag
+	}
+
 }
 
 class CacheData: NSObject {
