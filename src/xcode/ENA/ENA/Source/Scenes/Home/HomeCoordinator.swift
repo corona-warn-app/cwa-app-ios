@@ -68,11 +68,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
-			onDevMenuTap: { [weak self] in
-				#if !RELEASE
-				self?.developerMenu?.showDeveloperMenu()
-				#endif
-			},
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
 			},
