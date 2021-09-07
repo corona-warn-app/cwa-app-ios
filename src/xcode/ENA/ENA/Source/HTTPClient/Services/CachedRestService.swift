@@ -27,7 +27,8 @@ class CachedRestService: Service {
 			eTag: eTag(for: resource)
 		)
 		session.dataTask(with: request) { [weak self] bodyData, response, error in
-			guard error == nil,
+			guard let self = self,
+				error == nil,
 				  let response = response as? HTTPURLResponse else {
 				Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
 				completion(.failure(.serverError(error)))
@@ -38,33 +39,21 @@ class CachedRestService: Service {
 			#endif
 			switch response.statusCode {
 			case 200:
-				switch resource.decode(bodyData) {
+				switch self.decodeModel(resource: resource, bodyData, response) {
 				case .success(let model):
-					guard let eTag = response.value(forCaseInsensitiveHeaderField: "ETag"),
-						  let data = bodyData else {
-						completion(.success(model))
-						Log.debug("ETag not found - cache problem")
-						return
-					}
-					let serverDate = response.dateHeader ?? Date()
-					let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
-					self?.cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
 					completion(.success(model))
 				case .failure:
 					completion(.failure(.decodeError))
 				}
+
 			case 201...204:
 				completion(.success(nil))
 
 			case 304:
-				if let cachedModel = self?.cache.object(forKey: NSNumber(value: resource.locator.hashValue)) {
-					switch resource.decode(cachedModel.data) {
-					case .success(let model):
-						completion(.success(model))
-					case .failure:
-						completion(.failure(.decodeError))
-					}
-				} else {
+				switch self.cached(resource: resource) {
+				case .success(let model):
+					completion(.success(model))
+				case .failure:
 					completion(.failure(.cacheError))
 				}
 
@@ -94,6 +83,32 @@ class CachedRestService: Service {
 			return nil
 		}
 		return cachedModel.eTag
+	}
+
+	private func decodeModel<T>(resource: T, _ bodyData: Data?, _ response: HTTPURLResponse? = nil) -> Result<T.Model, ResourceError> where T: Resource {
+		switch resource.decode(bodyData) {
+		case .success(let model):
+			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
+				  let data = bodyData else {
+				Log.debug("ETag not found - do not write to cache")
+				return .success(model)
+			}
+			let serverDate = response?.dateHeader ?? Date()
+			let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
+			cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
+			return .success(model)
+
+		case .failure:
+			return .failure(.decoding)
+		}
+	}
+
+	private func cached<T>(resource: T) -> Result<T.Model, ResourceError> where T: Resource {
+		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
+			Log.debug("no data found in cache", log: .client)
+			return .failure(.missingData)
+		}
+		return decodeModel(resource: resource, cachedModel.data)
 	}
 
 }

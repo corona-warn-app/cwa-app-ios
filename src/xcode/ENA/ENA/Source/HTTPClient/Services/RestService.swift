@@ -6,7 +6,9 @@ import Foundation
 
 class RestService: Service {
 
-	required init(environment: EnvironmentProviding = Environments()) {
+	required init(
+		environment: EnvironmentProviding = Environments()
+	) {
 		self.restService = DefaultRestService(environment: environment)
 		self.cachedRestService = CachedRestService(environment: environment)
 		self.wifiRestService = WifiOnlyRestService(environment: environment)
