@@ -33,6 +33,8 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	enum CodingKeys: String, CodingKey {
 		case base45
 		case validityState
+		case isNew
+		case isValidityStateNew
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -40,6 +42,8 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 		try container.encode(base45, forKey: .base45)
 		try container.encode(validityState, forKey: .validityState)
+		try container.encode(isNew, forKey: .isNew)
+		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
 	}
 
 	// MARK: - Protocol Equatable
