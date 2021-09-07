@@ -38,8 +38,13 @@ protocol Resource {
 
 	var locator: Locator { get }
 	var type: ResourceType { get }
-	
+
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> URLRequest
 	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
+//	func encode()
+}
 
+enum ResponseResources {
+	static let appConfiguration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching)
 }

@@ -58,7 +58,7 @@ extension Service {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: Resource {
-		let request = resource.locator.urlRequest(
+		let request = resource.urlRequest(
 			environmentData: environment.currentEnvironment(),
 			customHeader: customHeaders(for: resource)
 		)

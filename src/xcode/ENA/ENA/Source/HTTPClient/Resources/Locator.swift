@@ -27,23 +27,6 @@ struct Locator: Hashable {
 	let method: HTTP.Method
 	let headers: [String: String]
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
-		let endpointURL = endpoint.url(environmentData)
-		let url = paths.reduce(endpointURL) { result, component in
-			result.appendingPathComponent(component, isDirectory: false)
-		}
-		var urlRequest = URLRequest(url: url)
-		headers.forEach { key, value in
-			urlRequest.setValue(value, forHTTPHeaderField: key)
-		}
-
-		customHeader?.forEach { key, value in
-			urlRequest.setValue(value, forHTTPHeaderField: key)
-		}
-
-		return urlRequest
-	}
-
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(endpoint)
 		hasher.combine(paths)
