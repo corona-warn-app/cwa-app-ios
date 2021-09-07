@@ -18,7 +18,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		eventStore: EventStoring,
 		eventCheckoutService: EventCheckoutService,
 		store: Store,
-		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.riskProvider = riskProvider
 		self.exposureManager = exposureManager
@@ -28,6 +29,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.eventCheckoutService = eventCheckoutService
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
+		self.healthCertificateService = healthCertificateService
 	}
 
 
@@ -124,8 +126,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 					}
 				}
 				
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Check if Booster Notifications need to be downloaded.", log: .background)
+					self.executeBoosterNotificationsCreation {
+						group.leave()
+						Log.info("Done Checking if Booster Notifications should download …", log: .background)
+					}
+				}
+				
 				group.leave() // Leave from the Exposure detection
-
 			}
 		}
 		
@@ -145,7 +155,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let backgroundTaskConsumer = RiskConsumer()
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
-
+	private let healthCertificateService: HealthCertificateService
+	
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
 	private func executeSubmitTemporaryExposureKeys(completion: @escaping ((Bool) -> Void)) {
@@ -299,5 +310,18 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			}
 			completion()
 		})
+	}
+	
+	
+	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
+		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
+		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
+		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
+			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
+		} else {
+			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
+			healthCertificateService.applyBoosterRulesForHealthCertificates()
+		}
+		completion()
 	}
 }
