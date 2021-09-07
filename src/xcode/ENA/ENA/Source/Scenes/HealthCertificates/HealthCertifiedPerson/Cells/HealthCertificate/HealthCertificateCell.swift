@@ -41,6 +41,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		validityStateInfoLabel.isHidden = cellViewModel.validityStateInfo == nil
 
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
+		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 
 		setupAccessibility()
 	}
