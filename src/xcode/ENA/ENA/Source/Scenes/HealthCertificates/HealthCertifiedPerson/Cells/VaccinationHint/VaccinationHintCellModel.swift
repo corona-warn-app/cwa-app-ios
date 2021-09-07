@@ -83,6 +83,10 @@ final class VaccinationHintCellModel {
 		return attributedString
 	}
 
+	var isUnseenNewsIndicatorVisible: Bool {
+		healthCertifiedPerson.isNewBoosterRule
+	}
+
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson

@@ -37,6 +37,8 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = cellModel.faqLink == nil
+
+		unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
 	}
 
 	// MARK: - Private
@@ -57,17 +59,37 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	private let contentStackView: UIStackView = {
 		let contentStackView = UIStackView()
 		contentStackView.axis = .vertical
+		contentStackView.alignment = .leading
 		contentStackView.spacing = 6
 
 		return contentStackView
+	}()
+
+	private let titleStackView: UIStackView = {
+		let titleStackView = UIStackView()
+		titleStackView.axis = .horizontal
+		titleStackView.distribution = .fill
+		titleStackView.alignment = .center
+		titleStackView.spacing = 6
+
+		return titleStackView
 	}()
 
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel(style: .headline)
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return titleLabel
+	}()
+
+	private let unseenNewsIndicator: UIView = {
+		let unseenNewsIndicator = UIView()
+		unseenNewsIndicator.backgroundColor = .systemRed
+		unseenNewsIndicator.layer.cornerRadius = 5.5
+
+		return unseenNewsIndicator
 	}()
 
 	private let subtitleLabel: ENALabel = {
@@ -115,8 +137,11 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 
-		contentStackView.addArrangedSubview(titleLabel)
-		contentStackView.setCustomSpacing(0, after: titleLabel)
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(unseenNewsIndicator)
+
+		contentStackView.addArrangedSubview(titleStackView)
+		contentStackView.setCustomSpacing(0, after: titleStackView)
 		contentStackView.addArrangedSubview(subtitleLabel)
 		contentStackView.addArrangedSubview(descriptionLabel)
 		contentStackView.setCustomSpacing(16, after: descriptionLabel)
@@ -132,7 +157,10 @@ class VaccinationHintTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
 				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+
+				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 11),
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
 			]
 		)
 	}
