@@ -75,7 +75,18 @@ class HealthCertificateService {
 			}
 		return allDatesToExam.min()
 	}
-
+	
+	/*
+	Trigger this on:
+		- when the app comes into foreground
+		- when the regular background execution runs (e.g. Key Download)
+	*/
+	func applyBoosterRulesForHealthCertificates() {
+		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson)
+		}
+	}
+	
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
