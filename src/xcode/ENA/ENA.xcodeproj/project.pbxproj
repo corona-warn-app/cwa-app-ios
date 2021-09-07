@@ -1121,7 +1121,7 @@
 		BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */; };
 		BA43CB6626E1203C00B86132 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */; };
 		BA43CB6726E1203C00B86132 /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */; };
-		BA43CB6926E1237E00B86132 /* RestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43CB6826E1237E00B86132 /* RestService.swift */; };
+		BA43CB6926E1237E00B86132 /* RestServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
 		BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4985E326385928009D395C /* Dateformatter+vCard.swift */; };
@@ -2556,7 +2556,7 @@
 		BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInformationViewModel.swift; sourceTree = "<group>"; };
 		BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeadlineWithImageCell.swift; sourceTree = "<group>"; };
 		BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+DccRegisterPublicKeyTests.swift"; sourceTree = "<group>"; };
-		BA43CB6826E1237E00B86132 /* RestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestService.swift; sourceTree = "<group>"; };
+		BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProvider.swift; sourceTree = "<group>"; };
 		BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewController.swift; sourceTree = "<group>"; };
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
 		BA4985E326385928009D395C /* Dateformatter+vCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+vCard.swift"; sourceTree = "<group>"; };
@@ -7847,7 +7847,7 @@
 			isa = PBXGroup;
 			children = (
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
-				BA43CB6826E1237E00B86132 /* RestService.swift */,
+				BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */,
 				BA64FA8126D79C2300DD4705 /* DefaultRestService.swift */,
 				BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */,
 				BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */,
@@ -8756,7 +8756,7 @@
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
 				0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */,
-				BA43CB6926E1237E00B86132 /* RestService.swift in Sources */,
+				BA43CB6926E1237E00B86132 /* RestServiceProvider.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				50D7BD7526DE716A00494FB7 /* DMNHCViewModel.swift in Sources */,

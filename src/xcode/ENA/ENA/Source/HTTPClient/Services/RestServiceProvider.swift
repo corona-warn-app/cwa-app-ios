@@ -11,7 +11,7 @@ protocol RestServiceProviding {
 	) where T: Resource
 }
 
-class RestService: RestServiceProviding {
+class RestServiceProvider: RestServiceProviding {
 
 	required init(
 		environment: EnvironmentProviding = Environments()
