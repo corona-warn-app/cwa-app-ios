@@ -472,7 +472,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventStore: self.eventStore,
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			healthCertificateService: self.healthCertificateService
 		)
 	}()
 
