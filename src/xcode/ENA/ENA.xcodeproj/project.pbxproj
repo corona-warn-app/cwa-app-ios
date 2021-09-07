@@ -6618,7 +6618,6 @@
 			isa = PBXGroup;
 			children = (
 				50D7BD7126DE6E3F00494FB7 /* DMNewHttpCommunication */,
-				BA6D164E255ADDA300ED3492 /* ConfigureAbleCells */,
 				01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */,
 				B1F82DF124718C7300E2E56A /* DMBackendConfigurationViewController.swift */,
 				013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */,
