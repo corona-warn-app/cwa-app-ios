@@ -31,10 +31,15 @@ final class MockENManager: NSObject {
 	}
 
 	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {
-		let dispatchQueue = self.dispatchQueue
-		ownWorkerQueue.async {
+		ownWorkerQueue.async { [weak self] in
+			guard let self = self else {
+				DispatchQueue.main.async {
+					completionHandler(ENError(.internal))
+				}
+				return
+			}
 			self.enabled = enabled
-			dispatchQueue.async {
+			self.dispatchQueue.async {
 				completionHandler(nil)
 			}
 		}
@@ -43,10 +48,14 @@ final class MockENManager: NSObject {
 	// MARK: - Obtaining Exposure Information
 
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		let error = enError
+		let error = self.enError
 		let now = Date()
-		dispatchQueue.async {
+		self.dispatchQueue.async { [weak self] in
 			if error == nil {
+				guard let self = self else {
+					completionHandler(nil, ENError(.internal))
+					return
+				}
 				// assuming successfull execution and no exposures
 				guard !self.wasCalledTooOftenTill(now) else {
 					completionHandler(nil, ENError(.rateLimited))
@@ -72,16 +81,22 @@ final class MockENManager: NSObject {
 	// MARK: - Obtaining Exposure Keys
 
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		// swiftlint:disable:next force_unwrapping
+		let keys = self.diagnosisKeysResult!.0
+		// swiftlint:disable:next force_unwrapping
+		let error = self.diagnosisKeysResult!.1
 		dispatchQueue.async {
-			// swiftlint:disable:next force_unwrapping
-			completionHandler(self.diagnosisKeysResult!.0, self.diagnosisKeysResult!.1)
+			completionHandler(keys, error)
 		}
 	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		// swiftlint:disable:next force_unwrapping
+		let keys = self.diagnosisKeysResult!.0
+		// swiftlint:disable:next force_unwrapping
+		let error = self.diagnosisKeysResult!.1
 		dispatchQueue.async {
-			// swiftlint:disable:next force_unwrapping
-			completionHandler(self.diagnosisKeysResult!.0, self.diagnosisKeysResult!.1)
+			completionHandler(keys, error)
 		}
 	}
 
@@ -139,12 +154,12 @@ final class MockENManager: NSObject {
 
 	private func wasCalledTooOftenTill(_ now: Date) -> Bool {
 		var tooOften = false
-		if let last = lastCall {
-			if now.timeIntervalSince(last) < minDistanceBetweenCalls {
+		if let last = self.lastCall {
+			if now.timeIntervalSince(last) < self.minDistanceBetweenCalls {
 				tooOften = true
 			}
 		}
-		lastCall = now
+		self.lastCall = now
 		return tooOften
 	}
 }
