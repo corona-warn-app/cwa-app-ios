@@ -41,7 +41,7 @@ protocol Resource {
 
 	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> URLRequest
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
-	func encode() -> Data?
+	func encode(_ model: Model) -> Result<Data, ResourceError>
 }
 
 enum ResponseResources {

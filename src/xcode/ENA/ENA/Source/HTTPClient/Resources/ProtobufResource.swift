@@ -64,7 +64,14 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 		}
 	}
 
-	func encode() -> Data? {
+	func encode(_ model: Model) -> Result<Data, ResourceError> {
+		guard <#condition#> else {
+			<#statements#>
+		}
+
+		let payload =
+
+
 		return nil
 	}
 
