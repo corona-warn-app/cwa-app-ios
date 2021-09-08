@@ -49,6 +49,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				let healthCertificate = try HealthCertificate(
 					base45: $0.base45,
 					validityState: $0.validityState ?? .valid,
+					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
 					isNew: $0.isNew ?? false,
 					isValidityStateNew: $0.isValidityStateNew ?? false
 				)

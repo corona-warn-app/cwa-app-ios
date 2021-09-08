@@ -24,6 +24,7 @@ public enum LocalNotificationIdentifier: String {
 	case checkout = "EventCheckoutNotification"
 	case certificateExpiringSoon = "HealthCertificateNotificationExpireSoon"
 	case certificateExpired = "HealthCertificateNotificationExpired"
+	case certificateInvalid = "HealthCertificateNotificationInvalid"
 }
 
 extension UserNotificationCenter {
