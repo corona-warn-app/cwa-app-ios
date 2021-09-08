@@ -325,7 +325,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
-		signatureVerifying: dccSignatureVerificationService,
+		dccSignatureVerifier: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
 		client: client,
 		appConfiguration: appConfigurationProvider,
@@ -403,7 +403,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifying: dccSignatureVerificationService,
+			dccSignatureVerifier: dccSignatureVerificationService,
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -489,6 +489,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			showTestResultFromNotification: coordinator.showTestResultFromNotification,
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
 				self?.route = route
 			}
 		)
