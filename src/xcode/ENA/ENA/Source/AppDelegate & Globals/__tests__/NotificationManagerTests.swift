@@ -101,13 +101,15 @@ class NotificationManagerTests: XCTestCase {
 		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let diaryStore = MockDiaryStore()
 		let eventStore = MockEventStore()
-		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
-			appConfiguration: cachedAppConfig
+			appConfiguration: cachedAppConfig,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 		
 		let coronaTestService = CoronaTestService(
