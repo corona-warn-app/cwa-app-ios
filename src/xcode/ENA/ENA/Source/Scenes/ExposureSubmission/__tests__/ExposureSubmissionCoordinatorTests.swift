@@ -40,7 +40,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -49,7 +49,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		healthCertificateService = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfiguration
@@ -88,7 +88,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)

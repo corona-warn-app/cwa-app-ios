@@ -14,7 +14,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		route: Route?,
-		onDevMenuTap: @escaping () -> Void,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -35,7 +34,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
 		self.route = route
-		self.onDevMenuTap = onDevMenuTap
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
@@ -320,7 +318,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let viewModel: HomeTableViewModel
 	private let appConfigurationProvider: AppConfigurationProviding
 
-	private let onDevMenuTap: () -> Void
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
@@ -359,16 +356,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		let infoButton = UIButton(type: .infoLight)
 		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		
-		#if !RELEASE
-		let devMenuButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: self, action: #selector(devMenuTapped))
-		navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: infoButton), devMenuButton]
-		#else
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
-		#endif
 	}
 
 	private func setupTableView() {
@@ -688,12 +679,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		return cell
 	}
-	
-	#if !RELEASE
-	@IBAction private func devMenuTapped() {
-		onDevMenuTap()
-	}
-	#endif
 
 	@IBAction private func infoButtonTapped() {
 		onInfoBarButtonItemTap()
