@@ -2915,7 +2915,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
 
-"VaccinationCertificate_Alert_message" = "Wir empfehlen die Impfzertifikate in der App zu behalten, auch wenn Sie diese nicht mehr aktuell sind.";
+"VaccinationCertificate_Alert_message" = "Wir empfehlen die Impfzertifikate in der App zu behalten, auch wenn diese nicht mehr aktuell sind.";
 
 /* Test Certificate Details */
 
