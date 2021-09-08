@@ -864,7 +864,6 @@ class HealthCertificateService {
 
 		// Schedule an 'invalid' notification, if it was not scheduled before.
 		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
-
 			scheduleInvalidNotification(id: id)
 			healthCertificate.didShowInvalidNotification = true
 		}
