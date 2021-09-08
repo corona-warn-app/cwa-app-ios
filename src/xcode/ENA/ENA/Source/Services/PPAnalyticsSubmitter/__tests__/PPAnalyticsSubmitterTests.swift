@@ -38,7 +38,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -128,7 +128,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -182,7 +182,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -236,7 +236,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -289,7 +289,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -343,7 +343,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -398,7 +398,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -454,7 +454,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -508,7 +508,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -579,7 +579,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -1014,7 +1014,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1114,7 +1114,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider

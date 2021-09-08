@@ -1555,14 +1555,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.8 */
-"NewVersionFeature_29_warnGuest_title" = "Warn for Others";
+/* Version 2.10 */
+"NewVersionFeature_210_boosterVaccination_title" = "Information about Booster Vaccinations";
 
-"NewVersionFeature_29_warnGuest_description" = "As the organizer of an event, you can now – when instructed to do so by the public health authorities – warn your guests on behalf of someone who has been diagnosed with coronavirus and who attended the event, but was not checked in with the Corona-Warn-App.";
+"NewVersionFeature_210_boosterVaccination_description" = "The app can now display a message that notifies you of any upcoming booster vaccinations.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Immediate Display of Vaccination Status for Recovered Persons";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Print Version of Vaccination Certificates";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "The Corona-Warn-App now displays full vaccination protection for recovered persons directly after the first vaccination. The two-week waiting time is waived for all vaccines except Johnson & Johnson.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "You can now display a print version of your vaccination certificate, which enables you to save the certificates as PDF documents and print them out.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2464,7 +2464,7 @@
 
 "errorReport_DetailedInformation_Headline" = "Verification of Authenticity and Data Transfer to Third Countries";
 
-"errorReport_DetailedInformation_Content1" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send data to technical support and rule out manipulated error reports. To do so, the identifier is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple. Apple does not receive the information from your error report, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Accept and Send”. You will still be able to use the app, but you cannot send error reports.";
+"errorReport_DetailedInformation_Content1" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send data to technical support and rule out manipulated error reports. To do so, the identifier is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple. Apple does not receive the information from your error report, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Agree and Send”. You will still be able to use the app, but you cannot send error reports.";
 
 "ErrorReport_DetailedInformation_Subheadline" = "How the RKI analyzes the error reports";
 
@@ -2791,6 +2791,8 @@
 
 "HealthCertificate_Details_expirationDateDetails" = "Please make sure to get a new digital certificate in time.";
 
+"HealthCertificate_Details_moreButtonTitle" = "More";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
 
@@ -2831,6 +2833,36 @@
 "RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
 
 "RecoveryCertificate_Alert_message" = "If you remove the certificate of recovery, you can no longer use it as proof in the app.";
+
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Display Print Version";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Cancel";
+
+"HealthCertificate_PrintPdf_Info_title" = "Generating the EU Printout";
+
+"HealthCertificate_PrintPdf_Info_section01" = "You can save the certificate as a PDF document. This step is voluntary. You are the only person who can access the PDF document at first. You can then decide whether you want to save it on your smartphone or import it into other apps.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Please note that the PDF document contains sensitive information. We recommend handling it carefully and only showing it to people who you trust and who are authorized to check the certificate.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "We recommend that you not publish the PDF document, send it via e-mail, or share it through other apps.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Continue";
+
+"HealthCertificate_PrintPdf_Share_title" = "Print Version of Digital Certificate";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Cannot display print version";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "The print version of the certificate cannot be displayed because the certificate was not issued in Germany";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ for Print Version";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Cannot display print version";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "The print version of the certificate cannot be displayed because the certificate cannot be retrieved right now. Please try again later.";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
@@ -2919,7 +2951,7 @@
 
 "HealthCertificate_Validation_Passed_hint2" = "Additional rules and restrictions may apply in individual regions.";
 
-"HealthCertificate_Validation_Passed_hint3" = "To ensure the authenticity of a certificate, each certificate is issued with a digital signature. A validation app merely validates this signature.";
+"HealthCertificate_Validation_Passed_hint3" = "To ensure the authenticity of certificates, each certificate is issued with a digital signature. A validation app merely validates this signature.";
 
 "HealthCertificate_Validation_Passed_hint4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
 

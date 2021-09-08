@@ -5,6 +5,8 @@
 import BackgroundTasks
 import Foundation
 import UIKit
+import HealthCertificateToolkit
+import OpenCombine
 
 class TaskExecutionHandler: ENATaskExecutionDelegate {
 
@@ -23,7 +25,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	) {
 		self.riskProvider = riskProvider
 		self.exposureManager = exposureManager
-		self.pdService = plausibleDeniabilityService
+		self.plausibleDeniabilityService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
@@ -35,7 +37,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	// MARK: - Protocol ENATaskExecutionDelegate
 
-	var pdService: PlausibleDeniability
+	var plausibleDeniabilityService: PlausibleDeniability
 	var dependencies: ExposureSubmissionServiceDependencies
 	var contactDiaryStore: DiaryStoring
 
@@ -87,7 +89,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				group.enter()
 				DispatchQueue.global().async {
 					Log.info("Starting FakeRequests...", log: .background)
-					self.pdService.executeFakeRequests {
+					self.plausibleDeniabilityService.executeFakeRequests {
 						group.leave()
 						Log.info("Done sending FakeRequests...", log: .background)
 					}
@@ -125,6 +127,14 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 						Log.info("Done triggering analytics submission…", log: .background)
 					}
 				}
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Check for invalid certificates", log: .background)
+					self.checkCertificateValidityStates {
+						group.leave()
+						Log.info("Done checking for invalid certificates.", log: .background)
+					}
+				}
 				
 				group.enter()
 				DispatchQueue.global().async {
@@ -156,7 +166,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
-	
+	private var subscriptions = Set<AnyCancellable>()
+
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
 	private func executeSubmitTemporaryExposureKeys(completion: @escaping ((Bool) -> Void)) {
@@ -312,7 +323,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		})
 	}
 	
-	
 	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
 		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
 		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
@@ -323,5 +333,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			healthCertificateService.applyBoosterRulesForHealthCertificates()
 		}
 		completion()
+	}
+	
+	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
 	}
 }

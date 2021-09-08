@@ -21,6 +21,7 @@ extension HealthCertificate {
 	static func mock(
 		base45: String = HealthCertificateMocks.mockBase45,
 		validityState: HealthCertificateValidityState = .valid,
+		didShowInvalidNotification: Bool = false,
 		isNew: Bool = false,
 		isValidityStateNew: Bool = false
 	) -> HealthCertificate {
@@ -28,6 +29,7 @@ extension HealthCertificate {
 			return try HealthCertificate(
 				base45: base45,
 				validityState: validityState,
+				didShowInvalidNotification: didShowInvalidNotification,
 				isNew: isNew,
 				isValidityStateNew: isValidityStateNew
 			)

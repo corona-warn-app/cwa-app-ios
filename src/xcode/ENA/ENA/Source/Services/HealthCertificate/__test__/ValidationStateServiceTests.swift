@@ -10,7 +10,7 @@ class TestHealthCertificateService: HealthCertificateService {
 
 	convenience init(
 		store: HealthCertificateStoring,
-		signatureVerifying: DCCSignatureVerifying,
+		dccSignatureVerifier: DCCSignatureVerifying,
 		dscListProvider: DSCListProviding,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
@@ -19,7 +19,7 @@ class TestHealthCertificateService: HealthCertificateService {
 	) {
 		self.init(
 			store: store,
-		 signatureVerifying: signatureVerifying,
+		 dccSignatureVerifier: dccSignatureVerifier,
 		 dscListProvider: dscListProvider,
 			client: client,
 		 appConfiguration: appConfiguration
@@ -59,7 +59,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let service = TestHealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: appConfiguration
@@ -88,7 +88,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let service = TestHealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -129,7 +129,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let dateHelper = DateHelpers()
 		let service = TestHealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
@@ -148,7 +148,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let dateHelper = DateHelpers()
 		let service = TestHealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
