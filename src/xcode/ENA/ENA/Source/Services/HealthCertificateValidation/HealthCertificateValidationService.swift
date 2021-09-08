@@ -42,15 +42,15 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		client: Client,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
-		signatureVerifying: DCCSignatureVerifying,
+		dccSignatureVerifier: DCCSignatureVerifying,
 		dscListProvider: DSCListProviding,
 		rulesDownloadService: RulesDownloadServiceProviding
 	) {
 		self.store = store
 		self.client = client
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.dccSignatureVerifier = dccSignatureVerifier
  		self.validationRulesAccess = validationRulesAccess
-		self.signatureVerifying = signatureVerifying
 		self.dscListProvider = dscListProvider
 		self.rulesDownloadService = rulesDownloadService
 	}
@@ -69,7 +69,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		let signatureInvalid: Bool
 		var signatureValidationError: Error?
 		
-		let result = signatureVerifying.verify(
+		let result = dccSignatureVerifier.verify(
 			certificate: healthCertificate.base45,
 			with: dscListProvider.signingCertificates.value,
 			and: validationClock
@@ -113,7 +113,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	private let client: Client
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let validationRulesAccess: ValidationRulesAccessing
-	private let signatureVerifying: DCCSignatureVerifying
+	private let dccSignatureVerifier: DCCSignatureVerifying
 	private let dscListProvider: DSCListProviding
 	private var subscriptions = Set<AnyCancellable>()
 	

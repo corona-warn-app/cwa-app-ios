@@ -58,7 +58,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -159,7 +159,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -262,7 +262,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -357,7 +357,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -439,8 +439,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -510,7 +509,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -581,7 +580,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -653,7 +652,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -721,7 +720,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -788,7 +787,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -866,7 +865,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -939,7 +938,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1007,7 +1006,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1074,7 +1073,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1144,7 +1143,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1218,7 +1217,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1286,7 +1285,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1355,7 +1354,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1425,7 +1424,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1494,7 +1493,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1571,7 +1570,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1632,7 +1631,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1677,7 +1676,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1717,7 +1716,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1779,7 +1778,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: mockValidationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -1858,7 +1857,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				client: mockClient,
 				vaccinationValueSetsProvider: valueSetsStub,
 				validationRulesAccess: validationRulesAccess,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: dscListProvider,
 				rulesDownloadService: rulesDownloadService
 			)
