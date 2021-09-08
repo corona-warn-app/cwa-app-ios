@@ -437,7 +437,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
-			ppacService: ppacService
+			ppacService: ppacService,
+			healthCertificateService: healthCertificateService
 		)
 		developerMenu?.enableIfAllowed()
 	}

@@ -64,7 +64,13 @@ class FakeRequestService {
 
 	/// This method is convenience for sending a V + S request pattern.
 	func fakeVerificationAndSubmissionServerRequest(completion: (() -> Void)? = nil) {
-		fakeVerificationServerRequest {
+		fakeVerificationServerRequest { [weak self] in
+			guard let self = self else {
+				Log.warning("[FakeRequestService] Could not get self, skipping fakeSubmissionServerRequest call")
+				completion?()
+				return
+			}
+			
 			self.fakeSubmissionServerRequest {
 				completion?()
 			}

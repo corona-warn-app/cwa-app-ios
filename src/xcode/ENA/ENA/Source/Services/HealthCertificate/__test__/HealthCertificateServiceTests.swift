@@ -17,15 +17,15 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
-		// One for registration and one for the validity state update
-		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 2
+		// One for registration, one for the validity state update and one for is validity state new update
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 
 		let subscription = service.healthCertifiedPersons
 			.dropFirst()
@@ -82,6 +82,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		var subscriptions = Set<AnyCancellable>()
 
 		let healthCertifiedPersonExpectation = expectation(description: "healthCertifiedPerson objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertifiedPersonExpectation.expectedFulfillmentCount = 2
 
 		healthCertifiedPerson
 			.objectDidChange
@@ -95,7 +97,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -119,7 +121,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		// GIVEN
 		let service = HealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -155,7 +157,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -189,9 +191,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
 
+		// By default added certificate are not marked as new
+		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 0]).isNew)
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
+
 		// Try to register same certificate twice
 
-		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45, markAsNew: true)
 
 		if case .failure(let error) = registrationResult, case .certificateAlreadyRegistered = error { } else {
 			XCTFail("Double registration of the same certificate should fail")
@@ -199,6 +205,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+
+		// Certificates that were not added successfully don't change unseenNewsCount
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
 
 		// Try to register certificate with too many entries
 
@@ -239,7 +248,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
 
-		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
 		case let .success((healthCertifiedPerson, _)):
@@ -250,6 +259,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate, secondTestCertificate])
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 1]).isNew)
 
 		// Register vaccination certificate for same person
 
@@ -265,7 +278,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
 
-		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
 		case let .success((healthCertifiedPerson, _)):
@@ -277,6 +290,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 0]).isNew)
 
 		// Register vaccination certificate for other person
 
@@ -365,12 +382,19 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 0]).unseenNewsCount, 0)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
+
+		// Expired state increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 3)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .darkBlue(withStars: true))
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 2]).unseenNewsCount, 2)
 
 		// Set last person as preferred person and check that positions switched and gradients are correct
 
@@ -405,7 +429,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -538,7 +562,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: cachedAppConfig
@@ -570,6 +594,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -580,7 +606,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -615,6 +641,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -625,7 +653,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -660,6 +688,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -670,7 +700,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock()
@@ -718,6 +748,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -728,7 +760,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: cachedAppConfig
@@ -771,6 +803,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
 		let healthCertificateExpectation = expectation(description: "healthCertificate objectDidChange publisher updated")
+		// One for validity state and one for is validity state new
+		healthCertificateExpectation.expectedFulfillmentCount = 2
 
 		let subscription = healthCertificate
 			.objectDidChange
@@ -781,7 +815,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: cachedAppConfig
@@ -831,7 +865,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
@@ -846,7 +880,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 5
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -858,7 +892,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = expectedCounts.count
 		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestCertificateCount
+		let countSubscription = service.unseenNewsCount
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -875,7 +909,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			completionExpectation.fulfill()
 		}
 
-		service.resetUnseenTestCertificateCount()
+		// Wait for certificate registration to succeed
+		wait(for: [completionExpectation], timeout: .medium)
+
+		service.healthCertifiedPersons.value.first?.healthCertificates.first?.isValidityStateNew = false
+		service.healthCertifiedPersons.value.first?.healthCertificates.first?.isNew = false
 
 		waitForExpectations(timeout: .medium)
 
@@ -932,7 +970,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
@@ -940,7 +978,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1018,7 +1056,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
@@ -1026,7 +1064,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1106,7 +1144,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
@@ -1114,7 +1152,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1179,7 +1217,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
@@ -1256,7 +1294,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
@@ -1264,7 +1302,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 2
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1328,7 +1366,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig
@@ -1384,7 +1422,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock()
@@ -1439,7 +1477,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock()
@@ -1497,7 +1535,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
@@ -1533,7 +1571,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let service = HealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
@@ -1593,7 +1631,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			// Return error on signature check to ensure the certificate is registered regardless
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_DSC_NO_MATCH),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_NO_MATCH),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
@@ -1638,7 +1676,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let notificationCenter = MockUserNotificationCenter()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
@@ -1693,4 +1731,118 @@ class HealthCertificateServiceTests: CWATestCase {
 		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
 	}
+	
+	func testGIVEN_HealthCertificate_WHEN_CertificatesIsInvalid_THEN_NotificationForInvalidShouldBeCreated() throws {
+		
+		// GIVEN
+		let notificationCenter = MockUserNotificationCenter()
+		let store = MockTestStore()
+				
+		let vaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-09-04",
+					uniqueCertificateIdentifier: "91"
+				)]
+			)
+		)
+		let healthCertificate = HealthCertificate.mock(base45: vaccinationCertificateBase45, validityState: .invalid)
+		
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				   healthCertificate
+			   ]
+		   )
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+		
+		// WHEN
+		// When creating the service with the store, all certificates are checked for their validityStatus and thus their notifications are created.
+		_ = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_EXPIRED),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
+			notificationCenter: notificationCenter
+		)
+		
+		// There should be now 1 notifications for invalid, 1 for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+	}
+
+	func testBoosterRuleIncreasesUnseenNewsCount() throws {
+		let store = MockTestStore()
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock()
+		)
+
+		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
+
+		// Register vaccination certificate
+
+		let firstVaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					doseNumber: 2,
+					totalSeriesOfDoses: 2,
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "2"
+				)]
+			),
+			and: .fake(expirationTime: .distantFuture)
+		)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+
+		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+
+		switch registrationResult {
+		case let .success((healthCertifiedPerson, _)):
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates.first).isNew)
+
+		// Setting booster rule increases unseen news count
+		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting to same booster rule leaves unseen news count unchanged
+		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting booster rule to nil decreases unseen news count
+		store.healthCertifiedPersons.first?.boosterRule = nil
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Setting booster rule increases unseen news count
+		store.healthCertifiedPersons.first?.boosterRule = .fake()
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Marking certificate as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Marking booster rule as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.isNewBoosterRule = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 0)
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
+	}
+
 }

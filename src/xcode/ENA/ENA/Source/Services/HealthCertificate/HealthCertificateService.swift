@@ -14,7 +14,7 @@ class HealthCertificateService {
 
 	init(
 		store: HealthCertificateStoring,
-		signatureVerifying: DCCSignatureVerifying,
+		dccSignatureVerifier: DCCSignatureVerifying,
 		dscListProvider: DSCListProviding,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
@@ -26,7 +26,7 @@ class HealthCertificateService {
 			let store = MockTestStore()
 
 			self.store = store
-			self.signatureVerifying = signatureVerifying
+			self.dccSignatureVerifier = dccSignatureVerifier
 			self.dscListProvider = DSCListProvider(client: CachingHTTPClientMock(), store: store)
 			self.client = ClientMock()
 			self.appConfiguration = CachedAppConfigurationMock(store: store)
@@ -40,7 +40,7 @@ class HealthCertificateService {
 		#endif
 
 		self.store = store
-		self.signatureVerifying = signatureVerifying
+		self.dccSignatureVerifier = dccSignatureVerifier
 		self.dscListProvider = dscListProvider
 		self.client = client
 		self.appConfiguration = appConfiguration
@@ -54,7 +54,7 @@ class HealthCertificateService {
 
 	private(set) var healthCertifiedPersons = CurrentValueSubject<[HealthCertifiedPerson], Never>([])
 	private(set) var testCertificateRequests = CurrentValueSubject<[TestCertificateRequest], Never>([])
-	private(set) var unseenTestCertificateCount = CurrentValueSubject<Int, Never>(0)
+	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
 	var nextValidityTimer: Timer?
@@ -76,16 +76,17 @@ class HealthCertificateService {
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
-		checkSignatureUpfront: Bool = true
+		checkSignatureUpfront: Bool = true,
+		markAsNew: Bool = false
 	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		do {
-			let healthCertificate = try HealthCertificate(base45: base45)
+			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
 
 			// check signature
 			if checkSignatureUpfront {
-				if case .failure(let error) = signatureVerifying.verify(
+				if case .failure(let error) = dccSignatureVerifier.verify(
 					certificate: base45,
 					with: dscListProvider.signingCertificates.value,
 					and: Date()
@@ -110,7 +111,7 @@ class HealthCertificateService {
 					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
 				})
 			if isDuplicate {
-				Log.error("[HealthCertificateService] Registering health certificate failed:  certificate already registered", log: .api)
+				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
@@ -176,7 +177,6 @@ class HealthCertificateService {
 		)
 
 		testCertificateRequests.value.append(testCertificateRequest)
-		unseenTestCertificateCount.value += 1
 
 		executeTestCertificateRequest(
 			testCertificateRequest,
@@ -316,16 +316,23 @@ class HealthCertificateService {
 		}
 	}
 
-	func resetUnseenTestCertificateCount() {
-		unseenTestCertificateCount.value = 0
-	}
-
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
 		healthCertifiedPersons.value = store.healthCertifiedPersons
 		testCertificateRequests.value = store.testCertificateRequests
-		unseenTestCertificateCount.value = store.unseenTestCertificateCount
+	}
+
+	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
+		// .dropFirst: drops the first callback, which is called with default signing certificates.
+		// .first: only executes 1 element and no subsequent elements.
+		// This way only the 2. call with freshly fetched signing certificates is executed.
+		dscListProvider.signingCertificates
+			.dropFirst()
+			.first()
+			.sink { [weak self] _ in
+				self?.updateValidityStatesAndNotifications(shouldScheduleTimer: shouldScheduleTimer)
+			}.store(in: &subscriptions)
 	}
 
 	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
@@ -339,11 +346,13 @@ class HealthCertificateService {
 					to: healthCertificate.expirationDate
 				)
 
-				let signatureVerificationResult = self.signatureVerifying.verify(
+				let signatureVerificationResult = self.dccSignatureVerifier.verify(
 					certificate: healthCertificate.base45,
 					with: self.dscListProvider.signingCertificates.value,
 					and: Date()
 				)
+
+				let previousValidityState = healthCertificate.validityState
 
 				switch signatureVerificationResult {
 				case .success:
@@ -357,6 +366,11 @@ class HealthCertificateService {
 				case .failure:
 					healthCertificate.validityState = .invalid
 				}
+
+				if healthCertificate.validityState != previousValidityState {
+					healthCertificate.isValidityStateNew = true
+				}
+
 				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
 			}
 		}
@@ -416,7 +430,7 @@ class HealthCertificateService {
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
-	private let signatureVerifying: DCCSignatureVerifying
+	private let dccSignatureVerifier: DCCSignatureVerifying
 	private let dscListProvider: DSCListProviding
 	private let client: Client
 	private let appConfiguration: AppConfigurationProviding
@@ -435,6 +449,12 @@ class HealthCertificateService {
 				if $0 != self?.store.healthCertifiedPersons {
 					self?.store.healthCertifiedPersons = $0
 				}
+
+				let unseenNewsCount = $0.map { $0.unseenNewsCount }.reduce(0, +)
+				if self?.unseenNewsCount.value != unseenNewsCount {
+					self?.unseenNewsCount.value = unseenNewsCount
+				}
+
 				self?.updateHealthCertifiedPersonSubscriptions(for: $0)
 			}
 			.store(in: &subscriptions)
@@ -445,12 +465,6 @@ class HealthCertificateService {
 					self?.store.testCertificateRequests = $0
 				}
 				self?.updateTestCertificateRequestSubscriptions(for: $0)
-			}
-			.store(in: &subscriptions)
-
-		unseenTestCertificateCount
-			.sink { [weak self] in
-				self?.store.unseenTestCertificateCount = $0
 			}
 			.store(in: &subscriptions)
 
@@ -767,7 +781,11 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let healthCertificateBase45):
-				let registerResult = registerHealthCertificate(base45: healthCertificateBase45, checkSignatureUpfront: false)
+				let registerResult = registerHealthCertificate(
+					base45: healthCertificateBase45,
+					checkSignatureUpfront: false,
+					markAsNew: true
+				)
 
 				switch registerResult {
 				case .success((_, let healthCertificate)):
@@ -843,6 +861,13 @@ class HealthCertificateService {
 		let expirationDate = healthCertificate.expirationDate
 		scheduleNotificationForExpiringSoon(id: id, date: expiringSoonDate)
 		scheduleNotificationForExpired(id: id, date: expirationDate)
+
+		// Schedule an 'invalid' notification, if it was not scheduled before.
+		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
+
+			scheduleInvalidNotification(id: id)
+			healthCertificate.didShowInvalidNotification = true
+		}
 	}
 	
 	private func scheduleNotificationForExpiringSoon(
@@ -898,6 +923,29 @@ class HealthCertificateService {
 
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			content: content,
+			trigger: trigger
+		)
+
+		addNotification(request: request)
+	}
+
+	private func scheduleInvalidNotification(
+		id: String
+	) {
+		Log.info("Schedule invalid notification for certificate with id: \(private: id)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.sound = .default
+
+		// Trigger the notification immediately.
+		// 'timeInterval' may not be 0. From the docs: "This value must be greater than zero." 🤷‍♂️
+		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(id)",
 			content: content,
 			trigger: trigger
 		)

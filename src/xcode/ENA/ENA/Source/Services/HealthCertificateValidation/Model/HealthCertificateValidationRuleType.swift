@@ -7,6 +7,7 @@ import Foundation
 enum HealthCertificateValidationRuleType {
 	case acceptance
 	case invalidation
+	case boosterNotification
 	
 	var urlPath: String {
 		switch self {
@@ -14,6 +15,8 @@ enum HealthCertificateValidationRuleType {
 			return "acceptance-rules"
 		case .invalidation:
 			return "invalidation-rules"
+		case .boosterNotification:
+			return "booster-notification-rules"
 		}
 	}
 	
@@ -23,6 +26,8 @@ enum HealthCertificateValidationRuleType {
 			return "ACCEPTANCE"
 		case .invalidation:
 			return "INVALIDATION"
+		case .boosterNotification:
+			return "BOOSTER_NOTIFICATION"
 		}
 	}
 }

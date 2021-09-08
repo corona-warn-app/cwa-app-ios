@@ -93,10 +93,18 @@ enum Route {
 			return nil
 		}
 	}
+	
+	init(
+		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertificate: HealthCertificate
+	) {
+		self = .healthCertificateFromNotification(healthCertifiedPerson, healthCertificate)
+	}
 
 	// MARK: - Internal
 
 	case checkIn(String)
 	case rapidAntigen(Result<CoronaTestRegistrationInformation, QRCodeError>)
+	case healthCertificateFromNotification(HealthCertifiedPerson, HealthCertificate)
 
 }

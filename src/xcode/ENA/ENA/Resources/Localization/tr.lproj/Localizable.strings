@@ -1555,14 +1555,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.8 */
-"NewVersionFeature_29_warnGuest_title" = "Diğer Kullanıcılara Uyarı";
+/* Version 2.10 */
+"NewVersionFeature_210_boosterVaccination_title" = "Hatırlatma Aşıları İle İlgili Bilgiler";
 
-"NewVersionFeature_29_warnGuest_description" = "Kamu sağlığı yetkililerince belirtilen durumlarda artık etkinlik organizatörü olarak misafirlerinize, koronavirüs tanısı almış ve etkinliğe katılmış ancak Corona-Warn-App ile check in yapmamış başka kişilerin adına uyarıda bulunabilirsiniz.";
+"NewVersionFeature_210_boosterVaccination_description" = "Uygulamada, yaklaşan hatırlatma aşıları konusunda sizi uyaran bir mesaj görüntülenebilir.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "İyileşen Kişiler İçin Anlık Aşı Durumu Görüntülemesi";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Aşı Sertifikalarının Basılı Versiyonu";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Corona-Warn-App artık iyileşen kişiler için doğrudan ilk aşıdan sonra tam aşı koruması ibaresini görüntülemektedir. Johnson & Johnson haricindeki tüm aşılar için iki haftalık bekleme süresi kaldırılmıştır.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Artık aşı sertifikanızın basılı versiyonunu görüntüleyebilirsiniz. Bu özellik, sertifikaları PDF belgeleri olarak kaydetmenize ve yazdırmanıza olanak sağlar.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2464,7 +2464,7 @@
 
 "errorReport_DetailedInformation_Headline" = "Orijinallik Doğrulaması ve Üçüncü Ülkelere Veri Aktarımı";
 
-"errorReport_DetailedInformation_Content1" = "Akıllı telefonunuz, uygulamanızın orijinalliğini teyit etmek için akıllı telefonunuzun ve uygulamanızın sürümüne ilişkin bilgileri içeren bir benzersiz tanıtıcı oluşturur. Bu, teknik destek birimine yalnızca Corona-Warn-App’i gerçekten kullanan kişilerin veri aktarabilmesini ve üzerinde oynanmış hata raporlarının ortadan kaldırılabilmesini sağlamak için gereklidir. Bunun için, tanıtıcı Apple’a gönderilir. Bu işlem kapsamında veriler, ABD’ye veya veri gizliliği düzeyinin Avrupa kanunlarına uygun olmadığı ve veri gizliliği konusunda Avrupa’daki haklarınızı kullanamayabileceğiniz başka üçüncü ülkelere aktarılabilir. Özellikle, üçüncü ülkedeki güvenlik servisleri herhangi bir şüphe sebebi olmasa bile verilere erişebilir, Apple ile verileri analiz edebilir ve bu verileri örneğin başka bilgilerle bağlantılandırabilir. Buna yalnızca Apple’a gönderilen tanıtıcı dahildir. Apple hata raporunuzda yer alan bilgileri almaz ancak tanıtıcıya göre kimliğinizi belirleyebilir ve akıllı telefonunuzda orijinallik kontrolünün yapıldığını takip edebilir.\n\nVerilerinizin üçüncü ülkeye aktarılmasına onay vermiyorsanız lütfen “Kaul et ve Gönder” seçeneğine dokunmayın. Böyle bir durumda uygulamayı kullanmaya devam edebilirsiniz ancak hata raporları gönderemezsiniz.";
+"errorReport_DetailedInformation_Content1" = "Akıllı telefonunuz, uygulamanızın orijinalliğini teyit etmek için akıllı telefonunuzun ve uygulamanızın sürümüne ilişkin bilgileri içeren bir benzersiz tanıtıcı oluşturur. Bu, teknik destek birimine yalnızca Corona-Warn-App’i gerçekten kullanan kişilerin veri aktarabilmesini ve üzerinde oynanmış hata raporlarının ortadan kaldırılabilmesini sağlamak için gereklidir. Bunun için, tanıtıcı Apple’a gönderilir. Bu işlem kapsamında veriler, ABD’ye veya veri gizliliği düzeyinin Avrupa kanunlarına uygun olmadığı ve veri gizliliği konusunda Avrupa’daki haklarınızı kullanamayabileceğiniz başka üçüncü ülkelere aktarılabilir. Özellikle, üçüncü ülkedeki güvenlik servisleri herhangi bir şüphe sebebi olmasa bile verilere erişebilir, Apple ile verileri analiz edebilir ve bu verileri örneğin başka bilgilerle bağlantılandırabilir. Buna yalnızca Apple’a gönderilen tanıtıcı dahildir. Apple hata raporunuzda yer alan bilgileri almaz ancak tanıtıcıya göre kimliğinizi belirleyebilir ve akıllı telefonunuzda orijinallik kontrolünün yapıldığını takip edebilir.\n\nVerilerinizin üçüncü ülkeye aktarılmasına onay vermiyorsanız lütfen “Kabul Et ve Gönder” seçeneğine dokunmayın. Böyle bir durumda uygulamayı kullanmaya devam edebilirsiniz ancak hata raporları gönderemezsiniz.";
 
 "ErrorReport_DetailedInformation_Subheadline" = "RKI, hata analizlerini nasıl analiz eder?";
 
@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "aşı tarihi: %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Hatırlatma Aşısı";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Sertifikası";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "PCR Testi";
@@ -2793,6 +2791,8 @@
 
 "HealthCertificate_Details_expirationDateDetails" = "Lütfen zamanında yeni bir dijital sertifika aldığınızdan emin olun.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Daha Fazla";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
 
@@ -2833,6 +2833,36 @@
 "RecoveryCertificate_Alert_title" = "İyileşme sertifikasını kaldırmak istiyor musunuz?";
 
 "RecoveryCertificate_Alert_message" = "İyileşme sertifikasını kaldırırsanız artık bunu uygulamada kanıt olarak kullanamazsınız.";
+
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "İptal Et";
+
+"HealthCertificate_PrintPdf_Info_title" = "AB Çıktısı Oluşturma";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Sertifikayı PDF belgesi olarak kaydedebilirsiniz. Bu adım gönüllülük esasına dayalıdır. PDF belgesine ilk kez yalnızca siz erişebilirsiniz. Ardından akıllı telefonunuza kaydetmeyi ya da başka uygulamalara içe aktarmayı seçebilirsiniz.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Lütfen PDF belgesinin hassas bilgiler içerdiğini unutmayın. Belgeyi dikkatle kullanmanızı ve yalnızca güvendiğiniz ve sertifikayı kontrol etme yetkisi olan kişilere göstermenizi öneririz.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "PDF belgesini yayınlamamanızı, e-postayla göndermemenizi ya da başka uygulamalar üzerinden paylaşmamanızı öneririz.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Devam Et";
+
+"HealthCertificate_PrintPdf_Share_title" = "Dijital Sertifikanın Basılı Versiyonu";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Basılı versiyon görüntülenemiyor";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Sertifika Almanya'da düzenlenmediği için sertifikanın basılı versiyonu görüntülenemiyor";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Basılı Versiyon için SSS";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "Tamam";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Basılı versiyon görüntülenemiyor";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Sertifika şu anda alınamadığı için sertifikanın basılı versiyonu görüntülenemiyor. Lütfen daha sonra tekrar deneyin.";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Hata";
@@ -2921,7 +2951,7 @@
 
 "HealthCertificate_Validation_Passed_hint2" = "Bölgeler özelinde ek kurallar ve sınırlamalar geçerli olabilir.";
 
-"HealthCertificate_Validation_Passed_hint3" = "Sertifikanın doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
+"HealthCertificate_Validation_Passed_hint3" = "Sertifikaların doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Corona-Warn-App, sertifikaya kaydedilen verilerin geçerli olup olmadığını kontrol etmez.";
 

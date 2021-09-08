@@ -207,4 +207,25 @@ class RouteTests: CWATestCase {
 			XCTFail("Wrong route. Expected .rapidAntigen")
 		}
 	}
+	
+	func testGIVEN_HealthCertifiedPersonAndCertificate_WHEN_RouteIsCreated_THEN_PropertiesAreSetCorrect() {
+		
+		// GIVEN
+		let healthCertificate = HealthCertificate.mock()
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		
+		// WHEN
+		let route = Route(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificate: healthCertificate
+		)
+		
+		// THEN
+		if case let .healthCertificateFromNotification(person, certificate) = route {
+			XCTAssertEqual(person, healthCertifiedPerson)
+			XCTAssertEqual(certificate, healthCertificate)
+		} else {
+			XCTFail("Test should not fail")
+		}
+	}
 }

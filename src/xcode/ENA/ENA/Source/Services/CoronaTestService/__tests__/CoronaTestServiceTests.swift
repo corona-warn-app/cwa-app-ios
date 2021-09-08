@@ -23,7 +23,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -73,7 +73,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -121,7 +121,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -171,7 +171,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -219,7 +219,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -271,7 +271,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -328,7 +328,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfig
@@ -387,7 +387,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -430,7 +430,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -478,7 +478,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -560,7 +560,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -646,7 +646,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -708,7 +708,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -765,7 +765,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -821,7 +821,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -897,7 +897,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -977,7 +977,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1049,7 +1049,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1106,7 +1106,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1183,7 +1183,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1264,7 +1264,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1322,7 +1322,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1377,7 +1377,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1446,7 +1446,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1498,7 +1498,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1546,7 +1546,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1582,7 +1582,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1618,7 +1618,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1662,7 +1662,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1711,7 +1711,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1759,7 +1759,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1795,7 +1795,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1832,7 +1832,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1872,7 +1872,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1925,7 +1925,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -1966,7 +1966,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2007,7 +2007,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2048,7 +2048,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2088,7 +2088,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2121,7 +2121,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2164,7 +2164,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2206,7 +2206,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2251,7 +2251,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2297,7 +2297,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2340,7 +2340,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2388,7 +2388,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2433,7 +2433,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2476,7 +2476,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2522,7 +2522,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2568,7 +2568,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2613,7 +2613,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2658,7 +2658,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2698,7 +2698,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2782,7 +2782,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration
@@ -2880,7 +2880,7 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration

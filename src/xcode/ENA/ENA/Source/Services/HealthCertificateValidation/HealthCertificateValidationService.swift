@@ -33,7 +33,6 @@ General flow:
 7. return interpreted rules
 */
 
-// swiftlint:disable:next type_body_length
 final class HealthCertificateValidationService: HealthCertificateValidationProviding {
 	
 	// MARK: - Init
@@ -42,18 +41,18 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		store: Store,
 		client: Client,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
-		signatureVerifier: SignatureVerification = SignatureVerifier(),
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
-		signatureVerifying: DCCSignatureVerifying,
-		dscListProvider: DSCListProviding
+		dccSignatureVerifier: DCCSignatureVerifying,
+		dscListProvider: DSCListProviding,
+		rulesDownloadService: RulesDownloadServiceProviding
 	) {
 		self.store = store
 		self.client = client
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		self.signatureVerifier = signatureVerifier
-		self.validationRulesAccess = validationRulesAccess
-		self.signatureVerifying = signatureVerifying
+		self.dccSignatureVerifier = dccSignatureVerifier
+ 		self.validationRulesAccess = validationRulesAccess
 		self.dscListProvider = dscListProvider
+		self.rulesDownloadService = rulesDownloadService
 	}
 		
 	// MARK: - Protocol HealthCertificateValidationProviding
@@ -70,7 +69,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		let signatureInvalid: Bool
 		var signatureValidationError: Error?
 		
-		let result = signatureVerifying.verify(
+		let result = dccSignatureVerifier.verify(
 			certificate: healthCertificate.base45,
 			with: dscListProvider.signingCertificates.value,
 			and: validationClock
@@ -109,12 +108,12 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 	
 	// MARK: - Private
 	
+	private let rulesDownloadService: RulesDownloadServiceProviding
 	private let store: Store
 	private let client: Client
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
-	private let signatureVerifier: SignatureVerification
 	private let validationRulesAccess: ValidationRulesAccessing
-	private let signatureVerifying: DCCSignatureVerifying
+	private let dccSignatureVerifier: DCCSignatureVerifying
 	private let dscListProvider: DSCListProviding
 	private var subscriptions = Set<AnyCancellable>()
 	
@@ -152,10 +151,11 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 							completion(.failure(.VALUE_SET_CLIENT_ERROR))
 						}
 					}
-					
 				}, receiveValue: { [weak self] valueSets in
+					guard let self = self else { return }
+
 					Log.info("Successfully received value sets. Proceed with downloading acceptance rules...", log: .vaccination)
-					self?.downloadAcceptanceRules(
+					self.prepareAndDownloadValidationRules(
 						healthCertificate: healthCertificate,
 						arrivalCountry: arrivalCountry,
 						validationClock: validationClock,
@@ -167,15 +167,17 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			.store(in: &subscriptions)
 	}
 	
-	private func downloadAcceptanceRules(
+	// Validation Rules Preparation
+	
+	func prepareAndDownloadValidationRules(
 		healthCertificate: HealthCertificate,
 		arrivalCountry: Country,
 		validationClock: Date,
 		valueSets: SAP_Internal_Dgc_ValueSets,
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
-		// 3. update/ download acceptance rules
-		downloadRules(
+		// 1. update/ download acceptance rules
+		self.rulesDownloadService.downloadRules(
 			ruleType: .acceptance,
 			completion: { [weak self] result in
 				switch result {
@@ -204,8 +206,8 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		acceptanceRules: [Rule],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
-		// 4. update/ download invalidation rules
-		downloadRules(
+		// 2. update/ download invalidation rules
+		self.rulesDownloadService.downloadRules(
 			ruleType: .invalidation,
 			completion: { [weak self] result in
 				switch result {
@@ -236,7 +238,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		invalidationRules: [Rule],
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
-		// 5. Assemble common FilterParameter
+		// 3. Assemble common FilterParameter
 		
 		let mappedCertificateType = mapCertificateType(healthCertificate.type)
 		
@@ -288,7 +290,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-		// 6. apply acceptance and invalidation rules together and validate them
+		// 4. apply acceptance and invalidation rules together and validate them
 		
 		let combinedRules = acceptanceRules + invalidationRules
 		
@@ -321,7 +323,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		completion: @escaping (Result<HealthCertificateValidationReport, HealthCertificateValidationError>) -> Void
 	) {
 		
-		// 7. interpret rules
+		// 5. interpret rules
 		
 		if validatedRules.allSatisfy({ $0.result == .passed }) {
 			// all rules has to be .passed
@@ -338,171 +340,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			completion(.success(.validationFailed(validatedRules)))
 		}
 	}
-	
-	// MARK: - Rules downloading and extraction
-		
-	private func downloadRules(
-		ruleType: HealthCertificateValidationRuleType,
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
-	) {
-		var eTag: String?
-		switch ruleType {
-		case .acceptance:
-			eTag = store.acceptanceRulesCache?.lastValidationRulesETag
-		case .invalidation:
-			eTag = store.invalidationRulesCache?.lastValidationRulesETag
-		}
-		
-		client.getDCCRules(
-			eTag: eTag,
-			isFake: false,
-			ruleType: ruleType,
-			completion: { [weak self] result in
-				guard let self = self else {
-					Log.error("Could not create strong self", log: .vaccination)
-					completion(.failure(.RULE_CLIENT_ERROR(ruleType)))
-					return
-				}
-				
-				switch result {
-				case let .success(packageDownloadResponse):
-					self.rulesDownloadingSuccess(
-						ruleType: ruleType,
-						packageDownloadResponse: packageDownloadResponse,
-						completion: completion
-					)
-	
-				case let .failure(failure):
-					self.rulesDownloadingFailure(
-						ruleType: ruleType,
-						failure: failure,
-						completion: completion
-					)
-				}
-			}
-		)
-	}
-	
-	private func rulesDownloadingSuccess(
-		ruleType: HealthCertificateValidationRuleType,
-		packageDownloadResponse: PackageDownloadResponse,
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
-	) {
-		Log.info("Successfully received \(ruleType) rules package. Proceed with eTag verification...", log: .vaccination)
 
-		guard let eTag = packageDownloadResponse.etag else {
-			Log.error("ETag of package is missing. Return with failure.", log: .vaccination)
-			completion(.failure(.RULE_JSON_ARCHIVE_ETAG_ERROR(ruleType)))
-			return
-		}
-		Log.info("Successfully verified eTag. Proceed with package extraction...", log: .vaccination)
-				
-		guard !packageDownloadResponse.isEmpty,
-			  let sapDownloadedPackage = packageDownloadResponse.package else {
-			Log.error("PackageDownloadResponse is empty. Return with failure.", log: .vaccination)
-			completion(.failure(.RULE_JSON_ARCHIVE_FILE_MISSING(ruleType)))
-
-			return
-		}
-		Log.info("Successfully extracted sapDownloadedPackage. Proceed with package verification...", log: .vaccination)
-		
-		guard signatureVerifier.verify(sapDownloadedPackage) else {
-			Log.error("Verification of sapDownloadedPackage failed. Return with failure", log: .vaccination)
-			completion(.failure(.RULE_JSON_ARCHIVE_SIGNATURE_INVALID(ruleType)))
-
-			return
-		}
-		Log.info("Successfully verified sapDownloadedPackage. Proceed now with CBOR decoding...", log: .vaccination)
-		
-		self.extractRules(sapDownloadedPackage.bin, completion: { result in
-			switch result {
-			case let .success(rules):
-				Log.info("Successfully decoded \(ruleType) rules: \(private: rules).", log: .vaccination)
-				// Save in success case for caching
-				switch ruleType {
-				case .acceptance:
-					let receivedAcceptanceRules = ValidationRulesCache(
-						lastValidationRulesETag: eTag,
-						validationRules: rules
-					)
-					store.acceptanceRulesCache = receivedAcceptanceRules
-				case .invalidation:
-					let receivedInvalidationRules = ValidationRulesCache(
-						lastValidationRulesETag: eTag,
-						validationRules: rules
-					)
-					store.invalidationRulesCache = receivedInvalidationRules
-				}
-				Log.info("Successfully stored \(ruleType) rules in cache.", log: .vaccination)
-				completion(.success(rules))
-				
-			case let .failure(validationError):
-				Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: validationError)
-				completion(.failure(.RULE_DECODING_ERROR(ruleType, validationError)))
-
-			}
-		})
-	}
-
-	private func rulesDownloadingFailure(
-		ruleType: HealthCertificateValidationRuleType,
-		failure: URLSession.Response.Failure,
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
-	) {
-		switch failure {
-		case .notModified:
-			// Normally we should have cached something before
-			Log.info("Download new \(ruleType) rules aborted due to not modified content. Taking cached rules.", log: .vaccination)
-			switch ruleType {
-			case .acceptance:
-				if let cachedAcceptanceRules = store.acceptanceRulesCache?.validationRules {
-					completion(.success(cachedAcceptanceRules))
-				} else {
-					// If not, return edge case error
-					Log.error("Could not find cached acceptance rules but need some.", log: .vaccination)
-					completion(.failure(.RULE_MISSING_CACHE(.acceptance)))
-				}
-			case .invalidation:
-				if let cachedInvalidationRules = store.invalidationRulesCache?.validationRules {
-					completion(.success(cachedInvalidationRules))
-				} else {
-					// If not, return edge case error
-					Log.error("Could not find cached invalidation rules but need some.", log: .vaccination)
-					completion(.failure(.RULE_MISSING_CACHE(.invalidation)))
-				}
-			}
-		case .noNetworkConnection:
-			Log.error("Could not download \(ruleType) rules due to no network.", log: .vaccination, error: failure)
-			completion(.failure(.NO_NETWORK))
-		case let .serverError(statusCode):
-			switch statusCode {
-			case 400...409:
-				Log.error("Could not download \(ruleType) rules due to client error with status code: \(statusCode).", log: .vaccination, error: failure)
-				completion(.failure(.RULE_CLIENT_ERROR(ruleType)))
-			default:
-				Log.error("Could not download \(ruleType) rules due to server error with status code: \(statusCode).", log: .vaccination, error: failure)
-				completion(.failure(.RULE_SERVER_ERROR(ruleType)))
-			}
-		default:
-			Log.error("Could not download \(ruleType) rules due to server error.", log: .vaccination, error: failure)
-			completion(.failure(.RULE_SERVER_ERROR(ruleType)))
-		}
-	}
-	
-	
-	private func extractRules(
-		_ data: Data,
-		completion: (Result<[Rule], RuleValidationError>) -> Void
-	) {
-		let extractRulesResult = validationRulesAccess.extractValidationRules(from: data)
-		
-		switch extractRulesResult {
-		case let .success(rules):
-			completion(.success(rules))
-		case let .failure(error):
-			completion(.failure(error))
-		}
-	}
 	
 	// MARK: - ExternalParameters helpers
 	
@@ -514,6 +352,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		return ["AD","AE","AF","AG","AI","AL","AM","AO","AQ","AR","AS","AT","AU","AW","AX","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BL","BM","BN","BO","BQ","BR","BS","BT","BV","BW","BY","BZ","CA","CC","CD","CF","CG","CH","CI","CK","CL","CM","CN","CO","CR","CU","CV","CW","CX","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","EH","ER","ES","ET","FI","FJ","FK","FM","FO","FR","GA","GB","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","HK","HM","HN","HR","HT","HU","ID","IE","IL","IM","IN","IO","IQ","IR","IS","IT","JE","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN","PR","PS","PT","PW","PY","QA","RE","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SH","SI","SJ","SK","SL","SM","SN","SO","SR","SS","ST","SV","SX","SY","SZ","TC","TD","TF","TG","TH","TJ","TK","TL","TM","TN","TO","TR","TT","TV","TW","TZ","UA","UG","UM","US","UY","UZ","VA","VC","VE","VG","VI","VN","VU","WF","WS","YE","YT","ZA","ZM","ZW"]
 	}
 		
+
 	// Maps our valueSet on the value set of CertLogic. See https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/business-rules-dcc/docs/spec/dgc-validation-rules-client.md#data-structure-of-external-rule-parameters
 	// Internal for testing purposes
 	func mapValueSets(
@@ -530,7 +369,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 		dictionary["vaccines-covid-19-names"] = valueSet.mp.items.map { $0.key }
 		return dictionary
 	}
-	
+
 	// Internal for testing purposes
 	func mapCertificateType(_ certificateType: HealthCertificate.CertificateType) -> CertLogic.CertificateType {
 		switch certificateType {

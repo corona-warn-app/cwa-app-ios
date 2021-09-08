@@ -51,14 +51,16 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		let rulesDownloadService = RulesDownloadService(signatureVerifier: MockVerifier(), store: store, client: client)
+		
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -150,14 +152,16 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, store: store, client: client)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -250,14 +254,17 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -342,14 +349,17 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		// expirationTime must be >= validation clock to succeed.
@@ -422,14 +432,16 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: mockValidationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -484,14 +496,22 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_PH_INVALID),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -548,14 +568,21 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -612,14 +639,22 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -672,14 +707,22 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
+
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -732,14 +775,21 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: cachingClient,
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -803,16 +853,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -869,16 +926,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificate = HealthCertificate.mock()
@@ -934,15 +998,17 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
-		
+		let rulesDownloadService = RulesDownloadService(store: store, client: client)
+
 		// To force a verifying error, we just use the real verifier instead of the mock.
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -1001,14 +1067,15 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .failure(.CBOR_DECODING_FAILED(nil))
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -1064,16 +1131,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let healthCertificate = HealthCertificate.mock()
 		
 		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_MISSING_CACHE")
@@ -1131,16 +1205,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let healthCertificate = HealthCertificate.mock()
 		
 		let expectation = self.expectation(description: "Test should fail with .INVALIDATION_RULE_MISSING_CACHE")
@@ -1192,16 +1273,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let healthCertificate = HealthCertificate.mock()
 		
 		let expectation = self.expectation(description: "Test should fail with .NO_NETWORK")
@@ -1254,16 +1342,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let healthCertificate = HealthCertificate.mock()
 		
 		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_CLIENT_ERROR")
@@ -1316,16 +1411,24 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let healthCertificate = HealthCertificate.mock()
 		
 		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_SERVER_ERROR")
@@ -1378,16 +1481,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let healthCertificate = HealthCertificate.mock()
 		
 		let expectation = self.expectation(description: "Test should fail with .ACCEPTANCE_RULE_SERVER_ERROR")
@@ -1448,18 +1558,21 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .failure(.CBOR_DECODING_FAILED(nil))
+		
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
 			validationRulesAccess: validationRulesAccess,
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 		
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
@@ -1493,7 +1606,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		}
 		XCTAssertEqual(error, .RULES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
-	
+
 	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
@@ -1505,16 +1618,23 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let client = ClientMock()
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: ClientMock(),
+			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
 		
 		// WHEN
 		let countryCodes = validationService.allCountryCodes
@@ -1539,20 +1659,27 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: MockTestStore()
 		)
+		let client = ClientMock()
 		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: ClientMock(),
+			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
 		
 		// WHEN
 		let mappedTest = validationService.mapCertificateType(.test)
@@ -1576,16 +1703,24 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let client = ClientMock()
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: ClientMock(),
+			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
-		
+
 		let countryCodes = validationService.allCountryCodes
 		let tcTrKey = "tcTr key"
 		let tcMaKey = "tcMa key"
@@ -1630,15 +1765,24 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		let client = ClientMock()
+		let mockValidationRulesAccess = MockValidationRulesAccess()
+		let rulesDownloadService = RulesDownloadService(
+			validationRulesAccess: mockValidationRulesAccess,
+			signatureVerifier: MockVerifier(),
+			store: store,
+			client: client
+		)
 		let validationService = HealthCertificateValidationService(
 			store: store,
-			client: ClientMock(),
+			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifier: MockVerifier(),
-			validationRulesAccess: MockValidationRulesAccess(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider
+			validationRulesAccess: mockValidationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
+
 		// Exact Time for 9.7.2021, 10:30:00
 		let dateToday: UInt64 = 1625826600
 		
@@ -1701,17 +1845,22 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				)
 				completion(.success(package))
 			}
-
+			let validationRulesAccess = ValidationRulesAccess()
+			let rulesDownloadService = RulesDownloadService(
+				validationRulesAccess: validationRulesAccess,
+				signatureVerifier: mockVerifier,
+				store: mockStore,
+				client: mockClient
+			)
 			let validationService = HealthCertificateValidationService(
 				store: mockStore,
 				client: mockClient,
 				vaccinationValueSetsProvider: valueSetsStub,
-				signatureVerifier: mockVerifier,
-				validationRulesAccess: ValidationRulesAccess(),
-				signatureVerifying: DCCSignatureVerifyingStub(),
-				dscListProvider: dscListProvider
+				validationRulesAccess: validationRulesAccess,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: dscListProvider,
+				rulesDownloadService: rulesDownloadService
 			)
-
 			let certificate = try HealthCertificate(base45: testCase.dcc)
 			let country = try XCTUnwrap(Country(countryCode: testCase.countryOfArrival))
 

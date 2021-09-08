@@ -1555,14 +1555,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.8 */
-"NewVersionFeature_29_warnGuest_title" = "Ostrzegaj w imieniu innych";
+/* Version 2.10 */
+"NewVersionFeature_210_boosterVaccination_title" = "Informacje o szczepieniach przypominających";
 
-"NewVersionFeature_29_warnGuest_description" = "Jako organizator wydarzenia możesz teraz – na polecenie organów zdrowia publicznego – ostrzegać swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się w aplikacji Corona- Warn-App.";
+"NewVersionFeature_210_boosterVaccination_description" = "Aplikacja może teraz wyświetlać komunikat informujący o zbliżających się szczepieniach przypominających.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Natychmiastowe wyświetlanie statusu szczepień ozdrowieńców";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Wersja certyfikatów szczepień do druku";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Aplikacja Corona-Warn-App wyświetla teraz pełną ochronę poszczepienną dla ozdrowieńców bezpośrednio po pierwszym szczepieniu. Dwutygodniowy okres oczekiwania zostaje zniesiony w przypadku wszystkich szczepionek z wyjątkiem Johnson & Johnson.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Możesz teraz wyświetlić wersję certyfikatu szczepienia do druku, co umożliwia zapisanie certyfikatów jako dokumentów PDF i ich wydrukowanie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2738,8 +2738,6 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "zaszczepiono dnia %@";
 
-"HealthCertifiedPerson_VaccinationCertificate_booster" = "Szczepienie przypominające";
-
 "HealthCertifiedPerson_TestCertificate_headline" = "Certyfikat testu";
 
 "HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";
@@ -2793,6 +2791,8 @@
 
 "HealthCertificate_Details_expirationDateDetails" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Więcej";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Jest to szczepionka, która wymaga tylko jednej dawki lub szczepionka dla ozdrowieńca, który potrzebuje tylko jednej dawki.";
 
@@ -2833,6 +2833,36 @@
 "RecoveryCertificate_Alert_title" = "Czy chcesz usunąć certyfikat statusu ozdrowieńca?";
 
 "RecoveryCertificate_Alert_message" = "Po usunięciu certyfikatu statusu ozdrowieńca jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
+
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Wyświetl wersję do druku";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Anuluj";
+
+"HealthCertificate_PrintPdf_Info_title" = "Generowanie wydruku UE";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Możesz zapisać certyfikat jako dokument PDF. Ta czynność jest dobrowolna. Na początku tylko Ty masz dostęp do tego dokumentu PDF. Następnie możesz zdecydować, czy chcesz go zapisać w smartfonie, czy zaimportować do innych aplikacji.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Należy pamiętać, że dokument PDF zawiera dane wrażliwe. Zalecamy ostrożne obchodzenie się z nim i pokazywanie go tylko zaufanym osobom, które są upoważnione do sprawdzania certyfikatu.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Zalecamy, aby nie publikować dokumentu PDF, nie wysyłać go pocztą elektroniczną ani nie udostępniać go za pośrednictwem innych aplikacji.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Kontynuuj";
+
+"HealthCertificate_PrintPdf_Share_title" = "Wersja cyfrowego certyfikatu do druku";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Nie można wyświetlić wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ certyfikat nie został wydany w Niemczech";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Często zadawane pytania dotyczące wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Nie można wyświetlić wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ nie można teraz pobrać certyfikatu. Spróbuj ponownie później.";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
