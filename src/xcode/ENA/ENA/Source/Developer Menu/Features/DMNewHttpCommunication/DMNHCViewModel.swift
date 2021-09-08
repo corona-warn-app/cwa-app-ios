@@ -47,7 +47,7 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					
-					let resource = ResponseResources.appConfiguration
+					let resource = Resources.response.appConfiguration
 					self?.restService.load(resource: resource) { result in
 						
 						switch result {
@@ -69,8 +69,7 @@ final class DMNHCViewModel {
 				action: { [weak self] in
 
 					let model = SAP_Internal_V2_ApplicationConfigurationIOS()
-					let resource =
-						ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching, model)
+					let resource = Resources.request.appConfiguration(model: model)
 					self?.restService.load(resource: resource) { result in
 						switch result {
 						case let .success(model):

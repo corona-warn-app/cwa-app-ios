@@ -21,6 +21,8 @@ enum ResourceError: Error {
 	case packageCreation
 	case signatureVerification
 	case notModified
+	case undefined
+
 }
 
 enum ResourceType {
@@ -31,27 +33,37 @@ enum ResourceType {
 }
 
 
-protocol Resource {
+protocol ResourceDescribing {
 	// Model is type of the model
 	associatedtype Model
 
 	var locator: Locator { get }
 	var type: ResourceType { get }
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> URLRequest
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> Result<URLRequest, ResourceError>
 }
 
 /// describes a resource
 ///
-protocol ResponseResource: Resource {
+protocol ResponseResource: ResourceDescribing {
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
 }
 
-protocol RequestResource: Resource {
+protocol RequestResource: ResourceDescribing {
 	var model: Model? { get }
-	func encode() -> Result<Data, ResourceError>
+	func encode() -> Result<Data?, ResourceError>
 }
 
-enum ResponseResources {
-	static let appConfiguration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching)
+
+enum Resources {
+	enum response {
+		static let appConfiguration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching)
+	}
+
+	enum request {
+		static func appConfiguration(model: SAP_Internal_V2_ApplicationConfigurationIOS) -> ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS> {
+			return ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching, model)
+		}
+	}
+
 }

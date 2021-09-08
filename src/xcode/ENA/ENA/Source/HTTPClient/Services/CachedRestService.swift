@@ -24,30 +24,41 @@ class CachedRestService: Service {
 		URLSession(configuration: .cachingSessionConfiguration())
 	}()
 
-	func decodeModel<T>(resource: T, _ bodyData: Data?, _ response: HTTPURLResponse? = nil) -> Result<T.Model, ResourceError> where T: ResponseResource {
+
+	func decodeModel<T>(
+		_ resource: T,
+		_ bodyData: Data? = nil,
+		_ response: HTTPURLResponse? = nil,
+		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
+	) where T: ResponseResource {
 		switch resource.decode(bodyData) {
 		case .success(let model):
 			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
 				  let data = bodyData else {
 				Log.debug("ETag not found - do not write to cache")
-				return .success(model)
+				 completion(.success(model))
+				return
 			}
 			let serverDate = response?.dateHeader ?? Date()
 			let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
 			cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
-			return .success(model)
+			completion(.success(model))
 
 		case .failure:
-			return .failure(.decoding)
+			completion(.failure(.resourceError(.decoding)))
 		}
 	}
 
-	func cached<T>(resource: T) -> Result<T.Model, ResourceError> where T: ResponseResource {
+	func cached<T>(
+		_ resource: T,
+		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
+	) where T: ResponseResource {
 		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
 			Log.debug("no data found in cache", log: .client)
-			return .failure(.missingData)
+			completion(.failure(.resourceError(.missingData)))
+			return
 		}
-		return decodeModel(resource: resource, cachedModel.data)
+		decodeModel(resource, cachedModel.data, nil, completion)
 	}
 
 	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource {

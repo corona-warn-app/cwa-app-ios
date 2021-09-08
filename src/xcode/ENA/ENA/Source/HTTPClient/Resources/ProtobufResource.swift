@@ -30,18 +30,19 @@ struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftPro
 	var locator: Locator
 	var type: ResourceType
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> Result<URLRequest, ResourceError> {
 		let endpointURL = locator.endpoint.url(environmentData)
 		let url = locator.paths.reduce(endpointURL) { result, component in
 			result.appendingPathComponent(component, isDirectory: false)
 		}
 		var urlRequest = URLRequest(url: url)
-				
-	
-		if case let .success(data) = encode() {
+		switch encode() {
+		case let .success(data):
 			urlRequest.httpBody = data
+		case let .failure(error):
+			return .failure(error)
 		}
-		
+
 		locator.headers.forEach { key, value in
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
@@ -49,7 +50,7 @@ struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftPro
 		customHeader?.forEach { key, value in
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
-		return urlRequest
+		return .success(urlRequest)
 	}
 
 	func decode(_ data: Data?) -> Result<P, ResourceError> {
@@ -75,9 +76,9 @@ struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftPro
 
 	var model: P?
 
-	func encode() -> Result<Data, ResourceError> {
+	func encode() -> Result<Data?, ResourceError> {
 		guard let model = model else {
-			return .failure(.missingData)
+			return .success(nil)
 		}
 		do {
 			let data = try model.serializedData()

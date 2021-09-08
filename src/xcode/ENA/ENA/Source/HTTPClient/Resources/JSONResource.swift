@@ -25,7 +25,7 @@ struct JSONResource<M: Codable>: ResponseResource {
 	)
 */
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> Result<URLRequest, ResourceError> {
 		let endpointURL = locator.endpoint.url(environmentData)
 		let url = locator.paths.reduce(endpointURL) { result, component in
 			result.appendingPathComponent(component, isDirectory: false)
@@ -39,7 +39,7 @@ struct JSONResource<M: Codable>: ResponseResource {
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
 
-		return urlRequest
+		return .success(urlRequest)
 	}
 
 	func decode(_ data: Data?) -> Result<M, ResourceError> {
