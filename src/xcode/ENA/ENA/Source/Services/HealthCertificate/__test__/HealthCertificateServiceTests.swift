@@ -1768,7 +1768,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter
 		)
 		
-		// There should be now 1 notifications for invalid, 1 for expireSoon and 1 for expired.
+		// There should be now 1 notification for invalid, 1 for expireSoon and 1 for expired.
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
 	}
 
