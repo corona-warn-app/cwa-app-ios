@@ -171,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		checkIfBoosterRulesShouldBeFetched()
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched()
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -329,7 +329,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		dscListProvider: dscListProvider,
 		client: client,
 		appConfiguration: appConfigurationProvider,
-		boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
+		boosterNotificationsService: BoosterNotificationsService(
+			rulesDownloadService: RulesDownloadService(
+				store: store,
+				client: client
+			)
+		)
 	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
@@ -802,16 +807,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		coordinator.showOnboarding()
 	}
 
-	private func checkIfBoosterRulesShouldBeFetched() {
-		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
-		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
-			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
-		} else {
-			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
-			healthCertificateService.applyBoosterRulesForHealthCertificates()
-		}
-	}
-	
 	#if DEBUG
 	private func setupOnboardingForTesting() {
 		if isUITesting {

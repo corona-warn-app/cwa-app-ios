@@ -81,7 +81,18 @@ class HealthCertificateService {
 		- when the app comes into foreground
 		- when the regular background execution runs (e.g. Key Download)
 	*/
-	func applyBoosterRulesForHealthCertificates() {
+	
+	func checkIfBoosterRulesShouldBeFetched() {
+		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
+		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
+			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
+		} else {
+			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
+			applyBoosterRulesForHealthCertificates()
+		}
+	}
+	
+	private func applyBoosterRulesForHealthCertificates() {
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson)
 		}
