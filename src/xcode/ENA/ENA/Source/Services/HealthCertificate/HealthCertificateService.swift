@@ -939,14 +939,10 @@ class HealthCertificateService {
 		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
-		// Trigger the notification immediately.
-		// 'timeInterval' may not be 0. From the docs: "This value must be greater than zero." 🤷‍♂️
-		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(id)",
 			content: content,
-			trigger: trigger
+			trigger: nil
 		)
 
 		addNotification(request: request)
