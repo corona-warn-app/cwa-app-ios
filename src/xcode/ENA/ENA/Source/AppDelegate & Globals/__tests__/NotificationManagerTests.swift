@@ -135,7 +135,7 @@ class NotificationManagerTests: XCTestCase {
 			let notificationRawValue = LocalNotificationIdentifier.boosterVaccination.rawValue
 			let hashedID = ENAHasher.sha256(name + dateOfBirth)
 			let id = notificationRawValue + hashedID
-		let extractedHealthCertifiedPerson = try XCTUnwrap( notificationManager.extractPerson(notificationRawValue, from: id))
+		let extractedHealthCertifiedPerson = try XCTUnwrap(notificationManager.extractPerson(notificationRawValue, from: id))
 		
 		// THEN
 		
