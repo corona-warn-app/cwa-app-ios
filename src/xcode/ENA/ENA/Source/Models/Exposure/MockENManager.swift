@@ -33,6 +33,7 @@ final class MockENManager: NSObject {
 	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {
 		ownWorkerQueue.async { [weak self] in
 			guard let self = self else {
+				Log.error("MockENManager: self not available.", log: .api)
 				DispatchQueue.main.async {
 					completionHandler(ENError(.internal))
 				}
@@ -48,11 +49,12 @@ final class MockENManager: NSObject {
 	// MARK: - Obtaining Exposure Information
 
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		let error = self.enError
+		let error = enError
 		let now = Date()
-		self.dispatchQueue.async { [weak self] in
+		dispatchQueue.async { [weak self] in
 			if error == nil {
 				guard let self = self else {
+					Log.error("MockENManager: self not available.", log: .riskDetection)
 					completionHandler(nil, ENError(.internal))
 					return
 				}
@@ -81,23 +83,11 @@ final class MockENManager: NSObject {
 	// MARK: - Obtaining Exposure Keys
 
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		// swiftlint:disable:next force_unwrapping
-		let keys = self.diagnosisKeysResult!.0
-		// swiftlint:disable:next force_unwrapping
-		let error = self.diagnosisKeysResult!.1
-		dispatchQueue.async {
-			completionHandler(keys, error)
-		}
+		getDiagnosisKeysImpl(completionHandler: completionHandler)
 	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		// swiftlint:disable:next force_unwrapping
-		let keys = self.diagnosisKeysResult!.0
-		// swiftlint:disable:next force_unwrapping
-		let error = self.diagnosisKeysResult!.1
-		dispatchQueue.async {
-			completionHandler(keys, error)
-		}
+		getDiagnosisKeysImpl(completionHandler: completionHandler)
 	}
 
 	// MARK: - Configuring the Manager
@@ -154,13 +144,27 @@ final class MockENManager: NSObject {
 
 	private func wasCalledTooOftenTill(_ now: Date) -> Bool {
 		var tooOften = false
-		if let last = self.lastCall {
-			if now.timeIntervalSince(last) < self.minDistanceBetweenCalls {
+		if let last = lastCall {
+			if now.timeIntervalSince(last) < minDistanceBetweenCalls {
 				tooOften = true
 			}
 		}
-		self.lastCall = now
+		lastCall = now
 		return tooOften
+	}
+
+	private func getDiagnosisKeysImpl(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		guard let keys = diagnosisKeysResult?.0,
+			  let error = diagnosisKeysResult?.1 else {
+			Log.error("MockENManager: no preconfigured keys or error available, this is not expected", log: .api)
+			DispatchQueue.main.async {
+				completionHandler(nil, ENError(.internal))
+			}
+			return
+		}
+		dispatchQueue.async {
+			completionHandler(keys, error)
+		}
 	}
 }
 
