@@ -1013,7 +1013,7 @@ class HealthCertificateService {
 						return
 					}
 					let id = ENAHasher.sha256(name + dateOfBirth)
-					self.scheduleNotificationForBoosterNotification(id: id)
+					self.scheduleBoosterNotification(id: id)
 				} else {
 					Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
 				}
