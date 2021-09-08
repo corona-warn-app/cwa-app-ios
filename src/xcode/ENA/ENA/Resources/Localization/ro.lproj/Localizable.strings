@@ -1555,14 +1555,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.8 */
-"NewVersionFeature_29_warnGuest_title" = "Avertizarea altor persoane";
+/* Version 2.10 */
+"NewVersionFeature_210_boosterVaccination_title" = "Informații despre vaccinările de rapel";
 
-"NewVersionFeature_29_warnGuest_description" = "În calitate de organizator al evenimentului, dacă vi se solicită din partea autorităților de sănătate publică, acum vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
+"NewVersionFeature_210_boosterVaccination_description" = "Aplicația poate afișa acum un mesaj care vă înștiințează privind vaccinările dvs. de rapel programate.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Afișarea imediată a stării de vaccinare pentru persoanele care s-au recuperat după boală";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Versiunea de tipărire a certificatelor de vaccinare";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Corona-Warn-App afișează acum protecția prin vaccinarea completă pentru persoanele care s-au recuperat după boală direct după prima vaccinare. Se poate renunța la timpul de așteptare de două săptămâni cu excepția Johnson & Johnson.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Acum puteți afișa o versiune de tipărire a certificatului de vaccinare, care vă permite să salvați certificatele ca documente PDF și să le tipăriți.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2791,6 +2791,8 @@
 
 "HealthCertificate_Details_expirationDateDetails" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Mai mult";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
 
@@ -2831,6 +2833,36 @@
 "RecoveryCertificate_Alert_title" = "Doriți să eliminați certificatul de recuperare?";
 
 "RecoveryCertificate_Alert_message" = "Dacă eliminați certificatul de recuperare, nu îl mai puteți utiliza ca dovadă în aplicație.";
+
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Afișare versiune de tipărire";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Anulare";
+
+"HealthCertificate_PrintPdf_Info_title" = "Generarea documentului tipărit pentru UE";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Puteți salva certificatul ca document PDF. Această etapă este voluntară. Dvs. sunteți singura persoană care poate accesa inițial documentul PDF. Apoi puteți decide dacă doriți să îl salvați pe smartphone-ul dvs. sau dacă doriți să îl importați în alte aplicații.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Vă rugăm să rețineți că documentul PDF conține informații sensibile. Vă recomandăm să îl utilizați cu atenție și să îl arătați doar persoanelor în care aveți încredere și care sunt autorizate să verifice certificatul.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Vă recomandăm să nu publicați documentul PDF, să nu îl transmiteți prin e-mail și să nu îl partajați prin alte aplicații.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Continuare";
+
+"HealthCertificate_PrintPdf_Share_title" = "Versiunea de tipărire a certificatului digital";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Imposibil de afișat versiunea de tipărire";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu a fost emis în Germania";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Întrebări frecvente despre versiunea de tipărire";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Imposibil de afișat versiunea de tipărire";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu poate fi obținut în acest moment. Încercați din nou mai târziu.";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
@@ -2919,7 +2951,7 @@
 
 "HealthCertificate_Validation_Passed_hint2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
 
-"HealthCertificate_Validation_Passed_hint3" = "Pentru a asigura autenticitatea certificatului, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
+"HealthCertificate_Validation_Passed_hint3" = "Pentru a asigura autenticitatea certificatelor, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
 
