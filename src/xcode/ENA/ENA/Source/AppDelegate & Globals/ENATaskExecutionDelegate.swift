@@ -136,8 +136,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 					}
 				}
 				
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Check if Booster Notifications need to be downloaded.", log: .background)
+					self.executeBoosterNotificationsCreation {
+						group.leave()
+						Log.info("Done Checking if Booster Notifications should download …", log: .background)
+					}
+				}
+				
 				group.leave() // Leave from the Exposure detection
-
 			}
 		}
 		
@@ -314,7 +322,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			completion()
 		})
 	}
-
+	
+	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
+		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched()
+		completion()
+	}
+	
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
 		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
 	}
