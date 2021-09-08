@@ -36,7 +36,12 @@ struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftPro
 			result.appendingPathComponent(component, isDirectory: false)
 		}
 		var urlRequest = URLRequest(url: url)
-		urlRequest.httpBody = encode()
+				
+	
+		if case let .success(data) = encode() {
+			urlRequest.httpBody = data
+		}
+		
 		locator.headers.forEach { key, value in
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
