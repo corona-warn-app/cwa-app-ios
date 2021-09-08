@@ -57,11 +57,7 @@ final class ValidationResultCellModel {
 	}
 
 	var ruleDescription: String? {
-		let localizedDescription = validationResult.rule?.description.first(where: { $0.lang.lowercased() == Locale.current.languageCode?.lowercased() })?.desc
-		let englishDescription = validationResult.rule?.description.first(where: { $0.lang.lowercased() == "en" })?.desc
-		let firstDescription = validationResult.rule?.description.first?.desc
-
-		return localizedDescription ?? englishDescription ?? firstDescription ?? ruleIdentifier
+		validationResult.rule?.localizedDescription
 	}
 
 	var ruleTypeDescription: String? {
