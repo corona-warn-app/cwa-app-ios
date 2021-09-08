@@ -40,9 +40,8 @@ protocol Resource {
 	var type: ResourceType { get }
 
 	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> URLRequest
-	// this will usably be the body
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
-//	func encode()
+	func encode() -> Data?
 }
 
 enum ResponseResources {

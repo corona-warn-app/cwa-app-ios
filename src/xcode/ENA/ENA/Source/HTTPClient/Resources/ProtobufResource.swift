@@ -28,6 +28,23 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 	var locator: Locator
 	var type: ResourceType
 
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
+		let endpointURL = locator.endpoint.url(environmentData)
+		let url = locator.paths.reduce(endpointURL) { result, component in
+			result.appendingPathComponent(component, isDirectory: false)
+		}
+		var urlRequest = URLRequest(url: url)
+		locator.headers.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+
+		customHeader?.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+
+		return urlRequest
+	}
+
 	func decode(_ data: Data?) -> Result<P, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
@@ -47,21 +64,8 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 		}
 	}
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
-		let endpointURL = locator.endpoint.url(environmentData)
-		let url = locator.paths.reduce(endpointURL) { result, component in
-			result.appendingPathComponent(component, isDirectory: false)
-		}
-		var urlRequest = URLRequest(url: url)
-		locator.headers.forEach { key, value in
-			urlRequest.setValue(value, forHTTPHeaderField: key)
-		}
-
-		customHeader?.forEach { key, value in
-			urlRequest.setValue(value, forHTTPHeaderField: key)
-		}
-
-		return urlRequest
+	func encode() -> Data? {
+		return nil
 	}
 
 	// MARK: - Public

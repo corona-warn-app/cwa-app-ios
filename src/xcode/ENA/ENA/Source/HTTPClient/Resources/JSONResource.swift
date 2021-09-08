@@ -24,6 +24,24 @@ struct JSONResource<M: Codable>: Resource {
 		headers: ["Content-Type": "application/json"]
 	)
 */
+
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
+		let endpointURL = locator.endpoint.url(environmentData)
+		let url = locator.paths.reduce(endpointURL) { result, component in
+			result.appendingPathComponent(component, isDirectory: false)
+		}
+		var urlRequest = URLRequest(url: url)
+		locator.headers.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+
+		customHeader?.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+
+		return urlRequest
+	}
+
 	func decode(_ data: Data?) -> Result<M, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
@@ -48,21 +66,8 @@ struct JSONResource<M: Codable>: Resource {
 		return .failure(.decoding)
 	}
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> URLRequest {
-		let endpointURL = locator.endpoint.url(environmentData)
-		let url = locator.paths.reduce(endpointURL) { result, component in
-			result.appendingPathComponent(component, isDirectory: false)
-		}
-		var urlRequest = URLRequest(url: url)
-		locator.headers.forEach { key, value in
-			urlRequest.setValue(value, forHTTPHeaderField: key)
-		}
-
-		customHeader?.forEach { key, value in
-			urlRequest.setValue(value, forHTTPHeaderField: key)
-		}
-
-		return urlRequest
+	func encode() -> Data? {
+		return nil
 	}
 
 	// MARK: - Public
