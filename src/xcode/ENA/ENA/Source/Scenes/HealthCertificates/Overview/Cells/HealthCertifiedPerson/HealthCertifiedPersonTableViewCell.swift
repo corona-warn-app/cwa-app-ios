@@ -37,7 +37,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-		captionCountView.layer.cornerRadius = captionCountView.frame.height / 2
+		captionCountView.layer.cornerRadius = captionCountView.bounds.height / 2
 	}
 
 	// MARK: - Internal
@@ -51,22 +51,22 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeView.configure(with: cellModel.qrCodeViewModel)
 
 		captionStackView.isHidden = false
+		captionStackView.arrangedSubviews.forEach { $0.isHidden = false }
 
 		switch cellModel.caption {
 		case .unseenNews(count: let unseenNewsCount):
 			captionImageView.isHidden = true
-			captionCountView.isHidden = false
 
 			captionCountLabel.text = String(unseenNewsCount)
 			captionLabel.text = AppStrings.HealthCertificate.Overview.news
 		case let .validityState(image: validityStateIcon, description: validityStateDescription):
-			captionImageView.isHidden = false
 			captionCountView.isHidden = true
 
 			captionImageView.image = validityStateIcon
 			captionLabel.text = validityStateDescription
 		case .none:
 			captionStackView.isHidden = true
+			captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
 		}
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
@@ -151,7 +151,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var captionStackView: UIStackView = {
-		let captionStackView = UIStackView(arrangedSubviews: [captionImageView, captionCountView, captionLabel])
+		let captionStackView = UIStackView(arrangedSubviews: [captionImageView, captionCountView, captionLabel, UIView()])
 		captionStackView.alignment = .center
 		captionStackView.axis = .horizontal
 		captionStackView.spacing = 8.0
@@ -170,7 +170,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		let captionCountLabel = ENALabel()
 		captionCountLabel.font = .enaFont(for: .subheadline, weight: .bold, italic: false)
 		captionCountLabel.textColor = .enaColor(for: .textContrast)
-		captionCountLabel.setContentHuggingPriority(.init(rawValue: 999), for: .horizontal)
+		captionCountLabel.textAlignment = .center
+		captionCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return captionCountLabel
 	}()
@@ -178,7 +179,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let captionCountView: UIView = {
 		let captionCountView = UIView()
 		captionCountView.backgroundColor = .systemRed
-		captionCountView.setContentHuggingPriority(.init(rawValue: 999), for: .horizontal)
 		captionCountView.layer.masksToBounds = true
 
 		return captionCountView
@@ -189,6 +189,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionLabel.style = .body
 		captionLabel.textColor = .enaColor(for: .textPrimary1)
 		captionLabel.numberOfLines = 0
+		captionLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return captionLabel
 	}()
@@ -281,12 +282,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				captionStackView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -16.0),
 				captionStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -16.0),
 
+				captionCountView.widthAnchor.constraint(greaterThanOrEqualTo: captionCountView.heightAnchor),
+
 				captionCountLabel.leadingAnchor.constraint(equalTo: captionCountView.leadingAnchor, constant: 6.0),
 				captionCountLabel.topAnchor.constraint(equalTo: captionCountView.topAnchor, constant: 6.0),
 				captionCountLabel.trailingAnchor.constraint(equalTo: captionCountView.trailingAnchor, constant: -6.0),
-				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -6.0),
-
-				captionCountView.widthAnchor.constraint(greaterThanOrEqualTo: captionCountView.heightAnchor)
+				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -6.0)
 			]
 		)
 
