@@ -999,37 +999,34 @@ class HealthCertificateService {
 		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
 			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
 		}
-		boosterNotificationsService.applyRulesForCertificates(
-			certificates: healthCertificatesWithHeader, completion: { result, error  in
-				guard error == nil else {
-					return
-				}
-				switch result {
-				case .success(let validationResult):
-					let previousSavedBoosterRule = healthCertifiedPerson.boosterRule
-					healthCertifiedPerson.boosterRule = validationResult.rule
+		boosterNotificationsService.applyRulesForCertificates(certificates: healthCertificatesWithHeader, completion: { result, error  in
+			guard let result = result else {
+				Log.error("HealthCertificateValidationError: \(String(describing: error?.localizedDescription))", log: .vaccination)
+				return
+			}
+			switch result {
+			case .success(let validationResult):
+				let previousSavedBoosterRule = healthCertifiedPerson.boosterRule
+				healthCertifiedPerson.boosterRule = validationResult.rule
+				
+				if let currentRule = healthCertifiedPerson.boosterRule, currentRule.identifier != previousSavedBoosterRule?.identifier {
 					
-					if let currentRule = healthCertifiedPerson.boosterRule, currentRule.identifier != previousSavedBoosterRule?.identifier {
-						
-						// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
-						guard let name = healthCertifiedPerson.name?.standardizedName,
-							  let dateOfBirth = healthCertifiedPerson.dateOfBirth else {
-							Log.error("standardizedName or dateOfBirth is nil, will not trigger notification", log: .vaccination, error: nil)
-							return
-						}
-						let id = ENAHasher.sha256(name + dateOfBirth)
-						self.scheduleBoosterNotification(id: id)
-					} else {
-						Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
+					// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
+					guard let name = healthCertifiedPerson.name?.standardizedName,
+						  let dateOfBirth = healthCertifiedPerson.dateOfBirth else {
+						Log.error("standardizedName or dateOfBirth is nil, will not trigger notification", log: .vaccination, error: nil)
+						return
 					}
-					
-				case .failure(let validationError):
-					Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
-				case .none:
-					Log.error("no errors but the result is nil also", log: .vaccination, error: nil)
-					
+					let id = ENAHasher.sha256(name + dateOfBirth)
+					self.scheduleBoosterNotification(id: id)
+				} else {
+					Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
 				}
-			})
+				
+			case .failure(let validationError):
+				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
+			}
+		})
 	}
 	
 	private func scheduleBoosterNotification(id: String) {

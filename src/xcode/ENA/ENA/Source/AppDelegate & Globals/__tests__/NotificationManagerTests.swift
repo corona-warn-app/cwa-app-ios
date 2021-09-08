@@ -152,7 +152,6 @@ class NotificationManagerTests: XCTestCase {
 		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let diaryStore = MockDiaryStore()
 		let eventStore = MockEventStore()
-		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
