@@ -492,7 +492,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
 				self?.route = route
 			}, showHealthCertifiedPerson: { [weak self] route in
-				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				// We must call self?.showHome(route) here because the notification is triggered after entering the foreground and finishing the download.
 				self?.showHome(route)
 			}
 		)

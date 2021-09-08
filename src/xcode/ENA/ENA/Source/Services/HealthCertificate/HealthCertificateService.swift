@@ -984,6 +984,7 @@ class HealthCertificateService {
 	}
 	
 	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson) {
+		Log.info("Applying booster rules for person", log: .vaccination)
 		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
 			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
 		}
@@ -1007,6 +1008,7 @@ class HealthCertificateService {
 								return
 							}
 							let id = ENAHasher.sha256(name + dateOfBirth)
+							log
 							self.scheduleNotificationForBoosterNotification(id: id)
 						} else {
 							Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
