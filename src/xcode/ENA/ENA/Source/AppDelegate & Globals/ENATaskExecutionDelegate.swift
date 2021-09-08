@@ -325,13 +325,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	
 	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
 		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
-		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
-		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
-			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
-		} else {
-			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
-			healthCertificateService.applyBoosterRulesForHealthCertificates()
-		}
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched()
 		completion()
 	}
 	

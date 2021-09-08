@@ -81,7 +81,18 @@ class HealthCertificateService {
 		- when the app comes into foreground
 		- when the regular background execution runs (e.g. Key Download)
 	*/
-	func applyBoosterRulesForHealthCertificates() {
+	
+	func checkIfBoosterRulesShouldBeFetched() {
+		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
+		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
+			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
+		} else {
+			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
+			applyBoosterRulesForHealthCertificates()
+		}
+	}
+	
+	private func applyBoosterRulesForHealthCertificates() {
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
 			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson)
 		}
@@ -878,7 +889,6 @@ class HealthCertificateService {
 
 		// Schedule an 'invalid' notification, if it was not scheduled before.
 		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
-
 			scheduleInvalidNotification(id: id)
 			healthCertificate.didShowInvalidNotification = true
 		}
@@ -954,14 +964,10 @@ class HealthCertificateService {
 		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
-		// Trigger the notification immediately.
-		// 'timeInterval' may not be 0. From the docs: "This value must be greater than zero." 🤷‍♂️
-		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(id)",
 			content: content,
-			trigger: trigger
+			trigger: nil
 		)
 
 		addNotification(request: request)
@@ -989,6 +995,7 @@ class HealthCertificateService {
 	}
 	
 	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson) {
+		Log.info("Applying booster rules for person", log: .vaccination)
 		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
 			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
 		}
@@ -1011,7 +1018,7 @@ class HealthCertificateService {
 						return
 					}
 					let id = ENAHasher.sha256(name + dateOfBirth)
-					self.scheduleNotificationForBoosterNotification(id: id)
+					self.scheduleBoosterNotification(id: id)
 				} else {
 					Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
 				}
@@ -1022,7 +1029,7 @@ class HealthCertificateService {
 		})
 	}
 	
-	private func scheduleNotificationForBoosterNotification(id: String) {
+	private func scheduleBoosterNotification(id: String) {
 		
 		Log.info("Schedule booster notification for certificate with id: \(private: id) with trigger date: \(Date())", log: .vaccination)
 
