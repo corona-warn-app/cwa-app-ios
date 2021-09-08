@@ -156,15 +156,14 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	
 	private func findHealthCertifiedPerson(_ identifier: String) -> (HealthCertifiedPerson)? {
-		for person in healthCertificateService.healthCertifiedPersons.value {
-			if let name = person.name?.standardizedName,
-				  let dateOfBirth = person.dateOfBirth {
+		let matchedPerson = healthCertificateService.healthCertifiedPersons.value.first {
+			if let name = $0.name?.standardizedName,
+			   let dateOfBirth = $0.dateOfBirth {
 				let hashedID = ENAHasher.sha256(name + dateOfBirth)
-				if hashedID == identifier {
-					return person
-				}
+				return hashedID == identifier
 			}
+			return false
 		}
-		return nil
+		return matchedPerson
 	}
 }
