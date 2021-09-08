@@ -56,7 +56,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -145,7 +145,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -234,7 +234,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -311,7 +311,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -375,7 +375,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -465,7 +465,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -522,7 +522,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -591,7 +591,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -667,7 +667,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -750,7 +750,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -1048,7 +1048,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig
@@ -1150,7 +1150,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider
@@ -1239,7 +1239,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -1338,7 +1338,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -1439,7 +1439,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
@@ -1538,7 +1538,7 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig
