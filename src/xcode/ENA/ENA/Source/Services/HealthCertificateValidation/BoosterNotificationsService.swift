@@ -33,7 +33,8 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 		self.validationRulesAccess = validationRulesAccess
 	}
 	
-	func applyRulesForCertificates(certificates: [DigitalCovidCertificateWithHeader],
+	func applyRulesForCertificates(
+		certificates: [DigitalCovidCertificateWithHeader],
 		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>) -> Void
 	) {
 		downloadBoosterNotificationRules { [weak self] downloadedRules in
