@@ -12,7 +12,7 @@ import class CertLogic.ValidationResult
 protocol BoosterNotificationsServiceProviding {
 	func applyRulesForCertificates(
 		certificates: [DigitalCovidCertificateWithHeader],
-		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>) -> Void
+		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>?, HealthCertificateValidationError?) -> Void
 	)
 }
 
@@ -33,8 +33,9 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 		self.validationRulesAccess = validationRulesAccess
 	}
 	
-	func applyRulesForCertificates(certificates: [DigitalCovidCertificateWithHeader],
-		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>) -> Void
+	func applyRulesForCertificates(
+		certificates: [DigitalCovidCertificateWithHeader],
+		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>?, HealthCertificateValidationError?) -> Void
 	) {
 		downloadBoosterNotificationRules { [weak self] downloadedRules in
 			guard let self = self else { return }
@@ -50,9 +51,10 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 					certLogicEngine: certLogicEngine) { logs in
 					Log.debug(logs)
 				}
-				completion(resultOfApplyingBoosterRules)
+				completion(resultOfApplyingBoosterRules, nil)
 			case .failure(let error):
 				Log.error("Error downloading the booster notifications", log: .api, error: error)
+				completion(nil, error)
 			}
 		}
 	}
