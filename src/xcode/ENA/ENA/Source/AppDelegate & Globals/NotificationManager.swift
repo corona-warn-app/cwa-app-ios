@@ -139,7 +139,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 				healthCertificate: healthCertificate
 			)
 			showHealthCertificate(route)
-		}  else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.boosterVaccination.rawValue, from: identifier) {
+		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.boosterVaccination.rawValue, from: identifier) {
 			let route = Route(healthCertifiedPerson: certifiedPerson)
 			showHealthCertifiedPerson(route)
 		}
