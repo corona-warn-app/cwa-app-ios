@@ -4,13 +4,13 @@
 
 import Foundation
 
-struct JSONResource<M: Codable>: Resource {
+struct JSONResource<M: Codable>: ResponseResource {
 
 	// MARK: - Init
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol Resource
+	// MARK: - Protocol ResponseResource
 
 	typealias Model = M
 	
@@ -66,8 +66,15 @@ struct JSONResource<M: Codable>: Resource {
 		return .failure(.decoding)
 	}
 
-	func encode() -> Data? {
-		return nil
+	func encode(_ model: Model) -> Result<Data, ResourceError> {
+//		guard <#condition#> else {
+//			<#statements#>
+//		}
+//
+//		let payload =
+
+
+		return Result.failure(.missingData)
 	}
 
 	// MARK: - Public

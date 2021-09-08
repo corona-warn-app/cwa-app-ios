@@ -5,23 +5,25 @@
 import Foundation
 import SwiftProtobuf
 
-struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
+struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftProtobuf.Message {
 
 	// MARK: - Init
 
 	init(
 		_ locator: Locator,
 		_ type: ResourceType,
+		_ model: P? = nil,
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
 		self.locator = locator
 		self.type = type
+		self.model = model
 		self.signatureVerifier = signatureVerifier
 	}
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol Resource
+	// MARK: - Protocol ResponseResource
 
 	typealias Model = P
 
@@ -34,6 +36,7 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 			result.appendingPathComponent(component, isDirectory: false)
 		}
 		var urlRequest = URLRequest(url: url)
+		urlRequest.httpBody = encode()
 		locator.headers.forEach { key, value in
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
@@ -41,7 +44,6 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 		customHeader?.forEach { key, value in
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
-
 		return urlRequest
 	}
 
@@ -64,15 +66,20 @@ struct ProtobufResource<P>: Resource where P: SwiftProtobuf.Message {
 		}
 	}
 
-	func encode(_ model: Model) -> Result<Data, ResourceError> {
-		guard <#condition#> else {
-			<#statements#>
+	// MARK: - Protocol RequestResource
+
+	var model: P?
+
+	func encode() -> Result<Data, ResourceError> {
+		guard let model = model else {
+			return .failure(.missingData)
 		}
-
-		let payload =
-
-
-		return nil
+		do {
+			let data = try model.serializedData()
+			return Result.success(data)
+		} catch {
+			return Result.failure(.encoding)
+		}
 	}
 
 	// MARK: - Public

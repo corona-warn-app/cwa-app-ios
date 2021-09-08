@@ -28,7 +28,7 @@ class DefaultRestService: Service {
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: Resource {
+	) where T: ResponseResource {
 		let request = resource.locator.urlRequest(
 			environmentData: environment.currentEnvironment()
 		)

@@ -66,8 +66,21 @@ final class DMNHCViewModel {
 				text: "otpEdusAuthorization",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					
+				action: { [weak self] in
+
+					let model = SAP_Internal_V2_ApplicationConfigurationIOS()
+					let resource =
+						ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching, model)
+					self?.restService.load(resource: resource) { result in
+						switch result {
+						case let .success(model):
+							print(model?.appFeatures)
+							print("HTTP CALL SUCCESS")
+						case let .failure(error):
+							print("HTTP CALL FAIL")
+						}
+					}
+
 				}
 			)
 		case .traceWarningPackageDiscovery:

@@ -43,13 +43,13 @@ protocol Service: RestServiceProviding {
 		resource: T,
 		_ bodyData: Data?,
 		_ response: HTTPURLResponse?
-	) -> Result<T.Model, ResourceError> where T: Resource
+	) -> Result<T.Model, ResourceError> where T: ResponseResource
 
 	func cached<T>(
 		resource: T
-	) -> Result<T.Model, ResourceError> where T: Resource
+	) -> Result<T.Model, ResourceError> where T: ResponseResource
 
-	func customHeaders<T>(for resource: T) -> [String: String]? where T: Resource
+	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource
 }
 
 extension Service {
@@ -57,7 +57,7 @@ extension Service {
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: Resource {
+	) where T: ResponseResource {
 		let request = resource.urlRequest(
 			environmentData: environment.currentEnvironment(),
 			customHeader: customHeaders(for: resource)
@@ -102,17 +102,17 @@ extension Service {
 		resource: T,
 		_ bodyData: Data?,
 		_ response: HTTPURLResponse?
-	) -> Result<T.Model, ResourceError> where T: Resource {
+	) -> Result<T.Model, ResourceError> where T: ResponseResource {
 		return resource.decode(bodyData)
 	}
 
 	func cached<T>(
 		resource: T
-	) -> Result<T.Model, ResourceError> where T: Resource {
+	) -> Result<T.Model, ResourceError> where T: ResponseResource {
 		return .failure(.notModified)
 	}
 
-	func customHeaders<T>(for resource: T) -> [String: String]? where T: Resource {
+	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource {
 		return nil
 	}
 

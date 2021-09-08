@@ -8,7 +8,13 @@ protocol RestServiceProviding {
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: Resource
+	) where T: ResponseResource
+/*
+	func submit<T>(
+		model: T.Model,
+		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
+	) where T: RequestResource
+*/
 }
 
 class RestServiceProvider: RestServiceProviding {
@@ -24,7 +30,7 @@ class RestServiceProvider: RestServiceProviding {
 	func load<T>(
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: Resource {
+	) where T: ResponseResource {
 		switch resource.type {
 		case .default:
 			restService.load(resource: resource, completion: completion)

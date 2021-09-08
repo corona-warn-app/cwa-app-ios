@@ -24,7 +24,7 @@ class CachedRestService: Service {
 		URLSession(configuration: .cachingSessionConfiguration())
 	}()
 
-	func decodeModel<T>(resource: T, _ bodyData: Data?, _ response: HTTPURLResponse? = nil) -> Result<T.Model, ResourceError> where T: Resource {
+	func decodeModel<T>(resource: T, _ bodyData: Data?, _ response: HTTPURLResponse? = nil) -> Result<T.Model, ResourceError> where T: ResponseResource {
 		switch resource.decode(bodyData) {
 		case .success(let model):
 			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
@@ -42,7 +42,7 @@ class CachedRestService: Service {
 		}
 	}
 
-	func cached<T>(resource: T) -> Result<T.Model, ResourceError> where T: Resource {
+	func cached<T>(resource: T) -> Result<T.Model, ResourceError> where T: ResponseResource {
 		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
 			Log.debug("no data found in cache", log: .client)
 			return .failure(.missingData)
@@ -50,9 +50,9 @@ class CachedRestService: Service {
 		return decodeModel(resource: resource, cachedModel.data)
 	}
 
-	func customHeaders<T>(for resource: T) -> [String: String]? where T: Resource {
+	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource {
 		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
-			Log.debug("Resource not found in cache", log: .client)
+			Log.debug("ResponseResource not found in cache", log: .client)
 			return nil
 		}
 		return ["If-None-Match": cachedModel.eTag]

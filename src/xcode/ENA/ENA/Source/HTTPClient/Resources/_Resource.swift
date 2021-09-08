@@ -17,6 +17,7 @@ enum HTTP {
 enum ResourceError: Error {
 	case missingData
 	case decoding
+	case encoding
 	case packageCreation
 	case signatureVerification
 	case notModified
@@ -29,10 +30,8 @@ enum ResourceType {
 	case retrying
 }
 
-/// describes a resource
-///
-protocol Resource {
 
+protocol Resource {
 	// Model is type of the model
 	associatedtype Model
 
@@ -40,8 +39,17 @@ protocol Resource {
 	var type: ResourceType { get }
 
 	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> URLRequest
+}
+
+/// describes a resource
+///
+protocol ResponseResource: Resource {
 	func decode(_ data: Data?) -> Result<Model, ResourceError>
-	func encode(_ model: Model) -> Result<Data, ResourceError>
+}
+
+protocol RequestResource: Resource {
+	var model: Model? { get }
+	func encode() -> Result<Data, ResourceError>
 }
 
 enum ResponseResources {
