@@ -71,6 +71,10 @@ final class HealthCertificatesCoordinator {
 		)
 	}
 	
+	func showCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
+		showHealthCertifiedPerson(healthCertifiedPerson)
+	}
+	
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring

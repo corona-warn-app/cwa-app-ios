@@ -132,6 +132,10 @@ struct HealthCertificateQRCodeCellViewModel {
 		onValidationButtonTap != nil
 	}
 
+	var isUnseenNewsIndicatorVisible: Bool {
+		mode == .details && healthCertificate.isValidityStateNew
+	}
+
 	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
 		onValidationButtonTap?(healthCertificate) { isLoading in
 			loadingStateHandler(isLoading)
