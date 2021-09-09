@@ -721,6 +721,7 @@
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F012648267B592200630CDA /* stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8F012647267B592200630CDA /* stats.bin */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
+		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
 		8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */; };
 		8F1E6EEF26DFC22600483660 /* BoosterNotificationsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */; };
@@ -2129,6 +2130,7 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F012647267B592200630CDA /* stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = stats.bin; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
+		8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationServiceError.swift; sourceTree = "<group>"; };
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
 		8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsService.swift; sourceTree = "<group>"; };
 		8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsServiceTests.swift; sourceTree = "<group>"; };
@@ -4581,6 +4583,7 @@
 				5078DCA22684B3F400535917 /* __tests__ */,
 				5078DC9F2684B3DD00535917 /* Model */,
 				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
+				8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */,
 				8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */,
 				8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */,
 				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
@@ -8674,6 +8677,7 @@
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
 				8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */,
 				0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */,
+				8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */,
 				BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */,
 				BA5B7FCB26458EF400502087 /* HealthCertificateQRCodeScannerViewController.swift in Sources */,
 				01BA06BA261F1B9A00237DD8 /* WarnOthersReminder.swift in Sources */,
