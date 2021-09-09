@@ -476,8 +476,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
 
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nicht erlauben";
-
 "ExposureSubmission_Submit" = "TAN eingeben";
 
 "ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
