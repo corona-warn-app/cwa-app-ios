@@ -104,10 +104,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 			
 			// Last submission check
-			if strongSelf.submissionWithinLast23Hours {
+			if strongSelf.submissionWithinLast23HoursAnd55Minutes {
 				Log.warning("Analytics submission abort due to submission last 23 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
-				completion?(.failure(.submission23hoursError))
+				completion?(.failure(.submissionTimeAmountUndercutError))
 				return
 			}
 			
@@ -189,13 +189,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
 	
-	private var submissionWithinLast23Hours: Bool {
+	private var submissionWithinLast23HoursAnd55Minutes: Bool {
 		guard let lastSubmission = store.lastSubmissionAnalytics,
-			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()) else {
+			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()),
+			  let twentyThreeHoursAndFiftyFiveMinutesAgo = Calendar.current.date(byAdding: .minute, value: -55, to: twentyThreeHoursAgo) else {
 			return false
 		}
-		let lastTwentyThreeHours = twentyThreeHoursAgo...Date()
-		return lastTwentyThreeHours.contains(lastSubmission)
+		let lastTwentyThreeHoursAndFiftyMinutes = twentyThreeHoursAndFiftyFiveMinutesAgo...Date()
+		return lastTwentyThreeHoursAndFiftyMinutes.contains(lastSubmission)
 	}
 	
 	private var onboardingCompletedWithinLast24Hours: Bool {
