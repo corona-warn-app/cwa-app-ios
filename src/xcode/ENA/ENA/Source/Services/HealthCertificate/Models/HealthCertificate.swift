@@ -22,6 +22,7 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 		self.didShowInvalidNotification = didShowInvalidNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
+
 		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
 		keyIdentifier = Self.extractKeyIdentifier(from: base45)
@@ -34,7 +35,9 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	enum CodingKeys: String, CodingKey {
 		case base45
 		case validityState
-		case didShowInavlidNotification
+		case isNew
+		case isValidityStateNew
+		case didShowInvalidNotification
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -42,7 +45,9 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 		try container.encode(base45, forKey: .base45)
 		try container.encode(validityState, forKey: .validityState)
-		try container.encode(didShowInvalidNotification, forKey: .didShowInavlidNotification)
+		try container.encode(isNew, forKey: .isNew)
+		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
+		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
 	}
 
 	// MARK: - Protocol Equatable

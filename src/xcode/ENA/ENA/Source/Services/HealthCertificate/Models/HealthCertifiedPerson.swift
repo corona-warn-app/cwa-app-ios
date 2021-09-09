@@ -49,7 +49,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				let healthCertificate = try HealthCertificate(
 					base45: $0.base45,
 					validityState: $0.validityState ?? .valid,
-					didShowInvalidNotification: $0.didShowInavlidNotification ?? false,
+					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
 					isNew: $0.isNew ?? false,
 					isValidityStateNew: $0.isValidityStateNew ?? false
 				)
@@ -216,8 +216,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			// if recovery date found -> use it
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-				  let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
-				  let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString) {
+				  let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
 			// else if last vaccination date -> use it
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else {

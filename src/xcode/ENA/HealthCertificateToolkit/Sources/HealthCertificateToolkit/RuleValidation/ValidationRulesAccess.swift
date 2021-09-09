@@ -19,7 +19,16 @@ public protocol ValidationRulesAccessing {
     ) -> Swift.Result<[ValidationResult], RuleValidationError>
 }
 
-public struct ValidationRulesAccess: ValidationRulesAccessing {
+public protocol BoosterRulesAccessing {
+    func applyBoosterNotificationValidationRules(
+    certificates: [DigitalCovidCertificateWithHeader],
+    rules: [Rule],
+    certLogicEngine: CertLogicEnginable?,
+    log: (String) -> Void
+    ) -> Swift.Result<ValidationResult, BoosterNotificationRuleValidationError>
+}
+
+public struct ValidationRulesAccess: ValidationRulesAccessing, BoosterRulesAccessing {
 
     public init() {}
 
@@ -169,5 +178,18 @@ public struct ValidationRulesAccess: ValidationRulesAccessing {
         }
 
         return .success(firstPassedRule)
+    }
+}
+
+public extension CertLogicEngine {
+    convenience init (rules: [Rule]) {
+        guard let schemaURL = Bundle.module.url(forResource: "dcc-validation-rule", withExtension: "json"),
+              let schemaData = FileManager.default.contents(atPath: schemaURL.path),
+              let schemaString = String(data: schemaData, encoding: .utf8) else {
+            // Log.error("Failed to decode the JSON file", log: .localData, error: nil)
+            self.init(schema: "", rules: rules)
+                return
+        }
+        self.init(schema: schemaString, rules: rules)
     }
 }

@@ -26,25 +26,54 @@ class BoosterNotificationsServiceTests: XCTestCase {
 		
 		let store = MockTestStore()
 		let rulesDownloadService = RulesDownloadService(signatureVerifier: MockVerifier(), store: store, client: client)
-		let boosterService = BoosterNotificationsService(rulesDownloadService: rulesDownloadService)
+		var mockBoosterRulesAccess = MockBoosterRulesAccess()
+		let validationResult = ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed)
+		mockBoosterRulesAccess.expectedBoosterResult = .success(validationResult)
+		let boosterService = BoosterNotificationsService(
+			rulesDownloadService: rulesDownloadService,
+			validationRulesAccess: mockBoosterRulesAccess
+		)
 				
 		let expectation = self.expectation(description: "Test should success with .passed")
-		var responseRules: [Rule]?
 		
 		// WHEN
-		boosterService.downloadBoosterNotifications { result in
+		let certificates = [
+			DigitalCovidCertificateWithHeader.fake(
+				header: CBORWebTokenHeader.fake(
+					expirationTime: Date.distantFuture
+				),
+				certificate: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			DigitalCovidCertificateWithHeader.fake(
+				header: CBORWebTokenHeader.fake(
+					expirationTime: Date.distantFuture
+				),
+				certificate: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			)
+		]
+		
+		var resultRule: Rule?
+
+		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result, error  in
 			switch result {
-			case let .success(rules):
-				responseRules = rules
+			case let .success(result):
+				resultRule = result.rule
 				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
+			case .none:
+				XCTFail("Test should not fail with nil result")
 			}
 		}
-				
+		)
+
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertNotNil(responseRules)
+		XCTAssertNotNil(resultRule)
 	}
 	
 	func testGIVEN_BoosterService_WHEN_HappyCaseCachedIsUsed_THEN_CachedRulesAreUsedAndPassedShouldBeReturned() throws {
@@ -73,20 +102,48 @@ class BoosterNotificationsServiceTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([cachedRule])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		
 		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, store: store, client: client)
-		let validationService = BoosterNotificationsService(rulesDownloadService: rulesDownloadService)
-				
+		var mockBoosterRulesAccess = MockBoosterRulesAccess()
+		let validationResult = ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed)
+		mockBoosterRulesAccess.expectedBoosterResult = .success(validationResult)
+		let boosterService = BoosterNotificationsService(
+			rulesDownloadService: rulesDownloadService,
+			validationRulesAccess: mockBoosterRulesAccess
+		)
+
 		let expectation = self.expectation(description: "Test should success with .passed")
 		// WHEN
-		validationService.downloadBoosterNotifications { result in
+		
+		let certificates = [
+			DigitalCovidCertificateWithHeader.fake(
+				header: CBORWebTokenHeader.fake(
+					expirationTime: Date.distantFuture
+				),
+				certificate: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			DigitalCovidCertificateWithHeader.fake(
+				header: CBORWebTokenHeader.fake(
+					expirationTime: Date.distantFuture
+				),
+				certificate: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			)
+		]
+		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result, error  in
 			switch result {
 			case .success:
 				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
+			case .none:
+				XCTFail("Test should not fail with nil result")
 			}
-		}
-		
+		})
+				
 		// THEN
 		waitForExpectations(timeout: .short)
 	
@@ -120,21 +177,48 @@ class BoosterNotificationsServiceTests: XCTestCase {
 			client: client
 		)
 
-		let validationService = BoosterNotificationsService(rulesDownloadService: rulesDownloadService)
-				
+		var mockBoosterRulesAccess = MockBoosterRulesAccess()
+		let validationResult = ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed)
+		mockBoosterRulesAccess.expectedBoosterResult = .success(validationResult)
+		let boosterService = BoosterNotificationsService(
+			rulesDownloadService: rulesDownloadService,
+			validationRulesAccess: mockBoosterRulesAccess
+		)
+
 		let expectation = self.expectation(description: "Test should fail with .TECHNICAL_VALIDATION_FAILED")
-		var responseError: HealthCertificateValidationError?
 		
 		// WHEN
-		validationService.downloadBoosterNotifications { result in
-			switch result {
-			case .success:
-				XCTFail("Test should not succeed.")
-			case let .failure(error):
-				responseError = error
-				expectation.fulfill()
+		
+		let certificates = [
+			DigitalCovidCertificateWithHeader.fake(
+				header: CBORWebTokenHeader.fake(
+					expirationTime: Date.distantFuture
+				),
+				certificate: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			DigitalCovidCertificateWithHeader.fake(
+				header: CBORWebTokenHeader.fake(
+					expirationTime: Date.distantFuture
+				),
+				certificate: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			)
+		]
+		
+		var responseError: HealthCertificateValidationError?
+
+		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result, error  in
+			XCTAssertNil(result)
+			guard let error = error else {
+				XCTFail("Error should be returned.")
+				return
 			}
-		}
+			responseError = error
+			expectation.fulfill()
+		})
 		
 		// THEN
 		waitForExpectations(timeout: .short)
