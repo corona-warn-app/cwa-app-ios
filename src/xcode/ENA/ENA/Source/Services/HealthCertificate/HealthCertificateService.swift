@@ -86,7 +86,6 @@ class HealthCertificateService {
 		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
 		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
 			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
-			applyBoosterRulesForHealthCertificates()
 		} else {
 			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
 			applyBoosterRulesForHealthCertificates()
