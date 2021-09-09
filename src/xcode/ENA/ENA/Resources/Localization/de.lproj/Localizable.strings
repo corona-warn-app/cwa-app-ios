@@ -385,8 +385,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
-"Onboarding_doNotAllow_actionText" = "Nicht erlauben";
-
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Wenn Sie die Risiko-Ermittlung nicht aktivieren, kann die App Ihren Risikostatus nicht ermitteln und Sie erhalten keine Informationen zu Ihrem Risiko in der App.";
