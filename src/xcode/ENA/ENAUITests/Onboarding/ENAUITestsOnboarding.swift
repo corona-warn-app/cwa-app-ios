@@ -35,7 +35,6 @@ class ENAUITests_00_Onboarding: CWATestCase {
 
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
-		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitAndTap()
 		// data consent switch must only be visible on settings-data-donation.
 		
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
