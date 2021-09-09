@@ -1231,8 +1231,8 @@ enum AppStrings {
 			}
 
 			enum PersonEncounter {
-				static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes", comment: "")
-				static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes", comment: "")
+				static let durationLessThan10Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes", comment: "")
+				static let durationMoreThan10Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes", comment: "")
 
 				static let maskSituationWithMask = NSLocalizedString("ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask", comment: "")
 				static let maskSituationWithoutMask = NSLocalizedString("ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask", comment: "")
@@ -1267,8 +1267,8 @@ enum AppStrings {
 			static let locationsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyImageDescription", comment: "")
 
 			enum Encounter {
-				static let lessThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_LessThan15Minutes", comment: "")
-				static let moreThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_MoreThan15Minutes", comment: "")
+				static let lessThan10Minutes = NSLocalizedString("ContactDiary_Day_Encounter_LessThan10Minutes", comment: "")
+				static let moreThan10Minutes = NSLocalizedString("ContactDiary_Day_Encounter_MoreThan10Minutes", comment: "")
 				static let withMask = NSLocalizedString("ContactDiary_Day_Encounter_WithMask", comment: "")
 				static let withoutMask = NSLocalizedString("ContactDiary_Day_Encounter_WithoutMask", comment: "")
 				static let outside = NSLocalizedString("ContactDiary_Day_Encounter_Outside", comment: "")
