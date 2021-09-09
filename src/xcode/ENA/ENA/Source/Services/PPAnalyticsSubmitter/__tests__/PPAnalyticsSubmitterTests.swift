@@ -330,10 +330,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasError, .submission23Hours50MinutesError)
+		XCTAssertEqual(ppasError, .submissionAmountUndercutError)
 	}
 	
-	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas23Hours53MinutesAgo_THEN_SubmissionAmountUndercutErrorIsReturned() {
+	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas23Hours53MinutesAgo_THEN_SubmissionAmountUndercutErrorIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -361,7 +361,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -369,9 +372,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		// Test edge case when 2 minutes remain to submit again.
-		let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date())
-		let twentyThreeHoursFiftyThreeMinutesAgo = Calendar.current.date(byAdding: .minutes, value: -53, to: twentyThreeHoursAgo)
-		store.lastSubmissionAnalytics = twentyThreeHoursFortyEightMinutesAgo
+		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
+		let twentyThreeHoursFiftyThreeMinutesAgo = Calendar.current.date(byAdding: .minute, value: -53, to: twentyThreeHoursAgo)
+		store.lastSubmissionAnalytics = twentyThreeHoursFiftyThreeMinutesAgo
 
 		// WHEN
 		var ppasError: PPASError?
@@ -387,10 +390,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasError, .submission23Hours50MinutesError)
+		XCTAssertEqual(ppasError, .submissionAmountUndercutError)
 	}
 
-	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() {
+	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -429,8 +432,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		// Test edge case when we can submit since 2 minutes.
-		let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date())
-		let twentyThreeHoursFiftySevenMinutesAgo = Calendar.current.date(byAdding: .minutes, value: -57, to: twentyThreeHoursAgo)
+		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
+		let twentyThreeHoursFiftySevenMinutesAgo = Calendar.current.date(byAdding: .minute, value: -57, to: twentyThreeHoursAgo)
 		
 		store.lastSubmissionAnalytics = twentyThreeHoursFiftySevenMinutesAgo
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
