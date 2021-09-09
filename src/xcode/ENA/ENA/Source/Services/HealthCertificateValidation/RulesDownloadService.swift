@@ -108,7 +108,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					Log.error("Could not create strong self")
+					Log.debug("Successfuly downloaded new booster rules package")
 					self.rulesDownloadingSuccess(
 						ruleType: .boosterNotification,
 						packageDownloadResponse: packageDownloadResponse,
