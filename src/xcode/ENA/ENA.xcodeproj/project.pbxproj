@@ -768,6 +768,10 @@
 		8FB331B8268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */; };
 		8FB331BB268C574900804747 /* LocalStats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8FB331BA268C574900804747 /* LocalStats.bin */; };
 		8FB5A61625DD65D500679990 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
+		8FB776ED26EA323C005255BB /* DMBoosterRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776EC26EA323C005255BB /* DMBoosterRulesViewController.swift */; };
+		8FB776EF26EA3255005255BB /* DMBoosterRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */; };
+		8FB776F126EA532C005255BB /* DMBoosterChoosePersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */; };
+		8FB776F326EA5338005255BB /* DMBoosterChoosePersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
@@ -2175,6 +2179,10 @@
 		8FB331B5268BD8EE00804747 /* LocalStatisticsRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsRegion.swift; sourceTree = "<group>"; };
 		8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift"; sourceTree = "<group>"; };
 		8FB331BA268C574900804747 /* LocalStats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = LocalStats.bin; sourceTree = "<group>"; };
+		8FB776EC26EA323C005255BB /* DMBoosterRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterRulesViewController.swift; sourceTree = "<group>"; };
+		8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterRulesViewModel.swift; sourceTree = "<group>"; };
+		8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewController.swift; sourceTree = "<group>"; };
+		8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewModel.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
@@ -5530,6 +5538,17 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		8FB776EB26EA321A005255BB /* DMBoosterRules */ = {
+			isa = PBXGroup;
+			children = (
+				8FB776EC26EA323C005255BB /* DMBoosterRulesViewController.swift */,
+				8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */,
+				8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */,
+				8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */,
+			);
+			path = DMBoosterRules;
+			sourceTree = "<group>";
+		};
 		8FDB9401261FBA0F00BA8CB1 /* Submisstion */ = {
 			isa = PBXGroup;
 			children = (
@@ -6575,6 +6594,7 @@
 				ABE9612925EFEB4E00D0F699 /* DMInstallationDate */,
 				358249E925E910AF00BFF303 /* DMLogging */,
 				50680B8A26163A97002EA256 /* DMMostRecentTraceLocationCheckedInto */,
+				8FB776EB26EA321A005255BB /* DMBoosterRules */,
 				BA1FC82726E2508000CCCC17 /* DMNotifications */,
 				50B5058725CAF3C500EEA380 /* DMOTPService */,
 				3494D91D261DD41700EC532C /* DMPosterGeneration */,
@@ -8426,6 +8446,7 @@
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
 				BA75BF53263607C1001B1FC0 /* UIImage+QRCode.swift in Sources */,
 				0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */,
+				8FB776F126EA532C005255BB /* DMBoosterChoosePersonViewController.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				523D5E7A256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift in Sources */,
 				01FD3EDB25D2F0DF0049497A /* UserNotificationCenter.swift in Sources */,
@@ -8497,6 +8518,7 @@
 				01C6AC3A252B2A500052814D /* UIImage+Color.swift in Sources */,
 				BA01BA64264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift in Sources */,
 				BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */,
+				8FB776EF26EA3255005255BB /* DMBoosterRulesViewModel.swift in Sources */,
 				35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				35682057267CCA2F0031C762 /* HTMLView.swift in Sources */,
@@ -8752,6 +8774,7 @@
 				018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */,
 				50FEB18B26580B1E005C3322 /* DMPPAActualDataViewModel.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
+				8FB776ED26EA323C005255BB /* DMBoosterRulesViewController.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,
 				2FA9E39B24D2F4A10030561C /* ExposureSubmissionService+Protocol.swift in Sources */,
 				A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */,
@@ -9218,6 +9241,7 @@
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA01BA66264423CF00D906B6 /* HealthCertificateInfoViewModel.swift in Sources */,
 				34CF3B072614BD3E004A9435 /* QRCodeErrorCorrectionLevelProvider.swift in Sources */,
+				8FB776F326EA5338005255BB /* DMBoosterChoosePersonViewModel.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
 				0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */,
 				0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */,
