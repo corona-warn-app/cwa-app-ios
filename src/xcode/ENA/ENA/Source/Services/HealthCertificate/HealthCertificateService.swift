@@ -999,11 +999,7 @@ class HealthCertificateService {
 		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
 			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
 		}
-		boosterNotificationsService.applyRulesForCertificates(certificates: healthCertificatesWithHeader, completion: { result, error  in
-			guard let result = result else {
-				Log.error("HealthCertificateValidationError: \(String(describing: error?.localizedDescription))", log: .vaccination)
-				return
-			}
+		boosterNotificationsService.applyRulesForCertificates(certificates: healthCertificatesWithHeader, completion: { result in
 			switch result {
 			case .success(let validationResult):
 				let previousSavedBoosterRule = healthCertifiedPerson.boosterRule
