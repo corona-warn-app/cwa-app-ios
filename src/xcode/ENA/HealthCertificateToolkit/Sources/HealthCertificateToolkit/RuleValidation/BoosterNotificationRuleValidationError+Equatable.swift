@@ -15,10 +15,10 @@ public enum BoosterNotificationRuleValidationError: Error {
 extension BoosterNotificationRuleValidationError: Equatable {
     public static func == (lhs: BoosterNotificationRuleValidationError, rhs: BoosterNotificationRuleValidationError) -> Bool {
         switch (lhs, rhs) {
-        case (.CBOR_DECODING_FAILED, .CBOR_DECODING_FAILED):
-            return true
-        case (.JSON_ENCODING_FAILED, .JSON_ENCODING_FAILED):
-            return true
+        case (.CBOR_DECODING_FAILED(let lhsError), .CBOR_DECODING_FAILED(let rhsError)):
+            return lhsError?.localizedDescription == rhsError?.localizedDescription
+        case (.JSON_ENCODING_FAILED(let lhsError), .JSON_ENCODING_FAILED(let rhsError)):
+            return lhsError?.localizedDescription == rhsError?.localizedDescription
         case (.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND):
             return true
         case (.NO_VACCINATION_CERTIFICATE, .NO_VACCINATION_CERTIFICATE):

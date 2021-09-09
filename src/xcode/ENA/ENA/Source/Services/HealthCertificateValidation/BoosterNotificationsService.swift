@@ -12,7 +12,7 @@ import class CertLogic.ValidationResult
 protocol BoosterNotificationsServiceProviding {
 	func applyRulesForCertificates(
 		certificates: [DigitalCovidCertificateWithHeader],
-		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>?, HealthCertificateValidationError?) -> Void
+		completion: @escaping (Result<ValidationResult, BoosterNotificationServiceError>) -> Void
 	)
 }
 
@@ -35,26 +35,29 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 	
 	func applyRulesForCertificates(
 		certificates: [DigitalCovidCertificateWithHeader],
-		completion: @escaping (Result<ValidationResult, BoosterNotificationRuleValidationError>?, HealthCertificateValidationError?) -> Void
+		completion: @escaping (Result<ValidationResult, BoosterNotificationServiceError>) -> Void
 	) {
 		downloadBoosterNotificationRules { [weak self] downloadedRules in
 			guard let self = self else { return }
 			
 			switch downloadedRules {
 			case .success(let rules):
-			
-				let certLogicEngine = CertLogicEngine(rules: rules)
-
 				let resultOfApplyingBoosterRules = self.validationRulesAccess.applyBoosterNotificationValidationRules(
 					certificates: certificates,
 					rules: rules,
-					certLogicEngine: certLogicEngine) { logs in
+					certLogicEngine: nil
+				) { logs in
 					Log.debug(logs)
 				}
-				completion(resultOfApplyingBoosterRules, nil)
+				switch resultOfApplyingBoosterRules {
+				case .success(let validationResult):
+					completion(.success(validationResult))
+				case .failure(let boosterError):
+					completion(.failure(.BOOSTER_VALIDATION_ERROR(boosterError)))
+				}
 			case .failure(let error):
 				Log.error("Error downloading the booster notifications", log: .api, error: error)
-				completion(nil, error)
+				completion(.failure(.CERTIFICATE_VALIDATION_ERROR(error)))
 			}
 		}
 	}
