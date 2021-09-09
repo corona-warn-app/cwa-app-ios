@@ -10,7 +10,7 @@ extension URLSession {
 		delegateQueue: OperationQueue? = nil
 	) -> URLSession {
 		#if DISABLE_CERTIFICATE_PINNING
-		/// Disable certificate pinning with build condition for manual debugging if set explicitly.
+		/// Disable certificate pinning while app is running in Community or Debug mode
 		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
 		#else
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
