@@ -16,7 +16,7 @@ enum PPASError: Error {
 	case ppacError(PPACError)
 	case appResetError
 	case onboardingError
-	case submission23hoursError
+	case submissionAmountUndercutError
 	case probibilityError
 	case userConsentError
 }
