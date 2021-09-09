@@ -9,12 +9,10 @@ final class MockENManager: NSObject {
 
 	// MARK: Creating a Mocked ENManager
 
-	init(
-		enError: ENError?,
-		diagnosisKeysResult: MockDiagnosisKeysResult?
+	override init(
 	) {
-		self.enError = enError
-		self.diagnosisKeysResult = diagnosisKeysResult
+		super.init()
+		self.diagnosisKeysResult = (keys, enError)
 
 		#if RELEASE
 		// This whole class would/should be wrapped in a DEBUG block. However, there were some
@@ -27,15 +25,24 @@ final class MockENManager: NSObject {
 	// MARK: - Activating
 
 	func activate(completionHandler: @escaping ENErrorHandler) {
-		DispatchQueue.main.async {
+		dispatchQueue.async {
 			completionHandler(nil)
 		}
 	}
 
 	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler) {
-		self.enabled = enabled
-		DispatchQueue.main.async {
-			completionHandler(nil)
+		ownWorkerQueue.async { [weak self] in
+			guard let self = self else {
+				Log.error("MockENManager: self not available.", log: .api)
+				DispatchQueue.main.async {
+					completionHandler(ENError(.internal))
+				}
+				return
+			}
+			self.enabled = enabled
+			self.dispatchQueue.async {
+				completionHandler(nil)
+			}
 		}
 	}
 
@@ -44,8 +51,13 @@ final class MockENManager: NSObject {
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
 		let error = enError
 		let now = Date()
-		dispatchQueue.async {
+		dispatchQueue.async { [weak self] in
 			if error == nil {
+				guard let self = self else {
+					Log.error("MockENManager: self not available.", log: .riskDetection)
+					completionHandler(nil, ENError(.internal))
+					return
+				}
 				// assuming successfull execution and no exposures
 				guard !self.wasCalledTooOftenTill(now) else {
 					completionHandler(nil, ENError(.rateLimited))
@@ -71,17 +83,11 @@ final class MockENManager: NSObject {
 	// MARK: - Obtaining Exposure Keys
 
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		dispatchQueue.async {
-			// swiftlint:disable:next force_unwrapping
-			completionHandler(self.diagnosisKeysResult!.0, self.diagnosisKeysResult!.1)
-		}
+		getDiagnosisKeysImpl(completionHandler: completionHandler)
 	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		dispatchQueue.async {
-			// swiftlint:disable:next force_unwrapping
-			completionHandler(self.diagnosisKeysResult!.0, self.diagnosisKeysResult!.1)
-		}
+		getDiagnosisKeysImpl(completionHandler: completionHandler)
 	}
 
 	// MARK: - Configuring the Manager
@@ -126,9 +132,13 @@ final class MockENManager: NSObject {
 
 	// MARK: - Private
 
-	private let enError: ENError?
-	private let diagnosisKeysResult: MockDiagnosisKeysResult?
 	private let minDistanceBetweenCalls: TimeInterval = 4 * 3600
+	private let ownWorkerQueue = DispatchQueue(label: "com.sap.MockENManager")
+	
+	private var enError: ENError?
+	private var keys = [ENTemporaryExposureKey()]
+	private var diagnosisKeysResult: MockDiagnosisKeysResult?
+
 	private var enabled: Bool = true
 	private var lastCall: Date?
 
@@ -141,6 +151,20 @@ final class MockENManager: NSObject {
 		}
 		lastCall = now
 		return tooOften
+	}
+
+	private func getDiagnosisKeysImpl(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		guard let keys = diagnosisKeysResult?.0,
+			  let error = diagnosisKeysResult?.1 else {
+			Log.error("MockENManager: no preconfigured keys or error available, this is not expected", log: .api)
+			DispatchQueue.main.async {
+				completionHandler(nil, ENError(.internal))
+			}
+			return
+		}
+		dispatchQueue.async {
+			completionHandler(keys, error)
+		}
 	}
 }
 
