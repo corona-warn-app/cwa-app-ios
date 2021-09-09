@@ -59,7 +59,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -148,7 +151,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -237,7 +243,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -314,7 +323,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -378,7 +390,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -468,7 +483,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -525,7 +543,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -594,7 +615,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -670,7 +694,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -753,7 +780,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1051,7 +1081,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1153,7 +1186,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1242,7 +1278,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1341,7 +1380,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1442,7 +1484,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1541,7 +1586,10 @@ final class RiskProviderTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)

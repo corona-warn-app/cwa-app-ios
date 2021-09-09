@@ -222,6 +222,11 @@ final class HealthCertificateViewModel {
 		}
 	}
 
+	func markAsSeen() {
+		healthCertificate.isNew = false
+		healthCertificate.isValidityStateNew = false
+	}
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson

@@ -41,7 +41,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -131,7 +134,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -185,7 +191,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -239,7 +248,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -264,7 +276,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
 
-	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_Submission23hoursErrorIsReturned() {
+	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_SubmissionTimeAmountUndercutErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -292,7 +304,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -315,10 +330,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasError, .submission23hoursError)
+		XCTAssertEqual(ppasError, .submissionTimeAmountUndercutError)
 	}
-
-	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() {
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas23Hours53MinutesAgo_THEN_SubmissionTimeAmountUndercutErrorIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -346,14 +361,81 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		// Test edge case when 2 minutes remain to submit again.
+		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
+		let twentyThreeHoursFiftyThreeMinutesAgo = Calendar.current.date(byAdding: .minute, value: -53, to: twentyThreeHoursAgo)
+		store.lastSubmissionAnalytics = twentyThreeHoursFiftyThreeMinutesAgo
+
+		// WHEN
+		var ppasError: PPASError?
+		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case let .failure(error):
+				ppasError = error
+				expectation.fulfill()
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(ppasError, .submissionTimeAmountUndercutError)
+	}
+
+	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
+				)
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+
+		let expectation = self.expectation(description: "completion handler is called with an error")
+		// Test edge case when we can submit since 2 minutes.
+		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
+		let twentyThreeHoursFiftySevenMinutesAgo = Calendar.current.date(byAdding: .minute, value: -57, to: twentyThreeHoursAgo)
+		
+		store.lastSubmissionAnalytics = twentyThreeHoursFiftySevenMinutesAgo
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
 		// WHEN
@@ -401,7 +483,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -457,7 +542,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -511,7 +599,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -582,7 +673,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -1017,7 +1111,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.registerPCRTest(
@@ -1117,7 +1214,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)

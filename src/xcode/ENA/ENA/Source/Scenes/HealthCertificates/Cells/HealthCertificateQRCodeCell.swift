@@ -55,6 +55,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		validityStateDescriptionLabel.text = cellViewModel.validityStateDescription
 		validityStateDescriptionLabel.isHidden = cellViewModel.validityStateDescription == nil
 
+		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
+
 		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
 	}
 
@@ -76,13 +78,33 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let qrCodeView = HealthCertificateQRCodeView()
 
+	private let titleStackView: UIStackView = {
+		let titleStackView = UIStackView()
+		titleStackView.axis = .horizontal
+		titleStackView.distribution = .fill
+		titleStackView.alignment = .center
+		titleStackView.spacing = 6
+
+		return titleStackView
+	}()
+
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel()
 		titleLabel.style = .headline
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.numberOfLines = 0
+		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		titleLabel.setContentHuggingPriority(.required, for: .horizontal)
 
 		return titleLabel
+	}()
+
+	private let unseenNewsIndicator: UIView = {
+		let unseenNewsIndicator = UIView()
+		unseenNewsIndicator.backgroundColor = .systemRed
+		unseenNewsIndicator.layer.cornerRadius = 5.5
+
+		return unseenNewsIndicator
 	}()
 
 	private let subtitleLabel: ENALabel = {
@@ -163,8 +185,12 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
+		titleStackView.addArrangedSubview(titleLabel)
+		titleStackView.addArrangedSubview(unseenNewsIndicator)
+		titleStackView.addArrangedSubview(UIView())
+
 		stackView.addArrangedSubview(qrCodeView)
-		stackView.addArrangedSubview(titleLabel)
+		stackView.addArrangedSubview(titleStackView)
 		stackView.addArrangedSubview(subtitleLabel)
 		stackView.setCustomSpacing(12, after: subtitleLabel)
 
@@ -192,7 +218,10 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
 				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),
 				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),
-				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -14.0)
+				stackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -14.0),
+
+				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 11),
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
 			]
 		)
 
