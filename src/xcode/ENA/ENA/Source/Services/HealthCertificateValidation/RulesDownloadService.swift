@@ -184,6 +184,9 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 						validationRules: rules
 					)
 					store.boosterRulesCache = receivedBoosterRules
+					if !rules.isEmpty {
+						store.lastBoosterNotificationsExecutionDate = Date()
+					}
 				}
 				
 				Log.info("Successfully stored \(ruleType) rules in cache.", log: .vaccination)

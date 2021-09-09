@@ -197,6 +197,12 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
+	
+	var lastBoosterNotificationsExecutionDate: Date? {
+		get { kvStore["lastBoosterNotificationsExecutionDate"] as Date? }
+		set { kvStore["lastBoosterNotificationsExecutionDate"] = newValue }
+	}
+
 
     // MARK: - Protocol AntigenTestProfileStoring
 

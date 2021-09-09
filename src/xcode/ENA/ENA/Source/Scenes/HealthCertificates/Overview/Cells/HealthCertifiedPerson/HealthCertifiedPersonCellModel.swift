@@ -27,29 +27,37 @@ class HealthCertifiedPersonCellModel {
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription
 		)
 
-		if mostRelevantCertificate.validityState == .invalid ||
+		if healthCertifiedPerson.unseenNewsCount > 0 {
+			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
+		} else if mostRelevantCertificate.validityState == .invalid ||
 			(mostRelevantCertificate.type != .test && mostRelevantCertificate.validityState != .valid) {
 			switch mostRelevantCertificate.validityState {
 			case .valid:
-				self.validityStateIcon = nil
-				self.validityStateTitle = nil
+				self.caption = nil
 			case .expiringSoon:
-				self.validityStateIcon = UIImage(named: "Icon_ExpiringSoon")
-				self.validityStateTitle = String(
+				let validityStateTitle = String(
 					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
 					DateFormatter.localizedString(from: mostRelevantCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
 					DateFormatter.localizedString(from: mostRelevantCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
 				)
+
+				self.caption = .validityState(
+					image: UIImage(named: "Icon_ExpiringSoon"),
+					description: validityStateTitle
+				)
 			case .expired:
-				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.expired
+				self.caption = .validityState(
+					image: UIImage(named: "Icon_ExpiredInvalid"),
+					description: AppStrings.HealthCertificate.ValidityState.expired
+				)
 			case .invalid:
-				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.invalid
+				self.caption = .validityState(
+					image: UIImage(named: "Icon_ExpiredInvalid"),
+					description: AppStrings.HealthCertificate.ValidityState.invalid
+				)
 			}
 		} else {
-			self.validityStateIcon = nil
-			self.validityStateTitle = nil
+			self.caption = nil
 		}
 	}
 
@@ -67,11 +75,18 @@ class HealthCertifiedPersonCellModel {
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription
 		)
 
-		validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-		validityStateTitle = "\(decodingFailedHealthCertificate.error)"
+		self.caption = .validityState(
+			image: UIImage(named: "Icon_ExpiredInvalid"),
+			description: "\(decodingFailedHealthCertificate.error)"
+		)
 	}
 
 	// MARK: - Internal
+
+	enum Caption {
+		case unseenNews(count: Int)
+		case validityState(image: UIImage?, description: String)
+	}
 
 	let backgroundGradientType: GradientView.GradientType
 	
@@ -80,6 +95,6 @@ class HealthCertifiedPersonCellModel {
 
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
-	let validityStateIcon: UIImage?
-	let validityStateTitle: String?
+	let caption: Caption?
+
 }

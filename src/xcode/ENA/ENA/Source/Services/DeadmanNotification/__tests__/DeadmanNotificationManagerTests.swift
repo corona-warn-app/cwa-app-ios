@@ -26,7 +26,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -75,7 +76,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -107,7 +109,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -141,7 +144,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -176,7 +180,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -210,7 +217,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -245,7 +255,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			userNotificationCenter: notificationCenter

@@ -19,11 +19,14 @@ class TestHealthCertificateService: HealthCertificateService {
 	) {
 		self.init(
 			store: store,
-		 dccSignatureVerifier: dccSignatureVerifier,
-		 dscListProvider: dscListProvider,
+			dccSignatureVerifier: dccSignatureVerifier,
+			dscListProvider: dscListProvider,
 			client: client,
-		 appConfiguration: appConfiguration
-	 )
+			appConfiguration: appConfiguration,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: MockTestStore(), client: client)
+			)
+		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
 
@@ -57,12 +60,16 @@ class ValidationStateServiceTests: XCTestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
+		let client = ClientMock()
 		let service = TestHealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: appConfiguration
+			client: client,
+			appConfiguration: appConfiguration,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
@@ -83,7 +90,7 @@ class ValidationStateServiceTests: XCTestCase {
 	func test_DSCListChanges_THEN_UpdateGetsCalled() {
 		// GIVEN
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
-
+		let client = ClientMock()
 		let dscListProvider = MockDSCListProvider()
 		let store = MockTestStore()
 		let service = TestHealthCertificateService(
@@ -91,7 +98,10 @@ class ValidationStateServiceTests: XCTestCase {
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
