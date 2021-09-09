@@ -10,9 +10,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Init
 
 	init(
-		viewModel: DataDonationViewModelProtocol
+		viewModel: DataDonationViewModelProtocol,
+		largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .never
 	) {
 		self.viewModel = viewModel
+		self.largeTitleDisplayMode = largeTitleDisplayMode
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -26,10 +28,18 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		parent?.navigationItem.title = AppStrings.DataDonation.Info.title
-		parent?.navigationItem.largeTitleDisplayMode = .never
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		// if the view controller is direct child of a navigation controller, it can use its own navigation item
+		// but if not, e.g. it is embedded in a (custom) container view controller, it must use its parent's item
+		let effectiveNavigationItem = (parent is UINavigationController) ? navigationItem : parent?.navigationItem
+		effectiveNavigationItem?.title = AppStrings.DataDonation.Info.title
+		effectiveNavigationItem?.largeTitleDisplayMode = largeTitleDisplayMode
+		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
@@ -39,6 +49,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Private
 
 	private let viewModel: DataDonationViewModelProtocol
+	private let largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode
 	private var subscriptions: [AnyCancellable] = []
 
 	private func setupTableView() {

@@ -47,14 +47,18 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 
 		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 1
-
+		let client = ClientMock()
+		let store = MockTestStore()
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
 			healthCertificateService: HealthCertificateService(
-				store: MockTestStore(),
+				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: ClientMock(),
-				appConfiguration: CachedAppConfigurationMock()
+				client: client,
+				appConfiguration: CachedAppConfigurationMock(),
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			),
 			onSuccess: { _, _ in
 				onSuccessExpectation.fulfill()
@@ -82,14 +86,19 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 1
+		let client = ClientMock()
+		let store = MockTestStore()
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
 			healthCertificateService: HealthCertificateService(
-				store: MockTestStore(),
+				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: ClientMock(),
-				appConfiguration: CachedAppConfigurationMock()
+				client: client,
+				appConfiguration: CachedAppConfigurationMock(),
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			),
 			onSuccess: { _, _  in
 				onSuccessExpectation.fulfill()
@@ -119,14 +128,19 @@ class HealthCertificateQRCodeScannerViewModelTests: CWATestCase {
 
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 1
+		let client = ClientMock()
+		let store = MockTestStore()
 
 		let viewModel = TestableHealthCertificateQRCodeScannerViewModelTests(
 			healthCertificateService: HealthCertificateService(
-				store: MockTestStore(),
+				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: ClientMock(),
-				appConfiguration: CachedAppConfigurationMock()
+				client: client,
+				appConfiguration: CachedAppConfigurationMock(),
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			),
 			onSuccess: { _, _ in
 				onSuccessExpectation.fulfill()

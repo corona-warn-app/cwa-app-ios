@@ -132,11 +132,7 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 			)
 		)
 
-		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
-		dataDonationViewController.navigationItem.title = AppStrings.DataDonation.Info.title
-		dataDonationViewController.navigationItem.largeTitleDisplayMode = .always
-		dataDonationViewController.navigationController?.navigationBar.prefersLargeTitles = true
-		
+		let dataDonationViewController = DataDonationViewController(viewModel: viewModel, largeTitleDisplayMode: .always)
 		parentNavigationController?.pushViewController(dataDonationViewController, animated: true)
 	}
 
