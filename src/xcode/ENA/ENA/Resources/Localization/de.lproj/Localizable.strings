@@ -2722,6 +2722,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
 
+"HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
+
 /* - Test Certificate Info */
 
 "TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
@@ -2812,7 +2814,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Impfstatus";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Sie haben noch nicht alle derzeit geplanten Impfungen erhalten. Daher ist Ihr Impfschutz noch nicht vollständig.";
+
+"HealthCertifiedPerson_completelyProtected" = "Sie haben nun alle derzeit geplanten Impfungen erhalten. Ihr Impfschutz ist vollständig.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "Mehr Informationen finden Sie in den %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
 
 "HealthCertifiedPerson_dateOfBirth" = "geboren %@";
 
@@ -2841,6 +2851,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
 
 /* Vaccination Certificate Details */
 
@@ -2899,7 +2911,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
 
-"VaccinationCertificate_Alert_message" = "Wenn Sie das Impfzertifikat entfernen, kann die App die Impfung nicht mehr für die Prüfung Ihres Impfstatus berücksichtigen.";
+"VaccinationCertificate_Alert_message" = "Wir empfehlen die Impfzertifikate in der App zu behalten, auch wenn diese nicht mehr aktuell sind.";
 
 /* Test Certificate Details */
 

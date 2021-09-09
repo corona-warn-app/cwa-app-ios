@@ -41,12 +41,17 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	// MARK: - Private
 
 	private let service: HealthCertificateService = {
-		HealthCertificateService(
-			store: MockTestStore(),
+		let client = ClientMock()
+		let store = MockTestStore()
+		return HealthCertificateService(
+			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 	}()
 
