@@ -276,7 +276,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
 
-	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_SubmissionAmountUndercutErrorIsReturned() {
+	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_SubmissionTimeAmountUndercutErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -330,10 +330,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasError, .submissionAmountUndercutError)
+		XCTAssertEqual(ppasError, .submissionTimeAmountUndercutError)
 	}
 	
-	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas23Hours53MinutesAgo_THEN_SubmissionAmountUndercutErrorIsReturned() throws {
+	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas23Hours53MinutesAgo_THEN_SubmissionTimeAmountUndercutErrorIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -390,7 +390,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(ppasError, .submissionAmountUndercutError)
+		XCTAssertEqual(ppasError, .submissionTimeAmountUndercutError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() throws {

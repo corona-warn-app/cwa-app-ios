@@ -107,7 +107,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if strongSelf.submissionWithinLast23HoursAnd55Minutes {
 				Log.warning("Analytics submission abort due to submission last 23 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
-				completion?(.failure(.submissionAmountUndercutError))
+				completion?(.failure(.submissionTimeAmountUndercutError))
 				return
 			}
 			
