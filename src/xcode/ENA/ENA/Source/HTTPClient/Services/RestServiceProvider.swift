@@ -5,16 +5,12 @@
 import Foundation
 
 protocol RestServiceProviding {
-	func load<T>(
-		resource: T,
-		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource
 
 	func load<S, R>(
-		locationResource: LocationResource,
-		sendResource: S?,
-		receiveResource: R,
-		completion: @escaping () -> Void
+		_ locationResource: LocationResource,
+		_ sendResource: S?,
+		_ receiveResource: R,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where S: SendResource, R: ReceiveResource
 }
 
@@ -28,32 +24,24 @@ class RestServiceProvider: RestServiceProviding {
 		self.wifiRestService = WifiOnlyRestService(environment: environment)
 	}
 
-	func load<T>(
-		resource: T,
-		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource {
-		switch resource.type {
+	func load<S, R>(
+		_ locationResource: LocationResource,
+		_ sendResource: S? = nil,
+		_ receiveResource: R,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where S: SendResource, R: ReceiveResource {
+		switch locationResource.type {
 		case .default:
-			restService.load(resource: resource, completion: completion)
+			restService.load(locationResource.locator, sendResource, receiveResource, completion)
 		case .caching:
-			cachedRestService.load(resource: resource, completion: completion)
-
+			cachedRestService.load(locationResource.locator, sendResource, receiveResource, completion)
 		case .wifiOnly:
-			wifiRestService.load(resource: resource, completion: completion)
+			wifiRestService.load(locationResource.locator, sendResource, receiveResource, completion)
 
 		case .retrying:
 			fatalError("missing service - NYD")
 //			restService.load(resource: resource, completion: completion)
 		}
-	}
-
-	func load<S, R>(
-		locationResource: LocationResource,
-		sendResource: S?,
-		receiveResource: R,
-		completion: @escaping () -> Void
-	) where S: SendResource, R: ReceiveResource {
-
 	}
 
 	private let restService: DefaultRestService

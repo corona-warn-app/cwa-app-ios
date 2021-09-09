@@ -21,10 +21,6 @@ struct AppConfigurationLocationResource: LocationResource {
 
 	var type: ServiceType
 
-	func urlRequest(environmentData: EnvironmentData, customHeader: [String : String]?) -> Result<URLRequest, ResourceError> {
-		return .failure(.missingData)
-	}
-
 	// MARK: - Public
 
 	// MARK: - Internal

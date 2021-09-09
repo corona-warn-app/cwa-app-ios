@@ -1,11 +1,13 @@
 //
 // 🦠 Corona-Warn-App
 //
-
+/*
 import Foundation
 
 struct JSONResource<M: Codable>: ResponseResource {
 
+	
+	
 	// MARK: - Init
 
 	// MARK: - Overrides
@@ -87,3 +89,4 @@ struct JSONResource<M: Codable>: ResponseResource {
 	private let encoder = JSONEncoder()
 
 }
+*/

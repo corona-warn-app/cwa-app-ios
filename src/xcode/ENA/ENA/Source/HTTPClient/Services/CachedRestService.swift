@@ -25,12 +25,13 @@ class CachedRestService: Service {
 	}()
 
 
-	func decodeModel<T>(
-		_ resource: T,
+	func decodeModel<R>(
+		_ resource: R,
+		_ locator: Locator,
 		_ bodyData: Data? = nil,
 		_ response: HTTPURLResponse? = nil,
-		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource {
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where R: ReceiveResource {
 		switch resource.decode(bodyData) {
 		case .success(let model):
 			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
@@ -41,7 +42,7 @@ class CachedRestService: Service {
 			}
 			let serverDate = response?.dateHeader ?? Date()
 			let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
-			cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
+			cache.setObject(cachedModel, forKey: NSNumber(value: locator.hashValue))
 			completion(.success(model))
 
 		case .failure:
@@ -49,20 +50,24 @@ class CachedRestService: Service {
 		}
 	}
 
-	func cached<T>(
-		_ resource: T,
-		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource {
-		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
+	func cached<R>(
+		_ resource: R,
+		_ locator: Locator,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where R: ReceiveResource {
+		guard let cachedModel = cache.object(forKey: NSNumber(value: locator.hashValue)) else {
 			Log.debug("no data found in cache", log: .client)
 			completion(.failure(.resourceError(.missingData)))
 			return
 		}
-		decodeModel(resource, cachedModel.data, nil, completion)
+		decodeModel(resource, locator, cachedModel.data, nil, completion)
 	}
 
-	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource {
-		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
+	func customHeaders<R>(
+		_ resource: R,
+		_ locator: Locator
+	) -> [String: String]? where R: ReceiveResource {
+		guard let cachedModel = cache.object(forKey: NSNumber(value: locator.hashValue)) else {
 			Log.debug("ResponseResource not found in cache", log: .client)
 			return nil
 		}

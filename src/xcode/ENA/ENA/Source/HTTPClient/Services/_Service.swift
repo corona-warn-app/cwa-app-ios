@@ -32,38 +32,87 @@ enum ServiceError: Error, Equatable {
 	}
 }
 
-protocol Service: RestServiceProviding {
+protocol Service {
 
 	init(environment: EnvironmentProviding)
 
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
-
-	func decodeModel<T>(
-		_ resource: T,
+	
+	func load<S, R>(
+		_ locator: Locator,
+		_ sendResource: S?,
+		_ receiveResource: R,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where S: SendResource, R: ReceiveResource
+	
+	func urlRequest<S, R>(
+		_ locator: Locator,
+		_ sendResource: S?,
+		_ receiveResource: R
+	) -> Result<URLRequest, ResourceError> where S: SendResource, R: ReceiveResource
+	
+	func decodeModel<R>(
+		_ resource: R,
+		_ locator: Locator,
 		_ bodyData: Data?,
 		_ response: HTTPURLResponse?,
-		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where R: ReceiveResource
 
-	func cached<T>(
-		_ resource: T,
-		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource
-
-	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource
+	func cached<R>(
+		_ resource: R,
+		_ locator: Locator,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where R: ReceiveResource
+	
+	func customHeaders<R>(
+		_ resource: R,
+		_ locator: Locator
+	) -> [String: String]? where R: ReceiveResource
+	
 }
 
 extension Service {
+	
+	func urlRequest<S, R>(
+		_ locator: Locator,
+		_ sendResource: S? = nil,
+		_ receiveResource: R
+	) -> Result<URLRequest, ResourceError> where S: SendResource, R: ReceiveResource {
+		let endpointURL = locator.endpoint.url(environment.currentEnvironment())
+		let url = locator.paths.reduce(endpointURL) { result, component in
+			result.appendingPathComponent(component, isDirectory: false)
+		}
+		var urlRequest = URLRequest(url: url)
+		switch sendResource?.encode() {
+		case let .success(data):
+			urlRequest.httpBody = data
+		case let .failure(error):
+			return .failure(error)
+		case .none:
+			// We have no body to set.
+			break
+		}
 
-	func load<T>(
-		resource: T,
-		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource {
-		switch resource.urlRequest(
-			environmentData: environment.currentEnvironment(),
-			customHeader: customHeaders(for: resource)
-		) {
+		locator.headers.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+
+		customHeaders(receiveResource, locator)?.forEach { key, value in
+			urlRequest.setValue(value, forHTTPHeaderField: key)
+		}
+		return .success(urlRequest)
+	}
+
+	func load<S, R>(
+		_ locator: Locator,
+		_ sendResource: S?,
+		_ receiveResource: R,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where S: SendResource, R: ReceiveResource {
+		
+		switch urlRequest(locator, sendResource, receiveResource) {
 		case let .failure(resourceError):
 			completion(.failure(.serverError(resourceError)))
 		case let .success(request):
@@ -79,13 +128,13 @@ extension Service {
 				#endif
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(resource, bodyData, response, completion)
+					decodeModel(receiveResource, locator, bodyData, response, completion)
 
 				case 202...204:
 					completion(.success(nil))
 
 				case 304:
-					cached(resource, completion)
+					cached(receiveResource, locator, completion)
 
 				default:
 					completion(.failure(.unexpectedResponse(response.statusCode)))
@@ -94,21 +143,13 @@ extension Service {
 		}
 	}
 
-	func load<S, R>(
-		locationResource: LocationResource,
-		sendResource: S?,
-		receiveResource: R,
-		completion: @escaping () -> Void
-	) where S: SendResource, R: ReceiveResource {
-		// add default loading here
-	}
-
-	func decodeModel<T>(
-		_ resource: T,
+	func decodeModel<R>(
+		_ resource: R,
+		_ locator: Locator,
 		_ bodyData: Data? = nil,
 		_ response: HTTPURLResponse? = nil,
-		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource {
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where R: ReceiveResource {
 		switch resource.decode(bodyData) {
 		case .success(let model):
 			completion(.success(model))
@@ -117,15 +158,18 @@ extension Service {
 		}
 	}
 
-	func cached<T>(
-		_ resource: T,
-		_ completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: ResponseResource {
+	func cached<R>(
+		_ resource: R,
+		_ locator: Locator,
+		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
+	) where R: ReceiveResource {
 		completion(.failure(.resourceError(.notModified)))
 	}
-
-	func customHeaders<T>(for resource: T) -> [String: String]? where T: ResponseResource {
+	
+	func customHeaders<R>(
+		_ resource: R,
+		_ locator: Locator
+	) -> [String: String]? where R: ReceiveResource {
 		return nil
 	}
-
 }
