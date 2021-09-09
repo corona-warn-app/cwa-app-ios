@@ -12,6 +12,7 @@ public enum BoosterNotificationRuleValidationError: Error {
     case NO_PASSED_RESULT
 }
 
+// swiftlint:disable pattern_matching_keywords
 extension BoosterNotificationRuleValidationError: Equatable {
     public static func == (lhs: BoosterNotificationRuleValidationError, rhs: BoosterNotificationRuleValidationError) -> Bool {
         switch (lhs, rhs) {

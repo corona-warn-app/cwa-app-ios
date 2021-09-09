@@ -18,11 +18,10 @@ extension BoosterNotificationServiceError: Equatable {
 			return lhsError == rhsError
 		case (.BOOSTER_VALIDATION_ERROR(let lhsError), .BOOSTER_VALIDATION_ERROR(let rhsError)):
 			return lhsError == rhsError
-		case (.BOOSTER_VALIDATION_ERROR(_), .CERTIFICATE_VALIDATION_ERROR(_)):
+		case (.BOOSTER_VALIDATION_ERROR, .CERTIFICATE_VALIDATION_ERROR):
 			return false
-		case (.CERTIFICATE_VALIDATION_ERROR(_), .BOOSTER_VALIDATION_ERROR(_)):
+		case (.CERTIFICATE_VALIDATION_ERROR, .BOOSTER_VALIDATION_ERROR):
 			return false
 		}
 	}
 }
-
