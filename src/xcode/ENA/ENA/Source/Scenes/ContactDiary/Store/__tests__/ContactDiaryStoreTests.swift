@@ -983,7 +983,7 @@ class ContactDiaryStoreTests: CWATestCase {
 			Kontakte der letzten \(daysVisible) Tage (01.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
-			15.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de; Kontaktdauer < 10 Minuten; mit Maske; im Gebäude; Some circumstances.
+			15.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de; Kontaktdauer unter 10 Minuten; mit Maske; im Gebäude; Some circumstances.
 			15.12.2020 Emma Hicks
 			15.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			15.12.2020 Berlin
