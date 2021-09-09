@@ -24,7 +24,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
-		updateBorders()
+		updateBorder()
 	}
 
 	// MARK: - Internal
@@ -61,7 +61,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let currentlyUsedImageView = UIImageView()
 	private let currentlyUsedLabel = ENALabel()
 	private let iconImageView = UIImageView()
-	private let unseenNewsIndicator = UIView()
+	private let unseenNewsIndicator = CertificateNotificationView()
 	private let gradientBackground = GradientView()
 
 	private func setupView() {
@@ -78,7 +78,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		updateBorders()
+		updateBorder()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
@@ -152,8 +152,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.addSubview(hStackView)
 
 		unseenNewsIndicator.backgroundColor = .systemRed
-		unseenNewsIndicator.layer.cornerRadius = 7.5
-		unseenNewsIndicator.layer.borderWidth = 2
 		unseenNewsIndicator.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.insertSubview(unseenNewsIndicator, aboveSubview: gradientBackground)
 
@@ -205,9 +203,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
-	private func updateBorders() {
+	private func updateBorder() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
-		unseenNewsIndicator.layer.borderColor = UIColor.enaColor(for: .cellBackground2).cgColor
 	}
 
 }
