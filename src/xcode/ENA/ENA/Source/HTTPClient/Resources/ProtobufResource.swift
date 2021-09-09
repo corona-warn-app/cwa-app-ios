@@ -11,7 +11,7 @@ struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftPro
 
 	init(
 		_ locator: Locator,
-		_ type: ResourceType,
+		_ type: ServiceType,
 		_ model: P? = nil,
 		signatureVerifier: SignatureVerifier = SignatureVerifier()
 	) {
@@ -28,7 +28,7 @@ struct ProtobufResource<P>: RequestResource & ResponseResource where P: SwiftPro
 	typealias Model = P
 
 	var locator: Locator
-	var type: ResourceType
+	var type: ServiceType
 
 	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]? = nil) -> Result<URLRequest, ResourceError> {
 		let endpointURL = locator.endpoint.url(environmentData)

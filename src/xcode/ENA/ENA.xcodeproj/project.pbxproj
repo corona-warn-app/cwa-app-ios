@@ -1125,6 +1125,9 @@
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
 		BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4985E326385928009D395C /* Dateformatter+vCard.swift */; };
+		BA52A69C26EA1A4F00AA0732 /* ProtobufReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */; };
+		BA52A69E26EA1B8D00AA0732 /* ProtobufSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */; };
+		BA52A6A126EA1CBA00AA0732 /* AppConfigurationLocationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52A6A026EA1CBA00AA0732 /* AppConfigurationLocationResource.swift */; };
 		BA573D5E2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA573D5D2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift */; };
 		BA5B7FCB26458EF400502087 /* HealthCertificateQRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FB326458EF400502087 /* HealthCertificateQRCodeScannerViewController.swift */; };
 		BA5B7FCC26458EF400502087 /* HealthCertificateQRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FB426458EF400502087 /* HealthCertificateQRCodeScannerViewModel.swift */; };
@@ -2561,6 +2564,9 @@
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
 		BA4985E326385928009D395C /* Dateformatter+vCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+vCard.swift"; sourceTree = "<group>"; };
 		BA52627626BACA6100C4F12F /* AppConfiguration+FeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfiguration+FeaturesTests.swift"; sourceTree = "<group>"; };
+		BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufReceiveResource.swift; sourceTree = "<group>"; };
+		BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufSendResource.swift; sourceTree = "<group>"; };
+		BA52A6A026EA1CBA00AA0732 /* AppConfigurationLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurationLocationResource.swift; sourceTree = "<group>"; };
 		BA573D5D2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeSelectionViewModelTests.swift; sourceTree = "<group>"; };
 		BA5B0BED26341A6A0020C977 /* SimpleTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCell.swift; sourceTree = "<group>"; };
 		BA5B7FB326458EF400502087 /* HealthCertificateQRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeScannerViewController.swift; sourceTree = "<group>"; };
@@ -7078,6 +7084,30 @@
 			path = TraceLocationCheckin;
 			sourceTree = "<group>";
 		};
+		BA52A69926EA1A1700AA0732 /* SendResources */ = {
+			isa = PBXGroup;
+			children = (
+				BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */,
+			);
+			path = SendResources;
+			sourceTree = "<group>";
+		};
+		BA52A69A26EA1A2400AA0732 /* ReceiveResources */ = {
+			isa = PBXGroup;
+			children = (
+				BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */,
+			);
+			path = ReceiveResources;
+			sourceTree = "<group>";
+		};
+		BA52A69F26EA1C7C00AA0732 /* LocationResource */ = {
+			isa = PBXGroup;
+			children = (
+				BA52A6A026EA1CBA00AA0732 /* AppConfigurationLocationResource.swift */,
+			);
+			path = LocationResource;
+			sourceTree = "<group>";
+		};
 		BA573D5C2608CBB6006ED1A6 /* __tests_ */ = {
 			isa = PBXGroup;
 			children = (
@@ -7208,6 +7238,9 @@
 		BA64FA8026D79BFD00DD4705 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BA52A69F26EA1C7C00AA0732 /* LocationResource */,
+				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
+				BA52A69926EA1A1700AA0732 /* SendResources */,
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
 				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
 				BA076B2326DD0D2A002063A7 /* ProtobufResource.swift */,
@@ -8768,6 +8801,7 @@
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				019E2F1426AF08D0000EC4AD /* MockDSCListProvider.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
+				BA52A69C26EA1A4F00AA0732 /* ProtobufReceiveResource.swift in Sources */,
 				8F3167E826A5D929008F35AA /* RegionType.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
@@ -9062,6 +9096,7 @@
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */,
 				AB7DE73725C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.swift in Sources */,
+				BA52A6A126EA1CBA00AA0732 /* AppConfigurationLocationResource.swift in Sources */,
 				019155712680E2FA00D49C88 /* PreferredPersonCellModel.swift in Sources */,
 				01DDF4482657A5E20043B4E1 /* Locale+SupportedLanguage.swift in Sources */,
 				01A6C2F62626DE1300B6E95A /* HomeTestRegistrationCellModel.swift in Sources */,
@@ -9194,6 +9229,7 @@
 				CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */,
 				503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */,
 				ABE9613425EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift in Sources */,
+				BA52A69E26EA1B8D00AA0732 /* ProtobufSendResource.swift in Sources */,
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
 				BA94BBAD260DF4F0005CF38F /* CheckInTimeModel.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,

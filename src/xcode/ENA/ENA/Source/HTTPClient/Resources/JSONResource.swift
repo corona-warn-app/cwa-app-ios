@@ -15,7 +15,7 @@ struct JSONResource<M: Codable>: ResponseResource {
 	typealias Model = M
 	
 	var locator: Locator
-	var type: ResourceType = .default
+	var type: ServiceType = .default
 /*
 	let resourceLocator: ResourceLocator = ResourceLocator(
 		endpoint: .dataDonation,

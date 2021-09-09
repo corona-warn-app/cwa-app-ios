@@ -46,7 +46,7 @@ final class DMNHCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					
+					/*
 					let resource = Resources.response.appConfiguration
 					self?.restService.load(resource: resource) { result in
 						
@@ -59,6 +59,7 @@ final class DMNHCViewModel {
 							print("HTTP CALL FAIL")
 						}
 					}
+*/
 				}
 			)
 		case .otpEdusAuthorization:
@@ -67,7 +68,7 @@ final class DMNHCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-
+/*
 					let model = SAP_Internal_V2_ApplicationConfigurationIOS()
 					let resource = Resources.request.appConfiguration(model: model)
 					self?.restService.load(resource: resource) { result in
@@ -79,7 +80,7 @@ final class DMNHCViewModel {
 							print("HTTP CALL FAIL")
 						}
 					}
-
+*/
 				}
 			)
 		case .traceWarningPackageDiscovery:

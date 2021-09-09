@@ -25,7 +25,7 @@ enum ResourceError: Error {
 
 }
 
-enum ResourceType {
+enum ServiceType {
 	case `default`
 	case caching
 	case wifiOnly
@@ -38,7 +38,7 @@ protocol ResourceDescribing {
 	associatedtype Model
 
 	var locator: Locator { get }
-	var type: ResourceType { get }
+	var type: ServiceType { get }
 
 	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> Result<URLRequest, ResourceError>
 }
@@ -55,15 +55,34 @@ protocol RequestResource: ResourceDescribing {
 }
 
 
-enum Resources {
-	enum response {
-		static let appConfiguration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching)
-	}
+//enum Resources {
+//	enum response {
+//		static let appConfiguration = ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching)
+//	}
+//
+//	enum request {
+//		static func appConfiguration(model: SAP_Internal_V2_ApplicationConfigurationIOS) -> ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS> {
+//			return ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching, model)
+//		}
+//	}
+//
+//}
 
-	enum request {
-		static func appConfiguration(model: SAP_Internal_V2_ApplicationConfigurationIOS) -> ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS> {
-			return ProtobufResource<SAP_Internal_V2_ApplicationConfigurationIOS>(.appConfiguration, .caching, model)
-		}
-	}
+protocol LocationResource {
 
+	var locator: Locator { get }
+	var type: ServiceType { get }
+
+	func urlRequest(environmentData: EnvironmentData, customHeader: [String: String]?) -> Result<URLRequest, ResourceError>
+}
+
+protocol SendResource {
+	associatedtype SendModel
+	var sendModel: SendModel? { get }
+	func encode() -> Result<Data?, ResourceError>
+}
+
+protocol ReceiveResource {
+	associatedtype ReceiveModel
+	func decode(_ data: Data?) -> Result<ReceiveModel, ResourceError>
 }
