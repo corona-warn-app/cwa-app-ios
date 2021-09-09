@@ -46,6 +46,20 @@ final class DMNHCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
+					let locationResource = AppConfigurationLocationResource()
+					let sendResource = ProtobufSendResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+					let receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+
+					self?.restService.load(locationResource, sendResource, receiveResource) { result in
+						switch result {
+						case let .success(model):
+							print(model?.appFeatures)
+							print("HTTP CALL SUCCESS")
+						case let .failure(error):
+							print("HTTP CALL FAIL")
+						}
+					}
+
 					/*
 					let resource = Resources.response.appConfiguration
 					self?.restService.load(resource: resource) { result in

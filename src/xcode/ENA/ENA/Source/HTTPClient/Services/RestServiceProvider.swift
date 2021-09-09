@@ -9,12 +9,13 @@ protocol RestServiceProviding {
 		resource: T,
 		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
 	) where T: ResponseResource
-/*
-	func submit<T>(
-		model: T.Model,
-		completion: @escaping (Result<T.Model?, ServiceError>) -> Void
-	) where T: RequestResource
-*/
+
+	func load<S, R>(
+		locationResource: LocationResource,
+		sendResource: S?,
+		receiveResource: R,
+		completion: @escaping () -> Void
+	) where S: SendResource, R: ReceiveResource
 }
 
 class RestServiceProvider: RestServiceProviding {
@@ -44,6 +45,15 @@ class RestServiceProvider: RestServiceProviding {
 			fatalError("missing service - NYD")
 //			restService.load(resource: resource, completion: completion)
 		}
+	}
+
+	func load<S, R>(
+		locationResource: LocationResource,
+		sendResource: S?,
+		receiveResource: R,
+		completion: @escaping () -> Void
+	) where S: SendResource, R: ReceiveResource {
+
 	}
 
 	private let restService: DefaultRestService

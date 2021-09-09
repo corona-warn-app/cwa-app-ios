@@ -94,6 +94,15 @@ extension Service {
 		}
 	}
 
+	func load<S, R>(
+		locationResource: LocationResource,
+		sendResource: S?,
+		receiveResource: R,
+		completion: @escaping () -> Void
+	) where S: SendResource, R: ReceiveResource {
+		// add default loading here
+	}
+
 	func decodeModel<T>(
 		_ resource: T,
 		_ bodyData: Data? = nil,
