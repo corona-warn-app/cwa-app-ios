@@ -431,9 +431,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
 	lazy var exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		let mock = MockENManager(enError: nil, diagnosisKeysResult: (keys, nil))
-		return ENAExposureManager(manager: mock)
+		return ENAExposureManager(manager: MockENManager())
 	}()
 	#elseif targetEnvironment(simulator)
 	lazy var exposureManager: ExposureManager = {

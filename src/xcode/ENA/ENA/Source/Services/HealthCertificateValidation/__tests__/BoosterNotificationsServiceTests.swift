@@ -58,15 +58,13 @@ class BoosterNotificationsServiceTests: XCTestCase {
 		
 		var resultRule: Rule?
 
-		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result, error  in
+		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result in
 			switch result {
 			case let .success(result):
 				resultRule = result.rule
 				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
-			case .none:
-				XCTFail("Test should not fail with nil result")
 			}
 		}
 		)
@@ -133,14 +131,12 @@ class BoosterNotificationsServiceTests: XCTestCase {
 				)
 			)
 		]
-		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result, error  in
+		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result in
 			switch result {
 			case .success:
 				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
-			case .none:
-				XCTFail("Test should not fail with nil result")
 			}
 		})
 				
@@ -208,21 +204,21 @@ class BoosterNotificationsServiceTests: XCTestCase {
 			)
 		]
 		
-		var responseError: HealthCertificateValidationError?
+		var responseError: BoosterNotificationServiceError?
 
-		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result, error  in
-			XCTAssertNil(result)
-			guard let error = error else {
+		boosterService.applyRulesForCertificates(certificates: certificates, completion: { result in
+			switch result {
+			case .success:
 				XCTFail("Error should be returned.")
-				return
-			}
+			case .failure(let error):
 			responseError = error
+			}
 			expectation.fulfill()
 		})
 		
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(responseError, .RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))
+		XCTAssertEqual(responseError, .CERTIFICATE_VALIDATION_ERROR(.RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
 	}
 	
 	private lazy var dummyRulesResponse: PackageDownloadResponse = {
