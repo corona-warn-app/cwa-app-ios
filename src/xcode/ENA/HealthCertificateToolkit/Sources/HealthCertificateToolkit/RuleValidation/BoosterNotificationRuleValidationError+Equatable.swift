@@ -4,7 +4,7 @@
 
 import Foundation
 
-public enum BoosterNotificationRuleValidationError: Error {
+public enum BoosterNotificationRuleValidationError: LocalizedError {
     case CBOR_DECODING_FAILED(Error?)
     case JSON_ENCODING_FAILED(Error?)
     case JSON_VALIDATION_RULE_SCHEMA_NOTFOUND
