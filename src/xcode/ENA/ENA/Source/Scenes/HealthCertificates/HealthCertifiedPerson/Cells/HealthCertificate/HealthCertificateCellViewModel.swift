@@ -104,6 +104,8 @@ final class HealthCertificateCellViewModel {
 			case .invalid:
 				return AppStrings.HealthCertificate.ValidityState.invalid
 			}
+		} else if healthCertificate.isNew {
+			return AppStrings.HealthCertificate.Person.newlyAddedCertificate
 		} else {
 			return nil
 		}
@@ -133,6 +135,10 @@ final class HealthCertificateCellViewModel {
 
 	lazy var isCurrentlyUsedCertificateHintVisible: Bool = {
 		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
+	}()
+
+	lazy var isUnseenNewsIndicatorVisible: Bool = {
+		healthCertificate.isNew || healthCertificate.isValidityStateNew
 	}()
 
 	// MARK: - Private

@@ -438,7 +438,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		disableIfNeeded { _ in
 			self.exposureManagerObserver = nil
 			self.invalidate {
+				#if COMMUNITY
+				self.manager = MockENManager()
+				#else
 				self.manager = ENManager()
+				#endif
+
 				handler?()
 			}
 		}

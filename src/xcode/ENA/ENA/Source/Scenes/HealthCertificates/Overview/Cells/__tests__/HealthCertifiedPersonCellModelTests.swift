@@ -31,8 +31,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithSoonExpiringVaccinationCertificate() throws {
@@ -60,15 +59,20 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(
-			viewModel.validityStateTitle,
-			String(
-				format: "Zertifikat läuft am %@ um %@ ab",
-				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
-				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiringSoon"))
+			XCTAssertEqual(
+				description,
+				String(
+					format: "Zertifikat läuft am %@ um %@ ab",
+					DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+					DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+				)
 			)
-		)
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+
 	}
 
 	func testHealthCertifiedPersonWithExpiredVaccinationCertificate() throws {
@@ -94,8 +98,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat abgelaufen")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
 	}
 
 	func testHealthCertifiedPersonWithInvalidVaccinationCertificate() throws {
@@ -121,8 +129,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat (Signatur) ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
 	}
 
 	func testHealthCertifiedPersonWithValidTestCertificate() throws {
@@ -148,8 +160,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithSoonExpiringTestCertificate() throws {
@@ -176,8 +187,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithExpiredTestCertificate() throws {
@@ -203,8 +213,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithInvalidTestCertificate() throws {
@@ -229,9 +238,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
-
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat (Signatur) ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
 	}
 
 	func testHealthCertifiedPersonWithValidRecoveryCertificate() throws {
@@ -257,8 +269,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertNil(viewModel.validityStateIcon)
-		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithSoonExpiringRecoveryCertificate() throws {
@@ -286,15 +297,19 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
-		XCTAssertEqual(
-			viewModel.validityStateTitle,
-			String(
-				format: "Zertifikat läuft am %@ um %@ ab",
-				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
-				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiringSoon"))
+			XCTAssertEqual(
+				description,
+				String(
+					format: "Zertifikat läuft am %@ um %@ ab",
+					DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+					DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+				)
 			)
-		)
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
 	}
 
 	func testHealthCertifiedPersonWithExpiredRecoveryCertificate() throws {
@@ -320,8 +335,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat abgelaufen")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
 	}
 
 	func testHealthCertifiedPersonWithInvalidRecoveryCertificate() throws {
@@ -347,8 +366,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
-		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat (Signatur) ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
 	}
 
 }
