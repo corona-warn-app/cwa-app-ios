@@ -171,7 +171,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched()
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
+			guard let errorMessage = errorMessage else {
+				return
+			}
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		})
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
