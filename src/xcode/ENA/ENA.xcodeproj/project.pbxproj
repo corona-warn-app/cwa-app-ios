@@ -93,6 +93,7 @@
 		014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014086B72588F95000E9E5B2 /* DiaryEditEntriesViewModelTest.swift */; };
 		014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014086BC2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift */; };
 		014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014086C42589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift */; };
+		01416DBE26EA261800CFE7FC /* CertificateBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01416DBD26EA261800CFE7FC /* CertificateBadgeView.swift */; };
 		0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE0250924CC00B0857C /* SymptomsOnset.swift */; };
 		0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */; };
 		0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */; };
@@ -1492,6 +1493,7 @@
 		014086B72588F95000E9E5B2 /* DiaryEditEntriesViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModelTest.swift; sourceTree = "<group>"; };
 		014086BC2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesCellModel.swift; sourceTree = "<group>"; };
 		014086C42589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesCellModelTest.swift; sourceTree = "<group>"; };
+		01416DBD26EA261800CFE7FC /* CertificateBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateBadgeView.swift; sourceTree = "<group>"; };
 		0144BDE0250924CC00B0857C /* SymptomsOnset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnset.swift; sourceTree = "<group>"; };
 		0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnsetTests.swift; sourceTree = "<group>"; };
 		0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinatorModel.swift; sourceTree = "<group>"; };
@@ -3394,6 +3396,7 @@
 			children = (
 				BA5B7FC626458EF400502087 /* HealthCertificateCell.swift */,
 				BA5B7FC526458EF400502087 /* HealthCertificateCellViewModel.swift */,
+				01416DBD26EA261800CFE7FC /* CertificateBadgeView.swift */,
 			);
 			path = HealthCertificate;
 			sourceTree = "<group>";
@@ -8432,6 +8435,7 @@
 				8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */,
 				8F4E623325EE878400FF4F0A /* ErrorReportCoordinator.swift in Sources */,
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,
+				01416DBE26EA261800CFE7FC /* CertificateBadgeView.swift in Sources */,
 				ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */,
 				BA5B7FD326458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
