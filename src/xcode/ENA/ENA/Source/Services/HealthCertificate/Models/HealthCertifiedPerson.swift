@@ -109,11 +109,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
-			if healthCertificates != oldValue {
+			// States and subscriptions only need to be updated if certificates were added or removed
+			if healthCertificates.map({ $0.uniqueCertificateIdentifier }) != oldValue.map({ $0.uniqueCertificateIdentifier }) {
 				updateVaccinationState()
 				updateMostRelevantHealthCertificate()
 				updateHealthCertificateSubscriptions(for: healthCertificates)
+			}
 
+			// objectDidChange is triggered for changes in existing health certificates as well
+			if healthCertificates != oldValue {
 				objectDidChange.send(self)
 			}
 		}
