@@ -113,7 +113,8 @@ final class DMBoosterRulesViewModel {
 							self.refreshTableView(
 								[
 									TableViewSections.lastDownloadDate.rawValue ,
-									TableViewSections.cachedPassedBoosterRule.rawValue
+									TableViewSections.cachedPassedBoosterRule.rawValue,
+									TableViewSections.cachedDownloadedRules.rawValue
 								]
 							)
 						}
