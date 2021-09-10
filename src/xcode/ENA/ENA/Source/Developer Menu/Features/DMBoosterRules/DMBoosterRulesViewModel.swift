@@ -67,7 +67,7 @@ final class DMBoosterRulesViewModel {
 			if let boosterRule = healthCertifiedPerson.boosterRule {
 				value = boosterRule.description.first?.desc ?? "no booster rules description"
 			} else {
-				value = "no booster rule saved for this person"
+				value = "no booster rule passed for this person"
 			}
 			return DMKeyValueCellViewModel(key: "Cached Passed Booster Rule", value: value)
 			
@@ -77,18 +77,18 @@ final class DMBoosterRulesViewModel {
 				textColor: .enaColor(for: .textContrast),
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: {
-					self.healthCertificateService.healthCertifiedPersons.value.first?.boosterRule = nil
+					self.healthCertifiedPerson.boosterRule = nil
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}
 			)
 		case .cachedDownloadedRules:
 			let value: String
 			if let cachedRules = self.store.boosterRulesCache?.validationRules {
-				value = cachedRules.description
+				value = cachedRules.compactMap({ $0.description.first?.desc }).description
 			} else {
 				value = "no downloaded booster rules"
 			}
-			return DMKeyValueCellViewModel(key: "Cached Downloaded Rules", value: value)
+			return DMKeyValueCellViewModel(key: "Cached Downloaded booster Rules", value: value)
 			
 		case .clearCachedDownloadedRules:
 			return DMButtonCellViewModel(
