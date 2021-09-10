@@ -61,7 +61,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let currentlyUsedImageView = UIImageView()
 	private let currentlyUsedLabel = ENALabel()
 	private let iconImageView = UIImageView()
-	private let unseenNewsIndicator = CertificateNotificationView()
+	private let unseenNewsIndicator = CertificateBadgeView()
 	private let gradientBackground = GradientView()
 
 	private func setupView() {

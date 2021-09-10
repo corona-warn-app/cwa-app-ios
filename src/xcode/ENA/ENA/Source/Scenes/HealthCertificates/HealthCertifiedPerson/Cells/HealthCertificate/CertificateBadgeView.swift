@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CertificateNotificationView: UIView {
+class CertificateBadgeView: UIView {
 
 	// MARK: - Init
 
