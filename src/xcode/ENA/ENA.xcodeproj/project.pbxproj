@@ -598,7 +598,7 @@
 		5071A87926EB76EC00B09B40 /* EmptyReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */; };
 		5071A87B26EB7FFA00B09B40 /* ResourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87A26EB7FFA00B09B40 /* ResourceError.swift */; };
 		5071A87D26EB803F00B09B40 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87C26EB803F00B09B40 /* ServiceType.swift */; };
-		5071A88026EB808A00B09B40 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87F26EB808A00B09B40 /* HTTPMethod.swift */; };
+		5071A88026EB808A00B09B40 /* HTTP+Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87F26EB808A00B09B40 /* HTTP+Method.swift */; };
 		5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88126EB80D900B09B40 /* ServiceError.swift */; };
 		5071A88426EB810D00B09B40 /* ServiceHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88326EB810D00B09B40 /* ServiceHook.swift */; };
 		5071A88726EB8C9000B09B40 /* ValidationOnboardedCountriesLocationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesLocationResource.swift */; };
@@ -2031,7 +2031,7 @@
 		5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReceiveResource.swift; sourceTree = "<group>"; };
 		5071A87A26EB7FFA00B09B40 /* ResourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceError.swift; sourceTree = "<group>"; };
 		5071A87C26EB803F00B09B40 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
-		5071A87F26EB808A00B09B40 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		5071A87F26EB808A00B09B40 /* HTTP+Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTP+Method.swift"; sourceTree = "<group>"; };
 		5071A88126EB80D900B09B40 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		5071A88326EB810D00B09B40 /* ServiceHook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHook.swift; sourceTree = "<group>"; };
 		5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOnboardedCountriesLocationResource.swift; sourceTree = "<group>"; };
@@ -4647,7 +4647,7 @@
 		5071A87E26EB807200B09B40 /* Locator */ = {
 			isa = PBXGroup;
 			children = (
-				5071A87F26EB808A00B09B40 /* HTTPMethod.swift */,
+				5071A87F26EB808A00B09B40 /* HTTP+Method.swift */,
 				50D7BD6F26DE405100494FB7 /* Locator.swift */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 			);
@@ -9195,7 +9195,7 @@
 				CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */,
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
 				EB67B5EF262AD6D300218EC7 /* CheckinSelectionCellModel.swift in Sources */,
-				5071A88026EB808A00B09B40 /* HTTPMethod.swift in Sources */,
+				5071A88026EB808A00B09B40 /* HTTP+Method.swift in Sources */,
 				BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
 				345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */,
