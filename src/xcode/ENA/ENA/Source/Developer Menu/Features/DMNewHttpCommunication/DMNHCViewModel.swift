@@ -46,6 +46,7 @@ final class DMNHCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
+					// Example of building a request without request body but with response body.
 					let locationResource = AppConfigurationLocationResource()
 					let sendResource = EmptySendResource<Any>()
 					let receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
@@ -59,56 +60,30 @@ final class DMNHCViewModel {
 							print("HTTP CALL FAIL")
 						}
 					}
-
-					/*
-					let resource = Resources.response.appConfiguration
-					self?.restService.load(resource: resource) { result in
-						
-						switch result {
-						
-						case let .success(model):
-							print(model?.appFeatures)
-							print("HTTP CALL SUCCESS")
-						case let .failure(error):
-							print("HTTP CALL FAIL")
-						}
-					}
-*/
 				}
 			)
 		case .otpEdusAuthorization:
 			return DMButtonCellViewModel(
-				text: "otpEdusAuthorization",
+				text: "validationOnboardedCountries",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					
-					let locationResource = AppConfigurationLocationResource()
-					let sendResource = ProtobufSendResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
-					let receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+					// Example of building a request without request body but with response body.
+					let locationResource = ValidationOnboardedCountriesLocationResource(isFake: false)
+					let sendResource = EmptySendResource<Any>()
+					// TODO Create ReceiveResource of Type....String?
+					let receiveResource = JSONReceiveResource<[String]>()
 
 					self?.restService.load(locationResource, sendResource, receiveResource) { result in
 						switch result {
 						case let .success(model):
-							print(model?.appFeatures)
+							print(model)
 							print("HTTP CALL SUCCESS")
 						case let .failure(error):
 							print("HTTP CALL FAIL")
 						}
 					}
-/*
-					let model = SAP_Internal_V2_ApplicationConfigurationIOS()
-					let resource = Resources.request.appConfiguration(model: model)
-					self?.restService.load(resource: resource) { result in
-						switch result {
-						case let .success(model):
-							print(model?.appFeatures)
-							print("HTTP CALL SUCCESS")
-						case let .failure(error):
-							print("HTTP CALL FAIL")
-						}
-					}
-*/
 				}
 			)
 		case .traceWarningPackageDiscovery:
