@@ -325,7 +325,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	
 	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
 		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched()
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
+			guard let errorMessage = errorMessage else {
+				return
+			}
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		})
 		completion()
 	}
 	
