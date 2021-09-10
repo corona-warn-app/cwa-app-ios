@@ -37,10 +37,11 @@ class HomeTableViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -117,10 +118,13 @@ class HomeTableViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -166,10 +170,13 @@ class HomeTableViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -208,10 +215,13 @@ class HomeTableViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -257,10 +267,13 @@ class HomeTableViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onTestResultCellTap: { _ in }

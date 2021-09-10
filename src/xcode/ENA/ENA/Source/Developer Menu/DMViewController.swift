@@ -93,6 +93,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			)
 		case .notifications:
 			vc = DMLocalNotificationsViewController(healthCertificateService: healthCertificateService)
+		case .boosterRules:
+			vc = DMBoosterChoosePersonViewController(store: store, healthCertificateService: healthCertificateService)
 		case .wifiClient:
 			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:

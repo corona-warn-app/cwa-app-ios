@@ -20,11 +20,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	func testDidTapPrimaryButtonOnPositiveTestResult() {
 		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
 		getTestResultExpectation.isInverted = true
-
+		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		client.onGetTestResult = { _, _, _ in
 			getTestResultExpectation.fulfill()
 		}
@@ -32,7 +32,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
 		)
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -41,14 +41,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -76,11 +79,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		for testResult in testResults {
 			let getTestResultExpectation = expectation(description: "getTestResult on client is called")
 			getTestResultExpectation.isInverted = true
-
+			
 			let client = ClientMock()
 			let store = MockTestStore()
 			let appConfiguration = CachedAppConfigurationMock()
-
+			
 			client.onGetTestResult = { _, _, _ in
 				getTestResultExpectation.fulfill()
 			}
@@ -89,7 +92,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				description: "onContinueWithSymptomsFlowButtonTap closure is called"
 			)
 			onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
-
+			
 			let coronaTestService = CoronaTestService(
 				client: client,
 				store: store,
@@ -98,14 +101,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
-
+			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
@@ -131,11 +137,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDidTapPrimaryButtonOnPendingTestResult() {
 		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-
+		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		client.onGetTestResult = { _, _, _ in
 			getTestResultExpectation.fulfill()
 		}
@@ -144,7 +150,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
 		)
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -153,14 +159,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -185,16 +194,16 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtons() {
 		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-
+		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 			getTestResultExpectation.fulfill()
 		}
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -203,14 +212,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -255,16 +267,16 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDidTapPrimaryButtonOnPendingTestResultSetsError() {
 		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-
+		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.invalidResponse))
 			getTestResultExpectation.fulfill()
 		}
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -273,14 +285,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -302,11 +317,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() {
 		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
 		getTestResultExpectation.isInverted = true
-
+		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -315,14 +330,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -333,11 +351,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
-
+		
 		client.onGetTestResult = { _, _, completion in
 			do {
 				let footerViewModel = try XCTUnwrap(model.footerViewModel)
-
+				
 				// Buttons should be in loading state when getTestResult is called on the exposure submission service
 				XCTAssertFalse(footerViewModel.isPrimaryButtonEnabled)
 				XCTAssertTrue(footerViewModel.isPrimaryLoading)
@@ -345,9 +363,9 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			} catch {
 				XCTFail(error.localizedDescription)
 			}
-
+			
 			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-
+			
 			getTestResultExpectation.fulfill()
 		}
 		
@@ -367,12 +385,12 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			XCTFail(error.localizedDescription)
 		}
 	}
-		
+	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -381,14 +399,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -415,7 +436,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			let client = ClientMock()
 			let store = MockTestStore()
 			let appConfiguration = CachedAppConfigurationMock()
-
+			
 			let coronaTestService = CoronaTestService(
 				client: client,
 				store: store,
@@ -424,14 +445,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
-
+			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
@@ -455,11 +479,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDeletion() {
 		let onTestDeletedCalledExpectation = expectation(description: "onTestDeleted closure is called")
-
+		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -468,14 +492,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -492,7 +519,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		model.deleteTest()
 		
 		waitForExpectations(timeout: .short)
-
+		
 		XCTAssertNil(coronaTestService.pcrTest)
 	}
 	
@@ -501,7 +528,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			let client = ClientMock()
 			let store = MockTestStore()
 			let appConfiguration = CachedAppConfigurationMock()
-
+			
 			let coronaTestService = CoronaTestService(
 				client: client,
 				store: store,
@@ -510,14 +537,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-
+			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
@@ -550,7 +580,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			let client = ClientMock()
 			let store = MockTestStore()
 			let appConfiguration = CachedAppConfigurationMock()
-
+			
 			let coronaTestService = CoronaTestService(
 				client: client,
 				store: store,
@@ -559,14 +589,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
-					signatureVerifying: DCCSignatureVerifyingStub(),
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
 					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
-
+			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
@@ -601,7 +634,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				let client = ClientMock()
 				let store = MockTestStore()
 				let appConfiguration = CachedAppConfigurationMock()
-
+				
 				let coronaTestService = CoronaTestService(
 					client: client,
 					store: store,
@@ -610,14 +643,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: HealthCertificateService(
 						store: store,
-						signatureVerifying: DCCSignatureVerifyingStub(),
+						dccSignatureVerifier: DCCSignatureVerifyingStub(),
 						dscListProvider: MockDSCListProvider(),
 						client: client,
-						appConfiguration: appConfiguration
+						appConfiguration: appConfiguration,
+						boosterNotificationsService: BoosterNotificationsService(
+							rulesDownloadService: RulesDownloadService(store: store, client: client)
+						)
 					)
 				)
 				coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
-
+				
 				let model = ExposureSubmissionTestResultViewModel(
 					coronaTestType: .pcr,
 					coronaTestService: coronaTestService,
@@ -651,7 +687,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -660,14 +696,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -707,7 +746,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -716,14 +755,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -783,7 +825,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -792,14 +834,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .invalid)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -839,7 +884,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -848,14 +893,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,
@@ -899,7 +947,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -908,14 +956,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
-				signatureVerifying: DCCSignatureVerifyingStub(),
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
-
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: coronaTestService,

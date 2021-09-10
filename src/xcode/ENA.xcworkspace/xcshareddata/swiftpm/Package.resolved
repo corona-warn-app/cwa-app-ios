@@ -30,10 +30,10 @@
       },
       {
         "package": "CertLogic",
-        "repositoryURL": "https://github.com/corona-warn-app/dgc-certlogic-ios",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios",
         "state": {
           "branch": null,
-          "revision": "ed41cc80319f242a8aea29081eae5013e324b736",
+          "revision": "b2c60391396b3f0e3c4bf0b6b9685cbae4a34c7a",
           "version": null
         }
       },
@@ -57,10 +57,10 @@
       },
       {
         "package": "JSONSchema",
-        "repositoryURL": "https://github.com/corona-warn-app/JSONSchema.swift",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/JSONSchema.swift",
         "state": {
           "branch": null,
-          "revision": "4a46b92510fb85ac5e84dbe95d88c6f5d1736341",
+          "revision": "addef0a5c7ed181d877f1fdfde1e3fc1c6c28cfe",
           "version": null
         }
       },

@@ -41,7 +41,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-
+	var lastBoosterNotificationsExecutionDate: Date?
+	
 	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.

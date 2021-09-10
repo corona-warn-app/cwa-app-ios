@@ -49,6 +49,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		setupViewModel()
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		viewModel.markBoosterRuleAsSeen()
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -85,7 +91,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			return cell
 
 		case .vaccinationHint:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: VaccinationHintTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationHintCellViewModel)
 			return cell
 
@@ -173,6 +179,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in
 				self.isAnimatingChanges = false
+
+				// Reload is required to update cells with new cell models if most relevant certificate was deleted
+				if self.viewModel.numberOfItems(in: .certificates) > 0 {
+					self.tableView.reloadData()
+				}
 			})
 		}
 	}
@@ -268,6 +279,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		tableView.register(
 			PreferredPersonTableViewCell.self,
 			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			VaccinationHintTableViewCell.self,
+			forCellReuseIdentifier: VaccinationHintTableViewCell.reuseIdentifier
 		)
 	}
 
