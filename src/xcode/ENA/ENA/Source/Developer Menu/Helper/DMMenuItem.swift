@@ -37,6 +37,8 @@ enum DMMenuItem: Int, CaseIterable {
 	case adHocPosterGeneration
 	case appFeatures
 	case dscLists
+	case notifications
+	case boosterRules
 }
 
 extension DMMenuItem {
@@ -83,6 +85,8 @@ extension DMMenuItem {
 		case .adHocPosterGeneration: return "Ad-Hoc Poster Generation"
 		case .appFeatures: return "App Features"
 		case .dscLists: return "DSC Lists"
+		case .notifications: return "Trigger Notifications"
+		case .boosterRules: return "Download Booster rules"
 		}
 	}
 	var subtitle: String {
@@ -117,6 +121,8 @@ extension DMMenuItem {
 		case .adHocPosterGeneration: return "Generate QR code poster by providing the customized values"
 		case .appFeatures: return "Override App Features here"
 		case .dscLists: return "Change DSC Lists"
+		case .notifications: return "Trigger Certificate notifications only"
+		case .boosterRules: return "Download Booster rules and trigger the notification"
 		}
 	}
 }

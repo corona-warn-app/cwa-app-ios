@@ -46,6 +46,11 @@ class BackgroundAppRefreshViewController: UIViewController {
 		setupBindings()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = true
+	}
+
 	// MARK: - Private
 
 	private var viewModel: BackgroundAppRefreshViewModel!

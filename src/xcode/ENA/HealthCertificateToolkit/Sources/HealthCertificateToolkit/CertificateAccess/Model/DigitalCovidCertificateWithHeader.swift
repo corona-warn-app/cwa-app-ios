@@ -5,12 +5,17 @@
 import Foundation
 
 public struct DigitalCovidCertificateWithHeader: Codable, Equatable {
+    public init(header: CBORWebTokenHeader, certificate: DigitalCovidCertificate) {
+        self.header = header
+        self.certificate = certificate
+    }
+    
     let header: CBORWebTokenHeader
     let certificate: DigitalCovidCertificate
 
-    #if DEBUG
-    
-    static func fake(
+    #if !RELEASE
+
+    public static func fake(
         header: CBORWebTokenHeader = .fake(),
         certificate: DigitalCovidCertificate = .fake()
     ) -> DigitalCovidCertificateWithHeader {
@@ -19,7 +24,6 @@ public struct DigitalCovidCertificateWithHeader: Codable, Equatable {
             certificate: certificate
         )
     }
-
     #endif
 }
 

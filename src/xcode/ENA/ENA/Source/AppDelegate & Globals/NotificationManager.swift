@@ -14,13 +14,17 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		eventCheckoutService: EventCheckoutService,
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
-		showTestResultFromNotification: @escaping (CoronaTestType) -> Void
+		showTestResultFromNotification: @escaping (CoronaTestType) -> Void,
+		showHealthCertificate: @escaping (Route) -> Void,
+		showHealthCertifiedPerson: @escaping (Route) -> Void
 	) {
 		self.coronaTestService = coronaTestService
 		self.eventCheckoutService = eventCheckoutService
 		self.healthCertificateService = healthCertificateService
 		self.showHome = showHome
 		self.showTestResultFromNotification = showTestResultFromNotification
+		self.showHealthCertificate = showHealthCertificate
+		self.showHealthCertifiedPerson = showHealthCertifiedPerson
 	}
 		
 	// MARK: - Protocol UNUserNotificationCenterDelegate
@@ -36,6 +40,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
+		
 		case ActionableNotificationIdentifier.riskDetection.identifier,
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
 			showHome()
@@ -68,15 +73,29 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			case .expired, .pending:
 				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
-
-		default: break
+		default:
+			// special action where we need to extract data from identifier
+			checkForLocalNotificationsActions(response.notification.request.identifier)
 		}
-
 		completionHandler()
 	}
-	
+
 	// MARK: - Internal
 	
+	// Internal for testing
+	func extract(_ prefix: String, from: String) -> (HealthCertifiedPerson, HealthCertificate)? {
+		guard from.hasPrefix(prefix) else {
+			return nil
+		}
+		return findHealthCertificate(String(from.dropFirst(prefix.count)))
+	}
+	
+	func extractPerson(_ prefix: String, from: String) -> HealthCertifiedPerson? {
+		guard from.hasPrefix(prefix) else {
+			return nil
+		}
+			return findHealthCertifiedPerson(String(from.dropFirst(prefix.count)))
+	}
 	// MARK: - Private
 	
 	private let coronaTestService: CoronaTestService
@@ -84,7 +103,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
 	private let showTestResultFromNotification: (CoronaTestType) -> Void
-	
+	private let showHealthCertificate: (Route) -> Void
+	private let showHealthCertifiedPerson: (Route) -> Void
+
 	private func showPositivePCRTestResultIfNeeded() {
 		if let pcrTest = coronaTestService.pcrTest,
 		   pcrTest.positiveTestResultWasShown {
@@ -97,5 +118,52 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		   antigenTest.positiveTestResultWasShown {
 			showTestResultFromNotification(.antigen)
 		}
+	}
+
+	private func checkForLocalNotificationsActions(_ identifier: String) {
+		if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateExpired.rawValue, from: identifier) {
+			let route = Route(
+				healthCertifiedPerson: certifiedPerson,
+				healthCertificate: healthCertificate
+			)
+			showHealthCertificate(route)
+		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateExpiringSoon.rawValue, from: identifier) {
+			let route = Route(
+				healthCertifiedPerson: certifiedPerson,
+				healthCertificate: healthCertificate
+			)
+			showHealthCertificate(route)
+		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateInvalid.rawValue, from: identifier) {
+			let route = Route(
+				healthCertifiedPerson: certifiedPerson,
+				healthCertificate: healthCertificate
+			)
+			showHealthCertificate(route)
+		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.boosterVaccination.rawValue, from: identifier) {
+			let route = Route(healthCertifiedPerson: certifiedPerson)
+			showHealthCertifiedPerson(route)
+		}
+	}
+	
+	private func findHealthCertificate(_ identifier: String) -> (HealthCertifiedPerson, HealthCertificate)? {
+		for person in healthCertificateService.healthCertifiedPersons.value {
+			if let certificate = person.$healthCertificates.value
+				.first(where: { $0.uniqueCertificateIdentifier == identifier }) {
+				return (person, certificate)
+			}
+		}
+		return nil
+	}
+	
+	private func findHealthCertifiedPerson(_ identifier: String) -> (HealthCertifiedPerson)? {
+		let matchedPerson = healthCertificateService.healthCertifiedPersons.value.first {
+			if let name = $0.name?.standardizedName,
+			   let dateOfBirth = $0.dateOfBirth {
+				let hashedID = ENAHasher.sha256(name + dateOfBirth)
+				return hashedID == identifier
+			}
+			return false
+		}
+		return matchedPerson
 	}
 }
