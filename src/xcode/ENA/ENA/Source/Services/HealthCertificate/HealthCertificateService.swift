@@ -85,7 +85,7 @@ class HealthCertificateService {
 	func checkIfBoosterRulesShouldBeFetched(completion: @escaping(String?) -> Void) {
 		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
 		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
-			let errorMessage = "Booster Notifications rules was already Download today, will be skipped..."
+			let errorMessage = "general: Booster Notifications rules was already Download today, will be skipped..."
 			Log.info(errorMessage, log: .vaccination)
 			completion(errorMessage)
 		} else {
@@ -1012,7 +1012,7 @@ class HealthCertificateService {
 					// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
 					guard let name = healthCertifiedPerson.name?.standardizedName,
 						  let dateOfBirth = healthCertifiedPerson.dateOfBirth else {
-						let errorMessage = "standardizedName or dateOfBirth is nil, will not trigger notification"
+						let errorMessage = "general: standardizedName or dateOfBirth is nil, will not trigger notification"
 						Log.error(errorMessage, log: .vaccination, error: nil)
 						completion(errorMessage)
 						return
@@ -1021,9 +1021,10 @@ class HealthCertificateService {
 					self.scheduleBoosterNotification(id: id)
 					completion(nil)
 				} else {
-					let errorMessage = "The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification"
+					let name = healthCertifiedPerson.name?.standardizedName ?? ""
+					let errorMessage = "The New passed booster rule has the same identifier as the old one saved for this person, so we will not trigger the notification"
 					Log.debug(errorMessage, log: .vaccination)
-					completion(errorMessage)
+					completion("for \(name): \(errorMessage)")
 				}
 				
 			case .failure(let validationError):
