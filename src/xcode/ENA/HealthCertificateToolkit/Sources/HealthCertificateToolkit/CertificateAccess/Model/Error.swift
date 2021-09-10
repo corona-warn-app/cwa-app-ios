@@ -46,7 +46,7 @@ public enum CertificateDecodingError: Error, Equatable {
     case HC_BASE45_ENCODING_FAILED
     case HC_ZLIB_DECOMPRESSION_FAILED(Error)
     case HC_ZLIB_COMPRESSION_FAILED
-    case HC_COSE_TAG_INVALID
+    case HC_COSE_TAG_OR_ARRAY_INVALID
     case HC_COSE_MESSAGE_INVALID
     case HC_COSE_NO_KEYIDENTIFIER
     case HC_CBOR_DECODING_FAILED(Error?)
@@ -76,7 +76,7 @@ public enum CertificateDecodingError: Error, Equatable {
             return lhsError.localizedDescription == rhsError.localizedDescription
         case (.HC_ZLIB_COMPRESSION_FAILED, .HC_ZLIB_COMPRESSION_FAILED):
             return true
-        case (.HC_COSE_TAG_INVALID, .HC_COSE_TAG_INVALID):
+        case (.HC_COSE_TAG_OR_ARRAY_INVALID, .HC_COSE_TAG_OR_ARRAY_INVALID):
             return true
         case (.HC_COSE_MESSAGE_INVALID, .HC_COSE_MESSAGE_INVALID):
             return true
