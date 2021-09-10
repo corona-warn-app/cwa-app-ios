@@ -73,6 +73,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
+		try container.encode(boosterRule, forKey: .boosterRule)
+		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
 	}
 
 	// MARK: - Protocol Equatable
