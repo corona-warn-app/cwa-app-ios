@@ -359,7 +359,8 @@ class HealthCertificateService {
 			.first()
 			.sink { [weak self] _ in
 				self?.updateValidityStatesAndNotifications(shouldScheduleTimer: shouldScheduleTimer)
-			}.store(in: &subscriptions)
+			}
+			.store(in: &subscriptions)
 	}
 
 	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
