@@ -9,21 +9,12 @@ struct EmptyReceiveResource<R>: ReceiveResource {
 	// MARK: - Init
 	
 	init() {}
-	
-	// MARK: - Overrides
-	
+		
 	// MARK: - Protocol ReceiveResource
 	
 	typealias ReceiveModel = R
 	
-	func decode(_ data: Data?) -> Result<R, ResourceError> {
-		return .failure(.decoding)
+	func decode(_ data: Data?) -> Result<R?, ResourceError> {
+		return .success(nil)
 	}
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
-	// MARK: - Private
-	
 }
