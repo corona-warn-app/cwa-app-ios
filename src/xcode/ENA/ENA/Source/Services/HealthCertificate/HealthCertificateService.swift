@@ -1028,7 +1028,8 @@ class HealthCertificateService {
 				
 			case .failure(let validationError):
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
-				completion(validationError.localizedDescription)
+				let name = healthCertifiedPerson.name?.standardizedName ?? ""
+				completion("for \(name): \(validationError.localizedDescription)")
 			}
 		})
 	}
