@@ -15,7 +15,7 @@ struct Locator: Hashable {
 	init(
 		endpoint: Endpoint,
 		paths: [String],
-		method: HTTPMethod,
+		method: HTTP.Method,
 		defaultHeaders: [String: String] = [:]
 	) {
 		self.endpoint = endpoint
@@ -28,7 +28,7 @@ struct Locator: Hashable {
 
 	let endpoint: Endpoint
 	let paths: [String]
-	let method: HTTPMethod
+	let method: HTTP.Method
 	let headers: [String: String]
 
 	func hash(into hasher: inout Hasher) {
