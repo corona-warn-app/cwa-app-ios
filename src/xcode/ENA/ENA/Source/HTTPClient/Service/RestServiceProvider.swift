@@ -4,6 +4,9 @@
 
 import Foundation
 
+/**
+Just a Protocol where a service has to implement the load method.
+*/
 protocol RestServiceProviding {
 
 	func load<S, R>(
@@ -14,6 +17,10 @@ protocol RestServiceProviding {
 	) where S: SendResource, R: ReceiveResource
 }
 
+/**
+The RestServiceProvider is the service called from "outside" and is initialized in regular only once with the given Environments.
+When calling the loading function, the RestServiceProvider decides which service has to be used by the LocationResource's serviceType. When it passes everything to the ServiceHook and from there to the concrete service implementation.
+*/
 class RestServiceProvider: RestServiceProviding {
 
 	required init(

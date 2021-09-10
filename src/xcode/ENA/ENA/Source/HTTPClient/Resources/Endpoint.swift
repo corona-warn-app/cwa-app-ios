@@ -3,6 +3,9 @@
 //
 
 import Foundation
+/**
+Wraps the different endpoints for the different resources
+*/
 
 enum Endpoint {
 	case distribution

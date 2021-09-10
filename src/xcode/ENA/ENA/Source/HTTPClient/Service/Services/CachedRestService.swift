@@ -4,6 +4,12 @@
 
 import Foundation
 
+/**
+Specific implementation of a service who is doing the caching stuff (http status code 304 handling).
+It uses the cachingSessionConfiguration.
+For http requests, it adds the ETag header field.
+For http responses, when receiving a http status code 304 it checks if the ReceiveResource was already cached before and if so, it returns the cached one. It also caches the ReceiveResource when receiving.
+*/
 class CachedRestService: Service {
 
 	// MARK: - Init

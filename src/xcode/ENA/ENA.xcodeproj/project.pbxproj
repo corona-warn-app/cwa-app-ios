@@ -596,6 +596,11 @@
 		5071A87526EA662F00B09B40 /* JSONSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87426EA662F00B09B40 /* JSONSendResource.swift */; };
 		5071A87726EB76E000B09B40 /* EmptySendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87626EB76E000B09B40 /* EmptySendResource.swift */; };
 		5071A87926EB76EC00B09B40 /* EmptyReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */; };
+		5071A87B26EB7FFA00B09B40 /* ResourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87A26EB7FFA00B09B40 /* ResourceError.swift */; };
+		5071A87D26EB803F00B09B40 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87C26EB803F00B09B40 /* ServiceType.swift */; };
+		5071A88026EB808A00B09B40 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87F26EB808A00B09B40 /* HTTPMethod.swift */; };
+		5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88126EB80D900B09B40 /* ServiceError.swift */; };
+		5071A88426EB810D00B09B40 /* ServiceHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88326EB810D00B09B40 /* ServiceHook.swift */; };
 		507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */; };
 		507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685D225E8EA040039B7B6 /* UserMetadataTests.swift */; };
 		5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */; };
@@ -623,7 +628,7 @@
 		50A7168826CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */; };
 		50A7168A26CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */; };
 		50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */; };
-		50AA521D25FA590D000C77BB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA521C25FA590D000C77BB /* HTTPMethod.swift */; };
+		50AA521D25FA590D000C77BB /* HTTPMethodOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA521C25FA590D000C77BB /* HTTPMethodOld.swift */; };
 		50AA522725FA5AAD000C77BB /* TraceWarningError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA522625FA5AAD000C77BB /* TraceWarningError.swift */; };
 		50AA525425FB9ACA000C77BB /* TraceWarningDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */; };
 		50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
@@ -2023,6 +2028,11 @@
 		5071A87426EA662F00B09B40 /* JSONSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSendResource.swift; sourceTree = "<group>"; };
 		5071A87626EB76E000B09B40 /* EmptySendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySendResource.swift; sourceTree = "<group>"; };
 		5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReceiveResource.swift; sourceTree = "<group>"; };
+		5071A87A26EB7FFA00B09B40 /* ResourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceError.swift; sourceTree = "<group>"; };
+		5071A87C26EB803F00B09B40 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
+		5071A87F26EB808A00B09B40 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		5071A88126EB80D900B09B40 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		5071A88326EB810D00B09B40 /* ServiceHook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHook.swift; sourceTree = "<group>"; };
 		507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDummyPPAnalyticsDataImplementation.swift; sourceTree = "<group>"; };
 		507685D225E8EA040039B7B6 /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
 		5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationService.swift; sourceTree = "<group>"; };
@@ -2052,7 +2062,7 @@
 		50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewController.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewController.swift; sourceTree = SOURCE_ROOT; };
 		50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModel.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewModel.swift; sourceTree = SOURCE_ROOT; };
 		50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryResponse.swift; sourceTree = "<group>"; };
-		50AA521C25FA590D000C77BB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		50AA521C25FA590D000C77BB /* HTTPMethodOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodOld.swift; sourceTree = "<group>"; };
 		50AA522625FA5AAD000C77BB /* TraceWarningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningError.swift; sourceTree = "<group>"; };
 		50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscovery.swift; sourceTree = "<group>"; };
 		50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDiscoveryTests.swift"; sourceTree = "<group>"; };
@@ -4632,6 +4642,28 @@
 			path = DMPPAActualData;
 			sourceTree = "<group>";
 		};
+		5071A87E26EB807200B09B40 /* Locator */ = {
+			isa = PBXGroup;
+			children = (
+				5071A87F26EB808A00B09B40 /* HTTPMethod.swift */,
+				50D7BD6F26DE405100494FB7 /* Locator.swift */,
+				BAF640EF26DFA08E00B3A18E /* Locators */,
+			);
+			path = Locator;
+			sourceTree = "<group>";
+		};
+		5071A88526EB815C00B09B40 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BAF640E726DF85A600B3A18E /* _Service.swift */,
+				5071A88326EB810D00B09B40 /* ServiceHook.swift */,
+				BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */,
+				BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */,
+				BA64FA8126D79C2300DD4705 /* DefaultRestService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		507685C925E80E460039B7B6 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -6423,7 +6455,7 @@
 				35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */,
 				011E13AD24680A4000973467 /* HTTPClient.swift */,
 				B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */,
-				50AA521C25FA590D000C77BB /* HTTPMethod.swift */,
+				50AA521C25FA590D000C77BB /* HTTPMethodOld.swift */,
 				B1A9E710246D782F0024CC12 /* SAPDownloadedPackage.swift */,
 				B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */,
 				BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */,
@@ -7236,8 +7268,9 @@
 		BA64FA7F26D79BCB00DD4705 /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
+				5071A87E26EB807200B09B40 /* Locator */,
 				BA64FA8026D79BFD00DD4705 /* Resources */,
-				BAF640E926DF862800B3A18E /* Services */,
+				BAF640E926DF862800B3A18E /* Service */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 			);
 			path = HTTPClient;
@@ -7246,13 +7279,12 @@
 		BA64FA8026D79BFD00DD4705 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
+				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
+				5071A87A26EB7FFA00B09B40 /* ResourceError.swift */,
 				BA52A69F26EA1C7C00AA0732 /* LocationResource */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
 				BA52A69926EA1A1700AA0732 /* SendResources */,
-				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
-				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
-				50D7BD6F26DE405100494FB7 /* Locator.swift */,
-				BAF640EF26DFA08E00B3A18E /* Locators */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -7874,7 +7906,7 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BAF45AE726E7B93700B80391 /* Request */ = {
+		BAF45AE726E7B93700B80391 /* Send */ = {
 			isa = PBXGroup;
 			children = (
 				5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */,
@@ -7889,10 +7921,10 @@
 				5001DE8326E206AB004242FA /* TANForExposureSubmit.swift */,
 				5001DE8126E2057C004242FA /* TestResultDownload.swift */,
 			);
-			path = Request;
+			path = Send;
 			sourceTree = "<group>";
 		};
-		BAF45AE826E7B94200B80391 /* Response */ = {
+		BAF45AE826E7B94200B80391 /* Receive */ = {
 			isa = PBXGroup;
 			children = (
 				BAF640EB26DF868B00B3A18E /* AppConfiguration.swift */,
@@ -7908,7 +7940,7 @@
 				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
 				5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */,
 			);
-			path = Response;
+			path = Receive;
 			sourceTree = "<group>";
 		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {
@@ -7919,23 +7951,22 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		BAF640E926DF862800B3A18E /* Services */ = {
+		BAF640E926DF862800B3A18E /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */,
-				BA64FA8126D79C2300DD4705 /* DefaultRestService.swift */,
-				BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */,
-				BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */,
+				5071A88126EB80D900B09B40 /* ServiceError.swift */,
+				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
+				5071A88526EB815C00B09B40 /* Services */,
 			);
-			path = Services;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		BAF640EF26DFA08E00B3A18E /* Locators */ = {
 			isa = PBXGroup;
 			children = (
-				BAF45AE826E7B94200B80391 /* Response */,
-				BAF45AE726E7B93700B80391 /* Request */,
+				BAF45AE826E7B94200B80391 /* Receive */,
+				BAF45AE726E7B93700B80391 /* Send */,
 			);
 			path = Locators;
 			sourceTree = "<group>";
@@ -8869,6 +8900,7 @@
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
 				8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */,
 				0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */,
+				5071A87D26EB803F00B09B40 /* ServiceType.swift in Sources */,
 				BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */,
 				BA5B7FCB26458EF400502087 /* HealthCertificateQRCodeScannerViewController.swift in Sources */,
 				01BA06BA261F1B9A00237DD8 /* WarnOthersReminder.swift in Sources */,
@@ -9159,6 +9191,7 @@
 				CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */,
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
 				EB67B5EF262AD6D300218EC7 /* CheckinSelectionCellModel.swift in Sources */,
+				5071A88026EB808A00B09B40 /* HTTPMethod.swift in Sources */,
 				BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
 				345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */,
@@ -9253,6 +9286,7 @@
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
+				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
@@ -9406,6 +9440,7 @@
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
 				8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */,
+				5071A87B26EB7FFA00B09B40 /* ResourceError.swift in Sources */,
 				BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */,
 				3558CC8725F6225500624F5E /* FileManager+FileSize.swift in Sources */,
 				BAEE121C25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift in Sources */,
@@ -9427,7 +9462,7 @@
 				BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */,
 				EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */,
-				50AA521D25FA590D000C77BB /* HTTPMethod.swift in Sources */,
+				50AA521D25FA590D000C77BB /* HTTPMethodOld.swift in Sources */,
 				BADBC81B25D6A7FF00488DB7 /* BaseDataDonationViewModel.swift in Sources */,
 				2ED5088E26B0542A008771FD /* TechnicalValidationFailedRulesTableViewCellErrorView.swift in Sources */,
 				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
@@ -9484,6 +9519,7 @@
 				AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
+				5071A88426EB810D00B09B40 /* ServiceHook.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

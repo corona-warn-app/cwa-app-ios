@@ -47,7 +47,7 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					let locationResource = AppConfigurationLocationResource()
-					let sendResource = ProtobufSendResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+					let sendResource = EmptySendResource<Any>()
 					let receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
 
 					self?.restService.load(locationResource, sendResource, receiveResource) { result in

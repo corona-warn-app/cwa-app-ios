@@ -4,6 +4,11 @@
 
 import Foundation
 
+/**
+Concrete implementation of ReceiveResource for JSON objects.
+When a service receives a http response with body, containing some data, we just decode the data to make some JSON file of it.
+Returns different RessourceErrors when decoding fails.
+*/
 struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 	
 	// MARK: - Init
@@ -16,7 +21,7 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 	
 	typealias ReceiveModel = R
 	
-	func decode(_ data: Data?) -> Result<R, ResourceError> {
+	func decode(_ data: Data?) -> Result<R?, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
 		}

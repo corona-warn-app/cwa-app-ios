@@ -4,75 +4,12 @@
 
 import Foundation
 
-enum ServiceError: Error, Equatable {
-	case serverError(Error?)
-	case unexpectedResponse(Int)
-	case resourceError(ResourceError?)
 
-	// MARK: - Protocol Equatable
-
-	static func == (lhs: ServiceError, rhs: ServiceError) -> Bool {
-		switch (lhs, rhs) {
-
-		case let (.serverError(lError), .serverError(rError)):
-			return lError?.localizedDescription == rError?.localizedDescription
-		case (.serverError, _):
-			return false
-
-		case let (.unexpectedResponse(lInt), .unexpectedResponse(rInt)):
-			return lInt == rInt
-		case (.unexpectedResponse, _):
-			return false
-
-		case let (.resourceError(lResourceError), .resourceError(rResourceError)):
-			return lResourceError == rResourceError
-		case (.resourceError, _):
-			return false
-		}
-	}
-}
-
-protocol Service {
-
-	init(environment: EnvironmentProviding)
-
-	var session: URLSession { get }
-	var environment: EnvironmentProviding { get }
-	
-	func load<S, R>(
-		_ locator: Locator,
-		_ sendResource: S?,
-		_ receiveResource: R,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where S: SendResource, R: ReceiveResource
-	
-	func urlRequest<S, R>(
-		_ locator: Locator,
-		_ sendResource: S?,
-		_ receiveResource: R
-	) -> Result<URLRequest, ResourceError> where S: SendResource, R: ReceiveResource
-	
-	func decodeModel<R>(
-		_ resource: R,
-		_ locator: Locator,
-		_ bodyData: Data?,
-		_ response: HTTPURLResponse?,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where R: ReceiveResource
-
-	func cached<R>(
-		_ resource: R,
-		_ locator: Locator,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where R: ReceiveResource
-	
-	func customHeaders<R>(
-		_ resource: R,
-		_ locator: Locator
-	) -> [String: String]? where R: ReceiveResource
-	
-}
-
+/**
+This is a special default implementation of Service and serves not only as default implementation but also as a hook to the generic resources and different service implementations.
+When calling a function of a service, it traverses this hook and in the implementations of the functions of the protocol. Here we do some stuff every service implementation normally should do and prevent so code duplication (e.g. setting the standard http request headers).
+When a service wants a more specific handling, it can just implements the protocols functions and inherits from start the implementation of here.
+*/
 extension Service {
 	
 	func urlRequest<S, R>(

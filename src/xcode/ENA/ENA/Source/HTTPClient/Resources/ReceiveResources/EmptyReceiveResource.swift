@@ -4,6 +4,10 @@
 
 import Foundation
 
+/**
+Dummy empty implementation of ReceiveResource when we expect a http response without any body data. In this case, we can always return a success with nil Data because there is nothing to decode.
+Will always return .success.
+*/
 struct EmptyReceiveResource<R>: ReceiveResource {
 	
 	// MARK: - Init

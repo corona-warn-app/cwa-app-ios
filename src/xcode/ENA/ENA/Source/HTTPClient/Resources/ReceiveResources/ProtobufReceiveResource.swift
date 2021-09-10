@@ -5,6 +5,12 @@
 import Foundation
 import SwiftProtobuf
 
+/**
+Concrete implementation of ReceiveResource for Protobuf objects.
+Because Protofbuf objects are always packed into a signed package, we need the SignatureVerifier to ensure the correctness of the package.
+When a service receives a http response with body, containing some data, we just decode the data to make some protobuf file of it.
+Returns different RessourceErrors when decoding fails.
+*/
 struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Message {
 
 	// MARK: - Init
@@ -21,7 +27,7 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 
 	typealias ReceiveModel = R
 
-	func decode(_ data: Data?) -> Result<R, ResourceError> {
+	func decode(_ data: Data?) -> Result<R?, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
 		}
