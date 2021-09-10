@@ -38,6 +38,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case appFeatures
 	case dscLists
 	case notifications
+	case boosterRules
 }
 
 extension DMMenuItem {
@@ -85,6 +86,7 @@ extension DMMenuItem {
 		case .appFeatures: return "App Features"
 		case .dscLists: return "DSC Lists"
 		case .notifications: return "Trigger Notifications"
+		case .boosterRules: return "Download Booster rules"
 		}
 	}
 	var subtitle: String {
@@ -120,6 +122,7 @@ extension DMMenuItem {
 		case .appFeatures: return "Override App Features here"
 		case .dscLists: return "Change DSC Lists"
 		case .notifications: return "Trigger Certificate notifications only"
+		case .boosterRules: return "Download Booster rules and trigger the notification"
 		}
 	}
 }

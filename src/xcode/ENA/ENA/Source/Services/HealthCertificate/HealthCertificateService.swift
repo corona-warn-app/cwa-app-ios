@@ -82,19 +82,21 @@ class HealthCertificateService {
 		- when the regular background execution runs (e.g. Key Download)
 	*/
 	
-	func checkIfBoosterRulesShouldBeFetched() {
+	func checkIfBoosterRulesShouldBeFetched(completion: @escaping(String?) -> Void) {
 		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
 		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
-			Log.info("Booster Notifications rules was already Download today, will be skipped...", log: .vaccination)
+			let errorMessage = "general: Booster Notifications rules was already Download today, will be skipped..."
+			Log.info(errorMessage, log: .vaccination)
+			completion(errorMessage)
 		} else {
 			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
-			applyBoosterRulesForHealthCertificates()
+			applyBoosterRulesForHealthCertificates(completion: completion)
 		}
 	}
 	
-	private func applyBoosterRulesForHealthCertificates() {
+	private func applyBoosterRulesForHealthCertificates(completion: @escaping(String?) -> Void) {
 		healthCertifiedPersons.value.forEach { healthCertifiedPerson in
-			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson)
+			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson, completion: completion)
 		}
 	}
 	
@@ -994,7 +996,7 @@ class HealthCertificateService {
 		}
 	}
 	
-	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson) {
+	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson, completion: @escaping(String?) -> Void) {
 		Log.info("Applying booster rules for person", log: .vaccination)
 		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
 			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
@@ -1010,17 +1012,25 @@ class HealthCertificateService {
 					// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
 					guard let name = healthCertifiedPerson.name?.standardizedName,
 						  let dateOfBirth = healthCertifiedPerson.dateOfBirth else {
-						Log.error("standardizedName or dateOfBirth is nil, will not trigger notification", log: .vaccination, error: nil)
+						let errorMessage = "general: standardizedName or dateOfBirth is nil, will not trigger notification"
+						Log.error(errorMessage, log: .vaccination, error: nil)
+						completion(errorMessage)
 						return
 					}
 					let id = ENAHasher.sha256(name + dateOfBirth)
 					self.scheduleBoosterNotification(id: id)
+					completion(nil)
 				} else {
-					Log.debug("The New booster rule has the same identifier as the old one saved for this person,so we will not trigger the notification", log: .vaccination)
+					let name = healthCertifiedPerson.name?.standardizedName ?? ""
+					let errorMessage = "The New passed booster rule has the same identifier as the old one saved for this person, so we will not trigger the notification"
+					Log.debug(errorMessage, log: .vaccination)
+					completion("for \(name): \(errorMessage)")
 				}
 				
 			case .failure(let validationError):
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
+				let name = healthCertifiedPerson.name?.standardizedName ?? ""
+				completion("for \(name): \(validationError.localizedDescription)")
 			}
 		})
 	}
