@@ -107,7 +107,7 @@ final class DMBoosterRulesViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: {
 					self.healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-						if let message = errorMessage, let currentPersonName = healthCertifiedPerson.name?.standardizedName {
+						if let message = errorMessage, let currentPersonName = self.healthCertifiedPerson.name?.standardizedName {
 							/*
 							we get error messages for all persons who didn't pass a rule so we check and show
 							an alert only if:
@@ -115,7 +115,7 @@ final class DMBoosterRulesViewModel {
 							- a an error that has the word "general" in the message, for example if the rules were already
 							downloaded today, this is a general error for all persons
 							*/
-							if message.contains(currentPersonName) ||  message.contains("general"){
+							if message.contains(currentPersonName) || message.contains("general") {
 								self.createAlert(message: message)
 							}
 						} else {

@@ -9,6 +9,7 @@ enum BoosterNotificationServiceError: LocalizedError {
 	case CERTIFICATE_VALIDATION_ERROR(HealthCertificateValidationError)
 	case BOOSTER_VALIDATION_ERROR(BoosterNotificationRuleValidationError)
 
+	#if !RELEASE
 	// ONLY USED FOR TESTING IN THE DEV MENU
 	var errorDescription: String? {
 		switch self {
@@ -54,6 +55,7 @@ enum BoosterNotificationServiceError: LocalizedError {
 			}
 		}
 	}
+	#endif
 }
 
 // swiftlint:disable pattern_matching_keywords
