@@ -120,7 +120,7 @@ class DMBoosterRulesViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "Most recent Trace Location"
+		title = "Booster rules actions 🎩"
 	}
 }
 #endif
