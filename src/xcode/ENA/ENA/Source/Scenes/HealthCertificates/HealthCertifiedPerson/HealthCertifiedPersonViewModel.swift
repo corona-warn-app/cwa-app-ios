@@ -77,17 +77,39 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
-	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		HealthCertificateSimpleTextCellViewModel(
+	var headerCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		let centerParagraphStyle = NSMutableParagraphStyle()
+		centerParagraphStyle.alignment = .center
+		centerParagraphStyle.lineSpacing = 10.0
+
+		let attributedTitle = NSAttributedString(
+			string: AppStrings.HealthCertificate.Person.title,
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		let attributedSubtitle = NSAttributedString(
+			string: healthCertifiedPerson.name?.fullName ?? "",
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
-			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			text: AppStrings.HealthCertificate.Person.title,
-			topSpace: 42.0,
+			attributedText: [attributedTitle, attributedSubtitle]
+				.joined(with: "\n"),
+			topSpace: 16.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
-	}()
+	}
 
 	let vaccinationHintCellViewModel: VaccinationHintCellModel
 
