@@ -163,6 +163,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let captionImageView: UIImageView = {
 		let captionImageView = UIImageView()
 		captionImageView.setContentHuggingPriority(.required, for: .horizontal)
+		captionImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return captionImageView
 	}()
