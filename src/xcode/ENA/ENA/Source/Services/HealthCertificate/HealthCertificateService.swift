@@ -712,7 +712,7 @@ class HealthCertificateService {
 	
 	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
 	/// First, removes all local notifications and then re-adds all updates or new notifications to the notification center.
-	func updateNotifications() {
+	private func updateNotifications() {
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				// No notifications for test certificates
