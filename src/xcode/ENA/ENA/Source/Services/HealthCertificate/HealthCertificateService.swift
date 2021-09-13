@@ -388,7 +388,6 @@ class HealthCertificateService {
 		// This way only the 2. call with freshly fetched signing certificates is executed.
 		dscListProvider.signingCertificates
 			.dropFirst()
-			// TODO: Check if this first() is correct
 			.first()
 			.sink { [weak self] _ in
 				self?.updateValidityStatesAndNotifications(shouldScheduleTimer: shouldScheduleTimer)
