@@ -286,10 +286,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 				captionCountView.widthAnchor.constraint(greaterThanOrEqualTo: captionCountView.heightAnchor),
 
-				captionCountLabel.leadingAnchor.constraint(equalTo: captionCountView.leadingAnchor, constant: 6.0),
-				captionCountLabel.topAnchor.constraint(equalTo: captionCountView.topAnchor, constant: 6.0),
-				captionCountLabel.trailingAnchor.constraint(equalTo: captionCountView.trailingAnchor, constant: -6.0),
-				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -6.0)
+				captionCountLabel.leadingAnchor.constraint(equalTo: captionCountView.leadingAnchor, constant: 2.0),
+				captionCountLabel.topAnchor.constraint(equalTo: captionCountView.topAnchor, constant: 2.0),
+				captionCountLabel.trailingAnchor.constraint(equalTo: captionCountView.trailingAnchor, constant: -2.0),
+				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0)
 			]
 		)
 
