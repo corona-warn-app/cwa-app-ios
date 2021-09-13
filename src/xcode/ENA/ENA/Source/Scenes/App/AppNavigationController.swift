@@ -199,6 +199,7 @@ extension UINavigationController {
 
 	private func scrollViewToTop(_ scrollView: UIScrollView) {
 		scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)	// no large title
+		// wait till the scrolling animation is finished plus slightly longer.
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
 			self.navigationBar.sizeToFit()
 		}

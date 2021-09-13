@@ -5,6 +5,8 @@
 import XCTest
 @testable import ENA
 
+// Hint: if this test turns out fragile, try to increase the timing in UINavigationController.scrollViewToTop
+
 private protocol Scrolling {
 	func scrollToBottom()
 }
