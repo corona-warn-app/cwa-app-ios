@@ -37,6 +37,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
+		captionCountView.layoutIfNeeded()
 		captionCountView.layer.cornerRadius = captionCountView.bounds.height / 2
 	}
 
