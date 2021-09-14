@@ -38,7 +38,6 @@ class HealthCertificateQRCodeView: UIView {
 	private let qrCodeImageView: UIImageView = {
 		let qrCodeImageView = UIImageView()
 		qrCodeImageView.contentMode = .scaleAspectFit
-		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
 
 		return qrCodeImageView
 	}()
