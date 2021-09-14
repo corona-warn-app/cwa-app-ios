@@ -522,7 +522,10 @@ final class HealthCertificatesCoordinator {
 			onTapPrintPdf: printPdf,
 			onTapExportPdf: exportPdf
 		)
-		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
+		// The call of showPdfGenerationResult is made possibly in the background while generating the pdfDocument
+		DispatchQueue.main.async { [weak self] in
+			self?.printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
+		}
 	}
 	
 	private func printPdf(
