@@ -52,7 +52,6 @@ class QRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeImageView.contentMode = .scaleAspectFit
-		qrCodeImageView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		backgroundContainerView.addSubview(qrCodeImageView)
 
 		NSLayoutConstraint.activate(
