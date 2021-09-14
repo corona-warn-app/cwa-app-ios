@@ -251,7 +251,7 @@ final class HealthCertificatesCoordinator {
 							}
 							self.healthCertificateService.removeHealthCertificate(healthCertificate)
 							// Do not confirm deletion if we removed the last certificate of the person (this removes the person, too) because it would trigger a new reload of the table where no person can be shown. Instead, we dismiss the view controller.
-							if self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson) {
+							if self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson) {
 								confirmDeletion()
 							} else {
 								self.viewController.dismiss(animated: true)
@@ -328,7 +328,7 @@ final class HealthCertificatesCoordinator {
 										return
 									}
 									self.healthCertificateService.removeHealthCertificate(healthCertificate)
-									let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson)
+									let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson)
 
 									// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
 									if shouldPushOnModalNavigationController && isPersonStillExistent {
