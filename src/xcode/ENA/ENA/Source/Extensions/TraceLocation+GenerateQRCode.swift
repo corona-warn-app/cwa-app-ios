@@ -17,11 +17,11 @@ extension TraceLocation {
 			return nil
 		}
 
-		return UIImage.qrCode(with: qrCodeURL,
-							  size: size,
-							  scale: scale,
-							  qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel
+		return UIImage.qrCode(
+			with: qrCodeURL,
+			size: size,
+			scale: scale,
+			qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel
 		)
 	}
-
 }
