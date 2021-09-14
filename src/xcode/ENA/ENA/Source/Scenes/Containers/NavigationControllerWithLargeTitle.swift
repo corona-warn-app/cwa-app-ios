@@ -27,6 +27,7 @@ class NavigationControllerWithLargeTitle: UINavigationController {
 	}
 
 	// MARK: - Private
+	
 	private func setup() {
 		navigationBar.prefersLargeTitles = true
 	}
