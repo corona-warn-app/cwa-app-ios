@@ -32,6 +32,7 @@ struct HealthCertificateQRCodeCellViewModel {
 				self.validityStateIcon = nil
 				self.validityStateTitle = nil
 				self.validityStateDescription = nil
+				self.isUnseenNewsIndicatorVisible = false
 			case .expiringSoon:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiringSoon")
 				self.validityStateTitle = String(
@@ -44,6 +45,7 @@ struct HealthCertificateQRCodeCellViewModel {
 				} else {
 					self.validityStateDescription = nil
 				}
+				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
 			case .expired:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
 				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.expired
@@ -52,6 +54,7 @@ struct HealthCertificateQRCodeCellViewModel {
 				} else {
 					self.validityStateDescription = nil
 				}
+				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
 			case .invalid:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
 				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.invalid
@@ -60,11 +63,13 @@ struct HealthCertificateQRCodeCellViewModel {
 				} else {
 					self.validityStateDescription = nil
 				}
+				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
 			}
 		} else {
 			self.validityStateIcon = nil
 			self.validityStateTitle = nil
 			self.validityStateDescription = nil
+			self.isUnseenNewsIndicatorVisible = false
 		}
 	}
 
@@ -128,13 +133,12 @@ struct HealthCertificateQRCodeCellViewModel {
 	let validityStateTitle: String?
 	let validityStateDescription: String?
 
+	let isUnseenNewsIndicatorVisible: Bool
+
 	var isValidationButtonVisible: Bool {
 		onValidationButtonTap != nil
 	}
 
-	var isUnseenNewsIndicatorVisible: Bool {
-		mode == .details && healthCertificate.isValidityStateNew
-	}
 
 	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
 		onValidationButtonTap?(healthCertificate) { isLoading in
