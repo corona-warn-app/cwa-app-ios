@@ -13,7 +13,7 @@ private protocol Scrolling {
 
 private typealias ScrollingViewController = UIViewController & Scrolling
 
-class NaviControllerViewScrollingTest: CWATestCase {
+class NavigationControllerViewScrollingTest: CWATestCase {
 	typealias Predicate = ((UINavigationController) -> Bool)
 
     override func setUpWithError() throws {
