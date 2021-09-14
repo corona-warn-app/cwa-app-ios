@@ -97,6 +97,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
 
+"ExposureDetection_Guide_Vaccination" = "Lassen Sie sich gegen SARS-CoV-2 impfen, falls Sie noch nicht geimpft sind.";
+
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
 "ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
@@ -105,15 +107,18 @@
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
 "ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
+"ExposureDetection_Guide_Symptoms" = "Achten Sie auf COVID-19-typische Symptome. Symptome können in seltenen Fällen auch bei geimpften Personen auftreten. Sobald Symptome auftreten, lassen Sie sich testen.";
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
 
 "ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Quarantäne-Maßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
 
 "ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
 
-"ExposureDetection_Guide_Hotline3" = "Den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
+"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, lassen Sie sich nach Rücksprache mit Ihrer Hausarztpraxis oder dem kassenärztlichen Bereitschaftsdienst testen. Besprechen Sie ebenfalls die SARS-CoV-2-Impfung nach der Testung mit Ihrer Hausarztpraxis.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Falls Sie sich testen lassen, finden Sie weitere Informationen in der %@.";
@@ -385,8 +390,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
-"Onboarding_doNotAllow_actionText" = "Nicht erlauben";
-
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Wenn Sie die Risiko-Ermittlung nicht aktivieren, kann die App Ihren Risikostatus nicht ermitteln und Sie erhalten keine Informationen zu Ihrem Risiko in der App.";
@@ -477,8 +480,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_DataPrivacyDescription" = "Durch Antippen von „Erlauben“ willigen Sie ein, dass die App den Status Ihres Corona-Virus-Tests abfragen und in der App anzeigen darf. Diese Funktion steht Ihnen zur Verfügung, wenn Sie einen QR-Code erhalten und eingewilligt haben, dass Ihr Testergebnis an das Serversystem der App übermittelt werden darf. Sobald das Testlabor Ihr Testergebnis auf dem Server hinterlegt hat, können Sie das Ergebnis in der App sehen. Falls Sie Mitteilungen aktiviert haben, werden Sie auch außerhalb der App über den Eingang des Testergebnis informiert. Das Testergebnis selbst wird aus Datenschutzgründen jedoch nur in der App angezeigt. Sie können diese Einwilligung jederzeit widerrufen, indem Sie die Testregistrierung in der App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutz“.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nicht erlauben";
 
 "ExposureSubmission_Submit" = "TAN eingeben";
 
@@ -1725,9 +1726,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min.";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "unter 10 Min.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min.";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "über 10 Min.";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
 
@@ -1791,9 +1792,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Eine Standortmarkierung markiert ein Gebäude.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 Min.";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "unter 10 Min.";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 Min.";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "über 10 Min.";
 
 "ContactDiary_Day_Encounter_WithMask" = "mit Maske";
 

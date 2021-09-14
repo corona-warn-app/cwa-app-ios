@@ -22,8 +22,8 @@ enum HealthCertificateServiceError: Error {
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_BASE45_DECODING_FAILED)"
 				case .HC_ZLIB_DECOMPRESSION_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_ZLIB_DECOMPRESSION_FAILED)"
-				case .HC_COSE_TAG_INVALID:
-					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_TAG_INVALID)"
+				case .HC_COSE_TAG_OR_ARRAY_INVALID:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_TAG_OR_ARRAY_INVALID)"
 				case .HC_COSE_MESSAGE_INVALID:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_MESSAGE_INVALID)"
 				case .HC_COSE_NO_KEYIDENTIFIER:
@@ -176,7 +176,7 @@ enum HealthCertificateServiceError: Error {
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_BASE45_DECODING_FAILED")
 				case .HC_ZLIB_DECOMPRESSION_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_ZLIB_DECOMPRESSION_FAILED")
-				case .HC_COSE_TAG_INVALID:
+				case .HC_COSE_TAG_OR_ARRAY_INVALID:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COSE_TAG_INVALID")
 				case .HC_COSE_NO_KEYIDENTIFIER:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_NO_KEYIDENTIFIER")

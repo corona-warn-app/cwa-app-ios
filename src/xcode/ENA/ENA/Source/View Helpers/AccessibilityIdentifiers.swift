@@ -129,7 +129,6 @@ enum AccessibilityIdentifiers {
 		static let onboardingInfo_howDoesDataExchangeWorkPage_imageDescription = "AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription"
 		static let onboardingInfo_alwaysStayInformedPage_title = "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title"
 		static let onboardingInfo_alwaysStayInformedPage_imageDescription = "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription"
-		static let onboardingDoNotAllow = "AppStrings.Onboarding.onboardingDoNotAllow"
 	}
 	
 	enum RiskLegend {
