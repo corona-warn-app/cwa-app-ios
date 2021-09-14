@@ -30,7 +30,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		// One for registration, one for the validity state update and one for is validity state new update
 		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 
-		let subscription = service.healthCertifiedPersons
+		let subscription = service.$healthCertifiedPersons
 			.dropFirst()
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
@@ -112,7 +112,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
-		service.healthCertifiedPersons
+		service.$healthCertifiedPersons
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
 			}
@@ -916,7 +916,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		)
 
-		let requestsSubscription = service.testCertificateRequests
+		let requestsSubscription = service.$testCertificateRequests
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
@@ -925,7 +925,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 5
-		let personsSubscription = service.healthCertifiedPersons
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1026,7 +1026,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1115,7 +1115,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1206,7 +1206,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1362,7 +1362,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1717,7 +1717,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		)
 
-		let requestsSubscription = service.testCertificateRequests
+		let requestsSubscription = service.$testCertificateRequests
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
