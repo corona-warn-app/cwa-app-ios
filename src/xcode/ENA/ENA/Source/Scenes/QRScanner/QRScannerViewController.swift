@@ -4,7 +4,6 @@
 
 import UIKit
 import AVFoundation
-import HealthCertificateToolkit
 
 class QRScannerViewController: UIViewController {
 
