@@ -28,7 +28,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 ### Setup
 
-1. Install Xcode 12.4
+1. Install Xcode 13.0
 2. Open [ENA.xcworkspace](./src/xcode/ENA.xcworkspace)
 3. Select the right app scheme.
 
