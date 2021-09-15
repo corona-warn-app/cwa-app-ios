@@ -570,6 +570,7 @@
 		505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506D25C833A9004920EB /* ppac_ios.pb.swift */; };
 		505F508325C897B3004920EB /* OTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F508225C897B3004920EB /* OTPError.swift */; };
 		5065950C25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */; };
+		5065E12B26F0F0F000F18B96 /* QRScannerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */; };
 		50680B8F26164255002EA256 /* DMRecentTraceLocationCheckedInto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B8E26164255002EA256 /* DMRecentTraceLocationCheckedInto.swift */; };
 		50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B9926164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift */; };
 		50680B9F26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */; };
@@ -1968,6 +1969,7 @@
 		505F506D25C833A9004920EB /* ppac_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppac_ios.pb.swift; sourceTree = "<group>"; };
 		505F508225C897B3004920EB /* OTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPError.swift; sourceTree = "<group>"; };
 		5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewModelTest.swift; sourceTree = "<group>"; };
+		5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerCoordinator.swift; sourceTree = "<group>"; };
 		50680B8E26164255002EA256 /* DMRecentTraceLocationCheckedInto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRecentTraceLocationCheckedInto.swift; sourceTree = "<group>"; };
 		50680B9926164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewController.swift; sourceTree = "<group>"; };
 		50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewModel.swift; sourceTree = "<group>"; };
@@ -4425,6 +4427,7 @@
 				5013B18026EBA36E00A2DD54 /* __tests__ */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
+				5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
@@ -8985,6 +8988,7 @@
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
 				01164CD226C559A5007F9C3E /* OnBehalfInfoViewController.swift in Sources */,
 				35BDAB2225F10094004DFE32 /* Data+Appending.swift in Sources */,
+				5065E12B26F0F0F000F18B96 /* QRScannerCoordinator.swift in Sources */,
 				BA05ED712653F60100A103AC /* HealthCertificate+Mock.swift in Sources */,
 				EB513DFC25FA34E60020C0B9 /* qr_code_poster_template.pb.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,

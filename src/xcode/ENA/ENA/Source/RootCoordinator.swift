@@ -133,6 +133,13 @@ class RootCoordinator: RequiresAppDependencies {
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
+		
+		let qrScannerCoordinator = QRScannerCoordinator(
+			homeCoordinator: homeCoordinator,
+			healthCertificatesCoordinator: healthCertificatesCoordinator,
+			checkinCoordinator: checkInCoordinator
+		)
+		self.qrScannerCoordinator = qrScannerCoordinator
 
 		// Tabbar
 		let startTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
@@ -266,6 +273,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
 	private(set) var checkInCoordinator: CheckinCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
+	private(set) var qrScannerCoordinator: QRScannerCoordinator
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 }
