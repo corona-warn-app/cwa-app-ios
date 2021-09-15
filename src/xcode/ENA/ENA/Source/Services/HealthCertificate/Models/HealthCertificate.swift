@@ -53,7 +53,11 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		lhs.base45 == rhs.base45 && lhs.validityState == rhs.validityState
+		lhs.base45 == rhs.base45 &&
+		lhs.validityState == rhs.validityState &&
+		lhs.isNew == rhs.isNew &&
+		lhs.isValidityStateNew == rhs.isValidityStateNew &&
+		lhs.didShowInvalidNotification == rhs.didShowInvalidNotification
 	}
 
 	// MARK: - Protocol Comparable
