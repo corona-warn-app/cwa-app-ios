@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -11,21 +11,17 @@ class QRScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateService,
-		didScanCertificate: @escaping (HealthCertifiedPerson, HealthCertificate) -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.didScanCertificate = didScanCertificate
 		self.dismiss = dismiss
 		
 		super.init(nibName: nil, bundle: nil)
 		
-		viewModel = HealthCertificateQRCodeScannerViewModel(
-			healthCertificateService: healthCertificateService,
-			onSuccess: { [weak self] healthCertifiedPerson, healthCertificate in
+		/*
+		viewModel = QRScannerViewModel(
+			onSuccess: { [weak self] in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 				self?.viewModel?.deactivateScanning()
-				didScanCertificate(healthCertifiedPerson, healthCertificate)
 			},
 			onError: { error in
 				switch error {
@@ -36,6 +32,7 @@ class QRScannerViewController: UIViewController {
 				}
 			}
 		)
+        */
 	}
 
 	@available(*, unavailable)
@@ -59,28 +56,25 @@ class QRScannerViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
-		#if targetEnvironment(simulator) && DEBUG
-			if !isUITesting {
-				let healthCertificate = HealthCertificate.mock(base45: HealthCertificateMocks.lastBase45Mock)
-				didScanCertificate(HealthCertifiedPerson(healthCertificates: [healthCertificate]), healthCertificate)
-			}
-		#endif
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		viewModel?.deactivateScanning()
+		
+		// TODO
+		// viewModel?.deactivateScanning()
 	}
 
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-	private let didScanCertificate: (HealthCertifiedPerson, HealthCertificate) -> Void
 	private let dismiss: () -> Void
 
-	private var viewModel: HealthCertificateQRCodeScannerViewModel?
+	// TODO
+	//private var viewModel: QRScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
+	
+	private let flashButtonTag = 12
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -96,7 +90,7 @@ class QRScannerViewController: UIViewController {
 		scannerTitle.textAlignment = .left
 		scannerTitle.textColor = .enaColor(for: .textPrimary1)
 		scannerTitle.font = .enaFont(for: .body)
-		scannerTitle.text = "QR-Code-Scanner"
+		scannerTitle.text = AppStrings.UniversalQRScanner.scannerTitle
 		scannerTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		let instructionTitle = ENALabel()
@@ -105,7 +99,7 @@ class QRScannerViewController: UIViewController {
 		instructionTitle.textAlignment = .center
 		instructionTitle.textColor = .enaColor(for: .textPrimary1)
 		instructionTitle.font = .enaFont(for: .body)
-		instructionTitle.text = "Welche QR-Codes können Sie scannen?"
+		instructionTitle.text = AppStrings.UniversalQRScanner.instructionTitle
 		instructionTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		let instructionDescription = ENALabel()
@@ -114,13 +108,25 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.textAlignment = .center
 		instructionDescription.textColor = .enaColor(for: .textPrimary1)
 		instructionDescription.font = .enaFont(for: .body)
-		instructionDescription.text = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins."
+		instructionDescription.text = AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
-			
+
+		let flashButton = UIButton(type: .custom)
+		flashButton.imageView?.contentMode = .center
+		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
+		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
+		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
+		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
+		flashButton.accessibilityTraits = [.button]
+		flashButton.tag = flashButtonTag
+		flashButton.translatesAutoresizingMaskIntoConstraints = false
+
 		view.addSubview(scannerTitle)
 		view.addSubview(focusView)
 		view.addSubview(instructionTitle)
 		view.addSubview(instructionDescription)
+		view.addSubview(flashButton)
 
 		NSLayoutConstraint.activate(
 			[
@@ -139,7 +145,12 @@ class QRScannerViewController: UIViewController {
 				
 				instructionDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
 				instructionDescription.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75, constant: 0),
-				instructionDescription.topAnchor.constraint(greaterThanOrEqualTo: instructionTitle.bottomAnchor, constant: 15)
+				instructionDescription.topAnchor.constraint(greaterThanOrEqualTo: instructionTitle.bottomAnchor, constant: 15),
+				
+				flashButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+				flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+				flashButton.heightAnchor.constraint(equalTo: flashButton.heightAnchor, constant: 0),
+				flashButton.widthAnchor.constraint(equalTo: flashButton.widthAnchor, constant: 0)
 			]
 		)
 	}
@@ -156,16 +167,6 @@ class QRScannerViewController: UIViewController {
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didPressDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
-
-		let flashButton = UIButton(type: .custom)
-		flashButton.imageView?.contentMode = .center
-		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
-		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
-		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
-		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
-		flashButton.accessibilityTraits = [.button]
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
 	}
 
 	@objc
@@ -175,28 +176,20 @@ class QRScannerViewController: UIViewController {
 	
 	@objc
 	private func didToggleFlash() {
-		#if DEBUG
-		if isUITesting {
-			if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-				viewModel?.didScan(base45: HealthCertificateMocks.lastBase45Mock)
-			} else {
-				viewModel?.didScan(base45: HealthCertificateMocks.firstBase45Mock)
-			}
-
-			return
-		}
-		#endif
-		viewModel?.toggleFlash()
+		// TODO
+		// viewModel?.toggleFlash()
 		updateToggleFlashAccessibility()
 	}
 	
 	private func updateToggleFlashAccessibility() {
-		guard let flashButton = navigationItem.rightBarButtonItem?.customView as? UIButton else {
+		guard let flashButton = self.view.viewWithTag(flashButtonTag) as? UIButton else {
 			return
 		}
 
 		flashButton.accessibilityCustomActions?.removeAll()
-
+		
+		// TODO
+		/*
 		switch viewModel?.torchMode {
 		case .notAvailable:
 			flashButton.isEnabled = false
@@ -215,9 +208,12 @@ class QRScannerViewController: UIViewController {
 		case .none:
 			break
 		}
+		*/
 	}
 
 	private func setupViewModel() {
+		// TODO
+		/*
 		guard let captureSession = viewModel?.captureSession else {
 			Log.debug("Failed to setup captureSession", log: .checkin)
 			// Add dummy layer because the simulator doesn't support the camera
@@ -230,10 +226,12 @@ class QRScannerViewController: UIViewController {
 		previewLayer.frame = view.layer.bounds
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(previewLayer, at: 0)
+		*/
 	}
 
 	private func showErrorAlert(error: Error) {
-		viewModel?.deactivateScanning()
+		// TODO
+		// viewModel?.deactivateScanning()
 
 		var alertTitle = AppStrings.HealthCertificate.Error.title
 		var errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
@@ -242,7 +240,8 @@ class QRScannerViewController: UIViewController {
 			style: .default,
 			handler: { [weak self] _ in
 				if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
-					self?.viewModel?.activateScanning()
+					// TODO
+					// self?.viewModel?.activateScanning()
 				}
 			}
 		)
@@ -257,7 +256,8 @@ class QRScannerViewController: UIViewController {
 				style: .default,
 				handler: { [weak self] _ in
 					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
-						self?.viewModel?.activateScanning()
+						// TODO
+						// self?.viewModel?.activateScanning()
 					}
 				}
 			)
@@ -274,7 +274,8 @@ class QRScannerViewController: UIViewController {
 				title: AppStrings.Common.alertActionOk,
 				style: .default,
 				handler: { [weak self] _ in
-					self?.viewModel?.activateScanning()
+					// TODO
+					// self?.viewModel?.activateScanning()
 				}
 			)
 		)
