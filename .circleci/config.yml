@@ -3,7 +3,7 @@ version: 2.1
 configuration:
   - cache_key: &cache_key v9-{{ checksum "src/xcode/Gemfile.lock" }}
   - tools_cache_key: &tools_cache_key v3-{{ checksum "Brewfile.lock.json" }}
-  - xcode_version: &xcode_version 13.0
+  - xcode_version: &xcode_version 13.0.0
   - resource_class: &resource_class large
 
 ###
