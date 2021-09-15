@@ -17,6 +17,7 @@ class QRScannerViewController: UIViewController {
 		
 		super.init(nibName: nil, bundle: nil)
 		
+		// TODO
 		/*
 		viewModel = QRScannerViewModel(
 			onSuccess: { [weak self] in
@@ -71,7 +72,7 @@ class QRScannerViewController: UIViewController {
 	private let dismiss: () -> Void
 
 	// TODO
-	//private var viewModel: QRScannerViewModel?
+	// private var viewModel: QRScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	
 	private let flashButtonTag = 12
