@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Włącz Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Aktywuj Bluetooth w ustawieniach systemu, aby korzystać z tej aplikacji.";
+"Alert_BluetoothOff_Description" = "Aktywuj Bluetooth w ustawieniach urządzenia, aby korzystać z tej aplikacji.";
 
 "Alert_CancelAction_Later" = "Później";
 
@@ -359,7 +359,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz ustawienia dla Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz aplikację Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Aktywuj odświeżanie aplikacji w tle";
 
@@ -1038,21 +1038,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Włącz powiadomienia o narażeniu";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu wybierając opcję ”Określ jako region aktywny”.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach urządzenia w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu, wybierając opcję „Określ jako region aktywny”.";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19 w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Określ region aktywny";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach systemu, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Ustawienia rejestrowania narażenia na COVID-19” i zaznacz Corona-Warn-App jako aplikacje aktywną.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Ustawienia rejestrowania narażenia na COVID-19” i zaznacz Corona-Warn-App jako aplikacje aktywną.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach systemu, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Określ jako region aktywny”.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Określ jako region aktywny”.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Włącz rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję rejestrowania i powiadamiania o kontakcie z chorymi na COVID-19 w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Włącz funkcję „Rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19” w ustawieniach systemu.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "W celu rejestrowania narażenia należy aktywować funkcję rejestrowania i powiadamiania o kontakcie z chorymi na COVID-19 w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Włącz funkcję „Rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19” w ustawieniach systemu.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Wymagana autoryzacja";
 
@@ -1562,7 +1562,7 @@
 
 "NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Wersja certyfikatów szczepień do druku";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Możesz teraz wyświetlić wersję certyfikatu szczepienia do druku, co umożliwia zapisanie certyfikatów jako dokumentów PDF i ich wydrukowanie.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Możesz teraz wyświetlić wersję do druku certyfikatów wydanych w Niemczech, co umożliwi Ci zapisanie certyfikatów jako dokumentów PDF i ich wydrukowanie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2641,6 +2641,8 @@
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Kod QR z certyfikatem";
 
+"HealthCertificate_Overview_News" = "Dostępne są nowe informacje na temat Twoich certyfikatów";
+
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Unijny\n**cyfrowy certyfikat testu na COVID**";
 
@@ -2722,7 +2724,15 @@
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Status zaszczepienia";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Nie otrzymałeś(-aś jeszcze wszystkich zaplanowanych szczepień. W związku z tym Twoja ochrona poszczepienna nie jest jeszcze pełna.";
+
+"HealthCertifiedPerson_completelyProtected" = "Otrzymałeś(-aś) wszystkie aktualnie zaplanowane szczepienia. Masz pełną ochronę poszczepienną.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "Często zadawane pytania";
 
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
@@ -2751,6 +2761,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "ważne do %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktualnie używany certyfikat";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Nowe";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Szczepienie %i %i";
@@ -2804,7 +2816,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Czy chcesz usunąć certyfikat szczepienia?";
 
-"VaccinationCertificate_Alert_message" = "Jeśli usuniesz certyfikat szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
+"VaccinationCertificate_Alert_message" = "Zalecamy przechowywanie certyfikatów szczepień w aplikacji, nawet jeśli nie są już aktualne.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certyfikat testu";
