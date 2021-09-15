@@ -10,7 +10,7 @@ class TestHealthCertificateService: HealthCertificateService {
 
 	convenience init(
 		store: HealthCertificateStoring,
-		signatureVerifying: DCCSignatureVerifying,
+		dccSignatureVerifier: DCCSignatureVerifying,
 		dscListProvider: DSCListProviding,
 		client: Client,
 		appConfiguration: AppConfigurationProviding,
@@ -19,11 +19,14 @@ class TestHealthCertificateService: HealthCertificateService {
 	) {
 		self.init(
 			store: store,
-		 signatureVerifying: signatureVerifying,
-		 dscListProvider: dscListProvider,
+			dccSignatureVerifier: dccSignatureVerifier,
+			dscListProvider: dscListProvider,
 			client: client,
-		 appConfiguration: appConfiguration
-	 )
+			appConfiguration: appConfiguration,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: MockTestStore(), client: client)
+			)
+		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
 
@@ -57,12 +60,16 @@ class ValidationStateServiceTests: XCTestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
+		let client = ClientMock()
 		let service = TestHealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: appConfiguration
+			client: client,
+			appConfiguration: appConfiguration,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
@@ -83,15 +90,18 @@ class ValidationStateServiceTests: XCTestCase {
 	func test_DSCListChanges_THEN_UpdateGetsCalled() {
 		// GIVEN
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
-
+		let client = ClientMock()
 		let dscListProvider = MockDSCListProvider()
 		let store = MockTestStore()
 		let service = TestHealthCertificateService(
 			store: store,
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
 			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
@@ -129,7 +139,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let dateHelper = DateHelpers()
 		let service = TestHealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
@@ -148,7 +158,7 @@ class ValidationStateServiceTests: XCTestCase {
 		let dateHelper = DateHelpers()
 		let service = TestHealthCertificateService(
 			store: MockTestStore(),
-			signatureVerifying: DCCSignatureVerifyingStub(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),

@@ -30,6 +30,7 @@ struct QRCodeCellViewModel {
 			with: vCardV4(revDate: revDate),
 			encoding: .utf8,
 			size: CGSize(width: 280.0, height: 280.0),
+			scale: UIScreen.main.scale,
 			qrCodeErrorCorrectionLevel: .medium
 		)
 		else {

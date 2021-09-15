@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Włącz Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Aktywuj Bluetooth w ustawieniach systemu, aby korzystać z tej aplikacji.";
+"Alert_BluetoothOff_Description" = "Aktywuj Bluetooth w ustawieniach urządzenia, aby korzystać z tej aplikacji.";
 
 "Alert_CancelAction_Later" = "Później";
 
@@ -359,7 +359,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz ustawienia dla Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz aplikację Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Aktywuj odświeżanie aplikacji w tle";
 
@@ -1038,21 +1038,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Włącz powiadomienia o narażeniu";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu wybierając opcję ”Określ jako region aktywny”.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach urządzenia w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu, wybierając opcję „Określ jako region aktywny”.";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19 w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Określ region aktywny";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach systemu, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Ustawienia rejestrowania narażenia na COVID-19” i zaznacz Corona-Warn-App jako aplikacje aktywną.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Ustawienia rejestrowania narażenia na COVID-19” i zaznacz Corona-Warn-App jako aplikacje aktywną.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach systemu, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Określ jako region aktywny”.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Określ jako region aktywny”.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Włącz rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję rejestrowania i powiadamiania o kontakcie z chorymi na COVID-19 w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Włącz funkcję „Rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19” w ustawieniach systemu.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "W celu rejestrowania narażenia należy aktywować funkcję rejestrowania i powiadamiania o kontakcie z chorymi na COVID-19 w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Włącz funkcję „Rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19” w ustawieniach systemu.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Wymagana autoryzacja";
 
@@ -1555,14 +1555,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.8 */
-"NewVersionFeature_29_warnGuest_title" = "Ostrzegaj w imieniu innych";
+/* Version 2.10 */
+"NewVersionFeature_210_boosterVaccination_title" = "Informacje o szczepieniach przypominających";
 
-"NewVersionFeature_29_warnGuest_description" = "Jako organizator wydarzenia możesz teraz – na polecenie organów zdrowia publicznego – ostrzegać swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się w aplikacji Corona- Warn-App.";
+"NewVersionFeature_210_boosterVaccination_description" = "Aplikacja może teraz wyświetlać komunikat informujący o zbliżających się szczepieniach przypominających.";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_title" = "Natychmiastowe wyświetlanie statusu szczepień ozdrowieńców";
+"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Wersja certyfikatów szczepień do druku";
 
-"NewVersionFeature_29_vaccinationStatusRecovered_description" = "Aplikacja Corona-Warn-App wyświetla teraz pełną ochronę poszczepienną dla ozdrowieńców bezpośrednio po pierwszym szczepieniu. Dwutygodniowy okres oczekiwania zostaje zniesiony w przypadku wszystkich szczepionek z wyjątkiem Johnson & Johnson.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Możesz teraz wyświetlić wersję do druku certyfikatów wydanych w Niemczech, co umożliwi Ci zapisanie certyfikatów jako dokumentów PDF i ich wydrukowanie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2641,6 +2641,8 @@
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Kod QR z certyfikatem";
 
+"HealthCertificate_Overview_News" = "Dostępne są nowe informacje na temat Twoich certyfikatów";
+
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "Unijny\n**cyfrowy certyfikat testu na COVID**";
 
@@ -2722,7 +2724,15 @@
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Status zaszczepienia";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Nie otrzymałeś(-aś jeszcze wszystkich zaplanowanych szczepień. W związku z tym Twoja ochrona poszczepienna nie jest jeszcze pełna.";
+
+"HealthCertifiedPerson_completelyProtected" = "Otrzymałeś(-aś) wszystkie aktualnie zaplanowane szczepienia. Masz pełną ochronę poszczepienną.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "Często zadawane pytania";
 
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
@@ -2751,6 +2761,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "ważne do %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktualnie używany certyfikat";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Nowe";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Szczepienie %i %i";
@@ -2791,6 +2803,8 @@
 
 "HealthCertificate_Details_expirationDateDetails" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
 
+"HealthCertificate_Details_moreButtonTitle" = "Więcej";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Jest to szczepionka, która wymaga tylko jednej dawki lub szczepionka dla ozdrowieńca, który potrzebuje tylko jednej dawki.";
 
@@ -2802,7 +2816,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Czy chcesz usunąć certyfikat szczepienia?";
 
-"VaccinationCertificate_Alert_message" = "Jeśli usuniesz certyfikat szczepienia, aplikacja nie będzie już mogła używać szczepienia do weryfikacji statusu szczepienia.";
+"VaccinationCertificate_Alert_message" = "Zalecamy przechowywanie certyfikatów szczepień w aplikacji, nawet jeśli nie są już aktualne.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certyfikat testu";
@@ -2831,6 +2845,36 @@
 "RecoveryCertificate_Alert_title" = "Czy chcesz usunąć certyfikat statusu ozdrowieńca?";
 
 "RecoveryCertificate_Alert_message" = "Po usunięciu certyfikatu statusu ozdrowieńca jego użycie jako dowodu w aplikacji nie będzie już możliwe.";
+
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Wyświetl wersję do druku";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Anuluj";
+
+"HealthCertificate_PrintPdf_Info_title" = "Generowanie wydruku UE";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Możesz zapisać certyfikat jako dokument PDF. Ta czynność jest dobrowolna. Na początku tylko Ty masz dostęp do tego dokumentu PDF. Następnie możesz zdecydować, czy chcesz go zapisać w smartfonie, czy zaimportować do innych aplikacji.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Należy pamiętać, że dokument PDF zawiera dane wrażliwe. Zalecamy ostrożne obchodzenie się z nim i pokazywanie go tylko zaufanym osobom, które są upoważnione do sprawdzania certyfikatu.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Zalecamy, aby nie publikować dokumentu PDF, nie wysyłać go pocztą elektroniczną ani nie udostępniać go za pośrednictwem innych aplikacji.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Kontynuuj";
+
+"HealthCertificate_PrintPdf_Share_title" = "Wersja cyfrowego certyfikatu do druku";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Nie można wyświetlić wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ certyfikat nie został wydany w Niemczech";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Często zadawane pytania dotyczące wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Nie można wyświetlić wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ nie można teraz pobrać certyfikatu. Spróbuj ponownie później.";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
