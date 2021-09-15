@@ -420,6 +420,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted. Error: \(error)", log: .ppa, error: error)
+					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil)", log: .ppa)
 					// tech spec says, we want a fresh state if submission fails
 					self?.store.currentENFRiskExposureMetadata = nil
 					self?.store.currentCheckinRiskExposureMetadata = nil
