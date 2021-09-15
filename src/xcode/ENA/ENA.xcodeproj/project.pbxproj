@@ -186,6 +186,7 @@
 		019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F38258951BC00B26392 /* DiaryEntryType.swift */; };
 		019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3A258951BE00B26392 /* DiaryEntry.swift */; };
 		019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3F258951C000B26392 /* DiaryLocation.swift */; };
+		019DDEDF26F1E48C00390509 /* VaccinationHintCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */; };
 		019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */; };
 		019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */; };
 		019E2F01269EF4EA000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */; };
@@ -1581,6 +1582,7 @@
 		019C9F38258951BC00B26392 /* DiaryEntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryType.swift; sourceTree = "<group>"; };
 		019C9F3A258951BE00B26392 /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		019C9F3F258951C000B26392 /* DiaryLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLocation.swift; sourceTree = "<group>"; };
+		019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintCellModelTests.swift; sourceTree = "<group>"; };
 		019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSets+ValueSetType.swift"; sourceTree = "<group>"; };
 		019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSet+DisplayText.swift"; sourceTree = "<group>"; };
 		019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHealthCertificateValidationOnboardedCountriesProvider.swift; sourceTree = "<group>"; };
@@ -7725,6 +7727,7 @@
 			isa = PBXGroup;
 			children = (
 				BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */,
+				019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */,
 				01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */,
 			);
 			path = __tests__;
@@ -9337,6 +9340,7 @@
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
 				2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */,
+				019DDEDF26F1E48C00390509 /* VaccinationHintCellModelTests.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,
 				2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */,
 				BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */,
