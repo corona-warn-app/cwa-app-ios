@@ -236,6 +236,36 @@
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>В момента няма налични правила относно влизането в избраната държава в посоченото време за този вид сертификат. Моля, обърнете внимание на следното:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+		</dict>
+	</dict>
 	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -266,7 +296,7 @@
 			<string>Получихте всички планирани за момента ваксинации, но защитата ви от ваксиниране ще е пълна едва след %u дни.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Validation_Passed_description</key>
+	<key>HealthCertifiedPerson_daysSinceLastVaccination</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -278,22 +308,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>В момента няма налични правила относно влизането в избраната държава в посоченото време за този вид сертификат. Моля, обърнете внимание на следното:</string>
+			<string>последна ваксинация днес</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<string>последна ваксинация преди %u ден</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<string>Последна ваксинация преди %u дни</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<string>Последна ваксинация преди %u дни</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<string>Последна ваксинация преди %u дни</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Успешно проверени правила за държавата на местоназначение: %u.</string>
+			<string>Последна ваксинация преди %u дни</string>
 		</dict>
 	</dict>
 </dict>

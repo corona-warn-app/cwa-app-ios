@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Bluetooth'u aç";
 
-"Alert_BluetoothOff_Description" = "Bu uygulamayı kullanmak için sistem ayarlarınızda Bluetooth'u etkinleştirin.";
+"Alert_BluetoothOff_Description" = "Bu uygulamayı kullanmak için cihaz ayarlarınızda Bluetooth'u etkinleştirin.";
 
 "Alert_CancelAction_Later" = "Daha sonra";
 
@@ -359,7 +359,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Ayarları açın";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Corona-Warn-App ayaralarını açın";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Corona-Warn-App'i açın";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
 
@@ -1038,21 +1038,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Maruz Kalma Bildirimlerini Etkinleştir";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında maruz kalma bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\"  -> \"Maruz Kalma Bildirimleri\" -> \"Maruz Kalma Bildirimlerini Paylaş\" seçeneğini belirleyin. Ardından \"Etkin Bölge Olarak Belirle\" seçeneğini belirleyerek uygulamayı maruz kalma bildirimleri için etkin uygulama olarak tanımlayın.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için cihazınızın ayarlarında maruz kalma bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\"  -> \"Maruz Kalma Bildirimleri\" -> \"Maruz Kalma Bildirimlerini Paylaş\" seçeneğini belirleyin. Ardından \"Etkin Bölge Olarak Belirle\" seçeneğini belirleyerek uygulamayı maruz kalma bildirimleri için etkin uygulama olarak tanımlayın.";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19 Maruz Kalma Bildirimlerini Etkinleştir";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19 Maruz Kalma Bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\" seçeneğini belirleyin ve ayarlarda \"COVID-19 Maruz Kalma Bildirimleri\" özelliğini etkinleştirin.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için cihazınızın ayarlarında COVID-19 Maruz Kalma Bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\" seçeneğini belirleyin ve ayarlarda \"COVID-19 Maruz Kalma Bildirimleri\" özelliğini etkinleştirin.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Etkin Bölge Belirle";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için Corona-Warn-App'in sistem ayarlarında etkin uygulama olarak tanımlanması gerekir. \"Cihaz Ayarlarını Aç\" -> \"COVID-19 Maruz Kalma Günlüğü Ayarları\" seçeneğini belirleyin ve Corona-Warn-App'i etkin uygulama olarak belirleyin.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için Corona-Warn-App'in cihazınızın ayarlarında etkin uygulama olarak tanımlanması gerekir. \"Cihaz Ayarlarını Aç\" -> \"COVID-19 Maruz Kalma Günlüğü Ayarları\" seçeneğini belirleyin ve Corona-Warn-App'i etkin uygulama olarak belirleyin.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için Corona-Warn-App'in sistem ayarlarında etkin uygulama olarak tanımlanması gerekir. \"Cihaz Ayarlarını Aç\" -> \"Maruz Kalma Bildirimleri\" -> \"Etkin Bölge Olarak Belirle\" seçeneğini belirleyin.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için Corona-Warn-App'in cihazınızın ayarlarında etkin uygulama olarak tanımlanması gerekir. \"Cihaz Ayarlarını Aç\" -> \"Maruz Kalma Bildirimleri\" -> \"Etkin Bölge Olarak Belirle\" seçeneğini belirleyin.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19'a maruz kalma günlüğü ve bildirimlerin etkinleştirilmesi gerekir. Lütfen sistem ayarlarında \"COVID-19'a Maruz Kalma Günlüğü ve Bildirimler\" özelliğini etkinleştirin.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için cihazınızın ayarlarında COVID-19'a maruz kalma günlüğü ve bildirimlerin etkinleştirilmesi gerekir. Lütfen sistem ayarlarında \"COVID-19'a Maruz Kalma Günlüğü ve Bildirimler\" özelliğini etkinleştirin.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Yetki gereklidir";
 
@@ -1562,7 +1562,7 @@
 
 "NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Aşı Sertifikalarının Basılı Versiyonu";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Artık aşı sertifikanızın basılı versiyonunu görüntüleyebilirsiniz. Bu özellik, sertifikaları PDF belgeleri olarak kaydetmenize ve yazdırmanıza olanak sağlar.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Artık Almanya'da düzenlenen sertifikalarınızın basılı versiyonunu görüntüleyebilirsiniz. Bu özellik, sertifikaları PDF belgeleri olarak kaydetmenize ve yazdırmanıza olanak sağlar.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2641,6 +2641,8 @@
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Sertifikayı içeren bir QR kod";
 
+"HealthCertificate_Overview_News" = "Sertifikalarınızla ilgili gelişme var";
+
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "AB\n**Dijital COVID Test Sertifikası**";
 
@@ -2722,7 +2724,15 @@
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Aşı Durumu";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Henüz şu anda tüm planlanan aşıları olmadınız. Dolayısıyla aşı korumanız henüz tamamlanmadı.";
+
+"HealthCertifiedPerson_completelyProtected" = "Geçerli olarak planlanan tüm aşıları yaptırdınız. Aşı korumanız tamamlandı.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "SSS";
 
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 
@@ -2751,6 +2761,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Şu anda kullanılan sertifika";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Yeni";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Aşı %i / %i";
@@ -2804,7 +2816,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Aşı sertifikasını silmek istiyor musunuz?";
 
-"VaccinationCertificate_Alert_message" = "Aşı sertifikasını silerseniz uygulama artık bu aşıyı aşı durumunuzun doğrulaması için kullanamaz.";
+"VaccinationCertificate_Alert_message" = "Artık geçerli olmasalar da aşı sertifikalarını uygulamada tutmanızı öneririz.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Sertifikası";
