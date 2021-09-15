@@ -316,6 +316,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let antigenTestResultMetadata = gatherTestResultMetadata(for: .antigen)
 		let newExposureWindows = gatherNewExposureWindows()
 		
+		Log.info("Adding \(newExposureWindows.count) new exposure windows to PPA submission", log: .ppa)
+
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
 			$0.userMetadata = userMetadata
