@@ -40,6 +40,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		parent?.navigationItem.largeTitleDisplayMode = .always
 		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
 		updateRightBarButtonItem(isEditing: false)
+		parent?.navigationItem.setHidesBackButton(true, animated: false)
 
 		tableView.reloadData()
 		updateEmptyState()
