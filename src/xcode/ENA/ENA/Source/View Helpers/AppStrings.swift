@@ -2292,6 +2292,12 @@ enum AppStrings {
 		}
 	}
 
+	enum UniversalQRScanner {
+		static let scannerTitle = NSLocalizedString("UniversalQRScanner_ScannerTitle", comment: "")
+		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
+		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
+	}
+
 	enum FederalStateName {
 		static let badenWuerttemberg = NSLocalizedString("FederalState_BadenWuerttemberg", comment: "")
 		static let bayen = NSLocalizedString("FederalState_Bayern", comment: "")
