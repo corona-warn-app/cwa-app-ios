@@ -391,6 +391,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				switch result {
 				case .success:
 					Log.info("Analytics data succesfully submitted", log: .ppa)
+					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil)", log: .ppa)
 					// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
 					self?.store.currentENFRiskExposureMetadata = nil
@@ -415,6 +416,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					self?.store.lastSubmissionAnalytics = Date()
 					self?.submissionState = .readyForSubmission
+					Log.info("Analytics submission successfully post-processed", log: .ppa)
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted. Error: \(error)", log: .ppa, error: error)
