@@ -354,16 +354,16 @@ workflows:
             filters:
               branches:
                 only:
-                  - /release\/.*/
+                 # - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot
             filters:
               tags:
                 only:
-                  - /^v.*/
+                  #- /^v.*/
               branches:
-                ignore: /.*/
+                #ignore: /.*/
         - testflight-release:
             requires:
               - dependencies
