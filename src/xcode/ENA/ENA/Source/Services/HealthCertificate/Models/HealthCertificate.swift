@@ -13,11 +13,13 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	init(
 		base45: Base45,
 		validityState: HealthCertificateValidityState = .valid,
+		didShowInvalidNotification: Bool = false,
 		isNew: Bool = false,
 		isValidityStateNew: Bool = false
 	) throws {
 		self.base45 = base45
 		self.validityState = validityState
+		self.didShowInvalidNotification = didShowInvalidNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
 
@@ -33,6 +35,9 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 	enum CodingKeys: String, CodingKey {
 		case base45
 		case validityState
+		case isNew
+		case isValidityStateNew
+		case didShowInvalidNotification
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -40,6 +45,9 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 
 		try container.encode(base45, forKey: .base45)
 		try container.encode(validityState, forKey: .validityState)
+		try container.encode(isNew, forKey: .isNew)
+		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
+		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
 	}
 
 	// MARK: - Protocol Equatable
@@ -87,6 +95,14 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 		}
 	}
 
+	@DidSetPublished var didShowInvalidNotification: Bool {
+		didSet {
+			if didShowInvalidNotification != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+				
 	@DidSetPublished var isNew: Bool {
 		didSet {
 			if isNew != oldValue {

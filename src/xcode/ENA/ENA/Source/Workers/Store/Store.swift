@@ -198,6 +198,9 @@ protocol HealthCertificateStoring: AnyObject {
 	var lastSelectedValidationCountry: Country { get set }
 
 	var lastSelectedValidationDate: Date { get set }
+	
+	var lastBoosterNotificationsExecutionDate: Date? { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here

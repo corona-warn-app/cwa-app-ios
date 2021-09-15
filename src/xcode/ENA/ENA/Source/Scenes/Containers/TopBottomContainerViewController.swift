@@ -44,6 +44,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	// MARK: - Overrides
 
+	override var navigationItem: UINavigationItem {
+		return self.topViewController.navigationItem
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 

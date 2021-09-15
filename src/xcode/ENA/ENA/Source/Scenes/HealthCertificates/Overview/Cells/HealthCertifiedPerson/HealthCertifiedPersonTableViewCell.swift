@@ -34,6 +34,13 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		updateBorderColors()
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		captionCountView.layoutIfNeeded()
+		captionCountView.layer.cornerRadius = captionCountView.bounds.height / 2
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
@@ -44,11 +51,26 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 		qrCodeView.configure(with: cellModel.qrCodeViewModel)
 
-		validityStateIconImageView.image = cellModel.validityStateIcon
-		validityStateTitleLabel.text = cellModel.validityStateTitle
-		validityStateStackView.isHidden = cellModel.validityStateIcon == nil && cellModel.validityStateTitle == nil
+		captionStackView.isHidden = false
+		captionStackView.arrangedSubviews.forEach { $0.isHidden = false }
 
-		setupAccessibility(validityStateTitleIsVisible: cellModel.validityStateTitle != nil)
+		switch cellModel.caption {
+		case .unseenNews(count: let unseenNewsCount):
+			captionImageView.isHidden = true
+
+			captionCountLabel.text = String(unseenNewsCount)
+			captionLabel.text = AppStrings.HealthCertificate.Overview.news
+		case let .validityState(image: validityStateIcon, description: validityStateDescription):
+			captionCountView.isHidden = true
+
+			captionImageView.image = validityStateIcon
+			captionLabel.text = validityStateDescription
+		case .none:
+			captionStackView.isHidden = true
+			captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
+		}
+
+		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
 	}
 	
 	// MARK: - Private
@@ -129,36 +151,56 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return UIImageView(image: UIImage(imageLiteralResourceName: "Icons_Chevron_plain_white"))
 	}()
 
-	private lazy var validityStateStackView: UIStackView = {
-		let validityStateStackView = UIStackView(arrangedSubviews: [validityStateIconImageView, validityStateTitleLabel])
-		validityStateStackView.alignment = .center
-		validityStateStackView.axis = .horizontal
-		validityStateStackView.spacing = 8.0
+	private lazy var captionStackView: UIStackView = {
+		let captionStackView = UIStackView(arrangedSubviews: [captionImageView, captionCountView, captionLabel, UIView()])
+		captionStackView.alignment = .center
+		captionStackView.axis = .horizontal
+		captionStackView.spacing = 8.0
 
-		return validityStateStackView
+		return captionStackView
 	}()
 
-	private let validityStateIconImageView: UIImageView = {
-		let validityStateIconImageView = UIImageView()
-		validityStateIconImageView.setContentHuggingPriority(.required, for: .horizontal)
+	private let captionImageView: UIImageView = {
+		let captionImageView = UIImageView()
+		captionImageView.setContentHuggingPriority(.required, for: .horizontal)
+		captionImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-		return validityStateIconImageView
+		return captionImageView
 	}()
 
-	private let validityStateTitleLabel: ENALabel = {
-		let validityStateTitleLabel = ENALabel()
-		validityStateTitleLabel.style = .body
-		validityStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
-		validityStateTitleLabel.numberOfLines = 0
+	private let captionCountLabel: ENALabel = {
+		let captionCountLabel = ENALabel()
+		captionCountLabel.font = .enaFont(for: .subheadline, weight: .bold, italic: false)
+		captionCountLabel.textColor = .enaColor(for: .textContrast)
+		captionCountLabel.textAlignment = .center
+		captionCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-		return validityStateTitleLabel
+		return captionCountLabel
+	}()
+
+	private let captionCountView: UIView = {
+		let captionCountView = UIView()
+		captionCountView.backgroundColor = .systemRed
+		captionCountView.layer.masksToBounds = true
+
+		return captionCountView
+	}()
+
+	private let captionLabel: ENALabel = {
+		let captionLabel = ENALabel()
+		captionLabel.style = .body
+		captionLabel.textColor = .enaColor(for: .textPrimary1)
+		captionLabel.numberOfLines = 0
+		captionLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+		return captionLabel
 	}()
 
 	private func setupAccessibility(validityStateTitleIsVisible: Bool) {
 		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView]
 
 		if validityStateTitleIsVisible {
-			cardView.accessibilityElements?.append(validityStateTitleLabel)
+			cardView.accessibilityElements?.append(captionLabel)
 		}
 
 		qrCodeView.accessibilityTraits = [.image, .button]
@@ -191,8 +233,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.addSubview(qrCodeView)
 
-		validityStateStackView.translatesAutoresizingMaskIntoConstraints = false
-		bottomView.addSubview(validityStateStackView)
+		captionStackView.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.addSubview(captionStackView)
+
+		captionCountLabel.translatesAutoresizingMaskIntoConstraints = false
+		captionCountView.addSubview(captionCountLabel)
 
 		updateBorderColors()
 
@@ -234,10 +279,17 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				qrCodeView.widthAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor, constant: -32.0),
 				qrCodeView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0),
 
-				validityStateStackView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 18.0),
-				validityStateStackView.topAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: 12.0),
-				validityStateStackView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -16.0),
-				validityStateStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -16.0)
+				captionStackView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 18.0),
+				captionStackView.topAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: 12.0),
+				captionStackView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -16.0),
+				captionStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -16.0),
+
+				captionCountView.widthAnchor.constraint(greaterThanOrEqualTo: captionCountView.heightAnchor),
+
+				captionCountLabel.leadingAnchor.constraint(equalTo: captionCountView.leadingAnchor, constant: 2.0),
+				captionCountLabel.topAnchor.constraint(equalTo: captionCountView.topAnchor, constant: 2.0),
+				captionCountLabel.trailingAnchor.constraint(equalTo: captionCountView.trailingAnchor, constant: -2.0),
+				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0)
 			]
 		)
 

@@ -10,11 +10,9 @@ final class PreferredPersonCellModel {
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificateService: HealthCertificateService
+		healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healthCertificateService = healthCertificateService
 
 		healthCertifiedPerson.$isPreferredPerson
 			.sink { [weak self] in
@@ -35,7 +33,7 @@ final class PreferredPersonCellModel {
 				DCCDateStringFormatter.localizedFormattedString(from: $0)
 			}
 			.flatMap {
-				String(format: AppStrings.HealthCertificate.Person.dateOfBirth, $0)
+				String(format: AppStrings.HealthCertificate.Person.PreferredPerson.dateOfBirth, $0)
 			}
 	}
 
@@ -44,7 +42,7 @@ final class PreferredPersonCellModel {
 			return nil
 		}
 
-		return String(format: AppStrings.HealthCertificate.Person.preferredPersonDescription, name)
+		return String(format: AppStrings.HealthCertificate.Person.PreferredPerson.description, name)
 	}
 
 	@DidSetPublished var isPreferredPerson: Bool = false
@@ -56,7 +54,6 @@ final class PreferredPersonCellModel {
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson
-	let healthCertificateService: HealthCertificateService
 
 	private var subscriptions = Set<AnyCancellable>()
 

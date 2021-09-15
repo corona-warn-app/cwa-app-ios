@@ -76,6 +76,10 @@ class RootCoordinator: RequiresAppDependencies {
 			else if case let .healthCertificateFromNotification(healthCertifiedPerson, healthCertificate) = route {
 				showHealthCertificateFromNotification(for: healthCertifiedPerson, with: healthCertificate)
 			}
+			// route handling to show HealthCertifiedPerson from booster notification
+			else if case let .healthCertifiedPersonFromNotification(healthCertifiedPerson) = route {
+				showHealthCertifiedPersonFromNotification(for: healthCertifiedPerson)
+			}
 		}
 
 		guard let delegate = delegate,
@@ -179,6 +183,22 @@ class RootCoordinator: RequiresAppDependencies {
 			with: healthCertificate
 		)
 	}
+	
+	func showHealthCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
+		
+		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
+			Log.warning("Could not show Person because the corresponding navigation controller. can't be found")
+			return
+		}
+
+		// Close all modal screens that would prevent showing the certificate.
+		tabBarController.dismiss(animated: false)
+		tabBarController.selectedIndex = index
+				
+		healthCertificatesCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
+	}
+
 	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(

@@ -49,6 +49,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				let healthCertificate = try HealthCertificate(
 					base45: $0.base45,
 					validityState: $0.validityState ?? .valid,
+					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
 					isNew: $0.isNew ?? false,
 					isValidityStateNew: $0.isValidityStateNew ?? false
 				)
@@ -72,6 +73,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
+		try container.encode(boosterRule, forKey: .boosterRule)
+		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
 	}
 
 	// MARK: - Protocol Equatable
@@ -106,11 +109,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
-			if healthCertificates != oldValue {
+			// States and subscriptions only need to be updated if certificates were added or removed
+			if healthCertificates.map({ $0.uniqueCertificateIdentifier }) != oldValue.map({ $0.uniqueCertificateIdentifier }) {
 				updateVaccinationState()
 				updateMostRelevantHealthCertificate()
 				updateHealthCertificateSubscriptions(for: healthCertificates)
+			}
 
+			// objectDidChange is triggered for changes in existing health certificates as well
+			if healthCertificates != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -215,8 +222,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			// if recovery date found -> use it
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-				  let vaccinationDateString = lastVaccination.vaccinationEntry?.dateOfVaccination,
-				  let vaccinationDate = ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString) {
+				  let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
 			// else if last vaccination date -> use it
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else {

@@ -171,6 +171,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
+			guard let errorMessage = errorMessage else {
+				return
+			}
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		})
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -324,10 +330,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
-		signatureVerifying: dccSignatureVerificationService,
+		dccSignatureVerifier: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
 		client: client,
-		appConfiguration: appConfigurationProvider
+		appConfiguration: appConfigurationProvider,
+		boosterNotificationsService: BoosterNotificationsService(
+			rulesDownloadService: RulesDownloadService(
+				store: store,
+				client: client
+			)
+		)
 	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
@@ -401,7 +413,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			client: client,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			signatureVerifying: dccSignatureVerificationService,
+			dccSignatureVerifier: dccSignatureVerificationService,
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
@@ -424,9 +436,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
 	lazy var exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		let mock = MockENManager(enError: nil, diagnosisKeysResult: (keys, nil))
-		return ENAExposureManager(manager: mock)
+		return ENAExposureManager(manager: MockENManager())
 	}()
 	#elseif targetEnvironment(simulator)
 	lazy var exposureManager: ExposureManager = {
@@ -470,7 +480,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventStore: self.eventStore,
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			healthCertificateService: self.healthCertificateService
 		)
 	}()
 
@@ -486,7 +497,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			showTestResultFromNotification: coordinator.showTestResultFromNotification,
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
 				self?.route = route
+			}, showHealthCertifiedPerson: { [weak self] route in
+				guard let self = self else { return }
+				/*
+					The booster notifications can be fired when the app is running (either foreground or background) or when the app is killed
+					in case the app is running then we need to show the Home using the route of the booster notifications
+					in case the app is killed and then reopened then we should just set the route into the health certified person,
+					as the showHome flow will begin anyway at the startup process of the app
+				*/
+				if self.didSetupUI {
+					self.showHome(route)
+				} else {
+					self.route = route
+				}
 			}
 		)
 		return notificationManager

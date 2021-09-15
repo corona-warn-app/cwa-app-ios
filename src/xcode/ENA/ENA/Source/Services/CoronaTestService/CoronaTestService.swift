@@ -291,7 +291,8 @@ class CoronaTestService {
 
 		for coronaTestType in CoronaTestType.allCases {
 			group.enter()
-
+			Log.info("[CoronaTestService] Dispatch group entered in updateTestResults for (coronaTestType: \(coronaTestType))")
+			
 			updateTestResult(for: coronaTestType, force: force, presentNotification: presentNotification) { result in
 				switch result {
 				case .failure(let error):
@@ -301,6 +302,7 @@ class CoronaTestService {
 					break
 				}
 
+				Log.info("[CoronaTestService] Dispatch group exited in updateTestResults for (coronaTestType: \(coronaTestType))")
 				group.leave()
 			}
 		}
@@ -322,7 +324,15 @@ class CoronaTestService {
 	) {
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
-		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
+			Log.info("[CoronaTestService] Received test result from getTestResult: \(private: result)")
+			
+			guard let self = self else {
+				completion(result)
+				Log.warning("[CoronaTestService] Could not get self, skipping fakeRequestService call")
+				return
+			}
+
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
@@ -472,7 +482,7 @@ class CoronaTestService {
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
 		var healthTuple: (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
-		self.healthCertificateService.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+		self.healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				if healthCertificate.uniqueCertificateIdentifier == uniqueCertificateIdentifier {
 					healthTuple = (certificate: healthCertificate, certifiedPerson: healthCertifiedPerson)
@@ -950,8 +960,8 @@ class CoronaTestService {
 	}
 
 	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
-		guard let certificate = self.healthCertificateService.healthCertifiedPersons.value[0].testCertificates.first else { return nil }
-		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons.value[0]
+		guard let certificate = self.healthCertificateService.healthCertifiedPersons[0].testCertificates.first else { return nil }
+		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons[0]
 		
 		return (certificate: certificate, certifiedPerson: certifiedPerson)
 	}

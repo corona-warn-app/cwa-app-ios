@@ -108,7 +108,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					Log.error("Could not create strong self")
+					Log.debug("Successfuly downloaded new booster rules package")
 					self.rulesDownloadingSuccess(
 						ruleType: .boosterNotification,
 						packageDownloadResponse: packageDownloadResponse,
@@ -184,6 +184,9 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 						validationRules: rules
 					)
 					store.boosterRulesCache = receivedBoosterRules
+					if !rules.isEmpty {
+						store.lastBoosterNotificationsExecutionDate = Date()
+					}
 				}
 				
 				Log.info("Successfully stored \(ruleType) rules in cache.", log: .vaccination)

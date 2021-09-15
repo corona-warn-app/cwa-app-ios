@@ -19,10 +19,11 @@ final class HealthCertifiedPersonViewModel {
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
+		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
-		
+
+		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
 		healthCertifiedPerson.objectDidChange
@@ -60,8 +61,8 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
-		case person
 		case vaccinationHint
+		case person
 		case certificates
 
 		static var numberOfSections: Int {
@@ -76,17 +77,41 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
-	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		HealthCertificateSimpleTextCellViewModel(
+	var headerCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		let centerParagraphStyle = NSMutableParagraphStyle()
+		centerParagraphStyle.alignment = .center
+		centerParagraphStyle.lineSpacing = 10.0
+
+		let attributedTitle = NSAttributedString(
+			string: AppStrings.HealthCertificate.Person.title,
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		let attributedSubtitle = NSAttributedString(
+			string: healthCertifiedPerson.name?.fullName ?? "",
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
-			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			text: AppStrings.HealthCertificate.Person.title,
-			topSpace: 42.0,
+			attributedText: [attributedTitle, attributedSubtitle]
+				.joined(with: "\n"),
+			topSpace: 16.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
-	}()
+	}
+
+	let vaccinationHintCellViewModel: VaccinationHintCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
@@ -108,45 +133,13 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var vaccinationHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		let text: String
-
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated:
-			text = AppStrings.HealthCertificate.Person.partiallyVaccinated
-		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
-			text = String(
-				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			)
-		case .notVaccinated, .completelyProtected:
-			fatalError("Cell cannot be shown in any other vaccination state than .partiallyVaccinated or .fullyVaccinated")
-		}
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			textAlignment: .left,
-			text: text,
-			topSpace: 16.0,
-			font: .enaFont(for: .body),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
-		)
-	}
-
 	var vaccinationHintIsVisible: Bool {
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated, .fullyVaccinated:
-			return true
-		case .notVaccinated, .completelyProtected:
-			return false
-		}
+		return !healthCertifiedPerson.vaccinationCertificates.isEmpty
 	}
 
 	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateService: healthCertificateService
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
@@ -198,11 +191,15 @@ final class HealthCertifiedPersonViewModel {
 		healthCertificateService.removeHealthCertificate(healthCertificateCellViewModels[indexPath.row].healthCertificate)
 	}
 
+	func markBoosterRuleAsSeen() {
+		healthCertifiedPerson.isNewBoosterRule = false
+	}
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
-	private let healtCertificateValueSetsProvider: VaccinationValueSetsProviding
+	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 
