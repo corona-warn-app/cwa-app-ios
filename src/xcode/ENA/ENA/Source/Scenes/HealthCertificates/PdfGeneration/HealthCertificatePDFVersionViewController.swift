@@ -32,7 +32,8 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let pdfView = PDFView()
+		// Avoid assertion when init with non-zero scale.
+		let pdfView = PDFView(frame: .init(x: 0, y: 0, width: 1, height: 1))
 
 		pdfView.document = viewModel.pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
