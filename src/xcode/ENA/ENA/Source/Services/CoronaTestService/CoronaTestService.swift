@@ -482,7 +482,7 @@ class CoronaTestService {
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
 		var healthTuple: (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
-		self.healthCertificateService.healthCertifiedPersons.value.forEach { healthCertifiedPerson in
+		self.healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				if healthCertificate.uniqueCertificateIdentifier == uniqueCertificateIdentifier {
 					healthTuple = (certificate: healthCertificate, certifiedPerson: healthCertifiedPerson)
@@ -960,8 +960,8 @@ class CoronaTestService {
 	}
 
 	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
-		guard let certificate = self.healthCertificateService.healthCertifiedPersons.value[0].testCertificates.first else { return nil }
-		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons.value[0]
+		guard let certificate = self.healthCertificateService.healthCertifiedPersons[0].testCertificates.first else { return nil }
+		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons[0]
 		
 		return (certificate: certificate, certifiedPerson: certifiedPerson)
 	}
