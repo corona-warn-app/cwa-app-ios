@@ -67,6 +67,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .automatic
+		navigationItem.setHidesBackButton(true, animated: false)
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		tableView.reloadData()

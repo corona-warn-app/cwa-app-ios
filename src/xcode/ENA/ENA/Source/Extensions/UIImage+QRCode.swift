@@ -10,7 +10,7 @@ extension UIImage {
 		with string: String,
 		encoding: String.Encoding = .shiftJIS,
 		size: CGSize = CGSize(width: 400, height: 400),
-		scale: CGFloat = UIScreen.main.scale,
+		scale: CGFloat,
 		qrCodeErrorCorrectionLevel: MappedErrorCorrectionType = .medium
 	) -> UIImage? {
 		/// Create data from string which will be feed into the CoreImage Filter

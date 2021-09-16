@@ -146,7 +146,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	
 	private func findHealthCertificate(_ identifier: String) -> (HealthCertifiedPerson, HealthCertificate)? {
-		for person in healthCertificateService.healthCertifiedPersons.value {
+		for person in healthCertificateService.healthCertifiedPersons {
 			if let certificate = person.$healthCertificates.value
 				.first(where: { $0.uniqueCertificateIdentifier == identifier }) {
 				return (person, certificate)
@@ -156,7 +156,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	
 	private func findHealthCertifiedPerson(_ identifier: String) -> (HealthCertifiedPerson)? {
-		let matchedPerson = healthCertificateService.healthCertifiedPersons.value.first {
+		let matchedPerson = healthCertificateService.healthCertifiedPersons.first {
 			if let name = $0.name?.standardizedName,
 			   let dateOfBirth = $0.dateOfBirth {
 				let hashedID = ENAHasher.sha256(name + dateOfBirth)
