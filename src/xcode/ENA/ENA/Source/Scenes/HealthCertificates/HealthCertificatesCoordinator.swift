@@ -82,6 +82,7 @@ final class HealthCertificatesCoordinator {
 
 	private var modalNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
+	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var infoScreenShown: Bool {
@@ -343,7 +344,7 @@ final class HealthCertificatesCoordinator {
 	) {
 		let parentingViewController = isPushed ? ParentingViewController.push(modalNavigationController) : ParentingViewController.present(viewController)
 		
-		let healthCertificateCoordinator = HealthCertificateCoordinator(
+		certificateCoordinator = HealthCertificateCoordinator(
 			parentingViewController: parentingViewController,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
@@ -354,15 +355,15 @@ final class HealthCertificatesCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		
-		healthCertificateCoordinator.start()
+		certificateCoordinator?.start()
 	}
 	
 	private func showValidationFlow(
 		healthCertificate: HealthCertificate,
 		countries: [Country]
 	) {
-		let validationCoordinator = HealthCertificateValidationCoordinator(
-			parentViewController: viewController,
+		validationCoordinator = HealthCertificateValidationCoordinator(
+			parentViewController: modalNavigationController,
 			healthCertificate: healthCertificate,
 			countries: countries,
 			store: store,
@@ -370,6 +371,6 @@ final class HealthCertificatesCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 
-		validationCoordinator.start()
+		validationCoordinator?.start()
 	}
 }
