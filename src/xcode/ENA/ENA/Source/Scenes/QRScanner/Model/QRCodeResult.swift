@@ -10,9 +10,15 @@ enum QRCodeResult {
 	case certificate(HealthCertifiedPerson, HealthCertificate)
 }
 
-enum QRCodeParserError: Error {
+enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case coronaTestQrError(QRScannerError)
 	case certificateQrError(HealthCertificateServiceError)
+	
+	// MARK: - Protocol Equatable
+	
+	static func == (lhs: QRCodeParserError, rhs: QRCodeParserError) -> Bool {
+		lhs.localizedDescription == rhs.localizedDescription
+	}
 }

@@ -10,29 +10,33 @@ class QRScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
+		healthCertificateService: HealthCertificateService,
+		verificationHelper: QRCodeVerificationHelper,
+		appConfiguration: AppConfigurationProviding,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		
 		super.init(nibName: nil, bundle: nil)
 		
-		// TODO
-		/*
 		viewModel = QRScannerViewModel(
-			onSuccess: { [weak self] in
-				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-				self?.viewModel?.deactivateScanning()
-			},
-			onError: { error in
-				switch error {
-				case .cameraPermissionDenied:
-					self.showCameraPermissionErrorAlert(error: error)
-				default:
-					self.showErrorAlert(error: error)
+			healthCertificateService: healthCertificateService,
+			verificationHelper: verificationHelper,
+			appConfiguration: appConfiguration,
+			completion: { [weak self] result in
+				switch result {
+				case .success:
+					AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+					self?.viewModel?.deactivateScanning()
+				case let .failure(error):
+					if error == .scanningError(.cameraPermissionDenied) {
+						self?.showCameraPermissionErrorAlert(error: error)
+					} else {
+						self?.showErrorAlert(error: error)
+					}
 				}
 			}
 		)
-        */
 	}
 
 	@available(*, unavailable)
@@ -61,8 +65,7 @@ class QRScannerViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		// TODO
-		// viewModel?.deactivateScanning()
+		viewModel?.deactivateScanning()
 	}
 
 	// MARK: - Private
@@ -70,8 +73,7 @@ class QRScannerViewController: UIViewController {
 	private let focusView = QRScannerFocusView()
 	private let dismiss: () -> Void
 
-	// TODO
-	// private var viewModel: QRScannerViewModel?
+	private var viewModel: QRScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	
 	private let flashButtonTag = 12
@@ -164,7 +166,7 @@ class QRScannerViewController: UIViewController {
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .enaColor(for: .background).withAlphaComponent(0.2)
 
-		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didPressDismiss))
+		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
 	}
@@ -176,8 +178,7 @@ class QRScannerViewController: UIViewController {
 	
 	@objc
 	private func didToggleFlash() {
-		// TODO
-		// viewModel?.toggleFlash()
+		viewModel?.toggleFlash()
 		updateToggleFlashAccessibility()
 	}
 	
@@ -188,8 +189,6 @@ class QRScannerViewController: UIViewController {
 
 		flashButton.accessibilityCustomActions?.removeAll()
 		
-		// TODO
-		/*
 		switch viewModel?.torchMode {
 		case .notAvailable:
 			flashButton.isEnabled = false
@@ -208,12 +207,9 @@ class QRScannerViewController: UIViewController {
 		case .none:
 			break
 		}
-		*/
 	}
 
 	private func setupViewModel() {
-		// TODO
-		/*
 		guard let captureSession = viewModel?.captureSession else {
 			Log.debug("Failed to setup captureSession", log: .checkin)
 			// Add dummy layer because the simulator doesn't support the camera
@@ -226,12 +222,10 @@ class QRScannerViewController: UIViewController {
 		previewLayer.frame = view.layer.bounds
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(previewLayer, at: 0)
-		*/
 	}
 
 	private func showErrorAlert(error: Error) {
-		// TODO
-		// viewModel?.deactivateScanning()
+		viewModel?.deactivateScanning()
 
 		var alertTitle = AppStrings.HealthCertificate.Error.title
 		var errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
@@ -240,8 +234,7 @@ class QRScannerViewController: UIViewController {
 			style: .default,
 			handler: { [weak self] _ in
 				if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
-					// TODO
-					// self?.viewModel?.activateScanning()
+					self?.viewModel?.activateScanning()
 				}
 			}
 		)
@@ -256,8 +249,7 @@ class QRScannerViewController: UIViewController {
 				style: .default,
 				handler: { [weak self] _ in
 					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
-						// TODO
-						// self?.viewModel?.activateScanning()
+						self?.viewModel?.activateScanning()
 					}
 				}
 			)
@@ -274,8 +266,7 @@ class QRScannerViewController: UIViewController {
 				title: AppStrings.Common.alertActionOk,
 				style: .default,
 				handler: { [weak self] _ in
-					// TODO
-					// self?.viewModel?.activateScanning()
+					self?.viewModel?.activateScanning()
 				}
 			)
 		)
