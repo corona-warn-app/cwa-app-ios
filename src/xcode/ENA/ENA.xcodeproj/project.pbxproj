@@ -4436,29 +4436,19 @@
 			isa = PBXGroup;
 			children = (
 				5013B18126EBA37600A2DD54 /* Model */,
-				5013B18026EBA36E00A2DD54 /* __tests__ */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
-				8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */,
-				8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */,
-				8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
 		};
-		5013B18026EBA36E00A2DD54 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		5013B18126EBA37600A2DD54 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
+				505C3BE926F3C2790064F729 /* Parser */,
 				8FB776F626F25AE5005255BB /* QRCodeResult.swift */,
 				01C6AC31252B29C00052814D /* QRScannerError.swift */,
+				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4541,6 +4531,16 @@
 				504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */,
 			);
 			path = DMPPAnalytics;
+			sourceTree = "<group>";
+		};
+		505C3BE926F3C2790064F729 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */,
+				8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */,
+				8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		505F506825C833A9004920EB /* ppdd */ = {

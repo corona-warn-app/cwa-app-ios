@@ -5,7 +5,14 @@
 import AVFoundation
 
 protocol QRCodeParsable {
-	func parse(qrCode: String, completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void)
+	/// Function to be called to parse a qrCode.
+	/// - Parameters:
+	///   - qrCode: The scanned qrCode as String
+	///   - completion: If parsing was successful, we receive a QRCodeResult. If there encounted an error, we receive a QRCodeParserError
+	func parse(
+		qrCode: String,
+		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
+	)
 }
 
 class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
@@ -58,23 +65,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	var completion: ((Result<QRCodeResult, QRCodeParserError>) -> Void)
 
 	// MARK: - Internal
-
-	lazy var captureSession: AVCaptureSession? = {
-		guard let currentCaptureDevice = captureDevice,
-			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
-			completion(.failure(.scanningError(.cameraPermissionDenied)))
-			Log.error("Failed to setup AVCaptureDeviceInput", log: .ui)
-			return nil
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-		let captureSession = AVCaptureSession()
-		captureSession.addInput(captureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-		return captureSession
-	}()
 	
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
@@ -94,6 +84,27 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 			return .notAvailable
 		}
 	}
+	
+	var isScanningActivated: Bool {
+		captureSession?.isRunning ?? false
+	}
+	
+	lazy var captureSession: AVCaptureSession? = {
+		guard let currentCaptureDevice = captureDevice,
+			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
+			completion(.failure(.scanningError(.cameraPermissionDenied)))
+			Log.error("Failed to setup AVCaptureDeviceInput", log: .ui)
+			return nil
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		let captureSession = AVCaptureSession()
+		captureSession.addInput(captureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+		return captureSession
+	}()
 
 	func activateScanning() {
 		captureSession?.startRunning()
@@ -123,10 +134,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		} catch {
 			Log.error(error.localizedDescription, log: .api)
 		}
-	}
-
-	var isScanningActivated: Bool {
-		captureSession?.isRunning ?? false
 	}
 
 	func startCaptureSession() {
@@ -164,13 +171,18 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
 			// it is trace Locations QRCode
-			self.parser = CheckinQRCodeParser(verificationHelper: verificationHelper, appConfiguration: appConfiguration)
+			self.parser = CheckinQRCodeParser(
+				verificationHelper: verificationHelper,
+				appConfiguration: appConfiguration
+			)
 		} else if url.prefix(antigetTestPrefix.count) == antigetTestPrefix || url.prefix(pcrPrefix.count) == pcrPrefix {
 			// it is a test
 			self.parser = CoronaTestsParser()
 		} else if url.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
 			// it is a digital certificate
-			self.parser = CertificateQRCodeParser(healthCertificateService: healthCertificateService)
+			self.parser = CertificateQRCodeParser(
+				healthCertificateService: healthCertificateService
+			)
 		}
 		
 		guard let parser = parser else {
@@ -183,8 +195,9 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	}
 	
 	private let captureDevice: AVCaptureDevice?
-	private var parser: QRCodeParsable?
 	private let verificationHelper: QRCodeVerificationHelper
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
+	
+	private var parser: QRCodeParsable?
 }

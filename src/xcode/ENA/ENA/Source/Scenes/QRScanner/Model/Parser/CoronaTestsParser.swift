@@ -11,15 +11,15 @@ class CoronaTestsParser: QRCodeParsable {
 	// MARK: - Init
 
 	init() {
-
-//		#if DEBUG
-//		if isUITesting {
-//			onSuccess(CoronaTestRegistrationInformation.pcr(guid: "guid"))
-//		}
-//		#endif
 	}
 	
 	func parse(qrCode: String, completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void) {
+		#if DEBUG
+		if isUITesting {
+			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid"))))
+		}
+		#endif
+		
 		guard let coronaTestQRCodeInformation = coronaTestQRCodeInformation(from: qrCode) else {
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
