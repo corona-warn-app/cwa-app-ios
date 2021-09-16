@@ -16,7 +16,7 @@ class HealthCertificateCoordinator {
 	// MARK: - Init
 	
 	init(
-		parentViewController: ParentingViewController,
+		parentingViewController: ParentingViewController,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		store: HealthCertificateStoring,
@@ -25,7 +25,7 @@ class HealthCertificateCoordinator {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
-		self.parentViewController = parentViewController
+		self.parentingViewController = parentingViewController
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.store = store
@@ -72,7 +72,7 @@ class HealthCertificateCoordinator {
 	
 	func start() {
 		
-		switch parentViewController {
+		switch parentingViewController {
 		case let .push(navController):
 			navigationController = navController
 			navController.pushViewController(healthCertificateViewController, animated: true)
@@ -84,7 +84,7 @@ class HealthCertificateCoordinator {
 	
 	// MARK: - Private
 	
-	private let parentViewController: ParentingViewController
+	private let parentingViewController: ParentingViewController
 	private let store: HealthCertificateStoring
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificate: HealthCertificate
