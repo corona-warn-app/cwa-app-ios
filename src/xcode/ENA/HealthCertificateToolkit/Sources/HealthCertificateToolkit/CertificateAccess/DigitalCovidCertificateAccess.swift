@@ -308,14 +308,22 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
     }
 
     private func extractCOSE(from cborPayload: CBOR) -> Result<CBOR, CertificateDecodingError> {
-        guard case let CBOR.tagged(tag, cborWebTokenMessage) = cborPayload,
+        // COSE is one of the following ...
+
+        // ... a tagged CBOR message with tag 18, which indicates signed data. The value is an array with exactly 4 elements.
+        if case let CBOR.tagged(tag, cborWebTokenMessage) = cborPayload,
               // 18: CBOR tag value for a COSE Single Signer Data Object
-              tag.rawValue == 18 else {
-
-            return .failure(.HC_COSE_TAG_INVALID)
+              tag.rawValue == 18 {
+            return .success(cborWebTokenMessage)
         }
-
-        return .success(cborWebTokenMessage)
+        // ... an array with exactly four elements (i.e. no tagged CBOR message).
+        else if case let CBOR.array(coseArray) = cborPayload,
+                coseArray.count == 4 {
+            // Return cborPayload directly because it is already what we need in further steps. A CBOR array with 4 entries.
+            return .success(cborPayload)
+        } else {
+            return .failure(.HC_COSE_TAG_OR_ARRAY_INVALID)
+        }
     }
 
     private func extractCOSEEntries(_ cose: CBOR) -> Result<[CBOR], CertificateDecodingError> {

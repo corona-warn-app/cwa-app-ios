@@ -444,6 +444,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						AppStrings.ExposureDetection.guideHotline3,
 						AppStrings.ExposureDetection.guideHotline4
 					]),
+					.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer")),
+					.guide(text: AppStrings.ExposureDetection.guideVaccinationHighRisk, image: UIImage(named: "Icons - VaccinatedArm")),
 					.guide(
 						attributedString: faqLinkText(),
 						image: UIImage(named: "Icons - Test Tube"),
@@ -521,11 +523,13 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			header: .backgroundSpace(height: 16),
 			cells: [
 				.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+				.guide(text: AppStrings.ExposureDetection.guideVaccination, image: UIImage(named: "Icons - VaccinatedArm")),
 				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
 				.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "Icons - Mundschutz")),
 				.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
 				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "Icons - Niesen")),
-				.guide(text: AppStrings.ExposureDetection.guideVentilation, image: UIImage(named: "Icons - Ventilation"))
+				.guide(text: AppStrings.ExposureDetection.guideVentilation, image: UIImage(named: "Icons - Ventilation")),
+				.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer"))
 			]
 		)
 	}

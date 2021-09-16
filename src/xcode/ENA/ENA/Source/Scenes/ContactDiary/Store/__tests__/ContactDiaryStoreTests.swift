@@ -169,7 +169,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		let result = store.addContactPersonEncounter(
 			contactPersonId: contactPersonId,
 			date: "2020-12-10",
-			duration: .lessThan15Minutes,
+			duration: .lessThan10Minutes,
 			maskSituation: .withMask,
 			setting: .outside,
 			circumstances: "Some circumstances."
@@ -197,7 +197,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedContactPersonId, contactPersonId)
 		XCTAssertEqual(circumstances, "Some circumstances.")
-		XCTAssertEqual(duration, ContactPersonEncounter.Duration.lessThan15Minutes.rawValue)
+		XCTAssertEqual(duration, ContactPersonEncounter.Duration.lessThan10Minutes.rawValue)
 		XCTAssertEqual(maskSituation, ContactPersonEncounter.MaskSituation.withMask.rawValue)
 		XCTAssertEqual(setting, ContactPersonEncounter.Setting.outside.rawValue)
 	}
@@ -216,7 +216,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		let result = store.addContactPersonEncounter(
 			contactPersonId: contactPersonId,
 			date: "2020-12-10",
-			duration: .lessThan15Minutes,
+			duration: .lessThan10Minutes,
 			maskSituation: .withMask,
 			setting: .outside,
 			circumstances: "Some circumstances."
@@ -230,7 +230,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		store.updateContactPersonEncounter(
 			id: personEncounterId,
 			date: "2020-12-11",
-			duration: .moreThan15Minutes,
+			duration: .moreThan10Minutes,
 			maskSituation: .withoutMask,
 			setting: .inside,
 			circumstances: "Some other circumstances."
@@ -253,7 +253,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		XCTAssertEqual(date, "2020-12-11")
 		XCTAssertEqual(fetchedContactPersonId, contactPersonId)
 		XCTAssertEqual(circumstances, "Some other circumstances.")
-		XCTAssertEqual(duration, ContactPersonEncounter.Duration.moreThan15Minutes.rawValue)
+		XCTAssertEqual(duration, ContactPersonEncounter.Duration.moreThan10Minutes.rawValue)
 		XCTAssertEqual(maskSituation, ContactPersonEncounter.MaskSituation.withoutMask.rawValue)
 		XCTAssertEqual(setting, ContactPersonEncounter.Setting.inside.rawValue)
 	}
@@ -952,7 +952,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		addPersonEncounter(
 			personId: adamSandaleId,
 			date: today,
-			duration: .lessThan15Minutes,
+			duration: .lessThan10Minutes,
 			maskSituation: .withMask,
 			setting: .inside,
 			circumstances: "Some circumstances.",
@@ -983,7 +983,7 @@ class ContactDiaryStoreTests: CWATestCase {
 			Kontakte der letzten \(daysVisible) Tage (01.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
-			15.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de; Kontaktdauer < 15 Minuten; mit Maske; im Gebäude; Some circumstances.
+			15.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de; Kontaktdauer unter 10 Minuten; mit Maske; im Gebäude; Some circumstances.
 			15.12.2020 Emma Hicks
 			15.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			15.12.2020 Berlin
