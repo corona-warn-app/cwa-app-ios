@@ -162,7 +162,7 @@ class QRScannerViewController: UIViewController {
 		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
 		navigationController?.navigationBar.shadowImage = emptyImage
 		navigationController?.navigationBar.isTranslucent = true
-		navigationController?.view.backgroundColor = .enaColor(for: .background)
+		navigationController?.view.backgroundColor = .enaColor(for: .background).withAlphaComponent(0.2)
 
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didPressDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
@@ -312,12 +312,26 @@ class QRScannerViewController: UIViewController {
 			return
 		}
 
+		let backdropColor = UIColor(white: 0, alpha: 0.2)
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
+
+		let backdropPath = UIBezierPath(cgPath: focusPath.cgPath)
+		backdropPath.append(UIBezierPath(rect: view.bounds))
+
+		let backdropLayer = CAShapeLayer()
+		backdropLayer.path = UIBezierPath(rect: view.bounds).cgPath
+		backdropLayer.fillColor = backdropColor.cgColor
+
+		let backdropLayerMask = CAShapeLayer()
+		backdropLayerMask.fillRule = .evenOdd
+		backdropLayerMask.path = backdropPath.cgPath
+		backdropLayer.mask = backdropLayerMask
 
 		let throughHoleLayer = CAShapeLayer()
 		throughHoleLayer.path = UIBezierPath(cgPath: focusPath.cgPath).cgPath
 
 		previewLayer.mask = CALayer()
 		previewLayer.mask?.addSublayer(throughHoleLayer)
+		previewLayer.mask?.addSublayer(backdropLayer)
 	}
 }
