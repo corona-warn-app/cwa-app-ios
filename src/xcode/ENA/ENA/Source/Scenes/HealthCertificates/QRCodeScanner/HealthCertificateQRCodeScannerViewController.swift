@@ -20,7 +20,7 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 		
 		super.init(nibName: nil, bundle: nil)
 		
-		let extractedExpr = HealthCertificateQRCodeScannerViewModel(
+		viewModel = HealthCertificateQRCodeScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			onSuccess: { [weak self] healthCertifiedPerson, healthCertificate in
 				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -36,7 +36,6 @@ class HealthCertificateQRCodeScannerViewController: UIViewController {
 				}
 			}
 		)
-		viewModel = extractedExpr
 	}
 
 	@available(*, unavailable)
