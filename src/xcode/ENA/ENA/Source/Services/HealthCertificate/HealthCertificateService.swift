@@ -578,7 +578,19 @@ class HealthCertificateService {
 				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = firstDose {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+				let result = registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+
+				if case let .success((person, _)) = result,
+					LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
+					person.boosterRule = .fake(
+						identifier: "EX-ID-005",
+						description: [
+							.fake(lang: "en", desc: "You may be eligible for a booster because your vaccination with Astra Zeneca was more than 5 months ago."),
+							.fake(lang: "de", desc: "Sie könnten für eine Auffrischungsimpfung berechtigt sein, da Ihre Impfung mit Astra Zeneca vor mehr als 5 Monaten war.")
+						]
+					)
+					person.isNewBoosterRule = true
+				}
 			}
 			
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
@@ -646,6 +658,19 @@ class HealthCertificateService {
 			)
 			if case let .success(base45) = result {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+			}
+		}
+
+		if LaunchArguments.healthCertificate.newTestCertificateRegistered.boolValue {
+			let result = DigitalCovidCertificateFake.makeBase45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+				),
+				and: CBORWebTokenHeader.fake()
+			)
+			if case let .success(base45) = result {
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, markAsNew: true)
 			}
 		}
 
