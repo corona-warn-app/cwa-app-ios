@@ -10,6 +10,7 @@ extension UIImage {
 		with string: String,
 		encoding: String.Encoding = .shiftJIS,
 		size: CGSize = CGSize(width: 400, height: 400),
+		scale: CGFloat,
 		qrCodeErrorCorrectionLevel: MappedErrorCorrectionType = .medium
 	) -> UIImage? {
 		/// Create data from string which will be feed into the CoreImage Filter
@@ -33,8 +34,8 @@ extension UIImage {
 
 		/// Depending on the length of the string the QRCode may vary in size. But we want an Image with a fixed size. This requires us to scale the QRCode to our desired image size.
 		/// Calculate scaling factors
-		let scaleX = size.width / image.extent.size.width
-		let scaleY = size.height / image.extent.size.height
+		let scaleX = size.width * scale / image.extent.size.width
+		let scaleY = size.height * scale / image.extent.size.height
 
 		/// Scale image
 		let transformedImage = image.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
