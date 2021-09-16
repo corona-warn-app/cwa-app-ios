@@ -500,8 +500,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
 				self?.route = route
 			}, showHealthCertifiedPerson: { [weak self] route in
-				// We must call self?.showHome(route) here because the notification is triggered after entering the foreground and finishing the download.
-				self?.showHome(route)
+				guard let self = self else { return }
+				/*
+					The booster notifications can be fired when the app is running (either foreground or background) or when the app is killed
+					in case the app is running then we need to show the Home using the route of the booster notifications
+					in case the app is killed and then reopened then we should just set the route into the health certified person,
+					as the showHome flow will begin anyway at the startup process of the app
+				*/
+				if self.didSetupUI {
+					self.showHome(route)
+				} else {
+					self.route = route
+				}
 			}
 		)
 		return notificationManager

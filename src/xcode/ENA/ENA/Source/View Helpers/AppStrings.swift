@@ -68,7 +68,6 @@ enum AppStrings {
 		static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_DataPrivacyTitle", comment: "")
 		static let dataPrivacyDisclaimer = NSLocalizedString("ExposureSubmission_DataPrivacyDescription", comment: "")
 		static let dataPrivacyAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_AcceptTitle", comment: "")
-		static let dataPrivacyDontAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_DontAcceptTitle", comment: "")
 		static let continueText = NSLocalizedString("ExposureSubmission_Continue_actionText", comment: "")
 		static let primaryButton = NSLocalizedString("ExposureSubmission_Continue_actionText", comment: "")
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
@@ -516,16 +515,19 @@ enum AppStrings {
 		static let behaviorTitle = NSLocalizedString("ExposureDetection_Behavior_Title", comment: "")
 		static let behaviorSubtitle = NSLocalizedString("ExposureDetection_Behavior_Subtitle", comment: "")
 
+		static let guideVaccination = NSLocalizedString("ExposureDetection_Guide_Vaccination", comment: "")
 		static let guideHands = NSLocalizedString("ExposureDetection_Guide_Hands", comment: "")
 		static let guideMask = NSLocalizedString("ExposureDetection_Guide_Mask", comment: "")
 		static let guideDistance = NSLocalizedString("ExposureDetection_Guide_Distance", comment: "")
 		static let guideSneeze = NSLocalizedString("ExposureDetection_Guide_Sneeze", comment: "")
 		static let guideVentilation = NSLocalizedString("ExposureDetection_Guide_Ventilation", comment: "")
+		static let guideSymptoms = NSLocalizedString("ExposureDetection_Guide_Symptoms", comment: "")
 		static let guideHome = NSLocalizedString("ExposureDetection_Guide_Home", comment: "")
 		static let guideHotline1 = NSLocalizedString("ExposureDetection_Guide_Hotline1", comment: "")
 		static let guideHotline2 = NSLocalizedString("ExposureDetection_Guide_Hotline2", comment: "")
 		static let guideHotline3 = NSLocalizedString("ExposureDetection_Guide_Hotline3", comment: "")
 		static let guideHotline4 = NSLocalizedString("ExposureDetection_Guide_Hotline4", comment: "")
+		static let guideVaccinationHighRisk = NSLocalizedString("ExposureDetection_Guide_Vaccination_HighRisk", comment: "")
 		static let guideFAQ = NSLocalizedString("ExposureDetection_Guide_FAQ", comment: "Placeholder points to `ExposureDetection_LinkText`")
 		static let guideFAQLinkText = NSLocalizedString("ExposureDetection_Guide_FAQ_LinkText", comment: "The 'tapable' text containing the link to the faq")
 
@@ -718,7 +720,6 @@ enum AppStrings {
 		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
 		static let onboardingContinueDescription = NSLocalizedString("Onboarding_Continue_actionTextHint", comment: "")
 		static let onboardingDoNotActivate = NSLocalizedString("Onboarding_DoNotActivate_actionText", comment: "")
-		static let onboardingDoNotAllow = NSLocalizedString("Onboarding_doNotAllow_actionText", comment: "")
 		static let onboarding_deactivate_exposure_notif_confirmation_title = NSLocalizedString("Onboarding_DeactivateExposureConfirmation_title", comment: "")
 		static let onboarding_deactivate_exposure_notif_confirmation_message = NSLocalizedString("Onboarding_DeactivateExposureConfirmation_message", comment: "")
 
@@ -1230,8 +1231,8 @@ enum AppStrings {
 			}
 
 			enum PersonEncounter {
-				static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes", comment: "")
-				static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes", comment: "")
+				static let durationLessThan10Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes", comment: "")
+				static let durationMoreThan10Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes", comment: "")
 
 				static let maskSituationWithMask = NSLocalizedString("ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask", comment: "")
 				static let maskSituationWithoutMask = NSLocalizedString("ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask", comment: "")
@@ -1266,8 +1267,8 @@ enum AppStrings {
 			static let locationsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyImageDescription", comment: "")
 
 			enum Encounter {
-				static let lessThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_LessThan15Minutes", comment: "")
-				static let moreThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_MoreThan15Minutes", comment: "")
+				static let lessThan10Minutes = NSLocalizedString("ContactDiary_Day_Encounter_LessThan10Minutes", comment: "")
+				static let moreThan10Minutes = NSLocalizedString("ContactDiary_Day_Encounter_MoreThan10Minutes", comment: "")
 				static let withMask = NSLocalizedString("ContactDiary_Day_Encounter_WithMask", comment: "")
 				static let withoutMask = NSLocalizedString("ContactDiary_Day_Encounter_WithoutMask", comment: "")
 				static let outside = NSLocalizedString("ContactDiary_Day_Encounter_Outside", comment: "")

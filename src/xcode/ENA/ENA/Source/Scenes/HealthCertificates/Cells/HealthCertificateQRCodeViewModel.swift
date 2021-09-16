@@ -45,6 +45,7 @@ struct HealthCertificateQRCodeViewModel {
 			with: qrCodeString,
 			encoding: .utf8,
 			size: CGSize(width: qrCodeSize, height: qrCodeSize),
+			scale: UIScreen.main.scale,
 			qrCodeErrorCorrectionLevel: .medium
 		)
 	}

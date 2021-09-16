@@ -517,6 +517,7 @@
 		35F929B02682176B006115BB /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 35F929AF2682176B006115BB /* style.css */; };
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
+		4B46EB6A26E6561300A667AA /* NavigationControllerViewScrollingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B46EB6926E6561200A667AA /* NavigationControllerViewScrollingTest.swift */; };
 		4B54B35226D52B8F00A49EB9 /* MockENManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B54B35126D52B8F00A49EB9 /* MockENManager.swift */; };
 		4B577C5F26C1D90500641667 /* LoggingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B577C5E26C1D90500641667 /* LoggingTests.swift */; };
 		4BAB48F426C9B4FB00CC4C11 /* RateLimitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */; };
@@ -776,6 +777,10 @@
 		8FB776EF26EA3255005255BB /* DMBoosterRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */; };
 		8FB776F126EA532C005255BB /* DMBoosterChoosePersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */; };
 		8FB776F326EA5338005255BB /* DMBoosterChoosePersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */; };
+		8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */; };
+		8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F626F25AE5005255BB /* QRCodeResult.swift */; };
+		8FB776F926F27E1D005255BB /* CoronaTestsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */; };
+		8FB776FB26F28336005255BB /* CertificateQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
@@ -1914,6 +1919,7 @@
 		35F929AF2682176B006115BB /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
+		4B46EB6926E6561200A667AA /* NavigationControllerViewScrollingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerViewScrollingTest.swift; sourceTree = "<group>"; };
 		4B54B35126D52B8F00A49EB9 /* MockENManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockENManager.swift; sourceTree = "<group>"; };
 		4B577C5E26C1D90500641667 /* LoggingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingTests.swift; sourceTree = "<group>"; };
 		4BAB48F326C9B4FB00CC4C11 /* RateLimitLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateLimitLogger.swift; sourceTree = "<group>"; };
@@ -2191,6 +2197,10 @@
 		8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterRulesViewModel.swift; sourceTree = "<group>"; };
 		8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewController.swift; sourceTree = "<group>"; };
 		8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewModel.swift; sourceTree = "<group>"; };
+		8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeParser.swift; sourceTree = "<group>"; };
+		8FB776F626F25AE5005255BB /* QRCodeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeResult.swift; sourceTree = "<group>"; };
+		8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestsParser.swift; sourceTree = "<group>"; };
+		8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateQRCodeParser.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
@@ -4382,6 +4392,14 @@
 			path = V2;
 			sourceTree = "<group>";
 		};
+		4B46EB5026E6527A00A667AA /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				4B46EB6926E6561200A667AA /* NavigationControllerViewScrollingTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
 		5008F60125DC0219008B516F /* PPAnalyticsCollector */ = {
 			isa = PBXGroup;
 			children = (
@@ -4420,6 +4438,9 @@
 				5013B18126EBA37600A2DD54 /* Model */,
 				5013B18026EBA36E00A2DD54 /* __tests__ */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
+				8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */,
+				8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */,
+				8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
 			);
 			path = QRScanner;
@@ -4436,6 +4457,7 @@
 			isa = PBXGroup;
 			children = (
 				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
+				8FB776F626F25AE5005255BB /* QRCodeResult.swift */,
 				01C6AC31252B29C00052814D /* QRScannerError.swift */,
 			);
 			path = Model;
@@ -5159,6 +5181,7 @@
 		71176E30248957B1004B0C9F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				4B46EB5026E6527A00A667AA /* __test__ */,
 				71176E31248957C3004B0C9F /* AppNavigationController.swift */,
 				945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */,
 			);
@@ -9094,10 +9117,12 @@
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
+				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
+				8FB776FB26F28336005255BB /* CertificateQRCodeParser.swift in Sources */,
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,
 				01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */,
 				BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */,
@@ -9154,6 +9179,7 @@
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
 				501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */,
+				8FB776F926F27E1D005255BB /* CoronaTestsParser.swift in Sources */,
 				01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */,
 				EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
@@ -9188,6 +9214,7 @@
 				AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
+				8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */,
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
@@ -9561,6 +9588,7 @@
 				350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */,
 				BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */,
 				BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */,
+				4B46EB6A26E6561300A667AA /* NavigationControllerViewScrollingTest.swift in Sources */,
 				BA2D4F0D2637037C0080FD77 /* QRCodeCellViewModelTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */,
@@ -9887,7 +9915,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -9903,7 +9931,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.11.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10042,7 +10070,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -10053,7 +10081,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.11.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10221,7 +10249,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -10232,7 +10260,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.11.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10462,7 +10490,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10477,7 +10505,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.11.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10502,7 +10530,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -10512,7 +10540,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.11.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10645,7 +10673,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10689,7 +10717,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10732,7 +10760,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

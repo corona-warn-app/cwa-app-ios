@@ -213,10 +213,10 @@ private extension ContactPersonEncounter.Duration {
 		switch self {
 		case .none:
 			return ""
-		case .lessThan15Minutes:
-			return AppStrings.ContactDiary.Overview.PersonEncounter.durationLessThan15Minutes
-		case .moreThan15Minutes:
-			return AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan15Minutes
+		case .lessThan10Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationLessThan10Minutes
+		case .moreThan10Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan10Minutes
 		}
 	}
 }
