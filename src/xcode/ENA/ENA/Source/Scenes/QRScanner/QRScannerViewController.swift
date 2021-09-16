@@ -170,7 +170,7 @@ class QRScannerViewController: UIViewController {
 	}
 
 	@objc
-	private func didPressDismiss() {
+	private func didTapDismiss() {
 		dismiss()
 	}
 	
