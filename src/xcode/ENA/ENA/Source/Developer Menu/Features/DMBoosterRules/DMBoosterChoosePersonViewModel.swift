@@ -24,16 +24,16 @@ final class DMBoosterChoosePersonViewModel {
 	}
 
 	var numberOfSections: Int {
-		healthCertificateService.healthCertifiedPersons.value.count
+		healthCertificateService.healthCertifiedPersons.count
 	}
 
 	func items(section: Int) -> Int {
-		let persons = healthCertificateService.healthCertifiedPersons.value
+		let persons = healthCertificateService.healthCertifiedPersons
 		return persons[section].healthCertificates.count
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> Any {
-		let person = healthCertificateService.healthCertifiedPersons.value[indexPath.section]
+		let person = healthCertificateService.healthCertifiedPersons[indexPath.section]
 		let numberOfCertificates = person.healthCertificates.count
 		guard let name = person.name?.standardizedName else {
 			fatalError("Failed to find matching identifier")

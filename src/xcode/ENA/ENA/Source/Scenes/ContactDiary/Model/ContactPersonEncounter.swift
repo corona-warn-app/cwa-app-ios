@@ -10,8 +10,8 @@ struct ContactPersonEncounter: Equatable {
 
 	enum Duration: Int {
 		case none
-		case lessThan15Minutes
-		case moreThan15Minutes
+		case lessThan10Minutes
+		case moreThan10Minutes
 	}
 
 	enum MaskSituation: Int {

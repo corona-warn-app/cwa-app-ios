@@ -247,7 +247,7 @@ final class HealthCertificatesCoordinator {
 							}
 							self.healthCertificateService.removeHealthCertificate(healthCertificate)
 							// Do not confirm deletion if we removed the last certificate of the person (this removes the person, too) because it would trigger a new reload of the table where no person can be shown. Instead, we dismiss the view controller.
-							if self.healthCertificateService.healthCertifiedPersons.value.contains(healthCertifiedPerson) {
+							if self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson) {
 								confirmDeletion()
 							} else {
 								self.viewController.dismiss(animated: true)
@@ -271,6 +271,7 @@ final class HealthCertificatesCoordinator {
 			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
+
 
 		let okayAction = UIAlertAction(
 			title: AppStrings.Common.alertActionOk,

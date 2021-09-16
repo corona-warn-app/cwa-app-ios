@@ -261,7 +261,7 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 			id: 0,
 			date: "2021-01-14",
 			contactPersonId: 0,
-			duration: .moreThan15Minutes,
+			duration: .moreThan10Minutes,
 			maskSituation: .withMask,
 			setting: .inside,
 			circumstances: ""
@@ -274,7 +274,7 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		)
 		let detailText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
 
-		XCTAssertEqual(detailText, "\(AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan15Minutes), \(AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithMask), \(AppStrings.ContactDiary.Overview.PersonEncounter.settingInside)")
+		XCTAssertEqual(detailText, "\(AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan10Minutes), \(AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithMask), \(AppStrings.ContactDiary.Overview.PersonEncounter.settingInside)")
 	}
 
 	func testGIVEN_LocationVisit_THEN_CorrectEntryDetailTextIsReturned() {

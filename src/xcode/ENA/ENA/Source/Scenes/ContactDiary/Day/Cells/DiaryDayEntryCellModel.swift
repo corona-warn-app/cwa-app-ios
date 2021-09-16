@@ -48,8 +48,8 @@ struct DiaryDayEntryCellModel {
 	let accessibilityTraits: UIAccessibilityTraits
 
 	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
-		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, value: .lessThan15Minutes),
-		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes, value: .moreThan15Minutes)
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan10Minutes, value: .lessThan10Minutes),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan10Minutes, value: .moreThan10Minutes)
 	]
 
 	var selectedDurationSegmentIndex: Int {
