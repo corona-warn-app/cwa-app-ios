@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-final class TraceLocationDetailsCoordinator {
+final class TraceLocationCheckinCoordinator {
 	
 	// MARK: - Init
 	
@@ -34,31 +34,39 @@ final class TraceLocationDetailsCoordinator {
 	// MARK: - Internal
 
 	func start() {
-		navigationController = DismissHandlingNavigationController(rootViewController: checkinDetailScreen)
+		navigationController = rootNavigationController
 		parentViewController.present(navigationController, animated: true)
 	}
 	
 	// MARK: - Private
 	
-	private lazy var rootViewController: UINavigationController = {
+	private lazy var rootNavigationController: UINavigationController = {
 		if !infoScreenShown {
-			
+			return UINavigationController(
+				rootViewController: infoScreen(
+					hidesCloseButton: true,
+					dismissAction: { [weak self] in
+						guard let self = self else {
+							Log.error("Could not create self reference")
+							return
+						}
+						self.navigationController.pushViewController(self.traceLocationCheckin, animated: true)
+						// Set CertificateViewController as the only controller on the navigation stack to avoid back gesture etc.
+						self.navigationController.setViewControllers([self.traceLocationCheckin], animated: false)
+
+						self.infoScreenShown = true
+					},
+					
+					showDetail: { detailViewController in
+						self.navigationController.pushViewController(detailViewController, animated: true)
+					}
+				)
+			)
 		} else {
-			
+			return UINavigationController(rootViewController: traceLocationCheckin)
 		}
 	
-		return let viewModel = TraceLocationCheckinViewModel(
-			traceLocation,
-			eventStore: eventStore,
-			store: store
-		)
-		let traceLocationCheckinViewController = TraceLocationCheckinViewController(
-			viewModel,
-			dismiss: { [weak self] in
-				self?.parentViewController.dismiss(animated: true)
-			}
-		)
-		self.viewController.present(traceLocationCheckinViewController, animated: true)
+		
 	}()
 
 	private let traceLocation: TraceLocation
@@ -74,6 +82,20 @@ final class TraceLocationDetailsCoordinator {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
 	}
+	
+	private lazy var traceLocationCheckin: UIViewController = {
+		let viewModel = TraceLocationCheckinViewModel(
+			traceLocation,
+			eventStore: eventStore,
+			store: store
+		)
+		return TraceLocationCheckinViewController(
+			viewModel,
+			dismiss: { [weak self] in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+	}()
 	
 	private func infoScreen(
 		hidesCloseButton: Bool = false,

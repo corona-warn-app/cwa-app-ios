@@ -593,7 +593,7 @@
 		508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */; };
 		5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */; };
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
-		508AFDD126F371B400A02D98 /* TraceLocationDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508AFDD026F371B400A02D98 /* TraceLocationDetailsCoordinator.swift */; };
+		508AFDD126F371B400A02D98 /* TraceLocationCheckinCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508AFDD026F371B400A02D98 /* TraceLocationCheckinCoordinator.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
 		5093B9A9260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */; };
 		5093B9AA260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */; };
@@ -1995,7 +1995,7 @@
 		5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+SubmitErrorLogFileTests.swift"; sourceTree = "<group>"; };
 		508ACB6025DE6393006B9945 /* PPADataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPADataType.swift; sourceTree = "<group>"; };
 		508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollectorTests.swift; sourceTree = "<group>"; };
-		508AFDD026F371B400A02D98 /* TraceLocationDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsCoordinator.swift; sourceTree = "<group>"; };
+		508AFDD026F371B400A02D98 /* TraceLocationCheckinCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinCoordinator.swift; sourceTree = "<group>"; };
 		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TraceLocationCheckinViewController.xib; sourceTree = "<group>"; };
 		5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationCheckinViewController.swift; sourceTree = "<group>"; };
@@ -7059,7 +7059,7 @@
 			isa = PBXGroup;
 			children = (
 				8FA88FDE261668EE00FD36DA /* __tests__ */,
-				508AFDD026F371B400A02D98 /* TraceLocationDetailsCoordinator.swift */,
+				508AFDD026F371B400A02D98 /* TraceLocationCheckinCoordinator.swift */,
 				5093B9A7260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift */,
 				5093B9A6260DEB2D007C0B09 /* TraceLocationCheckinViewController.xib */,
 				5093B9A8260DEB2D007C0B09 /* TraceLocationCheckinViewModel.swift */,
@@ -8818,7 +8818,7 @@
 				50A7168826CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift in Sources */,
 				2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */,
 				8FB331B8268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift in Sources */,
-				508AFDD126F371B400A02D98 /* TraceLocationDetailsCoordinator.swift in Sources */,
+				508AFDD126F371B400A02D98 /* TraceLocationCheckinCoordinator.swift in Sources */,
 				BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */,
 				8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */,
 				8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */,
