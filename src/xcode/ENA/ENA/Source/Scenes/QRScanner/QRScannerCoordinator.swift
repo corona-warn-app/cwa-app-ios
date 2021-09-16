@@ -16,22 +16,32 @@ enum QRScanningError: Error {
 	case someError
 }
 
-class QRScannerCoordinator: RequiresAppDependencies {
+class QRScannerCoordinator {
 	
 	// MARK: - Init
 	
 	init(
-		homeCoordinator: HomeCoordinator,
-		healthCertificatesCoordinator: HealthCertificatesCoordinator,
-		checkinCoordinator: CheckinCoordinator,
-		exposureSubmissionCoordinator: ExposureSubmissionCoordinator
+		store: Store,
+		client: Client,
+		eventStore: EventStoringProviding,
+		appConfiguration: AppConfigurationProviding,
+		eventCheckoutService: EventCheckoutService,
+		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
+		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
-		self.homeCoordinator = homeCoordinator
-		self.healthCertificatesCoordinator = healthCertificatesCoordinator
-		self.checkinCoordinator = checkinCoordinator
-		self.exposureSubmissionCoordinator = exposureSubmissionCoordinator
+		self.store = store
+		self.client = client
+		self.eventStore = eventStore
+		self.appConfiguration = appConfiguration
+		self.eventCheckoutService = eventCheckoutService
+		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
+		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		
-		self.qrScanningNavigationController = DismissHandlingNavigationController(rootViewController: QRScannerViewController())
+		self.navigationController = DismissHandlingNavigationController(rootViewController: QRScannerViewController())
 	}
 	
 	// MARK: - Overrides
@@ -40,78 +50,123 @@ class QRScannerCoordinator: RequiresAppDependencies {
 	
 	// MARK: - Internal
 	
-	func showQRScanner(
-		onNavigationController: UINavigationController
+	func start(
+		from parentViewController: UIViewController
 	) {
-		qrScanningNavigationController = onNavigationController
-//		viewModel.scan(base45)
-		let result: Result<QRScanningResult, QRScanningError>
-		result = .failure(.someError)
-		
-		switch result {
-		case let .success(scanningResult):
-			switch scanningResult {
-			case let .test(testRegistrationInformation):
-				showScannedTestResult(testRegistrationInformation)
-			case let .certificate(healthCertifiedPerson, healthCertificate):
-				showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-			case let .checkin(traceLocation):
-				showScannedCheckin(traceLocation)
-			case let .onBehalf(traceLocation):
-				showScannedOnBehalf(traceLocation)
-			}
-			
-		case let .failure(error):
-			showErrorAlert(for: error)
-		}
+		self.parentViewController = parentViewController
+		navigationController = UINavigationController(rootViewController: qrScannerViewController)
+		self.parentViewController?.present(navigationController, animated: true)
 	}
-	
+		
 	// MARK: - Private
 	
-	private let homeCoordinator: HomeCoordinator
-	private let healthCertificatesCoordinator: HealthCertificatesCoordinator
-	private let checkinCoordinator: CheckinCoordinator
-	private let exposureSubmissionCoordinator: ExposureSubmissionCoordinator
+	private let store: Store
+	private let client: Client
+	private let eventStore: EventStoringProviding
+	private let appConfiguration: AppConfigurationProviding
+	private let eventCheckoutService: EventCheckoutService
+	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	
-	private var qrScanningNavigationController: UINavigationController
+	private var parentViewController: UIViewController?
+	private var navigationController: UINavigationController
+	private var healthCertificateCoordinator: HealthCertificateCoordinator?
+	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
+	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
+	
+	private lazy var rootNavigationController: UINavigationController = {
+		return UINavigationController(rootViewController: qrScannerViewController)
+	}()
+	
+	private lazy var qrScannerViewController: UIViewController = {
+		return QRScannerViewController(
+			
+			/*
+			didQRScan { result in
+			switch result {
+			case let .success(scanningResult):
+				switch scanningResult {
+				case let .test(testRegistrationInformation):
+					showScannedTestResult(testRegistrationInformation)
+				case let .certificate(healthCertifiedPerson, healthCertificate):
+					showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+				case let .checkin(traceLocation):
+					showScannedCheckin(traceLocation)
+				case let .onBehalf(traceLocation):
+					showScannedOnBehalf(traceLocation)
+				}
+				
+			case let .failure(error):
+				showErrorAlert(for: error)
+			}
+			
+			
+			}
+			*/
+		)
+	}()
+	
 	
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
-		self.exposureSubmissionCoordinator.showRegisterTestFlowFromQRScanner(
-			on: self.qrScanningNavigationController,
-			supportedCountries: [Country(countryCode: "DE")!],
-			with: testRegistrationInformation
-		)
+		// TODO: Wait until naveed has finished changing the submission flow so we can call here a subflow.
+		
 	}
 	
 	private func showScannedHealthCertificate(
 		for person: HealthCertifiedPerson,
 		with certificate: HealthCertificate
 	) {
-//		healthCertificatesCoordinator.showCertifiedPersonWithCertificateFromQRScanner(
-//			on: qrScanningNavigationController,
-//			for: person,
-//			with: certificate
-//		)
+		healthCertificateCoordinator = HealthCertificateCoordinator(
+			parentingViewController: .present(qrScannerViewController),
+			healthCertifiedPerson: person,
+			healthCertificate: certificate,
+			store: store,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+		
+		healthCertificateCoordinator?.start()
 	}
 	
 	private func showScannedCheckin(
 		_ traceLocation: TraceLocation
 	) {
-		checkinCoordinator.showTraceLocationDetailsFromQRScanner(
-			on: qrScanningNavigationController,
-			with: traceLocation
+		traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
+			parentViewController: qrScannerViewController,
+			traceLocation: traceLocation,
+			store: store,
+			eventStore: eventStore,
+			appConfiguration: appConfiguration,
+			eventCheckoutService: eventCheckoutService
 		)
+		
+		traceLocationCheckinCoordinator?.start()
 	}
 	
 	private func showScannedOnBehalf(
 		_ traceLocation: TraceLocation
 	) {
-		checkinCoordinator.showTraceLocationDetailsFromQRScanner(
-			on: qrScanningNavigationController,
-			with: traceLocation
+		// TODO: clarify if consent should be also shown after qr scanning. If yes, flow must be changed and this would be the approch:
+		onBehalfCheckinCoordinator = OnBehalfCheckinSubmissionCoordinator(
+			parentViewController: qrScannerViewController,
+			appConfiguration: appConfiguration,
+			eventStore: eventStore,
+			client: client
 		)
+		
+		onBehalfCheckinCoordinator?.start()
+		
+		// TODO: IF NOT, this would be the approach:
+//		checkinCoordinator.showTraceLocationDetailsFromQRScanner(
+//			on: qrScanningNavigationController,
+//			with: traceLocation
+//		)
 	}
 	
 	private func showErrorAlert(

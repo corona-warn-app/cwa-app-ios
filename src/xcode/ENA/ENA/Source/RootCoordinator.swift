@@ -136,10 +136,15 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		// QRScannerCoordinator must the last of the coordinators to be init as he needs the other coordinators.
 		let qrScannerCoordinator = QRScannerCoordinator(
-			homeCoordinator: homeCoordinator,
-			healthCertificatesCoordinator: healthCertificatesCoordinator,
-			checkinCoordinator: checkInCoordinator,
-			exposureSubmissionCoordinator: homeCoordinator.exposureSubmissionCoordinator
+			store: store,
+			client: client,
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
+			eventCheckoutService: eventCheckoutService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 

@@ -4434,9 +4434,9 @@
 			isa = PBXGroup;
 			children = (
 				5013B18126EBA37600A2DD54 /* Model */,
+				5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
-				5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";

@@ -85,28 +85,7 @@ final class CheckinCoordinator {
 			return navigationController
 		}
 	}()
-	
-	func showTraceLocationDetailsFromQRScanner(
-		on qrScannerNavigationController: UINavigationController,
-		with traceLocation: TraceLocation
-	) {
-		// TODO: Check if we must pass to showTraceLocationDetails also the qrScannerNavigationController ot to manipulate the viewController so it becomes the qrScannerNavigationController
-		if !infoScreenShown {
-			let infoScreen = infoScreen(
-				hidesCloseButton: false,
-				dismissAction: { [weak self] in
-					// set infoScreenShown to true so that calling showDetails can use the viewController of this coordinator
-					self?.infoScreenShown = true
-					self?.showTraceLocationDetails(traceLocation)
-				}, showDetail: { detailViewController in
-					qrScannerNavigationController.pushViewController(detailViewController, animated: true)
-				})
-			qrScannerNavigationController.present(infoScreen, animated: true, completion: nil)
-		} else {
-			showTraceLocationDetails(traceLocation)
-		}
-	}
-	
+		
 	func showQRCodeScanner() {
 		// Info view MUST be shown
 		guard self.infoScreenShown else {
