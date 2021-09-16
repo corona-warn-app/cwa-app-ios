@@ -779,8 +779,8 @@
 		8FB776F326EA5338005255BB /* DMBoosterChoosePersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */; };
 		8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */; };
 		8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F626F25AE5005255BB /* QRCodeResult.swift */; };
-		8FB776F926F27E1D005255BB /* CoronaTestsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */; };
-		8FB776FB26F28336005255BB /* CertificateQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */; };
+		8FB776F926F27E1D005255BB /* CoronaTestsQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */; };
+		8FB776FB26F28336005255BB /* HealthCertificateQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
@@ -2199,8 +2199,8 @@
 		8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewModel.swift; sourceTree = "<group>"; };
 		8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeParser.swift; sourceTree = "<group>"; };
 		8FB776F626F25AE5005255BB /* QRCodeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeResult.swift; sourceTree = "<group>"; };
-		8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestsParser.swift; sourceTree = "<group>"; };
-		8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateQRCodeParser.swift; sourceTree = "<group>"; };
+		8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestsQRCodeParser.swift; sourceTree = "<group>"; };
+		8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeParser.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
@@ -4448,6 +4448,7 @@
 				505C3BE926F3C2790064F729 /* Parser */,
 				8FB776F626F25AE5005255BB /* QRCodeResult.swift */,
 				01C6AC31252B29C00052814D /* QRScannerError.swift */,
+				8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */,
 				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
 			);
 			path = Model;
@@ -4537,8 +4538,8 @@
 			isa = PBXGroup;
 			children = (
 				8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */,
-				8FB776F826F27E1D005255BB /* CoronaTestsParser.swift */,
-				8FB776FA26F28336005255BB /* CertificateQRCodeParser.swift */,
+				8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */,
+				8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -7461,7 +7462,6 @@
 				8F7C39C4261B379900AEC979 /* __tests__ */,
 				BAEE122325ED027F009A0284 /* apple-app-site-association */,
 				BAA4D73525E9613200821B5C /* CheckinQRCodeScannerViewController.swift */,
-				8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */,
 				BAEE121B25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift */,
 			);
 			path = QRCodeScanner;
@@ -9122,7 +9122,7 @@
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
-				8FB776FB26F28336005255BB /* CertificateQRCodeParser.swift in Sources */,
+				8FB776FB26F28336005255BB /* HealthCertificateQRCodeParser.swift in Sources */,
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,
 				01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */,
 				BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */,
@@ -9179,7 +9179,7 @@
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
 				501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */,
-				8FB776F926F27E1D005255BB /* CoronaTestsParser.swift in Sources */,
+				8FB776F926F27E1D005255BB /* CoronaTestsQRCodeParser.swift in Sources */,
 				01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */,
 				EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,

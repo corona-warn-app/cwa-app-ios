@@ -4,10 +4,29 @@
 
 import Foundation
 
-// should replace CheckinQRCodeScannerViewModel
-
 class CheckinQRCodeParser: QRCodeParsable {
-	func parse(qrCode: String, completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void) {
+	func parse(
+		qrCode: String,
+		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
+	) {
+		#if DEBUG
+		if isUITesting {
+			let traceLocation = TraceLocation(
+				id: UUID().uuidString.data(using: .utf8) ?? Data(),
+				version: 0,
+				type: .locationTypePermanentRetail,
+				description: "Supermarkt",
+				address: "Walldorf",
+				startDate: nil,
+				endDate: nil,
+				defaultCheckInLengthInMinutes: nil,
+				cryptographicSeed: Data(),
+				cnPublicKey: Data()
+			)
+			completion(.success(.checkin(traceLocation)))
+		}
+		#endif
+		
 		verificationHelper.verifyQrCode(
 			qrCodeString: qrCode,
 			appConfigurationProvider: appConfiguration,
@@ -20,28 +39,6 @@ class CheckinQRCodeParser: QRCodeParsable {
 				self?.verificationHelper.subscriptions.removeAll()
 			}
 		)
-	}
-	
-	func didAppear() {
-//		#if DEBUG
-//		if isUITesting {
-//			let traceLocation = TraceLocation(
-//				id: UUID().uuidString.data(using: .utf8) ?? Data(),
-//				version: 0,
-//				type: .locationTypePermanentRetail,
-//				description: "Supermarkt",
-//				address: "Walldorf",
-//				startDate: nil,
-//				endDate: nil,
-//				defaultCheckInLengthInMinutes: nil,
-//				cryptographicSeed: Data(),
-//				cnPublicKey: Data()
-//			)
-//			onSuccess(traceLocation)
-//		}
-//		#endif
-		
-		// TODO should move to QRScannerViewModel somehow
 	}
 
 	

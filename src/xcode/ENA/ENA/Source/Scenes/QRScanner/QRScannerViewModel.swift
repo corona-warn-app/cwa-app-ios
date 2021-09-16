@@ -177,10 +177,10 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 			)
 		} else if url.prefix(antigetTestPrefix.count) == antigetTestPrefix || url.prefix(pcrPrefix.count) == pcrPrefix {
 			// it is a test
-			self.parser = CoronaTestsParser()
+			self.parser = CoronaTestsQRCodeParser()
 		} else if url.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
 			// it is a digital certificate
-			self.parser = CertificateQRCodeParser(
+			self.parser = HealthCertificateQRCodeParser(
 				healthCertificateService: healthCertificateService
 			)
 		}

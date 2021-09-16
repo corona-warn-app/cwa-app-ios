@@ -4,16 +4,20 @@
 
 import Foundation
 
-// this should replace HealthCertificateQRCodeScannerViewModel
-class CertificateQRCodeParser: QRCodeParsable {
+class HealthCertificateQRCodeParser: QRCodeParsable {
 	
 	// MARK: - Init
 
-	init(healthCertificateService: HealthCertificateService) {
+	init(
+		healthCertificateService: HealthCertificateService
+	) {
 		self.healthCertificateService = healthCertificateService
 	}
 	
-	func parse(qrCode: String, completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void) {
+	func parse(
+		qrCode: String,
+		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
+	) {
 		let result = healthCertificateService.registerHealthCertificate(base45: qrCode)
 		switch result {
 		case let .success((healthCertifiedPerson, healthCertificate)):
