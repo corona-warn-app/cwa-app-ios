@@ -46,7 +46,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantPast)
 		)
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45, validityState: .expired)
+		let testCertificate = try HealthCertificate(base45: testCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
 		let result = service.registerHealthCertificate(base45: testCertificateBase45)
 
@@ -262,7 +262,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantFuture)
 		)
-		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
+		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45, isNew: true)
 
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
@@ -292,7 +292,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantFuture)
 		)
-		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
@@ -385,7 +385,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantPast)
 		)
-		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired)
+		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
 
@@ -1890,7 +1890,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantFuture)
 		)
-		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
 		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
