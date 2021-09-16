@@ -56,8 +56,8 @@ extension HealthCertificate {
 			templateName = "RecoveryCertificateTemplate_v4.1"
 		}
 
-		guard let tempalteURL = bundle.url(forResource: templateName, withExtension: "pdf"),
-			  let templateData = FileManager.default.contents(atPath: tempalteURL.path) else {
+		guard let templateURL = bundle.url(forResource: templateName, withExtension: "pdf"),
+			  let templateData = FileManager.default.contents(atPath: templateURL.path) else {
 			fatalError("Could not load pdf template.")
 		}
 
