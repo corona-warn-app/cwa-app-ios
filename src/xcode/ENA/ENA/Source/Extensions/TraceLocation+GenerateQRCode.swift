@@ -8,7 +8,7 @@ extension TraceLocation {
 
 	// MARK: - Internal
 	
-	func qrCode(
+	func uiImageQRCode(
 		size: CGSize = CGSize(width: 400, height: 400),
 		scale: CGFloat = UIScreen.main.scale,
 		qrCodeErrorCorrectionLevel: MappedErrorCorrectionType = .medium
@@ -24,4 +24,22 @@ extension TraceLocation {
 			qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel
 		)
 	}
+
+	func ciImageQRCode(
+		size: CGSize = CGSize(width: 400, height: 400),
+		scale: CGFloat,
+		qrCodeErrorCorrectionLevel: MappedErrorCorrectionType = .medium
+	) -> CIImage? {
+		guard let qrCodeURL = qrCodeURL else {
+			return nil
+		}
+
+		return CIImage.qrCode(
+			with: qrCodeURL,
+			size: size,
+			scale: scale,
+			qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel
+		)
+	}
+
 }
