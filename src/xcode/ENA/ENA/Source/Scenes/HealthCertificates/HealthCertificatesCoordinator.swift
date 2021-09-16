@@ -71,20 +71,7 @@ final class HealthCertificatesCoordinator {
 	func showCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
 		showHealthCertifiedPerson(healthCertifiedPerson)
 	}
-	
-	func showCertifiedPersonWithCertificateFromQRScanner(
-		on qrScannerNavigationController: UINavigationController,
-		for healthCertifiedPerson: HealthCertifiedPerson,
-		with healthCertificate: HealthCertificate
-	) {
-		// TODO: Check if we must pass the qrScannerNavigationController to manipulate the viewController
 		
-		showHealthCertificateFlow(
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificate: healthCertificate
-		)
-	}
-	
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
@@ -357,7 +344,7 @@ final class HealthCertificatesCoordinator {
 		let parentingViewController = isPushed ? ParentingViewController.push(modalNavigationController) : ParentingViewController.present(viewController)
 		
 		let healthCertificateCoordinator = HealthCertificateCoordinator(
-			parentViewController: parentingViewController,
+			parentingViewController: parentingViewController,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			store: store,

@@ -11,6 +11,7 @@ enum ParentingViewController {
 	case present(UIViewController)
 }
 
+// swiftlint:disable type_body_length
 class HealthCertificateCoordinator {
 	
 	// MARK: - Init
