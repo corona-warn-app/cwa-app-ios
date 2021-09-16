@@ -44,7 +44,7 @@ class HealthCertificateCoordinator {
 	
 	// MARK: - Internal
 	
-	lazy var viewController: UINavigationController = {
+	lazy var rootNavigationController: UINavigationController = {
 		if !infoScreenShown {
 			return UINavigationController(
 				rootViewController: infoScreen(
@@ -55,19 +55,19 @@ class HealthCertificateCoordinator {
 							return
 						}
 
-						self.viewController.pushViewController(self.healthCertificateViewController, animated: true)
+						self.navigationController.pushViewController(self.healthCertificateViewController, animated: true)
 						// Set CertificateViewController as the only controller on the navigation stack to avoid back gesture etc.
-						self.viewController.setViewControllers([self.healthCertificateViewController], animated: false)
+						self.navigationController.setViewControllers([self.healthCertificateViewController], animated: false)
 
 						self.infoScreenShown = true
 					},
 					showDetail: { detailViewController in
-						self.viewController.pushViewController(detailViewController, animated: true)
+						self.navigationController.pushViewController(detailViewController, animated: true)
 					}
 				)
 			)
 		} else {
-			return UINavigationController(rootViewController: healthCertificateViewController)
+			return DismissHandlingNavigationController(rootViewController: healthCertificateViewController)
 		}
 	}()
 	
@@ -78,7 +78,7 @@ class HealthCertificateCoordinator {
 			navigationController = navController
 			navController.pushViewController(healthCertificateViewController, animated: true)
 		case let .present(viewController):
-			navigationController = DismissHandlingNavigationController(rootViewController: healthCertificateViewController)
+			navigationController = rootNavigationController
 			viewController.present(navigationController, animated: true)
 		}
 	}
@@ -96,6 +96,7 @@ class HealthCertificateCoordinator {
 	
 	private var navigationController: UINavigationController!
 	private var printNavigationController: UINavigationController!
+	private var validationCoordinator: HealthCertificateValidationCoordinator?
 	
 	private var infoScreenShown: Bool {
 		get { store.healthCertificateInfoScreenShown }
@@ -170,7 +171,7 @@ class HealthCertificateCoordinator {
 								style: .destructive,
 								handler: { _ in
 									self.healthCertificateService.removeHealthCertificate(self.healthCertificate)
-									self.viewController.dismiss(animated: true, completion: nil)
+									self.rootNavigationController.dismiss(animated: true, completion: nil)
 								}
 							)
 						)
@@ -464,7 +465,7 @@ class HealthCertificateCoordinator {
 		healthCertificate: HealthCertificate,
 		countries: [Country]
 	) {
-		let validationCoordinator = HealthCertificateValidationCoordinator(
+		validationCoordinator = HealthCertificateValidationCoordinator(
 			parentViewController: navigationController,
 			healthCertificate: healthCertificate,
 			countries: countries,
@@ -473,7 +474,7 @@ class HealthCertificateCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 
-		validationCoordinator.start()
+		validationCoordinator?.start()
 	}
 
 
