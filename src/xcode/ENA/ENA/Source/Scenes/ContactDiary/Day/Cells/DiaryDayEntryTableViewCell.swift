@@ -142,7 +142,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		// German locale ensures 24h format.
 		durationPicker.locale = Locale(identifier: "de_DE")
 		durationPicker.datePickerMode = .time
-		durationPicker.minuteInterval = 15
+		durationPicker.minuteInterval = 10
 		durationPicker.tintColor = .enaColor(for: .tint)
 
 		if #available(iOS 14.0, *) {

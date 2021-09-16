@@ -43,7 +43,6 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 		contentView.addSubview(tileView)
 
 		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeView.layer.magnificationFilter = CALayerContentsFilter.nearest
 		tileView.addSubview(qrCodeView)
 		
 		NSLayoutConstraint.activate([

@@ -26,17 +26,17 @@ final class DMLocalNotificationsViewModel {
 	}
 
 	var numberOfSections: Int {
-		healthCertificateService.healthCertifiedPersons.value.count
+		healthCertificateService.healthCertifiedPersons.count
 	}
 
 	func items(section: Int) -> Int {
-		let persons = healthCertificateService.healthCertifiedPersons.value
+		let persons = healthCertificateService.healthCertifiedPersons
 		return persons[section].healthCertificates.count
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> Any {
 
-		guard let identifier = healthCertificateService.healthCertifiedPersons.value[indexPath.section].healthCertificates[indexPath.row].uniqueCertificateIdentifier else {
+		guard let identifier = healthCertificateService.healthCertifiedPersons[indexPath.section].healthCertificates[indexPath.row].uniqueCertificateIdentifier else {
 			fatalError("Failed to find matching identifier")
 		}
 

@@ -67,12 +67,12 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 
 		let expectedDurationValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.Duration>] = [
 			DiaryDayEntryCellModel.SegmentedControlValue(
-				title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes,
-				value: .lessThan15Minutes
+				title: AppStrings.ContactDiary.Day.Encounter.lessThan10Minutes,
+				value: .lessThan10Minutes
 			),
 			DiaryDayEntryCellModel.SegmentedControlValue(
-				title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes,
-				value: .moreThan15Minutes
+				title: AppStrings.ContactDiary.Day.Encounter.moreThan10Minutes,
+				value: .moreThan10Minutes
 			)
 		]
 
@@ -85,14 +85,14 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, -1)
 	}
 
-	func testSelectedDurationSegmentIndexForLessThan15Minutes() {
-		let cellModel = contactPersonCellModelWithEncounter(duration: .lessThan15Minutes)
+	func testSelectedDurationSegmentIndexForLessThan10Minutes() {
+		let cellModel = contactPersonCellModelWithEncounter(duration: .lessThan10Minutes)
 
 		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, 0)
 	}
 
-	func testSelectedDurationSegmentIndexForMoreThan15Minutes() {
-		let cellModel = contactPersonCellModelWithEncounter(duration: .moreThan15Minutes)
+	func testSelectedDurationSegmentIndexForMoreThan10Minutes() {
+		let cellModel = contactPersonCellModelWithEncounter(duration: .moreThan10Minutes)
 
 		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, 1)
 	}
@@ -283,29 +283,29 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 
 	func testSelectingDurationNone() {
 		let store = MockDiaryStore()
-		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .lessThan15Minutes)
+		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .lessThan10Minutes)
 
 		cellModel.selectDuration(at: -1)
 
 		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.none)
 	}
 
-	func testSelectingDurationLessThan15Minutes() {
+	func testSelectingDurationLessThan10Minutes() {
 		let store = MockDiaryStore()
 		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .none)
 
 		cellModel.selectDuration(at: 0)
 
-		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.lessThan15Minutes)
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.lessThan10Minutes)
 	}
 
-	func testSelectingDurationMoreThan15Minutes() {
+	func testSelectingDurationMoreThan10Minutes() {
 		let store = MockDiaryStore()
 		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .none)
 
 		cellModel.selectDuration(at: 1)
 
-		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.moreThan15Minutes)
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.moreThan10Minutes)
 	}
 
 	func testSelectingMaskSituationNone() {
@@ -391,7 +391,7 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 		)
 
 		cellModel.updateContactPersonEncounter(
-			duration: .lessThan15Minutes,
+			duration: .lessThan10Minutes,
 			maskSituation: .withMask,
 			setting: .outside,
 			circumstances: "Circumstances"
@@ -399,7 +399,7 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 
 		let encounter = firstContactPerson(in: store).encounter
 
-		XCTAssertEqual(encounter?.duration, .lessThan15Minutes)
+		XCTAssertEqual(encounter?.duration, .lessThan10Minutes)
 		XCTAssertEqual(encounter?.maskSituation, .withMask)
 		XCTAssertEqual(encounter?.setting, .outside)
 		XCTAssertEqual(encounter?.circumstances, "Circumstances")
@@ -409,7 +409,7 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 		let store = MockDiaryStore()
 		let cellModel = contactPersonCellModelWithEncounter(
 			store: store,
-			duration: .lessThan15Minutes,
+			duration: .lessThan10Minutes,
 			maskSituation: .withMask,
 			setting: .outside,
 			circumstances: "Circumstances"
@@ -419,7 +419,7 @@ class DiaryDayEntryCellModelTest: CWATestCase {
 
 		let encounter = firstContactPerson(in: store).encounter
 
-		XCTAssertEqual(encounter?.duration, .lessThan15Minutes)
+		XCTAssertEqual(encounter?.duration, .lessThan10Minutes)
 		XCTAssertEqual(encounter?.maskSituation, .withMask)
 		XCTAssertEqual(encounter?.setting, .outside)
 		XCTAssertEqual(encounter?.circumstances, "Circumstances")

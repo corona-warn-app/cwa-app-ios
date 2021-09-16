@@ -19,7 +19,7 @@ class HealthCertificateOverviewViewModel {
 		self.healthCertificateService = healthCertificateService
 		self.cameraAuthorizationStatus = cameraAuthorizationStatus
 		
-		healthCertificateService.healthCertifiedPersons
+		healthCertificateService.$healthCertifiedPersons
 			.sink {
 				self.healthCertifiedPersons = $0
 					.filter { !$0.healthCertificates.isEmpty }
@@ -28,7 +28,7 @@ class HealthCertificateOverviewViewModel {
 			}
 			.store(in: &subscriptions)
 
-		healthCertificateService.testCertificateRequests
+		healthCertificateService.$testCertificateRequests
 			.sink { testCertificateRequests in
 				let updatedTestCertificateRequests = testCertificateRequests
 					.sorted { $0.registrationDate > $1.registrationDate }

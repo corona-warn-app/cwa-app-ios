@@ -1329,10 +1329,10 @@ private extension ContactPersonEncounter.Duration {
 		   switch self {
 		   case .none:
 			   return ""
-		   case .lessThan15Minutes:
-			   return "< 15 Minuten"
-		   case .moreThan15Minutes:
-			   return "> 15 Minuten"
+		   case .lessThan10Minutes:
+			   return "unter 10 Minuten"
+		   case .moreThan10Minutes:
+			   return "über 10 Minuten"
 		   }
 	   }
 }
