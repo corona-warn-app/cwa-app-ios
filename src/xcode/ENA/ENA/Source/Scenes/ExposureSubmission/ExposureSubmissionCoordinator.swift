@@ -130,6 +130,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		push(topBottomViewController)
 	}
+	
+	func showRegisterTestFlowFromQRScanner(
+		on qrScannerNavigationController: UINavigationController,
+		supportedCountries: [Country],
+		with testRegistrationInformation: CoronaTestRegistrationInformation
+	) {
+		
+		// This should trigger first the consent screen.
+		// TODO: Not sure about the isLoading
+		showOverrideTestNoticeIfNecessary(
+			testRegistrationInformation: testRegistrationInformation,
+			submissionConsentGiven: true,
+			isLoading: { _ in
+			}
+		)
+	}
 
 	/// This method selects the correct initial view controller among the following options:
 	/// Option 1: (only for UITESTING) if the `-negativeResult` flag was passed, return ExposureSubmissionTestResultViewController

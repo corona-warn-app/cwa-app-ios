@@ -12,7 +12,8 @@ enum ParentingViewController {
 }
 
 // swiftlint:disable type_body_length
-class HealthCertificateCoordinator {
+
+final class HealthCertificateCoordinator {
 	
 	// MARK: - Init
 	
@@ -43,7 +44,7 @@ class HealthCertificateCoordinator {
 	}
 	
 	// MARK: - Internal
-	
+
 	lazy var rootNavigationController: UINavigationController = {
 		if !infoScreenShown {
 			return UINavigationController(
@@ -72,10 +73,10 @@ class HealthCertificateCoordinator {
 	}()
 	
 	func start() {
-		
 		switch parentingViewController {
 		case let .push(navController):
 			navigationController = navController
+			// for push we know the consent screen was already shown so we can push directly the healthCertificateViewController
 			navController.pushViewController(healthCertificateViewController, animated: true)
 		case let .present(viewController):
 			navigationController = rootNavigationController
@@ -363,7 +364,7 @@ class HealthCertificateCoordinator {
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.healthCertificateViewController.dismiss(animated: true)
+				self?.navigationController.dismiss(animated: true)
 			},
 			showErrorAlert: { [weak self] error in
 				self?.showErrorAlert(
@@ -458,7 +459,7 @@ class HealthCertificateCoordinator {
 		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
-		printNavigationController.present(alert, animated: true, completion: nil)
+		navigationController.present(alert, animated: true, completion: nil)
 	}
 	
 	private func showValidationFlow(

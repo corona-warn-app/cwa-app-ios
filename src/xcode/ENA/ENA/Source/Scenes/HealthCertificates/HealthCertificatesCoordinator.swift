@@ -71,7 +71,7 @@ final class HealthCertificatesCoordinator {
 	func showCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
 		showHealthCertifiedPerson(healthCertifiedPerson)
 	}
-		
+
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
@@ -344,7 +344,6 @@ final class HealthCertificatesCoordinator {
 		isPushed: Bool = false
 	) {
 		let parentingViewController = isPushed ? ParentingViewController.push(modalNavigationController) : ParentingViewController.present(viewController)
-		
 		certificateCoordinator = HealthCertificateCoordinator(
 			parentingViewController: parentingViewController,
 			healthCertifiedPerson: healthCertifiedPerson,

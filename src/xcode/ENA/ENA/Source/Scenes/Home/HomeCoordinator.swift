@@ -178,6 +178,21 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	private weak var delegate: CoordinatorDelegate?
+	
+	private (set) lazy var exposureSubmissionCoordinator: ExposureSubmissionCoordinator = {
+		ExposureSubmissionCoordinator(
+			parentNavigationController: rootViewController,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			eventProvider: eventStore,
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+		)
+	}()
+	   
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		#if DEBUG
@@ -326,18 +341,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
-		let coordinator = ExposureSubmissionCoordinator(
-			parentNavigationController: rootViewController,
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService,
-			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: healthCertificateValidationService,
-			eventProvider: eventStore,
-			antigenTestProfileStore: store,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
-		)
-
+		let coordinator = exposureSubmissionCoordinator
 		if let testInformationResult = testInformationResult {
 			coordinator.start(with: testInformationResult)
 		} else {

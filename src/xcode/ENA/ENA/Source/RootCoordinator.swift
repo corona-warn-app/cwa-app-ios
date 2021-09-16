@@ -134,10 +134,12 @@ class RootCoordinator: RequiresAppDependencies {
 		)
 		self.diaryCoordinator = diaryCoordinator
 		
+		// QRScannerCoordinator must the last of the coordinators to be init as he needs the other coordinators.
 		let qrScannerCoordinator = QRScannerCoordinator(
 			homeCoordinator: homeCoordinator,
 			healthCertificatesCoordinator: healthCertificatesCoordinator,
-			checkinCoordinator: checkInCoordinator
+			checkinCoordinator: checkInCoordinator,
+			exposureSubmissionCoordinator: homeCoordinator.exposureSubmissionCoordinator
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 
@@ -273,7 +275,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
 	private(set) var checkInCoordinator: CheckinCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) var qrScannerCoordinator: QRScannerCoordinator
+	private(set) var qrScannerCoordinator: QRScannerCoordinator?
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 }
