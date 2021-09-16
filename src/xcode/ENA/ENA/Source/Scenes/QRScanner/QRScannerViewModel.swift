@@ -4,13 +4,14 @@
 
 import Foundation
 
+// swiftlint:disable convenience_type
 class QRScannerViewModel {
 	
 	// MARK: - Init
 	
 	// MARK: - Overrides
 	
-	// MARK: - Protocol <#Name#>
+	// MARK: - Protocol 
 	
 	// MARK: - Public
 	

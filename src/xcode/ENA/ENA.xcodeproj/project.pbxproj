@@ -4430,18 +4430,10 @@
 			isa = PBXGroup;
 			children = (
 				5013B18126EBA37600A2DD54 /* Model */,
-				5013B18026EBA36E00A2DD54 /* __tests__ */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
 			);
 			path = QRScanner;
-			sourceTree = "<group>";
-		};
-		5013B18026EBA36E00A2DD54 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = __tests__;
 			sourceTree = "<group>";
 		};
 		5013B18126EBA37600A2DD54 /* Model */ = {
