@@ -434,7 +434,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 
-	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation?) -> UIViewController {
+	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -498,7 +498,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
-	private func showQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation?) {
+	private func showQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
@@ -567,14 +567,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// show an overwrite notice screen if a test of given type was registered before
 	// registerTestAndGetResult will update the loading state of the primary button later
 	private func showOverrideTestNoticeIfNecessary(
-		testRegistrationInformation: CoronaTestRegistrationInformation?,
+		testRegistrationInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void
 	) {
-		guard let testRegistrationInformation = testRegistrationInformation else {
-			return
-		}
-
 		guard model.shouldShowOverrideTestNotice(for: testRegistrationInformation.testType) else {
 			showTestCertificateScreenIfNecessary(
 				testRegistrationInformation: testRegistrationInformation,
@@ -1235,13 +1231,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			store: store,
 			didTapContinue: { [weak self] isLoading in
 				self?.model.coronaTestType = .antigen
-				self?.model.exposureSubmissionService.loadSupportedCountries(
-					isLoading: isLoading,
-					onSuccess: { supportedCountries in
-						self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: nil)
-					}
-				)
-
+				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()
