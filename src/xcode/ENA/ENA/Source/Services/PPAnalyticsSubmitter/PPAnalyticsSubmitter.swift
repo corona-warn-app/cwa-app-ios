@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import Foundation
 import OpenCombine
 
 // swiftlint:disable file_length
