@@ -193,41 +193,39 @@ final class HealthCertificateCoordinator {
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
-	) -> UIViewController {
-		
-		let checkinsInfoScreenViewController = CheckinsInfoScreenViewController(
-			viewModel: CheckInsInfoScreenViewModel(
-				presentDisclaimer: {
+	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
+		let consentScreen = HealthCertificateInfoViewController(
+			viewModel: HealthCertificateInfoViewModel(
+				hidesCloseButton: hidesCloseButton,
+				didTapDataPrivacy: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.isDismissable = false
+
 					if #available(iOS 13.0, *) {
 						detailViewController.isModalInPresentation = true
 					}
+
 					showDetail(detailViewController)
-				},
-				hidesCloseButton: hidesCloseButton
+				}
 			),
-			onDismiss: {
-				dismissAction()
-			}
+			dismiss: dismissAction
 		)
-		
+
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
+				primaryButtonName: AppStrings.HealthCertificate.Info.primaryButton,
+				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
-				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: true
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
 			)
 		)
-		
+
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: checkinsInfoScreenViewController,
+			topController: consentScreen,
 			bottomController: footerViewController
 		)
-		
 		return topBottomContainerViewController
 	}
 	

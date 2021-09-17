@@ -5,6 +5,15 @@
 import Foundation
 import UIKit
 
+// TODO: consent screen is shown twice for checkin tab and certificates tab. check if change required.
+
+enum QRScannerPresenter {
+	case submissionFlow
+	case onBehalfFlow
+	case checkinTab
+	case certificateTab
+}
+
 class QRScannerCoordinator {
 	
 	// MARK: - Init
@@ -41,11 +50,12 @@ class QRScannerCoordinator {
 	
 	// MARK: - Internal
 	
-	// TODO: missing the info from where we come to decide the notification
 	func start(
-		from parentViewController: UIViewController
+		parentViewController: UIViewController,
+		presenter: QRScannerPresenter
 	) {
 		self.parentViewController = parentViewController
+		self.presenter = presenter
 		let navigationController = UINavigationController(rootViewController: qrScannerViewController)
 		self.parentViewController?.present(navigationController, animated: true)
 	}
@@ -65,6 +75,7 @@ class QRScannerCoordinator {
 	private let coronaTestService: CoronaTestService
 	private let qrCodeVerificationHelper = QRCodeVerificationHelper()
 	
+	private var presenter: QRScannerPresenter!
 	private var parentViewController: UIViewController!
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
@@ -83,6 +94,9 @@ class QRScannerCoordinator {
 			didScan: { [weak self] result in
 				switch result {
 				case let .success(scanningResult):
+					// Close the qr scanner
+					self?.parentViewController.dismiss(animated: true)
+					
 					switch scanningResult {
 					case let .coronaTest(testRegistrationInformation):
 						self?.showScannedTestResult(testRegistrationInformation)
@@ -93,11 +107,13 @@ class QRScannerCoordinator {
 					}
 					
 				case let .failure(error):
-					showErrorAlert(for: error)
+					// TODO: should we dismiss here the qrCodescanner, too?
+					// TODO: show alert for permission missing, specific error should handle the presenters
+					self?.parentViewController.dismiss(animated: true)
 				}
 			},
-			dismiss: {
-				
+			dismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
 			}
 		)
 	}()
@@ -106,18 +122,28 @@ class QRScannerCoordinator {
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
-		exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-			parentViewController: parentViewController,
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService,
-			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: healthCertificateValidationService,
-			eventProvider: eventStore,
-			antigenTestProfileStore: store,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
-		)
-		exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+		switch presenter {
+		case .submissionFlow:
+			//TODO call completion of submission flow
+			break
+		case .onBehalfFlow:
+			//TODO: close modal onBehalf, then present exposureSubmissionCoordinator
+			break
+		default:
+			// we come from certificate tab or checkin tab
+			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+				parentViewController: parentViewController,
+				exposureSubmissionService: exposureSubmissionService,
+				coronaTestService: coronaTestService,
+				healthCertificateService: healthCertificateService,
+				healthCertificateValidationService: healthCertificateValidationService,
+				eventProvider: eventStore,
+				antigenTestProfileStore: store,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+			)
+			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+		}
 	}
 	
 	private func showScannedHealthCertificate(
@@ -126,7 +152,7 @@ class QRScannerCoordinator {
 	) {
 		// TODO dismiss first the qrScannerViewController and then present the flow
 		healthCertificateCoordinator = HealthCertificateCoordinator(
-			parentingViewController: .present(qrScannerViewController),
+			parentingViewController: .present(parentViewController),
 			healthCertifiedPerson: person,
 			healthCertificate: certificate,
 			store: store,
@@ -142,18 +168,26 @@ class QRScannerCoordinator {
 	private func showScannedCheckin(
 		_ traceLocation: TraceLocation
 	) {
-		traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
-			parentViewController: qrScannerViewController,
-			traceLocation: traceLocation,
-			store: store,
-			eventStore: eventStore,
-			appConfiguration: appConfiguration,
-			eventCheckoutService: eventCheckoutService
-		)
+		switch presenter {
+		case .onBehalfFlow:
+			// TODO: call completion of onBehalfCoordinator
+			break
+		default:
+			traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
+				parentViewController: parentViewController,
+				traceLocation: traceLocation,
+				store: store,
+				eventStore: eventStore,
+				appConfiguration: appConfiguration,
+				eventCheckoutService: eventCheckoutService
+			)
+			
+			traceLocationCheckinCoordinator?.start()
+		}
 		
-		traceLocationCheckinCoordinator?.start()
 	}
 	
+	/*
 	private func showScannedOnBehalf(
 		_ traceLocation: TraceLocation
 	) {
@@ -173,10 +207,6 @@ class QRScannerCoordinator {
 //			with: traceLocation
 //		)
 	}
+*/
 	
-	private func showErrorAlert(
-		for error: QRScanningError
-	) {
-		// show some alert.
-	}
 }

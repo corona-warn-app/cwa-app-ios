@@ -91,6 +91,21 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
+		let qrScannerCoordinator = QRScannerCoordinator(
+			store: store,
+			client: client,
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
+			eventCheckoutService: eventCheckoutService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService
+		)
+		self.qrScannerCoordinator = qrScannerCoordinator
+		
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
@@ -122,7 +137,8 @@ class RootCoordinator: RequiresAppDependencies {
 			store: store,
 			eventStore: eventStore,
 			appConfiguration: appConfigurationProvider,
-			eventCheckoutService: eventCheckoutService
+			eventCheckoutService: eventCheckoutService,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 		self.checkInCoordinator = checkInCoordinator
 
@@ -135,22 +151,6 @@ class RootCoordinator: RequiresAppDependencies {
 		)
 		self.diaryCoordinator = diaryCoordinator
 		
-		// QRScannerCoordinator must the last of the coordinators to be init as he needs the other coordinators.
-		let qrScannerCoordinator = QRScannerCoordinator(
-			store: store,
-			client: client,
-			eventStore: eventStore,
-			appConfiguration: appConfigurationProvider,
-			eventCheckoutService: eventCheckoutService,
-			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: healthCertificateValidationService,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService
-		)
-		self.qrScannerCoordinator = qrScannerCoordinator
-
 		// Tabbar
 		let startTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
 		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home

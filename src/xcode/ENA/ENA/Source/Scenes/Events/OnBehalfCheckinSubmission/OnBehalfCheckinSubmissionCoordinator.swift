@@ -33,15 +33,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 		parentViewController.present(navigationController, animated: true)
 	}
-		
-	func showDateTimeSelectionFromQRScanner(
-		on qrScannerNavigationController: UINavigationController,
-		with traceLocation: TraceLocation
-	) {
-		// TODO: Check if this manipulation is enough.
-		self.parentViewController = navigationController
-		showDateTimeSelectionSelectionScreen(traceLocation: traceLocation)
-	}
 	
 	// MARK: - Private
 

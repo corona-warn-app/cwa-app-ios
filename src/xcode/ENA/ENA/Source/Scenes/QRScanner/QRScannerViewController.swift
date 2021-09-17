@@ -60,6 +60,10 @@ class QRScannerViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		updatePreviewMask()
 	}
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		viewModel?.activateScanning()
+	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)

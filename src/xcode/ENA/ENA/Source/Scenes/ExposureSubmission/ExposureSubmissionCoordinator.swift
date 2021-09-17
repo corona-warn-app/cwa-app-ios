@@ -539,6 +539,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						}
 					case .other:
 						Log.error("QRScannerError.other occurred.", log: .ui)
+					case .shouldNotHappen:
+						Log.error("QRScannerError.shouldNotHappen occurred.", log: .ui)
 					}
 				},
 				onCancel: { [weak self] in

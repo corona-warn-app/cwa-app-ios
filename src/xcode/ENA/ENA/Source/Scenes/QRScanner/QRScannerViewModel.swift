@@ -164,7 +164,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		// e.g: scanning a PCR QRCode and trying to parse it at a health-certificate, we will get a healthCertificate related error
 		// which is incorrect and it should be a Corona test error, so we need to have an idea about the type of qrcode before paring it
 		
-		let traceLocationsPrefix = "e.coronawarn.app"
+		let traceLocationsPrefix = "https://e.coronawarn.app"
 		let antigetTestPrefix = "https://s.coronawarn.app"
 		let pcrPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
@@ -187,6 +187,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		
 		guard let parser = parser else {
 			Log.error("QRCode parser not intitialized, Scanned code prefix doesnt match any of the scannable structs", log: .qrCode, error: nil)
+			completion(.failure(.scanningError(.shouldNotHappen)))
 			return
 		}
 		parser.parse(qrCode: url, completion: { result in
