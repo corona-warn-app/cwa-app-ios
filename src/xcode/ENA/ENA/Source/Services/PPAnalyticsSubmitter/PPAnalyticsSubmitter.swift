@@ -219,7 +219,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private var applicationState: String {
-		DispatchQueue.main.sync {
+		if Thread.current.isMainThread {
 			switch UIApplication.shared.applicationState {
 			case .active:
 				return "(AppState: active)"
@@ -230,6 +230,22 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			@unknown default:
 				return "(AppState: unknown)"
 			}
+		} else {
+			var state = ""
+
+			DispatchQueue.main.sync {
+				switch UIApplication.shared.applicationState {
+				case .active:
+					state = "(AppState: active)"
+				case .background:
+					state = "(AppState: background)"
+				case .inactive:
+					state = "(AppState: inactive)"
+				@unknown default:
+					state = "(AppState: unknown)"
+				}
+			}
+			return state
 		}
 		
 	}
