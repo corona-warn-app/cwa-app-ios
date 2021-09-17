@@ -40,7 +40,6 @@ class CheckinQRCodeParser: QRCodeParsable {
 			}
 		)
 	}
-
 	
 	// MARK: - Init
 
