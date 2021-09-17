@@ -13,6 +13,7 @@ class QRScannerViewController: UIViewController {
 		healthCertificateService: HealthCertificateService,
 		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
+		didScan: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -25,14 +26,16 @@ class QRScannerViewController: UIViewController {
 			appConfiguration: appConfiguration,
 			completion: { [weak self] result in
 				switch result {
-				case .success:
+				case let .success(qrCodeResult):
 					AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 					self?.viewModel?.deactivateScanning()
+					didScan(.success(qrCodeResult))
 				case let .failure(error):
 					if error == .scanningError(.cameraPermissionDenied) {
 						self?.showCameraPermissionErrorAlert(error: error)
 					} else {
-						self?.showErrorAlert(error: error)
+						didScan(.failure(error))
+//						self?.showErrorAlert(error: error)
 					}
 				}
 			}

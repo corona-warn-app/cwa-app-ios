@@ -8,7 +8,7 @@ protocol QRCodeParsable {
 	/// Function to be called to parse a qrCode.
 	/// - Parameters:
 	///   - qrCode: The scanned qrCode as String
-	///   - completion: If parsing was successful, we receive a QRCodeResult. If there encounted an error, we receive a QRCodeParserError
+	///   - completion: If parsing was successful, we receive a QRCodeResult. If there encountered an error, we receive a QRCodeParserError
 	func parse(
 		qrCode: String,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void

@@ -5,17 +5,6 @@
 import Foundation
 import UIKit
 
-enum QRScanningResult {
-	case test(CoronaTestRegistrationInformation)
-	case certificate(HealthCertifiedPerson, HealthCertificate)
-	case checkin(TraceLocation)
-	case onBehalf(TraceLocation)
-}
-
-enum QRScanningError: Error {
-	case someError
-}
-
 class QRScannerCoordinator {
 	
 	// MARK: - Init
@@ -74,6 +63,7 @@ class QRScannerCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestService
+	private let qrCodeVerificationHelper = QRCodeVerificationHelper()
 	
 	private var parentViewController: UIViewController!
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
@@ -87,29 +77,28 @@ class QRScannerCoordinator {
 	
 	private lazy var qrScannerViewController: UIViewController = {
 		return QRScannerViewController(
-			
-			/*
-			didQRScan { result in
-			switch result {
-			case let .success(scanningResult):
-				switch scanningResult {
-				case let .test(testRegistrationInformation):
-					showScannedTestResult(testRegistrationInformation)
-				case let .certificate(healthCertifiedPerson, healthCertificate):
-					showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-				case let .checkin(traceLocation):
-					showScannedCheckin(traceLocation)
-				case let .onBehalf(traceLocation):
-					showScannedOnBehalf(traceLocation)
+			healthCertificateService: healthCertificateService,
+			verificationHelper: qrCodeVerificationHelper,
+			appConfiguration: appConfiguration,
+			didScan: { [weak self] result in
+				switch result {
+				case let .success(scanningResult):
+					switch scanningResult {
+					case let .coronaTest(testRegistrationInformation):
+						self?.showScannedTestResult(testRegistrationInformation)
+					case let .certificate(healthCertifiedPerson, healthCertificate):
+						self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+					case let .traceLocation(traceLocation):
+						self?.showScannedCheckin(traceLocation)
+					}
+					
+				case let .failure(error):
+					showErrorAlert(for: error)
 				}
+			},
+			dismiss: {
 				
-			case let .failure(error):
-				showErrorAlert(for: error)
 			}
-			
-			
-			}
-			*/
 		)
 	}()
 	
