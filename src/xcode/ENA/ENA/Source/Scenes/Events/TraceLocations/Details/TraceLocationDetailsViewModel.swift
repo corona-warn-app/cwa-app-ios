@@ -59,11 +59,23 @@ class TraceLocationDetailsViewModel {
 		return 1
 	}
 
-	func qrCode(
+	func uiImageQRCode(
 		size: CGSize = CGSize(width: 300, height: 300),
 		scale: CGFloat = UIScreen.main.scale
 	) -> UIImage? {
-		guard let qrCodeImage = traceLocation.qrCode(
+		guard let qrCodeImage = traceLocation.uiImageQRCode(
+			size: size,
+			scale: scale,
+			qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel
+		) else { return nil }
+		return qrCodeImage
+	}
+
+	func ciImageQRCode(
+		size: CGSize = CGSize(width: 300, height: 300),
+		scale: CGFloat = UIScreen.main.scale
+	) -> CIImage? {
+		guard let qrCodeImage = traceLocation.ciImageQRCode(
 			size: size,
 			scale: scale,
 			qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel

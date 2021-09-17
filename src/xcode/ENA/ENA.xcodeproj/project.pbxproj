@@ -1316,7 +1316,7 @@
 		EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513DF925FA34E60020C0B9 /* check_in.pb.swift */; };
 		EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513DFA25FA34E60020C0B9 /* trace_warning.pb.swift */; };
 		EB513E0625FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513E0525FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift */; };
-		EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */; };
+		EB54936B25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift */; };
 		EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */; };
 		EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */ = {isa = PBXBuildFile; fileRef = EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */; };
 		EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */; };
@@ -1334,7 +1334,7 @@
 		EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205324E6A3320089264C /* InfoBoxView.swift */; };
 		EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */; };
 		EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */; };
-		EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */; };
+		EB855EFD25EED0C900FEE17C /* CGPDFDocument+EmbedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271F25EBE3FC00B96123 /* CGPDFDocument+EmbedImage.swift */; };
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB8A39DB261DCE6000AFA709 /* Foundation+Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8A39DA261DCE6000AFA709 /* Foundation+Base64URL.swift */; };
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
@@ -2734,7 +2734,7 @@
 		EB513DF925FA34E60020C0B9 /* check_in.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in.pb.swift; sourceTree = "<group>"; };
 		EB513DFA25FA34E60020C0B9 /* trace_warning.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = trace_warning.pb.swift; sourceTree = "<group>"; };
 		EB513E0525FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = presence_tracing_parameters.pb.swift; sourceTree = "<group>"; };
-		EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImageTests.swift"; sourceTree = "<group>"; };
+		EB54936A25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPDFDocument+EmbedImageTests.swift"; sourceTree = "<group>"; };
 		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
 		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
@@ -2760,7 +2760,7 @@
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
-		EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImage.swift"; sourceTree = "<group>"; };
+		EBCB271F25EBE3FC00B96123 /* CGPDFDocument+EmbedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPDFDocument+EmbedImage.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModelTests.swift; sourceTree = "<group>"; };
 		EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRiskProvider.swift; sourceTree = "<group>"; };
@@ -5007,7 +5007,7 @@
 				BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
-				EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */,
+				EBCB271F25EBE3FC00B96123 /* CGPDFDocument+EmbedImage.swift */,
 				0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */,
 				BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
@@ -5115,7 +5115,7 @@
 				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift */,
 				01DDF4492657B0450043B4E1 /* Locale+SupportedLanguageTests.swift */,
-				EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */,
+				EB54936A25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift */,
 				BAA4D71725E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift */,
 				A1E4195E249824340016E52A /* String+TodayTests.swift */,
 				34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */,
@@ -8424,7 +8424,7 @@
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
-				EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */,
+				EB855EFD25EED0C900FEE17C /* CGPDFDocument+EmbedImage.swift in Sources */,
 				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */,
@@ -9541,7 +9541,7 @@
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
-				EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */,
+				EB54936B25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift in Sources */,
 				010172BE26CABAE200CD1510 /* CheckinSelectionCellModelTests.swift in Sources */,
 				8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */,
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,
