@@ -59,7 +59,7 @@ enum PPAnalyticsCollector {
 			Analytics.logSubmissionMetadata(submissionMetadata)
 		}
 
-		// Only trigger the submission if the app is in foreground (Exposure-9484). For background, the submission is triggered explicit.
+		// Only trigger the submission if the app is in foreground (Exposure-9484). For background, the submission is triggered explicitly.
 		if UIApplication.shared.applicationState == .active {
 			// At the end, try to submit the data. In the submitter are all the checks that we do not submit the data too often.
 			Log.info("Triggering submission after collecting new PPA data", log: .ppa)
