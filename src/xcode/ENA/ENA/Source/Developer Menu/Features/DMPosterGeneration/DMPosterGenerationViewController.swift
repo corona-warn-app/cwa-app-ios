@@ -399,9 +399,14 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 	
 	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
 		let pdfView = PDFView()
-		let pdfDocument = PDFDocument(data: templateData.template)
+
+		guard let dataProvider = CGDataProvider(data: templateData.template as CFData), let originalDocument = CGPDFDocument(dataProvider) else { return pdfView }
 		
-		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrCodeSideLengthField.cgFloatValue, height: qrCodeSideLengthField.cgFloatValue), qrCodeErrorCorrectionLevel: .medium) else { return pdfView }
+		guard let qrCodeImage = viewModel.traceLocation.ciImageQRCode(
+			size: CGSize(width: qrCodeSideLengthField.cgFloatValue, height: qrCodeSideLengthField.cgFloatValue),
+			scale: 7,
+			qrCodeErrorCorrectionLevel: .medium
+		) else { return pdfView }
 		guard let hexDescriptionColorString = descriptionFontColorField.text else { return pdfView }
 		guard let hexAddressColorString = addressFontColorField.text else { return pdfView }
 		
@@ -429,14 +434,21 @@ class DMPosterGenerationViewController: UIViewController, UITextFieldDelegate {
 			)
 		)
 		
-		try? pdfDocument?.embedImageAndText(
+		let pdfDocument = try originalDocument.pdfDocumentEmbeddingImageAndText(
 			image: qrCodeImage,
-			at: CGPoint(x: qrCodeOffsetXField.cgFloatValue, y: qrCodeOffsetYField.cgFloatValue),
-			texts: [descriptionText, addressText])
+			at: CGRect(
+				x: qrCodeOffsetXField.cgFloatValue,
+				y: qrCodeOffsetYField.cgFloatValue,
+				width: qrCodeSideLengthField.cgFloatValue,
+				height: qrCodeSideLengthField.cgFloatValue
+			),
+			texts: [descriptionText, addressText]
+		)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
 		pdfView.autoScales = true
+
 		return pdfView
 	}
 
