@@ -59,11 +59,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacToken: PPACToken? = nil,
 		completion: ((Result<Void, PPASError>) -> Void)? = nil
 	) {
-		Log.info("Analytics submission was triggered (from state \(applicationState)). Checking now if we can submit...", log: .ppa)
+		Log.info("Analytics submission was triggered \(applicationState). Checking now if we can submit...", log: .ppa)
 		
 		// Check if a submission is already in progress
 		guard submissionState == .readyForSubmission else {
-			Log.warning("Analytics submission (from state \(applicationState)) abort due to submission is already in progress", log: .ppa)
+			Log.warning("Analytics submission \(applicationState) abort due to submission is already in progress", log: .ppa)
 			completion?(.failure(.submissionInProgress))
 			return
 		}
@@ -72,16 +72,16 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		
 		// Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
-			Log.warning("Analytics submission (from state \(applicationState)) abort due to missing users consent", log: .ppa)
+			Log.warning("Analytics submission \(applicationState) abort due to missing users consent", log: .ppa)
 			submissionState = .readyForSubmission
 			completion?(.failure(.userConsentError))
 			return
 		}
 		
-		Log.debug("PPAnayticsSubmitter (from state \(applicationState)) requesting AppConfig…", log: .ppa)
+		Log.debug("PPAnayticsSubmitter \(applicationState) requesting AppConfig…", log: .ppa)
 		// Sink on the app configuration if something has changed. But do this in background.
 		self.configurationProvider.appConfiguration().sink { [ weak self] configuration in
-			Log.debug("PPAnayticsSubmitter recieved AppConfig (from state \(String(describing: self?.applicationState)))", log: .ppa)
+			Log.debug("PPAnayticsSubmitter recieved AppConfig \(String(describing: self?.applicationState)))", log: .ppa)
 			let ppaConfigData = configuration.privacyPreservingAnalyticsParameters.common
 			self?.probabilityToSubmitPPAUsageData = ppaConfigData.probabilityToSubmit
 			self?.hoursSinceTestResultToSubmitKeySubmissionMetadata = ppaConfigData.hoursSinceTestResultToSubmitKeySubmissionMetadata
@@ -89,7 +89,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			self?.probabilityToSubmitExposureWindows = ppaConfigData.probabilityToSubmitExposureWindows
 			
 			guard let strongSelf = self else {
-				Log.warning("Analytics submission (from state \(String(describing: self?.applicationState))) abort due fail at creating strong self", log: .ppa)
+				Log.warning("Analytics submission \(String(describing: self?.applicationState))) abort due fail at creating strong self", log: .ppa)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.generalError))
 				return
@@ -98,7 +98,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			// Check configuration parameter
 			let random = Double.random(in: 0...1)
 			if random > strongSelf.probabilityToSubmitPPAUsageData {
-				Log.warning("Analytics submission (from state \(strongSelf.applicationState)) abort due to randomness. Random is: \(random), probabilityToSubmit is: \(strongSelf.probabilityToSubmitPPAUsageData)", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to randomness. Random is: \(random), probabilityToSubmit is: \(strongSelf.probabilityToSubmitPPAUsageData)", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.probibilityError))
 				return
@@ -106,7 +106,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// Last submission check
 			if strongSelf.submissionWithinLast23HoursAnd55Minutes {
-				Log.warning("Analytics submission (from state \(strongSelf.applicationState)) abort due to submission last 23 hours", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to submission last 23 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.submissionTimeAmountUndercutError))
 				return
@@ -114,7 +114,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// Onboarding check
 			if strongSelf.onboardingCompletedWithinLast24Hours {
-				Log.warning("Analytics submission (from state \(strongSelf.applicationState)) abort due to onboarding completed last 24 hours", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to onboarding completed last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.onboardingError))
 				return
@@ -122,17 +122,17 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// App Reset check
 			if strongSelf.appResetWithinLast24Hours {
-				Log.warning("Analytics submission (from state \(strongSelf.applicationState)) abort due to app resetted last 24 hours", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to app resetted last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.appResetError))
 				return
 			}
 
 			if let token = ppacToken {
-				Log.info("Analytics submission (from state \(strongSelf.applicationState)) has an injected ppac token.", log: .ppa)
+				Log.info("Analytics submission \(strongSelf.applicationState)) has an injected ppac token.", log: .ppa)
 				strongSelf.submitData(with: token, completion: completion)
 			} else {
-				Log.info("Analytics submission (from state \(strongSelf.applicationState)) needs to generate new ppac token.", log: .ppa)
+				Log.info("Analytics submission \(strongSelf.applicationState)) needs to generate new ppac token.", log: .ppa)
 				strongSelf.generatePPACAndSubmitData(completion: completion)
 			}
 		}.store(in: &subscriptions)
@@ -222,13 +222,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private var applicationState: String {
 		switch UIApplication.shared.applicationState {
 		case .active:
-			return "active"
+			return "(AppState: active)"
 		case .background:
-			return "background"
+			return "(AppState: background)"
 		case .inactive:
-			return "inactive"
+			return "(AppState: inactive)"
 		@unknown default:
-			return "unknown"
+			return "(AppState: unknown)"
 		}
 	}
 
@@ -309,10 +309,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case let .success(token):
-				Log.info("Succesfully created new ppac token to submit analytics data (from state \(String(describing: self?.applicationState))).", log: .ppa)
+				Log.info("Succesfully created new ppac token to submit analytics data \(String(describing: self?.applicationState))).", log: .ppa)
 				self?.submitData(with: token, disableExposureWindowsProbability: disableExposureWindowsProbability, completion: completion)
 			case let .failure(error):
-				Log.error("Could not submit analytics data due to ppac authorization error (from state \(String(describing: self?.applicationState)))", log: .ppa, error: error)
+				Log.error("Could not submit analytics data due to ppac authorization error \(String(describing: self?.applicationState)))", log: .ppa, error: error)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.ppacError(error)))
 				return
@@ -321,7 +321,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private func obtainUsageData(disableExposureWindowsProbability: Bool = false) -> SAP_Internal_Ppdd_PPADataIOS {
-		Log.info("Obtaining now all usage data for analytics submission (from state \(applicationState))...", log: .ppa)
+		Log.info("Obtaining now all usage data for analytics submission \(applicationState)...", log: .ppa)
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
@@ -331,7 +331,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let antigenTestResultMetadata = gatherTestResultMetadata(for: .antigen)
 		let newExposureWindows = gatherNewExposureWindows()
 		
-		Log.info("Adding \(newExposureWindows.count) new exposure windows to PPA submission (from state \(applicationState))", log: .ppa)
+		Log.info("Adding \(newExposureWindows.count) new exposure windows to PPA submission \(applicationState)", log: .ppa)
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
@@ -371,8 +371,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				if randomProbability <= probabilityToSubmitExposureWindows {
 					$0.newExposureWindows = newExposureWindows
 				}
-				Log.warning("generated probability to submit New Exposure Windows: \(randomProbability) (from state \(applicationState))", log: .ppa)
-				Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows) (from state \(applicationState))", log: .ppa)
+				Log.warning("generated probability to submit New Exposure Windows: \(randomProbability) \(applicationState)", log: .ppa)
+				Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows) \(applicationState)", log: .ppa)
 			}
 		}
 		
@@ -381,9 +381,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	private func submitData(with ppacToken: PPACToken, disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		
-		Log.info("All checks passed succesfully to submit ppa (from state \(applicationState)). Obtaining usage data right now...", log: .ppa)
+		Log.info("All checks passed succesfully to submit ppa \(applicationState). Obtaining usage data right now...", log: .ppa)
 		let payload = obtainUsageData(disableExposureWindowsProbability: disableExposureWindowsProbability)
-		Log.info("Completed obtaining all usage data for analytics submission (from state \(applicationState)). Sending right now to server...", log: .ppa)
+		Log.info("Completed obtaining all usage data for analytics submission \(applicationState). Sending right now to server...", log: .ppa)
 		
 		var forceApiTokenHeader = false
 		#if !RELEASE
@@ -407,8 +407,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			completion: { [weak self] result in
 				switch result {
 				case .success:
-					Log.info("Analytics data succesfully submitted (from state \(applicationState))", log: .ppa)
-					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) (from state \(applicationState))", log: .ppa)
+					Log.info("Analytics data succesfully submitted \(String(describing: self?.applicationState)))", log: .ppa)
+					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
 					// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
 					self?.store.currentENFRiskExposureMetadata = nil
@@ -433,11 +433,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					self?.store.lastSubmissionAnalytics = Date()
 					self?.submissionState = .readyForSubmission
-					Log.info("Analytics submission successfully post-processed (from state \(String(describing: self?.applicationState)))", log: .ppa)
+					Log.info("Analytics submission successfully post-processed \(String(describing: self?.applicationState)))", log: .ppa)
 					completion?(result)
 				case let .failure(error):
-					Log.error("Analytics data were not submitted (from state \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
-					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) (from state \(String(describing: self?.applicationState)))", log: .ppa)
+					Log.error("Analytics data were not submitted \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
+					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
 					// tech spec says, we want a fresh state if submission fails
 					self?.store.currentENFRiskExposureMetadata = nil
 					self?.store.currentCheckinRiskExposureMetadata = nil
