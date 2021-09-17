@@ -99,7 +99,7 @@ jobs:
       - run:
           name: Swiftlint
           command: |
-            vendor/swiftlint --version
+            swiftlint --version
             cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
           path: src/xcode/swiftlint.html
@@ -116,7 +116,7 @@ jobs:
       - run:
           name: Analyze (experimental)
           command: |
-            vendor/swiftlint --version
+            swiftlint --version
             cd src/xcode && bundle exec fastlane analyze || true
       - store_artifacts:
           path: src/xcode/swiftlint.analyze.html

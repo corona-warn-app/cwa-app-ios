@@ -65,7 +65,7 @@ platform :ios do
   desc "Lint code"
   lane :lint do
     swiftlint(
-      executable: "../../vendor/swiftlint",
+      executable: "swiftlint",
       mode: :lint,
       output_file: "swiftlint.html",
       config_file: "ENA/.swiftlint.yml",
