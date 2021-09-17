@@ -63,7 +63,7 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.view.backgroundColor = .enaColor(for: .background)
 		return viewController
 	}()
-
+	
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
@@ -99,7 +99,8 @@ class RootCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
-			elsService: elsService
+			elsService: elsService,
+			exposureSubmissionService: exposureSubmissionService
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -144,7 +145,9 @@ class RootCoordinator: RequiresAppDependencies {
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 
@@ -283,6 +286,31 @@ class RootCoordinator: RequiresAppDependencies {
 	private(set) var qrScannerCoordinator: QRScannerCoordinator?
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+	
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		#if DEBUG
+		if isUITesting {
+			let store = MockTestStore()
+			return ENAExposureSubmissionService(
+				diagnosisKeysRetrieval: exposureManager,
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
+				client: ClientMock(),
+				store: store,
+				eventStore: eventStore,
+				coronaTestService: coronaTestService
+			)
+		}
+		#endif
+
+		return ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			eventStore: eventStore,
+			coronaTestService: coronaTestService
+		)
+	}()
 }
 
 // MARK: - Protocol ExposureStateUpdating

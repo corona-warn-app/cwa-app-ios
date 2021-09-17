@@ -16,7 +16,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		coronaTestService: CoronaTestService,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
-		elsService: ErrorLogSubmissionProviding
+		elsService: ErrorLogSubmissionProviding,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -26,6 +27,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
+		self.exposureSubmissionService = exposureSubmissionService
 	}
 
 	deinit {
@@ -167,6 +169,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -181,7 +184,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	
 	private (set) lazy var exposureSubmissionCoordinator: ExposureSubmissionCoordinator = {
 		ExposureSubmissionCoordinator(
-			parentNavigationController: rootViewController,
+			parentViewController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			healthCertificateService: healthCertificateService,
@@ -193,32 +196,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		)
 	}()
 	   
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		#if DEBUG
-		if isUITesting {
-			let store = MockTestStore()
-			return ENAExposureSubmissionService(
-				diagnosisKeysRetrieval: exposureManager,
-				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
-				client: ClientMock(),
-				store: store,
-				eventStore: eventStore,
-				coronaTestService: coronaTestService
-			)
-		}
-		#endif
-
-		return ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: coronaTestService
-		)
-	}()
-
 	private lazy var statisticsProvider: StatisticsProvider = {
 			#if DEBUG
 			if isUITesting {

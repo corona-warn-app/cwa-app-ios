@@ -31,7 +31,8 @@ class ExposureSubmissionCoordinatorModel {
 
 	let exposureSubmissionService: ExposureSubmissionService
 	let coronaTestService: CoronaTestService
-
+	let eventProvider: EventProviding
+	
 	var coronaTestType: CoronaTestType?
 
 	var coronaTest: CoronaTest? {
@@ -41,8 +42,6 @@ class ExposureSubmissionCoordinatorModel {
 
 		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
-
-	let eventProvider: EventProviding
 
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
 		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),

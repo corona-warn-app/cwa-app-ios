@@ -29,7 +29,9 @@ class QRScannerCoordinator {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
-		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService
 	) {
 		self.store = store
 		self.client = client
@@ -40,8 +42,8 @@ class QRScannerCoordinator {
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
-		
-		self.navigationController = DismissHandlingNavigationController(rootViewController: QRScannerViewController())
+		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
 	}
 	
 	// MARK: - Overrides
@@ -50,11 +52,12 @@ class QRScannerCoordinator {
 	
 	// MARK: - Internal
 	
+	// TODO: missing the info from where we come to decide the notification
 	func start(
 		from parentViewController: UIViewController
 	) {
 		self.parentViewController = parentViewController
-		navigationController = UINavigationController(rootViewController: qrScannerViewController)
+		let navigationController = UINavigationController(rootViewController: qrScannerViewController)
 		self.parentViewController?.present(navigationController, animated: true)
 	}
 		
@@ -69,11 +72,13 @@ class QRScannerCoordinator {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let coronaTestService: CoronaTestService
 	
-	private var parentViewController: UIViewController?
-	private var navigationController: UINavigationController
+	private var parentViewController: UIViewController!
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
+	private var exposureSubmissionCoordinator: ExposureSubmissionCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	
 	private lazy var rootNavigationController: UINavigationController = {
@@ -112,14 +117,25 @@ class QRScannerCoordinator {
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
-		// TODO: Wait until naveed has finished changing the submission flow so we can call here a subflow.
-		
+		exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+			parentViewController: parentViewController,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			eventProvider: eventStore,
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+		)
+		exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
 	}
 	
 	private func showScannedHealthCertificate(
 		for person: HealthCertifiedPerson,
 		with certificate: HealthCertificate
 	) {
+		// TODO dismiss first the qrScannerViewController and then present the flow
 		healthCertificateCoordinator = HealthCertificateCoordinator(
 			parentingViewController: .present(qrScannerViewController),
 			healthCertifiedPerson: person,

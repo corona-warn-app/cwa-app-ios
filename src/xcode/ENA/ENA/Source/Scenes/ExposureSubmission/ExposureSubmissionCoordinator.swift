@@ -16,7 +16,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: - Init
 
 	init(
-		parentNavigationController: UINavigationController,
+		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
 		healthCertificateService: HealthCertificateService,
@@ -27,7 +27,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 		
 	) {
-		self.parentNavigationController = parentNavigationController
+		self.parentViewController = parentViewController
 		self.antigenTestProfileStore = antigenTestProfileStore
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
@@ -81,7 +81,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .default
 			)
 		)
-		parentNavigationController?.present(alert, animated: true)
+		parentViewController?.present(alert, animated: true)
 	}
 
 	func dismiss(completion: (() -> Void)? = nil) {
@@ -129,22 +129,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let topBottomViewController = TopBottomContainerViewController(topController: vc, bottomController: footerViewController)
 		
 		push(topBottomViewController)
-	}
-	
-	func showRegisterTestFlowFromQRScanner(
-		on qrScannerNavigationController: UINavigationController,
-		supportedCountries: [Country],
-		with testRegistrationInformation: CoronaTestRegistrationInformation
-	) {
-		
-		// This should trigger first the consent screen.
-		// TODO: Not sure about the isLoading
-		showOverrideTestNoticeIfNecessary(
-			testRegistrationInformation: testRegistrationInformation,
-			submissionConsentGiven: true,
-			isLoading: { _ in
-			}
-		)
 	}
 
 	/// This method selects the correct initial view controller among the following options:
@@ -206,7 +190,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Private
 
-	private weak var parentNavigationController: UINavigationController?
+	private weak var parentViewController: UIViewController?
 	private weak var presentedViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
@@ -233,7 +217,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Start
 
 	private func start(with initialViewController: UIViewController) {
-		guard let parentNavigationController = parentNavigationController else {
+		guard let parentViewController = parentViewController else {
 			Log.error("Parent navigation controller not set.", log: .ui)
 			return
 		}
@@ -247,7 +231,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			rootViewController: initialViewController
 		)
-		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
+		parentViewController.present(exposureSubmissionNavigationController, animated: true)
 		navigationController = exposureSubmissionNavigationController
 	}
 
@@ -606,7 +590,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			didTapCloseButton: { [weak self] in
 				// on cancel the submission flow is stopped immediately
-				self?.parentNavigationController?.dismiss(animated: true)
+				self?.parentViewController?.dismiss(animated: true)
 			}
 		)
 

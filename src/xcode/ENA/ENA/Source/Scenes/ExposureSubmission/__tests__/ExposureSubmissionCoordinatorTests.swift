@@ -108,7 +108,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		exposureSubmissionService: ExposureSubmissionService
 	) -> ExposureSubmissionCoordinator {
 		ExposureSubmissionCoordinator(
-			parentNavigationController: parentNavigationController,
+			parentViewController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			healthCertificateService: healthCertificateService,
