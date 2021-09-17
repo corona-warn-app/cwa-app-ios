@@ -530,6 +530,8 @@
 		5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */; };
 		500DB4CC25CDDECF0038DFED /* PPASResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4CB25CDDECF0038DFED /* PPASResponse.swift */; };
 		500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4D325CDE5C20038DFED /* PPASError.swift */; };
+		5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */; };
+		5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */; };
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
 		501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */; };
@@ -775,6 +777,10 @@
 		8FB776EF26EA3255005255BB /* DMBoosterRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */; };
 		8FB776F126EA532C005255BB /* DMBoosterChoosePersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */; };
 		8FB776F326EA5338005255BB /* DMBoosterChoosePersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */; };
+		8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */; };
+		8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F626F25AE5005255BB /* QRCodeResult.swift */; };
+		8FB776F926F27E1D005255BB /* CoronaTestsQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */; };
+		8FB776FB26F28336005255BB /* HealthCertificateQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FE6CEFD2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */; };
@@ -1924,6 +1930,8 @@
 		5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollector.swift; sourceTree = "<group>"; };
 		500DB4CB25CDDECF0038DFED /* PPASResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASResponse.swift; sourceTree = "<group>"; };
 		500DB4D325CDE5C20038DFED /* PPASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPASError.swift; sourceTree = "<group>"; };
+		5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
+		5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		5017F64C25FFAD11003A812E /* PPASubmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASubmissionState.swift; sourceTree = "<group>"; };
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
 		501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
@@ -2189,6 +2197,10 @@
 		8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterRulesViewModel.swift; sourceTree = "<group>"; };
 		8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewController.swift; sourceTree = "<group>"; };
 		8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMBoosterChoosePersonViewModel.swift; sourceTree = "<group>"; };
+		8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeParser.swift; sourceTree = "<group>"; };
+		8FB776F626F25AE5005255BB /* QRCodeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeResult.swift; sourceTree = "<group>"; };
+		8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestsQRCodeParser.swift; sourceTree = "<group>"; };
+		8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeParser.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE6CEFC2617482C006BFB82 /* CheckinQRCodeScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewModelTests.swift; sourceTree = "<group>"; };
@@ -4420,6 +4432,28 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5013B17F26EBA34200A2DD54 /* QRScanner */ = {
+			isa = PBXGroup;
+			children = (
+				5013B18126EBA37600A2DD54 /* Model */,
+				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
+				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
+			);
+			path = QRScanner;
+			sourceTree = "<group>";
+		};
+		5013B18126EBA37600A2DD54 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				505C3BE926F3C2790064F729 /* Parser */,
+				8FB776F626F25AE5005255BB /* QRCodeResult.swift */,
+				01C6AC31252B29C00052814D /* QRScannerError.swift */,
+				8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */,
+				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5017F65D25FFC1CF003A812E /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -4498,6 +4532,16 @@
 				504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */,
 			);
 			path = DMPPAnalytics;
+			sourceTree = "<group>";
+		};
+		505C3BE926F3C2790064F729 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */,
+				8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */,
+				8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		505F506825C833A9004920EB /* ppdd */ = {
@@ -5100,7 +5144,6 @@
 				50C0296725E4067400460FA4 /* Metadata */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 				BAB9FC592630555600EB4E76 /* Profile */,
-				8F3202482600C7F600D6A224 /* QR Code Scanning */,
 				8FDB9401261FBA0F00BA8CB1 /* Submisstion */,
 				138910C3247A907500D739F6 /* Task Scheduling */,
 				2EB7D687268076F200633D30 /* Async Operation */,
@@ -5242,19 +5285,19 @@
 			children = (
 				B10F9B88249961B500C418F4 /* __tests__ */,
 				501ABC54267C9FD7008F37CA /* AddButtonAsTableViewCell */,
-				501ABC51267B84D9008F37CA /* MissingPermissionCell */,
-				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
+				51B5B41A246E059700DC5D3E /* Common */,
 				0138F63025F114E700A9B075 /* EmptyStateView */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
+				501ABC51267B84D9008F37CA /* MissingPermissionCell */,
 				50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */,
-				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
-				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
+				01CBB82B2660F3690094CF8B /* CardView.swift */,
 				85E33443247EB357006E74EC /* CircularProgressView.swift */,
-				2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */,
+				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
+				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				BA2B393925F7C6F700374CF1 /* GradientView.swift */,
 				01C6AC25252B23D70052814D /* QRScannerFocusView.swift */,
-				01CBB82B2660F3690094CF8B /* CardView.swift */,
+				2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */,
 				2EDE67F8266E406900864D53 /* StackViewLabel.swift */,
 			);
 			path = Views;
@@ -5365,6 +5408,7 @@
 				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
+				5013B17F26EBA34200A2DD54 /* QRScanner */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				51D420C224583D7B00AD70CA /* Settings */,
@@ -5458,15 +5502,6 @@
 				ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */,
 			);
 			path = StoreV1;
-			sourceTree = "<group>";
-		};
-		8F3202482600C7F600D6A224 /* QR Code Scanning */ = {
-			isa = PBXGroup;
-			children = (
-				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
-				01C6AC31252B29C00052814D /* QRScannerError.swift */,
-			);
-			path = "QR Code Scanning";
 			sourceTree = "<group>";
 		};
 		8F39D05C263C40DB0096F4E2 /* VaccinationValueSets */ = {
@@ -7427,7 +7462,6 @@
 				8F7C39C4261B379900AEC979 /* __tests__ */,
 				BAEE122325ED027F009A0284 /* apple-app-site-association */,
 				BAA4D73525E9613200821B5C /* CheckinQRCodeScannerViewController.swift */,
-				8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */,
 				BAEE121B25ECF7AB009A0284 /* CheckinQRCodeScannerViewModel.swift */,
 			);
 			path = QRCodeScanner;
@@ -8660,6 +8694,7 @@
 				8F3167E826A5D929008F35AA /* RegionType.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
+				5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */,
 				0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
@@ -9082,13 +9117,16 @@
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
+				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
+				8FB776FB26F28336005255BB /* HealthCertificateQRCodeParser.swift in Sources */,
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,
 				01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */,
 				BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */,
+				5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */,
 				01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */,
 				8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
@@ -9141,6 +9179,7 @@
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
 				501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */,
+				8FB776F926F27E1D005255BB /* CoronaTestsQRCodeParser.swift in Sources */,
 				01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */,
 				EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
@@ -9175,6 +9214,7 @@
 				AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
+				8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */,
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
