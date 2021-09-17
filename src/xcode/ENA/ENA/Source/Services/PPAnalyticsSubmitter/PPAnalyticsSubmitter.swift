@@ -219,16 +219,19 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private var applicationState: String {
-		switch UIApplication.shared.applicationState {
-		case .active:
-			return "(AppState: active)"
-		case .background:
-			return "(AppState: background)"
-		case .inactive:
-			return "(AppState: inactive)"
-		@unknown default:
-			return "(AppState: unknown)"
+		DispatchQueue.main.sync {
+			switch UIApplication.shared.applicationState {
+			case .active:
+				return "(AppState: active)"
+			case .background:
+				return "(AppState: background)"
+			case .inactive:
+				return "(AppState: inactive)"
+			@unknown default:
+				return "(AppState: unknown)"
+			}
 		}
+		
 	}
 
 	private func shouldIncludeKeySubmissionMetadata(for type: CoronaTestType) -> Bool {
