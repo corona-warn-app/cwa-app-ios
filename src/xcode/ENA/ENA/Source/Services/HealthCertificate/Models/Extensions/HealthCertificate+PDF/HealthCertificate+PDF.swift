@@ -25,6 +25,7 @@ extension HealthCertificate {
 			with: base45,
 			encoding: .utf8,
 			size: CGSize(width: 150, height: 150),
+			scale: 1,
 			qrCodeErrorCorrectionLevel: .medium
 		) else {
 			throw PDFGenerationError.qrCodeCreationFailed

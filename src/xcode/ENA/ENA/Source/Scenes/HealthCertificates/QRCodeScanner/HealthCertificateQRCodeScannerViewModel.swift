@@ -159,10 +159,6 @@ class HealthCertificateQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutput
 		}
 	}
 
-	#if DEBUG
-
-	#endif
-
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
