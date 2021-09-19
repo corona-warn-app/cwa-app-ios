@@ -61,11 +61,11 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		}
 		parseTheExtractedQRCode(url: url)
 	}
-		
+	
 	var completion: ((Result<QRCodeResult, QRCodeParserError>) -> Void)
 
 	// MARK: - Internal
-
+	
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
 		guard let device = captureDevice,

@@ -25,7 +25,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		antigenTestProfileStore: AntigenTestProfileStoring,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
-		
 	) {
 		self.parentViewController = parentViewController
 		self.antigenTestProfileStore = antigenTestProfileStore
@@ -63,14 +62,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				case let .failure(qrCodeError):
 					switch qrCodeError {
 					case .invalidTestCode:
-						self.showRATInvalidQQCode()
+						self.showRATInvalidQRCode()
 					}
 				}
 			}
 		)
 	}
 
-	private func showRATInvalidQQCode() {
+	private func showRATInvalidQRCode() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
 			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
@@ -154,12 +153,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] isLoading in
-				self?.model.exposureSubmissionService.loadSupportedCountries(
-					isLoading: isLoading,
-					onSuccess: { supportedCountries in
-						self?.showQRInfoScreen(supportedCountries: supportedCountries)
-					}
-				)
+				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			onFindTestCentersTap: {
 				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
@@ -238,7 +232,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Initial Screens
 
 	private func createTestResultAvailableViewController() -> UIViewController {
-        guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
+		guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Cannot create a test result available view controller without a corona test")
 		}
 
@@ -440,7 +434,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 
-	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation?) -> UIViewController {
+	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -450,23 +444,37 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							if let error = error as? ENError {
 								switch error.toExposureSubmissionError() {
 								case .notAuthorized:
-									// user did not authorize -> continue to scanning the qr code
-									self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+									self?.showOverrideTestNoticeIfNecessary(
+										testRegistrationInformation: testRegistrationInformation,
+										submissionConsentGiven: true,
+										isLoading: isLoading
+									)
 								default:
 									// present alert
 									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
-										self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+										self?.showOverrideTestNoticeIfNecessary(
+											testRegistrationInformation: testRegistrationInformation,
+											submissionConsentGiven: true,
+											isLoading: isLoading
+										)
 									})
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
 							} else {
-								// continue to scanning the qr code
-								self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+								self?.showOverrideTestNoticeIfNecessary(
+									testRegistrationInformation: testRegistrationInformation,
+									submissionConsentGiven: true,
+									isLoading: isLoading
+								)
 							}
 						}
 					})
 				} else {
-					self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+					self?.showOverrideTestNoticeIfNecessary(
+						testRegistrationInformation: testRegistrationInformation,
+						submissionConsentGiven: true,
+						isLoading: isLoading
+					)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -490,8 +498,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
-	private func showQRInfoScreen(supportedCountries: [Country]) {
-		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: nil))
+	private func showQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) {
+		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
@@ -506,10 +514,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				onSuccess: { testRegistrationInformation in
 					DispatchQueue.main.async { [weak self] in
 						self?.presentedViewController?.dismiss(animated: true) {
-							self?.showOverrideTestNoticeIfNecessary(
-								testRegistrationInformation: testRegistrationInformation,
-								submissionConsentGiven: true,
-								isLoading: isLoading
+							self?.model.exposureSubmissionService.loadSupportedCountries(
+								isLoading: isLoading,
+								onSuccess: { supportedCountries in
+									self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
+								}
 							)
 						}
 					}
@@ -1224,13 +1233,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			store: store,
 			didTapContinue: { [weak self] isLoading in
 				self?.model.coronaTestType = .antigen
-				self?.model.exposureSubmissionService.loadSupportedCountries(
-					isLoading: isLoading,
-					onSuccess: { supportedCountries in
-						self?.showQRInfoScreen(supportedCountries: supportedCountries)
-					}
-				)
-
+				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()
