@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "flash_disabled.pdf",
+      "filename" : "noflash_dark.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "noflash.pdf",
       "idiom" : "universal"
     }
   ],
