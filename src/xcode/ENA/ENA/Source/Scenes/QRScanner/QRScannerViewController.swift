@@ -5,7 +5,6 @@
 import UIKit
 import AVFoundation
 
-// swiftlint:disable convenience_type
 class QRScannerViewController: UIViewController {
 
 	// MARK: - Init
