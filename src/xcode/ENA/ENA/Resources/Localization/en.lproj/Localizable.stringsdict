@@ -236,6 +236,36 @@
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 		</dict>
 	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>No entry rules are currently available for the selected country and selected time for this certificate type. Please note the following:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>%u rule of the destination country was checked successfully.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>%u rules of the destination country were checked successfully.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>%u rules of the destination country were checked successfully.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>%u rules of the destination country were checked successfully.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>%u rules of the destination country were checked successfully.</string>
+		</dict>
+	</dict>
 	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -266,7 +296,7 @@
 			<string>You have now received all the currently planned vaccinations, however, your vaccination protection will not be complete for another %u days.</string>
 		</dict>
 	</dict>
-	<key>HealthCertificate_Validation_Passed_description</key>
+	<key>HealthCertifiedPerson_daysSinceLastVaccination</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -278,22 +308,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>No entry rules are currently available for the selected country and selected time for this certificate type. Please note the following:</string>
+			<string>last vaccination today</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u rule of the destination country was checked successfully.</string>
+			<string>last vaccination %u day ago</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u rules of the destination country were checked successfully.</string>
+			<string>Last vaccination %u days ago</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u rules of the destination country were checked successfully.</string>
+			<string>Last vaccination %u days ago</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u rules of the destination country were checked successfully.</string>
+			<string>Last vaccination %u days ago</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u rules of the destination country were checked successfully.</string>
+			<string>Last vaccination %u days ago</string>
 		</dict>
 	</dict>
 </dict>

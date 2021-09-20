@@ -57,7 +57,7 @@ final class ValidationResultCellModel {
 	}
 
 	var ruleDescription: String? {
-		validationResult.rule?.localizedDescription
+		validationResult.rule?.localizedDescription()
 	}
 
 	var ruleTypeDescription: String? {
