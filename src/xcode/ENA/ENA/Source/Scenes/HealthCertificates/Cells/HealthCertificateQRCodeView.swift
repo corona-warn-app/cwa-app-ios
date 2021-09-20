@@ -31,6 +31,7 @@ class HealthCertificateQRCodeView: UIView {
 		qrCodeImageView.image = viewModel.qrCodeImage
 		accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
+		noticeLabel.isHidden = viewModel.shouldBlockCertificateCode
 	}
 
 	// MARK: - Private
@@ -69,6 +70,9 @@ class HealthCertificateQRCodeView: UIView {
 		backgroundColor = .clear
 		accessibilityTraits = .image
 
+		noticeLabel.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(noticeLabel)
+
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(qrCodeImageView)
 
@@ -79,15 +83,20 @@ class HealthCertificateQRCodeView: UIView {
 		blockingView.addSubview(warningTriangleImageView)
 		
 		NSLayoutConstraint.activate([
+			noticeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+			noticeLabel.topAnchor.constraint(equalTo: topAnchor),
+			noticeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+
 			qrCodeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			qrCodeImageView.topAnchor.constraint(equalTo: topAnchor),
+			qrCodeImageView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 14.0),
 			qrCodeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			qrCodeImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			qrCodeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
+			qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
 
 			blockingView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			blockingView.topAnchor.constraint(equalTo: topAnchor),
 			blockingView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			blockingView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			blockingView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
 
 			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
 			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
