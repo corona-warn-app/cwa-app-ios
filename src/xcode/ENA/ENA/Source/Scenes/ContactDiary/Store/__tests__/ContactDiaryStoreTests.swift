@@ -1022,9 +1022,10 @@ class ContactDiaryStoreTests: CWATestCase {
 
 		// Reset store and check if date was removed.
 
-		guard case .success = store.reset() else {
-			XCTFail("Failure not expected.")
-			return
+		let resetResult = store.reset()
+		
+		if case .failure(let error) = resetResult {
+			XCTFail("Failure not expected. Got: \(error)")
 		}
 
 		let numberOfDiaryEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
