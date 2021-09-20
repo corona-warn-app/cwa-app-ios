@@ -31,6 +31,10 @@ struct HealthCertificateQRCodeViewModel {
 
 	// MARK: - Internal
 
+	let shouldBlockCertificateCode: Bool
+	let accessibilityLabel: String
+	let showInfo: () -> Void = { Log.debug("Info button hit") }
+
 	var qrCodeImage: UIImage? {
 		var qrCodeString: String
 		if shouldBlockCertificateCode {
@@ -49,9 +53,6 @@ struct HealthCertificateQRCodeViewModel {
 			qrCodeErrorCorrectionLevel: .medium
 		)
 	}
-
-	let shouldBlockCertificateCode: Bool
-	let accessibilityLabel: String
 
 	// MARK: - Private
 

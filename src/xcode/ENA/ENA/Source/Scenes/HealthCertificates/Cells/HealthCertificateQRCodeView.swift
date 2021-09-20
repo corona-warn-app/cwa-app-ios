@@ -32,6 +32,7 @@ class HealthCertificateQRCodeView: UIView {
 		accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
 		noticeLabel.isHidden = viewModel.shouldBlockCertificateCode
+		infoButtonaction = viewModel.showInfo
 	}
 
 	// MARK: - Private
@@ -47,16 +48,8 @@ class HealthCertificateQRCodeView: UIView {
 	private let infoButton: UIButton = {
 		let button = UIButton()
 		button.setImage(UIImage(imageLiteralResourceName: "info"), for: .normal)
+		button.addTarget(self, action: #selector(didHitInfoButton), for: .touchUpInside)
 		return button
-	}()
-
-	private lazy var topStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [noticeLabel, infoButton])
-		stackView.axis = .horizontal
-		stackView.spacing = 4.0
-		stackView.alignment = .center
-		stackView.distribution = .fillProportionally
-		return stackView
 	}()
 
 	private let qrCodeImageView: UIImageView = {
@@ -81,6 +74,8 @@ class HealthCertificateQRCodeView: UIView {
 		return warningTriangleImageView
 	}()
 
+	private var infoButtonaction: (() -> Void)?
+
 	private func setUp() {
 		backgroundColor = .clear
 		accessibilityTraits = .image
@@ -103,7 +98,6 @@ class HealthCertificateQRCodeView: UIView {
 		NSLayoutConstraint.activate([
 			noticeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
 			noticeLabel.topAnchor.constraint(equalTo: topAnchor),
-//			noticeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
 
 			infoButton.leadingAnchor.constraint(equalTo: noticeLabel.trailingAnchor, constant: 4.0),
 			infoButton.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -126,6 +120,11 @@ class HealthCertificateQRCodeView: UIView {
 			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
 			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
 		])
+	}
+
+	@objc
+	private func didHitInfoButton() {
+		infoButtonaction?()
 	}
 
 }
