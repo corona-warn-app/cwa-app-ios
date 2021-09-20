@@ -44,6 +44,21 @@ class HealthCertificateQRCodeView: UIView {
 		return noticeLabel
 	}()
 
+	private let infoButton: UIButton = {
+		let button = UIButton()
+		button.setImage(UIImage(imageLiteralResourceName: "info"), for: .normal)
+		return button
+	}()
+
+	private lazy var topStackView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [noticeLabel, infoButton])
+		stackView.axis = .horizontal
+		stackView.spacing = 4.0
+		stackView.alignment = .center
+		stackView.distribution = .fillProportionally
+		return stackView
+	}()
+
 	private let qrCodeImageView: UIImageView = {
 		let qrCodeImageView = UIImageView()
 		qrCodeImageView.contentMode = .scaleAspectFit
@@ -73,6 +88,9 @@ class HealthCertificateQRCodeView: UIView {
 		noticeLabel.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(noticeLabel)
 
+		infoButton.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(infoButton)
+
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(qrCodeImageView)
 
@@ -85,12 +103,19 @@ class HealthCertificateQRCodeView: UIView {
 		NSLayoutConstraint.activate([
 			noticeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
 			noticeLabel.topAnchor.constraint(equalTo: topAnchor),
-			noticeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+//			noticeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+			infoButton.leadingAnchor.constraint(equalTo: noticeLabel.trailingAnchor, constant: 4.0),
+			infoButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+			infoButton.centerYAnchor.constraint(equalTo: noticeLabel.centerYAnchor),
+			infoButton.widthAnchor.constraint(equalToConstant: 30.0),
+			infoButton.heightAnchor.constraint(equalToConstant: 30.0),
 
 			qrCodeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			qrCodeImageView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 14.0),
 			qrCodeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			qrCodeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
+
 			qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
 
 			blockingView.leadingAnchor.constraint(equalTo: leadingAnchor),
