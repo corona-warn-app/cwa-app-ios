@@ -13,16 +13,21 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.10"
+		self.featureVersion = "2.11"
 		
-		// Booster Vaccination
+		// Universal QR Code Scanner
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature210BoosterVaccinationTitle, description: AppStrings.NewVersionFeatures.feature210BoosterVaccinationDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211UniversalQRCodeScannerTitle, description: AppStrings.NewVersionFeatures.feature211UniversalQRCodeScannerDescription)
 		)
 		
-		// Print verson of vaccination certificate
+		// QR Code Import
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature210PrintVersionVaccinationCertificateTitle, description: AppStrings.NewVersionFeatures.feature210PrintVersionVaccinationCertificateDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211QRCodeImportTitle, description: AppStrings.NewVersionFeatures.feature211QRCodeImportDescription)
+		)
+		
+		// Adjustment in contact duration
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211ContactDurationAdjustmentTitle, description: AppStrings.NewVersionFeatures.feature211ContactDurationAdjustmentDescription)
 		)
 	}
 
