@@ -999,7 +999,7 @@ class ContactDiaryStoreTests: CWATestCase {
 	}
 
 	func test_When_Reset_Then_DatabaseIsEmpty() {
-		let databaseQueue = makeDatabaseQueue()
+		let databaseQueue = makeRandomDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
 		databaseQueue.inDatabase { database in
@@ -1290,6 +1290,16 @@ class ContactDiaryStoreTests: CWATestCase {
 
 	private func makeDatabaseQueue() -> FMDatabaseQueue {
 		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {
+			fatalError("Could not create FMDatabaseQueue.")
+		}
+		return databaseQueue
+	}
+	
+	private func makeRandomDatabaseQueue() -> FMDatabaseQueue {
+		guard let tempDatabaseURL = try? makeTempDatabaseURL() else {
+			fatalError("Could not create tempURL for FMDatabaseQueue")
+		}
+		guard let databaseQueue = FMDatabaseQueue(path: tempDatabaseURL.path) else {
 			fatalError("Could not create FMDatabaseQueue.")
 		}
 		return databaseQueue
