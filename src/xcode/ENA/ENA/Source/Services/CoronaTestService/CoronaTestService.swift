@@ -492,6 +492,10 @@ class CoronaTestService {
 		return healthTuple
 	}
 
+	func resetUnseenTestResultCount() {
+		unseenTestResultCount.value = 0
+	}
+
 	// MARK: - Private
 
 	private let client: Client
@@ -510,6 +514,8 @@ class CoronaTestService {
 	private var antigenTestOutdatedDate: Date?
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private(set) var unseenTestResultCount = CurrentValueSubject<Int, Never>(0)
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -538,6 +544,12 @@ class CoronaTestService {
 				if let antigenTest = antigenTest {
 					self?.setupOutdatedPublisher(for: antigenTest)
 				}
+			}
+			.store(in: &subscriptions)
+		
+		unseenTestResultCount
+			.sink { [weak self] in
+				self?.store.unseenTestResultCount = $0
 			}
 			.store(in: &subscriptions)
 	}
@@ -688,10 +700,12 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 					
 					self.pcrTest?.testResult = testResult
+					self.unseenTestResultCount.value += 1
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 
 					self.antigenTest?.testResult = testResult
+					self.unseenTestResultCount.value += 1
 
 					updatedSampleCollectionDate = response.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
