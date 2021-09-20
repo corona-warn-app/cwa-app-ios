@@ -15,13 +15,15 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
-		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
+		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
+		self.showInfo = showInfoHit
 
 		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
@@ -129,6 +131,9 @@ final class HealthCertifiedPersonViewModel {
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
 			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
 				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+			},
+			showInfoHit: { [ weak self] in
+				self?.showInfo()
 			}
 		)
 	}
@@ -202,7 +207,7 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
-
+	private let showInfo: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
