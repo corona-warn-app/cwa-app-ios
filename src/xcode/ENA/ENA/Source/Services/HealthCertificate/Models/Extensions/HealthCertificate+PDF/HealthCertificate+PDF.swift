@@ -14,30 +14,33 @@ extension HealthCertificate {
 
 	// MARK: - Internal
 
-	 func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle = Bundle.main) throws -> PDFDocument {
-		let pdfTemplate = self.pdfTemplate(from: bundle)
-		
-		guard let pdfDocument = PDFDocument(data: pdfTemplate) else {
+	func pdfDocument(with valueSets: SAP_Internal_Dgc_ValueSets, from bundle: Bundle = Bundle.main) throws -> PDFDocument {
+
+		guard let dataProvider = CGDataProvider(data: pdfTemplate(from: bundle) as CFData), let originalDocument = CGPDFDocument(dataProvider) else {
 			throw PDFGenerationError.pdfDocumentCreationFailed
 		}
 
-		guard let qrCodeImage = UIImage.qrCode(
+		guard let image = CIImage.qrCode(
 			with: base45,
 			encoding: .utf8,
-			size: CGSize(width: 150, height: 150),
+			size: CGSize(width: 1000, height: 1000),
 			scale: 1,
 			qrCodeErrorCorrectionLevel: .medium
 		) else {
 			throw PDFGenerationError.qrCodeCreationFailed
 		}
 
-		try pdfDocument.embedImageAndText(
-			image: qrCodeImage,
-			at: CGPoint(x: 132, y: 436),
-			texts: texts(with: valueSets)
-		)
+		do {
+			let pdfDocument = try originalDocument.pdfDocumentEmbeddingImageAndText(
+				image: image,
+				at: CGRect(x: 132, y: 436, width: 150, height: 150),
+				texts: texts(with: valueSets)
+			)
 
-		return pdfDocument
+			return pdfDocument
+		} catch {
+			throw PDFGenerationError.pdfDocumentCreationFailed
+		}
 	}
 	
 	// MARK: - Private
@@ -53,10 +56,11 @@ extension HealthCertificate {
 			templateName = "RecoveryCertificateTemplate_v4.1"
 		}
 
-		guard let tempalteURL = bundle.url(forResource: templateName, withExtension: "pdf"),
-			  let templateData = FileManager.default.contents(atPath: tempalteURL.path) else {
+		guard let templateURL = bundle.url(forResource: templateName, withExtension: "pdf"),
+			  let templateData = FileManager.default.contents(atPath: templateURL.path) else {
 			fatalError("Could not load pdf template.")
 		}
+
 		return templateData
 	}
 

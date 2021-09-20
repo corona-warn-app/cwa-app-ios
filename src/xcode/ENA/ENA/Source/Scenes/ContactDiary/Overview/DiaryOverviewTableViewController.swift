@@ -49,7 +49,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
 		rightBarButton.accessibilityLabel = AppStrings.ContactDiary.Overview.menuButtonTitle
 		rightBarButton.tintColor = .enaColor(for: .tint)
-		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
+		navigationItem.setRightBarButton(rightBarButton, animated: false)
+		navigationItem.setHidesBackButton(true, animated: false)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
