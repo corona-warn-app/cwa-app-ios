@@ -128,7 +128,7 @@ extension CGPDFDocument {
 		// End the PDF context, essentially closing the PDF document context.
 		UIGraphicsEndPDFContext()
 		
-		// Somehow iOS 12 does not like initialising 'PDFDocument' directly from data so we have to safe the data to disk just to read it again into PDFDocument
+		// Somehow iOS 12 does not like initialising 'PDFDocument' directly from data so we have to save the data to disk just to read it again into a PDFDocument
 		let temporaryDirectoryURL = URL(
 			fileURLWithPath: NSTemporaryDirectory(),
 			isDirectory: true
