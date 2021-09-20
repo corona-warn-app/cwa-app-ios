@@ -91,11 +91,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private let nameLabel: ENALabel = {
-		let nameLabel = ENALabel()
+		let nameLabel = ENALabel(style: .title2)
 		nameLabel.numberOfLines = 0
 		nameLabel.textColor = .enaColor(for: .textContrast)
-		nameLabel.font = .enaFont(for: .title2, weight: .light, italic: false)
-
 		return nameLabel
 	}()
 
@@ -128,7 +126,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private lazy var stackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [titleLabel, nameLabel])
 		stackView.axis = .vertical
-		stackView.spacing = 16.0
+		stackView.spacing = 8.0
 
 		return stackView
 	}()
