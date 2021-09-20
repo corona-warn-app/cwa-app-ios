@@ -1985,6 +1985,10 @@ enum AppStrings {
 
 	enum HealthCertificate {
 
+		enum UnifiedQRCode {
+			static let notice = NSLocalizedString("HealthCertificate_unified_QR_code_notice", comment: "")
+		}
+
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
 			static let addCertificate = NSLocalizedString("HealthCertificate_Overview_add", comment: "")

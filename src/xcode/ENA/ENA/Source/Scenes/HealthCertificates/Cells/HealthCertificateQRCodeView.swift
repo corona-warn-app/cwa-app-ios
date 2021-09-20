@@ -35,6 +35,14 @@ class HealthCertificateQRCodeView: UIView {
 
 	// MARK: - Private
 
+	private let noticeLabel: UILabel = {
+		let noticeLabel = ENALabel(style: .subheadline)
+		noticeLabel.numberOfLines = 0
+		noticeLabel.textColor = UIColor(enaColor: .textPrimary1)
+		noticeLabel.text = AppStrings.HealthCertificate.UnifiedQRCode.notice
+		return noticeLabel
+	}()
+
 	private let qrCodeImageView: UIImageView = {
 		let qrCodeImageView = UIImageView()
 		qrCodeImageView.contentMode = .scaleAspectFit
