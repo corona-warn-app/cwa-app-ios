@@ -182,6 +182,10 @@ class HomeTableViewModel {
 		}
 	}
 
+	func resetBadgeCount() {
+		coronaTestService.resetUnseenTestResultCount()
+	}
+
 	// MARK: - Private
 
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
