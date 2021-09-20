@@ -1597,13 +1597,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Version 2.11 */
 
-"NewVersionFeature_211_universalQRCodeScanner_title" = "Universeller QR-Code Scanner";
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Universeller QR-Code-Scanner";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Sie können nun unabhängig davon, von wo ein QR-Code Scanner in der CWA geöffnet wird, alle von der CWA unterstützen Dokumente scannen:\n\t\U2022 PCR-Tests\n\t\U2022 Schnelltests\n\t\U2022 Event Check-ins\n\t\U2022 Zertifikate";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Sie können nun unabhängig davon, von wo ein QR-Code-Scanner in der CWA geöffnet wird, alle von der CWA unterstützen Dokumente scannen:\n\t\U2022 PCR-Tests\n\t\U2022 Schnelltests\n\t\U2022 Event Check-ins\n\t\U2022 Zertifikate";
 
 "NewVersionFeature_211_qrCodeImport_title" = "QR-Code importieren";
 
-"NewVersionFeature_211_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code Scanner importieren.";
+"NewVersionFeature_211_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code-Scanner importieren.";
 
 "NewVersionFeature_211_contactDurationAdjustment_title" = "Anpassung Kontaktdauer";
 
