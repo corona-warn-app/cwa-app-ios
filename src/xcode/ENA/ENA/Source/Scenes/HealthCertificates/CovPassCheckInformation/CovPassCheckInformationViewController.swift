@@ -55,6 +55,17 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 		tableView.backgroundColor = .enaColor(for: .background)
 		tableView.contentInsetAdjustmentBehavior = .never
 
+		tableView.register(
+			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.link.rawValue
+		)
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
+
+
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case link = "linkCell"
+	}
+
 }
