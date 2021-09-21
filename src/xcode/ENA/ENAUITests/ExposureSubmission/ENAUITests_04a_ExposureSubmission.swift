@@ -447,7 +447,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// QR Code Info Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap(.long)
 
 		// QR Code Scanner Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
@@ -537,8 +537,12 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// monitor system dialogues and use default handler to simply dismiss any alert
 		// see https://developer.apple.com/videos/play/wwdc2020/10220/
-		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
-			return false
+		addUIInterruptionMonitor(withDescription: "System Dialog") { alert -> Bool in
+			let button = alert.buttons.element(boundBy: 1)
+			  if button.exists {
+				button.waitAndTap()
+			}
+			return true
 		}
 
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -555,7 +559,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		/// Your consent screen
 		
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription].waitForExistence(timeout: .extraLong))
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		continueButton.waitAndTap()
