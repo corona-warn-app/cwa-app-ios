@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Включете функцията Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Активирайте Bluetooth от системните настройки, за да използвате това приложение.";
+"Alert_BluetoothOff_Description" = "Активирайте Bluetooth от настройките на Вашето устройство, за да използвате това приложение.";
 
 "Alert_CancelAction_Later" = "По-късно";
 
@@ -359,7 +359,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Отворете менюто за настройки";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Отворете настройките за приложението Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Отворете приложението Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Активирайте фоновото опресняване на приложението";
 
@@ -1038,21 +1038,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на известията за излагане на риск";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Регистрирането на излаганията изисква известията да бъдат активирани от системните настройки. Изберете „Към настройките на устройството“ -> „Известия за излагане на риск“ -> „Споделяне на информацията за излаганията“. После задайте устройството да бъде активно за известия за излагания като посочите активен регион.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Регистрирането на излаганията изисква известията да бъдат активирани от настройките на устройството Ви. Изберете „Към настройките на устройството“ -> „Известия за излагане на риск“ -> „Споделяне на информацията за излаганията“. После задайте приложението да бъде активно за известия за излагания като изберете регион от \"Посочване на активен регион\".";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Активиране на известията за излагане на COVID-19";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква известията за излагане на риск от заразяване с COVID-19 да бъдат активирани от системните настройки. Изберете „Към настройките на устройството“ и активирайте известията за излагане на COVID-19.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква известията за излагане на риск от заразяване с COVID-19 да бъдат активирани в настройките на устройството Ви. Изберете „Към настройките на устройството“ и активирайте известията за излагане на COVID-19.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Посочване на активен регион";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква приложението Corona-Warn-App да бъде отбелязано като активно в системните настройки. Изберете „Към настройките на устройството“ -> „Настройки за регистриране на излаганията на COVID-19“ и изберете Corona-Warn-App да е активно.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква приложението Corona-Warn-App да бъде отбелязано като активно в настройките на устройството Ви. Изберете „Към настройките на устройството“ -> „Настройки за регистриране на излаганията на COVID-19“ и изберете Corona-Warn-App да е активно.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Регистрирането на излаганията изисква приложението Corona-Warn-App да бъде отбелязано като активно в системните настройки. Изберете „Към настройките на устройството“ -> „Настройки за излаганията“ -> „Посочване на активен регион“.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Регистрирането на излаганията изисква Corona-Warn-App да бъде отбелязано като активното приложение в настройките на устройството Ви. Изберете „Към настройките на устройството“ -> „Настройки за излаганията“ -> „Посочване като активен регион“.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия е активирана във Вашите системните настройки.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия са активирани в настройките на устройството Ви.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Изисква се оторизация";
 
@@ -1562,7 +1562,7 @@
 
 "NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Версия за печат на сертификатите за ваксинация";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Вече можете да покажете версия за печат на Вашия сертификат за ваксинация, което Ви позволява да го запазите като PDF документ и да го разпечатате.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Вече можете да покажете версия за печат на Вашите сертификати, издадени в Германия, което Ви позволява да ги запазите като PDF документи и да ги разпечатате.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2641,6 +2641,8 @@
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "QR код със сертификата";
 
+"HealthCertificate_Overview_News" = "Има новини относно сертификатите Ви";
+
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "ЕС\n**Цифров сертификат за тест за COVID**";
 
@@ -2722,7 +2724,15 @@
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Ваксинационен статус";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Не сте получили всички планирани за момента ваксинации – Вашата ваксинационна защита все още не е пълна.";
+
+"HealthCertifiedPerson_completelyProtected" = "Получили сте всички планирани за момента ваксинации. Ваксинационната Ви защита е пълна.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "За повече информация вижте страницата ни с %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "ЧЗВ";
 
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
@@ -2751,6 +2761,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "валиден до %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Текущо използван сертификат";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Нови";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Ваксиниране %i от %i";
@@ -2804,7 +2816,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
 
-"VaccinationCertificate_Alert_message" = "Ако изтриете сертификата за ваксинация, приложението вече няма да може да използва ваксинацията за удостоверяване на вашия ваксинационен статус.";
+"VaccinationCertificate_Alert_message" = "Препоръчваме да пазите ваксинационните си сертификати в приложението дори и да не са вече актуални.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертификат за тест";

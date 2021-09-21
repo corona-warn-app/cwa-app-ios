@@ -74,7 +74,7 @@ class DiaryCoordinator {
 
 	lazy var viewController: UINavigationController = {
 		if !infoScreenShown {
-			return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+			return NavigationControllerWithLargeTitle(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
 				guard let self = self else { return }
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
@@ -89,7 +89,7 @@ class DiaryCoordinator {
 				self.viewController.pushViewController(detailViewController, animated: true)
 			}))
 		} else {
-			return UINavigationController(rootViewController: overviewScreen)
+			return NavigationControllerWithLargeTitle(rootViewController: overviewScreen)
 		}
 	}()
 
@@ -223,9 +223,9 @@ class DiaryCoordinator {
 
 		)
 
-		// We need to use UINavigationController(rootViewController: UIViewController) here,
+		// We need to use NavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = UINavigationController(rootViewController: infoVC)
+		navigationController = NavigationControllerWithLargeTitle(rootViewController: infoVC)
 		viewController.present(navigationController, animated: true)
 	}
 	
@@ -283,7 +283,7 @@ class DiaryCoordinator {
 			bottomController: footerViewController
 		)
 
-		let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+		let navigationController = NavigationControllerWithLargeTitle(rootViewController: topBottomContainerViewController)
 		presentingViewController.present(navigationController, animated: true)
 	}
 
@@ -296,8 +296,7 @@ class DiaryCoordinator {
 			}
 		)
 
-		navigationController = UINavigationController(rootViewController: viewController)
-		navigationController.navigationBar.prefersLargeTitles = true
+		navigationController = NavigationControllerWithLargeTitle(rootViewController: viewController)
 
 		self.viewController.present(navigationController, animated: true)
 	}
@@ -318,7 +317,7 @@ class DiaryCoordinator {
 				self?.viewController.dismiss(animated: true)
 			}
 		)
-		navigationController = UINavigationController(rootViewController: viewController)
+		navigationController = NavigationControllerWithLargeTitle(rootViewController: viewController)
 		self.viewController.present(navigationController, animated: true)
 	}
 
