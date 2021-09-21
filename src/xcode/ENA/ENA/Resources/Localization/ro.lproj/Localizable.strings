@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Porniți Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Activați Bluetooth-ul în configurările sistemului dvs. pentru a utiliza această aplicație.";
+"Alert_BluetoothOff_Description" = "Activați Bluetooth-ul în configurările dispozitivului dvs. pentru a utiliza această aplicație.";
 
 "Alert_CancelAction_Later" = "Mai târziu";
 
@@ -359,7 +359,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Deschideți Configurări";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Deschideți setările pentru Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Deschideți Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activați împrospătarea aplicației în fundal";
 
@@ -1038,21 +1038,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Activați notificările privind expunerea";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările sistemului a notificărilor privind expunerea, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Partajați informații privind expunerea”. Apoi definiți aplicația ca activă pentru notificările privind expunerea selectând „Specificați ca regiune activă”.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările dispozitivului a notificărilor privind expunerea, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Partajați informații privind expunerea”. Apoi definiți aplicația ca activă pentru notificările privind expunerea selectând „Specificați ca regiune activă”.";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activați notificările privind expunerea la COVID-19";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările sistemului a notificărilor privind expunerea la COVID-19, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” și activați „Notificările privind expunerea la COVID-19” în setări.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările dispozitivului a notificărilor privind expunerea la COVID-19, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” și activați „Notificările privind expunerea la COVID-19” în setări.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Specificați regiunea activă";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările sistemului, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Setări pentru înregistrarea în jurnal a expunerii la COVID-19” și selectați aplicația Corona-Warn ca activă.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările dispozitivului dvs., pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Setări pentru înregistrarea în jurnal a expunerii la COVID-19” și selectați aplicația Corona-Warn ca activă.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările sistemului, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Specificați ca regiune activă”.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările dispozitivului dvs., pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Specificați ca regiune activă”.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru a putea fi înregistrate întâlnirile. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările dispozitivului dvs., pentru ca întâlnirile să poată fi înregistrate în jurnal. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorizație necesară";
 
@@ -1562,7 +1562,7 @@
 
 "NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Versiunea de tipărire a certificatelor de vaccinare";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Acum puteți afișa o versiune de tipărire a certificatului de vaccinare, care vă permite să salvați certificatele ca documente PDF și să le tipăriți.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Acum puteți afișa o versiune de tipărire a certificatelor dvs. de vaccinare care au fost emise în Germania, care vă permite să salvați certificatele ca documente PDF și să le tipăriți.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2641,6 +2641,8 @@
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Un cod QR cu certificatul";
 
+"HealthCertificate_Overview_News" = "Există noutăți despre certificatele dvs.";
+
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "**Certificat de test COVID digital**\nUE";
 
@@ -2722,7 +2724,15 @@
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "Certificat COVID digital UE";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Starea vaccinării";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Nu ați primit încă toate vaccinările planificate curente. Astfel, protecția dvs. prin vaccinare nu este completă încă.";
+
+"HealthCertifiedPerson_completelyProtected" = "Ați primit toate vaccinările planificate în acest moment. Protecția prin vaccinare este completă.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "Întrebări frecvente";
 
 "HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
 
@@ -2751,6 +2761,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valabil până la %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Certificat utilizat în prezent";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Nou";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccinarea %i din %i";
@@ -2804,7 +2816,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
 
-"VaccinationCertificate_Alert_message" = "Dacă ștergeți certificatul de vaccinare, aplicația nu mai poate utiliza vaccinarea pentru a verifica starea vaccinării dvs.";
+"VaccinationCertificate_Alert_message" = "Vă recomandăm să păstrați certificatele de vaccinare în aplicație, chiar dacă nu mai sunt de actualitate.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certificat de test";

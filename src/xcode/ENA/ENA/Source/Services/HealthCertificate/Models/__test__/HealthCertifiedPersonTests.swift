@@ -332,4 +332,41 @@ class HealthCertifiedPersonTests: CWATestCase {
 		XCTAssertNil(recoveredVaccinationCertificate)
 	}
 
+	func testGIVEN_PersonWithNewBoosterRuleAndCertificates_WHEN_EncodingAndDecoding_THEN_DataIsStillCorrect() throws {
+		let firstHealthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
+				)
+			),
+			didShowInvalidNotification: false,
+			isNew: false,
+			isValidityStateNew: false
+		)
+
+		let secondHealthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
+				)
+			),
+			didShowInvalidNotification: true,
+			isNew: true,
+			isValidityStateNew: true
+		)
+
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [firstHealthCertificate, secondHealthCertificate],
+			isPreferredPerson: true,
+			boosterRule: .fake(identifier: "Booster Rule Identifier 0815"),
+			isNewBoosterRule: true
+		)
+
+		// WHEN
+		let jsonData = try JSONEncoder().encode(healthCertifiedPerson)
+		let decodedHealthCertifiedPerson = try JSONDecoder().decode(HealthCertifiedPerson.self, from: jsonData)
+
+		// THEN
+		XCTAssertEqual(decodedHealthCertifiedPerson, healthCertifiedPerson)
+	}
+
 }

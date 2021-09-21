@@ -108,6 +108,8 @@ class PPACService: PrivacyPreservingAccessControl {
 		let uuid = UUID().uuidString
 		let utcDate = Date()
 		let token = TimestampedToken(token: uuid, timestamp: utcDate)
+
+		Log.info("Generated new API token", log: .ppac)
 		return token
 	}
 }
