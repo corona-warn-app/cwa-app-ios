@@ -7,6 +7,7 @@ import UIKit
 
 // TODO: consent screen is shown twice for checkin tab and certificates tab. check if change required.
 // TODO: Mark certificates as new from other tabs
+// TODO: Camera permission error when opened twice
 
 enum QRScannerPresenter {
 	case submissionFlow
@@ -91,24 +92,16 @@ class QRScannerCoordinator {
 			healthCertificateService: healthCertificateService,
 			verificationHelper: qrCodeVerificationHelper,
 			appConfiguration: appConfiguration,
-			didScan: { [weak self] result in
-				switch result {
-				case let .success(scanningResult):
-					// Close the qr scanner
-					self?.parentViewController.dismiss(animated: true)
-					
-					switch scanningResult {
-					case let .coronaTest(testRegistrationInformation):
-						self?.showScannedTestResult(testRegistrationInformation)
-					case let .certificate(healthCertifiedPerson, healthCertificate):
-						self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-					case let .traceLocation(traceLocation):
-						self?.showScannedCheckin(traceLocation)
-					}
-					
-				case let .failure(error):
-					// TODO: show alert for permission missing, specific error should handle the presenters
-					self?.parentViewController.dismiss(animated: true)
+			didScan: { [weak self] qrCodeResult in
+				self?.parentViewController.dismiss(animated: true)
+
+				switch qrCodeResult {
+				case let .coronaTest(testRegistrationInformation):
+					self?.showScannedTestResult(testRegistrationInformation)
+				case let .certificate(healthCertifiedPerson, healthCertificate):
+					self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+				case let .traceLocation(traceLocation):
+					self?.showScannedCheckin(traceLocation)
 				}
 			},
 			dismiss: { [weak self] in

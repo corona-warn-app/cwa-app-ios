@@ -13,7 +13,7 @@ class QRScannerViewController: UIViewController {
 		healthCertificateService: HealthCertificateService,
 		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
-		didScan: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void,
+		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -29,13 +29,12 @@ class QRScannerViewController: UIViewController {
 				case let .success(qrCodeResult):
 					AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 					self?.viewModel?.deactivateScanning()
-					didScan(.success(qrCodeResult))
+					didScan(qrCodeResult)
 				case let .failure(error):
 					if error == .scanningError(.cameraPermissionDenied) {
-						self?.showCameraPermissionErrorAlert(error: error)
+						self?.showCameraPermissionErrorAlert()
 					} else {
-						didScan(.failure(error))
-//						self?.showErrorAlert(error: error)
+						self?.showErrorAlert(error: error)
 					}
 				}
 			}
@@ -226,11 +225,23 @@ class QRScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
-	private func showErrorAlert(error: Error) {
+	private func showErrorAlert(error: QRCodeParserError) {
 		viewModel?.deactivateScanning()
 
+		let unwrappedError: Error
+		switch error {
+		case .scanningError(let qrScannerError):
+			unwrappedError = qrScannerError
+		case .checkinQrError(let checkinQRScannerError):
+			unwrappedError = checkinQRScannerError
+		case .coronaTestQrError(let qrScannerError):
+			unwrappedError = qrScannerError
+		case .certificateQrError(let healthCertificateServiceError):
+			unwrappedError = healthCertificateServiceError
+		}
+
 		var alertTitle = AppStrings.HealthCertificate.Error.title
-		var errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
+		var errorMessage = unwrappedError.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
 		var faqAlertAction = UIAlertAction(
 			title: AppStrings.HealthCertificate.Error.faqButtonTitle,
 			style: .default,
@@ -242,7 +253,7 @@ class QRScannerViewController: UIViewController {
 		)
 
 		// invalid signature error needs a different title, errorMessage and FAQ action
-		if case let QRScannerError.other(wrappedError) = error,
+		if case let .scanningError(.other(wrappedError)) = error,
 		   case HealthCertificateServiceError.RegistrationError.invalidSignature = wrappedError {
 			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
 			errorMessage = wrappedError.localizedDescription
@@ -278,10 +289,10 @@ class QRScannerViewController: UIViewController {
 		}
 	}
 
-	private func showCameraPermissionErrorAlert(error: Error) {
+	private func showCameraPermissionErrorAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Error.title,
-			message: error.localizedDescription,
+			message: QRScannerError.cameraPermissionDenied.localizedDescription,
 			preferredStyle: .alert
 		)
 		alert.addAction(
