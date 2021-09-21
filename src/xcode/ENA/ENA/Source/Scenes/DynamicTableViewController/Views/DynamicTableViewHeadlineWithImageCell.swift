@@ -46,7 +46,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		backgroundImageView.contentMode = .scaleAspectFit
 		contentView.addSubview(backgroundImageView)
 
-		topInsetConstraint = headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 64.0)
+		topInsetConstraint = headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
 
 		NSLayoutConstraint.activate(
 			[
