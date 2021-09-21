@@ -47,8 +47,8 @@ class QRScannerCoordinator {
 	
 	// MARK: - Internal
 
-	var didScanCoronaTestInSubmissionFlow: ((CoronaTestRegistrationInformation) -> Void)? = nil
-	var didScanTraceLocationInOnBehalfFlow: ((TraceLocation) -> Void)? = nil
+	var didScanCoronaTestInSubmissionFlow: ((CoronaTestRegistrationInformation) -> Void)?
+	var didScanTraceLocationInOnBehalfFlow: ((TraceLocation) -> Void)?
 	
 	func start(
 		parentViewController: UIViewController,
@@ -107,7 +107,6 @@ class QRScannerCoordinator {
 					}
 					
 				case let .failure(error):
-					// TODO: should we dismiss here the qrCodescanner, too?
 					// TODO: show alert for permission missing, specific error should handle the presenters
 					self?.parentViewController.dismiss(animated: true)
 				}
