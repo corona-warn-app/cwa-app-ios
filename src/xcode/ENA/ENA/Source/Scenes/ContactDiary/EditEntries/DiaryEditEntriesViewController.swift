@@ -37,7 +37,6 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 				self?.onDismiss()
 			}
 		)
-		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 
 		navigationItem.title = viewModel.title

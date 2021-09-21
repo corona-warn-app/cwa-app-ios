@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Turn on Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Activate Bluetooth in your system settings to use this app.";
+"Alert_BluetoothOff_Description" = "Activate Bluetooth in your device settings to use this app.";
 
 "Alert_CancelAction_Later" = "Later";
 
@@ -359,7 +359,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Open Settings";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open the settings for the Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activate Background App Refresh";
 
@@ -1038,21 +1038,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Enable Exposure Notifications";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Share Exposure Information\". Then define the app as active app for exposure notifications by selecting \"Specify as Active Region\".";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in your device settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Share Exposure Information\". Then define the app as the active app for exposure notifications by selecting \"Specify as Active Region\".";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activate COVID-19 Exposure Notifications";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" and activate \"COVID-19 Exposure Notifications\" in the settings.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in your device settings, so that encounters can be logged. Select \"Open Device Settings\" and activate \"COVID-19 Exposure Notifications\" in the settings.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Specify Active Region";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Exposure logging requires the Corona-Warn-App to be defined as active app in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Settings for COVID-19 Exposure Logging\" and then select the Corona-Warn-App as active app.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Exposure logging requires the Corona-Warn-App to be defined as active app in your device settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Settings for COVID-19 Exposure Logging\" and then select the Corona-Warn-App as active app.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Exposure logging requires the Corona-Warn-App to be defined as active app in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Specify as Active Region\".";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Exposure logging requires the Corona-Warn-App to be defined as the active app in your device settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Specify as Active Region\".";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in your device settings, so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
 
@@ -1562,7 +1562,7 @@
 
 "NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Print Version of Vaccination Certificates";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "You can now display a print version of your vaccination certificate, which enables you to save the certificates as PDF documents and print them out.";
+"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "You can now display a print version of your certificates that were issued in Germany, which enables you to save the certificates as PDF documents and print them out.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2641,6 +2641,8 @@
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "A QR code with the certificate";
 
+"HealthCertificate_Overview_News" = "There is news about your certificates";
+
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "EU\n**Digital COVID Test Certificate**";
 
@@ -2722,7 +2724,15 @@
 /* Health Certified Person Screen */
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Vaccination Status";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
+
+"HealthCertifiedPerson_completelyProtected" = "You have received all currently planned vaccinations. Your vaccination protection is complete.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "For further information, please see our %@ page.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
@@ -2751,6 +2761,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "New";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccination %i of %i";
@@ -2804,7 +2816,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
 
-"VaccinationCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
+"VaccinationCertificate_Alert_message" = "We recommend keeping the vaccination certificates in the app even if they are no longer current.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Certificate";

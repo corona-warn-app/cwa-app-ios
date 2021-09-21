@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 
 typealias Analytics = PPAnalyticsCollector
 
@@ -58,9 +58,17 @@ enum PPAnalyticsCollector {
 		case let .submissionMetadata(submissionMetadata):
 			Analytics.logSubmissionMetadata(submissionMetadata)
 		}
+		
+		// UIApplication.shared does not to seem thread safe, so lets go to main
+		DispatchQueue.main.async {
+			// Only trigger the submission if the app is in foreground (Exposure-9484). For background, the submission is triggered explicitly.
+			if UIApplication.shared.applicationState == .active {
+				// At the end, try to submit the data. In the submitter are all the checks that we do not submit the data too often.
+				Log.info("Triggering submission after collecting new PPA data", log: .ppa)
+				Analytics.triggerAnalyticsSubmission()
+			}
+		}
 
-		// At the end, try to submit the data. In the submitter are all the checks that we do not submit the data to often.
-		Analytics.triggerAnalyticsSubmission()
 	}
 
 	/// This removes all stored analytics data that we collected.
