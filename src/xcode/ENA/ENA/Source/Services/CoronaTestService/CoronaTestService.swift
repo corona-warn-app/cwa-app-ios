@@ -88,7 +88,8 @@ class CoronaTestService {
 			return antigenTest.map { .antigen($0) }
 		}
 	}
-
+	
+	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
@@ -130,6 +131,8 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					// updating badge count for home tab
+					self?.unseenTestsCount.value += 1
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -145,6 +148,7 @@ class CoronaTestService {
 		)
 	}
 
+	// This function is responsible to register a PCR test from TeleTAN
 	func registerPCRTest(
 		teleTAN: String,
 		isSubmissionConsentGiven: Bool,
@@ -183,6 +187,9 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
 					
+					// updating badge count for home tab
+					self?.unseenTestsCount.value += 1
+
 					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
 					// testDate: For PCR -> registration date
 					// testType: Always PCR
@@ -266,6 +273,9 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
+
+					// updating badge count for home tab
+					self?.unseenTestsCount.value += 1
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -492,8 +502,8 @@ class CoronaTestService {
 		return healthTuple
 	}
 
-	func resetUnseenTestResultCount() {
-		unseenTestResultCount.value = 0
+	func resetUnseenTestsCount() {
+		unseenTestsCount.value = 0
 	}
 
 	// MARK: - Private
@@ -515,7 +525,7 @@ class CoronaTestService {
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private(set) var unseenTestResultCount = CurrentValueSubject<Int, Never>(0)
+	private(set) var unseenTestsCount = CurrentValueSubject<Int, Never>(0)
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -547,9 +557,9 @@ class CoronaTestService {
 			}
 			.store(in: &subscriptions)
 		
-		unseenTestResultCount
+		unseenTestsCount
 			.sink { [weak self] in
-				self?.store.unseenTestResultCount = $0
+				self?.store.unseenTestsCount = $0
 			}
 			.store(in: &subscriptions)
 	}
@@ -700,12 +710,10 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 					
 					self.pcrTest?.testResult = testResult
-					self.unseenTestResultCount.value += 1
 				case .antigen:
 					Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .antigen)))
 
 					self.antigenTest?.testResult = testResult
-					self.unseenTestResultCount.value += 1
 
 					updatedSampleCollectionDate = response.sc.map {
 						Date(timeIntervalSince1970: TimeInterval($0))
