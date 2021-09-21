@@ -40,10 +40,6 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 		onDismiss()
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let onDismiss: () -> Void
