@@ -105,4 +105,33 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
 	}
 
+	func testMarkAsSeen() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			isNew: true,
+			isValidityStateNew: true
+		)
+
+		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+
+		let viewModel = HealthCertificateViewModel(
+			healthCertifiedPerson: certifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+
+		XCTAssertTrue(healthCertificate.isNew)
+		XCTAssertTrue(healthCertificate.isValidityStateNew)
+
+		viewModel.markAsSeen()
+
+		XCTAssertFalse(healthCertificate.isNew)
+		XCTAssertFalse(healthCertificate.isValidityStateNew)
+	}
+
 }
