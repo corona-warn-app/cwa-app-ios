@@ -765,6 +765,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						)
 					}
 				)
+			},
+			showInfoHit: { [weak self] in
+				self?.presentCovPassInfoScreen()
 			}
 		)
 		
@@ -793,7 +796,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		validationCoordinator?.start()
 	}
-	
+
+	private func presentCovPassInfoScreen() {
+		let covPassInformationViewController = CovPassCheckInformationViewController(
+			onDismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let dismissNavigationController = DismissHandlingNavigationController(rootViewController: covPassInformationViewController, transparent: true)
+		navigationController?.present(dismissNavigationController, animated: true)
+	}
+
 	private func showActionSheet(
 		healthCertificate: HealthCertificate,
 		removeAction: @escaping () -> Void
