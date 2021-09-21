@@ -475,7 +475,7 @@ class HealthCertificateCoordinator {
 		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
-		printNavigationController.present(alert, animated: true, completion: nil)
+		navigationController.present(alert, animated: true, completion: nil)
 	}
 	
 	private func showValidationFlow(
