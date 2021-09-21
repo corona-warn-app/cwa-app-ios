@@ -45,6 +45,10 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 	private let onDismiss: () -> Void
 	private let viewModel: CovPassCheckInformationViewModel
 
+	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case link = "linkCell"
+	}
+
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
@@ -57,11 +61,6 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
-	}
-
-
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case link = "linkCell"
 	}
 
 }

@@ -6925,7 +6925,6 @@
 		BA01BA5E264423B000D906B6 /* HealthCertificates */ = {
 			isa = PBXGroup;
 			children = (
-				BAD3199A26FA20E1006E82E7 /* Views */,
 				503ACBFC26F36F5A00C31352 /* HealthCertificatesCoordinator.swift */,
 				BA5B7FC026458EF400502087 /* Cells */,
 				BA01BA5F264423CF00D906B6 /* Consent */,
@@ -6937,6 +6936,7 @@
 				BA5B7FB226458EF400502087 /* QRCodeScanner */,
 				ABC1C26D267B7FCB00223625 /* Utils */,
 				01E0D3AA268F02DF00E32CF9 /* Validation */,
+				BAD3199A26FA20E1006E82E7 /* Views */,
 			);
 			path = HealthCertificates;
 			sourceTree = "<group>";
