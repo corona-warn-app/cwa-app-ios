@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-final class CheckinCoordinator {
+final class CheckinTabCoordinator {
 	
 	// MARK: - Init
 	init(
@@ -89,40 +89,10 @@ final class CheckinCoordinator {
 	}()
 		
 	func showQRCodeScanner() {
-		
 		qrScannerCoordinator.start(
 			parentViewController: viewController,
 			presenter: .checkinTab
 		)
-		
-//
-//		// Info view MUST be shown
-//		guard self.infoScreenShown else {
-//			Log.debug("Checkin info screen not shown. Skipping further navigation", log: .ui)
-//			// set this to true to open qr code scanner screen after info screen has been dismissed
-//			self.showQRCodeScanningScreenAfterInfoScreen = true
-//			return
-//		}
-//
-//		let qrCodeScanner = CheckinQRCodeScannerViewController(
-//			qrCodeVerificationHelper: verificationService,
-//			appConfiguration: appConfiguration,
-//			didScanCheckin: { [weak self] traceLocation in
-//				self?.viewController.dismiss(animated: true, completion: {
-//					self?.showTraceLocationDetails(traceLocation)
-//				})
-//			},
-//			dismiss: { [weak self] in
-//				self?.checkinsOverviewViewModel.updateForCameraPermission()
-//				self?.viewController.dismiss(animated: true)
-//			}
-//		)
-//		qrCodeScanner.definesPresentationContext = true
-//		DispatchQueue.main.async { [weak self] in
-//			let navigationController = UINavigationController(rootViewController: qrCodeScanner)
-//			navigationController.modalPresentationStyle = .fullScreen
-//			self?.viewController.present(navigationController, animated: true)
-//		}
 	}
 	
 	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {

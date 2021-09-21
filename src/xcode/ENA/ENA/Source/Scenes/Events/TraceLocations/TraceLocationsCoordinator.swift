@@ -15,7 +15,8 @@ class TraceLocationsCoordinator {
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
 		client: Client,
-		parentNavigationController: UINavigationController
+		parentNavigationController: UINavigationController,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.store = store
 		self.appConfig = appConfig
@@ -23,6 +24,7 @@ class TraceLocationsCoordinator {
 		self.eventStore = eventStore
 		self.client = client
 		self.parentNavigationController = parentNavigationController
+		self.qrScannerCoordinator = qrScannerCoordinator
 	}
 	
 	// MARK: - Internal
@@ -49,6 +51,7 @@ class TraceLocationsCoordinator {
 	private let qrCodeErrorCorrectionLevelProvider = QRCodeErrorCorrectionLevelProvider()
 	private let eventStore: EventStoringProviding
 	private let client: Client
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private weak var parentNavigationController: UINavigationController!
 	
@@ -282,7 +285,8 @@ class TraceLocationsCoordinator {
 			parentViewController: parentNavigationController,
 			appConfiguration: appConfig,
 			eventStore: eventStore,
-			client: client
+			client: client,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 
 		onBehalfCheckinSubmissionCoordinator?.start()

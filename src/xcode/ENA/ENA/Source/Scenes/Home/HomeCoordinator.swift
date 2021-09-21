@@ -17,7 +17,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -28,6 +29,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
 		self.exposureSubmissionService = exposureSubmissionService
+		self.qrScannerCoordinator = qrScannerCoordinator
 	}
 
 	deinit {
@@ -170,6 +172,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let exposureSubmissionService: ExposureSubmissionService
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -192,7 +195,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			eventProvider: eventStore,
 			antigenTestProfileStore: store,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 	}()
 	   
@@ -346,7 +350,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
 			client: client,
-			parentNavigationController: rootViewController
+			parentNavigationController: rootViewController,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 
 		traceLocationsCoordinator?.start()

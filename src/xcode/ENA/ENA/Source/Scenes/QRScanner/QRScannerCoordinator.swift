@@ -44,11 +44,10 @@ class QRScannerCoordinator {
 		self.coronaTestService = coronaTestService
 	}
 	
-	// MARK: - Overrides
-		
-	// MARK: - Public
-	
 	// MARK: - Internal
+
+	var didScanCoronaTestInSubmissionFlow: ((CoronaTestRegistrationInformation) -> Void)? = nil
+	var didScanTraceLocationInOnBehalfFlow: ((TraceLocation) -> Void)? = nil
 	
 	func start(
 		parentViewController: UIViewController,
@@ -124,13 +123,8 @@ class QRScannerCoordinator {
 	) {
 		switch presenter {
 		case .submissionFlow:
-			//TODO call completion of submission flow
-			break
+			didScanCoronaTestInSubmissionFlow?(testRegistrationInformation)
 		case .onBehalfFlow:
-			//TODO: close modal onBehalf, then present exposureSubmissionCoordinator
-			break
-		default:
-			// we come from certificate tab or checkin tab
 			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 				parentViewController: parentViewController,
 				exposureSubmissionService: exposureSubmissionService,
@@ -140,9 +134,30 @@ class QRScannerCoordinator {
 				eventProvider: eventStore,
 				antigenTestProfileStore: store,
 				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+				qrScannerCoordinator: self
 			)
+
+			parentViewController.dismiss(animated: true) {
+				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+			}
+		case .checkinTab, .certificateTab:
+			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+				parentViewController: parentViewController,
+				exposureSubmissionService: exposureSubmissionService,
+				coronaTestService: coronaTestService,
+				healthCertificateService: healthCertificateService,
+				healthCertificateValidationService: healthCertificateValidationService,
+				eventProvider: eventStore,
+				antigenTestProfileStore: store,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+				qrScannerCoordinator: self
+			)
+
 			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+		case .none:
+			break
 		}
 	}
 	
@@ -150,19 +165,42 @@ class QRScannerCoordinator {
 		for person: HealthCertifiedPerson,
 		with certificate: HealthCertificate
 	) {
-		// TODO dismiss first the qrScannerViewController and then present the flow
-		healthCertificateCoordinator = HealthCertificateCoordinator(
-			parentingViewController: .present(parentViewController),
-			healthCertifiedPerson: person,
-			healthCertificate: certificate,
-			store: store,
-			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: healthCertificateValidationService,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
-		)
-		
-		healthCertificateCoordinator?.start()
+		switch presenter {
+		case .submissionFlow, .onBehalfFlow:
+			let parentPresentingViewController = parentViewController.presentingViewController
+
+			parentViewController.dismiss(animated: true) {
+				self.parentViewController = parentPresentingViewController
+
+				self.healthCertificateCoordinator = HealthCertificateCoordinator(
+					parentingViewController: .present(self.parentViewController),
+					healthCertifiedPerson: person,
+					healthCertificate: certificate,
+					store: self.store,
+					healthCertificateService: self.healthCertificateService,
+					healthCertificateValidationService: self.healthCertificateValidationService,
+					healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+					vaccinationValueSetsProvider: self.vaccinationValueSetsProvider
+				)
+
+				self.healthCertificateCoordinator?.start()
+			}
+		case .checkinTab, .certificateTab:
+			healthCertificateCoordinator = HealthCertificateCoordinator(
+				parentingViewController: .present(parentViewController),
+				healthCertifiedPerson: person,
+				healthCertificate: certificate,
+				store: store,
+				healthCertificateService: healthCertificateService,
+				healthCertificateValidationService: healthCertificateValidationService,
+				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			)
+
+			healthCertificateCoordinator?.start()
+		case .none:
+			break
+		}
 	}
 	
 	private func showScannedCheckin(
@@ -170,9 +208,25 @@ class QRScannerCoordinator {
 	) {
 		switch presenter {
 		case .onBehalfFlow:
-			// TODO: call completion of onBehalfCoordinator
-			break
-		default:
+			didScanTraceLocationInOnBehalfFlow?(traceLocation)
+		case .submissionFlow:
+			let parentPresentingViewController = parentViewController.presentingViewController
+
+			parentViewController.dismiss(animated: true) {
+				self.parentViewController = parentPresentingViewController
+
+				self.traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
+					parentViewController: self.parentViewController,
+					traceLocation: traceLocation,
+					store: self.store,
+					eventStore: self.eventStore,
+					appConfiguration: self.appConfiguration,
+					eventCheckoutService: self.eventCheckoutService
+				)
+
+				self.traceLocationCheckinCoordinator?.start()
+			}
+		case .checkinTab, .certificateTab:
 			traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
 				parentViewController: parentViewController,
 				traceLocation: traceLocation,
@@ -181,32 +235,11 @@ class QRScannerCoordinator {
 				appConfiguration: appConfiguration,
 				eventCheckoutService: eventCheckoutService
 			)
-			
+
 			traceLocationCheckinCoordinator?.start()
+		case .none:
+			break
 		}
-		
 	}
-	
-	/*
-	private func showScannedOnBehalf(
-		_ traceLocation: TraceLocation
-	) {
-		// TODO: clarify if consent should be also shown after qr scanning. If yes, flow must be changed and this would be the approch:
-		onBehalfCheckinCoordinator = OnBehalfCheckinSubmissionCoordinator(
-			parentViewController: qrScannerViewController,
-			appConfiguration: appConfiguration,
-			eventStore: eventStore,
-			client: client
-		)
-		
-		onBehalfCheckinCoordinator?.start()
-		
-		// TODO: IF NOT, this would be the approach:
-//		checkinCoordinator.showTraceLocationDetailsFromQRScanner(
-//			on: qrScanningNavigationController,
-//			with: traceLocation
-//		)
-	}
-*/
 	
 }

@@ -115,7 +115,8 @@ class RootCoordinator: RequiresAppDependencies {
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			elsService: elsService,
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -123,24 +124,25 @@ class RootCoordinator: RequiresAppDependencies {
 			route: route
 		)
 	
-		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
+		let healthCertificatesTabCoordinator = HealthCertificatesTabCoordinator(
 			store: store,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
-		self.healthCertificatesCoordinator = healthCertificatesCoordinator
+		self.healthCertificatesCoordinator = healthCertificatesTabCoordinator
 
 		// Setup checkin coordinator after app reset
-		let checkInCoordinator = CheckinCoordinator(
+		let checkinTabCoordinator = CheckinTabCoordinator(
 			store: store,
 			eventStore: eventStore,
 			appConfiguration: appConfigurationProvider,
 			eventCheckoutService: eventCheckoutService,
 			qrScannerCoordinator: qrScannerCoordinator
 		)
-		self.checkInCoordinator = checkInCoordinator
+		self.checkInCoordinator = checkinTabCoordinator
 
 		// ContactJournal
 		let diaryCoordinator = DiaryCoordinator(
@@ -158,18 +160,18 @@ class RootCoordinator: RequiresAppDependencies {
 
 		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.certificatesTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
-		healthCertificatesCoordinator.viewController.tabBarItem = certificatesTabBarItem
+		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
 		let eventsTabBarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
 		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
-		checkInCoordinator.viewController.tabBarItem = eventsTabBarItem
+		checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
 
 		let diaryTabBarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesTabCoordinator.viewController, checkinTabCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		tabBarController.delegate = tabBarScrolling
 
 		viewController.clearChildViewController()
@@ -280,8 +282,8 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
-	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
-	private(set) var checkInCoordinator: CheckinCoordinator?
+	private var healthCertificatesCoordinator: HealthCertificatesTabCoordinator?
+	private(set) var checkInCoordinator: CheckinTabCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	private(set) var qrScannerCoordinator: QRScannerCoordinator?
 	
