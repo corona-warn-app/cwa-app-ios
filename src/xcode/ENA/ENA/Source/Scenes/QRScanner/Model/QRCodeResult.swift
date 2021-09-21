@@ -15,7 +15,7 @@ enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case coronaTestQrError(QRScannerError)
-	case certificateQrError(HealthCertificateServiceError)
+	case certificateQrError(HealthCertificateServiceError.RegistrationError)
 	
 	// MARK: - Protocol Equatable
 	// swiftlint:disable pattern_matching_keywords

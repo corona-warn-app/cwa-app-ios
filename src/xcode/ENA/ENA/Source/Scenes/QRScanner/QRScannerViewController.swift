@@ -241,27 +241,31 @@ class QRScannerViewController: UIViewController {
 		}
 
 		var alertTitle = AppStrings.HealthCertificate.Error.title
-		var errorMessage = unwrappedError.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
-		var faqAlertAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Error.faqButtonTitle,
-			style: .default,
-			handler: { [weak self] _ in
-				if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
-					self?.viewModel?.activateScanning()
-				}
-			}
-		)
+		var errorMessage = unwrappedError.localizedDescription
+		var faqAlertAction: UIAlertAction?
 
-		// invalid signature error needs a different title, errorMessage and FAQ action
-		if case let .scanningError(.other(wrappedError)) = error,
-		   case HealthCertificateServiceError.RegistrationError.invalidSignature = wrappedError {
+		if case .certificateQrError(.invalidSignature) = error {
+			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
-			errorMessage = wrappedError.localizedDescription
+			errorMessage = unwrappedError.localizedDescription
 			faqAlertAction = UIAlertAction(
 				title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
 				style: .default,
 				handler: { [weak self] _ in
 					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
+						self?.viewModel?.activateScanning()
+					}
+				}
+			)
+		} else if case .certificateQrError = error {
+			// Show FAQ section for other certificate errors
+			errorMessage += AppStrings.HealthCertificate.Error.faqDescription
+
+			faqAlertAction = UIAlertAction(
+				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+				style: .default,
+				handler: { [weak self] _ in
+					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
 						self?.viewModel?.activateScanning()
 					}
 				}
@@ -273,7 +277,10 @@ class QRScannerViewController: UIViewController {
 			message: errorMessage,
 			preferredStyle: .alert
 		)
-		alert.addAction(faqAlertAction)
+
+		if let faqAlertAction = faqAlertAction {
+			alert.addAction(faqAlertAction)
+		}
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
