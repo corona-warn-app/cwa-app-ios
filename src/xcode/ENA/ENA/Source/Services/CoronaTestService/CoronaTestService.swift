@@ -88,10 +88,12 @@ class CoronaTestService {
 			return antigenTest.map { .antigen($0) }
 		}
 	}
-
+	
+	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
@@ -130,6 +132,10 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					// updating badge count for home tab
+					if markAsUnseen {
+						self?.unseenTestsCount.value += 1
+					}
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -145,6 +151,7 @@ class CoronaTestService {
 		)
 	}
 
+	// This function is responsible to register a PCR test from TeleTAN
 	func registerPCRTest(
 		teleTAN: String,
 		isSubmissionConsentGiven: Bool,
@@ -182,7 +189,7 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
-					
+
 					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
 					// testDate: For PCR -> registration date
 					// testType: Always PCR
@@ -229,6 +236,7 @@ class CoronaTestService {
 		lastName: String?,
 		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
@@ -266,6 +274,11 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
+
+					// updating badge count for home tab
+					if markAsUnseen {
+						self?.unseenTestsCount.value += 1
+					}
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
@@ -492,6 +505,10 @@ class CoronaTestService {
 		return healthTuple
 	}
 
+	func resetUnseenTestsCount() {
+		unseenTestsCount.value = 0
+	}
+
 	// MARK: - Private
 
 	private let client: Client
@@ -510,6 +527,8 @@ class CoronaTestService {
 	private var antigenTestOutdatedDate: Date?
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private(set) var unseenTestsCount = CurrentValueSubject<Int, Never>(0)
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -538,6 +557,12 @@ class CoronaTestService {
 				if let antigenTest = antigenTest {
 					self?.setupOutdatedPublisher(for: antigenTest)
 				}
+			}
+			.store(in: &subscriptions)
+		
+		unseenTestsCount
+			.sink { [weak self] in
+				self?.store.unseenTestsCount = $0
 			}
 			.store(in: &subscriptions)
 	}
