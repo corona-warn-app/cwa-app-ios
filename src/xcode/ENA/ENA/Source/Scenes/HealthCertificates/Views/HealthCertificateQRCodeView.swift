@@ -164,7 +164,7 @@ class HealthCertificateQRCodeView: UIView {
 	// MARK: - Unitest helpers
 
 #if DEBUG
-	var noticrLabelIsHidden: Bool {
+	var noticeLabelIsHidden: Bool {
 		noticeLabel.isHidden
 	}
 

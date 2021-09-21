@@ -31,7 +31,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 		qrCodeView.configure(with: viewModel)
 
 		// THEN
-		XCTAssertFalse(qrCodeView.noticrLabelIsHidden)
+		XCTAssertFalse(qrCodeView.noticeLabelIsHidden)
 		XCTAssertFalse(qrCodeView.infoButtonIsHidden)
 	}
 
@@ -58,7 +58,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 		qrCodeView.configure(with: viewModel)
 
 		// THEN
-		XCTAssertTrue(qrCodeView.noticrLabelIsHidden)
+		XCTAssertTrue(qrCodeView.noticeLabelIsHidden)
 		XCTAssertTrue(qrCodeView.infoButtonIsHidden)
 	}
 
