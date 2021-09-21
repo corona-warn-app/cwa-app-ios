@@ -158,16 +158,17 @@ final class CheckinCoordinator {
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let eventCheckoutService: EventCheckoutService
-	private var subscriptions: [AnyCancellable] = []
 	private let verificationService = QRCodeVerificationHelper()
-
+	
+	private var subscriptions: [AnyCancellable] = []
+	private var qrCodeAfterInfoScreen: String?
+	private var showQRCodeScanningScreenAfterInfoScreen: Bool = false
+	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
+	
 	private var infoScreenShown: Bool {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
 	}
-	private var qrCodeAfterInfoScreen: String?
-	private var showQRCodeScanningScreenAfterInfoScreen: Bool = false
-	
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(
 			store: eventStore,
@@ -210,15 +211,19 @@ final class CheckinCoordinator {
 		viewController.present(topBottomContainerViewController, animated: true)
 	}
 	
-	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
-		let viewModel = TraceLocationCheckinViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
-		let traceLocationCheckinViewController = TraceLocationCheckinViewController(
-			viewModel,
-			dismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
-			}
+	private func showTraceLocationDetails(
+		_ traceLocation: TraceLocation
+	) {
+		traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
+			parentViewController: viewController,
+			traceLocation: traceLocation,
+			store: store,
+			eventStore: eventStore,
+			appConfiguration: appConfiguration,
+			eventCheckoutService: eventCheckoutService
 		)
-		self.viewController.present(traceLocationCheckinViewController, animated: true)
+		
+		traceLocationCheckinCoordinator?.start()
 	}
 
 	private func showSettings() {
