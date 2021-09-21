@@ -130,6 +130,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationController?.navigationBar.sizeToFit()
 
 		viewModel.state.requestRisk(userInitiated: false)
+		viewModel.resetBadgeCount()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {

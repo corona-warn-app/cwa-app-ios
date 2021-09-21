@@ -174,7 +174,8 @@ protocol CoronaTestStoring {
 	var pcrTest: PCRTest? { get set }
 
 	var antigenTest: AntigenTest? { get set }
-
+	
+	var unseenTestsCount: Int { get set }
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
