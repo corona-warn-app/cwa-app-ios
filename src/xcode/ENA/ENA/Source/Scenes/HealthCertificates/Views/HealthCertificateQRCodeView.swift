@@ -31,9 +31,18 @@ class HealthCertificateQRCodeView: UIView {
 		qrCodeImageView.image = viewModel.qrCodeImage
 		accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
-		noticeLabel.isHidden = viewModel.shouldBlockCertificateCode
-		infoButton.isHidden = viewModel.shouldBlockCertificateCode
 		infoButtonaction = viewModel.showInfo
+		if viewModel.shouldBlockCertificateCode {
+			NSLayoutConstraint.deactivate(visibleConstraints)
+			NSLayoutConstraint.activate(invisibleConstraints)
+			noticeLabel.isHidden = true
+			infoButton.isHidden = true
+		} else {
+			NSLayoutConstraint.deactivate(invisibleConstraints)
+			NSLayoutConstraint.activate(visibleConstraints)
+			noticeLabel.isHidden = false
+			infoButton.isHidden = false
+		}
 	}
 
 	// MARK: - Private
@@ -96,7 +105,11 @@ class HealthCertificateQRCodeView: UIView {
 		warningTriangleImageView.translatesAutoresizingMaskIntoConstraints = false
 		blockingView.addSubview(warningTriangleImageView)
 		
-		NSLayoutConstraint.activate([
+		NSLayoutConstraint.activate(invisibleConstraints)
+	}
+
+	lazy var visibleConstraints: [NSLayoutConstraint] = {
+		[
 			noticeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
 			noticeLabel.topAnchor.constraint(equalTo: topAnchor),
 
@@ -120,8 +133,28 @@ class HealthCertificateQRCodeView: UIView {
 
 			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
 			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
-		])
-	}
+		]
+	}()
+
+	lazy var invisibleConstraints: [NSLayoutConstraint] = {
+		[
+			qrCodeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			qrCodeImageView.topAnchor.constraint(equalTo: topAnchor),
+			qrCodeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			qrCodeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
+
+			qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
+
+			blockingView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			blockingView.topAnchor.constraint(equalTo: topAnchor),
+			blockingView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			blockingView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
+
+			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
+			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
+		]
+	}()
+
 
 	@objc
 	private func didHitInfoButton() {
@@ -130,7 +163,7 @@ class HealthCertificateQRCodeView: UIView {
 
 	// MARK: - Unitest helpers
 
-	#if DEBUG
+#if DEBUG
 	var noticrLabelIsHidden: Bool {
 		noticeLabel.isHidden
 	}
@@ -139,6 +172,6 @@ class HealthCertificateQRCodeView: UIView {
 		infoButton.isHidden
 	}
 
-	#endif
+#endif
 
 }
