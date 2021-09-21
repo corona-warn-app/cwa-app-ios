@@ -540,7 +540,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		addUIInterruptionMonitor(withDescription: "System Dialog") { alert -> Bool in
 			let button = alert.buttons.element(boundBy: 1)
 			  if button.exists {
-				button.waitAndTap()				
+				button.waitAndTap()
 			}
 			return true
 		}
