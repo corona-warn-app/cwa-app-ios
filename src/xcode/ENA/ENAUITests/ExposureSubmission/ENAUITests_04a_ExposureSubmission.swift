@@ -537,11 +537,11 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// monitor system dialogues and use default handler to simply dismiss any alert
 		// see https://developer.apple.com/videos/play/wwdc2020/10220/
-		addUIInterruptionMonitor(withDescription: "System Dialog") { (alert) -> Bool in
+		addUIInterruptionMonitor(withDescription: "System Dialog") { alert -> Bool in
 			let button = alert.buttons.element(boundBy: 1)
 			  if button.exists {
-				button.tap()
-			  }
+				button.waitAndTap()				
+			}
 			return true
 		}
 
@@ -556,7 +556,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		let scanQRCodeButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription]
 		scanQRCodeButton.waitAndTap()
-		
 		
 		/// Your consent screen
 		
