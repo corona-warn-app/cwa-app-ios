@@ -14,7 +14,6 @@ enum QRCodeResult {
 enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
-	case coronaTestQrError(QRScannerError)
 	case certificateQrError(HealthCertificateServiceError.RegistrationError)
 	
 	// MARK: - Protocol Equatable
@@ -25,8 +24,6 @@ enum QRCodeParserError: Error, Equatable {
 			return scanningErrorLhs == scanningErrorRhs
 		case (.checkinQrError(let checkinQrErrorLhs), .checkinQrError(let checkinQrErrorRhs)):
 			return checkinQrErrorLhs == checkinQrErrorRhs
-		case (.coronaTestQrError(let scanningErrorLhs), .coronaTestQrError(let scanningErrorRhs)):
-			return scanningErrorLhs == scanningErrorRhs
 		case (.certificateQrError(let certificateQrErrorLhs), .certificateQrError(let certificateQrErrorRhs)):
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
 		default:

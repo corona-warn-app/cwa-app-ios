@@ -234,8 +234,6 @@ class QRScannerViewController: UIViewController {
 			unwrappedError = qrScannerError
 		case .checkinQrError(let checkinQRScannerError):
 			unwrappedError = checkinQRScannerError
-		case .coronaTestQrError(let qrScannerError):
-			unwrappedError = qrScannerError
 		case .certificateQrError(let healthCertificateServiceError):
 			unwrappedError = healthCertificateServiceError
 		}
