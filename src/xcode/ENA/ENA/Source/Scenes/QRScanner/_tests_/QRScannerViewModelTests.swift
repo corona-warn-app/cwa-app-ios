@@ -256,15 +256,7 @@ class QRScannerViewModelTests: XCTestCase {
 			appConfiguration: appConfigurationProvider) { result in
 			switch result {
 			case .success(let result):
-				switch result {
-				case .certificate(let person, let certificate):
-					XCTAssertEqual(person.dateOfBirth, "1981-08-30", "Expected correct person dateOfBirth")
-					XCTAssertEqual(person.name?.standardizedName, "MITCHELL ROBERT", "Expected correct person standardizedName")
-					XCTAssertEqual(certificate.type, .vaccination, "Expected correct person standardizedName")
-					onFailureExpectation.fulfill()
-				default:
-					XCTFail("Expected a successful scan of Vaccination Certificate")
-				}
+				XCTFail("Expected scan to fail")
 			case .failure(let error):
 				switch error {
 				case .scanningError(let generalScanningError):
