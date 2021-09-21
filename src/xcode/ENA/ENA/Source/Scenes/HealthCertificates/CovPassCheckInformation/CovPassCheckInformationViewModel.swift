@@ -7,14 +7,6 @@ import UIKit
 
 final class CovPassCheckInformationViewModel {
 
-	// MARK: - Init
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -23,12 +15,13 @@ final class CovPassCheckInformationViewModel {
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.CovPass.Information.title,
+						topInset: 14.0,
 						image: UIImage(imageLiteralResourceName: "Illu_CovPass_Check"
 									  )
 					),
 					.space(height: 12.0),
 					.body(text: AppStrings.CovPass.Information.body),
-					.textWithLinks(text: AppStrings.CovPass.Information.faq, links: [AppStrings.CovPass.Information.faq: "https://www.coronawarn.app/de/faq/#eu_dcc_check"]),
+					.textWithLinks(text: AppStrings.CovPass.Information.faq, links: [AppStrings.CovPass.Information.faq: AppStrings.CovPass.Information.faqLink]),
 					.bulletPoint(
 						text: AppStrings.CovPass.Information.section01
 					),
@@ -45,5 +38,4 @@ final class CovPassCheckInformationViewModel {
 		])
 	}
 
-	// MARK: - Private
 }
