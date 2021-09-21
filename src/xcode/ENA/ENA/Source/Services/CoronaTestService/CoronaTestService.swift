@@ -93,6 +93,7 @@ class CoronaTestService {
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
@@ -132,7 +133,9 @@ class CoronaTestService {
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					// updating badge count for home tab
-					self?.unseenTestsCount.value += 1
+					if markAsUnseen {
+						self?.unseenTestsCount.value += 1
+					}
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -233,6 +236,7 @@ class CoronaTestService {
 		lastName: String?,
 		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
@@ -272,7 +276,9 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
 
 					// updating badge count for home tab
-					self?.unseenTestsCount.value += 1
+					if markAsUnseen {
+						self?.unseenTestsCount.value += 1
+					}
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)

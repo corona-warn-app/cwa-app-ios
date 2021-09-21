@@ -617,6 +617,7 @@ class CoronaTestServiceTests: CWATestCase {
 		service.registerPCRTestAndGetResult(
 			guid: "E1277F-E1277F24-4AD2-40BC-AFF8-CBCCCD893E4B",
 			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
 			certificateConsent: .given(dateOfBirth: "2000-01-01")
 		) { result in
 			expectation.fulfill()
@@ -1290,6 +1291,7 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: nil,
 			dateOfBirth: nil,
 			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
 			certificateSupportedByPointOfCare: false,
 			certificateConsent: .notGiven
 		) { result in
