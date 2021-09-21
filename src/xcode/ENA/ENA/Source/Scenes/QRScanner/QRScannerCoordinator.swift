@@ -6,6 +6,7 @@ import Foundation
 import UIKit
 
 // TODO: consent screen is shown twice for checkin tab and certificates tab. check if change required.
+// TODO: Mark certificates as new from other tabs
 
 enum QRScannerPresenter {
 	case submissionFlow
@@ -58,7 +59,7 @@ class QRScannerCoordinator {
 		let navigationController = UINavigationController(rootViewController: qrScannerViewController)
 		self.parentViewController?.present(navigationController, animated: true)
 	}
-		
+
 	// MARK: - Private
 	
 	private let store: Store
@@ -125,20 +126,24 @@ class QRScannerCoordinator {
 		case .submissionFlow:
 			didScanCoronaTestInSubmissionFlow?(testRegistrationInformation)
 		case .onBehalfFlow:
-			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-				parentViewController: parentViewController,
-				exposureSubmissionService: exposureSubmissionService,
-				coronaTestService: coronaTestService,
-				healthCertificateService: healthCertificateService,
-				healthCertificateValidationService: healthCertificateValidationService,
-				eventProvider: eventStore,
-				antigenTestProfileStore: store,
-				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-				qrScannerCoordinator: self
-			)
+			let parentPresentingViewController = parentViewController.presentingViewController
 
 			parentViewController.dismiss(animated: true) {
+				self.parentViewController = parentPresentingViewController
+
+				self.exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+					parentViewController: self.parentViewController,
+					exposureSubmissionService: self.exposureSubmissionService,
+					coronaTestService: self.coronaTestService,
+					healthCertificateService: self.healthCertificateService,
+					healthCertificateValidationService: self.healthCertificateValidationService,
+					eventProvider: self.eventStore,
+					antigenTestProfileStore: self.store,
+					vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+					healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+					qrScannerCoordinator: self
+				)
+
 				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
 			}
 		case .checkinTab, .certificateTab:
