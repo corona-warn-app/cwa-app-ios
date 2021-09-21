@@ -27,22 +27,18 @@ final class CovPassCheckInformationViewModel {
 									  )
 					),
 					.space(height: 12.0),
-					.body(text: "Dritte können nur mit der CovPassCheck-App verlässlich überprüfen, ob es sich um ein valides Impf-, Genesenen-, oder Testzertifikat handelt."),
-					.link(
-						text: "FAQ zur Zertifikatsprüfung durch Dritte",
-						url: URL(staticString: "https://www.coronawarn.app/de/faq/#eu_dcc_check"),
-						accessibilityIdentifier: nil
-					),
+					.body(text: AppStrings.CovPass.Information.body),
+					.textWithLinks(text: AppStrings.CovPass.Information.faq, links: [AppStrings.CovPass.Information.faq: "https://www.coronawarn.app/de/faq/#eu_dcc_check"]),
 					.bulletPoint(
-						text: "Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App."
+						text: AppStrings.CovPass.Information.section01
 					),
 					.space(height: 12.0),
 					.bulletPoint(
-						text: "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen."
+						text: AppStrings.CovPass.Information.section02
 					),
 					.space(height: 12.0),
 					.bulletPoint(
-						text: "Bitte beachten Sie, dass in anderen Ländern andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden."
+						text: AppStrings.CovPass.Information.section03
 					)
 				]
 			)
