@@ -20,11 +20,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211UniversalQRCodeScannerTitle, description: AppStrings.NewVersionFeatures.feature211UniversalQRCodeScannerDescription)
 		)
 		
-		// QR Code Import
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211QRCodeImportTitle, description: AppStrings.NewVersionFeatures.feature211QRCodeImportDescription)
-		)
-		
 		// Adjustment in contact duration
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211ContactDurationAdjustmentTitle, description: AppStrings.NewVersionFeatures.feature211ContactDurationAdjustmentDescription)
