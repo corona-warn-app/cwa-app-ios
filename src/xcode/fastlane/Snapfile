@@ -34,7 +34,9 @@ clear_previous_screenshots(false)
 stop_after_first_error(true)
 
 # Keep this above zero to mitigate random failues from bugs in the testing framework!
-number_of_retries(1)
+number_of_retries(0)
+
+reinstall_app(true)
 
 headless(false)
 erase_simulator(true)
