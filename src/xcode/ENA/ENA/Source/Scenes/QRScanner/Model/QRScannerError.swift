@@ -9,8 +9,6 @@ enum QRScannerError: Error, LocalizedError {
 	case cameraPermissionDenied
 	case codeNotFound
 	case other(Error)
-	// TODO: this is "not qr code for the CWA. Add handling with corresponding text.
-	case shouldNotHappen
 
 	var errorDescription: String? {
 		switch self {

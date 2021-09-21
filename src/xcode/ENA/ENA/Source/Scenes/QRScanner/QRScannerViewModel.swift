@@ -187,7 +187,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		
 		guard let parser = parser else {
 			Log.error("QRCode parser not intitialized, Scanned code prefix doesnt match any of the scannable structs", log: .qrCode, error: nil)
-			completion(.failure(.scanningError(.shouldNotHappen)))
+			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
 		parser.parse(qrCode: url, completion: { result in
