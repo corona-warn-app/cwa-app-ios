@@ -94,6 +94,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
 		
 		// THEN
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
