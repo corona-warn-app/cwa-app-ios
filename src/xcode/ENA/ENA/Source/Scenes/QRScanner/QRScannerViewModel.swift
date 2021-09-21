@@ -167,22 +167,24 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		// which is incorrect and it should be a Corona test error, so we need to have an idea about the type of qrcode before paring it
 		
 		let traceLocationsPrefix = "https://e.coronawarn.app"
-		let antigetTestPrefix = "https://s.coronawarn.app"
-		let pcrPrefix = "https://localhost"
+		let antigenTestPrefix = "https://s.coronawarn.app"
+		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
+
+		var parser: QRCodeParsable?
 
 		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
 			// it is trace Locations QRCode
-			self.parser = CheckinQRCodeParser(
+			parser = CheckinQRCodeParser(
 				verificationHelper: verificationHelper,
 				appConfiguration: appConfiguration
 			)
-		} else if url.prefix(antigetTestPrefix.count) == antigetTestPrefix || url.prefix(pcrPrefix.count) == pcrPrefix {
+		} else if url.prefix(antigenTestPrefix.count) == antigenTestPrefix || url.prefix(pcrTestPrefix.count) == pcrTestPrefix {
 			// it is a test
-			self.parser = CoronaTestsQRCodeParser()
+			parser = CoronaTestsQRCodeParser()
 		} else if url.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
 			// it is a digital certificate
-			self.parser = HealthCertificateQRCodeParser(
+			parser = HealthCertificateQRCodeParser(
 				healthCertificateService: healthCertificateService
 			)
 		}
@@ -201,6 +203,5 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	private let verificationHelper: QRCodeVerificationHelper
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
-	
-	private var parser: QRCodeParsable?
+
 }
