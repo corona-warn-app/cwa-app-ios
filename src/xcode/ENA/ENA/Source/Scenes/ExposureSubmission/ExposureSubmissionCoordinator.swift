@@ -532,60 +532,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				parentViewController: navigationController,
 				presenter: .submissionFlow
 			)
-
-			// TODO: error handling
-//			let scannerViewController = ExposureSubmissionQRScannerViewController(
-//				onSuccess: { testRegistrationInformation in
-//					DispatchQueue.main.async { [weak self] in
-//						self?.presentedViewController?.dismiss(animated: true) {
-//							self?.model.exposureSubmissionService.loadSupportedCountries(
-//								isLoading: isLoading,
-//								onSuccess: { supportedCountries in
-//									self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
-//								}
-//							)
-//						}
-//					}
-//				},
-//				onError: { [weak self] error, reactivateScanning in
-//					switch error {
-//					case .cameraPermissionDenied:
-//						DispatchQueue.main.async {
-//							let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
-//								self?.presentedViewController?.dismiss(animated: true)
-//							})
-//							self?.presentedViewController?.present(alert, animated: true)
-//						}
-//					case .codeNotFound:
-//						DispatchQueue.main.async {
-//							let alert = UIAlertController.errorAlert(
-//								title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-//								message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
-//								okTitle: AppStrings.Common.alertActionCancel,
-//								secondaryActionTitle: AppStrings.Common.alertActionRetry,
-//								completion: { [weak self] in
-//									self?.presentedViewController?.dismiss(animated: true)
-//								},
-//								secondaryActionCompletion: { reactivateScanning() }
-//							)
-//							self?.presentedViewController?.present(alert, animated: true)
-//						}
-//					case .other:
-//						Log.error("QRScannerError.other occurred.", log: .ui)
-//					case .shouldNotHappen:
-//						Log.error("QRScannerError.shouldNotHappen occurred.", log: .ui)
-//					}
-//				},
-//				onCancel: { [weak self] in
-//					self?.presentedViewController?.dismiss(animated: true)
-//				}
-//			)
-//
-//			let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
-//			qrScannerNavigationController.modalPresentationStyle = .fullScreen
-//
-//			navigationController?.present(qrScannerNavigationController, animated: true)
-//			presentedViewController = qrScannerNavigationController
 		}
 
 	}
