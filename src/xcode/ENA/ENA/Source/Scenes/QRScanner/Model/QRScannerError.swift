@@ -7,6 +7,7 @@ import Foundation
 enum QRScannerError: Error, LocalizedError {
 
 	case cameraPermissionDenied
+	case scanningDeactivated
 	case codeNotFound
 	case other(Error)
 
