@@ -1,9 +1,9 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v9-{{ checksum "src/xcode/Gemfile.lock" }}
-  - tools_cache_key: &tools_cache_key v3-{{ checksum "Brewfile.lock.json" }}
-  - xcode_version: &xcode_version 12.5.1
+  - cache_key: &cache_key v11-{{ checksum "src/xcode/Gemfile.lock" }}
+  - tools_cache_key: &tools_cache_key v5-{{ checksum "Brewfile.lock.json" }}
+  - xcode_version: &xcode_version 13.0.0
   - resource_class: &resource_class large
 
 ###
@@ -14,9 +14,6 @@ commands:
   prepare-dependencies:
     steps:
       - checkout
-      - run:
-          name: fix SwiftPM #Solves an old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
-          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
       - restore_cache:
           key: *cache_key
       - restore_cache:
@@ -76,7 +73,7 @@ jobs:
             xcodebuild \
               -workspace "ENA.xcworkspace" \
               -scheme ENA \
-              -destination "platform=iOS Simulator,OS=14.5,name=iPhone 11" \
+              -destination "platform=iOS Simulator,OS=15.0,name=iPhone 11" \
               -testPlan AllTests \
               -only-test-configuration "DE" \
               -derivedDataPath "./DerivedData" \
@@ -102,7 +99,7 @@ jobs:
       - run:
           name: Swiftlint
           command: |
-            vendor/swiftlint --version
+            swiftlint --version
             cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
           path: src/xcode/swiftlint.html
@@ -119,7 +116,7 @@ jobs:
       - run:
           name: Analyze (experimental)
           command: |
-            vendor/swiftlint --version
+            swiftlint --version
             cd src/xcode && bundle exec fastlane analyze || true
       - store_artifacts:
           path: src/xcode/swiftlint.analyze.html
