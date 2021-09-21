@@ -47,7 +47,8 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	
 	func didScan(metadataObjects: [MetadataObject]) {
 		guard isScanningActivated else {
-			Log.info("Scanning not stopped from previous run")
+			completion(.failure(.scanningError(.scanningDeactivated)))
+			Log.error("Scanning not stopped from previous run")
 			return
 		}
 
@@ -56,6 +57,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 			  let url = code.stringValue,
 			  !url.isEmpty
 		else {
+			Log.error("Scanned QRCode URL in empty or invalid")
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
@@ -186,7 +188,8 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		}
 		
 		guard let parser = parser else {
-			Log.error("QRCode parser not intitialized, Scanned code prefix doesnt match any of the scannable structs", log: .qrCode, error: nil)
+			Log.error("QRCode parser not initialized, Scanned code prefix doesn't match any of the scannable structs", log: .qrCode, error: nil)
+			self.completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
 		parser.parse(qrCode: url, completion: { result in
