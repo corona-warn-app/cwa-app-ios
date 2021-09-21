@@ -177,6 +177,9 @@ class HealthCertificateCoordinator {
 						)
 					}
 				)
+			},
+			showInfoHit: { [weak self] in
+				self?.presentCovPassInfoScreen()
 			}
 		)
 		
@@ -187,6 +190,20 @@ class HealthCertificateCoordinator {
 		
 		return topBottomContainerViewController
 	}()
+
+	private func presentCovPassInfoScreen(rootViewController: UIViewController? = nil) {
+		guard let presentViewController = rootViewController ?? navigationController else {
+			Log.error("Failed to find present view controller")
+			return
+		}
+		let covPassInformationViewController = CovPassCheckInformationViewController(
+			onDismiss: {
+				presentViewController.dismiss(animated: true)
+			}
+		)
+		let navigationController = DismissHandlingNavigationController(rootViewController: covPassInformationViewController, transparent: true)
+		presentViewController.present(navigationController, animated: true)
+	}
 
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
