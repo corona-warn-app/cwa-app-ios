@@ -32,6 +32,7 @@ class HealthCertificateQRCodeView: UIView {
 		accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
 		noticeLabel.isHidden = viewModel.shouldBlockCertificateCode
+		infoButton.isHidden = viewModel.shouldBlockCertificateCode
 		infoButtonaction = viewModel.showInfo
 	}
 
@@ -126,5 +127,18 @@ class HealthCertificateQRCodeView: UIView {
 	private func didHitInfoButton() {
 		infoButtonaction?()
 	}
+
+	// MARK: - Unitest helpers
+
+	#if DEBUG
+	var noticrLabelIsHidden: Bool {
+		noticeLabel.isHidden
+	}
+
+	var infoButtonIsHidden: Bool {
+		infoButton.isHidden
+	}
+
+	#endif
 
 }
