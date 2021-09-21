@@ -186,9 +186,6 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
-					
-					// updating badge count for home tab
-					self?.unseenTestsCount.value += 1
 
 					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
 					// testDate: For PCR -> registration date
