@@ -497,9 +497,9 @@ extension SecureStore: CoronaTestStoring {
 		set { kvStore["antigenTest"] = newValue }
 	}
 
-	var unseenTestResultCount: Int {
-		get { kvStore["unseenTestResultCount"] as Int? ?? 0 }
-		set { kvStore["unseenTestResultCount"] = newValue }
+	var unseenTestsCount: Int {
+		get { kvStore["unseenTestsCount"] as Int? ?? 0 }
+		set { kvStore["unseenTestsCount"] = newValue }
 	}
 }
 

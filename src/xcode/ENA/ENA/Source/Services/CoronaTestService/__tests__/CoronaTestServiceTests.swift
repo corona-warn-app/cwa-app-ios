@@ -604,7 +604,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 3
 		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestResultCount
+		let countSubscription = service.unseenTestsCount
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -628,7 +628,7 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		service.resetUnseenTestResultCount()
+		service.resetUnseenTestsCount()
 
 		waitForExpectations(timeout: .short)
 

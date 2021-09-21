@@ -183,7 +183,7 @@ class HomeTableViewModel {
 	}
 
 	func resetBadgeCount() {
-		coronaTestService.resetUnseenTestResultCount()
+		coronaTestService.resetUnseenTestsCount()
 	}
 
 	// MARK: - Private

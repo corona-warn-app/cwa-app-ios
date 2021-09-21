@@ -424,7 +424,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func setupHomeBadgeCount() {
-		coronaTestService.unseenTestResultCount
+		coronaTestService.unseenTestsCount
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.homeController?.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil

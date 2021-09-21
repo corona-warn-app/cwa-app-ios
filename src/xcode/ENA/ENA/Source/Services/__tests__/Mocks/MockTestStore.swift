@@ -123,7 +123,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
-	var unseenTestResultCount: Int = 0
+	var unseenTestsCount: Int = 0
 
 	// MARK: - AntigenTestProfileStoring
 
