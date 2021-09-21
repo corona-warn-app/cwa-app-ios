@@ -1595,15 +1595,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.10 */
+/* Version 2.11 */
 
-"NewVersionFeature_210_boosterVaccination_title" = "Information zu Auffrischungsimpfung";
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Universeller QR-Code-Scanner";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Die App kann Ihnen nun eine Mitteilung anzeigen, die Sie über eine eventuell anstehende Auffrischungsimpfung informiert.";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Sie können nun unabhängig davon, von wo ein QR-Code-Scanner in der CWA geöffnet wird, alle von der CWA unterstützen Dokumente scannen:\n\t\U2022 PCR-Tests\n\t\U2022 Schnelltests\n\t\U2022 Event Check-ins\n\t\U2022 Zertifikate";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Druckversion von Impfzertifikaten";
+"NewVersionFeature_211_qrCodeImport_title" = "QR-Code importieren";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Sie können nun eine Druckversion Ihrer in Deutschland ausgestellten Zertifikate anzeigen, die es Ihnen ermöglicht, die Zertifikate als PDF-Dokument zu speichern oder auszudrucken.";
+"NewVersionFeature_211_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code-Scanner importieren.";
+
+"NewVersionFeature_211_contactDurationAdjustment_title" = "Anpassung Kontaktdauer";
+
+"NewVersionFeature_211_contactDurationAdjustment_description" = "Die minimale Kontaktdauer im Kontakttagebuch wurde von 15 auf 10 Minuten reduziert. Existierende Einträge zu Kontakten mit Personen wurden automatisch angepasst. Überprüfen und passen Sie die Einträge gegebenenfalls noch einmal an.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

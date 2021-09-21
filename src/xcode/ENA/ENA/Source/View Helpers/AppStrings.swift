@@ -1137,15 +1137,19 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.10 */
+		/* Version 2.11 */
 		
-		static let feature210BoosterVaccinationTitle = NSLocalizedString("NewVersionFeature_210_boosterVaccination_title", comment: "")
+		static let feature211UniversalQRCodeScannerTitle = NSLocalizedString("NewVersionFeature_211_universalQRCodeScanner_title", comment: "")
 		
-		static let feature210BoosterVaccinationDescription = NSLocalizedString("NewVersionFeature_210_boosterVaccination_description", comment: "")
+		static let feature211UniversalQRCodeScannerDescription = NSLocalizedString("NewVersionFeature_211_universalQRCodeScanner_description", comment: "")
 		
-		static let feature210PrintVersionVaccinationCertificateTitle = NSLocalizedString("NewVersionFeature_210_printVersionVaccinationCertificate_title", comment: "")
+		static let feature211QRCodeImportTitle = NSLocalizedString("NewVersionFeature_211_qrCodeImport_title", comment: "")
 		
-		static let feature210PrintVersionVaccinationCertificateDescription = NSLocalizedString("NewVersionFeature_210_printVersionVaccinationCertificate_description", comment: "")
+		static let feature211QRCodeImportDescription = NSLocalizedString("NewVersionFeature_211_qrCodeImport_description", comment: "")
+		
+		static let feature211ContactDurationAdjustmentTitle = NSLocalizedString("NewVersionFeature_211_contactDurationAdjustment_title", comment: "")
+		
+		static let feature211ContactDurationAdjustmentDescription = NSLocalizedString("NewVersionFeature_211_contactDurationAdjustment_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
