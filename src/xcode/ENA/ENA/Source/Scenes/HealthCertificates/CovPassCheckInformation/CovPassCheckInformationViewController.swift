@@ -27,8 +27,7 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
-		parent?.navigationItem.title = AppStrings.HealthCertificate.Validation.title
+		navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
 
 		setupTableView()
 
@@ -52,22 +51,10 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
+		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.contentInsetAdjustmentBehavior = .never
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
-
-		tableView.register(
-			CountrySelectionCell.self,
-			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.countrySelectionCell.rawValue
-		)
-
-		tableView.register(
-			ValidationDateSelectionCell.self,
-			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.validationDateSelectionCell.rawValue
-		)
-
-		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
-			forCellReuseIdentifier: HealthCertificateValidationViewModel.CellIdentifiers.legalDetails.rawValue
-		)
 	}
-
 }

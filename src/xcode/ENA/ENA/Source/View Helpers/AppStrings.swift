@@ -1987,6 +1987,12 @@ enum AppStrings {
 		}
 	}
 
+	enum CovPass {
+		enum Information {
+			static let title = NSLocalizedString("CovPass_Check_Info_Title", comment: "")
+		}
+	}
+
 	enum HealthCertificate {
 
 		enum UnifiedQRCode {
