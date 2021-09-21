@@ -28,11 +28,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// if the view controller is direct child of a navigation controller, it can use its own navigation item
-		// but if not, e.g. it is embedded in a (custom) container view controller, it must use its parent's item
-		let effectiveNavigationItem = (parent is UINavigationController) ? navigationItem : parent?.navigationItem
-		effectiveNavigationItem?.title = AppStrings.DataDonation.Info.title
-		effectiveNavigationItem?.largeTitleDisplayMode = largeTitleDisplayMode
+		navigationItem.title = AppStrings.DataDonation.Info.title
+		navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
 		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
 	}
