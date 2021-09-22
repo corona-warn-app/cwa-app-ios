@@ -91,7 +91,10 @@ final class CheckinTabCoordinator {
 	func showQRCodeScanner() {
 		qrScannerCoordinator.start(
 			parentViewController: viewController,
-			presenter: .checkinTab
+			presenter: .checkinTab,
+			didDismiss: { [weak self] in
+				self?.checkinsOverviewViewModel.updateForCameraPermission()
+			}
 		)
 	}
 	

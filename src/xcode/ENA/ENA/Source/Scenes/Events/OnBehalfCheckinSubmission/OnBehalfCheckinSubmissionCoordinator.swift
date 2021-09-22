@@ -122,31 +122,11 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 		qrScannerCoordinator.start(
 			parentViewController: navigationController,
-			presenter: .onBehalfFlow
+			presenter: .onBehalfFlow,
+			didDismiss: { [weak self] in
+				self?.traceLocationSelectionViewController?.reload()
+			}
 		)
-
-		// TODO: reload on dismiss
-//		let qrCodeScanner = CheckinQRCodeScannerViewController(
-//			qrCodeVerificationHelper: QRCodeVerificationHelper(),
-//			appConfiguration: appConfiguration,
-//			didScanCheckin: { [weak self] traceLocation in
-//				self?.navigationController.dismiss(animated: true) {
-//					self?.showDateTimeSelectionSelectionScreen(traceLocation: traceLocation)
-//				}
-//			},
-//			dismiss: { [weak self] in
-//				// Reload to reflect current camera permission state
-//				self?.traceLocationSelectionViewController?.reload()
-//				self?.navigationController.dismiss(animated: true)
-//			}
-//		)
-//
-//		qrCodeScanner.definesPresentationContext = true
-//
-//		let modalNavigationController = UINavigationController(rootViewController: qrCodeScanner)
-//		modalNavigationController.modalPresentationStyle = .fullScreen
-//
-//		navigationController.present(modalNavigationController, animated: true)
 	}
 
 	private func showDateTimeSelectionSelectionScreen(

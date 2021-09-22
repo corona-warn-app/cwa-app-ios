@@ -5,8 +5,6 @@
 import Foundation
 import UIKit
 
-// TODO: consent screen is shown twice for checkin tab and certificates tab. check if change required.
-
 enum QRScannerPresenter {
 	case submissionFlow
 	case onBehalfFlow
@@ -51,14 +49,16 @@ class QRScannerCoordinator {
 	
 	func start(
 		parentViewController: UIViewController,
-		presenter: QRScannerPresenter
+		presenter: QRScannerPresenter,
+		didDismiss: @escaping () -> Void = {}
 	) {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
 				markCertificateAsNew: presenter != .certificateTab,
-				markCoronaTestAsNew: presenter != .submissionFlow
+				markCoronaTestAsNew: presenter != .submissionFlow,
+				didDismiss: didDismiss
 			)
 		)
 		self.parentViewController?.present(navigationController, animated: true)
@@ -88,7 +88,8 @@ class QRScannerCoordinator {
 	
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool
+		markCoronaTestAsNew: Bool,
+		didDismiss: @escaping () -> Void
 	) -> UIViewController {
 		return QRScannerViewController(
 			healthCertificateService: healthCertificateService,
@@ -110,6 +111,7 @@ class QRScannerCoordinator {
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
+				didDismiss()
 			}
 		)
 	}
