@@ -755,6 +755,7 @@
 		8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */; };
 		8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B062681496D0047C1A6 /* CustomDashedView.swift */; };
 		8F499B092682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B082682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift */; };
+		8F4B8C5526F8A5FF007620D0 /* QRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B8C5426F8A5FF007620D0 /* QRScannerViewModelTests.swift */; };
 		8F4E623325EE878400FF4F0A /* ErrorReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */; };
 		8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */; };
 		8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */; };
@@ -2185,6 +2186,7 @@
 		8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageStatisticsCardView.swift; sourceTree = "<group>"; };
 		8F499B062681496D0047C1A6 /* CustomDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDashedView.swift; sourceTree = "<group>"; };
 		8F499B082682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageStatisticsCardsViewModel.swift; sourceTree = "<group>"; };
+		8F4B8C5426F8A5FF007620D0 /* QRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModelTests.swift; sourceTree = "<group>"; };
 		8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorReportCoordinator.swift; sourceTree = "<group>"; };
 		8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorLoggingStatus.swift; sourceTree = "<group>"; };
 		8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomErrorReportViewController.swift; sourceTree = "<group>"; };
@@ -4453,6 +4455,7 @@
 		5013B17F26EBA34200A2DD54 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
+				8F4B8C5326F8A5CB007620D0 /* _tests_ */,
 				5013B18126EBA37600A2DD54 /* Model */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
@@ -5561,6 +5564,14 @@
 				8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		8F4B8C5326F8A5CB007620D0 /* _tests_ */ = {
+			isa = PBXGroup;
+			children = (
+				8F4B8C5426F8A5FF007620D0 /* QRScannerViewModelTests.swift */,
+			);
+			path = _tests_;
 			sourceTree = "<group>";
 		};
 		8F5656D625F2635200E756E5 /* SendErrorLogsViewController */ = {
@@ -9696,6 +9707,7 @@
 				BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */,
 				01BA06FB261F5B1000237DD8 /* AntigenTest+Mock.swift in Sources */,
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
+				8F4B8C5526F8A5FF007620D0 /* QRScannerViewModelTests.swift in Sources */,
 				A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */,
 				BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */,
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
