@@ -8,7 +8,8 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	
 	// MARK: - Init
 
-	init() {
+	init(markAsNew: Bool) {
+		self.markAsNew = markAsNew
 	}
 	
 	func parse(
@@ -17,7 +18,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	) {
 		#if DEBUG
 		if isUITesting {
-			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid"))))
+			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid", markAsNew: markAsNew))))
 		}
 		#endif
 		
@@ -25,6 +26,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
+
 		completion(.success(.coronaTest(coronaTestQRCodeInformation)))
 	}
 
@@ -57,6 +59,8 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	}
 
 	// MARK: - Private
+
+	private let markAsNew: Bool
 	
 	private func pcrTestInformation(
 		from guidURL: String,
@@ -72,6 +76,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			  ) else {
 			return nil
 		}
-		return matchings.isEmpty ? nil : .pcr(guid: candidate)
+		return matchings.isEmpty ? nil : .pcr(guid: candidate, markAsNew: markAsNew)
 	}
+
 }

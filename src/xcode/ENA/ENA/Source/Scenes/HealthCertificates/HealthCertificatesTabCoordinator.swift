@@ -337,7 +337,8 @@ final class HealthCertificatesTabCoordinator {
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true
 		)
 		
 		certificateCoordinator?.start()

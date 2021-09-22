@@ -25,7 +25,8 @@ final class HealthCertificateCoordinator {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
-		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		markAsSeenOnDisappearance: Bool
 	) {
 		self.parentingViewController = parentingViewController
 		self.healthCertifiedPerson = healthCertifiedPerson
@@ -35,6 +36,8 @@ final class HealthCertificateCoordinator {
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+
+		self.markAsSeenOnDisappearance = markAsSeenOnDisappearance
 
 		#if DEBUG
 		if isUITesting {
@@ -94,6 +97,8 @@ final class HealthCertificateCoordinator {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+
+	private let markAsSeenOnDisappearance: Bool
 	
 	private var navigationController: UINavigationController!
 	private var printNavigationController: UINavigationController!
@@ -122,6 +127,7 @@ final class HealthCertificateCoordinator {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: markAsSeenOnDisappearance,
 			dismiss: {
 				self.navigationController.dismiss(animated: true)
 			},

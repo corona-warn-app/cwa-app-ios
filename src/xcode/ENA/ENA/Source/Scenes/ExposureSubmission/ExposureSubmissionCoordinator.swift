@@ -691,6 +691,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
 			dismiss: { [weak self] in
 				self?.dismiss()
 			},

@@ -13,6 +13,8 @@ class QRScannerViewController: UIViewController {
 		healthCertificateService: HealthCertificateService,
 		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
+		markCertificateAsNew: Bool,
+		markCoronaTestAsNew: Bool,
 		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void
 	) {
@@ -24,6 +26,8 @@ class QRScannerViewController: UIViewController {
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationHelper,
 			appConfiguration: appConfiguration,
+			markCertificateAsNew: markCertificateAsNew,
+			markCoronaTestAsNew: markCoronaTestAsNew,
 			completion: { [weak self] result in
 				switch result {
 				case let .success(qrCodeResult):

@@ -57,7 +57,12 @@ class QRScannerCoordinator {
 	) {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
-		let navigationController = UINavigationController(rootViewController: qrScannerViewController)
+		let navigationController = UINavigationController(
+			rootViewController: qrScannerViewController(
+				markCertificateAsNew: presenter != .certificateTab,
+				markCoronaTestAsNew: presenter != .submissionFlow
+			)
+		)
 		self.parentViewController?.present(navigationController, animated: true)
 	}
 
@@ -83,15 +88,16 @@ class QRScannerCoordinator {
 	private var exposureSubmissionCoordinator: ExposureSubmissionCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	
-	private lazy var rootNavigationController: UINavigationController = {
-		return UINavigationController(rootViewController: qrScannerViewController)
-	}()
-	
-	private lazy var qrScannerViewController: UIViewController = {
+	private func qrScannerViewController(
+		markCertificateAsNew: Bool,
+		markCoronaTestAsNew: Bool
+	) -> UIViewController {
 		return QRScannerViewController(
 			healthCertificateService: healthCertificateService,
 			verificationHelper: qrCodeVerificationHelper,
 			appConfiguration: appConfiguration,
+			markCertificateAsNew: markCertificateAsNew,
+			markCoronaTestAsNew: markCoronaTestAsNew,
 			didScan: { [weak self] qrCodeResult in
 				self?.parentViewController.dismiss(animated: true)
 
@@ -108,7 +114,7 @@ class QRScannerCoordinator {
 				self?.parentViewController.dismiss(animated: true)
 			}
 		)
-	}()
+	}
 	
 	
 	private func showScannedTestResult(
@@ -177,7 +183,8 @@ class QRScannerCoordinator {
 					healthCertificateService: self.healthCertificateService,
 					healthCertificateValidationService: self.healthCertificateValidationService,
 					healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
-					vaccinationValueSetsProvider: self.vaccinationValueSetsProvider
+					vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+					markAsSeenOnDisappearance: false
 				)
 
 				self.healthCertificateCoordinator?.start()
@@ -191,7 +198,8 @@ class QRScannerCoordinator {
 				healthCertificateService: healthCertificateService,
 				healthCertificateValidationService: healthCertificateValidationService,
 				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-				vaccinationValueSetsProvider: vaccinationValueSetsProvider
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+				markAsSeenOnDisappearance: false
 			)
 
 			healthCertificateCoordinator?.start()
