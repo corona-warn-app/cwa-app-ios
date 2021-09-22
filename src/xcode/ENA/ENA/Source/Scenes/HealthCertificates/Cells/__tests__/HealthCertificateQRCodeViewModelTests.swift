@@ -22,7 +22,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -47,7 +48,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -72,7 +74,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -97,7 +100,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -124,7 +128,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -149,7 +154,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -174,7 +180,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -199,7 +206,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -226,7 +234,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -251,7 +260,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -276,7 +286,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -301,7 +312,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
-			accessibilityLabel: "accessibilityLabel"
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")

@@ -113,9 +113,23 @@ final class HealthCertificatesTabCoordinator {
 			},
 			onMissingPermissionsButtonTap: { [weak self] in
 				self?.showSettings()
+			},
+			showInfoHit: { [weak self] in
+				self?.presentCovPassInfoScreen()
 			}
 		)
 	}()
+
+	private func presentCovPassInfoScreen(rootViewController: UIViewController? = nil) {
+		let presentViewController = rootViewController ?? viewController
+		let covPassInformationViewController = CovPassCheckInformationViewController(
+			onDismiss: {
+				presentViewController.dismiss(animated: true)
+			}
+		)
+		let navigationController = DismissHandlingNavigationController(rootViewController: covPassInformationViewController, transparent: true)
+		presentViewController.present(navigationController, animated: true)
+	}
 
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
@@ -243,6 +257,13 @@ final class HealthCertificatesTabCoordinator {
 						}
 					)
 				)
+			},
+			showInfoHit: { [weak self] in
+				guard let self = self else {
+					Log.error("Failed to stronger self")
+					return
+				}
+				self.presentCovPassInfoScreen(rootViewController: self.modalNavigationController)
 			}
 		)
 		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)

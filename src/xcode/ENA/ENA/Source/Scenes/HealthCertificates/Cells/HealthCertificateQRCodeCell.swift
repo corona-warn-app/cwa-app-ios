@@ -213,8 +213,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				qrCodeView.heightAnchor.constraint(equalTo: qrCodeView.widthAnchor),
-
 				stackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 14.0),
 				stackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 14.0),
 				stackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -14.0),

@@ -38,8 +38,8 @@ struct ExposureWindow: Codable, Equatable {
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
-		case calibrationConfidence, reportType, infectiousness, scanInstances
-		case date = "ageInDays"
+		case calibrationConfidence, reportType, infectiousness, scanInstances, date
+		case ageInDays = "ageInDays"
 	}
 
 	// MARK: - Protocol Equatable
@@ -60,11 +60,17 @@ struct ExposureWindow: Codable, Equatable {
 		let infectiousness = try container.decode(ENInfectiousness.self, forKey: .infectiousness)
 		let scanInstances = try container.decode([ScanInstance].self, forKey: .scanInstances)
 
-		let ageInDays = try container.decode(Int.self, forKey: .date)
-		guard let date = Calendar.utcCalendar.date(byAdding: .day, value: -ageInDays, to: Calendar.utcCalendar.startOfDay(for: Date())) else {
-			fatalError("Date could not be generated")
+		// Try to get the Date directly otherwise fallback to construct the date from AgeInDays
+		let date: Date
+		do {
+			date = try container.decode(Date.self, forKey: .date)
+		} catch {
+			let ageInDays = try container.decode(Int.self, forKey: .ageInDays)
+			guard let dateFromAgeInDays = Calendar.utcCalendar.date(byAdding: .day, value: -ageInDays, to: Calendar.utcCalendar.startOfDay(for: Date())) else {
+				fatalError("Date could not be generated")
+			}
+			date = dateFromAgeInDays
 		}
-
 		self.init(calibrationConfidence: calibrationConfidence, date: date, reportType: reportType, infectiousness: infectiousness, scanInstances: scanInstances)
 	}
 
@@ -75,7 +81,7 @@ struct ExposureWindow: Codable, Equatable {
 		try container.encode(reportType, forKey: .reportType)
 		try container.encode(infectiousness, forKey: .infectiousness)
 		try container.encode(scanInstances, forKey: .scanInstances)
-		try container.encode(Calendar.current.dateComponents([.day], from: date, to: Calendar.current.startOfDay(for: Date())).day, forKey: .date)
+		try container.encode(date, forKey: .date)
 	}
 
 	// MARK: - Internal

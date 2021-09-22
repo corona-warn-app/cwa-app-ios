@@ -91,11 +91,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private let nameLabel: ENALabel = {
-		let nameLabel = ENALabel()
+		let nameLabel = ENALabel(style: .title2)
 		nameLabel.numberOfLines = 0
 		nameLabel.textColor = .enaColor(for: .textContrast)
-		nameLabel.font = .enaFont(for: .title2, weight: .light, italic: false)
-
 		return nameLabel
 	}()
 
@@ -128,7 +126,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private lazy var stackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [titleLabel, nameLabel])
 		stackView.axis = .vertical
-		stackView.spacing = 16.0
+		stackView.spacing = 8.0
 
 		return stackView
 	}()
@@ -272,12 +270,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				qrCodeContainerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
 				qrCodeContainerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -24.0),
-				qrCodeContainerView.widthAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor),
 
-				qrCodeView.centerXAnchor.constraint(equalTo: qrCodeContainerView.centerXAnchor),
-				qrCodeView.centerYAnchor.constraint(equalTo: qrCodeContainerView.centerYAnchor),
-				qrCodeView.widthAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor, constant: -32.0),
-				qrCodeView.heightAnchor.constraint(equalTo: qrCodeContainerView.heightAnchor, constant: -32.0),
+				qrCodeView.leadingAnchor.constraint(equalTo: qrCodeContainerView.leadingAnchor, constant: 16.0),
+				qrCodeView.topAnchor.constraint(equalTo: qrCodeContainerView.topAnchor, constant: 16.0),
+				qrCodeView.trailingAnchor.constraint(equalTo: qrCodeContainerView.trailingAnchor, constant: -16.0),
+				qrCodeView.bottomAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: -16.0),
 
 				captionStackView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 18.0),
 				captionStackView.topAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: 12.0),

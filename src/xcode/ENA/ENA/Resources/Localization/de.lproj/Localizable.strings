@@ -2721,7 +2721,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
-"HealthCertificate_Overview_Covid_Title" = "Digitales\n**COVID-Zertifikat der EU**";
+"HealthCertificate_Overview_Covid_Title" = "Digitales COVID-Zertifikat der EU";
 
 "VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
 
@@ -2819,7 +2819,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
 
+/* CovPass Info Screen */
+
+"CovPass_Check_Info_Title" = "Zertifikatsprüfung durch Dritte";
+
+
 /* Health Certified Person Screen */
+
+"HealthCertificate_unified_QR_code_notice" = "Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.";
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 

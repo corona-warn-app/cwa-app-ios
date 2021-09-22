@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "This is what you should do:";
 
+"ExposureDetection_Guide_Vaccination" = "Get vaccinated against the SARS-CoV-2 virus if you have not already done so.";
+
 "ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
 "ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Air out indoor spaces several times per day. To do so, open the windows as far as possible for several minutes (“shock ventilation”).";
 
+"ExposureDetection_Guide_Symptoms" = "Be alert for typical COVID-19 symptoms. Even vaccinated people can show symptoms in breakthrough cases. If you notice any suspicious symptoms, get tested.";
+
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home.";
 
 "ExposureDetection_Guide_Hotline1" = "If you have questions about symptoms, testing availability, or quarantine measures, please contact one of the following:";
 
 "ExposureDetection_Guide_Hotline2" = "Your general practitioner";
 
-"ExposureDetection_Guide_Hotline3" = "General medical emergency service on telephone number 116117";
+"ExposureDetection_Guide_Hotline3" = "General medical emergency service on telephone number 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Your public health authority";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor or the general medical emergency service number to arrange a test. After your test, discuss the SARS-CoV-2 vaccination with your family doctor.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "If you get tested, you will find additional information about the testing procedure in the %@.";
@@ -376,8 +382,6 @@
 
 "Onboarding_Continue_actionTextHint" = "You can skip this screen";
 
-"Onboarding_doNotAllow_actionText" = "Do Not Allow";
-
 "Onboarding_DoNotActivate_actionText" = "Do Not Activate";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "If you do not activate exposure logging, the app cannot determine your risk status. This means you will not receive any information about your risk in the app.";
@@ -467,8 +471,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Allow";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Do Not Allow";
 
 "ExposureSubmission_Submit" = "Enter TAN";
 
@@ -1555,14 +1557,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Information about Booster Vaccinations";
+/* Version 2.11 */
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Universal QR Code Scanner";
 
-"NewVersionFeature_210_boosterVaccination_description" = "The app can now display a message that notifies you of any upcoming booster vaccinations.";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "You can now scan all documents supported by the Corona-Warn-App, regardless of where you open a QR code scanner in the CWA:\n\n\t\U2022 PCR tests\n\t\U2022 Rapid tests\n\t\U2022 Event check-ins\n\t\U2022 Certificates";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Print Version of Vaccination Certificates";
+"NewVersionFeature_211_qrCodeImport_title" = "Import QR Code";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "You can now display a print version of your certificates that were issued in Germany, which enables you to save the certificates as PDF documents and print them out.";
+"NewVersionFeature_211_qrCodeImport_description" = "You can now use the QR code scanner to import QR codes from photos or PDF files.";
+
+"NewVersionFeature_211_contactDurationAdjustment_title" = "Adjustment to Contact Duration";
+
+"NewVersionFeature_211_contactDurationAdjustment_description" = "The minimum contact duration in the contact journal has been reduced from 15 minutes to 10 minutes. Existing entries for contacts with people have been adjusted automatically. Review your journal entries and adjust them if needed.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1685,9 +1691,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "based on multiple exposures with low risk.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Less than 15 min";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Less than 10 min";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "More than 15 min";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "More than 10 min";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "With mask";
 
@@ -1750,9 +1756,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "A building is marked with a location flag.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "Less than 15 min";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Less than 10 min";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "More than 15 min";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "More than 10 min";
 
 "ContactDiary_Day_Encounter_WithMask" = "With mask";
 
@@ -2627,7 +2633,7 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "No certificates available yet";
 
-"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.";
+"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.\n\nTo add a certificate, please scan the corresponding QR code.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
 
@@ -3020,6 +3026,13 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "QR Code Scanner";
+
+"UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
+
+"UniversalQRScanner_InstructionDescription" = "PCR tests and rapid tests, test certificates, vaccination certificates, certificates of recovery, and check-ins.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";

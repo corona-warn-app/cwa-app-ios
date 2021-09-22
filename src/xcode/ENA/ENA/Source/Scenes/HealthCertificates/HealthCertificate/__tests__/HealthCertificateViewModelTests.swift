@@ -42,7 +42,8 @@ class HealthCertificateViewModelTests: CWATestCase {
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			markAsSeenOnDisappearance: true
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -84,7 +85,8 @@ class HealthCertificateViewModelTests: CWATestCase {
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			markAsSeenOnDisappearance: true
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -125,7 +127,8 @@ class HealthCertificateViewModelTests: CWATestCase {
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			markAsSeenOnDisappearance: true
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		XCTAssertTrue(healthCertificate.isNew)
