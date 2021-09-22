@@ -532,7 +532,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							})
 							self?.presentedViewController?.present(alert, animated: true)
 						}
-					case .codeNotFound:
+					case .codeNotFound, .scanningDeactivated:
 						DispatchQueue.main.async {
 							let alert = UIAlertController.errorAlert(
 								title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
