@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите:";
 
+"ExposureDetection_Guide_Vaccination" = "Ваксинирайте се срещу вируса SARS-CoV-2, ако все още не сте го направили.";
+
 "ExposureDetection_Guide_Hands" = "Мийте редовно ръцете си със сапун в продължение на 20 сек.";
 
 "ExposureDetection_Guide_Mask" = "Носете маска при контакт с други хора.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Проветрявайте затворените помещения по няколко пъти на ден. За целта отворете прозорците възможно най-широко за няколко минути (т.нар. ударно проветряване).";
 
+"ExposureDetection_Guide_Symptoms" = "Следете за типичните симптоми на COVID-19. Дори ваксинираните хора проявяват такива при случаи на пробив в защитата на ваксината. Направете си тест, ако забележите съмнителни симптоми.";
+
 "ExposureDetection_Guide_Home" = "По възможност се приберете и си останете вкъщи.";
 
 "ExposureDetection_Guide_Hotline1" = "Ако имате въпроси относно симптомите, възможностите за тестване или карантинните мерки, моля обърнете се към:";
 
 "ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
 
-"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116117";
+"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Ако все още не сте се ваксинирали, консултирайте се с личния си лекар или се обадете на телефона на Общата служба за медицинска помощ, за да си запазите час за тест. След теста обсъдете с личния си лекар възможността за ваксинация срещу SARS-CoV-2.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Ако се тествате, ще получите допълнителна информация относно процедурата за тестване в %@.";
@@ -376,8 +382,6 @@
 
 "Onboarding_Continue_actionTextHint" = "Можете да пропуснете този екран";
 
-"Onboarding_doNotAllow_actionText" = "Не разрешавам";
-
 "Onboarding_DoNotActivate_actionText" = "Да не се активира";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Ако не активирате регистрирането на излагания на риск, приложението не може да определи Вашето ниво на риск и няма да Ви изпраща никаква информация относно него.";
@@ -467,8 +471,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Разрешавам";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Не разрешавам";
 
 "ExposureSubmission_Submit" = "Въведете ТАН код";
 
@@ -1555,14 +1557,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Информация за ваксиниране с бустерни дози";
+/* Version 2.11 */
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Универсален скенер за QR кодове";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Приложението вече може да покаже съобщение, което Ви известява за предстоящо ваксиниране с бустерна доза.";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Вече можете да сканирате всички поддържани от приложението Corona-Warn-App документи, независимо откъде отваряте скенера за QR кодове в CWA:\n\n\t\U2022 PCR тестове\n\t\U2022 Бързи тестове\n\t\U2022 Регистрации за събития\n\t\U2022 Сертификати";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Версия за печат на сертификатите за ваксинация";
+"NewVersionFeature_211_qrCodeImport_title" = "Импортиране не QR код";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Вече можете да покажете версия за печат на Вашите сертификати, издадени в Германия, което Ви позволява да ги запазите като PDF документи и да ги разпечатате.";
+"NewVersionFeature_211_qrCodeImport_description" = "Вече можете да използвате скенера за QR кодове, за да импортирате QR кодове от снимки или PDF файлове.";
+
+"NewVersionFeature_211_contactDurationAdjustment_title" = "Коригиране на продължителността на контакта";
+
+"NewVersionFeature_211_contactDurationAdjustment_description" = "Минималната продължителност на контактите в дневника на контактите е намалена от 15 на 10 минути. Съществуващите записи на контакти се коригират автоматично. Прегледайте ги и ги коригирайте, ако е необходимо.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1685,9 +1691,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "въз основа на повече от едно излагане на нисък риск.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "По-малко от 15 мин";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Под 10 минути";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Повече от 15 мин";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "Над 10 минути";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "С маска";
 
@@ -1750,9 +1756,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Сграда с маркер за местоположение.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "По-малко от 15 мин";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Под 10 минути";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Повече от 15 мин";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "Над 10 минути";
 
 "ContactDiary_Day_Encounter_WithMask" = "С маска";
 
@@ -2627,7 +2633,7 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Все още няма сертификати";
 
-"HealthCertificate_Overview_EmptyDescription" = "Тук се показват запазените цифрови сертификати за ваксинация, възстановяване и тест.";
+"HealthCertificate_Overview_EmptyDescription" = "Тук се показват запазените цифрови сертификати за ваксинация, възстановяване и тест.\n\nЗа да добавите сертификат, моля сканирайте съответния QR код.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Печат на сертификат на фона на цифров сертификат";
 
@@ -3020,6 +3026,13 @@
 "HealthCertificate_ValidityState_Invalid" = "Сертификатът (подписът) е невалиден";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "Скенер за QR кодове";
+
+"UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
+
+"UniversalQRScanner_InstructionDescription" = "PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Баден-Вюртемберг";

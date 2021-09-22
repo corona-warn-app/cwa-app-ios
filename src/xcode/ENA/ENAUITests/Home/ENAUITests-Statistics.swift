@@ -146,7 +146,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(deleteButton.waitForExistence(timeout: .short))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
-		XCTAssertFalse(localStatisticCell.exists)
+		XCTAssertFalse(localStatisticCell.isHittable)
 		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable)
 	}
 

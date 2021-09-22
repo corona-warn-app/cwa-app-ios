@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Zalecenia:";
 
+"ExposureDetection_Guide_Vaccination" = "Zaszczep się przeciwko wirusowi SARS-CoV-2, jeśli jeszcze tego nie zrobiłeś(-aś).";
+
 "ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez 20 sekund.";
 
 "ExposureDetection_Guide_Mask" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Wietrz pomieszczenia kilka razy dziennie. W tym celu maksymalnie otwórz okna na kilka minut („wentylacja szokowa”).";
 
+"ExposureDetection_Guide_Symptoms" = "Zwróć uwagę na typowe objawy COVID-19. W przełomowych przypadkach objawy mogą wystąpić nawet u osób zaszczepionych. Jeśli zauważysz jakiekolwiek podejrzane objawy, zrób test.";
+
 "ExposureDetection_Guide_Home" = "Jeśli to możliwe, idź do domu i w nim pozostań.";
 
 "ExposureDetection_Guide_Hotline1" = "W przypadku pytań dotyczących objawów, możliwości wykonania testu lub kwarantanny skontaktuj się z jednym z poniższych miejsc:";
 
 "ExposureDetection_Guide_Hotline2" = "Twój lekarz rodzinny";
 
-"ExposureDetection_Guide_Hotline3" = "Pogotowie ratunkowe pod numerem telefonu 116117";
+"ExposureDetection_Guide_Hotline3" = "Pogotowie ratunkowe pod numerem telefonu 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Organ ds. zdrowia publicznego";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym lub pogotowiem ratunkowym, aby umówić się na test. Po wykonaniu testu omów kwestię szczepienia przeciw SARS-CoV-2 ze swoim lekarzem rodzinnym.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Jeśli poddasz się testowi, dodatkowe informacje na temat procedury testowania znajdziesz w %@.";
@@ -376,8 +382,6 @@
 
 "Onboarding_Continue_actionTextHint" = "Możesz pominąć ten ekran";
 
-"Onboarding_doNotAllow_actionText" = "Nie zezwalaj";
-
 "Onboarding_DoNotActivate_actionText" = "Nie aktywuj";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Jeśli nie aktywujesz funkcji rejestrowania narażenia, aplikacja nie będzie mogła ustalić Twojego statusu ryzyka. Oznacza to, że nie będziesz otrzymywać w aplikacji informacji o Twoim statusie ryzyka.";
@@ -467,8 +471,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Zezwól";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nie zezwalaj";
 
 "ExposureSubmission_Submit" = "Wpisz TAN";
 
@@ -1555,14 +1557,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Informacje o szczepieniach przypominających";
+/* Version 2.11 */
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Uniwersalny skaner kodów QR";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Aplikacja może teraz wyświetlać komunikat informujący o zbliżających się szczepieniach przypominających.";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Możesz teraz skanować wszystkie dokumenty obsługiwane przez aplikację Corona-Warn-App, niezależnie od tego, gdzie otworzysz skaner kodów QR w CWA:\n\n\t\U2022 Testy PCR\n\t\U2022 Szybkie testy\n\t\U2022 Zameldowania obecności w wydarzeniach\n\t\U2022 Certyfikaty";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Wersja certyfikatów szczepień do druku";
+"NewVersionFeature_211_qrCodeImport_title" = "Importuj kod QR";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Możesz teraz wyświetlić wersję do druku certyfikatów wydanych w Niemczech, co umożliwi Ci zapisanie certyfikatów jako dokumentów PDF i ich wydrukowanie.";
+"NewVersionFeature_211_qrCodeImport_description" = "Możesz teraz używać skanera kodów QR do importowania kodów QR ze zdjęć lub plików PDF.";
+
+"NewVersionFeature_211_contactDurationAdjustment_title" = "Dostosowanie do czasu trwania kontaktu";
+
+"NewVersionFeature_211_contactDurationAdjustment_description" = "Minimalny czas trwania kontaktu w dzienniku kontaktów został skrócony z 15 minut do 10 minut. Dokonane już wpisy dotyczące kontaktów zostały automatycznie dostosowane. Przejrzyj wpisy w dzienniku i dostosuj je w razie potrzeby.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1685,9 +1691,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "na podstawie wielu narażeń o niskim ryzyku.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Mniej niż 15 min";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Mniej niż 10 min";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Więcej niż 15 min";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "Więcej niż 10 min";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Z maseczką";
 
@@ -1750,9 +1756,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Budynek jest oznaczony flagą lokalizacji.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "Mniej niż 15 min";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Mniej niż 10 min";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Więcej niż 15 min";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "Więcej niż 10 min";
 
 "ContactDiary_Day_Encounter_WithMask" = "Z maseczką";
 
@@ -2627,7 +2633,7 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Nie ma jeszcze dostępnych certyfikatów";
 
-"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe certyfikaty szczepień, certyfikaty statusu ozdrowieńca i certyfikaty testów.";
+"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe certyfikaty szczepień, certyfikaty statusu ozdrowieńca i certyfikaty testów.\n\nAby dodać certyfikat, zeskanuj odpowiedni kod QR.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
 
@@ -3020,6 +3026,13 @@
 "HealthCertificate_ValidityState_Invalid" = "Certyfikat (podpis) jest nieprawidłowy";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "Skaner kodów QR";
+
+"UniversalQRScanner_InstructionTitle" = "Jakie kody QR można zeskanować?";
+
+"UniversalQRScanner_InstructionDescription" = "Testy PCR i szybkie testy, certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca i zameldowania.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Badenia-Wirtembergia";

@@ -17,7 +17,9 @@ class HomeCoordinator: RequiresAppDependencies {
 		coronaTestService: CoronaTestService,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
-		elsService: ErrorLogSubmissionProviding
+		elsService: ErrorLogSubmissionProviding,
+		exposureSubmissionService: ExposureSubmissionService,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -27,7 +29,9 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
-		
+		self.exposureSubmissionService = exposureSubmissionService
+		self.qrScannerCoordinator = qrScannerCoordinator
+
 		setupHomeBadgeCount()
 	}
 
@@ -170,6 +174,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -182,32 +188,22 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private weak var delegate: CoordinatorDelegate?
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		#if DEBUG
-		if isUITesting {
-			let store = MockTestStore()
-			return ENAExposureSubmissionService(
-				diagnosisKeysRetrieval: exposureManager,
-				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
-				client: ClientMock(),
-				store: store,
-				eventStore: eventStore,
-				coronaTestService: coronaTestService
-			)
-		}
-		#endif
-
-		return ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: coronaTestService
+	
+	private (set) lazy var exposureSubmissionCoordinator: ExposureSubmissionCoordinator = {
+		ExposureSubmissionCoordinator(
+			parentViewController: rootViewController,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			eventProvider: eventStore,
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 	}()
-
+	   
 	private lazy var statisticsProvider: StatisticsProvider = {
 			#if DEBUG
 			if isUITesting {
@@ -330,18 +326,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
-		let coordinator = ExposureSubmissionCoordinator(
-			parentNavigationController: rootViewController,
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService,
-			healthCertificateService: healthCertificateService,
-			healthCertificateValidationService: healthCertificateValidationService,
-			eventProvider: eventStore,
-			antigenTestProfileStore: store,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
-		)
-
+		let coordinator = exposureSubmissionCoordinator
 		if let testInformationResult = testInformationResult {
 			coordinator.start(with: testInformationResult)
 		} else {
@@ -369,7 +354,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
 			client: client,
-			parentNavigationController: rootViewController
+			parentNavigationController: rootViewController,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 
 		traceLocationsCoordinator?.start()

@@ -16,7 +16,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
-		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void
+		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
@@ -27,7 +28,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: dismiss,
-			didTapValidationButton: didTapValidationButton
+			didTapValidationButton: didTapValidationButton,
+			showInfoHit: showInfoHit
 		)
 
 		super.init(nibName: nil, bundle: nil)
