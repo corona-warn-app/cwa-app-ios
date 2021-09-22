@@ -132,7 +132,7 @@ class RootCoordinator: RequiresAppDependencies {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			qrScannerCoordinator: qrScannerCoordinator
 		)
-		self.healthCertificatesCoordinator = healthCertificatesTabCoordinator
+		self.healthCertificatesTabCoordinator = healthCertificatesTabCoordinator
 
 		// Setup checkin coordinator after app reset
 		let checkinTabCoordinator = CheckinTabCoordinator(
@@ -142,7 +142,7 @@ class RootCoordinator: RequiresAppDependencies {
 			eventCheckoutService: eventCheckoutService,
 			qrScannerCoordinator: qrScannerCoordinator
 		)
-		self.checkInCoordinator = checkinTabCoordinator
+		self.checkinTabCoordinator = checkinTabCoordinator
 
 		// ContactJournal
 		let diaryCoordinator = DiaryCoordinator(
@@ -187,7 +187,7 @@ class RootCoordinator: RequiresAppDependencies {
 		with healthCertificate: HealthCertificate
 	) {
 		
-		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+		guard let healthCertificateNavigationController = healthCertificatesTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
 			Log.warning("Could not show certificate because i could find the corresponding navigation controller.")
 			return
@@ -197,7 +197,7 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
 				
-		healthCertificatesCoordinator?.showCertifiedPersonWithCertificateFromNotification(
+		healthCertificatesTabCoordinator?.showCertifiedPersonWithCertificateFromNotification(
 			for: healthCertifiedPerson,
 			with: healthCertificate
 		)
@@ -205,7 +205,7 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	func showHealthCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
 		
-		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+		guard let healthCertificateNavigationController = healthCertificatesTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
 			Log.warning("Could not show Person because the corresponding navigation controller. can't be found")
 			return
@@ -215,7 +215,7 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
 				
-		healthCertificatesCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
+		healthCertificatesTabCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
 	}
 
 	
@@ -236,14 +236,14 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		homeCoordinator = nil
 		diaryCoordinator = nil
-		checkInCoordinator = nil
+		checkinTabCoordinator = nil
 		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
 	func showEvent(_ guid: String) {
-		guard let checkInNavigationController = checkInCoordinator?.viewController,
+		guard let checkInNavigationController = checkinTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
@@ -251,7 +251,7 @@ class RootCoordinator: RequiresAppDependencies {
 		// Close all modal screens that would prevent showing the checkin screen first.
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
-		checkInCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
+		checkinTabCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -282,8 +282,8 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
-	private var healthCertificatesCoordinator: HealthCertificatesTabCoordinator?
-	private(set) var checkInCoordinator: CheckinTabCoordinator?
+	private var healthCertificatesTabCoordinator: HealthCertificatesTabCoordinator?
+	private(set) var checkinTabCoordinator: CheckinTabCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	private(set) var qrScannerCoordinator: QRScannerCoordinator?
 	
