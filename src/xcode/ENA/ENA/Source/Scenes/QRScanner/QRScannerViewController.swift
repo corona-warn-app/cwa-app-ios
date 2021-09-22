@@ -124,35 +124,56 @@ class QRScannerViewController: UIViewController {
 		flashButton.tag = flashButtonTag
 		flashButton.translatesAutoresizingMaskIntoConstraints = false
 
-		view.addSubview(scannerTitle)
-		view.addSubview(focusView)
-		view.addSubview(instructionTitle)
-		view.addSubview(instructionDescription)
-		view.addSubview(flashButton)
+		let contentView = UIView()
+		contentView.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(scannerTitle)
+		contentView.addSubview(focusView)
+		contentView.addSubview(instructionTitle)
+		contentView.addSubview(instructionDescription)
+		contentView.addSubview(flashButton)
+
+		let scrollView = UIScrollView()
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		scrollView.addSubview(contentView)
+		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70.0, right: 0)
+
+		view.addSubview(scrollView)
 
 		NSLayoutConstraint.activate(
 			[
-				scannerTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				scannerTitle.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-				scannerTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
+				scannerTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
+				scannerTitle.topAnchor.constraint(greaterThanOrEqualTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+				scannerTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9, constant: 0),
 
 				focusView.topAnchor.constraint(equalTo: scannerTitle.bottomAnchor, constant: 25),
-				focusView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				focusView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
-				focusView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45, constant: 0),
+				focusView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
+				focusView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9, constant: 0),
+				focusView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.45, constant: 0),
 				
-				instructionTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				instructionTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75, constant: 0),
+				instructionTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
+				instructionTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
 				instructionTitle.topAnchor.constraint(greaterThanOrEqualTo: focusView.bottomAnchor, constant: 30),
 				
-				instructionDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				instructionDescription.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75, constant: 0),
+				instructionDescription.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
+				instructionDescription.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
 				instructionDescription.topAnchor.constraint(greaterThanOrEqualTo: instructionTitle.bottomAnchor, constant: 15),
 				
-				flashButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-				flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+				flashButton.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+				flashButton.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -24),
 				flashButton.heightAnchor.constraint(equalTo: flashButton.heightAnchor, constant: 0),
-				flashButton.widthAnchor.constraint(equalTo: flashButton.widthAnchor, constant: 0)
+				flashButton.widthAnchor.constraint(equalTo: flashButton.widthAnchor, constant: 0),
+				
+				contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+				contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+				contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+				contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+				contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+				
+				scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+				scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
 			]
 		)
 	}
