@@ -49,7 +49,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
-		} else if let route = Route(input),
+		} else if let route = Route(input, markCoronaTestAsNew: markAsNew),
 				  case .rapidAntigen(let testInformationResult) = route,
 				  case let .success(testInformation) = testInformationResult {
 			return testInformation

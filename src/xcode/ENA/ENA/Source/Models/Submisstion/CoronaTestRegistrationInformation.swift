@@ -18,7 +18,7 @@ enum RatError {
 
 enum CoronaTestRegistrationInformation {
 	case pcr(guid: String, markAsNew: Bool)
-	case antigen(qrCodeInformation: AntigenTestQRCodeInformation, markAsNew: Bool)
+	case antigen(qrCodeInformation: AntigenTestQRCodeInformation)
 	case teleTAN(tan: String)
 	
 	// we cant declare the enum type to Int because we have properties inside the cases

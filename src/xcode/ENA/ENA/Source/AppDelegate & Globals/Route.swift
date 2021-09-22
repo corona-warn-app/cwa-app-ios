@@ -8,15 +8,16 @@ enum Route {
 
 	// MARK: - Init
 
-	init?(_ stringURL: String?) {
+	init?(_ stringURL: String?, markCoronaTestAsNew: Bool) {
 		guard let stringURL = stringURL,
 			let url = URL(string: stringURL) else {
 			return nil
 		}
-		self.init(url: url)
+		self.init(url: url, markCoronaTestAsNew: markCoronaTestAsNew)
 	}
+
 	// swiftlint:disable:next cyclomatic_complexity
-	init?(url: URL) {
+	init?(url: URL, markCoronaTestAsNew: Bool) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
 		guard let host = components?.host?.lowercased() else {
 			return nil
@@ -32,7 +33,7 @@ enum Route {
 			}
 
 			// extract payload
-			guard let testInformation = AntigenTestQRCodeInformation(payload: payloadUrl) else {
+			guard let testInformation = AntigenTestQRCodeInformation(payload: payloadUrl, markAsNew: markCoronaTestAsNew) else {
 				self = .rapidAntigen( .failure(.invalidTestCode(.invalidPayload)))
 				Log.error("Antigen test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return

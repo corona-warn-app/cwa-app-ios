@@ -147,7 +147,7 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading(true)
 		// QR code test fetch
 		switch testType {
-		case let .pcr(guid: guid):
+		case let .pcr(guid: guid, markAsNew: markAsNew):
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
