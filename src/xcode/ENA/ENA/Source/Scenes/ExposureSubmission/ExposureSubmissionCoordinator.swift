@@ -16,7 +16,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: - Init
 
 	init(
-		parentNavigationController: UINavigationController,
+		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
 		healthCertificateService: HealthCertificateService,
@@ -24,12 +24,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		eventProvider: EventProviding,
 		antigenTestProfileStore: AntigenTestProfileStoring,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
-		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
-		self.parentNavigationController = parentNavigationController
+		self.parentViewController = parentViewController
 		self.antigenTestProfileStore = antigenTestProfileStore
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
+		self.qrScannerCoordinator = qrScannerCoordinator
 
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
@@ -51,7 +53,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: self.getInitialViewController())
 	}
 
-	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>) {
+	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>, markNewlyAddedCoronaTestAsUnseen: Bool = false) {
+		model.markNewlyAddedCoronaTestAsUnseen = markNewlyAddedCoronaTestAsUnseen
+
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in },
 			onSuccess: { supportedCountries in
@@ -80,7 +84,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .default
 			)
 		)
-		parentNavigationController?.present(alert, animated: true)
+		parentViewController?.present(alert, animated: true)
 	}
 
 	func dismiss(completion: (() -> Void)? = nil) {
@@ -184,13 +188,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Private
 
-	private weak var parentNavigationController: UINavigationController?
-	private weak var presentedViewController: UIViewController?
+	private weak var parentViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
 	private let antigenTestProfileStore: AntigenTestProfileStoring
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
@@ -211,7 +215,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Start
 
 	private func start(with initialViewController: UIViewController) {
-		guard let parentNavigationController = parentNavigationController else {
+		guard let parentViewController = parentViewController else {
 			Log.error("Parent navigation controller not set.", log: .ui)
 			return
 		}
@@ -225,7 +229,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			rootViewController: initialViewController
 		)
-		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
+		parentViewController.present(exposureSubmissionNavigationController, animated: true)
 		navigationController = exposureSubmissionNavigationController
 	}
 
@@ -510,56 +514,26 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				isLoading: isLoading
 			)
 		} else {
-			let scannerViewController = ExposureSubmissionQRScannerViewController(
-				onSuccess: { testRegistrationInformation in
-					DispatchQueue.main.async { [weak self] in
-						self?.presentedViewController?.dismiss(animated: true) {
-							self?.model.exposureSubmissionService.loadSupportedCountries(
-								isLoading: isLoading,
-								onSuccess: { supportedCountries in
-									self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
-								}
-							)
+			guard let navigationController = navigationController else {
+				Log.error("Cannot present QR code scanner without navigation controller in submission flow")
+				return
+			}
+
+			qrScannerCoordinator.didScanCoronaTestInSubmissionFlow = { [weak self] testRegistrationInformation in
+				DispatchQueue.main.async {
+					self?.model.exposureSubmissionService.loadSupportedCountries(
+						isLoading: isLoading,
+						onSuccess: { supportedCountries in
+							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
 						}
-					}
-				},
-				onError: { [weak self] error, reactivateScanning in
-					switch error {
-					case .cameraPermissionDenied:
-						DispatchQueue.main.async {
-							let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
-								self?.presentedViewController?.dismiss(animated: true)
-							})
-							self?.presentedViewController?.present(alert, animated: true)
-						}
-					case .codeNotFound, .scanningDeactivated:
-						DispatchQueue.main.async {
-							let alert = UIAlertController.errorAlert(
-								title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-								message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
-								okTitle: AppStrings.Common.alertActionCancel,
-								secondaryActionTitle: AppStrings.Common.alertActionRetry,
-								completion: { [weak self] in
-									self?.presentedViewController?.dismiss(animated: true)
-								},
-								secondaryActionCompletion: { reactivateScanning() }
-							)
-							self?.presentedViewController?.present(alert, animated: true)
-						}
-					case .other:
-						Log.error("QRScannerError.other occurred.", log: .ui)
-					}
-				},
-				onCancel: { [weak self] in
-					self?.presentedViewController?.dismiss(animated: true)
+					)
 				}
+			}
+
+			qrScannerCoordinator.start(
+				parentViewController: navigationController,
+				presenter: .submissionFlow
 			)
-
-			let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
-			qrScannerNavigationController.modalPresentationStyle = .fullScreen
-
-			navigationController?.present(qrScannerNavigationController, animated: true)
-			presentedViewController = qrScannerNavigationController
 		}
 
 	}
@@ -599,7 +573,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			didTapCloseButton: { [weak self] in
 				// on cancel the submission flow is stopped immediately
-				self?.parentNavigationController?.dismiss(animated: true)
+				self?.parentViewController?.dismiss(animated: true)
 			}
 		)
 
@@ -719,6 +693,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
 			dismiss: { [weak self] in
 				self?.dismiss()
 			},

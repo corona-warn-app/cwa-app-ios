@@ -133,6 +133,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Invalid section")
 		}
 	}
+
+	// MARK: - Internal
+
+	func reload() {
+		self.tableView.reloadData()
+		self.updateEmptyState()
+	}
 	
 	// MARK: - Private
 

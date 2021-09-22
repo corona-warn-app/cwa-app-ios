@@ -23,7 +23,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 				cryptographicSeed: Data(),
 				cnPublicKey: Data()
 			)
-			completion(.success(.checkin(traceLocation)))
+			completion(.success(.traceLocation(traceLocation)))
 		}
 		#endif
 		
@@ -31,7 +31,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 			qrCodeString: qrCode,
 			appConfigurationProvider: appConfiguration,
 			onSuccess: { [weak self] traceLocation in
-				completion(.success(.checkin(traceLocation)))
+				completion(.success(.traceLocation(traceLocation)))
 				self?.verificationHelper.subscriptions.removeAll()
 			},
 			onError: { [weak self] error in

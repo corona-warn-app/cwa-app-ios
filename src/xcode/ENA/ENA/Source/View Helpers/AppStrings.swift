@@ -2317,6 +2317,11 @@ enum AppStrings {
 		static let scannerTitle = NSLocalizedString("UniversalQRScanner_ScannerTitle", comment: "")
 		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
 		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
+
+		enum Error {
+			static let cameraPermissionDenied = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
+			static let unsupportedQRCode = NSLocalizedString("UniversalQRScanner_Error_unsupportedQRCode", comment: "")
+		}
 	}
 
 	enum FederalStateName {

@@ -12,7 +12,8 @@ enum ParentingViewController {
 }
 
 // swiftlint:disable type_body_length
-class HealthCertificateCoordinator {
+
+final class HealthCertificateCoordinator {
 	
 	// MARK: - Init
 	
@@ -24,7 +25,8 @@ class HealthCertificateCoordinator {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
-		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		markAsSeenOnDisappearance: Bool
 	) {
 		self.parentingViewController = parentingViewController
 		self.healthCertifiedPerson = healthCertifiedPerson
@@ -35,6 +37,8 @@ class HealthCertificateCoordinator {
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 
+		self.markAsSeenOnDisappearance = markAsSeenOnDisappearance
+
 		#if DEBUG
 		if isUITesting {
 			store.healthCertificateInfoScreenShown = LaunchArguments.infoScreen.healthCertificateInfoScreenShown.boolValue
@@ -43,7 +47,7 @@ class HealthCertificateCoordinator {
 	}
 	
 	// MARK: - Internal
-	
+
 	lazy var rootNavigationController: UINavigationController = {
 		if !infoScreenShown {
 			return UINavigationController(
@@ -72,10 +76,10 @@ class HealthCertificateCoordinator {
 	}()
 	
 	func start() {
-		
 		switch parentingViewController {
 		case let .push(navController):
 			navigationController = navController
+			// for push we know the consent screen was already shown so we can push directly the healthCertificateViewController
 			navController.pushViewController(healthCertificateViewController, animated: true)
 		case let .present(viewController):
 			navigationController = rootNavigationController
@@ -93,6 +97,8 @@ class HealthCertificateCoordinator {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+
+	private let markAsSeenOnDisappearance: Bool
 	
 	private var navigationController: UINavigationController!
 	private var printNavigationController: UINavigationController!
@@ -121,6 +127,7 @@ class HealthCertificateCoordinator {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: markAsSeenOnDisappearance,
 			dismiss: {
 				self.navigationController.dismiss(animated: true)
 			},
@@ -209,41 +216,39 @@ class HealthCertificateCoordinator {
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
-	) -> UIViewController {
-		
-		let checkinsInfoScreenViewController = CheckinsInfoScreenViewController(
-			viewModel: CheckInsInfoScreenViewModel(
-				presentDisclaimer: {
+	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
+		let consentScreen = HealthCertificateInfoViewController(
+			viewModel: HealthCertificateInfoViewModel(
+				hidesCloseButton: hidesCloseButton,
+				didTapDataPrivacy: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.isDismissable = false
+
 					if #available(iOS 13.0, *) {
 						detailViewController.isModalInPresentation = true
 					}
+
 					showDetail(detailViewController)
-				},
-				hidesCloseButton: hidesCloseButton
+				}
 			),
-			onDismiss: {
-				dismissAction()
-			}
+			dismiss: dismissAction
 		)
-		
+
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.Checkin.Information.primaryButton,
+				primaryButtonName: AppStrings.HealthCertificate.Info.primaryButton,
+				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
-				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: true
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
 			)
 		)
-		
+
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: checkinsInfoScreenViewController,
+			topController: consentScreen,
 			bottomController: footerViewController
 		)
-		
 		return topBottomContainerViewController
 	}
 	
@@ -380,7 +385,7 @@ class HealthCertificateCoordinator {
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.healthCertificateViewController.dismiss(animated: true)
+				self?.navigationController.dismiss(animated: true)
 			},
 			showErrorAlert: { [weak self] error in
 				self?.showErrorAlert(

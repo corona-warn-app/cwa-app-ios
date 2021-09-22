@@ -13,6 +13,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		markAsSeenOnDisappearance: Bool,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping () -> Void,
 		didTapMoreButton: @escaping () -> Void,
@@ -25,6 +26,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: markAsSeenOnDisappearance,
 			showInfoHit: showInfoHit
 		)
 		super.init(nibName: nil, bundle: nil)

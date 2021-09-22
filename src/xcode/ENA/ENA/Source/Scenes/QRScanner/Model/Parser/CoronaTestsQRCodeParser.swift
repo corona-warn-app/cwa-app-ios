@@ -25,6 +25,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
+
 		completion(.success(.coronaTest(coronaTestQRCodeInformation)))
 	}
 

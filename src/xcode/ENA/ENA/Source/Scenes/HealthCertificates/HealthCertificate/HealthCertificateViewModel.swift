@@ -14,11 +14,13 @@ final class HealthCertificateViewModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		markAsSeenOnDisappearance: Bool,
 		showInfoHit: @escaping () -> Void
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.markAsSeenOnDisappearance = markAsSeenOnDisappearance
 		self.showInfo = showInfoHit
 
 		updateHealthCertificateKeyValueCellViewModels()
@@ -228,8 +230,10 @@ final class HealthCertificateViewModel {
 	}
 
 	func markAsSeen() {
-		healthCertificate.isNew = false
-		healthCertificate.isValidityStateNew = false
+		if markAsSeenOnDisappearance {
+			healthCertificate.isNew = false
+			healthCertificate.isValidityStateNew = false
+		}
 	}
 
 	// MARK: - Private
@@ -238,6 +242,8 @@ final class HealthCertificateViewModel {
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let showInfo: () -> Void
+
+	private let markAsSeenOnDisappearance: Bool
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()

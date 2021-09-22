@@ -42,6 +42,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
 			showInfoHit: { }
 		)
 
@@ -84,6 +85,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
 			showInfoHit: { }
 		)
 
@@ -125,6 +127,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
 			showInfoHit: { }
 		)
 
