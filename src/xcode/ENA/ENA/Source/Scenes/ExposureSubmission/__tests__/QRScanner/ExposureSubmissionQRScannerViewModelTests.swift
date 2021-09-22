@@ -242,7 +242,9 @@ final class ExposureSubmissionQRScannerViewModelTests: CWATestCase {
 				case .codeNotFound:
 					onErrorExpectation.fulfill()
 					reactivateScanning()
-
+				case .scanningDeactivated:
+					onErrorExpectation.fulfill()
+					reactivateScanning()
 				case .other:
 					XCTFail("unexpected error")
 				}
