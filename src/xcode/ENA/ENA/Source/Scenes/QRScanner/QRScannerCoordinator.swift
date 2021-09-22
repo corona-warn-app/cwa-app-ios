@@ -99,16 +99,16 @@ class QRScannerCoordinator {
 			markCertificateAsNew: markCertificateAsNew,
 			markCoronaTestAsNew: markCoronaTestAsNew,
 			didScan: { [weak self] qrCodeResult in
-				self?.parentViewController.dismiss(animated: true)
-
-				switch qrCodeResult {
-				case let .coronaTest(testRegistrationInformation):
-					self?.showScannedTestResult(testRegistrationInformation)
-				case let .certificate(healthCertifiedPerson, healthCertificate):
-					self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-				case let .traceLocation(traceLocation):
-					self?.showScannedCheckin(traceLocation)
-				}
+				self?.parentViewController.dismiss(animated: true, completion: {
+					switch qrCodeResult {
+					case let .coronaTest(testRegistrationInformation):
+						self?.showScannedTestResult(testRegistrationInformation)
+					case let .certificate(healthCertifiedPerson, healthCertificate):
+						self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+					case let .traceLocation(traceLocation):
+						self?.showScannedCheckin(traceLocation)
+					}
+				})
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
