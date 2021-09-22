@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți:";
 
+"ExposureDetection_Guide_Vaccination" = "Vaccinați-vă împotriva virusului SARS-CoV-2 dacă nu ați efectuat deja acest lucru.";
+
 "ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini cu săpun timp de 20 de secunde.";
 
 "ExposureDetection_Guide_Mask" = "Purtați o mască facială când întâlniți alte persoane.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Aerisiți spațiile interioare de mai multe ori pe zi. Astfel, deschideți ferestrele cât mai larg posibil timp de câteva minute („ventilație șoc”).";
 
+"ExposureDetection_Guide_Symptoms" = "Fiți vigilenți pentru depistarea simptomelor specifice pentru COVID-19. Chiar și persoanele vaccinate pot prezenta simptome în caz de infectare post-vaccinare. Dacă observați simptome suspecte, testați-vă.";
+
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
 
 "ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau măsurile de carantină, contactați fie:";
 
 "ExposureDetection_Guide_Hotline2" = "Medicul de familie";
 
-"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116117";
+"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Autoritatea de sănătate publică relevantă";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie sau serviciul medical de urgență pentru a stabili efectuarea unui test. După testare, discutați opțiunile de vaccinare împotriva SARS-CoV-2 cu medicul dvs. de familie.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Dacă vă testați, veți găsi mai multe informații despre procedura de testare în %@.";
@@ -376,8 +382,6 @@
 
 "Onboarding_Continue_actionTextHint" = "Puteți sări peste acest ecran";
 
-"Onboarding_doNotAllow_actionText" = "Nu permiteți";
-
 "Onboarding_DoNotActivate_actionText" = "Nu activați";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Dacă nu activați înregistrarea în jurnal a expunerilor, aplicația nu poate determina starea riscului dvs. Aceasta înseamnă că nu veți primi informații despre riscul dvs. în aplicație.";
@@ -467,8 +471,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Permiteți";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nu permiteți";
 
 "ExposureSubmission_Submit" = "Introduceți TAN";
 
@@ -1555,14 +1557,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Informații despre vaccinările de rapel";
+/* Version 2.11 */
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Scanner universal de coduri QR";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Aplicația poate afișa acum un mesaj care vă înștiințează privind vaccinările dvs. de rapel programate.";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Acum puteți scana toate documentele acceptate de Corona-Warn-App, indiferent de locul din care deschideți scannerul de coduri QR din aplicație:\n\n\t\U2022 Teste PCR\n\t\U2022 Teste rapide\n\t\U2022 Check-inuri la evenimente\n\t\U2022 Certificate";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Versiunea de tipărire a certificatelor de vaccinare";
+"NewVersionFeature_211_qrCodeImport_title" = "Importare cod QR";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Acum puteți afișa o versiune de tipărire a certificatelor dvs. de vaccinare care au fost emise în Germania, care vă permite să salvați certificatele ca documente PDF și să le tipăriți.";
+"NewVersionFeature_211_qrCodeImport_description" = "Acum puteți utiliza scannerul de coduri QR pentru a importa codurile QR din fotografii sau fișiere PDF.";
+
+"NewVersionFeature_211_contactDurationAdjustment_title" = "Ajustare la durata contactului";
+
+"NewVersionFeature_211_contactDurationAdjustment_description" = "Durata minimă a contactului din jurnalul de contacte a fost redusă de la 15 minute la 10 minute. Intrările existente pentru contactele cu persoanele au fost ajustate automat. Revizuiți intrările din jurnal și ajustați-le, dacă este necesar.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1685,9 +1691,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "pe baza mai multor expuneri cu risc redus.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Mai puțin de 15 min.";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Mai puțin de 10 min.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Mai mult de 15 min.";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "Mai mult de 10 min.";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Cu mască";
 
@@ -1750,9 +1756,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "O clădire este marcată cu o piuneză.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "Mai puțin de 15 min.";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Mai puțin de 10 min.";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Mai mult de 15 min.";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "Mai mult de 10 min.";
 
 "ContactDiary_Day_Encounter_WithMask" = "Cu mască";
 
@@ -2627,7 +2633,7 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Nu sunt încă disponibile certificate";
 
-"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.";
+"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.\n\nPentru a adăuga un certificat, scanați codul QR corespunzător.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
 
@@ -3020,6 +3026,13 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificat (Semnătură) nevalabil(ă)";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "Scanner de coduri QR";
+
+"UniversalQRScanner_InstructionTitle" = "Ce coduri QR puteți scana?";
+
+"UniversalQRScanner_InstructionDescription" = "Teste PCR și teste rapide, certificate de test, certificate de vaccinare, certificate de recuperare și check-inuri.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
