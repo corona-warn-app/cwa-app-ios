@@ -491,20 +491,14 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		// add a person
 		addPersonToDayEntry("Andrea")
 		
+		// add a person
+		addPersonToDayEntry("Michael")
+		
 		// switch to places
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
 		
 		// add a location
 		addLocationToDayEntry("Physiotherapie")
-		
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-		
-		// select fourth cell
-		app.cells.element(boundBy: 4).waitAndTap()
-		
-		// add a person
-		addPersonToDayEntry("Michael")
 		
 		// go back
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
