@@ -34,6 +34,8 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitAndTap()
 
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
 		// data consent switch must only be visible on settings-data-donation.
 		
