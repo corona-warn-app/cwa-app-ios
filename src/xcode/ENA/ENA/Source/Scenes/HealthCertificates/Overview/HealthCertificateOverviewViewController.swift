@@ -14,13 +14,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		onMissingPermissionsButtonTap: @escaping () -> Void
+		onMissingPermissionsButtonTap: @escaping () -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
+		self.showInfo = showInfoHit
 
 		super.init(style: .grouped)
 		
@@ -140,7 +142,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onMissingPermissionsButtonTap: () -> Void
-	
+	private let showInfo: () -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupBarButtonItems() {
@@ -237,7 +240,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { [weak self] in
+					self?.showInfo()
+				}
 			  ) else {
 			return UITableViewCell()
 		}
@@ -254,7 +260,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		guard let decodingFailedHealthCertificate = viewModel.decodingFailedHealthCertificates[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
-				decodingFailedHealthCertificate: decodingFailedHealthCertificate
+				decodingFailedHealthCertificate: decodingFailedHealthCertificate,
+				showInfoHit: { [weak self] in
+					self?.showInfo()
+				}
 			  ) else {
 			return UITableViewCell()
 		}

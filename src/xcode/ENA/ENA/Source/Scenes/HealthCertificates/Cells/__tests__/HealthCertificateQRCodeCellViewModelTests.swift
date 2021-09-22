@@ -26,7 +26,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -61,7 +62,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -93,7 +95,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -126,7 +129,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -162,7 +166,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -206,7 +211,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -247,7 +253,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -289,7 +296,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -330,7 +338,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -365,7 +374,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -397,7 +407,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -430,7 +441,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -464,7 +476,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -499,7 +512,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -531,7 +545,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -564,7 +579,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -602,7 +618,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -641,7 +658,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -673,7 +691,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -706,7 +725,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -745,7 +765,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -785,7 +806,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -818,7 +840,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -852,7 +875,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -890,7 +914,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -929,7 +954,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -961,7 +987,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -994,7 +1021,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1026,7 +1054,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1059,7 +1088,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1091,7 +1121,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1124,7 +1155,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1158,7 +1190,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1193,7 +1226,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1225,7 +1259,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1258,7 +1293,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1294,7 +1330,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1338,7 +1375,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1379,7 +1417,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1421,7 +1460,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1460,7 +1500,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1493,7 +1534,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1525,7 +1567,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1558,7 +1601,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1590,7 +1634,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1623,7 +1668,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1655,7 +1701,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -1688,7 +1735,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
