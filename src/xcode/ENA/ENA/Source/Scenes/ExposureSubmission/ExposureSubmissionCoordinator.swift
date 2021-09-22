@@ -53,7 +53,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: self.getInitialViewController())
 	}
 
-	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>) {
+	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>, markAsUnseen: Bool = false) {
+		model.markAsUnseen = markAsUnseen
+
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in },
 			onSuccess: { supportedCountries in

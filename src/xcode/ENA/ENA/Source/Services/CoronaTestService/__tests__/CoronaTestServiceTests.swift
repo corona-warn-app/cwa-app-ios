@@ -599,6 +599,17 @@ class CoronaTestServiceTests: CWATestCase {
 				)
 			)
 		)
+
+		let expectedCounts = [0, 1, 0]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 3
+		var receivedCounts = [Int]()
+		let countSubscription = service.unseenTestsCount
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -606,6 +617,7 @@ class CoronaTestServiceTests: CWATestCase {
 		service.registerPCRTestAndGetResult(
 			guid: "E1277F-E1277F24-4AD2-40BC-AFF8-CBCCCD893E4B",
 			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
 			certificateConsent: .given(dateOfBirth: "2000-01-01")
 		) { result in
 			expectation.fulfill()
@@ -617,6 +629,8 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
+		service.resetUnseenTestsCount()
+
 		waitForExpectations(timeout: .short)
 
 		guard let pcrTest = service.pcrTest else {
@@ -624,6 +638,9 @@ class CoronaTestServiceTests: CWATestCase {
 			return
 		}
 
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertEqual(pcrTest.registrationToken, "registrationToken2")
 		XCTAssertEqual(
 			try XCTUnwrap(pcrTest.registrationDate).timeIntervalSince1970,
@@ -688,6 +705,17 @@ class CoronaTestServiceTests: CWATestCase {
 				)
 			)
 		)
+		
+		let expectedCounts = [0]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 1
+		var receivedCounts = [Int]()
+		let countSubscription = service.unseenTestsCount
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -713,6 +741,9 @@ class CoronaTestServiceTests: CWATestCase {
 			return
 		}
 
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
 		XCTAssertTrue(pcrTest.certificateRequested)
 	}
@@ -973,7 +1004,7 @@ class CoronaTestServiceTests: CWATestCase {
 				break
 			}
 		}
-
+		
 		waitForExpectations(timeout: .short)
 
 		guard let pcrTest = service.pcrTest else {
@@ -1034,6 +1065,7 @@ class CoronaTestServiceTests: CWATestCase {
 				)
 			)
 		)
+		
 		service.pcrTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1050,7 +1082,7 @@ class CoronaTestServiceTests: CWATestCase {
 				break
 			}
 		}
-
+		
 		waitForExpectations(timeout: .short)
 
 		guard let pcrTest = service.pcrTest else {
@@ -1249,6 +1281,19 @@ class CoronaTestServiceTests: CWATestCase {
 				)
 			)
 		)
+		
+		let expectedCounts = [0, 1, 0]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 3
+		var receivedCounts = [Int]()
+		let countSubscription = service.unseenTestsCount
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+		
+		service.pcrTest = nil
+
 		service.antigenTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1260,6 +1305,7 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: nil,
 			dateOfBirth: nil,
 			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
 			certificateSupportedByPointOfCare: false,
 			certificateConsent: .notGiven
 		) { result in
@@ -1272,6 +1318,8 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
+		service.resetUnseenTestsCount()
+		
 		waitForExpectations(timeout: .short)
 
 		guard let antigenTest = service.antigenTest else {
@@ -1279,6 +1327,9 @@ class CoronaTestServiceTests: CWATestCase {
 			return
 		}
 
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertEqual(antigenTest.registrationToken, "registrationToken")
 		XCTAssertEqual(antigenTest.pointOfCareConsentDate, Date(timeIntervalSince1970: 2222))
 		XCTAssertNil(antigenTest.testedPerson.firstName)
@@ -1333,6 +1384,17 @@ class CoronaTestServiceTests: CWATestCase {
 				)
 			)
 		)
+		
+		let expectedCounts = [0]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 1
+		var receivedCounts = [Int]()
+		let countSubscription = service.unseenTestsCount
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
 		service.antigenTest = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1363,6 +1425,9 @@ class CoronaTestServiceTests: CWATestCase {
 			return
 		}
 
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(antigenTest.certificateConsentGiven)
 		XCTAssertTrue(antigenTest.certificateRequested)

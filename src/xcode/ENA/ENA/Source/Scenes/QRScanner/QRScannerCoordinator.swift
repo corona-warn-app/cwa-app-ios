@@ -6,8 +6,6 @@ import Foundation
 import UIKit
 
 // TODO: consent screen is shown twice for checkin tab and certificates tab. check if change required.
-// TODO: Mark certificates as new from other tabs
-// TODO: Camera permission error when opened twice
 
 enum QRScannerPresenter {
 	case submissionFlow
@@ -142,7 +140,7 @@ class QRScannerCoordinator {
 					qrScannerCoordinator: self
 				)
 
-				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markAsUnseen: true)
 			}
 		case .checkinTab, .certificateTab:
 			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
@@ -158,7 +156,7 @@ class QRScannerCoordinator {
 				qrScannerCoordinator: self
 			)
 
-			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markAsUnseen: true)
 		case .none:
 			break
 		}
