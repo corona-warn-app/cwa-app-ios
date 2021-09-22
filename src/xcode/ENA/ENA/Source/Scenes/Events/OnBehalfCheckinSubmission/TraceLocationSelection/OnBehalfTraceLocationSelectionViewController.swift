@@ -34,9 +34,9 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.title = viewModel.title
-		parent?.navigationItem.largeTitleDisplayMode = .always
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		title = viewModel.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
 		setUpEmptyState()
