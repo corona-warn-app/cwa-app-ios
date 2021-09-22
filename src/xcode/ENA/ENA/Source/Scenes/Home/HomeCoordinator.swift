@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HomeCoordinator: RequiresAppDependencies {
 
@@ -30,6 +31,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.elsService = elsService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
+
+		setupHomeBadgeCount()
 	}
 
 	deinit {
@@ -182,6 +185,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
 
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+	private var subscriptions = Set<AnyCancellable>()
 
 	private weak var delegate: CoordinatorDelegate?
 	
@@ -403,6 +407,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdateList.add(anyObject)
 		}
+	}
+
+	private func setupHomeBadgeCount() {
+		coronaTestService.unseenTestsCount
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.homeController?.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - HealthCertificate
