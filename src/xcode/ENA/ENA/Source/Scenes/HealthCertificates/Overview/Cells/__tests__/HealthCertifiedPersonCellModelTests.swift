@@ -23,7 +23,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -51,7 +52,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -89,7 +91,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -120,7 +123,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -151,7 +155,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -178,7 +183,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -204,7 +210,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -230,7 +237,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -260,7 +268,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -288,7 +297,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -326,7 +336,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -357,7 +368,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -428,7 +440,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -450,7 +463,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -468,7 +482,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 

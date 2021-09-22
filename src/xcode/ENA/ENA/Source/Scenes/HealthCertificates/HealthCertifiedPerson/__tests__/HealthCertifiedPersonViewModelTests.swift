@@ -28,7 +28,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: []),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -76,7 +77,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// WHEN
@@ -119,7 +121,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
@@ -162,7 +165,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
@@ -206,7 +210,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -246,7 +251,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -283,7 +289,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -320,7 +327,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		XCTAssertTrue(healthCertifiedPerson.isNewBoosterRule)

@@ -20,9 +20,10 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(headline: String, image: UIImage) {
+	func configure(headline: String, image: UIImage, topInset: CGFloat) {
 		headlineLabel.text = headline
 		backgroundImageView.image = image
+		topInsetConstraint.constant = topInset
 	}
 
 	// MARK: - Private
@@ -30,6 +31,8 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 	private let headlineLabel = ENALabel(style: .title1)
 	private let backgroundImageView = UIImageView()
 	private let gradientView = GradientView(type: .whiteToLightBlue)
+
+	private var topInsetConstraint: NSLayoutConstraint!
 
 	private func setupView() {
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +46,8 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		backgroundImageView.contentMode = .scaleAspectFit
 		contentView.addSubview(backgroundImageView)
 
+		topInsetConstraint = headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
+
 		NSLayoutConstraint.activate(
 			[
 				gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -51,7 +56,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 				gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
 				headlineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-				headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 64.0),
+				topInsetConstraint,
 				headlineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -45.0),
 				headlineLabel.bottomAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: -12),
 
