@@ -17,7 +17,7 @@ enum RatError {
 }
 
 enum CoronaTestRegistrationInformation {
-	case pcr(guid: String)
+	case pcr(guid: String, markAsNew: Bool)
 	case antigen(qrCodeInformation: AntigenTestQRCodeInformation)
 	case teleTAN(tan: String)
 	

@@ -6,7 +6,7 @@ import UIKit
 import OpenCombine
 import PDFKit
 
-final class HealthCertificatesCoordinator {
+final class HealthCertificatesTabCoordinator {
 	
 	// MARK: - Init
 	
@@ -15,13 +15,15 @@ final class HealthCertificatesCoordinator {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
-		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.store = store
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.qrScannerCoordinator = qrScannerCoordinator
 
 		#if DEBUG
 		if isUITesting {
@@ -71,7 +73,7 @@ final class HealthCertificatesCoordinator {
 	func showCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
 		showHealthCertifiedPerson(healthCertifiedPerson)
 	}
-		
+
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
@@ -79,6 +81,7 @@ final class HealthCertificatesCoordinator {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private var modalNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
@@ -173,28 +176,10 @@ final class HealthCertificatesCoordinator {
 	}
 	
 	private func showQRCodeScanner(from presentingViewController: UIViewController) {
-		let qrCodeScannerViewController = HealthCertificateQRCodeScannerViewController(
-			healthCertificateService: healthCertificateService,
-			didScanCertificate: { [weak self] healthCertifiedPerson, healthCertificate in
-				presentingViewController.dismiss(animated: true) {
-					if presentingViewController == self?.viewController {
-						self?.showHealthCertificateFlow(
-							healthCertifiedPerson: healthCertifiedPerson,
-							healthCertificate: healthCertificate
-						)
-					}
-				}
-			},
-			dismiss: {
-				presentingViewController.dismiss(animated: true)
-			}
+		qrScannerCoordinator.start(
+			parentViewController: viewController,
+			presenter: .certificateTab
 		)
-
-		qrCodeScannerViewController.definesPresentationContext = true
-		let qrCodeNavigationController = UINavigationController(rootViewController: qrCodeScannerViewController)
-		qrCodeNavigationController.modalPresentationStyle = .fullScreen
-
-		presentingViewController.present(qrCodeNavigationController, animated: true)
 	}
 	
 	private func showHealthCertifiedPerson(
@@ -344,7 +329,6 @@ final class HealthCertificatesCoordinator {
 		isPushed: Bool = false
 	) {
 		let parentingViewController = isPushed ? ParentingViewController.push(modalNavigationController) : ParentingViewController.present(viewController)
-		
 		certificateCoordinator = HealthCertificateCoordinator(
 			parentingViewController: parentingViewController,
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -353,7 +337,8 @@ final class HealthCertificatesCoordinator {
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true
 		)
 		
 		certificateCoordinator?.start()

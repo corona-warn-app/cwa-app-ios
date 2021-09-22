@@ -25,7 +25,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 		#if DEBUG
 		if isUITesting {
-			onSuccess(CoronaTestRegistrationInformation.pcr(guid: "guid"))
+			onSuccess(CoronaTestRegistrationInformation.pcr(guid: "guid", markAsNew: false))
 		}
 		#endif
 	}
@@ -184,7 +184,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
-		} else if let route = Route(input),
+		} else if let route = Route(input, markCoronaTestAsNew: false),
 				  case .rapidAntigen(let testInformationResult) = route,
 				  case let .success(testInformation) = testInformationResult {
 			return testInformation
@@ -209,7 +209,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			  ) else {
 			return nil
 		}
-		return matchings.isEmpty ? nil : .pcr(guid: candidate)
+		return matchings.isEmpty ? nil : .pcr(guid: candidate, markAsNew: false)
 	}
 
 }

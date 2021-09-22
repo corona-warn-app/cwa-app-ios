@@ -8,7 +8,7 @@ protocol QRCodeParsable {
 	/// Function to be called to parse a qrCode.
 	/// - Parameters:
 	///   - qrCode: The scanned qrCode as String
-	///   - completion: If parsing was successful, we receive a QRCodeResult. If there encounted an error, we receive a QRCodeParserError
+	///   - completion: If parsing was successful, we receive a QRCodeResult. If there encountered an error, we receive a QRCodeParserError
 	func parse(
 		qrCode: String,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
@@ -16,13 +16,15 @@ protocol QRCodeParsable {
 }
 
 class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-	
+
 	// MARK: - Init
 
 	init(
 		healthCertificateService: HealthCertificateService,
 		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
+		markCertificateAsNew: Bool,
+		markCoronaTestAsNew: Bool,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
 	) {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
@@ -30,6 +32,8 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		self.healthCertificateService = healthCertificateService
 		self.verificationHelper = verificationHelper
 		self.appConfiguration = appConfiguration
+		self.markCertificateAsNew = markCertificateAsNew
+		self.markCoronaTestAsNew = markCoronaTestAsNew
 		self.completion = completion
 		
 		super.init()
@@ -167,23 +171,26 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		// which is incorrect and it should be a Corona test error, so we need to have an idea about the type of qrcode before paring it
 		
 		let traceLocationsPrefix = "https://e.coronawarn.app"
-		let antigetTestPrefix = "https://s.coronawarn.app"
-		let pcrPrefix = "https://localhost"
+		let antigenTestPrefix = "https://s.coronawarn.app"
+		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
+
+		var parser: QRCodeParsable?
 
 		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
 			// it is trace Locations QRCode
-			self.parser = CheckinQRCodeParser(
+			parser = CheckinQRCodeParser(
 				verificationHelper: verificationHelper,
 				appConfiguration: appConfiguration
 			)
-		} else if url.prefix(antigetTestPrefix.count) == antigetTestPrefix || url.prefix(pcrPrefix.count) == pcrPrefix {
+		} else if url.prefix(antigenTestPrefix.count) == antigenTestPrefix || url.prefix(pcrTestPrefix.count) == pcrTestPrefix {
 			// it is a test
-			self.parser = CoronaTestsQRCodeParser()
+			parser = CoronaTestsQRCodeParser(markAsNew: markCoronaTestAsNew)
 		} else if url.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
 			// it is a digital certificate
-			self.parser = HealthCertificateQRCodeParser(
-				healthCertificateService: healthCertificateService
+			parser = HealthCertificateQRCodeParser(
+				healthCertificateService: healthCertificateService,
+				markAsNew: markCertificateAsNew
 			)
 		}
 		
@@ -201,6 +208,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	private let verificationHelper: QRCodeVerificationHelper
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
-	
-	private var parser: QRCodeParsable?
+	private let markCertificateAsNew: Bool
+	private let markCoronaTestAsNew: Bool
+
 }

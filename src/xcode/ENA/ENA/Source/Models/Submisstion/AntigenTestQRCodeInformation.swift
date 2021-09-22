@@ -16,7 +16,8 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 		dateOfBirth: Date?,
 		testID: String?,
 		cryptographicSalt: String?,
-		certificateSupportedByPointOfCare: Bool?
+		certificateSupportedByPointOfCare: Bool?,
+		markAsNew: Bool
 	) {
 		self.hash = hash
 		self.timestamp = timestamp
@@ -26,6 +27,7 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 		self.testID = testID
 		self.cryptographicSalt = cryptographicSalt
 		self.certificateSupportedByPointOfCare = certificateSupportedByPointOfCare
+		self.markAsNew = markAsNew
 
 		guard let dateOfBirth = dateOfBirth else {
 			self.dateOfBirthString = nil
@@ -35,7 +37,7 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 		self.dateOfBirthString = ISO8601DateFormatter.justUTCDateFormatter.string(from: dateOfBirth)
 	}
 	
-	init?(payload: String) {
+	init?(payload: String, markAsNew: Bool) {
 		let jsonData: Data
 		if payload.isBase64Encoded {
 			guard let parsedData = Data(base64Encoded: payload) else {
@@ -64,6 +66,8 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 			Log.debug("Failed to read / parse district json", log: .ppac)
 			return nil
 		}
+
+		self.markAsNew = markAsNew
 	}
 	
 	// MARK: - Protocol Codable
@@ -77,6 +81,7 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 		case testID = "testid"
 		case cryptographicSalt = "salt"
 		case certificateSupportedByPointOfCare = "dgc"
+		case markAsNew
 	}
 	
 	// MARK: - Internal
@@ -90,6 +95,7 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 	let certificateSupportedByPointOfCare: Bool?
 	let dateOfBirthString: String?
 	var dateOfBirth: Date?
+	let markAsNew: Bool
 	
 	var fullName: String? {
 		guard let first = firstName, let last = lastName else {

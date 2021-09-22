@@ -5,19 +5,21 @@
 import UIKit
 import OpenCombine
 
-final class CheckinCoordinator {
+final class CheckinTabCoordinator {
 	
 	// MARK: - Init
 	init(
 		store: Store,
 		eventStore: EventStoringProviding,
 		appConfiguration: AppConfigurationProviding,
-		eventCheckoutService: EventCheckoutService
+		eventCheckoutService: EventCheckoutService,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.store = store
 		self.eventStore = eventStore
 		self.appConfiguration = appConfiguration
 		self.eventCheckoutService = eventCheckoutService
+		self.qrScannerCoordinator = qrScannerCoordinator
 		
 		#if DEBUG
 		if isUITesting {
@@ -85,35 +87,12 @@ final class CheckinCoordinator {
 			return navigationController
 		}
 	}()
-	
-	func showQRCodeScanner() {
-		// Info view MUST be shown
-		guard self.infoScreenShown else {
-			Log.debug("Checkin info screen not shown. Skipping further navigation", log: .ui)
-			// set this to true to open qr code scanner screen after info screen has been dismissed
-			self.showQRCodeScanningScreenAfterInfoScreen = true
-			return
-		}
 		
-		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			qrCodeVerificationHelper: verificationService,
-			appConfiguration: appConfiguration,
-			didScanCheckin: { [weak self] traceLocation in
-				self?.viewController.dismiss(animated: true, completion: {
-					self?.showTraceLocationDetails(traceLocation)
-				})
-			},
-			dismiss: { [weak self] in
-				self?.checkinsOverviewViewModel.updateForCameraPermission()
-				self?.viewController.dismiss(animated: true)
-			}
+	func showQRCodeScanner() {
+		qrScannerCoordinator.start(
+			parentViewController: viewController,
+			presenter: .checkinTab
 		)
-		qrCodeScanner.definesPresentationContext = true
-		DispatchQueue.main.async { [weak self] in
-			let navigationController = UINavigationController(rootViewController: qrCodeScanner)
-			navigationController.modalPresentationStyle = .fullScreen
-			self?.viewController.present(navigationController, animated: true)
-		}
 	}
 	
 	func showTraceLocationDetailsFromExternalCamera(_ qrCodeString: String) {
@@ -159,6 +138,7 @@ final class CheckinCoordinator {
 	private let appConfiguration: AppConfigurationProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let verificationService = QRCodeVerificationHelper()
+	private let qrScannerCoordinator: QRScannerCoordinator
 	
 	private var subscriptions: [AnyCancellable] = []
 	private var qrCodeAfterInfoScreen: String?

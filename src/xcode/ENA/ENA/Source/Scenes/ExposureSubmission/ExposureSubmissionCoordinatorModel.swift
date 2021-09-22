@@ -31,7 +31,8 @@ class ExposureSubmissionCoordinatorModel {
 
 	let exposureSubmissionService: ExposureSubmissionService
 	let coronaTestService: CoronaTestService
-
+	let eventProvider: EventProviding
+	
 	var coronaTestType: CoronaTestType?
 
 	var coronaTest: CoronaTest? {
@@ -41,8 +42,6 @@ class ExposureSubmissionCoordinatorModel {
 
 		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
-
-	let eventProvider: EventProviding
 
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
 		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
@@ -148,7 +147,7 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading(true)
 		// QR code test fetch
 		switch testType {
-		case let .pcr(guid: guid):
+		case let .pcr(guid: guid, markAsNew: markAsNew):
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,

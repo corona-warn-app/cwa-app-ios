@@ -13,6 +13,9 @@ class QRScannerViewController: UIViewController {
 		healthCertificateService: HealthCertificateService,
 		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
+		markCertificateAsNew: Bool,
+		markCoronaTestAsNew: Bool,
+		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
@@ -23,14 +26,17 @@ class QRScannerViewController: UIViewController {
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationHelper,
 			appConfiguration: appConfiguration,
+			markCertificateAsNew: markCertificateAsNew,
+			markCoronaTestAsNew: markCoronaTestAsNew,
 			completion: { [weak self] result in
 				switch result {
-				case .success:
+				case let .success(qrCodeResult):
 					AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 					self?.viewModel?.deactivateScanning()
+					didScan(qrCodeResult)
 				case let .failure(error):
 					if error == .scanningError(.cameraPermissionDenied) {
-						self?.showCameraPermissionErrorAlert(error: error)
+						self?.showCameraPermissionErrorAlert()
 					} else {
 						self?.showErrorAlert(error: error)
 					}
@@ -57,9 +63,9 @@ class QRScannerViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		updatePreviewMask()
 	}
-
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		viewModel?.activateScanning()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -72,11 +78,10 @@ class QRScannerViewController: UIViewController {
 
 	private let focusView = QRScannerFocusView()
 	private let dismiss: () -> Void
-
+	private let flashButtonTag = 12
+	
 	private var viewModel: QRScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
-	
-	private let flashButtonTag = 12
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -245,31 +250,45 @@ class QRScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
-	private func showErrorAlert(error: Error) {
+	private func showErrorAlert(error: QRCodeParserError) {
 		viewModel?.deactivateScanning()
 
-		var alertTitle = AppStrings.HealthCertificate.Error.title
-		var errorMessage = error.localizedDescription + AppStrings.HealthCertificate.Error.faqDescription
-		var faqAlertAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Error.faqButtonTitle,
-			style: .default,
-			handler: { [weak self] _ in
-				if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
-					self?.viewModel?.activateScanning()
-				}
-			}
-		)
+		let unwrappedError: Error
+		switch error {
+		case .scanningError(let qrScannerError):
+			unwrappedError = qrScannerError
+		case .checkinQrError(let checkinQRScannerError):
+			unwrappedError = checkinQRScannerError
+		case .certificateQrError(let healthCertificateServiceError):
+			unwrappedError = healthCertificateServiceError
+		}
 
-		// invalid signature error needs a different title, errorMessage and FAQ action
-		if case let QRScannerError.other(wrappedError) = error,
-		   case HealthCertificateServiceError.RegistrationError.invalidSignature = wrappedError {
+		var alertTitle = AppStrings.HealthCertificate.Error.title
+		var errorMessage = unwrappedError.localizedDescription
+		var faqAlertAction: UIAlertAction?
+
+		if case .certificateQrError(.invalidSignature) = error {
+			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
-			errorMessage = wrappedError.localizedDescription
+			errorMessage = unwrappedError.localizedDescription
 			faqAlertAction = UIAlertAction(
 				title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
 				style: .default,
 				handler: { [weak self] _ in
 					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
+						self?.viewModel?.activateScanning()
+					}
+				}
+			)
+		} else if case .certificateQrError = error {
+			// Show FAQ section for other certificate errors
+			errorMessage += AppStrings.HealthCertificate.Error.faqDescription
+
+			faqAlertAction = UIAlertAction(
+				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+				style: .default,
+				handler: { [weak self] _ in
+					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
 						self?.viewModel?.activateScanning()
 					}
 				}
@@ -281,7 +300,10 @@ class QRScannerViewController: UIViewController {
 			message: errorMessage,
 			preferredStyle: .alert
 		)
-		alert.addAction(faqAlertAction)
+
+		if let faqAlertAction = faqAlertAction {
+			alert.addAction(faqAlertAction)
+		}
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
@@ -297,10 +319,10 @@ class QRScannerViewController: UIViewController {
 		}
 	}
 
-	private func showCameraPermissionErrorAlert(error: Error) {
+	private func showCameraPermissionErrorAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Error.title,
-			message: error.localizedDescription,
+			message: QRScannerError.cameraPermissionDenied.localizedDescription,
 			preferredStyle: .alert
 		)
 		alert.addAction(

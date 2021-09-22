@@ -6,7 +6,7 @@ import Foundation
 
 /// The result of a qrScan is a TraceLocation for checkins or warnings on behalf, a corona test or a healthCertificate (as a touple of person and certificate)
 enum QRCodeResult {
-	case checkin(TraceLocation)
+	case traceLocation(TraceLocation)
 	case coronaTest(CoronaTestRegistrationInformation)
 	case certificate(HealthCertifiedPerson, HealthCertificate)
 }
@@ -14,8 +14,7 @@ enum QRCodeResult {
 enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
-	case coronaTestQrError(QRScannerError)
-	case certificateQrError(HealthCertificateServiceError)
+	case certificateQrError(HealthCertificateServiceError.RegistrationError)
 	
 	// MARK: - Protocol Equatable
 	// swiftlint:disable pattern_matching_keywords
@@ -25,8 +24,6 @@ enum QRCodeParserError: Error, Equatable {
 			return scanningErrorLhs == scanningErrorRhs
 		case (.checkinQrError(let checkinQrErrorLhs), .checkinQrError(let checkinQrErrorRhs)):
 			return checkinQrErrorLhs == checkinQrErrorRhs
-		case (.coronaTestQrError(let scanningErrorLhs), .coronaTestQrError(let scanningErrorRhs)):
-			return scanningErrorLhs == scanningErrorRhs
 		case (.certificateQrError(let certificateQrErrorLhs), .certificateQrError(let certificateQrErrorRhs)):
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
 		default:
