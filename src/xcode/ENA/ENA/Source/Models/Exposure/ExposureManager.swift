@@ -338,14 +338,16 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		let progress = manager.getExposureWindows(from: summary) { [weak self] exposureWindows, error in
 			guard let self = self else { return }
 			Log.info("ENAExposureManager: Completed getting exposure windows.", log: .riskDetection)
+			Log.info("ENAExposureManager: ExposureWindows before filtering: \(String(describing: exposureWindows?.count)) .", log: .riskDetection)
 			
 			// Seems like ENF gives us exposure Windows back that are older than 14 Days https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9552
-			guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -14, to: Date()) else {
+			guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -15, to: Date()) else {
 				fatalError("Cant create a date two weeks in the past, time to bail")
 			}
 			
 			let filteredExposureWindows = exposureWindows?.filter { $0.date > thresholdDate }
-			
+			Log.info("ENAExposureManager: ExposureWindows after filtering: \(String(describing: filteredExposureWindows?.count)) .", log: .riskDetection)
+
 			self.getExposureWindowsProgress = nil
 			completionHandler(filteredExposureWindows, error)
 		}
