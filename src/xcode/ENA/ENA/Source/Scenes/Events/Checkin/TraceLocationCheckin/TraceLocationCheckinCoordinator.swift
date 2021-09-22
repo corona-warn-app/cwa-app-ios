@@ -40,6 +40,20 @@ final class TraceLocationCheckinCoordinator {
 	
 	// MARK: - Private
 	
+	private let traceLocation: TraceLocation
+	private let store: Store
+	private let eventStore: EventStoringProviding
+	private let appConfiguration: AppConfigurationProviding
+	private let eventCheckoutService: EventCheckoutService
+	
+	private weak var parentViewController: UIViewController!
+	private var navigationController: UINavigationController!
+	
+	private var infoScreenShown: Bool {
+		get { store.checkinInfoScreenShown }
+		set { store.checkinInfoScreenShown = newValue }
+	}
+	
 	private lazy var rootNavigationController: UINavigationController = {
 		if !infoScreenShown {
 			return UINavigationController(
@@ -65,23 +79,7 @@ final class TraceLocationCheckinCoordinator {
 		} else {
 			return UINavigationController(rootViewController: traceLocationCheckin)
 		}
-	
-		
 	}()
-
-	private let traceLocation: TraceLocation
-	private let store: Store
-	private let eventStore: EventStoringProviding
-	private let appConfiguration: AppConfigurationProviding
-	private let eventCheckoutService: EventCheckoutService
-	
-	private weak var parentViewController: UIViewController!
-	private var navigationController: UINavigationController!
-	
-	private var infoScreenShown: Bool {
-		get { store.checkinInfoScreenShown }
-		set { store.checkinInfoScreenShown = newValue }
-	}
 	
 	private lazy var traceLocationCheckin: UIViewController = {
 		let viewModel = TraceLocationCheckinViewModel(

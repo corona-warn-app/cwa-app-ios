@@ -63,7 +63,7 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.view.backgroundColor = .enaColor(for: .background)
 		return viewController
 	}()
-
+	
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
@@ -91,6 +91,21 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
+		let qrScannerCoordinator = QRScannerCoordinator(
+			store: store,
+			client: client,
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
+			eventCheckoutService: eventCheckoutService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService
+		)
+		self.qrScannerCoordinator = qrScannerCoordinator
+		
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
@@ -99,7 +114,9 @@ class RootCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
-			elsService: elsService
+			elsService: elsService,
+			exposureSubmissionService: exposureSubmissionService,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -107,23 +124,25 @@ class RootCoordinator: RequiresAppDependencies {
 			route: route
 		)
 	
-		let healthCertificatesCoordinator = HealthCertificatesCoordinator(
+		let healthCertificatesTabCoordinator = HealthCertificatesTabCoordinator(
 			store: store,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
-		self.healthCertificatesCoordinator = healthCertificatesCoordinator
+		self.healthCertificatesTabCoordinator = healthCertificatesTabCoordinator
 
 		// Setup checkin coordinator after app reset
-		let checkInCoordinator = CheckinCoordinator(
+		let checkinTabCoordinator = CheckinTabCoordinator(
 			store: store,
 			eventStore: eventStore,
 			appConfiguration: appConfigurationProvider,
-			eventCheckoutService: eventCheckoutService
+			eventCheckoutService: eventCheckoutService,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
-		self.checkInCoordinator = checkInCoordinator
+		self.checkinTabCoordinator = checkinTabCoordinator
 
 		// ContactJournal
 		let diaryCoordinator = DiaryCoordinator(
@@ -133,7 +152,7 @@ class RootCoordinator: RequiresAppDependencies {
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
-
+		
 		// Tabbar
 		let startTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
 		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home
@@ -141,18 +160,18 @@ class RootCoordinator: RequiresAppDependencies {
 
 		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.certificatesTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
-		healthCertificatesCoordinator.viewController.tabBarItem = certificatesTabBarItem
+		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
 		let eventsTabBarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
 		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
-		checkInCoordinator.viewController.tabBarItem = eventsTabBarItem
+		checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
 
 		let diaryTabBarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesCoordinator.viewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesTabCoordinator.viewController, checkinTabCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 		tabBarController.delegate = tabBarScrolling
 
 		viewController.clearChildViewController()
@@ -168,7 +187,7 @@ class RootCoordinator: RequiresAppDependencies {
 		with healthCertificate: HealthCertificate
 	) {
 		
-		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+		guard let healthCertificateNavigationController = healthCertificatesTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
 			Log.warning("Could not show certificate because i could find the corresponding navigation controller.")
 			return
@@ -178,7 +197,7 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
 				
-		healthCertificatesCoordinator?.showCertifiedPersonWithCertificateFromNotification(
+		healthCertificatesTabCoordinator?.showCertifiedPersonWithCertificateFromNotification(
 			for: healthCertifiedPerson,
 			with: healthCertificate
 		)
@@ -186,7 +205,7 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	func showHealthCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
 		
-		guard let healthCertificateNavigationController = healthCertificatesCoordinator?.viewController,
+		guard let healthCertificateNavigationController = healthCertificatesTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
 			Log.warning("Could not show Person because the corresponding navigation controller. can't be found")
 			return
@@ -196,7 +215,7 @@ class RootCoordinator: RequiresAppDependencies {
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
 				
-		healthCertificatesCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
+		healthCertificatesTabCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
 	}
 
 	
@@ -217,14 +236,14 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		homeCoordinator = nil
 		diaryCoordinator = nil
-		checkInCoordinator = nil
+		checkinTabCoordinator = nil
 		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
 	func showEvent(_ guid: String) {
-		guard let checkInNavigationController = checkInCoordinator?.viewController,
+		guard let checkInNavigationController = checkinTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
@@ -232,7 +251,7 @@ class RootCoordinator: RequiresAppDependencies {
 		// Close all modal screens that would prevent showing the checkin screen first.
 		tabBarController.dismiss(animated: false)
 		tabBarController.selectedIndex = index
-		checkInCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
+		checkinTabCoordinator?.showTraceLocationDetailsFromExternalCamera(guid)
 	}
 
 	func updateDetectionMode(
@@ -263,11 +282,37 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
-	private var healthCertificatesCoordinator: HealthCertificatesCoordinator?
-	private(set) var checkInCoordinator: CheckinCoordinator?
+	private var healthCertificatesTabCoordinator: HealthCertificatesTabCoordinator?
+	private(set) var checkinTabCoordinator: CheckinTabCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
+	private(set) var qrScannerCoordinator: QRScannerCoordinator?
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+	
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		#if DEBUG
+		if isUITesting {
+			let store = MockTestStore()
+			return ENAExposureSubmissionService(
+				diagnosisKeysRetrieval: exposureManager,
+				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
+				client: ClientMock(),
+				store: store,
+				eventStore: eventStore,
+				coronaTestService: coronaTestService
+			)
+		}
+		#endif
+
+		return ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			eventStore: eventStore,
+			coronaTestService: coronaTestService
+		)
+	}()
 }
 
 // MARK: - Protocol ExposureStateUpdating

@@ -10,7 +10,8 @@ class HealthCertifiedPersonCellModel {
 	// MARK: - Init
 
 	init?(
-		healthCertifiedPerson: HealthCertifiedPerson
+		healthCertifiedPerson: HealthCertifiedPerson,
+		showInfoHit: @escaping () -> Void
 	) {
 		guard let mostRelevantCertificate = healthCertifiedPerson.healthCertificates.mostRelevant else {
 			Log.error("failed to get mostRelevant health certificate")
@@ -24,7 +25,8 @@ class HealthCertifiedPersonCellModel {
 
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: mostRelevantCertificate,
-			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription
+			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
+			showInfoHit: showInfoHit
 		)
 
 		if healthCertifiedPerson.unseenNewsCount > 0 {
@@ -62,7 +64,8 @@ class HealthCertifiedPersonCellModel {
 	}
 
 	init?(
-		decodingFailedHealthCertificate: DecodingFailedHealthCertificate
+		decodingFailedHealthCertificate: DecodingFailedHealthCertificate,
+		showInfoHit: @escaping () -> Void
 	) {
 		backgroundGradientType = .solidGrey(withStars: true)
 
@@ -72,7 +75,8 @@ class HealthCertifiedPersonCellModel {
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			base45: decodingFailedHealthCertificate.base45,
 			shouldBlockCertificateCode: false,
-			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription
+			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
+			showInfoHit: showInfoHit
 		)
 
 		self.caption = .validityState(

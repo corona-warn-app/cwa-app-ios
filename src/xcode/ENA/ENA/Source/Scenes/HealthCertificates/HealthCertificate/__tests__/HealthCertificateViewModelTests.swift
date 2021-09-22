@@ -41,7 +41,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -82,7 +84,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -122,7 +126,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		XCTAssertTrue(healthCertificate.isNew)
