@@ -142,7 +142,7 @@ class QRScannerCoordinator {
 					qrScannerCoordinator: self
 				)
 
-				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markAsUnseen: true)
+				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 			}
 		case .checkinTab, .certificateTab:
 			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
@@ -158,7 +158,7 @@ class QRScannerCoordinator {
 				qrScannerCoordinator: self
 			)
 
-			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markAsUnseen: true)
+			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 		case .none:
 			break
 		}

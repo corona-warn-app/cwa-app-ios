@@ -34,7 +34,7 @@ class ExposureSubmissionCoordinatorModel {
 	let eventProvider: EventProviding
 	
 	var coronaTestType: CoronaTestType?
-	var markAsUnseen: Bool = false
+	var markNewlyAddedCoronaTestAsUnseen: Bool = false
 
 	var coronaTest: CoronaTest? {
 		guard let coronaTestType = coronaTestType else {
@@ -152,7 +152,7 @@ class ExposureSubmissionCoordinatorModel {
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
-				markAsUnseen: markAsUnseen,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
 				certificateConsent: certificateConsent,
 				completion: { result in
 					isLoading(false)
@@ -173,7 +173,7 @@ class ExposureSubmissionCoordinatorModel {
 				lastName: antigenTest.lastName,
 				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
-				markAsUnseen: markAsUnseen,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
 				certificateSupportedByPointOfCare: antigenTest.certificateSupportedByPointOfCare ?? false,
 				certificateConsent: certificateConsent,
 				completion: { result in
