@@ -6,7 +6,6 @@ import UIKit
 import OpenCombine
 import PDFKit
 
-// swiftlint:disable type_body_length
 final class HealthCertificatesCoordinator {
 	
 	// MARK: - Init
@@ -63,18 +62,16 @@ final class HealthCertificatesCoordinator {
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
 	) {
-				
-		showHealthCertificate(
+		showHealthCertificateFlow(
 			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificate: healthCertificate,
-			shouldPushOnModalNavigationController: false
+			healthCertificate: healthCertificate
 		)
 	}
 	
 	func showCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
 		showHealthCertifiedPerson(healthCertifiedPerson)
 	}
-	
+		
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
@@ -84,8 +81,8 @@ final class HealthCertificatesCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 
 	private var modalNavigationController: UINavigationController!
-	private var printNavigationController: UINavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
+	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var infoScreenShown: Bool {
@@ -181,10 +178,9 @@ final class HealthCertificatesCoordinator {
 			didScanCertificate: { [weak self] healthCertifiedPerson, healthCertificate in
 				presentingViewController.dismiss(animated: true) {
 					if presentingViewController == self?.viewController {
-						self?.showHealthCertificate(
+						self?.showHealthCertificateFlow(
 							healthCertifiedPerson: healthCertifiedPerson,
-							healthCertificate: healthCertificate,
-							shouldPushOnModalNavigationController: false
+							healthCertificate: healthCertificate
 						)
 					}
 				}
@@ -232,10 +228,10 @@ final class HealthCertificatesCoordinator {
 				}
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
-				self?.showHealthCertificate(
+				self?.showHealthCertificateFlow(
 					healthCertifiedPerson: healthCertifiedPerson,
 					healthCertificate: healthCertificate,
-					shouldPushOnModalNavigationController: true
+					isPushed: true
 				)
 			},
 			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
@@ -265,166 +261,46 @@ final class HealthCertificatesCoordinator {
 		viewController.present(modalNavigationController, animated: true)
 	}
 	
-	private func showHealthCertificate(
-		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate,
-		shouldPushOnModalNavigationController: Bool
+		
+	private func showErrorAlert(
+		title: String,
+		error: Error
 	) {
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
-			secondaryButtonName: AppStrings.HealthCertificate.Details.moreButtonTitle,
-			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true,
-			isSecondaryButtonHidden: false,
-			primaryButtonInverted: false,
-			secondaryButtonInverted: true,
-			backgroundColor: .enaColor(for: .cellBackground)
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
 		)
 
-		let footerViewController = FooterViewController(footerViewModel)
 
-		let healthCertificateViewController = HealthCertificateViewController(
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			dismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
-			},
-			didTapValidationButton: { [weak self] in
-				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
-				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
-
-				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
-					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
-					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
-
-					switch result {
-					case .success(let countries):
-						self?.showValidationFlow(
-							healthCertificate: healthCertificate,
-							countries: countries
-						)
-					case .failure(let error):
-						self?.showErrorAlert(
-							title: AppStrings.HealthCertificate.Validation.Error.title,
-							error: error
-						)
-					}
-				}
-			},
-			didTapMoreButton: { [weak self] in
-				self?.showActionSheet(
-					healthCertificate: healthCertificate,
-					removeAction: { [weak self] in
-						// pass this as closure instead of passing several properties to showActionSheet().
-						self?.showDeleteAlert(
-							certificateType: healthCertificate.type,
-							submitAction: UIAlertAction(
-								title: AppStrings.HealthCertificate.Alert.deleteButton,
-								style: .destructive,
-								handler: { _ in
-									guard let self = self else {
-										Log.error("Could not create strong self")
-										return
-									}
-									self.healthCertificateService.removeHealthCertificate(healthCertificate)
-									let isPersonStillExistent = self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson)
-
-									// Only pop to root if we did not removed the last certificate of a person (because this removes the person, too). A pop would trigger a reload of content which was removed before. If so, dismiss to go back to certificate overview.
-									if shouldPushOnModalNavigationController && isPersonStillExistent {
-										self.modalNavigationController.popToRootViewController(animated: true)
-									} else {
-										self.modalNavigationController.dismiss(animated: true)
-									}
-								}
-							)
-						)
-					}
-				)
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
 			}
 		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: healthCertificateViewController,
-			bottomController: footerViewController
-		)
-
-		if shouldPushOnModalNavigationController {
-			modalNavigationController.pushViewController(topBottomContainerViewController, animated: true)
-		} else {
-			modalNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
-			viewController.present(self.modalNavigationController, animated: true)
+		alert.addAction(okayAction)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				fatalError("Could not create strong self")
+			}
+			
+			self.modalNavigationController.present(alert, animated: true, completion: nil)
 		}
-	}
-
-	private func showValidationFlow(
-		healthCertificate: HealthCertificate,
-		countries: [Country]
-	) {
-		validationCoordinator = HealthCertificateValidationCoordinator(
-			parentViewController: modalNavigationController,
-			healthCertificate: healthCertificate,
-			countries: countries,
-			store: store,
-			healthCertificateValidationService: healthCertificateValidationService,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
-		)
-
-		validationCoordinator?.start()
 	}
 	
-	private func showActionSheet(
-		healthCertificate: HealthCertificate,
-		removeAction: @escaping () -> Void
-	) {
-		let actionSheet = UIAlertController(
-			title: nil,
-			message: nil,
-			preferredStyle: .actionSheet
-		)
-		
-		let printAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
-			style: .default,
-			handler: { [weak self] _ in
-				// Check first if the certificate is obtained in DE. If not, show error alert.
-				guard healthCertificate.cborWebTokenHeader.issuer == "DE" else {
-					self?.showPdfPrintErrorAlert()
-					return
-				}
-				self?.showPdfGenerationInfo(
-					healthCertificate: healthCertificate
-				)
+	private func setupCertificateBadgeCount() {
+		healthCertificateService.unseenNewsCount
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
 			}
-		)
-		actionSheet.addAction(printAction)
-
-		let deleteButtonTitle: String
-		switch healthCertificate.type {
-		case .vaccination:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
-		case .test:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
-		case .recovery:
-			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
-		}
-		
-		let removeAction = UIAlertAction(
-			title: deleteButtonTitle,
-			style: .destructive,
-			handler: { _ in
-				removeAction()
-			}
-		)
-		actionSheet.addAction(removeAction)
-		
-		let cancelAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.cancel,
-			style: .cancel,
-			handler: nil
-		)
-		actionSheet.addAction(cancelAction)
-		modalNavigationController.present(actionSheet, animated: true, completion: nil)
+			.store(in: &subscriptions)
+	}
+	
+	private func showSettings() {
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 	private func showDeleteAlert(
@@ -462,160 +338,40 @@ final class HealthCertificatesCoordinator {
 		modalNavigationController.present(alert, animated: true)
 	}
 	
-	private func showPdfGenerationInfo(
-		healthCertificate: HealthCertificate
-	) {
-		let healthCertificatePDFGenerationInfoViewController = HealthCertificatePDFGenerationInfoViewController(
-			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			onTapContinue: { [weak self] pdfDocument in
-				self?.showPdfGenerationResult(
-					healthCertificate: healthCertificate,
-					pdfDocument: pdfDocument
-				)
-			},
-			onDismiss: { [weak self] in
-				self?.modalNavigationController.dismiss(animated: true)
-			},
-			showErrorAlert: { [weak self] error in
-				self?.showErrorAlert(
-					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
-					error: error
-				)
-			}
-		)
-		
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.HealthCertificate.PrintPDF.Info.primaryButton,
-				primaryIdentifier: AccessibilityIdentifiers.HealthCertificate.PrintPdf.infoPrimaryButton,
-				isPrimaryButtonEnabled: true,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				backgroundColor: .enaColor(for: .background)
-			)
-		)
-
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: healthCertificatePDFGenerationInfoViewController,
-			bottomController: footerViewController
-		)
-		
-		printNavigationController = DismissHandlingNavigationController(
-			rootViewController: topBottomContainerViewController,
-			transparent: true
-		)
-		modalNavigationController.present(printNavigationController, animated: true)
-	}
-	
-	private func showPdfGenerationResult(
+	private func showHealthCertificateFlow(
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
-		pdfDocument: PDFDocument
+		isPushed: Bool = false
 	) {
-		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
+		let parentingViewController = isPushed ? ParentingViewController.push(modalNavigationController) : ParentingViewController.present(viewController)
+		
+		certificateCoordinator = HealthCertificateCoordinator(
+			parentingViewController: parentingViewController,
+			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
-			pdfDocument: pdfDocument
+			store: store,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 		
-		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
-			viewModel: healthCertificatePDFVersionViewModel,
-			onTapPrintPdf: printPdf,
-			onTapExportPdf: exportPdf
-		)
-		// The call of showPdfGenerationResult is made possibly in the background while generating the pdfDocument
-		DispatchQueue.main.async { [weak self] in
-			self?.printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
-		}
+		certificateCoordinator?.start()
 	}
 	
-	private func printPdf(
-		pdfData: Data
+	private func showValidationFlow(
+		healthCertificate: HealthCertificate,
+		countries: [Country]
 	) {
-		let printController = UIPrintInteractionController.shared
-		printController.printingItem = pdfData
-		printController.present(animated: true, completionHandler: nil)
-	}
-	
-	private func exportPdf(
-		exportItem: PDFExportItem
-	) {
-		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
-		printNavigationController.present(activityViewController, animated: true, completion: nil)
-	}
-
-	private func showErrorAlert(
-		title: String,
-		error: Error
-	) {
-		let alert = UIAlertController(
-			title: title,
-			message: error.localizedDescription,
-			preferredStyle: .alert
+		validationCoordinator = HealthCertificateValidationCoordinator(
+			parentViewController: modalNavigationController,
+			healthCertificate: healthCertificate,
+			countries: countries,
+			store: store,
+			healthCertificateValidationService: healthCertificateValidationService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
 		)
 
-		let okayAction = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
-			}
-		)
-		alert.addAction(okayAction)
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else {
-				fatalError("Could not create strong self")
-			}
-			
-			if self.modalNavigationController.isBeingPresented {
-				self.modalNavigationController.present(alert, animated: true, completion: nil)
-			} else {
-				self.printNavigationController.present(alert, animated: true, completion: nil)
-			}
-		}
+		validationCoordinator?.start()
 	}
-	
-	private func showPdfPrintErrorAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
-			preferredStyle: .alert
-		)
-		
-		let faqAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
-			style: .default,
-			handler: { _ in
-				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
-			}
-		)
-		faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
-		alert.addAction(faqAction)
-		
-		let okayAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
-			}
-		)
-		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
-		alert.addAction(okayAction)
-
-		modalNavigationController.present(alert, animated: true, completion: nil)
-	}
-
-	private func setupCertificateBadgeCount() {
-		healthCertificateService.unseenNewsCount
-			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] in
-				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
-			}
-			.store(in: &subscriptions)
-	}
-	
-	private func showSettings() {
-		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
-	}
-
-	// swiftlint:disable file_length
 }

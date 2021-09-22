@@ -51,12 +51,6 @@ class DiaryOverviewTableViewController: UITableViewController {
 		rightBarButton.tintColor = .enaColor(for: .tint)
 		navigationItem.setRightBarButton(rightBarButton, animated: false)
 		navigationItem.setHidesBackButton(true, animated: false)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		// navigationbar is a shared property - so we need to trigger a resizing because others could have set it to false
-		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
 	}
 

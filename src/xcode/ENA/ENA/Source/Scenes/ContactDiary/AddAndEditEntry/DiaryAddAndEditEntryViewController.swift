@@ -42,14 +42,6 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		setupView()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
-		parent?.navigationController?.navigationBar.sizeToFit()
-
-	}
-
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
