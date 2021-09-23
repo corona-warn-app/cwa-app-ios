@@ -16,10 +16,12 @@ class QRScannerViewController: UIViewController {
 		markCertificateAsNew: Bool,
 		markCoronaTestAsNew: Bool,
 		didScan: @escaping (QRCodeResult) -> Void,
-		dismiss: @escaping () -> Void
+		dismiss: @escaping () -> Void,
+		presentFileScanner: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		
+		self.presentFileScanner = presentFileScanner
+
 		super.init(nibName: nil, bundle: nil)
 		
 		viewModel = QRScannerViewModel(
@@ -35,11 +37,12 @@ class QRScannerViewController: UIViewController {
 					self?.viewModel?.deactivateScanning()
 					didScan(qrCodeResult)
 				case let .failure(error):
-					if error == .scanningError(.cameraPermissionDenied) {
-						self?.showCameraPermissionErrorAlert()
-					} else {
-						self?.showErrorAlert(error: error)
-					}
+					Log.debug("Error")
+//					if error == .scanningError(.cameraPermissionDenied) {
+//						self?.showCameraPermissionErrorAlert()
+//					} else {
+//						self?.showErrorAlert(error: error)
+//					}
 				}
 			}
 		)
@@ -78,6 +81,8 @@ class QRScannerViewController: UIViewController {
 
 	private let focusView = QRScannerFocusView()
 	private let dismiss: () -> Void
+	private let presentFileScanner: () -> Void
+	// remove that please
 	private let flashButtonTag = 12
 	
 	private var viewModel: QRScannerViewModel?
@@ -174,6 +179,19 @@ class QRScannerViewController: UIViewController {
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
+
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			barButtonSystemItem: .action,
+			target: self,
+			action: #selector(didTapFileButton)
+		)
+	}
+
+	@objc
+	private func didTapFileButton() {
+		presentFileScanner()
+//		let coordinator = FileScannerCoordinator(parentViewController: self, dismiss: {})
+//		coordinator.start()
 	}
 
 	@objc
