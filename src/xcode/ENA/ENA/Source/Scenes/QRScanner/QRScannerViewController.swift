@@ -141,17 +141,12 @@ class QRScannerViewController: UIViewController {
 				
 				instructionTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
 				instructionTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
-				instructionTitle.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 0),
+				instructionTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
 				
 				instructionDescription.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
 				instructionDescription.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
-				instructionDescription.topAnchor.constraint(greaterThanOrEqualTo: instructionTitle.bottomAnchor, constant: 15),
-				instructionDescription.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.bottomAnchor, constant: 0),
-				
-				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
-				flashButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-				flashButton.heightAnchor.constraint(equalToConstant: 25),
-				flashButton.widthAnchor.constraint(equalToConstant: 20),
+				instructionDescription.topAnchor.constraint(equalTo: instructionTitle.bottomAnchor, constant: 15),
+				instructionDescription.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
 				
 				contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
 				contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -163,7 +158,12 @@ class QRScannerViewController: UIViewController {
 				scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 				scrollView.topAnchor.constraint(equalTo: focusView.bottomAnchor, constant: 25),
 				scrollView.bottomAnchor.constraint(equalTo: flashButton.topAnchor, constant: -10),
-				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
+				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+				
+				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
+				flashButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+				flashButton.heightAnchor.constraint(equalToConstant: 25),
+				flashButton.widthAnchor.constraint(equalToConstant: 20)
 			]
 		)
 	}
