@@ -15,13 +15,15 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
-		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
+		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
+		self.showInfo = showInfoHit
 
 		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
@@ -80,12 +82,12 @@ final class HealthCertifiedPersonViewModel {
 	var headerCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
-		centerParagraphStyle.lineSpacing = 10.0
+		centerParagraphStyle.lineSpacing = 4.0
 
 		let attributedTitle = NSAttributedString(
 			string: AppStrings.HealthCertificate.Person.title,
 			attributes: [
-				.font: UIFont.enaFont(for: .headline),
+				.font: UIFont.enaFont(for: .body),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
 				.paragraphStyle: centerParagraphStyle
 			]
@@ -94,7 +96,7 @@ final class HealthCertifiedPersonViewModel {
 		let attributedSubtitle = NSAttributedString(
 			string: healthCertifiedPerson.name?.fullName ?? "",
 			attributes: [
-				.font: UIFont.enaFont(for: .body),
+				.font: UIFont.enaFont(for: .headline),
 				.foregroundColor: UIColor.enaColor(for: .textContrast),
 				.paragraphStyle: centerParagraphStyle
 			]
@@ -105,7 +107,7 @@ final class HealthCertifiedPersonViewModel {
 			textAlignment: .center,
 			attributedText: [attributedTitle, attributedSubtitle]
 				.joined(with: "\n"),
-			topSpace: 16.0,
+			topSpace: 14.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
@@ -129,6 +131,9 @@ final class HealthCertifiedPersonViewModel {
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
 			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
 				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+			},
+			showInfoHit: { [ weak self] in
+				self?.showInfo()
 			}
 		)
 	}
@@ -202,7 +207,7 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
-
+	private let showInfo: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()

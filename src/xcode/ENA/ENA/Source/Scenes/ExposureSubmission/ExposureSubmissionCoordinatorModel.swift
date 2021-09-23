@@ -34,6 +34,7 @@ class ExposureSubmissionCoordinatorModel {
 	let eventProvider: EventProviding
 	
 	var coronaTestType: CoronaTestType?
+	var markNewlyAddedCoronaTestAsUnseen: Bool = false
 
 	var coronaTest: CoronaTest? {
 		guard let coronaTestType = coronaTestType else {
@@ -147,10 +148,11 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading(true)
 		// QR code test fetch
 		switch testType {
-		case let .pcr(guid: guid, markAsNew: markAsNew):
+		case let .pcr(guid: guid):
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
 				certificateConsent: certificateConsent,
 				completion: { result in
 					isLoading(false)
@@ -171,6 +173,7 @@ class ExposureSubmissionCoordinatorModel {
 				lastName: antigenTest.lastName,
 				dateOfBirth: antigenTest.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
 				certificateSupportedByPointOfCare: antigenTest.certificateSupportedByPointOfCare ?? false,
 				certificateConsent: certificateConsent,
 				completion: { result in

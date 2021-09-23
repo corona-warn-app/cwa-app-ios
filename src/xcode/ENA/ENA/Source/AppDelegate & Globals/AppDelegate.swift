@@ -210,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// handle QR codes scanned in the camera app
 		var route: Route?
 		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
-			route = Route(url: incomingURL, markCoronaTestAsNew: false)
+			route = Route(url: incomingURL)
 		}
 		guard store.isOnboarded else {
 			postOnboardingRoute = route
@@ -627,7 +627,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			if let userActivity = activityDictionary[key] as? NSUserActivity,
 			   userActivity.activityType == NSUserActivityTypeBrowsingWeb,
 			   let url = userActivity.webpageURL {
-				return Route(url: url, markCoronaTestAsNew: false)
+				return Route(url: url)
 			}
 		}
 

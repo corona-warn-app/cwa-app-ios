@@ -5,10 +5,6 @@
 import Foundation
 import UIKit
 
-// TODO: consent screen is shown twice for checkin tab and certificates tab. check if change required.
-// TODO: Mark certificates as new from other tabs
-// TODO: Camera permission error when opened twice
-
 enum QRScannerPresenter {
 	case submissionFlow
 	case onBehalfFlow
@@ -53,14 +49,16 @@ class QRScannerCoordinator {
 	
 	func start(
 		parentViewController: UIViewController,
-		presenter: QRScannerPresenter
+		presenter: QRScannerPresenter,
+		didDismiss: @escaping () -> Void = {}
 	) {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
 				markCertificateAsNew: presenter != .certificateTab,
-				markCoronaTestAsNew: presenter != .submissionFlow
+				markCoronaTestAsNew: presenter != .submissionFlow,
+				didDismiss: didDismiss
 			)
 		)
 		self.parentViewController?.present(navigationController, animated: true)
@@ -90,7 +88,8 @@ class QRScannerCoordinator {
 	
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool
+		markCoronaTestAsNew: Bool,
+		didDismiss: @escaping () -> Void
 	) -> UIViewController {
 		return QRScannerViewController(
 			healthCertificateService: healthCertificateService,
@@ -99,19 +98,20 @@ class QRScannerCoordinator {
 			markCertificateAsNew: markCertificateAsNew,
 			markCoronaTestAsNew: markCoronaTestAsNew,
 			didScan: { [weak self] qrCodeResult in
-				self?.parentViewController.dismiss(animated: true)
-
-				switch qrCodeResult {
-				case let .coronaTest(testRegistrationInformation):
-					self?.showScannedTestResult(testRegistrationInformation)
-				case let .certificate(healthCertifiedPerson, healthCertificate):
-					self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-				case let .traceLocation(traceLocation):
-					self?.showScannedCheckin(traceLocation)
-				}
+				self?.parentViewController.dismiss(animated: true, completion: {
+					switch qrCodeResult {
+					case let .coronaTest(testRegistrationInformation):
+						self?.showScannedTestResult(testRegistrationInformation)
+					case let .certificate(healthCertifiedPerson, healthCertificate):
+						self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+					case let .traceLocation(traceLocation):
+						self?.showScannedCheckin(traceLocation)
+					}
+				})
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
+				didDismiss()
 			}
 		)
 	}
@@ -142,7 +142,7 @@ class QRScannerCoordinator {
 					qrScannerCoordinator: self
 				)
 
-				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 			}
 		case .checkinTab, .certificateTab:
 			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
@@ -158,7 +158,7 @@ class QRScannerCoordinator {
 				qrScannerCoordinator: self
 			)
 
-			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation))
+			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 		case .none:
 			break
 		}

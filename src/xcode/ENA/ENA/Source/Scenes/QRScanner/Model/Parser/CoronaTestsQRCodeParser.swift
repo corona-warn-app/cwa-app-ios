@@ -8,8 +8,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	
 	// MARK: - Init
 
-	init(markAsNew: Bool) {
-		self.markAsNew = markAsNew
+	init() {
 	}
 	
 	func parse(
@@ -18,7 +17,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	) {
 		#if DEBUG
 		if isUITesting {
-			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid", markAsNew: markAsNew))))
+			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid"))))
 		}
 		#endif
 		
@@ -49,7 +48,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
-		} else if let route = Route(input, markCoronaTestAsNew: markAsNew),
+		} else if let route = Route(input),
 				  case .rapidAntigen(let testInformationResult) = route,
 				  case let .success(testInformation) = testInformationResult {
 			return testInformation
@@ -59,8 +58,6 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	}
 
 	// MARK: - Private
-
-	private let markAsNew: Bool
 	
 	private func pcrTestInformation(
 		from guidURL: String,
@@ -76,7 +73,6 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			  ) else {
 			return nil
 		}
-		return matchings.isEmpty ? nil : .pcr(guid: candidate, markAsNew: markAsNew)
+		return matchings.isEmpty ? nil : .pcr(guid: candidate)
 	}
-
 }

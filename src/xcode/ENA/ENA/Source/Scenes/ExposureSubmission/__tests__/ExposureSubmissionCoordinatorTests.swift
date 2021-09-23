@@ -20,6 +20,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	private var healthCertificateValidationService: HealthCertificateValidationService!
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider!
 	private var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider!
+	private var qrScannerCoordinator: QRScannerCoordinator!
+	private var eventStore: EventStoringProviding!
 
 	// MARK: - Setup and teardown methods.
 
@@ -31,12 +33,15 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
+		let diaryStore = MockDiaryStore()
+
+		eventStore = MockEventStore()
 
 		coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
+			eventStore: eventStore,
+			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
@@ -98,6 +103,23 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			dscListProvider: dscListProvider,
 			rulesDownloadService: rulesDownloadService
 		)
+
+		qrScannerCoordinator = QRScannerCoordinator(
+			store: store,
+			client: client,
+			eventStore: eventStore,
+			appConfiguration: appConfiguration,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: diaryStore
+			),
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService
+		)
 	}
 
 
@@ -113,10 +135,11 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			coronaTestService: coronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
-			eventProvider: MockEventStore(),
+			eventProvider: eventStore,
 			antigenTestProfileStore: store,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 	}
 

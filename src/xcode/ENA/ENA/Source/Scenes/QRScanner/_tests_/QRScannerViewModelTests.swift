@@ -62,7 +62,10 @@ class QRScannerViewModelTests: XCTestCase {
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationService,
-			appConfiguration: appConfigurationProvider) { result in
+			appConfiguration: appConfigurationProvider,
+			markCertificateAsNew: false,
+			markCoronaTestAsNew: false
+		) { result in
 			switch result {
 			case .success(let result):
 				switch result {
@@ -111,7 +114,10 @@ class QRScannerViewModelTests: XCTestCase {
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationService,
-			appConfiguration: appConfigurationProvider) { result in
+			appConfiguration: appConfigurationProvider,
+			markCertificateAsNew: false,
+			markCoronaTestAsNew: false
+		) { result in
 			switch result {
 			case .success(let result):
 				switch result {
@@ -157,11 +163,14 @@ class QRScannerViewModelTests: XCTestCase {
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationService,
-			appConfiguration: appConfigurationProvider) { result in
+			appConfiguration: appConfigurationProvider,
+			markCertificateAsNew: false,
+			markCoronaTestAsNew: false
+		) { result in
 			switch result {
 			case .success(let result):
 				switch result {
-				case .checkin(let traceLocation):
+				case .traceLocation(let traceLocation):
 					XCTAssertEqual(traceLocation.address, "1594 Deffe Avenue", "Expected correct event address")
 					XCTAssertEqual(traceLocation.type, .locationTypePermanentFoodService, "Expected correct event type")
 					onSuccessExpectation.fulfill()
@@ -205,7 +214,10 @@ class QRScannerViewModelTests: XCTestCase {
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationService,
-			appConfiguration: appConfigurationProvider) { result in
+			appConfiguration: appConfigurationProvider,
+			markCertificateAsNew: false,
+			markCoronaTestAsNew: false
+		) { result in
 			switch result {
 			case .success(let result):
 				switch result {
@@ -253,9 +265,12 @@ class QRScannerViewModelTests: XCTestCase {
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			verificationHelper: verificationService,
-			appConfiguration: appConfigurationProvider) { result in
+			appConfiguration: appConfigurationProvider,
+			markCertificateAsNew: false,
+			markCoronaTestAsNew: false
+		) { result in
 			switch result {
-			case .success(let result):
+			case .success:
 				XCTFail("Expected scan to fail")
 			case .failure(let error):
 				switch error {

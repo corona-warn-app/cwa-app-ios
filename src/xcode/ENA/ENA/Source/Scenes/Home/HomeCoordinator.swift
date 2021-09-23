@@ -31,7 +31,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.elsService = elsService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
-		
+
 		setupHomeBadgeCount()
 	}
 

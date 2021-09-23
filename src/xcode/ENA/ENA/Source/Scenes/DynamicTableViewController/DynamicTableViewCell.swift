@@ -206,6 +206,7 @@ extension DynamicCell {
 	
 	static func headlineWithImage(
 		headerText: String,
+		topInset: CGFloat = 64.0,
 		font: ENAFont = .title1,
 		image: UIImage,
 		accessibilityIdentifier: String? = nil,
@@ -213,7 +214,7 @@ extension DynamicCell {
 		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(CellReuseIdentifier.headlineWithImage, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image)
+			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image, topInset: topInset)
 			configure?(viewController, cell, indexPath)
 		}
 	}

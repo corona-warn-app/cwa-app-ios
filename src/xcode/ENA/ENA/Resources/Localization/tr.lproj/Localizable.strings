@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Yapmanız gerekenler:";
 
+"ExposureDetection_Guide_Vaccination" = "Henüz olmadıysanız SARS-CoV-2 virüsüne karşı aşı olun.";
+
 "ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak 20 saniye sabunla yıkayın.";
 
 "ExposureDetection_Guide_Mask" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Kapalı alanları günde birkaç kez havalandırın. Bunun için, pencereleri birkaç dakika süreyle sonuna dek açın (“şok havalandırma”).";
 
+"ExposureDetection_Guide_Symptoms" = "Tipik COVID-19 belirtilerine karşı dikkatli olun. Nadir durumlarda, aşı olmuş kişiler bile belirti gösterebilir. Herhangi bir şüpheli belirti fark ederseniz test yaptırın.";
+
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın.";
 
 "ExposureDetection_Guide_Hotline1" = "Belirtiler, test kullanılabilirliği veya karantina önlemleri hakkında sorularınız varsa lütfen aşağıdakilerden biri ile iletişime geçin:";
 
 "ExposureDetection_Guide_Hotline2" = "Aile hekiminiz";
 
-"ExposureDetection_Guide_Hotline3" = "116117 numaralı telefondan genel acil servis";
+"ExposureDetection_Guide_Hotline3" = "116 117 numaralı telefondan genel acil servis";
 
 "ExposureDetection_Guide_Hotline4" = "Kamu sağlığı yetkiliniz";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız bir test randevusu oluşturmak için aile hekiminize veya genel acil servis numarasına danışın. Testinizi yaptırdıktan sonra aile hekiminizle SARS-CoV-2 aşısı hakkında görüşün.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Test yaptırırsanız %@ bölümünde test prosedürü hakkında ek bilgi bulabilirsiniz.";
@@ -376,8 +382,6 @@
 
 "Onboarding_Continue_actionTextHint" = "Bu ekranı atlayabilirsiniz";
 
-"Onboarding_doNotAllow_actionText" = "İzin Verme";
-
 "Onboarding_DoNotActivate_actionText" = "Etkinleştirme";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Maruz kalma günlüğünü etkinleştirmezseniz uygulama risk durumunuzu belirleyemez. Buna göre, uygulamada riskiniz hakkında hiçbir bilgi alamazsınız.";
@@ -467,8 +471,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak uygulamanın koronavirüs testinizin durumunu sorgulamasına ve uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği\" başlığında daha fazla bilgiye erişebilirsiniz.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "İzin Ver";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "İzin Verme";
 
 "ExposureSubmission_Submit" = "TAN gir";
 
@@ -1555,14 +1557,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Hatırlatma Aşıları İle İlgili Bilgiler";
+/* Version 2.11 */
+"NewVersionFeature_211_universalQRCodeScanner_title" = "Evrensel QR Kod Tarayıcı";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Uygulamada, yaklaşan hatırlatma aşıları konusunda sizi uyaran bir mesaj görüntülenebilir.";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Artık Corona-Warn-App'te QR kod tarayıcıyı nerede açarsanız açın CWA'nın desteklediği tüm belgeleri tarayabilirsiniz:\n\n\t\U2022 PCR testleri\n\t\U2022 Hızlı testler\n\t\U2022 Etkinlik check-in'leri\n\t\U2022 Sertifikalar";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Aşı Sertifikalarının Basılı Versiyonu";
+"NewVersionFeature_211_qrCodeImport_title" = "QR Kodu İçe Aktar";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Artık Almanya'da düzenlenen sertifikalarınızın basılı versiyonunu görüntüleyebilirsiniz. Bu özellik, sertifikaları PDF belgeleri olarak kaydetmenize ve yazdırmanıza olanak sağlar.";
+"NewVersionFeature_211_qrCodeImport_description" = "Artık QR kod tarayıcıyı kullanarak fotoğraf veya PDF dosyalarından QR kodları içe aktarabilirsiniz.";
+
+"NewVersionFeature_211_contactDurationAdjustment_title" = "Temas Süresi Ayarlaması";
+
+"NewVersionFeature_211_contactDurationAdjustment_description" = "Temas güncesindeki minimum temas süresi 15 dakika yerine 10 dakikaya indirildi. Mevcut temas girişleri otomatik olarak ayarlandı. Günce girişlerinizi gözden geçirin ve gerekiyorsa ayarlayın.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1685,9 +1691,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "(düşük riskli birden fazla maruz kalmaya göre).";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "15 dakikadan az";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "En fazla 10 dk";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "15 dakikadan fazla";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "En az 10 dk";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Maskeli";
 
@@ -1750,9 +1756,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Konum işareti taşıyan bir bina.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "15 dakikadan az";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "En fazla 10 dk";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "15 dakikadan fazla";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "En az 10 dk";
 
 "ContactDiary_Day_Encounter_WithMask" = "Maskeli";
 
@@ -2627,7 +2633,7 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Henüz sertifika yok";
 
-"HealthCertificate_Overview_EmptyDescription" = "Kaydedilen dijital aşı sertifikaları, iyileşme sertifikaları ve test sertifikaları burada görüntülenir.";
+"HealthCertificate_Overview_EmptyDescription" = "Kaydedilen dijital aşı sertifikaları, iyileşme sertifikaları ve test sertifikaları burada görüntülenir.\n\nSertifika eklemek için lütfen karşılık gelen QR kodu tarayın.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
 
@@ -3020,6 +3026,13 @@
 "HealthCertificate_ValidityState_Invalid" = "Sertifika (İmza) Geçersiz";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "QR Kod Tarayıcı";
+
+"UniversalQRScanner_InstructionTitle" = "Hangi QR kodları tarayabilirsiniz?";
+
+"UniversalQRScanner_InstructionDescription" = "PCR testleri ve hızlı testler, test sertifikaları, aşı sertifikaları, iyileşme sertifikaları ve check-in'ler.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
