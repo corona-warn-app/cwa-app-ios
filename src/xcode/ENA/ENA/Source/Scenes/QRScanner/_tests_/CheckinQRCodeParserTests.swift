@@ -51,7 +51,6 @@ class CheckinQRCodeParserTests: CWATestCase {
 	}
 	
 	func testInvalidURL_WrongHost() {
-		let appConfig = CachedAppConfigurationMock()
 		let validHostName = "https://e.wrong.app"
 		let validVersion = "?v=1"
 		let validPayload = "#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"
@@ -93,7 +92,6 @@ class CheckinQRCodeParserTests: CWATestCase {
 		)
 		waitForExpectations(timeout: .short)
 	}
-	
 	
 	func testValidPayload_ValidInformation() {
 		let traceLocation = TraceLocation.mock(
@@ -305,4 +303,5 @@ class CheckinQRCodeParserTests: CWATestCase {
 		}
 		return Data(bytes)
 	}
+	
 }

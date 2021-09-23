@@ -188,6 +188,7 @@
 		019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3F258951C000B26392 /* DiaryLocation.swift */; };
 		019DDEDF26F1E48C00390509 /* VaccinationHintCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */; };
 		019DDEE126FC70EC00390509 /* CheckinQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C39CB261B430700AEC979 /* CheckinQRCodeParserTests.swift */; };
+		019DDEE326FC95F500390509 /* CoronaTestsQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019DDEE226FC95F400390509 /* CoronaTestsQRCodeParserTests.swift */; };
 		019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */; };
 		019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */; };
 		019E2F01269EF4EA000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */; };
@@ -1587,6 +1588,7 @@
 		019C9F3A258951BE00B26392 /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		019C9F3F258951C000B26392 /* DiaryLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLocation.swift; sourceTree = "<group>"; };
 		019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintCellModelTests.swift; sourceTree = "<group>"; };
+		019DDEE226FC95F400390509 /* CoronaTestsQRCodeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestsQRCodeParserTests.swift; sourceTree = "<group>"; };
 		019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSets+ValueSetType.swift"; sourceTree = "<group>"; };
 		019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSet+DisplayText.swift"; sourceTree = "<group>"; };
 		019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHealthCertificateValidationOnboardedCountriesProvider.swift; sourceTree = "<group>"; };
@@ -5532,6 +5534,7 @@
 			children = (
 				8F4B8C5426F8A5FF007620D0 /* QRScannerViewModelTests.swift */,
 				01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */,
+				019DDEE226FC95F400390509 /* CoronaTestsQRCodeParserTests.swift */,
 				8F7C39CB261B430700AEC979 /* CheckinQRCodeParserTests.swift */,
 			);
 			path = _tests_;
@@ -9554,6 +9557,7 @@
 				506861E026A0347F0069B78C /* HealthCertificateValidationResultTests.swift in Sources */,
 				AB7DE74F25C861A900C52B3F /* ExposureDetectionSurveyCellModelTests.swift in Sources */,
 				AB68530C25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift in Sources */,
+				019DDEE326FC95F500390509 /* CoronaTestsQRCodeParserTests.swift in Sources */,
 				8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */,
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,

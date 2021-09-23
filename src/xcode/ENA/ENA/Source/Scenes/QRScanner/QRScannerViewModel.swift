@@ -173,8 +173,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
 
-		var parser: QRCodeParsable?
-
 		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
 			// it is trace Locations QRCode
 			parser = CheckinQRCodeParser(
@@ -196,9 +194,11 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
-		parser.parse(qrCode: url, completion: { result in
+
+		parser.parse(qrCode: url) { result in
 			self.completion(result)
-		})
+			self.parser = nil
+		}
 	}
 	
 	private let captureDevice: AVCaptureDevice?
@@ -206,5 +206,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	private let healthCertificateService: HealthCertificateService
 	private let markCertificateAsNew: Bool
 	private let markCoronaTestAsNew: Bool
+
+	private var parser: QRCodeParsable?
 
 }
