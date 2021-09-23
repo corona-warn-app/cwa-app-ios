@@ -134,7 +134,7 @@ class QRScannerViewController: UIViewController {
 
 		NSLayoutConstraint.activate(
 			[
-				focusView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+				focusView.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
 				focusView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
 				focusView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
 				focusView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45, constant: 25),
@@ -157,7 +157,7 @@ class QRScannerViewController: UIViewController {
 				scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 				scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 				scrollView.topAnchor.constraint(equalTo: focusView.bottomAnchor, constant: 25),
-				scrollView.bottomAnchor.constraint(equalTo: flashButton.topAnchor, constant: -10),
+				scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: flashButton.topAnchor, constant: -10),
 				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
 				
 				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
