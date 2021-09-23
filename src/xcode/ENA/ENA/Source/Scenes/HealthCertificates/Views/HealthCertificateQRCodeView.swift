@@ -57,7 +57,7 @@ class HealthCertificateQRCodeView: UIView {
 
 	private let infoButton: UIButton = {
 		let button = UIButton()
-		button.setImage(UIImage(imageLiteralResourceName: "info"), for: .normal)
+		button.setImage(UIImage(imageLiteralResourceName: "infoBigger"), for: .normal)
 		button.addTarget(self, action: #selector(didHitInfoButton), for: .touchUpInside)
 		return button
 	}()
