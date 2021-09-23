@@ -59,6 +59,23 @@ class FileScannerCoordinator {
 	}()
 
 	private func presentPhotoPicker() {
+		guard viewModel.authorizationStatus == .authorized else {
+			if case .notDetermined = viewModel.authorizationStatus {
+				viewModel.requestPhotoAccess { [weak self] _ in
+					self?.presentPhotoPicker()
+				}
+			} else {
+				presentPhotoAccessAlert()
+			}
+			return
+		}
+
+
+//		guard viewModel.checkAuthorizationStatus else {
+//			presentPhotoAccessAlert()
+//			return
+//		}
+
 		Log.debug("show photo picker here")
 		if #available(iOS 14, *) {
 			var configuration = PHPickerConfiguration(photoLibrary: .shared())
@@ -87,6 +104,18 @@ class FileScannerCoordinator {
 
 	private func presentFilePicker() {
 		Log.debug("show file picker here")
+	}
+
+	private func presentPhotoAccessAlert() {
+		let alert = UIAlertController(
+			title: "Zugriff nicht erlaubt",
+			message: "“Corona-Warn-App” hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.",
+			preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+		alert.addAction(UIAlertAction(title: "Einstellungen", style: .default, handler: { _ in
+			Log.debug("Should open Settings app")
+		}))
+		parentViewController?.present(alert, animated: true)
 	}
 
 }

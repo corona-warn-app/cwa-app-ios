@@ -63,5 +63,23 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	var dismiss: (() -> Void)?
 
+	var authorizationStatus: PHAuthorizationStatus {
+		if #available(iOS 14, *) {
+			return PHPhotoLibrary.authorizationStatus(for: .readWrite)
+		} else {
+			return PHPhotoLibrary.authorizationStatus()
+		}
+	}
+
+	func requestPhotoAccess(_ completion: @escaping (PHAuthorizationStatus) -> Void) {
+		if #available(iOS 14, *) {
+			PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: completion)
+		} else {
+			PHPhotoLibrary.requestAuthorization(completion)
+		}
+	}
+
 	// MARK: - Private
+
+
 }
