@@ -2315,7 +2315,6 @@ enum AppStrings {
 		enum Error {
 			static let cameraPermissionDenied = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
 			static let unsupportedQRCode = NSLocalizedString("UniversalQRScanner_Error_unsupportedQRCode", comment: "")
-			static let other = NSLocalizedString("UniversalQRScanner_Error_other", comment: "")
 		}
 	}
 
