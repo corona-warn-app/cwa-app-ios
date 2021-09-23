@@ -64,7 +64,7 @@ class FileScannerCoordinator {
 			var configuration = PHPickerConfiguration(photoLibrary: .shared())
 			configuration.filter = PHPickerFilter.images
 			configuration.preferredAssetRepresentationMode = .current
-			configuration.selectionLimit = 0
+			configuration.selectionLimit = 1
 
 			let picker = PHPickerViewController(configuration: configuration)
 			picker.delegate = viewModel
