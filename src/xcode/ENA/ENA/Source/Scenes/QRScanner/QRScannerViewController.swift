@@ -77,12 +77,12 @@ class QRScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-	private let dismiss: () -> Void
-	
 	private let contentView = UIView()
-	private let flashButton = UIButton(type: .custom)
-	private var viewModel: QRScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
+	private let flashButton = UIButton(type: .custom)
+	
+	private var viewModel: QRScannerViewModel?
+	private let dismiss: () -> Void
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
