@@ -1672,21 +1672,15 @@ enum AppStrings {
 			static let notice = NSLocalizedString("Checkins_Edit_Notice", comment: "")
 		}
 
-		enum QRScanner {
-			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
-			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
-			static let instruction = NSLocalizedString("Checkins_Overview_QRScanner_Instruction", comment: "")
-
-			enum Error {
-				static let title = NSLocalizedString("Checkin_QR_Scanner_Checkin_Error_Title", comment: "")
-				static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
-				static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
-				static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
-				static let invalidDescription = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidDescription", comment: "")
-				static let invalidAddress = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidAddress", comment: "")
-				static let invalidCryptographicSeed = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidCryptographicSeed", comment: "")
-				static let invalidTimeStamps = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidTimeStamps", comment: "")
-			}
+		enum QRScannerError {
+			static let title = NSLocalizedString("Checkin_QR_Scanner_Checkin_Error_Title", comment: "")
+			static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
+			static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
+			static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
+			static let invalidDescription = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidDescription", comment: "")
+			static let invalidAddress = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidAddress", comment: "")
+			static let invalidCryptographicSeed = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidCryptographicSeed", comment: "")
+			static let invalidTimeStamps = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidTimeStamps", comment: "")
 		}
 
 		enum Overview {
@@ -2058,11 +2052,6 @@ enum AppStrings {
 
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", tableName: "Localizable.legal", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
-		}
-
-		enum QRScanner {
-			static let title = NSLocalizedString("HealthCertificate_QRScanner_title", comment: "")
-			static let instruction = NSLocalizedString("HealthCertificate_QRScanner_instruction", comment: "")
 		}
 
 		enum Person {

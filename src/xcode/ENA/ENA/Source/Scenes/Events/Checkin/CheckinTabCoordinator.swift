@@ -118,7 +118,7 @@ final class CheckinTabCoordinator {
 			},
 			onError: { [weak self] error in
 				let alert = UIAlertController(
-					title: AppStrings.Checkins.QRScanner.Error.title,
+					title: AppStrings.Checkins.QRScannerError.title,
 					message: error.errorDescription,
 					preferredStyle: .alert
 				)

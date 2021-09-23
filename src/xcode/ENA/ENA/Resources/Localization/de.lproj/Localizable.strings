@@ -2251,8 +2251,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Checkins */
 
-"Checkins_QR_Scanner_Title" = "QR-Code Scan";
-
 "Checkins_Overview_Title" = "Meine Check-ins";
 
 "Checkins_Overview_MenuButtonTitle" = "Menü";
@@ -2300,8 +2298,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkins_Overview_ActionSheet_InfoTitle" = "Informationen";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
-
-"Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in für %@.";
 
@@ -2793,12 +2789,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Info_section04" = "Fügen Sie existierende Zertifikate für sich und Ihre Familienmitglieder hinzu.";
 
 "HealthCertificate_Info_primaryButton" = "Weiter";
-
-/* QR Scanner */
-
-"HealthCertificate_QRScanner_title" = "QR-Code Scan";
-
-"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
 
 /* CovPass Info Screen */
 
