@@ -516,6 +516,7 @@ enum AccessibilityIdentifiers {
 	enum TabBar {
 		static let home = "TabBar.home"
 		static let certificates = "TabBar.certificates"
+		static let scanner = "TabBar.scanner"
 		static let checkin = "TabBar.checkin"
 		static let diary = "TabBar.diary"
 	}
