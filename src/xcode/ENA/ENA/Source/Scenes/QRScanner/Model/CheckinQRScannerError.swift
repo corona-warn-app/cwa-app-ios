@@ -6,7 +6,6 @@ import Foundation
 
 enum CheckinQRScannerError: Error, LocalizedError {
 
-	case cameraPermissionDenied
 	case codeNotFound // invalid url
 	case invalidPayload
 	case invalidVendorData
@@ -14,12 +13,9 @@ enum CheckinQRScannerError: Error, LocalizedError {
 	case invalidDescription
 	case invalidCryptoSeed
 	case invalidTimeStamps
-	case other
 
 	var errorDescription: String? {
 		switch self {
-		case .cameraPermissionDenied:
-			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
 		case .codeNotFound:
 			return AppStrings.Checkins.QRScanner.Error.invalidURL
 		case .invalidPayload:
@@ -34,8 +30,6 @@ enum CheckinQRScannerError: Error, LocalizedError {
 			return AppStrings.Checkins.QRScanner.Error.invalidCryptographicSeed
 		case .invalidTimeStamps:
 			return AppStrings.Checkins.QRScanner.Error.invalidTimeStamps
-		default:
-			return AppStrings.ExposureSubmissionQRScanner.otherError
 		}
 	}
 }

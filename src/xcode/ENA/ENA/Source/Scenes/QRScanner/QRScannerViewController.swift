@@ -123,8 +123,8 @@ class QRScannerViewController: UIViewController {
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
 		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
-		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
-		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
+		flashButton.accessibilityLabel = AppStrings.UniversalQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.flash
 		flashButton.accessibilityTraits = [.button]
 		flashButton.tag = flashButtonTag
 		flashButton.translatesAutoresizingMaskIntoConstraints = false
@@ -202,13 +202,13 @@ class QRScannerViewController: UIViewController {
 		case .lightOn:
 			flashButton.isEnabled = true
 			flashButton.isSelected = true
-			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
-			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
+			flashButton.accessibilityValue = AppStrings.UniversalQRScanner.flashButtonAccessibilityOnValue
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.UniversalQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
 		case .lightOff:
 			flashButton.isEnabled = true
 			flashButton.isSelected = false
-			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
-			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
+			flashButton.accessibilityValue = AppStrings.UniversalQRScanner.flashButtonAccessibilityOffValue
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.UniversalQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
 		case .none:
 			break
 		}
