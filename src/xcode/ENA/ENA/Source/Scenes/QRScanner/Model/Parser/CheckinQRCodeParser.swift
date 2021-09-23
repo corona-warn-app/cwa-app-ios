@@ -15,7 +15,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 		self.appConfigurationProvider = appConfigurationProvider
 	}
 
-	// MARK: - Internal
+	// MARK: - Protocol QRCodeParsable
 
 	func parse(
 		qrCode: String,
@@ -49,6 +49,8 @@ class CheckinQRCodeParser: QRCodeParsable {
 			}
 		)
 	}
+
+	// MARK: - Internal
 
 	func verifyQrCode(
 		qrCodeString url: String,
