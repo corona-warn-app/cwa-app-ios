@@ -137,7 +137,7 @@ class QRScannerViewController: UIViewController {
 				focusView.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
 				focusView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
 				focusView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
-				focusView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45, constant: 25),
+				focusView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45, constant: 0),
 				
 				instructionTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
 				instructionTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
