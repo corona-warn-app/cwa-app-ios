@@ -11,7 +11,6 @@ class QRScannerViewController: UIViewController {
 
 	init(
 		healthCertificateService: HealthCertificateService,
-		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
 		markCertificateAsNew: Bool,
 		markCoronaTestAsNew: Bool,
@@ -24,7 +23,6 @@ class QRScannerViewController: UIViewController {
 		
 		viewModel = QRScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: verificationHelper,
 			appConfiguration: appConfiguration,
 			markCertificateAsNew: markCertificateAsNew,
 			markCoronaTestAsNew: markCoronaTestAsNew,

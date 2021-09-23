@@ -21,7 +21,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	init(
 		healthCertificateService: HealthCertificateService,
-		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
 		markCertificateAsNew: Bool,
 		markCoronaTestAsNew: Bool,
@@ -30,7 +29,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		
 		self.healthCertificateService = healthCertificateService
-		self.verificationHelper = verificationHelper
 		self.appConfiguration = appConfiguration
 		self.markCertificateAsNew = markCertificateAsNew
 		self.markCoronaTestAsNew = markCoronaTestAsNew
@@ -180,8 +178,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
 			// it is trace Locations QRCode
 			parser = CheckinQRCodeParser(
-				verificationHelper: verificationHelper,
-				appConfiguration: appConfiguration
+				appConfigurationProvider: appConfiguration
 			)
 		} else if url.prefix(antigenTestPrefix.count) == antigenTestPrefix || url.prefix(pcrTestPrefix.count) == pcrTestPrefix {
 			// it is a test
@@ -205,7 +202,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	}
 	
 	private let captureDevice: AVCaptureDevice?
-	private let verificationHelper: QRCodeVerificationHelper
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let markCertificateAsNew: Bool
