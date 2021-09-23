@@ -312,7 +312,7 @@ class QRScannerViewController: UIViewController {
 				title: AppStrings.Common.alertActionOk,
 				style: .cancel,
 				handler: { [weak self] _ in
-					// self?.dismiss()
+					self?.dismiss()
 				}
 			)
 		)
