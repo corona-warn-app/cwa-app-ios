@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class FileScannerCoordinator {
 
@@ -14,6 +15,7 @@ class FileScannerCoordinator {
 	) {
 		self.parentViewController = parentViewController
 		self.dismiss = dismiss
+		self.viewModel = FileScannerCoordinatorViewModel()
 	}
 
 	// MARK: - Overrides
@@ -29,6 +31,8 @@ class FileScannerCoordinator {
 	}
 
 	// MARK: - Private
+
+	private let viewModel: FileScannerCoordinatorViewModel
 
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
@@ -56,6 +60,29 @@ class FileScannerCoordinator {
 
 	private func presentPhotoPicker() {
 		Log.debug("show photo picker here")
+		if #available(iOS 14, *) {
+			var configuration = PHPickerConfiguration(photoLibrary: .shared())
+			configuration.filter = PHPickerFilter.images
+			configuration.preferredAssetRepresentationMode = .current
+			configuration.selectionLimit = 0
+
+			let picker = PHPickerViewController(configuration: configuration)
+			picker.delegate = viewModel
+			viewModel.dismiss = { [weak self] in
+				self?.parentViewController?.dismiss(animated: true)
+			}
+			parentViewController?.present(picker, animated: true)
+		} else {
+			let pickerController = UIImagePickerController()
+			pickerController.delegate = viewModel
+			pickerController.allowsEditing = false
+			pickerController.mediaTypes = ["public.image"]
+			pickerController.sourceType = .photoLibrary
+			viewModel.dismiss = { [weak self] in
+				self?.parentViewController?.dismiss(animated: true)
+			}
+			parentViewController?.present(pickerController, animated: true)
+		}
 	}
 
 	private func presentFilePicker() {
