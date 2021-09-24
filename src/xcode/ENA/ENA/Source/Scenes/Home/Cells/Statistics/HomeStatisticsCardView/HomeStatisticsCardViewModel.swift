@@ -46,6 +46,10 @@ class HomeStatisticsCardViewModel {
 			setupFullyVaccinatedPeople(for: keyFigureCard)
 		case .appliedVaccinationsDoseRates:
 			setupAppliedVaccinationsDoseRates(for: keyFigureCard)
+		case .infectedPeopleHospitalizationRate:
+			setupInfectedPeopleHospitalizationRate(for: keyFigureCard)
+		case .infectedPeopleInIntensiveCare:
+			setupInfectedPeopleInIntensiveCare(for: keyFigureCard)
 		case .none:
 			Log.info("Statistics card ID \(keyFigureCard.header.cardID) is not supported", log: .ui)
 		}
@@ -254,6 +258,56 @@ class HomeStatisticsCardViewModel {
 	}
 	
 	private func setupAppliedVaccinationsDoseRates(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+		title = AppStrings.Statistics.Card.DoseRates.title
+		subtitle = AppStrings.Statistics.Card.fromNationWide
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.title
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.infoButton
+		illustrationImage = UIImage(named: "Doses")
+
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.DoseRates.today,
+				yesterdayString: AppStrings.Statistics.Card.DoseRates.yesterday,
+				otherDateString: AppStrings.Statistics.Card.DoseRates.date
+			)
+		}
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
+			secondaryTitle = AppStrings.Statistics.Card.DoseRates.secondaryLabelTitle
+		}
+
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
+			tertiaryTitle = AppStrings.Statistics.Card.DoseRates.tertiaryLabelTitle
+		}
+	}
+	
+	private func setupInfectedPeopleHospitalizationRate(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+		title = AppStrings.Statistics.Card.DoseRates.title
+		subtitle = AppStrings.Statistics.Card.fromNationWide
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.title
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.infoButton
+		illustrationImage = UIImage(named: "Doses")
+
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.DoseRates.today,
+				yesterdayString: AppStrings.Statistics.Card.DoseRates.yesterday,
+				otherDateString: AppStrings.Statistics.Card.DoseRates.date
+			)
+		}
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
+			secondaryTitle = AppStrings.Statistics.Card.DoseRates.secondaryLabelTitle
+		}
+
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
+			tertiaryTitle = AppStrings.Statistics.Card.DoseRates.tertiaryLabelTitle
+		}
+	}
+	
+	private func setupInfectedPeopleInIntensiveCare(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.DoseRates.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.title
