@@ -1457,6 +1457,22 @@ enum AppStrings {
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_TertiaryLabelTitle", comment: "")
 			}
 
+			enum HospitalizationRate {
+				static let title = NSLocalizedString("Statistics_Card_HospitalizationRate_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_HospitalizationRate_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_HospitalizationRate_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_HospitalizationRate_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_HospitalizationRate_SecondaryLabelTitle", comment: "")
+			}
+			
+			enum IntensiveCare {
+				static let title = NSLocalizedString("Statistics_Card_IntensiveCare_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_IntensiveCare_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_IntensiveCare_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_IntensiveCare_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_IntensiveCare_SecondaryLabelTitle", comment: "")
+			}
+			
 			static let trendIncreasing = NSLocalizedString("Statistics_Card_Trend_Increasing", comment: "")
 			static let trendDecreasing = NSLocalizedString("Statistics_Card_Trend_Decreasing", comment: "")
 			static let trendStable = NSLocalizedString("Statistics_Card_Trend_Stable", comment: "")
