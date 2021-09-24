@@ -399,4 +399,3 @@ extension RootCoordinator: ENStateHandlerUpdating {
 		}
 	}
 }
-
