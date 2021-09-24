@@ -2118,6 +2118,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Tabbar_Certificates_Title" = "Zertifikate";
 
+"Tabbar_Scanner_Title" = "QR-Code-Scanner";
+
 "Tabbar_Diary_Title" = "Tagebuch";
 
 "Tabbar_CheckIn_Title" = "Check-in";

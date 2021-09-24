@@ -198,6 +198,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
 		let universalScannerTabBarItem = UITabBarItem(title: "", image: UIImage(named: "Icons_Tabbar_UniversalScanner"), selectedImage: nil)
+		universalScannerTabBarItem.accessibilityLabel = AppStrings.Tabbar.scannerTitle
 		universalScannerTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.scanner
 		universalScannerDummyViewController.tabBarItem = universalScannerTabBarItem
 
