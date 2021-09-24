@@ -42,18 +42,29 @@ class FileScannerCoordinator {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		sheet.addAction(photoAction)
 		sheet.addAction(fileAction)
-		sheet.addAction(UIAlertAction(title: "cancel", style: .cancel))
+		sheet.addAction(
+			UIAlertAction(
+				title: AppStrings.FileScanner.sheet.cancel,
+				style: .cancel
+			)
+		)
 		parentViewController?.present(sheet, animated: true)
 	}
 
 	private lazy var photoAction: UIAlertAction = {
-		UIAlertAction(title: "Fotos", style: .default) { [weak self] _ in
+		UIAlertAction(
+			title: AppStrings.FileScanner.sheet.photos,
+			style: .default
+		) { [weak self] _ in
 			self?.presentPhotoPicker()
 		}
 	}()
 
 	private lazy var fileAction: UIAlertAction = {
-		UIAlertAction(title: "Files", style: .default) { [weak self] _ in
+		UIAlertAction(
+			title: AppStrings.FileScanner.sheet.documents,
+			style: .default
+		) { [weak self] _ in
 			self?.presentFilePicker()
 		}
 	}()
@@ -70,13 +81,7 @@ class FileScannerCoordinator {
 			return
 		}
 
-
-//		guard viewModel.checkAuthorizationStatus else {
-//			presentPhotoAccessAlert()
-//			return
-//		}
-
-		Log.debug("show photo picker here")
+		Log.debug("show photo picker here", log: .fileScanner)
 		if #available(iOS 14, *) {
 			var configuration = PHPickerConfiguration(photoLibrary: .shared())
 			configuration.filter = PHPickerFilter.images
@@ -103,7 +108,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentFilePicker() {
-		Log.debug("show file picker here")
+		Log.debug("show file picker here", log: .fileScanner)
 	}
 
 	private func presentPhotoAccessAlert() {
@@ -113,7 +118,7 @@ class FileScannerCoordinator {
 			preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 		alert.addAction(UIAlertAction(title: "Einstellungen", style: .default, handler: { _ in
-			Log.debug("Should open Settings app")
+			Log.debug("Should open Settings app", log: .fileScanner)
 		}))
 		parentViewController?.present(alert, animated: true)
 	}

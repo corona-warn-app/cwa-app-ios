@@ -2324,6 +2324,15 @@ enum AppStrings {
 		}
 	}
 
+	enum FileScanner {
+		enum sheet {
+			static let photos = NSLocalizedString("FileScanner_sheet_photos", comment: "")
+			static let documents = NSLocalizedString("FileScanner_sheet_documents", comment: "")
+			static let cancel = NSLocalizedString("FileScanner_sheet_cancel", comment: "")
+		}
+
+	}
+
 	enum FederalStateName {
 		static let badenWuerttemberg = NSLocalizedString("FederalState_BadenWuerttemberg", comment: "")
 		static let bayen = NSLocalizedString("FederalState_Bayern", comment: "")

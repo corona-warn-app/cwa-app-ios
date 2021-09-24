@@ -49,7 +49,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 //				  Log.debug("no image with qr code found")
 //			return
 //		}
-		Log.debug("Found QR code in image")
+		Log.debug("Found QR code in image", log: .fileScanner)
 //		self.qrCodeModels += codes
 	}
 
