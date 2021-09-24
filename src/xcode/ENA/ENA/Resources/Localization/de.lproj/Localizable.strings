@@ -2011,8 +2011,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der Bevölkerung";
 
-
-
 /* - Fully vaccinated people card */
 
 "Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
@@ -2042,6 +2040,30 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
+
+/* - Infected People Hospitalization Rate */
+
+"Statistics_Card_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
+
+"Statistics_Card_HospitalizationRate_Today" = "Bis heute";
+
+"Statistics_Card_HospitalizationRate_Yesterday" = "Bis gestern";
+
+"Statistics_Card_HospitalizationRate_Date" = "Bis %@";
+
+"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19-Hospitalisierungen je 100.000 Einwohner";
+
+/* - Infected People in IntensiveCare */
+
+"Statistics_Card_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
+
+"Statistics_Card_IntensiveCare_Today" = "Bis heute";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "Bis gestern";
+
+"Statistics_Card_IntensiveCare_Date" = "Bis %@";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung  aller betreibbaren Intensivbetten";
 
 /* Error */
 
