@@ -106,16 +106,19 @@ final class CheckinTabCoordinator {
 			qrCodeAfterInfoScreen = qrCodeString
 			return
 		}
-		verificationService.verifyQrCode(
+
+		let checkinQRCodeParser = CheckinQRCodeParser(
+			appConfigurationProvider: appConfiguration
+		)
+
+		checkinQRCodeParser.verifyQrCode(
 			qrCodeString: qrCodeString,
-			appConfigurationProvider: self.appConfiguration,
 			onSuccess: { [weak self] traceLocation in
 				self?.showTraceLocationDetails(traceLocation)
-				self?.verificationService.subscriptions.removeAll()
 			},
 			onError: { [weak self] error in
 				let alert = UIAlertController(
-					title: AppStrings.Checkins.QRScanner.Error.title,
+					title: AppStrings.Checkins.QRScannerError.title,
 					message: error.errorDescription,
 					preferredStyle: .alert
 				)
@@ -129,7 +132,6 @@ final class CheckinTabCoordinator {
 					)
 				)
 				self?.viewController.present(alert, animated: true)
-				self?.verificationService.subscriptions.removeAll()
 			}
 		)
 	}
@@ -140,7 +142,6 @@ final class CheckinTabCoordinator {
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let eventCheckoutService: EventCheckoutService
-	private let verificationService = QRCodeVerificationHelper()
 	private let qrScannerCoordinator: QRScannerCoordinator
 	
 	private var subscriptions: [AnyCancellable] = []

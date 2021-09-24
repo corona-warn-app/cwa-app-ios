@@ -53,7 +53,6 @@ class QRScannerViewModelTests: XCTestCase {
 			appConfiguration: appConfigurationProvider,
 			boosterNotificationsService: boosterNotificationsService
 		)
-		let verificationService = QRCodeVerificationHelper()
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 		let onFailureExpectation = expectation(description: "onFailure called")
@@ -61,7 +60,6 @@ class QRScannerViewModelTests: XCTestCase {
 
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: verificationService,
 			appConfiguration: appConfigurationProvider,
 			markCertificateAsNew: false,
 			markCoronaTestAsNew: false
@@ -107,13 +105,11 @@ class QRScannerViewModelTests: XCTestCase {
 			appConfiguration: appConfigurationProvider,
 			boosterNotificationsService: boosterNotificationsService
 		)
-		let verificationService = QRCodeVerificationHelper()
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: verificationService,
 			appConfiguration: appConfigurationProvider,
 			markCertificateAsNew: false,
 			markCoronaTestAsNew: false
@@ -156,13 +152,11 @@ class QRScannerViewModelTests: XCTestCase {
 			appConfiguration: appConfigurationProvider,
 			boosterNotificationsService: boosterNotificationsService
 		)
-		let verificationService = QRCodeVerificationHelper()
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: verificationService,
 			appConfiguration: appConfigurationProvider,
 			markCertificateAsNew: false,
 			markCoronaTestAsNew: false
@@ -207,13 +201,11 @@ class QRScannerViewModelTests: XCTestCase {
 			appConfiguration: appConfigurationProvider,
 			boosterNotificationsService: boosterNotificationsService
 		)
-		let verificationService = QRCodeVerificationHelper()
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: verificationService,
 			appConfiguration: appConfigurationProvider,
 			markCertificateAsNew: false,
 			markCoronaTestAsNew: false
@@ -258,13 +250,11 @@ class QRScannerViewModelTests: XCTestCase {
 			appConfiguration: appConfigurationProvider,
 			boosterNotificationsService: boosterNotificationsService
 		)
-		let verificationService = QRCodeVerificationHelper()
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: verificationService,
 			appConfiguration: appConfigurationProvider,
 			markCertificateAsNew: false,
 			markCoronaTestAsNew: false
@@ -290,4 +280,67 @@ class QRScannerViewModelTests: XCTestCase {
 		viewModel.didScan(metadataObjects: [metaDataObject])
 		waitForExpectations(timeout: .short)
 	}
+
+	func testInitialUnsuccessfulScanWithSuccessfulRetry() {
+		let store = MockTestStore()
+		let client = ClientMock()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let dscListProvider = MockDSCListProvider()
+		let dccSignatureVerifier = DCCSignatureVerifyingStub()
+		let boosterNotificationsService = BoosterNotificationsService(
+			rulesDownloadService: RulesDownloadService(store: store, client: client)
+		)
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: dccSignatureVerifier,
+			dscListProvider: dscListProvider,
+			client: client,
+			appConfiguration: appConfigurationProvider,
+			boosterNotificationsService: boosterNotificationsService
+		)
+
+		let validGuid = "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"
+		let emptyGuid = ""
+
+		let onSuccessExpectation = expectation(description: "onSuccess called")
+		onSuccessExpectation.expectedFulfillmentCount = 1
+
+		let onErrorExpectation = expectation(description: "onError called")
+		onErrorExpectation.expectedFulfillmentCount = 1
+
+		let viewModel = TestQRScannerViewModel(
+			healthCertificateService: healthCertificateService,
+			appConfiguration: appConfigurationProvider,
+			markCertificateAsNew: false,
+			markCoronaTestAsNew: false
+		) { result in
+			switch result {
+			case .success:
+				onSuccessExpectation.fulfill()
+			case .failure(let error):
+				switch error {
+				case .scanningError(.cameraPermissionDenied):
+					onErrorExpectation.fulfill()
+				case .scanningError(.codeNotFound):
+					onErrorExpectation.fulfill()
+				default:
+					XCTFail("unexpected error")
+				}
+			}
+		}
+
+		viewModel.activateScanning()
+
+		let invalidMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: emptyGuid)
+		viewModel.didScan(metadataObjects: [invalidMetaDataObject])
+
+		wait(for: [onErrorExpectation], timeout: .short)
+
+		let validMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validGuid)
+		viewModel.activateScanning()
+		viewModel.didScan(metadataObjects: [validMetaDataObject])
+
+		wait(for: [onSuccessExpectation], timeout: .short)
+	}
+
 }

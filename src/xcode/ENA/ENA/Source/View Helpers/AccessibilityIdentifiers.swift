@@ -232,7 +232,7 @@ enum AccessibilityIdentifiers {
 		static let legalDetailsButton = "AppStrings.SurveyConsent.legalDetailsButton"
 	}
 	
-	enum ExposureSubmissionQRScanner {
+	enum UniversalQRScanner {
 		static let flash = "ExposureSubmissionQRScanner_flash"
 	}
 	
