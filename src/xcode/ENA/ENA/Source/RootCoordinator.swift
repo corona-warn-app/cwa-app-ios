@@ -189,24 +189,44 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.diaryCoordinator = diaryCoordinator
 		
 		// Tabbar
-		let startTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
+		let startTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.homeTitle,
+			image: UIImage(named: "Icons_Tabbar_Home"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Home_Selected")
+		)
 		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home
 		homeCoordinator.rootViewController.tabBarItem = startTabBarItem
 
-		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.certificatesTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
+		let certificatesTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.certificatesTitle,
+			image: UIImage(named: "Icons_Tabbar_Certificates"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Certificates_Selected")
+		)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
 		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
-		let universalScannerTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Icons_Tabbar_UniversalScanner"), selectedImage: nil)
+		let universalScannerTabBarItem = UITabBarItem(
+			title: nil,
+			image: UIImage(named: "Icons_Tabbar_UniversalScanner"),
+			selectedImage: nil
+		)
 		universalScannerTabBarItem.accessibilityLabel = AppStrings.Tabbar.scannerTitle
 		universalScannerTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.scanner
 		universalScannerDummyViewController.tabBarItem = universalScannerTabBarItem
 
-		let eventsTabBarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		let eventsTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.checkInTitle,
+			image: UIImage(named: "Icons_Tabbar_Checkin"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Checkin_Selected")
+		)
 		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
 		checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
 
-		let diaryTabBarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
+		let diaryTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.diaryTitle,
+			image: UIImage(named: "Icons_Tabbar_Diary"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Diary_Selected")
+		)
 		diaryTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
