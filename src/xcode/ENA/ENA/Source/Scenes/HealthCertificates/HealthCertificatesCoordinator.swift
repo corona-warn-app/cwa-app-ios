@@ -212,21 +212,24 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
+				guard let self = self else { return }
+
 				setLoadingState(true)
 
-				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
+				self.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
 					setLoadingState(false)
 
 					switch result {
 					case .success(let countries):
-						self?.showValidationFlow(
+						self.showValidationFlow(
 							healthCertificate: healthCertificate,
 							countries: countries
 						)
 					case .failure(let error):
-						self?.showErrorAlert(
+						self.showErrorAlert(
 							title: AppStrings.HealthCertificate.Validation.Error.title,
-							error: error
+							error: error,
+							from: self.modalNavigationController
 						)
 					}
 				}
@@ -291,23 +294,26 @@ final class HealthCertificatesCoordinator {
 				self?.viewController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] in
+				guard let self = self else { return }
+
 				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
 				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
 
-				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
+				self.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
 					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
 
 					switch result {
 					case .success(let countries):
-						self?.showValidationFlow(
+						self.showValidationFlow(
 							healthCertificate: healthCertificate,
 							countries: countries
 						)
 					case .failure(let error):
-						self?.showErrorAlert(
+						self.showErrorAlert(
 							title: AppStrings.HealthCertificate.Validation.Error.title,
-							error: error
+							error: error,
+							from: self.modalNavigationController
 						)
 					}
 				}
@@ -478,9 +484,12 @@ final class HealthCertificatesCoordinator {
 				self?.modalNavigationController.dismiss(animated: true)
 			},
 			showErrorAlert: { [weak self] error in
-				self?.showErrorAlert(
+				guard let self = self else { return }
+
+				self.showErrorAlert(
 					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
-					error: error
+					error: error,
+					from: self.printNavigationController
 				)
 			}
 		)
@@ -545,7 +554,8 @@ final class HealthCertificatesCoordinator {
 
 	private func showErrorAlert(
 		title: String,
-		error: Error
+		error: Error,
+		from presentingViewController: UIViewController
 	) {
 		let alert = UIAlertController(
 			title: title,
@@ -561,16 +571,8 @@ final class HealthCertificatesCoordinator {
 			}
 		)
 		alert.addAction(okayAction)
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else {
-				fatalError("Could not create strong self")
-			}
-			
-			if self.modalNavigationController.isBeingPresented {
-				self.modalNavigationController.present(alert, animated: true, completion: nil)
-			} else {
-				self.printNavigationController.present(alert, animated: true, completion: nil)
-			}
+		DispatchQueue.main.async {
+			presentingViewController.present(alert, animated: true)
 		}
 	}
 	
