@@ -10,6 +10,8 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 
 	init() {
 	}
+
+	// MARK: - Protocol QRCodeParsable
 	
 	func parse(
 		qrCode: String,
@@ -28,6 +30,8 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 
 		completion(.success(.coronaTest(coronaTestQRCodeInformation)))
 	}
+
+	// MARK: - Internal
 
 	/// Filters the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?
@@ -75,4 +79,5 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 		}
 		return matchings.isEmpty ? nil : .pcr(guid: candidate)
 	}
+	
 }

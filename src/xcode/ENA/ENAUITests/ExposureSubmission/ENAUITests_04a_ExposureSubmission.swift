@@ -568,7 +568,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		// fake tap to trigger interruption handler in case of privacy alerts
 
-		let flashButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash]
+		let flashButton = app.buttons[AccessibilityIdentifiers.UniversalQRScanner.flash]
 		if flashButton.waitForExistence(timeout: .short) {
 			flashButton.waitAndTap()
 		}

@@ -6,7 +6,6 @@ import Foundation
 
 enum CheckinQRScannerError: Error, LocalizedError {
 
-	case cameraPermissionDenied
 	case codeNotFound // invalid url
 	case invalidPayload
 	case invalidVendorData
@@ -14,28 +13,23 @@ enum CheckinQRScannerError: Error, LocalizedError {
 	case invalidDescription
 	case invalidCryptoSeed
 	case invalidTimeStamps
-	case other
 
 	var errorDescription: String? {
 		switch self {
-		case .cameraPermissionDenied:
-			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
 		case .codeNotFound:
-			return AppStrings.Checkins.QRScanner.Error.invalidURL
+			return AppStrings.Checkins.QRScannerError.invalidURL
 		case .invalidPayload:
-			return AppStrings.Checkins.QRScanner.Error.invalidPayload
+			return AppStrings.Checkins.QRScannerError.invalidPayload
 		case .invalidVendorData:
-			return AppStrings.Checkins.QRScanner.Error.invalidVendorData
+			return AppStrings.Checkins.QRScannerError.invalidVendorData
 		case .invalidDescription:
-			return AppStrings.Checkins.QRScanner.Error.invalidDescription
+			return AppStrings.Checkins.QRScannerError.invalidDescription
 		case .invalidAddress:
-			return AppStrings.Checkins.QRScanner.Error.invalidAddress
+			return AppStrings.Checkins.QRScannerError.invalidAddress
 		case .invalidCryptoSeed:
-			return AppStrings.Checkins.QRScanner.Error.invalidCryptographicSeed
+			return AppStrings.Checkins.QRScannerError.invalidCryptographicSeed
 		case .invalidTimeStamps:
-			return AppStrings.Checkins.QRScanner.Error.invalidTimeStamps
-		default:
-			return AppStrings.ExposureSubmissionQRScanner.otherError
+			return AppStrings.Checkins.QRScannerError.invalidTimeStamps
 		}
 	}
 }
