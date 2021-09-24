@@ -65,7 +65,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	var authorizationStatus: PHAuthorizationStatus {
 		if #available(iOS 14, *) {
-			return PHPhotoLibrary.authorizationStatus(for: .readWrite)
+			let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+			// a special case on iOS 14 (and above) that won't impact anything at the moment
+			if case .limited = status {
+				return .authorized
+			} else {
+				return status
+			}
 		} else {
 			return PHPhotoLibrary.authorizationStatus()
 		}
@@ -80,6 +86,5 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	}
 
 	// MARK: - Private
-
 
 }
