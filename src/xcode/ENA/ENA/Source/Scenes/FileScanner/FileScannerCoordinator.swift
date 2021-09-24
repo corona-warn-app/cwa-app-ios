@@ -81,29 +81,34 @@ class FileScannerCoordinator {
 			return
 		}
 
-		Log.debug("show photo picker here", log: .fileScanner)
-		if #available(iOS 14, *) {
-			var configuration = PHPickerConfiguration(photoLibrary: .shared())
-			configuration.filter = PHPickerFilter.images
-			configuration.preferredAssetRepresentationMode = .current
-			configuration.selectionLimit = 1
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to get strong self", log: .fileScanner)
+				return
+			}
+			if #available(iOS 14, *) {
+				var configuration = PHPickerConfiguration(photoLibrary: .shared())
+				configuration.filter = PHPickerFilter.images
+				configuration.preferredAssetRepresentationMode = .current
+				configuration.selectionLimit = 1
 
-			let picker = PHPickerViewController(configuration: configuration)
-			picker.delegate = viewModel
-			viewModel.dismiss = { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
+				let picker = PHPickerViewController(configuration: configuration)
+				picker.delegate = self.viewModel
+				self.viewModel.dismiss = {
+					self.parentViewController?.dismiss(animated: true)
+				}
+				self.parentViewController?.present(picker, animated: true)
+			} else {
+				let pickerController = UIImagePickerController()
+				pickerController.delegate = self.viewModel
+				pickerController.allowsEditing = false
+				pickerController.mediaTypes = ["public.image"]
+				pickerController.sourceType = .photoLibrary
+				self.viewModel.dismiss = {
+					self.parentViewController?.dismiss(animated: true)
+				}
+				self.parentViewController?.present(pickerController, animated: true)
 			}
-			parentViewController?.present(picker, animated: true)
-		} else {
-			let pickerController = UIImagePickerController()
-			pickerController.delegate = viewModel
-			pickerController.allowsEditing = false
-			pickerController.mediaTypes = ["public.image"]
-			pickerController.sourceType = .photoLibrary
-			viewModel.dismiss = { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
-			}
-			parentViewController?.present(pickerController, animated: true)
 		}
 	}
 
@@ -119,7 +124,7 @@ class FileScannerCoordinator {
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.FileScanner.AccessError.cancel,
-			style: .cancel
+				style: .cancel
 			)
 		)
 		alert.addAction(
@@ -127,8 +132,10 @@ class FileScannerCoordinator {
 				title: AppStrings.FileScanner.AccessError.settings,
 				style: .default,
 				handler: { _ in
-			Log.debug("Should open Settings app", log: .fileScanner)
-		}))
+					LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+				}
+			)
+		)
 		parentViewController?.present(alert, animated: true)
 	}
 
