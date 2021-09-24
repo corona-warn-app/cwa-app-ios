@@ -75,11 +75,12 @@ class QRScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-	private let dismiss: () -> Void
-	private let flashButtonTag = 12
+	private let contentView = UIView()
+	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
+	private let flashButton = UIButton(type: .custom)
 	
 	private var viewModel: QRScannerViewModel?
-	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
+	private let dismiss: () -> Void
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -88,15 +89,6 @@ class QRScannerViewController: UIViewController {
 		focusView.tintColor = .enaColor(for: .textContrast)
 		focusView.translatesAutoresizingMaskIntoConstraints = false
 		focusView.configure(cornerRadius: 8, borderWidth: 1)
-
-		let scannerTitle = ENALabel()
-		scannerTitle.style = .title1
-		scannerTitle.numberOfLines = 0
-		scannerTitle.textAlignment = .left
-		scannerTitle.textColor = .enaColor(for: .textPrimary1)
-		scannerTitle.font = .enaFont(for: .body)
-		scannerTitle.text = AppStrings.UniversalQRScanner.scannerTitle
-		scannerTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		let instructionTitle = ENALabel()
 		instructionTitle.style = .title2
@@ -116,7 +108,6 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.text = AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
 
-		let flashButton = UIButton(type: .custom)
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
@@ -124,43 +115,59 @@ class QRScannerViewController: UIViewController {
 		flashButton.accessibilityLabel = AppStrings.UniversalQRScanner.flashButtonAccessibilityLabel
 		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.flash
 		flashButton.accessibilityTraits = [.button]
-		flashButton.tag = flashButtonTag
 		flashButton.translatesAutoresizingMaskIntoConstraints = false
 
-		view.addSubview(scannerTitle)
+		contentView.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(instructionTitle)
+		contentView.addSubview(instructionDescription)
+
+		let scrollView = UIScrollView()
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		scrollView.addSubview(contentView)
+		scrollView.contentInsetAdjustmentBehavior = .never
+		
 		view.addSubview(focusView)
-		view.addSubview(instructionTitle)
-		view.addSubview(instructionDescription)
+		view.addSubview(scrollView)
 		view.addSubview(flashButton)
 
 		NSLayoutConstraint.activate(
 			[
-				scannerTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				scannerTitle.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-				scannerTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
-
-				focusView.topAnchor.constraint(equalTo: scannerTitle.bottomAnchor, constant: 25),
+				focusView.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
 				focusView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
 				focusView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
 				focusView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45, constant: 0),
 				
-				instructionTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				instructionTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75, constant: 0),
-				instructionTitle.topAnchor.constraint(greaterThanOrEqualTo: focusView.bottomAnchor, constant: 30),
+				instructionTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
+				instructionTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
+				instructionTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
 				
-				instructionDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-				instructionDescription.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75, constant: 0),
-				instructionDescription.topAnchor.constraint(greaterThanOrEqualTo: instructionTitle.bottomAnchor, constant: 15),
+				instructionDescription.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
+				instructionDescription.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
+				instructionDescription.topAnchor.constraint(equalTo: instructionTitle.bottomAnchor, constant: 15),
+				instructionDescription.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
 				
-				flashButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-				flashButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
-				flashButton.heightAnchor.constraint(equalTo: flashButton.heightAnchor, constant: 0),
-				flashButton.widthAnchor.constraint(equalTo: flashButton.widthAnchor, constant: 0)
+				contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+				contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+				contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+				contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+				contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+				
+				scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				scrollView.topAnchor.constraint(equalTo: focusView.bottomAnchor, constant: 25),
+				scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: flashButton.topAnchor, constant: -10),
+				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+				
+				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
+				flashButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+				flashButton.heightAnchor.constraint(equalToConstant: 25),
+				flashButton.widthAnchor.constraint(equalToConstant: 20)
 			]
 		)
 	}
 
 	private func setupNavigationBar() {
+		navigationItem.title = AppStrings.UniversalQRScanner.scannerTitle
 		navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 		
 		let emptyImage = UIImage()
@@ -186,10 +193,6 @@ class QRScannerViewController: UIViewController {
 	}
 	
 	private func updateToggleFlashAccessibility() {
-		guard let flashButton = self.view.viewWithTag(flashButtonTag) as? UIButton else {
-			return
-		}
-
 		flashButton.accessibilityCustomActions?.removeAll()
 		
 		switch viewModel?.torchMode {
@@ -220,7 +223,7 @@ class QRScannerViewController: UIViewController {
 			return
 		}
 		viewModel?.startCaptureSession()
-
+		
 		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		previewLayer.frame = view.layer.bounds
 		previewLayer.videoGravity = .resizeAspectFill
