@@ -64,7 +64,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		registerCertificateTitle.waitAndTap()
 
 		// QRCode Scanner - close via flash will submit a healthCertificate
-		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
+		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.flash])
 		flashBarButton.waitAndTap()
 
 		// Certificate Screen
@@ -88,7 +88,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		registerCertificateTitle.waitAndTap()
 
 		// QRCode Scanner - close via flash will submit a healthCertificate
-		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash])
+		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.flash])
 		flashBarButton.waitAndTap()
 
 		// Certificate Screen

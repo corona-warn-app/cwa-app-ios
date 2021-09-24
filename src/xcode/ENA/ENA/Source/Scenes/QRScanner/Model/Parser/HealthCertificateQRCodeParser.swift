@@ -15,6 +15,8 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 		self.healthCertificateService = healthCertificateService
 		self.markAsNew = markAsNew
 	}
+
+	// MARK: - Protocol QRCodeParsable
 	
 	func parse(
 		qrCode: String,

@@ -609,25 +609,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "QR-Code Scan";
-
-"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
-
-"ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Kamerablitz";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Eingeschaltet";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Ausgeschaltet";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Kamerablitz einschalten";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank!";
 
@@ -2270,8 +2251,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Checkins */
 
-"Checkins_QR_Scanner_Title" = "QR-Code Scan";
-
 "Checkins_Overview_Title" = "Meine Check-ins";
 
 "Checkins_Overview_MenuButtonTitle" = "Menü";
@@ -2319,8 +2298,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkins_Overview_ActionSheet_InfoTitle" = "Informationen";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
-
-"Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in für %@.";
 
@@ -2813,12 +2790,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_primaryButton" = "Weiter";
 
-/* QR Scanner */
-
-"HealthCertificate_QRScanner_title" = "QR-Code Scan";
-
-"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
-
 /* CovPass Info Screen */
 
 "CovPass_Check_Info_Title" = "Zertifikatsprüfung durch Dritte";
@@ -3154,6 +3125,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
 "UniversalQRScanner_InstructionDescription" = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins.";
+
+"UniversalQRScanner_CameraFlash" = "Kamerablitz";
+
+"UniversalQRScanner_CameraFlash_On" = "Eingeschaltet";
+
+"UniversalQRScanner_CameraFlash_Off" = "Ausgeschaltet";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Kamerablitz einschalten";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
 
 "UniversalQRScanner_Error_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
 
