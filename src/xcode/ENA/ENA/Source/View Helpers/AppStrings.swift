@@ -2331,6 +2331,12 @@ enum AppStrings {
 			static let cancel = NSLocalizedString("FileScanner_sheet_cancel", comment: "")
 		}
 
+		enum AccessError {
+			static let title = NSLocalizedString("FileScanner_AccessError_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_AccessError_message", comment: "")
+			static let cancel = NSLocalizedString("FileScanner_AccessError_cancel", comment: "")
+			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
+		}
 	}
 
 	enum FederalStateName {

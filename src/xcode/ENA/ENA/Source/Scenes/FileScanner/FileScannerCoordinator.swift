@@ -113,11 +113,20 @@ class FileScannerCoordinator {
 
 	private func presentPhotoAccessAlert() {
 		let alert = UIAlertController(
-			title: "Zugriff nicht erlaubt",
-			message: "“Corona-Warn-App” hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.",
+			title: AppStrings.FileScanner.AccessError.title,
+			message: AppStrings.FileScanner.AccessError.message,
 			preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-		alert.addAction(UIAlertAction(title: "Einstellungen", style: .default, handler: { _ in
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.FileScanner.AccessError.cancel,
+			style: .cancel
+			)
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.FileScanner.AccessError.settings,
+				style: .default,
+				handler: { _ in
 			Log.debug("Should open Settings app", log: .fileScanner)
 		}))
 		parentViewController?.present(alert, animated: true)
