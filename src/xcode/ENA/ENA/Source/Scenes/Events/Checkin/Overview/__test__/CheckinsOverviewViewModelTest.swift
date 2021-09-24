@@ -25,82 +25,6 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfSections, 3)
 	}
 
-	func testNumberOfRowsWithCameraPermissionAuthorized() throws {
-		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock())
-		eventStore.createCheckin(Checkin.mock())
-		eventStore.createCheckin(Checkin.mock())
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 3)
-	}
-
-	func testNumberOfRowsWithCameraPermissionNotDetermined() throws {
-		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock())
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .notDetermined }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
-	}
-
-	func testNumberOfRowsWithCameraPermissionDenied() throws {
-		let eventStore = MockEventStore()
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .denied }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
-	}
-
-	func testNumberOfRowsWithCameraPermissionRestricted() throws {
-		let eventStore = MockEventStore()
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .restricted }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
-	}
-
 	func testIsEmptyOnEmptyEntriesSection() throws {
 		let eventStore = MockEventStore()
 
@@ -132,72 +56,6 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 		XCTAssertFalse(viewModel.isEmpty)
 	}
 
-	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithCameraPermission() throws {
-		let eventStore = MockEventStore()
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		XCTAssertTrue(viewModel.isEmptyStateVisible)
-	}
-
-	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithoutCameraPermission() throws {
-		let eventStore = MockEventStore()
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .denied }
-		)
-
-		XCTAssertFalse(viewModel.isEmptyStateVisible)
-	}
-
-	func testIsEmptyStateVisibleOnNonEmptyEntriesSectionWithCameraPermission() throws {
-		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock())
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		XCTAssertFalse(viewModel.isEmptyStateVisible)
-	}
-
-	func testIsEmptyStateVisibleOnNonEmptyEntriesSectionWithoutCameraPermission() throws {
-		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock())
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in },
-			cameraAuthorizationStatus: { .denied }
-		)
-
-		XCTAssertFalse(viewModel.isEmptyStateVisible)
-	}
-
 	func testCanEditRowForAddSection() throws {
 		let eventStore = MockEventStore()
 
@@ -211,21 +69,6 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 		)
 
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: CheckinsOverviewViewModel.Section.add.rawValue)))
-	}
-
-	func testCanEditRowForMissingPermissionSection() throws {
-		let eventStore = MockEventStore()
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in }
-		)
-
-		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: CheckinsOverviewViewModel.Section.missingPermission.rawValue)))
 	}
 
 	func testCanEditRowForEntriesSection() throws {
@@ -341,33 +184,6 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 		viewModel.removeAll()
 
 		XCTAssertTrue(eventStore.checkinsPublisher.value.isEmpty)
-	}
-
-	func testUpdateForCameraPermission() throws {
-		let reloadExpectation = expectation(description: "triggerReload published")
-		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for camera permission
-
-		let eventStore = MockEventStore()
-
-		let viewModel = CheckinsOverviewViewModel(
-			store: eventStore,
-			eventCheckoutService: EventCheckoutService(
-				eventStore: eventStore,
-				contactDiaryStore: MockDiaryStore()
-			),
-			onEntryCellTap: { _ in }
-		)
-
-		let cancellable = viewModel.$triggerReload
-			.sink { _ in
-				reloadExpectation.fulfill()
-			}
-
-		viewModel.updateForCameraPermission()
-
-		waitForExpectations(timeout: .medium)
-
-		cancellable.cancel()
 	}
 
 	func testEntrySortingByCheckinStartDate() throws {

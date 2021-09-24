@@ -12,13 +12,11 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	init(
 		viewModel: CheckinsOverviewViewModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onAddEntryCellTap: @escaping () -> Void,
-		onMissingPermissionsButtonTap: @escaping () -> Void
+		onAddEntryCellTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onAddEntryCellTap = onAddEntryCellTap
-		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -103,8 +101,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		switch CheckinsOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
 			return checkinAddCell(forRowAt: indexPath)
-		case .missingPermission:
-			return missingPermissionsCell(forRowAt: indexPath)
 		case .entries:
 			return checkinCell(forRowAt: indexPath)
 		case .none:
@@ -150,8 +146,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		switch CheckinsOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
 			onAddEntryCellTap()
-		case .missingPermission:
-			return
 		case .entries:
 			viewModel.didTapEntryCell(at: indexPath)
 		case .none:
@@ -170,23 +164,16 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	private let viewModel: CheckinsOverviewViewModel
 	private let onInfoButtonTap: () -> Void
 	private let onAddEntryCellTap: () -> Void
-	private let onMissingPermissionsButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
 	private var isAllowedToReload = true
 	private var addEntryCellModel = AddCheckinCellModel()
-	private var missingPermissionsCellModel = MissingPermissionsCellModel()
 
 	private func setupTableView() {
 		tableView.register(
 			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: AddButtonAsTableViewCell.self)
-		)
-
-		tableView.register(
-			MissingPermissionsTableViewCell.self,
-			forCellReuseIdentifier: MissingPermissionsTableViewCell.reuseIdentifier
 		)
 
 		tableView.register(
@@ -216,7 +203,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	private func updateFor(isEditing: Bool) {
 		updateRightBarButtonItem(isEditing: isEditing)
 		addEntryCellModel.setEnabled(!isEditing)
-		missingPermissionsCellModel.setEnabled(!isEditing)
 
 		let newState: FooterViewModel.VisibleButtons = isEditing ? .primary : .none
 		footerView?.update(to: newState)
@@ -247,21 +233,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		}
 
 		cell.configure(cellModel: addEntryCellModel)
-
-		return cell
-	}
-
-	private func missingPermissionsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: MissingPermissionsTableViewCell.reuseIdentifier, for: indexPath) as? MissingPermissionsTableViewCell else {
-			fatalError("Could not dequeue MissingPermissionsTableViewCell")
-		}
-
-		cell.configure(
-			cellModel: missingPermissionsCellModel,
-			onButtonTap: { [weak self] in
-				self?.onMissingPermissionsButtonTap()
-			}
-		)
 
 		return cell
 	}
@@ -300,7 +271,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		} else {
 			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
 		}
-		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
+		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
 	}
 
 	@objc
