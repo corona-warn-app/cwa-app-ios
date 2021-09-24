@@ -3132,7 +3132,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
 
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Zugriff nicht erlaubt";
+
 "UniversalQRScanner_Error_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Einstellungen";
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
 

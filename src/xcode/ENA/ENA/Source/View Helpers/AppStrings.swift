@@ -2297,7 +2297,11 @@ enum AppStrings {
 		static let flashButtonAccessibilityDisableAction = NSLocalizedString("UniversalQRScanner_CameraFlash_Disable", comment: "")
 
 		enum Error {
-			static let cameraPermissionDenied = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
+			enum CameraPermissionDenied {
+				static let title = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied_title", comment: "")
+				static let message = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
+				static let settingsButton = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied_settingsButton", comment: "")
+			}
 			static let unsupportedQRCode = NSLocalizedString("UniversalQRScanner_Error_unsupportedQRCode", comment: "")
 		}
 	}

@@ -117,8 +117,7 @@ class QRScannerCoordinator {
 			}
 		)
 	}
-	
-	
+
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
