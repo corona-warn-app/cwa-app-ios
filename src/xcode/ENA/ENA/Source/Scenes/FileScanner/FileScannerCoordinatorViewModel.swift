@@ -11,52 +11,60 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - Init
 
+	init(
+		showHUD: @escaping () -> Void,
+		hideHUD: @escaping () -> Void,
+		dismiss: @escaping () -> Void
+	) {
+		self.showHUD = showHUD
+		self.hideHUD = hideHUD
+		self.dismiss = dismiss
+	}
+
 	// MARK: - Overrides
 
 	// MARK: - Protocol PHPickerViewControllerDelegate
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-		dismiss?()
-/*
+		dismiss()
 		// each result represents a selected image
 		results.forEach { result in
 			let itemProvider = result.itemProvider
 			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
 				return
 			}
-			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, error in
+			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
 				guard let self = self,
 					  let image = provider as? UIImage,
 					  let codes = self.findQRCodes(source: "Photopicker", in: image) else {
-					log.debug("Looks like we have an issue reading the image")
+						  Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
 					return
 				}
 				self.qrCodeModels += codes
 			}
 		}
- */
 	}
 
 	// MARK: - UIImagePickerControllerDelegate
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 		defer {
-			self.dismiss?()
+			self.dismiss()
 		}
 
-//		guard let image = info[.originalImage] as? UIImage,
-//			  let codes = self.findQRCodes(source: "Imagepicker", in: image),
-//			  !codes.isEmpty else {
-//				  Log.debug("no image with qr code found")
-//			return
-//		}
+		guard let image = info[.originalImage] as? UIImage,
+			  let codes = self.findQRCodes(source: "Imagepicker", in: image),
+			  !codes.isEmpty else {
+				  Log.debug("no image with qr code found", log: .fileScanner)
+			return
+		}
 		Log.debug("Found QR code in image", log: .fileScanner)
-//		self.qrCodeModels += codes
+		self.qrCodeModels += codes
 	}
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-		dismiss?()
+		dismiss()
 	}
 
 	// MARK: Protocol UIDocumentPickerDelegate
@@ -69,7 +77,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 		if url.pathExtension.lowercased() == "pdf",
 		   let pdfDocument = PDFDocument(url: url) {
-			Log.debug("PDF picked will scan for QR codes on all pages")
+			Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
 			imagePage(from: pdfDocument).forEach { image in
 				if let codes = findQRCodes(source: "PDF File", in: image) {
 					qrCodeModels += codes
@@ -77,7 +85,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			}
 		} else if let image = UIImage(contentsOfFile: url.path),
 				  let codes = findQRCodes(source: "Image File", in: image) {
-			Log.debug("Image picked will scan for QR codes")
+			Log.debug("Image picked will scan for QR codes", log: .fileScanner)
 			qrCodeModels += codes
 		}
 	}
@@ -87,13 +95,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - Internal
 
-	var dismiss: (() -> Void)?
-
 	@OpenCombine.Published var qrCodeModels: [QRCodeModel] = []
-
-//	func empty() {
-//		qrCodeModels.removeAll()
-//	}
 
 	var authorizationStatus: PHAuthorizationStatus {
 		if #available(iOS 14, *) {
@@ -123,7 +125,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		var images = [UIImage]()
 		for pageIndex in 0..<document.pageCount {
 			guard let page = document.page(at: pageIndex) else {
-				Log.debug("can't find page in PDF file")
+				Log.debug("can't find page in PDF file", log: .fileScanner)
 				continue
 			}
 
@@ -136,15 +138,19 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		return images
 	}
 
-	func findQRCodes(source: String, in image: UIImage) -> [QRCodeModel]? {
+	private func findQRCodes(source: String, in image: UIImage) -> [QRCodeModel]? {
 		guard let features = detectQRCode(image) else {
-			Log.debug("no features found in image")
+			Log.debug("no features found in image", log: .fileScanner)
 			return nil
 		}
 		return features.compactMap { $0 as? CIQRCodeFeature }
 			.compactMap { $0.messageString }
 			.map { QRCodeModel(info: source, body: $0) }
 	}
+
+	private let showHUD: () -> Void
+	private let hideHUD: () -> Void
+	private let dismiss: () -> Void
 
 	private func detectQRCode(_ image: UIImage) -> [CIFeature]? {
 		guard let ciImage = CIImage(image: image) else {
@@ -157,6 +163,5 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		let features = qrDetector?.features(in: ciImage, options: options)
 		return features
 	}
-
 
 }

@@ -15,7 +15,6 @@ class FileScannerCoordinator {
 	) {
 		self.parentViewController = parentViewController
 		self.dismiss = dismiss
-		self.viewModel = FileScannerCoordinatorViewModel()
 	}
 
 	// MARK: - Overrides
@@ -27,12 +26,24 @@ class FileScannerCoordinator {
 	// MARK: - Internal
 
 	func start() {
+		self.viewModel = FileScannerCoordinatorViewModel(
+			showHUD: {
+				Log.debug("show HUD", log: .fileScanner)
+			},
+			hideHUD: {
+				Log.debug("hide HUD", log: .fileScanner)
+			},
+			dismiss: { [weak self] in
+				self?.parentViewController?.dismiss(animated: true)
+			}
+		)
+
 		presentActionSheet()
 	}
 
 	// MARK: - Private
 
-	private let viewModel: FileScannerCoordinatorViewModel
+	private var viewModel: FileScannerCoordinatorViewModel!
 
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
@@ -94,9 +105,6 @@ class FileScannerCoordinator {
 
 				let picker = PHPickerViewController(configuration: configuration)
 				picker.delegate = self.viewModel
-				self.viewModel.dismiss = {
-					self.parentViewController?.dismiss(animated: true)
-				}
 				self.parentViewController?.present(picker, animated: true)
 			} else {
 				let pickerController = UIImagePickerController()
@@ -104,9 +112,6 @@ class FileScannerCoordinator {
 				pickerController.allowsEditing = false
 				pickerController.mediaTypes = ["public.image"]
 				pickerController.sourceType = .photoLibrary
-				self.viewModel.dismiss = {
-					self.parentViewController?.dismiss(animated: true)
-				}
 				self.parentViewController?.present(pickerController, animated: true)
 			}
 		}
