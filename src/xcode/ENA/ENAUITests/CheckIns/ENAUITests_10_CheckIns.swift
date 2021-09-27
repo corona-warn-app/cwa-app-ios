@@ -67,7 +67,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 	
 	// MARK: - Screenshots
 
-	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
+	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() throws {
 		// GIVEN
 		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
@@ -94,6 +94,11 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
+		
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the Event here.
+		let eventButton =  try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+		
 		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
 		
 		// THEN

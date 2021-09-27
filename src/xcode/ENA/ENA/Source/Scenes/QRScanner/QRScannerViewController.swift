@@ -360,26 +360,32 @@ class QRScannerViewController: UIViewController {
 	
 	#if targetEnvironment(simulator)
 	private func showCodeSelection() {
-		let alterVC = UIAlertController(title: "Select a QRCode you want to fake", message: nil, preferredStyle: .alert)
+		let alertVC = UIAlertController(title: "Select a QRCode you want to fake", message: nil, preferredStyle: .alert)
 		let hc1 = UIAlertAction(title: "HC1", style: .default, handler: { [weak self] _ in
 			self?.viewModel?.fakeHealthCert1Scan()
 		})
 		hc1.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeHC1
-		alterVC.addAction(hc1)
+		alertVC.addAction(hc1)
 		
 		let hc2 = UIAlertAction(title: "HC2", style: .default, handler: { [weak self] _ in
 			self?.viewModel?.fakeHealthCert2Scan()
 		})
 		hc2.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeHC2
-		alterVC.addAction(hc2)
+		alertVC.addAction(hc2)
 		
 		let pcr = UIAlertAction(title: "PCR", style: .default, handler: { [weak self] _ in
-			self?.viewModel?.fakePCRTest()
+			self?.viewModel?.fakePCRTestScan()
 		})
 		pcr.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakePCR
-		alterVC.addAction(pcr)
+		alertVC.addAction(pcr)
 		
-		present(alterVC, animated: false, completion: nil)
+		let event = UIAlertAction(title: "Event", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeEventScan()
+		})
+		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
+		alertVC.addAction(event)
+		
+		present(alertVC, animated: false, completion: nil)
 		
 	}
 	#endif
