@@ -4,8 +4,10 @@
 
 import Foundation
 import PhotosUI
+import PDFKit
+import OpenCombine
 
-class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 
 	// MARK: - Init
 
@@ -27,7 +29,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				guard let self = self,
 					  let image = provider as? UIImage,
 					  let codes = self.findQRCodes(source: "Photopicker", in: image) else {
-					os_log("Looks like we have an issue reading the image")
+					log.debug("Looks like we have an issue reading the image")
 					return
 				}
 				self.qrCodeModels += codes
@@ -38,7 +40,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - UIImagePickerControllerDelegate
 
-	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 		defer {
 			self.dismiss?()
 		}
@@ -57,11 +59,41 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		dismiss?()
 	}
 
+	// MARK: Protocol UIDocumentPickerDelegate
+
+	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+		// we can handle multiple documents here - nice
+		guard let url = urls.first else {
+			Log.debug("We need to select a least one file")
+			return
+		}
+		if url.pathExtension.lowercased() == "pdf",
+		   let pdfDocument = PDFDocument(url: url) {
+			Log.debug("PDF picked will scan for QR codes on all pages")
+			imagePage(from: pdfDocument).forEach { image in
+				if let codes = findQRCodes(source: "PDF File", in: image) {
+					qrCodeModels += codes
+				}
+			}
+		} else if let image = UIImage(contentsOfFile: url.path),
+				  let codes = findQRCodes(source: "Image File", in: image) {
+			Log.debug("Image picked will scan for QR codes")
+			qrCodeModels += codes
+		}
+	}
+
+
 	// MARK: - Public
 
 	// MARK: - Internal
 
 	var dismiss: (() -> Void)?
+
+	@OpenCombine.Published var qrCodeModels: [QRCodeModel] = []
+
+//	func empty() {
+//		qrCodeModels.removeAll()
+//	}
 
 	var authorizationStatus: PHAuthorizationStatus {
 		if #available(iOS 14, *) {
@@ -86,5 +118,45 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	}
 
 	// MARK: - Private
+
+	private func imagePage(from document: PDFDocument) -> [UIImage] {
+		var images = [UIImage]()
+		for pageIndex in 0..<document.pageCount {
+			guard let page = document.page(at: pageIndex) else {
+				Log.debug("can't find page in PDF file")
+				continue
+			}
+
+			let scale = UIScreen.main.scale
+			let size = page.bounds(for: .mediaBox).size
+			let scaledSize = size.applying(CGAffineTransform(scaleX: scale, y: scale))
+			let thumb = page.thumbnail(of: scaledSize, for: .mediaBox)
+			images.append(thumb)
+		}
+		return images
+	}
+
+	func findQRCodes(source: String, in image: UIImage) -> [QRCodeModel]? {
+		guard let features = detectQRCode(image) else {
+			Log.debug("no features found in image")
+			return nil
+		}
+		return features.compactMap { $0 as? CIQRCodeFeature }
+			.compactMap { $0.messageString }
+			.map { QRCodeModel(info: source, body: $0) }
+	}
+
+	private func detectQRCode(_ image: UIImage) -> [CIFeature]? {
+		guard let ciImage = CIImage(image: image) else {
+			return nil
+		}
+		let context = CIContext()
+		// we can try to use CIDetectorAccuracyLow to speedup things a bit here
+		let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh, CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1]
+		let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
+		let features = qrDetector?.features(in: ciImage, options: options)
+		return features
+	}
+
 
 }
