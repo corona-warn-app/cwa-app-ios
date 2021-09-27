@@ -112,6 +112,7 @@ class HomeStatisticsCardViewModel {
 	var infoButtonAccessibilityIdentifier: String?
 	
 	// MARK: - Private
+
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.title

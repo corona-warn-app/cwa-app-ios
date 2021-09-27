@@ -202,8 +202,6 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.FullyVaccinated.title)
 		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.fromNationWide)
 		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.FullyVaccinated.primarySubtitle)
-		XCTAssertEqual(viewModel.secondaryTitle, AppStrings.Statistics.Card.FullyVaccinated.secondaryLabelTitle)
-		XCTAssertEqual(viewModel.tertiaryTitle, AppStrings.Statistics.Card.FullyVaccinated.tertiaryLabelTitle)
 	}
 	
 	func testFullyVaccinatedCardPrimaryTitleToday() throws {
@@ -737,7 +735,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 					switch HomeStatisticsCard(rawValue: id) {
 					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
 						XCTAssertEqual(viewModel.primaryValue, expectedStringWithPercent)
-					case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
+					case .infections, .incidence, .infectedPeopleHospitalizationRate, .infectedPeopleInIntensiveCare, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)
 					case .none:
 						XCTFail("Unrecognised Card type")
