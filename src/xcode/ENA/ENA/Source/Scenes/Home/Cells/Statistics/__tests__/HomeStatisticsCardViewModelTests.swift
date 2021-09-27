@@ -461,7 +461,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
 	}
 	
-	// MARK: - Hospitalization Rate
+	// MARK: - Hospitalization Rate Card
 
 	func testHospitalizationRateCardStaticValues() {
 		let viewModel = HomeStatisticsCardViewModel(
@@ -528,7 +528,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
 	}
 
-	// MARK: - Intensive Care
+	// MARK: - Intensive Care Card
 
 	func testIntensiveCareCardStaticValues() {
 		let viewModel = HomeStatisticsCardViewModel(
