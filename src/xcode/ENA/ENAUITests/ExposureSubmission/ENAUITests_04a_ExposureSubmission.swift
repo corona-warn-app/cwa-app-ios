@@ -525,7 +525,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 	}
 
-	func test_screenshot_SubmitQR() {
+	func test_screenshot_SubmitQR() throws {
 		var screenshotCounter = 0
 
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
@@ -556,6 +556,10 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		let scanQRCodeButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription]
 		scanQRCodeButton.waitAndTap()
+		
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR here.
+		let pcrButton =  try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
+		pcrButton.waitAndTap()
 		
 		/// Your consent screen
 		
