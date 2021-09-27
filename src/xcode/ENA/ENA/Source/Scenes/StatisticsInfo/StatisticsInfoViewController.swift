@@ -255,6 +255,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.trendTitle,
 						accessibilityIdentifier: nil
 					),
+					.space(height: 8),
 					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.trendText,
 						accessibilityIdentifier: nil
