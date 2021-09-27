@@ -250,11 +250,11 @@ class HomeStatisticsCardViewModel {
 		primarySubtitle = AppStrings.Statistics.Card.FullyVaccinated.primarySubtitle
 		
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
-		   secondaryTitle = AppStrings.Statistics.Card.FullyVaccinated.secondaryLabelTitle
+			secondaryTitle = AppStrings.Statistics.Card.FullyVaccinated.secondaryLabelTitle
 		}
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
-		   tertiaryTitle = AppStrings.Statistics.Card.FullyVaccinated.tertiaryLabelTitle
+			tertiaryTitle = AppStrings.Statistics.Card.FullyVaccinated.tertiaryLabelTitle
 		}
 	}
 	
