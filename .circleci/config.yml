@@ -286,7 +286,7 @@ workflows:
               - dependencies
             filters:
               branches:
-                ignore:
+                only:
                   - /CI\/.*/
         - test:
             matrix:
