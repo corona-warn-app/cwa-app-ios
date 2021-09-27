@@ -2053,7 +2053,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19-Hospitalisierungen je 100.000 Einwohner";
 
-/* - Infected People in IntensiveCare */
+/* - Infected People in Intensive Care */
 
 "Statistics_Card_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
 
@@ -2087,9 +2087,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnnahmen aufgrund von Covid-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
 
-"Statistics_Info_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen"
+"Statistics_Info_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
 
-"Statistics_Info_IntensiveCare_Text" = "Anteil der an COVID-19 erkrankten Personen auf Intensivstationen im Verhältnis zur Gesamtbettenanzahl."
+"Statistics_Info_IntensiveCare_Text" = "Anteil der an COVID-19 erkrankten Personen auf Intensivstationen im Verhältnis zur Gesamtbettenanzahl.";
 
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
