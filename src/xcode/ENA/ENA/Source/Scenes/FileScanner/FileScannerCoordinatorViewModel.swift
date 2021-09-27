@@ -27,7 +27,10 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-		dismiss()
+		defer {
+			self.dismiss()
+		}
+
 		// each result represents a selected image
 		results.forEach { result in
 			let itemProvider = result.itemProvider
@@ -37,11 +40,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
 				guard let self = self,
 					  let image = provider as? UIImage,
-					  let codes = self.findQRCodes(source: "Photopicker", in: image) else {
+					  let codes = self.findQRCodes(in: image),
+					  !codes.isEmpty
+				else {
 						  Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
 					return
 				}
-				self.qrCodeModels += codes
+//				self.qrCodeModels += codes
 			}
 		}
 	}
@@ -54,13 +59,14 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 
 		guard let image = info[.originalImage] as? UIImage,
-			  let codes = self.findQRCodes(source: "Imagepicker", in: image),
-			  !codes.isEmpty else {
+			  let codes = self.findQRCodes(in: image),
+			  !codes.isEmpty
+		else {
 				  Log.debug("no image with qr code found", log: .fileScanner)
 			return
 		}
 		Log.debug("Found QR code in image", log: .fileScanner)
-		self.qrCodeModels += codes
+//		self.qrCodeModels += codes
 	}
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -70,6 +76,10 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: Protocol UIDocumentPickerDelegate
 
 	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+		defer {
+			self.dismiss()
+		}
+
 		// we can handle multiple documents here - nice
 		guard let url = urls.first else {
 			Log.debug("We need to select a least one file")
@@ -79,23 +89,20 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		   let pdfDocument = PDFDocument(url: url) {
 			Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
 			imagePage(from: pdfDocument).forEach { image in
-				if let codes = findQRCodes(source: "PDF File", in: image) {
-					qrCodeModels += codes
+				if let codes = findQRCodes(in: image) {
+//					qrCodeModels += codes
 				}
 			}
 		} else if let image = UIImage(contentsOfFile: url.path),
-				  let codes = findQRCodes(source: "Image File", in: image) {
+				  let codes = findQRCodes(in: image) {
 			Log.debug("Image picked will scan for QR codes", log: .fileScanner)
-			qrCodeModels += codes
+//			qrCodeModels += codes
 		}
 	}
-
 
 	// MARK: - Public
 
 	// MARK: - Internal
-
-	@OpenCombine.Published var qrCodeModels: [QRCodeModel] = []
 
 	var authorizationStatus: PHAuthorizationStatus {
 		if #available(iOS 14, *) {
@@ -138,14 +145,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		return images
 	}
 
-	private func findQRCodes(source: String, in image: UIImage) -> [QRCodeModel]? {
+	private func findQRCodes(in image: UIImage) -> [String]? {
 		guard let features = detectQRCode(image) else {
 			Log.debug("no features found in image", log: .fileScanner)
 			return nil
 		}
 		return features.compactMap { $0 as? CIQRCodeFeature }
 			.compactMap { $0.messageString }
-			.map { QRCodeModel(info: source, body: $0) }
 	}
 
 	private let showHUD: () -> Void
