@@ -113,6 +113,24 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.incidenceText,
 						accessibilityIdentifier: nil
 					),
+					// 7-Tage-Inzidenz Hospitalisierung
+					.title2(
+						text: AppStrings.Statistics.Info.hospitalizationRateTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.hospitalizationRateText,
+						accessibilityIdentifier: nil
+					),
+                    // COVID-19-Erkrankte auf Intensivstationen
+					.title2(
+						text: AppStrings.Statistics.Info.intensiveCareTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.intensiveCareText,
+						accessibilityIdentifier: nil
+					),
 					// Bestätigte Neuinfektionen
 					.title2(
 						text: AppStrings.Statistics.Info.infectionsTitle,
