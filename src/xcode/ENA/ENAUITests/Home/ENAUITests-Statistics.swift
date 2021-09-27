@@ -153,12 +153,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
-		let title2 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
-		let title5 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
-		let title6 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
-		let title7 = AccessibilityIdentifiers.Statistics.Doses.title
+		let title2 = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
+		let title3 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
+		let title4 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title5 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title6 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title7 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title8 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title9 = AccessibilityIdentifiers.Statistics.Doses.title
 
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 
@@ -170,6 +172,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
+			app.staticTexts[title9].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
+			app.staticTexts[title8].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
 			app.staticTexts[title7].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
@@ -199,16 +205,24 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title6].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
 			app.staticTexts[title7].swipeRight()
-
+			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
+			app.staticTexts[title8].swipeRight()
+			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
+			app.staticTexts[title9].swipeRight()
 		}
 	}
 	
 	func test_StatisticsCardInfoButtons() throws {
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
-		let title2 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title2 = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
+		let title3 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
+		let title4 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title5 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title6 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title7 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title8 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title9 = AccessibilityIdentifiers.Statistics.Doses.title
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// WHEN
@@ -219,32 +233,61 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
-			cardReproductionNumberInfoScreenTest(title4)
+			cardDosesInfoScreenTest(title9)
+			app.staticTexts[title9].swipeLeft()
+		
+			cardFullyVaccinatedInfoScreenTest(title8)
+			app.staticTexts[title8].swipeLeft()
+
+			cardAtLeastOneVaccinationInfoScreenTest(title7)
+			app.staticTexts[title7].swipeLeft()
+
+			cardReproductionNumberInfoScreenTest(title6)
+			app.staticTexts[title6].swipeLeft()
+
+			cardKeySubmissionsInfoScreenTest(title5)
+			app.staticTexts[title5].swipeRight()
+			
+			cardInfectionsInfoScreenTest(title4)
 			app.staticTexts[title4].swipeLeft()
 
-			cardIncidenceInfoScreenTest(title3)
+			cardIntensiveCareInfoScreenTest(title3)
 			app.staticTexts[title3].swipeLeft()
 
-			cardKeySubmissionsInfoScreenTest(title2)
+			cardHospitalizationRateInfoScreenTest(title2)
 			app.staticTexts[title2].swipeLeft()
 
-			cardInfectionsInfoScreenTest(title1)
+			cardIncidenceInfoScreenTest(title1)
 			app.staticTexts[title1].swipeRight()
-
 		default:
 			app.swipeLeft()
 
 			cardIncidenceInfoScreenTest(title1)
 			app.staticTexts[title1].swipeLeft()
 			
-			cardInfectionsInfoScreenTest(title2)
+			cardHospitalizationRateInfoScreenTest(title2)
 			app.staticTexts[title2].swipeLeft()
 			
-			cardKeySubmissionsInfoScreenTest(title3)
+			cardIntensiveCareInfoScreenTest(title3)
 			app.staticTexts[title3].swipeLeft()
 			
-			cardReproductionNumberInfoScreenTest(title4)
-			app.staticTexts[title4].swipeRight()
+			cardInfectionsInfoScreenTest(title4)
+			app.staticTexts[title4].swipeLeft()
+			
+			cardKeySubmissionsInfoScreenTest(title5)
+			app.staticTexts[title5].swipeRight()
+			
+			cardReproductionNumberInfoScreenTest(title6)
+			app.staticTexts[title6].swipeLeft()
+			
+			cardAtLeastOneVaccinationInfoScreenTest(title7)
+			app.staticTexts[title7].swipeLeft()
+			
+			cardFullyVaccinatedInfoScreenTest(title8)
+			app.staticTexts[title8].swipeLeft()
+			
+			cardDosesInfoScreenTest(title9)
+			app.staticTexts[title9].swipeRight()
 		}
 	}
 	
@@ -291,6 +334,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
 		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
+		let hospitalizationRateTitle = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
+		let intensiveCareTitle = AccessibilityIdentifiers.Statistics.IntensiveCare.title
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
 		let keySubmissionsTitle = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let reproductionNumberTitle = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
@@ -326,6 +371,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			snapshot("statistics_7day_incidences")
 			app.staticTexts[incidenceTitle].swipeLeft()
 
+			XCTAssert(self.app.staticTexts[hospitalizationRateTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_7day_hospitalization_rate")
+			app.staticTexts[hospitalizationRateTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[intensiveCareTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_intensive_care")
+			app.staticTexts[intensiveCareTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_confirmed_new_infections")
 			app.staticTexts[infectionsTitle].swipeLeft()
@@ -360,33 +413,58 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 	// MARK: - Private
 	
-	private func cardInfectionsInfoScreenTest(_ title1: String) {
+	private func cardIncidenceInfoScreenTest(_ title1: String) {
 		XCTAssertTrue(app.staticTexts[title1].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].waitAndTap()
-		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
-	}
-	
-	private func cardKeySubmissionsInfoScreenTest(_ title2: String) {
-		XCTAssertTrue(app.staticTexts[title2].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].waitAndTap()
-		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
-	}
-	
-	private func cardIncidenceInfoScreenTest(_ title3: String) {
-		XCTAssertTrue(app.staticTexts[title3].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].waitAndTap()
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
-	private func cardReproductionNumberInfoScreenTest(_ title4: String) {
+	private func cardHospitalizationRateInfoScreenTest(_ title2: String) {
+		XCTAssertTrue(app.staticTexts[title2].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.HospitalizationRate.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+	
+	private func cardIntensiveCareInfoScreenTest(_ title3: String) {
+		XCTAssertTrue(app.staticTexts[title3].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.IntensiveCare.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+	
+	private func cardInfectionsInfoScreenTest(_ title4: String) {
 		XCTAssertTrue(app.staticTexts[title4].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+	
+	private func cardKeySubmissionsInfoScreenTest(_ title5: String) {
+		XCTAssertTrue(app.staticTexts[title5].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+	
+	private func cardReproductionNumberInfoScreenTest(_ title6: String) {
+		XCTAssertTrue(app.staticTexts[title6].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].waitAndTap()
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
-	private func cardReproductionNumberOpenInfoScreen(_ title4: String) {
-		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].waitAndTap()
+	private func cardAtLeastOneVaccinationInfoScreenTest(_ title7: String) {
+		XCTAssertTrue(app.staticTexts[title7].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+	
+	private func cardFullyVaccinatedInfoScreenTest(_ title8: String) {
+		XCTAssertTrue(app.staticTexts[title8].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+	
+	private func cardDosesInfoScreenTest(_ title9: String) {
+		XCTAssertTrue(app.staticTexts[title9].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.Doses.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
 	private func cardFullyVaccinatedTitleOpenInfoScreen(_ title: String) {
