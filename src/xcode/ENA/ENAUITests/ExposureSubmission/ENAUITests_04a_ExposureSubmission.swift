@@ -445,6 +445,10 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// -> Select QRCode screen.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
 
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR here.
+		let pcrButton =  try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
+		pcrButton.waitAndTap()
+		
 		// QR Code Info Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap(.long)
