@@ -30,7 +30,7 @@ class HUDView: UIView {
 
 	private func setupView() {
 		let overlayView = UIView(frame: .zero)
-		overlayView.backgroundColor = .init(white: 0.0, alpha: 0.3)
+		overlayView.backgroundColor = .init(white: 0.0, alpha: 0.7)
 		overlayView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(overlayView)
 
@@ -64,7 +64,7 @@ class HUDView: UIView {
 			trailingAnchor.constraint(equalTo: overlayView.trailingAnchor),
 			topAnchor.constraint(equalTo: overlayView.topAnchor),
 			bottomAnchor.constraint(equalTo: overlayView.bottomAnchor),
-			boxView.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor, constant: 25.0),
+			boxView.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor, constant: -55.0),
 			boxView.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
 			boxView.heightAnchor.constraint(greaterThanOrEqualToConstant: 75.0),
 			boxView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, constant: -100),

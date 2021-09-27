@@ -36,7 +36,9 @@ class FileScannerCoordinator {
 				self?.parentViewController?.dismiss(animated: true)
 			},
 			qrCodesFound: { [weak self] codes in
-				self?.hud?.hide()
+				DispatchQueue.main.async {
+					self?.hud?.hide()
+				}
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			}
 		)
@@ -154,21 +156,4 @@ class FileScannerCoordinator {
 	}
 
 	var hud: FileScannerHUD?
-/*
-	private func showHUD(_ execute: @escaping () -> Void) {
-		guard hud == nil else {
-			Log.error("Only one hud at at time supported - stop")
-			return
-		}
-		hud = FileScannerHUD(execute: execute, completion: <#() -> Void#>)
-		hud?.show()
-	}
-
-	private func hideHud(_ execute: @escaping () -> Void) {
-		hud?.hide { [weak self] in
-			execute()
-			self?.hud = nil
-		}
-	}
-*/
 }

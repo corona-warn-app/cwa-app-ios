@@ -27,15 +27,12 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+		dismiss()
 		hud { [weak self] in
-			var foundCodes: [String] = []
-			defer {
-				self?.qrCodesFound(foundCodes)
-			}
-
 			results.forEach { result in
 				let itemProvider = result.itemProvider
 				guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
+					self?.qrCodesFound([])
 					return
 				}
 				itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
@@ -44,9 +41,10 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 						  let codes = self.findQRCodes(in: image)
 					else {
 						Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
+						self?.qrCodesFound([])
 						return
 					}
-					foundCodes.append(contentsOf: codes)
+					self.qrCodesFound(codes)
 				}
 			}
 		}
@@ -55,19 +53,19 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - UIImagePickerControllerDelegate
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-		defer {
-			self.dismiss()
+		dismiss()
+		hud { [weak self] in
+			guard let self = self,
+				  let image = info[.originalImage] as? UIImage,
+				  let codes = self.findQRCodes(in: image)
+			else {
+				Log.debug("no image with qr code found", log: .fileScanner)
+				self?.qrCodesFound([])
+				return
+			}
+			Log.debug("Found QR code in image", log: .fileScanner)
+			self.qrCodesFound(codes)
 		}
-
-		guard let image = info[.originalImage] as? UIImage,
-			  let codes = self.findQRCodes(in: image),
-			  !codes.isEmpty
-		else {
-			Log.debug("no image with qr code found", log: .fileScanner)
-			return
-		}
-		Log.debug("Found QR code in image", log: .fileScanner)
-		qrCodesFound(codes)
 	}
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -78,18 +76,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
 		hud { [weak self] in
-			var foundCodes: [String] = []
-			defer {
-				self?.qrCodesFound(foundCodes)
-			}
-
 			// we can handle multiple documents here - nice
 			guard let self = self,
-				let url = urls.first else {
-				Log.debug("We need to select a least one file")
-				return
-			}
-
+				  let url = urls.first else {
+					  Log.debug("We need to select a least one file", log: .fileScanner)
+					  return
+				  }
+			var foundCodes: [String] = []
 			if url.pathExtension.lowercased() == "pdf",
 			   let pdfDocument = PDFDocument(url: url) {
 				Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
@@ -98,10 +91,11 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 						foundCodes.append(contentsOf: codes)
 					}
 				}
+				self.qrCodesFound(foundCodes)
 			} else if let image = UIImage(contentsOfFile: url.path),
 					  let codes = self.findQRCodes(in: image) {
 				Log.debug("Image picked will scan for QR codes", log: .fileScanner)
-				foundCodes = codes
+				self.qrCodesFound(codes)
 			}
 		}
 	}
