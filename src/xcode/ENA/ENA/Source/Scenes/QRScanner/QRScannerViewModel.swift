@@ -21,7 +21,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	init(
 		healthCertificateService: HealthCertificateService,
-		verificationHelper: QRCodeVerificationHelper,
 		appConfiguration: AppConfigurationProviding,
 		markCertificateAsNew: Bool,
 		markCoronaTestAsNew: Bool,
@@ -30,7 +29,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		
 		self.healthCertificateService = healthCertificateService
-		self.verificationHelper = verificationHelper
 		self.appConfiguration = appConfiguration
 		self.markCertificateAsNew = markCertificateAsNew
 		self.markCoronaTestAsNew = markCoronaTestAsNew
@@ -175,13 +173,10 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
 
-		var parser: QRCodeParsable?
-
 		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
 			// it is trace Locations QRCode
 			parser = CheckinQRCodeParser(
-				verificationHelper: verificationHelper,
-				appConfiguration: appConfiguration
+				appConfigurationProvider: appConfiguration
 			)
 		} else if url.prefix(antigenTestPrefix.count) == antigenTestPrefix || url.prefix(pcrTestPrefix.count) == pcrTestPrefix {
 			// it is a test
@@ -199,16 +194,19 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
-		parser.parse(qrCode: url, completion: { result in
+
+		parser.parse(qrCode: url) { result in
 			self.completion(result)
-		})
+			self.parser = nil
+		}
 	}
 	
 	private let captureDevice: AVCaptureDevice?
-	private let verificationHelper: QRCodeVerificationHelper
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let markCertificateAsNew: Bool
 	private let markCoronaTestAsNew: Bool
+
+	private var parser: QRCodeParsable?
 
 }

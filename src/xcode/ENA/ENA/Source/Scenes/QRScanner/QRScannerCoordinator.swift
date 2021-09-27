@@ -77,7 +77,6 @@ class QRScannerCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestService
-	private let qrCodeVerificationHelper = QRCodeVerificationHelper()
 	
 	private var presenter: QRScannerPresenter!
 	private var parentViewController: UIViewController!
@@ -93,7 +92,6 @@ class QRScannerCoordinator {
 	) -> UIViewController {
 		return QRScannerViewController(
 			healthCertificateService: healthCertificateService,
-			verificationHelper: qrCodeVerificationHelper,
 			appConfiguration: appConfiguration,
 			markCertificateAsNew: markCertificateAsNew,
 			markCoronaTestAsNew: markCoronaTestAsNew,

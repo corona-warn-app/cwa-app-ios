@@ -413,7 +413,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		coronaTestService.unseenTestsCount
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
-				self?.homeController?.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+				self?.rootViewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
 			}
 			.store(in: &subscriptions)
 	}

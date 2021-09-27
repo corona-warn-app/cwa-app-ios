@@ -325,18 +325,6 @@ enum AppStrings {
 		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionQRInfo_primaryButtonTitle", comment: "")
 	}
 
-	enum ExposureSubmissionQRScanner {
-		static let title = NSLocalizedString("ExposureSubmissionQRScanner_title", comment: "")
-		static let instruction = NSLocalizedString("ExposureSubmissionQRScanner_instruction", comment: "")
-		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
-		static let cameraPermissionDenied = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionDenied", comment: "")
-		static let flashButtonAccessibilityLabel = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash", comment: "")
-		static let flashButtonAccessibilityOnValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_On", comment: "")
-		static let flashButtonAccessibilityOffValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Off", comment: "")
-		static let flashButtonAccessibilityEnableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Enable", comment: "")
-		static let flashButtonAccessibilityDisableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Disable", comment: "")
-	}
-
 	enum ExposureSubmissionHotline {
 		static let title = NSLocalizedString("ExposureSubmissionHotline_Title", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionHotline_Description", comment: "")
@@ -1704,21 +1692,15 @@ enum AppStrings {
 			static let notice = NSLocalizedString("Checkins_Edit_Notice", comment: "")
 		}
 
-		enum QRScanner {
-			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
-			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
-			static let instruction = NSLocalizedString("Checkins_Overview_QRScanner_Instruction", comment: "")
-
-			enum Error {
-				static let title = NSLocalizedString("Checkin_QR_Scanner_Checkin_Error_Title", comment: "")
-				static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
-				static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
-				static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
-				static let invalidDescription = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidDescription", comment: "")
-				static let invalidAddress = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidAddress", comment: "")
-				static let invalidCryptographicSeed = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidCryptographicSeed", comment: "")
-				static let invalidTimeStamps = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidTimeStamps", comment: "")
-			}
+		enum QRScannerError {
+			static let title = NSLocalizedString("Checkin_QR_Scanner_Checkin_Error_Title", comment: "")
+			static let invalidURL = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURL", comment: "")
+			static let invalidPayload = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidPayload", comment: "")
+			static let invalidVendorData = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidURLVendorData", comment: "")
+			static let invalidDescription = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidDescription", comment: "")
+			static let invalidAddress = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidAddress", comment: "")
+			static let invalidCryptographicSeed = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidCryptographicSeed", comment: "")
+			static let invalidTimeStamps = NSLocalizedString("Checkin_QR_Scanner_Error_InvalidTimeStamps", comment: "")
 		}
 
 		enum Overview {
@@ -2092,11 +2074,6 @@ enum AppStrings {
 			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
 		}
 
-		enum QRScanner {
-			static let title = NSLocalizedString("HealthCertificate_QRScanner_title", comment: "")
-			static let instruction = NSLocalizedString("HealthCertificate_QRScanner_instruction", comment: "")
-		}
-
 		enum Person {
 			static let title = NSLocalizedString("HealthCertifiedPerson_title", comment: "")
 
@@ -2337,6 +2314,12 @@ enum AppStrings {
 		static let scannerTitle = NSLocalizedString("UniversalQRScanner_ScannerTitle", comment: "")
 		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
 		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
+
+		static let flashButtonAccessibilityLabel = NSLocalizedString("UniversalQRScanner_CameraFlash", comment: "")
+		static let flashButtonAccessibilityOnValue = NSLocalizedString("UniversalQRScanner_CameraFlash_On", comment: "")
+		static let flashButtonAccessibilityOffValue = NSLocalizedString("UniversalQRScanner_CameraFlash_Off", comment: "")
+		static let flashButtonAccessibilityEnableAction = NSLocalizedString("UniversalQRScanner_CameraFlash_Enable", comment: "")
+		static let flashButtonAccessibilityDisableAction = NSLocalizedString("UniversalQRScanner_CameraFlash_Disable", comment: "")
 
 		enum Error {
 			static let cameraPermissionDenied = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
