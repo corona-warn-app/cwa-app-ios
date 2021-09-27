@@ -113,7 +113,14 @@ class FileScannerCoordinator {
 	}
 
 	private func presentFilePicker() {
-		Log.debug("show file picker here", log: .fileScanner)
+		let pickerViewController: UIDocumentPickerViewController
+		if #available(iOS 14.0, *) {
+			pickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .pdf], asCopy: true)
+		} else {
+			pickerViewController = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
+		}
+		pickerViewController.delegate = viewModel
+		parentViewController?.present(pickerViewController, animated: true)
 	}
 
 	private func presentPhotoAccessAlert() {
