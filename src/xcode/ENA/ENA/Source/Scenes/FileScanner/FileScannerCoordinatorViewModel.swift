@@ -14,11 +14,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	init(
 		showHUD: @escaping () -> Void,
 		hideHUD: @escaping () -> Void,
-		dismiss: @escaping () -> Void
+		dismiss: @escaping () -> Void,
+		qrCodesFound: @escaping ([String]) -> Void
 	) {
 		self.showHUD = showHUD
 		self.hideHUD = hideHUD
 		self.dismiss = dismiss
+		self.qrCodesFound = qrCodesFound
 	}
 
 	// MARK: - Overrides
@@ -43,10 +45,10 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 					  let codes = self.findQRCodes(in: image),
 					  !codes.isEmpty
 				else {
-						  Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
+					Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
 					return
 				}
-//				self.qrCodeModels += codes
+				self.qrCodesFound(codes)
 			}
 		}
 	}
@@ -62,11 +64,11 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			  let codes = self.findQRCodes(in: image),
 			  !codes.isEmpty
 		else {
-				  Log.debug("no image with qr code found", log: .fileScanner)
+			Log.debug("no image with qr code found", log: .fileScanner)
 			return
 		}
 		Log.debug("Found QR code in image", log: .fileScanner)
-//		self.qrCodeModels += codes
+		qrCodesFound(codes)
 	}
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -88,15 +90,17 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		if url.pathExtension.lowercased() == "pdf",
 		   let pdfDocument = PDFDocument(url: url) {
 			Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
+			var found: [String] = []
 			imagePage(from: pdfDocument).forEach { image in
 				if let codes = findQRCodes(in: image) {
-//					qrCodeModels += codes
+					found.append(contentsOf: codes)
 				}
 			}
+			qrCodesFound(found)
 		} else if let image = UIImage(contentsOfFile: url.path),
 				  let codes = findQRCodes(in: image) {
 			Log.debug("Image picked will scan for QR codes", log: .fileScanner)
-//			qrCodeModels += codes
+			qrCodesFound(codes)
 		}
 	}
 
@@ -151,12 +155,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			return nil
 		}
 		return features.compactMap { $0 as? CIQRCodeFeature }
-			.compactMap { $0.messageString }
+		.compactMap { $0.messageString }
 	}
 
 	private let showHUD: () -> Void
 	private let hideHUD: () -> Void
 	private let dismiss: () -> Void
+	private let qrCodesFound: ([String]) -> Void
 
 	private func detectQRCode(_ image: UIImage) -> [CIFeature]? {
 		guard let ciImage = CIImage(image: image) else {

@@ -35,6 +35,9 @@ class FileScannerCoordinator {
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
+			},
+			qrCodesFound: { codes in
+				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			}
 		)
 
