@@ -122,7 +122,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.hospitalizationRateText,
 						accessibilityIdentifier: nil
 					),
-                    // COVID-19-Erkrankte auf Intensivstationen
+					// COVID-19-Erkrankte auf Intensivstationen
 					.title2(
 						text: AppStrings.Statistics.Info.intensiveCareTitle,
 						accessibilityIdentifier: nil
