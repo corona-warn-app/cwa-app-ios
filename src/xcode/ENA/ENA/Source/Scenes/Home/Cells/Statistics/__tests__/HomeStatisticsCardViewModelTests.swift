@@ -202,6 +202,8 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.FullyVaccinated.title)
 		XCTAssertEqual(viewModel.subtitle, AppStrings.Statistics.Card.fromNationWide)
 		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.FullyVaccinated.primarySubtitle)
+		XCTAssertEqual(viewModel.secondaryTitle, AppStrings.Statistics.Card.FullyVaccinated.secondaryLabelTitle)
+		XCTAssertEqual(viewModel.tertiaryTitle, AppStrings.Statistics.Card.FullyVaccinated.tertiaryLabelTitle)
 	}
 	
 	func testFullyVaccinatedCardPrimaryTitleToday() throws {
