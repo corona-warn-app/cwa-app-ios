@@ -1115,6 +1115,8 @@
 		BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
+		BA4934262701F09C00017FD8 /* HUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4934252701F09C00017FD8 /* HUDView.swift */; };
+		BA4934282701F7FC00017FD8 /* FileScannerHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4934272701F7FC00017FD8 /* FileScannerHUD.swift */; };
 		BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4985E326385928009D395C /* Dateformatter+vCard.swift */; };
 		BA573D5E2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA573D5D2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift */; };
 		BA5B7FCE26458EF400502087 /* HealthCertificateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FB826458EF400502087 /* HealthCertificateViewModel.swift */; };
@@ -2535,6 +2537,8 @@
 		BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewModel.swift; sourceTree = "<group>"; };
 		BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewController.swift; sourceTree = "<group>"; };
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
+		BA4934252701F09C00017FD8 /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
+		BA4934272701F7FC00017FD8 /* FileScannerHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerHUD.swift; sourceTree = "<group>"; };
 		BA4985E326385928009D395C /* Dateformatter+vCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+vCard.swift"; sourceTree = "<group>"; };
 		BA52627626BACA6100C4F12F /* AppConfiguration+FeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfiguration+FeaturesTests.swift"; sourceTree = "<group>"; };
 		BA573D5D2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeSelectionViewModelTests.swift; sourceTree = "<group>"; };
@@ -7405,6 +7409,8 @@
 			children = (
 				BA9CD38326FC84C200CB1C51 /* FileScannerCoordinator.swift */,
 				BA9CD38526FCA0C700CB1C51 /* FileScannerCoordinatorViewModel.swift */,
+				BA4934252701F09C00017FD8 /* HUDView.swift */,
+				BA4934272701F7FC00017FD8 /* FileScannerHUD.swift */,
 			);
 			path = FileScanner;
 			sourceTree = "<group>";
@@ -8786,6 +8792,7 @@
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
+				BA4934282701F7FC00017FD8 /* FileScannerHUD.swift in Sources */,
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
@@ -8843,6 +8850,7 @@
 				508AFDD126F371B400A02D98 /* TraceLocationCheckinCoordinator.swift in Sources */,
 				BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */,
 				8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */,
+				BA4934262701F09C00017FD8 /* HUDView.swift in Sources */,
 				8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */,
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,

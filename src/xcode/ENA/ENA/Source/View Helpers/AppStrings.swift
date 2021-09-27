@@ -2320,6 +2320,8 @@ enum AppStrings {
 			static let cancel = NSLocalizedString("FileScanner_AccessError_cancel", comment: "")
 			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
 		}
+
+		static let hudText = NSLocalizedString("FileScanner_HUD_text", comment: "")
 	}
 
 	enum FederalStateName {

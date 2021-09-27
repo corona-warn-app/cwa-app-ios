@@ -12,13 +12,11 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Init
 
 	init(
-		showHUD: @escaping () -> Void,
-		hideHUD: @escaping () -> Void,
+		hud: @escaping (@escaping () -> Void) -> Void,
 		dismiss: @escaping () -> Void,
 		qrCodesFound: @escaping ([String]) -> Void
 	) {
-		self.showHUD = showHUD
-		self.hideHUD = hideHUD
+		self.hud = hud
 		self.dismiss = dismiss
 		self.qrCodesFound = qrCodesFound
 	}
@@ -29,26 +27,27 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-		defer {
-			self.dismiss()
-		}
-
-		// each result represents a selected image
-		results.forEach { result in
-			let itemProvider = result.itemProvider
-			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
-				return
+		hud { [weak self] in
+			var foundCodes: [String] = []
+			defer {
+				self?.qrCodesFound(foundCodes)
 			}
-			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
-				guard let self = self,
-					  let image = provider as? UIImage,
-					  let codes = self.findQRCodes(in: image),
-					  !codes.isEmpty
-				else {
-					Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
+
+			results.forEach { result in
+				let itemProvider = result.itemProvider
+				guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
 					return
 				}
-				self.qrCodesFound(codes)
+				itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
+					guard let self = self,
+						  let image = provider as? UIImage,
+						  let codes = self.findQRCodes(in: image)
+					else {
+						Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
+						return
+					}
+					foundCodes.append(contentsOf: codes)
+				}
 			}
 		}
 	}
@@ -78,29 +77,32 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: Protocol UIDocumentPickerDelegate
 
 	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-		defer {
-			self.dismiss()
-		}
-
-		// we can handle multiple documents here - nice
-		guard let url = urls.first else {
-			Log.debug("We need to select a least one file")
-			return
-		}
-		if url.pathExtension.lowercased() == "pdf",
-		   let pdfDocument = PDFDocument(url: url) {
-			Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
-			var found: [String] = []
-			imagePage(from: pdfDocument).forEach { image in
-				if let codes = findQRCodes(in: image) {
-					found.append(contentsOf: codes)
-				}
+		hud { [weak self] in
+			var foundCodes: [String] = []
+			defer {
+				self?.qrCodesFound(foundCodes)
 			}
-			qrCodesFound(found)
-		} else if let image = UIImage(contentsOfFile: url.path),
-				  let codes = findQRCodes(in: image) {
-			Log.debug("Image picked will scan for QR codes", log: .fileScanner)
-			qrCodesFound(codes)
+
+			// we can handle multiple documents here - nice
+			guard let self = self,
+				let url = urls.first else {
+				Log.debug("We need to select a least one file")
+				return
+			}
+
+			if url.pathExtension.lowercased() == "pdf",
+			   let pdfDocument = PDFDocument(url: url) {
+				Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
+				self.imagePage(from: pdfDocument).forEach { image in
+					if let codes = self.findQRCodes(in: image) {
+						foundCodes.append(contentsOf: codes)
+					}
+				}
+			} else if let image = UIImage(contentsOfFile: url.path),
+					  let codes = self.findQRCodes(in: image) {
+				Log.debug("Image picked will scan for QR codes", log: .fileScanner)
+				foundCodes = codes
+			}
 		}
 	}
 
@@ -158,8 +160,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		.compactMap { $0.messageString }
 	}
 
-	private let showHUD: () -> Void
-	private let hideHUD: () -> Void
+	private let hud: (@escaping () -> Void) -> Void
 	private let dismiss: () -> Void
 	private let qrCodesFound: ([String]) -> Void
 

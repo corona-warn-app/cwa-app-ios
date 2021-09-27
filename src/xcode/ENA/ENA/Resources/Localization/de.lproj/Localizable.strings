@@ -3158,6 +3158,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_AccessError_settings" = "Einstellungen";
 
+"FileScanner_HUD_text" = "QR-Code wird gelesen...";
+
 /* Federal State Names */
 
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";

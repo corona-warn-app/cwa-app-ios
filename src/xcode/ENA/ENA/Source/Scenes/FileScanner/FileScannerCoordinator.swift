@@ -27,16 +27,16 @@ class FileScannerCoordinator {
 
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
-			showHUD: {
-				Log.debug("show HUD", log: .fileScanner)
-			},
-			hideHUD: {
-				Log.debug("hide HUD", log: .fileScanner)
+			hud: { [weak self] execute in
+				self?.hud = FileScannerHUD(execute: execute)
+				self?.hud?.show()
 			},
 			dismiss: { [weak self] in
+				self?.hud?.hide()
 				self?.parentViewController?.dismiss(animated: true)
 			},
-			qrCodesFound: { codes in
+			qrCodesFound: { [weak self] codes in
+				self?.hud?.hide()
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			}
 		)
@@ -47,7 +47,6 @@ class FileScannerCoordinator {
 	// MARK: - Private
 
 	private var viewModel: FileScannerCoordinatorViewModel!
-
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
@@ -154,4 +153,22 @@ class FileScannerCoordinator {
 		parentViewController?.present(alert, animated: true)
 	}
 
+	var hud: FileScannerHUD?
+/*
+	private func showHUD(_ execute: @escaping () -> Void) {
+		guard hud == nil else {
+			Log.error("Only one hud at at time supported - stop")
+			return
+		}
+		hud = FileScannerHUD(execute: execute, completion: <#() -> Void#>)
+		hud?.show()
+	}
+
+	private func hideHud(_ execute: @escaping () -> Void) {
+		hud?.hide { [weak self] in
+			execute()
+			self?.hud = nil
+		}
+	}
+*/
 }
