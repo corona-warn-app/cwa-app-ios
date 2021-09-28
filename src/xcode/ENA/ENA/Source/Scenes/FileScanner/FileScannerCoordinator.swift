@@ -41,7 +41,6 @@ class FileScannerCoordinator {
 	// MARK: - Private
 
 	private var viewModel: FileScannerCoordinatorViewModel!
-
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
