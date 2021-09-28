@@ -35,5 +35,4 @@ else
       "markdown": true
   }]
   EOF
-  return 1
   fi
