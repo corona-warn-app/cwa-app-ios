@@ -13,16 +13,26 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.11"
+		self.featureVersion = "2.12"
 		
-		// Universal QR Code Scanner
+		// New Statistics tiles
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211UniversalQRCodeScannerTitle, description: AppStrings.NewVersionFeatures.feature211UniversalQRCodeScannerDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212NewStatisticsTilesTitle, description: AppStrings.NewVersionFeatures.feature212NewStatisticsTilesDescription)
 		)
 		
-		// Adjustment in contact duration
+		// Notification Management
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature211ContactDurationAdjustmentTitle, description: AppStrings.NewVersionFeatures.feature211ContactDurationAdjustmentDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212NotificationManagementTitle, description: AppStrings.NewVersionFeatures.feature212NotificationManagementDescription)
+		)
+		
+		// QR Code Scanner in tabbar
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212QRCodeScannerButtonTitle, description: AppStrings.NewVersionFeatures.feature212QRCodeScannerButtonDescription)
+		)
+		
+		// QR Code Import
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212QRCodeImportTitle, description: AppStrings.NewVersionFeatures.feature212QRCodeImportDescription)
 		)
 	}
 
