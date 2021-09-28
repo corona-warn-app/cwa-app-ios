@@ -27,8 +27,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		self.failedToUnlockPDF = failedToUnlockPDF
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol PHPickerViewControllerDelegate
 
 	@available(iOS 14, *)
@@ -123,8 +121,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			Log.debug("User picked unknown filetype for QR-Code scan.", log: .fileScanner)
 		}
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 

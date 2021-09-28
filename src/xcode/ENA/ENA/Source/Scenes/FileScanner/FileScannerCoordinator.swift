@@ -17,12 +17,6 @@ class FileScannerCoordinator {
 		self.dismiss = dismiss
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func start() {
@@ -53,7 +47,6 @@ class FileScannerCoordinator {
 	// MARK: - Private
 
 	private var viewModel: FileScannerCoordinatorViewModel!
-
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?

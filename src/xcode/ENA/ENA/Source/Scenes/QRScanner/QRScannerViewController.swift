@@ -35,12 +35,11 @@ class QRScannerViewController: UIViewController {
 					self?.viewModel?.deactivateScanning()
 					didScan(qrCodeResult)
 				case let .failure(error):
-					Log.debug("Error")
-//					if error == .scanningError(.cameraPermissionDenied) {
-//						self?.showCameraPermissionErrorAlert()
-//					} else {
-//						self?.showErrorAlert(error: error)
-//					}
+					if error == .scanningError(.cameraPermissionDenied) {
+						self?.showCameraPermissionErrorAlert()
+					} else {
+						self?.showErrorAlert(error: error)
+					}
 				}
 			}
 		)
@@ -194,8 +193,6 @@ class QRScannerViewController: UIViewController {
 	@objc
 	private func didTapFileButton() {
 		presentFileScanner()
-//		let coordinator = FileScannerCoordinator(parentViewController: self, dismiss: {})
-//		coordinator.start()
 	}
 
 	@objc
