@@ -37,8 +37,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 		footerView?.setBackgroundColor(.enaColor(for: .darkBackground))
 
 		setupTableView()
-		parent?.navigationItem.largeTitleDisplayMode = .always
-		parent?.navigationItem.title = AppStrings.TraceLocations.Overview.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = AppStrings.TraceLocations.Overview.title
 		updateRightBarButtonItem(isEditing: false)
 
 		viewModel.$traceLocations
@@ -190,9 +190,9 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 	private func updateRightBarButtonItem(isEditing: Bool) {
 		// Only update if necessary to prevent unnecessary animations
-		if isEditing && parent?.navigationItem.rightBarButtonItem != editButtonItem {
-			parent?.navigationItem.setRightBarButton(editButtonItem, animated: true)
-		} else if parent?.navigationItem.rightBarButtonItem == nil || parent?.navigationItem.rightBarButtonItem == editButtonItem {
+		if isEditing && navigationItem.rightBarButtonItem != editButtonItem {
+			navigationItem.setRightBarButton(editButtonItem, animated: true)
+		} else if navigationItem.rightBarButtonItem == nil || navigationItem.rightBarButtonItem == editButtonItem {
 			let barButtonItem = UIBarButtonItem(
 				image: UIImage(named: "Icons_More_Circle"),
 				style: .plain,
@@ -203,7 +203,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 			barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.menueButton
 			barButtonItem.tintColor = .enaColor(for: .tint)
 
-			parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
+			navigationItem.setRightBarButton(barButtonItem, animated: true)
 		}
 	}
 
