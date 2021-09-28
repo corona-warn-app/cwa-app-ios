@@ -1583,7 +1583,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_212_newStatisticsTiles_title" = "Erweiterung Statistiken";
 
-"NewVersionFeature_212_newStatisticsTiles_description" = "Es sind nun folgende Statistiken in der App verfügbar:\n\t\U2022 7-Tage-Inzidenz Hospitalisierung\n\t\U2022 COVID-19-Erkrankte auf Intensivstationen";
+"NewVersionFeature_212_newStatisticsTiles_description" = "Es sind nun folgende Statistiken in der App verfügbar:\n\t\U2022 7-Tage-Inzidenz Hospitalisierung\n\t\U2022 COVID-19-Erkrankte auf \n\t   Intensivstationen";
 
 "NewVersionFeature_212_notificationManagement_title" = "Mitteilungen verwalten";
 
