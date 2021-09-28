@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCREENSHOT_URL=$1
 
-if ! [[curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"]]; then
+if  [[ ! curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"]]; then
   curl --output /dev/null --silent $Failed_SCREENSHOTS_TEAMS \
   -H 'Content-Type: application/json' \
   --data-binary @- << EOF
