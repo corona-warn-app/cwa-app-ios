@@ -44,6 +44,10 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 		finished?()
 	}
 	
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+	}
+	
 	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
 	
 	var finished: (() -> Void)?
