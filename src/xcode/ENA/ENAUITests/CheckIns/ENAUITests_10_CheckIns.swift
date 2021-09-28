@@ -96,7 +96,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
 		
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the Event here.
-		let eventButton =  try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
 		eventButton.waitAndTap()
 		
 		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
