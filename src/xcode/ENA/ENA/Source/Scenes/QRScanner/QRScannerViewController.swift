@@ -175,7 +175,6 @@ class QRScannerViewController: UIViewController {
 				fileButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
 				fileButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
 				fileButton.heightAnchor.constraint(equalToConstant: 25),
-//				fileButton.widthAnchor.constraint(equalToConstant: 20)
 
 				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
 				flashButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
@@ -198,12 +197,6 @@ class QRScannerViewController: UIViewController {
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
-
-//		navigationItem.rightBarButtonItem = UIBarButtonItem(
-//			barButtonSystemItem: .action,
-//			target: self,
-//			action: #selector(didTapFileButton)
-//		)
 	}
 
 	@objc
