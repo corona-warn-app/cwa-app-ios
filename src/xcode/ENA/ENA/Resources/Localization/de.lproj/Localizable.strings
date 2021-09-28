@@ -1681,7 +1681,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr warscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
+"TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Weitere Infos:";
 
@@ -2799,6 +2799,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "CovPass_Check_Info_Title" = "Zertifikatsprüfung durch Dritte";
 
+"CovPass_Check_Info_body" = "Dritte können mit der CovPassCheck-App verlässlich überprüfen, ob es sich um ein valides Impf-, Genesenen- oder Testzertifikat handelt.";
+
+"CovPass_Check_Info_faq" = "FAQ zur Zertifikatsprüfung durch Dritte";
+
+"CovPass_Check_Info_text01" = "Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
+
+"CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
+
+"CovPass_Check_Info_text03" = "Bitte beachten Sie, dass in anderen Ländern andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden.";
 
 /* Health Certified Person Screen */
 
