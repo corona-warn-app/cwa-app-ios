@@ -30,14 +30,14 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 		setupView()
 
 		if !viewModel.hidesCloseButton {
-			parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: { [weak self] in
+			navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: { [weak self] in
 				self?.onDismiss(false)
 			})
 		}
 		if #available(iOS 13.0, *) {
 			parent?.isModalInPresentation = true
 		}
-		parent?.navigationItem.title = AppStrings.TraceLocations.Information.title
+		navigationItem.title = AppStrings.TraceLocations.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 	
