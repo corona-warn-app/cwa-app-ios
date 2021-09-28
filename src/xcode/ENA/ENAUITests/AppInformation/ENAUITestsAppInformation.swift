@@ -209,7 +209,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.historyTitle].exists)
 	}
 	
-	private func navigateToErrorReporting() {	
+	private func navigateToErrorReporting() {
 		// navigate to App Information
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
