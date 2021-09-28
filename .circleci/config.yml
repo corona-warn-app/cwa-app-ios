@@ -207,8 +207,10 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Snapshot || true
-          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          name: Snapshot 
+          command: |
+            set +e
+            cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
           no_output_timeout: 10m
       - run:
           name: Publish notification if screenshots failed
