@@ -25,7 +25,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212NotificationManagementTitle, description: AppStrings.NewVersionFeatures.feature212NotificationManagementDescription)
 		)
 		
-		// QR Code Scanner Button
+		// QR Code Scanner in tabbar
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212QRCodeScannerButtonTitle, description: AppStrings.NewVersionFeatures.feature212QRCodeScannerButtonDescription)
 		)
