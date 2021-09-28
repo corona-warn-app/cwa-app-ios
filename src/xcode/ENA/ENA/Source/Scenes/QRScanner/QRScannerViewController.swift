@@ -90,7 +90,7 @@ class QRScannerViewController: UIViewController {
 	private let presentFileScanner: () -> Void
 	private let contentView = UIView()
 	private let flashButton = UIButton(type: .custom)
-
+	private let fileButton = UIButton(type: .custom)
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	private var viewModel: QRScannerViewModel?
 
@@ -120,6 +120,16 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.text = AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
 
+		fileButton.contentMode = .left
+		fileButton.setImage(UIImage(imageLiteralResourceName: "file_button"), for: .normal)
+		fileButton.setTitle(AppStrings.UniversalQRScanner.fileButtonTitle, for: .normal)
+		fileButton.addTarget(self, action: #selector(didTapFileButton), for: .touchUpInside)
+		fileButton.translatesAutoresizingMaskIntoConstraints = false
+		fileButton.accessibilityTraits = .button
+		fileButton.titleLabel?.font = .enaFont(for: .subheadline)
+		fileButton.setTitleColor(.enaColor(for: .iconWithText), for: .normal)
+		fileButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8)
+
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
@@ -141,6 +151,7 @@ class QRScannerViewController: UIViewController {
 		view.addSubview(focusView)
 		view.addSubview(scrollView)
 		view.addSubview(flashButton)
+		view.addSubview(fileButton)
 
 		NSLayoutConstraint.activate(
 			[
@@ -169,7 +180,11 @@ class QRScannerViewController: UIViewController {
 				scrollView.topAnchor.constraint(equalTo: focusView.bottomAnchor, constant: 25),
 				scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: flashButton.topAnchor, constant: -10),
 				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
-				
+
+				fileButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
+				fileButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+				fileButton.heightAnchor.constraint(equalToConstant: 25),
+
 				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
 				flashButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 				flashButton.heightAnchor.constraint(equalToConstant: 25),
@@ -191,12 +206,6 @@ class QRScannerViewController: UIViewController {
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
-
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			barButtonSystemItem: .action,
-			target: self,
-			action: #selector(didTapFileButton)
-		)
 	}
 
 	@objc

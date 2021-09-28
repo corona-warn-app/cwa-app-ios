@@ -1532,6 +1532,7 @@ enum AppStrings {
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
 		static let certificatesTitle = NSLocalizedString("Tabbar_Certificates_Title", comment: "")
+		static let scannerTitle = NSLocalizedString("Tabbar_Scanner_Title", comment: "")
 		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
 		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
@@ -2319,6 +2320,7 @@ enum AppStrings {
 		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
 		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
 
+		static let fileButtonTitle = NSLocalizedString("UniversalQRScanner_FileButtonTitle", comment: "")
 		static let flashButtonAccessibilityLabel = NSLocalizedString("UniversalQRScanner_CameraFlash", comment: "")
 		static let flashButtonAccessibilityOnValue = NSLocalizedString("UniversalQRScanner_CameraFlash_On", comment: "")
 		static let flashButtonAccessibilityOffValue = NSLocalizedString("UniversalQRScanner_CameraFlash_Off", comment: "")

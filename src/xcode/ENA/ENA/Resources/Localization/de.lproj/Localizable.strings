@@ -2151,9 +2151,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Tabbar */
 
-"Tabbar_Home_Title" = "Startseite";
+"Tabbar_Home_Title" = "Status";
 
 "Tabbar_Certificates_Title" = "Zertifikate";
+
+"Tabbar_Scanner_Title" = "QR-Code-Scanner";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
@@ -3171,6 +3173,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
 "UniversalQRScanner_InstructionDescription" = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins.";
+
+"UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
 "UniversalQRScanner_CameraFlash" = "Kamerablitz";
 
