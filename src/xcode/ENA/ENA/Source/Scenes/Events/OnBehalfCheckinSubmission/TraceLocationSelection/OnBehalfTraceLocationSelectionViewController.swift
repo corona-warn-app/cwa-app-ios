@@ -104,7 +104,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 			viewModel.toggleSelection(at: indexPath.row)
 			return
 		default:
-			Log.error("ExposureSubmissionCheckinsViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
+			Log.error("OnBehalfTraceLocationSelectionViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
 		}
 	}
 
