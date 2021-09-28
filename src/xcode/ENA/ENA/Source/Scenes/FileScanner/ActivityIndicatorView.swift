@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HUDView: UIView {
+class ActivityIndicatorView: UIView {
 
 	// MARK: - Init
 

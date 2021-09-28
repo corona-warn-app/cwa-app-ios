@@ -22,17 +22,13 @@ class FileScannerCoordinator {
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
 			showHUD: { [weak self] execute in
-				self?.hud = FileScannerHUD(execute: execute)
-				self?.hud?.show()
+				self?.showIndicator(execute: execute)
 			},
 			dismiss: { [weak self] in
-				self?.hud?.hide()
 				self?.parentViewController?.dismiss(animated: true)
 			},
 			qrCodesFound: { [weak self] codes in
-				DispatchQueue.main.async {
-					self?.hud?.hide()
-				}
+				self?.hideIndicator()
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			},
 			missingPasswordForPDF: { callback in
@@ -47,7 +43,9 @@ class FileScannerCoordinator {
 	}
 	
 	// MARK: - Private
-	
+	private let activityIndicatorView: ActivityIndicatorView = ActivityIndicatorView()
+	private let duration = 0.45
+
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
@@ -155,8 +153,6 @@ class FileScannerCoordinator {
 		parentViewController?.present(alert, animated: true)
 	}
 	
-	var hud: FileScannerHUD?
-
 	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
 		let alert = UIAlertController(
 			title: AppStrings.FileScanner.PasswordEntry.title,
@@ -206,6 +202,43 @@ class FileScannerCoordinator {
 		)
 
 		parentViewController?.present(alert, animated: true)
+	}
+
+	private func showIndicator(execute: @escaping () -> Void) {
+		guard let parentView = parentViewController?.view else {
+			Log.error("Failed to get parentViewController - stop", log: .fileScanner)
+			return
+		}
+		activityIndicatorView.alpha = 0.0
+		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+		parentView.addSubview(activityIndicatorView)
+		NSLayoutConstraint.activate(
+			[
+				activityIndicatorView.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor),
+				activityIndicatorView.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor),
+				activityIndicatorView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+				activityIndicatorView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
+			]
+		)
+
+		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 1.0
+		}
+		animator.addCompletion {  _ in
+			execute()
+		}
+		animator.startAnimation()
+	}
+
+	private func hideIndicator() {
+		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 0.0
+		}
+		animator.addCompletion { [weak self] _ in
+			self?.parentViewController?.view.isUserInteractionEnabled = true
+			self?.activityIndicatorView.removeFromSuperview()
+		}
+		animator.startAnimation()
 	}
 
 }
