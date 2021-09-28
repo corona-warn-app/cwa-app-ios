@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Icons_Tabbar_Certificates.pdf",
+      "filename" : "Icons_Tabbar_UniversalScanner.pdf",
       "idiom" : "universal"
     }
   ],
@@ -10,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "template"
+    "preserves-vector-representation" : true
   }
 }

@@ -173,19 +173,6 @@ extension NavigationBarOpacityDelegate {
 	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }
 
-// MARK: - Protocol UITabBarControllerDelegate
-
-class TabBarScrolling: NSObject, UITabBarControllerDelegate {
-	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-		if viewController == tabBarController.selectedViewController {
-			if let naviVC = viewController as? UINavigationController {
-				naviVC.scrollEmbeddedViewToTop()
-			}
-		}
-		return true
-	}
-}
-
 extension UINavigationController {
 	// only if on top level of the navigation hierarchy: scroll the embedded view up
 	func scrollEmbeddedViewToTop() {
