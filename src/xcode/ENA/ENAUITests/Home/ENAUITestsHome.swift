@@ -80,7 +80,7 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		// get safari and wait for safari to be in foreground
 		let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		_ = safari.wait(for: .runningForeground, timeout: .long)
+		_ = safari.wait(for: .runningForeground, timeout: .extraLong)
 		
 		XCTAssertTrue(safari.state == .runningForeground)
 	}
