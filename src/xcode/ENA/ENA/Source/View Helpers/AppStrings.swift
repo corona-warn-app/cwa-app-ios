@@ -1972,7 +1972,7 @@ enum AppStrings {
 	enum CovPass {
 		enum Information {
 			static let title = NSLocalizedString("CovPass_Check_Info_Title", comment: "")
-			static let body = NSLocalizedString("CovPass_Check_Info_body""Dritte können nur mit der CovPassCheck-App verlässlich überprüfen, ob es sich um ein valides Impf-, Genesenen-, oder Testzertifikat handelt.", comment: "")
+			static let body = NSLocalizedString("CovPass_Check_Info_body", comment: "")
 			static let faq = NSLocalizedString("CovPass_Check_Info_faq", comment: "")
 			static let faqLink = NSLocalizedString("CovPass_Check_FAQLink", tableName: "Localizable.links", comment: "")
 			static let section01 = NSLocalizedString("CovPass_Check_Info_text01", comment: "")
