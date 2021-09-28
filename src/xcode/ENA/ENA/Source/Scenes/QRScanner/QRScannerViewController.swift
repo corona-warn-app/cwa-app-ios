@@ -36,7 +36,12 @@ class QRScannerViewController: UIViewController {
 					didScan(qrCodeResult)
 				case let .failure(error):
 					if error == .scanningError(.cameraPermissionDenied) {
+						#if targetEnvironment(simulator)
+						// Don't show an error in simulator to enable debugging/UI-Tests
+						return
+						#else
 						self?.showCameraPermissionErrorAlert()
+						#endif
 					} else {
 						self?.showErrorAlert(error: error)
 					}
@@ -57,6 +62,10 @@ class QRScannerViewController: UIViewController {
 		setupView()
 		setupViewModel()
 		setupNavigationBar()
+		#if targetEnvironment(simulator)
+		// Show Debug to select QRCode that got scanned
+		showCodeSelection()
+		#endif
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -362,4 +371,36 @@ class QRScannerViewController: UIViewController {
 		previewLayer.mask?.addSublayer(throughHoleLayer)
 		previewLayer.mask?.addSublayer(backdropLayer)
 	}
+	
+	#if targetEnvironment(simulator)
+	private func showCodeSelection() {
+		let alertVC = UIAlertController(title: "Select a QRCode you want to fake", message: nil, preferredStyle: .alert)
+		let hc1 = UIAlertAction(title: "HC1", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeHealthCert1Scan()
+		})
+		hc1.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeHC1
+		alertVC.addAction(hc1)
+		
+		let hc2 = UIAlertAction(title: "HC2", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeHealthCert2Scan()
+		})
+		hc2.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeHC2
+		alertVC.addAction(hc2)
+		
+		let pcr = UIAlertAction(title: "PCR", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakePCRTestScan()
+		})
+		pcr.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakePCR
+		alertVC.addAction(pcr)
+		
+		let event = UIAlertAction(title: "Event", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeEventScan()
+		})
+		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
+		alertVC.addAction(event)
+		
+		present(alertVC, animated: false, completion: nil)
+		
+	}
+	#endif
 }
