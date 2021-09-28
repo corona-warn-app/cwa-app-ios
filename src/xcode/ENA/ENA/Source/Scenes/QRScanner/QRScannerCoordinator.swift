@@ -57,7 +57,6 @@ class QRScannerCoordinator {
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
 				markCertificateAsNew: presenter != .certificateTab,
-				markCoronaTestAsNew: presenter != .submissionFlow,
 				didDismiss: didDismiss
 			)
 		)
@@ -88,7 +87,6 @@ class QRScannerCoordinator {
 
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool,
 		didDismiss: @escaping () -> Void
 	) -> UIViewController {
 		var qrScannerViewController: QRScannerViewController!
@@ -96,7 +94,6 @@ class QRScannerCoordinator {
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
 			markCertificateAsNew: markCertificateAsNew,
-			markCoronaTestAsNew: markCoronaTestAsNew,
 			didScan: { [weak self] qrCodeResult in
 				self?.parentViewController.dismiss(animated: true, completion: {
 					switch qrCodeResult {

@@ -4,17 +4,6 @@
 
 import AVFoundation
 
-protocol QRCodeParsable {
-	/// Function to be called to parse a qrCode.
-	/// - Parameters:
-	///   - qrCode: The scanned qrCode as String
-	///   - completion: If parsing was successful, we receive a QRCodeResult. If there encountered an error, we receive a QRCodeParserError
-	func parse(
-		qrCode: String,
-		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
-	)
-}
-
 class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
@@ -22,16 +11,14 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	init(
 		healthCertificateService: HealthCertificateService,
 		appConfiguration: AppConfigurationProviding,
-		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool,
+		qrCodeParser: QRCodeParsable,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
 	) {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		
 		self.healthCertificateService = healthCertificateService
 		self.appConfiguration = appConfiguration
-		self.markCertificateAsNew = markCertificateAsNew
-		self.markCoronaTestAsNew = markCoronaTestAsNew
+		self.parser = qrCodeParser
 		self.completion = completion
 		
 		super.init()
@@ -163,49 +150,12 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	// MARK: - Private
 
 	private func parseTheExtractedQRCode(url: String) {
-		// Check the prefix to know which type
-		// if we go directly and try to parse we might get an incorrect error
-		// e.g: scanning a PCR QRCode and trying to parse it at a health-certificate, we will get a healthCertificate related error
-		// which is incorrect and it should be a Corona test error, so we need to have an idea about the type of qrcode before paring it
-		
-		let traceLocationsPrefix = "https://e.coronawarn.app"
-		let antigenTestPrefix = "https://s.coronawarn.app"
-		let pcrTestPrefix = "https://localhost"
-		let healthCertificatePrefix = "HC1:"
-
-		if url.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
-			// it is trace Locations QRCode
-			parser = CheckinQRCodeParser(
-				appConfigurationProvider: appConfiguration
-			)
-		} else if url.prefix(antigenTestPrefix.count) == antigenTestPrefix || url.prefix(pcrTestPrefix.count) == pcrTestPrefix {
-			// it is a test
-			parser = CoronaTestsQRCodeParser()
-		} else if url.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
-			// it is a digital certificate
-			parser = HealthCertificateQRCodeParser(
-				healthCertificateService: healthCertificateService,
-				markAsNew: markCertificateAsNew
-			)
-		}
-		
-		guard let parser = parser else {
-			Log.error("QRCode parser not initialized, Scanned code prefix doesn't match any of the scannable structs", log: .qrCode, error: nil)
-			completion(.failure(.scanningError(.codeNotFound)))
-			return
-		}
-
-		parser.parse(qrCode: url) { result in
-			self.completion(result)
-			self.parser = nil
-		}
+		parser?.parse(qrCode: url, completion: completion)
 	}
 	
 	private let captureDevice: AVCaptureDevice?
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
-	private let markCertificateAsNew: Bool
-	private let markCoronaTestAsNew: Bool
 
 	private var parser: QRCodeParsable?
 
