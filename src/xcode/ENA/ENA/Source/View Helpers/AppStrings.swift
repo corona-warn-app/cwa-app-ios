@@ -1992,12 +1992,12 @@ enum AppStrings {
 	enum CovPass {
 		enum Information {
 			static let title = NSLocalizedString("CovPass_Check_Info_Title", comment: "")
-			static let body = NSLocalizedString("Dritte können nur mit der CovPassCheck-App verlässlich überprüfen, ob es sich um ein valides Impf-, Genesenen-, oder Testzertifikat handelt.", comment: "")
-			static let faq = NSLocalizedString("FAQ zur Zertifikatsprüfung durch Dritte", comment: "")
-			static let faqLink = NSLocalizedString("https://www.coronawarn.app/de/faq/#eu_dcc_check", tableName: "Localizable.links", comment: "")
-			static let section01 = NSLocalizedString("Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.", comment: "")
-			static let section02 = NSLocalizedString("Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.", comment: "")
-			static let section03 = NSLocalizedString("Bitte beachten Sie, dass in anderen Ländern andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden.", comment: "")
+			static let body = NSLocalizedString("CovPass_Check_Info_body", comment: "")
+			static let faq = NSLocalizedString("CovPass_Check_Info_faq", comment: "")
+			static let faqLink = NSLocalizedString("CovPass_Check_FAQLink", tableName: "Localizable.links", comment: "")
+			static let section01 = NSLocalizedString("CovPass_Check_Info_text01", comment: "")
+			static let section02 = NSLocalizedString("CovPass_Check_Info_text02", comment: "")
+			static let section03 = NSLocalizedString("CovPass_Check_Info_text03", comment: "")
 		}
 	}
 
