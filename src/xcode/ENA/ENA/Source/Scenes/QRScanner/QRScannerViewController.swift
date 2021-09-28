@@ -113,7 +113,7 @@ class QRScannerViewController: UIViewController {
 
 		fileButton.contentMode = .left
 		fileButton.setImage(UIImage(imageLiteralResourceName: "file_button"), for: .normal)
-		fileButton.setTitle("Datei öffnen", for: .normal)
+		fileButton.setTitle(AppStrings.UniversalQRScanner.fileButtonTitle, for: .normal)
 		fileButton.addTarget(self, action: #selector(didTapFileButton), for: .touchUpInside)
 		fileButton.translatesAutoresizingMaskIntoConstraints = false
 		fileButton.accessibilityTraits = .button
