@@ -1,20 +1,20 @@
-#! /usr/bin/env zsh
+#!/usr/bin/env zsh
 
-set  -euo pipefail
+set -euo pipefail
 
-SCREENSHOT_URL= $1
+SCREENSHOT_URL=$1
 
-if  curl --output /dev/null --silent --head --fail  " $SCREENSHOT_URL " ;  then
-  curl --output /dev/null --silent  $SAP_TEAMS_WEBHOOK  \
-  -H  ' Content-Type: application/json '  \
-  --data-binary @-  <<  EOF
+if ! [[curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"]]; then
+  curl --output /dev/null --silent $Failed_SCREENSHOTS_TEAMS \
+  -H 'Content-Type: application/json' \
+  --data-binary @- << EOF
 {
   "@type": "MessageCard",
   "@context": "http://schema.org/extensions",
   "themeColor": "0076D7",
-  "summary": "Fresh screenshots have arrived!",
+  "summary": "screenshots have failed!",
   "sections": [{
-      "activityTitle": "Fresh screenshots have arrived!",
+      "activityTitle": "screenshots have failed!",
       "activitySubtitle": "On Project ${CIRCLE_PROJECT_REPONAME}",
       "activityImage": "https://media.staticline.de/pictures/530f4962378e781ea8c5f70aa9fbacca535968f2.png",
       "facts": [{
@@ -31,18 +31,6 @@ if  curl --output /dev/null --silent --head --fail  " $SCREENSHOT_URL " ;  then
           "value": "${CIRCLE_BUILD_NUM}"
       }],
       "markdown": true
-  }],
-  "potentialAction": [{
-      "@type": "OpenUri",
-      "name": "Download now!",
-      "targets": [{
-          "os": "default",
-          "uri": "${SCREENSHOT_URL}"
-      }]
   }]
-}
-EOF
-else
-  echo  " Could not locate screenshots at  $SCREENSHOT_URL "
-  return  1
-fi
+  EOF
+  fi
