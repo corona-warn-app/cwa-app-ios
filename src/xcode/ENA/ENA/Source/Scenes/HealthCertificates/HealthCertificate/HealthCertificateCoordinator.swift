@@ -153,7 +153,8 @@ final class HealthCertificateCoordinator {
 					case .failure(let error):
 						self.showErrorAlert(
 							title: AppStrings.HealthCertificate.Validation.Error.title,
-							error: error
+							error: error,
+							from: self.navigationController
 						)
 					}
 				}
@@ -343,7 +344,8 @@ final class HealthCertificateCoordinator {
 	
 	private func showErrorAlert(
 		title: String,
-		error: Error
+		error: Error,
+		from presentingViewController: UIViewController
 	) {
 		let alert = UIAlertController(
 			title: title,
@@ -359,16 +361,8 @@ final class HealthCertificateCoordinator {
 			}
 		)
 		alert.addAction(okayAction)
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else {
-				fatalError("Could not create strong self")
-			}
-			
-			if self.navigationController.isBeingPresented {
-				self.navigationController.present(alert, animated: true, completion: nil)
-			} else {
-				self.printNavigationController.present(alert, animated: true, completion: nil)
-			}
+		DispatchQueue.main.async {
+			presentingViewController.present(alert, animated: true)
 		}
 	}
 	
@@ -388,9 +382,12 @@ final class HealthCertificateCoordinator {
 				self?.navigationController.dismiss(animated: true)
 			},
 			showErrorAlert: { [weak self] error in
-				self?.showErrorAlert(
+				guard let self = self else { return }
+				
+				self.showErrorAlert(
 					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
-					error: error
+					error: error,
+					from: self.printNavigationController
 				)
 			}
 		)
