@@ -17,12 +17,6 @@ class FileScannerCoordinator {
 		self.dismiss = dismiss
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func start() {

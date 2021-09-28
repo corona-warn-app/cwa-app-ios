@@ -8459,7 +8459,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run swiftlint in local development.\n# Ignore CI builds, swiftlint is handled separately there.\nif [ -z \"${CI}\" ] && [ -z \"${JENKINS_HOME}\" ]; then\n  \"${PROJECT_DIR}/../../../vendor/swiftlint\" lint --quiet\nfi\n";
+			shellScript = "# Run swiftlint in local development.\n# Ignore CI builds, swiftlint is handled separately there.\nif [ -z \"${CI}\" ] && [ -z \"${JENKINS_HOME}\" ]; then\n    # Adds support for Apple Silicon brew directory\n    export PATH=\"$PATH:/opt/homebrew/bin\"\n    if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -9947,7 +9947,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10097,7 +10097,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10276,7 +10276,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10521,7 +10521,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -10556,7 +10556,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.11.0;
+				MARKETING_VERSION = 2.12.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",

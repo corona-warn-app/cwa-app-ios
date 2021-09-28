@@ -194,8 +194,6 @@ class QRScannerViewController: UIViewController {
 	@objc
 	private func didTapFileButton() {
 		presentFileScanner()
-//		let coordinator = FileScannerCoordinator(parentViewController: self, dismiss: {})
-//		coordinator.start()
 	}
 
 	@objc

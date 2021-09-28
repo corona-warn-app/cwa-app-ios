@@ -21,8 +21,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		self.qrCodesFound = qrCodesFound
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol PHPickerViewControllerDelegate
 
 	@available(iOS 14, *)
@@ -99,8 +97,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			}
 		}
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
