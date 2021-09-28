@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.11"
+		self.featureVersion = "2.12"
 		
 		// Universal QR Code Scanner
 		self.newVersionFeatures.append(
