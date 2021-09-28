@@ -39,7 +39,7 @@ class FileScannerCoordinator {
 			qrCodesFound: { codes in
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			},
-			providePasswordForPDF: { callback in
+			missingPasswordForPDF: { callback in
 				self.presentPasswordAlert(callback)
 			},
 			failedToUnlockPDF: {

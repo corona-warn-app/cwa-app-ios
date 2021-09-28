@@ -16,14 +16,14 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		hideHUD: @escaping () -> Void,
 		dismiss: @escaping () -> Void,
 		qrCodesFound: @escaping ([String]) -> Void,
-		providePasswordForPDF: @escaping (@escaping (String) -> Void) -> Void,
+		missingPasswordForPDF: @escaping (@escaping (String) -> Void) -> Void,
 		failedToUnlockPDF: @escaping () -> Void
 	) {
 		self.showHUD = showHUD
 		self.hideHUD = hideHUD
 		self.dismiss = dismiss
 		self.qrCodesFound = qrCodesFound
-		self.providePasswordForPDF = providePasswordForPDF
+		self.missingPasswordForPDF = missingPasswordForPDF
 		self.failedToUnlockPDF = failedToUnlockPDF
 	}
 
@@ -96,7 +96,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			if pdfDocument.isEncrypted && pdfDocument.isLocked {
 				Log.debug("PDF is encrypted and locked. Try to unlock, show password input screen to the user ...", log: .fileScanner)
 
-				providePasswordForPDF { [weak self] password in
+				missingPasswordForPDF { [weak self] password in
 					guard let self = self else { return }
 
 					if pdfDocument.unlock(withPassword: password) {
@@ -105,7 +105,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 						self.qrCodesFound(self.qrCodes(from: pdfDocument))
 						self.dismiss()
 					} else {
-						Log.debug("PDF unlock failed.", log: .fileScanner)
+						Log.debug("PDF unlocking failed.", log: .fileScanner)
 
 						self.failedToUnlockPDF()
 					}
@@ -153,7 +153,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Private
 
 	private func qrCodes(from pdfDocument: PDFDocument) -> [String] {
-		Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
+		Log.debug("PDF picked, will scan for QR codes on all pages", log: .fileScanner)
 		var found: [String] = []
 		imagePage(from: pdfDocument).forEach { image in
 			if let codes = findQRCodes(in: image) {
@@ -193,7 +193,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	private let hideHUD: () -> Void
 	private let dismiss: () -> Void
 	private let qrCodesFound: ([String]) -> Void
-	private let providePasswordForPDF: (@escaping (String) -> Void) -> Void
+	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
 	private let failedToUnlockPDF: () -> Void
 
 	private func detectQRCode(_ image: UIImage) -> [CIFeature]? {
