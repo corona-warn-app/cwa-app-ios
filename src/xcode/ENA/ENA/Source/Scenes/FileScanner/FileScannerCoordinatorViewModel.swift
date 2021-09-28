@@ -15,12 +15,16 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		showHUD: @escaping () -> Void,
 		hideHUD: @escaping () -> Void,
 		dismiss: @escaping () -> Void,
-		qrCodesFound: @escaping ([String]) -> Void
+		qrCodesFound: @escaping ([String]) -> Void,
+		providePasswordForPDF: @escaping (@escaping (String) -> Void) -> Void,
+		failedToUnlockPDF: @escaping () -> Void
 	) {
 		self.showHUD = showHUD
 		self.hideHUD = hideHUD
 		self.dismiss = dismiss
 		self.qrCodesFound = qrCodesFound
+		self.providePasswordForPDF = providePasswordForPDF
+		self.failedToUnlockPDF = failedToUnlockPDF
 	}
 
 	// MARK: - Overrides
@@ -78,9 +82,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: Protocol UIDocumentPickerDelegate
 
 	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-		defer {
-			self.dismiss()
-		}
+		Log.debug("User picked files for QR-Code scan.", log: .fileScanner)
 
 		// we can handle multiple documents here - nice
 		guard let url = urls.first else {
@@ -89,18 +91,36 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 		if url.pathExtension.lowercased() == "pdf",
 		   let pdfDocument = PDFDocument(url: url) {
-			Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
-			var found: [String] = []
-			imagePage(from: pdfDocument).forEach { image in
-				if let codes = findQRCodes(in: image) {
-					found.append(contentsOf: codes)
+			Log.debug("PDF picked, will scan for QR codes", log: .fileScanner)
+
+			if pdfDocument.isEncrypted && pdfDocument.isLocked {
+				Log.debug("PDF is encrypted and locked. Try to unlock, show password input screen to the user ...", log: .fileScanner)
+
+				providePasswordForPDF { [weak self] password in
+					guard let self = self else { return }
+
+					if pdfDocument.unlock(withPassword: password) {
+						Log.debug("PDF successfully unlocked.", log: .fileScanner)
+
+						self.qrCodesFound(self.qrCodes(from: pdfDocument))
+						self.dismiss()
+					} else {
+						Log.debug("PDF unlock failed.", log: .fileScanner)
+
+						self.failedToUnlockPDF()
+					}
 				}
+			} else {
+				qrCodesFound(self.qrCodes(from: pdfDocument))
+				self.dismiss()
 			}
-			qrCodesFound(found)
 		} else if let image = UIImage(contentsOfFile: url.path),
 				  let codes = findQRCodes(in: image) {
 			Log.debug("Image picked will scan for QR codes", log: .fileScanner)
 			qrCodesFound(codes)
+			self.dismiss()
+		} else {
+			Log.debug("User picked unknown filetype for QR-Code scan.", log: .fileScanner)
 		}
 	}
 
@@ -132,6 +152,17 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - Private
 
+	private func qrCodes(from pdfDocument: PDFDocument) -> [String] {
+		Log.debug("PDF picked will scan for QR codes on all pages", log: .fileScanner)
+		var found: [String] = []
+		imagePage(from: pdfDocument).forEach { image in
+			if let codes = findQRCodes(in: image) {
+				found.append(contentsOf: codes)
+			}
+		}
+		return found
+	}
+
 	private func imagePage(from document: PDFDocument) -> [UIImage] {
 		var images = [UIImage]()
 		for pageIndex in 0..<document.pageCount {
@@ -162,6 +193,8 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	private let hideHUD: () -> Void
 	private let dismiss: () -> Void
 	private let qrCodesFound: ([String]) -> Void
+	private let providePasswordForPDF: (@escaping (String) -> Void) -> Void
+	private let failedToUnlockPDF: () -> Void
 
 	private func detectQRCode(_ image: UIImage) -> [CIFeature]? {
 		guard let ciImage = CIImage(image: image) else {

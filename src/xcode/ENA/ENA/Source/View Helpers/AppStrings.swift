@@ -2320,6 +2320,17 @@ enum AppStrings {
 			static let cancel = NSLocalizedString("FileScanner_AccessError_cancel", comment: "")
 			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
 		}
+
+		enum PasswordEntry {
+			static let title = NSLocalizedString("FileScanner_PasswordEntry_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_PasswordEntry_message", comment: "")
+			static let placeholder = NSLocalizedString("FileScanner_PasswordEntry_placeholder", comment: "")
+		}
+
+		enum PasswordError {
+			static let title = NSLocalizedString("FileScanner_PasswordError_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_PasswordError_message", comment: "")
+		}
 	}
 
 	enum FederalStateName {
