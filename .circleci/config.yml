@@ -209,8 +209,7 @@ jobs:
       - run:
           name: Snapshot
           shell: /bin/zsh
-          command: |
-            cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> || true
           no_output_timeout: 10m
       - run:
           name: Publish notification if screenshots failed
