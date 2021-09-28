@@ -12,11 +12,11 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Init
 
 	init(
-		hud: @escaping (@escaping () -> Void) -> Void,
+		showHUD: @escaping (@escaping () -> Void) -> Void,
 		dismiss: @escaping () -> Void,
 		qrCodesFound: @escaping ([String]) -> Void
 	) {
-		self.hud = hud
+		self.showHUD = showHUD
 		self.dismiss = dismiss
 		self.qrCodesFound = qrCodesFound
 	}
@@ -26,7 +26,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		dismiss()
-		hud { [weak self] in
+		showHUD { [weak self] in
 			results.forEach { result in
 				let itemProvider = result.itemProvider
 				guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
@@ -52,7 +52,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 		dismiss()
-		hud { [weak self] in
+		showHUD { [weak self] in
 			guard let self = self,
 				  let image = info[.originalImage] as? UIImage,
 				  let codes = self.findQRCodes(in: image)
@@ -73,7 +73,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: Protocol UIDocumentPickerDelegate
 
 	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-		hud { [weak self] in
+		showHUD { [weak self] in
 			// we can handle multiple documents here - nice
 			guard let self = self,
 				  let url = urls.first else {
@@ -150,7 +150,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		.compactMap { $0.messageString }
 	}
 
-	private let hud: (@escaping () -> Void) -> Void
+	private let showHUD: (@escaping () -> Void) -> Void
 	private let dismiss: () -> Void
 	private let qrCodesFound: ([String]) -> Void
 

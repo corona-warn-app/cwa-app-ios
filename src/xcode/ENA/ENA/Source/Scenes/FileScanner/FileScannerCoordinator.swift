@@ -6,9 +6,9 @@ import UIKit
 import PhotosUI
 
 class FileScannerCoordinator {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		_ parentViewController: UIViewController,
 		dismiss: @escaping () -> Void
@@ -16,12 +16,12 @@ class FileScannerCoordinator {
 		self.parentViewController = parentViewController
 		self.dismiss = dismiss
 	}
-
+	
 	// MARK: - Internal
-
+	
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
-			hud: { [weak self] execute in
+			showHUD: { [weak self] execute in
 				self?.hud = FileScannerHUD(execute: execute)
 				self?.hud?.show()
 			},
@@ -36,17 +36,17 @@ class FileScannerCoordinator {
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			}
 		)
-
+		
 		presentActionSheet()
 	}
-
+	
 	// MARK: - Private
-
+	
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
-
+	
 	private func presentActionSheet() {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		sheet.addAction(photoAction)
@@ -59,7 +59,7 @@ class FileScannerCoordinator {
 		)
 		parentViewController?.present(sheet, animated: true)
 	}
-
+	
 	private lazy var photoAction: UIAlertAction = {
 		UIAlertAction(
 			title: AppStrings.FileScanner.sheet.photos,
@@ -68,7 +68,7 @@ class FileScannerCoordinator {
 			self?.presentPhotoPicker()
 		}
 	}()
-
+	
 	private lazy var fileAction: UIAlertAction = {
 		UIAlertAction(
 			title: AppStrings.FileScanner.sheet.documents,
@@ -77,7 +77,7 @@ class FileScannerCoordinator {
 			self?.presentFilePicker()
 		}
 	}()
-
+	
 	private func presentPhotoPicker() {
 		guard viewModel.authorizationStatus == .authorized else {
 			if case .notDetermined = viewModel.authorizationStatus {
@@ -89,7 +89,7 @@ class FileScannerCoordinator {
 			}
 			return
 		}
-
+		
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to get strong self", log: .fileScanner)
@@ -100,7 +100,7 @@ class FileScannerCoordinator {
 				configuration.filter = PHPickerFilter.images
 				configuration.preferredAssetRepresentationMode = .current
 				configuration.selectionLimit = 1
-
+				
 				let picker = PHPickerViewController(configuration: configuration)
 				picker.delegate = self.viewModel
 				self.parentViewController?.present(picker, animated: true)
@@ -114,7 +114,7 @@ class FileScannerCoordinator {
 			}
 		}
 	}
-
+	
 	private func presentFilePicker() {
 		let pickerViewController: UIDocumentPickerViewController
 		if #available(iOS 14.0, *) {
@@ -125,7 +125,7 @@ class FileScannerCoordinator {
 		pickerViewController.delegate = viewModel
 		parentViewController?.present(pickerViewController, animated: true)
 	}
-
+	
 	private func presentPhotoAccessAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.FileScanner.AccessError.title,
@@ -148,6 +148,6 @@ class FileScannerCoordinator {
 		)
 		parentViewController?.present(alert, animated: true)
 	}
-
+	
 	var hud: FileScannerHUD?
 }

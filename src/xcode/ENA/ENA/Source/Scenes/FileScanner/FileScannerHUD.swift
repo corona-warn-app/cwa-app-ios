@@ -22,12 +22,6 @@ class FileScannerHUD {
 		setupView()
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func show() {

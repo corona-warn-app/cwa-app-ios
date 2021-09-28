@@ -18,14 +18,6 @@ class HUDView: UIView {
 		setupView()
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private func setupView() {
