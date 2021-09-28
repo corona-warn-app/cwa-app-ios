@@ -84,13 +84,15 @@ class QRScannerCoordinator {
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var exposureSubmissionCoordinator: ExposureSubmissionCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
-	
+	private var fileScannerCoordinator: FileScannerCoordinator?
+
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool,
 		markCoronaTestAsNew: Bool,
 		didDismiss: @escaping () -> Void
 	) -> UIViewController {
-		return QRScannerViewController(
+		var qrScannerViewController: QRScannerViewController!
+		qrScannerViewController = QRScannerViewController(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
 			markCertificateAsNew: markCertificateAsNew,
@@ -110,10 +112,20 @@ class QRScannerCoordinator {
 			dismiss: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
 				didDismiss()
+			},
+			presentFileScanner: { [weak self] in
+				self?.fileScannerCoordinator = FileScannerCoordinator(
+					qrScannerViewController,
+					dismiss: {
+						self?.fileScannerCoordinator = nil
+					}
+				)
+				self?.fileScannerCoordinator?.start()
 			}
 		)
+		return qrScannerViewController
 	}
-	
+
 	
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation

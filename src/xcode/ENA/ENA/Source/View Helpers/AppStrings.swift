@@ -2327,6 +2327,21 @@ enum AppStrings {
 		}
 	}
 
+	enum FileScanner {
+		enum sheet {
+			static let photos = NSLocalizedString("FileScanner_sheet_photos", comment: "")
+			static let documents = NSLocalizedString("FileScanner_sheet_documents", comment: "")
+			static let cancel = NSLocalizedString("FileScanner_sheet_cancel", comment: "")
+		}
+
+		enum AccessError {
+			static let title = NSLocalizedString("FileScanner_AccessError_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_AccessError_message", comment: "")
+			static let cancel = NSLocalizedString("FileScanner_AccessError_cancel", comment: "")
+			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
+		}
+	}
+
 	enum FederalStateName {
 		static let badenWuerttemberg = NSLocalizedString("FederalState_BadenWuerttemberg", comment: "")
 		static let bayen = NSLocalizedString("FederalState_Bayern", comment: "")

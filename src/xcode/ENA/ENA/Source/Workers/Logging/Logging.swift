@@ -43,6 +43,8 @@ extension OSLog {
 	static let vaccination = OSLog(subsystem: subsystem, category: "vaccination")
 	/// Local Statistics
 	static let localStatistics = OSLog(subsystem: subsystem, category: "localStatistics")
+	/// Filescanner
+	static let fileScanner = OSLog(subsystem: subsystem, category: "fileScanner")
 }
 
 /// Logging

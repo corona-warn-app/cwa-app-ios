@@ -3182,6 +3182,21 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
 
+/* File Scanner */
+"FileScanner_sheet_photos" = "Foto Mediathek";
+
+"FileScanner_sheet_documents" = "Dokument";
+
+"FileScanner_sheet_cancel" = "Abbrechen";
+
+"FileScanner_AccessError_title" = "Zugriff nicht erlaubt";
+
+"FileScanner_AccessError_message" = "\“Corona-Warn-App\” hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.";
+
+"FileScanner_AccessError_cancel" = "Abbrechen";
+
+"FileScanner_AccessError_settings" = "Einstellungen";
+
 /* Federal State Names */
 
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";

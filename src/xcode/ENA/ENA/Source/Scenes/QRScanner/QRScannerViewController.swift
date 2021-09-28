@@ -15,10 +15,12 @@ class QRScannerViewController: UIViewController {
 		markCertificateAsNew: Bool,
 		markCoronaTestAsNew: Bool,
 		didScan: @escaping (QRCodeResult) -> Void,
-		dismiss: @escaping () -> Void
+		dismiss: @escaping () -> Void,
+		presentFileScanner: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		
+		self.presentFileScanner = presentFileScanner
+
 		super.init(nibName: nil, bundle: nil)
 		
 		viewModel = QRScannerViewModel(
@@ -75,12 +77,13 @@ class QRScannerViewController: UIViewController {
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
-	private let contentView = UIView()
-	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
-	private let flashButton = UIButton(type: .custom)
-	
-	private var viewModel: QRScannerViewModel?
 	private let dismiss: () -> Void
+	private let presentFileScanner: () -> Void
+	private let contentView = UIView()
+	private let flashButton = UIButton(type: .custom)
+
+	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
+	private var viewModel: QRScannerViewModel?
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -179,6 +182,17 @@ class QRScannerViewController: UIViewController {
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
+
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			barButtonSystemItem: .action,
+			target: self,
+			action: #selector(didTapFileButton)
+		)
+	}
+
+	@objc
+	private func didTapFileButton() {
+		presentFileScanner()
 	}
 
 	@objc
