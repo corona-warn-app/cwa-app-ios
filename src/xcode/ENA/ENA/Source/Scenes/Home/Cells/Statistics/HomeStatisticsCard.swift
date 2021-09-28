@@ -12,4 +12,6 @@ enum HomeStatisticsCard: Int32, CaseIterable {
 	case atLeastOneVaccinatedPerson = 5
 	case fullyVaccinatedPeople = 6
 	case appliedVaccinationsDoseRates = 7
+	case infectedPeopleHospitalizationRate = 8
+	case infectedPeopleInIntensiveCare = 9
 }
