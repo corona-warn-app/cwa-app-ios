@@ -7,7 +7,6 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-// swiftlint:disable:next type_body_length
 class CheckinsOverviewViewModelTest: CWATestCase {
 
 	func testNumberOfSections() throws {
