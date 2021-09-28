@@ -84,7 +84,6 @@ class QRScannerCoordinator {
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var exposureSubmissionCoordinator: ExposureSubmissionCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
-
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
 	private func qrScannerViewController(

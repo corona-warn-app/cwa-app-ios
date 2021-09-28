@@ -1445,6 +1445,22 @@ enum AppStrings {
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_TertiaryLabelTitle", comment: "")
 			}
 
+			enum HospitalizationRate {
+				static let title = NSLocalizedString("Statistics_Card_HospitalizationRate_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_HospitalizationRate_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_HospitalizationRate_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_HospitalizationRate_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_HospitalizationRate_SecondaryLabelTitle", comment: "")
+			}
+			
+			enum IntensiveCare {
+				static let title = NSLocalizedString("Statistics_Card_IntensiveCare_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_IntensiveCare_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_IntensiveCare_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_IntensiveCare_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_IntensiveCare_SecondaryLabelTitle", comment: "")
+			}
+			
 			static let trendIncreasing = NSLocalizedString("Statistics_Card_Trend_Increasing", comment: "")
 			static let trendDecreasing = NSLocalizedString("Statistics_Card_Trend_Decreasing", comment: "")
 			static let trendStable = NSLocalizedString("Statistics_Card_Trend_Stable", comment: "")
@@ -1464,6 +1480,10 @@ enum AppStrings {
 			static let local7DaysText = NSLocalizedString("Statistics_Info_Local7Days_Text", comment: "")
 			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
 			static let incidenceText = NSLocalizedString("Statistics_Info_Incidence_Text", comment: "")
+			static let hospitalizationRateTitle = NSLocalizedString("Statistics_Info_HospitalizationRate_Title", comment: "")
+			static let hospitalizationRateText = NSLocalizedString("Statistics_Info_HospitalizationRate_Text", comment: "")
+			static let intensiveCareTitle = NSLocalizedString("Statistics_Info_IntensiveCare_Title", comment: "")
+			static let intensiveCareText = NSLocalizedString("Statistics_Info_IntensiveCare_Text", comment: "")
 			static let infectionsTitle = NSLocalizedString("Statistics_Info_Infections_Title", comment: "")
 			static let infectionsText = NSLocalizedString("Statistics_Info_Infections_Text", comment: "")
 			static let keySubmissionsTitle = NSLocalizedString("Statistics_Info_KeySubmissions_Title", comment: "")
@@ -1972,12 +1992,12 @@ enum AppStrings {
 	enum CovPass {
 		enum Information {
 			static let title = NSLocalizedString("CovPass_Check_Info_Title", comment: "")
-			static let body = NSLocalizedString("Dritte können nur mit der CovPassCheck-App verlässlich überprüfen, ob es sich um ein valides Impf-, Genesenen-, oder Testzertifikat handelt.", comment: "")
-			static let faq = NSLocalizedString("FAQ zur Zertifikatsprüfung durch Dritte", comment: "")
-			static let faqLink = NSLocalizedString("https://www.coronawarn.app/de/faq/#eu_dcc_check", tableName: "Localizable.links", comment: "")
-			static let section01 = NSLocalizedString("Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.", comment: "")
-			static let section02 = NSLocalizedString("Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.", comment: "")
-			static let section03 = NSLocalizedString("Bitte beachten Sie, dass in anderen Ländern andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden.", comment: "")
+			static let body = NSLocalizedString("CovPass_Check_Info_body", comment: "")
+			static let faq = NSLocalizedString("CovPass_Check_Info_faq", comment: "")
+			static let faqLink = NSLocalizedString("CovPass_Check_FAQLink", tableName: "Localizable.links", comment: "")
+			static let section01 = NSLocalizedString("CovPass_Check_Info_text01", comment: "")
+			static let section02 = NSLocalizedString("CovPass_Check_Info_text02", comment: "")
+			static let section03 = NSLocalizedString("CovPass_Check_Info_text03", comment: "")
 		}
 	}
 
