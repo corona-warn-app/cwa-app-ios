@@ -3172,6 +3172,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionDescription" = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins.";
 
+"UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
+
 "UniversalQRScanner_CameraFlash" = "Kamerablitz";
 
 "UniversalQRScanner_CameraFlash_On" = "Eingeschaltet";
