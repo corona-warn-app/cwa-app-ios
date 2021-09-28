@@ -1579,19 +1579,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.11 */
+/* Version 2.12 */
 
-"NewVersionFeature_211_universalQRCodeScanner_title" = "Universeller QR-Code-Scanner";
+"NewVersionFeature_212_newStatisticsTiles_title" = "Erweiterung Statistiken";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Sie können nun unabhängig davon, von wo ein QR-Code-Scanner in der Corona-Warn-App geöffnet wird, alle von der App unterstützen Dokumente scannen:\n\t\U2022 PCR-Tests\n\t\U2022 Schnelltests\n\t\U2022 Event Check-ins\n\t\U2022 Zertifikate";
+"NewVersionFeature_212_newStatisticsTiles_description" = "Es sind nun folgende Statistiken in der App verfügbar:\n\t\U2022 7-Tage-Inzidenz Hospitalisierung\n\t\U2022 COVID-19-Erkrankte auf \n\t   Intensivstationen";
 
-"NewVersionFeature_211_qrCodeImport_title" = "QR-Code importieren";
+"NewVersionFeature_212_notificationManagement_title" = "Mitteilungen verwalten";
 
-"NewVersionFeature_211_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code-Scanner importieren.";
+"NewVersionFeature_212_notificationManagement_description" = "Einstellungen für Mitteilungen werden ab jetzt zentral in den Einstellungen Ihres Smartphones verwaltet. Überprüfen Sie Ihre Mitteilungseinstellungen für die Corona-Warn-App in den Geräteeinstellungen erneut.";
 
-"NewVersionFeature_211_contactDurationAdjustment_title" = "Anpassung Kontaktdauer";
+"NewVersionFeature_212_qrCodeScannerButton_title" = "Direkter Zugriff QR-Code-Scanner";
 
-"NewVersionFeature_211_contactDurationAdjustment_description" = "Die minimale Kontaktdauer im Kontakttagebuch wurde von 15 auf 10 Minuten reduziert. Existierende Einträge zu Kontakten mit Personen wurden automatisch angepasst. Überprüfen und passen Sie die Einträge gegebenenfalls noch einmal an.";
+"NewVersionFeature_212_qrCodeScannerButton_description" = "Sie haben nun von der unteren Navigationsleiste aus direkten Zugriff auf den universellen QR-Code-Scanner.";
+
+"NewVersionFeature_212_qrCodeImport_title" = "QR-Code importieren";
+
+"NewVersionFeature_212_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code-Scanner importieren.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
