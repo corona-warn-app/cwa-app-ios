@@ -207,7 +207,8 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Snapshot 
+          name: Snapshot
+          shell: /bin/zsh
           command: |
             set +e
             cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
