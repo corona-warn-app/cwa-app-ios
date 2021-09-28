@@ -55,9 +55,12 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
+		item.primaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
+		item.isPrimaryButtonHidden = false
+		item.secondaryButtonTitle = AppStrings.NotificationSettings.openSystemSettings
+		item.isSecondaryButtonEnabled = true
+		item.isSecondaryButtonHidden = false
 
 		item.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
@@ -69,8 +72,10 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 	}()
 	
 	private func setupView() {
-		navigationFooterItem?.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.DeltaOnboarding.primaryButton
+		navigationFooterItem?.primaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
+		footerView?.primaryButton?.accessibilityIdentifier = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
+		navigationFooterItem?.secondaryButtonTitle = AppStrings.NotificationSettings.openSystemSettings
+		footerView?.secondaryButton?.accessibilityIdentifier = AppStrings.NotificationSettings.openSystemSettings
 		setupTableView()
 	}
 
