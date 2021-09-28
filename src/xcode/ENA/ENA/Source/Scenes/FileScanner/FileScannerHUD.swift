@@ -9,11 +9,12 @@ class FileScannerHUD {
 
 	// MARK: - Init
 
-	init(
+	init?(
 		execute: @escaping () -> Void
 	) {
 		guard let window = UIApplication.shared.keyWindow else {
-			fatalError("Failed to init - not window found")
+			Log.error("Failed to init - not window found", log: .fileScanner)
+			return nil
 		}
 		self.window = window
 		self.hudView = HUDView()
