@@ -34,5 +34,6 @@ else
       }],
       "markdown": true
   }]
-  EOF
-  fi
+}
+EOF
+fi
