@@ -426,7 +426,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 		// Check if safari was opened
 		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		let runInForeground = safariApp.wait(for: .runningForeground, timeout: .long)
+		let runInForeground = safariApp.wait(for: .runningForeground, timeout: .extraLong)
 		XCTAssertTrue(runInForeground)
 	}
 	
