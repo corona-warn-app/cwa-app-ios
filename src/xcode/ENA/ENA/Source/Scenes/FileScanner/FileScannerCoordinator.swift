@@ -34,6 +34,12 @@ class FileScannerCoordinator {
 					self?.hud?.hide()
 				}
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
+			},
+			missingPasswordForPDF: { callback in
+				self.presentPasswordAlert(callback)
+			},
+			failedToUnlockPDF: {
+				self.presentPDFUnlockFailedAlert()
 			}
 		)
 		
@@ -150,4 +156,56 @@ class FileScannerCoordinator {
 	}
 	
 	var hud: FileScannerHUD?
+
+	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
+		let alert = UIAlertController(
+			title: AppStrings.FileScanner.PasswordEntry.title,
+			message: AppStrings.FileScanner.PasswordEntry.message,
+			preferredStyle: .alert
+		)
+
+		alert.addTextField { textField in
+			textField.placeholder = AppStrings.FileScanner.PasswordEntry.placeholder
+			textField.isSecureTextEntry = true
+		}
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionCancel,
+				style: .cancel
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			) { _ in
+				guard let passwordTextField = alert.textFields?[0] else {
+					return
+				}
+				completion(passwordTextField.text ?? "")
+			}
+		)
+
+		parentViewController?.present(alert, animated: true)
+	}
+
+	private func presentPDFUnlockFailedAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.FileScanner.PasswordError.title,
+			message: AppStrings.FileScanner.PasswordError.message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		parentViewController?.present(alert, animated: true)
+	}
+
 }
