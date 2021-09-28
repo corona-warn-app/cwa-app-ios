@@ -298,8 +298,7 @@ workflows:
               branches:
                 only:
                   - /release\/.*/
-                  - chore/fixTests
-                  - circleci-editor/chore/fix-tests
+                  - /chore/fix-ui-tests
         - test-community:
             requires:
               - dependencies
