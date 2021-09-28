@@ -554,6 +554,9 @@
 		50412F2E2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F2D2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift */; };
 		50412F312689D2F300E4087C /* HTTPClient+GetDccRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */; };
 		50412F32268AFA3500E4087C /* api-response-rule in Resources */ = {isa = PBXBuildFile; fileRef = 50412F2F2689D2D700E4087C /* api-response-rule */; };
+		504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A46572702FD30007AA09D /* DeltaOnboardingNotificationRework.swift */; };
+		504A465A2702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A46592702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift */; };
+		504A465C2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A465B2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift */; };
 		504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */; };
 		504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */; };
 		504C9CC925C44C180005875B /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504C9CC825C44C180005875B /* OTPService.swift */; };
@@ -1953,6 +1956,9 @@
 		50412F2D2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationRuleType.swift; sourceTree = "<group>"; };
 		50412F2F2689D2D700E4087C /* api-response-rule */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-rule"; sourceTree = "<group>"; };
 		50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+GetDccRules.swift"; sourceTree = "<group>"; };
+		504A46572702FD30007AA09D /* DeltaOnboardingNotificationRework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationRework.swift; sourceTree = "<group>"; };
+		504A46592702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewController.swift; sourceTree = "<group>"; };
+		504A465B2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewModel.swift; sourceTree = "<group>"; };
 		504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewController.swift; sourceTree = "<group>"; };
 		504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewModel.swift; sourceTree = "<group>"; };
 		504C9CC825C44C180005875B /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
@@ -4481,6 +4487,24 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		504A46552702FCF0007AA09D /* NotificationRework */ = {
+			isa = PBXGroup;
+			children = (
+				504A46572702FD30007AA09D /* DeltaOnboardingNotificationRework.swift */,
+				504A46592702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift */,
+				504A465B2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift */,
+			);
+			path = NotificationRework;
+			sourceTree = "<group>";
+		};
+		504A46562702FD00007AA09D /* Data Donation */ = {
+			isa = PBXGroup;
+			children = (
+				94BACE6925D27DC1007B2A99 /* DeltaOnboardingDataDonation.swift */,
+			);
+			path = "Data Donation";
+			sourceTree = "<group>";
+		};
 		504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */ = {
 			isa = PBXGroup;
 			children = (
@@ -5649,7 +5673,6 @@
 				94EAF86D25B6C84900BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift */,
 				94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */,
 				94EAF89B25B8162200BE1F40 /* NewVersionFeature.swift */,
-				94BACE6925D27DC1007B2A99 /* DeltaOnboardingDataDonation.swift */,
 			);
 			path = NewVersionFeatures;
 			sourceTree = "<group>";
@@ -6035,12 +6058,14 @@
 		AB7420AA251B678E006666AC /* DeltaOnboarding */ = {
 			isa = PBXGroup;
 			children = (
-				94EAF85525B6C62D00BE1F40 /* NewVersionFeatures */,
-				9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */,
 				AB7420DB251B80EF006666AC /* __tests__ */,
-				AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */,
-				AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */,
+				504A46562702FD00007AA09D /* Data Donation */,
+				94EAF85525B6C62D00BE1F40 /* NewVersionFeatures */,
+				504A46552702FCF0007AA09D /* NotificationRework */,
 				AB7420C9251B7D79006666AC /* V15 */,
+				AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */,
+				9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */,
+				AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */,
 			);
 			path = DeltaOnboarding;
 			sourceTree = "<group>";
@@ -8450,6 +8475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */,
+				504A465C2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift in Sources */,
 				AB18807826540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift in Sources */,
 				34FE15C2260914030002CB69 /* QRCodePosterTemplateProviding.swift in Sources */,
 				34FE15C3260914030002CB69 /* QRCodePosterTemplateMetadata.swift in Sources */,
@@ -8749,6 +8775,7 @@
 				0138F54825ECD44300A9B075 /* app_features.pb.swift in Sources */,
 				BA0A1E3F26A5CC090045E712 /* dsc_list.pb.swift in Sources */,
 				ABF0F60C260B8A8000E50B0F /* CheckinRiskCalculationResult.swift in Sources */,
+				504A465A2702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift in Sources */,
 				BA6F0071265FD2CF0020721B /* ExposureSubmissionTestCertificateViewController.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
@@ -9337,6 +9364,7 @@
 				AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
+				504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -728,7 +728,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			let onboardings: [DeltaOnboarding] = [
 				DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
 				DeltaOnboardingDataDonation(store: self.viewModel.store),
-				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
+				DeltaOnboardingNotificationRework(store: self.viewModel.store)
 			]
 
 			Log.debug("Delta Onboarding list size: \(onboardings.count)")

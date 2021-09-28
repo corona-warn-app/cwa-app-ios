@@ -656,6 +656,10 @@ enum AppStrings {
 		static let onImageDescription = NSLocalizedString("NotificationSettings_onImageDescription", comment: "")
 		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
 	}
+	
+	enum Notifications {
+		
+	}
 
 	enum BackgroundAppRefreshSettings {
 		static let title = NSLocalizedString("BackgroundAppRefreshSettings_Title", comment: "")
