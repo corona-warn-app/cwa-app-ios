@@ -5,11 +5,19 @@
 import Foundation
 import UIKit
 
-enum QRScannerPresenter {
+enum QRScannerPresenter: Equatable {
 	case submissionFlow
 	case onBehalfFlow
 	case checkinTab
 	case certificateTab
+	case universalScanner(SelectedTab?)
+}
+
+enum SelectedTab: Equatable {
+	case home
+	case checkin
+	case certificates
+	case diary
 }
 
 class QRScannerCoordinator {
@@ -56,8 +64,8 @@ class QRScannerCoordinator {
 		self.presenter = presenter
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
-				markCertificateAsNew: presenter != .certificateTab,
-				markCoronaTestAsNew: presenter != .submissionFlow,
+				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates),
+				markCoronaTestAsNew: presenter != .submissionFlow && presenter != .universalScanner(.home),
 				didDismiss: didDismiss
 			)
 		)
@@ -154,7 +162,7 @@ class QRScannerCoordinator {
 
 				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 			}
-		case .checkinTab, .certificateTab:
+		case .checkinTab, .certificateTab, .universalScanner:
 			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 				parentViewController: parentViewController,
 				exposureSubmissionService: exposureSubmissionService,
@@ -199,7 +207,7 @@ class QRScannerCoordinator {
 
 				self.healthCertificateCoordinator?.start()
 			}
-		case .checkinTab, .certificateTab:
+		case .checkinTab, .certificateTab, .universalScanner:
 			healthCertificateCoordinator = HealthCertificateCoordinator(
 				parentingViewController: .present(parentViewController),
 				healthCertifiedPerson: person,
@@ -241,7 +249,7 @@ class QRScannerCoordinator {
 
 				self.traceLocationCheckinCoordinator?.start()
 			}
-		case .checkinTab, .certificateTab:
+		case .checkinTab, .certificateTab, .universalScanner:
 			traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
 				parentViewController: parentViewController,
 				traceLocation: traceLocation,
