@@ -162,6 +162,7 @@ class FileScannerCoordinator {
 
 		alert.addTextField { textField in
 			textField.placeholder = AppStrings.FileScanner.PasswordEntry.placeholder
+			textField.isSecureTextEntry = true
 		}
 
 		alert.addAction(
