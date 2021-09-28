@@ -298,7 +298,7 @@ workflows:
               branches:
                 only:
                   - /release\/.*/
-                  - /chore/fix-ui-tests
+                  - chore/fix-ui-tests
         - test-community:
             requires:
               - dependencies
