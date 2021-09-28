@@ -205,9 +205,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
 			app.staticTexts[title6].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
-			app.staticTexts[title7].swipeRight()
+			app.staticTexts[title7].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
-			app.staticTexts[title8].swipeRight()
+			app.staticTexts[title8].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
 			app.staticTexts[title9].swipeRight()
 		}
