@@ -2347,6 +2347,8 @@ enum AppStrings {
 			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
 		}
 
+		static let hudText = NSLocalizedString("FileScanner_HUD_text", comment: "")
+
 		enum PasswordEntry {
 			static let title = NSLocalizedString("FileScanner_PasswordEntry_title", comment: "")
 			static let message = NSLocalizedString("FileScanner_PasswordEntry_message", comment: "")

@@ -3205,6 +3205,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_AccessError_settings" = "Einstellungen";
 
+"FileScanner_HUD_text" = "QR-Code wird gelesen...";
+
 "FileScanner_PasswordEntry_title" = "Datei passwortgeschützt";
 
 "FileScanner_PasswordEntry_message" = "Bitte geben Sie Ihr Passwort ein.";

@@ -6,9 +6,9 @@ import UIKit
 import PhotosUI
 
 class FileScannerCoordinator {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		_ parentViewController: UIViewController,
 		dismiss: @escaping () -> Void
@@ -16,21 +16,21 @@ class FileScannerCoordinator {
 		self.parentViewController = parentViewController
 		self.dismiss = dismiss
 	}
-
+	
 	// MARK: - Internal
-
+	
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
-			showHUD: {
-				Log.debug("show HUD", log: .fileScanner)
-			},
-			hideHUD: {
-				Log.debug("hide HUD", log: .fileScanner)
+			showHUD: { [weak self] execute in
+				self?.showIndicator(while: execute)
 			},
 			dismiss: { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
+				DispatchQueue.main.async {
+					self?.parentViewController?.dismiss(animated: true)
+				}
 			},
-			qrCodesFound: { codes in
+			qrCodesFound: { [weak self] codes in
+				self?.hideIndicator()
 				Log.debug("\(codes.count) codes found", log: .fileScanner)
 			},
 			missingPasswordForPDF: { callback in
@@ -40,17 +40,19 @@ class FileScannerCoordinator {
 				self.presentPDFUnlockFailedAlert()
 			}
 		)
-
+		
 		presentActionSheet()
 	}
-
+	
 	// MARK: - Private
+	private let activityIndicatorView = ActivityIndicatorView()
+	private let duration = 0.45
 
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
-
+	
 	private func presentActionSheet() {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		sheet.addAction(photoAction)
@@ -63,7 +65,7 @@ class FileScannerCoordinator {
 		)
 		parentViewController?.present(sheet, animated: true)
 	}
-
+	
 	private lazy var photoAction: UIAlertAction = {
 		UIAlertAction(
 			title: AppStrings.FileScanner.sheet.photos,
@@ -72,7 +74,7 @@ class FileScannerCoordinator {
 			self?.presentPhotoPicker()
 		}
 	}()
-
+	
 	private lazy var fileAction: UIAlertAction = {
 		UIAlertAction(
 			title: AppStrings.FileScanner.sheet.documents,
@@ -81,7 +83,7 @@ class FileScannerCoordinator {
 			self?.presentFilePicker()
 		}
 	}()
-
+	
 	private func presentPhotoPicker() {
 		guard viewModel.authorizationStatus == .authorized else {
 			if case .notDetermined = viewModel.authorizationStatus {
@@ -93,7 +95,7 @@ class FileScannerCoordinator {
 			}
 			return
 		}
-
+		
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to get strong self", log: .fileScanner)
@@ -104,7 +106,7 @@ class FileScannerCoordinator {
 				configuration.filter = PHPickerFilter.images
 				configuration.preferredAssetRepresentationMode = .current
 				configuration.selectionLimit = 1
-
+				
 				let picker = PHPickerViewController(configuration: configuration)
 				picker.delegate = self.viewModel
 				self.parentViewController?.present(picker, animated: true)
@@ -118,7 +120,7 @@ class FileScannerCoordinator {
 			}
 		}
 	}
-
+	
 	private func presentFilePicker() {
 		let pickerViewController: UIDocumentPickerViewController
 		if #available(iOS 14.0, *) {
@@ -129,7 +131,7 @@ class FileScannerCoordinator {
 		pickerViewController.delegate = viewModel
 		parentViewController?.present(pickerViewController, animated: true)
 	}
-
+	
 	private func presentPhotoAccessAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.FileScanner.AccessError.title,
@@ -152,7 +154,7 @@ class FileScannerCoordinator {
 		)
 		parentViewController?.present(alert, animated: true)
 	}
-
+	
 	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
 		let alert = UIAlertController(
 			title: AppStrings.FileScanner.PasswordEntry.title,
@@ -202,6 +204,56 @@ class FileScannerCoordinator {
 		)
 
 		parentViewController?.present(alert, animated: true)
+	}
+
+	private func showIndicator(while executing: @escaping () -> Void) {
+		guard let parentView = parentViewController?.view else {
+			Log.error("Failed to get parentViewController - stop", log: .fileScanner)
+			return
+		}
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to stronger self", log: .fileScanner)
+				return
+			}
+			self.activityIndicatorView.alpha = 0.0
+			self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+			parentView.addSubview(self.activityIndicatorView)
+			NSLayoutConstraint.activate(
+				[
+					self.activityIndicatorView.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor),
+					self.activityIndicatorView.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor),
+					self.activityIndicatorView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+					self.activityIndicatorView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
+				]
+			)
+
+			let animator = UIViewPropertyAnimator(duration: self.duration, curve: .easeIn) {
+				self.activityIndicatorView.alpha = 1.0
+			}
+			animator.addCompletion {  _ in
+				DispatchQueue.global(qos: .background).async {
+					executing()
+				}
+			}
+			animator.startAnimation()
+		}
+	}
+
+	private func hideIndicator() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to stronger self", log: .fileScanner)
+				return
+			}
+			let animator = UIViewPropertyAnimator(duration: self.duration, curve: .easeIn) {
+				self.activityIndicatorView.alpha = 0.0
+			}
+			animator.addCompletion { _ in
+				self.activityIndicatorView.removeFromSuperview()
+			}
+			animator.startAnimation()
+		}
 	}
 
 }
