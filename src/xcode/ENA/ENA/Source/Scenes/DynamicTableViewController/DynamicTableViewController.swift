@@ -315,6 +315,8 @@ extension DynamicTableViewController {
 
 		content.configure(cell: cell, at: indexPath, for: self)
 		
+		cell.removeBackground()
+		
 		switch section.background {
 		case .none:
 			cell.backgroundColor = .clear
@@ -398,6 +400,8 @@ private extension UITableViewCell {
 		}
 	}
 }
+
+/// Stuff to draw a background to the cell, depending on the position of the cell in the section it gets rounded corners.
 
 private extension UITableViewCell {
 	enum BackgroundLocation: Int {
