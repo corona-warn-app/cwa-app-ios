@@ -270,15 +270,13 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		
 		// iOS 15 changed the time picker to a wheel again.
 		if #available(iOS 15.0, *) {
-			// Tap three times will spin the wheel three times so that we should have the value for 03:00
+			// Spin wheel one time so the value will be 20:00
+			app.datePickers.firstMatch.swipeUp()
+			// Wait for closing wheel.
 			app.waitAndTap()
-			app.waitAndTap()
-			app.waitAndTap()
-			// Wait for closing wheel. For this we tap an element that should be visible: a textField. We can not tap somewhere because this would count as tap in the wheel. Strange behavior.
-			app.textFields.firstMatch.waitAndTap()
 		} else {
+			app.keys["2"].waitAndTap()
 			app.keys["0"].waitAndTap()
-			app.keys["3"].waitAndTap()
 			app.keys["0"].waitAndTap()
 			// Wait for closing keyboard
 			app.waitAndTap()
@@ -300,7 +298,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Check if the label for the settings exists on the overview.
 
-		XCTAssertTrue(app.staticTexts["03:00 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
+		XCTAssertTrue(app.staticTexts["20:00 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
 		XCTAssertTrue(app.staticTexts["Some note!"].exists)
 	}
 
