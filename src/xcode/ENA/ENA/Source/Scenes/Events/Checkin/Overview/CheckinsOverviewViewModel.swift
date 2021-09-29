@@ -13,15 +13,11 @@ class CheckinsOverviewViewModel {
 	init(
 		store: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
-		onEntryCellTap: @escaping (Checkin) -> Void,
-		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
-			AVCaptureDevice.authorizationStatus(for: .video)
-		}
+		onEntryCellTap: @escaping (Checkin) -> Void
 	) {
 		self.store = store
 		self.eventCheckoutService = eventCheckoutService
 		self.onEntryCellTap = onEntryCellTap
-        self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
 		store.checkinsPublisher
 			.sink { [weak self] in
@@ -34,7 +30,6 @@ class CheckinsOverviewViewModel {
 
 	enum Section: Int, CaseIterable {
 		case add
-		case missingPermission
 		case entries
 	}
 
@@ -52,16 +47,10 @@ class CheckinsOverviewViewModel {
 		numberOfRows(in: Section.entries.rawValue) == 0
 	}
 
-	var isEmptyStateVisible: Bool {
-		isEmpty && !showMissingPermissionSection
-	}
-
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .add:
-			return showMissingPermissionSection ? 0 : 1
-		case .missingPermission:
-			return showMissingPermissionSection ? 1 : 0
+			return 1
 		case .entries:
 			return checkinCellModels.count
 		case .none:
@@ -100,10 +89,6 @@ class CheckinsOverviewViewModel {
 		store.deleteAllCheckins()
 	}
 
-	func updateForCameraPermission() {
-		triggerReload = true
-	}
-
 	func checkoutOverdueCheckins() {
 		eventCheckoutService.checkoutOverdueCheckins()
 	}
@@ -113,15 +98,8 @@ class CheckinsOverviewViewModel {
 	private let store: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let onEntryCellTap: (Checkin) -> Void
-	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 
 	private var subscriptions: [AnyCancellable] = []
-
-	private var showMissingPermissionSection: Bool {
-		let status = cameraAuthorizationStatus()
-
-		return status != .notDetermined && status != .authorized
-	}
 
 	private func update(from checkins: [Checkin]) {
 		if checkins.map({ $0.id }) != checkinCellModels.map({ $0.checkin.id }) {
