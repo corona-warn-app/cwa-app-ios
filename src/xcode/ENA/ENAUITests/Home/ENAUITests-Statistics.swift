@@ -247,7 +247,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title6].swipeLeft()
 
 			cardKeySubmissionsInfoScreenTest(title5)
-			app.staticTexts[title5].swipeRight()
+			app.staticTexts[title5].swipeLeft()
 			
 			cardInfectionsInfoScreenTest(title4)
 			app.staticTexts[title4].swipeLeft()
@@ -276,7 +276,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title4].swipeLeft()
 			
 			cardKeySubmissionsInfoScreenTest(title5)
-			app.staticTexts[title5].swipeRight()
+			app.staticTexts[title5].swipeLeft()
 			
 			cardReproductionNumberInfoScreenTest(title6)
 			app.staticTexts[title6].swipeLeft()
@@ -355,16 +355,32 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssert(self.app.staticTexts[dosesTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[dosesTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[fullyVaccinatedTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[fullyVaccinatedTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[atLeastOneVaccinationTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[atLeastOneVaccinationTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[reproductionNumberTitle].swipeLeft()
-			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
-			app.staticTexts[incidenceTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[keySubmissionsTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[keySubmissionsTitle].swipeLeft()
-			cardKeySubmissionsInfoScreenTest(keySubmissionsTitle)
+			
 			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
-			cardInfectionsInfoScreenTest(infectionsTitle)
-			app.staticTexts[infectionsTitle].swipeRight()
+			app.staticTexts[infectionsTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[intensiveCareTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[intensiveCareTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[hospitalizationRateTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[hospitalizationRateTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[incidenceTitle].swipeRight()
 		default:
 			app.swipeLeft()
 
