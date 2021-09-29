@@ -21,7 +21,7 @@ class ActivityIndicatorView: UIView {
 	// MARK: - Private
 
 	private func setupView() {
-		let overlayView = UIView(frame: .zero)
+		let overlayView = UIView()
 		overlayView.backgroundColor = .init(white: 0.0, alpha: 0.7)
 		overlayView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(overlayView)

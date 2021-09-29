@@ -22,10 +22,12 @@ class FileScannerCoordinator {
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
 			showHUD: { [weak self] execute in
-				self?.showIndicator(execute: execute)
+				self?.showIndicator(while: execute)
 			},
 			dismiss: { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
+				DispatchQueue.main.async {
+					self?.parentViewController?.dismiss(animated: true)
+				}
 			},
 			qrCodesFound: { [weak self] codes in
 				self?.hideIndicator()
@@ -43,7 +45,7 @@ class FileScannerCoordinator {
 	}
 	
 	// MARK: - Private
-	private let activityIndicatorView: ActivityIndicatorView = ActivityIndicatorView()
+	private let activityIndicatorView = ActivityIndicatorView()
 	private let duration = 0.45
 
 	private var viewModel: FileScannerCoordinatorViewModel!
@@ -204,41 +206,54 @@ class FileScannerCoordinator {
 		parentViewController?.present(alert, animated: true)
 	}
 
-	private func showIndicator(execute: @escaping () -> Void) {
+	private func showIndicator(while executing: @escaping () -> Void) {
 		guard let parentView = parentViewController?.view else {
 			Log.error("Failed to get parentViewController - stop", log: .fileScanner)
 			return
 		}
-		activityIndicatorView.alpha = 0.0
-		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-		parentView.addSubview(activityIndicatorView)
-		NSLayoutConstraint.activate(
-			[
-				activityIndicatorView.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor),
-				activityIndicatorView.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor),
-				activityIndicatorView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-				activityIndicatorView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
-			]
-		)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to stronger self", log: .fileScanner)
+				return
+			}
+			self.activityIndicatorView.alpha = 0.0
+			self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+			parentView.addSubview(self.activityIndicatorView)
+			NSLayoutConstraint.activate(
+				[
+					self.activityIndicatorView.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor),
+					self.activityIndicatorView.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor),
+					self.activityIndicatorView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+					self.activityIndicatorView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor)
+				]
+			)
 
-		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) { [weak self] in
-			self?.activityIndicatorView.alpha = 1.0
+			let animator = UIViewPropertyAnimator(duration: self.duration, curve: .easeIn) {
+				self.activityIndicatorView.alpha = 1.0
+			}
+			animator.addCompletion {  _ in
+				DispatchQueue.global(qos: .background).async {
+					executing()
+				}
+			}
+			animator.startAnimation()
 		}
-		animator.addCompletion {  _ in
-			execute()
-		}
-		animator.startAnimation()
 	}
 
 	private func hideIndicator() {
-		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) { [weak self] in
-			self?.activityIndicatorView.alpha = 0.0
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to stronger self", log: .fileScanner)
+				return
+			}
+			let animator = UIViewPropertyAnimator(duration: self.duration, curve: .easeIn) {
+				self.activityIndicatorView.alpha = 0.0
+			}
+			animator.addCompletion { _ in
+				self.activityIndicatorView.removeFromSuperview()
+			}
+			animator.startAnimation()
 		}
-		animator.addCompletion { [weak self] _ in
-			self?.parentViewController?.view.isUserInteractionEnabled = true
-			self?.activityIndicatorView.removeFromSuperview()
-		}
-		animator.startAnimation()
 	}
 
 }
