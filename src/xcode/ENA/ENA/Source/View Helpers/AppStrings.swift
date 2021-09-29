@@ -1724,12 +1724,6 @@ enum AppStrings {
 			static let checkinDateTemplate = NSLocalizedString("Checkins_Overview_CheckinDateTemplate", comment: "")
 			static let checkoutButtonTitle = NSLocalizedString("Checkins_Overview_CheckoutButtonTitle", comment: "")
 
-			enum MissingPermissions {
-				static let title = NSLocalizedString("Checkins_Overview_MissingPermissions_Title", comment: "")
-				static let description = NSLocalizedString("Checkins_Overview_MissingPermissions_Description", comment: "")
-				static let buttonTitle = NSLocalizedString("Checkins_Overview_MissingPermissions_ButtonTitle", comment: "")
-			}
-
 			enum DeleteOneAlert {
 				static let title = NSLocalizedString("Checkins_Overview_DeleteOne_AlertTitle", comment: "")
 				static let message = NSLocalizedString("Checkins_Overview_DeleteOne_AlertMessage", comment: "")
@@ -2327,7 +2321,11 @@ enum AppStrings {
 		static let flashButtonAccessibilityDisableAction = NSLocalizedString("UniversalQRScanner_CameraFlash_Disable", comment: "")
 
 		enum Error {
-			static let cameraPermissionDenied = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
+			enum CameraPermissionDenied {
+				static let title = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied_title", comment: "")
+				static let message = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied", comment: "")
+				static let settingsButton = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied_settingsButton", comment: "")
+			}
 			static let unsupportedQRCode = NSLocalizedString("UniversalQRScanner_Error_unsupportedQRCode", comment: "")
 		}
 	}
