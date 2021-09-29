@@ -33,56 +33,8 @@ class OnBehalfTraceLocationSelectionViewModelTests: CWATestCase {
 		)
 
 		XCTAssertFalse(viewModel.continueEnabled)
-		XCTAssertEqual(viewModel.numberOfSections, 4)
+		XCTAssertEqual(viewModel.numberOfSections, 3)
 		XCTAssertNil(viewModel.selectedTraceLocation)
-	}
-
-	func testNumberOfRowsWithCameraPermissionAuthorized() {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 3)
-	}
-
-	func testNumberOfRowsWithCameraPermissionNotDetermined() {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .notDetermined }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 3)
-	}
-
-	func testNumberOfRowsWithCameraPermissionDenied() {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .denied }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 3)
-	}
-
-	func testNumberOfRowsWithCameraPermissionRestricted() {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .restricted }
-		)
-
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 3)
 	}
 
 	func testToggleSelection() {
@@ -130,42 +82,6 @@ class OnBehalfTraceLocationSelectionViewModelTests: CWATestCase {
 
 		XCTAssertNil(viewModel.selectedTraceLocation)
 		XCTAssertFalse(viewModel.continueEnabled)
-	}
-
-	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithCameraPermission() throws {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [],
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		XCTAssertTrue(viewModel.isEmptyStateVisible)
-	}
-
-	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithoutCameraPermission() throws {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [],
-			cameraAuthorizationStatus: { .denied }
-		)
-
-		XCTAssertFalse(viewModel.isEmptyStateVisible)
-	}
-
-	func testIsEmptyStateVisibleOnNonEmptyEntriesSectionWithCameraPermission() throws {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .authorized }
-		)
-
-		XCTAssertFalse(viewModel.isEmptyStateVisible)
-	}
-
-	func testIsEmptyStateVisibleOnNonEmptyEntriesSectionWithoutCameraPermission() throws {
-		let viewModel = OnBehalfTraceLocationSelectionViewModel(
-			traceLocations: [.mock(), .mock(), .mock()],
-			cameraAuthorizationStatus: { .denied }
-		)
-
-		XCTAssertFalse(viewModel.isEmptyStateVisible)
 	}
 
 }

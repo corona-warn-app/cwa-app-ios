@@ -111,9 +111,6 @@ final class HealthCertificatesTabCoordinator {
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 			},
-			onMissingPermissionsButtonTap: { [weak self] in
-				self?.showSettings()
-			},
 			showInfoHit: { [weak self] in
 				self?.presentCovPassInfoScreen()
 			}
@@ -192,10 +189,7 @@ final class HealthCertificatesTabCoordinator {
 	private func showQRCodeScanner() {
 		qrScannerCoordinator.start(
 			parentViewController: viewController,
-			presenter: .certificateTab,
-			didDismiss: { [weak self] in
-				self?.overviewScreen.reload()
-			}
+			presenter: .certificateTab
 		)
 	}
 	
@@ -306,10 +300,6 @@ final class HealthCertificatesTabCoordinator {
 				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
 			}
 			.store(in: &subscriptions)
-	}
-	
-	private func showSettings() {
-		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 	private func showDeleteAlert(
