@@ -33,7 +33,7 @@ class OnBehalfTraceLocationSelectionViewModelTests: CWATestCase {
 		)
 
 		XCTAssertFalse(viewModel.continueEnabled)
-		XCTAssertEqual(viewModel.numberOfSections, 4)
+		XCTAssertEqual(viewModel.numberOfSections, 3)
 		XCTAssertNil(viewModel.selectedTraceLocation)
 	}
 

@@ -21,7 +21,7 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 			onEntryCellTap: { _ in }
 		)
 
-		XCTAssertEqual(viewModel.numberOfSections, 3)
+		XCTAssertEqual(viewModel.numberOfSections, 2)
 	}
 
 	func testIsEmptyOnEmptyEntriesSection() throws {
@@ -105,7 +105,7 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 			}
 		)
 
-		viewModel.didTapEntryCell(at: IndexPath(row: 1, section: 2))
+		viewModel.didTapEntryCell(at: IndexPath(row: 1, section: CheckinsOverviewViewModel.Section.entries.rawValue))
 
 		waitForExpectations(timeout: .medium)
 	}
@@ -127,7 +127,7 @@ class CheckinsOverviewViewModelTest: CWATestCase {
 			onEntryCellTap: { _ in }
 		)
 
-		viewModel.didTapEntryCellButton(at: IndexPath(row: 1, section: 2))
+		viewModel.didTapEntryCellButton(at: IndexPath(row: 1, section: CheckinsOverviewViewModel.Section.entries.rawValue))
 
 		let tappedCheckin = eventStore.checkinsPublisher.value.first {
 			$0.traceLocationId == "137".data(using: .utf8)
