@@ -24,8 +24,7 @@ class EUSettingsViewModel {
 				header: .image(
 					UIImage(named: "Illu_EU_Interop"),
 					accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-					height: 250
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription
 				),
 				cells: [
 					.space(height: 8),
