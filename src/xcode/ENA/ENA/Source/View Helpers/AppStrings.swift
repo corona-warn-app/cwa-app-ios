@@ -51,6 +51,7 @@ enum AppStrings {
 		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_Blog_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
+		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -675,6 +676,7 @@ enum AppStrings {
 		static let bulletPoint2 = NSLocalizedString("NotificationSettings_BulletPoint2", comment: "")
 		static let bulletPoint3 = NSLocalizedString("NotificationSettings_BulletPoint3", comment: "")
 		static let bulletDesc2 = NSLocalizedString("NotificationSettings_BulletDesc2", comment: "")
+		static let bulletDesc2FAQText = NSLocalizedString("NotificationSettings_BulletDesc2_FAQText", comment: "")
 		
 		static let openSystemSettings = NSLocalizedString("NotificationSettings_OpenSystemSettings", comment: "")
 		
