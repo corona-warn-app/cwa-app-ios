@@ -11,14 +11,10 @@ class OnBehalfTraceLocationSelectionViewModel {
 	// MARK: - Init
 	
 	init(
-		traceLocations: [TraceLocation],
-		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
-			AVCaptureDevice.authorizationStatus(for: .video)
-		}
+		traceLocations: [TraceLocation]
 	) {
 		self.traceLocationCellModels = traceLocations
 			.map { TraceLocationSelectionCellModel(traceLocation: $0) }
-		self.cameraAuthorizationStatus = cameraAuthorizationStatus
 	}
 		
 	// MARK: - Internal
@@ -26,7 +22,6 @@ class OnBehalfTraceLocationSelectionViewModel {
 	enum Section: Int, CaseIterable {
 		case description
 		case qrCodeScan
-		case missingCameraPermission
 		case traceLocations
 	}
 	
@@ -41,7 +36,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 	}
 
 	var isEmptyStateVisible: Bool {
-		traceLocationCellModels.isEmpty && !showMissingPermissionSection
+		traceLocationCellModels.isEmpty
 	}
 	
 	var selectedTraceLocation: TraceLocation?
@@ -51,9 +46,7 @@ class OnBehalfTraceLocationSelectionViewModel {
 		case .description:
 			return 1
 		case .qrCodeScan:
-			return showMissingPermissionSection ? 0 : 1
-		case .missingCameraPermission:
-			return showMissingPermissionSection ? 1 : 0
+			return 1
 		case .traceLocations:
 			return traceLocationCellModels.count
 		case .none:
@@ -77,14 +70,6 @@ class OnBehalfTraceLocationSelectionViewModel {
 	}
 	
 	// MARK: - Private
-
-	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
-
-	private var showMissingPermissionSection: Bool {
-		let status = cameraAuthorizationStatus()
-
-		return status != .notDetermined && status != .authorized
-	}
 	
 	private func checkContinuePossible() {
 		continueEnabled = selectedTraceLocation != nil
