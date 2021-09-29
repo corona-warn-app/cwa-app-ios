@@ -88,7 +88,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		registerCertificateTitle.waitAndTap()
 
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the first HC here.
-		let hc2Button = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
+		let hc2Button = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC2])
 		hc2Button.waitAndTap()
 
 		// Certificate Screen
