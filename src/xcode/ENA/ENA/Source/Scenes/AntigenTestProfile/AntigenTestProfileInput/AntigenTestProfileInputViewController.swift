@@ -177,8 +177,8 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 
 	private func setupView() {
 
-		parent?.navigationItem.title = AppStrings.AntigenProfile.Create.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.title = AppStrings.AntigenProfile.Create.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		view.backgroundColor = .enaColor(for: .background)
 

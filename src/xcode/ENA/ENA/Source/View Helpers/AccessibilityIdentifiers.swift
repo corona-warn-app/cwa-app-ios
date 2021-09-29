@@ -251,6 +251,11 @@ enum AccessibilityIdentifiers {
 	
 	enum UniversalQRScanner {
 		static let flash = "ExposureSubmissionQRScanner_flash"
+		static let fakeHC1 = "QRScanner_FAKE_HC1"
+		static let fakeHC2 = "QRScanner_FAKE_HC2"
+		static let fakePCR = "QRScanner_FAKE_PCR"
+		static let fakeEvent = "QRScanner_FAKE_EVENT"
+
 	}
 	
 	enum ExposureSubmissionQRInfo {
@@ -517,6 +522,14 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
 		}
+		enum HospitalizationRate {
+			static let title = "AppStrings.Statistics.Card.HospitalizationRate.title"
+			static let infoButton = "AppStrings.Statistics.Card.HospitalizationRate.infoButton"
+		}
+		enum IntensiveCare {
+			static let title = "AppStrings.Statistics.Card.IntensiveCare.title"
+			static let infoButton = "AppStrings.Statistics.Card.IntensiveCare.infoButton"
+		}
 		enum General {
 			static let tableViewCell = "HomeStatisticsTableViewCell"
 			static let card = "HomeStatisticsCard"
@@ -533,6 +546,7 @@ enum AccessibilityIdentifiers {
 	enum TabBar {
 		static let home = "TabBar.home"
 		static let certificates = "TabBar.certificates"
+		static let scanner = "TabBar.scanner"
 		static let checkin = "TabBar.checkin"
 		static let diary = "TabBar.diary"
 	}

@@ -63,9 +63,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
 		registerCertificateTitle.waitAndTap()
 
-		// QRCode Scanner - close via flash will submit a healthCertificate
-		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.flash])
-		flashBarButton.waitAndTap()
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the first HC here.
+		let hc1Button = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
+		hc1Button.waitAndTap()
 
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
@@ -87,9 +87,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
 		registerCertificateTitle.waitAndTap()
 
-		// QRCode Scanner - close via flash will submit a healthCertificate
-		let flashBarButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.flash])
-		flashBarButton.waitAndTap()
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the first HC here.
+		let hc2Button = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC2])
+		hc2Button.waitAndTap()
 
 		// Certificate Screen
 		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
