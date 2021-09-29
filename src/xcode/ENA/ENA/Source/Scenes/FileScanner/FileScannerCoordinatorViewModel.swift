@@ -29,30 +29,30 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+		// There can only be one selected image, because the selectionLimit is set to 1.
+		guard let result = results.first else {
+			self.dismiss()
+			return
+		}
 
-		// each result represents a selected image
-		results.forEach { result in
-			let itemProvider = result.itemProvider
-			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
-				Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
-				self.dismiss()
+		let itemProvider = result.itemProvider
+		guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
+			return
+		}
+		itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
+			guard let self = self,
+				  let image = provider as? UIImage,
+				  let codes = self.findQRCodes(in: image),
+				  !codes.isEmpty
+			else {
+				self?.dismissOnMain()
 				return
 			}
-			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
-				guard let self = self else { return }
 
-				guard let image = provider as? UIImage,
-					  let codes = self.findQRCodes(in: image),
-					  !codes.isEmpty
-				else {
-					self.dismiss()
-					return
-				}
-				Log.debug("Found codes in image.", log: .fileScanner)
-				self.findValidQRCode(from: codes) { result in
-					self.qrCodeFound(result)
-					self.dismiss()
-				}
+			Log.debug("Found codes in image.", log: .fileScanner)
+			self.findValidQRCode(from: codes) { [weak self] result in
+				self?.qrCodeFound(result)
+				self?.dismissOnMain()
 			}
 		}
 	}
@@ -191,7 +191,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		Log.debug("Try to find a valid QR-Code from codes.", log: .fileScanner)
 
 		let group = DispatchGroup()
-		var codeResult: QRCodeResult?
+		var validCodes = [QRCodeResult]()
 
 		for code in codes {
 			group.enter()
@@ -201,18 +201,27 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				case .failure:
 					break
 				case .success(let result):
-					Log.debug("Found valid QR-Code from codes.", log: .fileScanner)
-					codeResult = result
+					validCodes.append(result)
 				}
 				group.leave()
 			}
 		}
 
 		group.notify(queue: .main) {
-			if codeResult == nil {
+			// Return first valid result.
+			if let firstValidResult = validCodes.first {
+				Log.debug("Found valid QR-Code from codes.", log: .fileScanner)
+				completion(firstValidResult)
+			} else {
 				Log.debug("Didn't find a valid QR-Code from codes.", log: .fileScanner)
+				completion(nil)
 			}
-			return completion(codeResult)
+		}
+	}
+
+	private func dismissOnMain() {
+		DispatchQueue.main.async { [weak self] in
+			self?.dismiss()
 		}
 	}
 }
