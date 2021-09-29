@@ -2835,7 +2835,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
 
-"CovPass_Check_Info_text03" = "Bitte beachten Sie, dass in anderen Ländern andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden.";
+"CovPass_Check_Info_text03" = "Bitte beachten Sie, dass in anderen Ländern gegebenenfalls andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden.";
 
 /* Health Certified Person Screen */
 
