@@ -31,9 +31,9 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHa
 		setupView()
 
 		if !viewModel.hidesCloseButton {
-			parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: onDismiss)
+			navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: onDismiss)
 		}
-		parent?.navigationItem.title = AppStrings.Checkins.Information.title
+		navigationItem.title = AppStrings.Checkins.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
