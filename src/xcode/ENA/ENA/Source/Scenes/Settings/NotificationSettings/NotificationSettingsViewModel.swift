@@ -49,7 +49,8 @@ class NotificationSettingsViewModel {
 				.section(
 					background: .greyBoxed,
 					cells: [
-						// Add headline with image						
+						
+						// Add headline with image
 						.body(
 							text: AppStrings.NotificationSettings.bulletDescOn,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOn
@@ -76,6 +77,26 @@ class NotificationSettingsViewModel {
 								AppStrings.NotificationSettings.bulletDesc2FAQText),
 							links: [AppStrings.NotificationSettings.bulletDesc2FAQText: AppStrings.Links.notificationSettingsFAQ],
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDesc2
+						),
+						.custom(
+							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: ""
+									),
+									body: NSMutableAttributedString(
+										string: ""
+									),
+									textColor: .textContrast,
+									bgColor: .cellBackground,
+									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
+									buttonTapped: {
+										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+									}
+								)
+							}
 						)
 						// Add Button
 					]
