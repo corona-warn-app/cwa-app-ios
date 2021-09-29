@@ -65,7 +65,8 @@ struct DeltaOnboardingNotificationReworkViewModel {
 							text: String(
 								format: AppStrings.NotificationSettings.bulletDesc2,
 								AppStrings.NotificationSettings.bulletDesc2FAQText),
-							links: [AppStrings.NotificationSettings.bulletDesc2FAQText: AppStrings.Links.notificationSettingsFAQ]
+							links: [AppStrings.NotificationSettings.bulletDesc2FAQText: AppStrings.Links.notificationSettingsFAQ],
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDesc2
 						),
 						.space(height: 8)
 					]
