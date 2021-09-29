@@ -37,10 +37,10 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		footerView?.setBackgroundColor(.enaColor(for: .darkBackground))
 
 		setupTableView()
-		parent?.navigationItem.largeTitleDisplayMode = .always
-		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = AppStrings.Checkins.Overview.title
 		updateRightBarButtonItem(isEditing: false)
-		parent?.navigationItem.setHidesBackButton(true, animated: false)
+		navigationItem.setHidesBackButton(true, animated: false)
 
 		tableView.reloadData()
 		updateEmptyState()
@@ -224,9 +224,9 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 	private func updateRightBarButtonItem(isEditing: Bool) {
 		// Only update if necessary to prevent unnecessary animations
-		if isEditing && parent?.navigationItem.rightBarButtonItem != editButtonItem {
-			parent?.navigationItem.setRightBarButton(editButtonItem, animated: true)
-		} else if parent?.navigationItem.rightBarButtonItem == nil || parent?.navigationItem.rightBarButtonItem == editButtonItem {
+		if isEditing && navigationItem.rightBarButtonItem != editButtonItem {
+			navigationItem.setRightBarButton(editButtonItem, animated: true)
+		} else if navigationItem.rightBarButtonItem == nil || navigationItem.rightBarButtonItem == editButtonItem {
 			let barButtonItem = UIBarButtonItem(
 				image: UIImage(named: "Icons_More_Circle"),
 				style: .plain,
@@ -237,7 +237,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.Checkin.Overview.menueButton
 			barButtonItem.tintColor = .enaColor(for: .tint)
 
-			parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
+			navigationItem.setRightBarButton(barButtonItem, animated: true)
 		}
 	}
 
