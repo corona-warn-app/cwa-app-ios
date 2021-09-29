@@ -26,18 +26,18 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 	// MARK: - Tests
 
-    func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {
+    func testDeltaOnboardings() throws {
 		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
 		app.launch()
 
-		// - Delta Onboarding 1.5
-		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
-
-		let closeButton = app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close]
-		closeButton.waitAndTap()
-
-		checkNewFeaturesAndDataDonationScreen()
+		checkCrossCountrySupport()
+		checkDataDonationScreen()
+		checkNewFeaturesScreen()
+		checkNotificationReworkScreen()
+		
+		// On Home Screen?
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 	}
 	
 	func testDeltaOnboardingNewVersionFeatures() throws {
@@ -45,7 +45,10 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		
 		app.launch()
 
-		checkNewFeaturesAndDataDonationScreen()
+		checkNewFeaturesScreen()
+		
+		// On Home Screen?
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 	}
 
 	// MARK: - Screenshots
@@ -87,9 +90,23 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 	}
 
 	// MARK: - Private
+	
+	func checkNewFeaturesScreen() {
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
+		
+		// leave screen
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+	}
+	
+	func checkCrossCountrySupport() {
+		// - Delta Onboarding 1.5
+		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
 
-	func checkNewFeaturesAndDataDonationScreen() {
-		// - Data Donation Screen
+		// leave screen
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+	}
+	
+	private func checkDataDonationScreen() {
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
 		// We should only see the two fields. The region should be visible if we tapped on federal state.
@@ -122,14 +139,21 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
-		// Now proceed with delta onboarding
+		// leave screen
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-
-		// - New Features Screen
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
+	}
+	
+	private func checkNotificationReworkScreen() {
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
+		
+		// test if jump to system settings works
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-
-		// - On Home Screen?
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		let safari = XCUIApplication(bundleIdentifier: "com.apple.settings")
+		_ = safari.wait(for: .runningForeground, timeout: .long)
+		
+		// leave screen
+		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
 	}
 }
