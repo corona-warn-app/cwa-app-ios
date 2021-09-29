@@ -13,12 +13,11 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service)
 
 		// THEN
-		XCTAssertEqual(viewModel.numberOfSections, 5)
+		XCTAssertEqual(viewModel.numberOfSections, 4)
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 4), 0)
 	}
 
 	func testGIVEN_requestTestCertificate_THEN_noErrorIsSet() {
