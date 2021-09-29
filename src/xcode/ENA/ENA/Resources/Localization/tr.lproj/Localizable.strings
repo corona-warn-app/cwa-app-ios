@@ -598,25 +598,6 @@
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "Tamam";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "QR Kod Tarama";
-
-"ExposureSubmissionQRScanner_instruction" = "Çerçeveyi belgenizin QR kodunun üzerine tutun.";
-
-"ExposureSubmissionQRScanner_otherError" = "Bilinmeyen bir hata oluştu.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Uygulamanın QR kodu taramak için kamerayı kullanmasına izin verin.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Kamera flaşı";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Açık";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Kapalı";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Kamera flaşını aç";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Kamera flaşını kapat";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Teşekkür ederiz";
 
@@ -1560,7 +1541,7 @@
 /* Version 2.11 */
 "NewVersionFeature_211_universalQRCodeScanner_title" = "Evrensel QR Kod Tarayıcı";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Artık Corona-Warn-App'te QR kod tarayıcıyı nerede açarsanız açın CWA'nın desteklediği tüm belgeleri tarayabilirsiniz:\n\n\t\U2022 PCR testleri\n\t\U2022 Hızlı testler\n\t\U2022 Etkinlik check-in'leri\n\t\U2022 Sertifikalar";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Artık Corona-Warn-App'te QR kod tarayıcıyı nerede açarsanız açın uygulamanın desteklediği tüm belgeleri tarayabilirsiniz:\n\n\t\U2022 PCR testleri\n\t\U2022 Hızlı testler\n\t\U2022 Etkinlik check-in'leri\n\t\U2022 Sertifikalar";
 
 "NewVersionFeature_211_qrCodeImport_title" = "QR Kodu İçe Aktar";
 
@@ -2206,8 +2187,6 @@
 "QuickAction_eventCheckin" = "Check In";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "QR Kod Tarama";
-
 "Checkins_Overview_Title" = "Check-In’lerim";
 
 "Checkins_Overview_MenuButtonTitle" = "Menü";
@@ -2255,8 +2234,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Bilgi";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Düzenle";
-
-"Checkins_Overview_QRScanner_Instruction" = "QR Kodu Tara ve Check In Yap";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "%@ için check-in.";
 
@@ -2637,7 +2614,7 @@
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
 
-"HealthCertificate_Overview_Covid_Title" = "AB\n**Dijital COVID Sertifikası**";
+"HealthCertificate_Overview_Covid_Title" = "AB Dijital COVID Sertifikası";
 
 "VaccinationCertificate_title" = "AB\n**Dijital Aşı Sertifikası**";
 
@@ -2722,12 +2699,22 @@
 
 "HealthCertificate_Info_primaryButton" = "Devam Et";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "QR Kod Tarama";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Üçüncü Taraflarca Sertifika Doğrulaması";
 
-"HealthCertificate_QRScanner_instruction" = "QR Kodu Tara ve Sertifika Ekle";
+"CovPass_Check_Info_body" = "Üçüncü taraflar aşı sertifikasının, iyileşme sertifikasının veya test sertifikasının geçerli olup olmadığını güvenilir şekilde doğrulamak için CovPassCheck uygulamasını kullanabilir.";
+
+"CovPass_Check_Info_faq" = "Üçüncü Taraflarca Sertifika Doğrulaması için SSS";
+
+"CovPass_Check_Info_text01" = "Corona-Warn-App'te sertifikaların geçerliliğini kendiniz doğrulayabilirsiniz ve CovPassCheck uygulamasını kullanmanız gerekmez.";
+
+"CovPass_Check_Info_text02" = "Ancak üçüncü tarafların sertifikaları görsel olarak doğrulaması yeterli değildir. Üçüncü tarafların Almanya'da CovPassCheck uygulamasını kullanması gerekir.";
+
+"CovPass_Check_Info_text03" = "Diğer ülkelerdeki üçüncü tarafların sertifika doğrulaması için başka uygulamaları kullanabileceğini lütfen unutmayın.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Bu QR kod, CovPassCheck uygulaması ile güvenilir şekilde doğrulanabilir.";
+
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Aşı Durumu";
@@ -3033,6 +3020,20 @@
 "UniversalQRScanner_InstructionTitle" = "Hangi QR kodları tarayabilirsiniz?";
 
 "UniversalQRScanner_InstructionDescription" = "PCR testleri ve hızlı testler, test sertifikaları, aşı sertifikaları, iyileşme sertifikaları ve check-in'ler.";
+
+"UniversalQRScanner_CameraFlash" = "Kamera flaşı";
+
+"UniversalQRScanner_CameraFlash_On" = "Açık";
+
+"UniversalQRScanner_CameraFlash_Off" = "Kapalı";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Kamera flaşını aç";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Kamera flaşını kapat";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Uygulamanın QR kodu taramak için kamerayı kullanmasına izin verin.";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod tarayın.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
