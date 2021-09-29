@@ -73,19 +73,4 @@ struct DeltaOnboardingNotificationReworkViewModel {
 			)
 		}
 	}
-	
-	// MARK: - Private
-	
-	private func createBulletDesc2Text() -> NSAttributedString {
-		let rawString = String(format: AppStrings.NotificationSettings.bulletDesc2, AppStrings.NotificationSettings.bulletDesc2FAQText)
-		let string = NSMutableAttributedString(string: rawString)
-		let range = string.mutableString.range(of: AppStrings.NotificationSettings.bulletDesc2FAQText)
-		if range.location != NSNotFound {
-			// Links don't work in UILabels so we fake it here. Link handling in done in view controller on cell tap.
-			string.addAttribute(.foregroundColor, value: UIColor.enaColor(for: .textTint), range: range)
-			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
-		}
-		return string
-	}
-		
 }
