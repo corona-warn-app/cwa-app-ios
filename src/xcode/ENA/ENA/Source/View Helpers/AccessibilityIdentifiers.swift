@@ -34,6 +34,9 @@ enum AccessibilityIdentifiers {
 		static let bulletPoint2 = "AppStrings.NotificationSettings.bulletPoint2"
 		static let bulletPoint3 = "AppStrings.NotificationSettings.bulletPoint3"
 		static let bulletDesc2 = "AppStrings.NotificationSettings.bulletDesc2"
+		
+		static let openSystemSettings = "AppStrings.NotificationSettings.openSystemSettings"
+		static let close = "AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle"
 	}
 	
 	enum Home {
