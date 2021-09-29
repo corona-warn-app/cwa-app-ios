@@ -640,25 +640,6 @@ enum AppStrings {
 	}
 
 	enum NotificationSettings {
-		/*to be removed in https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9676*/
-		static let onTitle = NSLocalizedString("NotificationSettings_On_Title", comment: "")
-		static let onSectionTitle = NSLocalizedString("NotificationSettings_On_SectionTitle", comment: "")
-		static let riskChanges = NSLocalizedString("NotificationSettings_On_RiskChanges", comment: "")
-		static let testsStatus = NSLocalizedString("NotificationSettings_On_TestsStatus", comment: "")
-
-		static let offSectionTitle = NSLocalizedString("NotificationSettings_Off_SectionTitle", comment: "")
-		static let enableNotifications = NSLocalizedString("NotificationSettings_Off_EnableNotifications", comment: "")
-		static let statusInactive = NSLocalizedString("NotificationSettings_Off_StatusInactive", comment: "")
-		static let infoTitle = NSLocalizedString("NotificationSettings_Off_InfoTitle", comment: "")
-		static let infoDescription = NSLocalizedString("NotificationSettings_Off_InfoDescription", comment: "")
-		static let openSettings = NSLocalizedString("NotificationSettings_Off_OpenSettings", comment: "")
-
-		static let navigationBarTitle = NSLocalizedString("NotificationSettings_NavTitle", comment: "")
-
-		static let onImageDescription = NSLocalizedString("NotificationSettings_onImageDescription", comment: "")
-		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
-		
-		/*new*/
 		static let title = NSLocalizedString("NotificationSettings_Title", comment: "")
 		static let imageDescriptionOn = NSLocalizedString("NotificationSettings_ImageDescriptionOn", comment: "")
 		static let imageDescriptionOff = NSLocalizedString("NotificationSettings_ImageDescriptionOff", comment: "")
