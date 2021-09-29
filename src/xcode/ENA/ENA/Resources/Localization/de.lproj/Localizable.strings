@@ -2934,7 +2934,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Vaccination Certificate Details */
 
-"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
+"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
 
 /* Health Certificate Delete Alert */
 
