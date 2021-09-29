@@ -43,10 +43,9 @@ class QRCodeParser: QRCodeParsable {
 		let antigenTestPrefix = "https://s.coronawarn.app"
 		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
-		var parser: QRCodeParsable?
 
 		if qrCode.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
-			// it is trace Locations QRCode
+			// it is a trace Locations QRCode
 			parser = CheckinQRCodeParser(
 				appConfigurationProvider: appConfigurationProvider
 			)
@@ -69,6 +68,7 @@ class QRCodeParser: QRCodeParsable {
 
 		parser.parse(qrCode: qrCode) { result in
 			completion(result)
+			self.parser = nil
 		}
 	}
 
@@ -77,5 +77,5 @@ class QRCodeParser: QRCodeParsable {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let markCertificateAsNew: Bool
-
+	private var parser: QRCodeParsable?
 }

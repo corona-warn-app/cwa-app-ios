@@ -150,13 +150,12 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	// MARK: - Private
 
 	private func parseTheExtractedQRCode(url: String) {
-		parser?.parse(qrCode: url, completion: completion)
+		parser.parse(qrCode: url, completion: completion)
 	}
 	
 	private let captureDevice: AVCaptureDevice?
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
-
-	private var parser: QRCodeParsable?
+	private let parser: QRCodeParsable
 
 }
