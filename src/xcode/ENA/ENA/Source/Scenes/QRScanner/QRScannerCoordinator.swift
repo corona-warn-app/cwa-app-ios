@@ -82,7 +82,6 @@ class QRScannerCoordinator {
 	private weak var parentViewController: UIViewController?
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
-	private var exposureSubmissionCoordinator: ExposureSubmissionCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	
 	private func qrScannerViewController(
@@ -131,7 +130,7 @@ class QRScannerCoordinator {
 			parentViewController.dismiss(animated: true) {
 				self.parentViewController = parentPresentingViewController
 
-				self.exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+				let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 					parentViewController: parentViewController,
 					exposureSubmissionService: self.exposureSubmissionService,
 					coronaTestService: self.coronaTestService,
@@ -144,10 +143,10 @@ class QRScannerCoordinator {
 					qrScannerCoordinator: self
 				)
 
-				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+				exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 			}
 		case .checkinTab, .certificateTab:
-			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+			let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 				parentViewController: parentViewController,
 				exposureSubmissionService: exposureSubmissionService,
 				coronaTestService: coronaTestService,
@@ -160,7 +159,7 @@ class QRScannerCoordinator {
 				qrScannerCoordinator: self
 			)
 
-			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+			exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 		case .none:
 			break
 		}
