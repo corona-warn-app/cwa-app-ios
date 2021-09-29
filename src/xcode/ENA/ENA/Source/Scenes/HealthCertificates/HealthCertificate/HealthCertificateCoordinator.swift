@@ -179,7 +179,13 @@ final class HealthCertificateCoordinator {
 								style: .destructive,
 								handler: { _ in
 									self.healthCertificateService.removeHealthCertificate(self.healthCertificate)
-									self.rootNavigationController.dismiss(animated: true, completion: nil)
+
+									switch self.parentingViewController {
+									case .push(let navigationController):
+										navigationController.popViewController(animated: true)
+									case .present(let viewController):
+										viewController.dismiss(animated: true)
+									}
 								}
 							)
 						)
