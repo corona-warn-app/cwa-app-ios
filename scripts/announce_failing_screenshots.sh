@@ -3,6 +3,7 @@
 set -euo pipefail
 
 SCREENSHOT_URL=$1
+JOB_URL=$2
 
 if curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"; then
   echo  "found screenshots at  $SCREENSHOT_URL "
@@ -33,6 +34,14 @@ else
           "value": "${CIRCLE_BUILD_NUM}"
       }],
       "markdown": true
+  }],
+  "potentialAction": [{
+      "@type": "OpenUri",
+      "name": "Open failed Job",
+      "targets": [{
+          "os": "default",
+          "uri": "${JOB_URL}"
+      }]
   }]
 }
 EOF
