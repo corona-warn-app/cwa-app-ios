@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-struct DeltaOnboardingV15ViewModel {
+struct DeltaOnboardingCrossCountrySupportViewModel {
 	
 	// MARK: - Init
 
@@ -62,7 +62,7 @@ struct DeltaOnboardingV15ViewModel {
 					cells: [
 						.space(height: 20),
 						.custom(
-							withIdentifier: DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers.roundedCell,
+							withIdentifier: DeltaOnboardingCrossCountrySupportViewController.CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
 								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
 
