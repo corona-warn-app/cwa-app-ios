@@ -726,7 +726,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			#endif
 
 			let onboardings: [DeltaOnboarding] = [
-				DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
+				DeltaOnboardingCrossCountrySupport(store: self.viewModel.store, supportedCountries: supportedCountries),
 				DeltaOnboardingDataDonation(store: self.viewModel.store),
 				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
 				DeltaOnboardingNotificationRework(store: self.viewModel.store)
