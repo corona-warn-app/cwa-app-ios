@@ -307,13 +307,29 @@ extension DynamicTableViewController {
 		if dynamicTableViewModel.section(at: indexPath).isHidden(for: self) {
 			return UITableViewCell()
 		}
-
+		
 		let section = dynamicTableViewModel.section(at: indexPath)
 		let content = dynamicTableViewModel.cell(at: indexPath)
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: content.cellReuseIdentifier, for: indexPath)
 
 		content.configure(cell: cell, at: indexPath, for: self)
+		
+		switch section.background {
+		case .none:
+			cell.backgroundColor = .clear
+		case .greyBoxed:
+			let isFirst = indexPath.row == 0
+			let isLast = indexPath.row == section.cells.count - 1
+			
+			if isFirst {
+				cell.addBackground(.top)
+			} else if isLast {
+				cell.addBackground(.bottom)
+			} else {
+				cell.addBackground(.inBetween)
+			}
+		}
 
 		cell.removeSeparators()
 
@@ -381,4 +397,50 @@ private extension UITableViewCell {
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 		}
 	}
+}
+
+private extension UITableViewCell {
+	enum BackgroundLocation: Int {
+		case top = 200_001
+		case bottom = 200_002
+		case inBetween = 200_003
+	}
+	
+	func removeBackground() {
+		viewWithTag(BackgroundLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(BackgroundLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(BackgroundLocation.inBetween.rawValue)?.removeFromSuperview()
+	}
+
+	func addBackground(_ location: BackgroundLocation) {
+		let coloredBackground = UIView(frame: bounds)
+		coloredBackground.backgroundColor = .enaColor(for: .cellBackground)
+		coloredBackground.translatesAutoresizingMaskIntoConstraints = false
+
+		switch location {
+		case .top:
+			coloredBackground.tag = BackgroundLocation.top.rawValue
+			coloredBackground.clipsToBounds = true
+			coloredBackground.layer.cornerRadius = 10
+			coloredBackground.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+		case .bottom:
+			coloredBackground.tag = BackgroundLocation.bottom.rawValue
+			coloredBackground.clipsToBounds = true
+			coloredBackground.layer.cornerRadius = 10
+			coloredBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+		case .inBetween:
+			coloredBackground.tag = BackgroundLocation.inBetween.rawValue
+		}
+
+		
+		addSubview(coloredBackground)
+		sendSubviewToBack(coloredBackground)
+		NSLayoutConstraint.activate([
+			coloredBackground.topAnchor.constraint(equalTo: topAnchor),
+			coloredBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+			coloredBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+			coloredBackground.bottomAnchor.constraint(equalTo: bottomAnchor)
+		])
+	}
+	
 }
