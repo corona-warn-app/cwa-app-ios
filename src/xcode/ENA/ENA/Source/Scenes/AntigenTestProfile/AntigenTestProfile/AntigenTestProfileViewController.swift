@@ -45,12 +45,12 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.setBackgroundImage(originalBackgroundImage, for: .default)
 		navigationController?.navigationBar.shadowImage = originalShadowImage
 		
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.prefersLargeTitles = true
 
 		if traitCollection.userInterfaceStyle == .dark {
-			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		} else {
-			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
+			navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 		}
 	}
 	
@@ -176,10 +176,10 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		let logoImageView = UIImageView(image: logoImage)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
-		parent?.navigationController?.navigationBar.tintColor = .white
+		navigationController?.navigationBar.tintColor = .white
 
-		parent?.navigationItem.titleView = logoImageView
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
+		navigationItem.titleView = logoImageView
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
 		if isBeingPresented {
 			// remove previous view controllers from the stack, we will return to the rootViewController by back button here
@@ -198,9 +198,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
 		
-		parent?.navigationController?.navigationBar.prefersLargeTitles = false
-		parent?.navigationController?.navigationBar.sizeToFit()
-		parent?.navigationItem.largeTitleDisplayMode = .never
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.sizeToFit()
+		navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {
