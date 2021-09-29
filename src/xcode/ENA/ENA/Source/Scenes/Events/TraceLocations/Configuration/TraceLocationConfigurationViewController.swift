@@ -29,8 +29,8 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.navigationItem.title = AppStrings.TraceLocations.Configuration.title
-		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
+		navigationItem.title = AppStrings.TraceLocations.Configuration.title
+		navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
 

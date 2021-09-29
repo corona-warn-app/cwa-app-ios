@@ -1125,19 +1125,23 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.11 */
+		/* Version 2.12 */
 		
-		static let feature211UniversalQRCodeScannerTitle = NSLocalizedString("NewVersionFeature_211_universalQRCodeScanner_title", comment: "")
+		static let feature212NewStatisticsTilesTitle = NSLocalizedString("NewVersionFeature_212_newStatisticsTiles_title", comment: "")
 		
-		static let feature211UniversalQRCodeScannerDescription = NSLocalizedString("NewVersionFeature_211_universalQRCodeScanner_description", comment: "")
+		static let feature212NewStatisticsTilesDescription = NSLocalizedString("NewVersionFeature_212_newStatisticsTiles_description", comment: "")
 		
-		static let feature211QRCodeImportTitle = NSLocalizedString("NewVersionFeature_211_qrCodeImport_title", comment: "")
+		static let feature212NotificationManagementTitle = NSLocalizedString("NewVersionFeature_212_notificationManagement_title", comment: "")
 		
-		static let feature211QRCodeImportDescription = NSLocalizedString("NewVersionFeature_211_qrCodeImport_description", comment: "")
+		static let feature212NotificationManagementDescription = NSLocalizedString("NewVersionFeature_212_notificationManagement_description", comment: "")
 		
-		static let feature211ContactDurationAdjustmentTitle = NSLocalizedString("NewVersionFeature_211_contactDurationAdjustment_title", comment: "")
+		static let feature212QRCodeScannerButtonTitle = NSLocalizedString("NewVersionFeature_212_qrCodeScannerButton_title", comment: "")
 		
-		static let feature211ContactDurationAdjustmentDescription = NSLocalizedString("NewVersionFeature_211_contactDurationAdjustment_description", comment: "")
+		static let feature212QRCodeScannerButtonDescription = NSLocalizedString("NewVersionFeature_212_qrCodeScannerButton_description", comment: "")
+		
+		static let feature212QRCodeImportTitle = NSLocalizedString("NewVersionFeature_212_qrCodeImport_title", comment: "")
+		
+		static let feature212QRCodeImportDescription = NSLocalizedString("NewVersionFeature_212_qrCodeImport_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
@@ -1528,6 +1532,7 @@ enum AppStrings {
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
 		static let certificatesTitle = NSLocalizedString("Tabbar_Certificates_Title", comment: "")
+		static let scannerTitle = NSLocalizedString("Tabbar_Scanner_Title", comment: "")
 		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
 		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
@@ -2315,6 +2320,7 @@ enum AppStrings {
 		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
 		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
 
+		static let fileButtonTitle = NSLocalizedString("UniversalQRScanner_FileButtonTitle", comment: "")
 		static let flashButtonAccessibilityLabel = NSLocalizedString("UniversalQRScanner_CameraFlash", comment: "")
 		static let flashButtonAccessibilityOnValue = NSLocalizedString("UniversalQRScanner_CameraFlash_On", comment: "")
 		static let flashButtonAccessibilityOffValue = NSLocalizedString("UniversalQRScanner_CameraFlash_Off", comment: "")
@@ -2339,6 +2345,17 @@ enum AppStrings {
 			static let message = NSLocalizedString("FileScanner_AccessError_message", comment: "")
 			static let cancel = NSLocalizedString("FileScanner_AccessError_cancel", comment: "")
 			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
+		}
+
+		enum PasswordEntry {
+			static let title = NSLocalizedString("FileScanner_PasswordEntry_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_PasswordEntry_message", comment: "")
+			static let placeholder = NSLocalizedString("FileScanner_PasswordEntry_placeholder", comment: "")
+		}
+
+		enum PasswordError {
+			static let title = NSLocalizedString("FileScanner_PasswordError_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_PasswordError_message", comment: "")
 		}
 	}
 

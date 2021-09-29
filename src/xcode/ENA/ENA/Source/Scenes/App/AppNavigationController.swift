@@ -173,19 +173,6 @@ extension NavigationBarOpacityDelegate {
 	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }
 
-// MARK: - Protocol UITabBarControllerDelegate
-
-class TabBarScrolling: NSObject, UITabBarControllerDelegate {
-	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-		if viewController == tabBarController.selectedViewController {
-			if let naviVC = viewController as? UINavigationController {
-				naviVC.scrollEmbeddedViewToTop()
-			}
-		}
-		return true
-	}
-}
-
 extension UINavigationController {
 	// only if on top level of the navigation hierarchy: scroll the embedded view up
 	func scrollEmbeddedViewToTop() {
@@ -201,7 +188,7 @@ extension UINavigationController {
 		scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)	// no large title
 		let estimatedScrollingDuration = 0.25
 		// wait till the scrolling animation is finished plus slightly longer, to be on the safe side
-		DispatchQueue.main.asyncAfter(deadline: .now() + estimatedScrollingDuration + 0.05) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + estimatedScrollingDuration + 0.1) {
 			self.navigationBar.sizeToFit()
 		}
 	}

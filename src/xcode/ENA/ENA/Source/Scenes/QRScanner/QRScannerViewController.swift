@@ -40,7 +40,12 @@ class QRScannerViewController: UIViewController {
 					didScan(qrCodeResult)
 				case let .failure(error):
 					if error == .scanningError(.cameraPermissionDenied) {
+						#if targetEnvironment(simulator)
+						// Don't show an error in simulator to enable debugging/UI-Tests
+						return
+						#else
 						self?.showCameraPermissionErrorAlert()
+						#endif
 					} else {
 						self?.showErrorAlert(error: error)
 					}
@@ -61,6 +66,10 @@ class QRScannerViewController: UIViewController {
 		setupView()
 		setupViewModel()
 		setupNavigationBar()
+		#if targetEnvironment(simulator)
+		// Show Debug to select QRCode that got scanned
+		showCodeSelection()
+		#endif
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -85,7 +94,7 @@ class QRScannerViewController: UIViewController {
 	private let presentFileScanner: () -> Void
 	private let contentView = UIView()
 	private let flashButton = UIButton(type: .custom)
-
+	private let fileButton = UIButton(type: .custom)
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	private var viewModel: QRScannerViewModel?
 
@@ -115,6 +124,16 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.text = AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
 
+		fileButton.contentMode = .left
+		fileButton.setImage(UIImage(imageLiteralResourceName: "file_button"), for: .normal)
+		fileButton.setTitle(AppStrings.UniversalQRScanner.fileButtonTitle, for: .normal)
+		fileButton.addTarget(self, action: #selector(didTapFileButton), for: .touchUpInside)
+		fileButton.translatesAutoresizingMaskIntoConstraints = false
+		fileButton.accessibilityTraits = .button
+		fileButton.titleLabel?.font = .enaFont(for: .subheadline)
+		fileButton.setTitleColor(.enaColor(for: .iconWithText), for: .normal)
+		fileButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8)
+
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
@@ -136,6 +155,7 @@ class QRScannerViewController: UIViewController {
 		view.addSubview(focusView)
 		view.addSubview(scrollView)
 		view.addSubview(flashButton)
+		view.addSubview(fileButton)
 
 		NSLayoutConstraint.activate(
 			[
@@ -164,7 +184,11 @@ class QRScannerViewController: UIViewController {
 				scrollView.topAnchor.constraint(equalTo: focusView.bottomAnchor, constant: 25),
 				scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: flashButton.topAnchor, constant: -10),
 				scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
-				
+
+				fileButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
+				fileButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+				fileButton.heightAnchor.constraint(equalToConstant: 25),
+
 				flashButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35),
 				flashButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 				flashButton.heightAnchor.constraint(equalToConstant: 25),
@@ -186,12 +210,6 @@ class QRScannerViewController: UIViewController {
 		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDismiss))
 		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
 		navigationItem.leftBarButtonItem = cancelItem
-
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			barButtonSystemItem: .action,
-			target: self,
-			action: #selector(didTapFileButton)
-		)
 	}
 
 	@objc
@@ -366,4 +384,36 @@ class QRScannerViewController: UIViewController {
 		previewLayer.mask?.addSublayer(throughHoleLayer)
 		previewLayer.mask?.addSublayer(backdropLayer)
 	}
+	
+	#if targetEnvironment(simulator)
+	private func showCodeSelection() {
+		let alertVC = UIAlertController(title: "Select a QRCode you want to fake", message: nil, preferredStyle: .alert)
+		let hc1 = UIAlertAction(title: "HC1", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeHealthCert1Scan()
+		})
+		hc1.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeHC1
+		alertVC.addAction(hc1)
+		
+		let hc2 = UIAlertAction(title: "HC2", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeHealthCert2Scan()
+		})
+		hc2.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeHC2
+		alertVC.addAction(hc2)
+		
+		let pcr = UIAlertAction(title: "PCR", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakePCRTestScan()
+		})
+		pcr.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakePCR
+		alertVC.addAction(pcr)
+		
+		let event = UIAlertAction(title: "Event", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeEventScan()
+		})
+		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
+		alertVC.addAction(event)
+		
+		present(alertVC, animated: false, completion: nil)
+		
+	}
+	#endif
 }

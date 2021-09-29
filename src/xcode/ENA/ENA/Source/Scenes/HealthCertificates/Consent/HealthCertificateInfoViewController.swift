@@ -28,10 +28,10 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 		super.viewDidLoad()
 
 		if !viewModel.hidesCloseButton {
-			parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		}
 
-		parent?.navigationItem.title = viewModel.title
+		navigationItem.title = viewModel.title
 		setupView()
 	}
 
