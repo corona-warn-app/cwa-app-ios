@@ -425,9 +425,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
 	
 		// Check if safari was opened
-		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		let runInForeground = safariApp.wait(for: .runningForeground, timeout: .extraLong)
-		XCTAssertTrue(runInForeground)
+		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+
 	}
 	
 	// MARK: - Screenshots

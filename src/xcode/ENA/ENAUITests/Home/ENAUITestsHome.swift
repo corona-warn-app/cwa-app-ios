@@ -79,10 +79,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		faqCell.waitAndTap()
 
 		// get safari and wait for safari to be in foreground
-		let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		_ = safari.wait(for: .runningForeground, timeout: .extraLong)
-		
-		XCTAssertTrue(safari.state == .runningForeground)
+		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
 	}
 	
 	func test_homescreen_remove_positive_test_result() throws {
