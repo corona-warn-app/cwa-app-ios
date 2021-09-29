@@ -11,9 +11,13 @@ class FileScannerCoordinator {
 
 	init(
 		_ parentViewController: UIViewController,
+		qrCodeFound: @escaping (QRCodeResult?) -> Void,
+		qrCodeParser: QRCodeParsable,
 		dismiss: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
+		self.qrCodeFound = qrCodeFound
+		self.qrCodeParser = qrCodeParser
 		self.dismiss = dismiss
 	}
 
@@ -30,9 +34,8 @@ class FileScannerCoordinator {
 			dismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
 			},
-			qrCodesFound: { codes in
-				Log.debug("\(codes.count) codes found", log: .fileScanner)
-			}
+			qrCodeFound: qrCodeFound,
+			qrCodeParser: qrCodeParser
 		)
 
 		presentActionSheet()
@@ -42,6 +45,8 @@ class FileScannerCoordinator {
 
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
+	private var qrCodeFound: (QRCodeResult?) -> Void
+	private let qrCodeParser: QRCodeParsable
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
 

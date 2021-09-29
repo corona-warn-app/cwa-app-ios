@@ -89,22 +89,19 @@ class QRScannerCoordinator {
 		markCertificateAsNew: Bool,
 		didDismiss: @escaping () -> Void
 	) -> UIViewController {
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		var qrScannerViewController: QRScannerViewController!
 		qrScannerViewController = QRScannerViewController(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
 			markCertificateAsNew: markCertificateAsNew,
 			didScan: { [weak self] qrCodeResult in
-				self?.parentViewController.dismiss(animated: true, completion: {
-					switch qrCodeResult {
-					case let .coronaTest(testRegistrationInformation):
-						self?.showScannedTestResult(testRegistrationInformation)
-					case let .certificate(healthCertifiedPerson, healthCertificate):
-						self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-					case let .traceLocation(traceLocation):
-						self?.showScannedCheckin(traceLocation)
-					}
-				})
+				self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
@@ -113,6 +110,13 @@ class QRScannerCoordinator {
 			presentFileScanner: { [weak self] in
 				self?.fileScannerCoordinator = FileScannerCoordinator(
 					qrScannerViewController,
+					qrCodeFound: { [weak self] qrCodeResult in
+						guard let qrCodeResult = qrCodeResult else {
+							return
+						}
+						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
+					},
+					qrCodeParser: qrCodeParser,
 					dismiss: {
 						self?.fileScannerCoordinator = nil
 					}
@@ -123,6 +127,18 @@ class QRScannerCoordinator {
 		return qrScannerViewController
 	}
 
+	private func showQRCodeResult(qrCodeResult: QRCodeResult) {
+		parentViewController.dismiss(animated: true, completion: { [weak self] in
+			switch qrCodeResult {
+			case let .coronaTest(testRegistrationInformation):
+				self?.showScannedTestResult(testRegistrationInformation)
+			case let .certificate(healthCertifiedPerson, healthCertificate):
+				self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+			case let .traceLocation(traceLocation):
+				self?.showScannedCheckin(traceLocation)
+			}
+		})
+	}
 	
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
