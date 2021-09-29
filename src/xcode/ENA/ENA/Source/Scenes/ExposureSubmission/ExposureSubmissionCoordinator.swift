@@ -210,8 +210,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.navigationController?.popViewController(animated: true)
 	}
 
-	private var subscriptions = [AnyCancellable]()
-
 	// MARK: Start
 
 	private func start(with initialViewController: UIViewController) {
