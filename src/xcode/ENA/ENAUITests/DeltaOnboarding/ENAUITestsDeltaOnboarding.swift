@@ -91,21 +91,14 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 	// MARK: - Private
 	
-	func checkNewFeaturesScreen() {
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
-		
-		// leave screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-	}
-	
 	func checkCrossCountrySupport() {
 		// - Delta Onboarding 1.5
 		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
 
-		// leave screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		// leave screen.
+		app.buttons[AccessibilityIdentifiers.DeltaOnboarding.primaryButton].waitAndTap()
 	}
-	
+			
 	private func checkDataDonationScreen() {
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
@@ -143,17 +136,32 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 	}
 	
-	private func checkNotificationReworkScreen() {
-		
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
-		
-		// test if jump to system settings works
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-		let safari = XCUIApplication(bundleIdentifier: "com.apple.settings")
-		_ = safari.wait(for: .runningForeground, timeout: .long)
+	func checkNewFeaturesScreen() {
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
 		
 		// leave screen
-		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+	}
+	
+	private func checkNotificationReworkScreen() {
+		
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
+		
+		// jump to system settings
+		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
+		
+		// ensure we are in the settings
+		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.Preferences").wait(for: .runningForeground, timeout: .long))
+	
+		// return to app
+		XCUIApplication().activate()
+		
+		// ensure we are back on our screen
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .long))
+		
+		// leave screen
+		app.buttons[AccessibilityIdentifiers.NotificationSettings.close].waitAndTap()
 	}
 }
