@@ -20,7 +20,7 @@ protocol CoordinatorDelegate: AnyObject {
 	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transfering state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
-class RootCoordinator: RequiresAppDependencies {
+class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDelegate {
 
 	// MARK: - Init
 	
@@ -54,6 +54,41 @@ class RootCoordinator: RequiresAppDependencies {
 
 	deinit {
 		enStateUpdateList.removeAllObjects()
+	}
+
+	// MARK: - Protocol UITabBarControllerDelegate
+
+	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+		if viewController == tabBarController.selectedViewController {
+			if let naviVC = viewController as? UINavigationController {
+				naviVC.scrollEmbeddedViewToTop()
+			}
+		}
+
+		if viewController == universalScannerDummyViewController {
+			let selectedTab: SelectedTab?
+			switch tabBarController.selectedIndex {
+			case 0:
+				selectedTab = .home
+			case 1:
+				selectedTab = .certificates
+			case 3:
+				selectedTab = .checkin
+			case 4:
+				selectedTab = .diary
+			default:
+				selectedTab = nil
+			}
+
+			qrScannerCoordinator?.start(
+				parentViewController: self.viewController,
+				presenter: .universalScanner(selectedTab)
+			)
+
+			return false
+		}
+
+		return true
 	}
 	
 	// MARK: - Internal
@@ -154,25 +189,50 @@ class RootCoordinator: RequiresAppDependencies {
 		self.diaryCoordinator = diaryCoordinator
 		
 		// Tabbar
-		let startTabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
+		let startTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.homeTitle,
+			image: UIImage(named: "Icons_Tabbar_Home"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Home_Selected")
+		)
 		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home
 		homeCoordinator.rootViewController.tabBarItem = startTabBarItem
 
-		let certificatesTabBarItem = UITabBarItem(title: AppStrings.Tabbar.certificatesTitle, image: UIImage(named: "Icons_Tabbar_Certificates"), selectedImage: nil)
+		let certificatesTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.certificatesTitle,
+			image: UIImage(named: "Icons_Tabbar_Certificates"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Certificates_Selected")
+		)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
 		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
-		let eventsTabBarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		let universalScannerTabBarItem = UITabBarItem(
+			title: nil,
+			image: UIImage(named: "Icons_Tabbar_UniversalScanner"),
+			selectedImage: nil
+		)
+		universalScannerTabBarItem.accessibilityLabel = AppStrings.Tabbar.scannerTitle
+		universalScannerTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.scanner
+		universalScannerDummyViewController.tabBarItem = universalScannerTabBarItem
+
+		let eventsTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.checkInTitle,
+			image: UIImage(named: "Icons_Tabbar_Checkin"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Checkin_Selected")
+		)
 		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
 		checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
 
-		let diaryTabBarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
+		let diaryTabBarItem = UITabBarItem(
+			title: AppStrings.Tabbar.diaryTitle,
+			image: UIImage(named: "Icons_Tabbar_Diary"),
+			selectedImage: UIImage(named: "Icons_Tabbar_Diary_Selected")
+		)
 		diaryTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesTabCoordinator.viewController, checkinTabCoordinator.viewController, diaryCoordinator.viewController], animated: false)
-		tabBarController.delegate = tabBarScrolling
+		tabBarController.delegate = self
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesTabCoordinator.viewController, universalScannerDummyViewController, checkinTabCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
@@ -277,12 +337,12 @@ class RootCoordinator: RequiresAppDependencies {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let tabBarController = UITabBarController()
-	private let tabBarScrolling = TabBarScrolling()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
 	private var healthCertificatesTabCoordinator: HealthCertificatesTabCoordinator?
+	private let universalScannerDummyViewController = UIViewController()
 	private(set) var checkinTabCoordinator: CheckinTabCoordinator?
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	private(set) var qrScannerCoordinator: QRScannerCoordinator?

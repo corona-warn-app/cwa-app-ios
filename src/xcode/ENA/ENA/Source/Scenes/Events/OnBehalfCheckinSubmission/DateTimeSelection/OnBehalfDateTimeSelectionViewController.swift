@@ -34,8 +34,8 @@ class OnBehalfDateTimeSelectionViewController: DynamicTableViewController, Foote
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
-		parent?.navigationItem.title = AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title
+		navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
+		navigationItem.title = AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title
 
 		setupTableView()
 
