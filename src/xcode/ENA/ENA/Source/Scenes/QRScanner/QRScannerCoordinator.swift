@@ -85,10 +85,9 @@ class QRScannerCoordinator {
 	private let coronaTestService: CoronaTestService
 	
 	private var presenter: QRScannerPresenter!
-	private var parentViewController: UIViewController!
+	private weak var parentViewController: UIViewController?
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
-	private var exposureSubmissionCoordinator: ExposureSubmissionCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	
 	private func qrScannerViewController(
@@ -101,7 +100,7 @@ class QRScannerCoordinator {
 			markCertificateAsNew: markCertificateAsNew,
 			markCoronaTestAsNew: markCoronaTestAsNew,
 			didScan: { [weak self] qrCodeResult in
-				self?.parentViewController.dismiss(animated: true, completion: {
+				self?.parentViewController?.dismiss(animated: true, completion: {
 					switch qrCodeResult {
 					case let .coronaTest(testRegistrationInformation):
 						self?.showScannedTestResult(testRegistrationInformation)
@@ -113,7 +112,7 @@ class QRScannerCoordinator {
 				})
 			},
 			dismiss: { [weak self] in
-				self?.parentViewController.dismiss(animated: true)
+				self?.parentViewController?.dismiss(animated: true)
 			}
 		)
 	}
@@ -121,6 +120,10 @@ class QRScannerCoordinator {
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
+		guard let parentViewController = parentViewController else {
+			return
+		}
+
 		switch presenter {
 		case .submissionFlow:
 			didScanCoronaTestInSubmissionFlow?(testRegistrationInformation)
@@ -130,8 +133,8 @@ class QRScannerCoordinator {
 			parentViewController.dismiss(animated: true) {
 				self.parentViewController = parentPresentingViewController
 
-				self.exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-					parentViewController: self.parentViewController,
+				let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+					parentViewController: parentViewController,
 					exposureSubmissionService: self.exposureSubmissionService,
 					coronaTestService: self.coronaTestService,
 					healthCertificateService: self.healthCertificateService,
@@ -143,10 +146,10 @@ class QRScannerCoordinator {
 					qrScannerCoordinator: self
 				)
 
-				self.exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+				exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 			}
 		case .checkinTab, .certificateTab, .universalScanner:
-			exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+			let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 				parentViewController: parentViewController,
 				exposureSubmissionService: exposureSubmissionService,
 				coronaTestService: coronaTestService,
@@ -159,7 +162,7 @@ class QRScannerCoordinator {
 				qrScannerCoordinator: self
 			)
 
-			exposureSubmissionCoordinator?.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+			exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
 		case .none:
 			break
 		}
@@ -169,6 +172,10 @@ class QRScannerCoordinator {
 		for person: HealthCertifiedPerson,
 		with certificate: HealthCertificate
 	) {
+		guard let parentViewController = parentViewController else {
+			return
+		}
+
 		switch presenter {
 		case .submissionFlow, .onBehalfFlow:
 			let parentPresentingViewController = parentViewController.presentingViewController
@@ -177,7 +184,7 @@ class QRScannerCoordinator {
 				self.parentViewController = parentPresentingViewController
 
 				self.healthCertificateCoordinator = HealthCertificateCoordinator(
-					parentingViewController: .present(self.parentViewController),
+					parentingViewController: .present(parentViewController),
 					healthCertifiedPerson: person,
 					healthCertificate: certificate,
 					store: self.store,
@@ -212,6 +219,10 @@ class QRScannerCoordinator {
 	private func showScannedCheckin(
 		_ traceLocation: TraceLocation
 	) {
+		guard let parentViewController = parentViewController else {
+			return
+		}
+
 		switch presenter {
 		case .onBehalfFlow:
 			didScanTraceLocationInOnBehalfFlow?(traceLocation)
@@ -222,7 +233,7 @@ class QRScannerCoordinator {
 				self.parentViewController = parentPresentingViewController
 
 				self.traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
-					parentViewController: self.parentViewController,
+					parentViewController: parentViewController,
 					traceLocation: traceLocation,
 					store: self.store,
 					eventStore: self.eventStore,
