@@ -17,9 +17,23 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum NotificationSettings {
+		/* old will be deleted with further PR */
 		static let riskChanges = "AppStrings.NotificationSettings.riskChanges"
 		static let testsStatus = "AppStrings.NotificationSettings.testsStatus"
 		static let onTitle = "AppStrings.NotificationSettings.onTitle"
+		
+		/* new */
+		
+		enum DeltaOnboarding {
+			static let image = "AppStrings.NotificationSettings.imageDescriptionOn"
+			static let description = "AppStrings.NotificationSettings.DeltaOnboarding.description"
+		}
+		
+		static let bulletDescOn = "AppStrings.NotificationSettings.bulletDescOn"
+		static let bulletPoint1 = "AppStrings.NotificationSettings.bulletPoint1"
+		static let bulletPoint2 = "AppStrings.NotificationSettings.bulletPoint2"
+		static let bulletPoint3 = "AppStrings.NotificationSettings.bulletPoint3"
+		static let bulletDesc2 = "AppStrings.NotificationSettings.bulletDesc2"
 	}
 	
 	enum Home {
