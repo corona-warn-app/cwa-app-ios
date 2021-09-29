@@ -48,7 +48,7 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	// MARK: - Internal
 	
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case notificationSettings = "NotificationSettingsCell"
+		case buttonCell = "NotificationSettingsButtonCell"
 	}
 
 	// MARK: - Private
@@ -71,7 +71,7 @@ class NotificationSettingsViewController: DynamicTableViewController {
 
 		tableView.register(
 			DynamicTableViewRoundedCell.self,
-			forCellReuseIdentifier: ReuseIdentifiers.notificationSettings.rawValue
+			forCellReuseIdentifier: ReuseIdentifiers.buttonCell.rawValue
 		)
 		
 		// is on or off
