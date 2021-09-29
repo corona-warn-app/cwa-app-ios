@@ -1,13 +1,13 @@
-#! /usr/bin/env zsh
+#!/usr/bin/env zsh
 
-set  -euo pipefail
+set -euo pipefail
 
-SCREENSHOT_URL= $1
+SCREENSHOT_URL=$1
 
-if  curl --output /dev/null --silent --head --fail  " $SCREENSHOT_URL " ;  then
-  curl --output /dev/null --silent  $SAP_TEAMS_WEBHOOK  \
-  -H  ' Content-Type: application/json '  \
-  --data-binary @-  <<  EOF
+if curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"; then
+  curl --output /dev/null --silent $SAP_TEAMS_WEBHOOK \
+  -H 'Content-Type: application/json' \
+  --data-binary @- << EOF
 {
   "@type": "MessageCard",
   "@context": "http://schema.org/extensions",
@@ -43,6 +43,6 @@ if  curl --output /dev/null --silent --head --fail  " $SCREENSHOT_URL " ;  then
 }
 EOF
 else
-  echo  " Could not locate screenshots at  $SCREENSHOT_URL "
-  return  1
+  echo "Could not locate screenshots at $SCREENSHOT_URL"
+  return 1
 fi
