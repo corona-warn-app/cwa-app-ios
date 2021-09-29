@@ -8,9 +8,7 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 
 	// MARK: - Init
 	
-	init(
-	
-	) {
+	init() {
 		self.viewModel = DeltaOnboardingNotificationReworkViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -41,11 +39,11 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		finished?()
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+		finished?()
 	}
 	
 	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
@@ -59,13 +57,16 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.NotificationSettings.openSystemSettings
 		item.isPrimaryButtonEnabled = true
 		item.isPrimaryButtonHidden = false
-		item.secondaryButtonTitle = AppStrings.NotificationSettings.openSystemSettings
+		item.secondaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
 		item.isSecondaryButtonEnabled = true
 		item.isSecondaryButtonHidden = false
-
+		item.secondaryButtonHasBackground = true
+		
+		item.title = AppStrings.NotificationSettings.DeltaOnboarding.title
+		
 		item.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.finished?()
@@ -76,10 +77,15 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 	}()
 	
 	private func setupView() {
-		navigationFooterItem?.primaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
-		footerView?.primaryButton?.accessibilityIdentifier = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
-		navigationFooterItem?.secondaryButtonTitle = AppStrings.NotificationSettings.openSystemSettings
-		footerView?.secondaryButton?.accessibilityIdentifier = AppStrings.NotificationSettings.openSystemSettings
+		
+		navigationFooterItem?.primaryButtonTitle = AppStrings.NotificationSettings.openSystemSettings
+		footerView?.primaryButton?.accessibilityIdentifier = AppStrings.NotificationSettings.openSystemSettings
+		navigationFooterItem?.secondaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
+		footerView?.secondaryButton?.accessibilityIdentifier = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
+		
+		navigationController?.navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
+		
 		setupTableView()
 	}
 
