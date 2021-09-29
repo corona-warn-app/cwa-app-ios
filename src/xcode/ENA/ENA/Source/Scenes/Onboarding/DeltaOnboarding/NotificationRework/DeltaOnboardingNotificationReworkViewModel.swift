@@ -5,14 +5,7 @@
 import UIKit
 
 struct DeltaOnboardingNotificationReworkViewModel {
-	
-	// MARK: - Init
-	
-	init(
-	) {
-		
-	}
-		
+			
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
