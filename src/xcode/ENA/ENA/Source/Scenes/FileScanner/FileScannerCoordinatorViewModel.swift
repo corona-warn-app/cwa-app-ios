@@ -12,7 +12,8 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Init
 
 	init(
-		showHUD: @escaping (@escaping () -> Void) -> Void,
+		showHUD: @escaping () -> Void,
+		hideHUD: @escaping () -> Void,
 		dismiss: @escaping () -> Void,
 		qrCodeFound: @escaping (QRCodeResult?) -> Void,
 		qrCodeParser: QRCodeParsable,
@@ -20,6 +21,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		failedToUnlockPDF: @escaping () -> Void
 	) {
 		self.showHUD = showHUD
+		self.hideHUD = hideHUD
 		self.dismiss = dismiss
 		self.qrCodeFound = qrCodeFound
 		self.qrCodeParser = qrCodeParser
@@ -31,7 +33,9 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-		showHUD { [weak self] in
+		showHUD()
+
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			// There can only be one selected image, because the selectionLimit is set to 1.
 			guard let result = results.first else {
 				self?.dismiss()
@@ -64,8 +68,9 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - UIImagePickerControllerDelegate
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+		showHUD()
 
-		showHUD { [weak self] in
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let image = info[.originalImage] as? UIImage,
 				  let codes = self?.findQRCodes(in: image),
 				  !codes.isEmpty
@@ -155,15 +160,17 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - Private
 
-	private let showHUD: (@escaping () -> Void) -> Void
 	private let dismiss: () -> Void
+	private let showHUD: () -> Void
+	private let hideHUD: () -> Void
 	private let qrCodeFound: (QRCodeResult?) -> Void
 	private let qrCodeParser: QRCodeParsable
 	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
 	private let failedToUnlockPDF: () -> Void
 
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
-		showHUD { [weak self] in
+		showHUD()
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to stronge self pointer")
 				return
@@ -172,13 +179,15 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			let codes = self.qrCodes(from: pdfDocument)
 			self.findValidQRCode(from: codes) { [weak self] result in
 				self?.qrCodeFound(result)
+				self?.hideHUD()
 				self?.dismiss()
 			}
 		}
 	}
 
 	private func scanImageFile(_ image: UIImage) {
-		showHUD { [weak self] in
+		showHUD()
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let self = self,
 				  let codes = self.findQRCodes(in: image)
 			else {
@@ -188,6 +197,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 			self.findValidQRCode(from: codes) { [weak self] result in
 				self?.qrCodeFound(result)
+				self?.hideHUD()
 				self?.dismiss()
 			}
 		}

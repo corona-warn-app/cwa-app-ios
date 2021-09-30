@@ -57,15 +57,13 @@ class QRScannerCoordinator {
 	
 	func start(
 		parentViewController: UIViewController,
-		presenter: QRScannerPresenter,
-		didDismiss: @escaping () -> Void = {}
+		presenter: QRScannerPresenter
 	) {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
-				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates),
-				didDismiss: didDismiss
+				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates)
 			)
 		)
 		self.parentViewController?.present(navigationController, animated: true)
@@ -93,8 +91,7 @@ class QRScannerCoordinator {
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
 	private func qrScannerViewController(
-		markCertificateAsNew: Bool,
-		didDismiss: @escaping () -> Void
+		markCertificateAsNew: Bool
 	) -> UIViewController {
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
@@ -112,7 +109,6 @@ class QRScannerCoordinator {
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
-				didDismiss()
 			},
 			presentFileScanner: { [weak self] in
 				self?.fileScannerCoordinator = FileScannerCoordinator(
@@ -146,7 +142,7 @@ class QRScannerCoordinator {
 			}
 		})
 	}
-	
+
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
