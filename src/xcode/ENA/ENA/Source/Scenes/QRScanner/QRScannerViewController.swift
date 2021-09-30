@@ -310,13 +310,24 @@ class QRScannerViewController: UIViewController {
 
 	private func showCameraPermissionErrorAlert() {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.Error.title,
+			title: AppStrings.UniversalQRScanner.Error.CameraPermissionDenied.title,
 			message: QRScannerError.cameraPermissionDenied.localizedDescription,
 			preferredStyle: .alert
 		)
+
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
+				title: AppStrings.UniversalQRScanner.Error.CameraPermissionDenied.settingsButton,
+				style: .default,
+				handler: { _ in
+					LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+				}
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionCancel,
 				style: .cancel,
 				handler: { [weak self] _ in
 					self?.dismiss()

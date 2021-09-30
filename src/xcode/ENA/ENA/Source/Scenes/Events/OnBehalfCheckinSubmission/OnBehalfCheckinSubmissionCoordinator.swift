@@ -84,9 +84,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 			onScanQRCodeCellTap: { [weak self] in
 				self?.showQRCodeScanner()
 			},
-			onMissingPermissionsButtonTap: { [weak self] in
-				self?.showSettings()
-			},
 			onPrimaryButtonTap: { [weak self] selectedTraceLocation in
 				self?.showDateTimeSelectionSelectionScreen(
 					traceLocation: selectedTraceLocation
@@ -122,10 +119,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 		qrScannerCoordinator.start(
 			parentViewController: navigationController,
-			presenter: .onBehalfFlow,
-			didDismiss: { [weak self] in
-				self?.traceLocationSelectionViewController?.reload()
-			}
+			presenter: .onBehalfFlow
 		)
 	}
 

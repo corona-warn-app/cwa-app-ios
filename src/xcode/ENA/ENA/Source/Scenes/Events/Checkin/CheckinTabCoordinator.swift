@@ -39,9 +39,6 @@ final class CheckinTabCoordinator {
 			},
 			onAddEntryCellTap: { [weak self] in
 				self?.showQRCodeScanner()
-			},
-			onMissingPermissionsButtonTap: { [weak self] in
-				self?.showSettings()
 			}
 		)
 		
@@ -91,10 +88,7 @@ final class CheckinTabCoordinator {
 	func showQRCodeScanner() {
 		qrScannerCoordinator.start(
 			parentViewController: viewController,
-			presenter: .checkinTab,
-			didDismiss: { [weak self] in
-				self?.checkinsOverviewViewModel.updateForCameraPermission()
-			}
+			presenter: .checkinTab
 		)
 	}
 	
@@ -208,10 +202,6 @@ final class CheckinTabCoordinator {
 		)
 		
 		traceLocationCheckinCoordinator?.start()
-	}
-
-	private func showSettings() {
-		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 	
 	private func infoScreen(
