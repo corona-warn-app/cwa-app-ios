@@ -21,7 +21,7 @@ class NotificationSettingsViewModel {
 					header: .image(
 						UIImage(named: "Illu_Mitteilungen_On"),
 						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
-						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
 						height: 250
 					),
 					cells: [
@@ -35,12 +35,16 @@ class NotificationSettingsViewModel {
 				.section(
 					separators: .all,
 					cells: [
-						.body(
-							text: AppStrings.NotificationSettings.notifications,
-							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.notifications,
-							accessibilityTraits: .staticText
+						.doubleLabels(
+							text1: AppStrings.NotificationSettings.notifications,
+							text2: AppStrings.NotificationSettings.notificationsOn,
+							style: .body,
+							accessibilityIdentifier1: AccessibilityIdentifiers.NotificationSettings.notifications,
+							accessibilityIdentifier2: AccessibilityIdentifiers.NotificationSettings.notificationsOn,
+							accessibilityTraits1: .staticText,
+							accessibilityTraits2: .staticText
 						),
-						.space(height: 8)
+						.space(height: 16)
 					]
 				)
 			)
@@ -49,7 +53,6 @@ class NotificationSettingsViewModel {
 				.section(
 					background: .greyBoxed,
 					cells: [
-						
 						.icon(
 							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
 							imageAlignment: .right,
@@ -106,7 +109,6 @@ class NotificationSettingsViewModel {
 								)
 							}
 						)
-						// Add Button
 					]
 				)
 			)
@@ -114,12 +116,78 @@ class NotificationSettingsViewModel {
 	}
 	
 	var dynamicTableViewModelNotificationOff: DynamicTableViewModel {
-		DynamicTableViewModel([
-		
-		
-		])
+		DynamicTableViewModel.with {
+			$0.add(
+				.section(
+					header: .image(
+						UIImage(named: "Illu_Mitteilungen_Off"),
+						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOff,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOff,
+						height: 250
+					),
+					cells: [
+						.footnote(
+							text: AppStrings.NotificationSettings.settingsDescription
+						)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					separators: .all,
+					cells: [
+						.doubleLabels(
+							text1: AppStrings.NotificationSettings.notifications,
+							text2: AppStrings.NotificationSettings.notificationsOff,
+							style: .body,
+							accessibilityIdentifier1: AccessibilityIdentifiers.NotificationSettings.notifications,
+							accessibilityIdentifier2: AccessibilityIdentifiers.NotificationSettings.notificationsOff,
+							accessibilityTraits1: .staticText,
+							accessibilityTraits2: .staticText
+						),
+						.space(height: 16)
+					]
+				)
+			)
+			
+			$0.add(
+				.section(
+					background: .greyBoxed,
+					cells: [
+						.space(height: 5),
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
+							imageAlignment: .right,
+							text: .string(AppStrings.NotificationSettings.bulletHeadlineOn),
+							style: .title2
+						),
+						.body(
+							text: AppStrings.NotificationSettings.bulletDescOff,
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOff
+						),
+						.custom(
+							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: ""
+									),
+									body: NSMutableAttributedString(
+										string: ""
+									),
+									textColor: .textContrast,
+									bgColor: .cellBackground,
+									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
+									buttonTapped: {
+										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+									}
+								)
+							}
+						)
+					]
+				)
+			)
+		}
 	}
-	
-	// MARK: - Private
-
 }
