@@ -154,6 +154,10 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 		// Wait for date and time selection screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.OnBehalfCheckinSubmission.DateTimeSelection.title)].waitForExistence(timeout: .short))
 
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want to select an event code here.
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+
 		// Tap continue
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 
@@ -165,6 +169,7 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 		XCTAssertFalse(tanContinueButton.isEnabled)
 
 		// Fill in dummy TAN.
+		XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
 
 		// Tap continue

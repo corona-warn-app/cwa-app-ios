@@ -598,25 +598,6 @@
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "Scanare cod QR";
-
-"ExposureSubmissionQRScanner_instruction" = "Poziționați cadrul peste codul QR al documentului.";
-
-"ExposureSubmissionQRScanner_otherError" = "A apărut o eroare necunoscută.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Permiteți-i aplicației să utilizeze camera pentru a scana codul QR.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Bliț cameră";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Pornit";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Oprit";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Pornire bliț cameră";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Oprire bliț cameră";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vă mulţumim";
 
@@ -1560,7 +1541,7 @@
 /* Version 2.11 */
 "NewVersionFeature_211_universalQRCodeScanner_title" = "Scanner universal de coduri QR";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Acum puteți scana toate documentele acceptate de Corona-Warn-App, indiferent de locul din care deschideți scannerul de coduri QR din aplicație:\n\n\t\U2022 Teste PCR\n\t\U2022 Teste rapide\n\t\U2022 Check-inuri la evenimente\n\t\U2022 Certificate";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Acum puteți scana toate documentele acceptate de Corona-Warn-App, indiferent de locul din care deschideți scannerul de coduri QR din aplicație:\n\t\U2022 Teste PCR\n\t\U2022 Teste rapide\n\t\U2022 Check-inuri la evenimente\n\t\U2022 Certificate";
 
 "NewVersionFeature_211_qrCodeImport_title" = "Importare cod QR";
 
@@ -2206,8 +2187,6 @@
 "QuickAction_eventCheckin" = "Check-in";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "Scanare cod QR";
-
 "Checkins_Overview_Title" = "Check-inurile mele";
 
 "Checkins_Overview_MenuButtonTitle" = "Meniu";
@@ -2255,8 +2234,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Informații";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Editare";
-
-"Checkins_Overview_QRScanner_Instruction" = "Scanare cod QR și check-in";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in pentru %@.";
 
@@ -2637,7 +2614,7 @@
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
 
-"HealthCertificate_Overview_Covid_Title" = "**Certificat COVID digital**\nUE";
+"HealthCertificate_Overview_Covid_Title" = "Certificat COVID digital UE";
 
 "VaccinationCertificate_title" = "**Certificat de vaccinare digital**\nUE";
 
@@ -2722,12 +2699,22 @@
 
 "HealthCertificate_Info_primaryButton" = "Continuare";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "Scanare cod QR";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Verificare certificat de către parteneri (terți)";
 
-"HealthCertificate_QRScanner_instruction" = "Scanați codul QR și adăugați certificatul";
+"CovPass_Check_Info_body" = "Terții pot utiliza aplicația CovPassCheck pentru a verifica, cu încredere, dacă certificatul de vaccinare, certificatul de recuperare sau certificatul de test este valabil.";
+
+"CovPass_Check_Info_faq" = "Întrebări frecvente pentru verificarea certificatului de către terți";
+
+"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
+
+"CovPass_Check_Info_text02" = "Totuși, o verificare vizuală a certificatelor nu este suficientă pentru terți. Aceștia trebuie să utilizeze aplicația CovPassCheck în Germania.";
+
+"CovPass_Check_Info_text03" = "Rețineți că terții din alte țări pot utiliza alte aplicații pentru a verifica certificatele.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Acest cod QR poate fi verificat cu încredere cu aplicația CovPassCheck.";
+
 "HealthCertifiedPerson_title" = "Certificat COVID digital UE";
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Starea vaccinării";
@@ -3033,6 +3020,20 @@
 "UniversalQRScanner_InstructionTitle" = "Ce coduri QR puteți scana?";
 
 "UniversalQRScanner_InstructionDescription" = "Teste PCR și teste rapide, certificate de test, certificate de vaccinare, certificate de recuperare și check-inuri.";
+
+"UniversalQRScanner_CameraFlash" = "Bliț cameră";
+
+"UniversalQRScanner_CameraFlash_On" = "Pornit";
+
+"UniversalQRScanner_CameraFlash_Off" = "Oprit";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Pornire bliț cameră";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Oprire bliț cameră";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Permiteți-i aplicației să utilizeze camera pentru a scana codul QR.";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "Codul QR nu este acceptat de Corona-Warn-App. Scanați un cod QR potrivit.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
