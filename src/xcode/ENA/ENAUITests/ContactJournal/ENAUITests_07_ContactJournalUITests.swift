@@ -278,6 +278,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 			app.keys["2"].waitAndTap()
 			app.keys["0"].waitAndTap()
 			app.keys["0"].waitAndTap()
+			app.keys["0"].waitAndTap()
 			// Wait for closing keyboard
 			app.waitAndTap()
 		}
