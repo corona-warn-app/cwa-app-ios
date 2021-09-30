@@ -139,10 +139,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPhotoAccessAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.FileScanner.AccessError.title,
-			message: AppStrings.FileScanner.AccessError.message,
-			preferredStyle: .alert)
+		let alert = FileScannerAlerts.alert(.photoAccess)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.FileScanner.AccessError.cancel,
@@ -162,12 +159,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
-		let alert = UIAlertController(
-			title: AppStrings.FileScanner.PasswordEntry.title,
-			message: AppStrings.FileScanner.PasswordEntry.message,
-			preferredStyle: .alert
-		)
-
+		let alert =  FileScannerAlerts.alert(.passwordInput)
 		alert.addTextField { textField in
 			textField.placeholder = AppStrings.FileScanner.PasswordEntry.placeholder
 			textField.isSecureTextEntry = true
@@ -196,12 +188,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPDFUnlockFailedAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.FileScanner.PasswordError.title,
-			message: AppStrings.FileScanner.PasswordError.message,
-			preferredStyle: .alert
-		)
-
+		let alert = FileScannerAlerts.alert(.unlockPDF)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
@@ -244,4 +231,5 @@ class FileScannerCoordinator {
 		}
 		animator.startAnimation()
 	}
+
 }
