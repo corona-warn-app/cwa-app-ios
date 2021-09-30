@@ -12,13 +12,15 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Init
 
 	init(
-		showHUD: @escaping (@escaping () -> Void) -> Void,
+		showHUD: @escaping () -> Void,
+		hideHUD: @escaping () -> Void,
 		dismiss: @escaping () -> Void,
 		qrCodesFound: @escaping ([String]) -> Void,
 		missingPasswordForPDF: @escaping (@escaping (String) -> Void) -> Void,
 		failedToUnlockPDF: @escaping () -> Void
 	) {
 		self.showHUD = showHUD
+		self.hideHUD = hideHUD
 		self.dismiss = dismiss
 		self.qrCodesFound = qrCodesFound
 		self.missingPasswordForPDF = missingPasswordForPDF
@@ -30,11 +32,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		dismiss()
-		showHUD { [weak self] in
+		showHUD()
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			results.forEach { result in
 				let itemProvider = result.itemProvider
 				guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
 					self?.qrCodesFound([])
+					self?.hideHUD()
 					return
 				}
 				itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
@@ -44,9 +48,11 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 					else {
 						Log.debug("Looks like we have an issue reading the image", log: .fileScanner)
 						self?.qrCodesFound([])
+						self?.hideHUD()
 						return
 					}
 					self.qrCodesFound(codes)
+					self.hideHUD()
 				}
 			}
 		}
@@ -56,17 +62,20 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 		dismiss()
-		showHUD { [weak self] in
+		showHUD()
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let self = self,
 				  let image = info[.originalImage] as? UIImage,
 				  let codes = self.findQRCodes(in: image)
 			else {
 				Log.debug("no image with qr code found", log: .fileScanner)
 				self?.qrCodesFound([])
+				self?.hideHUD()
 				return
 			}
 			Log.debug("Found QR code in image", log: .fileScanner)
 			self.qrCodesFound(codes)
+			self.hideHUD()
 		}
 	}
 
@@ -136,25 +145,30 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Private
 	
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
-		showHUD { [weak self] in
+		showHUD()
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to stronge self pointer")
 				return
 			}
 			self.qrCodesFound(self.qrCodes(from: pdfDocument))
+			self.hideHUD()
 			self.dismiss()
 		}
 	}
 
 	private func scanImageFile(_ image: UIImage) {
-		showHUD { [weak self] in
+		showHUD()
+		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let self = self,
 				  let codes = self.findQRCodes(in: image)
 			else {
 				Log.error("Failed to stronge self pointer")
+				self?.hideHUD()
 				return
 			}
 			self.qrCodesFound(codes)
+			self.hideHUD()
 			self.dismiss()
 		}
 	}
@@ -196,7 +210,8 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		.compactMap { $0.messageString }
 	}
 
-	private let showHUD: (@escaping () -> Void) -> Void
+	private let showHUD: () -> Void
+	private let hideHUD: () -> Void
 	private let dismiss: () -> Void
 	private let qrCodesFound: ([String]) -> Void
 	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void

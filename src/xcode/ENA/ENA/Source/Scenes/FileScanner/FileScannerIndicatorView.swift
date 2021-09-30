@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ActivityIndicatorView: UIView {
+class FileScannerIndicatorView: UIView {
 
 	// MARK: - Init
 
