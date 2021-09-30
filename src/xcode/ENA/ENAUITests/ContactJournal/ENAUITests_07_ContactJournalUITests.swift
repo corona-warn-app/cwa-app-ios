@@ -245,7 +245,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitAndTap()
 
-		// Navigate to locatin section.
+		// Navigate to location section.
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
@@ -256,23 +256,33 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Select duration.
 		
-		// Until iOS 14.4 the datePicker was declared as "OtherElement" with an label called "Hours". From 14.5 and above, Apple changed the XCUIElement to "TextField" (🤷‍♂️) and its label is now localized. We cannot set any identifier. Because of this we do some magic and we take the remaining one without any identifier.
-		if #available(iOS 14.5, *) {
-			let datePickerAsTextField = app.textFields.element(boundBy: 1)
+		// Until iOS 14.4 the datePicker was declared as "OtherElement" with a label called "Hours". From 14.5 and above, Apple changed the XCUIElement to "TextField" (🤷‍♂️) and its label is now localized. We cannot set any identifier. Because of this we do some magic and we take the remaining one without any identifier. With iOS 15.0 it changed again and now we access via the localized text directly.
+		if #available(iOS 15.0, *) {
+			app.otherElements["Zeitauswahl"].firstMatch.waitAndTap()
+			
+		} else if #available(iOS 14.5, *) {
+			let datePickerAsTextField = app.textFields.element(boundBy: 0)
 			XCTAssertTrue(datePickerAsTextField.identifier.isEmpty)
 			datePickerAsTextField.firstMatch.waitAndTap()
 		} else {
 			app.otherElements["Hours"].firstMatch.waitAndTap()
 		}
 		
-		app.keys["0"].waitAndTap()
-		app.keys["4"].waitAndTap()
-		app.keys["2"].waitAndTap()
-		// Close keyboard.
-		app.waitAndTap()
-
-		// Wait for closing.
-
+		// iOS 15 changed the time picker to a wheel again.
+		if #available(iOS 15.0, *) {
+			// Spin wheel one time so the value will be 20:00
+			app.datePickers.firstMatch.swipeUp()
+			// Wait for closing wheel.
+			app.waitAndTap()
+		} else {
+			app.keys["2"].waitAndTap()
+			app.keys["0"].waitAndTap()
+			app.keys["0"].waitAndTap()
+			app.keys["0"].waitAndTap()
+			// Wait for closing keyboard
+			app.waitAndTap()
+		}
+		
 		let textField = app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch
 		let exists = NSPredicate(format: "exists == 1")
 		expectation(for: exists, evaluatedWith: textField, handler: nil)
@@ -289,7 +299,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Check if the label for the settings exists on the overview.
 
-		XCTAssertTrue(app.staticTexts["00:42 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
+		XCTAssertTrue(app.staticTexts["20:00 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
 		XCTAssertTrue(app.staticTexts["Some note!"].exists)
 	}
 

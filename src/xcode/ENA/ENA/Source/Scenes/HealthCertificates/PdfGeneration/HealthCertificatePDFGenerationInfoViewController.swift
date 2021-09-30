@@ -70,18 +70,19 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		if type == .primary {
-			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
-			
-			DispatchQueue.main.async { [weak self] in
-				self?.viewModel.generatePDFData(completion: { result in
+			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+
+			viewModel.generatePDFData { result in
+				DispatchQueue.main.async { [weak self] in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+
 					switch result {
 					case let .success(pdfDocument):
 						self?.onTapContinue(pdfDocument)
 					case let .failure(error):
 						self?.showErrorAlert(error)
 					}
-				})
+				}
 			}
 		}
 	}

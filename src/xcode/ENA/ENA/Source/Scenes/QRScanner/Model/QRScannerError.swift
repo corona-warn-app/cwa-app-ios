@@ -14,7 +14,7 @@ enum QRScannerError: Error, LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .cameraPermissionDenied:
-			return AppStrings.UniversalQRScanner.Error.cameraPermissionDenied
+			return AppStrings.UniversalQRScanner.Error.CameraPermissionDenied.message
 		case .scanningDeactivated, .codeNotFound:
 			return AppStrings.UniversalQRScanner.Error.unsupportedQRCode
 		case .other(let error):

@@ -425,9 +425,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
 	
 		// Check if safari was opened
-		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		let runInForeground = safariApp.wait(for: .runningForeground, timeout: .long)
-		XCTAssertTrue(runInForeground)
+		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+
 	}
 	
 	// MARK: - Screenshots
@@ -445,6 +444,10 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// -> Select QRCode screen.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
 
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR here.
+		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
+		pcrButton.waitAndTap()
+		
 		// QR Code Info Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap(.long)
@@ -525,7 +528,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 	}
 
-	func test_screenshot_SubmitQR() {
+	func test_screenshot_SubmitQR() throws {
 		var screenshotCounter = 0
 
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
@@ -556,6 +559,10 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		let scanQRCodeButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription]
 		scanQRCodeButton.waitAndTap()
+		
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR here.
+		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
+		pcrButton.waitAndTap()
 		
 		/// Your consent screen
 		

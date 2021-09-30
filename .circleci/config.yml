@@ -303,6 +303,7 @@ workflows:
               branches:
                 only:
                   - /release\/.*/
+                  - chore/fix-ui-tests
         - test-community:
             requires:
               - dependencies
