@@ -154,16 +154,17 @@ final class MockENManager: NSObject {
 	}
 
 	private func getDiagnosisKeysImpl(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		guard let keys = diagnosisKeysResult?.0,
-			  let error = diagnosisKeysResult?.1 else {
+		let keys = diagnosisKeysResult?.0
+		let error = diagnosisKeysResult?.1
+		if keys == nil && error == nil {
 			Log.error("MockENManager: no preconfigured keys or error available, this is not expected", log: .api)
 			DispatchQueue.main.async {
 				completionHandler(nil, ENError(.internal))
 			}
-			return
-		}
-		dispatchQueue.async {
-			completionHandler(keys, error)
+		} else {
+			dispatchQueue.async {
+				completionHandler(keys, error)
+			}
 		}
 	}
 }
