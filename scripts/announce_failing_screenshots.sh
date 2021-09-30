@@ -17,7 +17,7 @@ else
   "themeColor": "0076D7",
   "summary": "screenshots have failed!",
   "sections": [{
-      "activityTitle": "screenshots have failed!",
+      "activityTitle": "Screenshots have failed!",
       "activitySubtitle": "On Project ${CIRCLE_PROJECT_REPONAME}",
       "activityImage": "https://media.staticline.de/pictures/530f4962378e781ea8c5f70aa9fbacca535968f2.png",
       "facts": [{
