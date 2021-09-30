@@ -57,16 +57,14 @@ class QRScannerCoordinator {
 	
 	func start(
 		parentViewController: UIViewController,
-		presenter: QRScannerPresenter,
-		didDismiss: @escaping () -> Void = {}
+		presenter: QRScannerPresenter
 	) {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
 				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates),
-				markCoronaTestAsNew: presenter != .submissionFlow && presenter != .universalScanner(.home),
-				didDismiss: didDismiss
+				markCoronaTestAsNew: presenter != .submissionFlow && presenter != .universalScanner(.home)
 			)
 		)
 		self.parentViewController?.present(navigationController, animated: true)
@@ -95,8 +93,7 @@ class QRScannerCoordinator {
 
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool,
-		didDismiss: @escaping () -> Void
+		markCoronaTestAsNew: Bool
 	) -> UIViewController {
 		var qrScannerViewController: QRScannerViewController!
 		qrScannerViewController = QRScannerViewController(
@@ -133,7 +130,6 @@ class QRScannerCoordinator {
 		return qrScannerViewController
 	}
 
-	
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
