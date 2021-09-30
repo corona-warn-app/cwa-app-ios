@@ -58,6 +58,49 @@ class FileScannerCoordinator {
 	private var parentViewController: UIViewController?
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
+
+	private enum AlertTypes {
+		case noQRCodeFound
+		case fileNotReadable
+		case invalidQRCode
+		case photoAccess
+		case passwordInput
+		case unlockPDF
+
+		var title: String {
+			switch self {
+			case .noQRCodeFound:
+				return AppStrings.FileScanner.NoQRCodeFound.title
+			case .fileNotReadable:
+				return AppStrings.FileScanner.FileNotReadable.title
+			case .invalidQRCode:
+				return AppStrings.FileScanner.InvalidQRCodeError.title
+			case .photoAccess:
+				return AppStrings.FileScanner.AccessError.title
+			case .passwordInput:
+				return AppStrings.FileScanner.PasswordEntry.title
+			case .unlockPDF:
+				return AppStrings.FileScanner.PasswordError.title
+			}
+		}
+
+		var message: String {
+			switch self {
+			case .noQRCodeFound:
+				return AppStrings.FileScanner.NoQRCodeFound.message
+			case .fileNotReadable:
+				return AppStrings.FileScanner.FileNotReadable.message
+			case .invalidQRCode:
+				return AppStrings.FileScanner.InvalidQRCodeError.message
+			case .photoAccess:
+				return AppStrings.FileScanner.AccessError.message
+			case .passwordInput:
+				return AppStrings.FileScanner.PasswordEntry.message
+			case .unlockPDF:
+				return AppStrings.FileScanner.PasswordError.message
+			}
+		}
+	}
 	
 	private func presentActionSheet() {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -139,7 +182,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPhotoAccessAlert() {
-		let alert = FileScannerAlerts.alert(.photoAccess)
+		let alert = alert(.photoAccess)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.FileScanner.AccessError.cancel,
@@ -159,7 +202,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
-		let alert =  FileScannerAlerts.alert(.passwordInput)
+		let alert = alert(.passwordInput)
 		alert.addTextField { textField in
 			textField.placeholder = AppStrings.FileScanner.PasswordEntry.placeholder
 			textField.isSecureTextEntry = true
@@ -188,7 +231,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPDFUnlockFailedAlert() {
-		let alert = FileScannerAlerts.alert(.unlockPDF)
+		let alert = alert(.unlockPDF)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
@@ -230,6 +273,14 @@ class FileScannerCoordinator {
 			self?.activityIndicatorView.removeFromSuperview()
 		}
 		animator.startAnimation()
+	}
+
+	private func alert(_ type: AlertTypes) -> UIAlertController {
+		return UIAlertController(
+			title: type.title,
+			message: type.message,
+			preferredStyle: .alert
+		)
 	}
 
 }

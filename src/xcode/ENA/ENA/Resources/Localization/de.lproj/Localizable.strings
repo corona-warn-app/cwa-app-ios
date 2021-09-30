@@ -3215,6 +3215,24 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
 
+"FileScanner_AlertButton_ok" = "OK";
+
+"FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
+
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code.";
+
+"FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
+
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code.";
+
+"FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
+
+"FileScanner_FileNotReadable_message" = "Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt und konnte daher nicht gelesen werden. Bitte wählen Sie eine geeignete Datei.";
+
+"FileScanner_NoQRCodeFound_title" = "Kein QR-Code erkannt";
+
+"FileScanner_NoQRCodeFound_message" = "In der gewählten Datei konnte kein QR-Code erkannt werden. Bitte wählen Sie eine andere Datei.";
+
 /* Federal State Names */
 
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
