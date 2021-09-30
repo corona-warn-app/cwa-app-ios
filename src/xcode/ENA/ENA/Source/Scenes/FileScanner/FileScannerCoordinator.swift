@@ -275,12 +275,35 @@ class FileScannerCoordinator {
 		animator.startAnimation()
 	}
 
+	private func presentSimpleAlert(_ type: AlertTypes) {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to get strong self", log: .fileScanner)
+				return
+			}
+			let alert = self.alertWithOK(type)
+			self.parentViewController?.present(alert, animated: true)
+		}
+	}
+
 	private func alert(_ type: AlertTypes) -> UIAlertController {
 		return UIAlertController(
 			title: type.title,
 			message: type.message,
 			preferredStyle: .alert
 		)
+	}
+
+	private func alertWithOK(_ type: AlertTypes) -> UIAlertController {
+		let alert = alert(type)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.FileScanner.buttonOk,
+				style: .default,
+				handler: nil
+			)
+		)
+		return alert
 	}
 
 }
