@@ -52,6 +52,10 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 		
 	// MARK: - Private
 	
+	private enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case roundedCell
+	}
+	
 	private let viewModel: DeltaOnboardingNotificationReworkViewModel
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -99,11 +103,5 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
-	}
-}
-
-extension DeltaOnboardingNotificationReworkViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case roundedCell
 	}
 }
