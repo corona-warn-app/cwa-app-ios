@@ -101,7 +101,7 @@ class NotificationSettingsViewModel {
 										string: ""
 									),
 									textColor: .textContrast,
-									bgColor: .cellBackground,
+									bgColor: .cellBackground3,
 									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
 									buttonTapped: {
 										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
@@ -177,7 +177,7 @@ class NotificationSettingsViewModel {
 										string: ""
 									),
 									textColor: .textContrast,
-									bgColor: .cellBackground,
+									bgColor: .cellBackground3,
 									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
 									buttonTapped: {
 										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
