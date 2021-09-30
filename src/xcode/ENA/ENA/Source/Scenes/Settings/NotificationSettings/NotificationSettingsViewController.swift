@@ -57,9 +57,9 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	private let viewModel: NotificationSettingsViewModel
 	
 	private func setupView() {
-		//		navigationItem.title = AppStrings.NotificationSettings.navigationBarTitle
-		//		navigationItem.largeTitleDisplayMode = .always
-		//		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.title = AppStrings.NotificationSettings.notifications
+		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
 		
 		setupTableView()
 	}
