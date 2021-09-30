@@ -255,7 +255,7 @@ enum AccessibilityIdentifiers {
 		static let fakeHC2 = "QRScanner_FAKE_HC2"
 		static let fakePCR = "QRScanner_FAKE_PCR"
 		static let fakeEvent = "QRScanner_FAKE_EVENT"
-
+		static let cancel = "QRScanner_CANCEL"
 	}
 	
 	enum ExposureSubmissionQRInfo {

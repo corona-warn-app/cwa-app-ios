@@ -179,7 +179,13 @@ final class HealthCertificateCoordinator {
 								style: .destructive,
 								handler: { _ in
 									self.healthCertificateService.removeHealthCertificate(self.healthCertificate)
-									self.rootNavigationController.dismiss(animated: true, completion: nil)
+
+									switch self.parentingViewController {
+									case .push(let navigationController):
+										navigationController.popViewController(animated: true)
+									case .present(let viewController):
+										viewController.dismiss(animated: true)
+									}
 								}
 							)
 						)
@@ -199,8 +205,8 @@ final class HealthCertificateCoordinator {
 		return topBottomContainerViewController
 	}()
 
-	private func presentCovPassInfoScreen(rootViewController: UIViewController? = nil) {
-		guard let presentViewController = rootViewController ?? navigationController else {
+	private func presentCovPassInfoScreen() {
+		guard let presentViewController = navigationController else {
 			Log.error("Failed to find present view controller")
 			return
 		}
