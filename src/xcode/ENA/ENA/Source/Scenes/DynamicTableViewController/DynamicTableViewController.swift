@@ -46,6 +46,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTableViewIconCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
 		tableView.register(DynamicTableViewBulletPointCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.bulletPoint.rawValue)
 		tableView.register(DynamicTableViewHeadlineWithImageCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.headlineWithImage.rawValue)
+		tableView.register(DynamicTableViewDoubleLabelViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.doubleLabel.rawValue)
 
 		setupKeyboardAvoidance()
 	}
