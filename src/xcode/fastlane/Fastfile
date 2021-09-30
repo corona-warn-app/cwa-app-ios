@@ -85,6 +85,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
+      destination: "platform=iOS Simulator,OS=15.0,name=iPhone 11",
       scheme: "ENA",
       buildlog_path: "DerivedData/logs/"
     )
