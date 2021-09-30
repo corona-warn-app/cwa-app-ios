@@ -30,6 +30,9 @@ class QRScannerTooltipViewController: UIViewController, UIPopoverPresentationCon
 
 		titleLabel.text = AppStrings.UniversalQRScanner.Tooltip.title
 		descriptionLabel.text = AppStrings.UniversalQRScanner.Tooltip.description
+
+		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -58,6 +61,7 @@ class QRScannerTooltipViewController: UIViewController, UIPopoverPresentationCon
 
 	private let onDismiss: () -> Void
 
+	@IBOutlet weak var closeButton: UIButton!
 	@IBOutlet weak var titleLabel: ENALabel!
 	@IBOutlet weak var descriptionLabel: ENALabel!
 
