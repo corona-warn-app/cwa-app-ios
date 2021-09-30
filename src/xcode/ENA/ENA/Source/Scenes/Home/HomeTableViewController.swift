@@ -860,10 +860,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showQRScannerTooltipIfNeeded(completion: @escaping () -> Void = {}) {
-		guard
-//			viewModel.store.shouldShowQRScannerTooltip,
-			let tabBar = tabBarController?.tabBar
-		else {
+		guard viewModel.store.shouldShowQRScannerTooltip,
+			let tabBar = tabBarController?.tabBar else {
 			completion()
 			return
 		}
@@ -880,7 +878,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tooltipViewController.popoverPresentationController?.sourceRect = tabBar.bounds
 
 		present(tooltipViewController, animated: true) { [weak self] in
-//			self?.viewModel.store.shouldShowQRScannerTooltip = false
+			self?.viewModel.store.shouldShowQRScannerTooltip = false
 		}
 	}
 
