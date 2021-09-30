@@ -2328,6 +2328,11 @@ enum AppStrings {
 			}
 			static let unsupportedQRCode = NSLocalizedString("UniversalQRScanner_Error_unsupportedQRCode", comment: "")
 		}
+
+		enum Tooltip {
+			static let title = NSLocalizedString("UniversalQRScanner_Tooltip_title", comment: "")
+			static let description = NSLocalizedString("UniversalQRScanner_Tooltip_description", comment: "")
+		}
 	}
 
 	enum FederalStateName {
