@@ -313,8 +313,7 @@ extension DynamicTableViewController {
 		let content = dynamicTableViewModel.cell(at: indexPath)
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: content.cellReuseIdentifier, for: indexPath)
-
-		content.configure(cell: cell, at: indexPath, for: self)
+		
 		
 		cell.removeBackground()
 		
@@ -322,6 +321,13 @@ extension DynamicTableViewController {
 		case .none:
 			cell.backgroundColor = .clear
 		case .greyBoxed:
+			
+			// Give all subviews some insets to the border
+			if let subview = cell.subviews.first?.subviews.first {
+				subview.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 30).isActive = true
+				subview.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -30).isActive = true
+			}
+			
 			let isFirst = indexPath.row == 0
 			let isLast = indexPath.row == section.cells.count - 1
 			
@@ -334,6 +340,8 @@ extension DynamicTableViewController {
 			}
 		}
 
+		content.configure(cell: cell, at: indexPath, for: self)
+		
 		cell.removeSeparators()
 
 		// no separators for spacers please
