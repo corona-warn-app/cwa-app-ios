@@ -115,7 +115,6 @@ class QRScannerCoordinator {
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
-				didDismiss()
 			},
 			presentFileScanner: { [weak self] in
 				self?.fileScannerCoordinator = FileScannerCoordinator(
