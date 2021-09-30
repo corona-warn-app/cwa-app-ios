@@ -44,14 +44,20 @@ class FileScannerCoordinator {
 				DispatchQueue.main.async {
 					self?.qrCodeFound(qrCodeResult)
 					self?.hideIndicator()
+					if qrCodeResult == nil {
+						self?.presentSimpleAlert(.noQRCodeFound)
+					}
 				}
 			},
 			qrCodeParser: qrCodeParser,
-			missingPasswordForPDF: { callback in
-				self.presentPasswordAlert(callback)
+			missingPasswordForPDF: { [weak self] callback in
+				self?.presentPasswordAlert(callback)
 			},
-			failedToUnlockPDF: {
-				self.presentPDFUnlockFailedAlert()
+			failedToUnlockPDF: { [weak self] in
+				self?.presentPDFUnlockFailedAlert()
+			},
+			presentSimpleAlert: { [weak self] alertType in
+				self?.presentSimpleAlert(alertType)
 			}
 		)
 		
@@ -69,7 +75,7 @@ class FileScannerCoordinator {
 	private var dismiss: (() -> Void)?
 	private var rootViewController: UIViewController?
 
-	private enum AlertTypes {
+	enum AlertTypes {
 		case noQRCodeFound
 		case fileNotReadable
 		case invalidQRCode

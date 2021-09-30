@@ -18,7 +18,8 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		qrCodeFound: @escaping (QRCodeResult?) -> Void,
 		qrCodeParser: QRCodeParsable,
 		missingPasswordForPDF: @escaping (@escaping (String) -> Void) -> Void,
-		failedToUnlockPDF: @escaping () -> Void
+		failedToUnlockPDF: @escaping () -> Void,
+		presentSimpleAlert: @escaping (FileScannerCoordinator.AlertTypes) -> Void
 	) {
 		self.showHUD = showHUD
 		self.hideHUD = hideHUD
@@ -27,12 +28,14 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		self.qrCodeParser = qrCodeParser
 		self.missingPasswordForPDF = missingPasswordForPDF
 		self.failedToUnlockPDF = failedToUnlockPDF
+		self.presentSimpleAlert = presentSimpleAlert
 	}
 
 	// MARK: - Protocol PHPickerViewControllerDelegate
 
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+		dismiss()
 		showHUD()
 
 		DispatchQueue.global(qos: .background).async { [weak self] in
@@ -52,14 +55,14 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 					  let codes = self.findQRCodes(in: image),
 					  !codes.isEmpty
 				else {
-					self?.dismissOnMain()
+					self?.presentSimpleAlert(.noQRCodeFound)
+					self?.hideHUD()
 					return
 				}
 
 				Log.debug("Found codes in image.", log: .fileScanner)
 				self.findValidQRCode(from: codes) { [weak self] result in
 					self?.qrCodeFound(result)
-					self?.dismissOnMain()
 				}
 			}
 		}
@@ -68,6 +71,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - UIImagePickerControllerDelegate
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+		dismiss()
 		showHUD()
 
 		DispatchQueue.global(qos: .background).async { [weak self] in
@@ -76,7 +80,8 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				  !codes.isEmpty
 			else {
 				Log.debug("no image with qr code found", log: .fileScanner)
-				self?.dismiss()
+				self?.presentSimpleAlert(.noQRCodeFound)
+				self?.hideHUD()
 				return
 			}
 
@@ -84,7 +89,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 			self?.findValidQRCode(from: codes) { [weak self] result in
 				self?.qrCodeFound(result)
-				self?.dismiss()
 			}
 		}
 	}
@@ -100,7 +104,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		// we can handle multiple documents here - nice
 		guard let url = urls.first else {
 			Log.debug("We need to select a least one file")
-			self.dismiss()
 			return
 		}
 
@@ -167,6 +170,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	private let qrCodeParser: QRCodeParsable
 	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
 	private let failedToUnlockPDF: () -> Void
+	private let presentSimpleAlert: (FileScannerCoordinator.AlertTypes) -> Void
 
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
 		showHUD()
@@ -180,7 +184,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			self.findValidQRCode(from: codes) { [weak self] result in
 				self?.qrCodeFound(result)
 				self?.hideHUD()
-				self?.dismiss()
+//				self?.dismiss()
 			}
 		}
 	}
@@ -194,11 +198,15 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				Log.error("Failed to stronge self pointer")
 				return
 			}
+			guard !codes.isEmpty else {
+				self.presentSimpleAlert(.noQRCodeFound)
+				self.hideHUD()
+				return
+			}
 
 			self.findValidQRCode(from: codes) { [weak self] result in
 				self?.qrCodeFound(result)
 				self?.hideHUD()
-				self?.dismiss()
 			}
 		}
 	}
@@ -210,6 +218,9 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			if let codes = findQRCodes(in: image) {
 				found.append(contentsOf: codes)
 			}
+		}
+		if found.isEmpty {
+			presentSimpleAlert(.noQRCodeFound)
 		}
 		return found
 	}
@@ -274,21 +285,16 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			}
 		}
 
-		group.notify(queue: .main) {
+		group.notify(queue: .main) { [weak self] in
 			// Return first valid result.
 			if let firstValidResult = validCodes.first {
 				Log.debug("Found valid QR-Code from codes.", log: .fileScanner)
 				completion(firstValidResult)
 			} else {
 				Log.debug("Didn't find a valid QR-Code from codes.", log: .fileScanner)
+				self?.presentSimpleAlert(.invalidQRCode)
 				completion(nil)
 			}
-		}
-	}
-
-	private func dismissOnMain() {
-		DispatchQueue.main.async { [weak self] in
-			self?.dismiss()
 		}
 	}
 }
