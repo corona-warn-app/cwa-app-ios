@@ -11,14 +11,10 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateService,
-		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
-			AVCaptureDevice.authorizationStatus(for: .video)
-		}
+		healthCertificateService: HealthCertificateService
 	) {
 		self.healthCertificateService = healthCertificateService
-		self.cameraAuthorizationStatus = cameraAuthorizationStatus
-		
+
 		healthCertificateService.$healthCertifiedPersons
 			.sink {
 				self.healthCertifiedPersons = $0
@@ -44,7 +40,6 @@ class HealthCertificateOverviewViewModel {
 
 	enum Section: Int, CaseIterable {
 		case createCertificate
-		case missingPermission
 		case testCertificateRequest
 		case healthCertificate
 		case decodingFailedHealthCertificates
@@ -60,10 +55,6 @@ class HealthCertificateOverviewViewModel {
 		numberOfRows(in: Section.healthCertificate.rawValue) == 0 &&
 		numberOfRows(in: Section.decodingFailedHealthCertificates.rawValue) == 0
 	}
-
-	var isEmptyStateVisible: Bool {
-		isEmpty && !showMissingPermissionSection
-	}
 	
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -72,9 +63,7 @@ class HealthCertificateOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .createCertificate:
-			return showMissingPermissionSection ? 0 : 1
-		case .missingPermission:
-			return showMissingPermissionSection ? 1 : 0
+			return 1
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
@@ -108,13 +97,6 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
-	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 	private var subscriptions = Set<AnyCancellable>()
-	
-	private var showMissingPermissionSection: Bool {
-		let status = cameraAuthorizationStatus()
-
-		return status != .notDetermined && status != .authorized
-	}
 
 }
