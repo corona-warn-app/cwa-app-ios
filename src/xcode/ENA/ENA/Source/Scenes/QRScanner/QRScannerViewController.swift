@@ -13,7 +13,6 @@ class QRScannerViewController: UIViewController {
 		healthCertificateService: HealthCertificateService,
 		appConfiguration: AppConfigurationProviding,
 		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool,
 		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void,
 		presentFileScanner: @escaping () -> Void
@@ -22,12 +21,17 @@ class QRScannerViewController: UIViewController {
 		self.presentFileScanner = presentFileScanner
 
 		super.init(nibName: nil, bundle: nil)
+
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: markCertificateAsNew
+		)
 		
 		viewModel = QRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
-			markCertificateAsNew: markCertificateAsNew,
-			markCoronaTestAsNew: markCoronaTestAsNew,
+			qrCodeParser: qrCodeParser,
 			completion: { [weak self] result in
 				switch result {
 				case let .success(qrCodeResult):

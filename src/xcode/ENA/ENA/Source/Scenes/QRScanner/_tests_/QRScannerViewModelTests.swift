@@ -58,11 +58,16 @@ class QRScannerViewModelTests: XCTestCase {
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
 
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
-			markCertificateAsNew: false,
-			markCoronaTestAsNew: false
+			qrCodeParser: qrCodeParser
 		) { result in
 			switch result {
 			case .success(let result):
@@ -108,11 +113,16 @@ class QRScannerViewModelTests: XCTestCase {
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
-			markCertificateAsNew: false,
-			markCoronaTestAsNew: false
+			qrCodeParser: qrCodeParser
 		) { result in
 			switch result {
 			case .success(let result):
@@ -155,11 +165,16 @@ class QRScannerViewModelTests: XCTestCase {
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
-			markCertificateAsNew: false,
-			markCoronaTestAsNew: false
+			qrCodeParser: qrCodeParser
 		) { result in
 			switch result {
 			case .success(let result):
@@ -204,11 +219,16 @@ class QRScannerViewModelTests: XCTestCase {
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
-			markCertificateAsNew: false,
-			markCoronaTestAsNew: false
+			qrCodeParser: qrCodeParser
 		) { result in
 			switch result {
 			case .success(let result):
@@ -253,11 +273,16 @@ class QRScannerViewModelTests: XCTestCase {
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
 
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
-			markCertificateAsNew: false,
-			markCoronaTestAsNew: false
+			qrCodeParser: qrCodeParser
 		) { result in
 			switch result {
 			case .success:
@@ -308,11 +333,16 @@ class QRScannerViewModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 1
 
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
-			markCertificateAsNew: false,
-			markCoronaTestAsNew: false
+			qrCodeParser: qrCodeParser
 		) { result in
 			switch result {
 			case .success:
