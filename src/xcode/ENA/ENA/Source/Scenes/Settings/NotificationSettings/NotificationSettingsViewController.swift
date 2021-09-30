@@ -56,6 +56,8 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	private let store: Store
 	private let viewModel: NotificationSettingsViewModel
 	
+	private var isNotificationOn: Bool = false
+	
 	private func setupView() {
 		navigationItem.title = AppStrings.NotificationSettings.notifications
 		navigationItem.largeTitleDisplayMode = .always
@@ -73,10 +75,7 @@ class NotificationSettingsViewController: DynamicTableViewController {
 			DynamicTableViewRoundedCell.self,
 			forCellReuseIdentifier: ReuseIdentifiers.buttonCell.rawValue
 		)
-		
-		// is on or off
-
-		dynamicTableViewModel = viewModel.dynamicTableViewModelNotificationOn
+		dynamicTableViewModel = isNotificationOn ? viewModel.dynamicTableViewModelNotificationOn : viewModel.dynamicTableViewModelNotificationOff
 	}
 
 	
@@ -86,23 +85,23 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	}
 
 	private func notificationSettings() {
-//		let center = UNUserNotificationCenter.current()
-//
-//		center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
-//			guard let self = self else { return }
-//
-//			if let error = error {
-//				Log.info("Error while requesting notifications permissions: \(error.localizedDescription)", log: .api)
-//				self.viewModel = NotificationSettingsViewModel.notificationsOff()
-//				return
-//			}
-//
-//			self.viewModel = granted ? NotificationSettingsViewModel.notificationsOn(self.store) : NotificationSettingsViewModel.notificationsOff()
-//
-//			DispatchQueue.main.async {
-//				self.setupView()
-//				self.tableView.reloadData()
-//			}
-//		}
+		let center = UNUserNotificationCenter.current()
+
+		center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+			guard let self = self else { return }
+
+			if let error = error {
+				Log.info("Error while requesting notifications permissions: \(error.localizedDescription)", log: .api)
+				self.isNotificationOn = false
+				return
+			}
+
+			self.isNotificationOn = granted ? true : false
+
+			DispatchQueue.main.async {
+				self.setupView()
+				self.tableView.reloadData()
+			}
+		}
 	}
 }
