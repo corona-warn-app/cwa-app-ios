@@ -427,7 +427,7 @@ private extension UITableViewCell {
 
 	func addBackground(_ location: BackgroundLocation) {
 		let coloredBackground = UIView(frame: bounds)
-		coloredBackground.backgroundColor = .enaColor(for: .cellBackground)
+		coloredBackground.backgroundColor = .enaColor(for: .background)
 		coloredBackground.translatesAutoresizingMaskIntoConstraints = false
 
 		switch location {
