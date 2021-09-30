@@ -134,6 +134,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			}
 		} else {
 			Log.debug("User picked unknown filetype for QR-Code scan.", log: .fileScanner)
+			presentSimpleAlert(.fileNotReadable)
 		}
 	}
 
