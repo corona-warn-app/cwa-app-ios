@@ -2681,7 +2681,6 @@
 		BAEB173F25E561120012FEF9 /* FooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewController.swift; sourceTree = "<group>"; };
 		BAEB174425E567830012FEF9 /* FooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewModel.swift; sourceTree = "<group>"; };
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
-		BAEE122325ED027F009A0284 /* apple-app-site-association */ = {isa = PBXFileReference; lastKnownFileType = text; path = "apple-app-site-association"; sourceTree = "<group>"; };
 		BAEFB3542656A74900497F79 /* ContactDiaryStoreSchemaV5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5.swift; sourceTree = "<group>"; };
 		BAEFB3552656A74900497F79 /* ContactDiaryMigration4To5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration4To5.swift; sourceTree = "<group>"; };
 		BAEFB3592656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV5Tests.swift; sourceTree = "<group>"; };
@@ -4411,7 +4410,6 @@
 			children = (
 				8F4B8C5326F8A5CB007620D0 /* _tests_ */,
 				5013B18126EBA37600A2DD54 /* Model */,
-				BAEE122325ED027F009A0284 /* apple-app-site-association */,
 				5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,

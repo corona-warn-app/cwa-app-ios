@@ -23,7 +23,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
-		app.swipeUp(velocity: .fast)
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
@@ -41,7 +40,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
-		app.swipeUp(velocity: .fast)
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
@@ -56,7 +54,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
-		app.swipeUp(velocity: .fast)
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
@@ -64,10 +61,8 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
 		
 		// get safari and wait for safari to be in foreground
-		let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		_ = safari.wait(for: .runningForeground, timeout: .long)
-		
-		XCTAssertTrue(safari.state == .runningForeground)
+		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {
@@ -76,7 +71,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
-		app.swipeUp(velocity: .fast)
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
@@ -91,7 +85,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
 
-		app.swipeUp(velocity: .fast)
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
@@ -111,7 +104,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
-		app.swipeUp(velocity: .fast)
 		// assert cells
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
@@ -124,7 +116,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
-		app.swipeUp(velocity: .fast)
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
 	}
@@ -134,7 +125,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		navigateToErrorReporting()
-		app.swipeUp(velocity: .fast)
 
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.faq].exists)
@@ -218,8 +208,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 	}
 	
 	private func navigateToErrorReporting() {
-		app.swipeUp(velocity: .fast)
-		
 		// navigate to App Information
 		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
 
