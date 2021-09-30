@@ -598,25 +598,6 @@
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "Сканиране на QR кода";
-
-"ExposureSubmissionQRScanner_instruction" = "Позиционирайте рамката върху QR кода на Вашия документ.";
-
-"ExposureSubmissionQRScanner_otherError" = "Възникна неочаквана грешка.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Разрешете на приложението да използва камерата, за да сканира QR кода.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Светкавица";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Включено";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Изключено";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Включване на светкавицата";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Изключване на светкавицата";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Благодарим Ви!";
 
@@ -1560,7 +1541,7 @@
 /* Version 2.11 */
 "NewVersionFeature_211_universalQRCodeScanner_title" = "Универсален скенер за QR кодове";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Вече можете да сканирате всички поддържани от приложението Corona-Warn-App документи, независимо откъде отваряте скенера за QR кодове в CWA:\n\n\t\U2022 PCR тестове\n\t\U2022 Бързи тестове\n\t\U2022 Регистрации за събития\n\t\U2022 Сертификати";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Вече можете да сканирате всички поддържани от приложението Corona-Warn-App документи, независимо откъде отваряте скенера за QR кодове в приложението:\n\n\t\U2022 PCR тестове\n\t\U2022 Бързи тестове\n\t\U2022 Регистрации за събития\n\t\U2022 Сертификати";
 
 "NewVersionFeature_211_qrCodeImport_title" = "Импортиране не QR код";
 
@@ -2206,8 +2187,6 @@
 "QuickAction_eventCheckin" = "Регистрация";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "Сканиране на QR кода";
-
 "Checkins_Overview_Title" = "Моите регистрации";
 
 "Checkins_Overview_MenuButtonTitle" = "Меню";
@@ -2255,8 +2234,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Информация";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Редактиране";
-
-"Checkins_Overview_QRScanner_Instruction" = "Сканиране на QR код и регистриране";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Регистрация за %@.";
 
@@ -2637,7 +2614,7 @@
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Печат на сертификат на фона на цифров сертификат";
 
-"HealthCertificate_Overview_Covid_Title" = "ЕС\n**Цифров сертификат за COVID**";
+"HealthCertificate_Overview_Covid_Title" = "Цифров COVID сертификат на ЕС";
 
 "VaccinationCertificate_title" = "ЕС\n**Цифров сертификат за ваксинация**";
 
@@ -2722,12 +2699,22 @@
 
 "HealthCertificate_Info_primaryButton" = "Напред";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "Сканиране на QR кода";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Проверка на сертификат от трети лица";
 
-"HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и добавете сертификата";
+"CovPass_Check_Info_body" = "Трети лица могат да използват приложението CovPassCheck, за да извършват надеждна проверка за валидност на сертификатите за ваксинация, сертификатите за възстановяване или сертификатите за тест.";
+
+"CovPass_Check_Info_faq" = "ЧЗВ за проверка на сертификати от трети лица";
+
+"CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите в приложението Corona-Warn-App. Не ви е нужно приложението CovPassCheck.";
+
+"CovPass_Check_Info_text02" = "Но имайте предвид, че визуалната проверка на сертификатите не е достатъчна за третите лица. В Германия те трябва да използват приложението CovPassCheck.";
+
+"CovPass_Check_Info_text03" = "Имайте предвид също така, че третите лица в други държави може да използват различни приложения за проверка на сертификатите.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно проверен с приложението CovPassCheck.";
+
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Ваксинационен статус";
@@ -3033,6 +3020,20 @@
 "UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
 
 "UniversalQRScanner_InstructionDescription" = "PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
+
+"UniversalQRScanner_CameraFlash" = "Светкавица";
+
+"UniversalQRScanner_CameraFlash_On" = "Включено";
+
+"UniversalQRScanner_CameraFlash_Off" = "Изключено";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Включване на светкавицата";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Изключване на светкавицата";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Разрешете на приложението да използва камерата, за да сканира QR кода.";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "QR кодът не се поддържа от Corona-Warn-App. Моля, сканирайте подходящ QR код.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Баден-Вюртемберг";

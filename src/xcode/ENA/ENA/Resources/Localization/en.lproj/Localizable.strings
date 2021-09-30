@@ -598,25 +598,6 @@
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "QR Code Scan";
-
-"ExposureSubmissionQRScanner_instruction" = "Position the frame over the QR code of your document.";
-
-"ExposureSubmissionQRScanner_otherError" = "An unknown error occurred.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Camera flash";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Turned On";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turned Off";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn on camera flash";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn off camera flash";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you";
 
@@ -1560,7 +1541,7 @@
 /* Version 2.11 */
 "NewVersionFeature_211_universalQRCodeScanner_title" = "Universal QR Code Scanner";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "You can now scan all documents supported by the Corona-Warn-App, regardless of where you open a QR code scanner in the CWA:\n\n\t\U2022 PCR tests\n\t\U2022 Rapid tests\n\t\U2022 Event check-ins\n\t\U2022 Certificates";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "You can now scan all documents supported by the Corona-Warn-App, regardless of where you open a QR code scanner in the app:\n\t\U2022 PCR tests\n\t\U2022 Rapid tests\n\t\U2022 Event check-ins\n\t\U2022 Certificates";
 
 "NewVersionFeature_211_qrCodeImport_title" = "Import QR Code";
 
@@ -2206,8 +2187,6 @@
 "QuickAction_eventCheckin" = "Check In";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "QR Code Scan";
-
 "Checkins_Overview_Title" = "My Check-Ins";
 
 "Checkins_Overview_MenuButtonTitle" = "Menu";
@@ -2255,8 +2234,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Information";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Edit";
-
-"Checkins_Overview_QRScanner_Instruction" = "Scan QR Code and Check In";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in for %@.";
 
@@ -2637,7 +2614,7 @@
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
 
-"HealthCertificate_Overview_Covid_Title" = "EU\n**Digital COVID Certificate**";
+"HealthCertificate_Overview_Covid_Title" = "EU Digital COVID Certificate";
 
 "VaccinationCertificate_title" = "EU\n**Digital Vaccination Certificate**";
 
@@ -2722,12 +2699,22 @@
 
 "HealthCertificate_Info_primaryButton" = "Continue";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "QR Code Scan";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Certificate Verification by Third Parties";
 
-"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Add Certificate";
+"CovPass_Check_Info_body" = "Third parties can use the CovPassCheck app to reliably verify whether the vaccination certificate, certificate of recovery, or test certificate is valid.";
+
+"CovPass_Check_Info_faq" = "FAQ for Certificate Verification by Third Parties";
+
+"CovPass_Check_Info_text01" = "You can check the validity of certificates in the Corona-Warn-App yourself and do not need the CovPassCheck app.";
+
+"CovPass_Check_Info_text02" = "A visual check of the certificates is not sufficient for third parties, however. They must use the CovPassCheck app in Germany.";
+
+"CovPass_Check_Info_text03" = "Please note that third parties in other countries may use other apps to verify certificates.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
+
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Vaccination Status";
@@ -3033,6 +3020,20 @@
 "UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
 
 "UniversalQRScanner_InstructionDescription" = "PCR tests and rapid tests, test certificates, vaccination certificates, certificates of recovery, and check-ins.";
+
+"UniversalQRScanner_CameraFlash" = "Camera flash";
+
+"UniversalQRScanner_CameraFlash_On" = "Turned On";
+
+"UniversalQRScanner_CameraFlash_Off" = "Turned Off";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Turn on camera flash";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Turn off camera flash";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "The QR code is not supported by the Corona-Warn-App. Please scan a suitable QR code.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
