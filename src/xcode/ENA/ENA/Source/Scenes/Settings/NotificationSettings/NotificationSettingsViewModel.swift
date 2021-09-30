@@ -50,7 +50,12 @@ class NotificationSettingsViewModel {
 					background: .greyBoxed,
 					cells: [
 						
-						// Add headline with image
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
+							imageAlignment: .right,
+							text: .string(AppStrings.NotificationSettings.bulletHeadlineOn),
+							style: .title2
+						),
 						.body(
 							text: AppStrings.NotificationSettings.bulletDescOn,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOn
@@ -58,16 +63,19 @@ class NotificationSettingsViewModel {
 						.space(height: 8),
 						.bulletPoint(
 							text: AppStrings.NotificationSettings.bulletPoint1,
+							spacing: .large,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletPoint1
 						),
 						.space(height: 8),
 						.bulletPoint(
 							text: AppStrings.NotificationSettings.bulletPoint2,
+							spacing: .large,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletPoint2
 						),
 						.space(height: 8),
 						.bulletPoint(
 							text: AppStrings.NotificationSettings.bulletPoint3,
+							spacing: .large,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletPoint3
 						),
 						.space(height: 8),
