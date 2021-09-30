@@ -13,12 +13,12 @@ class FileScannerCoordinator {
 		_ parentViewController: UIViewController,
 		qrCodeFound: @escaping (QRCodeResult?) -> Void,
 		qrCodeParser: QRCodeParsable,
-		dismiss: @escaping () -> Void
+		endFlow: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
 		self.qrCodeFound = qrCodeFound
 		self.qrCodeParser = qrCodeParser
-		self.dismiss = dismiss
+		self.endFlow = endFlow
 	}
 
 	// MARK: - Internal
@@ -44,9 +44,7 @@ class FileScannerCoordinator {
 				DispatchQueue.main.async {
 					self?.qrCodeFound(qrCodeResult)
 					self?.hideIndicator()
-					if qrCodeResult == nil {
-						self?.presentSimpleAlert(.noQRCodeFound)
-					}
+					self?.endFlow()
 				}
 			},
 			qrCodeParser: qrCodeParser,
@@ -72,7 +70,7 @@ class FileScannerCoordinator {
 	private var parentViewController: UIViewController?
 	private var qrCodeFound: (QRCodeResult?) -> Void
 	private let qrCodeParser: QRCodeParsable
-	private var dismiss: (() -> Void)?
+	private var endFlow: () -> Void
 	private var rootViewController: UIViewController?
 
 	enum AlertTypes {
@@ -314,9 +312,11 @@ class FileScannerCoordinator {
 		let alert = alert(type)
 		alert.addAction(
 			UIAlertAction(
-				title: AppStrings.FileScanner.buttonOk,
+				title: AppStrings.Common.alertActionOk,
 				style: .default,
-				handler: nil
+				handler: { [weak self] _ in
+					self?.endFlow()
+				}
 			)
 		)
 		return alert

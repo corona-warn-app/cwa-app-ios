@@ -2333,7 +2333,6 @@ enum AppStrings {
 
 	enum FileScanner {
 		static let hudText = NSLocalizedString("FileScanner_HUD_text", comment: "")
-		static let buttonOk = NSLocalizedString("FileScanner_AlertButton_ok", comment: "")
 
 		enum sheet {
 			static let photos = NSLocalizedString("FileScanner_sheet_photos", comment: "")

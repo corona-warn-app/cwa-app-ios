@@ -3215,8 +3215,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
 
-"FileScanner_AlertButton_ok" = "OK";
-
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
 
 "FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code.";

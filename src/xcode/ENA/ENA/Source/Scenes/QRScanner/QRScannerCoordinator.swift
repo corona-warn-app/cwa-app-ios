@@ -120,7 +120,7 @@ class QRScannerCoordinator {
 						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 					},
 					qrCodeParser: qrCodeParser,
-					dismiss: {
+					endFlow: {
 						self?.fileScannerCoordinator = nil
 					}
 				)
