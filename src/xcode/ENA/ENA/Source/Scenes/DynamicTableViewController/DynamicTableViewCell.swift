@@ -75,6 +75,12 @@ extension DynamicCell {
 }
 
 extension DynamicCell {
+	
+	enum ImageAlignment {
+		case left
+		case right
+	}
+	
 	static func dynamicType(text: String, cellStyle: TextCellStyle = .label, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
 		.identifier(cellStyle.reuseIdentifier, action: action, accessoryAction: accessoryAction) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTableViewTextCell else { return }
@@ -122,8 +128,10 @@ extension DynamicCell {
 		}
 	}
 
+	/// Creates a text with an icon next to it.
 	static func icon(
 		_ image: UIImage?,
+		imageAlignment: ImageAlignment = .left,
 		text: DynamicTableViewIconCell.Text,
 		tintColor: UIColor? = nil,
 		style: ENAFont = .body,
@@ -143,6 +151,7 @@ extension DynamicCell {
 				}
 				cell.configure(
 					image: image,
+					imageAlignment: imageAlignment,
 					text: text,
 					customTintColor: tintColor,
 					style: style,

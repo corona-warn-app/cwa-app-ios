@@ -64,6 +64,7 @@ class DynamicTableViewIconCell: UITableViewCell {
 
 	func configure(
 		image: UIImage?,
+		imageAlignment: DynamicCell.ImageAlignment = .left,
 		text: Text,
 		customTintColor: UIColor?,
 		style: ENAFont,
@@ -76,7 +77,18 @@ class DynamicTableViewIconCell: UITableViewCell {
 		iconImageView.tintColor = customTintColor ?? tintColor
 		iconImageView.image = image
 		iconImageView.isHidden = image == nil
-
+		
+		// swap label and image so the image is set to the right. Because it is initialized to the left, we need this only for .right
+		if imageAlignment == .right,
+		   let imageView = stackView.subviews.first {
+			stackView.removeArrangedSubview(imageView)
+			stackView.setNeedsLayout()
+			stackView.layoutIfNeeded()
+			
+			stackView.insertArrangedSubview(imageView, at: 1)
+			stackView.setNeedsLayout()
+		}
+		
 		imageViewWidthConstraint?.constant = iconWidth
 
 		contentTextLabel.style = style.labelStyle
