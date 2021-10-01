@@ -174,7 +174,7 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	}
 	
 	func fakePCRTestScan() {
-		parseTheExtractedQRCode(url: "https://localhost/fake")
+		parseTheExtractedQRCode(url: "https://localhost/?5C5FEF-5C5FEFF6-0126-4C49-9351-2749EB58CA33")
 	}
 	
 	func fakeEventScan() {
