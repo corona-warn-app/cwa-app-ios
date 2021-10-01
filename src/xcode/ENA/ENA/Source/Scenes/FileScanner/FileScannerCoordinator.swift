@@ -11,51 +11,47 @@ class FileScannerCoordinator {
 
 	init(
 		_ parentViewController: UIViewController,
-		qrCodeFound: @escaping (QRCodeResult?) -> Void,
 		qrCodeParser: QRCodeParsable,
-		endFlow: @escaping () -> Void
+		qrCodeFound: @escaping (QRCodeResult?) -> Void,
+		noQRCodeFound: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
 		self.qrCodeFound = qrCodeFound
 		self.qrCodeParser = qrCodeParser
-		self.endFlow = endFlow
+		self.noQRCodeFound = noQRCodeFound
 	}
 
 	// MARK: - Internal
 	
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
-			showHUD: { [weak self] in
-				DispatchQueue.main.async {
-					self?.showIndicator()
-				}
-			},
-			hideHUD: { [weak self] in
-				DispatchQueue.main.async {
-					self?.hideIndicator()
-				}
-			},
-			dismiss: { [weak self] in
+			qrCodeParser: qrCodeParser,
+			finishedPickingImage: { [weak self] in
 				DispatchQueue.main.async {
 					self?.parentViewController?.dismiss(animated: true)
 				}
 			},
-			qrCodeFound: { [weak self] qrCodeResult in
+			processingStarted: { [weak self] in
+				DispatchQueue.main.async {
+					self?.showIndicator()
+				}
+			},
+			processingFinished: { [weak self] qrCodeResult in
 				DispatchQueue.main.async {
 					self?.qrCodeFound(qrCodeResult)
 					self?.hideIndicator()
-					self?.endFlow()
 				}
 			},
-			qrCodeParser: qrCodeParser,
+			processingFailed: { [weak self] alertType in
+				DispatchQueue.main.async {
+					self?.hideIndicator()
+					self?.presentSimpleAlert(alertType)
+				}
+			},
 			missingPasswordForPDF: { [weak self] callback in
-				self?.presentPasswordAlert(callback)
-			},
-			failedToUnlockPDF: { [weak self] in
-				self?.presentPDFUnlockFailedAlert()
-			},
-			presentSimpleAlert: { [weak self] alertType in
-				self?.presentSimpleAlert(alertType)
+				DispatchQueue.main.async {
+					self?.presentPasswordAlert(callback)
+				}
 			}
 		)
 		
@@ -70,7 +66,7 @@ class FileScannerCoordinator {
 	private var parentViewController: UIViewController?
 	private var qrCodeFound: (QRCodeResult?) -> Void
 	private let qrCodeParser: QRCodeParsable
-	private var endFlow: () -> Void
+	private var noQRCodeFound: () -> Void
 	private var rootViewController: UIViewController?
 
 	enum AlertTypes {
@@ -244,18 +240,6 @@ class FileScannerCoordinator {
 		parentViewController?.present(alert, animated: true)
 	}
 
-	private func presentPDFUnlockFailedAlert() {
-		let alert = alert(.unlockPDF)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
-				style: .default
-			)
-		)
-
-		parentViewController?.present(alert, animated: true)
-	}
-
 	private func showIndicator() {
 		guard let parentView = parentViewController?.view else {
 			Log.error("Failed to get parentViewController - stop", log: .fileScanner)
@@ -315,7 +299,7 @@ class FileScannerCoordinator {
 				title: AppStrings.Common.alertActionOk,
 				style: .default,
 				handler: { [weak self] _ in
-					self?.endFlow()
+					self?.noQRCodeFound()
 				}
 			)
 		)
