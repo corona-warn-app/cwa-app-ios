@@ -42,4 +42,11 @@ class ENAUITests_03_Settings: CWATestCase {
 		
 		XCTAssertTrue(app.images["AppStrings.Settings.backgroundAppRefreshImageDescription"].waitForExistence(timeout: 5.0))
 	}
+	
+	func test_0032_SettingsNotifications() throws {
+		app.launch()
+		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
+		// TODO write test
+		// TODO launch argument algorithm is wrong (because id is not equal version) in DeltaOnboardingExtension.
+	}
 }
