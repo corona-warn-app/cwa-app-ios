@@ -12,7 +12,7 @@ class FileScannerCoordinator {
 	init(
 		_ parentViewController: UIViewController,
 		qrCodeParser: QRCodeParsable,
-		qrCodeFound: @escaping (QRCodeResult?) -> Void,
+		qrCodeFound: @escaping (QRCodeResult) -> Void,
 		noQRCodeFound: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
@@ -64,7 +64,7 @@ class FileScannerCoordinator {
 
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
-	private var qrCodeFound: (QRCodeResult?) -> Void
+	private var qrCodeFound: (QRCodeResult) -> Void
 	private let qrCodeParser: QRCodeParsable
 	private var noQRCodeFound: () -> Void
 	private var rootViewController: UIViewController?
