@@ -49,6 +49,7 @@
 		012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */; };
 		013069512705D4A900D945E3 /* QRScannerTooltipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */; };
 		013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013069502705D4A900D945E3 /* QRScannerTooltipViewController.swift */; };
+		01306955270746D100D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013069542707452E00D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift */; };
 		0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */; };
 		0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */; };
 		0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */; };
@@ -152,7 +153,7 @@
 		01887D3B25DAB4E400FCAFB2 /* DiarySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */; };
 		018B852526CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */; };
 		018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */; };
-		018B852A26CFDBC70037DD54 /* ENAUITests_OnBehalfCheckinSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852926CFDBC60037DD54 /* ENAUITests_OnBehalfCheckinSubmission.swift */; };
+		018B852A26CFDBC70037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852926CFDBC60037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift */; };
 		018FD4762695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD4742695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift */; };
 		018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD4752695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift */; };
 		018FD47A2695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FD4792695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift */; };
@@ -372,15 +373,15 @@
 		0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB96248AD616007E8B0C /* AppUpdateCheckHelper.swift */; };
 		0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB9C248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift */; };
 		1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */; };
-		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
+		130CB19C246D92F800ADE602 /* ENAUITests_00_Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITests_00_Onboarding.swift */; };
 		13156CFD248C19D000AFC472 /* usage.html in Resources */ = {isa = PBXBuildFile; fileRef = 13156CFF248C19D000AFC472 /* usage.html */; };
-		134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */; };
+		134F0DBC247578FF00D88934 /* ENAUITests_01a_Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DB9247578FF00D88934 /* ENAUITests_01a_Home.swift */; };
 		134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */; };
 		134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0F2B2475793400D88934 /* SnapshotHelper.swift */; };
 		13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */; };
 		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
-		13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */; };
+		13E50469248E3CD20086641C /* ENAUITests_02_AppInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E50468248E3CD20086641C /* ENAUITests_02_AppInformation.swift */; };
 		13E5046B248E3DF30086641C /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
 		13E5046C248E434B0086641C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
@@ -610,7 +611,7 @@
 		509B1E4026D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3F26D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift */; };
 		509B1E4126D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3E26D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift */; };
 		509B1E4426D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */; };
-		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
+		509C69FE25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */; };
 		50A7168826CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */; };
 		50A7168A26CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */; };
 		50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */; };
@@ -808,7 +809,7 @@
 		948DCDC3252EFC9A00CDE020 /* ENAUITests_04c_ExposureLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DCDC2252EFC9A00CDE020 /* ENAUITests_04c_ExposureLogging.swift */; };
 		94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift */; };
 		94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BACE6925D27DC1007B2A99 /* DeltaOnboardingDataDonation.swift */; };
-		94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */; };
+		94C24B3F25304B4400F8C004 /* ENAUITests_06_DeltaOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C24B3E25304B4400F8C004 /* ENAUITests_06_DeltaOnboarding.swift */; };
 		94EAF87125B6CA9D00BE1F40 /* DeltaOnboardingNewVersionFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86C25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeatures.swift */; };
 		94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86D25B6C84900BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift */; };
 		94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */; };
@@ -1312,7 +1313,7 @@
 		EB08F1862541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */; };
 		EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */; };
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
-		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
+		EB11B02A24EE7CA500143A95 /* ENAUITests_03_Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITests_03_Settings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
 		EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */; };
 		EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */; };
@@ -1462,6 +1463,7 @@
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
 		0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRScannerTooltipViewController.xib; sourceTree = "<group>"; };
 		013069502705D4A900D945E3 /* QRScannerTooltipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerTooltipViewController.swift; sourceTree = "<group>"; };
+		013069542707452E00D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_16_UniversalQRCodeScanner.swift; sourceTree = "<group>"; };
 		0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCard.swift; sourceTree = "<group>"; };
 		0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModel.swift; sourceTree = "<group>"; };
 		0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_Statistics+SupportedIDs.swift"; sourceTree = "<group>"; };
@@ -1559,7 +1561,7 @@
 		01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySegmentedControl.swift; sourceTree = "<group>"; };
 		018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionError.swift; sourceTree = "<group>"; };
 		018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionServiceTests.swift; sourceTree = "<group>"; };
-		018B852926CFDBC60037DD54 /* ENAUITests_OnBehalfCheckinSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_OnBehalfCheckinSubmission.swift; sourceTree = "<group>"; };
+		018B852926CFDBC60037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_15_OnBehalfCheckinSubmission.swift; sourceTree = "<group>"; };
 		018FD4742695EAAB000088F8 /* HealthCertificateValidationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationResultViewController.swift; sourceTree = "<group>"; };
 		018FD4752695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationResultViewModel.swift; sourceTree = "<group>"; };
 		018FD4792695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationPassedViewModel.swift; sourceTree = "<group>"; };
@@ -1784,16 +1786,16 @@
 		0DFCC2702484DC8400E2811D /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		0DFCC2712484DC8400E2811D /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionViewController.swift; sourceTree = "<group>"; };
-		130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
+		130CB19B246D92F800ADE602 /* ENAUITests_00_Onboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITests_00_Onboarding.swift; sourceTree = "<group>"; };
 		13156CFE248C19D000AFC472 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/usage.html; sourceTree = "<group>"; };
 		13156D00248CDECC00AFC472 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/usage.html; sourceTree = "<group>"; };
-		134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsHome.swift; sourceTree = "<group>"; };
+		134F0DB9247578FF00D88934 /* ENAUITests_01a_Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITests_01a_Home.swift; sourceTree = "<group>"; };
 		134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
-		13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAppInformation.swift; sourceTree = "<group>"; };
+		13E50468248E3CD20086641C /* ENAUITests_02_AppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_02_AppInformation.swift; sourceTree = "<group>"; };
 		2E190D95265D058A00AA95D5 /* TANInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TANInputCell.swift; sourceTree = "<group>"; };
 		2E190D97265D05A500AA95D5 /* TANErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TANErrorCell.swift; sourceTree = "<group>"; };
 		2E1C50292625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenExposureSubmissionNegativeTestResultHeaderView.swift; sourceTree = "<group>"; };
@@ -2020,7 +2022,7 @@
 		509B1E3E26D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePDFVersionViewController.swift; sourceTree = "<group>"; };
 		509B1E3F26D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePDFVersionViewModel.swift; sourceTree = "<group>"; };
 		509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModelTests.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/__tests__/HealthCertificatePDFGenerationInfoViewModelTests.swift; sourceTree = SOURCE_ROOT; };
-		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
+		509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_01b_Statistics.swift; sourceTree = "<group>"; };
 		50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewController.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewController.swift; sourceTree = SOURCE_ROOT; };
 		50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModel.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewModel.swift; sourceTree = SOURCE_ROOT; };
 		50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryResponse.swift; sourceTree = "<group>"; };
@@ -2237,7 +2239,7 @@
 		94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesControllerTests.swift; sourceTree = "<group>"; };
 		94B255A52551B7C800649B4C /* WarnOthersReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersReminder.swift; sourceTree = "<group>"; };
 		94BACE6925D27DC1007B2A99 /* DeltaOnboardingDataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingDataDonation.swift; sourceTree = "<group>"; };
-		94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsDeltaOnboarding.swift; sourceTree = "<group>"; };
+		94C24B3E25304B4400F8C004 /* ENAUITests_06_DeltaOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_06_DeltaOnboarding.swift; sourceTree = "<group>"; };
 		94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesViewModel.swift; sourceTree = "<group>"; };
 		94EAF86C25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeatures.swift; sourceTree = "<group>"; };
 		94EAF86D25B6C84900BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesViewController.swift; sourceTree = "<group>"; };
@@ -2741,7 +2743,7 @@
 		EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_export.pb.swift; path = ../../../gen/output/external/exposurenotification/temporary_exposure_key_export.pb.swift; sourceTree = "<group>"; };
 		EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/external/exposurenotification/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/external/exposurenotification/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
-		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
+		EB11B02924EE7CA500143A95 /* ENAUITests_03_Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_03_Settings.swift; sourceTree = "<group>"; };
 		EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+KeyPackageStorage.swift"; sourceTree = "<group>"; };
 		EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlausibleDeniabilityService.swift; sourceTree = "<group>"; };
@@ -3046,6 +3048,14 @@
 				0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */,
 			);
 			path = Tooltip;
+			sourceTree = "<group>";
+		};
+		013069532707451500D945E3 /* UniversalQRCodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				013069542707452E00D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift */,
+			);
+			path = UniversalQRCodeScanner;
 			sourceTree = "<group>";
 		};
 		0138F53B25ECD44300A9B075 /* v2 */ = {
@@ -3976,7 +3986,7 @@
 		130CB19A246D92F800ADE602 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */,
+				130CB19B246D92F800ADE602 /* ENAUITests_00_Onboarding.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -3984,8 +3994,8 @@
 		134F0DB8247578FF00D88934 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */,
-				509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */,
+				134F0DB9247578FF00D88934 /* ENAUITests_01a_Home.swift */,
+				509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -4001,7 +4011,7 @@
 		13E5046A248E3CE60086641C /* AppInformation */ = {
 			isa = PBXGroup;
 			children = (
-				13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */,
+				13E50468248E3CD20086641C /* ENAUITests_02_AppInformation.swift */,
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
@@ -4165,7 +4175,7 @@
 			isa = PBXGroup;
 			children = (
 				347FBB17260C9C4600672770 /* ENAUITests_09_TraceLocations.swift */,
-				018B852926CFDBC60037DD54 /* ENAUITests_OnBehalfCheckinSubmission.swift */,
+				018B852926CFDBC60037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift */,
 			);
 			path = TraceLocations;
 			sourceTree = "<group>";
@@ -5369,29 +5379,30 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
+				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
 				35573D002657A1D80057723F /* AppDelegate */,
-				340421DB263DDF6D00155BC6 /* AppStore */,
-				130CB19A246D92F800ADE602 /* Onboarding */,
-				134F0DB8247578FF00D88934 /* Home */,
 				13E5046A248E3CE60086641C /* AppInformation */,
-				EB11B02824EE7C7D00143A95 /* Settings */,
-				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
-				AB7DE70025C4543700C52B3F /* ExposureDetection */,
-				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
+				340421DB263DDF6D00155BC6 /* AppStore */,
+				BADDD84A26039E1000337223 /* CheckIns */,
+				347FBB16260C911300672770 /* ContactJournal */,
 				50D50A5E25D6CC760092BC2A /* DataDonation */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
-				347FBB16260C911300672770 /* ContactJournal */,
-				EB1C221625B718FA00A5CA6E /* UpdateOS */,
-				347FBB15260C8BBA00672770 /* TraceLocations */,
-				BADDD84A26039E1000337223 /* CheckIns */,
-				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
+				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
+				AB7DE70025C4543700C52B3F /* ExposureDetection */,
+				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
+				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
 				BAC291482652BE1E00CFA8A5 /* HealthCertificate */,
 				941B68AD253F005600DC1962 /* Helper */,
-				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
-				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
-				34A407502655254E00F9307D /* LaunchArguments.swift */,
-				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
+				134F0DB8247578FF00D88934 /* Home */,
 				85D7596524570491008175F0 /* Info.plist */,
+				34A407502655254E00F9307D /* LaunchArguments.swift */,
+				130CB19A246D92F800ADE602 /* Onboarding */,
+				EB11B02824EE7C7D00143A95 /* Settings */,
+				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
+				347FBB15260C8BBA00672770 /* TraceLocations */,
+				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
+				013069532707451500D945E3 /* UniversalQRCodeScanner */,
+				EB1C221625B718FA00A5CA6E /* UpdateOS */,
 			);
 			path = ENAUITests;
 			sourceTree = "<group>";
@@ -5666,7 +5677,7 @@
 		94C24B3D25304AE100F8C004 /* DeltaOnboarding */ = {
 			isa = PBXGroup;
 			children = (
-				94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */,
+				94C24B3E25304B4400F8C004 /* ENAUITests_06_DeltaOnboarding.swift */,
 			);
 			path = DeltaOnboarding;
 			sourceTree = "<group>";
@@ -7945,7 +7956,7 @@
 		EB11B02824EE7C7D00143A95 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */,
+				EB11B02924EE7CA500143A95 /* ENAUITests_03_Settings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -9729,11 +9740,11 @@
 				BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */,
 				8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */,
 				340421C7263DDCFC00155BC6 /* ENAUITests_04b_ExposureDetection.swift in Sources */,
-				018B852A26CFDBC70037DD54 /* ENAUITests_OnBehalfCheckinSubmission.swift in Sources */,
-				94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */,
+				018B852A26CFDBC70037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift in Sources */,
+				94C24B3F25304B4400F8C004 /* ENAUITests_06_DeltaOnboarding.swift in Sources */,
 				34A407512655254E00F9307D /* LaunchArguments.swift in Sources */,
-				134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */,
-				EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */,
+				134F0DBC247578FF00D88934 /* ENAUITests_01a_Home.swift in Sources */,
+				EB11B02A24EE7CA500143A95 /* ENAUITests_03_Settings.swift in Sources */,
 				134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */,
 				8FB5A61625DD65D500679990 /* TestResult.swift in Sources */,
 				948DCDC3252EFC9A00CDE020 /* ENAUITests_04c_ExposureLogging.swift in Sources */,
@@ -9742,19 +9753,20 @@
 				2E4C3FE9263AA6B800E9FAFF /* ENAUITests_12_AntigenTestProfile.swift in Sources */,
 				356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
+				01306955270746D100D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift in Sources */,
 				5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */,
 				AB8A6694266F922500F65E1D /* ENAUITests_13_CreateHealthCertificate.swift in Sources */,
-				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
+				13E50469248E3CD20086641C /* ENAUITests_02_AppInformation.swift in Sources */,
 				350B26C6265E4E8D00180183 /* CWATestCase.swift in Sources */,
 				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
 				AB76C4BE269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift in Sources */,
-				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
+				130CB19C246D92F800ADE602 /* ENAUITests_00_Onboarding.swift in Sources */,
 				13E5046B248E3DF30086641C /* AppStrings.swift in Sources */,
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
 				35573D022657A1D80057723F /* ENAUITests_11_QuickActions.swift in Sources */,
 				340421D4263DDDA700155BC6 /* ENAUITests_05_DataDonation.swift in Sources */,
-				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
+				509C69FE25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift in Sources */,
 				347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 			);
