@@ -51,6 +51,7 @@ enum AppStrings {
 		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_Blog_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
+		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -639,6 +640,7 @@ enum AppStrings {
 	}
 
 	enum NotificationSettings {
+		/*to be removed in https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9676*/
 		static let onTitle = NSLocalizedString("NotificationSettings_On_Title", comment: "")
 		static let onSectionTitle = NSLocalizedString("NotificationSettings_On_SectionTitle", comment: "")
 		static let riskChanges = NSLocalizedString("NotificationSettings_On_RiskChanges", comment: "")
@@ -655,6 +657,34 @@ enum AppStrings {
 
 		static let onImageDescription = NSLocalizedString("NotificationSettings_onImageDescription", comment: "")
 		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
+		
+		/*new*/
+		static let title = NSLocalizedString("NotificationSettings_Title", comment: "")
+		static let imageDescriptionOn = NSLocalizedString("NotificationSettings_ImageDescriptionOn", comment: "")
+		static let imageDescriptionOff = NSLocalizedString("NotificationSettings_ImageDescriptionOff", comment: "")
+		static let settingsDescription = NSLocalizedString("NotificationSettings_SettingsDescription", comment: "")
+		static let notifications = NSLocalizedString("NotificationSettings_Notifications", comment: "")
+		static let notificationsOn = NSLocalizedString("NotificationSettings_NotificationsOn", comment: "")
+		static let notificationsOff = NSLocalizedString("NotificationSettings_NotificationsOff", comment: "")
+		
+		static let bulletHeadlineOn = NSLocalizedString("NotificationSettings_BulletHeadlineOn", comment: "")
+		static let bulletHeadlineOff = NSLocalizedString("NotificationSettings_BulletHeadlineOff", comment: "")
+		static let bulletDescOn = NSLocalizedString("NotificationSettings_BulletDescOn", comment: "")
+		static let bulletDescOff = NSLocalizedString("NotificationSettings_BulletDescOff", comment: "")
+		
+		static let bulletPoint1 = NSLocalizedString("NotificationSettings_BulletPoint1", comment: "")
+		static let bulletPoint2 = NSLocalizedString("NotificationSettings_BulletPoint2", comment: "")
+		static let bulletPoint3 = NSLocalizedString("NotificationSettings_BulletPoint3", comment: "")
+		static let bulletDesc2 = NSLocalizedString("NotificationSettings_BulletDesc2", comment: "")
+		static let bulletDesc2FAQText = NSLocalizedString("NotificationSettings_BulletDesc2_FAQText", comment: "")
+		
+		static let openSystemSettings = NSLocalizedString("NotificationSettings_OpenSystemSettings", comment: "")
+		
+		enum DeltaOnboarding {
+			static let title = NSLocalizedString("NotificationSettings_DeltaOnboarding_Title", comment: "")
+			static let description = NSLocalizedString("NotificationSettings_DeltaOnboarding_Description", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("NotificationSettings_DeltaOnboarding_PrimaryButtonTitle", comment: "")
+		}
 	}
 
 	enum BackgroundAppRefreshSettings {
