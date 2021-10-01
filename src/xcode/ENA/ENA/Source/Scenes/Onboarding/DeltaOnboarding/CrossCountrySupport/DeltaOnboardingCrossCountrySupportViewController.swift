@@ -4,14 +4,14 @@
 
 import UIKit
 
-class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate, DismissHandling {
+class DeltaOnboardingCrossCountrySupportViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate, DismissHandling {
 
 	// MARK: - Init
 	
 	init(
 		supportedCountries: [Country]
 	) {
-		self.viewModel = DeltaOnboardingV15ViewModel(supportedCountries: supportedCountries)
+		self.viewModel = DeltaOnboardingCrossCountrySupportViewModel(supportedCountries: supportedCountries)
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -51,7 +51,7 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	// MARK: - Private
 
-	private let viewModel: DeltaOnboardingV15ViewModel
+	private let viewModel: DeltaOnboardingCrossCountrySupportViewModel
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -90,7 +90,7 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 // MARK: - Cell reuse identifiers.
 
-extension DeltaOnboardingV15ViewController {
+extension DeltaOnboardingCrossCountrySupportViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
 	}
