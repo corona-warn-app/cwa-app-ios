@@ -11,47 +11,47 @@ class FileScannerCoordinator {
 
 	init(
 		_ parentViewController: UIViewController,
-		qrCodeFound: @escaping (QRCodeResult?) -> Void,
 		qrCodeParser: QRCodeParsable,
-		dismiss: @escaping () -> Void
+		qrCodeFound: @escaping (QRCodeResult) -> Void,
+		noQRCodeFound: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
 		self.qrCodeFound = qrCodeFound
 		self.qrCodeParser = qrCodeParser
-		self.dismiss = dismiss
+		self.noQRCodeFound = noQRCodeFound
 	}
 
 	// MARK: - Internal
 	
 	func start() {
 		self.viewModel = FileScannerCoordinatorViewModel(
-			showHUD: { [weak self] in
-				DispatchQueue.main.async {
-					self?.showIndicator()
-				}
-			},
-			hideHUD: { [weak self] in
-				DispatchQueue.main.async {
-					self?.hideIndicator()
-				}
-			},
-			dismiss: { [weak self] in
+			qrCodeParser: qrCodeParser,
+			finishedPickingImage: { [weak self] in
 				DispatchQueue.main.async {
 					self?.parentViewController?.dismiss(animated: true)
 				}
 			},
-			qrCodeFound: { [weak self] qrCodeResult in
+			processingStarted: { [weak self] in
+				DispatchQueue.main.async {
+					self?.showIndicator()
+				}
+			},
+			processingFinished: { [weak self] qrCodeResult in
 				DispatchQueue.main.async {
 					self?.qrCodeFound(qrCodeResult)
 					self?.hideIndicator()
 				}
 			},
-			qrCodeParser: qrCodeParser,
-			missingPasswordForPDF: { callback in
-				self.presentPasswordAlert(callback)
+			processingFailed: { [weak self] alertType in
+				DispatchQueue.main.async {
+					self?.hideIndicator()
+					self?.presentSimpleAlert(alertType)
+				}
 			},
-			failedToUnlockPDF: {
-				self.presentPDFUnlockFailedAlert()
+			missingPasswordForPDF: { [weak self] callback in
+				DispatchQueue.main.async {
+					self?.presentPasswordAlert(callback)
+				}
 			}
 		)
 		
@@ -64,9 +64,9 @@ class FileScannerCoordinator {
 
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
-	private var qrCodeFound: (QRCodeResult?) -> Void
+	private var qrCodeFound: (QRCodeResult) -> Void
 	private let qrCodeParser: QRCodeParsable
-	private var dismiss: (() -> Void)?
+	private var noQRCodeFound: () -> Void
 	private var rootViewController: UIViewController?
 	
 	private func presentActionSheet() {
@@ -149,10 +149,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPhotoAccessAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.FileScanner.AccessError.title,
-			message: AppStrings.FileScanner.AccessError.message,
-			preferredStyle: .alert)
+		let alert = alert(.photoAccess)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.FileScanner.AccessError.cancel,
@@ -172,12 +169,7 @@ class FileScannerCoordinator {
 	}
 
 	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
-		let alert = UIAlertController(
-			title: AppStrings.FileScanner.PasswordEntry.title,
-			message: AppStrings.FileScanner.PasswordEntry.message,
-			preferredStyle: .alert
-		)
-
+		let alert = alert(.passwordInput)
 		alert.addTextField { textField in
 			textField.placeholder = AppStrings.FileScanner.PasswordEntry.placeholder
 			textField.isSecureTextEntry = true
@@ -200,23 +192,6 @@ class FileScannerCoordinator {
 				}
 				completion(passwordTextField.text ?? "")
 			}
-		)
-
-		parentViewController?.present(alert, animated: true)
-	}
-
-	private func presentPDFUnlockFailedAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.FileScanner.PasswordError.title,
-			message: AppStrings.FileScanner.PasswordError.message,
-			preferredStyle: .alert
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
-				style: .default
-			)
 		)
 
 		parentViewController?.present(alert, animated: true)
@@ -254,4 +229,38 @@ class FileScannerCoordinator {
 		}
 		animator.startAnimation()
 	}
+
+	private func presentSimpleAlert(_ error: FileScannerError) {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				Log.error("Failed to get strong self", log: .fileScanner)
+				return
+			}
+			let alert = self.alertWithOK(error)
+			self.parentViewController?.present(alert, animated: true)
+		}
+	}
+
+	private func alert(_ error: FileScannerError) -> UIAlertController {
+		return UIAlertController(
+			title: error.title,
+			message: error.message,
+			preferredStyle: .alert
+		)
+	}
+
+	private func alertWithOK(_ error: FileScannerError) -> UIAlertController {
+		let alert = alert(error)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.noQRCodeFound()
+				}
+			)
+		)
+		return alert
+	}
+
 }

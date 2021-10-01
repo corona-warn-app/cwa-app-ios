@@ -113,14 +113,12 @@ class QRScannerCoordinator {
 			presentFileScanner: { [weak self] in
 				self?.fileScannerCoordinator = FileScannerCoordinator(
 					qrScannerViewController,
-					qrCodeFound: { [weak self] qrCodeResult in
-						guard let qrCodeResult = qrCodeResult else {
-							return
-						}
-						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
-					},
 					qrCodeParser: qrCodeParser,
-					dismiss: {
+					qrCodeFound: { [weak self] qrCodeResult in
+						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
+						self?.fileScannerCoordinator = nil
+					},
+					noQRCodeFound: {
 						self?.fileScannerCoordinator = nil
 					}
 				)

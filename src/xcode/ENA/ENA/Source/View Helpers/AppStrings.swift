@@ -2332,6 +2332,8 @@ enum AppStrings {
 	}
 
 	enum FileScanner {
+		static let hudText = NSLocalizedString("FileScanner_HUD_text", comment: "")
+
 		enum sheet {
 			static let photos = NSLocalizedString("FileScanner_sheet_photos", comment: "")
 			static let documents = NSLocalizedString("FileScanner_sheet_documents", comment: "")
@@ -2345,8 +2347,6 @@ enum AppStrings {
 			static let settings = NSLocalizedString("FileScanner_AccessError_settings", comment: "")
 		}
 
-		static let hudText = NSLocalizedString("FileScanner_HUD_text", comment: "")
-
 		enum PasswordEntry {
 			static let title = NSLocalizedString("FileScanner_PasswordEntry_title", comment: "")
 			static let message = NSLocalizedString("FileScanner_PasswordEntry_message", comment: "")
@@ -2356,6 +2356,21 @@ enum AppStrings {
 		enum PasswordError {
 			static let title = NSLocalizedString("FileScanner_PasswordError_title", comment: "")
 			static let message = NSLocalizedString("FileScanner_PasswordError_message", comment: "")
+		}
+
+		enum InvalidQRCodeError {
+			static let title = NSLocalizedString("FileScanner_InvalidQRCode_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_InvalidQRCode_message", comment: "")
+		}
+
+		enum FileNotReadable {
+			static let title = NSLocalizedString("FileScanner_FileNotReadable_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_FileNotReadable_message", comment: "")
+		}
+
+		enum NoQRCodeFound {
+			static let title = NSLocalizedString("FileScanner_NoQRCodeFound_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_NoQRCodeFound_message", comment: "")
 		}
 	}
 
