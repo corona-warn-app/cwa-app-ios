@@ -298,32 +298,47 @@ Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird d
 
 "Settings_DataDonation_StatusInactive" = "Aus";
 
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem COVID-19-Risikostatus aktivieren?";
+/* Notification Settings */
 
-"NotificationSettings_On_SectionTitle" = "Einstellung";
+"NotificationSettings_Title" = "Mitteilungen";
 
-"NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
+"NotificationSettings_ImageDescriptionOn" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19-Tests";
+"NotificationSettings_ImageDescriptionOff" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
 
-"NotificationSettings_Off_SectionTitle" = "Einstellung";
+"NotificationSettings_SettingsDescription" = "EINSTELLUNG";
 
-"NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
+"NotificationSettings_Notifications" = "Mitteilungen";
 
-"NotificationSettings_Off_StatusInactive" = "Aus";
+"NotificationSettings_NotificationsOn" = "An";
 
-"NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
+"NotificationSettings_NotificationsOff" = "Aus";
 
-"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen in der Corona-Warn-App zu aktivieren, müssen Sie Mitteilungen in Ihren Geräteeinstellungen zulassen.";
+"NotificationSettings_BulletHeadlineOn" = "Mitteilungen verwalten";
 
-"NotificationSettings_Off_OpenSettings" = "Geräteeinstellungen öffnen";
+"NotificationSettings_BulletHeadlineOff" = "Mitteilungen aktivieren";
 
-"NotificationSettings_NavTitle" = "Mitteilungen";
+"NotificationSettings_BulletDescOn" = "Sie können hier festlegen, ob:";
 
-"NotificationSettings_onImageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
+"NotificationSettings_BulletDescOff" = "Um Mitteilungen in der Corona-Warn-App zu aktivieren, müssen Sie Mitteilungen in Ihren Geräteeinstellungen zulassen.";
 
-"NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
+"NotificationSettings_BulletPoint1" = "Sie generell Mitteilungen erhalten möchten";
+
+"NotificationSettings_BulletPoint2" = "Mitteilungstexte auf dem Sperrbildschirm angezeigt werden sollen";
+
+"NotificationSettings_BulletPoint3" = "Mitteilungstexte erst nach Entsperrung des Smartphones angezeigt werden sollen";
+
+"NotificationSettings_BulletDesc2" = "Details zu den Einstellungen Ihres jeweiligen Betriebssystems finden Sie in den %@.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "FAQ";
+
+"NotificationSettings_OpenSystemSettings" = "Geräteeinstellungen öffnen";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Mitteilungen verwalten";
+
+"NotificationSettings_DeltaOnboarding_Description" = "Die Einstellungen für Mitteilungen werden ab jetzt einheitlich in den Geräteeinstellungen Ihres Smartphones verwaltet.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Weiter";
 
 /* Background App Referesh Settings */
 
@@ -3230,6 +3245,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "FileScanner_NoQRCodeFound_title" = "Kein QR-Code erkannt";
 
 "FileScanner_NoQRCodeFound_message" = "In der gewählten Datei konnte kein QR-Code erkannt werden. Bitte wählen Sie eine andere Datei.";
+
+"UniversalQRScanner_Tooltip_title" = "QR-Code-Scanner";
+
+"UniversalQRScanner_Tooltip_description" = "Scannen Sie Tests, Zertifikate und Check-ins mit diesem Scanner.";
 
 /* Federal State Names */
 

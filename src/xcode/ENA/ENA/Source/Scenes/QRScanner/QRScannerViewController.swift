@@ -422,6 +422,10 @@ class QRScannerViewController: UIViewController {
 		})
 		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
 		alertVC.addAction(event)
+
+		let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+		cancel.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.cancel
+		alertVC.addAction(cancel)
 		
 		present(alertVC, animated: false, completion: nil)
 		

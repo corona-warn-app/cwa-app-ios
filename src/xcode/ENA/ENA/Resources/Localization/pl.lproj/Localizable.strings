@@ -598,25 +598,6 @@
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "Skan kodu QR";
-
-"ExposureSubmissionQRScanner_instruction" = "Ustaw ramkę nad kodem QR swojego dokumentu.";
-
-"ExposureSubmissionQRScanner_otherError" = "Wystąpił nieznany błąd.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Zezwól aplikacji na użycie aparatu do skanowania kodu QR.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Lampa błyskowa aparatu";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Włączona";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Wyłączona";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Włącz lampę błyskową aparatu";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Wyłącz lampę błyskową aparatu";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Dziękujemy";
 
@@ -1560,7 +1541,7 @@
 /* Version 2.11 */
 "NewVersionFeature_211_universalQRCodeScanner_title" = "Uniwersalny skaner kodów QR";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Możesz teraz skanować wszystkie dokumenty obsługiwane przez aplikację Corona-Warn-App, niezależnie od tego, gdzie otworzysz skaner kodów QR w CWA:\n\n\t\U2022 Testy PCR\n\t\U2022 Szybkie testy\n\t\U2022 Zameldowania obecności w wydarzeniach\n\t\U2022 Certyfikaty";
+"NewVersionFeature_211_universalQRCodeScanner_description" = "Możesz teraz skanować wszystkie dokumenty obsługiwane przez aplikację Corona-Warn-App, niezależnie od tego, gdzie otworzysz skaner kodów QR w aplikacji:\n\n\t\U2022 Testy PCR\n\t\U2022 Szybkie testy\n\t\U2022 Zameldowania obecności w wydarzeniach\n\t\U2022 Certyfikaty";
 
 "NewVersionFeature_211_qrCodeImport_title" = "Importuj kod QR";
 
@@ -2206,8 +2187,6 @@
 "QuickAction_eventCheckin" = "Zamelduj się";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "Skan kodu QR";
-
 "Checkins_Overview_Title" = "Moje zameldowania";
 
 "Checkins_Overview_MenuButtonTitle" = "Menu";
@@ -2255,8 +2234,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Informacje";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Edytuj";
-
-"Checkins_Overview_QRScanner_Instruction" = "Skanuj kod QR i zamelduj się";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Zamelduj się do %@.";
 
@@ -2637,7 +2614,7 @@
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
 
-"HealthCertificate_Overview_Covid_Title" = "Unijny\n**cyfrowy certyfikat COVID**";
+"HealthCertificate_Overview_Covid_Title" = "Unijny cyfrowy certyfikat COVID";
 
 "VaccinationCertificate_title" = "Unijne\n**cyfrowy certyfikat szczepienia**";
 
@@ -2722,12 +2699,22 @@
 
 "HealthCertificate_Info_primaryButton" = "Kontynuuj";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "Skan kodu QR";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Weryfikacja certyfikatów przez osoby trzecie";
 
-"HealthCertificate_QRScanner_instruction" = "Zeskanuj kod QR i dodaj certyfikat";
+"CovPass_Check_Info_body" = "Osoby trzecie mogą korzystać z aplikacji CovPassCheck, aby wiarygodnie sprawdzić, czy certyfikat szczepienia, certyfikat statusu ozdrowieńca lub certyfikat testu jest ważny.";
+
+"CovPass_Check_Info_faq" = "Często zadawane pytania dotyczące weryfikacji certyfikatu przez osoby trzecie";
+
+"CovPass_Check_Info_text01" = "Ważność certyfikatów możesz sprawdzić samodzielnie w aplikacji Corona-Warn-App bez korzystania z aplikacji CovPassCheck.";
+
+"CovPass_Check_Info_text02" = "Dla osób trzecich nie wystarczy jednak wizualna kontrola certyfikatów. Muszą one korzystać z aplikacji CovPassCheck w Niemczech.";
+
+"CovPass_Check_Info_text03" = "Należy pamiętać, że osoby trzecie w innych krajach mogą używać innych aplikacji do weryfikacji certyfikatów.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Ten kod QR można wiarygodnie zweryfikować za pomocą aplikacji CovPassCheck.";
+
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Status zaszczepienia";
@@ -3033,6 +3020,20 @@
 "UniversalQRScanner_InstructionTitle" = "Jakie kody QR można zeskanować?";
 
 "UniversalQRScanner_InstructionDescription" = "Testy PCR i szybkie testy, certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca i zameldowania.";
+
+"UniversalQRScanner_CameraFlash" = "Lampa błyskowa aparatu";
+
+"UniversalQRScanner_CameraFlash_On" = "Włączona";
+
+"UniversalQRScanner_CameraFlash_Off" = "Wyłączona";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Włącz lampę błyskową aparatu";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Wyłącz lampę błyskową aparatu";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Zezwól aplikacji na użycie aparatu do skanowania kodu QR.";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "Ten kod QR nie jest obsługiwany przez aplikację Corona-Warn-App. Zeskanuj odpowiedni kod QR.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Badenia-Wirtembergia";
