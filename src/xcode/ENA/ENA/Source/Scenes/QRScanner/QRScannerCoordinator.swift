@@ -63,8 +63,7 @@ class QRScannerCoordinator {
 		self.presenter = presenter
 		let navigationController = UINavigationController(
 			rootViewController: qrScannerViewController(
-				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates),
-				markCoronaTestAsNew: presenter != .submissionFlow && presenter != .universalScanner(.home)
+				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates)
 			)
 		)
 		self.parentViewController?.present(navigationController, animated: true)
@@ -89,32 +88,57 @@ class QRScannerCoordinator {
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
-	
+	private var fileScannerCoordinator: FileScannerCoordinator?
+
 	private func qrScannerViewController(
-		markCertificateAsNew: Bool,
-		markCoronaTestAsNew: Bool
+		markCertificateAsNew: Bool
 	) -> UIViewController {
-		return QRScannerViewController(
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
+		var qrScannerViewController: QRScannerViewController!
+		qrScannerViewController = QRScannerViewController(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
 			markCertificateAsNew: markCertificateAsNew,
-			markCoronaTestAsNew: markCoronaTestAsNew,
 			didScan: { [weak self] qrCodeResult in
-				self?.parentViewController?.dismiss(animated: true, completion: {
-					switch qrCodeResult {
-					case let .coronaTest(testRegistrationInformation):
-						self?.showScannedTestResult(testRegistrationInformation)
-					case let .certificate(healthCertifiedPerson, healthCertificate):
-						self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
-					case let .traceLocation(traceLocation):
-						self?.showScannedCheckin(traceLocation)
-					}
-				})
+				self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 			},
 			dismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
+			},
+			presentFileScanner: { [weak self] in
+				self?.fileScannerCoordinator = FileScannerCoordinator(
+					qrScannerViewController,
+					qrCodeParser: qrCodeParser,
+					qrCodeFound: { [weak self] qrCodeResult in
+						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
+						self?.fileScannerCoordinator = nil
+					},
+					noQRCodeFound: {
+						self?.fileScannerCoordinator = nil
+					}
+				)
+				self?.fileScannerCoordinator?.start()
 			}
 		)
+		return qrScannerViewController
+	}
+
+	private func showQRCodeResult(qrCodeResult: QRCodeResult) {
+		parentViewController?.dismiss(animated: true, completion: { [weak self] in
+			switch qrCodeResult {
+			case let .coronaTest(testRegistrationInformation):
+				self?.showScannedTestResult(testRegistrationInformation)
+			case let .certificate(healthCertifiedPerson, healthCertificate):
+				self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+			case let .traceLocation(traceLocation):
+				self?.showScannedCheckin(traceLocation)
+			}
+		})
 	}
 
 	private func showScannedTestResult(
