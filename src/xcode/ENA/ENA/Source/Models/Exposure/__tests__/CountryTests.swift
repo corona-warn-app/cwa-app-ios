@@ -67,7 +67,7 @@ class CountryTests: CWATestCase {
 			XCTAssertEqual(sortedList[2].id, "FR")
 			XCTAssertEqual(sortedList[3].id, "DE")
 		default:
-			XCTFail("unknow language code")
+			XCTFail("unknown language code")
 		}
 	}
 

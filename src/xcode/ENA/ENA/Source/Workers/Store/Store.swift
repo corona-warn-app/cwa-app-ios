@@ -227,7 +227,7 @@ protocol CoronaTestStoringLegacy {
 	var devicePairingSuccessfulTimestamp: Int64? { get set }
 
 	/// Timestamp that represents the date at which
-	/// the user has received a test reult.
+	/// the user has received a test result.
 	var testResultReceivedTimeStamp: Int64? { get set }
 
 	/// Date when the test was registered for both TAN and QR

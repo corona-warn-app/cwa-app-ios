@@ -141,7 +141,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				  let pdfDocument = PDFDocument(url: url) {
 			Log.debug("PDF picked, will scan for QR codes", log: .fileScanner)
 
-			// If the document is encryped and locked, try to unlock it.
+			// If the document is encrypted and locked, try to unlock it.
 			// The case where the document is locked, but not encrypted does not exist.
 			if pdfDocument.isEncrypted && pdfDocument.isLocked {
 				Log.debug("PDF is encrypted and locked. Try to unlock, show password input screen to the user ...", log: .fileScanner)

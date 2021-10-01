@@ -26,7 +26,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 		
 		#if DEBUG
 		if isUITesting {
-			// This ensures, that for any UI Test that sets the launch arguement, the logging is disabled (so that for example the test can start logging).
+			// This ensures, that for any UI Test that sets the launch argument, the logging is disabled (so that for example the test can start logging).
 			if !LaunchArguments.errorReport.elsLogActive.boolValue {
 				do {
 					try elsService.stopAndDeleteLog()
@@ -35,7 +35,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 				}
 			}
 			
-			// This ensures, that for any UI Test that sets the launch arguement, we create some history entries so that we simulate a succesfull els submission before.
+			// This ensures, that for any UI Test that sets the launch argument, we create some history entries so that we simulate a successful els submission before.
 			if LaunchArguments.errorReport.elsCreateFakeHistory.boolValue {
 				var items = self.store.elsUploadHistory
 				items.append(ErrorLogUploadReceipt(id: "FakeReceiptID001", timestamp: Date()))
@@ -135,7 +135,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating, RequiresAppDepend
 	private var errorReportsContainerViewController: TopBottomContainerViewController <TopErrorReportViewController, BottomErrorReportViewController>?
 	/*
 	We need to call the update() function inside this topViewControllerViewModel every time we show the main Controller
-	This insures that we show the correct number of Cells in the TopErrorReportViewController "based on wether there is already a history or not"
+	This insures that we show the correct number of Cells in the TopErrorReportViewController "based on whether there is already a history or not"
 	i.e If a history Cell should be added or not
 	*/
 	private var topViewControllerViewModel: TopErrorReportViewModel?

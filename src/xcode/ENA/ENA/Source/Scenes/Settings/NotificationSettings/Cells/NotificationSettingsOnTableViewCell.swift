@@ -51,7 +51,7 @@ class NotificationSettingsOnTableViewCell: UITableViewCell {
 		}
 	}
 
-	// change toogle state with a double tap (voice over ON)
+	// change toggle state with a double tap (voice over ON)
 	override func accessibilityActivate() -> Bool {
 		toggle(self)
 		return true

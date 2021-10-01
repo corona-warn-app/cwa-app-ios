@@ -139,8 +139,8 @@ class ENAUITests_11_QuickActions: CWATestCase {
 	/// Checks the state of the quick action menu according to given parameter.
 	///
 	/// Once we have a 3rd parameter, we should find a better solution than simply adding plain arguments.
-	/// - Parameter expectNewDiaryItem: The desired state wether the 'new diary entry; menu item is existing or not.
-	/// - Parameter expectEventCheckin: The desired state wether the 'event checkin' menu item is existing or not.
+	/// - Parameter expectNewDiaryItem: The desired state whether the 'new diary entry; menu item is existing or not.
+	/// - Parameter expectEventCheckin: The desired state whether the 'event checkin' menu item is existing or not.
 	/// - Throws: All the funny test errors you might encounter when assertions are not met
 	private func checkAppMenu(expectNewDiaryItem: Bool, expectEventCheckin: Bool) throws {
 		// to dashboard
