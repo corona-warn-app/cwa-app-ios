@@ -319,7 +319,7 @@ extension DynamicTableViewController {
 		
 		switch section.background {
 		case .none:
-			cell.backgroundColor = .clear
+			break
 		case .greyBoxed:
 			
 			// Give all subviews in the content view of the cell some insets to the border. If we change the contentView's constraints, it would not affect the subviews.
