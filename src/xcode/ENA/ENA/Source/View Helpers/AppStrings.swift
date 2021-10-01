@@ -1020,6 +1020,7 @@ enum AppStrings {
 		static let testResultsBody = NSLocalizedString("local_notifications_testresults_body", comment: "")
 		static let certificateGenericTitle = NSLocalizedString("local_notifications_certificate_title", comment: "")
 		static let certificateGenericBody = NSLocalizedString("local_notifications_certificate_body", comment: "")
+		static let invalidCertificateBody = NSLocalizedString("local_notifications_invalid_certificate_body", comment: "")
 	}
 
 	enum RiskLegend {
