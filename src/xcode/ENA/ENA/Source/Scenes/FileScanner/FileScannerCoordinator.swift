@@ -68,49 +68,6 @@ class FileScannerCoordinator {
 	private let qrCodeParser: QRCodeParsable
 	private var noQRCodeFound: () -> Void
 	private var rootViewController: UIViewController?
-
-	enum AlertTypes {
-		case noQRCodeFound
-		case fileNotReadable
-		case invalidQRCode
-		case photoAccess
-		case passwordInput
-		case unlockPDF
-
-		var title: String {
-			switch self {
-			case .noQRCodeFound:
-				return AppStrings.FileScanner.NoQRCodeFound.title
-			case .fileNotReadable:
-				return AppStrings.FileScanner.FileNotReadable.title
-			case .invalidQRCode:
-				return AppStrings.FileScanner.InvalidQRCodeError.title
-			case .photoAccess:
-				return AppStrings.FileScanner.AccessError.title
-			case .passwordInput:
-				return AppStrings.FileScanner.PasswordEntry.title
-			case .unlockPDF:
-				return AppStrings.FileScanner.PasswordError.title
-			}
-		}
-
-		var message: String {
-			switch self {
-			case .noQRCodeFound:
-				return AppStrings.FileScanner.NoQRCodeFound.message
-			case .fileNotReadable:
-				return AppStrings.FileScanner.FileNotReadable.message
-			case .invalidQRCode:
-				return AppStrings.FileScanner.InvalidQRCodeError.message
-			case .photoAccess:
-				return AppStrings.FileScanner.AccessError.message
-			case .passwordInput:
-				return AppStrings.FileScanner.PasswordEntry.message
-			case .unlockPDF:
-				return AppStrings.FileScanner.PasswordError.message
-			}
-		}
-	}
 	
 	private func presentActionSheet() {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -273,27 +230,27 @@ class FileScannerCoordinator {
 		animator.startAnimation()
 	}
 
-	private func presentSimpleAlert(_ type: AlertTypes) {
+	private func presentSimpleAlert(_ error: FileScannerError) {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to get strong self", log: .fileScanner)
 				return
 			}
-			let alert = self.alertWithOK(type)
+			let alert = self.alertWithOK(error)
 			self.parentViewController?.present(alert, animated: true)
 		}
 	}
 
-	private func alert(_ type: AlertTypes) -> UIAlertController {
+	private func alert(_ error: FileScannerError) -> UIAlertController {
 		return UIAlertController(
-			title: type.title,
-			message: type.message,
+			title: error.title,
+			message: error.message,
 			preferredStyle: .alert
 		)
 	}
 
-	private func alertWithOK(_ type: AlertTypes) -> UIAlertController {
-		let alert = alert(type)
+	private func alertWithOK(_ error: FileScannerError) -> UIAlertController {
+		let alert = alert(error)
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,

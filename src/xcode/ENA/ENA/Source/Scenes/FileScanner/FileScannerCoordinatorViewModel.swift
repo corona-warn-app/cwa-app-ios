@@ -7,6 +7,49 @@ import PhotosUI
 import PDFKit
 import OpenCombine
 
+enum FileScannerError {
+	case noQRCodeFound
+	case fileNotReadable
+	case invalidQRCode
+	case photoAccess
+	case passwordInput
+	case unlockPDF
+
+	var title: String {
+		switch self {
+		case .noQRCodeFound:
+			return AppStrings.FileScanner.NoQRCodeFound.title
+		case .fileNotReadable:
+			return AppStrings.FileScanner.FileNotReadable.title
+		case .invalidQRCode:
+			return AppStrings.FileScanner.InvalidQRCodeError.title
+		case .photoAccess:
+			return AppStrings.FileScanner.AccessError.title
+		case .passwordInput:
+			return AppStrings.FileScanner.PasswordEntry.title
+		case .unlockPDF:
+			return AppStrings.FileScanner.PasswordError.title
+		}
+	}
+
+	var message: String {
+		switch self {
+		case .noQRCodeFound:
+			return AppStrings.FileScanner.NoQRCodeFound.message
+		case .fileNotReadable:
+			return AppStrings.FileScanner.FileNotReadable.message
+		case .invalidQRCode:
+			return AppStrings.FileScanner.InvalidQRCodeError.message
+		case .photoAccess:
+			return AppStrings.FileScanner.AccessError.message
+		case .passwordInput:
+			return AppStrings.FileScanner.PasswordEntry.message
+		case .unlockPDF:
+			return AppStrings.FileScanner.PasswordError.message
+		}
+	}
+}
+
 class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 
 	// MARK: - Init
@@ -16,7 +59,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		finishedPickingImage: @escaping () -> Void,
 		processingStarted: @escaping () -> Void,
 		processingFinished: @escaping (QRCodeResult) -> Void,
-		processingFailed: @escaping (FileScannerCoordinator.AlertTypes) -> Void,
+		processingFailed: @escaping (FileScannerError) -> Void,
 		missingPasswordForPDF: @escaping (@escaping (String) -> Void) -> Void
 	) {
 		self.processingStarted = processingStarted
@@ -155,7 +198,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	private let processingFinished: (QRCodeResult) -> Void
 	private let qrCodeParser: QRCodeParsable
 	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
-	private let processingFailed: (FileScannerCoordinator.AlertTypes) -> Void
+	private let processingFailed: (FileScannerError) -> Void
 
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
 		processingStarted()
