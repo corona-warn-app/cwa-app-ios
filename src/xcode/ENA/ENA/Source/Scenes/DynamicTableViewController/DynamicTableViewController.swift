@@ -322,7 +322,7 @@ extension DynamicTableViewController {
 			cell.backgroundColor = .clear
 		case .greyBoxed:
 			
-			// Give all subviews some insets to the border
+			// Give all subviews in the content view of the cell some insets to the border. If we change the contentView's constraints, it would not affect the subviews.
 			if let subview = cell.subviews.first?.subviews.first {
 				subview.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 30).isActive = true
 				subview.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -30).isActive = true
