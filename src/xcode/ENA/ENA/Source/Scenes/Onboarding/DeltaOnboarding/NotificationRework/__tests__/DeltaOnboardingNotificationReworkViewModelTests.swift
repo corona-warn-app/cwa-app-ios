@@ -5,48 +5,26 @@
 import XCTest
 @testable import ENA
 
-class NotificationSettingsViewModelTests: CWATestCase {
+class DeltaOnboardingNotificationReworkViewModelTests: CWATestCase {
 	
-	func testGIVEN_ViewModel_WHEN_NotificationsOn_THEN_CorrectNumberOfCells() {
+	func testGIVEN_ViewModel_WHEN_NumberOfSectionsAndCells_THEN_CorrectNumberOfCells() {
 		
 		// GIVEN
 		
-		let viewModel = NotificationSettingsViewModel()
+		let viewModel = DeltaOnboardingNotificationReworkViewModel()
 		
 		// WHEN
 		
-		let numberOfSections = viewModel.dynamicTableViewModelNotificationOn.numberOfSection
-		let numberOfRowsInSection0 = viewModel.dynamicTableViewModelNotificationOn.numberOfRows(section: 0)
-		let numberOfRowsInSection1 = viewModel.dynamicTableViewModelNotificationOn.numberOfRows(section: 1)
-		let numberOfRowsInSection2 = viewModel.dynamicTableViewModelNotificationOn.numberOfRows(section: 2)
+		let numberOfSections = viewModel.dynamicTableViewModel.numberOfSection
+		let numberOfRowsInSection0 = viewModel.dynamicTableViewModel.numberOfRows(section: 0)
+		let numberOfRowsInSection1 = viewModel.dynamicTableViewModel.numberOfRows(section: 1)
+		let numberOfRowsInSection2 = viewModel.dynamicTableViewModel.numberOfRows(section: 2)
 		
 		// THEN
 		
 		XCTAssertEqual(numberOfSections, 3)
-		XCTAssertEqual(numberOfRowsInSection0, 1)
-		XCTAssertEqual(numberOfRowsInSection1, 2)
-		XCTAssertEqual(numberOfRowsInSection2, 11)
+		XCTAssertEqual(numberOfRowsInSection0, 2)
+		XCTAssertEqual(numberOfRowsInSection1, 6)
+		XCTAssertEqual(numberOfRowsInSection2, 2)
 	}
-	
-	func testGIVEN_ViewModel_WHEN_NotificationsOff_THEN_CorrectNumberOfCells() {
-		
-		// GIVEN
-		
-		let viewModel = NotificationSettingsViewModel()
-		
-		// WHEN
-		
-		let numberOfSections = viewModel.dynamicTableViewModelNotificationOff.numberOfSection
-		let numberOfRowsInSection0 = viewModel.dynamicTableViewModelNotificationOn.numberOfRows(section: 0)
-		let numberOfRowsInSection1 = viewModel.dynamicTableViewModelNotificationOn.numberOfRows(section: 1)
-		let numberOfRowsInSection2 = viewModel.dynamicTableViewModelNotificationOn.numberOfRows(section: 2)
-		
-		// THEN
-		
-		XCTAssertEqual(numberOfSections, 3)
-		XCTAssertEqual(numberOfRowsInSection0, 1)
-		XCTAssertEqual(numberOfRowsInSection1, 2)
-		XCTAssertEqual(numberOfRowsInSection2, 4)
-	}
-	
 }
