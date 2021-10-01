@@ -8,7 +8,7 @@ class DeltaOnboardingNotificationRework: DeltaOnboarding {
 		
 	// MARK: - Protocol DeltaOnboarding
 		
-	let version = "2.12"
+	let version = "2.120"
 	let store: Store
 
 	init(store: Store) {
