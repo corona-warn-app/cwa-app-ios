@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DeltaOnboardingV15: DeltaOnboarding {
+class DeltaOnboardingCrossCountrySupport: DeltaOnboarding {
 
 	let version = "1.5"
 	let store: Store
@@ -16,7 +16,7 @@ class DeltaOnboardingV15: DeltaOnboarding {
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		let deltaOnboardingViewController = DeltaOnboardingV15ViewController(
+		let deltaOnboardingViewController = DeltaOnboardingCrossCountrySupportViewController(
 			supportedCountries: supportedCountries
 		)
 
