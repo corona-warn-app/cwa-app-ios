@@ -86,6 +86,36 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 	}
+	
+	func test_When_TwoOnboardingsAreCurrentWithSameVersionNumber_Then_DeltaOnboardingIsShownTwice() {
+
+		let mockStore = MockTestStore()
+		mockStore.onboardingVersion = "1.0.0"
+
+		let deltaViewControllerDummyOne110 = DeltaOnboardingViewControllerDummy()
+		let deltaOnboardingSpyOne110 = DeltaOnboardingSpy(version: "1.1.0", store: mockStore, deltaViewController: deltaViewControllerDummyOne110)
+
+		let deltaViewControllerDummyTwo110 = DeltaOnboardingViewControllerDummy()
+		let deltaOnboardingSpyTwo110 = DeltaOnboardingSpy2(version: "1.1.0", store: mockStore, deltaViewController: deltaViewControllerDummyTwo110)
+
+		let viewControllerPresentSpy = ViewControllerPresentSpy()
+
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpyOne110, deltaOnboardingSpyTwo110])
+
+		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
+
+		sut_DeltaOnboardingCoordinator.finished = {
+			finishedExpectation.fulfill()
+
+			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 2)
+		}
+
+		sut_DeltaOnboardingCoordinator.startOnboarding()
+		deltaViewControllerDummyOne110.finished?()
+		deltaViewControllerDummyTwo110.finished?()
+
+		waitForExpectations(timeout: .medium)
+	}
 
 	func test_When_OneOfTwoOnboardingsIsCurrent_Then_DeltaOnboardingIsShownOnce() {
 
@@ -136,6 +166,26 @@ private class DeltaOnboardingViewControllerDummy: UIViewController, DeltaOnboard
 }
 
 private class DeltaOnboardingSpy: DeltaOnboarding {
+	let version: String
+	let store: Store
+	let deltaViewController: DeltaOnboardingViewControllerProtocol
+
+	init(
+		version: String,
+		store: Store,
+		deltaViewController: DeltaOnboardingViewControllerProtocol
+	) {
+		self.version = version
+		self.store = store
+		self.deltaViewController = deltaViewController
+	}
+
+	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
+		return deltaViewController
+	}
+}
+
+private class DeltaOnboardingSpy2: DeltaOnboarding {
 	let version: String
 	let store: Store
 	let deltaViewController: DeltaOnboardingViewControllerProtocol

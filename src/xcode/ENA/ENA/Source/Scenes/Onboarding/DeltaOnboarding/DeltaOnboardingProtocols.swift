@@ -24,7 +24,7 @@ extension DeltaOnboarding {
 		let presented = store.finishedDeltaOnboardings[version] != nil && (store.finishedDeltaOnboardings[version]?.contains(id)) == true
 		
 		Log.debug("DeltaOnboarding \(id) already presented? \(presented).")
-		if !store.onboardingVersion.numericGreaterOrEqual(then: version) && !presented {
+		if !store.onboardingVersion.numericGreaterOrEqual(then: id) && !presented {
 			Log.debug("Will return isFinished() = false")
 			return false
 		}
