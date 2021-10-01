@@ -3201,6 +3201,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
 
+"UniversalQRScanner_Tooltip_title" = "QR-Code-Scanner";
+
+"UniversalQRScanner_Tooltip_description" = "Scannen Sie Tests, Zertifikate und Check-ins mit diesem Scanner.";
+
 /* Federal State Names */
 
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";

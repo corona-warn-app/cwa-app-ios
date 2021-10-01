@@ -142,6 +142,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
 	}
 
+	var shouldShowQRScannerTooltip: Bool {
+		get { kvStore["shouldShowQRScannerTooltip"] as Bool? ?? true }
+		set { kvStore["shouldShowQRScannerTooltip"] = newValue }
+	}
+
 	var lastBackgroundFakeRequest: Date {
 		get { kvStore["lastBackgroundFakeRequest"] as Date? ?? Date() }
 		set { kvStore["lastBackgroundFakeRequest"] = newValue }
