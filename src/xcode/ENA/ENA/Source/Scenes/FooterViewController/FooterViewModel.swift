@@ -45,6 +45,11 @@ final class FooterViewModel {
 		self.backgroundColor = backgroundColor
 		self.primaryTextColor = primaryTextColor
 		self.secondaryTextColor = secondaryTextColor
+		if isPrimaryButtonHidden && isSecondaryButtonHidden {
+			self.topBottomInset = 0
+		} else {
+			self.topBottomInset = topBottomInsetDefault
+		}
 	}
 
 	// MARK: - Internal
@@ -63,7 +68,7 @@ final class FooterViewModel {
 
 	let buttonHeight: CGFloat = 50.0
 	let spacer: CGFloat = 8.0
-	let topBottomInset: CGFloat = 16.0
+	let topBottomInsetDefault: CGFloat = 16.0
 	let leftRightInset: CGFloat = 16.0
 	let primaryButtonColor: UIColor?
 	let secondaryButtonColor: UIColor?
@@ -86,6 +91,7 @@ final class FooterViewModel {
 
 	var primaryButtonName: String?
 	var secondaryButtonName: String?
+	var topBottomInset: CGFloat
 
 	@OpenCombine.Published var backgroundColor: UIColor?
 
@@ -100,6 +106,15 @@ final class FooterViewModel {
 		case .none:
 			self.isPrimaryButtonHidden = true
 			self.isSecondaryButtonHidden = true
+		}
+		updateInsets()
+	}
+
+	private func updateInsets() {
+		if isPrimaryButtonHidden && isSecondaryButtonHidden {
+			topBottomInset = 0
+		} else {
+			topBottomInset = topBottomInsetDefault
 		}
 	}
 

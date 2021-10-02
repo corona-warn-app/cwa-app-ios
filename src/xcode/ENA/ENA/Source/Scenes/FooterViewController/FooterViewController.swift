@@ -74,11 +74,12 @@ class FooterViewController: UIViewController {
 		
 		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
 		secondaryButtonHeightConstraint.priority = .defaultHigh
-		
+		buttonsStackViewTopConstraint = buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset)
+		buttonsStackViewBottomConstraint = buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset)
 		NSLayoutConstraint.activate([
 			// buttonsStackView
-			buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset),
-			buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset),
+			buttonsStackViewTopConstraint,
+			buttonsStackViewBottomConstraint,
 			buttonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: viewModel.leftRightInset),
 			buttonsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -viewModel.leftRightInset),
 			// primaryButton
@@ -111,6 +112,8 @@ class FooterViewController: UIViewController {
 	private var buttonsStackView: UIStackView!
 	private var primaryButtonHeightConstraint: NSLayoutConstraint!
 	private var secondaryButtonHeightConstraint: NSLayoutConstraint!
+	private var buttonsStackViewTopConstraint: NSLayoutConstraint!
+	private var buttonsStackViewBottomConstraint: NSLayoutConstraint!
 	private var subscription: [AnyCancellable] = []
 
 	@objc
@@ -231,8 +234,22 @@ class FooterViewController: UIViewController {
 			}
 			self.primaryButton.alpha = self.viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
 			self.secondaryButton.alpha = self.viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
+			self.updateVerticalConstraints()
 			self.buttonsStackView.layoutIfNeeded()
 		}
 		animator.startAnimation()
+	}
+
+	private func updateVerticalConstraints() {
+		NSLayoutConstraint.deactivate([
+			buttonsStackViewTopConstraint,
+			buttonsStackViewBottomConstraint
+		])
+		buttonsStackViewTopConstraint = buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset)
+		buttonsStackViewBottomConstraint = buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset)
+		NSLayoutConstraint.activate([
+			buttonsStackViewTopConstraint,
+			buttonsStackViewBottomConstraint
+		])
 	}
 }
