@@ -28,9 +28,9 @@ class TestOverwriteNoticeViewController: DynamicTableViewController, DismissHand
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		parent?.navigationItem.title = viewModel.title
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.title = viewModel.title
+		navigationController?.navigationBar.prefersLargeTitles = true
 
 		setupTableView()
 	}
