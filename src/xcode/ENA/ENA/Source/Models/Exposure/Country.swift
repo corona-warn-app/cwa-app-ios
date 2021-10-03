@@ -21,7 +21,7 @@ struct Country: Equatable, Codable {
 		UIImage(named: "flag.\(id.lowercased())")
 	}
 
-	/// Initialize a country with a given `countryCode`. If no valid `countryCode` is given the initializer	 returns `nil`.
+	/// Initialize a country with a given `countryCode`. If no valid `countryCode` is given the initializer returns `nil`.
 	///
 	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
 	init?(countryCode: ID) {
