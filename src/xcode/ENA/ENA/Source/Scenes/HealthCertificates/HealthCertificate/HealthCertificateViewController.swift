@@ -162,12 +162,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 		// check is we are the first one on the navigation stack
 		if navigationController?.viewControllers.count == 1 {
-			parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+			navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
 		} else {
-			parent?.navigationItem.titleView = logoImageView
+			navigationItem.titleView = logoImageView
 		}
 
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
 		// create a transparent navigation bar
 		let emptyImage = UIImage()
@@ -176,9 +176,9 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
 
-		parent?.navigationController?.navigationBar.prefersLargeTitles = false
-		parent?.navigationController?.navigationBar.sizeToFit()
-		parent?.navigationItem.largeTitleDisplayMode = .never
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.sizeToFit()
+		navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {
