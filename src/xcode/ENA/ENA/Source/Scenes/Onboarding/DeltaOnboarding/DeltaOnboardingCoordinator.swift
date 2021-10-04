@@ -10,14 +10,20 @@ class DeltaOnboardingCoordinator {
 
 	private weak var rootViewController: UIViewController?
 	private let onboardings: [DeltaOnboarding]
+	private let store: Store
 
 	var finished: (() -> Void)?
 
 	// MARK: - Initializers
 
-	init(rootViewController: UIViewController, onboardings: [DeltaOnboarding]) {
+	init(
+		rootViewController: UIViewController,
+		onboardings: [DeltaOnboarding],
+		store: Store
+	) {
 		self.rootViewController = rootViewController
 		self.onboardings = onboardings
+		self.store = store
 	}
 
 	// MARK: - Internal API
@@ -30,6 +36,10 @@ class DeltaOnboardingCoordinator {
 
 	private func showNextOnboardingViewController() {
 		guard let onboarding = nextOnboarding() else {
+			let appVersion = Bundle.main.appVersion
+			if !store.onboardingVersion.numericGreaterOrEqual(then: appVersion) {
+				store.onboardingVersion = appVersion
+			}
 			finished?()
 			return
 		}
