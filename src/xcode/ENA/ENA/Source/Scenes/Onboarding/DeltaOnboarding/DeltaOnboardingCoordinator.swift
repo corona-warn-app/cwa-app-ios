@@ -21,6 +21,21 @@ class DeltaOnboardingCoordinator {
 	}
 
 	// MARK: - Internal API
+	
+	func migrateOnboardingsIfNecessary(
+		store: Store,
+		completion: @escaping () -> Void
+	) {
+		let savedDeltaOnboardings = store.finishedDeltaOnboardings
+		savedDeltaOnboardings.forEach { deltaOnboarding in
+//			switch deltaOnboarding {
+//
+//			}
+		}
+		
+		completion()
+		
+	}
 
 	func startOnboarding() {
 		showNextOnboardingViewController()
@@ -48,5 +63,8 @@ class DeltaOnboardingCoordinator {
 	private func nextOnboarding() -> DeltaOnboarding? {
 		return onboardings.first(where: { !$0.isFinished })
 	}
+	
+	// Migrates the "old" finished and saved delta onboardings where only the version number is saved to the "new" one, where we save the name of the onboarding.
+	
 	
 }
