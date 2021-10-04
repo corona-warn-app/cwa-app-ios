@@ -609,6 +609,7 @@
 		509B1E4126D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3E26D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift */; };
 		509B1E4426D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */; };
+		50A345E3270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A345E2270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift */; };
 		50A7168826CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */; };
 		50A7168A26CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */; };
 		50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */; };
@@ -2016,6 +2017,7 @@
 		509B1E3F26D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePDFVersionViewModel.swift; sourceTree = "<group>"; };
 		509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModelTests.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/__tests__/HealthCertificatePDFGenerationInfoViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_01b_Statistics.swift; sourceTree = "<group>"; };
+		50A345E2270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ViewTags.swift"; sourceTree = "<group>"; };
 		50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewController.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewController.swift; sourceTree = SOURCE_ROOT; };
 		50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModel.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewModel.swift; sourceTree = SOURCE_ROOT; };
 		50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryResponse.swift; sourceTree = "<group>"; };
@@ -4987,6 +4989,7 @@
 				710ABB1E2475115500948792 /* UITableViewController+Enum.swift */,
 				514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */,
 				514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */,
+				50A345E2270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift */,
 			);
 			path = UITableView;
 			sourceTree = "<group>";
@@ -8869,6 +8872,7 @@
 				8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */,
 				01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */,
 				01E102662668D40F009ED803 /* TestCertificateRequest.swift in Sources */,
+				50A345E3270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift in Sources */,
 				BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */,
 				BA5B7FCE26458EF400502087 /* HealthCertificateViewModel.swift in Sources */,
 				0138F55025ECD44300A9B075 /* exposure_detection_parameters.pb.swift in Sources */,
