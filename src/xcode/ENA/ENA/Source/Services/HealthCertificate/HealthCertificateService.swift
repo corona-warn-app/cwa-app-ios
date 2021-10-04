@@ -947,7 +947,7 @@ class HealthCertificateService {
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.invalidCertificateBody
 		content.sound = .default
 
 		let expiringSoonDateComponents = Calendar.current.dateComponents(
@@ -975,7 +975,7 @@ class HealthCertificateService {
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.invalidCertificateBody
 		content.sound = .default
 
 		let expiredDateComponents = Calendar.current.dateComponents(
