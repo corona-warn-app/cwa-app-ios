@@ -129,10 +129,11 @@ class QRScannerViewController: UIViewController {
 		fileButton.setTitle(AppStrings.UniversalQRScanner.fileButtonTitle, for: .normal)
 		fileButton.addTarget(self, action: #selector(didTapFileButton), for: .touchUpInside)
 		fileButton.translatesAutoresizingMaskIntoConstraints = false
-		fileButton.accessibilityTraits = .button
 		fileButton.titleLabel?.font = .enaFont(for: .subheadline)
 		fileButton.setTitleColor(.enaColor(for: .iconWithText), for: .normal)
 		fileButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8)
+		fileButton.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.file
+		fileButton.accessibilityTraits = .button
 
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
@@ -422,6 +423,10 @@ class QRScannerViewController: UIViewController {
 		})
 		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
 		alertVC.addAction(event)
+
+		let other = UIAlertAction(title: "Other", style: .destructive, handler: nil)
+		other.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.other
+		alertVC.addAction(other)
 
 		let cancel = UIAlertAction(title: "Cancel", style: .cancel)
 		cancel.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.cancel
