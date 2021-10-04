@@ -728,10 +728,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			#endif
 
 			let onboardings: [DeltaOnboarding] = [
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
+				DeltaOnboardingNotificationRework(store: self.viewModel.store),
 				DeltaOnboardingCrossCountrySupport(store: self.viewModel.store, supportedCountries: supportedCountries),
 				DeltaOnboardingDataDonation(store: self.viewModel.store),
-				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
-				DeltaOnboardingNotificationRework(store: self.viewModel.store)
 			]
 
 			Log.debug("Delta Onboarding list size: \(onboardings.count)")

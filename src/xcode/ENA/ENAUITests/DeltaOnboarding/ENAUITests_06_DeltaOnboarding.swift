@@ -31,10 +31,10 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		
 		app.launch()
 
-		checkCrossCountrySupport()
-		checkDataDonationScreen()
 		checkNewFeaturesScreen()
 		checkNotificationReworkScreen()
+		checkCrossCountrySupport()
+		checkDataDonationScreen()
 		
 		// On Home Screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
