@@ -326,6 +326,11 @@ extension DynamicTableViewController {
 			if let subview = cell.subviews.first?.subviews.first {
 				subview.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 30).isActive = true
 				subview.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -30).isActive = true
+				
+				// If the subview in the cell is a textView, we need some more extra space for the bottom.
+				if let textview = subview as? UITextView {
+					textview.bottomAnchor.constraint(equalTo: cell.bottomAnchor, constant: 10).isActive = true
+				}
 			}
 			
 			let isFirst = indexPath.row == 0
