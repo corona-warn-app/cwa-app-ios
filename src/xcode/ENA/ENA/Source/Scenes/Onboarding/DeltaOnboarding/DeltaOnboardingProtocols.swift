@@ -42,10 +42,7 @@ extension DeltaOnboarding {
 	
 	func finish() {
 		Log.debug("DeltaOnboarding finished...")
-		if !store.onboardingVersion.numericGreaterOrEqual(then: version) {
-			store.onboardingVersion = version
-		}
-				
+
 		if var finishedDeltaOnboardingVersion = store.finishedDeltaOnboardings[version] {
 			if !finishedDeltaOnboardingVersion.contains(id) {
 				finishedDeltaOnboardingVersion.append(id)

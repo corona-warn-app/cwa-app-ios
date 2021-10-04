@@ -17,7 +17,11 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
-		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy])
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+			rootViewController: viewControllerPresentSpy,
+			onboardings: [deltaOnboardingSpy],
+			store: mockStore
+		)
 
 		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
 
@@ -41,7 +45,11 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
-		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy])
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+			rootViewController: viewControllerPresentSpy,
+			onboardings: [deltaOnboardingSpy],
+			store: mockStore
+		)
 
 		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
 
@@ -70,7 +78,11 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
-		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy110, deltaOnboardingSpy120])
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+			rootViewController: viewControllerPresentSpy,
+			onboardings: [deltaOnboardingSpy110, deltaOnboardingSpy120],
+			store: mockStore
+		)
 
 		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
 
@@ -100,7 +112,11 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
-		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpyOne110, deltaOnboardingSpyTwo110])
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+			rootViewController: viewControllerPresentSpy,
+			onboardings: [deltaOnboardingSpyOne110, deltaOnboardingSpyTwo110],
+			store: mockStore
+		)
 
 		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
 
@@ -132,7 +148,11 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
-		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy100, deltaOnboardingSpy110])
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+			rootViewController: viewControllerPresentSpy,
+			onboardings: [deltaOnboardingSpy100, deltaOnboardingSpy110],
+			store: mockStore
+		)
 
 		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
 
@@ -148,7 +168,7 @@ class DeltaOnboardingCoordinatorTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 	}
-	
+
 }
 
 private class ViewControllerPresentSpy: UIViewController {

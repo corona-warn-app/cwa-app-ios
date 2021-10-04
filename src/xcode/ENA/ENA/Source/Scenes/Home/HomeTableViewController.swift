@@ -735,36 +735,30 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			]
 
 			Log.debug("Delta Onboarding list size: \(onboardings.count)")
-			
+
 			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(
 				rootViewController: self,
-				onboardings: onboardings
+				onboardings: onboardings,
+				store: self.viewModel.store
 			)
-			
-			Log.debug("Start migration for onboardings.")
-			self.deltaOnboardingCoordinator?.migrateOnboardingsIfNecessary(
-				store: self.viewModel.store,
-				completion: {
-					Log.debug("Completed migration for onboardings.")
-					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-						guard self.presentedViewController == nil else {
-							Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
-							self.deltaOnboardingIsRunning = false
-							completion()
-							return
-						}
-						
-						self.deltaOnboardingCoordinator?.finished = { [weak self] in
-							Log.debug("Onboarding finished.")
-							self?.deltaOnboardingIsRunning = false
-							completion()
-						}
-						
-						Log.debug("Start onboarding.")
-						self.deltaOnboardingCoordinator?.startOnboarding()
-					}
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+				guard self.presentedViewController == nil else {
+					Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
+					self.deltaOnboardingIsRunning = false
+					completion()
+					return
 				}
-			)
+
+				self.deltaOnboardingCoordinator?.finished = { [weak self] in
+					Log.debug("Onboarding finished.")
+					self?.deltaOnboardingIsRunning = false
+					completion()
+				}
+
+				Log.debug("Start onboarding.")
+				self.deltaOnboardingCoordinator?.startOnboarding()
+			}
 		}.store(in: &subscriptions)
 	}
 
