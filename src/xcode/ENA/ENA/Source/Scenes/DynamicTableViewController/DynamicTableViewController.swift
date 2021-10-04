@@ -314,32 +314,8 @@ extension DynamicTableViewController {
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: content.cellReuseIdentifier, for: indexPath)
 		
+		cell.drawBackground(section: section, at: indexPath)
 		
-		cell.removeBackground()
-		
-		switch section.background {
-		case .none:
-			break
-		case .greyBoxed:
-			
-			// Give all subviews in the content view of the cell some insets to the border. If we change the contentView's constraints, it would not affect the subviews.
-			if let subview = cell.subviews.first?.subviews.first {
-				subview.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 30).isActive = true
-				subview.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -30).isActive = true
-			}
-			
-			let isFirst = indexPath.row == 0
-			let isLast = indexPath.row == section.cells.count - 1
-			
-			if isFirst {
-				cell.addBackground(.top)
-			} else if isLast {
-				cell.addBackground(.bottom)
-			} else {
-				cell.addBackground(.inBetween)
-			}
-		}
-
 		content.configure(cell: cell, at: indexPath, for: self)
 		
 		cell.removeSeparators()
@@ -372,19 +348,14 @@ extension DynamicTableViewController {
 }
 
 private extension UITableViewCell {
-	enum SeparatorLocation: Int {
-		case top = 100_001
-		case bottom = 100_002
-		case inBetween = 100_003
-	}
-
+	
 	func removeSeparators() {
-		viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-		viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-		viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
+		viewWithTag(CellSeparatorLineLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(CellSeparatorLineLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(CellSeparatorLineLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
-	func addSeparator(_ location: SeparatorLocation) {
+	func addSeparator(_ location: CellSeparatorLineLocation) {
 		let separator = UIView(frame: bounds)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
@@ -398,13 +369,13 @@ private extension UITableViewCell {
 
 		switch location {
 		case .top:
-			separator.tag = SeparatorLocation.top.rawValue
+			separator.tag = CellSeparatorLineLocation.top.rawValue
 			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 		case .bottom:
-			separator.tag = SeparatorLocation.bottom.rawValue
+			separator.tag = CellSeparatorLineLocation.bottom.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 		case .inBetween:
-			separator.tag = SeparatorLocation.inBetween.rawValue
+			separator.tag = CellSeparatorLineLocation.inBetween.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 		}
 	}
@@ -413,36 +384,66 @@ private extension UITableViewCell {
 /// Stuff to draw a background to the cell, depending on the position of the cell in the section it gets rounded corners.
 
 private extension UITableViewCell {
-	enum BackgroundLocation: Int {
-		case top = 200_001
-		case bottom = 200_002
-		case inBetween = 200_003
+	
+	func drawBackground(
+		section: DynamicSection,
+		at indexPath: IndexPath
+	) {
+		self.removeBackground()
+		
+		switch section.background {
+		case .none:
+			break
+		case .greyBoxed:
+			
+			// Give all subviews in the content view of the cell some insets to the border. If we change the contentView's constraints, it would not affect the subviews.
+			if let subview = self.subviews.first?.subviews.first {
+				subview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
+				subview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
+				
+				// If the subview in the cell is a textView, we need some more extra space for the bottom.
+				if let textview = subview as? UITextView {
+					textview.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 10).isActive = true
+				}
+			}
+			
+			let isFirst = indexPath.row == 0
+			let isLast = indexPath.row == section.cells.count - 1
+			
+			if isFirst {
+				self.addBackground(.top)
+			} else if isLast {
+				self.addBackground(.bottom)
+			} else {
+				self.addBackground(.inBetween)
+			}
+		}
 	}
 	
-	func removeBackground() {
-		viewWithTag(BackgroundLocation.top.rawValue)?.removeFromSuperview()
-		viewWithTag(BackgroundLocation.bottom.rawValue)?.removeFromSuperview()
-		viewWithTag(BackgroundLocation.inBetween.rawValue)?.removeFromSuperview()
+	private func removeBackground() {
+		viewWithTag(CellBackgroundLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(CellBackgroundLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(CellBackgroundLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
-	func addBackground(_ location: BackgroundLocation) {
+	private func addBackground(_ location: CellBackgroundLocation) {
 		let coloredBackground = UIView(frame: bounds)
 		coloredBackground.backgroundColor = .enaColor(for: .cellBackground3)
 		coloredBackground.translatesAutoresizingMaskIntoConstraints = false
 
 		switch location {
 		case .top:
-			coloredBackground.tag = BackgroundLocation.top.rawValue
+			coloredBackground.tag = CellBackgroundLocation.top.rawValue
 			coloredBackground.clipsToBounds = true
 			coloredBackground.layer.cornerRadius = 10
 			coloredBackground.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 		case .bottom:
-			coloredBackground.tag = BackgroundLocation.bottom.rawValue
+			coloredBackground.tag = CellBackgroundLocation.bottom.rawValue
 			coloredBackground.clipsToBounds = true
 			coloredBackground.layer.cornerRadius = 10
 			coloredBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 		case .inBetween:
-			coloredBackground.tag = BackgroundLocation.inBetween.rawValue
+			coloredBackground.tag = CellBackgroundLocation.inBetween.rawValue
 		}
 
 		
