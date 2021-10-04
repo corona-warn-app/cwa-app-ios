@@ -303,11 +303,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	func showDeltaOnboardingAndAlertsIfNeeded() {
-		self.showRouteIfNeeded(completion: {
-			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+		self.showRouteIfNeeded(completion: { [weak self] in
+			self?.showDeltaOnboardingIfNeeded(completion: {
 				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded()
+						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+							self?.showQRScannerTooltipIfNeeded()
+						})
 					})
 				})
 			})
@@ -726,9 +728,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			#endif
 
 			let onboardings: [DeltaOnboarding] = [
-				DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
+				DeltaOnboardingCrossCountrySupport(store: self.viewModel.store, supportedCountries: supportedCountries),
 				DeltaOnboardingDataDonation(store: self.viewModel.store),
-				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
+				DeltaOnboardingNotificationRework(store: self.viewModel.store)
 			]
 
 			Log.debug("Delta Onboarding list size: \(onboardings.count)")
@@ -854,6 +857,29 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		present(alert, animated: true) { [weak self] in
 			self?.viewModel.store.shouldShowRiskStatusLoweredAlert = false
+		}
+	}
+
+	private func showQRScannerTooltipIfNeeded(completion: @escaping () -> Void = {}) {
+		guard viewModel.store.shouldShowQRScannerTooltip,
+			let tabBar = tabBarController?.tabBar else {
+			completion()
+			return
+		}
+
+		let tooltipViewController = QRScannerTooltipViewController(
+			onDismiss: { [weak self] in
+				self?.dismiss(animated: true) {
+					completion()
+				}
+			}
+		)
+
+		tooltipViewController.popoverPresentationController?.sourceView = tabBar
+		tooltipViewController.popoverPresentationController?.sourceRect = tabBar.bounds
+
+		present(tooltipViewController, animated: true) { [weak self] in
+			self?.viewModel.store.shouldShowQRScannerTooltip = false
 		}
 	}
 
