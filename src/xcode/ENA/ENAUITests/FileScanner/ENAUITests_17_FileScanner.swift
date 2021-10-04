@@ -35,7 +35,7 @@ class ENAUITests_17_FileScanner: CWATestCase {
 		cancelSheetButton.waitAndTap()
 	}
 
-	func test_OpenUniversalScannerAndSelectFile_OpenFile() throws {
+	func test_OpenUniversalScannerAndSelectFile_OpensDocumentPicker() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
 		app.launch()
 
@@ -45,10 +45,13 @@ class ENAUITests_17_FileScanner: CWATestCase {
 		let otherButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.other])
 		otherButton.waitAndTap()
 
-		let openFileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.file])
-		openFileButton.waitAndTap()
+		let sheetOpenFileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.file])
+		sheetOpenFileButton.waitAndTap()
 
 		let fileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.FileScanner.file])
 		fileButton.waitAndTap()
+
+		let pickerView = try XCTUnwrap(app.navigationBars["UIDocumentPickerView"])
+		pickerView.waitForExistence(timeout: .medium)
 	}
 }
