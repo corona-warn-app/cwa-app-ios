@@ -52,6 +52,6 @@ class ENAUITests_17_FileScanner: CWATestCase {
 		fileButton.waitAndTap()
 
 		let pickerView = try XCTUnwrap(app.navigationBars["UIDocumentPickerView"])
-		pickerView.waitForExistence(timeout: .medium)
+		XCTAssertTrue(pickerView.waitForExistence(timeout: .medium))
 	}
 }
