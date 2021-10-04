@@ -94,18 +94,13 @@ class NotificationSettingsViewModel {
 							configure: { _, cell, _ in
 								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
 								cell.configure(
-									title: NSMutableAttributedString(
-										string: ""
-									),
-									body: NSMutableAttributedString(
-										string: ""
-									),
 									textColor: .textContrast,
 									bgColor: .cellBackground3,
 									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
 									buttonTapped: {
 										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
-									}
+									},
+									buttonAccessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.openSystemSettings
 								)
 							}
 						)
@@ -181,7 +176,8 @@ class NotificationSettingsViewModel {
 									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
 									buttonTapped: {
 										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
-									}
+									},
+									buttonAccessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.openSystemSettings
 								)
 							}
 						)
