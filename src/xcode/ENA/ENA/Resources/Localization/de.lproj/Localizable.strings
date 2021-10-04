@@ -3185,6 +3185,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionDescription" = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins.";
 
+"UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
+
 "UniversalQRScanner_CameraFlash" = "Kamerablitz";
 
 "UniversalQRScanner_CameraFlash_On" = "Eingeschaltet";
@@ -3202,6 +3204,53 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Einstellungen";
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Foto Mediathek";
+
+"FileScanner_sheet_documents" = "Dokument";
+
+"FileScanner_sheet_cancel" = "Abbrechen";
+
+"FileScanner_AccessError_title" = "Zugriff nicht erlaubt";
+
+"FileScanner_AccessError_message" = "\“Corona-Warn-App\” hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.";
+
+"FileScanner_AccessError_cancel" = "Abbrechen";
+
+"FileScanner_AccessError_settings" = "Einstellungen";
+
+"FileScanner_HUD_text" = "QR-Code wird gelesen...";
+
+"FileScanner_PasswordEntry_title" = "Datei passwortgeschützt";
+
+"FileScanner_PasswordEntry_message" = "Bitte geben Sie Ihr Passwort ein.";
+
+"FileScanner_PasswordEntry_placeholder" = "Passwort";
+
+"FileScanner_PasswordError_title" = "Falsches Passwort";
+
+"FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
+
+"FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
+
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code."; 
+
+"FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
+
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code.";
+
+"FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
+
+"FileScanner_FileNotReadable_message" = "Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt und konnte daher nicht gelesen werden. Bitte wählen Sie eine geeignete Datei.";
+
+"FileScanner_NoQRCodeFound_title" = "Kein QR-Code erkannt";
+
+"FileScanner_NoQRCodeFound_message" = "In der gewählten Datei konnte kein QR-Code erkannt werden. Bitte wählen Sie eine andere Datei.";
+
+"UniversalQRScanner_Tooltip_title" = "QR-Code-Scanner";
+
+"UniversalQRScanner_Tooltip_description" = "Scannen Sie Tests, Zertifikate und Check-ins mit diesem Scanner.";
 
 /* Federal State Names */
 

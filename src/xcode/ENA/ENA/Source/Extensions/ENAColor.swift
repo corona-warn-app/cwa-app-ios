@@ -56,6 +56,7 @@ public enum ENAColor: String, CaseIterable {
 	case textSemanticGreen = "ENA Text Semantic Green Color"
 	case textSemanticRed = "ENA Text Semantic Red Color"
 	case textTint = "ENA Text Tint Color"
+	case iconWithText = "IconWithText"
 
 	// MARK: - Textfield
 	case textField = "ENA Textfield Color"

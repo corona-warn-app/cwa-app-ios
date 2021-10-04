@@ -45,6 +45,10 @@ protocol StoreProtocol: AnyObject {
 	/// We only inform the user once. By default the value of this property is `true`.
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
 
+	/// `true` if the user needs to be shown the QR code scanner tooltip.
+	/// We only show it once. By default the value of this property is `true`.
+	var shouldShowQRScannerTooltip: Bool { get set }
+
 	/// Time when the app sent the last background fake request.
 	var lastBackgroundFakeRequest: Date { get set }
 
