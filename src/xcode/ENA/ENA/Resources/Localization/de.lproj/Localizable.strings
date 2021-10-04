@@ -1508,7 +1508,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "local_notifications_certificate_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App.";
 
-"local_notifications_invalid_certificate_body" = "Überprüfen Sie die Gültigkeit Ihrer Zertifikate.";
+"local_notifications_certificate_validity_body" = "Überprüfen Sie die Gültigkeit Ihrer Zertifikate.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Überblick";
