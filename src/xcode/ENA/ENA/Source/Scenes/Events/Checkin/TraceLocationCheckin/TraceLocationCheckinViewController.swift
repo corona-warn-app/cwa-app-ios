@@ -65,7 +65,6 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 	private var subscriptions = Set<AnyCancellable>()
 
 	@IBOutlet private weak var scrollView: UIScrollView!
-//	@IBOutlet private weak var barGradientView: UIView!
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
 	@IBOutlet private weak var switchView: UIView!
@@ -110,6 +109,13 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 		navigationItem.rightBarButtonItem = closeButton
 		navigationItem.hidesBackButton = true
+
+		// create a transparent navigation bar
+		let emptyImage = UIImage()
+		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
+		navigationController?.navigationBar.shadowImage = emptyImage
+		navigationController?.navigationBar.isTranslucent = true
+		navigationController?.view.backgroundColor = .clear
 
 		(navigationController as? DismissHandlingNavigationController)?.setupTransparentNavigationBar()
 	}
