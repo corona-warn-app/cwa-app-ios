@@ -384,12 +384,6 @@ private extension UITableViewCell {
 /// Stuff to draw a background to the cell, depending on the position of the cell in the section it gets rounded corners.
 
 private extension UITableViewCell {
-
-	func removeBackground() {
-		viewWithTag(CellBackgroundLocation.top.rawValue)?.removeFromSuperview()
-		viewWithTag(CellBackgroundLocation.bottom.rawValue)?.removeFromSuperview()
-		viewWithTag(CellBackgroundLocation.inBetween.rawValue)?.removeFromSuperview()
-	}
 	
 	func drawBackground(
 		section: DynamicSection,
@@ -425,8 +419,14 @@ private extension UITableViewCell {
 			}
 		}
 	}
+	
+	private func removeBackground() {
+		viewWithTag(CellBackgroundLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(CellBackgroundLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(CellBackgroundLocation.inBetween.rawValue)?.removeFromSuperview()
+	}
 
-	func addBackground(_ location: CellBackgroundLocation) {
+	private func addBackground(_ location: CellBackgroundLocation) {
 		let coloredBackground = UIView(frame: bounds)
 		coloredBackground.backgroundColor = .enaColor(for: .cellBackground3)
 		coloredBackground.translatesAutoresizingMaskIntoConstraints = false
