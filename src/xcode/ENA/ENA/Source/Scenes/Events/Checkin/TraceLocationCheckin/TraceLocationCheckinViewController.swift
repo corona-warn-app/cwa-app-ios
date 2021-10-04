@@ -111,16 +111,7 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 		navigationItem.rightBarButtonItem = closeButton
 		navigationItem.hidesBackButton = true
 
-		// create a transparent navigation bar
-		let emptyImage = UIImage()
-		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationController?.navigationBar.shadowImage = emptyImage
-		navigationController?.navigationBar.isTranslucent = true
-		navigationController?.view.backgroundColor = .clear
-
-		navigationController?.navigationBar.prefersLargeTitles = false
-		navigationController?.navigationBar.sizeThatFits(CGSize(width: UIScreen.main.bounds.width, height: 80))
-		navigationItem.largeTitleDisplayMode = .never
+		(navigationController as? DismissHandlingNavigationController)?.setupTransparentNavigationBar()
 	}
 
 	private func setupView() {
