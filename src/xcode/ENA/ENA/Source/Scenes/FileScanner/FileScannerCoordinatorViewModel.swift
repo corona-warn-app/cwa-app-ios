@@ -62,12 +62,12 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		processingFailed: @escaping (FileScannerError) -> Void,
 		missingPasswordForPDF: @escaping (@escaping (String) -> Void) -> Void
 	) {
-		self.processingStarted = processingStarted
-		self.finishedPickingImage = finishedPickingImage
-		self.processingFinished = processingFinished
 		self.qrCodeParser = qrCodeParser
-		self.missingPasswordForPDF = missingPasswordForPDF
+		self.finishedPickingImage = finishedPickingImage
+		self.processingStarted = processingStarted
+		self.processingFinished = processingFinished
 		self.processingFailed = processingFailed
+		self.missingPasswordForPDF = missingPasswordForPDF
 	}
 
 	// MARK: - Protocol PHPickerViewControllerDelegate
@@ -192,13 +192,12 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	}
 
 	// MARK: - Private
-
+	private let qrCodeParser: QRCodeParsable
 	private let finishedPickingImage: () -> Void
 	private let processingStarted: () -> Void
 	private let processingFinished: (QRCodeResult) -> Void
-	private let qrCodeParser: QRCodeParsable
-	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
 	private let processingFailed: (FileScannerError) -> Void
+	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
 
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
 		processingStarted()
