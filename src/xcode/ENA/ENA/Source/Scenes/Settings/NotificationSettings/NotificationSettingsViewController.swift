@@ -27,8 +27,6 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		setupView()
-
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(willEnterForeground),
@@ -36,8 +34,8 @@ class NotificationSettingsViewController: DynamicTableViewController {
 			object: UIApplication.shared
 		)
 		
-		setupView()
 		notificationSettings()
+		setupView()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +83,19 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	}
 
 	private func notificationSettings() {
+		// For UI Tests, we do not want ask for possible missing notifications permissions. Instead, we "fake" the permission with a launch argument.
+		#if DEBUG
+		if isUITesting {
+			self.isNotificationOn = LaunchArguments.notifications.isNotificationsEnabled.boolValue
+		} else {
+			askForNotificationAccess()
+		}
+		#else
+		askForNotificationAccess()
+		#endif
+	}
+	
+	private func askForNotificationAccess() {
 		let center = UNUserNotificationCenter.current()
 
 		center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
