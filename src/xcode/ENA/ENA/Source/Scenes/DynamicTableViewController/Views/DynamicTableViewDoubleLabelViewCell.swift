@@ -25,7 +25,6 @@ class DynamicTableViewDoubleLabelViewCell: UITableViewCell {
 		super.prepareForReuse()
 
 		resetMargins()
-//		configureDynamicType()
 		configure(
 			text1: "",
 			text2: "",
@@ -36,26 +35,7 @@ class DynamicTableViewDoubleLabelViewCell: UITableViewCell {
 			accessibilityTraits2: .none
 		)
 	}
-	/*
-	// MARK: - Protocol DynamicTableViewTextCell
 	
-	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
-		labelLeft.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
-		labelRight.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
-
-		labelLeft.adjustsFontForContentSizeCategory = true
-		labelRight.adjustsFontForContentSizeCategory = true
-	}
-
-	func configure(text: String, color: UIColor? = nil) {
-		
-		// set the text and color in the custom configure func because we need it for both labels
-	}
-
-	func configureAccessibility(label: String? = nil, identifier: String? = nil, traits: UIAccessibilityTraits = .staticText) {
-		// set the accessibility in the custom configure func because we need it for both labels
-	}
-	*/
 	// MARK: - Internal
 
 	func configure(
