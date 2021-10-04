@@ -58,8 +58,4 @@ class DeltaOnboardingCoordinator {
 	private func nextOnboarding() -> DeltaOnboarding? {
 		return onboardings.first(where: { !$0.isFinished })
 	}
-	
-	// Migrates the "old" finished and saved delta onboardings where only the version number is saved to the "new" one, where we save the name of the onboarding.
-	
-	
 }
