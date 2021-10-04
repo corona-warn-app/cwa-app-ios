@@ -31,6 +31,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		self.autoresizingMask = .flexibleHeight
 	}
 
+	// swiftlint:disable function_parameter_count
 	private func setup(
 		titleStyle: ENALabel.Style,
 		bodyStyle: ENALabel.Style,
