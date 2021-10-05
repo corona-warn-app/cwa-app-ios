@@ -12,7 +12,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: MockQRCodeParsable(acceptAll: true),
+			qrCodeParser: QRCodeParsableMock(acceptAll: true),
 			finishedPickingImage: {},
 			processingStarted: {},
 			processingFinished: { result in
@@ -45,7 +45,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: MockQRCodeParsable(acceptAll: true),
+			qrCodeParser: QRCodeParsableMock(acceptAll: true),
 			finishedPickingImage: {},
 			processingStarted: {},
 			processingFinished: { _ in },
@@ -78,7 +78,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: MockQRCodeParsable(acceptAll: true),
+			qrCodeParser: QRCodeParsableMock(acceptAll: true),
 			finishedPickingImage: {},
 			processingStarted: {},
 			processingFinished: { result in

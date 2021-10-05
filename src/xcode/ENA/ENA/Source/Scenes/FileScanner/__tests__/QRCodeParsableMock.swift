@@ -4,7 +4,7 @@
 
 @testable import ENA
 
-class MockQRCodeParsable: QRCodeParsable {
+class QRCodeParsableMock: QRCodeParsable {
 
 	// MARK: - Init
 
