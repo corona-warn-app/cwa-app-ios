@@ -34,15 +34,9 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let parent = parent, !parent.isKind(of: UINavigationController.self) {
-			parent.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-			parent.navigationItem.hidesBackButton = true
-			parent.navigationItem.largeTitleDisplayMode = .never
-		} else {
-			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-			navigationItem.hidesBackButton = true
-			navigationItem.largeTitleDisplayMode = .never
-		}
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.largeTitleDisplayMode = .never
 
 		setupTableView()
 	}
