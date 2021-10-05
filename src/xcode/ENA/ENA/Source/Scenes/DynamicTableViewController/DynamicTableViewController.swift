@@ -396,7 +396,7 @@ private extension UITableViewCell {
 			break
 		case .greyBoxed:
 			
-			// Give all subviews in the content view of the cell some insets to the border. If we change the contentView's constraints, it would not affect the subviews.
+			// Give the root view in the content view of the cell some insets to the border. If we change the contentView's constraints, it would not affect the subviews.
 			if let subview = self.subviews.first?.subviews.first {
 				subview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
 				subview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
