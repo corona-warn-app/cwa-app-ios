@@ -282,7 +282,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 			// Spin wheel one time so the value will be 20:00
 			app.datePickers.firstMatch.swipeUp()
 			// Wait for closing wheel.
-			app.waitAndTap()
+			app.otherElements["Zeitauswahl"].firstMatch.waitAndTap()
 		} else {
 			app.keys["2"].waitAndTap()
 			app.keys["0"].waitAndTap()
