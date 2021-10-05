@@ -53,6 +53,41 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 	// MARK: - Screenshots
 
+	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.13")
+		
+		app.launch()
+		
+		var screenshotCounter = 0
+		let screenshotLabel = "deltaOnboarding_newVersionFeatures"
+
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+	}
+	
+	func test_screenshot_DeltaOnboardingNotificationRework() throws {
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "2.11")
+		
+		app.launch()
+		
+		checkNewFeaturesScreen()
+		
+		var screenshotCounter = 0
+		let screenshotLabel = "deltaOnboarding_notificationRework"
+
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+	}
+	
 	func test_screenshot_DeltaOnboardingV15() throws {
 		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
@@ -74,22 +109,6 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 		app.swipeUp()
-	}
-	
-	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
-		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.13")
-		
-		app.launch()
-		
-		var screenshotCounter = 0
-		let screenshotLabel = "deltaOnboarding_newVersionFeatures"
-
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp()
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 	}
 
 	// MARK: - Private
