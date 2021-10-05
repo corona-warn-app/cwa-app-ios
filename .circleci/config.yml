@@ -299,7 +299,6 @@ workflows:
                 only:
                   - /release\/.*/
                   - chore/fix-ui-tests
-                  - chore/fix-testDetailsSelectionOfLocationVisit()
         - test-community:
             requires:
               - dependencies
