@@ -1113,6 +1113,7 @@
 		BA27DBBE270C55F900544ECB /* simpleCertificate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */; };
 		BA27DBC0270C7D5500544ECB /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBF270C7D5500544ECB /* encrypted.pdf */; };
 		BA27DBC2270C808600544ECB /* pass123456.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBC1270C808600544ECB /* pass123456.pdf */; };
+		BA27DBC4270C824D00544ECB /* FileScannerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
 		BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */; };
@@ -2544,6 +2545,7 @@
 		BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = simpleCertificate.pdf; sourceTree = "<group>"; };
 		BA27DBBF270C7D5500544ECB /* encrypted.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = encrypted.pdf; sourceTree = "<group>"; };
 		BA27DBC1270C808600544ECB /* pass123456.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pass123456.pdf; sourceTree = "<group>"; };
+		BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerErrorTests.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		BA2D4EF22636C7860080FD77 /* SimpleTextCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModel.swift; sourceTree = "<group>"; };
@@ -7185,6 +7187,7 @@
 				BA53FD28270B3DA500CF8475 /* Testdata */,
 				BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */,
 				BA53FD33270B5C7F00CF8475 /* QRCodeParsableMock.swift */,
+				BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9784,6 +9787,7 @@
 				3583F428260CBE46000B51D3 /* ContactDiaryStoreSchemaV1Tests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				50C029A425E4068700460FA4 /* ExposureWindowsMetadataTests.swift in Sources */,
+				BA27DBC4270C824D00544ECB /* FileScannerErrorTests.swift in Sources */,
 				BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */,
 				AB68881025DA6C0200907465 /* ContactDiaryStoreTests.swift in Sources */,
 				BA00FED526BC2FC7009DA07F /* AppFeatureMocks.swift in Sources */,

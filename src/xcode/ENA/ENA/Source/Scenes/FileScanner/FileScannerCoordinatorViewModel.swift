@@ -7,7 +7,7 @@ import PhotosUI
 import PDFKit
 import OpenCombine
 
-enum FileScannerError {
+enum FileScannerError: CaseIterable {
 	case noQRCodeFound
 	case fileNotReadable
 	case invalidQRCode
