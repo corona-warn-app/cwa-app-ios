@@ -59,7 +59,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		finishedPickingImage: @escaping () -> Void,
 		processingStarted: @escaping () -> Void,
 		processingFinished: @escaping (QRCodeResult) -> Void,
-		processingFailed: @escaping (FileScannerError) -> Void,
+		processingFailed: @escaping (FileScannerError?) -> Void,
 		missingPasswordForPDF: @escaping (@escaping (String) -> Void) -> Void
 	) {
 		self.qrCodeParser = qrCodeParser
@@ -76,10 +76,9 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		finishedPickingImage()
-
 		// There can only be one selected image, because the selectionLimit is set to 1.
 		guard let result = results.first else {
-			processingFailed(.noQRCodeFound)
+			processingFailed(nil)
 			return
 		}
 		processItemProvider(result.itemProvider)
@@ -200,7 +199,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	private let finishedPickingImage: () -> Void
 	private let processingStarted: () -> Void
 	private let processingFinished: (QRCodeResult) -> Void
-	private let processingFailed: (FileScannerError) -> Void
+	private let processingFailed: (FileScannerError?) -> Void
 	private let missingPasswordForPDF: (@escaping (String) -> Void) -> Void
 
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {

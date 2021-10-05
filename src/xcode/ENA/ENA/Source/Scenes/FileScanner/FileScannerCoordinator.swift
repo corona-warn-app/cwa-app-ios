@@ -45,7 +45,9 @@ class FileScannerCoordinator {
 			processingFailed: { [weak self] alertType in
 				DispatchQueue.main.async {
 					self?.hideIndicator()
-					self?.presentSimpleAlert(alertType)
+					if let alertType = alertType {
+						self?.presentSimpleAlert(alertType)
+					}
 				}
 			},
 			missingPasswordForPDF: { [weak self] callback in
