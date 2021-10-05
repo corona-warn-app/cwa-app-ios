@@ -42,8 +42,6 @@
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_riskOneDay()",
         "ENAUITests_01b_Statistics\/test_screenshot_local_statistics_card()",
         "ENAUITests_01b_Statistics\/test_screenshot_statistics_card_titles()",
-        "ENAUITests_03_Settings\/test_0032_SettingsNotificationsOn()",
-        "ENAUITests_03_Settings\/test_0033_SettingsNotificationsOff()",
         "ENAUITests_03_Settings\/test_screenshot_SettingsNotificationsOff()",
         "ENAUITests_03_Settings\/test_screenshot_SettingsNotificationsOn()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmissionNotPossible()",
