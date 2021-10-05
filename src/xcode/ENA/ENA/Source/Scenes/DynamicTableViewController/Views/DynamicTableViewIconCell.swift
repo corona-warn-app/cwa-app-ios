@@ -24,8 +24,7 @@ class DynamicTableViewIconCell: UITableViewCell {
 		contentView.addSubview(stackView)
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
-		let width: CGFloat = 32
-		imageViewWidthConstraint = iconImageView.widthAnchor.constraint(equalToConstant: width)
+		imageViewWidthConstraint = iconImageView.widthAnchor.constraint(equalToConstant: 32)
 		imageViewWidthConstraint?.isActive = true
 
 		stackView.addArrangedSubview(iconImageView)
@@ -34,14 +33,10 @@ class DynamicTableViewIconCell: UITableViewCell {
 		contentTextLabel.adjustsFontForContentSizeCategory = true
 		contentTextLabel.textColor = .enaColor(for: .textPrimary1)
 		contentTextLabel.numberOfLines = 0
-		contentTextLabel.lineBreakMode = .byWordWrapping
 		contentTextLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		stackView.addArrangedSubview(contentTextLabel)
 
-		// We need to make the contentTextLabel bigger when we use a bigger font e.g. title1 or title2
-		let size = (contentTextLabel.style?.fontSize ?? width) * 4
 		NSLayoutConstraint.activate([
-			contentTextLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: size),
 			stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 			stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
