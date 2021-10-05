@@ -58,5 +58,4 @@ class DeltaOnboardingCoordinator {
 	private func nextOnboarding() -> DeltaOnboarding? {
 		return onboardings.first(where: { !$0.isFinished })
 	}
-	
 }

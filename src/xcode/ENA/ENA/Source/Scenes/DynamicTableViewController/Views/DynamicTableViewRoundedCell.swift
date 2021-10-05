@@ -31,7 +31,17 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		self.autoresizingMask = .flexibleHeight
 	}
 
-	private func setup(titleStyle: ENALabel.Style, bodyStyle: ENALabel.Style, textColor: ENAColor, bgColor: ENAColor, icons: [UIImage], buttonTitle: String?, buttonTapped: (() -> Void)?) {
+	// swiftlint:disable function_parameter_count
+	private func setup(
+		titleStyle: ENALabel.Style,
+		bodyStyle: ENALabel.Style,
+		textColor: ENAColor,
+		bgColor: ENAColor,
+		icons: [UIImage],
+		buttonTitle: String?,
+		buttonTapped: (() -> Void)?,
+		buttonAccessibilityIdentifier: String?
+	) {
 
 		// MARK: - General cell setup.
 		selectionStyle = .none
@@ -72,6 +82,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 			let tapHandler = UITapGestureRecognizer(target: self, action: #selector(didTapButton(sender:)))
 			button.addGestureRecognizer(tapHandler)
 			self.buttonTapped = buttonTapped
+			button.accessibilityIdentifier = buttonAccessibilityIdentifier
 		}
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
@@ -143,7 +154,8 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		bgColor: ENAColor,
 		icons: [UIImage] = [],
 		buttonTitle: String? = nil,
-		buttonTapped: (() -> Void)? = nil
+		buttonTapped: (() -> Void)? = nil,
+		buttonAccessibilityIdentifier: String? = nil
 	) {
 		setup(
 			titleStyle: titleStyle,
@@ -152,7 +164,8 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 			bgColor: bgColor,
 			icons: icons,
 			buttonTitle: buttonTitle,
-			buttonTapped: buttonTapped
+			buttonTapped: buttonTapped,
+			buttonAccessibilityIdentifier: buttonAccessibilityIdentifier
 		)
 		setupConstraints()
 		self.title.attributedText = title
