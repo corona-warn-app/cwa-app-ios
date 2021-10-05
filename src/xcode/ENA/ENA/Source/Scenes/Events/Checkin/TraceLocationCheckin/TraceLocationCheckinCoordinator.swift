@@ -56,7 +56,7 @@ final class TraceLocationCheckinCoordinator {
 	
 	private lazy var rootNavigationController: UINavigationController = {
 		if !infoScreenShown {
-			return UINavigationController(
+			return DismissHandlingNavigationController(
 				rootViewController: infoScreen(
 					hidesCloseButton: true,
 					dismissAction: { [weak self] in
@@ -67,17 +67,18 @@ final class TraceLocationCheckinCoordinator {
 						self.navigationController.pushViewController(self.traceLocationCheckin, animated: true)
 						// Set CertificateViewController as the only controller on the navigation stack to avoid back gesture etc.
 						self.navigationController.setViewControllers([self.traceLocationCheckin], animated: false)
-
+						
 						self.infoScreenShown = true
 					},
 					
 					showDetail: { detailViewController in
 						self.navigationController.pushViewController(detailViewController, animated: true)
 					}
-				)
+				),
+				transparent: true
 			)
 		} else {
-			return UINavigationController(rootViewController: traceLocationCheckin)
+			return DismissHandlingNavigationController(rootViewController: traceLocationCheckin, transparent: true)
 		}
 	}()
 	
