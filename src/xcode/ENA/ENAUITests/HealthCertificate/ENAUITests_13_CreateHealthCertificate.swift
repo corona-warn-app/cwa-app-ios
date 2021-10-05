@@ -4,6 +4,7 @@
 
 import XCTest
 
+// swiftlint:disable type_body_length
 class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
@@ -499,6 +500,67 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_certificate_family_certificate-cert-4")
 		
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell).count, 4)
+	}
+
+	func test_CheckinFromCertificatesTabWithInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		/// Tap Scan Button
+		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
+		registerCertificateTitle.waitAndTap()
+
+		// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+
+		// Checkin Info Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].waitForExistence(timeout: .short))
+
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
+
+		// Checkin Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
+	}
+
+	func test_CheckinFromCertificatesTabWithoutInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		/// Tap Scan Button
+		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
+		registerCertificateTitle.waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+
+		/// Checkin Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
+	}
+
+	func test_RegisterCoronaTestFromCertificatesTab() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		/// Tap Scan Button
+		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
+		registerCertificateTitle.waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
+		pcrButton.waitAndTap()
+
+		/// Exposure Submission QR Info Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRInfo.title)].waitForExistence(timeout: .short))
 	}
 
 }

@@ -29,6 +29,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+	var shouldShowQRScannerTooltip = false
 	var selectedServerEnvironment: EnvironmentData = Environments().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
