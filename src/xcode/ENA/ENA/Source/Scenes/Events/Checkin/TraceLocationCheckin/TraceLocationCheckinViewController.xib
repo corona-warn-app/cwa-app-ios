@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,16 +17,13 @@
                 <outlet property="additionalInfoView" destination="5E9-lv-fpC" id="Mu3-y1-WBV"/>
                 <outlet property="addressLabel" destination="HOb-g7-FlT" id="fJO-si-HRM"/>
                 <outlet property="automaticCheckOutLabel" destination="UBN-wb-TKy" id="4IG-FN-bmZ"/>
-                <outlet property="barGradientView" destination="WjZ-Cc-86K" id="IWc-vC-x1c"/>
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
                 <outlet property="checkInButton" destination="LzL-ri-WCR" id="nhq-cH-UN3"/>
                 <outlet property="checkInForLabel" destination="qe2-Cr-Hsf" id="2Cc-Rz-KNx"/>
                 <outlet property="checkOutView" destination="GDB-JB-hDV" id="k1Q-bf-2zE"/>
-                <outlet property="closeButton" destination="5Yh-SR-IVJ" id="Meh-7O-Sat"/>
                 <outlet property="countDownDatePicker" destination="yid-Kg-xeK" id="adm-pi-5xT"/>
                 <outlet property="descriptionLabel" destination="qEg-yG-yRz" id="iEe-il-h37"/>
                 <outlet property="descriptionView" destination="16U-OV-LaG" id="txb-xX-3OP"/>
-                <outlet property="logoImageView" destination="9Uc-cd-UtX" id="xcq-tp-AWD"/>
                 <outlet property="pickerButton" destination="KL2-pg-6XN" id="Jje-6t-rMu"/>
                 <outlet property="pickerContainerView" destination="Wru-kA-6ul" id="rKM-FF-71m"/>
                 <outlet property="pickerSeparator" destination="wD3-ls-rxV" id="QEg-8T-WSc"/>
@@ -42,44 +39,14 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjZ-Cc-86K" userLabel="Bar Gradient View">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Corona-Warn-App" translatesAutoresizingMaskIntoConstraints="NO" id="9Uc-cd-UtX">
-                            <rect key="frame" x="16" y="24" width="121" height="40"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yh-SR-IVJ">
-                            <rect key="frame" x="368" y="29" width="30" height="30"/>
-                            <accessibility key="accessibilityConfiguration" identifier="IconCloseContrastButton"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="6tZ-iA-2Ug"/>
-                                <constraint firstAttribute="width" constant="30" id="dWJ-IX-RCd"/>
-                            </constraints>
-                            <state key="normal" image="Icons - Close - Contrast"/>
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="-1" eventType="touchUpInside" id="1X0-3E-ci5"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="9Uc-cd-UtX" secondAttribute="bottom" constant="16" id="ao5-MY-K9V"/>
-                        <constraint firstAttribute="trailing" secondItem="5Yh-SR-IVJ" secondAttribute="trailing" constant="16" id="cC2-rz-AuA"/>
-                        <constraint firstItem="9Uc-cd-UtX" firstAttribute="leading" secondItem="WjZ-Cc-86K" secondAttribute="leading" constant="16" id="fna-7G-kxd"/>
-                        <constraint firstItem="5Yh-SR-IVJ" firstAttribute="centerY" secondItem="9Uc-cd-UtX" secondAttribute="centerY" id="i3h-aM-asv"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTilted" value="NO"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="setTilted" value="NO"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-F5-RWF">
                     <rect key="frame" x="0.0" y="80" width="414" height="707"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkR-AT-WXT" userLabel="contentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="669.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einchecken für:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe2-Cr-Hsf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="24" width="382" height="18"/>
+                                    <rect key="frame" x="16" y="24" width="382" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="ENA Text Contrast Color"/>
                                     <nil key="highlightedColor"/>
@@ -88,7 +55,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oNa-7R-1wU">
-                                    <rect key="frame" x="16" y="54" width="382" height="615.5"/>
+                                    <rect key="frame" x="16" y="56.5" width="382" height="615.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-OV-LaG" userLabel="Description Card View">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
@@ -106,7 +73,7 @@
                                                     <rect key="frame" x="16" y="30" width="350" height="161.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -115,7 +82,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="40" width="350" height="93.5"/>
+                                                            <rect key="frame" x="0.0" y="90" width="350" height="41"/>
                                                             <string key="text">Jahrestreffen der 
 deutschen SAP Anwendergruppe</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -126,7 +93,7 @@ deutschen SAP Anwendergruppe</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hauptstr 3, 69115 Heidelberg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOb-g7-FlT" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="143.5" width="350" height="18"/>
+                                                            <rect key="frame" x="0.0" y="141" width="350" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -261,7 +228,7 @@ deutschen SAP Anwendergruppe</string>
                                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="72"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="72"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="269" height="72"/>
                                                                             <accessibility key="accessibilityConfiguration">
                                                                                 <bool key="isElement" value="NO"/>
                                                                             </accessibility>
@@ -273,7 +240,7 @@ deutschen SAP Anwendergruppe</string>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="257" y="0.0" width="93" height="72"/>
+                                                                            <rect key="frame" x="277" y="0.0" width="73" height="72"/>
                                                                             <accessibility key="accessibilityConfiguration">
                                                                                 <bool key="isElement" value="NO"/>
                                                                             </accessibility>
@@ -385,16 +352,12 @@ deutschen SAP Anwendergruppe</string>
             <constraints>
                 <constraint firstItem="M82-Om-I6C" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="bottom" constant="8" id="D0K-at-lMO"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="EC9-5g-hWO"/>
+                <constraint firstItem="lQK-F5-RWF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="FxD-L3-jwj"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="top" constant="-16" id="GIv-Bw-Moc"/>
                 <constraint firstAttribute="trailing" secondItem="LzL-ri-WCR" secondAttribute="trailing" constant="16" id="Ox4-8M-dwR"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sib-2g-zc6"/>
-                <constraint firstItem="WjZ-Cc-86K" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="e9f-6O-9Xf"/>
-                <constraint firstItem="lQK-F5-RWF" firstAttribute="top" secondItem="WjZ-Cc-86K" secondAttribute="bottom" id="j0K-zS-KE6"/>
-                <constraint firstAttribute="top" secondItem="9Uc-cd-UtX" secondAttribute="top" constant="-24" id="q2f-jR-SUB"/>
                 <constraint firstItem="LzL-ri-WCR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="rF9-4l-YXt"/>
-                <constraint firstItem="WjZ-Cc-86K" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sQR-ek-Fxm"/>
                 <constraint firstAttribute="trailing" secondItem="lQK-F5-RWF" secondAttribute="trailing" id="wHn-Qe-dty"/>
-                <constraint firstAttribute="trailing" secondItem="WjZ-Cc-86K" secondAttribute="trailing" id="y6x-v1-iXU"/>
             </constraints>
             <point key="canvasLocation" x="-142.02898550724638" y="81.696428571428569"/>
         </view>
@@ -414,36 +377,34 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="49" height="31"/>
         </designable>
         <designable name="HOb-g7-FlT">
-            <size key="intrinsicContentSize" width="201" height="18"/>
+            <size key="intrinsicContentSize" width="223" height="20.5"/>
         </designable>
         <designable name="Jzq-Fo-8cl">
-            <size key="intrinsicContentSize" width="109.5" height="18"/>
+            <size key="intrinsicContentSize" width="121" height="20.5"/>
         </designable>
         <designable name="KL2-pg-6XN">
-            <size key="intrinsicContentSize" width="93" height="50"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="LzL-ri-WCR">
-            <size key="intrinsicContentSize" width="98" height="50"/>
+            <size key="intrinsicContentSize" width="79" height="30"/>
         </designable>
         <designable name="M1z-st-0w7">
-            <size key="intrinsicContentSize" width="298.5" height="14.5"/>
+            <size key="intrinsicContentSize" width="402" height="20.5"/>
         </designable>
         <designable name="UBN-wb-TKy">
-            <size key="intrinsicContentSize" width="172.5" height="14.5"/>
+            <size key="intrinsicContentSize" width="209" height="18"/>
         </designable>
         <designable name="b0x-6m-KuJ">
-            <size key="intrinsicContentSize" width="554" height="18"/>
+            <size key="intrinsicContentSize" width="614.5" height="20.5"/>
         </designable>
         <designable name="qEg-yG-yRz">
-            <size key="intrinsicContentSize" width="403" height="62.5"/>
+            <size key="intrinsicContentSize" width="252" height="41"/>
         </designable>
         <designable name="qe2-Cr-Hsf">
-            <size key="intrinsicContentSize" width="111" height="18"/>
+            <size key="intrinsicContentSize" width="117.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
-        <image name="Corona-Warn-App" width="121" height="40"/>
-        <image name="Icons - Close - Contrast" width="30" height="30"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
