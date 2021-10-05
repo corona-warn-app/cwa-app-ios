@@ -30,11 +30,11 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
 		app.launch()
-
-		checkCrossCountrySupport()
-		checkDataDonationScreen()
+		
 		checkNewFeaturesScreen()
 		checkNotificationReworkScreen()
+		checkCrossCountrySupport()
+		checkDataDonationScreen()
 		
 		// On Home Screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
@@ -145,7 +145,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 	
 	private func checkNotificationReworkScreen() {
 		
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
 		
 		// jump to system settings
@@ -158,7 +158,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		XCUIApplication().activate()
 		
 		// ensure we are back on our screen
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .long))
 		
 		// leave screen
