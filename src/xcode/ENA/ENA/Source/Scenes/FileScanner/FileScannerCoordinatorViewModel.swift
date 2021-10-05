@@ -72,34 +72,17 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - Protocol PHPickerViewControllerDelegate
 
+
 	@available(iOS 14, *)
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		finishedPickingImage()
 
-		DispatchQueue.global(qos: .background).async { [weak self] in
-			// There can only be one selected image, because the selectionLimit is set to 1.
-			guard let result = results.first else {
-				self?.processingFailed(.noQRCodeFound)
-				return
-			}
-
-			let itemProvider = result.itemProvider
-			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
-				self?.processingFailed(.noQRCodeFound)
-				return
-			}
-			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
-				guard let self = self,
-					  let image = provider as? UIImage
-				else {
-					Log.debug("No image found in user selection.", log: .fileScanner)
-					self?.processingFailed(.noQRCodeFound)
-					return
-				}
-
-				self.scanImageFile(image)
-			}
+		// There can only be one selected image, because the selectionLimit is set to 1.
+		guard let result = results.first else {
+			processingFailed(.noQRCodeFound)
+			return
 		}
+		processItemProvider(result.itemProvider)
 	}
 
 	// MARK: - UIImagePickerControllerDelegate
@@ -188,6 +171,27 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: completion)
 		} else {
 			PHPhotoLibrary.requestAuthorization(completion)
+		}
+	}
+
+	@available(iOS 14, *)
+	func processItemProvider(_ itemProvider: NSItemProvider) {
+		DispatchQueue.global(qos: .background).async { [weak self] in
+			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
+				self?.processingFailed(.noQRCodeFound)
+				return
+			}
+			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
+				guard let self = self,
+					  let image = provider as? UIImage
+				else {
+					Log.debug("No image found in user selection.", log: .fileScanner)
+					self?.processingFailed(.noQRCodeFound)
+					return
+				}
+
+				self.scanImageFile(image)
+			}
 		}
 	}
 
