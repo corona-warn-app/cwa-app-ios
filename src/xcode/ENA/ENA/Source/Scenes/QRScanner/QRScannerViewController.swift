@@ -5,6 +5,7 @@
 import UIKit
 import AVFoundation
 
+// swiftlint:disable:next type_body_length
 class QRScannerViewController: UIViewController {
 
 	// MARK: - Init
