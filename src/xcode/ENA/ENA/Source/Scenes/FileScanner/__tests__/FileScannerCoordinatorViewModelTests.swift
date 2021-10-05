@@ -108,6 +108,76 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		waitForExpectations(timeout: .qrcode)
 	}
 
+	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithoutQRCode_THEN_QRCodeResult() throws {
+		// GIVEN
+		let expectation = expectation(description: "no qr code found")
+
+		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeParser: QRCodeParsableMock(acceptAll: true),
+			finishedPickingImage: {},
+			processingStarted: {},
+			processingFinished: { _ in },
+			processingFailed: { error in
+				if case .noQRCodeFound = error {
+					expectation.fulfill()
+				}
+			},
+			missingPasswordForPDF: { password in
+				password("12345")
+			}
+		)
+
+		// WHEN
+		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
+		let url = try XCTUnwrap(testBundle.url(forResource: "encrypted.pdf", withExtension: nil))
+
+		let documentPicker: UIDocumentPickerViewController
+		if #available(iOS 14.0, *) {
+			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .pdf], asCopy: false)
+		} else {
+			documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
+		}
+		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
+
+		// THEN
+		waitForExpectations(timeout: .qrcode)
+	}
+
+	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithQRCode_THEN_QRCodeResult() throws {
+		// GIVEN
+		let expectation = expectation(description: "result found")
+
+		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeParser: QRCodeParsableMock(acceptAll: true),
+			finishedPickingImage: {},
+			processingStarted: {},
+			processingFinished: { result in
+				if case .certificate(_, _) = result {
+					expectation.fulfill()
+				}
+			},
+			processingFailed: { _ in },
+			missingPasswordForPDF: { password in
+				password("123456")
+			}
+		)
+
+		// WHEN
+		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
+		let url = try XCTUnwrap(testBundle.url(forResource: "pass123456.pdf", withExtension: nil))
+
+		let documentPicker: UIDocumentPickerViewController
+		if #available(iOS 14.0, *) {
+			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .pdf], asCopy: false)
+		} else {
+			documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
+		}
+		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
+
+		// THEN
+		waitForExpectations(timeout: .qrcode)
+	}
+
 	// MARK: UIImagePicker
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_SelectedImageWithQRCode_THEN_QRCodeResult() throws {
@@ -169,6 +239,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 	}
 
 	// MARK: PHPicker
+
 	@available(iOS 14, *)
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_SelectedPhotoPickerWithQRCode_THEN_QRCodeResult() throws {
 		// GIVEN
@@ -197,6 +268,5 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .qrcode)
 	}
-
 
 }
