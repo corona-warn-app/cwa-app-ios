@@ -27,8 +27,6 @@ class NotificationSettingsViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		setupView()
-
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(willEnterForeground),
