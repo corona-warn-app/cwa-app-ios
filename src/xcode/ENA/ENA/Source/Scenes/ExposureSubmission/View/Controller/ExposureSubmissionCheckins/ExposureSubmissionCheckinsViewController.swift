@@ -28,8 +28,8 @@ class ExposureSubmissionCheckinsViewController: UITableViewController, DismissHa
 		super.viewDidLoad()
 		
 		title = viewModel.title
-		parent?.navigationItem.hidesBackButton = true
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		tableView.separatorStyle = .none
 		tableView.backgroundColor = .enaColor(for: .background)
