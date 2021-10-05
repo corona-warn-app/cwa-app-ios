@@ -83,9 +83,9 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
-		parent?.navigationItem.title = AppStrings.ExposureSubmission.TestCertificate.Info.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		parent?.navigationItem.hidesBackButton = true
+		navigationItem.title = AppStrings.ExposureSubmission.TestCertificate.Info.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
 
 		view.backgroundColor = .enaColor(for: .background)
 

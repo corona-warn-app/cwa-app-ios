@@ -736,7 +736,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
-			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+				rootViewController: self,
+				onboardings: onboardings,
+				store: self.viewModel.store
+			)
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				guard self.presentedViewController == nil else {
