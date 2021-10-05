@@ -42,4 +42,58 @@ class ENAUITests_03_Settings: CWATestCase {
 		
 		XCTAssertTrue(app.images["AppStrings.Settings.backgroundAppRefreshImageDescription"].waitForExistence(timeout: 5.0))
 	}
+	
+	func test_0032_SettingsNotificationsOn() throws {
+		app.setLaunchArgument(LaunchArguments.notifications.isNotificationsEnabled, to: true)
+		app.launch()
+				
+		// Open settings
+		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitAndTap()
+		
+		// Open Notifications
+		app.cells[AccessibilityIdentifiers.Settings.notificationLabel].waitAndTap()
+		
+		// Check if we are on notifications screen - ON
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.notificationsOn].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletDescOn].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletPoint1].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletPoint2].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletPoint3].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.textViews[AccessibilityIdentifiers.NotificationSettings.bulletDesc2].waitForExistence(timeout: .short))
+		
+		snapshot("screenshot_settings_notifications_on")
+
+		// Jump to system settings.
+		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
+		
+		// Ensure we are in the settings.
+		let systemSettings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
+		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
+	}
+	
+	func test_0033_SettingsNotificationsOff() throws {
+		app.setLaunchArgument(LaunchArguments.notifications.isNotificationsEnabled, to: false)
+		app.launch()
+				
+		// Open settings
+		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitAndTap()
+		
+		// Open Notifications
+		app.cells[AccessibilityIdentifiers.Settings.notificationLabel].waitAndTap()
+		
+		// Check if we are on notifications screen - OFF
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOff].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.notificationsOff].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletDescOff].waitForExistence(timeout: .short))
+		
+		snapshot("screenshot_settings_notifications_off")
+		
+		// Jump to system settings.
+		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
+		
+		// Ensure we are in the settings.
+		let systemSettings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
+		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
+	}
 }

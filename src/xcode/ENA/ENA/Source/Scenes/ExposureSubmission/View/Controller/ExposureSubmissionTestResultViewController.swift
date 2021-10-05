@@ -50,7 +50,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		parent?.navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
@@ -69,7 +69,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	func wasAttemptedToBeDismissed() {
 		onDismiss(viewModel.coronaTest.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)
 				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 			}
