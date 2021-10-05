@@ -58,13 +58,13 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 	
 	private func setupView() {
 		
-		parent?.navigationItem.title = AppStrings.ExposureSubmissionQRInfo.title
-		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
+		navigationItem.title = AppStrings.ExposureSubmissionQRInfo.title
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 		
 		if traitCollection.userInterfaceStyle == .dark {
-			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		} else {
-			parent?.navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
+			navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 		}
 		
 		view.backgroundColor = .enaColor(for: .background)
