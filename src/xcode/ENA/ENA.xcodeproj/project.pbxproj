@@ -1107,6 +1107,8 @@
 		BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */; };
 		BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
+		BA27DBBC270C4D8400544ECB /* landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBB270C4D8400544ECB /* landscape.png */; };
+		BA27DBBE270C55F900544ECB /* simpleCertificate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
 		BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */; };
@@ -2535,6 +2537,8 @@
 		BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLocalNotificationsViewController.swift; sourceTree = "<group>"; };
 		BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewModel.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
+		BA27DBBB270C4D8400544ECB /* landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape.png; sourceTree = "<group>"; };
+		BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = simpleCertificate.pdf; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		BA2D4EF22636C7860080FD77 /* SimpleTextCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModel.swift; sourceTree = "<group>"; };
@@ -7145,6 +7149,8 @@
 		BA53FD28270B3DA500CF8475 /* Testdata */ = {
 			isa = PBXGroup;
 			children = (
+				BA27DBBB270C4D8400544ECB /* landscape.png */,
+				BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */,
 				BA53FD29270B3DF200CF8475 /* certificate.jpg */,
 			);
 			path = Testdata;
@@ -8438,6 +8444,7 @@
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
 				BA53FD32270B522700CF8475 /* certificate.jpg in Resources */,
 				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
+				BA27DBBC270C4D8400544ECB /* landscape.png in Resources */,
 				EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */,
 				EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */,
 				5078DCAB2686122200535917 /* api-response-onboardedCountries in Resources */,
@@ -8447,6 +8454,7 @@
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				AB9B991E26D5416F00F2506D /* RecoveryCertificateTemplate_v4.1.pdf in Resources */,
+				BA27DBBE270C55F900544ECB /* simpleCertificate.pdf in Resources */,
 				AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
