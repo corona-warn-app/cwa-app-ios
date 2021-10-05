@@ -2,133 +2,192 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 
 class NotificationSettingsViewModel {
-	let notificationsOn: Bool
-	let image: String
-	let imageDescription: String
-	let title: String?
-	let sections: [Section]
-	let openSettings: OpenSettings?
-
-	private init(
-		notificationsOn: Bool,
-		image: String,
-		imageDescription: String,
-		title: String?,
-		sections: [Section],
-		openSettings: OpenSettings?,
-		accessibilityLabel: String?,
-		accessibilityIdentifier: String?
-	) {
-		self.notificationsOn = notificationsOn
-		self.image = image
-		self.imageDescription = imageDescription
-		self.title = title
-		self.sections = sections
-		self.openSettings = openSettings
+	
+	// MARK: - Init
+	
+	init() {
+		
 	}
-
-	static func notificationsOn(_ store: Store) -> NotificationSettingsViewModel {
-		NotificationSettingsViewModel(
-			notificationsOn: true,
-			image: "Illu_Mitteilungen_On",
-			imageDescription: AppStrings.NotificationSettings.onImageDescription,
-			title: AppStrings.NotificationSettings.onTitle,
-			sections: [
-				.settingsOn(
-					title: AppStrings.NotificationSettings.onSectionTitle,
+	
+	// MARK: - Internal
+	
+	var dynamicTableViewModelNotificationOn: DynamicTableViewModel {
+		DynamicTableViewModel.with {
+			$0.add(
+				.section(
+					header: .image(
+						UIImage(named: "Illu_Mitteilungen_On"),
+						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
+						height: 250
+					),
 					cells: [
-						.riskChanges(.init(
-							description: AppStrings.NotificationSettings.riskChanges,
-							state: store.allowRiskChangesNotification,
-							updateState: { store.allowRiskChangesNotification = $0 },
-							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.riskChanges
-						)),
-						.testsStatus(.init(
-							description: AppStrings.NotificationSettings.testsStatus,
-							state: store.allowTestsStatusNotification,
-							updateState: { store.allowTestsStatusNotification = $0 },
-							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.testsStatus
-						))
+						.footnote(
+							text: AppStrings.NotificationSettings.settingsDescription
+						)
 					]
 				)
-			],
-			openSettings: nil,
-			accessibilityLabel: AppStrings.NotificationSettings.onTitle,
-			accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.onTitle
-		)
-	}
-
-	static func notificationsOff() -> NotificationSettingsViewModel {
-		NotificationSettingsViewModel(
-			notificationsOn: false,
-			image: "Illu_Mitteilungen_Off",
-			imageDescription: AppStrings.NotificationSettings.offImageDescription,
-			title: nil,
-			sections: [
-				.settingsOff(
-					title: AppStrings.NotificationSettings.offSectionTitle,
+			)
+			$0.add(
+				.section(
+					separators: .all,
 					cells: [
-						.enableNotifications(.init(
-							description: AppStrings.NotificationSettings.enableNotifications,
-							state: AppStrings.NotificationSettings.statusInactive
-						))
+						.doubleLabels(
+							text1: AppStrings.NotificationSettings.notifications,
+							text2: AppStrings.NotificationSettings.notificationsOn,
+							style: .body,
+							accessibilityIdentifier1: AccessibilityIdentifiers.NotificationSettings.notifications,
+							accessibilityIdentifier2: AccessibilityIdentifiers.NotificationSettings.notificationsOn,
+							accessibilityTraits1: .staticText,
+							accessibilityTraits2: .staticText
+						),
+						.space(height: 16)
 					]
 				)
-			],
-			openSettings: OpenSettings(
-				title: AppStrings.NotificationSettings.infoTitle,
-				icon: "Icons_iOS_Mitteilungen",
-				description: AppStrings.NotificationSettings.infoDescription,
-				openSettings: AppStrings.NotificationSettings.openSettings
-			),
-			accessibilityLabel: nil,
-			accessibilityIdentifier: nil
-		)
-	}
-}
-
-extension NotificationSettingsViewModel {
-	enum SettingsItems {
-		case riskChanges(SettingsOnItem)
-		case testsStatus(SettingsOnItem)
-
-		case enableNotifications(SettingsOffItem)
-	}
-
-	struct SettingsOnItem {
-		let identifier = NotificationSettingsViewController.ReuseIdentifier.notificationsOn
-		let description: String
-		var state: Bool {
-			didSet {
-				updateState(state)
-			}
+			)
+			
+			$0.add(
+				.section(
+					background: .greyBoxed,
+					cells: [
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
+							imageAlignment: .right,
+							text: .string(AppStrings.NotificationSettings.bulletHeadlineOn),
+							style: .title2
+						),
+						.body(
+							text: AppStrings.NotificationSettings.bulletDescOn,
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOn
+						),
+						.space(height: 8),
+						.bulletPoint(
+							text: AppStrings.NotificationSettings.bulletPoint1,
+							spacing: .large,
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletPoint1
+						),
+						.space(height: 8),
+						.bulletPoint(
+							text: AppStrings.NotificationSettings.bulletPoint2,
+							spacing: .large,
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletPoint2
+						),
+						.space(height: 8),
+						.bulletPoint(
+							text: AppStrings.NotificationSettings.bulletPoint3,
+							spacing: .large,
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletPoint3
+						),
+						.space(height: 8),
+						.textWithLinks(
+							text: String(
+								format: AppStrings.NotificationSettings.bulletDesc2,
+								AppStrings.NotificationSettings.bulletDesc2FAQText),
+							links: [AppStrings.NotificationSettings.bulletDesc2FAQText: AppStrings.Links.notificationSettingsFAQ],
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDesc2
+						),
+						.custom(
+							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: ""
+									),
+									body: NSMutableAttributedString(
+										string: ""
+									),
+									textColor: .textContrast,
+									bgColor: .cellBackground3,
+									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
+									buttonTapped: {
+										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+									}
+								)
+							}
+						)
+					]
+				)
+			)
 		}
-
-		let updateState: (Bool) -> Void
-		let accessibilityIdentifier: String?
-
 	}
-
-	struct SettingsOffItem {
-		let identifier = NotificationSettingsViewController.ReuseIdentifier.notificationsOff
-		let description: String
-		let state: String
-	}
-
-	struct OpenSettings {
-		let title: String
-		let icon: String
-		let description: String
-		let openSettings: String
-	}
-}
-
-extension NotificationSettingsViewModel {
-	enum Section {
-		case settingsOn(title: String, cells: [SettingsItems])
-		case settingsOff(title: String, cells: [SettingsItems])
+	
+	var dynamicTableViewModelNotificationOff: DynamicTableViewModel {
+		DynamicTableViewModel.with {
+			$0.add(
+				.section(
+					header: .image(
+						UIImage(named: "Illu_Mitteilungen_Off"),
+						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOff,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOff,
+						height: 250
+					),
+					cells: [
+						.footnote(
+							text: AppStrings.NotificationSettings.settingsDescription
+						)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					separators: .all,
+					cells: [
+						.doubleLabels(
+							text1: AppStrings.NotificationSettings.notifications,
+							text2: AppStrings.NotificationSettings.notificationsOff,
+							style: .body,
+							accessibilityIdentifier1: AccessibilityIdentifiers.NotificationSettings.notifications,
+							accessibilityIdentifier2: AccessibilityIdentifiers.NotificationSettings.notificationsOff,
+							accessibilityTraits1: .staticText,
+							accessibilityTraits2: .staticText
+						),
+						.space(height: 16)
+					]
+				)
+			)
+			
+			$0.add(
+				.section(
+					background: .greyBoxed,
+					cells: [
+						.space(height: 5),
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
+							imageAlignment: .right,
+							text: .string(AppStrings.NotificationSettings.bulletHeadlineOn),
+							style: .title2
+						),
+						.body(
+							text: AppStrings.NotificationSettings.bulletDescOff,
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOff
+						),
+						.custom(
+							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: ""
+									),
+									body: NSMutableAttributedString(
+										string: ""
+									),
+									textColor: .textContrast,
+									bgColor: .cellBackground3,
+									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
+									buttonTapped: {
+										LinkHelper.open(urlString: UIApplication.openSettingsURLString)
+									}
+								)
+							}
+						)
+					]
+				)
+			)
+		}
 	}
 }
