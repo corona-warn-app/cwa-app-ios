@@ -236,7 +236,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		XCTAssertTrue(app.staticTexts["Some note!"].exists)
 	}
 
-	func testDetailsSelectionOfLocationVisit() {
+	func testDetailsSelectionOfLocationVisit() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
@@ -256,15 +256,24 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Select duration.
 		
-		// Until iOS 14.4 the datePicker was declared as "OtherElement" with a label called "Hours". From 14.5 and above, Apple changed the XCUIElement to "TextField" (🤷‍♂️) and its label is now localized. We cannot set any identifier. Because of this we do some magic and we take the remaining one without any identifier. With iOS 15.0 it changed again and now we access via the localized text directly.
+		// We cannot set an accessibilityIdentifier on this datePicker, so we have to improve:
 		if #available(iOS 15.0, *) {
+			// With iOS 15.x, the datePicker was localized. So search for the localized string.
 			app.otherElements["Zeitauswahl"].firstMatch.waitAndTap()
 			
 		} else if #available(iOS 14.5, *) {
-			let datePickerAsTextField = app.textFields.element(boundBy: 0)
-			XCTAssertTrue(datePickerAsTextField.identifier.isEmpty)
+			// With iOS 14.5, the datePicker's identifier was removed. We know there are only textFields, one where we set an own identifier, and the other is the one we search.
+			var datePicker: XCUIElement?
+			for i in 0...1 {
+				if app.textFields.element(boundBy: i).identifier.isEmpty {
+					datePicker = app.textFields.element(boundBy: i)
+				}
+			}
+			XCTAssertNotNil(datePicker)
+			let datePickerAsTextField = try XCTUnwrap(datePicker)
 			datePickerAsTextField.firstMatch.waitAndTap()
 		} else {
+			// And above iOS 14.4, the datePicker has an non-localized identifier.
 			app.otherElements["Hours"].firstMatch.waitAndTap()
 		}
 		
@@ -273,7 +282,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 			// Spin wheel one time so the value will be 20:00
 			app.datePickers.firstMatch.swipeUp()
 			// Wait for closing wheel.
-			app.waitAndTap()
+			app.otherElements["Zeitauswahl"].firstMatch.waitAndTap()
 		} else {
 			app.keys["2"].waitAndTap()
 			app.keys["0"].waitAndTap()
