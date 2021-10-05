@@ -82,7 +82,7 @@ final class DMLocalNotificationsViewModel {
 	) {
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
@@ -99,7 +99,7 @@ final class DMLocalNotificationsViewModel {
 	) {
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
@@ -116,7 +116,7 @@ final class DMLocalNotificationsViewModel {
 	) {
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)
