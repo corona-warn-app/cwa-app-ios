@@ -78,18 +78,16 @@ class DynamicTableViewIconCell: UITableViewCell {
 		iconImageView.image = image
 		iconImageView.isHidden = image == nil
 		
-		// swap label and image so the image is set to the right. Because it is initialized to the left, we need this only for .right
+		// swap label and image so the image is set to the right. Do this every time to get a clean reusable state.
 		switch imageAlignment {
 		case .left:
-			if let imageView = stackView.subviews.last {
-				stackView.removeArrangedSubview(imageView)
-				stackView.insertArrangedSubview(imageView, at: 0)
-			}
+				stackView.removeArrangedSubview(iconImageView)
+				stackView.insertArrangedSubview(iconImageView, at: 0)
+	
 		case .right:
-			if let imageView = stackView.subviews.first {
-				stackView.removeArrangedSubview(imageView)
-				stackView.insertArrangedSubview(imageView, at: 1)
-			}
+				stackView.removeArrangedSubview(iconImageView)
+				stackView.insertArrangedSubview(iconImageView, at: 1)
+			
 		}
 		imageViewWidthConstraint?.constant = iconWidth
 		
