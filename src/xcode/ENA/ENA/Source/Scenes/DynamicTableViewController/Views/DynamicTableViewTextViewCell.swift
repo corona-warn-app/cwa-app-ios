@@ -80,6 +80,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		links.forEach { text, link in
 			attributedText.mark(text, with: link)
 		}
+		textView.backgroundColor = .clear
 		textView.attributedText = attributedText
 	}
 
