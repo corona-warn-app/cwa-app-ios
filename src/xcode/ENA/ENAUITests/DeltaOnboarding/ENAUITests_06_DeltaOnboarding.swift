@@ -58,6 +58,9 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		
 		app.launch()
 		
+		checkNewFeaturesScreen()
+		checkNotificationReworkScreen()
+		
 		var screenshotCounter = 0
 		let screenshotLabel = "deltaOnboarding_V15"
 
