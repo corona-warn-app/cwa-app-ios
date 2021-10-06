@@ -150,14 +150,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		snapshot("antigentestprofile_screenshot_edit_actions")
 
 		/// Edit Antigen Test Profile Screen
-		
-		let editTitle: String
-		if Locale.current.identifier == Locale(identifier: "de_DE").identifier {
-			editTitle = "Schnelltest-Profil bearbeiten"
-		} else {
-			editTitle = "Edit Rapid Test Profile"
-		}
-		let editTestProfileAction = try XCTUnwrap(app.sheets.buttons[editTitle])
+				let editTestProfileAction = try XCTUnwrap(app.sheets.buttons[AccessibilityLabels.localized(AppStrings.AntigenProfile.Profile.editActionTitle)])
 		editTestProfileAction.waitAndTap()
 
 		let editSaveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
@@ -180,14 +173,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		// edit profile button exists
 		editTestProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton])
 		editTestProfileButton.waitAndTap()
-
-		let deleteTitle: String
-		if Locale.current.identifier == Locale(identifier: "de_DE").identifier {
-			deleteTitle = "Schnelltest-Profil entfernen"
-		} else {
-			deleteTitle = "Delete Rapid Test Profile"
-		}
-		let deleteTestProfileButton = try XCTUnwrap(app.sheets.buttons[deleteTitle])
+		let deleteTestProfileButton = try XCTUnwrap(app.sheets.buttons[AccessibilityLabels.localized(AppStrings.AntigenProfile.Profile.deleteActionTitle)])
 		deleteTestProfileButton.waitAndTap()
 
 		// confirm deletion on popup
