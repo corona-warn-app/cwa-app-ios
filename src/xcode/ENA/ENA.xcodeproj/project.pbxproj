@@ -1110,7 +1110,6 @@
 		BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */; };
 		BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
-		BA27DBC2270C808600544ECB /* pass123456.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBC1270C808600544ECB /* pass123456.pdf */; };
 		BA27DBC4270C824D00544ECB /* FileScannerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
@@ -1242,9 +1241,6 @@
 		BABAA5A826BC122F003A64AE /* AppFeatureProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA5A726BC122F003A64AE /* AppFeatureProviding.swift */; };
 		BABFBE6D270DD57000106313 /* QRCodeDetecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */; };
 		BABFBE70270DDBD100106313 /* QRCodeDetectorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */; };
-		BABFBE72270DDD8F00106313 /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BABFBE71270DDD8F00106313 /* encrypted.pdf */; };
-		BABFBE74270DE2D600106313 /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BABFBE71270DDD8F00106313 /* encrypted.pdf */; };
-		BABFBE76270DE2DC00106313 /* pass123456.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBC1270C808600544ECB /* pass123456.pdf */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC1FCB226D910C90095E6D8 /* HealthCertifiedPersonBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FCB126D910B60095E6D8 /* HealthCertifiedPersonBoosterTests.swift */; };
 		BAC2F58626667A84008A6C7B /* DCCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2F58526667A84008A6C7B /* DCCErrors.swift */; };
@@ -2544,7 +2540,6 @@
 		BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLocalNotificationsViewController.swift; sourceTree = "<group>"; };
 		BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewModel.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
-		BA27DBC1270C808600544ECB /* pass123456.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pass123456.pdf; sourceTree = "<group>"; };
 		BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerErrorTests.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -2678,7 +2673,6 @@
 		BABAA5A726BC122F003A64AE /* AppFeatureProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureProviding.swift; sourceTree = "<group>"; };
 		BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDetecting.swift; sourceTree = "<group>"; };
 		BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDetectorFake.swift; sourceTree = "<group>"; };
-		BABFBE71270DDD8F00106313 /* encrypted.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = encrypted.pdf; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAC1FCB126D910B60095E6D8 /* HealthCertifiedPersonBoosterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonBoosterTests.swift; sourceTree = "<group>"; };
 		BAC291492652BEA600CFA8A5 /* ENAUITests_13_CreateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_13_CreateHealthCertificate.swift; sourceTree = "<group>"; };
@@ -7171,19 +7165,9 @@
 			path = FileScanner;
 			sourceTree = "<group>";
 		};
-		BA53FD28270B3DA500CF8475 /* Testdata */ = {
-			isa = PBXGroup;
-			children = (
-				BABFBE71270DDD8F00106313 /* encrypted.pdf */,
-				BA27DBC1270C808600544ECB /* pass123456.pdf */,
-			);
-			path = Testdata;
-			sourceTree = "<group>";
-		};
 		BA53FD2E270B518400CF8475 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BA53FD28270B3DA500CF8475 /* Testdata */,
 				ABED2E9B270C798A009BD6B1 /* FileScannerCoordinatorTests.swift */,
 				BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */,
 				BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */,
@@ -8456,7 +8440,6 @@
 			files = (
 				3535CD2A262C4E4E00A3CE38 /* TestEnvironments.json in Resources */,
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
-				BA27DBC2270C808600544ECB /* pass123456.pdf in Resources */,
 				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
 				EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */,
 				EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */,
@@ -8472,7 +8455,6 @@
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 				50412F32268AFA3500E4087C /* api-response-rule in Resources */,
 				AB9B991D26D53C7300F2506D /* TestCertificateTemplate_v4.1.pdf in Resources */,
-				BABFBE72270DDD8F00106313 /* encrypted.pdf in Resources */,
 				BA7D178125D549B3006B9EBF /* testData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8482,10 +8464,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13E5046C248E434B0086641C /* Localizable.strings in Resources */,
-				BABFBE76270DE2DC00106313 /* pass123456.pdf in Resources */,
 				13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */,
 				AB8B0D4525306089009C067B /* Localizable.links.strings in Resources */,
-				BABFBE74270DE2D600106313 /* encrypted.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

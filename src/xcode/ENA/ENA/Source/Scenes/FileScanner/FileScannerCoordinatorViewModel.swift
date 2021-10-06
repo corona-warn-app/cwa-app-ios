@@ -99,7 +99,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				return
 			}
 
-			self.scanImageFile(image)
+			self.scan(image)
 		}
 	}
 
@@ -119,7 +119,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 
 		if let image = UIImage(contentsOfFile: url.path) {
-			scanImageFile(image)
+			scan(image)
 		} else if url.pathExtension.lowercased() == "pdf",
 				  let pdfDocument = PDFDocument(url: url) {
 			Log.debug("PDF picked, will scan for QR codes", log: .fileScanner)
@@ -127,22 +127,9 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			// If the document is encryped and locked, try to unlock it.
 			// The case where the document is locked, but not encrypted does not exist.
 			if pdfDocument.isEncrypted && pdfDocument.isLocked {
-				Log.debug("PDF is encrypted and locked. Try to unlock, show password input screen to the user ...", log: .fileScanner)
-
-				missingPasswordForPDFOnMain { [weak self] password in
-					guard let self = self else { return }
-
-					if pdfDocument.unlock(withPassword: password) {
-						Log.debug("PDF successfully unlocked.", log: .fileScanner)
-
-						self.scanPDFDocument(pdfDocument)
-					} else {
-						Log.debug("PDF unlocking failed.", log: .fileScanner)
-						self.processingFailedOnMain(.passwordInput)
-					}
-				}
+				unlockAndScan(pdfDocument)
 			} else {
-				scanPDFDocument(pdfDocument)
+				scan(pdfDocument)
 			}
 		} else {
 			Log.debug("User picked unknown filetype for QR-Code scan.", log: .fileScanner)
@@ -180,7 +167,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 	}
 
-	func scanImageFile(_ image: UIImage) {
+	func scan(_ image: UIImage) {
 		processingStartedOnMain()
 
 		DispatchQueue.global(qos: .background).async { [weak self] in
@@ -196,6 +183,44 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				return
 			}
 
+			self.findValidQRCode(from: codes) { [weak self] result in
+				if let result = result {
+					self?.processingFinishedOnMain(result)
+				} else {
+					self?.processingFailedOnMain(.noQRCodeFound)
+				}
+			}
+		}
+	}
+
+	func unlockAndScan(_ pdfDocument: PDFDocument) {
+		Log.debug("PDF is encrypted and locked. Try to unlock, show password input screen to the user ...", log: .fileScanner)
+
+		missingPasswordForPDFOnMain { [weak self] password in
+			guard let self = self else { return }
+
+			if pdfDocument.unlock(withPassword: password) {
+				Log.debug("PDF successfully unlocked.", log: .fileScanner)
+
+				self.scan(pdfDocument)
+			} else {
+				Log.debug("PDF unlocking failed.", log: .fileScanner)
+				self.processingFailedOnMain(.passwordInput)
+			}
+		}
+	}
+
+	func scan(_ pdfDocument: PDFDocument) {
+		processingStartedOnMain()
+
+		DispatchQueue.global(qos: .background).async { [weak self] in
+			guard let self = self else {
+				self?.processingFailedOnMain(.noQRCodeFound)
+				Log.error("Failed to stronge self pointer")
+				return
+			}
+
+			let codes = self.qrCodes(from: pdfDocument)
 			self.findValidQRCode(from: codes) { [weak self] result in
 				if let result = result {
 					self?.processingFinishedOnMain(result)
@@ -227,28 +252,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 					return
 				}
 
-				self.scanImageFile(image)
-			}
-		}
-	}
-
-	func scanPDFDocument(_ pdfDocument: PDFDocument) {
-		processingStartedOnMain()
-
-		DispatchQueue.global(qos: .background).async { [weak self] in
-			guard let self = self else {
-				self?.processingFailedOnMain(.noQRCodeFound)
-				Log.error("Failed to stronge self pointer")
-				return
-			}
-
-			let codes = self.qrCodes(from: pdfDocument)
-			self.findValidQRCode(from: codes) { [weak self] result in
-				if let result = result {
-					self?.processingFinishedOnMain(result)
-				} else {
-					self?.processingFailedOnMain(.noQRCodeFound)
-				}
+				self.scan(image)
 			}
 		}
 	}
