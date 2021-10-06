@@ -995,6 +995,7 @@
 		ABEA875B26D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */; };
 		ABEA875E26D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875826D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf */; };
 		ABEA875F26D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
+		ABED2E9C270C798A009BD6B1 /* FileScannerCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABED2E9B270C798A009BD6B1 /* FileScannerCoordinatorTests.swift */; };
 		ABF0F605260B347600E50B0F /* CheckinRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0F604260B347600E50B0F /* CheckinRiskCalculation.swift */; };
 		ABF0F60C260B8A8000E50B0F /* CheckinRiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0F60B260B8A8000E50B0F /* CheckinRiskCalculationResult.swift */; };
 		ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */; };
@@ -2431,6 +2432,7 @@
 		ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = RecoveryCertificateTemplate_v4.1.pdf; sourceTree = "<group>"; };
 		ABEA875826D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = TestCertificateTemplate_v4.1.pdf; sourceTree = "<group>"; };
 		ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = VaccinationCertificateTemplate_v4.1.pdf; sourceTree = "<group>"; };
+		ABED2E9B270C798A009BD6B1 /* FileScannerCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerCoordinatorTests.swift; sourceTree = "<group>"; };
 		ABF0F604260B347600E50B0F /* CheckinRiskCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinRiskCalculation.swift; sourceTree = "<group>"; };
 		ABF0F60B260B8A8000E50B0F /* CheckinRiskCalculationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinRiskCalculationResult.swift; sourceTree = "<group>"; };
 		ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModel.swift; sourceTree = "<group>"; };
@@ -7185,6 +7187,7 @@
 				BA53FD28270B3DA500CF8475 /* Testdata */,
 				BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */,
 				BA53FD33270B5C7F00CF8475 /* QRCodeParsableMock.swift */,
+				ABED2E9B270C798A009BD6B1 /* FileScannerCoordinatorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9544,6 +9547,7 @@
 				50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */,
 				BA01BA6B2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift in Sources */,
 				508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */,
+				ABED2E9C270C798A009BD6B1 /* FileScannerCoordinatorTests.swift in Sources */,
 				50B9133A26B2DDC00005C8D8 /* MockUserNotificationCenter.swift in Sources */,
 				2E442AB52681E0AB00A78532 /* TopBottomContainerViewControllerTests.swift in Sources */,
 				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,

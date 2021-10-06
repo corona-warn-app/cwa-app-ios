@@ -14,17 +14,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { result in
-				if case .certificate(_, _) = result {
-					expectation.fulfill()
-				}
-			},
-			processingFailed: { _ in },
-			missingPasswordForPDF: { _ in }
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFinished = { result in
+			if case .certificate(_, _) = result {
+				expectation.fulfill()
+			}
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -47,17 +44,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { _ in },
-			processingFailed: { error in
-				if case .noQRCodeFound = error {
-					expectation.fulfill()
-				}
-			},
-			missingPasswordForPDF: { _ in }
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFailed = { error in
+			if case .noQRCodeFound = error {
+				expectation.fulfill()
+			}
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -80,17 +74,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { result in
-				if case .certificate(_, _) = result {
-					expectation.fulfill()
-				}
-			},
-			processingFailed: { _ in },
-			missingPasswordForPDF: { _ in }
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFinished = { result in
+			if case .certificate(_, _) = result {
+				expectation.fulfill()
+			}
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -113,19 +104,18 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { _ in },
-			processingFailed: { error in
-				if case .noQRCodeFound = error {
-					expectation.fulfill()
-				}
-			},
-			missingPasswordForPDF: { password in
-				password("12345")
-			}
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFailed = { error in
+			if case .noQRCodeFound = error {
+				expectation.fulfill()
+			}
+		}
+
+		viewModel.missingPasswordForPDF = { password in
+			password("12345")
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -148,19 +138,18 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { result in
-				if case .certificate(_, _) = result {
-					expectation.fulfill()
-				}
-			},
-			processingFailed: { _ in },
-			missingPasswordForPDF: { password in
-				password("123456")
-			}
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFinished = { result in
+			if case .certificate(_, _) = result {
+				expectation.fulfill()
+			}
+		}
+
+		viewModel.missingPasswordForPDF = { password in
+			password("123456")
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -185,17 +174,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { result in
-				if case .certificate(_, _) = result {
-					expectation.fulfill()
-				}
-			},
-			processingFailed: { _ in },
-			missingPasswordForPDF: { _ in }
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFinished = { result in
+			if case .certificate(_, _) = result {
+				expectation.fulfill()
+			}
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -214,17 +200,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { _ in },
-			processingFailed: { error in
-				if case .noQRCodeFound = error {
-					expectation.fulfill()
-				}
-			},
-			missingPasswordForPDF: { _ in }
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFailed = { error in
+			if case .noQRCodeFound = error {
+				expectation.fulfill()
+			}
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
@@ -246,17 +229,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: QRCodeParsableMock(acceptAll: true),
-			finishedPickingImage: {},
-			processingStarted: {},
-			processingFinished: { result in
-				if case .certificate(_, _) = result {
-					expectation.fulfill()
-				}
-			},
-			processingFailed: { _ in },
-			missingPasswordForPDF: { _ in }
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
+
+		viewModel.processingFinished = { result in
+			if case .certificate(_, _) = result {
+				expectation.fulfill()
+			}
+		}
 
 		// WHEN
 		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)

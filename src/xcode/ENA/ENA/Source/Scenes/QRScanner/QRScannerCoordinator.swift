@@ -111,9 +111,10 @@ class QRScannerCoordinator {
 				self?.parentViewController?.dismiss(animated: true)
 			},
 			presentFileScanner: { [weak self] in
+				let viewModel = FileScannerCoordinatorViewModel(qrCodeParser: qrCodeParser)
 				self?.fileScannerCoordinator = FileScannerCoordinator(
 					qrScannerViewController,
-					qrCodeParser: qrCodeParser,
+					fileScannerViewModel: viewModel,
 					qrCodeFound: { [weak self] qrCodeResult in
 						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 						self?.fileScannerCoordinator = nil
