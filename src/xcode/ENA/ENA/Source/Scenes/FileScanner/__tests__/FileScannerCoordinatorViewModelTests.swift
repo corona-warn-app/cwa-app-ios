@@ -143,6 +143,33 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileButWrongPasswordIsGicen_THEN_ResultIsAnError() throws {
+		// GIVEN
+		let expectation = expectation(description: "no qr code found")
+
+		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetectorFake(),
+			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+		)
+
+		viewModel.processingFailed = { error in
+			if case .passwordInput = error {
+				expectation.fulfill()
+			}
+		}
+
+		viewModel.missingPasswordForPDF = { password in
+			password("123456")
+		}
+
+		// WHEN
+		let pdfDocument = try pdfDocument(password: "12345")
+		viewModel.unlockAndScan(pdfDocument)
+
+		// THEN
+		waitForExpectations(timeout: .short)
+	}
+
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithQRCode_THEN_QRCodeResult() throws {
 		// GIVEN
 		let expectation = expectation(description: "result found")
