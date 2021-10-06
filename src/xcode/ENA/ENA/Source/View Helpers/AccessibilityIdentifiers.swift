@@ -127,7 +127,7 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum NotesInformation {
-			static let title = "AppStrings.ContactDiary.NotesInformation.title"
+			static let titel = "AppStrings.ContactDiary.NotesInformation.title"
 		}
 	}
 	
