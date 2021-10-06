@@ -71,6 +71,6 @@ class ENAUITests_17_FileScanner: CWATestCase {
 		openFileButton.waitAndTap()
 
 		let photoButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.FileScanner.photo])
-		photoButton.waitAndTap()
+		photoButton.wait()
 	}
 }

@@ -36,51 +36,49 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let testCertificateBase45 = try base45Fake(
+		let vaccinationCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
-					uniqueCertificateIdentifier: "0"
-				)]
+				vaccinationEntries: [
+					.fake(uniqueCertificateIdentifier: "0")
+				]
 			),
 			and: .fake(expirationTime: .distantPast)
 		)
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45, validityState: .expired, isValidityStateNew: true)
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
-		let result = service.registerHealthCertificate(base45: testCertificateBase45)
+		let result = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
 
 		switch result {
 		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [testCertificate])
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [vaccinationCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [testCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [vaccinationCertificate])
 
 		subscription.cancel()
 	}
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdatedOnValidityStateChange() throws {
-		let testCertificateBase45 = try base45Fake(
+		let vaccinationCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+				vaccinationEntries: [.fake(
 					uniqueCertificateIdentifier: "0"
 				)]
 			)
 		)
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   testCertificate
-			   ]
-		   )
+				vaccinationCertificate
+			]
+		)
 
 		var subscriptions = Set<AnyCancellable>()
 
@@ -650,7 +648,7 @@ class HealthCertificateServiceTests: CWATestCase {
 	func testValidityStateUpdate_JustExpired() throws {
 		let healthCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
-				testEntries: [.fake()]
+				vaccinationEntries: [.fake()]
 			),
 			and: .fake(expirationTime: Date())
 		)
@@ -924,7 +922,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 5
+		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1025,7 +1023,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1114,7 +1112,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1205,7 +1203,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -1361,7 +1359,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
