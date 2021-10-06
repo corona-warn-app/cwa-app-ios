@@ -180,8 +180,39 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 	}
 
+	func scanImageFile(_ image: UIImage) {
+		processingStartedOnMain()
+
+		DispatchQueue.global(qos: .background).async { [weak self] in
+			guard let self = self,
+				  let codes = self.qrCodeDetector.findQRCodes(in: image)
+			else {
+				self?.processingFailedOnMain(.noQRCodeFound)
+				Log.error("Failed to stronge self pointer")
+				return
+			}
+			guard !codes.isEmpty else {
+				self.processingFailedOnMain(.noQRCodeFound)
+				return
+			}
+
+			self.findValidQRCode(from: codes) { [weak self] result in
+				if let result = result {
+					self?.processingFinishedOnMain(result)
+				} else {
+					self?.processingFailedOnMain(.noQRCodeFound)
+				}
+			}
+		}
+	}
+
+	// MARK: - Private
+
+	private let qrCodeDetector: QRCodeDetecting
+	private let qrCodeParser: QRCodeParsable
+
 	@available(iOS 14, *)
-	func processItemProvider(_ itemProvider: NSItemProvider) {
+	private func processItemProvider(_ itemProvider: NSItemProvider) {
 		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
 				self?.processingFailedOnMain(.noQRCodeFound)
@@ -201,11 +232,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 	}
 
-	// MARK: - Private
-
-	private let qrCodeDetector: QRCodeDetecting
-	private let qrCodeParser: QRCodeParsable
-
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
 		processingStartedOnMain()
 
@@ -217,32 +243,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			}
 
 			let codes = self.qrCodes(from: pdfDocument)
-			self.findValidQRCode(from: codes) { [weak self] result in
-				if let result = result {
-					self?.processingFinishedOnMain(result)
-				} else {
-					self?.processingFailedOnMain(.noQRCodeFound)
-				}
-			}
-		}
-	}
-
-	private func scanImageFile(_ image: UIImage) {
-		processingStartedOnMain()
-
-		DispatchQueue.global(qos: .background).async { [weak self] in
-			guard let self = self,
-				  let codes = self.qrCodeDetector.findQRCodes(in: image)
-			else {
-				self?.processingFailedOnMain(.noQRCodeFound)
-				Log.error("Failed to stronge self pointer")
-				return
-			}
-			guard !codes.isEmpty else {
-				self.processingFailedOnMain(.noQRCodeFound)
-				return
-			}
-
 			self.findValidQRCode(from: codes) { [weak self] result in
 				if let result = result {
 					self?.processingFinishedOnMain(result)

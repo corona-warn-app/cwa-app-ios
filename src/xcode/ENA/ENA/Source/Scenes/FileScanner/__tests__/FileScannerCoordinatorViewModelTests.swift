@@ -25,16 +25,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
-		let url = try XCTUnwrap(testBundle.url(forResource: "certificate.jpg", withExtension: nil))
-
-		let documentPicker: UIDocumentPickerViewController
-		if #available(iOS 14.0, *) {
-			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .pdf], asCopy: false)
-		} else {
-			documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
-		}
-		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
+		viewModel.scanImageFile(UIImage())
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -56,16 +47,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
-		let url = try XCTUnwrap(testBundle.url(forResource: "landscape.png", withExtension: nil))
-
-		let documentPicker: UIDocumentPickerViewController
-		if #available(iOS 14.0, *) {
-			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .pdf], asCopy: false)
-		} else {
-			documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
-		}
-		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
+		viewModel.scanImageFile(UIImage())
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -190,12 +172,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
-		let url = try XCTUnwrap(testBundle.url(forResource: "certificate.jpg", withExtension: nil))
-		let image = try XCTUnwrap(UIImage(contentsOfFile: url.path))
-		let imagePickerController = UIImagePickerController()
-
-		viewModel.imagePickerController(imagePickerController, didFinishPickingMediaWithInfo: [UIImagePickerController.InfoKey.originalImage: image])
+		viewModel.scanImageFile(UIImage())
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -217,12 +194,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
-		let url = try XCTUnwrap(testBundle.url(forResource: "landscape.png", withExtension: nil))
-		let image = try XCTUnwrap(UIImage(contentsOfFile: url.path))
-		let imagePickerController = UIImagePickerController()
-
-		viewModel.imagePickerController(imagePickerController, didFinishPickingMediaWithInfo: [UIImagePickerController.InfoKey.originalImage: image])
+		viewModel.scanImageFile(UIImage())
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -247,11 +219,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
-		let url = try XCTUnwrap(testBundle.url(forResource: "certificate.jpg", withExtension: nil))
-
-		let itemProvider = try XCTUnwrap(NSItemProvider(contentsOf: url))
-		viewModel.processItemProvider(itemProvider)
+		viewModel.scanImageFile(UIImage())
 
 		// THEN
 		waitForExpectations(timeout: .short)
