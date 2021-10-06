@@ -291,32 +291,46 @@
 
 "Settings_DataDonation_StatusInactive" = "Kapalı";
 
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "COVID-19 risk durumunuz ile ilgili bildirimleri etkinleştirmek istiyor musunuz?";
+/* Notification Settings */
+"NotificationSettings_Title" = "Bildirimler";
 
-"NotificationSettings_On_SectionTitle" = "Ayar";
+"NotificationSettings_ImageDescriptionOn" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
-"NotificationSettings_On_RiskChanges" = "Enfeksiyon riskiniz değişti";
+"NotificationSettings_ImageDescriptionOff" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
 
-"NotificationSettings_On_TestsStatus" = "COVID-19 testinizin durumu";
+"NotificationSettings_SettingsDescription" = "AYAR";
 
-"NotificationSettings_Off_SectionTitle" = "Ayar";
+"NotificationSettings_Notifications" = "Bildirimler";
 
-"NotificationSettings_Off_EnableNotifications" = "Bildirimler";
+"NotificationSettings_NotificationsOn" = "Açık";
 
-"NotificationSettings_Off_StatusInactive" = "Kapalı";
+"NotificationSettings_NotificationsOff" = "Kapalı";
 
-"NotificationSettings_Off_InfoTitle" = "Bildirimleri Etkinleştir";
+"NotificationSettings_BulletHeadlineOn" = "Bildirimleri Yönet";
 
-"NotificationSettings_Off_InfoDescription" = "Corona-Warn-App uygulamasında bildirimleri etkinleştirmek için cihazınızın ayarlarında bildirimlere izin vermeniz gerekir.";
+"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Etkinleştir";
 
-"NotificationSettings_Off_OpenSettings" = "Cihaz Ayarlarını Aç";
+"NotificationSettings_BulletDescOn" = "Burada şu ayarları tanımlayabilirsiniz:";
 
-"NotificationSettings_NavTitle" = "Bildirimler";
+"NotificationSettings_BulletDescOff" = "Corona-Warn-App uygulamasında bildirimleri etkinleştirmek için cihazınızın ayarlarında bildirimlere izin vermeniz gerekir.";
 
-"NotificationSettings_onImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
+"NotificationSettings_BulletPoint1" = "Genel olarak bildirim almak istiyorsunuz";
 
-"NotificationSettings_offImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
+"NotificationSettings_BulletPoint2" = "Kilit ekranınızda bildirim metinlerinin görüntülenmesini istiyorsunuz";
+
+"NotificationSettings_BulletPoint3" = "Akıllı telefonunuzun kilidini açana dek bildirim metinlerinin görüntülenmesini istemiyorsunuz";
+
+"NotificationSettings_BulletDesc2" = "İşletim sisteminizin ayarlarına ilişkin ayrıntılı bilgi için lütfen %@ sayfamıza bakın.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "SSS";
+
+"NotificationSettings_OpenSystemSettings" = "Cihaz Ayarlarını Aç";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Bildirimleri Yönet";
+
+"NotificationSettings_DeltaOnboarding_Description" = "Bildirimlere ilişkin ayarlar artık akıllı telefonunuzun cihaz ayarlarında merkezi olarak yönetilir.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Devam Et";
 
 /* Background App Referesh Settings */
 "BackgroundAppRefreshSettings_Title" = "Arka Planda Uygulamayı Yenileme";
@@ -438,9 +452,9 @@
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları alma ve riskleri belirleme";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Uygulama, risk durumunuz hakkında otomatik olarak bildirimler verebilir ve maruz kalma yaşadığınız kişilerin yeni enfeksiyonları hakkında sizi uyarabilir. Uygulamanın size bildirim göndermesine izin verin.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Uygulama diğer bilgilerin yanında, risk durumunuz ve sertifikalarınızın geçerliliği hakkında otomatik olarak bildirimler verebilir. Bunu etkinleştirmek için bildirim ayarlarınızı değiştirin.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Ardından diğer insanları korumak için bireysel olarak karantinaya girebilir ve nerede test yaptırabileceğinizi öğrenebilirsiniz.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Bu işlem, hem kendinizi hem diğer kullanıcıları korumanıza ve sertifikalarınızın geçerliliğine dair güncel bilgi sahibi olmanıza yardımcı olacaktır.";
 
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1454,6 +1468,8 @@
 
 "local_notifications_certificate_body" = "Corona-Warn-App uygulamasından yeni mesajlarınız var.";
 
+"local_notifications_certificate_validity_body" = "Sertifikalarınızın geçerliliğini kontrol edin.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Genel Bakış";
 
@@ -1538,18 +1554,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.11 */
-"NewVersionFeature_211_universalQRCodeScanner_title" = "Evrensel QR Kod Tarayıcı";
+/* Version 2.12 */
+"NewVersionFeature_212_newStatisticsTiles_title" = "Genişletilmiş İstatistikler";
 
-"NewVersionFeature_211_universalQRCodeScanner_description" = "Artık Corona-Warn-App'te QR kod tarayıcıyı nerede açarsanız açın uygulamanın desteklediği tüm belgeleri tarayabilirsiniz:\n\n\t\U2022 PCR testleri\n\t\U2022 Hızlı testler\n\t\U2022 Etkinlik check-in'leri\n\t\U2022 Sertifikalar";
+"NewVersionFeature_212_newStatisticsTiles_description" = "Artık uygulamada şu istatistikler mevcuttur:\n\t\U2022 7 günlük hastaneye yatış olayı\n\t\U2022 Yoğun bakım ünitelerindeki\n\t   COVID-19 hastaları";
 
-"NewVersionFeature_211_qrCodeImport_title" = "QR Kodu İçe Aktar";
+"NewVersionFeature_212_notificationManagement_title" = "Bildirimleri Yönet";
 
-"NewVersionFeature_211_qrCodeImport_description" = "Artık QR kod tarayıcıyı kullanarak fotoğraf veya PDF dosyalarından QR kodları içe aktarabilirsiniz.";
+"NewVersionFeature_212_notificationManagement_description" = "Bildirim ayarları artık akıllı telefonunuzun ayarlarından merkezi olarak yönetilir. Cihazınızın ayarlarında Corona-Warn-App'e ilişkin bildirim ayarlarınızı yeniden kontrol edin.";
 
-"NewVersionFeature_211_contactDurationAdjustment_title" = "Temas Süresi Ayarlaması";
+"NewVersionFeature_212_qrCodeScannerButton_title" = "QR Kod Tarayıcıya Doğrudan Erişim";
 
-"NewVersionFeature_211_contactDurationAdjustment_description" = "Temas güncesindeki minimum temas süresi 15 dakika yerine 10 dakikaya indirildi. Mevcut temas girişleri otomatik olarak ayarlandı. Günce girişlerinizi gözden geçirin ve gerekiyorsa ayarlayın.";
+"NewVersionFeature_212_qrCodeScannerButton_description" = "Artık alt gezinti çubuğunda evrensel QR kod tarayıcıya doğrudan erişebilirsiniz.";
+
+"NewVersionFeature_212_qrCodeImport_title" = "QR Kodu İçe Aktar";
+
+"NewVersionFeature_212_qrCodeImport_description" = "Artık QR kod tarayıcıyı kullanarak fotoğraf veya PDF dosyalarından QR kodları içe aktarabilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1970,6 +1990,28 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Toplam";
 
+/* - Infected People Hospitalization Rate */
+"Statistics_Card_HospitalizationRate_Title" = "7 Günlük Hastaneye Yatış Olayı";
+
+"Statistics_Card_HospitalizationRate_Today" = "Bugüne kadar";
+
+"Statistics_Card_HospitalizationRate_Yesterday" = "Düne kadar";
+
+"Statistics_Card_HospitalizationRate_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19 Nedeniyle Her 100.000 Vatandaşta Hastaneye Yatış Sayısı";
+
+/* - Infected People in Intensive Care */
+"Statistics_Card_IntensiveCare_Title" = "Yoğun Bakım Ünitelerindeki COVID-19 Hastaları";
+
+"Statistics_Card_IntensiveCare_Today" = "Bugüne kadar";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "Düne kadar";
+
+"Statistics_Card_IntensiveCare_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 Nedeniyle Yatak Kullanımının Tüm Yoğun Bakım Yatakları Sayısına Oranı";
+
 /* Error */
 "Statistics_LoadingError" = "İstatistikler yüklenemiyor. Lütfen uygulamayı kapatın ve tekrar deneyin.";
 
@@ -1985,6 +2027,14 @@
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
 "Statistics_Info_Incidence_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
+
+"Statistics_Info_HospitalizationRate_Title" = "7 Günlük Hastaneye Yatış Olayı";
+
+"Statistics_Info_HospitalizationRate_Text" = "Son 7 günde COVID-19 nedeniyle her 100.000 vatandaşta toplam hastaneye giriş sayısı.";
+
+"Statistics_Info_IntensiveCare_Title" = "Yoğun Bakım Ünitelerindeki COVID-19 Hastaları";
+
+"Statistics_Info_IntensiveCare_Text" = "COVID-19 nedeniyle yoğun bakım ünitesinde bulunan kişilerin toplam yoğun bakım ünitesi kapasitesine oranı.";
 
 "Statistics_Info_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
 
@@ -2032,7 +2082,7 @@
 
 "Statistics_Info_Trend_Title" = "Trend";
 
-"Statistics_Info_Trend_Text" = "Ok yönü trendin arttığını, azaldığını ya da sabit kaldığını belirtir. Sabit kalması, önceki güne göre %1’den az veya önceki haftaya göre %5’ten az sapma olduğu anlamına gelir. Renk ise bu trendin pozitif (yeşil), negatif (kırmızı) ya da nötr (gri) olduğunu belirtir. Trend için, önceki güne ait değer iki gün önceki değerle karşılaştırılır ya da 7 günlük trendler için son 7 güne ait ortalama değer ondan önceki 7 güne ait ortalama değerle karşılaştırılır.";
+"Statistics_Info_Trend_Text" = "Trend, (7 günlük olay, 7 günlük hastaneye yatış olayı, yoğun bakım ünitelerindeki COVID-19 hastaları, 7 günlük R değeri için) önceki güne ait değeri iki gün önceki değer ile karşılaştırır veya 7 günlük trendlerde, (onaylanan yeni enfeksiyon sayısına, uygulama kullanıcılarının uyarılarına, uygulanan aşı dozlarına ilişkin 7 günlük ortalama değer için) son 7 güne ait ortalama değeri ondan önceki 7 güne ait ortalama değer ile karşılaştırır. Verilerin ilk yayınlandığı versiyonu kullanılır; sonraki güncellemeler hesaba katılmaz.\n\nOk yönü trendin arttığını, azaldığını ya da sabit kaldığını belirtir. Sabit kalması, önceki güne göre %1’den az veya önceki haftaya göre %5’ten az sapma olduğu anlamına gelir (ondalık basamaklar hesaba katılır). Renk ise bu trendin pozitif (yeşil), negatif (kırmızı) ya da nötr (gri) olduğunu belirtir. ";
 
 "Statistics_Info_Trends_Title" = "Şu trendler gösterilebilir:";
 
@@ -2056,9 +2106,11 @@
 "UpdateOS_text" = "Corona-Warn-App’i yüklemek için güncel iOS sürümüne sahip olmanız gerekir.\nBunun için, iPhone’unuzdaki ayarları açın ve Genel -> Yazılım Güncellemesi seçeneğini belirleyin.";
 
 /* Tabbar */
-"Tabbar_Home_Title" = "Başlangıç Ekranı";
+"Tabbar_Home_Title" = "Durum";
 
 "Tabbar_Certificates_Title" = "Sertifikalar";
+
+"Tabbar_Scanner_Title" = "QR Kod Tarayıcı";
 
 "Tabbar_Diary_Title" = "Günce";
 
@@ -2208,12 +2260,6 @@
 "Checkins_Overview_CheckinTimeTemplate" = "%@ - %@ sonra otomatik olarak check out yap";
 
 "Checkins_Overview_CheckoutButtonTitle" = "Şimdi Check Out Yap";
-
-"Checkins_Overview_MissingPermissions_Title" = "Kamera Erişimine İzin Ver";
-
-"Checkins_Overview_MissingPermissions_Description" = "Akıllı telefonunuzun kamerasını kullanarak QR kodları taramak için uygulamanın cihaz ayarlarında kamera erişimine izin vermeniz gerekir.";
-
-"Checkins_Overview_MissingPermissions_ButtonTitle" = "Cihaz Ayarlarını Aç";
 
 "Checkins_Overview_DeleteOne_AlertTitle" = "Bu girişi gerçekten kaldırmak istiyor musunuz?";
 
@@ -3021,6 +3067,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "PCR testleri ve hızlı testler, test sertifikaları, aşı sertifikaları, iyileşme sertifikaları ve check-in'ler.";
 
+"UniversalQRScanner_FileButtonTitle" = "Dosya Aç";
+
 "UniversalQRScanner_CameraFlash" = "Kamera flaşı";
 
 "UniversalQRScanner_CameraFlash_On" = "Açık";
@@ -3031,9 +3079,56 @@
 
 "UniversalQRScanner_CameraFlash_Disable" = "Kamera flaşını kapat";
 
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Erişime izin verilmiyor";
+
 "UniversalQRScanner_Error_cameraPermissionDenied" = "Uygulamanın QR kodu taramak için kamerayı kullanmasına izin verin.";
 
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Ayarlar";
+
 "UniversalQRScanner_Error_unsupportedQRCode" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod tarayın.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Fotoğraf Kitaplığı";
+
+"FileScanner_sheet_documents" = "Belge";
+
+"FileScanner_sheet_cancel" = "İptal";
+
+"FileScanner_AccessError_title" = "Erişime izin verilmiyor";
+
+"FileScanner_AccessError_message" = "\\\"Corona-Warn-App\\\" fotoğraf kitaplığınıza erişemiyor. Cihazınızın ayarlarında erişim verebilirsiniz.";
+
+"FileScanner_AccessError_cancel" = "İptal";
+
+"FileScanner_AccessError_settings" = "Ayarlar";
+
+"FileScanner_HUD_text" = "QR kod okunuyor…";
+
+"FileScanner_PasswordEntry_title" = "Dosya Parola Korumalı";
+
+"FileScanner_PasswordEntry_message" = "Parolanızı girin.";
+
+"FileScanner_PasswordEntry_placeholder" = "Parola";
+
+"FileScanner_PasswordError_title" = "Parola Yanlış";
+
+"FileScanner_PasswordError_message" = "Lütfen geçerli bir parola girin.";
+
+"FileScanner_InvalidQRCode_title" = "Uygun QR Kod Yok";
+
+"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun QR kod içeren bir dosya seçin.";
+
+"FileScanner_FileNotReadable_title" = "Dosya Okunamıyor";
+
+"FileScanner_FileNotReadable_message" = "Seçilen dosya bozuk ya da parola korumalı olabilir. Dosya okunamadı. Lütfen uygun bir dosya seçin.";
+
+"FileScanner_NoQRCodeFound_title" = "QR Kod Tespit Edilmedi";
+
+"FileScanner_NoQRCodeFound_message" = "Seçilen dosyada QR kod tespit edilmedi. Lütfen farklı bir dosya seçin.";
+
+"UniversalQRScanner_Tooltip_title" = "QR Kod Tarayıcı";
+
+"UniversalQRScanner_Tooltip_description" = "Testleri, sertifikaları ve check-in'leri taramak için bu tarayıcıyı kullanın.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";
