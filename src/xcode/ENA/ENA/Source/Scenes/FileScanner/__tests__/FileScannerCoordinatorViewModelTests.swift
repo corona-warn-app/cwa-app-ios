@@ -8,7 +8,7 @@ import PDFKit
 
 class FileScannerCoordinatorViewModelTests: CWATestCase {
 
-	// MARk: - Helpers
+	// MARK: - Helpers
 
 	// based on the nice work of ray wenderlich
 	// https://www.raywenderlich.com/4023941-creating-a-pdf-in-swift-with-pdfkit#toc-anchor-002
@@ -109,10 +109,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let pdfDocument = PDFDocument()
-		let dummyImage = try XCTUnwrap(UIImage.with(color: .red))
-		let page = try XCTUnwrap(PDFPage(image: dummyImage))
-		pdfDocument.insert(page, at: 0)
+		let pdfDocument = try pdfDocument()
 		viewModel.scan(pdfDocument)
 
 		// THEN
