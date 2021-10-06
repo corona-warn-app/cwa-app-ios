@@ -1110,7 +1110,6 @@
 		BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */; };
 		BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
-		BA27DBBE270C55F900544ECB /* simpleCertificate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */; };
 		BA27DBC2270C808600544ECB /* pass123456.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBC1270C808600544ECB /* pass123456.pdf */; };
 		BA27DBC4270C824D00544ECB /* FileScannerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
@@ -1246,7 +1245,6 @@
 		BABFBE72270DDD8F00106313 /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BABFBE71270DDD8F00106313 /* encrypted.pdf */; };
 		BABFBE74270DE2D600106313 /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BABFBE71270DDD8F00106313 /* encrypted.pdf */; };
 		BABFBE76270DE2DC00106313 /* pass123456.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBC1270C808600544ECB /* pass123456.pdf */; };
-		BABFBE77270DE2DF00106313 /* simpleCertificate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC1FCB226D910C90095E6D8 /* HealthCertifiedPersonBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FCB126D910B60095E6D8 /* HealthCertifiedPersonBoosterTests.swift */; };
 		BAC2F58626667A84008A6C7B /* DCCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2F58526667A84008A6C7B /* DCCErrors.swift */; };
@@ -2546,7 +2544,6 @@
 		BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLocalNotificationsViewController.swift; sourceTree = "<group>"; };
 		BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewModel.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
-		BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = simpleCertificate.pdf; sourceTree = "<group>"; };
 		BA27DBC1270C808600544ECB /* pass123456.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pass123456.pdf; sourceTree = "<group>"; };
 		BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerErrorTests.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -7179,7 +7176,6 @@
 			children = (
 				BABFBE71270DDD8F00106313 /* encrypted.pdf */,
 				BA27DBC1270C808600544ECB /* pass123456.pdf */,
-				BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */,
 			);
 			path = Testdata;
 			sourceTree = "<group>";
@@ -8471,7 +8467,6 @@
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				AB9B991E26D5416F00F2506D /* RecoveryCertificateTemplate_v4.1.pdf in Resources */,
-				BA27DBBE270C55F900544ECB /* simpleCertificate.pdf in Resources */,
 				AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
@@ -8487,7 +8482,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13E5046C248E434B0086641C /* Localizable.strings in Resources */,
-				BABFBE77270DE2DF00106313 /* simpleCertificate.pdf in Resources */,
 				BABFBE76270DE2DC00106313 /* pass123456.pdf in Resources */,
 				13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */,
 				AB8B0D4525306089009C067B /* Localizable.links.strings in Resources */,

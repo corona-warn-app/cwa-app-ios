@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import PDFKit
 @testable import ENA
 
 class FileScannerCoordinatorViewModelTests: CWATestCase {
@@ -69,16 +70,11 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		let testBundle = Bundle(for: FileScannerCoordinatorViewModelTests.self)
-		let url = try XCTUnwrap(testBundle.url(forResource: "simpleCertificate.pdf", withExtension: nil))
-
-		let documentPicker: UIDocumentPickerViewController
-		if #available(iOS 14.0, *) {
-			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .pdf], asCopy: false)
-		} else {
-			documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
-		}
-		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
+		let pdfDocument = PDFDocument()
+		let dummyImage = try XCTUnwrap(UIImage.with(color: .red))
+		let page = try XCTUnwrap(PDFPage(image: dummyImage))
+		pdfDocument.insert(page, at: 0)
+		viewModel.scanPDFDocument(pdfDocument)
 
 		// THEN
 		waitForExpectations(timeout: .short)

@@ -232,7 +232,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 	}
 
-	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
+	func scanPDFDocument(_ pdfDocument: PDFDocument) {
 		processingStartedOnMain()
 
 		DispatchQueue.global(qos: .background).async { [weak self] in
