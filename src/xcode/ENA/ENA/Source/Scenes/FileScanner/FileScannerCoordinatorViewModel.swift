@@ -63,8 +63,10 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	// MARK: - Init
 
 	init(
+		qrCodeDetector: QRCodeDetecting,
 		qrCodeParser: QRCodeParsable
 	) {
+		self.qrCodeDetector = qrCodeDetector
 		self.qrCodeParser = qrCodeParser
 	}
 
@@ -201,6 +203,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	// MARK: - Private
 
+	private let qrCodeDetector: QRCodeDetecting
 	private let qrCodeParser: QRCodeParsable
 
 	private func scanPDFDocument(_ pdfDocument: PDFDocument) {
@@ -229,7 +232,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let self = self,
-				  let codes = self.findQRCodes(in: image)
+				  let codes = self.qrCodeDetector.findQRCodes(in: image)
 			else {
 				self?.processingFailedOnMain(.noQRCodeFound)
 				Log.error("Failed to stronge self pointer")
@@ -253,8 +256,8 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	private func qrCodes(from pdfDocument: PDFDocument) -> [String] {
 		Log.debug("PDF picked, will scan for QR codes on all pages", log: .fileScanner)
 		var found: [String] = []
-		imagePage(from: pdfDocument).forEach { image in
-			if let codes = findQRCodes(in: image) {
+		imagePage(from: pdfDocument).forEach { [weak self] image in
+			if let codes = self?.qrCodeDetector.findQRCodes(in: image) {
 				found.append(contentsOf: codes)
 			}
 		}
@@ -279,29 +282,6 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			images.append(thumb)
 		}
 		return images
-	}
-
-	private func findQRCodes(in image: UIImage) -> [String]? {
-		guard let features = detectQRCode(image) else {
-			Log.debug("no features found in image", log: .fileScanner)
-			return nil
-		}
-		let codes = features.compactMap { $0 as? CIQRCodeFeature }
-		.compactMap { $0.messageString }
-
-		return codes
-	}
-
-	private func detectQRCode(_ image: UIImage) -> [CIFeature]? {
-		guard let ciImage = CIImage(image: image) else {
-			return nil
-		}
-		let context = CIContext()
-		// we can try to use CIDetectorAccuracyLow to speedup things a bit here
-		let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh, CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1]
-		let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
-		let features = qrDetector?.features(in: ciImage, options: options)
-		return features
 	}
 
 	private func findValidQRCode(from codes: [String], completion: @escaping (QRCodeResult?) -> Void) {

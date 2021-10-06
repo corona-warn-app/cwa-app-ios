@@ -14,6 +14,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -44,6 +45,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -74,6 +76,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -104,6 +107,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -138,6 +142,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -174,6 +179,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -200,6 +206,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -229,6 +236,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
+			qrCodeDetector: QRCodeDetector(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 

@@ -99,6 +99,8 @@ class QRScannerCoordinator {
 			markCertificateAsNew: markCertificateAsNew
 		)
 
+		let qrCodeDetector = QRCodeDetector()
+
 		var qrScannerViewController: QRScannerViewController!
 		qrScannerViewController = QRScannerViewController(
 			healthCertificateService: healthCertificateService,
@@ -111,7 +113,10 @@ class QRScannerCoordinator {
 				self?.parentViewController?.dismiss(animated: true)
 			},
 			presentFileScanner: { [weak self] in
-				let viewModel = FileScannerCoordinatorViewModel(qrCodeParser: qrCodeParser)
+				let viewModel = FileScannerCoordinatorViewModel(
+					qrCodeDetector: qrCodeDetector,
+					qrCodeParser: qrCodeParser
+				)
 				self?.fileScannerCoordinator = FileScannerCoordinator(
 					qrScannerViewController,
 					fileScannerViewModel: viewModel,
