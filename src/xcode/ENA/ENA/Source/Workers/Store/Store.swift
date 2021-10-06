@@ -16,9 +16,6 @@ protocol StoreProtocol: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 
-	var allowRiskChangesNotification: Bool { get set }
-	var allowTestsStatusNotification: Bool { get set }
-
 	var appInstallationDate: Date? { get set }
 
 	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
