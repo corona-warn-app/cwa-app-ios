@@ -18,7 +18,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		)
 
 		viewModel.processingFinished = { result in
-			if case .certificate(_, _) = result {
+			if case .certificate = result {
 				expectation.fulfill()
 			}
 		}
@@ -78,7 +78,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		)
 
 		viewModel.processingFinished = { result in
-			if case .certificate(_, _) = result {
+			if case .certificate = result {
 				expectation.fulfill()
 			}
 		}
@@ -142,7 +142,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		)
 
 		viewModel.processingFinished = { result in
-			if case .certificate(_, _) = result {
+			if case .certificate = result {
 				expectation.fulfill()
 			}
 		}
@@ -178,7 +178,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		)
 
 		viewModel.processingFinished = { result in
-			if case .certificate(_, _) = result {
+			if case .certificate = result {
 				expectation.fulfill()
 			}
 		}
@@ -233,7 +233,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		)
 
 		viewModel.processingFinished = { result in
-			if case .certificate(_, _) = result {
+			if case .certificate = result {
 				expectation.fulfill()
 			}
 		}
