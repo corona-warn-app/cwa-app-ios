@@ -1112,7 +1112,6 @@
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA27DBBC270C4D8400544ECB /* landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBB270C4D8400544ECB /* landscape.png */; };
 		BA27DBBE270C55F900544ECB /* simpleCertificate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */; };
-		BA27DBC0270C7D5500544ECB /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBBF270C7D5500544ECB /* encrypted.pdf */; };
 		BA27DBC2270C808600544ECB /* pass123456.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA27DBC1270C808600544ECB /* pass123456.pdf */; };
 		BA27DBC4270C824D00544ECB /* FileScannerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
@@ -1245,6 +1244,8 @@
 		BAB9FC6F26305F8000EB4E76 /* AntigenTestProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */; };
 		BABAA5A826BC122F003A64AE /* AppFeatureProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA5A726BC122F003A64AE /* AppFeatureProviding.swift */; };
 		BABFBE6D270DD57000106313 /* QRCodeDetecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */; };
+		BABFBE70270DDBD100106313 /* QRCodeDetectorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */; };
+		BABFBE72270DDD8F00106313 /* encrypted.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BABFBE71270DDD8F00106313 /* encrypted.pdf */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC1FCB226D910C90095E6D8 /* HealthCertifiedPersonBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FCB126D910B60095E6D8 /* HealthCertifiedPersonBoosterTests.swift */; };
 		BAC2F58626667A84008A6C7B /* DCCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2F58526667A84008A6C7B /* DCCErrors.swift */; };
@@ -2546,7 +2547,6 @@
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA27DBBB270C4D8400544ECB /* landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape.png; sourceTree = "<group>"; };
 		BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = simpleCertificate.pdf; sourceTree = "<group>"; };
-		BA27DBBF270C7D5500544ECB /* encrypted.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = encrypted.pdf; sourceTree = "<group>"; };
 		BA27DBC1270C808600544ECB /* pass123456.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pass123456.pdf; sourceTree = "<group>"; };
 		BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerErrorTests.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -2681,6 +2681,8 @@
 		BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileTests.swift; sourceTree = "<group>"; };
 		BABAA5A726BC122F003A64AE /* AppFeatureProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureProviding.swift; sourceTree = "<group>"; };
 		BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDetecting.swift; sourceTree = "<group>"; };
+		BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDetectorFake.swift; sourceTree = "<group>"; };
+		BABFBE71270DDD8F00106313 /* encrypted.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = encrypted.pdf; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAC1FCB126D910B60095E6D8 /* HealthCertifiedPersonBoosterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonBoosterTests.swift; sourceTree = "<group>"; };
 		BAC291492652BEA600CFA8A5 /* ENAUITests_13_CreateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_13_CreateHealthCertificate.swift; sourceTree = "<group>"; };
@@ -7176,10 +7178,10 @@
 		BA53FD28270B3DA500CF8475 /* Testdata */ = {
 			isa = PBXGroup;
 			children = (
-				BA27DBC1270C808600544ECB /* pass123456.pdf */,
 				BA53FD29270B3DF200CF8475 /* certificate.jpg */,
-				BA27DBBF270C7D5500544ECB /* encrypted.pdf */,
+				BABFBE71270DDD8F00106313 /* encrypted.pdf */,
 				BA27DBBB270C4D8400544ECB /* landscape.png */,
+				BA27DBC1270C808600544ECB /* pass123456.pdf */,
 				BA27DBBD270C55F900544ECB /* simpleCertificate.pdf */,
 			);
 			path = Testdata;
@@ -7189,11 +7191,11 @@
 			isa = PBXGroup;
 			children = (
 				BA53FD28270B3DA500CF8475 /* Testdata */,
-				BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */,
-				BA53FD33270B5C7F00CF8475 /* QRCodeParsableMock.swift */,
 				ABED2E9B270C798A009BD6B1 /* FileScannerCoordinatorTests.swift */,
+				BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */,
 				BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */,
-				BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */,
+				BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */,
+				BA53FD33270B5C7F00CF8475 /* QRCodeParsableMock.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7517,6 +7519,7 @@
 				BA9CD38326FC84C200CB1C51 /* FileScannerCoordinator.swift */,
 				BA9CD38526FCA0C700CB1C51 /* FileScannerCoordinatorViewModel.swift */,
 				BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */,
+				BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */,
 			);
 			path = FileScanner;
 			sourceTree = "<group>";
@@ -8479,8 +8482,8 @@
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 				50412F32268AFA3500E4087C /* api-response-rule in Resources */,
 				AB9B991D26D53C7300F2506D /* TestCertificateTemplate_v4.1.pdf in Resources */,
+				BABFBE72270DDD8F00106313 /* encrypted.pdf in Resources */,
 				BA7D178125D549B3006B9EBF /* testData.json in Resources */,
-				BA27DBC0270C7D5500544ECB /* encrypted.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9511,6 +9514,7 @@
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
 				5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */,
 				BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */,
+				BABFBE70270DDBD100106313 /* QRCodeDetectorFake.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
 				019DDEE126FC70EC00390509 /* CheckinQRCodeParserTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,

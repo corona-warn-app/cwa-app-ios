@@ -22,7 +22,5 @@ extension TimeInterval {
 	static let long = 20.0
 	/// 30 seconds
 	static let extraLong = 30.0
-	/// QRCode - 2 minutes
-	static let qrcode = 2 * 60.0
 
 }

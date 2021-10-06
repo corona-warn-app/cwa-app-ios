@@ -14,7 +14,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake("something found"),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -37,7 +37,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PickImageWithoutQRCode_THEN_Error() throws {
@@ -45,7 +45,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -68,7 +68,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
 
 		// THEN
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_SelectedFileWithQRCode_THEN_QRCodeResult() throws {
@@ -76,7 +76,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake("something found"),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -99,7 +99,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithoutQRCode_THEN_QRCodeResult() throws {
@@ -107,7 +107,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -134,7 +134,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithQRCode_THEN_QRCodeResult() throws {
@@ -142,7 +142,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake("something found"),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -169,7 +169,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.documentPicker(documentPicker, didPickDocumentsAt: [url])
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 	// MARK: UIImagePicker
@@ -179,7 +179,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake("something found"),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -198,7 +198,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.imagePickerController(imagePickerController, didFinishPickingMediaWithInfo: [UIImagePickerController.InfoKey.originalImage: image])
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_SelectedImageWithoutQRCode_THEN_QRCodeResult() throws {
@@ -206,7 +206,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "no qr code found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake(),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -225,7 +225,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.imagePickerController(imagePickerController, didFinishPickingMediaWithInfo: [UIImagePickerController.InfoKey.originalImage: image])
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 	// MARK: PHPicker
@@ -236,7 +236,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		let expectation = expectation(description: "result found")
 
 		let viewModel = FileScannerCoordinatorViewModel(
-			qrCodeDetector: QRCodeDetector(),
+			qrCodeDetector: QRCodeDetectorFake("something found"),
 			qrCodeParser: QRCodeParsableMock(acceptAll: true)
 		)
 
@@ -254,7 +254,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processItemProvider(itemProvider)
 
 		// THEN
-		waitForExpectations(timeout: .qrcode)
+		waitForExpectations(timeout: .short)
 	}
 
 }
