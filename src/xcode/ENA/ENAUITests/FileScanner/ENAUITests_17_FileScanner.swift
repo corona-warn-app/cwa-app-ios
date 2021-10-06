@@ -18,7 +18,7 @@ class ENAUITests_17_FileScanner: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
     }
 
-	func test_OpenUniversalScannerAndSelectFile_CheckForSheet() throws {
+	func test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
 		app.launch()
 
@@ -30,6 +30,8 @@ class ENAUITests_17_FileScanner: CWATestCase {
 
 		let openFileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.file])
 		openFileButton.waitAndTap()
+
+		snapshot("filescanner_screenshot_scanner_sheet")
 
 		let cancelSheetButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.FileScanner.cancelSheet])
 		cancelSheetButton.waitAndTap()
@@ -53,5 +55,22 @@ class ENAUITests_17_FileScanner: CWATestCase {
 
 		let pickerView = try XCTUnwrap(app.navigationBars["UIDocumentPickerView"])
 		XCTAssertTrue(pickerView.waitForExistence(timeout: .medium))
+	}
+
+	func test_OpenUniversalScannerAndSelectFile_OpenImage() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let otherButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.other])
+		otherButton.waitAndTap()
+
+		let openFileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.file])
+		openFileButton.waitAndTap()
+
+		let photoButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.FileScanner.photo])
+		photoButton.waitAndTap()
 	}
 }
