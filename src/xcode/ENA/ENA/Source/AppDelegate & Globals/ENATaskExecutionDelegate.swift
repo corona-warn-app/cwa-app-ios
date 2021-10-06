@@ -217,18 +217,20 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
+		
 		// First check if user activated notification setting
-		guard self.dependencies.store.allowTestsStatusNotification else {
-			Log.info("[ENATaskExecutionDelegate] Cancel updating test results. User deactivated notification setting.", log: .riskDetection)
-			completion(false)
-			return
-		}
-
-		dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
-			switch result {
-			case .success:
-				completion(true)
-			case .failure:
+		UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+			if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+				self?.dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
+					switch result {
+					case .success:
+						completion(true)
+					case .failure:
+						completion(false)
+					}
+				}
+			} else {
+				Log.info("[ENATaskExecutionDelegate] Cancel updating test results. User deactivated notification setting.", log: .riskDetection)
 				completion(false)
 			}
 		}

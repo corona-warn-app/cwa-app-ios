@@ -25,8 +25,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var developerSubmissionBaseURLOverride: String?
 	var developerDistributionBaseURLOverride: String?
 	var developerVerificationBaseURLOverride: String?
-	var allowRiskChangesNotification: Bool = true
-	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var shouldShowQRScannerTooltip = false
