@@ -1,1 +1,4 @@
 "NSCameraUsageDescription" = "Zezwól aplikacji na skanowanie kodów QR za pomocą aparatu.";
+
+"NSPhotoLibraryUsageDescription" = "Zezwól aplikacji na użycie biblioteki zdjęć do zeskanowania obrazu za pomocą kodu QR.";
+

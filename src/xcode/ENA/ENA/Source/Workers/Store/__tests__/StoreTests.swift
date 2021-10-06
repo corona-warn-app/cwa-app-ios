@@ -61,8 +61,6 @@ final class StoreTests: CWATestCase {
 
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
-		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
-		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
 	}
@@ -84,12 +82,6 @@ final class StoreTests: CWATestCase {
 		let isOnboarded = store.isOnboarded
 		store.isOnboarded.toggle()
 		XCTAssertNotEqual(isOnboarded, store.isOnboarded)
-
-		let allowRiskChangesNotification = store.allowRiskChangesNotification
-		store.allowRiskChangesNotification.toggle()
-		XCTAssertNotEqual(allowRiskChangesNotification, store.allowRiskChangesNotification)
-
-		// etc.
 	}
 
 	func testBackupRestoration() throws {
