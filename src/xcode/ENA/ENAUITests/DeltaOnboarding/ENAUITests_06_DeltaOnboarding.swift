@@ -32,7 +32,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.launch()
 		
 		checkNewFeaturesScreen()
-		checkNotificationReworkScreen()
+		skipNotificationReworkScreen()
 		checkCrossCountrySupport()
 		checkDataDonationScreen()
 		
@@ -94,7 +94,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.launch()
 		
 		checkNewFeaturesScreen()
-		checkNotificationReworkScreen()
+		skipNotificationReworkScreen()
 		
 		var screenshotCounter = 0
 		let screenshotLabel = "deltaOnboarding_V15"
@@ -160,9 +160,14 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 	
 	func checkNewFeaturesScreen() {
 		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
-		
 		// leave screen
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+	}
+	
+	private func skipNotificationReworkScreen() {
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
+		// leave screen
+		app.buttons[AccessibilityIdentifiers.NotificationSettings.close].waitAndTap()
 	}
 	
 	private func checkNotificationReworkScreen() {
