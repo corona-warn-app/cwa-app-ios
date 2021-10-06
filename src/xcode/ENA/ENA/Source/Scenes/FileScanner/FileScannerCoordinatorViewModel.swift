@@ -7,7 +7,7 @@ import PhotosUI
 import PDFKit
 import OpenCombine
 
-enum FileScannerError {
+enum FileScannerError: CaseIterable {
 	case noQRCodeFound
 	case fileNotReadable
 	case invalidQRCode
@@ -54,7 +54,7 @@ protocol FileScannerProcessing {
 	var finishedPickingImage: (() -> Void)? { get set }
 	var processingStarted: (() -> Void)? { get set }
 	var processingFinished: ((QRCodeResult) -> Void)? { get set }
-	var processingFailed: ((FileScannerError) -> Void)? { get set }
+	var processingFailed: ((FileScannerError?) -> Void)? { get set }
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
 }
 
@@ -77,7 +77,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 		// There can only be one selected image, because the selectionLimit is set to 1.
 		guard let result = results.first else {
-			processingFailedOnMain(.noQRCodeFound)
+			processingFailedOnMain(nil)
 			return
 		}
 		processItemProvider(result.itemProvider)
@@ -153,7 +153,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	var finishedPickingImage: (() -> Void)?
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
-	var processingFailed: ((FileScannerError) -> Void)?
+	var processingFailed: ((FileScannerError?) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 
 	var authorizationStatus: PHAuthorizationStatus {
@@ -355,7 +355,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		}
 	}
 
-	private func processingFailedOnMain(_ error: FileScannerError) {
+	private func processingFailedOnMain(_ error: FileScannerError?) {
 		DispatchQueue.main.async {
 			self.processingFailed?(error)
 		}

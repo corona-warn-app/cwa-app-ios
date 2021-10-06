@@ -141,6 +141,6 @@ private class FileScannerViewModelStub: FileScannerProcessing {
 	var finishedPickingImage: (() -> Void)?
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
-	var processingFailed: ((FileScannerError) -> Void)?
+	var processingFailed: ((FileScannerError?) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 }

@@ -39,13 +39,15 @@ class FileScannerCoordinator {
 
 		fileScannerViewModel.processingFailed = { [weak self] alertType in
 			self?.hideIndicator()
-			self?.presentSimpleAlert(alertType)
+			if let alertType = alertType {
+				self?.presentSimpleAlert(alertType)
+			}
 		}
 
 		fileScannerViewModel.missingPasswordForPDF = { [weak self] callback in
 			self?.presentPasswordAlert(callback)
 		}
-		
+
 		presentActionSheet()
 	}
 
