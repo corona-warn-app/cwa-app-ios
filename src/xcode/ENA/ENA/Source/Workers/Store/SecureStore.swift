@@ -211,7 +211,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 
     // MARK: - Protocol AntigenTestProfileStoring
 
-	lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	lazy private(set) var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
 
 	var antigenTestProfile: AntigenTestProfile? {
 		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
@@ -579,6 +579,14 @@ extension SecureStore: DSCListCaching {
 		get { kvStore["DSCList"] as DSCListMetaData? }
 		set { kvStore["DSCList"] = newValue }
 	}
+}
+
+extension SecureStore: RecycleBinStoring {
+
+//	var recycleBinItems: [RecycleBinItem] {
+//		get { kvStore["recycleBinItems"] as [RecycleBinItem]? ?? [] }
+//		set { kvStore["recycleBinItems"] = newValue }
+//	}
 }
 
 extension SecureStore {

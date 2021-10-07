@@ -6,7 +6,11 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-final class HealthCertificate: Encodable, Equatable, Comparable {
+protocol RecycleBinIdentifiable {
+	var recycleBinIdentifier: String { get }
+}
+
+final class HealthCertificate: Encodable, Equatable, Comparable, RecycleBinIdentifiable {
 
 	// MARK: - Init
 
@@ -26,6 +30,12 @@ final class HealthCertificate: Encodable, Equatable, Comparable {
 		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
 		keyIdentifier = Self.extractKeyIdentifier(from: base45)
+	}
+
+	// MARK: - Protocol RecycleBinIdentifiable
+
+	var recycleBinIdentifier: String {
+		return base45
 	}
 
 	// MARK: - Protocol Encodable

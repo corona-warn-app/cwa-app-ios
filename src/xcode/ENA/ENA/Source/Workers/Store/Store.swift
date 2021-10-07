@@ -264,6 +264,11 @@ protocol DSCListCaching: AnyObject {
 	var dscList: DSCListMetaData? { get set }
 }
 
+protocol RecycleBinStoring: AnyObject {
+//	var recycleBinItems: [RecycleBinItem] { get set }
+}
+
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:

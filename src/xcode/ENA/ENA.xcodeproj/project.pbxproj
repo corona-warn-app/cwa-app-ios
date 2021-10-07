@@ -965,6 +965,7 @@
 		ABC1C275267B874F00223625 /* DCCDateStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */; };
 		ABCA884626BBC956005FF148 /* CheckinEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884526BBC956005FF148 /* CheckinEncryption.swift */; };
 		ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */; };
+		ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */; };
 		ABD032352658068E00A8E533 /* PPAAnalyticsSubmissionCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD032342658068E00A8E533 /* PPAAnalyticsSubmissionCollector.swift */; };
 		ABD08257260C7FE9007C4B24 /* CheckinRiskCalculationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */; };
 		ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */; };
@@ -2394,6 +2395,7 @@
 		ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatter.swift; sourceTree = "<group>"; };
 		ABCA884526BBC956005FF148 /* CheckinEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryption.swift; sourceTree = "<group>"; };
 		ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryptionTests.swift; sourceTree = "<group>"; };
+		ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBin.swift; sourceTree = "<group>"; };
 		ABD032342658068E00A8E533 /* PPAAnalyticsSubmissionCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPAAnalyticsSubmissionCollector.swift; sourceTree = "<group>"; };
 		ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinRiskCalculationTests.swift; sourceTree = "<group>"; };
 		ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceWarningMatcherTests.swift; sourceTree = "<group>"; };
@@ -5485,6 +5487,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ABCAD91D270EF597000E8BAA /* RecycleBin */,
 				B15382DC248270220010F007 /* __tests__ */,
 				011216F22617360800320745 /* CoronaTestService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
@@ -6239,6 +6242,14 @@
 				ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */,
 			);
 			path = CheckinEncryption;
+			sourceTree = "<group>";
+		};
+		ABCAD91D270EF597000E8BAA /* RecycleBin */ = {
+			isa = PBXGroup;
+			children = (
+				ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */,
+			);
+			path = RecycleBin;
 			sourceTree = "<group>";
 		};
 		ABD2F632254C531100DC1958 /* KeyPackageDownload */ = {
@@ -9078,6 +9089,7 @@
 				BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
 				345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */,
+				ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				50C0299025E4067400460FA4 /* KeySubmissionMetadata.swift in Sources */,
 				01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */,

@@ -9,7 +9,7 @@ enum CoronaTestType: Int, CaseIterable, Codable, Equatable {
 	case antigen
 }
 
-enum CoronaTest: Equatable {
+enum CoronaTest: Equatable, Codable {
 
 	case pcr(PCRTest)
 	case antigen(AntigenTest)
