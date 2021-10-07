@@ -1,1 +1,4 @@
 "NSCameraUsageDescription" = "Uygulamanın kameranızla QR kodları taramasına izin verin.";
+
+"NSPhotoLibraryUsageDescription" = "QR kod bulunan bir görüntüyü taramak için lütfen uygulamanın fotoğraf kitaplığını kullanmasına izin verin.";
+
