@@ -42,6 +42,8 @@
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_riskOneDay()",
         "ENAUITests_01b_Statistics\/test_screenshot_local_statistics_card()",
         "ENAUITests_01b_Statistics\/test_screenshot_statistics_card_titles()",
+        "ENAUITests_03_Settings\/test_screenshot_SettingsNotificationsOff()",
+        "ENAUITests_03_Settings\/test_screenshot_SettingsNotificationsOn()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmissionNotPossible()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmitQR()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmitTAN()",
@@ -57,6 +59,7 @@
         "ENAUITests_04c_ExposureLogging\/test_screenshot_exposureLogging()",
         "ENAUITests_04c_ExposureLogging\/test_screenshot_exposureLoggingOff()",
         "ENAUITests_06_DeltaOnboarding\/test_screenshot_DeltaOnboardingNewVersionFeatures()",
+        "ENAUITests_06_DeltaOnboarding\/test_screenshot_DeltaOnboardingNotificationRework()",
         "ENAUITests_06_DeltaOnboarding\/test_screenshot_DeltaOnboardingV15()",
         "ENAUITests_07_ContactJournal\/test_screenshot_AddTwoPersonsAndOneLocationToDate()",
         "ENAUITests_07_ContactJournal\/test_screenshot_AddTwoPersonsTwoLocations()",
@@ -69,6 +72,7 @@
         "ENAUITests_09_TraceLocations\/test_screenshots_of_traceLocation_print_flow()",
         "ENAUITests_10_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()",
         "ENAUITests_12_AntigenTestProfile\/test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
+        "ENAUITests_12_AntigenTestProfile\/test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CompleteVaccinationProtectionWithTestCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithFirstCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithLastCertificate()",
@@ -92,7 +96,8 @@
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()",
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_invalid()",
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_valid()",
-        "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()"
+        "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()",
+        "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

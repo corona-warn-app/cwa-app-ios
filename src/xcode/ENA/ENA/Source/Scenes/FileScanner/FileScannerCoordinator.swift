@@ -73,31 +73,37 @@ class FileScannerCoordinator {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		sheet.addAction(photoAction)
 		sheet.addAction(fileAction)
+		let cancelAction = UIAlertAction(
+			title: AppStrings.FileScanner.sheet.cancel,
+			style: .cancel
+		)
+		cancelAction.accessibilityIdentifier = AccessibilityIdentifiers.FileScanner.cancelSheet
 		sheet.addAction(
-			UIAlertAction(
-				title: AppStrings.FileScanner.sheet.cancel,
-				style: .cancel
-			)
+			cancelAction
 		)
 		parentViewController?.present(sheet, animated: true)
 	}
 	
 	private lazy var photoAction: UIAlertAction = {
-		UIAlertAction(
+		let action = UIAlertAction(
 			title: AppStrings.FileScanner.sheet.photos,
 			style: .default
 		) { [weak self] _ in
 			self?.presentPhotoPicker()
 		}
+        action.accessibilityIdentifier = AccessibilityIdentifiers.FileScanner.photo
+        return action
 	}()
 
 	private lazy var fileAction: UIAlertAction = {
-		UIAlertAction(
+		let action = UIAlertAction(
 			title: AppStrings.FileScanner.sheet.documents,
 			style: .default
 		) { [weak self] _ in
 			self?.presentFilePicker()
 		}
+        action.accessibilityIdentifier = AccessibilityIdentifiers.FileScanner.file
+        return action
 	}()
 
 	private func presentPhotoPicker() {

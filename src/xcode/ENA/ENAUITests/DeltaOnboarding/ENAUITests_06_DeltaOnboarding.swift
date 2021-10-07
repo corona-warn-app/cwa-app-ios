@@ -30,11 +30,11 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
 		
 		app.launch()
-
+		
+		checkNewFeaturesScreen()
+		skipNotificationReworkScreen()
 		checkCrossCountrySupport()
 		checkDataDonationScreen()
-		checkNewFeaturesScreen()
-		checkNotificationReworkScreen()
 		
 		// On Home Screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
@@ -53,26 +53,6 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 
 	// MARK: - Screenshots
 
-	func test_screenshot_DeltaOnboardingV15() throws {
-		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
-		
-		app.launch()
-		
-		var screenshotCounter = 0
-		let screenshotLabel = "deltaOnboarding_V15"
-
-		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
-		app.swipeUp()
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
-		app.swipeUp()
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
-		app.swipeUp()
-	}
-	
 	func test_screenshot_DeltaOnboardingNewVersionFeatures() throws {
 		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.13")
 		
@@ -87,6 +67,48 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		app.swipeUp()
 		
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+	}
+	
+	func test_screenshot_DeltaOnboardingNotificationRework() throws {
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "2.11")
+		
+		app.launch()
+		
+		checkNewFeaturesScreen()
+		
+		var screenshotCounter = 0
+		let screenshotLabel = "deltaOnboarding_notificationRework"
+
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+	}
+	
+	func test_screenshot_DeltaOnboardingV15() throws {
+		app.setLaunchArgument(LaunchArguments.onboarding.onboardingVersion, to: "1.4")
+		
+		app.launch()
+		
+		checkNewFeaturesScreen()
+		skipNotificationReworkScreen()
+		
+		var screenshotCounter = 0
+		let screenshotLabel = "deltaOnboarding_V15"
+
+		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+		app.swipeUp()
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+		app.swipeUp()
+		
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
+		app.swipeUp()
 	}
 
 	// MARK: - Private
@@ -138,14 +160,19 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 	
 	func checkNewFeaturesScreen() {
 		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
-		
 		// leave screen
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 	}
 	
+	private func skipNotificationReworkScreen() {
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
+		// leave screen
+		app.buttons[AccessibilityIdentifiers.NotificationSettings.close].waitAndTap()
+	}
+	
 	private func checkNotificationReworkScreen() {
 		
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
 		
 		// jump to system settings
@@ -158,7 +185,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		XCUIApplication().activate()
 		
 		// ensure we are back on our screen
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .long))
 		
 		// leave screen
