@@ -47,6 +47,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		return try XCTUnwrap(PDFDocument(data: data))
 	}
 
+	private var fakeImage: UIImage = {
+		guard let image = UIImage.with(color: .red) else {
+			XCTFail("Failed to create a dummy image")
+			return UIImage()
+		}
+		return image
+	}()
+
 	// MARK: - UIDocumentPicker
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PickImageWithQRCode_THEN_QRCodeResult() throws {
@@ -65,7 +73,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		viewModel.scan(UIImage())
+		viewModel.scan(fakeImage)
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -87,7 +95,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		viewModel.scan(UIImage())
+		viewModel.scan(fakeImage)
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -215,7 +223,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		viewModel.scan(UIImage())
+		viewModel.scan(fakeImage)
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -237,7 +245,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		viewModel.scan(UIImage())
+		viewModel.scan(fakeImage)
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -262,7 +270,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		viewModel.scan(UIImage())
+		viewModel.scan(fakeImage)
 
 		// THEN
 		waitForExpectations(timeout: .short)
