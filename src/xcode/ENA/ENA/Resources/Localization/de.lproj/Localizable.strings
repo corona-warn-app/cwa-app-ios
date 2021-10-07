@@ -2068,7 +2068,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_IntensiveCare_Date" = "Bis %@";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung  aller betreibbaren Intensivbetten";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung aller betreibbaren Intensivbetten";
 
 /* Error */
 
