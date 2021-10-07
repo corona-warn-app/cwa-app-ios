@@ -3230,6 +3230,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_PasswordError_title" = "Falsches Passwort";
 
+"FileScanner_AlreadyRegistered_title" = "Signatur ungültig";
+
+"FileScanner_AlreadyRegistered_message" = "Das Zertifikat ist bereits in Ihrer App registriert.";
+
 "FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
 
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";

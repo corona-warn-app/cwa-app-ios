@@ -14,6 +14,7 @@ enum FileScannerError: CaseIterable {
 	case photoAccess
 	case passwordInput
 	case unlockPDF
+	case alreadyRegistered
 
 	var title: String {
 		switch self {
@@ -29,6 +30,8 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordEntry.title
 		case .unlockPDF:
 			return AppStrings.FileScanner.PasswordError.title
+		case .alreadyRegistered:
+			return AppStrings.FileScanner.AlreadyRegistered.title
 		}
 	}
 
@@ -46,6 +49,8 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordEntry.message
 		case .unlockPDF:
 			return AppStrings.FileScanner.PasswordError.message
+		case .alreadyRegistered:
+			return AppStrings.FileScanner.AlreadyRegistered.message
 		}
 	}
 }
@@ -233,14 +238,15 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 
 		let group = DispatchGroup()
 		var validCodes = [QRCodeResult]()
+		var errors = [QRCodeParserError]()
 
 		for code in codes {
 			group.enter()
 
 			qrCodeParser.parse(qrCode: code) { parseResult in
 				switch parseResult {
-				case .failure:
-					break
+				case .failure(let qrCodeParseError):
+					errors.append(qrCodeParseError)
 				case .success(let result):
 					validCodes.append(result)
 				}
@@ -255,7 +261,13 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 				completion(firstValidResult)
 			} else {
 				Log.debug("Didn't find a valid QR-Code from codes.", log: .fileScanner)
-				self?.processingFailedOnMain(.invalidQRCode)
+				if let parseError = errors.first,
+				   case let .certificateQrError(registerError) = parseError,
+				   case .certificateAlreadyRegistered = registerError {
+					self?.processingFailedOnMain(.alreadyRegistered)
+				} else {
+					self?.processingFailedOnMain(.invalidQRCode)
+				}
 				completion(nil)
 			}
 		}
