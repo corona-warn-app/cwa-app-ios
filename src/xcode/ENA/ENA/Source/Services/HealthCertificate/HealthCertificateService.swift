@@ -428,7 +428,8 @@ class HealthCertificateService {
 				}
 
 				if healthCertificate.validityState != previousValidityState {
-					healthCertificate.isValidityStateNew = true
+					/// Only validity states that are not `.valid` should be marked as new for the user. On test certificates only `.valid` and `.invalid` state are shown, so only the `.invalid` state is marked as new.
+					healthCertificate.isValidityStateNew = healthCertificate.type == .test && healthCertificate.validityState == .invalid || healthCertificate.type != .test && healthCertificate.validityState != .valid
 				}
 
 				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
@@ -947,7 +948,7 @@ class HealthCertificateService {
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let expiringSoonDateComponents = Calendar.current.dateComponents(
@@ -975,7 +976,7 @@ class HealthCertificateService {
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let expiredDateComponents = Calendar.current.dateComponents(
@@ -1001,7 +1002,7 @@ class HealthCertificateService {
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let request = UNNotificationRequest(

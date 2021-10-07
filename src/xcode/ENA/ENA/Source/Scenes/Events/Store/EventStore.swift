@@ -468,8 +468,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		do {
 			let queryResult = try database.executeQuery(sql, values: [])
-			var traceLocations = [TraceLocation]()
+			defer {
+				queryResult.close()
+			}
 
+			var traceLocations = [TraceLocation]()
 			while queryResult.next() {
 				guard let description = queryResult.string(forColumn: "description"),
 					  let address = queryResult.string(forColumn: "address") else {
@@ -536,8 +539,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		do {
 			let queryResult = try database.executeQuery(sql, values: [])
-			var checkins = [Checkin]()
+			defer {
+				queryResult.close()
+			}
 
+			var checkins = [Checkin]()
 			while queryResult.next() {
 				guard let traceLocationDescription = queryResult.string(forColumn: "traceLocationDescription"),
 					  let traceLocationAddress = queryResult.string(forColumn: "traceLocationAddress") else {
@@ -618,8 +624,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		do {
 			let queryResult = try database.executeQuery(sql, values: [])
-			var traceTimeIntervalMatches = [TraceTimeIntervalMatch]()
+			defer {
+				queryResult.close()
+			}
 
+			var traceTimeIntervalMatches = [TraceTimeIntervalMatch]()
 			while queryResult.next() {
 
 				let id = Int(queryResult.int(forColumn: "id"))
@@ -666,8 +675,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		do {
 			let queryResult = try database.executeQuery(sql, values: [])
-			var traceWarningPackageMetadatas = [TraceWarningPackageMetadata]()
+			defer {
+				queryResult.close()
+			}
 
+			var traceWarningPackageMetadatas = [TraceWarningPackageMetadata]()
 			while queryResult.next() {
 				guard let region = queryResult.string(forColumn: "region"),
 					  let eTag = queryResult.string(forColumn: "eTag") else {
