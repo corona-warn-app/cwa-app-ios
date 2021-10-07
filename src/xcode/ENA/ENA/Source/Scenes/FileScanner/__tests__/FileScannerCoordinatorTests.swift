@@ -12,7 +12,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 		let viewModel = FileScannerViewModelStub()
 		let fileScannerCoordinator = FileScannerCoordinator(
 			viewControllerSpy,
-			fileScannerViewModel: viewModel,
+			viewModel: viewModel,
 			qrCodeFound: { _ in },
 			noQRCodeFound: { }
 		)
@@ -28,7 +28,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 		let viewModel = FileScannerViewModelStub()
 		let fileScannerCoordinator = FileScannerCoordinator(
 			viewControllerSpy,
-			fileScannerViewModel: viewModel,
+			viewModel: viewModel,
 			qrCodeFound: { _ in },
 			noQRCodeFound: { }
 		)
@@ -46,7 +46,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 		let qrCodeFoundExpectation = expectation(description: "qrCodeFound is called.")
 		let fileScannerCoordinator = FileScannerCoordinator(
 			viewControllerSpy,
-			fileScannerViewModel: viewModel,
+			viewModel: viewModel,
 			qrCodeFound: { _ in
 				qrCodeFoundExpectation.fulfill()
 			},
@@ -66,7 +66,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 
 		let fileScannerCoordinator = FileScannerCoordinator(
 			viewControllerSpy,
-			fileScannerViewModel: viewModel,
+			viewModel: viewModel,
 			qrCodeFound: { _ in },
 			noQRCodeFound: { }
 		)
@@ -88,7 +88,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 
 		let fileScannerCoordinator = FileScannerCoordinator(
 			viewControllerSpy,
-			fileScannerViewModel: viewModel,
+			viewModel: viewModel,
 			qrCodeFound: { _ in },
 			noQRCodeFound: { }
 		)
