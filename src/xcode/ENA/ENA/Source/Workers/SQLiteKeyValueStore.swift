@@ -19,7 +19,7 @@ final class SQLiteKeyValueStore {
 
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
-	/// If any part of the init fails no Datbase will be created
+	/// If any part of the init fails no Database will be created
 	/// If the Database can't be accessed with the key the currentFile will be reset
 
 	init(with directoryURL: URL, key: String) throws {
@@ -217,7 +217,7 @@ final class SQLiteKeyValueStore {
 			do {
 				return try getData(for: key)
 			} catch {
-				Log.error("Cant fetch data for key '\(key)'", log: .localData, error: error)
+				Log.error("Can't fetch data for key '\(key)'", log: .localData, error: error)
 				return nil
 			}
 		}
@@ -225,7 +225,7 @@ final class SQLiteKeyValueStore {
 			do {
 				try setData(newValue, for: key)
 			} catch {
-				Log.error("Cant set data for key '\(key)'", log: .localData, error: error)
+				Log.error("Can't set data for key '\(key)'", log: .localData, error: error)
 			}
 		}
 	}

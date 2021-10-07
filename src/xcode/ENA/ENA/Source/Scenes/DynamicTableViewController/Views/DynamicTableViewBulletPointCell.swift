@@ -8,7 +8,7 @@ import UIKit
 final class DynamicTableViewBulletPointCell: UITableViewCell {
 	
 	
-	/// Spacing will get divded by two and applied to top and bottom
+	/// Spacing will get divided by two and applied to top and bottom
 	enum Spacing: CGFloat {
 		case large = 16
 		case normal = 6

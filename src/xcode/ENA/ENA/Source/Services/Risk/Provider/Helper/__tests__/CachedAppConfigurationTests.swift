@@ -136,7 +136,7 @@ final class CachedAppConfigurationTests: CWATestCase {
 		}
 
 		// WHEN
-		// Initilize the `CachedAppConfiguration` will trigger `fetchAppConfiguration`.
+		// Initialize the `CachedAppConfiguration` will trigger `fetchAppConfiguration`.
 		_ = CachedAppConfiguration(client: client, store: store)
 		_ = CachedAppConfiguration(client: client, store: store)
 		_ = CachedAppConfiguration(client: client, store: store)

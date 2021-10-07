@@ -80,7 +80,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 			completion(.failure(.emptyLogFile))
 			return
 		}
-		Log.debug("Succesfully got a zipped error log file. Proceed with authentication for els.")
+		Log.debug("Successfully got a zipped error log file. Proceed with authentication for els.")
 
 		authenticate(completion: { [weak self] result in
 			switch result {
@@ -98,7 +98,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 					}
 				})
 			case let .failure(error):
-				Log.error("Authentication for els otp failed. Abord upload process.", log: .els, error: error)
+				Log.error("Authentication for els otp failed. Abort upload process.", log: .els, error: error)
 				completion(.failure(error))
 			}
 		})
@@ -115,7 +115,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	private lazy var fileManager = FileManager.default
 	
 	private func authenticate(completion: @escaping ELSAuthenticationResponse) {
-		// first get ppac token for els (without devide time check)
+		// first get ppac token for els (without divide time check)
 		ppacService.getPPACTokenELS({ [weak self] result in
 			switch result {
 			case let .success(ppacToken):
@@ -163,7 +163,7 @@ extension ErrorLogSubmissionService: ErrorLogHandling {
 	/// We need that it in the StringInterpolation+Private.swift.
 	public static let keyElsLoggingCensoring = "elsLoggingCensoring"
 
-	/// Flag to indicate wether the ELS logging is active or not.
+	/// Flag to indicate whether the ELS logging is active or not.
 	///
 	/// The initial value is fetched from `UserDefaults`.
 	private(set) static var errorLoggingEnabled: Bool = {

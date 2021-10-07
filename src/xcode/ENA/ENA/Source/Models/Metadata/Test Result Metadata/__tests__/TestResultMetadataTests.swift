@@ -386,7 +386,7 @@ class TestResultMetadataTests: CWATestCase {
 		XCTAssertNil(secureStore.pcrTestResultMetadata?.testResult, "incorrect testResult")
 		XCTAssertNil(secureStore.pcrTestResultMetadata?.testResult, "incorrect testResult")
 
-		// The if the value is invalid  hoursSinceTestRegistration shouldnt be updated and should remain the default value: 0
+		// The if the value is invalid  hoursSinceTestRegistration shouldn't be updated and should remain the default value: 0
 		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
 		XCTAssertEqual(secureStore.antigenTestResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
 	}

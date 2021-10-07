@@ -108,7 +108,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 				
 				switch result {
 				case let .success(packageDownloadResponse):
-					Log.debug("Successfuly downloaded new booster rules package")
+					Log.debug("Successfully downloaded new booster rules package")
 					self.rulesDownloadingSuccess(
 						ruleType: .boosterNotification,
 						packageDownloadResponse: packageDownloadResponse,

@@ -16,7 +16,7 @@ final class ExposureDetection {
 	private let deviceTimeCheck: DeviceTimeChecking
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
-	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
+	// Please see this story for more information: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 	private let country = "EUR"
 
 	// MARK: Creating a Transaction
