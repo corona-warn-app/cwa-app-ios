@@ -739,7 +739,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 	}
 
 	/// we will search for the given identifier inside a scrollable element
-	/// scroll and collect all visible elements until the collection doen't change
+	/// scroll and collect all visible elements until the collection doesn't change
 	private func search(_ identifier: String, element: XCUIElement) -> XCUIElement? {
 		var allElementsFound = false
 		var lastLoopSeenElements: [String] = []

@@ -419,6 +419,12 @@ class QRScannerViewController: UIViewController {
 		pcr.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakePCR
 		alertVC.addAction(pcr)
 		
+		let pcr2 = UIAlertAction(title: "PCR2", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakePCRTest2Scan()
+		})
+		pcr2.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakePCR2
+		alertVC.addAction(pcr2)
+		
 		let event = UIAlertAction(title: "Event", style: .default, handler: { [weak self] _ in
 			self?.viewModel?.fakeEventScan()
 		})

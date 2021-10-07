@@ -73,7 +73,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		dateTimeLabel.textAlignment = .right
 		dateTimeLabel.numberOfLines = 1
 
-		// we add a placeholder text to get the cell hight calculation right
+		// we add a placeholder text to get the cell height calculation right
 		// otherwise the label is hidden, text gets updated as soon as configure with a cellViewModel gets called
 		dateTimeLabel.text = "placeholder"
 

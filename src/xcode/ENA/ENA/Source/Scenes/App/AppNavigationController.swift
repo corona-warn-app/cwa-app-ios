@@ -119,7 +119,7 @@ extension AppNavigationController: UINavigationControllerDelegate {
 	/// If the passed in `UIViewController` is a `NavigationBarOpacityDelegate` and contains a `UIScrollView`,
 	/// register an observer for the `contentOffset` property so that the navigation bar's `backgroundAlpha` is set as the controller scrolls.
 	///
-	/// - parameter viewController: The controller to regsiter the observer for
+	/// - parameter viewController: The controller to register the observer for
 	private func observeScrollView(of viewController: UIViewController) {
 		guard
 			let opacityDelegate = viewController as? NavigationBarOpacityDelegate,

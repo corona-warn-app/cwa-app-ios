@@ -29,7 +29,7 @@ enum QuickAction: String {
 		update()
 	}
 	
-	/// Adds or removes quick actions accoring to the current application state
+	/// Adds or removes quick actions according to the current application state
 	private static func update() {
 		
 		Log.info(#function, log: .ui)
@@ -70,7 +70,7 @@ extension AppDelegate {
 		handleShortcutItem(shortcutItem)
 	}
 
-	/// Checks wether the application is launched from a shortcut or not.
+	/// Checks whether the application is launched from a shortcut or not.
 	///
 	/// - Parameter launchOptions: the launch options passed in the app launch (will/did) functions
 	/// - Returns: `false` if the application was launched(!) from a shortcut to prevent further calls to `application(_:performActionFor:completionHandler:)`

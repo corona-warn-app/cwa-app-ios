@@ -7,7 +7,7 @@ import XCTest
 
 class CheckinRiskCalculationTests: CWATestCase {
 
-	// For all the test szenarios, please consider the risk calculation parameters in the mocked app configuration.
+	// For all the test scenarios, please consider the risk calculation parameters in the mocked app configuration.
 
 	// 1 match with 10m overlap. Overlap time sum from all checkins is 10m.
 	// Result: Low checkin risk. No day risk.

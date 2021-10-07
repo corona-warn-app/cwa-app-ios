@@ -534,7 +534,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		)
 	}
 
-	/// - NOTE: This section should only be displayed when more than 0 exposures occured.
+	/// - NOTE: This section should only be displayed when more than 0 exposures occurred.
 	private func lowRiskExposureSection(_ numberOfExposures: Int, accessibilityIdentifier: String?) -> DynamicSection {
 		guard numberOfExposures > 0 else { return .section(cells: []) }
 
