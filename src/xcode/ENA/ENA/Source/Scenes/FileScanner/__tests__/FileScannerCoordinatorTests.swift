@@ -3,41 +3,11 @@
 //
 
 import XCTest
+import PDFKit
+import PhotosUI
 @testable import ENA
 
 class FileScannerCoordinatorTests: XCTestCase {
-
-	func test_When_finishedPickingImage_Then_dismissViewControllerIsCalled() {
-		let viewControllerSpy = ViewControllerSpy()
-		let viewModel = FileScannerViewModelStub()
-		let fileScannerCoordinator = FileScannerCoordinator(
-			viewControllerSpy,
-			viewModel: viewModel,
-			qrCodeFound: { _ in },
-			noQRCodeFound: { }
-		)
-		fileScannerCoordinator.start()
-
-		viewModel.finishedPickingImage?()
-
-		XCTAssertTrue(viewControllerSpy.dimissCalled)
-	}
-
-	func test_When_processingStarted_Then_activityIndicatorIsShown() {
-		let viewControllerSpy = ViewControllerSpy()
-		let viewModel = FileScannerViewModelStub()
-		let fileScannerCoordinator = FileScannerCoordinator(
-			viewControllerSpy,
-			viewModel: viewModel,
-			qrCodeFound: { _ in },
-			noQRCodeFound: { }
-		)
-		fileScannerCoordinator.start()
-
-		viewModel.processingStarted?()
-
-		XCTAssertTrue(viewControllerSpy.viewSpy.addSubViewCalled)
-	}
 
 	func test_When_processingFinished_Then_qrCodeFoundIsCalled() {
 		let viewControllerSpy = ViewControllerSpy()
@@ -138,6 +108,19 @@ private class ViewControllerSpy: UIViewController {
 }
 
 private class FileScannerViewModelStub: FileScannerProcessing {
+
+	var authorizationStatus: PHAuthorizationStatus = .authorized
+
+	func requestPhotoAccess(_ completion: @escaping (PHAuthorizationStatus) -> Void) {}
+
+	func scan(_ image: UIImage) {}
+
+	func scan(_ pdfDocument: PDFDocument) {}
+
+	func unlockAndScan(_ pdfDocument: PDFDocument) {}
+
+	func processItemProvider(_ itemProvider: NSItemProvider) {}
+
 	var finishedPickingImage: (() -> Void)?
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
