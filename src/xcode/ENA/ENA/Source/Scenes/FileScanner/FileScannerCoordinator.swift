@@ -11,50 +11,43 @@ class FileScannerCoordinator {
 
 	init(
 		_ parentViewController: UIViewController,
-		qrCodeParser: QRCodeParsable,
+		fileScannerViewModel: FileScannerProcessing,
 		qrCodeFound: @escaping (QRCodeResult) -> Void,
 		noQRCodeFound: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
+		self.fileScannerViewModel = fileScannerViewModel
 		self.qrCodeFound = qrCodeFound
-		self.qrCodeParser = qrCodeParser
 		self.noQRCodeFound = noQRCodeFound
 	}
 
 	// MARK: - Internal
 	
 	func start() {
-		self.viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: qrCodeParser,
-			finishedPickingImage: { [weak self] in
-				DispatchQueue.main.async {
-					self?.parentViewController?.dismiss(animated: true)
-				}
-			},
-			processingStarted: { [weak self] in
-				DispatchQueue.main.async {
-					self?.showIndicator()
-				}
-			},
-			processingFinished: { [weak self] qrCodeResult in
-				DispatchQueue.main.async {
-					self?.qrCodeFound(qrCodeResult)
-					self?.hideIndicator()
-				}
-			},
-			processingFailed: { [weak self] alertType in
-				DispatchQueue.main.async {
-					self?.hideIndicator()
-					self?.presentSimpleAlert(alertType)
-				}
-			},
-			missingPasswordForPDF: { [weak self] callback in
-				DispatchQueue.main.async {
-					self?.presentPasswordAlert(callback)
-				}
+		fileScannerViewModel.finishedPickingImage = { [weak self] in
+			self?.parentViewController?.dismiss(animated: true)
+		}
+
+		fileScannerViewModel.processingStarted = { [weak self] in
+			self?.showIndicator()
+		}
+
+		fileScannerViewModel.processingFinished = { [weak self] qrCodeResult in
+			self?.qrCodeFound(qrCodeResult)
+			self?.hideIndicator()
+		}
+
+		fileScannerViewModel.processingFailed = { [weak self] alertType in
+			self?.hideIndicator()
+			if let alertType = alertType {
+				self?.presentSimpleAlert(alertType)
 			}
-		)
-		
+		}
+
+		fileScannerViewModel.missingPasswordForPDF = { [weak self] callback in
+			self?.presentPasswordAlert(callback)
+		}
+
 		presentActionSheet()
 	}
 
@@ -65,39 +58,45 @@ class FileScannerCoordinator {
 	private var viewModel: FileScannerCoordinatorViewModel!
 	private var parentViewController: UIViewController?
 	private var qrCodeFound: (QRCodeResult) -> Void
-	private let qrCodeParser: QRCodeParsable
 	private var noQRCodeFound: () -> Void
 	private var rootViewController: UIViewController?
+	private var fileScannerViewModel: FileScannerProcessing
 	
 	private func presentActionSheet() {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		sheet.addAction(photoAction)
 		sheet.addAction(fileAction)
+		let cancelAction = UIAlertAction(
+			title: AppStrings.FileScanner.sheet.cancel,
+			style: .cancel
+		)
+		cancelAction.accessibilityIdentifier = AccessibilityIdentifiers.FileScanner.cancelSheet
 		sheet.addAction(
-			UIAlertAction(
-				title: AppStrings.FileScanner.sheet.cancel,
-				style: .cancel
-			)
+			cancelAction
 		)
 		parentViewController?.present(sheet, animated: true)
 	}
 	
 	private lazy var photoAction: UIAlertAction = {
-		UIAlertAction(
+		let action = UIAlertAction(
 			title: AppStrings.FileScanner.sheet.photos,
 			style: .default
 		) { [weak self] _ in
 			self?.presentPhotoPicker()
 		}
+        action.accessibilityIdentifier = AccessibilityIdentifiers.FileScanner.photo
+        return action
 	}()
 
 	private lazy var fileAction: UIAlertAction = {
-		UIAlertAction(
+		let action = UIAlertAction(
 			title: AppStrings.FileScanner.sheet.documents,
 			style: .default
 		) { [weak self] _ in
 			self?.presentFilePicker()
 		}
+        action.accessibilityIdentifier = AccessibilityIdentifiers.FileScanner.file
+        return action
 	}()
 
 	private func presentPhotoPicker() {
