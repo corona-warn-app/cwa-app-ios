@@ -27,8 +27,8 @@ extension Name {
 	
 	var reversedStandardizedName: String {
 		var standardizedFamilyName = self.standardizedFamilyName
-		standardizedFamilyName += ","
-		return [standardizedFamilyName, standardizedGivenName].formatted()
+		standardizedFamilyName += "<<"
+		return [standardizedFamilyName, standardizedGivenName].formatted(separator: "")
 	}
 
 	private var resolvedGivenName: String? {
