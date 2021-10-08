@@ -45,11 +45,8 @@ final class FooterViewModel {
 		self.backgroundColor = backgroundColor
 		self.primaryTextColor = primaryTextColor
 		self.secondaryTextColor = secondaryTextColor
-		if isPrimaryButtonHidden && isSecondaryButtonHidden {
-			self.topBottomInset = 0
-		} else {
-			self.topBottomInset = topBottomInsetDefault
-		}
+		self.topBottomInset = 0
+		self.updateInsets()
 	}
 
 	// MARK: - Internal

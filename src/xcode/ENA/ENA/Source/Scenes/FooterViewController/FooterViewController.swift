@@ -74,7 +74,7 @@ class FooterViewController: UIViewController {
 		
 		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
 		secondaryButtonHeightConstraint.priority = .defaultHigh
-
+		
 		NSLayoutConstraint.activate([
 			// buttonsStackView
 			buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset),
