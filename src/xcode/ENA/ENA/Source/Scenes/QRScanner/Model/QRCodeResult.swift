@@ -4,7 +4,7 @@
 
 import Foundation
 
-/// The result of a qrScan is a TraceLocation for checkins or warnings on behalf, a corona test or a healthCertificate (as a touple of person and certificate)
+/// The result of a qrScan is a TraceLocation for checkins or warnings on behalf, a corona test or a healthCertificate (as a tuple of person and certificate)
 enum QRCodeResult {
 	case traceLocation(TraceLocation)
 	case coronaTest(CoronaTestRegistrationInformation)

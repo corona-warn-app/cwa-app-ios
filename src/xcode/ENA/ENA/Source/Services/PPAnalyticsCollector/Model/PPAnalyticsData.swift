@@ -4,12 +4,12 @@
 
 import Foundation
 
-/// We put this protocol and its implementation in a seperate file because this protocol is only used by the collector. And only the collector should use it!
+/// We put this protocol and its implementation in a separate file because this protocol is only used by the collector. And only the collector should use it!
 /// So if we do this, we can hide the analytics relevant properties in the secure store from accessing of the Store protocol.
 /// ⚠️ If you add some new data here, you MUST NOT forget to nil this data in the deleteAnalyticsData() method of the Analytics. ⚠️
 
 protocol PPAnalyticsData: AnyObject {
-	/// Last succesfull submission of analytics data. Needed for analytics submission.
+	/// Last successful submission of analytics data. Needed for analytics submission.
 	var lastSubmissionAnalytics: Date? { get set }
 	/// Date of last app reset. Needed for analytics submission.
 	var lastAppReset: Date? { get set }
@@ -107,7 +107,7 @@ extension SecureStore: PPAnalyticsData {
 			// Migrate data from old entry 'submittedWithQR'.
 			// 'submittedWithQR' was previously used to identify if a PCR test was registered via QR code.
 			// Since we now need this information for pcr and antigen tests, this field needs to me migrated to the 'keySubmissionMetadata'.
-			// According to the specs for 'Key Submission Metadata' its the other way arround, we have a field called 'submittedWithTeleTAN', which identifies if a test was registered via TAN.
+			// According to the specs for 'Key Submission Metadata' its the other way around, we have a field called 'submittedWithTeleTAN', which identifies if a test was registered via TAN.
 			// Since there are only 2 ways (TAN or QR code) to register a test, we can assume 'submittedWithTeleTAN = !submittedWithQR'
 			if let _submittedWithQR = kvStore["submittedWithQR"] as? Bool?,
 			   let submittedWithQR = _submittedWithQR,

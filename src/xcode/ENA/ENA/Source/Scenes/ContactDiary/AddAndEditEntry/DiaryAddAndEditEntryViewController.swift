@@ -138,7 +138,7 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		case .next, .continue:
 			self.textField(for: textField.tag + 1)?.becomeFirstResponder()
 		default:
-			Log.debug("unsupport return key type")
+			Log.debug("unsupported return key type")
 		}
 		return false
 	}

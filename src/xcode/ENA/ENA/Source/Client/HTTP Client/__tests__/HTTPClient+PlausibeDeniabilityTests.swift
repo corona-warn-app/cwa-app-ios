@@ -89,7 +89,7 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 			expectation.fulfill()
 			guard
 				// Hack: We cannot directly access the HTTP headers here,
-				// we therefore compare their JSON encoded lenght.
+				// we therefore compare their JSON encoded length.
 				let data = try? JSONEncoder().encode(request.allHTTPHeaderFields),
 				let url = request.url?.absoluteString
 			else {

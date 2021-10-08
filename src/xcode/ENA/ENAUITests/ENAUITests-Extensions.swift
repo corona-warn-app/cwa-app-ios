@@ -81,7 +81,7 @@ extension XCUIApplication {
 
 	private var currentLanguage: (langCode: String, localeCode: String)? {
 		guard let preferredLanguage = Locale.preferredLanguages.first else {
-			fatalError("Cant unwrap: Locale.preferredLanguages.first")
+			fatalError("Can't unwrap: Locale.preferredLanguages.first")
 		}
 		let currentLocale = Locale(identifier: preferredLanguage)
 		guard let langCode = currentLocale.languageCode else {

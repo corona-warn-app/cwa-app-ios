@@ -30,7 +30,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 	}()
 
 
-	/// The default app configration loaded directly from file.
+	/// The default app configuration loaded directly from file.
 	///
 	///	This is synchronously for test and screenshot purposes. Use `AppConfigurationProviding` for 'real' config fetching!
 	static let defaultAppConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS = {

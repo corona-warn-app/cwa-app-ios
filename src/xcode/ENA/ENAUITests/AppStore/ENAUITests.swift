@@ -57,7 +57,7 @@ class ENAUITests: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 		app.swipeUp(velocity: .slow)
 		// ScreenShot_0004: Settings > Risk exposure
-		app.swipeUp() // the home screen got loger and for some reason we have to scroll to `tap()`
+		app.swipeUp() // the home screen got longer and for some reason we have to scroll to `tap()`
 		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap(.extraLong)
 		app.cells["AppStrings.Settings.tracingLabel"].waitAndTap(.extraLong)
 		XCTAssertTrue(app.images["AppStrings.ExposureNotificationSetting.accLabelEnabled"].waitForExistence(timeout: .medium))
