@@ -301,17 +301,6 @@ class HomeStatisticsCardViewModel {
 			)
 		}
 		primarySubtitle = AppStrings.Statistics.Card.HospitalizationRate.secondaryLabelTitle
-		
-		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
-			secondaryValue = secondaryFigure.formattedValue
-			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			secondaryTitle = updateDate.formatted(
-				todayString: AppStrings.Statistics.Card.HospitalizationRate.today,
-				yesterdayString: AppStrings.Statistics.Card.HospitalizationRate.yesterday,
-				otherDateString: AppStrings.Statistics.Card.HospitalizationRate.date
-			)
-		}
-		secondarySubtitle = AppStrings.Statistics.Card.HospitalizationRate.secondaryLabelTitle
 	}
 	
 	private func setupInfectedPeopleInIntensiveCare(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
