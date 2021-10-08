@@ -709,7 +709,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		/// Home Screen
 		
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
-		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))") //2
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		/// Register your test screen
 		
@@ -723,7 +723,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		/// Your consent screen
 		
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription].waitForExistence(timeout: .extraLong))
-		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))") //3
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		continueButton.waitAndTap()
 

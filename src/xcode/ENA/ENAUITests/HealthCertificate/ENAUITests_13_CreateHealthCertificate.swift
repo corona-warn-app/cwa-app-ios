@@ -4,7 +4,6 @@
 
 import XCTest
 
-// swiftlint:disable type_body_length
 class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
