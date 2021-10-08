@@ -85,23 +85,19 @@ class RecycleBin {
 	// MARK: - Init
 
 	init(
-		testRestorationHandler: TestRestorationHandling,
-		certificateRestorationHandler: CertificateRestorationHandling
+		store: RecycleBinStoring
 	) {
-		self.testRestorationHandler = testRestorationHandler
-		self.certificateRestorationHandler = certificateRestorationHandler
+		self.store = store
 	}
 
 	// MARK: - Internal
-
-	@DidSetPublished private(set) var items = Set<RecycleBinItem>()
 
 	func recycle(_ item: RecycledItem) {
 		let binItem = RecycleBinItem(
 			deletionDate: Date(),
 			item: item
 		)
-		items.insert(binItem)
+		store.recycleBinItems.insert(binItem)
 	}
 
 	func canRestore(_ item: RecycleBinItem) -> Result<Void, RestorationError> {
@@ -122,33 +118,34 @@ class RecycleBin {
 			testRestorationHandler.restore(coronaTest)
 		}
 
-		items.remove(item)
+		store.recycleBinItems.remove(item)
 	}
 
 	func remove(_ item: RecycleBinItem) {
-		items.remove(item)
+		store.recycleBinItems.remove(item)
 	}
 
 	func removeAll() {
-		items.removeAll()
+		store.recycleBinItems.removeAll()
 	}
 
 	func item(for identifier: String) -> RecycledItem? {
-		items.first { $0.item.recycleBinIdentifier == identifier }?.item
+		store.recycleBinItems.first { $0.item.recycleBinIdentifier == identifier }?.item
 	}
 
 	func cleanup() {
-		let cleanedSubsequence = items.drop { item in
+		let cleanedSubsequence = store.recycleBinItems.drop { item in
 			guard let treshholdDate = Calendar.current.date(byAdding: .day, value: -30, to: Date()) else {
 				fatalError("Could not create date.")
 			}
 			return item.deletionDate < treshholdDate
 		}
-		items = Set(cleanedSubsequence)
+		store.recycleBinItems = Set(cleanedSubsequence)
 	}
 
 	// MARK: - Private
 
-	private let testRestorationHandler: TestRestorationHandling
-	private let certificateRestorationHandler: CertificateRestorationHandling
+	private var testRestorationHandler: TestRestorationHandling!
+	private var certificateRestorationHandler: CertificateRestorationHandling!
+	private let store: RecycleBinStoring
 }

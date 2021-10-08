@@ -284,6 +284,18 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["boosterRulesCache"] = newValue }
 	}
 
+	// MARK: - Protocol RecycleBinStoring
+
+	private(set) lazy var recycleBinItemsSubject = CurrentValueSubject<Set<RecycleBinItem>, Never>(recycleBinItems)
+
+	var recycleBinItems: Set<RecycleBinItem> {
+		get { kvStore["recycleBinItems"] as Set<RecycleBinItem>? ?? [] }
+		set {
+			kvStore["recycleBinItems"] = newValue
+			recycleBinItemsSubject.send(newValue)
+		}
+	}
+
 	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE
@@ -578,14 +590,6 @@ extension SecureStore: DSCListCaching {
 	var dscList: DSCListMetaData? {
 		get { kvStore["DSCList"] as DSCListMetaData? }
 		set { kvStore["DSCList"] = newValue }
-	}
-}
-
-extension SecureStore: RecycleBinStoring {
-
-	var recycleBinItems: [RecycleBinItem] {
-		get { kvStore["recycleBinItems"] as [RecycleBinItem]? ?? [] }
-		set { kvStore["recycleBinItems"] = newValue }
 	}
 }
 
