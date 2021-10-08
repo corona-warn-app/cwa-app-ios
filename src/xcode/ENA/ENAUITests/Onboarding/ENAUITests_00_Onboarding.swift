@@ -155,16 +155,8 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
-		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
-		app.swipeUp()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitAndTap()
@@ -174,9 +166,6 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
-		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
-
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 //		Onboarding ends here. Next screen is the home screen.
