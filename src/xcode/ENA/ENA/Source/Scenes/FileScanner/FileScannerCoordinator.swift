@@ -27,7 +27,7 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 		finishedPickingImage()
 
-		DispatchQueue.global(qos: .background).async { [weak self] in
+		DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 			guard let self = self,
 				let image = info[.originalImage] as? UIImage
 			else {
@@ -292,9 +292,6 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 	}
 
 	private func hideIndicator() {
-		guard activityIndicatorView.alpha >= 0.0 else {
-			return
-		}
 		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeIn) { [weak self] in
 			self?.activityIndicatorView.alpha = 0.0
 		}

@@ -121,7 +121,6 @@ private class FileScannerViewModelStub: FileScannerProcessing {
 
 	func processItemProvider(_ itemProvider: NSItemProvider) {}
 
-	var finishedPickingImage: (() -> Void)?
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
 	var processingFailed: ((FileScannerError?) -> Void)?
