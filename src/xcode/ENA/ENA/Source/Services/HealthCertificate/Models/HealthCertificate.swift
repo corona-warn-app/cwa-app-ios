@@ -6,11 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-protocol RecycleBinIdentifiable {
-	var recycleBinIdentifier: String { get }
-}
-
-final class HealthCertificate: Encodable, Equatable, Comparable, RecycleBinIdentifiable {
+final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable {
 
 	// MARK: - Init
 
@@ -26,6 +22,20 @@ final class HealthCertificate: Encodable, Equatable, Comparable, RecycleBinIdent
 		self.didShowInvalidNotification = didShowInvalidNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
+
+		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
+		keyIdentifier = Self.extractKeyIdentifier(from: base45)
+	}
+
+	required init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		base45 = try container.decode(Base45.self, forKey: .base45)
+		validityState = try container.decodeIfPresent(HealthCertificateValidityState.self, forKey: .validityState) ?? .valid
+		isValidityStateNew = try container.decodeIfPresent(Bool.self, forKey: .isValidityStateNew) ?? false
+		isNew = try container.decodeIfPresent(Bool.self, forKey: .isNew) ?? false
+		didShowInvalidNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowInvalidNotification) ?? false
 
 		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)

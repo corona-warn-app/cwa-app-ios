@@ -6,7 +6,11 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-enum RecycledItem: Hashable, Equatable, Encodable {
+protocol RecycleBinIdentifiable {
+	var recycleBinIdentifier: String { get }
+}
+
+enum RecycledItem: Hashable, Equatable, Codable {
 	case certificate(HealthCertificate)
 	case coronaTest(CoronaTest)
 
@@ -18,6 +22,15 @@ enum RecycledItem: Hashable, Equatable, Encodable {
 			hasher.combine(0)
 		case .coronaTest:
 			hasher.combine(1)
+		}
+	}
+
+	var recycleBinIdentifier: String {
+		switch self {
+		case .certificate(let certificate):
+			return certificate.recycleBinIdentifier
+		case .coronaTest(let test):
+			return test.recycleBinIdentifier
 		}
 	}
 
@@ -33,9 +46,8 @@ enum RecycledItem: Hashable, Equatable, Encodable {
 	}
 }
 
-struct RecycleBinItem: Equatable, Hashable, Encodable {
+struct RecycleBinItem: Equatable, Hashable, Codable {
 	let deletionDate: Date
-//	let restaurationHandler: RestaurationHandler
 	let item: RecycledItem
 
 	// MARK: Equatable
@@ -45,36 +57,44 @@ struct RecycleBinItem: Equatable, Hashable, Encodable {
 	}
 }
 
-//struct RestaurationHandler: Hashable, Equatable, Codable {
-//	let id = UUID()
-//	var canRestore: ((RecycledItem) -> Result<Void, RestaurationError>)?
-//	var restore: ((RecycledItem) -> Void)?
-//
-//	// MARK: Hashable
-//
-//	func hash(into hasher: inout Hasher) {
-//		hasher.combine(id)
-//	}
-//
-//	// MARK: Equatable
-//
-//	static func == (lhs: RestaurationHandler, rhs: RestaurationHandler) -> Bool {
-//		return lhs.id == rhs.id
-//	}
-//}
+enum RestorationError: Error {
+	case testError(TestRestorationError)
+	case certificateError(CertificateRestorationError)
+}
 
-enum SomeError: Error {
+enum TestRestorationError: Error {
+	case some
+}
 
+protocol TestRestorationHandling {
+	var canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>) { get set }
+	var restore: ((CoronaTest) -> Void) { get set }
+}
+
+enum CertificateRestorationError: Error {
+	case some
+}
+
+protocol CertificateRestorationHandling {
+	var canRestore: ((HealthCertificate) -> Result<Void, TestRestorationError>) { get set }
+	var restore: ((HealthCertificate) -> Void) { get set }
 }
 
 class RecycleBin {
 
+	// MARK: - Init
+
+	init(
+		testRestorationHandler: TestRestorationHandling,
+		certificateRestorationHandler: CertificateRestorationHandling
+	) {
+		self.testRestorationHandler = testRestorationHandler
+		self.certificateRestorationHandler = certificateRestorationHandler
+	}
+
+	// MARK: - Internal
+
 	@DidSetPublished private(set) var items = Set<RecycleBinItem>()
-
-	var canRestoreTest: ((CoronaTest) -> Result<Void, SomeError>)?
-	var restoreTest: ((CoronaTest) -> Void)?
-
-	var restoreHealthCertificate: ((HealthCertificate) -> Void)?
 
 	func recycle(_ item: RecycledItem) {
 		let binItem = RecycleBinItem(
@@ -84,24 +104,22 @@ class RecycleBin {
 		items.insert(binItem)
 	}
 
-	func canRestore(_ item: RecycleBinItem) -> Result<Void, SomeError> {
+	func canRestore(_ item: RecycleBinItem) -> Result<Void, RestorationError> {
 		switch item.item {
 		case .certificate:
 			return .success(())
 		case .coronaTest(let coronaTest):
-			guard let canRestoreTest = canRestoreTest else {
-				fatalError("ToDo")
-			}
-			return canRestoreTest(coronaTest)
+			let canRestoreResult = testRestorationHandler.canRestore(coronaTest)
+			return canRestoreResult.mapError { RestorationError.testError($0) }
 		}
 	}
 
 	func restore(_ item: RecycleBinItem) {
 		switch item.item {
 		case .certificate(let certificate):
-			restoreHealthCertificate?(certificate)
+			certificateRestorationHandler.restore(certificate)
 		case .coronaTest(let coronaTest):
-			restoreTest?(coronaTest)
+			testRestorationHandler.restore(coronaTest)
 		}
 
 		items.remove(item)
@@ -116,11 +134,21 @@ class RecycleBin {
 	}
 
 	func item(for identifier: String) -> RecycledItem? {
-
-		return nil
+		items.first { $0.item.recycleBinIdentifier == identifier }?.item
 	}
 
 	func cleanup() {
-
+		let cleanedSubsequence = items.drop { item in
+			guard let treshholdDate = Calendar.current.date(byAdding: .day, value: -30, to: Date()) else {
+				fatalError("Could not create date.")
+			}
+			return item.deletionDate < treshholdDate
+		}
+		items = Set(cleanedSubsequence)
 	}
+
+	// MARK: - Private
+
+	private let testRestorationHandler: TestRestorationHandling
+	private let certificateRestorationHandler: CertificateRestorationHandling
 }

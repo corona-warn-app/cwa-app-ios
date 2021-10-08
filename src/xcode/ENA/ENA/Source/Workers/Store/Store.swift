@@ -265,7 +265,7 @@ protocol DSCListCaching: AnyObject {
 }
 
 protocol RecycleBinStoring: AnyObject {
-//	var recycleBinItems: [RecycleBinItem] { get set }
+	var recycleBinItems: [RecycleBinItem] { get set }
 }
 
 
