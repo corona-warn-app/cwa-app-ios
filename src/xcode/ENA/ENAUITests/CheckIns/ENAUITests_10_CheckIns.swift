@@ -65,57 +65,6 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
 	
-	// MARK: - Screenshots
-
-	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() throws {
-		// GIVEN
-		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
-		app.launch()
-		
-		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
-		
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
-		
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
-		
-		screenshotCounter = 0
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.swipeUp()
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
-		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
-		
-		// WHEN
-		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
-		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
-		
-		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the Event here.
-		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
-		eventButton.waitAndTap()
-		
-		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
-		
-		// THEN
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
-		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
-		// check in
-		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitAndTap()
-
-		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins")
-		
-		// check out and clean up; take screenshots
-		myCheckins_checkout()
-	}
-
 	func test_RegisterCertificateFromCheckinTabWithInfoScreen() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: false)
 		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
@@ -175,6 +124,58 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		/// Exposure Submission QR Info Screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRInfo.title)].waitForExistence(timeout: .short))
 	}
+	
+	// MARK: - Screenshots
+
+	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() throws {
+		// GIVEN
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
+		app.launch()
+		
+		// Navigate to CheckIn
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Checkin.Information.dataPrivacyTitle].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].exists)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionSubHeadline].exists)
+		
+		screenshotCounter = 0
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_checkinInfoScreen")
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
+		
+		// WHEN
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitForExistence(timeout: .short))
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
+		
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the Event here.
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+		
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
+		
+		// THEN
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
+		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
+		// check in
+		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitAndTap()
+
+		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins")
+		
+		// check out and clean up; take screenshots
+		myCheckins_checkout()
+	}
+
 	
 	// MARK: - Private
 	
