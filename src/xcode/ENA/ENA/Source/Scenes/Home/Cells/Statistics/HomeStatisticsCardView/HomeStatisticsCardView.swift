@@ -113,6 +113,7 @@ class HomeStatisticsCardView: UIView {
 
 	@IBOutlet weak var secondaryTitleLabel: StackViewLabel!
 	@IBOutlet weak var secondaryValueLabel: StackViewLabel!
+	@IBOutlet weak var secondarySubtitleLabel: StackViewLabel!
 	@IBOutlet weak var secondaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var tertiaryTitleLabel: StackViewLabel!
@@ -152,6 +153,13 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$primarySubtitle
+			.sink { [weak self] in
+				self?.primarySubtitleLabel.isHidden = $0 == nil
+				self?.primarySubtitleLabel.text = $0
+			}
+			.store(in: &subscriptions)
+
 		viewModel.$primaryTrendImage
 			.sink { [weak self] in
 				self?.primaryTrendImageView.isHidden = $0 == nil
@@ -185,10 +193,10 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$primarySubtitle
+		viewModel.$secondarySubtitle
 			.sink { [weak self] in
-				self?.primarySubtitleLabel.isHidden = $0 == nil
-				self?.primarySubtitleLabel.text = $0
+				self?.secondarySubtitleLabel.isHidden = $0 == nil
+				self?.secondarySubtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 
@@ -327,12 +335,19 @@ class HomeStatisticsCardView: UIView {
 		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-
 		secondaryValueLabel.style = .headline
 		secondaryValueLabel.numberOfLines = 0
 		secondaryValueLabel.adjustsFontSizeToFitWidth = false
 		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
 		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
+		secondarySubtitleLabel.style = .body
+		secondarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		secondarySubtitleLabel.numberOfLines = 0
+		secondarySubtitleLabel.adjustsFontSizeToFitWidth = false
+		secondarySubtitleLabel.allowsDefaultTighteningForTruncation = true
+		secondarySubtitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
 		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
