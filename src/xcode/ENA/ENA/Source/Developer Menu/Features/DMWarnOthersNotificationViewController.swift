@@ -149,7 +149,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			timeInterval2TextField.widthAnchor.constraint(equalToConstant: 70)
 		])
 		
-		// Set Default Value for the notification text filelds:
+		// Set Default Value for the notification text fields:
 		timeInterval1TextField.text = "\(warnOthersReminder.notificationOneTimeInterval)"
 		timeInterval2TextField.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
 		

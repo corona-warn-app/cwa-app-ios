@@ -70,7 +70,7 @@ struct TestResultMetadata: Codable {
 	var testResult: TestResult?
 	
 	// positive or negative “First time received” = time of test result - time of test registration
-	// Pending: "everytime" current timestamp - time of test registration
+	// Pending: "every time" current timestamp - time of test registration
 	var hoursSinceTestRegistration: Int? = 0
 	
 	// the ENF risk level at test registration.
@@ -102,7 +102,7 @@ struct TestResultMetadata: Codable {
 	
 	var testRegistrationDate: Date?
 	
-	// We need a copy of the token to compare it everytime we fetch a testResult to make sure it is a result for the QRCode test and not a TAN test submission
+	// We need a copy of the token to compare it every time we fetch a testResult to make sure it is a result for the QRCode test and not a TAN test submission
 	let testRegistrationToken: String
 
 	let testType: CoronaTestType

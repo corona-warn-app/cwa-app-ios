@@ -349,13 +349,13 @@ class HealthCertificateService {
 				}
 				.store(in: &subscriptions)
 		} catch let error as DCCRSAKeyPairError {
-			Log.error("[HealthCertificateService] Key pair error occured: \(error.localizedDescription)", log: .api)
+			Log.error("[HealthCertificateService] Key pair error occurred: \(error.localizedDescription)", log: .api)
 
 			testCertificateRequest.requestExecutionFailed = true
 			testCertificateRequest.isLoading = false
 			completion?(.failure(.rsaKeyPairGenerationFailed(error)))
 		} catch {
-			Log.error("[HealthCertificateService] Error occured: \(error.localizedDescription)", log: .api)
+			Log.error("[HealthCertificateService] Error occurred: \(error.localizedDescription)", log: .api)
 
 			testCertificateRequest.requestExecutionFailed = true
 			testCertificateRequest.isLoading = false
