@@ -18,8 +18,9 @@ class EmptyStateView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	init(viewModel: EmptyStateViewModel) {
+	init(viewModel: EmptyStateViewModel, additionalTopPadding: CGFloat = 0) {
 		self.viewModel = viewModel
+		self.additionalTopPadding = additionalTopPadding
 
 		super.init(frame: .zero)
 
@@ -28,17 +29,10 @@ class EmptyStateView: UIView {
 
 	// MARK: - Internal
 
-	var additionalTopPadding: CGFloat = 0 {
-		didSet {
-			topConstraint.constant = additionalTopPadding
-		}
-	}
-
 	// MARK: - Private
 
 	private let viewModel: EmptyStateViewModel
-
-	private var topConstraint: NSLayoutConstraint!
+	private let additionalTopPadding: CGFloat
 
 	private func setUp() {
 		backgroundColor = .clear
@@ -82,14 +76,12 @@ class EmptyStateView: UIView {
 		descriptionLabel.text = viewModel.description
 		stackView.addArrangedSubview(descriptionLabel)
 
-		topConstraint = containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
-		
 		// We take a number for that the image is not too big and not too small and fits for big and small devices for all four occurrences of the EmptyStateView (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay). The result was 3.
 		let percentageWidth = UIScreen.main.bounds.width / 3
 		
 		NSLayoutConstraint.activate([
 			containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-			topConstraint,
+			containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: additionalTopPadding),
 			containerView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
 			containerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
 			stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
