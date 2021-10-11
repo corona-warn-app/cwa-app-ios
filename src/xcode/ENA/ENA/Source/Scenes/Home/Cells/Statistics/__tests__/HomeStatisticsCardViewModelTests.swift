@@ -695,7 +695,9 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 				regionType: .administrativeUnit
 			),
 			updatedAt: 1234,
-			sevenDayIncidence: sevenDayIncidence
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
 		)
 		return regionStatisticsData
 	}
