@@ -288,7 +288,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_screenshot_local_statistics_card() throws {
 		// GIVEN
-		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
+		let incidenceTitle = AccessibilityIdentifiers.LocalStatistics.title
 		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 

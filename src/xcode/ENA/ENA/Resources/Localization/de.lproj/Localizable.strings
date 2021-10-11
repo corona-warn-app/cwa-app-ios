@@ -1976,15 +1976,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* - Incidence Card */
 
-"Statistics_Card_Incidence_Title" = "7-Tage-Inzidenz";
+"Statistics_Card_Region_Today" = "Bis heute";
 
-"Statistics_Card_Incidence_Today" = "Bis heute";
+"Statistics_Card_Region_Yesterday" = "Bis gestern";
 
-"Statistics_Card_Incidence_Yesterday" = "Bis gestern";
-
-"Statistics_Card_Incidence_Date" = "Bis %@";
-
-"Statistics_Card_Incidence_SecondaryLabelTitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
+"Statistics_Card_Region_Date" = "Bis %@";
 
 /* - Key Submissions Card */
 
@@ -2059,18 +2055,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
-
-/* - Infected People Hospitalization Rate */
-
-"Statistics_Card_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
-
-"Statistics_Card_HospitalizationRate_Today" = "Bis heute";
-
-"Statistics_Card_HospitalizationRate_Yesterday" = "Bis gestern";
-
-"Statistics_Card_HospitalizationRate_Date" = "Bis %@";
-
-"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19-Hospitalisierungen je 100.000 Einwohner";
 
 /* - Infected People in Intensive Care */
 

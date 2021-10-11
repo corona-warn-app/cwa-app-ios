@@ -390,6 +390,8 @@ enum AccessibilityIdentifiers {
 		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
 	}
 	enum LocalStatistics {
+		static let title = "AppStrings.Statistics.Card.Incidence.title"
+		static let infoButton = "AppStrings.Statistics.Card.Incidence.infoButton"
 		static let selectState = "AppStrings.LocalStatistics.selectState"
 		static let selectDistrict = "AppStrings.LocalStatistics.selectDistrict"
 		static let manageStatisticsCard = "AppStrings.LocalStatistics.manageStatisticsCard"
@@ -507,10 +509,6 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.Infections.title"
 			static let infoButton = "AppStrings.Statistics.Card.Infections.infoButton"
 		}
-		enum Incidence {
-			static let title = "AppStrings.Statistics.Card.Incidence.title"
-			static let infoButton = "AppStrings.Statistics.Card.Incidence.infoButton"
-		}
 		enum KeySubmissions {
 			static let title = "AppStrings.Statistics.Card.KeySubmissions.title"
 			static let infoButton = "AppStrings.Statistics.Card.KeySubmissions.infoButton"
@@ -530,10 +528,6 @@ enum AccessibilityIdentifiers {
 		enum Doses {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
-		}
-		enum HospitalizationRate {
-			static let title = "AppStrings.Statistics.Card.HospitalizationRate.title"
-			static let infoButton = "AppStrings.Statistics.Card.HospitalizationRate.infoButton"
 		}
 		enum IntensiveCare {
 			static let title = "AppStrings.Statistics.Card.IntensiveCare.title"
