@@ -378,22 +378,15 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			
 			XCTAssert(self.app.staticTexts[intensiveCareTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[intensiveCareTitle].swipeLeft()
-			
-			XCTAssert(self.app.staticTexts[hospitalizationRateTitle].waitForExistence(timeout: .medium))
-			app.staticTexts[hospitalizationRateTitle].swipeLeft()
-			
-			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
-			app.staticTexts[incidenceTitle].swipeRight()
+						
+			XCTAssert(self.app.staticTexts[combinedIncidenceTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[combinedIncidenceTitle].swipeRight()
 		default:
 			app.swipeLeft()
 
-			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
-			snapshot("statistics_7day_incidences")
-			app.staticTexts[incidenceTitle].swipeLeft()
-
-			XCTAssert(self.app.staticTexts[hospitalizationRateTitle].waitForExistence(timeout: .medium))
-			snapshot("statistics_7day_hospitalization_rate")
-			app.staticTexts[hospitalizationRateTitle].swipeLeft()
+			XCTAssert(self.app.staticTexts[combinedIncidenceTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_7day_combined_incidences")
+			app.staticTexts[combinedIncidenceTitle].swipeLeft()
 			
 			XCTAssert(self.app.staticTexts[intensiveCareTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_intensive_care")
