@@ -58,6 +58,51 @@ class HomeStatisticsCellModelTests: CWATestCase {
 
 		subscription.cancel()
 	}
+	
+	func testReturningTheCorrectNumberOfCards() {
+		let store = MockTestStore()
+		let localStatisticsProvider = LocalStatisticsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+
+		let homeState = HomeState(
+			store: store,
+			riskProvider: MockRiskProvider(),
+			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
+			enState: .enabled,
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(),
+				store: store
+			),
+			localStatisticsProvider: localStatisticsProvider
+		)
+		var loadedStatistics = SAP_Internal_Stats_Statistics()
+		loadedStatistics.cardIDSequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		loadedStatistics.keyFigureCards = [
+			keyFigureCard(cardID: 1),
+			keyFigureCard(cardID: 2),
+			keyFigureCard(cardID: 3),
+			keyFigureCard(cardID: 4),
+			keyFigureCard(cardID: 5),
+			keyFigureCard(cardID: 6),
+			keyFigureCard(cardID: 7),
+			keyFigureCard(cardID: 8),
+			keyFigureCard(cardID: 9),
+			keyFigureCard(cardID: 10)
+		]
+
+		homeState.statistics = loadedStatistics
+
+		let cellModel = HomeStatisticsCellModel(
+			homeState: homeState,
+			localStatisticsProvider: localStatisticsProvider
+		)
+
+		XCTAssertEqual(cellModel.filterKeyFigures(keyFigures: loadedStatistics.keyFigureCards).count, 8, "in new versions after 2.12 the number should be 8")
+		cellModel.isOldAppVersion = true
+		XCTAssertEqual(cellModel.filterKeyFigures(keyFigures: loadedStatistics.keyFigureCards).count, 9, "in older versions before 2.13 the number should be 9")
+	}
 
 	// MARK: - Private
 	private func keyFigureCard(
