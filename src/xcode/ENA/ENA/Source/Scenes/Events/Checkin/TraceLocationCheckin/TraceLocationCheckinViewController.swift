@@ -40,6 +40,7 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+
 		updateGradientViewLayout()
 	}
 
@@ -47,6 +48,7 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateBorderWidths()
+		updateGradientViewLayout()
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -153,7 +155,10 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 	}
 	
 	private func updateGradientViewLayout() {
-		backgroundView.updatedTopLayout(with: 0, limit: scrollView.frame.origin.y)
+		backgroundView.updatedTopLayout(with: scrollView.contentOffset.y, limit: scrollView.frame.origin.y)
+
+		view.layoutIfNeeded()
+		backgroundView.gradientHeightConstraint.constant = descriptionView.convert(descriptionView.frame, to: view).midY
 	}
 	
 	private func setupLabels() {
