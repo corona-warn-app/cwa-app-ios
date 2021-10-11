@@ -151,7 +151,7 @@ class HealthCertificateService {
 
 			let healthCertifiedPerson = healthCertifiedPersons
 				.first(where: {
-					$0.healthCertificates.first?.name.standardizedName == healthCertificate.name.standardizedName &&
+					$0.healthCertificates.first?.name.groupingStandardizedName == healthCertificate.name.groupingStandardizedName &&
 					$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
 				}) ?? HealthCertifiedPerson(healthCertificates: [])
 
