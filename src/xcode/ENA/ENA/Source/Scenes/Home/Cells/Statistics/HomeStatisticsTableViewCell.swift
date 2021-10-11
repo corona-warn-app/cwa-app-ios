@@ -86,6 +86,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	) {
 		guard cellModel == nil else { return }
 		
+		// Retaining cell model so it gets updated
+		self.cellModel = keyFigureCellModel
+
 		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
@@ -119,9 +122,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				)
 			}
 			.store(in: &subscriptions)
-
-		// Retaining cell model so it gets updated
-		self.cellModel = keyFigureCellModel
 	}
 
 	// swiftlint:disable:next function_parameter_count
@@ -151,8 +151,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onAccessibilityFocus: onAccessibilityFocus,
 			onUpdate: onUpdate
 		)
+		guard let cellModel = cellModel else {
+			return
+		}
+		let filteredCards = cellModel.filterKeyFigures(keyFigures: keyFigureCellModel.keyFigureCards)
 		configureKeyFigureCards(
-			for: keyFigureCellModel.keyFigureCards,
+			for: filteredCards,
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus
 		)
