@@ -54,6 +54,7 @@ struct RegionStatisticsData {
 			
 			updatedAt = administrativeUnitData?.updatedAt
 			sevenDayIncidence = administrativeUnitData?.sevenDayIncidence
+			// we use data from respective federal state for hospitalization incidences in case of administrative unit
 			sevenDayHospitalizationIncidenceUpdatedAt = federalStateData?.sevenDayHospitalizationIncidenceUpdatedAt
 			sevenDayHospitalizationIncidence = federalStateData?.sevenDayHospitalizationIncidence
 		}
