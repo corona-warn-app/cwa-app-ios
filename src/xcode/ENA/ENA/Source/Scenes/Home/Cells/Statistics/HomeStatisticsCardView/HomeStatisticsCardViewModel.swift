@@ -50,6 +50,8 @@ class HomeStatisticsCardViewModel {
 			setupInfectedPeopleHospitalizationRate(for: keyFigureCard)
 		case .infectedPeopleInIntensiveCare:
 			setupInfectedPeopleInIntensiveCare(for: keyFigureCard)
+		case .combinedSevenDayAndHospitalization:
+			setupCombinedSevenDayAndHospitalization(for: keyFigureCard)
 		case .none:
 			Log.info("Statistics card ID \(keyFigureCard.header.cardID) is not supported", log: .ui)
 		}
@@ -98,6 +100,7 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var primaryTrendAccessibilityValue: String?
 	@OpenCombine.Published private(set) var secondaryTitle: String?
 	@OpenCombine.Published private(set) var secondaryValue: String?
+	@OpenCombine.Published private(set) var secondaryValueFontStyle: ENALabel.Style?
 	@OpenCombine.Published private(set) var secondarySubtitle: String?
 	@OpenCombine.Published private(set) var secondaryTrendImage: UIImage?
 	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
@@ -320,6 +323,38 @@ class HomeStatisticsCardViewModel {
 			)
 		}
 		primarySubtitle = AppStrings.Statistics.Card.IntensiveCare.secondaryLabelTitle
+	}
+	
+	private func setupCombinedSevenDayAndHospitalization(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+		title = AppStrings.Statistics.Card.Combined7DaysIncidence.title
+		subtitle = AppStrings.Statistics.Card.fromNationWide
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.infoButton
+
+		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
+
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValueWithPercent
+			let primaryUpdateDate = Date(timeIntervalSince1970: TimeInterval(primaryFigure.updatedAt))
+			primaryTitle = primaryUpdateDate.formatted(
+				todayString: AppStrings.Statistics.Card.Combined7DaysIncidence.today,
+				yesterdayString: AppStrings.Statistics.Card.Combined7DaysIncidence.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Combined7DaysIncidence.date
+			)
+			primarySubtitle = AppStrings.Statistics.Card.Combined7DaysIncidence.primaryLabelSubtitle
+		}
+		
+		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
+			secondaryValue = secondaryFigure.formattedValueWithPercent
+			let secondaryUpdateDate = Date(timeIntervalSince1970: TimeInterval(secondaryFigure.updatedAt))
+			secondaryTitle = secondaryUpdateDate.formatted(
+				todayString: AppStrings.Statistics.Card.Combined7DaysIncidence.today,
+				yesterdayString: AppStrings.Statistics.Card.Combined7DaysIncidence.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Combined7DaysIncidence.date
+			)
+			secondarySubtitle = AppStrings.Statistics.Card.Combined7DaysIncidence.secondaryLabelSubtitle
+			secondaryValueFontStyle = .title1
+		}
 	}
 }
 
