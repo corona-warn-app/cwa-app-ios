@@ -1468,7 +1468,15 @@ enum AppStrings {
 				static let date = NSLocalizedString("Statistics_Card_HospitalizationRate_Date", comment: "")
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_HospitalizationRate_SecondaryLabelTitle", comment: "")
 			}
-			
+			enum Combined7DaysIncidence {
+				static let title = NSLocalizedString("Statistics_Card_CombinedIncidence_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_CombinedIncidence_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_CombinedIncidence_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_CombinedIncidence_Date", comment: "")
+				static let primaryLabelSubtitle = NSLocalizedString("Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle", comment: "")
+				static let secondaryLabelSubtitle = NSLocalizedString("Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle", comment: "")
+			}
+
 			enum IntensiveCare {
 				static let title = NSLocalizedString("Statistics_Card_IntensiveCare_Title", comment: "")
 				static let today = NSLocalizedString("Statistics_Card_IntensiveCare_Today", comment: "")
