@@ -165,7 +165,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts["Bistro & Café am Neuen Markt"].exists)
 		XCTAssertTrue(app.staticTexts["Hamburg, Schulstraße 4"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.foodService)].exists)
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
 		// check in
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitAndTap()
@@ -175,7 +175,6 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		// check out and clean up; take screenshots
 		myCheckins_checkout()
 	}
-
 	
 	// MARK: - Private
 	
@@ -213,7 +212,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
 		XCTAssertTrue(app.staticTexts["Bistro & Café am Neuen Markt"].exists)
 		XCTAssertTrue(app.staticTexts["Hamburg, Schulstraße 4"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.foodService)].exists)
 
 		// checkin time details
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.typeLabel].exists)
