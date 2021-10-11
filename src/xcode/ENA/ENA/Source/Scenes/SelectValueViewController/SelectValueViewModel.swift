@@ -51,7 +51,7 @@ final class SelectValueViewModel {
 	let isInitialCellWithValue: Bool
 	let isInitialCellEnabled: Bool
 	
-	/// this tupel represents the change (oldValue, currentValue)
+	/// this tuple represents the change (oldValue, currentValue)
 	@OpenCombine.Published private (set) var selectedTupel: (Int?, Int)
 	@OpenCombine.Published private (set) var selectedValue: String?
 

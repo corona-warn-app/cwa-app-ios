@@ -50,8 +50,7 @@ class ENAButton: DynamicTypeButton {
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var hasBorder: Bool = false { didSet { applyStyle() } }
-	// swiftlint:disable redundant_optional_initialization
-	@IBInspectable var customTextColor: UIColor? = nil { didSet { applyStyle() } }
+	@IBInspectable var customTextColor: UIColor? { didSet { applyStyle() } }
 
 	// MARK: - Private
 

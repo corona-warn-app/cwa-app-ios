@@ -13,14 +13,14 @@ class LoggingTests: CWATestCase {
 		let expectedLogMessages = [
 			MockLogger.Item(type: "Info", message: "RiskProvider: soft rate limit is stricter than effective rate limit"),
 			MockLogger.Item(type: "Debug", message: "RiskProvider: soft rate limit is in synch with effective rate limit"),
-			MockLogger.Item(type: "Warning", message: "RiskProvider: soft rate limit is too strict - it would have blocked this successfull exposure detection"),
+			MockLogger.Item(type: "Warning", message: "RiskProvider: soft rate limit is too strict - it would have blocked this successful exposure detection"),
 			MockLogger.Item(type: "Error", message: "Fatal error - you need to reinstall cwa")
 		]
 		let mock = MockLogger()
 
 		Log.info("RiskProvider: soft rate limit is stricter than effective rate limit", log: .riskDetection, logger: mock)
 		Log.debug("RiskProvider: soft rate limit is in synch with effective rate limit", log: .riskDetection, logger: mock)
-		Log.warning("RiskProvider: soft rate limit is too strict - it would have blocked this successfull exposure detection", log: .riskDetection, logger: mock)
+		Log.warning("RiskProvider: soft rate limit is too strict - it would have blocked this successful exposure detection", log: .riskDetection, logger: mock)
 		Log.error("Fatal error - you need to reinstall cwa", log: .riskDetection, logger: mock)
 
 		XCTAssertEqual(mock.data, expectedLogMessages)

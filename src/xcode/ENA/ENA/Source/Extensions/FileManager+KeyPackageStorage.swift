@@ -49,7 +49,7 @@ extension FileManager {
 				}
 			}
 		}
-		Log.info("Finsihed removing orphaned KeyPackages", log: .localData)
+		Log.info("Finished removing orphaned KeyPackages", log: .localData)
 		
 	}
 

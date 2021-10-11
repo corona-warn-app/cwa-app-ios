@@ -95,7 +95,7 @@ struct PrivateKey {
 		return PublicKey(x963Representation: cfdata as Data)
 	}
 
-	/// Our defaul tag for all keys
+	/// Our default tag for all keys
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
 
 	/// Internal reference to the 'real' key
@@ -209,7 +209,7 @@ struct PublicKey: PublicKeyProtocol {
 	/// Verifies an ECDSA signature over the P256 elliptic curve.
 	/// SHA256 is used as the hash function.
 	///
-	/// Wrapps the native `isValid` implementation(s), if available (iOS 13.0+).
+	/// Wraps the native `isValid` implementation(s), if available (iOS 13.0+).
 	///
 	/// - Parameters:
 	///   - signature: The signature to verify

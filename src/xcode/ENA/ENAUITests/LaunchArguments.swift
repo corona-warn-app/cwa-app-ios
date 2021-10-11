@@ -130,4 +130,8 @@ enum LaunchArguments {
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
 		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
 	}
+	enum notifications {
+		/// Turn notifications for the settings screen on or off - does NOT sync or reflect the system setting. But needed to test the different screens.
+		static let isNotificationsEnabled = LaunchArgument(name: "isNotificationsEnabled")
+	}
 }

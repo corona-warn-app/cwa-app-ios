@@ -32,10 +32,10 @@ struct ExposureWindowsMetadata: Codable {
 	
 	// MARK: - Internal
 	
-	// Exposure Windows to be added to the next Submission
+	// Exposure Windows to be added to the next submission
 	var newExposureWindowsQueue: [SubmissionExposureWindow]
 	
-	// Exposure Windows that was sent in pervious Submissions
+	// Exposure Windows which were sent in previous submissions
 	var reportedExposureWindowsQueue: [SubmissionExposureWindow]
 }
 

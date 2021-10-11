@@ -8,7 +8,7 @@ protocol OTPServiceProviding {
 	/// Returns true if we have a stored and authorized otp edus token, else false.
 	var isOTPEdusAvailable: Bool { get }
 	
-	/// Checks if there is a valid stored otp for edus. If so, we check if we can reuse it beacuse it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp edus token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
+	/// Checks if there is a valid stored otp for edus. If so, we check if we can reuse it because it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp edus token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
 	/// After these validation checks, the service tries to authorize the otp against the server.
 	/// - Parameters:
 	///   - ppacToken: a generated and valid PPACToken from the PPACService
@@ -18,7 +18,7 @@ protocol OTPServiceProviding {
 	///   - failure: an OTPError, for which the caller can build a dedicated error handling
 	func getOTPEdus(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
 	
-	/// Checks if there is a valid stored otp for els. If so, we check if we can reuse it beacuse it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp els token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
+	/// Checks if there is a valid stored otp for els. If so, we check if we can reuse it because it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp els token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
 	/// After these validation checks, the service tries to authorize the otp against the server.
 	/// - Parameters:
 	///   - ppacToken: a generated and valid PPACToken from the PPACService

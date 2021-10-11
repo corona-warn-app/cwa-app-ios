@@ -104,10 +104,10 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		flagCountriesLabel.numberOfLines = 0
 		countriesStackView.addArrangedSubview(flagCountriesLabel)
 		
-		// MARK: - Seperator View1 adjustment.
+		// MARK: - Separator View1 adjustment.
 		seperatorView1.backgroundColor = .enaColor(for: .hairline)
 		
-		// MARK: - Seperator View2 Body adjustment.
+		// MARK: - Separator View2 Body adjustment.
 		seperatorView2.backgroundColor = .enaColor(for: .hairline)
 		
 		[subTitleLabel, descriptionPart1Label, descriptionPart2Label, seperatorView1, countriesStackView, seperatorView2, descriptionPart3Label, descriptionPart4Label].forEach {

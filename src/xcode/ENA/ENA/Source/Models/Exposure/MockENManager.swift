@@ -58,7 +58,7 @@ final class MockENManager: NSObject {
 					completionHandler(nil, ENError(.internal))
 					return
 				}
-				// assuming successfull execution and no exposures
+				// assuming successful execution and no exposures
 				guard !self.wasCalledTooOftenTill(now) else {
 					completionHandler(nil, ENError(.rateLimited))
 					return
@@ -74,7 +74,7 @@ final class MockENManager: NSObject {
 
 	func getExposureWindows(from summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
 		dispatchQueue.async {
-			// assuming successfull execution and empty list of exposure windows
+			// assuming successful execution and empty list of exposure windows
 			completionHandler([], nil)
 		}
 		return Progress()

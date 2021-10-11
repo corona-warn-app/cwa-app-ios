@@ -342,7 +342,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			
 			// Seems like ENF gives us exposure Windows back that are older than 14 Days https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9552
 			guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -15, to: Date()) else {
-				fatalError("Cant create a date 15 days in the past, time to bail")
+				fatalError("Can't create a date 15 days in the past, time to bail")
 			}
 			
 			let filteredExposureWindows = exposureWindows?.filter { $0.date > thresholdDate }

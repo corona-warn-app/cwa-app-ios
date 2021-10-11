@@ -15,7 +15,7 @@ struct DeltaOnboardingNotificationReworkViewModel {
 					header: .image(
 						UIImage(named: "Illu_Mitteilungen_On"),
 						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
-						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.image,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
 						height: 250
 					),
 					cells: [

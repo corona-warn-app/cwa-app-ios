@@ -101,16 +101,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
 	}
 
-	var allowRiskChangesNotification: Bool {
-		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
-		set { kvStore["allowRiskChangesNotification"] = newValue }
-	}
-
-	var allowTestsStatusNotification: Bool {
-		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
-		set { kvStore["allowTestsStatusNotification"] = newValue }
-	}
-
 	var appInstallationDate: Date? {
 		get { kvStore["appInstallationDate"] as Date? }
 		set { kvStore["appInstallationDate"] = newValue }

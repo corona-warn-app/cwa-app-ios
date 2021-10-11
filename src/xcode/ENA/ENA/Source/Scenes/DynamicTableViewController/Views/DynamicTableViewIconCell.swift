@@ -64,6 +64,7 @@ class DynamicTableViewIconCell: UITableViewCell {
 
 	func configure(
 		image: UIImage?,
+		imageAlignment: DynamicCell.ImageAlignment = .left,
 		text: Text,
 		customTintColor: UIColor?,
 		style: ENAFont,
@@ -76,18 +77,29 @@ class DynamicTableViewIconCell: UITableViewCell {
 		iconImageView.tintColor = customTintColor ?? tintColor
 		iconImageView.image = image
 		iconImageView.isHidden = image == nil
-
+		
+		// swap label and image so the image is set to the right. Do this every time to get a clean reusable state.
+		switch imageAlignment {
+		case .left:
+				stackView.removeArrangedSubview(iconImageView)
+				stackView.insertArrangedSubview(iconImageView, at: 0)
+	
+		case .right:
+				stackView.removeArrangedSubview(iconImageView)
+				stackView.insertArrangedSubview(iconImageView, at: 1)
+			
+		}
 		imageViewWidthConstraint?.constant = iconWidth
-
+		
 		contentTextLabel.style = style.labelStyle
-
+		
 		switch text {
 		case .string(let string):
 			contentTextLabel.text = string
 		case .attributedString(let attributedString):
 			contentTextLabel.attributedText = attributedString
 		}
-
+		
 		self.selectionStyle = selectionStyle
 	}
 

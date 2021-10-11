@@ -19,7 +19,7 @@ enum PPAnalyticsCollector {
 		testResultCollector: PPAAnalyticsTestResultCollector,
 		submissionCollector: PPAAnalyticsSubmissionCollector
 	) {
-		// We put the PPAnalyticsData protocol and its implementation in a seperate file because this protocol is only used by the collector. And only the collector should use it!
+		// We put the PPAnalyticsData protocol and its implementation in a separate file because this protocol is only used by the collector. And only the collector should use it!
 		// This way we avoid the direct access of analytics data at other places over the store.
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
@@ -331,16 +331,16 @@ extension PPAnalyticsCollector {
 	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we have collected so far.
 	static func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS? {
 		guard let submitter = submitter else {
-			Log.warning("I cannot get actual analytics data. Perhaps i am a mock or setup was not called correctly?")
+			Log.warning("I cannot get actual analytics data. Perhaps I am a mock or setup was not called correctly?")
 			return nil
 		}
 		return submitter.getPPADataMessage()
 	}
 
-	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, without any checks.
 	static func forcedAnalyticsSubmission(completion: @escaping (Result<Void, PPASError>) -> Void) {
 		guard let submitter = submitter else {
-			Log.warning("I cannot trigger a forced submission. Perhaps i am a mock or setup was not called correctly?")
+			Log.warning("I cannot trigger a forced submission. Perhaps I am a mock or setup was not called correctly?")
 			return completion(.failure(.generalError))
 		}
 		return submitter.forcedSubmitData(completion: completion)
