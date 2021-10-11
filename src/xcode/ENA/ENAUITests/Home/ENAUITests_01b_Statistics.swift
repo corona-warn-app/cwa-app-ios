@@ -280,15 +280,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_StatisticsCardInfoButtons() throws {
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
-		let title2 = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
-		let title3 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
-		let title4 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title5 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title6 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
-		let title7 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
-		let title8 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
-		let title9 = AccessibilityIdentifiers.Statistics.Doses.title
+		let title1 = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
+		let title2 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
+		let title3 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title4 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title5 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// WHEN
@@ -299,61 +298,55 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
-			cardDosesInfoScreenTest(title9)
-			app.staticTexts[title9].swipeLeft()
-		
-			cardFullyVaccinatedInfoScreenTest(title8)
+			cardDosesInfoScreenTest(title8)
 			app.staticTexts[title8].swipeLeft()
-
-			cardAtLeastOneVaccinationInfoScreenTest(title7)
+		
+			cardFullyVaccinatedInfoScreenTest(title7)
 			app.staticTexts[title7].swipeLeft()
 
-			cardReproductionNumberInfoScreenTest(title6)
+			cardAtLeastOneVaccinationInfoScreenTest(title6)
 			app.staticTexts[title6].swipeLeft()
 
-			cardKeySubmissionsInfoScreenTest(title5)
+			cardReproductionNumberInfoScreenTest(title5)
 			app.staticTexts[title5].swipeLeft()
-			
-			cardInfectionsInfoScreenTest(title4)
-			app.staticTexts[title4].swipeLeft()
 
-			cardIntensiveCareInfoScreenTest(title3)
+			cardKeySubmissionsInfoScreenTest(title4)
+			app.staticTexts[title4].swipeLeft()
+			
+			cardInfectionsInfoScreenTest(title3)
 			app.staticTexts[title3].swipeLeft()
 
-			cardHospitalizationRateInfoScreenTest(title2)
+			cardIntensiveCareInfoScreenTest(title2)
 			app.staticTexts[title2].swipeLeft()
 
-			cardIncidenceInfoScreenTest(title1)
+			cardCombinedIncidencesInfoScreenTest(title1)
 			app.staticTexts[title1].swipeRight()
 		default:
 			app.swipeLeft()
-
-			cardIncidenceInfoScreenTest(title1)
-			app.staticTexts[title1].swipeLeft()
 			
-			cardHospitalizationRateInfoScreenTest(title2)
+			cardCombinedIncidencesInfoScreenTest(title1)
+			app.staticTexts[title1].swipeLeft()
+						
+			cardIntensiveCareInfoScreenTest(title2)
 			app.staticTexts[title2].swipeLeft()
 			
-			cardIntensiveCareInfoScreenTest(title3)
+			cardInfectionsInfoScreenTest(title3)
 			app.staticTexts[title3].swipeLeft()
 			
-			cardInfectionsInfoScreenTest(title4)
+			cardKeySubmissionsInfoScreenTest(title4)
 			app.staticTexts[title4].swipeLeft()
 			
-			cardKeySubmissionsInfoScreenTest(title5)
+			cardReproductionNumberInfoScreenTest(title5)
 			app.staticTexts[title5].swipeLeft()
 			
-			cardReproductionNumberInfoScreenTest(title6)
+			cardAtLeastOneVaccinationInfoScreenTest(title6)
 			app.staticTexts[title6].swipeLeft()
 			
-			cardAtLeastOneVaccinationInfoScreenTest(title7)
+			cardFullyVaccinatedInfoScreenTest(title7)
 			app.staticTexts[title7].swipeLeft()
 			
-			cardFullyVaccinatedInfoScreenTest(title8)
-			app.staticTexts[title8].swipeLeft()
-			
-			cardDosesInfoScreenTest(title9)
-			app.staticTexts[title9].swipeRight()
+			cardDosesInfoScreenTest(title8)
+			app.staticTexts[title8].swipeRight()
 		}
 	}
 	
@@ -487,18 +480,12 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 	// MARK: - Private
 	
-	private func cardIncidenceInfoScreenTest(_ title1: String) {
+	private func cardCombinedIncidencesInfoScreenTest(_ title1: String) {
 		XCTAssertTrue(app.staticTexts[title1].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.Statistics.Combined7DayIncidence.infoButton].waitAndTap()
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
-	
-	private func cardHospitalizationRateInfoScreenTest(_ title2: String) {
-		XCTAssertTrue(app.staticTexts[title2].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.HospitalizationRate.infoButton].waitAndTap()
-		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
-	}
-	
+
 	private func cardIntensiveCareInfoScreenTest(_ title3: String) {
 		XCTAssertTrue(app.staticTexts[title3].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.Statistics.IntensiveCare.infoButton].waitAndTap()
