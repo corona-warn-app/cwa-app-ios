@@ -24,6 +24,13 @@ extension Name {
 	var standardizedName: String {
 		return [standardizedGivenName, standardizedFamilyName].formatted()
 	}
+
+	var groupingStandardizedName: String {
+		return standardizedName
+			.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+			.replacingOccurrences(of: "<+", with: "<", options: .regularExpression)
+			.trimmingCharacters(in: .whitespaces)
+	}
 	
 	var reversedStandardizedName: String {
 		var standardizedFamilyName = self.standardizedFamilyName
