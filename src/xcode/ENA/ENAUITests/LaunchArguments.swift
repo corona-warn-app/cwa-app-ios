@@ -94,6 +94,8 @@ enum LaunchArguments {
 		}
 	}
 	enum statistics {
+		/// To use older app version without the combined nationwide statistics card
+		static let useMockedOldAppVersion = LaunchArgument(name: "useMockedOldAppVersion")
 	}
 	enum errorReport {
 		/// To show if els logging should be active when starting the app
