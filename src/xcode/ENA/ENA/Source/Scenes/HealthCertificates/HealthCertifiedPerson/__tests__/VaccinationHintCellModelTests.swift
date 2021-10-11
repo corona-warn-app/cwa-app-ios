@@ -82,7 +82,7 @@ class VaccinationHintCellModelTests: XCTestCase {
 		let cellModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		XCTAssertEqual(cellModel.title, "Impfstatus")
-		XCTAssertEqual(cellModel.subtitle, "letzte Impfung vor 150 Tagen")
+		XCTAssertEqual(cellModel.subtitle, "Letzte Impfung vor 150 Tagen")
 		XCTAssertEqual(cellModel.description, "Booster Rule Description. (BR-ID-049)")
 
 		XCTAssertEqual(cellModel.faqLink?.string, "Mehr Informationen finden Sie in den FAQ.")
@@ -106,7 +106,7 @@ class VaccinationHintCellModelTests: XCTestCase {
 		let cellModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		XCTAssertEqual(cellModel.title, "Impfstatus")
-		XCTAssertEqual(cellModel.subtitle, "letzte Impfung vor 1500 Tagen")
+		XCTAssertEqual(cellModel.subtitle, "Letzte Impfung vor 1500 Tagen")
 		XCTAssertEqual(cellModel.description, "Another Booster Rule Description. (BR-ID-062)")
 
 		XCTAssertEqual(cellModel.faqLink?.string, "Mehr Informationen finden Sie in den FAQ.")
