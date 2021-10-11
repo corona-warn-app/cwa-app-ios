@@ -30,7 +30,7 @@ class VaccinationHintCellModelTests: XCTestCase {
 		let cellModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		XCTAssertEqual(cellModel.title, "Impfstatus")
-		XCTAssertEqual(cellModel.subtitle, "letzte Impfung heute")
+		XCTAssertEqual(cellModel.subtitle, "Letzte Impfung heute")
 		XCTAssertEqual(cellModel.description, "Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in 15 Tagen vollständig.")
 
 		XCTAssertNil(cellModel.faqLink)
