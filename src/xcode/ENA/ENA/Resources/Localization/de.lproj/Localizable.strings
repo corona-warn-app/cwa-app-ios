@@ -2092,7 +2092,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_HospitalizationRate_Title" = "Hospitalisierung";
 
-"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
 
 "Statistics_Info_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
 
