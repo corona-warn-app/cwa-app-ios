@@ -35,10 +35,6 @@ class HomeStatisticsCellModel {
 
 	// MARK: - Internal
 	
-	#if DEBUG
-	var isOldAppVersion: Bool = false
-	#endif
-
 	/// The default set of 'global' statistics for every user
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@DidSetPublished private(set) var regionStatisticsData = [RegionStatisticsData]()
@@ -51,36 +47,10 @@ class HomeStatisticsCellModel {
 		localStatisticsProvider.remove(region)
 	}
 
-	func filterKeyFigures(keyFigures: [SAP_Internal_Stats_KeyFigureCard]) -> [SAP_Internal_Stats_KeyFigureCard] {
-		if isCombinedIncidenceCardSupported {
-			return keyFigures.filter { $0.header.cardID != 2 && $0.header.cardID != 8 }
-		} else {
-			return keyFigures.filter { $0.header.cardID != 10 }
-		}
-	}
-
 	// MARK: - Private
 
 	private let homeState: HomeState
 	private let localStatisticsProvider: LocalStatisticsProviding
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var isCombinedIncidenceCardSupported: Bool {
-		#if DEBUG
-		if isUITesting {
-			return !LaunchArguments.statistics.useMockedOldAppVersion.boolValue
-		} else if isOldAppVersion {
-			return false
-		}
-		#endif
-		// we show the combined card 10 only for 2.13 or later, else we show 2 and 8
-		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
-		guard appVersionParts.count == 3,
-			  let majorAppVersion = Int(appVersionParts[0]),
-			  let minorAppVersion = Int(appVersionParts[1]) else {
-				  Log.error("Not able to retrieve current app version")
-				  return false
-			  }
-		return  (majorAppVersion > 2 || majorAppVersion == 2 && minorAppVersion >= 13)
-	}
 }

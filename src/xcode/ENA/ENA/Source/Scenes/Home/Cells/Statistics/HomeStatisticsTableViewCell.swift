@@ -151,12 +151,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onAccessibilityFocus: onAccessibilityFocus,
 			onUpdate: onUpdate
 		)
-		guard let cellModel = cellModel else {
-			return
-		}
-		let filteredCards = cellModel.filterKeyFigures(keyFigures: keyFigureCellModel.keyFigureCards)
 		configureKeyFigureCards(
-			for: filteredCards,
+			for: keyFigureCellModel.keyFigureCards,
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus
 		)
