@@ -171,7 +171,6 @@ class RecycleBin {
 
 		Log.info("Number of items after cleanup: \(store.recycleBinItems.count)", log: .recycleBin)
 		Log.info("Finished Cleanup.", log: .recycleBin)
-
 	}
 
 	// MARK: - Private
