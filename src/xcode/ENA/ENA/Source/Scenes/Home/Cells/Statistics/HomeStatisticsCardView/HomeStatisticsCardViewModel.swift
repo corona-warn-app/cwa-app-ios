@@ -334,7 +334,7 @@ class HomeStatisticsCardViewModel {
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
-			primaryValue = primaryFigure.formattedValueWithPercent
+			primaryValue = primaryFigure.formattedValue
 			let primaryUpdateDate = Date(timeIntervalSince1970: TimeInterval(primaryFigure.updatedAt))
 			primaryTitle = primaryUpdateDate.formatted(
 				todayString: AppStrings.Statistics.Card.Combined7DaysIncidence.today,
@@ -345,7 +345,7 @@ class HomeStatisticsCardViewModel {
 		}
 		
 		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
-			secondaryValue = secondaryFigure.formattedValueWithPercent
+			secondaryValue = secondaryFigure.formattedValue
 			let secondaryUpdateDate = Date(timeIntervalSince1970: TimeInterval(secondaryFigure.updatedAt))
 			secondaryTitle = secondaryUpdateDate.formatted(
 				todayString: AppStrings.Statistics.Card.Combined7DaysIncidence.today,
