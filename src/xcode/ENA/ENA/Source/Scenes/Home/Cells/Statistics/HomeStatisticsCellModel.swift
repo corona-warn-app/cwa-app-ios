@@ -34,6 +34,10 @@ class HomeStatisticsCellModel {
 	}
 
 	// MARK: - Internal
+	
+	#if DEBUG
+	var isOldAppVersion: Bool = false
+	#endif
 
 	/// The default set of 'global' statistics for every user
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
