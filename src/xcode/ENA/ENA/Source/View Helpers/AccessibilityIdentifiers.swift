@@ -539,6 +539,10 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.IntensiveCare.title"
 			static let infoButton = "AppStrings.Statistics.Card.IntensiveCare.infoButton"
 		}
+		enum Combined7DayIncidence {
+			static let title = "AppStrings.Statistics.Card.Combined7DayIncidence.title"
+			static let infoButton = "AppStrings.Statistics.Card.Combined7DayIncidence.infoButton"
+		}
 		enum General {
 			static let tableViewCell = "HomeStatisticsTableViewCell"
 			static let card = "HomeStatisticsCard"
