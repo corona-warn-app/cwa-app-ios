@@ -153,7 +153,64 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable)
 	}
 
-	func test_StatisticsCardTitles() throws {
+	func test_StatisticsCardTitles_NewAppVersions() throws {
+		// flow for 2.13 and later versions
+		// GIVEN
+		let title1 = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
+		let title2 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
+		let title3 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title4 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title5 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
+
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+
+		// WHEN
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+
+		// THEN
+		switch layoutDirection {
+		case .rightToLeft:
+			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
+			app.staticTexts[title8].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
+			app.staticTexts[title7].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
+			app.staticTexts[title6].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title5].waitForExistence(timeout: .medium))
+			app.staticTexts[title5].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title4].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			app.staticTexts[title3].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			app.staticTexts[title2].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			app.staticTexts[title1].swipeRight()
+		default:
+			app.swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .extraLong))
+			app.staticTexts[title1].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			app.staticTexts[title2].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			app.staticTexts[title3].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title4].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title5].waitForExistence(timeout: .medium))
+			app.staticTexts[title5].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title6].waitForExistence(timeout: .medium))
+			app.staticTexts[title6].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
+			app.staticTexts[title7].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
+			app.staticTexts[title8].swipeLeft()
+		}
+	}
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
 		let title2 = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
