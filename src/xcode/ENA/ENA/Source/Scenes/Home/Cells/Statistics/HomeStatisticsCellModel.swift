@@ -47,6 +47,14 @@ class HomeStatisticsCellModel {
 		localStatisticsProvider.remove(region)
 	}
 
+	func filterKeyFigures(keyFigures: [SAP_Internal_Stats_KeyFigureCard]) -> [SAP_Internal_Stats_KeyFigureCard] {
+		if isCombinedIncidenceCardSupported {
+			return keyFigures.filter { $0.header.cardID != 2 && $0.header.cardID != 8 }
+		} else {
+			return keyFigures.filter { $0.header.cardID != 10 }
+		}
+	}
+
 	// MARK: - Private
 
 	private let homeState: HomeState
