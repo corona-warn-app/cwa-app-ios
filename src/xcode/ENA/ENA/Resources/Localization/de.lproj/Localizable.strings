@@ -1946,6 +1946,20 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Manage" = "Bearbeiten";
 
+/* - 7 Days Incedence */
+
+"Statistics_Card_CombinedIncidence_Title" = "7-Tage-Inzidenz";
+
+"Statistics_Card_CombinedIncidence_Today" = "Bis heute";
+
+"Statistics_Card_CombinedIncidence_Yesterday" = "Bis gestern";
+
+"Statistics_Card_CombinedIncidence_Date" = "Bis %@";
+
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Neuinfektionen";
+
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalisierungen";
+
 /* - Infections Card */
 
 "Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";
