@@ -193,6 +193,12 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$secondaryValueFontStyle
+			.sink { [weak self] in
+				self?.secondaryValueLabel.style = $0 ?? .headline
+			}
+			.store(in: &subscriptions)
+
 		viewModel.$secondarySubtitle
 			.sink { [weak self] in
 				self?.secondarySubtitleLabel.isHidden = $0 == nil
@@ -335,7 +341,6 @@ class HomeStatisticsCardView: UIView {
 		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		secondaryValueLabel.style = .headline
 		secondaryValueLabel.numberOfLines = 0
 		secondaryValueLabel.adjustsFontSizeToFitWidth = false
 		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
