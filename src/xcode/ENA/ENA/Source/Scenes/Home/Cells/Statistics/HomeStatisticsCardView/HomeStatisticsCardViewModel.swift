@@ -77,8 +77,26 @@ class HomeStatisticsCardViewModel {
 		} else {
 			primaryTitle = String(format: AppStrings.Statistics.Card.Incidence.date, "")
 		}
-
 		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
+		
+		if let sevenDayHospitalizationTrend = regionStatisticsData.sevenDayHospitalizationIncidence, let sevenDayHospitalizationIncidenceUpdatedAt = regionStatisticsData.sevenDayHospitalizationIncidenceUpdatedAt {
+			secondaryValue = sevenDayHospitalizationTrend.formattedValue
+			secondaryTrendImage = sevenDayHospitalizationTrend.trendImage
+			secondaryTrendImageTintColor = sevenDayHospitalizationTrend.trendTintColor
+			secondaryTrendAccessibilityLabel = sevenDayHospitalizationTrend.trendAccessibilityLabel
+			secondaryTrendAccessibilityValue = sevenDayHospitalizationTrend.trendAccessibilityValue
+
+			let sevenDayHospitalizationIncidenceUpdatedDate = Date(timeIntervalSince1970: TimeInterval(sevenDayHospitalizationIncidenceUpdatedAt))
+			secondaryTitle = sevenDayHospitalizationIncidenceUpdatedDate.formatted(
+				todayString: AppStrings.Statistics.Card.Combined7DaysIncidence.today,
+				yesterdayString: AppStrings.Statistics.Card.Combined7DaysIncidence.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Combined7DaysIncidence.date
+			)
+		} else {
+			secondaryTitle = String(format: AppStrings.Statistics.Card.Incidence.date, "")
+		}
+		secondarySubtitle = AppStrings.Statistics.Card.Combined7DaysIncidence.secondaryLabelSubtitle
+		secondaryValueFontStyle = .title1
 	}
 	
 	// swiftlint:enable cyclomatic_complexity
@@ -98,6 +116,7 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var primaryTrendAccessibilityValue: String?
 	@OpenCombine.Published private(set) var secondaryTitle: String?
 	@OpenCombine.Published private(set) var secondaryValue: String?
+	@OpenCombine.Published private(set) var secondaryValueFontStyle: ENALabel.Style?
 	@OpenCombine.Published private(set) var secondarySubtitle: String?
 	@OpenCombine.Published private(set) var secondaryTrendImage: UIImage?
 	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
