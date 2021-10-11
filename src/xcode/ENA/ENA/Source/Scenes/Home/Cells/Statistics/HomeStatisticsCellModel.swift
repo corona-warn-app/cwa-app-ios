@@ -53,5 +53,22 @@ class HomeStatisticsCellModel {
 	private let localStatisticsProvider: LocalStatisticsProviding
 
 	private var subscriptions = Set<AnyCancellable>()
-
+	private var isCombinedIncidenceCardSupported: Bool {
+		#if DEBUG
+		if isUITesting {
+			return !LaunchArguments.statistics.useMockedOldAppVersion.boolValue
+		} else if isOldAppVersion {
+			return false
+		}
+		#endif
+		// we show the combined card 10 only for 2.13 or later, else we show 2 and 8
+		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
+		guard appVersionParts.count == 3,
+			  let majorAppVersion = Int(appVersionParts[0]),
+			  let minorAppVersion = Int(appVersionParts[1]) else {
+				  Log.error("Not able to retrieve current app version")
+				  return false
+			  }
+		return  (majorAppVersion > 2 || majorAppVersion == 2 && minorAppVersion >= 13)
+	}
 }
