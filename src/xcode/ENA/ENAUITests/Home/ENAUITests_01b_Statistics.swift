@@ -211,6 +211,11 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title8].swipeLeft()
 		}
 	}
+	
+	func test_StatisticsCardTitles_OldAppVersions() throws {
+		// flow for 2.12 and earlier versions
+		app.setLaunchArgument(LaunchArguments.statistics.useMockedOldAppVersion, to: true)
+		
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Incidence.title
 		let title2 = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
@@ -252,7 +257,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title1].swipeRight()
 		default:
 			app.swipeLeft()
-			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .extraLong))
 			app.staticTexts[title1].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
 			app.staticTexts[title2].swipeLeft()
@@ -394,8 +399,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
-		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
-		let hospitalizationRateTitle = AccessibilityIdentifiers.Statistics.HospitalizationRate.title
+		let combinedIncidenceTitle = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
 		let intensiveCareTitle = AccessibilityIdentifiers.Statistics.IntensiveCare.title
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
 		let keySubmissionsTitle = AccessibilityIdentifiers.Statistics.KeySubmissions.title
