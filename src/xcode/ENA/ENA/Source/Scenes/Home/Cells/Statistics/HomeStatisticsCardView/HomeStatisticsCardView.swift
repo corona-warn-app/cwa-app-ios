@@ -300,7 +300,7 @@ class HomeStatisticsCardView: UIView {
 	}
 	
 	private func configurePrimarySection() {
-		primaryTitleLabel.style = .body
+		primaryTitleLabel.style = .subheadline
 		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primaryTitleLabel.numberOfLines = 0
 		primaryTitleLabel.adjustsFontSizeToFitWidth = false
@@ -327,7 +327,7 @@ class HomeStatisticsCardView: UIView {
 	}
 	
 	private func configureSecondarySection() {
-		secondaryTitleLabel.style = .body
+		secondaryTitleLabel.style = .subheadline
 		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondaryTitleLabel.numberOfLines = 0
 		secondaryTitleLabel.adjustsFontSizeToFitWidth = false
@@ -354,7 +354,7 @@ class HomeStatisticsCardView: UIView {
 	}
 	
 	private func configureTertiarySection() {
-		tertiaryTitleLabel.style = .body
+		tertiaryTitleLabel.style = .subheadline
 		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		tertiaryTitleLabel.numberOfLines = 0
 		tertiaryTitleLabel.adjustsFontSizeToFitWidth = false
