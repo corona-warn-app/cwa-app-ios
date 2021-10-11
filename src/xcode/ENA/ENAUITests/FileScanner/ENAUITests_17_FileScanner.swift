@@ -18,7 +18,7 @@ class ENAUITests_17_FileScanner: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
     }
 
-	func test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet() throws {
+	func test_OpenUniversalScannerAndSelectFile_CheckForSheet() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
 		app.launch()
 
@@ -30,8 +30,6 @@ class ENAUITests_17_FileScanner: CWATestCase {
 
 		let openFileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.file])
 		openFileButton.waitAndTap()
-
-		snapshot("filescanner_screenshot_scanner_sheet")
 
 		let cancelSheetButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.FileScanner.cancelSheet])
 		cancelSheetButton.waitAndTap()
