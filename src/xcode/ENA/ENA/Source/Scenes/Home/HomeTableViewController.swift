@@ -200,10 +200,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return headerView
 	}
 
-	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return viewModel.heightForHeader(in: section)
-	}
-
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		if HomeTableViewModel.Section(rawValue: section) == .infos {
 			let footerView = UIView()
