@@ -1598,21 +1598,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Version 2.12 */
 
-"NewVersionFeature_212_newStatisticsTiles_title" = "Erweiterung Statistiken";
+"NewVersionFeature_213_hospitalizationRateTile_title" = "Lokale 7-Tage-Inzidenz Hospitalisierung";
 
-"NewVersionFeature_212_newStatisticsTiles_description" = "Es sind nun folgende Statistiken in der App verfügbar:\n\t\U2022 7-Tage-Inzidenz Hospitalisierung\n\t\U2022 COVID-19-Erkrankte auf \n\t   Intensivstationen";
+"NewVersionFeature_213_hospitalizationRateTile_description" = "Auf den lokalen Kacheln zur 7-Tage-Inzidenz der Neuinfektionen wird nun zusätzlich die 7-Tage-Inzidenz der Hospitalisierung angezeigt. Da diese Kennzahl nur auf Bundeslandebene verfügbar ist, wird bei Auswahl eines Kreises die Hospitalisierung zum jeweiligen Bundesland angezeigt.";
 
-"NewVersionFeature_212_notificationManagement_title" = "Mitteilungen verwalten";
+"NewVersionFeature_213_changesFAQLinks_title" = "Änderung des Links zu Häufige Fragen";
 
-"NewVersionFeature_212_notificationManagement_description" = "Einstellungen für Mitteilungen werden ab jetzt zentral in den Einstellungen Ihres Smartphones verwaltet. Überprüfen Sie Ihre Mitteilungseinstellungen für die Corona-Warn-App in den Geräteeinstellungen erneut.";
+"NewVersionFeature_213_changesFAQLinks_description" = "Wenn Sie in der App die häufigen Fragen aufrufen, werden Sie nun auf Seiten unter coronawarn.app geleitet. Dort finden Sie mehr Details zu Ihren Fragen.";
 
-"NewVersionFeature_212_qrCodeScannerButton_title" = "Direkter Zugriff QR-Code-Scanner";
+"NewVersionFeature_213_certificateAssignment_title" = "Zuordnung von Zertifikaten";
 
-"NewVersionFeature_212_qrCodeScannerButton_description" = "Sie haben nun von der unteren Navigationsleiste aus direkten Zugriff auf den universellen QR-Code-Scanner.";
+"NewVersionFeature_213_certificateAssignment_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Die App ignoriert nun eine unterschiedliche Anzahl von Leerzeichen im Namen, sodass die Zertifikate unabhängig davon der gleichen Person zugeordnet werden können.";
 
-"NewVersionFeature_212_qrCodeImport_title" = "QR-Code importieren";
+"NewVersionFeature_213_restoreCertificate_title" = "Zertifikate wiederherstellen";
 
-"NewVersionFeature_212_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code-Scanner importieren.";
+"NewVersionFeature_213_restoreCertificate_description" = "Entfernte Zertifikate werden in einen Papierkorb verschoben. Sie können sie innerhalb von 30 Tagen wiederherstellen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
