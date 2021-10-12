@@ -1333,6 +1333,18 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_AppInformationCard_Version" = "Version";
 
+/* Home More Card */
+
+"Home_MoreCard_SettingsTitle" = "Einstellungen";
+
+"Home_MoreCard_RecycleBinTitle" = "Papierkorb";
+
+"Home_MoreCard_AppInformationTitle" = "App-Informationen";
+
+"Home_MoreCard_FAQTitle" = "Häufige Fragen";
+
+"Home_MoreCard_ShareTitle" = "Teilen";
+
 /* Home Alert Risk Lowered */
 
 "Home_Alert_RiskStatusLowered_Title" = "Änderung Ihres Risikostatus";
