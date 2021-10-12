@@ -100,7 +100,7 @@ class RecycleBin {
 	var certificateRestorationHandler: CertificateRestorationHandling!
 
 	@discardableResult
-	func recycle(_ item: RecycledItem, recycleDate: Date = Date()) -> RecycleBinItem {
+	func moveToBin(_ item: RecycledItem, recycleDate: Date = Date()) -> RecycleBinItem {
 		Log.info("Recycle item.", log: .recycleBin)
 
 		let binItem = RecycleBinItem(

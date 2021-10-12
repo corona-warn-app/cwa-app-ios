@@ -7,12 +7,12 @@ import XCTest
 
 class RecycleBinTests: XCTestCase {
 
-	func test_Recycle() {
+	func test_moveToBin() {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycledItem.certificate(HealthCertificate.mock())
 
-		recycleBin.recycle(item)
+		recycleBin.moveToBin(item)
 
 		XCTAssertEqual(mockStore.recycleBinItems.count, 1)
 	}
@@ -147,7 +147,7 @@ class RecycleBinTests: XCTestCase {
 		recycleBin.certificateRestorationHandler = handler
 
 		// First put an item into the bin and check if its persisted.
-		let binItem = recycleBin.recycle(item)
+		let binItem = recycleBin.moveToBin(item)
 		XCTAssertEqual(mockStore.recycleBinItems.count, 1)
 
 		// Then restore the item and check if its deleted from bin.
@@ -163,7 +163,7 @@ class RecycleBinTests: XCTestCase {
 		let item = RecycledItem.certificate(HealthCertificate.mock())
 
 		// First put an item into the bin and check if its persisted.
-		let binItem = recycleBin.recycle(item)
+		let binItem = recycleBin.moveToBin(item)
 		XCTAssertEqual(mockStore.recycleBinItems.count, 1)
 
 		// Then remove the item and check if its deleted from bin.
@@ -177,19 +177,19 @@ class RecycleBinTests: XCTestCase {
 
 		// First put some items into the bin and check if its persisted.
 
-		recycleBin.recycle(
+		recycleBin.moveToBin(
 			RecycledItem.certificate(
 				HealthCertificate.mock(base45: HealthCertificateMocks.mockBase45)
 			)
 		)
 
-		recycleBin.recycle(
+		recycleBin.moveToBin(
 			RecycledItem.certificate(
 				HealthCertificate.mock(base45: HealthCertificateMocks.firstBase45Mock)
 			)
 		)
 
-		recycleBin.recycle(
+		recycleBin.moveToBin(
 			RecycledItem.certificate(
 				HealthCertificate.mock(base45: HealthCertificateMocks.lastBase45Mock)
 			)
@@ -209,7 +209,7 @@ class RecycleBinTests: XCTestCase {
 		let certificate = HealthCertificate.mock()
 		let item = RecycledItem.certificate(certificate)
 
-		recycleBin.recycle(item)
+		recycleBin.moveToBin(item)
 		XCTAssertNotNil(recycleBin.item(for: certificate.base45))
 	}
 
@@ -222,7 +222,7 @@ class RecycleBinTests: XCTestCase {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
 
-		recycleBin.recycle(
+		recycleBin.moveToBin(
 			RecycledItem.certificate(
 				HealthCertificate.mock(
 					base45: HealthCertificateMocks.mockBase45
@@ -231,7 +231,7 @@ class RecycleBinTests: XCTestCase {
 			recycleDate: dateBefore30Days
 		)
 
-		recycleBin.recycle(
+		recycleBin.moveToBin(
 			RecycledItem.certificate(
 				HealthCertificate.mock(
 					base45: HealthCertificateMocks.firstBase45Mock
@@ -240,7 +240,7 @@ class RecycleBinTests: XCTestCase {
 			recycleDate: date30Days
 		)
 
-		recycleBin.recycle(
+		recycleBin.moveToBin(
 			RecycledItem.certificate(
 				HealthCertificate.mock(
 					base45: HealthCertificateMocks.lastBase45Mock
