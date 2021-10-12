@@ -26,5 +26,20 @@ enum MoreActionItem: Int, CaseIterable {
 		}
 	}
 	
+	var accessibilityIdentifier: String {
+		switch self {
+		case .settings:
+			return AccessibilityIdentifiers.Home.MoreCell.settingsActionView
+		case .recycleBin:
+			return AccessibilityIdentifiers.Home.MoreCell.recycleBinActionView
+		case .appInformation:
+			return AccessibilityIdentifiers.Home.MoreCell.appInformationActionView
+		case .faq:
+			return AccessibilityIdentifiers.Home.MoreCell.faqActionView
+		case .share:
+			return AccessibilityIdentifiers.Home.MoreCell.shareActionView
+		}
+	}
+	
 
 }
