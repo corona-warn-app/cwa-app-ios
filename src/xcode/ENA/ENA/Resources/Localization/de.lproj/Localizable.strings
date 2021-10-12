@@ -1976,15 +1976,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* - Incidence Card */
 
-"Statistics_Card_Incidence_Title" = "7-Tage-Inzidenz";
+"Statistics_Card_Region_Today" = "Bis heute";
 
-"Statistics_Card_Incidence_Today" = "Bis heute";
+"Statistics_Card_Region_Yesterday" = "Bis gestern";
 
-"Statistics_Card_Incidence_Yesterday" = "Bis gestern";
-
-"Statistics_Card_Incidence_Date" = "Bis %@";
-
-"Statistics_Card_Incidence_SecondaryLabelTitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
+"Statistics_Card_Region_Date" = "Bis %@";
 
 /* - Key Submissions Card */
 
@@ -2060,18 +2056,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
 
-/* - Infected People Hospitalization Rate */
-
-"Statistics_Card_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
-
-"Statistics_Card_HospitalizationRate_Today" = "Bis heute";
-
-"Statistics_Card_HospitalizationRate_Yesterday" = "Bis gestern";
-
-"Statistics_Card_HospitalizationRate_Date" = "Bis %@";
-
-"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19-Hospitalisierungen je 100.000 Einwohner";
-
 /* - Infected People in Intensive Care */
 
 "Statistics_Card_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
@@ -2094,17 +2078,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Subtitle" = "Erklärung der Statistiken";
 
-"Statistics_Info_Local7Days_Title" = "Lokale 7-Tage-Inzidenz";
-
-"Statistics_Info_Local7Days_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner im konfigurierten Kreis oder Bundesland.";
-
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 
-"Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+"Statistics_Info_Local7Days_Title" = "Lokale 7-Tage-Inzidenz";
 
-"Statistics_Info_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
+"Statistics_Info_Local7Days_Text" = "Gesamtzahl der bestätigten Neuinfektionen bzw. Hospitalisierungen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner im konfigurierten Kreis oder Bundesland.\nDie Hospitalisierungsdaten beziehen sich auf das zugehörige Bundesland.";
 
-"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+"Statistics_Info_NewInfection_Title" = "Bestätigte Neuinfektionen";
+
+"Statistics_Info_NewInfection_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Hospitalisierung";
+
+"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
 
 "Statistics_Info_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
 

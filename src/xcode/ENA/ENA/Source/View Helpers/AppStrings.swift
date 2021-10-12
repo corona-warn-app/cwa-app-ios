@@ -1404,12 +1404,10 @@ enum AppStrings {
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_TertiaryLabelTitle", comment: "")
 			}
 
-			enum Incidence {
-				static let title = NSLocalizedString("Statistics_Card_Incidence_Title", comment: "")
-				static let today = NSLocalizedString("Statistics_Card_Incidence_Today", comment: "")
-				static let yesterday = NSLocalizedString("Statistics_Card_Incidence_Yesterday", comment: "")
-				static let date = NSLocalizedString("Statistics_Card_Incidence_Date", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_SecondaryLabelTitle", comment: "")
+			enum Region {
+				static let today = NSLocalizedString("Statistics_Card_Region_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_Region_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_Region_Date", comment: "")
 			}
 
 			enum KeySubmissions {
@@ -1460,14 +1458,6 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_TertiaryLabelTitle", comment: "")
 			}
-
-			enum HospitalizationRate {
-				static let title = NSLocalizedString("Statistics_Card_HospitalizationRate_Title", comment: "")
-				static let today = NSLocalizedString("Statistics_Card_HospitalizationRate_Today", comment: "")
-				static let yesterday = NSLocalizedString("Statistics_Card_HospitalizationRate_Yesterday", comment: "")
-				static let date = NSLocalizedString("Statistics_Card_HospitalizationRate_Date", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_HospitalizationRate_SecondaryLabelTitle", comment: "")
-			}
 			
 			enum Combined7DaysIncidence {
 				static let title = NSLocalizedString("Statistics_Card_CombinedIncidence_Title", comment: "")
@@ -1501,10 +1491,11 @@ enum AppStrings {
 		enum Info {
 			static let title = NSLocalizedString("Statistics_Info_Title", comment: "")
 			static let subtitle = NSLocalizedString("Statistics_Info_Subtitle", comment: "")
+			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
 			static let local7DaysTitle = NSLocalizedString("Statistics_Info_Local7Days_Title", comment: "")
 			static let local7DaysText = NSLocalizedString("Statistics_Info_Local7Days_Text", comment: "")
-			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
-			static let incidenceText = NSLocalizedString("Statistics_Info_Incidence_Text", comment: "")
+			static let newInfectionTitle = NSLocalizedString("Statistics_Info_NewInfection_Title", comment: "")
+			static let newInfectionText = NSLocalizedString("Statistics_Info_NewInfection_Text", comment: "")
 			static let hospitalizationRateTitle = NSLocalizedString("Statistics_Info_HospitalizationRate_Title", comment: "")
 			static let hospitalizationRateText = NSLocalizedString("Statistics_Info_HospitalizationRate_Text", comment: "")
 			static let intensiveCareTitle = NSLocalizedString("Statistics_Info_IntensiveCare_Title", comment: "")
