@@ -189,6 +189,8 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		} else {
 			additionalTopPadding += UIApplication.shared.statusBarFrame.height
 		}
+		// for larger screens pull it even more down - it looks better
+		additionalTopPadding = max(additionalTopPadding, UIScreen.main.bounds.height / 3)
 
 		tableView.backgroundView = viewModel.isEmptyStateVisible
 			? EmptyStateView(

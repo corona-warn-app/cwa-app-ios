@@ -263,9 +263,9 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			}
 		}
 		
-		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the height of the add cell …
-		let additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		// Since we set the empty state view as a background view we want to push it to a position
+		// that looks good on large and small screens
+		let additionalTopPadding = UIScreen.main.bounds.height / 5
 		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty
 			? EmptyStateView(
 				viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType),

@@ -75,11 +75,10 @@ class EmptyStateView: UIView {
 		// (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay, OnBehalfWarning).
 		// The result was 3.
 		let percentageWidth = UIScreen.main.bounds.width / 3
-		let percentageHeight = UIScreen.main.bounds.height / 2
 
 		// layout strategy:
-		// stack view with full width (with a small margin) for effective horizontal centered alignment.
-		// top-aligned (with a small margin) to align the appearance of this view across pages.
+		// stack view with full width (with margin) for effective horizontal centered alignment.
+		// top-aligned (with margin) to align the appearance of this view across pages.
 		// the view controller can configure its position with the additionalTopPadding.
 		// multiline text box (descriptionLabel) with width 280.
 		// image: 1/3 of the screen width if possible, but else shrink it to avoid that the layout exceeds the visible page.
@@ -94,12 +93,8 @@ class EmptyStateView: UIView {
 		])
 		// break the following constraints in case of conflicts
 		let descriptionWidthConstraint = descriptionLabel.widthAnchor.constraint(equalToConstant: 280)
-		descriptionWidthConstraint.priority = UILayoutPriority(997)
+		descriptionWidthConstraint.priority = UILayoutPriority(998)
 		descriptionWidthConstraint.isActive = true
-
-		let imageVPosConstraint = imageView.bottomAnchor.constraint(equalTo: topAnchor, constant: percentageHeight)
-		imageVPosConstraint.priority = UILayoutPriority(998)
-		imageVPosConstraint.isActive = true
 
 		let imageSizeConstraint = imageView.widthAnchor.constraint(equalToConstant: percentageWidth)
 		imageSizeConstraint.priority = UILayoutPriority(999)
