@@ -200,35 +200,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return headerView
 	}
 
-	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		if HomeTableViewModel.Section(rawValue: section) == .infos {
-			let footerView = UIView()
-			footerView.backgroundColor = .enaColor(for: .separator)
-
-			return footerView
-		} else if HomeTableViewModel.Section(rawValue: section) == .settings {
-			let footerView = UIView()
-
-			let colorView = UIView()
-			colorView.backgroundColor = .enaColor(for: .separator)
-
-			footerView.addSubview(colorView)
-			colorView.translatesAutoresizingMaskIntoConstraints = false
-
-			NSLayoutConstraint.activate([
-				colorView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
-				colorView.topAnchor.constraint(equalTo: footerView.topAnchor),
-				colorView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
-				// Extend the last footer view so the color is shown even when rubber banding the scroll view
-				colorView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: UIScreen.main.bounds.height)
-			])
-
-			return footerView
-		} else {
-			return UIView()
-		}
-	}
-
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return viewModel.heightForRow(at: indexPath)
 	}
