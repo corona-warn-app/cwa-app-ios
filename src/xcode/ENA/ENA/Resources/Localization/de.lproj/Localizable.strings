@@ -1942,8 +1942,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
 
-"Statistics_Card_Add_LocalCardPrimarySubtitle" = "Neuinfektionen";
-
 "Statistics_Card_Manage" = "Bearbeiten";
 
 /* - 7 Days Incedence */
@@ -1981,6 +1979,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_Region_Yesterday" = "Bis gestern";
 
 "Statistics_Card_Region_Date" = "Bis %@";
+
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "Neuinfektionen";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalisierungen";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalisierungen in %@";
 
 /* - Key Submissions Card */
 
