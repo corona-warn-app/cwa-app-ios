@@ -186,10 +186,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return statisticsCell(forRowAt: indexPath)
 		case .traceLocations:
 			return traceLocationsCell(forRowAt: indexPath)
-		case .infos:
-			return infoCell(forRowAt: indexPath)
-		case .settings:
-			return infoCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
