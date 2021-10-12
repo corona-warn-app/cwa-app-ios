@@ -382,6 +382,35 @@ class HealthCertificateService {
 		updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
 	}
 
+	func migration() {
+		// at the moment we only have 1 migration step
+		// if more is needed we should add a migration serial queue
+		guard store.healthCertifiedPersonsVersion == nil else {
+			Log.debug("Migration was done already - stop here")
+			return
+		}
+		defer {
+			// after leaving mark migration as done
+			store.healthCertifiedPersonsVersion = 1
+		}
+
+		// reinsert all health certificates will do the job (it uses the new groupingStandardizedName)
+		let originalInitialHealthCertifiedPersonsReadFromStore = initialHealthCertifiedPersonsReadFromStore
+		initialHealthCertifiedPersonsReadFromStore = false
+		let original = store.healthCertifiedPersons
+		for person in original {
+			person.healthCertificates.forEach { healthCertificate in
+				Log.debug("Will reregister health certificate")
+				registerHealthCertificate(base45: healthCertificate.base45)
+			}
+		}
+		if original != healthCertifiedPersons {
+			Log.debug("Did update grouping name of certificates")
+			store.healthCertifiedPersons = healthCertifiedPersons
+		}
+		initialHealthCertifiedPersonsReadFromStore = originalInitialHealthCertifiedPersonsReadFromStore
+	}
+
 	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
 		// .dropFirst: drops the first callback, which is called with default signing certificates.
 		// .first: only executes 1 element and no subsequent elements.
@@ -506,6 +535,8 @@ class HealthCertificateService {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setup() {
+
+		migration()
 		updatePublishersFromStore()
 
 		subscribeToNotifications()
