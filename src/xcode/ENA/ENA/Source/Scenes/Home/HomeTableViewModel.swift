@@ -79,10 +79,8 @@ class HomeTableViewModel {
 			return 1
 		case .traceLocations:
 			return 1
-		case .infos:
-			return 2
-		case .settings:
-			return 2
+		case .more:
+			return 1
 		case .none:
 			fatalError("Invalid section")
 		}
