@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.12"
+		self.featureVersion = "2.13"
 		
 		// New Statistics tiles
 		self.newVersionFeatures.append(
