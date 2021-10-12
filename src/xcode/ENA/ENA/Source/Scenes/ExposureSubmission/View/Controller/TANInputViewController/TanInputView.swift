@@ -96,7 +96,7 @@ class TanInputView: UIControl, UIKeyInput {
 		stackView.spacing = spacing
 		stackView.distribution = .fill
 
-		// Enfore left-to-right semantics for RTL languages such as Arabic.
+		// Enforce left-to-right semantics for RTL languages such as Arabic.
 		stackView.semanticContentAttribute = .forceLeftToRight
 
 		// Generate character groups
@@ -157,7 +157,7 @@ class TanInputView: UIControl, UIKeyInput {
 		stackView.alignment = .fill
 		stackView.distribution = .fill
 
-		// Enfore left-to-right semantics for RTL languages such as Arabic.
+		// Enforce left-to-right semantics for RTL languages such as Arabic.
 		stackView.semanticContentAttribute = .forceLeftToRight
 
 		for _ in 0..<count { stackView.addArrangedSubview(createLabel()) }

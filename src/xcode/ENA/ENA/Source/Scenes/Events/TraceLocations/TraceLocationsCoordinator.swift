@@ -277,7 +277,8 @@ class TraceLocationsCoordinator {
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-		parentNavigationController?.present(traceLocationCheckinViewController, animated: true)
+		let navigationController = DismissHandlingNavigationController(rootViewController: traceLocationCheckinViewController, transparent: true)
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showOnBehalfCheckinSubmissionFlow() {

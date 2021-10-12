@@ -151,7 +151,7 @@ final class TraceWarningMatcher: TraceWarningMatching {
 			guard !checkins.isEmpty else {
 				continue
 			}
-			Log.info("[TraceWarningMatching] Found \(checkins.count) overlaping matches.", log: .checkin)
+			Log.info("[TraceWarningMatching] Found \(checkins.count) overlapping matches.", log: .checkin)
 
 			// Persist checkins and warning as matches.
 			for checkin in checkins {

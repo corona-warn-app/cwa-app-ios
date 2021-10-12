@@ -34,12 +34,16 @@ extension XCUIElement {
 	}
 	
 	func waitAndTap(_ timeout: Double = .short) {
+		self.wait()
+		// swiftlint:disable:next no_direct_tap
+		self.tap()
+	}
+
+	func wait(_ timeout: Double = .short) {
 		// Need XCTAssertEqual() here because we can append a message, this is not possible for XCTAssertTrue()
 		// swiftlint:disable:next xct_specific_matcher
 		XCTAssertEqual(self.waitForExistence(timeout: timeout), true, "Could not find XCUIElement: \(self) before tapping it.")
 		XCTAssertTrue(self.isEnabled)
-		// swiftlint:disable:next no_direct_tap
-		self.tap()
 	}
 }
 
@@ -77,7 +81,7 @@ extension XCUIApplication {
 
 	private var currentLanguage: (langCode: String, localeCode: String)? {
 		guard let preferredLanguage = Locale.preferredLanguages.first else {
-			fatalError("Cant unwrap: Locale.preferredLanguages.first")
+			fatalError("Can't unwrap: Locale.preferredLanguages.first")
 		}
 		let currentLocale = Locale(identifier: preferredLanguage)
 		guard let langCode = currentLocale.languageCode else {

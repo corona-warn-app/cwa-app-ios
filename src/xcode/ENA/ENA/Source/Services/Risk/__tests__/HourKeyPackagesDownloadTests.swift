@@ -431,7 +431,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 	func test_When_DownloadingDayPackage_Then_CleanupHourPackages() throws {
 		// Load day package for a particular day will cleanup
-		// all hour packages for exactely that day
+		// all hour packages for exactly that day
 
 		let store = MockTestStore()
 

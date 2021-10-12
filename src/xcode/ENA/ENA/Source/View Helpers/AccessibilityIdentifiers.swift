@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Darwin
+
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
@@ -17,19 +19,17 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum NotificationSettings {
-		/* old will be deleted with further PR */
-		static let riskChanges = "AppStrings.NotificationSettings.riskChanges"
-		static let testsStatus = "AppStrings.NotificationSettings.testsStatus"
-		static let onTitle = "AppStrings.NotificationSettings.onTitle"
-		
-		/* new */
-		
 		enum DeltaOnboarding {
-			static let image = "AppStrings.NotificationSettings.imageDescriptionOn"
+			static let imageOn = "AppStrings.NotificationSettings.imageDescriptionOn"
+			static let imageOff = "AppStrings.NotificationSettings.imageDescriptionOff"
 			static let description = "AppStrings.NotificationSettings.DeltaOnboarding.description"
 		}
+		static let notifications = "AppStrings.NotificationSettings.notifications"
+		static let notificationsOn = "AppStrings.NotificationSettings.notificationsOn"
+		static let notificationsOff = "AppStrings.NotificationSettings.notificationsOff"
 		
 		static let bulletDescOn = "AppStrings.NotificationSettings.bulletDescOn"
+		static let bulletDescOff = "AppStrings.NotificationSettings.bulletDescOff"
 		static let bulletPoint1 = "AppStrings.NotificationSettings.bulletPoint1"
 		static let bulletPoint2 = "AppStrings.NotificationSettings.bulletPoint2"
 		static let bulletPoint3 = "AppStrings.NotificationSettings.bulletPoint3"
@@ -251,11 +251,20 @@ enum AccessibilityIdentifiers {
 	
 	enum UniversalQRScanner {
 		static let flash = "ExposureSubmissionQRScanner_flash"
+		static let file = "QRScanner_file"
 		static let fakeHC1 = "QRScanner_FAKE_HC1"
 		static let fakeHC2 = "QRScanner_FAKE_HC2"
 		static let fakePCR = "QRScanner_FAKE_PCR"
+		static let fakePCR2 = "QRScanner_FAKE_PCR2"
 		static let fakeEvent = "QRScanner_FAKE_EVENT"
+		static let other = "QRScanner_OTHER"
 		static let cancel = "QRScanner_CANCEL"
+	}
+
+	enum FileScanner {
+		static let cancelSheet = "FileScanner_Sheet_Cancel_Button"
+		static let photo = "FileScanner_Sheet_Photo_Button"
+		static let file = "FileScanner_Sheet_File_Button"
 	}
 	
 	enum ExposureSubmissionQRInfo {

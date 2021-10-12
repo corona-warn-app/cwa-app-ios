@@ -178,7 +178,7 @@ protocol Client {
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	)
 	
-	/// GET call to load the packge to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
+	/// GET call to load the package to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
 	/// - Parameters:
 	///   - country: The country.ID for which country we want the IDs.
 	///   - packageId: The packageID for the package we want to download
@@ -205,7 +205,7 @@ protocol Client {
 		completion: @escaping DCCRegistrationCompletionHandler
 	)
 
-	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encyption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
+	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encryption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
 	/// - Parameters:
 	///   - registrationToken: The registration token
 	///   - isFake: Flag to indicate a fake request

@@ -450,7 +450,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	/// A set of required dependencies
 	///
-	/// Computed instead of lazy 'fixed' var because previous implementation created multiple instances of the `WarnOthersReminder` for themselfs.
+	/// Computed instead of lazy 'fixed' var because previous implementation created multiple instances of the `WarnOthersReminder` for themselves.
 	/// Currently we copy this behavior until further checks where made to refactor this.
 	var exposureSubmissionServiceDependencies: ExposureSubmissionServiceDependencies {
 		ExposureSubmissionServiceDependencies(

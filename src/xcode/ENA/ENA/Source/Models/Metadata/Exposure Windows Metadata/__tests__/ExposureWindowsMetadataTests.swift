@@ -49,8 +49,8 @@ class ExposureWindowsMetadataTests: CWATestCase {
 			return
 		}
 
-		XCTAssertEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should be the same because no new hashs are added")
-		XCTAssertEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should be the same because no new hashs are added")
+		XCTAssertEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should be the same because no new hashes are added")
+		XCTAssertEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should be the same because no new hashes are added")
 	}
 	
 	func testWindowsCollection_AlreadyInitialized_newHashsAreAppended() {
@@ -81,8 +81,8 @@ class ExposureWindowsMetadataTests: CWATestCase {
 			return
 		}
 
-		XCTAssertNotEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should not be the same because new hashs are added")
-		XCTAssertNotEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should not be the same because new hashs are added")
+		XCTAssertNotEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should not be the same because new hashes are added")
+		XCTAssertNotEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should not be the same because new hashes are added")
 	}
 	
 	func testWindowsCollection_AlreadyInitialized_ReportedEntriesOlderThan15DaysAreDeleted() {

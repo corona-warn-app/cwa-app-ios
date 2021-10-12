@@ -869,9 +869,9 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 				switch rank {
 				case .primary:
 					switch HomeStatisticsCard(rawValue: id) {
-					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
+					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople, .infectedPeopleInIntensiveCare:
 						XCTAssertEqual(viewModel.primaryValue, expectedStringWithPercent)
-					case .infections, .incidence, .infectedPeopleHospitalizationRate, .infectedPeopleInIntensiveCare, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
+					case .infections, .incidence, .infectedPeopleHospitalizationRate, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)
 					case .none:
 						XCTFail("Unrecognised Card type")

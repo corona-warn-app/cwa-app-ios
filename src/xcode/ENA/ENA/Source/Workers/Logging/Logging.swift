@@ -74,7 +74,7 @@ extension OSLog {
 /// - TAN Code for submission
 /// ```
 /// Log.debug("some key \(private: "some sensitive values")")
-/// Log.debug("some key \(private: "some sensitive values", public: "explination what data is censored here")")
+/// Log.debug("some key \(private: "some sensitive values", public: "explanation what data is censored here")")
 ///
 /// ```
 enum Log {

@@ -12,7 +12,7 @@ protocol PPAnalyticsSubmitting {
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 	
 	#if !RELEASE
-	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, without any checks.
 	/// This method should only be called by the PPAnalyticsCollector
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
 	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
@@ -80,7 +80,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		Log.debug("PPAnayticsSubmitter \(applicationState) requesting AppConfig…", log: .ppa)
 		// Sink on the app configuration if something has changed. But do this in background.
 		self.configurationProvider.appConfiguration().sink { [ weak self] configuration in
-			Log.debug("PPAnayticsSubmitter recieved AppConfig \(String(describing: self?.applicationState)))", log: .ppa)
+			Log.debug("PPAnayticsSubmitter received AppConfig \(String(describing: self?.applicationState)))", log: .ppa)
 			let ppaConfigData = configuration.privacyPreservingAnalyticsParameters.common
 			self?.probabilityToSubmitPPAUsageData = ppaConfigData.probabilityToSubmit
 			self?.hoursSinceTestResultToSubmitKeySubmissionMetadata = ppaConfigData.hoursSinceTestResultToSubmitKeySubmissionMetadata
@@ -327,7 +327,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case let .success(token):
-				Log.info("Succesfully created new ppac token to submit analytics data \(String(describing: self?.applicationState))).", log: .ppa)
+				Log.info("Successfully created new ppac token to submit analytics data \(String(describing: self?.applicationState))).", log: .ppa)
 				self?.submitData(with: token, disableExposureWindowsProbability: disableExposureWindowsProbability, completion: completion)
 			case let .failure(error):
 				Log.error("Could not submit analytics data due to ppac authorization error \(String(describing: self?.applicationState)))", log: .ppa, error: error)
@@ -399,7 +399,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	private func submitData(with ppacToken: PPACToken, disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		
-		Log.info("All checks passed succesfully to submit ppa \(applicationState). Obtaining usage data right now...", log: .ppa)
+		Log.info("All checks passed successfully to submit ppa \(applicationState). Obtaining usage data right now...", log: .ppa)
 		let payload = obtainUsageData(disableExposureWindowsProbability: disableExposureWindowsProbability)
 		Log.info("Completed obtaining all usage data for analytics submission \(applicationState). Sending right now to server...", log: .ppa)
 		
@@ -425,7 +425,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			completion: { [weak self] result in
 				switch result {
 				case .success:
-					Log.info("Analytics data succesfully submitted \(String(describing: self?.applicationState)))", log: .ppa)
+					Log.info("Analytics data successfully submitted \(String(describing: self?.applicationState)))", log: .ppa)
 					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
 					// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
