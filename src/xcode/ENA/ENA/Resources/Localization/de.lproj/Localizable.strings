@@ -1942,7 +1942,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
 
-"Statistics_Card_Add_LocalCardPrimarySubtitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
+"Statistics_Card_Add_LocalCardPrimarySubtitle" = "Neuinfektionen";
 
 "Statistics_Card_Manage" = "Bearbeiten";
 
