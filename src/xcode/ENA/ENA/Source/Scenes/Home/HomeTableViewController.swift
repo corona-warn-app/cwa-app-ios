@@ -612,17 +612,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func infoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeInfoTableViewCell.self), for: indexPath) as? HomeInfoTableViewCell else {
-			fatalError("Could not dequeue HomeInfoTableViewCell")
-		}
-
-		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
-		case .infos:
-			if indexPath.row == 0 {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .inviteFriends))
-			} else {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .faq))
 			}
 		case .settings:
 			if indexPath.row == 0 {
