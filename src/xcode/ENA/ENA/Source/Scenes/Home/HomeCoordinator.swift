@@ -76,10 +76,12 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
 			onInfoBarButtonItemTap: { [weak self] in
-				self?.showRiskLegend()
+				self?.showRecycleBin()
+//				self?.showRiskLegend()
 			},
 			onExposureLoggingCellTap: { [weak self] enState in
-				self?.showExposureNotificationSetting(enState: enState)
+//				self?.showExposureNotificationSetting(enState: enState)
+				self?.showRecycleBin()
 			},
 			onRiskCellTap: { [weak self] homeState in
 				self?.showExposureDetection(state: homeState)
@@ -397,6 +399,43 @@ class HomeCoordinator: RequiresAppDependencies {
 		settingsCoordinator?.start()
 
 		addToEnStateUpdateList(settingsCoordinator)
+	}
+
+	private func showRecycleBin() {
+		// TODO: Move to AppDelegate and remove mock data
+		let recycleBin = RecycleBin(store: store)
+
+		recycleBin.recycle(.coronaTest(.pcr(.mock())))
+		recycleBin.recycle(.coronaTest(.antigen(.mock())))
+		recycleBin.recycle(.certificate(.mock()))
+
+		let recycleBinViewController = RecycleBinViewController(
+			viewModel: RecycleBinViewModel(
+				store: store,
+				recycleBin: recycleBin
+			)
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				// TODO: Separate string
+				primaryButtonName: AppStrings.TraceLocations.Overview.deleteAllButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: true,
+				isSecondaryButtonHidden: true,
+				primaryButtonColor: .systemRed
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: recycleBinViewController,
+			bottomController: footerViewController
+		)
+
+		rootViewController.pushViewController(
+			topBottomContainerViewController,
+			animated: true
+		)
 	}
 
 	private func addToEnStateUpdateList(_ anyObject: AnyObject?) {

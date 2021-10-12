@@ -3,7 +3,7 @@
 //
 
 import Foundation
-@testable import ENA
+//@testable import ENA
 
 extension PCRTest {
 
