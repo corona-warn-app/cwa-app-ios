@@ -56,8 +56,7 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 4), 1)
-		XCTAssertEqual(viewModel.numberOfRows(in: 5), 2)
-		XCTAssertEqual(viewModel.numberOfRows(in: 6), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 5), 1)
 
 		// Check riskAndTestResultsRows
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
