@@ -40,7 +40,7 @@ class ENAUITests: CWATestCase {
 
 		// ScreenShot_0001: Onboarding screen 1
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: .medium))
-		if snapshotsActive { snapshot("AppStore_0001") }
+		if snapshotsActive { snapshot("AppStore_0001") } // Needed for Website
 
 		// ScreenShot_0002: Homescreen (low risk)
 		try navigateThroughOnboarding()
