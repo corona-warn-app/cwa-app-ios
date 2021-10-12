@@ -41,8 +41,7 @@ class HomeTableViewModel {
 		case testRegistration
 		case statistics
 		case traceLocations
-		case infos
-		case settings
+		case more
 	}
 
 	enum RiskAndTestResultsRow: Equatable {
