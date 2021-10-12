@@ -140,6 +140,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var healthCertificateInfoScreenShown: Bool = false
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	var healthCertifiedPersonsVersion: Int?
 	var testCertificateRequests: [TestCertificateRequest] = []
 	var lastSelectedValidationCountry: Country = .defaultCountry()
 	var lastSelectedValidationDate: Date = Date()
