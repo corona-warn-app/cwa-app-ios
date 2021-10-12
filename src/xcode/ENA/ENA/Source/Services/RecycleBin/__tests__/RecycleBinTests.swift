@@ -21,7 +21,7 @@ class RecycleBinTests: XCTestCase {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycleBinItem(
-			recycleDate: Date(),
+			recycledAt: Date(),
 			item: RecycledItem.certificate(HealthCertificate.mock())
 		)
 
@@ -49,7 +49,7 @@ class RecycleBinTests: XCTestCase {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycleBinItem(
-			recycleDate: Date(),
+			recycledAt: Date(),
 			item: RecycledItem.certificate(HealthCertificate.mock())
 		)
 
@@ -77,7 +77,7 @@ class RecycleBinTests: XCTestCase {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycleBinItem(
-			recycleDate: Date(),
+			recycledAt: Date(),
 			item: RecycledItem.coronaTest(CoronaTest.antigen(.mock()))
 		)
 
@@ -105,7 +105,7 @@ class RecycleBinTests: XCTestCase {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycleBinItem(
-			recycleDate: Date(),
+			recycledAt: Date(),
 			item: RecycledItem.coronaTest(CoronaTest.antigen(.mock()))
 		)
 
@@ -228,7 +228,7 @@ class RecycleBinTests: XCTestCase {
 					base45: HealthCertificateMocks.mockBase45
 				)
 			),
-			recycleDate: dateBefore30Days
+			recycledAt: dateBefore30Days
 		)
 
 		recycleBin.moveToBin(
@@ -237,7 +237,7 @@ class RecycleBinTests: XCTestCase {
 					base45: HealthCertificateMocks.firstBase45Mock
 				)
 			),
-			recycleDate: date30Days
+			recycledAt: date30Days
 		)
 
 		recycleBin.moveToBin(
@@ -246,7 +246,7 @@ class RecycleBinTests: XCTestCase {
 					base45: HealthCertificateMocks.lastBase45Mock
 				)
 			),
-			recycleDate: dateAfter30Days
+			recycledAt: dateAfter30Days
 		)
 
 		XCTAssertEqual(mockStore.recycleBinItems.count, 3)
