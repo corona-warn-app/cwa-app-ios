@@ -61,25 +61,6 @@ class HomeTableViewModelTests: CWATestCase {
 
 		// Check riskAndTestResultsRows
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
-		
-		// Height for Header
-		XCTAssertEqual(viewModel.heightForHeader(in: 0), 0)
-		XCTAssertEqual(viewModel.heightForHeader(in: 1), 0)
-		XCTAssertEqual(viewModel.heightForHeader(in: 2), 0)
-		XCTAssertEqual(viewModel.heightForHeader(in: 3), 0)
-		XCTAssertEqual(viewModel.heightForHeader(in: 4), 0)
-		XCTAssertEqual(viewModel.heightForHeader(in: 5), 16)
-		XCTAssertEqual(viewModel.heightForHeader(in: 6), 16)
-		
-		// Height for Footer
-		XCTAssertEqual(viewModel.heightForFooter(in: 0), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: 1), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: 2), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: 3), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: 4), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: 5), 12)
-		XCTAssertEqual(viewModel.heightForFooter(in: 6), 24)
-		
 	}
 
 	func testRiskAndTestRowsIfKeysSubmitted() {
