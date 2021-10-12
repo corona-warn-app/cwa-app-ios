@@ -745,6 +745,11 @@
 		8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */; };
 		8F3167E826A5D929008F35AA /* RegionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E726A5D929008F35AA /* RegionType.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
+		8F39058A2715B0E000A90E79 /* HomeMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3905882715B0E000A90E79 /* HomeMoreTableViewCell.swift */; };
+		8F39058B2715B0E000A90E79 /* HomeMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F3905892715B0E000A90E79 /* HomeMoreTableViewCell.xib */; };
+		8F39058D2715B82E00A90E79 /* MoreActionItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F39058C2715B82E00A90E79 /* MoreActionItemView.xib */; };
+		8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39058E2715B84400A90E79 /* MoreActionItemView.swift */; };
+		8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3905912715BF4C00A90E79 /* HomeMoreItem.swift */; };
 		8F39D05E263C414A0096F4E2 /* VaccinationValueSetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */; };
 		8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */; };
 		8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */; };
@@ -2179,6 +2184,11 @@
 		8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionStatisticsData.swift; sourceTree = "<group>"; };
 		8F3167E726A5D929008F35AA /* RegionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionType.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
+		8F3905882715B0E000A90E79 /* HomeMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreTableViewCell.swift; sourceTree = "<group>"; };
+		8F3905892715B0E000A90E79 /* HomeMoreTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeMoreTableViewCell.xib; sourceTree = "<group>"; };
+		8F39058C2715B82E00A90E79 /* MoreActionItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreActionItemView.xib; sourceTree = "<group>"; };
+		8F39058E2715B84400A90E79 /* MoreActionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreActionItemView.swift; sourceTree = "<group>"; };
+		8F3905912715BF4C00A90E79 /* HomeMoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreItem.swift; sourceTree = "<group>"; };
 		8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProvider.swift; sourceTree = "<group>"; };
 		8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProviding.swift; sourceTree = "<group>"; };
 		8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp_request_ios.pb.swift; sourceTree = "<group>"; };
@@ -3885,6 +3895,7 @@
 				01A6C2E12626D71600B6E95A /* TestRegistration */,
 				016E25E825AF138B0077C64C /* Statistics */,
 				01EA17C42591348100E98E02 /* Info */,
+				8F3905872715B06400A90E79 /* More */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5560,6 +5571,26 @@
 				ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */,
 			);
 			path = StoreV1;
+			sourceTree = "<group>";
+		};
+		8F3905872715B06400A90E79 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				8F3905912715BF4C00A90E79 /* HomeMoreItem.swift */,
+				8F3905882715B0E000A90E79 /* HomeMoreTableViewCell.swift */,
+				8F3905892715B0E000A90E79 /* HomeMoreTableViewCell.xib */,
+				8F3905902715B84D00A90E79 /* MoreActionItem */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		8F3905902715B84D00A90E79 /* MoreActionItem */ = {
+			isa = PBXGroup;
+			children = (
+				8F39058C2715B82E00A90E79 /* MoreActionItemView.xib */,
+				8F39058E2715B84400A90E79 /* MoreActionItemView.swift */,
+			);
+			path = MoreActionItem;
 			sourceTree = "<group>";
 		};
 		8F39D05C263C40DB0096F4E2 /* VaccinationValueSets */ = {
@@ -8416,6 +8447,7 @@
 				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
 				01A6C3022626DE2500B6E95A /* HomeTestResultTableViewCell.xib in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
+				8F39058D2715B82E00A90E79 /* MoreActionItemView.xib in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
 				01D02697258BA0E000B6389A /* ExposureDetectionLoadingCell.xib in Resources */,
 				0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */,
@@ -8429,6 +8461,7 @@
 				01D02761258BD58600B6389A /* ResetViewController.xib in Resources */,
 				01A4DCE625926934007D5794 /* HomeTextItemView.xib in Resources */,
 				8F499B03267CDE420047C1A6 /* ManageStatisticsCardView.xib in Resources */,
+				8F39058B2715B0E000A90E79 /* HomeMoreTableViewCell.xib in Resources */,
 				AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */,
 				01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */,
 			);
@@ -9099,6 +9132,7 @@
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
 				01164CF426C65B76007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift in Sources */,
 				BACF83A026A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift in Sources */,
+				8F39058A2715B0E000A90E79 /* HomeMoreTableViewCell.swift in Sources */,
 				0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */,
 				BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
@@ -9209,6 +9243,7 @@
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
+				8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
@@ -9437,6 +9472,7 @@
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingCrossCountrySupportViewModel.swift in Sources */,
+				8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
