@@ -41,5 +41,19 @@ enum MoreActionItem: Int, CaseIterable {
 		}
 	}
 	
+	var image: UIImage? {
+		switch self {
+		case .settings:
+			return UIImage(named: "more_settings")
+		case .recycleBin:
+			return UIImage(named: "more_recycle_bin")
+		case .appInformation:
+			return UIImage(named: "more_info")
+		case .faq:
+			return UIImage(named: "more_faq")
+		case .share:
+			return UIImage(named: "more_share")
+		}
+	}
 
 }
