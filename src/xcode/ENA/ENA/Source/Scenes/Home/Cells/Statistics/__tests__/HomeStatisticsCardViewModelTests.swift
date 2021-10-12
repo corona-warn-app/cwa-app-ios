@@ -680,7 +680,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTrendImageTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(viewModel.primaryTrendAccessibilityLabel, AppStrings.Statistics.Card.trendIncreasing)
 		XCTAssertEqual(viewModel.primaryTrendAccessibilityValue, AppStrings.Statistics.Card.trendSemanticNegative)
-		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.AddCard.localCardPrimarySubtitle)
+		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.Region.primaryLabelSubtitle)
 	}
 	
 	private func regionStatisticsDataLocalTrend(trend: SAP_Internal_Stats_KeyFigure.Trend, value: Double) -> RegionStatisticsData {
