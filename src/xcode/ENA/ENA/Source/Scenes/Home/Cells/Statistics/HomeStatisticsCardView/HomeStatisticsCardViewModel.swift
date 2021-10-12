@@ -75,8 +75,31 @@ class HomeStatisticsCardViewModel {
 		} else {
 			primaryTitle = String(format: AppStrings.Statistics.Card.Region.date, "")
 		}
+		primarySubtitle = AppStrings.Statistics.Card.Region.primaryLabelSubtitle
+		
+		if let sevenDayHospitalizationTrend = regionStatisticsData.sevenDayHospitalizationIncidence, let sevenDayHospitalizationIncidenceUpdatedAt = regionStatisticsData.sevenDayHospitalizationIncidenceUpdatedAt {
+			secondaryValue = sevenDayHospitalizationTrend.formattedValue
+			secondaryTrendImage = sevenDayHospitalizationTrend.trendImage
+			secondaryTrendImageTintColor = sevenDayHospitalizationTrend.trendTintColor
+			secondaryTrendAccessibilityLabel = sevenDayHospitalizationTrend.trendAccessibilityLabel
+			secondaryTrendAccessibilityValue = sevenDayHospitalizationTrend.trendAccessibilityValue
 
-		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
+			let sevenDayHospitalizationIncidenceUpdatedDate = Date(timeIntervalSince1970: TimeInterval(sevenDayHospitalizationIncidenceUpdatedAt))
+			secondaryTitle = sevenDayHospitalizationIncidenceUpdatedDate.formatted(
+				todayString: AppStrings.Statistics.Card.Region.today,
+				yesterdayString: AppStrings.Statistics.Card.Region.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Region.date
+			)
+		} else {
+			secondaryTitle = String(format: AppStrings.Statistics.Card.Region.date, "")
+		}
+
+		if let federalStateName = regionStatisticsData.federalStateName {
+			secondarySubtitle = String(format: AppStrings.Statistics.Card.Region.secondaryLabelSubtitleAdministrativeUnit, federalStateName)
+		} else {
+			secondarySubtitle = AppStrings.Statistics.Card.Region.secondaryLabelSubtitleFederalState
+		}
+		secondaryValueFontStyle = .title1
 	}
 	
 	// swiftlint:enable cyclomatic_complexity
@@ -102,7 +125,6 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
 	@OpenCombine.Published private(set) var secondaryTrendAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var secondaryTrendAccessibilityValue: String?
-
 	@OpenCombine.Published private(set) var tertiaryTitle: String?
 	@OpenCombine.Published private(set) var tertiaryValue: String?
 

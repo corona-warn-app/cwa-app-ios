@@ -1388,7 +1388,6 @@ enum AppStrings {
 
 			static let localCardTitle = NSLocalizedString("Statistics_Add_LocalCardTitle", comment: "")
 			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
-			static let localCardPrimarySubtitle = NSLocalizedString("Statistics_Card_Add_LocalCardPrimarySubtitle", comment: "")
 			static let modify = NSLocalizedString("Statistics_Card_Manage", comment: "")
 		}
 		enum Card {
@@ -1408,6 +1407,9 @@ enum AppStrings {
 				static let today = NSLocalizedString("Statistics_Card_Region_Today", comment: "")
 				static let yesterday = NSLocalizedString("Statistics_Card_Region_Yesterday", comment: "")
 				static let date = NSLocalizedString("Statistics_Card_Region_Date", comment: "")
+				static let primaryLabelSubtitle = NSLocalizedString("Statistics_Card_Region_PrimaryLabelSubtitle", comment: "")
+				static let secondaryLabelSubtitleFederalState = NSLocalizedString("Statistics_Card_Region_SecondaryLabelSubtitle_FederalState", comment: "")
+				static let secondaryLabelSubtitleAdministrativeUnit = NSLocalizedString("Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit", comment: "")
 			}
 
 			enum KeySubmissions {
@@ -1458,7 +1460,7 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_TertiaryLabelTitle", comment: "")
 			}
-
+			
 			enum Combined7DaysIncidence {
 				static let title = NSLocalizedString("Statistics_Card_CombinedIncidence_Title", comment: "")
 				static let today = NSLocalizedString("Statistics_Card_CombinedIncidence_Today", comment: "")
