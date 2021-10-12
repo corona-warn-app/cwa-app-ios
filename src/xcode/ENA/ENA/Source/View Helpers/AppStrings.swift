@@ -1137,23 +1137,23 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.12 */
+		/* Version 2.13 */
 		
-		static let feature212NewStatisticsTilesTitle = NSLocalizedString("NewVersionFeature_212_newStatisticsTiles_title", comment: "")
+		static let feature213HospitalizationRateTileTitle = NSLocalizedString("NewVersionFeature_213_hospitalizationRateTile_title", comment: "")
 		
-		static let feature212NewStatisticsTilesDescription = NSLocalizedString("NewVersionFeature_212_newStatisticsTiles_description", comment: "")
+		static let feature213HospitalizationRateTileDescription = NSLocalizedString("NewVersionFeature_213_hospitalizationRateTile_description", comment: "")
 		
-		static let feature212NotificationManagementTitle = NSLocalizedString("NewVersionFeature_212_notificationManagement_title", comment: "")
+		static let feature213ChangesFAQLinksTitle = NSLocalizedString("NewVersionFeature_213_changesFAQLinks_title", comment: "")
 		
-		static let feature212NotificationManagementDescription = NSLocalizedString("NewVersionFeature_212_notificationManagement_description", comment: "")
+		static let feature213ChangesFAQLinksDescription = NSLocalizedString("NewVersionFeature_213_changesFAQLinks_description", comment: "")
 		
-		static let feature212QRCodeScannerButtonTitle = NSLocalizedString("NewVersionFeature_212_qrCodeScannerButton_title", comment: "")
+		static let feature213CertificateAssignmentTitle = NSLocalizedString("NewVersionFeature_213_certificateAssignment_title", comment: "")
 		
-		static let feature212QRCodeScannerButtonDescription = NSLocalizedString("NewVersionFeature_212_qrCodeScannerButton_description", comment: "")
+		static let feature213CertificateAssignmentDescription = NSLocalizedString("NewVersionFeature_213_certificateAssignment_description", comment: "")
 		
-		static let feature212QRCodeImportTitle = NSLocalizedString("NewVersionFeature_212_qrCodeImport_title", comment: "")
+		static let feature213RestoreCertificateTitle = NSLocalizedString("NewVersionFeature_213_restoreCertificate_title", comment: "")
 		
-		static let feature212QRCodeImportDescription = NSLocalizedString("NewVersionFeature_212_qrCodeImport_description", comment: "")
+		static let feature213RestoreCertificateDescription = NSLocalizedString("NewVersionFeature_213_restoreCertificate_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
