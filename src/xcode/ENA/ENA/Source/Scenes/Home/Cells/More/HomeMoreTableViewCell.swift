@@ -13,6 +13,22 @@ class HomeMoreTableViewCell: UITableViewCell {
 		
 		self.accessibilityIdentifier = AccessibilityIdentifiers.Home.MoreCell.moreCell
 	}
+	
+	// MARK: - Internal
+	
+	func configure(completion: @escaping ((MoreActionItem) -> Void)) {
+		for item in MoreActionItem.allCases {
+			let nibName = String(describing: MoreActionItemView.self)
+			let nib = UINib(nibName: nibName, bundle: .main)
+			
+			if let actionItemView = nib.instantiate(withOwner: self, options: nil).first as? MoreActionItemView {
+				actionItemView.configure(actionItem: item) { selectedItem in
+					completion(selectedItem)
+				}
+				stackView.addArrangedSubview(actionItemView)
+			}
+		}
+	}
 
 	// MARK: - Private
 	
