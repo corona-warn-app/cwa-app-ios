@@ -268,10 +268,6 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			}
 		}
 
-		viewModel.processingFailed = { error in
-			XCTFail("Processing failed. Error: \(String(describing: error))")
-		}
-
 		// WHEN
 		viewModel.scan(fakeImage)
 
@@ -300,7 +296,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFailed = { error in
 			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
-		
+
 		// WHEN
 		viewModel.scan(fakeImage)
 
