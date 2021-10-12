@@ -977,7 +977,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten Sie zusätzlich Ihren Personalausweis bereit.";
 
-"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "geboren %@";
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Geboren %@";
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
@@ -2870,7 +2870,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
 
-"HealthCertifiedPerson_dateOfBirth" = "geboren %@";
+"HealthCertifiedPerson_dateOfBirth" = "Geboren %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Bitte aktivieren Sie diesen Schalter, wenn Sie selbst %@ sind und die App hauptsächlich nutzen. Ihre Zertifikate erscheinen in der Liste an erster Stelle.";
 
@@ -2882,7 +2882,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
 
-"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Geimpft am %@";
 
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
@@ -2914,7 +2914,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_validity" = "Geimpft %@ - gültig bis %@";
 
-"HealthCertificate_Details_dateOfBirth" = "geboren %@";
+"HealthCertificate_Details_dateOfBirth" = "Geboren %@";
 
 "HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
 
@@ -3229,6 +3229,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "FileScanner_PasswordEntry_placeholder" = "Passwort";
 
 "FileScanner_PasswordError_title" = "Falsches Passwort";
+
+"FileScanner_AlreadyRegistered_title" = "Zertifikat schon registriert";
+
+"FileScanner_AlreadyRegistered_message" = "Das Zertifikat ist bereits in Ihrer App registriert.";
 
 "FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
 

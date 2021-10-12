@@ -2375,6 +2375,11 @@ enum AppStrings {
 			static let message = NSLocalizedString("FileScanner_PasswordError_message", comment: "")
 		}
 
+		enum AlreadyRegistered {
+			static let title = NSLocalizedString("FileScanner_AlreadyRegistered_title", comment: "")
+			static let message = NSLocalizedString("FileScanner_AlreadyRegistered_message", comment: "")
+		}
+
 		enum InvalidQRCodeError {
 			static let title = NSLocalizedString("FileScanner_InvalidQRCode_title", comment: "")
 			static let message = NSLocalizedString("FileScanner_InvalidQRCode_message", comment: "")

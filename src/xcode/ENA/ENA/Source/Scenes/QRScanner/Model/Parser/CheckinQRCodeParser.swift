@@ -26,12 +26,12 @@ class CheckinQRCodeParser: QRCodeParsable {
 			let traceLocation = TraceLocation(
 				id: UUID().uuidString.data(using: .utf8) ?? Data(),
 				version: 0,
-				type: .locationTypePermanentRetail,
-				description: "Supermarkt",
-				address: "Walldorf",
+				type: .locationTypePermanentFoodService,
+				description: "Bistro & Café am Neuen Markt",
+				address: "Hamburg, Schulstraße 4",
 				startDate: nil,
 				endDate: nil,
-				defaultCheckInLengthInMinutes: nil,
+				defaultCheckInLengthInMinutes: 90,
 				cryptographicSeed: Data(),
 				cnPublicKey: Data()
 			)
