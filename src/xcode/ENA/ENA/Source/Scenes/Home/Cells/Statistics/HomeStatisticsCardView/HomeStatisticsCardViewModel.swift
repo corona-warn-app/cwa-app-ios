@@ -75,7 +75,7 @@ class HomeStatisticsCardViewModel {
 		} else {
 			primaryTitle = String(format: AppStrings.Statistics.Card.Region.date, "")
 		}
-		primarySubtitle = AppStrings.Statistics.AddCard.localCardPrimarySubtitle
+		primarySubtitle = AppStrings.Statistics.Card.Region.primaryLabelSubtitle
 		
 		if let sevenDayHospitalizationTrend = regionStatisticsData.sevenDayHospitalizationIncidence, let sevenDayHospitalizationIncidenceUpdatedAt = regionStatisticsData.sevenDayHospitalizationIncidenceUpdatedAt {
 			secondaryValue = sevenDayHospitalizationTrend.formattedValue
@@ -93,7 +93,12 @@ class HomeStatisticsCardViewModel {
 		} else {
 			secondaryTitle = String(format: AppStrings.Statistics.Card.Region.date, "")
 		}
-		secondarySubtitle = AppStrings.Statistics.Card.Combined7DaysIncidence.secondaryLabelSubtitle
+
+		if let federalStateName = regionStatisticsData.federalStateName {
+			secondarySubtitle = String(format: AppStrings.Statistics.Card.Region.secondaryLabelSubtitleAdministrativeUnit, federalStateName)
+		} else {
+			secondarySubtitle = AppStrings.Statistics.Card.Region.secondaryLabelSubtitleFederalState
+		}
 		secondaryValueFontStyle = .title1
 	}
 	
@@ -120,7 +125,6 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
 	@OpenCombine.Published private(set) var secondaryTrendAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var secondaryTrendAccessibilityValue: String?
-
 	@OpenCombine.Published private(set) var tertiaryTitle: String?
 	@OpenCombine.Published private(set) var tertiaryValue: String?
 
