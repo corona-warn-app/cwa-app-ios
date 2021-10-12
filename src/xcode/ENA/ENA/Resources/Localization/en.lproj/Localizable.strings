@@ -1294,6 +1294,18 @@
 
 "Home_AppInformationCard_Version" = "Version";
 
+/* Home More Card */
+
+"Home_MoreCard_SettingsTitle" = "Settings";
+
+"Home_MoreCard_RecycleBinTitle" = "Recycle bin";
+
+"Home_MoreCard_AppInformationTitle" = "App-Information";
+
+"Home_MoreCard_FAQTitle" = "FAQ";
+
+"Home_MoreCard_ShareTitle" = "Share";
+
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
 
