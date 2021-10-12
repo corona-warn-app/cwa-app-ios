@@ -37,11 +37,6 @@ class EmptyStateView: UIView {
 	private func setUp() {
 		backgroundColor = .clear
 
-		let containerView = UIView()
-		containerView.backgroundColor = .clear
-		addSubview(containerView)
-		containerView.translatesAutoresizingMaskIntoConstraints = false
-
 		let stackView = UIStackView()
 		stackView.axis = .vertical
 		stackView.alignment = .center
@@ -76,24 +71,39 @@ class EmptyStateView: UIView {
 		descriptionLabel.text = viewModel.description
 		stackView.addArrangedSubview(descriptionLabel)
 
-		// We take a number for that the image is not too big and not too small and fits for big and small devices for all four occurrences of the EmptyStateView (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay). The result was 3.
+		// We take a number for that the image is not too big and not too small and fits for big and small devices for all five occurrences of the EmptyStateView
+		// (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay, OnBehalfWarning).
+		// The result was 3.
 		let percentageWidth = UIScreen.main.bounds.width / 3
-		
+		let percentageHeight = UIScreen.main.bounds.height / 2
+
+		// layout strategy:
+		// stack view with full width (with a small margin) for effective horizontal centered alignment.
+		// top-aligned (with a small margin) to align the appearance of this view across pages.
+		// the view controller can configure its position with the additionalTopPadding.
+		// multiline text box (descriptionLabel) with width 280.
+		// image: 1/3 of the screen width if possible, but else shrink it to avoid that the layout exceeds the visible page.
 		NSLayoutConstraint.activate([
-			containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-			containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: additionalTopPadding),
-			containerView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-			containerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-			stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
-			stackView.leadingAnchor.constraint(greaterThanOrEqualTo: containerView.leadingAnchor, constant: 16),
-			stackView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor, constant: 16),
-			stackView.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -16),
-			stackView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -16),
-			stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: percentageWidth)
+			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: percentageWidth),
+			descriptionLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
+			stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+			stackView.topAnchor.constraint(equalTo: topAnchor, constant: additionalTopPadding + 16),
+			stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16)
 		])
+		// break the following constraints in case of conflicts
+		let descriptionWidthConstraint = descriptionLabel.widthAnchor.constraint(equalToConstant: 280)
+		descriptionWidthConstraint.priority = UILayoutPriority(997)
+		descriptionWidthConstraint.isActive = true
+
+		let imageVPosConstraint = imageView.bottomAnchor.constraint(equalTo: topAnchor, constant: percentageHeight)
+		imageVPosConstraint.priority = UILayoutPriority(998)
+		imageVPosConstraint.isActive = true
+
+		let imageSizeConstraint = imageView.widthAnchor.constraint(equalToConstant: percentageWidth)
+		imageSizeConstraint.priority = UILayoutPriority(999)
+		imageSizeConstraint.isActive = true
 	}
 
 }

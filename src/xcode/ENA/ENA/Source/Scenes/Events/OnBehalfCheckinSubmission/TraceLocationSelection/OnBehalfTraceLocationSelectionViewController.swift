@@ -37,6 +37,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
+		tableView.reloadData()
 		setUpEmptyState()
 		
 		viewModel.$continueEnabled
@@ -178,9 +179,10 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	private func setUpEmptyState() {
 		// Since we set the empty state view as a background view we need to push it below the add cell by
 		// adding top padding for the description and scan QR code cell
-		var additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY
+		var additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		additionalTopPadding += tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY
 		// … + the height of the navigation bar
-		additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
+		additionalTopPadding += navigationController?.navigationBar.frame.height ?? 0
 		// … + the height of the status bar
 		if #available(iOS 13.0, *) {
 			additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
@@ -189,9 +191,10 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		}
 
 		tableView.backgroundView = viewModel.isEmptyStateVisible
-			? EmptyStateView(viewModel: OnBehalfTraceLocationSelectionEmptyStateViewModel(),
-							 additionalTopPadding: additionalTopPadding
-							)
+			? EmptyStateView(
+				viewModel: OnBehalfTraceLocationSelectionEmptyStateViewModel(),
+				additionalTopPadding: additionalTopPadding
+			  )
 			: nil
 	}
 		

@@ -38,6 +38,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		setupSegmentedControl()
 		setupTableView()
+		tableView.reloadData()
 
 		viewModel.$day
 			.sink { [weak self] _ in
@@ -262,7 +263,15 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			}
 		}
 		
-        tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? EmptyStateView(viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType)) : nil
+		// Since we set the empty state view as a background view we need to push it below the add cell by
+		// adding top padding for the height of the add cell …
+		let additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty
+			? EmptyStateView(
+				viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType),
+				additionalTopPadding: additionalTopPadding
+			  )
+			: nil
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
