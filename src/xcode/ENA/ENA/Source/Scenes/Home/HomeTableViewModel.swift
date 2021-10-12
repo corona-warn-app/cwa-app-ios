@@ -101,17 +101,6 @@ class HomeTableViewModel {
 		return UITableView.automaticDimension
 	}
 
-	func heightForHeader(in section: Int) -> CGFloat {
-		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
-			return 0
-		case .infos, .settings:
-			return 16
-		case .none:
-			fatalError("Invalid section")
-		}
-	}
-
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
 		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
