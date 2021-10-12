@@ -226,18 +226,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .infos:
-			if indexPath.row == 0 {
-				onInviteFriendsCellTap()
-			} else {
-				onFAQCellTap()
-			}
-		case .settings:
-			if indexPath.row == 0 {
-				onAppInformationCellTap()
-			} else {
-				onSettingsCellTap(viewModel.state.enState)
-			}
+		case .more:
+			break
 		default:
 			fatalError("Invalid section")
 		}
