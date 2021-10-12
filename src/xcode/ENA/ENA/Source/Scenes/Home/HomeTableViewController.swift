@@ -194,10 +194,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard HomeTableViewModel.Section(rawValue: section) == .settings else {
-			return UIView()
-		}
-
 		let headerView = UIView()
 		headerView.backgroundColor = .enaColor(for: .separator)
 
