@@ -13,13 +13,15 @@ struct RegionStatisticsData {
 		updatedAt: Int64? = nil,
 		sevenDayIncidence: SAP_Internal_Stats_SevenDayIncidenceData? = nil,
 		sevenDayHospitalizationIncidenceUpdatedAt: Int64? = nil,
-		sevenDayHospitalizationIncidence: SAP_Internal_Stats_SevenDayIncidenceData? = nil
+		sevenDayHospitalizationIncidence: SAP_Internal_Stats_SevenDayIncidenceData? = nil,
+		federalStateName: String? = nil
 	) {
 		self.region = region
 		self.updatedAt = updatedAt
 		self.sevenDayIncidence = sevenDayIncidence
 		self.sevenDayHospitalizationIncidenceUpdatedAt = sevenDayHospitalizationIncidenceUpdatedAt
 		self.sevenDayHospitalizationIncidence = sevenDayHospitalizationIncidence
+		self.federalStateName = federalStateName
 	}
 
 	init(
@@ -57,6 +59,7 @@ struct RegionStatisticsData {
 			// we use data from respective federal state for hospitalization incidences in case of administrative unit
 			sevenDayHospitalizationIncidenceUpdatedAt = federalStateData?.sevenDayHospitalizationIncidenceUpdatedAt
 			sevenDayHospitalizationIncidence = federalStateData?.sevenDayHospitalizationIncidence
+			federalStateName = region.federalState.localizedName
 		}
 	}
 
@@ -67,4 +70,5 @@ struct RegionStatisticsData {
 	var sevenDayIncidence: SAP_Internal_Stats_SevenDayIncidenceData?
 	var sevenDayHospitalizationIncidenceUpdatedAt: Int64?
 	var sevenDayHospitalizationIncidence: SAP_Internal_Stats_SevenDayIncidenceData?
+	var federalStateName: String?
 }
