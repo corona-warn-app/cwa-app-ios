@@ -612,8 +612,26 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
+	private func moreCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreTableViewCell.self), for: indexPath) as? HomeMoreTableViewCell else {
+			fatalError("Could not dequeue HomeMoreTableViewCell")
 		}
-
+		cell.configure(completion: { [weak self] selectedItem in
+			guard let self = self else { return }
+			switch selectedItem {
+			case .settings:
+				self.onSettingsCellTap(self.viewModel.state.enState)
+			case .recycleBin:
+				// TODO
+				Log.debug("Implement navigation to the recycle bin")
+			case .appInformation:
+				self.onAppInformationCellTap()
+			case .faq:
+				self.onFAQCellTap()
+			case .share:
+				self.onInviteFriendsCellTap()
+			}
+		})
 		return cell
 	}
 
