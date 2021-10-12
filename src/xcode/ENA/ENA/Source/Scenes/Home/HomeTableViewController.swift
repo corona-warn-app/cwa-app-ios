@@ -612,15 +612,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-			}
-		case .settings:
-			if indexPath.row == 0 {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .appInformation))
-			} else {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .settings))
-			}
-		default:
-			fatalError("Invalid section")
 		}
 
 		return cell
