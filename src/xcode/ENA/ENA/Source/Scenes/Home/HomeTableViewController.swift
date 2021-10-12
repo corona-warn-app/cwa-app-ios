@@ -351,8 +351,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeTraceLocationsTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeInfoTableViewCell.self)
+			UINib(nibName: String(describing: HomeMoreTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeMoreTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
