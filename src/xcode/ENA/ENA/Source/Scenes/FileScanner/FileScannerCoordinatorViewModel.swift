@@ -165,7 +165,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 		processingQueue.async { [weak self] in
 			guard let self = self else {
 				self?.processingFailedOnQueue(.noQRCodeFound)
-				Log.error("Failed to stronge self pointer")
+				Log.error("Failed to strong self pointer")
 				return
 			}
 

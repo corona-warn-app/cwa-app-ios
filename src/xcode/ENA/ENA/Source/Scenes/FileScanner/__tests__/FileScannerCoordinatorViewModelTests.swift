@@ -78,6 +78,10 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			}
 		}
 
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
+		}
+
 		// WHEN
 		viewModel.scan(fakeImage)
 
@@ -120,6 +124,10 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			if case .certificate = result {
 				expectation.fulfill()
 			}
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
@@ -186,7 +194,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithQRCode_THEN_QRCodeResult() throws {
 		// GIVEN
-		let expectation = expectation(description: "result found")
+		let processingFinishedExpectation = expectation(description: "result found")
+		let missingPasswordForPDFExpectation = expectation(description: "missingPasswordForPDF is called")
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
@@ -195,12 +204,17 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
-				expectation.fulfill()
+				processingFinishedExpectation.fulfill()
 			}
 		}
 
 		viewModel.missingPasswordForPDF = { password in
 			password("123456")
+			missingPasswordForPDFExpectation.fulfill()
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing of password protected PDF failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
@@ -228,6 +242,10 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			}
 		}
 
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
+		}
+
 		// WHEN
 		viewModel.scan(fakeImage)
 
@@ -248,6 +266,10 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
 			}
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
@@ -275,6 +297,10 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			}
 		}
 
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
+		}
+		
 		// WHEN
 		viewModel.scan(fakeImage)
 
