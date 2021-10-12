@@ -205,8 +205,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	// MARK: - Protocol UITableViewDelegate
-	
-	// swiftlint:disable:next cyclomatic_complexity
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
