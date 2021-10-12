@@ -86,12 +86,12 @@ class HomeStatisticsCardViewModel {
 
 			let sevenDayHospitalizationIncidenceUpdatedDate = Date(timeIntervalSince1970: TimeInterval(sevenDayHospitalizationIncidenceUpdatedAt))
 			secondaryTitle = sevenDayHospitalizationIncidenceUpdatedDate.formatted(
-				todayString: AppStrings.Statistics.Card.Combined7DaysIncidence.today,
-				yesterdayString: AppStrings.Statistics.Card.Combined7DaysIncidence.yesterday,
-				otherDateString: AppStrings.Statistics.Card.Combined7DaysIncidence.date
+				todayString: AppStrings.Statistics.Card.Region.today,
+				yesterdayString: AppStrings.Statistics.Card.Region.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Region.date
 			)
 		} else {
-			secondaryTitle = String(format: AppStrings.Statistics.Card.Incidence.date, "")
+			secondaryTitle = String(format: AppStrings.Statistics.Card.Region.date, "")
 		}
 		secondarySubtitle = AppStrings.Statistics.Card.Combined7DaysIncidence.secondaryLabelSubtitle
 		secondaryValueFontStyle = .title1
