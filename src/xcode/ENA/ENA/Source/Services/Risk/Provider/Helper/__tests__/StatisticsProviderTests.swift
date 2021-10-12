@@ -22,7 +22,7 @@ class StatisticsProviderTests: CWATestCase {
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response): // StatisticsFetchingResponse
-				XCTAssertEqual(response.stats.keyFigureCards.count, 9)
+				XCTAssertEqual(response.stats.keyFigureCards.count, 10)
 				XCTAssertEqual(response.stats.cardIDSequence.count, response.stats.keyFigureCards.count)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
@@ -76,7 +76,7 @@ class StatisticsProviderTests: CWATestCase {
 					XCTFail(error.localizedDescription)
 				}
 			}, receiveValue: { stats in
-				XCTAssertEqual(stats.keyFigureCards.count, 9)
+				XCTAssertEqual(stats.keyFigureCards.count, 10)
 				XCTAssertEqual(stats.cardIDSequence.count, stats.keyFigureCards.count)
 				valueReceived.fulfill()
 			})
@@ -150,7 +150,7 @@ class StatisticsProviderTests: CWATestCase {
 					XCTFail("Expected a no error, got: \(error)")
 				}
 			}, receiveValue: { stats in
-				XCTAssertEqual(stats.keyFigureCards.count, 9)
+				XCTAssertEqual(stats.keyFigureCards.count, 10)
 				XCTAssertEqual(stats.cardIDSequence.count, stats.keyFigureCards.count)
 				checkpoint.fulfill()
 			})
@@ -189,7 +189,7 @@ class StatisticsProviderTests: CWATestCase {
 					XCTFail("Expected a no error, got: \(error)")
 				}
 			}, receiveValue: { stats in
-				XCTAssertEqual(stats.keyFigureCards.count, 9)
+				XCTAssertEqual(stats.keyFigureCards.count, 10)
 				XCTAssertEqual(stats.cardIDSequence.count, stats.keyFigureCards.count)
 				XCTAssertEqual(store.statistics?.lastStatisticsETag, "fake2")
 				checkpoint.fulfill()
