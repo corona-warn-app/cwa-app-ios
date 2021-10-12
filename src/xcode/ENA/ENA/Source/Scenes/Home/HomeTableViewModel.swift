@@ -101,19 +101,6 @@ class HomeTableViewModel {
 		return UITableView.automaticDimension
 	}
 
-	func heightForFooter(in section: Int) -> CGFloat {
-		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
-			return 0
-		case .infos:
-			return 12
-		case .settings:
-			return 24
-		case .none:
-			fatalError("Invalid section")
-		}
-	}
-
 	func didTapTestResultCell(coronaTestType: CoronaTestType) {
 		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
 			return
