@@ -43,10 +43,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 6).waitAndTap()
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
 		app.swipeDown(velocity: .slow) // glitch
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
 		
 		// ADDING Card number: 2
 		localStatisticCell.swipeRight()
@@ -56,9 +56,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 2).waitAndTap()
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
 		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
 
 		// ADDING Card number: 3
 		statisticsCell.swipeRight()
@@ -68,9 +68,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 7).waitAndTap()
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
 		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
 
 		// ADDING Card number: 4
 		statisticsCell.swipeRight()
@@ -80,9 +80,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
 		app.cells.element(boundBy: 4).waitAndTap()
 		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
 		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .short))
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
 		
 		// ADDING Card number: 5
 		statisticsCell.swipeRight()
