@@ -28,7 +28,7 @@
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="asg-CZ-u6Y"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                    <color key="textColor" name="ENA Dark Background Color"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
@@ -43,14 +43,14 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvf-6A-3Ad" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="187" height="54"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                    <color key="textColor" name="ENA Dark Background Color"/>
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" name="ENA Dark Background Color"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="Lvf-6A-3Ad" firstAttribute="leading" secondItem="ZrE-lr-ycv" secondAttribute="leading" id="1WF-V6-I7M"/>
                                 <constraint firstAttribute="trailing" secondItem="Lvf-6A-3Ad" secondAttribute="trailing" id="2Bj-iV-lHY"/>
@@ -59,7 +59,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" name="ENA Dark Background Color"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ZrE-lr-ycv" firstAttribute="top" secondItem="CUs-sA-78T" secondAttribute="top" id="Dy3-wS-Zyy"/>
                         <constraint firstAttribute="bottom" secondItem="ZrE-lr-ycv" secondAttribute="bottom" id="Kxj-sG-1oR"/>
@@ -71,7 +71,7 @@
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ai7-Cz-8g7">
                     <rect key="frame" x="170" y="0.0" width="49" height="45"/>
-                    <color key="tintColor" name="ENA Text Primary 1 Color"/>
+                    <color key="tintColor" name="ENA Dark Background Color"/>
                     <inset key="contentEdgeInsets" minX="12" minY="12" maxX="16" maxY="12"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="Icons_Tooltip_Close"/>
@@ -81,7 +81,7 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" name="ENA Dark Background Color"/>
+            <color key="backgroundColor" name="ENA Text Primary 1 Color"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Ai7-Cz-8g7" secondAttribute="trailing" id="5Z9-4v-6Oo"/>
                 <constraint firstItem="Ai7-Cz-8g7" firstAttribute="leading" secondItem="8LV-op-Cel" secondAttribute="trailing" constant="16" id="6d0-y2-azK"/>
