@@ -95,28 +95,19 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete else { return }
 
-		showAlert(
-			title: AppStrings.RecycleBin.DeleteOneAlert.title,
-			message: AppStrings.RecycleBin.DeleteOneAlert.message,
-			cancelButtonTitle: AppStrings.RecycleBin.DeleteOneAlert.cancelButtonTitle,
-			confirmButtonTitle: AppStrings.RecycleBin.DeleteOneAlert.confirmButtonTitle,
-			confirmAction: { [weak self] in
-				guard let self = self else { return }
+		shouldReload = false
+		viewModel.removeEntry(at: indexPath)
+		
+		tableView.performBatchUpdates({
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+		}, completion: { _ in
+			self.shouldReload = true
 
-				self.shouldReload = false
-				self.viewModel.removeEntry(at: indexPath)
-				tableView.performBatchUpdates({
-					tableView.deleteRows(at: [indexPath], with: .automatic)
-				}, completion: { _ in
-					self.shouldReload = true
-
-					if self.viewModel.isEmpty {
-						self.setEditing(false, animated: true)
-						self.updateEmptyState()
-					}
-				})
+			if self.viewModel.isEmpty {
+				self.setEditing(false, animated: true)
+				self.updateEmptyState()
 			}
-		)
+		})
 	}
 
 	// MARK: - Protocol UITableViewDelegate
