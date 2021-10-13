@@ -398,6 +398,7 @@ class HealthCertificateService {
 		let originalInitialHealthCertifiedPersonsReadFromStore = initialHealthCertifiedPersonsReadFromStore
 		initialHealthCertifiedPersonsReadFromStore = false
 		let original = store.healthCertifiedPersons
+		healthCertifiedPersons.removeAll()
 		for person in original {
 			person.healthCertificates.forEach { healthCertificate in
 				Log.debug("Will reregister health certificate")
