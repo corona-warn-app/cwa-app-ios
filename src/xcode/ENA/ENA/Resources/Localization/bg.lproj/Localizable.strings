@@ -3112,6 +3112,10 @@
 
 "FileScanner_PasswordError_title" = "Паролата е грешна";
 
+"FileScanner_AlreadyRegistered_title" = "Сертификатът вече е регистриран";
+
+"FileScanner_AlreadyRegistered_message" = "Сертификатът вече е регистриран в приложението Ви.";
+
 "FileScanner_PasswordError_message" = "Моля, въведете валидна парола.";
 
 "FileScanner_InvalidQRCode_title" = "Няма подходящ QR код";
