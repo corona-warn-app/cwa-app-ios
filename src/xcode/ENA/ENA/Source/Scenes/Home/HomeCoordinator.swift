@@ -418,8 +418,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				// TODO: Separate string
-				primaryButtonName: AppStrings.TraceLocations.Overview.deleteAllButtonTitle,
+				primaryButtonName: AppStrings.RecycleBin.deleteAllButtonTitle,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: true,
 				isSecondaryButtonHidden: true,

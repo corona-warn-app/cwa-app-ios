@@ -3282,3 +3282,84 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FederalState_Thueringen" = "Thüringen";
 
+/* Recycle Bin */
+
+"RecycleBin_title" = "Papierkorb";
+
+"RecycleBin_description" = "Tippen Sie auf ein Element um es wiederherzustellen. Nach 30 Tagen wird ein Element automatisch gelöscht.";
+
+"RecycleBin_deleteAllButtonTitle" = "Alle entfernen";
+
+/* - Vaccination Certificate */
+
+"RecycleBin_VaccinationCertificate_headline" = "Impfzertifikat";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+/* - Test Certificate */
+
+"RecycleBin_TestCertificate_headline" = "Testzertifikat";
+
+"RecycleBin_TestCertificate_pcrTest" = "PCR-Test";
+
+"RecycleBin_TestCertificate_antigenTest" = "Schnelltest";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
+/* - Recovery Certificate */
+
+"RecycleBin_RecoveryCertificate_headline" = "Genesenenzertifikat";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "gültig bis %@";
+
+/* - Corona Test */
+
+"RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_pcrTest" = "PCR-Test";
+
+"RecycleBin_CoronaTest_antigenTest" = "Schnelltest";
+
+"RecycleBin_CoronaTest_registrationDate" = "registriert am %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "durchgeführt am %@";
+
+/* - Empty State */
+
+"RecycleBin_EmptyState_title" = "Ihr Papierkorb ist leer";
+
+"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
+
+"RecycleBin_EmptyState_imageDescription" = "Ein Papierkorb";
+
+/* - Restore Certificate Alert */
+
+"RecycleBin_RestoreCertificate_AlertTitle" = "Zertifikat wiederherstellen";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "Das wiederhergestellte Zertifikat wird an seinen ursprünglichen Ort verschoben. Sie finden es dann in der Registerkarte „Zertifikate“.";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Wiederherstellen";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Corona Test */
+
+"RecycleBin_CoronaTest_AlertTitle" = "Test wiederherstellen";
+
+"RecycleBin_CoronaTest_AlertMessage" = "Der wiederhergestellte Test wird an seinen ursprünglichen Ort verschoben. Sie finden ihn dann in der Registerkarte „Zertifikate“.";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Wiederherstellen";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Delete All Alert */
+
+"RecycleBin_DeleteAll_AlertTitle" = "Wollen Sie den Inhalt des Papierkorbs wirklich entfernen?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "Dieser kann dann nicht wiederhergestellt werden.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";

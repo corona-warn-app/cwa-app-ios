@@ -36,6 +36,8 @@ class RecycleBinItemTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(cellModel: RecycleBinItemCellModel) {
 		iconImageView.image = cellModel.iconImage
 
+		titleLabel.text = cellModel.title
+
 		nameLabel.text = cellModel.name
 		nameLabel.isHidden = cellModel.name == nil
 

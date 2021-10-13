@@ -32,7 +32,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 
 		setupTableView()
 		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.TraceLocations.Overview.title
+		navigationItem.title = AppStrings.RecycleBin.title
 		navigationItem.rightBarButtonItem = editButtonItem
 
 		viewModel.$recycleBinItems
@@ -56,13 +56,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
-//		if !editModeEnteredBySwipeAction {
-			footerView?.update(to: editing ? .primary : .none)
-//		}
-//
-//		if editing == false {
-//			editModeEnteredBySwipeAction = false
-//		}
+		footerView?.update(to: editing ? .primary : .none)
 	}
 
 	// MARK: - FooterViewHandling
@@ -102,10 +96,10 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		guard editingStyle == .delete else { return }
 
 		showAlert(
-			title: AppStrings.TraceLocations.Overview.DeleteOneAlert.title,
-			message: AppStrings.TraceLocations.Overview.DeleteOneAlert.message,
-			cancelButtonTitle: AppStrings.TraceLocations.Overview.DeleteOneAlert.cancelButtonTitle,
-			confirmButtonTitle: AppStrings.TraceLocations.Overview.DeleteOneAlert.confirmButtonTitle,
+			title: AppStrings.RecycleBin.DeleteOneAlert.title,
+			message: AppStrings.RecycleBin.DeleteOneAlert.message,
+			cancelButtonTitle: AppStrings.RecycleBin.DeleteOneAlert.cancelButtonTitle,
+			confirmButtonTitle: AppStrings.RecycleBin.DeleteOneAlert.confirmButtonTitle,
 			confirmAction: { [weak self] in
 				guard let self = self else { return }
 
@@ -183,7 +177,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		}
 
 		cell.configure(
-			text: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.description,
+			text: AppStrings.RecycleBin.description,
 			color: .enaColor(for: .textPrimary2)
 		)
 
@@ -229,10 +223,10 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 
 	private func didTapDeleteAllButton() {
 		showAlert(
-			title: AppStrings.TraceLocations.Overview.DeleteAllAlert.title,
-			message: AppStrings.TraceLocations.Overview.DeleteAllAlert.message,
-			cancelButtonTitle: AppStrings.TraceLocations.Overview.DeleteAllAlert.cancelButtonTitle,
-			confirmButtonTitle: AppStrings.TraceLocations.Overview.DeleteAllAlert.confirmButtonTitle,
+			title: AppStrings.RecycleBin.DeleteAllAlert.title,
+			message: AppStrings.RecycleBin.DeleteAllAlert.message,
+			cancelButtonTitle: AppStrings.RecycleBin.DeleteAllAlert.cancelButtonTitle,
+			confirmButtonTitle: AppStrings.RecycleBin.DeleteAllAlert.confirmButtonTitle,
 			confirmAction: { [weak self] in
 				guard let self = self else { return }
 
