@@ -4,7 +4,7 @@
 
 import UIKit
 
-enum MoreActionItem: Int, CaseIterable {
+enum MoreInfoItem: Int, CaseIterable {
 	case settings
 	case recycleBin
 	case appInformation
@@ -14,30 +14,30 @@ enum MoreActionItem: Int, CaseIterable {
 	var title: String {
 		switch self {
 		case .settings:
-			return AppStrings.Home.MoreCard.settingsTitle
+			return AppStrings.Home.MoreInfoCard.settingsTitle
 		case .recycleBin:
-			return AppStrings.Home.MoreCard.recycleBinTitle
+			return AppStrings.Home.MoreInfoCard.recycleBinTitle
 		case .appInformation:
-			return AppStrings.Home.MoreCard.appInformationTitle
+			return AppStrings.Home.MoreInfoCard.appInformationTitle
 		case .faq:
-			return AppStrings.Home.MoreCard.faqTitle
+			return AppStrings.Home.MoreInfoCard.faqTitle
 		case .share:
-			return AppStrings.Home.MoreCard.shareTitle
+			return AppStrings.Home.MoreInfoCard.shareTitle
 		}
 	}
 	
 	var accessibilityIdentifier: String {
 		switch self {
 		case .settings:
-			return AccessibilityIdentifiers.Home.MoreCell.settingsActionView
+			return AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel
 		case .recycleBin:
-			return AccessibilityIdentifiers.Home.MoreCell.recycleBinActionView
+			return AccessibilityIdentifiers.Home.MoreInfoCell.recycleBinLabel
 		case .appInformation:
-			return AccessibilityIdentifiers.Home.MoreCell.appInformationActionView
+			return AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel
 		case .faq:
-			return AccessibilityIdentifiers.Home.MoreCell.faqActionView
+			return AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel
 		case .share:
-			return AccessibilityIdentifiers.Home.MoreCell.shareActionView
+			return AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel
 		}
 	}
 	

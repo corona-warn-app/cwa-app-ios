@@ -4,21 +4,21 @@
 
 import UIKit
 
-class HomeMoreTableViewCell: UITableViewCell {
+class HomeMoreInfoTableViewCell: UITableViewCell {
 	
 	// MARK: - Overrides
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		self.accessibilityIdentifier = AccessibilityIdentifiers.Home.MoreCell.moreCell
+		self.accessibilityIdentifier = AccessibilityIdentifiers.Home.MoreInfoCell.moreCell
 	}
 	
 	// MARK: - Internal
 	
-	func configure(completion: @escaping ((MoreActionItem) -> Void)) {
+	func configure(completion: @escaping ((MoreInfoItem) -> Void)) {
 		if !isConfigerd {
-			for item in MoreActionItem.allCases {
+			for item in MoreInfoItem.allCases {
 				let nibName = String(describing: MoreActionItemView.self)
 				let nib = UINib(nibName: nibName, bundle: .main)
 				

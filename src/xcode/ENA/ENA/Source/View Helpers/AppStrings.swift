@@ -965,7 +965,7 @@ enum AppStrings {
 			static let button = NSLocalizedString("Home_TestRegistration_Button", comment: "")
 		}
 
-		enum MoreCard {
+		enum MoreInfoCard {
 			static let settingsTitle = NSLocalizedString("Home_MoreCard_SettingsTitle", comment: "")
 			static let recycleBinTitle = NSLocalizedString("Home_MoreCard_RecycleBinTitle", comment: "")
 			static let appInformationTitle = NSLocalizedString("Home_MoreCard_AppInformationTitle", comment: "")

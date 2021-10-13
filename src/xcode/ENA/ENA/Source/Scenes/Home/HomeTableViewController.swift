@@ -351,8 +351,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeTraceLocationsTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeMoreTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeMoreTableViewCell.self)
+			UINib(nibName: String(describing: HomeMoreInfoTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeMoreInfoTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
@@ -613,7 +613,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func moreCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreTableViewCell.self), for: indexPath) as? HomeMoreTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreInfoTableViewCell.self), for: indexPath) as? HomeMoreInfoTableViewCell else {
 			fatalError("Could not dequeue HomeMoreTableViewCell")
 		}
 		cell.configure(completion: { [weak self] selectedItem in

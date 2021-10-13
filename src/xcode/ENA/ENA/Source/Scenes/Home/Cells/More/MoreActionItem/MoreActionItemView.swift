@@ -19,8 +19,8 @@ class MoreActionItemView: UIView {
 	// MARK: - Internal
 	
 	func configure(
-		actionItem: MoreActionItem,
-		completion: @escaping ((MoreActionItem) -> Void)
+		actionItem: MoreInfoItem,
+		completion: @escaping ((MoreInfoItem) -> Void)
 	) {
 		self.imageView.image = actionItem.image
 		self.titleLabel.text = actionItem.title
@@ -37,8 +37,8 @@ class MoreActionItemView: UIView {
 	@IBOutlet weak var separatorView: UIView!
 	@IBOutlet private weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
-	private var actionItem: MoreActionItem?
-	private var completion: ((MoreActionItem) -> Void)?
+	private var actionItem: MoreInfoItem?
+	private var completion: ((MoreInfoItem) -> Void)?
 	private let highlightView = UIView()
 	
 	@IBAction private func didTap(_ sender: Any) {
