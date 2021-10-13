@@ -2949,15 +2949,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Delete Alert */
 
-"HealthCertificate_Alert_deleteButton" = "Entfernen";
+"HealthCertificate_Alert_deleteButton" = "Zertifikat entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Vaccination Certificate Delete Alert */
 
-"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat entfernen?";
 
-"VaccinationCertificate_Alert_message" = "Wir empfehlen die Impfzertifikate in der App zu behalten, auch wenn diese nicht mehr aktuell sind.";
+"VaccinationCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Test Certificate Details */
 
@@ -2973,9 +2973,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Test Certificate Delete Alert */
 
-"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat entfernen?";
 
-"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+"TestCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Recovery Certificate Details */
 
@@ -2987,9 +2987,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Recovery Certificate Delete Alert */
 
-"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat entfernen?";
 
-"RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+"RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Health Certificate Print PDF */
 
