@@ -3113,6 +3113,10 @@
 
 "FileScanner_PasswordError_title" = "Password Incorrect";
 
+"FileScanner_AlreadyRegistered_title" = "Certificate Already Registered";
+
+"FileScanner_AlreadyRegistered_message" = "The certificate is already registered in your app.";
+
 "FileScanner_PasswordError_message" = "Please enter a valid password.";
 
 "FileScanner_InvalidQRCode_title" = "No Suitable QR Code";

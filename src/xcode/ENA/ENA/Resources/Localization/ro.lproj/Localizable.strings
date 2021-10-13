@@ -3101,6 +3101,10 @@
 
 "FileScanner_PasswordError_title" = "Parolă incorectă";
 
+"FileScanner_AlreadyRegistered_title" = "Certificat deja înregistrat";
+
+"FileScanner_AlreadyRegistered_message" = "Certificatul este deja înregistrat în aplicația dvs.";
+
 "FileScanner_PasswordError_message" = "Introduceți o parolă valabilă.";
 
 "FileScanner_InvalidQRCode_title" = "Niciun cod QR potrivit";
