@@ -20,7 +20,8 @@ class HealthCertificateService {
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		boosterNotificationsService: BoosterNotificationsServiceProviding
+		boosterNotificationsService: BoosterNotificationsServiceProviding,
+		recycleBin: RecycleBin
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -34,6 +35,7 @@ class HealthCertificateService {
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
 			self.boosterNotificationsService = boosterNotificationsService
+			self.recycleBin = recycleBin
 			setup()
 			configureForLaunchArguments()
 
@@ -49,6 +51,7 @@ class HealthCertificateService {
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.notificationCenter = notificationCenter
 		self.boosterNotificationsService = boosterNotificationsService
+		self.recycleBin = recycleBin
 
 		setup()
 	}
@@ -211,6 +214,9 @@ class HealthCertificateService {
 		}
 		// we do not have to wait here, so we leave the completion empty
 		removeAllNotifications(for: healthCertificate, completion: {})
+
+		// Move HealthCertificate to the recycle-bin
+		recycleBin.moveToBin(.certificate(healthCertificate))
 	}
 
 	func registerAndExecuteTestCertificateRequest(
@@ -497,6 +503,7 @@ class HealthCertificateService {
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 	private let notificationCenter: UserNotificationCenter
+	private let recycleBin: RecycleBin
 
 	private var initialHealthCertifiedPersonsReadFromStore = false
 	private var initialTestCertificateRequestsReadFromStore = false

@@ -339,7 +339,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				store: store,
 				client: client
 			)
-		)
+		),
+		recycleBin: 
 	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
