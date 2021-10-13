@@ -74,7 +74,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 			if case .certificate = result {
 				expectation.fulfill()
 			} else {
-				XCTFail("Result with certificate expected.")
+				XCTFail("processingFinished with unexpected result.")
 			}
 		}
 
@@ -101,6 +101,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -123,6 +125,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
 		}
 
@@ -150,6 +154,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -177,6 +183,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFailed = { error in
 			if case .passwordInput = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -205,6 +213,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				processingFinishedExpectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
 		}
 
@@ -239,6 +249,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
 		}
 
@@ -265,6 +277,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -290,6 +304,8 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
 		}
 
