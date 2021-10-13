@@ -20,7 +20,7 @@ class RecycleBinViewModel {
 			.sink { [weak self] in
 				self?.recycleBinItems = $0
 					.sorted {
-						$0.recycleDate > $1.recycleDate
+						$0.recycledAt > $1.recycledAt
 					}
 			}.store(in: &subscriptions)
 	}

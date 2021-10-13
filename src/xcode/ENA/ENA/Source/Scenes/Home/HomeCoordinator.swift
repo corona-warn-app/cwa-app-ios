@@ -405,9 +405,9 @@ class HomeCoordinator: RequiresAppDependencies {
 		// TODO: Move to AppDelegate and remove mock data
 		let recycleBin = RecycleBin(store: store)
 
-		recycleBin.recycle(.coronaTest(.pcr(.mock())))
-		recycleBin.recycle(.coronaTest(.antigen(.mock())))
-		recycleBin.recycle(.certificate(.mock()))
+		recycleBin.moveToBin(.coronaTest(.pcr(.mock())))
+		recycleBin.moveToBin(.coronaTest(.antigen(.mock())))
+		recycleBin.moveToBin(.certificate(.mock()))
 
 		let recycleBinViewController = RecycleBinViewController(
 			viewModel: RecycleBinViewModel(
