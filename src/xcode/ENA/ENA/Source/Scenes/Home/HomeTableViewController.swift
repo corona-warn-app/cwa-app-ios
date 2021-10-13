@@ -186,8 +186,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return statisticsCell(forRowAt: indexPath)
 		case .traceLocations:
 			return traceLocationsCell(forRowAt: indexPath)
-		case .more:
-			return moreCell(forRowAt: indexPath)
+		case .moreInfo:
+			return moreInfoCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
@@ -226,7 +226,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .more:
+		case .moreInfo:
 			break
 		default:
 			fatalError("Invalid section")
@@ -612,9 +612,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func moreCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func moreInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreInfoTableViewCell.self), for: indexPath) as? HomeMoreInfoTableViewCell else {
-			fatalError("Could not dequeue HomeMoreTableViewCell")
+			fatalError("Could not dequeue HomeMoreInfoTableViewCell")
 		}
 		cell.configure(completion: { [weak self] selectedItem in
 			guard let self = self else { return }
@@ -622,7 +622,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .settings:
 				self.onSettingsCellTap(self.viewModel.state.enState)
 			case .recycleBin:
-				// TODO
 				Log.debug("Implement navigation to the recycle bin")
 			case .appInformation:
 				self.onAppInformationCellTap()

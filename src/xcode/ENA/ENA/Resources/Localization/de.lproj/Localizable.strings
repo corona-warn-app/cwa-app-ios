@@ -1319,18 +1319,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Info Card */
 
-"Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
-
-"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
-
-"Home_InfoCard_AboutTitle" = "Häufige Fragen";
-
-"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App. Sie werden auf eine externe Website der Bundesregierung weitergeleitet.";
-
-"Home_SettingsCard_Title" = "Einstellungen";
-
-"Home_AppInformationCard_Title" = "App-Informationen";
-
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home More Card */

@@ -41,7 +41,7 @@ class HomeTableViewModel {
 		case testRegistration
 		case statistics
 		case traceLocations
-		case more
+		case moreInfo
 	}
 
 	enum RiskAndTestResultsRow: Equatable {
@@ -79,7 +79,7 @@ class HomeTableViewModel {
 			return 1
 		case .traceLocations:
 			return 1
-		case .more:
+		case .moreInfo:
 			return 1
 		case .none:
 			fatalError("Invalid section")

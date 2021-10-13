@@ -1280,17 +1280,6 @@
 "Home_TraceLocationsCard_Button" = "Creare cod QR";
 
 /* Home Info Card */
-"Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
-
-"Home_InfoCard_ShareBody" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțurile de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
-
-"Home_InfoCard_AboutTitle" = "Întrebări frecvente";
-
-"Home_InfoCard_AboutBody" = "Aici puteți găsi răspunsuri la întrebările frecvente legate de aplicația Corona-Warn. Veți fi redirecționat către un site web extern al guvernului german.";
-
-"Home_SettingsCard_Title" = "Setări";
-
-"Home_AppInformationCard_Title" = "Info aplicație";
 
 "Home_AppInformationCard_Version" = "Versiune";
 

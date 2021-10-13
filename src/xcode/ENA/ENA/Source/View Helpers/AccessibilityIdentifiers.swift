@@ -92,10 +92,6 @@ enum AccessibilityIdentifiers {
 		
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
-		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
-		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
-		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
-		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 	}
 	
 	enum ContactDiary {

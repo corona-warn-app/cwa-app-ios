@@ -983,12 +983,6 @@ enum AppStrings {
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
 
-		// Info
-		static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
-		static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
-		static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
-		static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
-
 		// Risk Detection HowTo Alert
 
 		static let riskDetectionHowToAlertTitle = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")

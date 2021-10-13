@@ -28,18 +28,18 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		app.swipeUp()
 		// assert cells
-		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
 
-		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.shareActionView]
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
 		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
 
-		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.faqActionView]
+		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
 		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
 	
-		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.appInformationActionView]
+		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
 	
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 
@@ -52,18 +52,18 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		app.swipeUp()
 		// assert cells
-		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
 		
-		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.shareActionView]
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
 		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
 
-		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.faqActionView]
+		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
 		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
 	
-		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.appInformationActionView]
+		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
 	
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 
@@ -77,18 +77,18 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
 
-		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.shareActionView]
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
 		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
 
-		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.faqActionView]
+		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
 		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
 	
-		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.appInformationActionView]
+		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
 	
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 	

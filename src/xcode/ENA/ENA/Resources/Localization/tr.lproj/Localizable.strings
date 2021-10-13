@@ -1280,17 +1280,6 @@
 "Home_TraceLocationsCard_Button" = "QR Kod Oluştur";
 
 /* Home Info Card */
-"Home_InfoCard_ShareTitle" = "Corona-Warn-App'i Paylaş";
-
-"Home_InfoCard_ShareBody" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirlerini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
-
-"Home_InfoCard_AboutTitle" = "SSS";
-
-"Home_InfoCard_AboutBody" = "Bu bölümde, Corona-Warn-App hakkında sık sorulan soruların yanıtlarını bulabilirsiniz. Alman hükûmetinin harici bir web sitesine yönlendirileceksiniz.";
-
-"Home_SettingsCard_Title" = "Ayarlar";
-
-"Home_AppInformationCard_Title" = "Uygulama Bilgileri";
 
 "Home_AppInformationCard_Version" = "Versiyon";
 
