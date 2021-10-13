@@ -57,6 +57,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		super.setEditing(editing, animated: animated)
 
 		footerView?.update(to: editing ? .primary : .none)
+		animateCellHeightChanges()
 	}
 
 	// MARK: - FooterViewHandling
@@ -158,12 +159,8 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		tableView.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.tableView
 	}
 
-	private func animateChanges(of cell: UITableViewCell) {
+	private func animateCellHeightChanges() {
 		DispatchQueue.main.async { [self] in
-			guard tableView.visibleCells.contains(cell) else {
-				return
-			}
-
 			tableView.performBatchUpdates(nil, completion: nil)
 		}
 	}
