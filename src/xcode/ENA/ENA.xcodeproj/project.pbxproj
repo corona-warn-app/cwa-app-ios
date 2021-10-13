@@ -1047,7 +1047,6 @@
 		B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14D0CDC246E972400D5BEBC /* ExposureDetectionDelegate.swift */; };
 		B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14D0CDE246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift */; };
 		B153096A24706F1000A4A1BD /* URLSession+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153096924706F1000A4A1BD /* URLSession+Default.swift */; };
-		B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */; };
 		B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E6248290BB0010F007 /* AppleFilesWriterTests.swift */; };
 		B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382FD248424F00010F007 /* ExposureDetectionTests.swift */; };
 		B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */; };
@@ -1148,11 +1147,11 @@
 		BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */; };
 		BA3EE65D26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */; };
 		BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */; };
+		BA41016226F8D7DB0073F28D /* CovPassCheckInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016126F8D7DB0073F28D /* CovPassCheckInformationViewController.swift */; };
+		BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */; };
 		BA43CB6626E1203C00B86132 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */; };
 		BA43CB6726E1203C00B86132 /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */; };
 		BA43CB6926E1237E00B86132 /* RestServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */; };
-		BA41016226F8D7DB0073F28D /* CovPassCheckInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016126F8D7DB0073F28D /* CovPassCheckInformationViewController.swift */; };
-		BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
 		BA4934262701F09C00017FD8 /* FileScannerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */; };
@@ -1221,6 +1220,7 @@
 		BA7F15AD2629DA1000CA4783 /* AntigenTestInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15AC2629DA1000CA4783 /* AntigenTestInformationTests.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA821E9326B41F81008DA362 /* ValidationStateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */; };
+		BA83C19727171AFD0039D504 /* URLSessionConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
 		BA8848C0264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */; };
 		BA8848C3264AC6C000EEA542 /* HealthCertificateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */; };
@@ -2513,7 +2513,6 @@
 		B14D0CDC246E972400D5BEBC /* ExposureDetectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionDelegate.swift; sourceTree = "<group>"; };
 		B14D0CDE246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionTransaction+DidEndPrematurelyReason.swift"; sourceTree = "<group>"; };
 		B153096924706F1000A4A1BD /* URLSession+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Default.swift"; sourceTree = "<group>"; };
-		B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Default.swift"; sourceTree = "<group>"; };
 		B15382E3248273DC0010F007 /* MockTestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestStore.swift; sourceTree = "<group>"; };
 		B15382E6248290BB0010F007 /* AppleFilesWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFilesWriterTests.swift; sourceTree = "<group>"; };
 		B15382FD248424F00010F007 /* ExposureDetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionTests.swift; sourceTree = "<group>"; };
@@ -2614,9 +2613,9 @@
 		BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInformationViewModel.swift; sourceTree = "<group>"; };
 		BA3EE65C26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeadlineWithImageCell.swift; sourceTree = "<group>"; };
 		BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+DccRegisterPublicKeyTests.swift"; sourceTree = "<group>"; };
-		BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProvider.swift; sourceTree = "<group>"; };
 		BA41016126F8D7DB0073F28D /* CovPassCheckInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewController.swift; sourceTree = "<group>"; };
 		BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewModel.swift; sourceTree = "<group>"; };
+		BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProvider.swift; sourceTree = "<group>"; };
 		BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewController.swift; sourceTree = "<group>"; };
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
 		BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerIndicatorView.swift; sourceTree = "<group>"; };
@@ -2687,6 +2686,7 @@
 		BA7F15AC2629DA1000CA4783 /* AntigenTestInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestInformationTests.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationStateServiceTests.swift; sourceTree = "<group>"; };
+		BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Default.swift"; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
 		BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateSimpleTextCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA8848C2264AC6C000EEA542 /* HealthCertificateViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateViewModelTests.swift; sourceTree = "<group>"; };
@@ -5027,8 +5027,8 @@
 				50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */,
 			);
 			path = DMNewHttpCommunication;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		50E861FA27070E7C001E29B2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -5226,7 +5226,6 @@
 				948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */,
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
-				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7362,9 +7361,9 @@
 		BA64FA7F26D79BCB00DD4705 /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
+				BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */,
 				BA64FA8026D79BFD00DD4705 /* Resources */,
 				BAF640E926DF862800B3A18E /* Services */,
-				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -9050,6 +9049,7 @@
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
 				ABE9612C25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift in Sources */,
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
+				BA83C19727171AFD0039D504 /* URLSessionConfiguration+Default.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				BADD36E8260B4FBA00DD282A /* EditCheckinDetailViewModel.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
@@ -9304,7 +9304,6 @@
 				BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
 				345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */,
-				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				50C0299025E4067400460FA4 /* KeySubmissionMetadata.swift in Sources */,
 				01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */,
 				35BDAAF025F001F5004DFE32 /* ELSError.swift in Sources */,
