@@ -194,6 +194,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			// explicitly disabled as per #EXPOSUREAPP-2214
 			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
 		}
+
+		// Cleanup recycle-bin. Remove old entries.
+		recycleBin.cleanup()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -432,6 +435,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		ppacService: ppacService,
 		otpService: otpService
 	)
+
+	private lazy var recycleBin: RecycleBin = {
+		let recycleBin = RecycleBin(store: store)
+		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.certificateRestorationHandler = CertificateRestorationHandlerFake()
+		return recycleBin
+	}()
 
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
