@@ -285,7 +285,7 @@ class EventCheckoutServiceTests: CWATestCase {
 			userNotificationCenter: mockUserNotificationCenter
 		)
 
-		// Before calling checkoutOverdueCheckins there shoud be 3 notification requests pending.
+		// Before calling checkoutOverdueCheckins there should be 3 notification requests pending.
 		// After calling checkoutOverdueCheckins the overdue checkins should be completed and the notification request is removed. Resulting in 1 notification request left for the not overdue checkin.
 
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 3)
@@ -314,7 +314,7 @@ class EventCheckoutServiceTests: CWATestCase {
 			userNotificationCenter: mockUserNotificationCenter
 		)
 
-		// Before calling checkoutOverdueCheckins there shoud be 2 notification requests pending, becasue 2 checkins where created.
+		// Before calling checkoutOverdueCheckins there should be 2 notification requests pending, because 2 checkins where created.
 		// After calling checkout for 1 checkin, only 1 notification requests should be pending.
 
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 2)
@@ -343,7 +343,7 @@ class EventCheckoutServiceTests: CWATestCase {
 			userNotificationCenter: mockUserNotificationCenter
 		)
 
-		// Before calling checkoutOverdueCheckins there shoud be 2 notification requests pending, becasue 2 checkins where created.
+		// Before calling checkoutOverdueCheckins there should be 2 notification requests pending, because 2 checkins where created.
 		// After calling updating checkout to 'checkinCompleted == true' for 1 checkin, only 1 notification requests should be pending.
 
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 2)

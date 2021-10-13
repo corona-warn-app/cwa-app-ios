@@ -43,8 +43,8 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
-		parent?.navigationItem.title = AppStrings.HealthCertificate.Validation.title
+		navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
+		navigationItem.title = AppStrings.HealthCertificate.Validation.title
 
 		setupTableView()
 

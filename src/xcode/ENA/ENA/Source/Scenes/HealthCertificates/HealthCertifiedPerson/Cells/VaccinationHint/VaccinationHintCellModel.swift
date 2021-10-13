@@ -34,7 +34,7 @@ final class VaccinationHintCellModel {
 
 	var description: String {
 		if let boosterRule = healthCertifiedPerson.boosterRule {
-			return "\(boosterRule.localizedDescription) (\(boosterRule.identifier))"
+			return "\(boosterRule.localizedDescription()) (\(boosterRule.identifier))"
 		}
 
 		switch healthCertifiedPerson.vaccinationState {

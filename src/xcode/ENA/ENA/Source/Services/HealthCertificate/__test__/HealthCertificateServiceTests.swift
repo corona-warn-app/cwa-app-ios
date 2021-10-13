@@ -30,57 +30,55 @@ class HealthCertificateServiceTests: CWATestCase {
 		// One for registration, one for the validity state update and one for is validity state new update
 		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 
-		let subscription = service.healthCertifiedPersons
+		let subscription = service.$healthCertifiedPersons
 			.dropFirst()
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 
-		let testCertificateBase45 = try base45Fake(
+		let vaccinationCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
-					uniqueCertificateIdentifier: "0"
-				)]
+				vaccinationEntries: [
+					.fake(uniqueCertificateIdentifier: "0")
+				]
 			),
 			and: .fake(expirationTime: .distantPast)
 		)
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45, validityState: .expired)
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
-		let result = service.registerHealthCertificate(base45: testCertificateBase45)
+		let result = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
 
 		switch result {
 		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [testCertificate])
+			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [vaccinationCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [testCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [vaccinationCertificate])
 
 		subscription.cancel()
 	}
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdatedOnValidityStateChange() throws {
-		let testCertificateBase45 = try base45Fake(
+		let vaccinationCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+				vaccinationEntries: [.fake(
 					uniqueCertificateIdentifier: "0"
 				)]
 			)
 		)
-		let testCertificate = try HealthCertificate(base45: testCertificateBase45)
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   testCertificate
-			   ]
-		   )
+				vaccinationCertificate
+			]
+		)
 
 		var subscriptions = Set<AnyCancellable>()
 
@@ -112,7 +110,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 
-		service.healthCertifiedPersons
+		service.$healthCertifiedPersons
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
 			}
@@ -262,7 +260,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantFuture)
 		)
-		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45)
+		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45, isNew: true)
 
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
@@ -292,7 +290,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantFuture)
 		)
-		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
@@ -305,7 +303,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue(withStars: true))
 
 		// Marking as new increases unseen news count
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
@@ -338,10 +336,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// New health certified person comes first due to alphabetical ordering
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue(withStars: true))
 
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue(withStars: true))
 
 		// Register test certificate for second person
 
@@ -369,10 +367,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue(withStars: true))
 
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value.last?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue(withStars: true))
 
 		// Register expired recovery certificate for a third person to check gradients are correct
 
@@ -385,7 +383,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantPast)
 		)
-		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired)
+		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
 
@@ -397,11 +395,11 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue(withStars: true))
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 0]).unseenNewsCount, 0)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey(withStars: true))
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 
 		// Expired state increases unseen news count
@@ -409,21 +407,21 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .darkBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue(withStars: true))
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 2]).unseenNewsCount, 2)
 
 		// Set last person as preferred person and check that positions switched and gradients are correct
 
-		service.healthCertifiedPersons.value.last?.isPreferredPerson = true
+		service.healthCertifiedPersons.last?.isPreferredPerson = true
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue(withStars: true))
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .mediumBlue(withStars: true))
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 2]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey(withStars: true))
 
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
@@ -434,10 +432,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue(withStars: true))
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.value[safe: 1]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey(withStars: true))
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
@@ -494,13 +492,13 @@ class HealthCertificateServiceTests: CWATestCase {
 			])
 		]
 
-		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
+		XCTAssertTrue(service.healthCertifiedPersons.isEmpty)
 
 		// Loading certificates from the store
 
 		service.updatePublishersFromStore()
 
-		XCTAssertEqual(service.healthCertifiedPersons.value, [
+		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
 				healthCertificate1, healthCertificate2
 			]),
@@ -508,13 +506,13 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificate3
 			])
 		])
-		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
 
 		// Removing one of multiple certificates
 
 		service.removeHealthCertificate(healthCertificate2)
 
-		XCTAssertEqual(service.healthCertifiedPersons.value, [
+		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
 				healthCertificate1
 			]),
@@ -522,24 +520,24 @@ class HealthCertificateServiceTests: CWATestCase {
 				healthCertificate3
 			])
 		])
-		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
 
 		// Removing last certificate of a person
 
 		service.removeHealthCertificate(healthCertificate1)
 
-		XCTAssertEqual(service.healthCertifiedPersons.value, [
+		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
 				healthCertificate3
 			])
 		])
-		XCTAssertEqual(service.healthCertifiedPersons.value, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
 
 		// Removing last certificate of last person
 
 		service.removeHealthCertificate(healthCertificate3)
 
-		XCTAssertTrue(service.healthCertifiedPersons.value.isEmpty)
+		XCTAssertTrue(service.healthCertifiedPersons.isEmpty)
 	}
 
 	func testValidityStateUpdate_Valid() throws {
@@ -641,7 +639,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(healthCertificate.validityState, .invalid)
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.healthCertificates.first?.validityState, .invalid)
+		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .invalid)
 
 		subscription.cancel()
 		service.removeHealthCertificate(healthCertificate)
@@ -650,7 +648,7 @@ class HealthCertificateServiceTests: CWATestCase {
 	func testValidityStateUpdate_JustExpired() throws {
 		let healthCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
-				testEntries: [.fake()]
+				vaccinationEntries: [.fake()]
 			),
 			and: .fake(expirationTime: Date())
 		)
@@ -692,7 +690,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(healthCertificate.validityState, .expired)
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.healthCertificates.first?.validityState, .expired)
+		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
 		service.removeHealthCertificate(healthCertificate)
@@ -743,7 +741,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(healthCertificate.validityState, .expired)
-		XCTAssertEqual(service.healthCertifiedPersons.value.first?.healthCertificates.first?.validityState, .expired)
+		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
 		service.removeHealthCertificate(healthCertificate)
@@ -916,7 +914,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		)
 
-		let requestsSubscription = service.testCertificateRequests
+		let requestsSubscription = service.$testCertificateRequests
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
@@ -924,8 +922,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 5
-		let personsSubscription = service.healthCertifiedPersons
+		personsExpectation.expectedFulfillmentCount = 3
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -956,8 +954,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Wait for certificate registration to succeed
 		wait(for: [completionExpectation], timeout: .medium)
 
-		service.healthCertifiedPersons.value.first?.healthCertificates.first?.isValidityStateNew = false
-		service.healthCertifiedPersons.value.first?.healthCertificates.first?.isNew = false
+		service.healthCertifiedPersons.first?.healthCertificates.first?.isValidityStateNew = false
+		service.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
 
 		waitForExpectations(timeout: .medium)
 
@@ -966,10 +964,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		countSubscription.cancel()
 
 		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
-		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 		XCTAssertEqual(receivedCounts, expectedCounts)
 	}
 
@@ -1025,8 +1023,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		personsExpectation.expectedFulfillmentCount = 2
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1053,10 +1051,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		personsSubscription.cancel()
 
 		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
-		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 	}
 
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_Success() throws {
@@ -1114,8 +1112,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		personsExpectation.expectedFulfillmentCount = 2
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1144,10 +1142,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
 
 		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
-		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 	}
 
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_AlreadyRegisteredError() throws {
@@ -1205,8 +1203,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		personsExpectation.expectedFulfillmentCount = 2
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1235,10 +1233,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
 
 		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
-		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 	}
 
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_NetworkError() throws {
@@ -1300,7 +1298,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 
-		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertFalse(testCertificateRequest.rsaPublicKeyRegistered)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
@@ -1361,8 +1359,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.healthCertifiedPersons
+		personsExpectation.expectedFulfillmentCount = 2
+		let personsSubscription = service.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
 					personsExpectation.fulfill()
@@ -1391,10 +1389,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
 
 		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
-		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 	}
 
 	func testTestCertificateExecution_GettingCertificateFailsTwiceWithPending() throws {
@@ -1454,7 +1452,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 
-		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
@@ -1512,7 +1510,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 
-		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
@@ -1570,7 +1568,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 
-		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
@@ -1633,7 +1631,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 
-		XCTAssertEqual(service.testCertificateRequests.value.first, testCertificateRequest)
+		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
@@ -1673,9 +1671,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertEqual(service.testCertificateRequests.value.count, 1)
-		XCTAssertTrue(service.testCertificateRequests.value[0].requestExecutionFailed)
-		XCTAssertFalse(service.testCertificateRequests.value[0].isLoading)
+		XCTAssertEqual(service.testCertificateRequests.count, 1)
+		XCTAssertTrue(service.testCertificateRequests[0].requestExecutionFailed)
+		XCTAssertFalse(service.testCertificateRequests[0].isLoading)
 	}
 
 	func testTestCertificateRegistrationAndExecution_SignatureNotCheckedOnRegistration() throws {
@@ -1717,7 +1715,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		)
 
-		let requestsSubscription = service.testCertificateRequests
+		let requestsSubscription = service.$testCertificateRequests
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
@@ -1744,10 +1742,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		requestsSubscription.cancel()
 
 		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.value.first).healthCertificates.first?.base45,
+			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
-		XCTAssertTrue(service.testCertificateRequests.value.isEmpty)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 	}
 	
 	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
@@ -1890,7 +1888,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			and: .fake(expirationTime: .distantFuture)
 		)
-		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
 		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 

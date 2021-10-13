@@ -101,16 +101,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
 	}
 
-	var allowRiskChangesNotification: Bool {
-		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
-		set { kvStore["allowRiskChangesNotification"] = newValue }
-	}
-
-	var allowTestsStatusNotification: Bool {
-		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
-		set { kvStore["allowTestsStatusNotification"] = newValue }
-	}
-
 	var appInstallationDate: Date? {
 		get { kvStore["appInstallationDate"] as Date? }
 		set { kvStore["appInstallationDate"] = newValue }
@@ -140,6 +130,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool {
 		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
+	}
+
+	var shouldShowQRScannerTooltip: Bool {
+		get { kvStore["shouldShowQRScannerTooltip"] as Bool? ?? true }
+		set { kvStore["shouldShowQRScannerTooltip"] = newValue }
 	}
 
 	var lastBackgroundFakeRequest: Date {
@@ -497,6 +492,10 @@ extension SecureStore: CoronaTestStoring {
 		set { kvStore["antigenTest"] = newValue }
 	}
 
+	var unseenTestsCount: Int {
+		get { kvStore["unseenTestsCount"] as Int? ?? 0 }
+		set { kvStore["unseenTestsCount"] = newValue }
+	}
 }
 
 extension SecureStore: CoronaTestStoringLegacy {

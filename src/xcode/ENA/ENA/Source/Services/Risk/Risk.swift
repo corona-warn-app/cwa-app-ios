@@ -70,7 +70,7 @@ extension Risk {
 		Log.debug("[Risk] totalRiskLevel: \(totalRiskLevel)", log: .riskDetection)
 
 		// 1. Filter for the desired risk.
-		// 2. Select the maximum by date (the most currrent).
+		// 2. Select the maximum by date (the most current).
 		let mostRecentDateWithRiskLevel = mergedRiskLevelPerDate.filter {
 			$1 == totalRiskLevel
 		}.max(by: {

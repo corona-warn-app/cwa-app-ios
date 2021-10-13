@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Turn on Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Activate Bluetooth in your system settings to use this app.";
+"Alert_BluetoothOff_Description" = "Activate Bluetooth in your device settings to use this app.";
 
 "Alert_CancelAction_Later" = "Later";
 
@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "This is what you should do:";
 
+"ExposureDetection_Guide_Vaccination" = "Get vaccinated against the SARS-CoV-2 virus if you have not already done so.";
+
 "ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
 "ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Air out indoor spaces several times per day. To do so, open the windows as far as possible for several minutes (“shock ventilation”).";
 
+"ExposureDetection_Guide_Symptoms" = "Be alert for typical COVID-19 symptoms. Even vaccinated people can show symptoms in breakthrough cases. If you notice any suspicious symptoms, get tested.";
+
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home.";
 
 "ExposureDetection_Guide_Hotline1" = "If you have questions about symptoms, testing availability, or quarantine measures, please contact one of the following:";
 
 "ExposureDetection_Guide_Hotline2" = "Your general practitioner";
 
-"ExposureDetection_Guide_Hotline3" = "General medical emergency service on telephone number 116117";
+"ExposureDetection_Guide_Hotline3" = "General medical emergency service on telephone number 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Your public health authority";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor or the general medical emergency service number to arrange a test. After your test, discuss the SARS-CoV-2 vaccination with your family doctor.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "If you get tested, you will find additional information about the testing procedure in the %@.";
@@ -285,32 +291,46 @@
 
 "Settings_DataDonation_StatusInactive" = "Off";
 
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Do you want to activate notifications of your COVID-19 risk status?";
+/* Notification Settings */
+"NotificationSettings_Title" = "Notifications";
 
-"NotificationSettings_On_SectionTitle" = "Setting";
+"NotificationSettings_ImageDescriptionOn" = "A woman receives a notification from her Corona-Warn-App.";
 
-"NotificationSettings_On_RiskChanges" = "Your risk of infection changed";
+"NotificationSettings_ImageDescriptionOff" = "A woman cannot receive notifications from her Corona-Warn-App.";
 
-"NotificationSettings_On_TestsStatus" = "Status of your COVID-19 test";
+"NotificationSettings_SettingsDescription" = "SETTING";
 
-"NotificationSettings_Off_SectionTitle" = "Setting";
+"NotificationSettings_Notifications" = "Notifications";
 
-"NotificationSettings_Off_EnableNotifications" = "Notifications";
+"NotificationSettings_NotificationsOn" = "On";
 
-"NotificationSettings_Off_StatusInactive" = "Off";
+"NotificationSettings_NotificationsOff" = "Off";
 
-"NotificationSettings_Off_InfoTitle" = "Activate Notifications";
+"NotificationSettings_BulletHeadlineOn" = "Manage Notifications";
 
-"NotificationSettings_Off_InfoDescription" = "To activate notifications in the Corona-Warn-App, you must allow notifications in your device settings.";
+"NotificationSettings_BulletHeadlineOff" = "Activate Notifications";
 
-"NotificationSettings_Off_OpenSettings" = "Open Device Settings";
+"NotificationSettings_BulletDescOn" = "You can define the following settings here:";
 
-"NotificationSettings_NavTitle" = "Notifications";
+"NotificationSettings_BulletDescOff" = "To activate notifications in the Corona-Warn-App, you must allow notifications in your device settings.";
 
-"NotificationSettings_onImageDescription" = "A woman receives a notification from her Corona-Warn-App.";
+"NotificationSettings_BulletPoint1" = "You want to receive notifications in general";
 
-"NotificationSettings_offImageDescription" = "A woman cannot receive notifications from her Corona-Warn-App.";
+"NotificationSettings_BulletPoint2" = "You want notification texts to be displayed on your lock screen";
+
+"NotificationSettings_BulletPoint3" = "You do not want notification texts to be displayed until you unlock your smartphone";
+
+"NotificationSettings_BulletDesc2" = "For details on the settings for your operating system, please see our %@ page.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "FAQ";
+
+"NotificationSettings_OpenSystemSettings" = "Open Device Settings";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Manage Notifications";
+
+"NotificationSettings_DeltaOnboarding_Description" = "The settings for notifications are now managed centrally in the device settings of your smartphone.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Continue";
 
 /* Background App Referesh Settings */
 "BackgroundAppRefreshSettings_Title" = "Background App Refresh";
@@ -359,7 +379,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Open Settings";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open the settings for the Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activate Background App Refresh";
 
@@ -375,8 +395,6 @@
 "Onboarding_EnableLogging_actionText" = "Activate Exposure Logging";
 
 "Onboarding_Continue_actionTextHint" = "You can skip this screen";
-
-"Onboarding_doNotAllow_actionText" = "Do Not Allow";
 
 "Onboarding_DoNotActivate_actionText" = "Do Not Activate";
 
@@ -434,9 +452,9 @@
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Receive warnings and identify risks";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can automatically send you notifications about your risk status and the validity of your certificates, among other information. To enable this, change your notification settings.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-quarantine to protect others and find out where you can get tested.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Doing so will help you protect yourself and others, as well as keep track of the validity of your certificates.";
 
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Transnational Exposure Logging";
@@ -467,8 +485,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Allow";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Do Not Allow";
 
 "ExposureSubmission_Submit" = "Enter TAN";
 
@@ -595,25 +611,6 @@
 "ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "The QR code cannot be matched with a rapid test. Please scan a suitable QR code.";
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
-
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "QR Code Scan";
-
-"ExposureSubmissionQRScanner_instruction" = "Position the frame over the QR code of your document.";
-
-"ExposureSubmissionQRScanner_otherError" = "An unknown error occurred.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Camera flash";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Turned On";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turned Off";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn on camera flash";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn off camera flash";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you";
@@ -1038,21 +1035,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Enable Exposure Notifications";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Share Exposure Information\". Then define the app as active app for exposure notifications by selecting \"Specify as Active Region\".";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in your device settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Share Exposure Information\". Then define the app as the active app for exposure notifications by selecting \"Specify as Active Region\".";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activate COVID-19 Exposure Notifications";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" and activate \"COVID-19 Exposure Notifications\" in the settings.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in your device settings, so that encounters can be logged. Select \"Open Device Settings\" and activate \"COVID-19 Exposure Notifications\" in the settings.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Specify Active Region";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Exposure logging requires the Corona-Warn-App to be defined as active app in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Settings for COVID-19 Exposure Logging\" and then select the Corona-Warn-App as active app.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Exposure logging requires the Corona-Warn-App to be defined as active app in your device settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Settings for COVID-19 Exposure Logging\" and then select the Corona-Warn-App as active app.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Exposure logging requires the Corona-Warn-App to be defined as active app in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Specify as Active Region\".";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Exposure logging requires the Corona-Warn-App to be defined as the active app in your device settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Specify as Active Region\".";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in your device settings, so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
 
@@ -1471,6 +1468,8 @@
 
 "local_notifications_certificate_body" = "You have new messages from your Corona-Warn-App.";
 
+"local_notifications_certificate_validity_body" = "Check the validity of your certificates.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Overview";
 
@@ -1555,14 +1554,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Information about Booster Vaccinations";
+/* Version 2.12 */
+"NewVersionFeature_212_newStatisticsTiles_title" = "Extended Statistics";
 
-"NewVersionFeature_210_boosterVaccination_description" = "The app can now display a message that notifies you of any upcoming booster vaccinations.";
+"NewVersionFeature_212_newStatisticsTiles_description" = "The following statistics are now available in the app:\n\t\U2022 7-day hospitalization incidence\n\t\U2022 COVID-19 patients in intensive\n\t   care units";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Print Version of Vaccination Certificates";
+"NewVersionFeature_212_notificationManagement_title" = "Manage Notifications";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "You can now display a print version of your vaccination certificate, which enables you to save the certificates as PDF documents and print them out.";
+"NewVersionFeature_212_notificationManagement_description" = "The settings for notifications are now managed centrally in your smartphone settings. Check your notification settings for the Corona-Warn-App again in your device settings.";
+
+"NewVersionFeature_212_qrCodeScannerButton_title" = "Direct Access to QR Code Scanner";
+
+"NewVersionFeature_212_qrCodeScannerButton_description" = "You now have direct access to the universal QR code scanner in the lower navigation bar.";
+
+"NewVersionFeature_212_qrCodeImport_title" = "Import QR Code";
+
+"NewVersionFeature_212_qrCodeImport_description" = "You can now use the QR code scanner to import QR codes from photos or PDF files.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1685,9 +1692,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "based on multiple exposures with low risk.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Less than 15 min";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Less than 10 min";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "More than 15 min";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "More than 10 min";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "With mask";
 
@@ -1750,9 +1757,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "A building is marked with a location flag.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "Less than 15 min";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Less than 10 min";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "More than 15 min";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "More than 10 min";
 
 "ContactDiary_Day_Encounter_WithMask" = "With mask";
 
@@ -1983,6 +1990,28 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
 
+/* - Infected People Hospitalization Rate */
+"Statistics_Card_HospitalizationRate_Title" = "7-Day Hospitalization Incidence";
+
+"Statistics_Card_HospitalizationRate_Today" = "Up to today";
+
+"Statistics_Card_HospitalizationRate_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_HospitalizationRate_Date" = "Up to %@";
+
+"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19 Hospitalizations per 100,000 Residents";
+
+/* - Infected People in Intensive Care */
+"Statistics_Card_IntensiveCare_Title" = "COVID-19 Patients in Intensive Care Units";
+
+"Statistics_Card_IntensiveCare_Today" = "Up to today";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_IntensiveCare_Date" = "Up to %@";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 Occupancy Rate of All Intensive Care Beds";
+
 /* Error */
 "Statistics_LoadingError" = "The statistics cannot be loaded. Please close the app and try again.";
 
@@ -1998,6 +2027,14 @@
 "Statistics_Info_Incidence_Title" = "7-Day Incidence";
 
 "Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents.";
+
+"Statistics_Info_HospitalizationRate_Title" = "7-Day Hospitalization Incidence";
+
+"Statistics_Info_HospitalizationRate_Text" = "Total number of hospital admissions due to COVID-19 in the last 7 days (by reporting date) per 100,000 residents.";
+
+"Statistics_Info_IntensiveCare_Title" = "COVID-19 Patients in Intensive Care Units";
+
+"Statistics_Info_IntensiveCare_Text" = "Proportion of people in intensive care units due to COVID-19 in relation to total ICU capacity.";
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
@@ -2045,7 +2082,7 @@
 
 "Statistics_Info_Trend_Title" = "Trend";
 
-"Statistics_Info_Trend_Text" = "The arrow direction indicates whether the trend is increasing, decreasing, or remaining steady – that is, demonstrates a deviation of less than 1% compared to the previous day or 5% compared to the previous week. The color indicates this trend as positive (green), negative (red), or neutral (gray). The trend compares the value from the previous day with the value from two days ago or, for the 7-day trends, the average value from the last 7 days with the average value from the 7 days prior to that.";
+"Statistics_Info_Trend_Text" = "The trend compares the value from the previous day with the value from two days ago (for the 7-day incidence, 7-day hospitalization incidence, COVID-19 patients in intensive care units, 7-day R value) or, for the 7-day trends, the average value from the last 7 days with the average value from the 7 days prior to that (for the 7-day mean value of confirmed new infections, warnings by app users, vaccine doses administered). The respective version of the data as initially published is used; subsequent updates are not taken into account.\n\nThe arrow direction indicates whether the trend is increasing, decreasing, or remaining steady – that is, demonstrates a deviation of less than 1% compared to the previous day or 5% compared to the previous week (taking decimal places into account). The color indicates this trend as positive (green), negative (red), or neutral (gray). ";
 
 "Statistics_Info_Trends_Title" = "The following trends can be shown:";
 
@@ -2069,9 +2106,11 @@
 "UpdateOS_text" = "You need the current iOS version to install the Corona-Warn-App.\nTo do so, open the settings in your iPhone and select General -> Software Update.";
 
 /* Tabbar */
-"Tabbar_Home_Title" = "Start Screen";
+"Tabbar_Home_Title" = "Status";
 
 "Tabbar_Certificates_Title" = "Certificates";
+
+"Tabbar_Scanner_Title" = "QR Code Scanner";
 
 "Tabbar_Diary_Title" = "Journal";
 
@@ -2200,8 +2239,6 @@
 "QuickAction_eventCheckin" = "Check In";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "QR Code Scan";
-
 "Checkins_Overview_Title" = "My Check-Ins";
 
 "Checkins_Overview_MenuButtonTitle" = "Menu";
@@ -2224,12 +2261,6 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Check Out Now";
 
-"Checkins_Overview_MissingPermissions_Title" = "Allow Camera Access";
-
-"Checkins_Overview_MissingPermissions_Description" = "To use your smartphone camera to scan QR codes, you have to allow access to the camera in the device settings for the app.";
-
-"Checkins_Overview_MissingPermissions_ButtonTitle" = "Open Device Settings";
-
 "Checkins_Overview_DeleteOne_AlertTitle" = "Do you really want to remove this entry?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "You will no longer be able to warn people who were checked in to this place or event at the same time, nor will you be warned by them.";
@@ -2249,8 +2280,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Information";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Edit";
-
-"Checkins_Overview_QRScanner_Instruction" = "Scan QR Code and Check In";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in for %@.";
 
@@ -2627,11 +2656,11 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "No certificates available yet";
 
-"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.";
+"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.\n\nTo add a certificate, please scan the corresponding QR code.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
 
-"HealthCertificate_Overview_Covid_Title" = "EU\n**Digital COVID Certificate**";
+"HealthCertificate_Overview_Covid_Title" = "EU Digital COVID Certificate";
 
 "VaccinationCertificate_title" = "EU\n**Digital Vaccination Certificate**";
 
@@ -2640,6 +2669,8 @@
 "VaccinationCertificate_vaccinationValidUntil" = "Valid through %@";
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "A QR code with the certificate";
+
+"HealthCertificate_Overview_News" = "There is news about your certificates";
 
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "EU\n**Digital COVID Test Certificate**";
@@ -2714,15 +2745,33 @@
 
 "HealthCertificate_Info_primaryButton" = "Continue";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "QR Code Scan";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Certificate Verification by Third Parties";
 
-"HealthCertificate_QRScanner_instruction" = "Scan QR Code and Add Certificate";
+"CovPass_Check_Info_body" = "Third parties can use the CovPassCheck app to reliably verify whether the vaccination certificate, certificate of recovery, or test certificate is valid.";
+
+"CovPass_Check_Info_faq" = "FAQ for Certificate Verification by Third Parties";
+
+"CovPass_Check_Info_text01" = "You can check the validity of certificates in the Corona-Warn-App yourself and do not need the CovPassCheck app.";
+
+"CovPass_Check_Info_text02" = "A visual check of the certificates is not sufficient for third parties, however. They must use the CovPassCheck app in Germany.";
+
+"CovPass_Check_Info_text03" = "Please note that third parties in other countries may use other apps to verify certificates.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
+
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Vaccination Status";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
+
+"HealthCertifiedPerson_completelyProtected" = "You have received all currently planned vaccinations. Your vaccination protection is complete.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "For further information, please see our %@ page.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
@@ -2751,6 +2800,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "New";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccination %i of %i";
@@ -2804,7 +2855,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
 
-"VaccinationCertificate_Alert_message" = "If you delete the vaccination certificate, the app can no longer use the vaccination for the verification of your vaccination status.";
+"VaccinationCertificate_Alert_message" = "We recommend keeping the vaccination certificates in the app even if they are no longer current.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Certificate";
@@ -3008,6 +3059,80 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "QR Code Scanner";
+
+"UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
+
+"UniversalQRScanner_InstructionDescription" = "PCR tests and rapid tests, test certificates, vaccination certificates, certificates of recovery, and check-ins.";
+
+"UniversalQRScanner_FileButtonTitle" = "Open File";
+
+"UniversalQRScanner_CameraFlash" = "Camera flash";
+
+"UniversalQRScanner_CameraFlash_On" = "Turned On";
+
+"UniversalQRScanner_CameraFlash_Off" = "Turned Off";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Turn on camera flash";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Turn off camera flash";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Access not allowed";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Settings";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "The QR code is not supported by the Corona-Warn-App. Please scan a suitable QR code.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Photo Library";
+
+"FileScanner_sheet_documents" = "Document";
+
+"FileScanner_sheet_cancel" = "Cancel";
+
+"FileScanner_AccessError_title" = "Access not allowed";
+
+"FileScanner_AccessError_message" = "\\“Corona-Warn-App\\” does not have access to your photo library. You can grant access in your device settings.";
+
+"FileScanner_AccessError_cancel" = "Cancel";
+
+"FileScanner_AccessError_settings" = "Settings";
+
+"FileScanner_HUD_text" = "Reading QR code...";
+
+"FileScanner_PasswordEntry_title" = "File is Password-Protected";
+
+"FileScanner_PasswordEntry_message" = "Please enter your password.";
+
+"FileScanner_PasswordEntry_placeholder" = "Password";
+
+"FileScanner_PasswordError_title" = "Password Incorrect";
+
+"FileScanner_AlreadyRegistered_title" = "Certificate Already Registered";
+
+"FileScanner_AlreadyRegistered_message" = "The certificate is already registered in your app.";
+
+"FileScanner_PasswordError_message" = "Please enter a valid password.";
+
+"FileScanner_InvalidQRCode_title" = "No Suitable QR Code";
+
+"FileScanner_InvalidQRCode_message" = "The QR code is not supported by the Corona-Warn-App. Please select a file with a suitable QR code.";
+
+"FileScanner_FileNotReadable_title" = "File Unreadable";
+
+"FileScanner_FileNotReadable_message" = "The selected file may be damaged or password-protected and could not be read. Please select a suitable file.";
+
+"FileScanner_NoQRCodeFound_title" = "No QR Code Detected";
+
+"FileScanner_NoQRCodeFound_message" = "No QR code was detected in the selected file. Please choose a different file.";
+
+"UniversalQRScanner_Tooltip_title" = "QR Code Scanner";
+
+"UniversalQRScanner_Tooltip_description" = "Use this scanner to scan tests, certificates, and check-ins.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Baden-Württemberg";

@@ -28,7 +28,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: []),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -76,7 +77,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// WHEN
@@ -119,7 +121,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
@@ -162,7 +165,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
@@ -206,7 +210,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -246,7 +251,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -283,11 +289,53 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
-			didTapValidationButton: { _, _ in }
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationHint), 0)
+	}
+
+
+	func testMarkBoosterRuleAsSeen() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
+		)
+
+		let healthCertificate = try vaccinationCertificate()
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				healthCertificate
+			],
+			boosterRule: .fake(),
+			isNewBoosterRule: true
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
+		)
+
+		XCTAssertTrue(healthCertifiedPerson.isNewBoosterRule)
+
+		viewModel.markBoosterRuleAsSeen()
+
+		XCTAssertFalse(healthCertifiedPerson.isNewBoosterRule)
 	}
 
 }

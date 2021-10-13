@@ -11,25 +11,33 @@ struct HealthCertificateQRCodeViewModel {
 
 	init(
 		healthCertificate: HealthCertificate,
-		accessibilityLabel: String
+		accessibilityLabel: String,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.base45 = healthCertificate.base45
 		self.shouldBlockCertificateCode = healthCertificate.validityState == .invalid ||
 		(healthCertificate.type != .test && healthCertificate.validityState == .expired)
 		self.accessibilityLabel = accessibilityLabel
+		self.showInfo = showInfoHit
 	}
 
 	init(
 		base45: Base45,
 		shouldBlockCertificateCode: Bool,
-		accessibilityLabel: String
+		accessibilityLabel: String,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.base45 = base45
 		self.shouldBlockCertificateCode = shouldBlockCertificateCode
 		self.accessibilityLabel = accessibilityLabel
+		self.showInfo = showInfoHit
 	}
 
 	// MARK: - Internal
+
+	let shouldBlockCertificateCode: Bool
+	let accessibilityLabel: String
+	let showInfo: () -> Void
 
 	var qrCodeImage: UIImage? {
 		var qrCodeString: String
@@ -45,12 +53,10 @@ struct HealthCertificateQRCodeViewModel {
 			with: qrCodeString,
 			encoding: .utf8,
 			size: CGSize(width: qrCodeSize, height: qrCodeSize),
+			scale: UIScreen.main.scale,
 			qrCodeErrorCorrectionLevel: .medium
 		)
 	}
-
-	let shouldBlockCertificateCode: Bool
-	let accessibilityLabel: String
 
 	// MARK: - Private
 

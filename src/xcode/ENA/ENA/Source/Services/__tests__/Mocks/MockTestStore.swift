@@ -25,10 +25,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var developerSubmissionBaseURLOverride: String?
 	var developerDistributionBaseURLOverride: String?
 	var developerVerificationBaseURLOverride: String?
-	var allowRiskChangesNotification: Bool = true
-	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+	var shouldShowQRScannerTooltip = false
 	var selectedServerEnvironment: EnvironmentData = Environments().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
@@ -123,6 +122,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
+	var unseenTestsCount: Int = 0
 
 	// MARK: - AntigenTestProfileStoring
 

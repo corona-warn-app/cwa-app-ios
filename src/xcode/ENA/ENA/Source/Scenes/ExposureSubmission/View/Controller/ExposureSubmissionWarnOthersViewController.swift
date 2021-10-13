@@ -56,9 +56,9 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Fo
 	private let dismiss: () -> Void
 
 	private func setupView() {
-		parent?.navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
-		parent?.navigationItem.hidesBackButton = true
+		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
+		navigationItem.hidesBackButton = true
 				
 		view.backgroundColor = .enaColor(for: .background)
 

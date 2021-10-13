@@ -462,7 +462,141 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
 	}
+	
+	// MARK: - Hospitalization Rate Card
 
+	func testHospitalizationRateCardStaticValues() {
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 8,
+				keyFigures: []
+			)
+		)
+
+		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.HospitalizationRate.title)
+		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Illu_7Days_Hospital_Rate"))
+		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.HospitalizationRate.secondaryLabelTitle)
+	}
+
+	func testHospitalizationRateCardPrimaryTitleToday() throws {
+		let today = Date()
+
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 8,
+				updatedAt: Int64(today.timeIntervalSince1970),
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					)
+				]
+			)
+		)
+
+		XCTAssertEqual(viewModel.primaryTitle, "Bis heute")
+	}
+
+	func testHospitalizationRateCardPrimaryTitleYesterday() throws {
+		let yesterday = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()))
+
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 8,
+				updatedAt: Int64(yesterday.timeIntervalSince1970),
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					)
+				]
+			)
+		)
+
+		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
+	}
+
+	func testHospitalizationRateCardPrimaryTitleOtherDate() throws {
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 8,
+				updatedAt: 1610891698, // 2021-01-17
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					)
+				]
+			)
+		)
+
+		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
+	}
+
+	// MARK: - Intensive Care Card
+
+	func testIntensiveCareCardStaticValues() {
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 9,
+				keyFigures: []
+			)
+		)
+
+		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.IntensiveCare.title)
+		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Illu_Intensive_Care"))
+		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.IntensiveCare.secondaryLabelTitle)
+	}
+
+	func testIntensiveCareCardPrimaryTitleToday() throws {
+		let today = Date()
+
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 9,
+				updatedAt: Int64(today.timeIntervalSince1970),
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					)
+				]
+			)
+		)
+
+		XCTAssertEqual(viewModel.primaryTitle, "Bis heute")
+	}
+
+	func testIntensiveCareCardPrimaryTitleYesterday() throws {
+		let yesterday = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()))
+
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 9,
+				updatedAt: Int64(yesterday.timeIntervalSince1970),
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					)
+				]
+			)
+		)
+
+		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
+	}
+
+	func testIntensiveCareCardPrimaryTitleOtherDate() throws {
+		let viewModel = HomeStatisticsCardViewModel(
+			for: keyFigureCard(
+				cardID: 9,
+				updatedAt: 1610891698, // 2021-01-17
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					)
+				]
+			)
+		)
+
+		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
+	}
+	
 	// MARK: - KeySubmission Card
 
 	func testKeySubmissionsCardStaticValues() {
@@ -735,9 +869,9 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 				switch rank {
 				case .primary:
 					switch HomeStatisticsCard(rawValue: id) {
-					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople:
+					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople, .infectedPeopleInIntensiveCare:
 						XCTAssertEqual(viewModel.primaryValue, expectedStringWithPercent)
-					case .infections, .incidence, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
+					case .infections, .incidence, .infectedPeopleHospitalizationRate, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)
 					case .none:
 						XCTFail("Unrecognised Card type")

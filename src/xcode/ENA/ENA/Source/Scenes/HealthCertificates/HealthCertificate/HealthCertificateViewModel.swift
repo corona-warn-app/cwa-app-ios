@@ -13,11 +13,15 @@ final class HealthCertificateViewModel {
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
-		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		markAsSeenOnDisappearance: Bool,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.markAsSeenOnDisappearance = markAsSeenOnDisappearance
+		self.showInfo = showInfoHit
 
 		updateHealthCertificateKeyValueCellViewModels()
 		updateGradient()
@@ -99,7 +103,10 @@ final class HealthCertificateViewModel {
 		HealthCertificateQRCodeCellViewModel(
 			mode: .details,
 			healthCertificate: healthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription
+			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription,
+			showInfoHit: { [weak self] in
+				self?.showInfo()
+			}
 		)
 	}
 
@@ -223,8 +230,10 @@ final class HealthCertificateViewModel {
 	}
 
 	func markAsSeen() {
-		healthCertificate.isNew = false
-		healthCertificate.isValidityStateNew = false
+		if markAsSeenOnDisappearance {
+			healthCertificate.isNew = false
+			healthCertificate.isValidityStateNew = false
+		}
 	}
 
 	// MARK: - Private
@@ -232,6 +241,9 @@ final class HealthCertificateViewModel {
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificate: HealthCertificate
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let showInfo: () -> Void
+
+	private let markAsSeenOnDisappearance: Bool
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()

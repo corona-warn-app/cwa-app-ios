@@ -1,4 +1,4 @@
-// Local configuation
+// Local configuration
 
 import Foundation
 

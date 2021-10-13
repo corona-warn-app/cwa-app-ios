@@ -126,7 +126,7 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 				defer { completionExpectation.fulfill() }
 
 				guard case .failure(let error) = result else {
-					XCTFail("Completion handler indicated succeess though it should have failed!")
+					XCTFail("Completion handler indicated success though it should have failed!")
 					return
 				}
 

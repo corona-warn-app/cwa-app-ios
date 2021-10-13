@@ -256,8 +256,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		currentCenter.getNotificationSettings { [weak self] settings in
 			guard let self = self else { return }
 
-			if (settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional)
-				&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+			if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
 				self.settingsViewModel.notifications.setState(state: true)
 			} else {
 				self.settingsViewModel.notifications.setState(state: false)

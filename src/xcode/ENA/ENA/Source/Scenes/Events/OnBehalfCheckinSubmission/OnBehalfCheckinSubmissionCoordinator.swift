@@ -12,12 +12,14 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		parentViewController: UIViewController,
 		appConfiguration: AppConfigurationProviding,
 		eventStore: EventStoringProviding,
-		client: Client
+		client: Client,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.parentViewController = parentViewController
 		self.appConfiguration = appConfiguration
 		self.eventStore = eventStore
 		self.client = client
+		self.qrScannerCoordinator = qrScannerCoordinator
 
 		self.checkinSubmissionService = OnBehalfCheckinSubmissionService(
 			client: client,
@@ -43,6 +45,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	private let eventStore: EventStoringProviding
 	private let client: Client
 	private let checkinSubmissionService: OnBehalfCheckinSubmissionService
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private weak var traceLocationSelectionViewController: OnBehalfTraceLocationSelectionViewController?
 
@@ -81,9 +84,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 			onScanQRCodeCellTap: { [weak self] in
 				self?.showQRCodeScanner()
 			},
-			onMissingPermissionsButtonTap: { [weak self] in
-				self?.showSettings()
-			},
 			onPrimaryButtonTap: { [weak self] selectedTraceLocation in
 				self?.showDateTimeSelectionSelectionScreen(
 					traceLocation: selectedTraceLocation
@@ -113,27 +113,14 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	}
 
 	private func showQRCodeScanner() {
-		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			qrCodeVerificationHelper: QRCodeVerificationHelper(),
-			appConfiguration: appConfiguration,
-			didScanCheckin: { [weak self] traceLocation in
-				self?.navigationController.dismiss(animated: true) {
-					self?.showDateTimeSelectionSelectionScreen(traceLocation: traceLocation)
-				}
-			},
-			dismiss: { [weak self] in
-				// Reload to reflect current camera permission state
-				self?.traceLocationSelectionViewController?.reload()
-				self?.navigationController.dismiss(animated: true)
-			}
+		qrScannerCoordinator.didScanTraceLocationInOnBehalfFlow = { [weak self] traceLocation in
+			self?.showDateTimeSelectionSelectionScreen(traceLocation: traceLocation)
+		}
+
+		qrScannerCoordinator.start(
+			parentViewController: navigationController,
+			presenter: .onBehalfFlow
 		)
-
-		qrCodeScanner.definesPresentationContext = true
-
-		let modalNavigationController = UINavigationController(rootViewController: qrCodeScanner)
-		modalNavigationController.modalPresentationStyle = .fullScreen
-
-		navigationController.present(modalNavigationController, animated: true)
 	}
 
 	private func showDateTimeSelectionSelectionScreen(

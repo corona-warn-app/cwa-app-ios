@@ -30,7 +30,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      xcversion(version: "~> 12.5.1")
+      xcversion(version: "~> 13.0.0")
     end
   end
 
@@ -57,7 +57,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.5,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=15.0,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
@@ -65,7 +65,7 @@ platform :ios do
   desc "Lint code"
   lane :lint do
     swiftlint(
-      executable: "../../vendor/swiftlint",
+      executable: "swiftlint",
       mode: :lint,
       output_file: "swiftlint.html",
       config_file: "ENA/.swiftlint.yml",
@@ -85,7 +85,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      #destination: "platform=iOS Simulator,OS=14.5,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=15.0,name=iPhone 11",
       scheme: "ENA",
       buildlog_path: "DerivedData/logs/"
     )

@@ -20,15 +20,15 @@ protocol DeltaOnboarding {
 
 extension DeltaOnboarding {
 	var isFinished: Bool {
-		Log.debug("Check, if \(id) is already finished or not needed (current onboarding version = \(store.onboardingVersion)...")
+		Log.debug("Check, if \(id) is already finished or not needed (current onboarding version = \(store.onboardingVersion)...", log: .onboarding)
 		let presented = store.finishedDeltaOnboardings[version] != nil && (store.finishedDeltaOnboardings[version]?.contains(id)) == true
 		
-		Log.debug("DeltaOnboarding \(id) already presented? \(presented).")
+		Log.debug("DeltaOnboarding \(id) already presented? \(presented).", log: .onboarding)
 		if !store.onboardingVersion.numericGreaterOrEqual(then: version) && !presented {
-			Log.debug("Will return isFinished() = false")
+			Log.debug("Will return isFinished() = false", log: .onboarding)
 			return false
 		}
-		Log.debug("Will return isFinished() = true")
+		Log.debug("Will return isFinished() = true", log: .onboarding)
 		return true
 	}
 	
@@ -41,20 +41,17 @@ extension DeltaOnboarding {
 	}
 	
 	func finish() {
-		Log.debug("DeltaOnboarding finished...")
-		if !store.onboardingVersion.numericGreaterOrEqual(then: version) {
-			store.onboardingVersion = version
-		}
-				
+		Log.debug("DeltaOnboarding finished...", log: .onboarding)
+
 		if var finishedDeltaOnboardingVersion = store.finishedDeltaOnboardings[version] {
 			if !finishedDeltaOnboardingVersion.contains(id) {
 				finishedDeltaOnboardingVersion.append(id)
 				store.finishedDeltaOnboardings[version] = finishedDeltaOnboardingVersion
-				Log.debug("Another DeltaOnboarding finished for Version \(version): \(id)")
+				Log.debug("Another DeltaOnboarding finished for Version \(version): \(id)", log: .onboarding)
 			}
 		} else {
 			store.finishedDeltaOnboardings[version] = [id]
-			Log.debug("First finished DeltaOnboarding for Version \(version): \(id)")
+			Log.debug("First finished DeltaOnboarding for Version \(version): \(id)", log: .onboarding)
 		}
 	}
 }

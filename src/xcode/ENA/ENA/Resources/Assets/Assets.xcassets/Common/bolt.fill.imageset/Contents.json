@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "bolt.fill.pdf",
+      "filename" : "flash_dark.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "flash.pdf",
       "idiom" : "universal"
     }
   ],

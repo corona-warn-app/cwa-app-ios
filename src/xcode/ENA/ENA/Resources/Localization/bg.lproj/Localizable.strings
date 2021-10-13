@@ -18,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Включете функцията Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Активирайте Bluetooth от системните настройки, за да използвате това приложение.";
+"Alert_BluetoothOff_Description" = "Активирайте Bluetooth от настройките на Вашето устройство, за да използвате това приложение.";
 
 "Alert_CancelAction_Later" = "По-късно";
 
@@ -96,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите:";
 
+"ExposureDetection_Guide_Vaccination" = "Ваксинирайте се срещу вируса SARS-CoV-2, ако все още не сте го направили.";
+
 "ExposureDetection_Guide_Hands" = "Мийте редовно ръцете си със сапун в продължение на 20 сек.";
 
 "ExposureDetection_Guide_Mask" = "Носете маска при контакт с други хора.";
@@ -106,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Проветрявайте затворените помещения по няколко пъти на ден. За целта отворете прозорците възможно най-широко за няколко минути (т.нар. ударно проветряване).";
 
+"ExposureDetection_Guide_Symptoms" = "Следете за типичните симптоми на COVID-19. Дори ваксинираните хора проявяват такива при случаи на пробив в защитата на ваксината. Направете си тест, ако забележите съмнителни симптоми.";
+
 "ExposureDetection_Guide_Home" = "По възможност се приберете и си останете вкъщи.";
 
 "ExposureDetection_Guide_Hotline1" = "Ако имате въпроси относно симптомите, възможностите за тестване или карантинните мерки, моля обърнете се към:";
 
 "ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
 
-"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116117";
+"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Ако все още не сте се ваксинирали, консултирайте се с личния си лекар или се обадете на телефона на Общата служба за медицинска помощ, за да си запазите час за тест. След теста обсъдете с личния си лекар възможността за ваксинация срещу SARS-CoV-2.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Ако се тествате, ще получите допълнителна информация относно процедурата за тестване в %@.";
@@ -285,32 +291,46 @@
 
 "Settings_DataDonation_StatusInactive" = "Изключено";
 
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Желаете ли да активирате известията за Вашия статус на риск от заразяване с COVID-19?";
+/* Notification Settings */
+"NotificationSettings_Title" = "Известия";
 
-"NotificationSettings_On_SectionTitle" = "Настройка";
+"NotificationSettings_ImageDescriptionOn" = "Жена, която получава известие от приложението Corona-Warn-App.";
 
-"NotificationSettings_On_RiskChanges" = "Промяна на Вашия риск от заразяване";
+"NotificationSettings_ImageDescriptionOff" = "Жена, която не може да получава известия от приложението Corona-Warn-App.";
 
-"NotificationSettings_On_TestsStatus" = "Статус на Вашия тест за COVID-19";
+"NotificationSettings_SettingsDescription" = "НАСТРОЙКА";
 
-"NotificationSettings_Off_SectionTitle" = "Настройка";
+"NotificationSettings_Notifications" = "Известия";
 
-"NotificationSettings_Off_EnableNotifications" = "Известия";
+"NotificationSettings_NotificationsOn" = "Включено";
 
-"NotificationSettings_Off_StatusInactive" = "Изключено";
+"NotificationSettings_NotificationsOff" = "Изключено";
 
-"NotificationSettings_Off_InfoTitle" = "Активиране на известия";
+"NotificationSettings_BulletHeadlineOn" = "Управление на известия";
 
-"NotificationSettings_Off_InfoDescription" = "За да активирате известията от Corona-Warn-App, трябва да разрешите известяването от настройките на Вашето устройство.";
+"NotificationSettings_BulletHeadlineOff" = "Активиране на известия";
 
-"NotificationSettings_Off_OpenSettings" = "Към настройките на устройството";
+"NotificationSettings_BulletDescOn" = "Можете да дефинирате следните настройки тук:";
 
-"NotificationSettings_NavTitle" = "Известия";
+"NotificationSettings_BulletDescOff" = "За да активирате известията от Corona-Warn-App, трябва да разрешите известяването от настройките на Вашето устройство.";
 
-"NotificationSettings_onImageDescription" = "Жена, която получава известие от приложението Corona-Warn-App.";
+"NotificationSettings_BulletPoint1" = "Искате да получавате известия като цяло";
 
-"NotificationSettings_offImageDescription" = "Жена, която не може да получава известия от приложението Corona-Warn-App.";
+"NotificationSettings_BulletPoint2" = "Искате текста на известията да се показва при заключен екран";
+
+"NotificationSettings_BulletPoint3" = "Не искате текста на известията да се показва преди да отключите устройството си";
+
+"NotificationSettings_BulletDesc2" = "За подробности относно настройките за Вашата операционна система, вижте нашата страница за %@.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "ЧЗВ";
+
+"NotificationSettings_OpenSystemSettings" = "Към настройките на устройството";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Управление на известия";
+
+"NotificationSettings_DeltaOnboarding_Description" = "Настройките за известията вече се управляват директно в настройките на Вашето устройство.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Напред";
 
 /* Background App Referesh Settings */
 "BackgroundAppRefreshSettings_Title" = "Фоново опресняване на приложението";
@@ -359,7 +379,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Отворете менюто за настройки";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Отворете настройките за приложението Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Отворете приложението Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Активирайте фоновото опресняване на приложението";
 
@@ -375,8 +395,6 @@
 "Onboarding_EnableLogging_actionText" = "Активиране на регистрирането на излагания на риск";
 
 "Onboarding_Continue_actionTextHint" = "Можете да пропуснете този екран";
-
-"Onboarding_doNotAllow_actionText" = "Не разрешавам";
 
 "Onboarding_DoNotActivate_actionText" = "Да не се активира";
 
@@ -434,9 +452,9 @@
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Предупреждения и рискове";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Приложението може да Ви уведомява автоматично за Вашия статус на риск от заразяване и да Ви предупреждава за нови заразявания на хора, с които сте били в контакт. Позволете на приложението да Ви изпраща известия.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Приложението може да Ви изпраща автоматично известия за Вашия статус на риск, както и за валидността на Вашите сертификати в допълнение към останалата информация. За да е възможно това, трябва да промените настройките си за известия.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "След това може да се самокарантинирате, за да защитите околните и да разберете къде може да се тествате.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "С това действие ще защитите себе си и околните. Освен това ще можете да следите валидността на Вашите сертификати.";
 
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Международно регистриране на излаганията";
@@ -467,8 +485,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Разрешавам";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Не разрешавам";
 
 "ExposureSubmission_Submit" = "Въведете ТАН код";
 
@@ -595,25 +611,6 @@
 "ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "QR кодът не може да бъде съпоставен с бърз тест. Моля, сканирайте подходящ QR код.";
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
-
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "Сканиране на QR кода";
-
-"ExposureSubmissionQRScanner_instruction" = "Позиционирайте рамката върху QR кода на Вашия документ.";
-
-"ExposureSubmissionQRScanner_otherError" = "Възникна неочаквана грешка.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Разрешете на приложението да използва камерата, за да сканира QR кода.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Светкавица";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Включено";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Изключено";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Включване на светкавицата";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Изключване на светкавицата";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Благодарим Ви!";
@@ -1038,21 +1035,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на известията за излагане на риск";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Регистрирането на излаганията изисква известията да бъдат активирани от системните настройки. Изберете „Към настройките на устройството“ -> „Известия за излагане на риск“ -> „Споделяне на информацията за излаганията“. После задайте устройството да бъде активно за известия за излагания като посочите активен регион.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Регистрирането на излаганията изисква известията да бъдат активирани от настройките на устройството Ви. Изберете „Към настройките на устройството“ -> „Известия за излагане на риск“ -> „Споделяне на информацията за излаганията“. После задайте приложението да бъде активно за известия за излагания като изберете регион от \"Посочване на активен регион\".";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Активиране на известията за излагане на COVID-19";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква известията за излагане на риск от заразяване с COVID-19 да бъдат активирани от системните настройки. Изберете „Към настройките на устройството“ и активирайте известията за излагане на COVID-19.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква известията за излагане на риск от заразяване с COVID-19 да бъдат активирани в настройките на устройството Ви. Изберете „Към настройките на устройството“ и активирайте известията за излагане на COVID-19.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Посочване на активен регион";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква приложението Corona-Warn-App да бъде отбелязано като активно в системните настройки. Изберете „Към настройките на устройството“ -> „Настройки за регистриране на излаганията на COVID-19“ и изберете Corona-Warn-App да е активно.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Регистрирането на излаганията изисква приложението Corona-Warn-App да бъде отбелязано като активно в настройките на устройството Ви. Изберете „Към настройките на устройството“ -> „Настройки за регистриране на излаганията на COVID-19“ и изберете Corona-Warn-App да е активно.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Регистрирането на излаганията изисква приложението Corona-Warn-App да бъде отбелязано като активно в системните настройки. Изберете „Към настройките на устройството“ -> „Настройки за излаганията“ -> „Посочване на активен регион“.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Регистрирането на излаганията изисква Corona-Warn-App да бъде отбелязано като активното приложение в настройките на устройството Ви. Изберете „Към настройките на устройството“ -> „Настройки за излаганията“ -> „Посочване като активен регион“.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия е активирана във Вашите системните настройки.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия са активирани в настройките на устройството Ви.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Изисква се оторизация";
 
@@ -1471,6 +1468,8 @@
 
 "local_notifications_certificate_body" = "Имате нови съобщения от приложението Corona-Warn-App.";
 
+"local_notifications_certificate_validity_body" = "Проверете валидността на своите сертификати.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Общ преглед";
 
@@ -1555,14 +1554,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.10 */
-"NewVersionFeature_210_boosterVaccination_title" = "Информация за ваксиниране с бустерни дози";
+/* Version 2.12 */
+"NewVersionFeature_212_newStatisticsTiles_title" = "Разширена статистика";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Приложението вече може да покаже съобщение, което Ви известява за предстоящо ваксиниране с бустерна доза.";
+"NewVersionFeature_212_newStatisticsTiles_description" = "В приложението вече е налична следната статистика:\n\n\t \U2022 7-дневна заболеваемост с хоспитализация\n\t \U2022 Пациенти с COVID-19 в интензивни\n\t  отделения";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Версия за печат на сертификатите за ваксинация";
+"NewVersionFeature_212_notificationManagement_title" = "Управление на известия";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Вече можете да покажете версия за печат на Вашия сертификат за ваксинация, което Ви позволява да го запазите като PDF документ и да го разпечатате.";
+"NewVersionFeature_212_notificationManagement_description" = "Настройките за известията вече се управляват централно през настройките на устройството Ви. Проверете отново настройките за известията на Corona-Warn-App в настройките на Вашето устройство.";
+
+"NewVersionFeature_212_qrCodeScannerButton_title" = "Директен достъп до скенера на QR кодове";
+
+"NewVersionFeature_212_qrCodeScannerButton_description" = "Вече имате директен достъп до универсалния скенер за QR кодове в долната лента за навигация.";
+
+"NewVersionFeature_212_qrCodeImport_title" = "Импортиране не QR код";
+
+"NewVersionFeature_212_qrCodeImport_description" = "Вече можете да използвате скенера за QR кодове, за да импортирате QR кодове от снимки или PDF файлове.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1685,9 +1692,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "въз основа на повече от едно излагане на нисък риск.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "По-малко от 15 мин";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Под 10 минути";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Повече от 15 мин";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "Над 10 минути";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "С маска";
 
@@ -1750,9 +1757,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Сграда с маркер за местоположение.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "По-малко от 15 мин";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Под 10 минути";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Повече от 15 мин";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "Над 10 минути";
 
 "ContactDiary_Day_Encounter_WithMask" = "С маска";
 
@@ -1983,6 +1990,28 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Общо";
 
+/* - Infected People Hospitalization Rate */
+"Statistics_Card_HospitalizationRate_Title" = "7-дневна заболеваемост с хоспитализация";
+
+"Statistics_Card_HospitalizationRate_Today" = "До днес";
+
+"Statistics_Card_HospitalizationRate_Yesterday" = "До вчера";
+
+"Statistics_Card_HospitalizationRate_Date" = "До %@";
+
+"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "Хоспитализации на пациенти с COVID-19 на 100 000 души";
+
+/* - Infected People in Intensive Care */
+"Statistics_Card_IntensiveCare_Title" = "Пациенти с COVID-19 в интензивни отделения";
+
+"Statistics_Card_IntensiveCare_Today" = "До днес";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "До вчера";
+
+"Statistics_Card_IntensiveCare_Date" = "До %@";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "Процент на заетостта от пациенти с COVID-19 на всички легла от интензивните отделения.";
+
 /* Error */
 "Statistics_LoadingError" = "Статистиката не може да бъде заредена. Моля, затворете приложението и опитайте отново.";
 
@@ -1998,6 +2027,14 @@
 "Statistics_Info_Incidence_Title" = "7-дневна заболеваемост";
 
 "Statistics_Info_Incidence_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души.";
+
+"Statistics_Info_HospitalizationRate_Title" = "7-дневна заболеваемост с хоспитализация";
+
+"Statistics_Info_HospitalizationRate_Text" = "Общ брой приети в болница пациенти заради COVID-19 през последните 7 дни (по дата на регистриране) на 100 000 души.";
+
+"Statistics_Info_IntensiveCare_Title" = "Пациенти с COVID-19 в интензивни отделения";
+
+"Statistics_Info_IntensiveCare_Text" = "Съотношение на пациентите в интензивни отделения заради COVID-19 спрямо общия капацитет на интензивните отделения.";
 
 "Statistics_Info_Infections_Title" = "Потвърдени нови случаи на заразяване";
 
@@ -2045,7 +2082,7 @@
 
 "Statistics_Info_Trend_Title" = "Тенденция";
 
-"Statistics_Info_Trend_Text" = "Посоката на стрелката указва дали тенденцията е към нарастване, намаляване или стабилизиране, т.е. отклонението е по-малко от 1% спрямо предишния ден или от 5% спрямо предишната седмица. Цветът указва тенденцията като положителна (зелено), отрицателна (червено) или неутрална (сиво). За определяне на тeнденцията стойността от предишния ден се сравнява с тази от преди два дни, а при 7-дневната тенденция средната стойност за последните 7 дни се сравнява със съответната стойност за предишния 7-дневен период.";
+"Statistics_Info_Trend_Text" = "Тенденцията сравнява стойността от предишния ден с тази от преди два дни (за 7-дневна заболеваемост, 7-дневна заболеваемост с хоспитализация, пациенти с COVID-19 в интензивни отделения, 7-дневно репродуктивно число R) или, за 7-дневните тенденции, средната стойност за последните 7 дни със средната стойност от предходния период 7-дневен период (за средната 7-дневна стойност от потвърдените нови заразявания, предупреждения от потребители в приложението, сложени дози ваксини). Използва се съответната версия на данните към началното им публикуване, не са взети предвид последващите актуализации.\n\nПосоката на стрелката указва дали тенденцията е към нарастване, намаляване или стабилизиране, т.е. отклонението е по-малко от 1% спрямо предишния ден или от 5% спрямо предишната седмица (вземат се предвид и десетичните позиции). Цветът указва тенденцията като положителна (зелено), отрицателна (червено) или неутрална (сиво).";
 
 "Statistics_Info_Trends_Title" = "Възможни са следните тенденции:";
 
@@ -2069,9 +2106,11 @@
 "UpdateOS_text" = "За да инсталирате приложението Corona-Warn-App, е необходимо устройството Ви да работи с последната версия iOS. От настройките на Вашия iPhone изберете Общи -> Актуализация на софтуера.";
 
 /* Tabbar */
-"Tabbar_Home_Title" = "Начален екран";
+"Tabbar_Home_Title" = "Статус";
 
 "Tabbar_Certificates_Title" = "Сертификати";
+
+"Tabbar_Scanner_Title" = "Скенер за QR кодове";
 
 "Tabbar_Diary_Title" = "Дневник";
 
@@ -2200,8 +2239,6 @@
 "QuickAction_eventCheckin" = "Регистрация";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "Сканиране на QR кода";
-
 "Checkins_Overview_Title" = "Моите регистрации";
 
 "Checkins_Overview_MenuButtonTitle" = "Меню";
@@ -2224,12 +2261,6 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Прекрати регистрацията сега";
 
-"Checkins_Overview_MissingPermissions_Title" = "Разрешаване на достъпа до камерата";
-
-"Checkins_Overview_MissingPermissions_Description" = "За да използвате камерата на телефона си за сканиране на QR кодове, трябва да разрешите на приложението да получи достъп до нея от настройките на устройството си.";
-
-"Checkins_Overview_MissingPermissions_ButtonTitle" = "Към настройките на устройството";
-
 "Checkins_Overview_DeleteOne_AlertTitle" = "Наистина ли искате да изтриете този запис?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Повече няма да можете да предупреждавате други потребители, които са се регистрирали на това място или събитие по същото време, нито ще можете да получавате предупреждения от тях.";
@@ -2249,8 +2280,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Информация";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Редактиране";
-
-"Checkins_Overview_QRScanner_Instruction" = "Сканиране на QR код и регистриране";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Регистрация за %@.";
 
@@ -2627,11 +2656,11 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Все още няма сертификати";
 
-"HealthCertificate_Overview_EmptyDescription" = "Тук се показват запазените цифрови сертификати за ваксинация, възстановяване и тест.";
+"HealthCertificate_Overview_EmptyDescription" = "Тук се показват запазените цифрови сертификати за ваксинация, възстановяване и тест.\n\nЗа да добавите сертификат, моля сканирайте съответния QR код.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Печат на сертификат на фона на цифров сертификат";
 
-"HealthCertificate_Overview_Covid_Title" = "ЕС\n**Цифров сертификат за COVID**";
+"HealthCertificate_Overview_Covid_Title" = "Цифров COVID сертификат на ЕС";
 
 "VaccinationCertificate_title" = "ЕС\n**Цифров сертификат за ваксинация**";
 
@@ -2640,6 +2669,8 @@
 "VaccinationCertificate_vaccinationValidUntil" = "Валидно до %@";
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "QR код със сертификата";
+
+"HealthCertificate_Overview_News" = "Има новини относно сертификатите Ви";
 
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "ЕС\n**Цифров сертификат за тест за COVID**";
@@ -2714,15 +2745,33 @@
 
 "HealthCertificate_Info_primaryButton" = "Напред";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "Сканиране на QR кода";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Проверка на сертификат от трети лица";
 
-"HealthCertificate_QRScanner_instruction" = "Сканирайте QR кода и добавете сертификата";
+"CovPass_Check_Info_body" = "Трети лица могат да използват приложението CovPassCheck, за да извършват надеждна проверка за валидност на сертификатите за ваксинация, сертификатите за възстановяване или сертификатите за тест.";
+
+"CovPass_Check_Info_faq" = "ЧЗВ за проверка на сертификати от трети лица";
+
+"CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите в приложението Corona-Warn-App. Не ви е нужно приложението CovPassCheck.";
+
+"CovPass_Check_Info_text02" = "Но имайте предвид, че визуалната проверка на сертификатите не е достатъчна за третите лица. В Германия те трябва да използват приложението CovPassCheck.";
+
+"CovPass_Check_Info_text03" = "Имайте предвид също така, че третите лица в други държави може да използват различни приложения за проверка на сертификатите.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно проверен с приложението CovPassCheck.";
+
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Ваксинационен статус";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Не сте получили всички планирани за момента ваксинации – Вашата ваксинационна защита все още не е пълна.";
+
+"HealthCertifiedPerson_completelyProtected" = "Получили сте всички планирани за момента ваксинации. Ваксинационната Ви защита е пълна.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "За повече информация вижте страницата ни с %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "ЧЗВ";
 
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
@@ -2751,6 +2800,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "валиден до %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Текущо използван сертификат";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Нови";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Ваксиниране %i от %i";
@@ -2804,7 +2855,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
 
-"VaccinationCertificate_Alert_message" = "Ако изтриете сертификата за ваксинация, приложението вече няма да може да използва ваксинацията за удостоверяване на вашия ваксинационен статус.";
+"VaccinationCertificate_Alert_message" = "Препоръчваме да пазите ваксинационните си сертификати в приложението дори и да не са вече актуални.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертификат за тест";
@@ -3008,6 +3059,80 @@
 "HealthCertificate_ValidityState_Invalid" = "Сертификатът (подписът) е невалиден";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "Скенер за QR кодове";
+
+"UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
+
+"UniversalQRScanner_InstructionDescription" = "PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
+
+"UniversalQRScanner_FileButtonTitle" = "Отваряне на файл";
+
+"UniversalQRScanner_CameraFlash" = "Светкавица";
+
+"UniversalQRScanner_CameraFlash_On" = "Включено";
+
+"UniversalQRScanner_CameraFlash_Off" = "Изключено";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Включване на светкавицата";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Изключване на светкавицата";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Достъпът не е разрешен";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Разрешете на приложението да използва камерата, за да сканира QR кода.";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Настройки";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "QR кодът не се поддържа от Corona-Warn-App. Моля, сканирайте подходящ QR код.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Галерия със снимки";
+
+"FileScanner_sheet_documents" = "Документ";
+
+"FileScanner_sheet_cancel" = "Отказ";
+
+"FileScanner_AccessError_title" = "Достъпът не е разрешен";
+
+"FileScanner_AccessError_message" = "\\“Corona-Warn-App\\” няма достъп до галерията Ви със снимки. Можете да разрешите достъпа от настройките на Вашето устройство.";
+
+"FileScanner_AccessError_cancel" = "Отказ";
+
+"FileScanner_AccessError_settings" = "Настройки";
+
+"FileScanner_HUD_text" = "Четене на QR код...";
+
+"FileScanner_PasswordEntry_title" = "Файлът е защитен с парола";
+
+"FileScanner_PasswordEntry_message" = "Моля, въведете паролата си.";
+
+"FileScanner_PasswordEntry_placeholder" = "Парола";
+
+"FileScanner_PasswordError_title" = "Паролата е грешна";
+
+"FileScanner_AlreadyRegistered_title" = "Сертификатът вече е регистриран";
+
+"FileScanner_AlreadyRegistered_message" = "Сертификатът вече е регистриран в приложението Ви.";
+
+"FileScanner_PasswordError_message" = "Моля, въведете валидна парола.";
+
+"FileScanner_InvalidQRCode_title" = "Няма подходящ QR код";
+
+"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, изберете файл с подходящ QR код.";
+
+"FileScanner_FileNotReadable_title" = "Файлът не се чете";
+
+"FileScanner_FileNotReadable_message" = "Възможно е избраният файл да е повреден или защитен с парола и не може да бъде прочетен. Моля, изберете подходящ файл.";
+
+"FileScanner_NoQRCodeFound_title" = "Не е намерен QR код";
+
+"FileScanner_NoQRCodeFound_message" = "В избрания файл не е открит QR код. Моля, изберете друг файл.";
+
+"UniversalQRScanner_Tooltip_title" = "Скенер за QR кодове";
+
+"UniversalQRScanner_Tooltip_description" = "Използвайте този скенер, за да сканирате тестове, сертификати и регистрации.";
 
 /* Federal State Names */
 "FederalState_BadenWuerttemberg" = "Баден-Вюртемберг";

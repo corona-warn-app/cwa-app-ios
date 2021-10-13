@@ -58,7 +58,7 @@ final class MockENManager: NSObject {
 					completionHandler(nil, ENError(.internal))
 					return
 				}
-				// assuming successfull execution and no exposures
+				// assuming successful execution and no exposures
 				guard !self.wasCalledTooOftenTill(now) else {
 					completionHandler(nil, ENError(.rateLimited))
 					return
@@ -74,7 +74,7 @@ final class MockENManager: NSObject {
 
 	func getExposureWindows(from summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
 		dispatchQueue.async {
-			// assuming successfull execution and empty list of exposure windows
+			// assuming successful execution and empty list of exposure windows
 			completionHandler([], nil)
 		}
 		return Progress()
@@ -154,16 +154,17 @@ final class MockENManager: NSObject {
 	}
 
 	private func getDiagnosisKeysImpl(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		guard let keys = diagnosisKeysResult?.0,
-			  let error = diagnosisKeysResult?.1 else {
+		let keys = diagnosisKeysResult?.0
+		let error = diagnosisKeysResult?.1
+		if keys == nil && error == nil {
 			Log.error("MockENManager: no preconfigured keys or error available, this is not expected", log: .api)
 			DispatchQueue.main.async {
 				completionHandler(nil, ENError(.internal))
 			}
-			return
-		}
-		dispatchQueue.async {
-			completionHandler(keys, error)
+		} else {
+			dispatchQueue.async {
+				completionHandler(keys, error)
+			}
 		}
 	}
 }

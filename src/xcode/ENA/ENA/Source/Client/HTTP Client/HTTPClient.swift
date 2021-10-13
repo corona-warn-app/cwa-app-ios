@@ -434,14 +434,14 @@ final class HTTPClient: Client {
 
 						guard let oldest = decodedResponse.oldest,
 							  let latest = decodedResponse.latest else {
-							Log.info("Succesfully discovered that there are no availablePackagesOnCDN", log: .api)
+							Log.info("Successfully discovered that there are no availablePackagesOnCDN", log: .api)
 							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
 							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
 							return
 						}
 
 						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
-						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
+						Log.info("Successfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))
 					} catch {
 						Log.error("Failed to decode response json", log: .api)
@@ -1024,7 +1024,7 @@ final class HTTPClient: Client {
 						// "expectedContentLength" will be -1 if the "content-length" header field is missing.
 						if response.httpResponse.expectedContentLength <= 0 {
 							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
-							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
+							Log.info("Successfully downloaded empty traceWarningPackage", log: .api)
 							completion(.success(emptyPackage))
 						} else {
 							guard let package = SAPDownloadedPackage(compressedData: body) else {
@@ -1033,7 +1033,7 @@ final class HTTPClient: Client {
 								return
 							}
 							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
-							Log.info("Succesfully downloaded zipped traceWarningPackage", log: .api)
+							Log.info("Successfully downloaded zipped traceWarningPackage", log: .api)
 							completion(.success(downloadedZippedPackage))
 						}
 					default:

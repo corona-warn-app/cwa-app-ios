@@ -248,17 +248,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>letzte Impfung heute</string>
+			<string>Letzte Impfung heute</string>
 			<key>one</key>
-			<string>letzte Impfung vor %u Tag</string>
+			<string>Letzte Impfung vor %u Tag</string>
 			<key>two</key>
-			<string>letzte Impfung vor %u Tagen</string>
+			<string>Letzte Impfung vor %u Tagen</string>
 			<key>few</key>
-			<string>letzte Impfung vor %u Tagen</string>
+			<string>Letzte Impfung vor %u Tagen</string>
 			<key>many</key>
-			<string>letzte Impfung vor %u Tagen</string>
+			<string>Letzte Impfung vor %u Tagen</string>
 			<key>other</key>
-			<string>letzte Impfung vor %u Tagen</string>
+			<string>Letzte Impfung vor %u Tagen</string>
 		</dict>
 	</dict>
 </dict>

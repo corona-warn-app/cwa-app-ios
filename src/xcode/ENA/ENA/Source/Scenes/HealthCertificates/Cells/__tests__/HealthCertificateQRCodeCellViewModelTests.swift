@@ -26,17 +26,56 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyValidVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .valid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -56,7 +95,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -67,6 +107,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyValidVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .valid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.title)
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -90,12 +166,13 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
@@ -108,6 +185,53 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			)
 		)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlySoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					),
+					and: .fake(expirationTime: expirationDate)
+				),
+				validityState: .expiringSoon,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -129,7 +253,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -147,6 +272,51 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			)
 		)
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlySoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					and: .fake(expirationTime: expirationDate)
+				),
+				validityState: .expiringSoon,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
+		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -168,7 +338,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -179,6 +350,44 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyExpiredVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .expired,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -198,7 +407,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -209,6 +419,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyExpiredVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .expired,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -230,7 +476,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -241,6 +488,44 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyInvalidVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .invalid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -260,7 +545,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -271,6 +557,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyInvalidVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .invalid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -296,7 +618,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -307,6 +630,48 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyValidTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let date = Date()
+		let dateTimeOfSampleCollection = ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: .withInternetDateTime)
+		let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake(
+								dateTimeOfSampleCollection: dateTimeOfSampleCollection
+							)
+						]
+					)
+				),
+				validityState: .valid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -326,7 +691,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -337,6 +703,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyValidTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .valid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.title)
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -363,7 +765,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -374,6 +777,49 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlySoonExpiringTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let date = Date()
+		let dateTimeOfSampleCollection = ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: .withInternetDateTime)
+		let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake(
+								dateTimeOfSampleCollection: dateTimeOfSampleCollection
+							)
+						]
+					),
+					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				),
+				validityState: .expiringSoon,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -394,7 +840,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -405,6 +852,43 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlySoonExpiringTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				),
+				validityState: .expiringSoon,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.title)
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -430,7 +914,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -441,6 +926,48 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyExpiredTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let date = Date()
+		let dateTimeOfSampleCollection = ISO8601DateFormatter.string(from: date, timeZone: .current, formatOptions: .withInternetDateTime)
+		let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake(
+								dateTimeOfSampleCollection: dateTimeOfSampleCollection
+							)
+						]
+					)
+				),
+				validityState: .expired,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -460,7 +987,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -471,6 +999,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyExpiredTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .expired,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.title)
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -490,7 +1054,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -501,6 +1066,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyInvalidTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .invalid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -520,7 +1121,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -531,6 +1133,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyInvalidTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .invalid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -552,7 +1190,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -563,6 +1202,44 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyValidRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							RecoveryEntry.fake(
+								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+							)
+						]
+					)
+				),
+				validityState: .valid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -582,7 +1259,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -593,6 +1271,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyValidRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .valid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.title)
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertNil(viewModel.validityStateIcon)
+		XCTAssertNil(viewModel.validityStateTitle)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -616,7 +1330,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -634,6 +1349,53 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			)
 		)
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlySoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake(
+								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+							)
+						]
+					),
+					and: .fake(expirationTime: expirationDate)
+				),
+				validityState: .expiringSoon,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -655,7 +1417,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -673,6 +1436,51 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			)
 		)
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlySoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let expirationDate = Date(timeIntervalSince1970: 1627987295)
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					and: .fake(expirationTime: expirationDate)
+				),
+				validityState: .expiringSoon,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
+		XCTAssertEqual(
+			viewModel.validityStateTitle,
+			String(
+				format: "Zertifikat läuft am %@ um %@ ab",
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+		)
+		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -692,7 +1500,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -703,6 +1512,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyExpiredRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .expired,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -722,7 +1567,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -733,6 +1579,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyExpiredRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .expired,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
@@ -752,7 +1634,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in }
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -763,6 +1646,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyInvalidRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .invalid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
@@ -782,7 +1701,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil
+			onValidationButtonTap: nil,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -793,6 +1713,42 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyInvalidRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					from: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .invalid,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onValidationButtonTap: nil,
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}

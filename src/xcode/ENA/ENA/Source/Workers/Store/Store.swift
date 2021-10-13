@@ -16,9 +16,6 @@ protocol StoreProtocol: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 
-	var allowRiskChangesNotification: Bool { get set }
-	var allowTestsStatusNotification: Bool { get set }
-
 	var appInstallationDate: Date? { get set }
 
 	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
@@ -44,6 +41,10 @@ protocol StoreProtocol: AnyObject {
 	/// `true` if the user needs to be informed about how risk detection works.
 	/// We only inform the user once. By default the value of this property is `true`.
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
+
+	/// `true` if the user needs to be shown the QR code scanner tooltip.
+	/// We only show it once. By default the value of this property is `true`.
+	var shouldShowQRScannerTooltip: Bool { get set }
 
 	/// Time when the app sent the last background fake request.
 	var lastBackgroundFakeRequest: Date { get set }
@@ -174,7 +175,8 @@ protocol CoronaTestStoring {
 	var pcrTest: PCRTest? { get set }
 
 	var antigenTest: AntigenTest? { get set }
-
+	
+	var unseenTestsCount: Int { get set }
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
@@ -222,7 +224,7 @@ protocol CoronaTestStoringLegacy {
 	var devicePairingSuccessfulTimestamp: Int64? { get set }
 
 	/// Timestamp that represents the date at which
-	/// the user has received a test reult.
+	/// the user has received a test result.
 	var testResultReceivedTimeStamp: Int64? { get set }
 
 	/// Date when the test was registered for both TAN and QR
