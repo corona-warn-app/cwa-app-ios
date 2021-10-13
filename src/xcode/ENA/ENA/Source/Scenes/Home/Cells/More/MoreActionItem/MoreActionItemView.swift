@@ -10,6 +10,8 @@ class MoreActionItemView: UIView {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		
+		longPressGestureRecognizer.minimumPressDuration = 0.1
 	}
 	
 	// MARK: - Internal
