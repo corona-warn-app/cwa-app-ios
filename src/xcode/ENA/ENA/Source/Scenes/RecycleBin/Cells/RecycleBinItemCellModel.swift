@@ -17,12 +17,12 @@ class RecycleBinItemCellModel {
 
 	// MARK: - Internal
 
-	lazy var iconImage: UIImage = {
+	lazy var iconImage: UIImage? = {
 		switch recycleBinItem.item {
 		case .certificate:
-			return UIImage()
+			return UIImage(named: "Icons_RecycleBin_Certificate")
 		case .coronaTest:
-			return UIImage()
+			return UIImage(named: "Icons_RecycleBin_CoronaTest")
 		}
 	}()
 
