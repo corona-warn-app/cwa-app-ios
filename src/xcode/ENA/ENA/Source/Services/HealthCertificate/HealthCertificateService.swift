@@ -390,7 +390,7 @@ class HealthCertificateService {
 		// at the moment we only have 1 migration step
 		// if more is needed we should add a migration serial queue
 		guard let lastVersion = store.healthCertifiedPersonsVersion,
-			  lastVersion < kCurrentHealthCertifiedPersonsVersion + 1 else {
+			  lastVersion < kCurrentHealthCertifiedPersonsVersion else {
 			Log.debug("Migration was done already - stop here")
 			return
 		}
