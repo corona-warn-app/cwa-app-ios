@@ -50,7 +50,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		parent?.navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
@@ -69,7 +69,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	func wasAttemptedToBeDismissed() {
 		onDismiss(viewModel.coronaTest.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)
 				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 			}
@@ -86,10 +86,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 	private func setUpView() {
 		
-		parent?.navigationItem.title = viewModel.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		parent?.navigationItem.hidesBackButton = true
-		parent?.navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = viewModel.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.largeTitleDisplayMode = .always
 		
 		view.backgroundColor = .enaColor(for: .background)
 
@@ -97,9 +97,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	}
 
 	private func setUpNavigationBarAppearance() {
-		parent?.navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
-		parent?.navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
 	}
 	
 	private func setUpDynamicTableView() {

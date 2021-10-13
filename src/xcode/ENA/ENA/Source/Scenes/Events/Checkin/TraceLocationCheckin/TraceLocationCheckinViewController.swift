@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationCheckinViewController: UIViewController {
+class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 
 	// MARK: - Init
 
@@ -35,10 +35,12 @@ class TraceLocationCheckinViewController: UIViewController {
 		setupPicker()
 		setupAdditionalInfoView()
 		setupViewModel()
+		setupNavigationBar()
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+
 		updateGradientViewLayout()
 	}
 
@@ -46,8 +48,15 @@ class TraceLocationCheckinViewController: UIViewController {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateBorderWidths()
+		updateGradientViewLayout()
 	}
 	
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		dismiss()
+	}
+
 	// MARK: - Private
 
 	private let viewModel: TraceLocationCheckinViewModel
@@ -58,10 +67,8 @@ class TraceLocationCheckinViewController: UIViewController {
 	private var subscriptions = Set<AnyCancellable>()
 
 	@IBOutlet private weak var scrollView: UIScrollView!
-	@IBOutlet private weak var barGradientView: UIView!
 	@IBOutlet private weak var bottomCardView: UIView!
 	@IBOutlet private weak var descriptionView: UIView!
-	@IBOutlet private weak var logoImageView: UIImageView!
 	@IBOutlet private weak var switchView: UIView!
 	@IBOutlet private weak var checkOutView: UIView!
 	@IBOutlet private weak var checkInForLabel: ENALabel!
@@ -78,7 +85,6 @@ class TraceLocationCheckinViewController: UIViewController {
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
 	@IBOutlet private weak var checkInButton: ENAButton!
-	@IBOutlet private weak var closeButton: UIButton!
 	
 	private func setupViewModel() {
 		viewModel.$duration
@@ -91,15 +97,28 @@ class TraceLocationCheckinViewController: UIViewController {
 			}
 			.store(in: &subscriptions)
 	}
+	
+	private func setupNavigationBar() {
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
+		let logoImageView = UIImageView(image: logoImage)
+		logoImageView.tintColor = .enaColor(for: .textContrast)
+		
+		navigationController?.navigationBar.tintColor = .white
+		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+
+		let closeButton = dismissHandlingCloseBarButton(.contrast)
+		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+		navigationItem.rightBarButtonItem = closeButton
+		navigationItem.hidesBackButton = true
+
+		(navigationController as? DismissHandlingNavigationController)?.setupTransparentNavigationBar()
+	}
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .backgroundLightGray)
 
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
-
-		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
-
 		pickerSwitch.setOn(viewModel.shouldSaveToContactJournal, animated: false)
 
 		let borderColor = UIColor.enaColor(for: .hairline).cgColor
@@ -111,8 +130,6 @@ class TraceLocationCheckinViewController: UIViewController {
 		checkInButton.setTitle(AppStrings.Checkins.Details.checkInButton, for: .normal)
 		checkInButton.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Details.checkInButton
 
-		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 	}
 	
 	private func setupGradientView() {
@@ -138,8 +155,10 @@ class TraceLocationCheckinViewController: UIViewController {
 	}
 	
 	private func updateGradientViewLayout() {
-		backgroundView.updatedTopLayout(with: 0, limit: scrollView.frame.origin.y)
-		backgroundView.gradientHeightConstraint.constant = barGradientView.bounds.height + 160
+		backgroundView.updatedTopLayout(with: scrollView.contentOffset.y, limit: scrollView.frame.origin.y)
+
+		view.layoutIfNeeded()
+		backgroundView.gradientHeightConstraint.constant = descriptionView.convert(descriptionView.frame, to: view).midY
 	}
 	
 	private func setupLabels() {
@@ -193,10 +212,6 @@ class TraceLocationCheckinViewController: UIViewController {
 	
 	@IBAction private func checkInPressed(_ sender: Any) {
 		viewModel.saveCheckinToDatabase()
-		dismiss()
-	}
-	
-	@IBAction private func cancelButtonPressed(_ sender: Any) {
 		dismiss()
 	}
 	

@@ -66,8 +66,7 @@ class TopErrorReportViewController: DynamicTableViewController {
 	}
 	
 	private func setupUI() {
-		// important because this is a child view controller within a container!
-		parent?.title = AppStrings.ErrorReport.title
+		title = AppStrings.ErrorReport.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 		view.backgroundColor = .enaColor(for: .background)
 	}

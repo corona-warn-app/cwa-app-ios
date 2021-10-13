@@ -8,14 +8,14 @@ import XCTest
 
 class DeltaOnboardingViewControllerTests: CWATestCase {
 
-	private func createVC() -> DeltaOnboardingV15ViewController {
-			DeltaOnboardingV15ViewController(
+	private func createVC() -> DeltaOnboardingCrossCountrySupportViewController {
+			DeltaOnboardingCrossCountrySupportViewController(
 				supportedCountries: [ Country.defaultCountry() ]
 			)
 	}
 	
-	private func createVCWithoutCountries() -> DeltaOnboardingV15ViewController {
-			DeltaOnboardingV15ViewController(
+	private func createVCWithoutCountries() -> DeltaOnboardingCrossCountrySupportViewController {
+			DeltaOnboardingCrossCountrySupportViewController(
 				supportedCountries: []
 			)
 	}

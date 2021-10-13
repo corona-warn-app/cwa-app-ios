@@ -28,6 +28,7 @@ extension DynamicCell {
 		case space = "spaceCell"
 		case bulletPoint = "bulletPointCell"
 		case headlineWithImage = "headerWithImage"
+		case doubleLabel = "doubleLabel"
 	}
 	
 	/// Style of  `DynamicTableViewTextCell`
@@ -75,6 +76,12 @@ extension DynamicCell {
 }
 
 extension DynamicCell {
+	
+	enum ImageAlignment {
+		case left
+		case right
+	}
+	
 	static func dynamicType(text: String, cellStyle: TextCellStyle = .label, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
 		.identifier(cellStyle.reuseIdentifier, action: action, accessoryAction: accessoryAction) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTableViewTextCell else { return }
@@ -95,6 +102,34 @@ extension DynamicCell {
 			configure?(viewController, cell, indexPath)
 		}
 	}
+	
+	static func doubleLabels(
+		text1: String,
+		text2: String,
+		style: ENAFont = .body,
+		accessibilityIdentifier1: String? = nil,
+		accessibilityIdentifier2: String? = nil,
+		accessibilityTraits1: UIAccessibilityTraits = .staticText,
+		accessibilityTraits2: UIAccessibilityTraits = .staticText,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(CellReuseIdentifier.doubleLabel) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicTableViewDoubleLabelViewCell else { return }
+			
+			cell.configure(
+				text1: text1,
+				text2: text2,
+				style: style,
+				accessibilityIdentifier1: accessibilityIdentifier1,
+				accessibilityIdentifier2: accessibilityIdentifier2,
+				accessibilityTraits1: accessibilityTraits1,
+				accessibilityTraits2: accessibilityTraits2
+			)
+
+		configure?(viewController, cell, indexPath)
+		}
+	}
+	
 
 	static func textWithLinks(
 		text: String,
@@ -103,7 +138,8 @@ extension DynamicCell {
 		style: ENAFont = .body,
 		accessibilityIdentifier: String? = nil,
 		accessibilityTraits: UIAccessibilityTraits = .staticText,
-		configure: CellConfigurator? = nil) -> Self {
+		configure: CellConfigurator? = nil
+	) -> Self {
 		.identifier(CellReuseIdentifier.dynamicTypeTextView) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTableViewTextViewCell else { return }
 			cell.configureAccessibility(
@@ -122,8 +158,10 @@ extension DynamicCell {
 		}
 	}
 
+	/// Creates a text with an icon next to it.
 	static func icon(
 		_ image: UIImage?,
+		imageAlignment: ImageAlignment = .left,
 		text: DynamicTableViewIconCell.Text,
 		tintColor: UIColor? = nil,
 		style: ENAFont = .body,
@@ -143,6 +181,7 @@ extension DynamicCell {
 				}
 				cell.configure(
 					image: image,
+					imageAlignment: imageAlignment,
 					text: text,
 					customTintColor: tintColor,
 					style: style,
@@ -206,6 +245,7 @@ extension DynamicCell {
 	
 	static func headlineWithImage(
 		headerText: String,
+		topInset: CGFloat = 64.0,
 		font: ENAFont = .title1,
 		image: UIImage,
 		accessibilityIdentifier: String? = nil,
@@ -213,7 +253,7 @@ extension DynamicCell {
 		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(CellReuseIdentifier.headlineWithImage, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image)
+			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image, topInset: topInset)
 			configure?(viewController, cell, indexPath)
 		}
 	}

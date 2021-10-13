@@ -13,16 +13,26 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.10"
+		self.featureVersion = "2.13"
 		
-		// Booster Vaccination
+		// New combined hospitalization rate tile
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature210BoosterVaccinationTitle, description: AppStrings.NewVersionFeatures.feature210BoosterVaccinationDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213HospitalizationRateTileTitle, description: AppStrings.NewVersionFeatures.feature213HospitalizationRateTileDescription)
 		)
 		
-		// Print verson of vaccination certificate
+		// New FAQ links
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature210PrintVersionVaccinationCertificateTitle, description: AppStrings.NewVersionFeatures.feature210PrintVersionVaccinationCertificateDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213ChangesFAQLinksTitle, description: AppStrings.NewVersionFeatures.feature213ChangesFAQLinksDescription)
+		)
+		
+		// Fault tolerance certificate assignment
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213CertificateAssignmentTitle, description: AppStrings.NewVersionFeatures.feature213CertificateAssignmentDescription)
+		)
+		
+		// Restore certificates
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213RestoreCertificateTitle, description: AppStrings.NewVersionFeatures.feature213RestoreCertificateDescription)
 		)
 	}
 

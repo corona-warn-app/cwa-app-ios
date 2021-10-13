@@ -142,7 +142,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		// German locale ensures 24h format.
 		durationPicker.locale = Locale(identifier: "de_DE")
 		durationPicker.datePickerMode = .time
-		durationPicker.minuteInterval = 15
+		durationPicker.minuteInterval = 10
 		durationPicker.tintColor = .enaColor(for: .tint)
 
 		if #available(iOS 14.0, *) {
@@ -174,7 +174,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
-			// adding this because of a known issue in first element of arrangedSubview in terms of accessibilty
+			// adding this because of a known issue in first element of arrangedSubview in terms of accessibility
 			let emptySpacer = UIView()
 			parametersStackView.addArrangedSubview(emptySpacer)
 			parametersStackView.addArrangedSubview(durationSegmentedControl)

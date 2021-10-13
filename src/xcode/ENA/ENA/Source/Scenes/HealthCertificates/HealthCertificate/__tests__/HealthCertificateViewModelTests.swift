@@ -41,7 +41,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -82,7 +84,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -103,6 +107,37 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .expirationDate), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .additionalInfo), 2)
 		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
+	}
+
+	func testMarkAsSeen() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			isNew: true,
+			isValidityStateNew: true
+		)
+
+		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+
+		let viewModel = HealthCertificateViewModel(
+			healthCertifiedPerson: certifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
+		)
+
+		XCTAssertTrue(healthCertificate.isNew)
+		XCTAssertTrue(healthCertificate.isValidityStateNew)
+
+		viewModel.markAsSeen()
+
+		XCTAssertFalse(healthCertificate.isNew)
+		XCTAssertFalse(healthCertificate.isValidityStateNew)
 	}
 
 }

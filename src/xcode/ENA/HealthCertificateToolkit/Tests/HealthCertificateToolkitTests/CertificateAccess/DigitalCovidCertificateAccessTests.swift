@@ -21,6 +21,18 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
         XCTAssertEqual(healthCertificate, testDataVaccinationCertificate.certificate)
     }
 
+    func test_When_DecodeCertificateWithoutCBORTag18Succeeds_Then_CorrectCertificateIsReturned() {
+        let certificateAccess = DigitalCovidCertificateAccess()
+        let result = certificateAccess.extractDigitalCovidCertificate(from: testDataCertificateWithoutTag18.input)
+
+        guard case let .success(healthCertificate) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        XCTAssertEqual(healthCertificate, testDataCertificateWithoutTag18.certificate)
+    }
+
     func test_When_DecodeVaccinationCertificateWithFloatExpirationDateSucceeds_Then_CorrectCertificateIsReturned() {
         let certificateAccess = DigitalCovidCertificateAccess()
         let result = certificateAccess.extractDigitalCovidCertificate(from: testDataVaccinationCertificateWithFloatExpirationDate.input)
@@ -123,6 +135,21 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
         XCTAssertEqual(header, testDataVaccinationCertificate.header)
         let issuedAt = try XCTUnwrap(testDataVaccinationCertificate.header.issuedAt)
         XCTAssertGreaterThan(testDataVaccinationCertificate.header.expirationTime, issuedAt)
+    }
+
+    func test_When_DecodeOfCertificateWithoutCBORTag18Succeeds_Then_CorrectHeaderIsReturned() throws {
+        let certificateAccess = DigitalCovidCertificateAccess()
+
+        let result = certificateAccess.extractCBORWebTokenHeader(from: testDataCertificateWithoutTag18.input)
+
+        guard case let .success(header) = result else {
+            XCTFail("Success expected.")
+            return
+        }
+
+        XCTAssertEqual(header, testDataCertificateWithoutTag18.header)
+        let issuedAt = try XCTUnwrap(testDataCertificateWithoutTag18.header.issuedAt)
+        XCTAssertGreaterThan(testDataCertificateWithoutTag18.header.expirationTime, issuedAt)
     }
 
     func test_When_DecryptAndComposeToWebToken_Then_CorrectWebTokenIsReturned() throws {
@@ -353,6 +380,43 @@ final class DigitalCovidCertificateAccessTests: XCTestCase {
                 issuer: "DE",
                 issuedAt: Date(timeIntervalSince1970: 1619167131),
                 expirationTime: Date(timeIntervalSince1970: 1622725423)
+            )
+        )
+    }()
+
+    private lazy var testDataCertificateWithoutTag18: TestData = {
+        TestData(
+            input: hcPrefix + "6BFAQD9:BZELQDIYZSU3RG*I6QEN1BII6LR5+T94FEOGIX1J+MPM*46ADLRR-MPW$NLEENKE$JDVPLW1KD0KSKE MCAOIC.U9S28$JWNH8%MJ H9*O5PIK+OU/VC.U1LIR:86BR3-SY$NQXH739Z22P19XFWP$I/XK$M8NN96YB7K2IL0:%OD3P5B9-NT0 2$$0X4PCY0+-CVYCDEBD0HX2JR$4O1K.IA2C8R8E/DD1.B$2NK7B/.DV2MGDIK3MXGG HG4HGBIK6IA*$30JAXD16IASD9M82*88XDOPCRM47/97+JTN$K.SS$FKV$K0MKYX0U/VFP1ZBQ.SSZ%P-RQ2%KYZP8 FUL8W2BJH0*EQLHR.EU: T1LT7KDKJS+KT BD8ICIMSDD32F36 3XZ2-NS4%DR0FUWMO+F4:VP BS5S/-T:BRH%OF3H$*JBPJ.P4Z5DU-3118JWK$I14J9NULMH9HVM% K.SFC2JCYNA6EFSKP5K1$OT9O VB+*BU20XJBN5",
+            certificate: DigitalCovidCertificate(
+                version: "1.0.0",
+                name: Name(
+                    familyName: "Santiago",
+                    givenName: "Alex",
+                    standardizedFamilyName: "SANTIAGO",
+                    standardizedGivenName: "ALEX"
+                ),
+                dateOfBirth: "1995-04-01",
+                vaccinationEntries: [
+                    VaccinationEntry(
+                        diseaseOrAgentTargeted: "840539006",
+                        vaccineOrProphylaxis: "1119349007",
+                        vaccineMedicinalProduct: "Sputnik-V",
+                        marketingAuthorizationHolder: "ORG-100030215",
+                        doseNumber: 1,
+                        totalSeriesOfDoses: 2,
+                        dateOfVaccination: "2021-08-23",
+                        countryOfVaccination: "DE",
+                        certificateIssuer: "Robert Koch-Institut",
+                        uniqueCertificateIdentifier: "01DE/00000/1119349007/GMJINU00NIHQ1D7XC5XUP7ZVU"
+                    )
+                ],
+                testEntries: nil,
+                recoveryEntries: nil
+            ),
+            header: CBORWebTokenHeader(
+                issuer: "DE",
+                issuedAt: Date(timeIntervalSince1970: 1631282574),
+                expirationTime: Date(timeIntervalSince1970: 1662818574)
             )
         )
     }()

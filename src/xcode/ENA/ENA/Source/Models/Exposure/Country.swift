@@ -5,7 +5,7 @@
 import UIKit
 
 
-/// A simple data countainer representing a country or political region.
+/// A simple data container representing a country or political region.
 struct Country: Equatable, Codable {
 
 	typealias ID = String
@@ -21,7 +21,7 @@ struct Country: Equatable, Codable {
 		UIImage(named: "flag.\(id.lowercased())")
 	}
 
-	/// Initialize a country with a given `countryCode`. If no valid `countryCode` is given the initalizer returns `nil`.
+	/// Initialize a country with a given `countryCode`. If no valid `countryCode` is given the initializer returns `nil`.
 	///
 	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
 	init?(countryCode: ID) {
@@ -59,7 +59,7 @@ extension Locale {
 		case "no":
 			identifier = "nb_NO"
 		// There was a decision not to use the 2 letter code "EU", but instead "EUR".
-		// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
+		// Please see this story for more information: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 		case "eur":
 			identifier = "eu"
 		default:

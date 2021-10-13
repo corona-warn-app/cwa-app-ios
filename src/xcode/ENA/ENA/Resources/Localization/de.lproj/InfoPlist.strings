@@ -1,2 +1,2 @@
 "NSCameraUsageDescription" = "Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen.";
-
+"NSPhotoLibraryUsageDescription" = "Bitte erlauben Sie der App die Nutzung der Foto Mediathek, um ein Bild mit QR-Code zu scannen.";

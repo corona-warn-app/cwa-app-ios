@@ -59,7 +59,7 @@ class ContactDiaryMigration3To4Tests: CWATestCase {
 		contactDiaryAccess.addContactPersonEncounter(
 			date: "2021-02-12",
 			contactPersonId: person1Id,
-			duration: .moreThan15Minutes,
+			duration: .moreThan10Minutes,
 			maskSituation: .withoutMask,
 			setting: .inside,
 			circumstances: "Some circumstances",
@@ -69,7 +69,7 @@ class ContactDiaryMigration3To4Tests: CWATestCase {
 		contactDiaryAccess.addContactPersonEncounter(
 			date: "2021-02-11",
 			contactPersonId: person2Id,
-			duration: .moreThan15Minutes,
+			duration: .moreThan10Minutes,
 			maskSituation: .withoutMask,
 			setting: .inside,
 			circumstances: "Some circumstances",

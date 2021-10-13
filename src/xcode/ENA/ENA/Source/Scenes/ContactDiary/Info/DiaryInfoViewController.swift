@@ -50,17 +50,17 @@ class DiaryInfoViewController: DynamicTableViewController, FooterViewHandling {
 
 	private func setupView() {
 		
-		parent?.navigationItem.title = AppStrings.ContactDiary.Information.title
-		
+		navigationItem.title = AppStrings.ContactDiary.Information.title
+		navigationItem.largeTitleDisplayMode = .always
+
 		if !viewModel.hidesCloseButton {
-			parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			navigationItem.rightBarButtonItem = CloseBarButtonItem(
 				onTap: { [weak self] in
 					self?.onDismiss()
 				}
 			)
 		}
 
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(

@@ -26,17 +26,17 @@ final class DMLocalNotificationsViewModel {
 	}
 
 	var numberOfSections: Int {
-		healthCertificateService.healthCertifiedPersons.value.count
+		healthCertificateService.healthCertifiedPersons.count
 	}
 
 	func items(section: Int) -> Int {
-		let persons = healthCertificateService.healthCertifiedPersons.value
+		let persons = healthCertificateService.healthCertifiedPersons
 		return persons[section].healthCertificates.count
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> Any {
 
-		guard let identifier = healthCertificateService.healthCertifiedPersons.value[indexPath.section].healthCertificates[indexPath.row].uniqueCertificateIdentifier else {
+		guard let identifier = healthCertificateService.healthCertifiedPersons[indexPath.section].healthCertificates[indexPath.row].uniqueCertificateIdentifier else {
 			fatalError("Failed to find matching identifier")
 		}
 
@@ -82,7 +82,7 @@ final class DMLocalNotificationsViewModel {
 	) {
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
@@ -99,7 +99,7 @@ final class DMLocalNotificationsViewModel {
 	) {
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
@@ -116,7 +116,7 @@ final class DMLocalNotificationsViewModel {
 	) {
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2.0, repeats: false)

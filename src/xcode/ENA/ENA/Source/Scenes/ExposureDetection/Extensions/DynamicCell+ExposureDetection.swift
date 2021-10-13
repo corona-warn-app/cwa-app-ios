@@ -131,6 +131,7 @@ extension DynamicCell {
 			cell.tintColor = viewController.viewModel.riskTintColor
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
+			cell.accessibilityIdentifier = nil
 		}
 	}
 

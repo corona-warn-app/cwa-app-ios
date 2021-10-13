@@ -19,7 +19,7 @@
 
 "Alert_BluetoothOff_Title" = "Bluetooth aktivieren";
 
-"Alert_BluetoothOff_Description" = "Bluetooth muss in den Systemeinstellungen aktiviert werden, damit diese App funktioniert.";
+"Alert_BluetoothOff_Description" = "Bluetooth muss in den Geräteeinstellungen aktiviert werden, damit diese App funktioniert.";
 
 "Alert_CancelAction_Later" = "Später";
 
@@ -97,6 +97,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
 
+"ExposureDetection_Guide_Vaccination" = "Lassen Sie sich gegen SARS-CoV-2 impfen, falls Sie noch nicht geimpft sind.";
+
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
 "ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
@@ -104,16 +106,22 @@
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
+
 "ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
+
+"ExposureDetection_Guide_Symptoms" = "Achten Sie auf COVID-19-typische Symptome. Symptome können in seltenen Fällen auch bei geimpften Personen auftreten. Sobald Symptome auftreten, lassen Sie sich testen.";
+
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
 
 "ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Quarantäne-Maßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
 
 "ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
 
-"ExposureDetection_Guide_Hotline3" = "Den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
+"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, lassen Sie sich nach Rücksprache mit Ihrer Hausarztpraxis oder dem kassenärztlichen Bereitschaftsdienst testen. Besprechen Sie ebenfalls die SARS-CoV-2-Impfung nach der Testung mit Ihrer Hausarztpraxis.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Falls Sie sich testen lassen, finden Sie weitere Informationen in der %@.";
@@ -290,32 +298,47 @@ Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird d
 
 "Settings_DataDonation_StatusInactive" = "Aus";
 
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem COVID-19-Risikostatus aktivieren?";
+/* Notification Settings */
 
-"NotificationSettings_On_SectionTitle" = "Einstellung";
+"NotificationSettings_Title" = "Mitteilungen";
 
-"NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
+"NotificationSettings_ImageDescriptionOn" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19-Tests";
+"NotificationSettings_ImageDescriptionOff" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
 
-"NotificationSettings_Off_SectionTitle" = "Einstellung";
+"NotificationSettings_SettingsDescription" = "EINSTELLUNG";
 
-"NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
+"NotificationSettings_Notifications" = "Mitteilungen";
 
-"NotificationSettings_Off_StatusInactive" = "Aus";
+"NotificationSettings_NotificationsOn" = "An";
 
-"NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
+"NotificationSettings_NotificationsOff" = "Aus";
 
-"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen in der Corona-Warn-App zu aktivieren, müssen Sie Mitteilungen in Ihren Geräteeinstellungen zulassen.";
+"NotificationSettings_BulletHeadlineOn" = "Mitteilungen verwalten";
 
-"NotificationSettings_Off_OpenSettings" = "Geräteeinstellungen öffnen";
+"NotificationSettings_BulletHeadlineOff" = "Mitteilungen aktivieren";
 
-"NotificationSettings_NavTitle" = "Mitteilungen";
+"NotificationSettings_BulletDescOn" = "Sie können hier festlegen, ob:";
 
-"NotificationSettings_onImageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
+"NotificationSettings_BulletDescOff" = "Um Mitteilungen in der Corona-Warn-App zu aktivieren, müssen Sie Mitteilungen in Ihren Geräteeinstellungen zulassen.";
 
-"NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
+"NotificationSettings_BulletPoint1" = "Sie generell Mitteilungen erhalten möchten";
+
+"NotificationSettings_BulletPoint2" = "Mitteilungstexte auf dem Sperrbildschirm angezeigt werden sollen";
+
+"NotificationSettings_BulletPoint3" = "Mitteilungstexte erst nach Entsperrung des Smartphones angezeigt werden sollen";
+
+"NotificationSettings_BulletDesc2" = "Details zu den Einstellungen Ihres jeweiligen Betriebssystems finden Sie in den %@.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "FAQ";
+
+"NotificationSettings_OpenSystemSettings" = "Geräteeinstellungen öffnen";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Mitteilungen verwalten";
+
+"NotificationSettings_DeltaOnboarding_Description" = "Die Einstellungen für Mitteilungen werden ab jetzt einheitlich in den Geräteeinstellungen Ihres Smartphones verwaltet.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Weiter";
 
 /* Background App Referesh Settings */
 
@@ -367,7 +390,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Öffnen Sie die Corona-Warn-App Einstellungen.";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Öffnen Sie Corona-Warn.";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Schalten Sie die Hintergrundaktualisierung ein.";
 
@@ -384,8 +407,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Onboarding_EnableLogging_actionText" = "Risiko-Ermittlung aktivieren";
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
-
-"Onboarding_doNotAllow_actionText" = "Nicht erlauben";
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 
@@ -443,9 +464,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Ihnen automatisch Mitteilungen senden und Sie unter anderem über Ihren Risikostatus oder die Gültigkeit Ihrer Zertifikate informieren. Passen Sie dafür die Mitteilungseinstellungen an.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich und Ihre Mitmenschen schützen und die Gültigkeit Ihrer Zertifikate im Blick behalten.";
 
 /* Onboarding EU Keys */
 
@@ -477,8 +498,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_DataPrivacyDescription" = "Durch Antippen von „Erlauben“ willigen Sie ein, dass die App den Status Ihres Corona-Virus-Tests abfragen und in der App anzeigen darf. Diese Funktion steht Ihnen zur Verfügung, wenn Sie einen QR-Code erhalten und eingewilligt haben, dass Ihr Testergebnis an das Serversystem der App übermittelt werden darf. Sobald das Testlabor Ihr Testergebnis auf dem Server hinterlegt hat, können Sie das Ergebnis in der App sehen. Falls Sie Mitteilungen aktiviert haben, werden Sie auch außerhalb der App über den Eingang des Testergebnis informiert. Das Testergebnis selbst wird aus Datenschutzgründen jedoch nur in der App angezeigt. Sie können diese Einwilligung jederzeit widerrufen, indem Sie die Testregistrierung in der App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutz“.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nicht erlauben";
 
 "ExposureSubmission_Submit" = "TAN eingeben";
 
@@ -607,25 +626,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "Der QR-Code kann keinem Schnelltest zugeordnet werden. Bitte scannen Sie einen geeigneten QR-Code.";
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
-
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "QR-Code Scan";
-
-"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
-
-"ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Kamerablitz";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Eingeschaltet";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Ausgeschaltet";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Kamerablitz einschalten";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank!";
@@ -977,7 +977,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten Sie zusätzlich Ihren Personalausweis bereit.";
 
-"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "geboren %@";
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Geboren %@";
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
@@ -1011,7 +1011,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtstdatum zugestellt werden.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
@@ -1048,31 +1048,31 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
 
-"ExposureNotificationSetting_Bluetooth_Description" = "Die Risiko-Ermittlung benötigt aktiviertes Bluetooth, um Begegnungen aufzuzeichnen. Bitte aktivieren Sie Bluetooth in Ihren Geräte-Einstellungen.";
+"ExposureNotificationSetting_Bluetooth_Description" = "Die Risiko-Ermittlung benötigt aktiviertes Bluetooth, um Begegnungen aufzuzeichnen. Bitte aktivieren Sie Bluetooth in Ihren Geräteeinstellungen.";
 
 "ExposureNotificationSetting_Activate_Internet" = "Internetverbindung herstellen";
 
-"ExposureNotificationSetting_Internet_Description" = "Die Risiko-Ermittlung benötigt eine Internetverbindung, um Ihr Infektionsrisiko berechnen zu können. Bitte aktivieren Sie WLAN oder mobile Daten in Ihren Geräte-Einstellungen.";
+"ExposureNotificationSetting_Internet_Description" = "Die Risiko-Ermittlung benötigt eine Internetverbindung, um Ihr Infektionsrisiko berechnen zu können. Bitte aktivieren Sie WLAN oder mobile Daten in Ihren Geräteeinstellungen.";
 
-"ExposureNotificationSetting_Detail_Action_Button" = "Geräte-Einstellungen öffnen";
+"ExposureNotificationSetting_Detail_Action_Button" = "Geräteeinstellungen öffnen";
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Begegnungsmitteilungen aktivieren";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Begegnungsmitteilungen in den Systemeinstellungen aktiviert sind, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Begegnungsinformationen teilen“. Legen Sie danach die App als aktive App für die Begegnungsmitteilungen fest, indem Sie auf „Als aktive Region festlegen“ klicken.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Begegnungsmitteilungen in den Geräteeinstellungen aktiviert sind, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräteeinstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Begegnungsinformationen teilen“. Legen Sie danach die App als aktive App für die Begegnungsmitteilungen fest, indem Sie auf „Als aktive Region festlegen“ klicken.";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19-Begegnungsmitteilungen aktivieren ";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Begegnungsmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ und aktivieren dann die „COVID-19-Begegnungsmitteilungen“ in den Einstellungen.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Begegnungsmitteilungen in den Geräteeinstellungen, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräteeinstellungen öffnen“ und aktivieren dann die „COVID-19-Begegnungsmitteilungen“ in den Einstellungen.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Aktive Region festlegen";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Einstellungen für COVID-19-Begegnungsaufzeichnungen“ und wählen Sie dann die Corona-Warn-App als aktive App aus.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Geräteeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräteeinstellungen öffnen“ -> „Einstellungen für COVID-19-Begegnungsaufzeichnungen“ und wählen Sie dann die Corona-Warn-App als aktive App aus.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Als aktive Region festlegen“.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Geräteeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräteeinstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Als aktive Region festlegen“.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Geräteeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorisierung erforderlich";
 
@@ -1129,7 +1129,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_EU_Empty_Error_Desc" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
 
-"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Geräte-Einstellungen öffnen";
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Geräteeinstellungen öffnen";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
@@ -1479,7 +1479,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Reset_InfoTitle" = "Begegnungs-Aufzeichnung löschen";
 
-"Reset_InfoDescription" = "Die Begegnungs-Aufzeichnung muss separat in den Geräte-Einstellungen gelöscht werden.";
+"Reset_InfoDescription" = "Die Begegnungs-Aufzeichnung muss separat in den Geräteeinstellungen gelöscht werden.";
 
 "Reset_Subtitle" = "Anwendung zurücksetzen";
 
@@ -1507,6 +1507,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "local_notifications_certificate_title" = "Corona-Warn-App";
 
 "local_notifications_certificate_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App.";
+
+"local_notifications_certificate_validity_body" = "Überprüfen Sie die Gültigkeit Ihrer Zertifikate.";
 
 /* Risk Legend */
 "RiskLegend_Title" = "Überblick";
@@ -1594,15 +1596,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.10 */
+/* Version 2.12 */
 
-"NewVersionFeature_210_boosterVaccination_title" = "Information zu Auffrischungsimpfung";
+"NewVersionFeature_213_hospitalizationRateTile_title" = "Lokale 7-Tage-Inzidenz Hospitalisierung";
 
-"NewVersionFeature_210_boosterVaccination_description" = "Die App kann Ihnen nun eine Mitteilung anzeigen, die Sie über eine eventuell anstehende Auffrischungsimpfung informiert.";
+"NewVersionFeature_213_hospitalizationRateTile_description" = "Auf den lokalen Kacheln zur 7-Tage-Inzidenz der Neuinfektionen wird nun zusätzlich die 7-Tage-Inzidenz der Hospitalisierung angezeigt. Da diese Kennzahl nur auf Bundeslandebene verfügbar ist, wird bei Auswahl eines Kreises die Hospitalisierung zum jeweiligen Bundesland angezeigt.";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_title" = "Druckversion von Impfzertifikaten";
+"NewVersionFeature_213_changesFAQLinks_title" = "Änderung des Links zu Häufige Fragen";
 
-"NewVersionFeature_210_printVersionVaccinationCertificate_description" = "Sie können nun eine Druckversion Ihrer Impfzertifikate anzeigen, die es Ihnen ermöglicht, die Zertifikate als PDF-Dokument zu speichern oder auszudrucken.";
+"NewVersionFeature_213_changesFAQLinks_description" = "Wenn Sie in der App die häufigen Fragen aufrufen, werden Sie nun auf Seiten unter coronawarn.app geleitet. Dort finden Sie mehr Details zu Ihren Fragen.";
+
+"NewVersionFeature_213_certificateAssignment_title" = "Zuordnung von Zertifikaten";
+
+"NewVersionFeature_213_certificateAssignment_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Die App ignoriert nun eine unterschiedliche Anzahl von Leerzeichen im Namen, sodass die Zertifikate unabhängig davon der gleichen Person zugeordnet werden können.";
+
+"NewVersionFeature_213_restoreCertificate_title" = "Zertifikate wiederherstellen";
+
+"NewVersionFeature_213_restoreCertificate_description" = "Entfernte Zertifikate werden in einen Papierkorb verschoben. Sie können sie innerhalb von 30 Tagen wiederherstellen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1692,7 +1702,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Info2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr warscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
+"TestResultPositive_KeysSubmitted_Info3" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Weitere Infos:";
 
@@ -1725,9 +1735,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min.";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "unter 10 Min.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min.";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "über 10 Min.";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
 
@@ -1791,9 +1801,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Eine Standortmarkierung markiert ein Gebäude.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 Min.";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "unter 10 Min.";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 Min.";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "über 10 Min.";
 
 "ContactDiary_Day_Encounter_WithMask" = "mit Maske";
 
@@ -2006,8 +2016,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "der Bevölkerung";
 
-
-
 /* - Fully vaccinated people card */
 
 "Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
@@ -2038,6 +2046,30 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
 
+/* - Infected People Hospitalization Rate */
+
+"Statistics_Card_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
+
+"Statistics_Card_HospitalizationRate_Today" = "Bis heute";
+
+"Statistics_Card_HospitalizationRate_Yesterday" = "Bis gestern";
+
+"Statistics_Card_HospitalizationRate_Date" = "Bis %@";
+
+"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19-Hospitalisierungen je 100.000 Einwohner";
+
+/* - Infected People in Intensive Care */
+
+"Statistics_Card_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
+
+"Statistics_Card_IntensiveCare_Today" = "Bis heute";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "Bis gestern";
+
+"Statistics_Card_IntensiveCare_Date" = "Bis %@";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung aller betreibbaren Intensivbetten";
+
 /* Error */
 
 "Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
@@ -2055,6 +2087,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 
 "Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+
+"Statistics_Info_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
+
+"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+
+"Statistics_Info_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
+
+"Statistics_Info_IntensiveCare_Text" = "Anteil der an COVID-19 erkrankten Personen auf Intensivstationen im Verhältnis zur Gesamtbettenanzahl.";
 
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
@@ -2102,7 +2142,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Trend_Title" = "Trend";
 
-"Statistics_Info_Trend_Text" = "Die Pfeilrichtung zeigt an, ob der Trend nach oben oder nach unten geht oder relativ stabil ist, d.h. eine Abweichung von weniger als 1% im Vortagesvergleich bzw. 5% im Vorwochenvergleich aufweist. Die Farbe bewertet diesen Trend als positiv (grün), negativ (rot) oder neutral (grau). Der Trend vergleicht den Wert vom Vortag mit dem Wert von vor zwei Tagen bzw. für die 7-Tage-Trends den Mittelwert der letzten 7 Tage mit dem der vorausgegangenen 7 Tage.";
+"Statistics_Info_Trend_Text" = "Der Trend vergleicht den Wert vom Vortag mit dem Wert von vor zwei Tagen (betr. 7-Tage-Inzidenz, 7-Tage-Inzidenz Hospitalisierung, COVID-19-Erkrankte auf Intensivstationen, 7-Tage-R-Wert) bzw. für die 7-Tage-Trends den Mittelwert der letzten 7 Tage mit dem der vorausgegangenen 7 Tage (7-Tage-Mittelwert der bestätigten Neuinfektionen, der warnenden Personen, der verabreichten Impfdosen). Dabei wird jeweils der Datenstand der Erstveröffentlichung genommen; nachfolgende Aktualisierungen werden nicht berücksichtigt.\n\nDie Pfeilrichtung zeigt an, ob der Trend nach oben oder nach unten geht oder relativ stabil ist, d.h. eine Abweichung (jeweils unter Berücksichtigung nur der angezeigten Nachkommastellen) von weniger als 1% im Vortagesvergleich bzw. 5% im Vorwochenvergleich aufweist. Die Farbe bewertet diesen Trend als positiv (grün), negativ (rot) oder neutral (grau).";
 
 "Statistics_Info_Trends_Title" = "Beispiele für die angezeigten Trends:";
 
@@ -2128,9 +2168,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Tabbar */
 
-"Tabbar_Home_Title" = "Startseite";
+"Tabbar_Home_Title" = "Status";
 
 "Tabbar_Certificates_Title" = "Zertifikate";
+
+"Tabbar_Scanner_Title" = "QR-Code-Scanner";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
@@ -2265,8 +2307,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Checkins */
 
-"Checkins_QR_Scanner_Title" = "QR-Code Scan";
-
 "Checkins_Overview_Title" = "Meine Check-ins";
 
 "Checkins_Overview_MenuButtonTitle" = "Menü";
@@ -2289,12 +2329,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
 
-"Checkins_Overview_MissingPermissions_Title" = "Benutzung der Kamera erlauben";
-
-"Checkins_Overview_MissingPermissions_Description" = "Um die Kamera für das Scannen des QR-Codes zu nutzen, müssen Sie die Verwendung der Kamera in den Geräte-Einstellungen zur App zulassen.";
-
-"Checkins_Overview_MissingPermissions_ButtonTitle" = "Geräte-Einstellungen öffnen";
-
 "Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich entfernen?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
@@ -2314,8 +2348,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkins_Overview_ActionSheet_InfoTitle" = "Informationen";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
-
-"Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in für %@.";
 
@@ -2712,11 +2744,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_EmptyTitle" = "Noch keine Zertifikate vorhanden";
 
-"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.";
+"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.\n\nUm ein Zertifikat hinzuzufügen, scannen Sie bitte den dazugehörigen QR-Code.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
-"HealthCertificate_Overview_Covid_Title" = "Digitales\n**COVID-Zertifikat der EU**";
+"HealthCertificate_Overview_Covid_Title" = "Digitales COVID-Zertifikat der EU";
 
 "VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
 
@@ -2808,13 +2840,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Info_primaryButton" = "Weiter";
 
-/* QR Scanner */
+/* CovPass Info Screen */
 
-"HealthCertificate_QRScanner_title" = "QR-Code Scan";
+"CovPass_Check_Info_Title" = "Zertifikatsprüfung durch Dritte";
 
-"HealthCertificate_QRScanner_instruction" = "QR-Code scannen und Zertifikat hinzufügen";
+"CovPass_Check_Info_body" = "Dritte können mit der CovPassCheck-App verlässlich überprüfen, ob es sich um ein valides Impf-, Genesenen- oder Testzertifikat handelt.";
+
+"CovPass_Check_Info_faq" = "FAQ zur Zertifikatsprüfung durch Dritte";
+
+"CovPass_Check_Info_text01" = "Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
+
+"CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
+
+"CovPass_Check_Info_text03" = "Bitte beachten Sie, dass in anderen Ländern gegebenenfalls andere Apps zur Zertifikatsprüfung durch Dritte verwendet werden.";
 
 /* Health Certified Person Screen */
+
+"HealthCertificate_unified_QR_code_notice" = "Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.";
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
@@ -2828,7 +2870,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
 
-"HealthCertifiedPerson_dateOfBirth" = "geboren %@";
+"HealthCertifiedPerson_dateOfBirth" = "Geboren %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Bitte aktivieren Sie diesen Schalter, wenn Sie selbst %@ sind und die App hauptsächlich nutzen. Ihre Zertifikate erscheinen in der Liste an erster Stelle.";
 
@@ -2840,7 +2882,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
 
-"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Geimpft am %@";
 
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
@@ -2872,7 +2914,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_validity" = "Geimpft %@ - gültig bis %@";
 
-"HealthCertificate_Details_dateOfBirth" = "geboren %@";
+"HealthCertificate_Details_dateOfBirth" = "Geboren %@";
 
 "HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
 
@@ -2903,7 +2945,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Vaccination Certificate Details */
 
-"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
+"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
 
 /* Health Certificate Delete Alert */
 
@@ -3134,6 +3176,81 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
+
+/* Universal QR Scanner */
+
+"UniversalQRScanner_ScannerTitle" = "QR-Code-Scanner";
+
+"UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
+
+"UniversalQRScanner_InstructionDescription" = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins.";
+
+"UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
+
+"UniversalQRScanner_CameraFlash" = "Kamerablitz";
+
+"UniversalQRScanner_CameraFlash_On" = "Eingeschaltet";
+
+"UniversalQRScanner_CameraFlash_Off" = "Ausgeschaltet";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Kamerablitz einschalten";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Zugriff nicht erlaubt";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Einstellungen";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Foto Mediathek";
+
+"FileScanner_sheet_documents" = "Dokument";
+
+"FileScanner_sheet_cancel" = "Abbrechen";
+
+"FileScanner_AccessError_title" = "Zugriff nicht erlaubt";
+
+"FileScanner_AccessError_message" = "\“Corona-Warn-App\” hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.";
+
+"FileScanner_AccessError_cancel" = "Abbrechen";
+
+"FileScanner_AccessError_settings" = "Einstellungen";
+
+"FileScanner_HUD_text" = "QR-Code wird gelesen...";
+
+"FileScanner_PasswordEntry_title" = "Datei passwortgeschützt";
+
+"FileScanner_PasswordEntry_message" = "Bitte geben Sie Ihr Passwort ein.";
+
+"FileScanner_PasswordEntry_placeholder" = "Passwort";
+
+"FileScanner_PasswordError_title" = "Falsches Passwort";
+
+"FileScanner_AlreadyRegistered_title" = "Zertifikat schon registriert";
+
+"FileScanner_AlreadyRegistered_message" = "Das Zertifikat ist bereits in Ihrer App registriert.";
+
+"FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
+
+"FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
+
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code."; 
+
+"FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
+
+"FileScanner_FileNotReadable_message" = "Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt und konnte daher nicht gelesen werden. Bitte wählen Sie eine geeignete Datei.";
+
+"FileScanner_NoQRCodeFound_title" = "Kein QR-Code erkannt";
+
+"FileScanner_NoQRCodeFound_message" = "In der gewählten Datei konnte kein QR-Code erkannt werden. Bitte wählen Sie eine andere Datei.";
+
+"UniversalQRScanner_Tooltip_title" = "QR-Code-Scanner";
+
+"UniversalQRScanner_Tooltip_description" = "Scannen Sie Tests, Zertifikate und Check-ins mit diesem Scanner.";
 
 /* Federal State Names */
 

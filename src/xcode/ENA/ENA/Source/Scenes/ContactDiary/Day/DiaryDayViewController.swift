@@ -49,7 +49,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		viewModel.$selectedEntryType
 			.sink { [weak self] _ in
-				// DispatchQueue triggers immediately while .receive(on:) would wait until the main runloop is free, which lead to a crash if the switch happend while scrolling.
+				// DispatchQueue triggers immediately while .receive(on:) would wait until the main runloop is free, which lead to a crash if the switch happened while scrolling.
 				// In that case cells were dequeued for the old model (entriesOfSelectedType) that was not available anymore.
 				DispatchQueue.main.async {
 					// Scrolling to top prevents table view from flickering while reloading

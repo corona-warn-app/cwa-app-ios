@@ -365,7 +365,7 @@ final class RiskProvider: RiskProviding {
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
 		guard exposureDetection == nil else {
-			// in the future someone should debug why this funtion is called twice in the first place.
+			// in the future someone should debug why this function is called twice in the first place.
 			completion(.failure(.riskProviderIsRunning))
 			return
 		}

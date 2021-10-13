@@ -23,7 +23,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -51,7 +52,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -72,7 +74,6 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		} else {
 			XCTFail("Expected caption to be set to validityState")
 		}
-
 	}
 
 	func testHealthCertifiedPersonWithExpiredVaccinationCertificate() throws {
@@ -90,7 +91,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -121,7 +123,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -152,7 +155,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -179,7 +183,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -205,7 +210,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -231,7 +237,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -261,7 +268,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -289,7 +297,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -327,7 +336,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -358,7 +368,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
 			)
 		)
 
@@ -372,6 +383,112 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		} else {
 			XCTFail("Expected caption to be set to validityState")
 		}
+	}
+
+	func testCaptionOnHealthCertifiedPersonWithUnseenNews() throws {
+		// GIVEN
+		let firstHealthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			isNew: true
+		)
+
+		let secondHealthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			validityState: .expired,
+			isValidityStateNew: true
+		)
+
+		let thirdHealthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			isNew: false,
+			isValidityStateNew: false
+		)
+
+		let fourthHealthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			validityState: .invalid,
+			isNew: true,
+			isValidityStateNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				firstHealthCertificate,
+				secondHealthCertificate,
+				thirdHealthCertificate,
+				fourthHealthCertificate
+			],
+			boosterRule: .fake(),
+			isNewBoosterRule: true
+		)
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
+			)
+		)
+
+		// THEN
+		if case let .unseenNews(count: count) = viewModel.caption {
+			XCTAssertEqual(count, 4)
+		} else {
+			XCTFail("Expected caption to be set to unseenNews")
+		}
+	}
+
+	func testCaptionOnHealthCertifiedPersonWithUnseenNewBoosterRuleStateInconsistent() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [.mock()],
+			boosterRule: nil,
+			isNewBoosterRule: true
+		)
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
+			)
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.caption)
+	}
+
+	func testCaptionOnHealthCertifiedPersonWithoutUnseenNews() throws {
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [.mock()],
+			boosterRule: nil,
+			isNewBoosterRule: false
+		)
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
+			)
+		)
+
+		// THEN
+		XCTAssertNil(viewModel.caption)
 	}
 
 }

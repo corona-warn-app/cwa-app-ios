@@ -105,7 +105,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		
 		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsQRCodeCell.self, for: indexPath)
-			cell.configure(viewModel.qrCode())
+			cell.configure(viewModel.uiImageQRCode())
 			return cell
 			
 		case .dateTime:
@@ -195,10 +195,14 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
 		let pdfView = PDFView()
-		let pdfDocument = PDFDocument(data: templateData.template)
+
+		guard let dataProvider = CGDataProvider(data: templateData.template as CFData), let originalDocument = CGPDFDocument(dataProvider) else { return pdfView }
 
 		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
-		guard let qrCodeImage = viewModel.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		guard let qrCodeImage = viewModel.ciImageQRCode(
+			size: CGSize(width: qrSideLength, height: qrSideLength),
+			scale: 7
+		) else { return pdfView }
 		let descriptionTextDetails = templateData.descriptionTextBox
 		let addressTextDetails = templateData.addressTextBox
 		
@@ -226,15 +230,21 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 			)
 		)
 		
-		try? pdfDocument?.embedImageAndText(
+		let pdfDocument = try originalDocument.pdfDocumentEmbeddingImageAndText(
 			image: qrCodeImage,
-			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
+			at: CGRect(
+				x: CGFloat(templateData.offsetX),
+				y: CGFloat(templateData.offsetY),
+				width: qrSideLength,
+				height: qrSideLength
+			),
 			texts: [descriptionText, addressText]
 		)
 
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
 		pdfView.autoScales = true
+
 		return pdfView
 	}
 

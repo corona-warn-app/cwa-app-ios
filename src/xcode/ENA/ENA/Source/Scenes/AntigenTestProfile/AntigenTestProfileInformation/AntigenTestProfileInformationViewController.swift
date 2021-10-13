@@ -30,8 +30,8 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.navigationItem.title = viewModel.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.title = viewModel.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		setupView()
 		viewModel.markScreenSeen()
 	}

@@ -12,13 +12,11 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	init(
 		viewModel: OnBehalfTraceLocationSelectionViewModel,
 		onScanQRCodeCellTap: @escaping () -> Void,
-		onMissingPermissionsButtonTap: @escaping () -> Void,
 		onPrimaryButtonTap: @escaping (TraceLocation) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onScanQRCodeCellTap = onScanQRCodeCellTap
-		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		
@@ -34,9 +32,9 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		parent?.title = viewModel.title
-		parent?.navigationItem.largeTitleDisplayMode = .always
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		title = viewModel.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
 		setUpEmptyState()
@@ -81,8 +79,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 			return descriptionCell(forRowAt: indexPath)
 		case .qrCodeScan:
 			return scanTraceLocationCell(forRowAt: indexPath)
-		case .missingCameraPermission:
-			return missingPermissionsCell(forRowAt: indexPath)
 		case .traceLocations:
 			return traceLocationCell(forRowAt: indexPath)
 		default:
@@ -98,33 +94,22 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 			return
 		case .qrCodeScan:
 			onScanQRCodeCellTap()
-		case .missingCameraPermission:
-			return
 		case .traceLocations:
 			viewModel.toggleSelection(at: indexPath.row)
 			return
 		default:
-			Log.error("ExposureSubmissionCheckinsViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
+			Log.error("OnBehalfTraceLocationSelectionViewController: didSelectRowAt in unknown section", log: .ui, error: nil)
 		}
-	}
-
-	// MARK: - Internal
-
-	func reload() {
-		self.tableView.reloadData()
-		self.setUpEmptyState()
 	}
 	
 	// MARK: - Private
 	
 	private let viewModel: OnBehalfTraceLocationSelectionViewModel
 	private let onScanQRCodeCellTap: () -> Void
-	private let onMissingPermissionsButtonTap: () -> Void
 	private let onPrimaryButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
 
 	private var addEntryCellModel = OnBehalfScanQRCodeCellModel()
-	private var missingPermissionsCellModel = MissingPermissionsCellModel()
 
 	private var subscriptions: Set<AnyCancellable> = []
 
@@ -140,11 +125,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		tableView.register(
 			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: AddButtonAsTableViewCell.self)
-		)
-
-		tableView.register(
-			MissingPermissionsTableViewCell.self,
-			forCellReuseIdentifier: MissingPermissionsTableViewCell.reuseIdentifier
 		)
 
 		tableView.register(
@@ -184,21 +164,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 
 		return cell
 	}
-
-	private func missingPermissionsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: MissingPermissionsTableViewCell.reuseIdentifier, for: indexPath) as? MissingPermissionsTableViewCell else {
-			fatalError("Could not dequeue MissingPermissionsTableViewCell")
-		}
-
-		cell.configure(
-			cellModel: missingPermissionsCellModel,
-			onButtonTap: { [weak self] in
-				self?.onMissingPermissionsButtonTap()
-			}
-		)
-
-		return cell
-	}
 	
 	private func traceLocationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TraceLocationCheckinSelectionTableViewCell.self), for: indexPath) as? TraceLocationCheckinSelectionTableViewCell else {
@@ -216,9 +181,8 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		)
 
 		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the description and scan QR code or camera permission cell
-		let visibleScanOrCameraPermissionSection = viewModel.numberOfRows(in: 1) == 1 ? 1 : 2
-		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: visibleScanOrCameraPermissionSection)).maxY
+		// adding top padding for the description and scan QR code cell
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY
 		// … + the height of the navigation bar
 		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
 		// … + the height of the status bar

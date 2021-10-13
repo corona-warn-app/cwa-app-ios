@@ -143,7 +143,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 	}
 	
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		// filtering out emojis and any other unwanted charaters. these are not wanted in the test profile.
+		// filtering out emojis and any other unwanted characters. These are not wanted in the test profile.
 		var string = string
 		
 		if string.last?.isWhitespace == true { // possible keyboard suggestion
@@ -177,8 +177,8 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 
 	private func setupView() {
 
-		parent?.navigationItem.title = AppStrings.AntigenProfile.Create.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.title = AppStrings.AntigenProfile.Create.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		view.backgroundColor = .enaColor(for: .background)
 

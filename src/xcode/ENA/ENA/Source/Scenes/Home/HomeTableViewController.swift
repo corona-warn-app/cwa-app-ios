@@ -130,6 +130,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationController?.navigationBar.sizeToFit()
 
 		viewModel.state.requestRisk(userInitiated: false)
+		viewModel.resetBadgeCount()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -302,11 +303,21 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	func showDeltaOnboardingAndAlertsIfNeeded() {
-		self.showRouteIfNeeded(completion: {
-			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+		guard !deltaOnboardingIsRunning else {
+			Log.debug("Skip onboarding and alerts, because the process is already in progress.", log: .onboarding)
+			return
+		}
+		self.deltaOnboardingIsRunning = true
+
+		self.showRouteIfNeeded(completion: { [weak self] in
+			self?.showDeltaOnboardingIfNeeded(completion: {
 				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded()
+						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+								self?.deltaOnboardingIsRunning = false
+							})
+						})
 					})
 				})
 			})
@@ -698,16 +709,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		guard !deltaOnboardingIsRunning else {
-			Log.debug("Skip onboarding call, because onboarding is already running.")
-			completion()
-			return
-		}
-		self.deltaOnboardingIsRunning = true
-
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else {
-				Log.debug("Skip onboarding call, because HomeTableViewController was deallocated.")
+				Log.debug("Skip onboarding call, because HomeTableViewController was deallocated.", log: .onboarding)
 				completion()
 				return
 			}
@@ -725,30 +729,33 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			#endif
 
 			let onboardings: [DeltaOnboarding] = [
-				DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
-				DeltaOnboardingDataDonation(store: self.viewModel.store),
-				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
+				DeltaOnboardingNotificationRework(store: self.viewModel.store),
+				DeltaOnboardingCrossCountrySupport(store: self.viewModel.store, supportedCountries: supportedCountries),
+				DeltaOnboardingDataDonation(store: self.viewModel.store)
 			]
 
-			Log.debug("Delta Onboarding list size: \(onboardings.count)")
+			Log.debug("Delta Onboarding list size: \(onboardings.count)", log: .onboarding)
 
-			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+				rootViewController: self,
+				onboardings: onboardings,
+				store: self.viewModel.store
+			)
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				guard self.presentedViewController == nil else {
-					Log.debug("Don't show onboarding this time, because another view controller is currently presented.")
-					self.deltaOnboardingIsRunning = false
+					Log.debug("Don't show onboarding this time, because another view controller is currently presented.", log: .onboarding)
 					completion()
 					return
 				}
 
-				self.deltaOnboardingCoordinator?.finished = { [weak self] in
-					Log.debug("Onboarding finished.")
-					self?.deltaOnboardingIsRunning = false
+				self.deltaOnboardingCoordinator?.finished = {
+					Log.debug("Onboarding finished.", log: .onboarding)
 					completion()
 				}
 
-				Log.debug("Start onboarding.")
+				Log.debug("Start onboarding.", log: .onboarding)
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
 		}.store(in: &subscriptions)
@@ -853,6 +860,29 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		present(alert, animated: true) { [weak self] in
 			self?.viewModel.store.shouldShowRiskStatusLoweredAlert = false
+		}
+	}
+
+	private func showQRScannerTooltipIfNeeded(completion: @escaping () -> Void = {}) {
+		guard viewModel.store.shouldShowQRScannerTooltip,
+			let tabBar = tabBarController?.tabBar else {
+			completion()
+			return
+		}
+
+		let tooltipViewController = QRScannerTooltipViewController(
+			onDismiss: { [weak self] in
+				self?.dismiss(animated: true) {
+					completion()
+				}
+			}
+		)
+
+		tooltipViewController.popoverPresentationController?.sourceView = tabBar
+		tooltipViewController.popoverPresentationController?.sourceRect = tabBar.bounds
+
+		present(tooltipViewController, animated: true) { [weak self] in
+			self?.viewModel.store.shouldShowQRScannerTooltip = false
 		}
 	}
 

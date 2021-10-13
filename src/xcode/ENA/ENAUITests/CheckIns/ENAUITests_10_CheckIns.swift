@@ -64,10 +64,70 @@ class ENAUITests_10_CheckIns: CWATestCase {
 				
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
+
+	func test_RegisterCertificateFromCheckinTabWithInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: false)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
+
+		/// Tap Scan Button
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let certificateButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
+		certificateButton.waitAndTap()
+
+		/// Certificate Info Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.HealthCertificate.Info.title)].waitForExistence(timeout: .short))
+
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+		/// Certificate Screen
+		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
+		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+	}
+
+	func test_RegisterCertificateFromCheckinTabWithoutInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
+
+		/// Tap Scan Button
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let certificateButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
+		certificateButton.waitAndTap()
+
+		/// Certificate Screen
+		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
+		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+	}
+
+	func test_RegisterCoronaTestFromCheckinTab() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.checkin].waitAndTap()
+
+		/// Tap Scan Button
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
+		pcrButton.waitAndTap()
+
+		/// Exposure Submission QR Info Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRInfo.title)].waitForExistence(timeout: .short))
+	}
 	
 	// MARK: - Screenshots
 
-	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() {
+	func test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout() throws {
 		// GIVEN
 		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
 		app.launch()
@@ -95,11 +155,17 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_emptyList")
 		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].waitAndTap()
 		
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the Event here.
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+		
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
+		
 		// THEN
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
-		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
+		XCTAssertTrue(app.staticTexts["Bistro & Café am Neuen Markt"].exists)
+		XCTAssertTrue(app.staticTexts["Hamburg, Schulstraße 4"].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.foodService)].exists)
 		snapshot(prefix + (String(format: "%03d", (screenshotCounter.inc() ))) + "_mycheckins_checkin")
 		// check in
 		app.buttons[AccessibilityIdentifiers.TraceLocation.Details.checkInButton].waitAndTap()
@@ -144,9 +210,9 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationTypeLabel).exists)
 		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationDescriptionLabel).exists)
 		XCTAssertTrue(staticTexts.element(matching: .staticText, identifier: AccessibilityIdentifiers.Checkin.Details.traceLocationAddressLabel).exists)
-		XCTAssertTrue(app.staticTexts["Supermarkt"].exists)
-		XCTAssertTrue(app.staticTexts["Walldorf"].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.retail)].exists)
+		XCTAssertTrue(app.staticTexts["Bistro & Café am Neuen Markt"].exists)
+		XCTAssertTrue(app.staticTexts["Hamburg, Schulstraße 4"].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TraceLocations.permanent.title.foodService)].exists)
 
 		// checkin time details
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.typeLabel].exists)

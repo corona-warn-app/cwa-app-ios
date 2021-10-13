@@ -348,7 +348,7 @@ final class RiskProviderTests: CWATestCase {
 		riskProvider.observeRisk(consumer)
 
 		// WHEN
-		// use an timeout interval of -1 secounds to set timeout limit in the past
+		// use an timeout interval of -1 seconds to set timeout limit in the past
 		riskProvider.requestRisk(userInitiated: true, timeoutInterval: TimeInterval(-1.0))
 
 		// THEN

@@ -34,7 +34,7 @@ class DiaryContactPersonTest: CWATestCase {
 				id: 17,
 				date: "2021-02-11",
 				contactPersonId: 0,
-				duration: .moreThan15Minutes,
+				duration: .moreThan10Minutes,
 				maskSituation: .none,
 				setting: .outside
 			)
@@ -52,7 +52,7 @@ class DiaryContactPersonTest: CWATestCase {
 		XCTAssertEqual(encounter.id, 17)
 		XCTAssertEqual(encounter.date, "2021-02-11")
 		XCTAssertEqual(encounter.contactPersonId, 0)
-		XCTAssertEqual(encounter.duration, .moreThan15Minutes)
+		XCTAssertEqual(encounter.duration, .moreThan10Minutes)
 		XCTAssertEqual(encounter.maskSituation, .none)
 		XCTAssertEqual(encounter.setting, .outside)
 		XCTAssertEqual(encounter.circumstances, "")
