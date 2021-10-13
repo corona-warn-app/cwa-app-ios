@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class HomeCoordinator: RequiresAppDependencies {
 
 	// MARK: - Init
@@ -19,7 +20,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
 		exposureSubmissionService: ExposureSubmissionService,
-		qrScannerCoordinator: QRScannerCoordinator
+		qrScannerCoordinator: QRScannerCoordinator,
+		recycleBin: RecycleBin
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -31,6 +33,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.elsService = elsService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
+		self.recycleBin = recycleBin
 
 		setupHomeBadgeCount()
 	}
@@ -76,12 +79,10 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
 			onInfoBarButtonItemTap: { [weak self] in
-				self?.showRecycleBin()
-//				self?.showRiskLegend()
+				self?.showRiskLegend()
 			},
 			onExposureLoggingCellTap: { [weak self] enState in
-//				self?.showExposureNotificationSetting(enState: enState)
-				self?.showRecycleBin()
+				self?.showExposureNotificationSetting(enState: enState)
 			},
 			onRiskCellTap: { [weak self] homeState in
 				self?.showExposureDetection(state: homeState)
@@ -178,6 +179,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let qrScannerCoordinator: QRScannerCoordinator
+	private let recycleBin: RecycleBin
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -402,15 +404,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func showRecycleBin() {
-		// TODO: Move to AppDelegate and remove mock data
-		let recycleBin = RecycleBin(store: store)
-
-		recycleBin.moveToBin(.coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a"))))
-		recycleBin.moveToBin(.coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
-		recycleBin.moveToBin(.certificate(.mock(base45: "HC1:NCFOXN%TSMAHN-H3ZSUZK+.V0ET9%6-AH-XI1ROR$SIOO+.I2GC+9G1F5V*J9LOQHIZC4.OI0QKH:S*LPKW2GHKW/F3IKJ5QH*AA:GP/HX*A%:KM6Q .GG4QG4QV2L//CE2MW 22/D0%0N*4 5PN*4:0I%3LP4S0OPN484SISSQWVHWVH+ZE9U9L355*KZOO$P6VPUSNH4KEVONYZ0ZJJ6Y2D4OYGFO-O%Z8JH1PCDJ*3TFH2V48F7M1IE78+*PA KZ*U0I1-I0*OC6H0HXMP$I/XK$M8-L9FDMHXM*%NH$RSC91HFE2OK/M*Y8QZ8 .K/6UW6NH2KYIJ%0KBZI92KNNSQBJGZIGOJPOJC0JVLA8J3ET3:H3A+2+33U SAAUOT3TPTO4UJZIZ0KQPI59U%S2WPT YSWVBDKBYLDR4DM1D-NS*-TFA0$JN3S0YVBD3DK.US9G01RIOCARD:DI:XGP:23%U7UU1-51YB9.59MMZ$N 5L5:A*DTROR261A3QW7GQ.H16KVMEYET8%BVW7E107EB50")))
-		recycleBin.moveToBin(.certificate(.mock(base45: "HC1:NCFOXN%TSMAHN-H3ZSUZK+.V0ET9%6-AH+VE1ROR$SIOO+.ISEC%%H1F5:%JZ%PQHIZC4.OI:OIC*I*LPKW2GHKW/F3IKJ5QH*AA:GP/HG:A81HJ1M23LG:IC4MX*20.C+0EO1PS%40-9N2LL0H**481HI6Q13P0OPN48HRIWQHYZKOP6OH6XO9IE5IVU5P2-GA*PE1H6IO2OO9$G40GHMKNAB5S.8%*880P2W4VZ0K1HVZ0VON*Y0*/GT/A4%4S1LJCA/Y4M/S KL+X4OIFGG15JLBY4YW8AFC5JLIGF*E15B9-NT0 2$$0X4PCY0+-CJ88:ZH/O1:O1AT1NQ1SH9HPMME0$R1/T1QX5I+HPRAAUICO1PFG1EIX:CIGF5JNBPIGSU:%FD%5TW5CL52U50$EZ*N4IUVAK/HLLF9-DF07U$B97JJ1D7 KP8EF+.K9KKRB4AC8.C85HKR9U74MLLO42GE1MTNP8EFNC3P:HDD8B1MF4MF%CD 810H.+8V.GSZ1O+D:5JE0I9OHUA7.UNY4O+MK $A.WA3 V7PKLXDTXP$I7V6BCL75QI9J7Z58.*IUIHEL8E3PLVJT$RR$6KLMR*KA+CAZC*DUH7P/00QJA%1")))
-		recycleBin.moveToBin(.certificate(.mock()))
-
 		let recycleBinViewController = RecycleBinViewController(
 			viewModel: RecycleBinViewModel(
 				store: store,
