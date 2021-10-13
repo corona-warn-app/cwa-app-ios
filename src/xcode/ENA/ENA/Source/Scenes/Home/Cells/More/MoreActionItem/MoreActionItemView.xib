@@ -55,7 +55,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imageView" destination="bUp-wt-tH0" id="lDw-k6-x5d"/>
-                <outlet property="longPress" destination="ZVg-Kd-a89" id="1N8-xD-f7F"/>
+                <outlet property="longPressGestureRecognizer" destination="ZVg-Kd-a89" id="1N8-xD-f7F"/>
                 <outlet property="separatorView" destination="MZH-TS-McA" id="WrB-Py-KQi"/>
                 <outlet property="titleLabel" destination="l5h-gL-4WM" id="oUU-fm-de3"/>
                 <outletCollection property="gestureRecognizers" destination="dLq-J4-byJ" appends="YES" id="nty-4h-Yzk"/>
