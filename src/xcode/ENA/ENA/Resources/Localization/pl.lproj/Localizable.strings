@@ -3112,6 +3112,10 @@
 
 "FileScanner_PasswordError_title" = "Nieprawidłowe hasło";
 
+"FileScanner_AlreadyRegistered_title" = "Certyfikat już zarejestrowany";
+
+"FileScanner_AlreadyRegistered_message" = "Certyfikat jest już zarejestrowany w Twojej aplikacji.";
+
 "FileScanner_PasswordError_message" = "Wprowadź prawidłowe hasło.";
 
 "FileScanner_InvalidQRCode_title" = "Brak odpowiedniego kodu QR";
