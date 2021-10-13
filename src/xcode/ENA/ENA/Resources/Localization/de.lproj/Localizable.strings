@@ -3348,7 +3348,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_CoronaTest_AlertTitle" = "Test wiederherstellen";
 
-"RecycleBin_CoronaTest_AlertMessage" = "Der wiederhergestellte Test wird an seinen ursprünglichen Ort verschoben. Sie finden ihn dann in der Registerkarte „Zertifikate“.";
+"RecycleBin_CoronaTest_AlertMessage" = "Der wiederhergestellte Test wird an seinen ursprünglichen Ort verschoben. Sie finden ihn dann in der Registerkarte „Status“.";
 
 "RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Wiederherstellen";
 

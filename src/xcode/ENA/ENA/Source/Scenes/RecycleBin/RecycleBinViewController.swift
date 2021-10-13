@@ -123,7 +123,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		case .description:
 			break
 		case .entries:
-			viewModel.didTapEntryCell(at: indexPath)
+			showRestoreAlert(forItemAt: indexPath)
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -224,6 +224,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 			message: AppStrings.RecycleBin.DeleteAllAlert.message,
 			cancelButtonTitle: AppStrings.RecycleBin.DeleteAllAlert.cancelButtonTitle,
 			confirmButtonTitle: AppStrings.RecycleBin.DeleteAllAlert.confirmButtonTitle,
+			confirmButtonStyle: .destructive,
 			confirmAction: { [weak self] in
 				guard let self = self else { return }
 
@@ -250,8 +251,31 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		)
 	}
 
-	private func deleteRows(at: [IndexPath]) {
-
+	private func showRestoreAlert(forItemAt indexPath: IndexPath) {
+		switch viewModel.recycleBinItems[indexPath.row].item {
+		case .certificate:
+			showAlert(
+				title: AppStrings.RecycleBin.RestoreCertificateAlert.title,
+				message: AppStrings.RecycleBin.RestoreCertificateAlert.message,
+				cancelButtonTitle: AppStrings.RecycleBin.RestoreCertificateAlert.cancelButtonTitle,
+				confirmButtonTitle: AppStrings.RecycleBin.RestoreCertificateAlert.confirmButtonTitle,
+				confirmButtonStyle: .default,
+				confirmAction: { [weak self] in
+					self?.viewModel.restoreItem(at: indexPath)
+				}
+			)
+		case .coronaTest:
+			showAlert(
+				title: AppStrings.RecycleBin.RestoreCoronaTestAlert.title,
+				message: AppStrings.RecycleBin.RestoreCoronaTestAlert.message,
+				cancelButtonTitle: AppStrings.RecycleBin.RestoreCoronaTestAlert.cancelButtonTitle,
+				confirmButtonTitle: AppStrings.RecycleBin.RestoreCoronaTestAlert.confirmButtonTitle,
+				confirmButtonStyle: .default,
+				confirmAction: { [weak self] in
+					self?.viewModel.restoreItem(at: indexPath)
+				}
+			)
+		}
 	}
 
 	private func showAlert(
@@ -259,6 +283,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		message: String,
 		cancelButtonTitle: String,
 		confirmButtonTitle: String,
+		confirmButtonStyle: UIAlertAction.Style,
 		confirmAction: @escaping () -> Void
 	) {
 		let alert = UIAlertController(
@@ -277,7 +302,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		alert.addAction(
 			UIAlertAction(
 				title: confirmButtonTitle,
-				style: .destructive,
+				style: confirmButtonStyle,
 				handler: { _ in
 					confirmAction()
 				}

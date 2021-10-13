@@ -57,12 +57,11 @@ class RecycleBinViewModel {
 		return indexPath.section == Section.entries.rawValue
 	}
 
-	func didTapEntryCell(at indexPath: IndexPath) {
+	func restoreItem(at indexPath: IndexPath) {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		// TODO: Show alert/override/etc.
 		recycleBin.restore(recycleBinItems[indexPath.row])
 	}
 
