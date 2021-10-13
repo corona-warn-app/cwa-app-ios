@@ -13,26 +13,26 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.12"
+		self.featureVersion = "2.13"
 		
-		// New Statistics tiles
+		// New combined hospitalization rate tile
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212NewStatisticsTilesTitle, description: AppStrings.NewVersionFeatures.feature212NewStatisticsTilesDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213HospitalizationRateTileTitle, description: AppStrings.NewVersionFeatures.feature213HospitalizationRateTileDescription)
 		)
 		
-		// Notification Management
+		// New FAQ links
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212NotificationManagementTitle, description: AppStrings.NewVersionFeatures.feature212NotificationManagementDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213ChangesFAQLinksTitle, description: AppStrings.NewVersionFeatures.feature213ChangesFAQLinksDescription)
 		)
 		
-		// QR Code Scanner in tabbar
+		// Fault tolerance certificate assignment
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212QRCodeScannerButtonTitle, description: AppStrings.NewVersionFeatures.feature212QRCodeScannerButtonDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213CertificateAssignmentTitle, description: AppStrings.NewVersionFeatures.feature213CertificateAssignmentDescription)
 		)
 		
-		// QR Code Import
+		// Restore certificates
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature212QRCodeImportTitle, description: AppStrings.NewVersionFeatures.feature212QRCodeImportDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213RestoreCertificateTitle, description: AppStrings.NewVersionFeatures.feature213RestoreCertificateDescription)
 		)
 	}
 
