@@ -22,8 +22,10 @@ class ENAUITests_03_Settings: CWATestCase {
 		
 		app.swipeUp(velocity: .fast)
 
-		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
-		
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		settingsLabel.waitAndTap()
+
 		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: 5.0))
 		XCTAssertTrue(app.cells["AppStrings.Settings.notificationLabel"].waitForExistence(timeout: 5.0))
 		XCTAssertTrue(app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitForExistence(timeout: 5.0))
@@ -36,8 +38,10 @@ class ENAUITests_03_Settings: CWATestCase {
 		
 		app.swipeUp(velocity: .fast)
 
-		app.cells["AppStrings.Home.settingsCardTitle"].waitAndTap()
-		
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		settingsLabel.waitAndTap()
+
 		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitAndTap()
 		
 		XCTAssertTrue(app.images["AppStrings.Settings.backgroundAppRefreshImageDescription"].waitForExistence(timeout: 5.0))
@@ -48,8 +52,10 @@ class ENAUITests_03_Settings: CWATestCase {
 		app.launch()
 				
 		// Open settings
-		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitAndTap()
-		
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		settingsLabel.waitAndTap()
+
 		// Open Notifications
 		app.cells[AccessibilityIdentifiers.Settings.notificationLabel].waitAndTap()
 		
@@ -77,8 +83,10 @@ class ENAUITests_03_Settings: CWATestCase {
 		app.launch()
 				
 		// Open settings
-		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitAndTap()
-		
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreCell.moreCell]
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreCell.settingsActionView]
+		settingsLabel.waitAndTap()
+
 		// Open Notifications
 		app.cells[AccessibilityIdentifiers.Settings.notificationLabel].waitAndTap()
 		
