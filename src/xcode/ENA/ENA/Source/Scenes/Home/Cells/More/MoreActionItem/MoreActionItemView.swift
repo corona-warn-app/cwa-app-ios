@@ -12,6 +12,8 @@ class MoreActionItemView: UIView {
 		super.awakeFromNib()
 		
 		longPressGestureRecognizer.minimumPressDuration = 0.1
+		
+		configureHighlightView()
 	}
 	
 	// MARK: - Internal
@@ -37,6 +39,8 @@ class MoreActionItemView: UIView {
 	
 	private var actionItem: MoreActionItem?
 	private var completion: ((MoreActionItem) -> Void)?
+	private let highlightView = UIView()
+	
 	@IBAction private func didTap(_ sender: Any) {
 		guard let item = actionItem else {
 			return
@@ -56,4 +60,18 @@ class MoreActionItemView: UIView {
 		}
 	}
 	
+	private func configureHighlightView() {
+		highlightView.backgroundColor = .clear
+		highlightView.isUserInteractionEnabled = false
+
+		addSubview(highlightView)
+		highlightView.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate([
+			highlightView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			highlightView.topAnchor.constraint(equalTo: topAnchor),
+			highlightView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			highlightView.bottomAnchor.constraint(equalTo: bottomAnchor)
+		])
+	}
 }
