@@ -37,9 +37,10 @@ class MoreActionItemView: UIView {
 	@IBOutlet private weak var separatorView: UIView!
 	@IBOutlet private weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
+	private let highlightView = UIView()
+
 	private var actionItem: MoreInfoItem?
 	private var completion: ((MoreInfoItem) -> Void)?
-	private let highlightView = UIView()
 	
 	@IBAction private func didTap(_ sender: Any) {
 		guard let item = actionItem else {
