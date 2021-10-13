@@ -45,7 +45,7 @@ class RecycleBinViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .description:
-			return 1
+			return isEmpty ? 0 : 1
 		case .entries:
 			return recycleBinItems.count
 		case .none:

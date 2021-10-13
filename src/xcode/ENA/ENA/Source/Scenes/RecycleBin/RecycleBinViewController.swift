@@ -97,9 +97,15 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 
 		shouldReload = false
 		viewModel.removeEntry(at: indexPath)
-		
+
 		tableView.performBatchUpdates({
-			tableView.deleteRows(at: [indexPath], with: .automatic)
+			var indexPaths = [indexPath]
+
+			if self.viewModel.isEmpty {
+				indexPaths.append(IndexPath(row: 0, section: RecycleBinViewModel.Section.description.rawValue))
+			}
+
+			tableView.deleteRows(at: indexPaths, with: .automatic)
 		}, completion: { _ in
 			self.shouldReload = true
 
@@ -172,7 +178,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 			color: .enaColor(for: .textPrimary2)
 		)
 
-		let style: ENALabel.Style = .subheadline
+		let style: ENALabel.Style = .body
 		cell.configureDynamicType(
 			size: style.fontSize,
 			weight: UIFont.Weight(style.fontWeight),
@@ -226,12 +232,14 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 				self.shouldReload = false
 				self.viewModel.removeAll()
 				self.tableView.performBatchUpdates({
-					self.tableView.deleteRows(
-						at: (0..<numberOfRows).map {
+					var indexPaths = (0..<numberOfRows)
+						.map {
 							IndexPath(row: $0, section: RecycleBinViewModel.Section.entries.rawValue)
-						},
-						with: .automatic
-					)
+						}
+
+					indexPaths.append(IndexPath(row: 0, section: RecycleBinViewModel.Section.description.rawValue))
+
+					self.tableView.deleteRows(at: indexPaths, with: .automatic)
 				}, completion: { _ in
 					self.shouldReload = true
 
@@ -240,6 +248,10 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 				})
 			}
 		)
+	}
+
+	private func deleteRows(at: [IndexPath]) {
+
 	}
 
 	private func showAlert(
