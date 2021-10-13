@@ -182,6 +182,8 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 			style: style.textStyle
 		)
 
+		cell.backgroundColor = .enaColor(for: .darkBackground)
+
 		cell.configureAccessibility()
 
 		return cell
