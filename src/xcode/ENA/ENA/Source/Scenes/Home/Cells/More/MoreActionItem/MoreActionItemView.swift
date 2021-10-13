@@ -33,6 +33,7 @@ class MoreActionItemView: UIView {
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var imageView: UIImageView!
 	@IBOutlet weak var separatorView: UIView!
+	@IBOutlet private weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
 	private var actionItem: MoreActionItem?
 	private var completion: ((MoreActionItem) -> Void)?
