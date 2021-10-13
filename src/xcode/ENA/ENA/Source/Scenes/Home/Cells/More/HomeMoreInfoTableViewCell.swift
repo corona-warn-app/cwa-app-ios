@@ -17,7 +17,7 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 	// MARK: - Internal
 	
 	func configure(completion: @escaping ((MoreInfoItem) -> Void)) {
-		if !isConfigerd {
+		if !isCellConfigured {
 			for item in MoreInfoItem.allCases {
 				let nibName = String(describing: MoreActionItemView.self)
 				let nib = UINib(nibName: nibName, bundle: .main)
@@ -29,13 +29,13 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 					stackView.addArrangedSubview(actionItemView)
 				}
 			}
-			isConfigerd = true
+			isCellConfigured = true
 		}
 	}
 	
 	// MARK: - Private
 
-	private var isConfigerd = false
+	private var isCellConfigured = false
 	
 	@IBOutlet private weak var homeCardView: HomeCardView!
 	@IBOutlet private weak var titleLabel: ENALabel!
