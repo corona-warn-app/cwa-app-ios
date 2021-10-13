@@ -37,4 +37,23 @@ class MoreActionItemView: UIView {
 	
 	private var actionItem: MoreActionItem?
 	private var completion: ((MoreActionItem) -> Void)?
+	@IBAction private func didTap(_ sender: Any) {
+		guard let item = actionItem else {
+			return
+		}
+		completion?(item)
+	}
+	
+	@IBAction private func didHighlight(_ sender: UILongPressGestureRecognizer) {
+		if sender.state == .began {
+			highlightView.backgroundColor = .enaColor(for: .listHighlight)
+		} else if sender.state == .ended {
+			highlightView.backgroundColor = .clear
+			guard let item = actionItem else {
+				return
+			}
+			completion?(item)
+		}
+	}
+	
 }
