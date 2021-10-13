@@ -7434,10 +7434,10 @@
 		BA64FA7F26D79BCB00DD4705 /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
+				BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */,
 				5071A87E26EB807200B09B40 /* Locator */,
 				BA64FA8026D79BFD00DD4705 /* Resources */,
 				BAF640E926DF862800B3A18E /* Service */,
-				BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
