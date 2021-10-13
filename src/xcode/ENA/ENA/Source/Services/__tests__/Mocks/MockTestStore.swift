@@ -140,7 +140,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var healthCertificateInfoScreenShown: Bool = false
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
-	var healthCertifiedPersonsVersion: Int?
+	// assign current version so that existing tests skip migration
+	var healthCertifiedPersonsVersion: Int? = kCurrentHealthCertifiedPersonsVersion
 	var testCertificateRequests: [TestCertificateRequest] = []
 	var lastSelectedValidationCountry: Country = .defaultCountry()
 	var lastSelectedValidationDate: Date = Date()

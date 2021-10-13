@@ -7,6 +7,10 @@ import OpenCombine
 import HealthCertificateToolkit
 import UserNotifications
 
+// global to access in unit tests
+// version will be used for migration logic
+public let kCurrentHealthCertifiedPersonsVersion = 1
+
 // swiftlint:disable:next type_body_length
 class HealthCertificateService {
 
@@ -385,13 +389,14 @@ class HealthCertificateService {
 	func migration() {
 		// at the moment we only have 1 migration step
 		// if more is needed we should add a migration serial queue
-		guard store.healthCertifiedPersonsVersion == nil else {
+		guard let lastVersion = store.healthCertifiedPersonsVersion,
+			  lastVersion < kCurrentHealthCertifiedPersonsVersion + 1 else {
 			Log.debug("Migration was done already - stop here")
 			return
 		}
 		defer {
 			// after leaving mark migration as done
-			store.healthCertifiedPersonsVersion = 1
+			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
 		}
 
 		// reinsert all health certificates will do the job (it uses the new groupingStandardizedName)
