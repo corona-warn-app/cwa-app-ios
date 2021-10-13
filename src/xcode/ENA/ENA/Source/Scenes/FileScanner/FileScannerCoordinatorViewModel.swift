@@ -14,6 +14,7 @@ enum FileScannerError: CaseIterable {
 	case photoAccess
 	case passwordInput
 	case unlockPDF
+	case alreadyRegistered
 
 	var title: String {
 		switch self {
@@ -29,6 +30,8 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordEntry.title
 		case .unlockPDF:
 			return AppStrings.FileScanner.PasswordError.title
+		case .alreadyRegistered:
+			return AppStrings.FileScanner.AlreadyRegistered.title
 		}
 	}
 
@@ -46,100 +49,44 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordEntry.message
 		case .unlockPDF:
 			return AppStrings.FileScanner.PasswordError.message
+		case .alreadyRegistered:
+			return AppStrings.FileScanner.AlreadyRegistered.message
 		}
 	}
 }
 
 protocol FileScannerProcessing {
-	var finishedPickingImage: (() -> Void)? { get set }
 	var processingStarted: (() -> Void)? { get set }
 	var processingFinished: ((QRCodeResult) -> Void)? { get set }
 	var processingFailed: ((FileScannerError?) -> Void)? { get set }
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
+
+	var authorizationStatus: PHAuthorizationStatus { get }
+
+	func requestPhotoAccess(_ completion: @escaping (PHAuthorizationStatus) -> Void)
+	func scan(_ image: UIImage)
+	func scan(_ pdfDocument: PDFDocument)
+	func unlockAndScan(_ pdfDocument: PDFDocument)
+	@available(iOS 14, *)
+	func processItemProvider(_ itemProvider: NSItemProvider)
 }
 
-class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate, FileScannerProcessing {
+class FileScannerCoordinatorViewModel: FileScannerProcessing {
 
 	// MARK: - Init
 
 	init(
 		qrCodeDetector: QRCodeDetecting,
-		qrCodeParser: QRCodeParsable
+		qrCodeParser: QRCodeParsable,
+		queue: DispatchQueue = .main
 	) {
 		self.qrCodeDetector = qrCodeDetector
 		self.qrCodeParser = qrCodeParser
-	}
-
-	// MARK: - Protocol PHPickerViewControllerDelegate
-
-
-	@available(iOS 14, *)
-	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-		finishedPickingImageOnMain()
-
-		// There can only be one selected image, because the selectionLimit is set to 1.
-		guard let result = results.first else {
-			processingFailedOnMain(nil)
-			return
-		}
-		processItemProvider(result.itemProvider)
-	}
-
-	// MARK: - UIImagePickerControllerDelegate
-
-	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-		finishedPickingImageOnMain()
-
-		DispatchQueue.global(qos: .background).async { [weak self] in
-			guard let self = self,
-				let image = info[.originalImage] as? UIImage
-			else {
-				Log.debug("No image found in user selection.", log: .fileScanner)
-				self?.processingFailedOnMain(.noQRCodeFound)
-				return
-			}
-
-			self.scan(image)
-		}
-	}
-
-	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-		finishedPickingImageOnMain()
-	}
-
-	// MARK: Protocol UIDocumentPickerDelegate
-
-	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-		Log.debug("User picked files for QR-Code scan.", log: .fileScanner)
-		// we can handle multiple documents here - nice
-		guard let url = urls.first else {
-			processingFailedOnMain(.noQRCodeFound)
-			Log.debug("We need to select a least one file")
-			return
-		}
-
-		if let image = UIImage(contentsOfFile: url.path) {
-			scan(image)
-		} else if url.pathExtension.lowercased() == "pdf",
-				  let pdfDocument = PDFDocument(url: url) {
-			Log.debug("PDF picked, will scan for QR codes", log: .fileScanner)
-
-			// If the document is encrypted and locked, try to unlock it.
-			// The case where the document is locked, but not encrypted does not exist.
-			if pdfDocument.isEncrypted && pdfDocument.isLocked {
-				unlockAndScan(pdfDocument)
-			} else {
-				scan(pdfDocument)
-			}
-		} else {
-			Log.debug("User picked unknown filetype for QR-Code scan.", log: .fileScanner)
-			processingFailedOnMain(.fileNotReadable)
-		}
+		self.queue = queue
 	}
 
 	// MARK: - Internal
 
-	var finishedPickingImage: (() -> Void)?
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
 	var processingFailed: ((FileScannerError?) -> Void)?
@@ -168,26 +115,27 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	}
 
 	func scan(_ image: UIImage) {
-		processingStartedOnMain()
+		processingStartedOnQueue()
+		let processingQueue = DispatchQueue.global(qos: .background)
 
-		DispatchQueue.global(qos: .background).async { [weak self] in
+		processingQueue.async { [weak self] in
 			guard let self = self,
 				  let codes = self.qrCodeDetector.findQRCodes(in: image)
 			else {
-				self?.processingFailedOnMain(.noQRCodeFound)
+				self?.processingFailedOnQueue(.noQRCodeFound)
 				Log.error("Failed to stronge self pointer")
 				return
 			}
 			guard !codes.isEmpty else {
-				self.processingFailedOnMain(.noQRCodeFound)
+				self.processingFailedOnQueue(.noQRCodeFound)
 				return
 			}
 
-			self.findValidQRCode(from: codes) { [weak self] result in
+			self.findValidQRCode(from: codes, queue: processingQueue) { [weak self] result in
 				if let result = result {
-					self?.processingFinishedOnMain(result)
+					self?.processingFinishedOnQueue(result)
 				} else {
-					self?.processingFailedOnMain(.noQRCodeFound)
+					self?.processingFailedOnQueue(.noQRCodeFound)
 				}
 			}
 		}
@@ -196,7 +144,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 	func unlockAndScan(_ pdfDocument: PDFDocument) {
 		Log.debug("PDF is encrypted and locked. Try to unlock, show password input screen to the user ...", log: .fileScanner)
 
-		missingPasswordForPDFOnMain { [weak self] password in
+		missingPasswordForPDFOnQueue { [weak self] password in
 			guard let self = self else { return }
 
 			if pdfDocument.unlock(withPassword: password) {
@@ -205,27 +153,28 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 				self.scan(pdfDocument)
 			} else {
 				Log.debug("PDF unlocking failed.", log: .fileScanner)
-				self.processingFailedOnMain(.passwordInput)
+				self.processingFailedOnQueue(.passwordInput)
 			}
 		}
 	}
 
 	func scan(_ pdfDocument: PDFDocument) {
-		processingStartedOnMain()
+		processingStartedOnQueue()
+		let processingQueue = DispatchQueue.global(qos: .background)
 
-		DispatchQueue.global(qos: .background).async { [weak self] in
+		processingQueue.async { [weak self] in
 			guard let self = self else {
-				self?.processingFailedOnMain(.noQRCodeFound)
-				Log.error("Failed to stronge self pointer")
+				self?.processingFailedOnQueue(.noQRCodeFound)
+				Log.error("Failed to strong self pointer")
 				return
 			}
 
 			let codes = self.qrCodes(from: pdfDocument)
-			self.findValidQRCode(from: codes) { [weak self] result in
+			self.findValidQRCode(from: codes, queue: processingQueue) { [weak self] result in
 				if let result = result {
-					self?.processingFinishedOnMain(result)
+					self?.processingFinishedOnQueue(result)
 				} else {
-					self?.processingFailedOnMain(.noQRCodeFound)
+					self?.processingFailedOnQueue(.noQRCodeFound)
 				}
 			}
 		}
@@ -235,12 +184,13 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 
 	private let qrCodeDetector: QRCodeDetecting
 	private let qrCodeParser: QRCodeParsable
+	private let queue: DispatchQueue
 
 	@available(iOS 14, *)
-	private func processItemProvider(_ itemProvider: NSItemProvider) {
+	func processItemProvider(_ itemProvider: NSItemProvider) {
 		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
-				self?.processingFailedOnMain(.noQRCodeFound)
+				self?.processingFailedOnQueue(.noQRCodeFound)
 				return
 			}
 			itemProvider.loadObject(ofClass: UIImage.self) { [weak self]  provider, _ in
@@ -248,7 +198,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 					  let image = provider as? UIImage
 				else {
 					Log.debug("No image found in user selection.", log: .fileScanner)
-					self?.processingFailedOnMain(.noQRCodeFound)
+					self?.processingFailedOnQueue(.noQRCodeFound)
 					return
 				}
 
@@ -266,7 +216,7 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 			}
 		}
 		if found.isEmpty {
-			processingFailedOnMain(.noQRCodeFound)
+			processingFailedOnQueue(.noQRCodeFound)
 		}
 		return found
 	}
@@ -288,65 +238,67 @@ class FileScannerCoordinatorViewModel: NSObject, PHPickerViewControllerDelegate,
 		return images
 	}
 
-	private func findValidQRCode(from codes: [String], completion: @escaping (QRCodeResult?) -> Void) {
+	private func findValidQRCode(from codes: [String], queue: DispatchQueue, completion: @escaping (QRCodeResult?) -> Void) {
 		Log.debug("Try to find a valid QR-Code from codes.", log: .fileScanner)
 
 		let group = DispatchGroup()
 		var validCodes = [QRCodeResult]()
+		var errors = [QRCodeParserError]()
 
 		for code in codes {
 			group.enter()
 
 			qrCodeParser.parse(qrCode: code) { parseResult in
 				switch parseResult {
-				case .failure:
-					break
+				case .failure(let qrCodeParseError):
+					errors.append(qrCodeParseError)
 				case .success(let result):
 					validCodes.append(result)
 				}
+
 				group.leave()
 			}
 		}
 
-		group.notify(queue: .main) { [weak self] in
+		group.notify(queue: queue) { [weak self] in
 			// Return first valid result.
 			if let firstValidResult = validCodes.first {
 				Log.debug("Found valid QR-Code from codes.", log: .fileScanner)
 				completion(firstValidResult)
 			} else {
 				Log.debug("Didn't find a valid QR-Code from codes.", log: .fileScanner)
-				self?.processingFailedOnMain(.invalidQRCode)
+				if let parseError = errors.first,
+				   case let .certificateQrError(registerError) = parseError,
+				   case .certificateAlreadyRegistered = registerError {
+					self?.processingFailedOnQueue(.alreadyRegistered)
+				} else {
+					self?.processingFailedOnQueue(.invalidQRCode)
+				}
 				completion(nil)
 			}
 		}
 	}
 
-	private func finishedPickingImageOnMain() {
-		DispatchQueue.main.async {
-			self.finishedPickingImage?()
-		}
-	}
-
-	private func processingStartedOnMain() {
-		DispatchQueue.main.async {
+	private func processingStartedOnQueue() {
+		queue.async {
 			self.processingStarted?()
 		}
 	}
 
-	private func processingFinishedOnMain(_ result: QRCodeResult) {
-		DispatchQueue.main.async {
+	private func processingFinishedOnQueue(_ result: QRCodeResult) {
+		queue.async {
 			self.processingFinished?(result)
 		}
 	}
 
-	private func processingFailedOnMain(_ error: FileScannerError?) {
-		DispatchQueue.main.async {
+	private func processingFailedOnQueue(_ error: FileScannerError?) {
+		queue.async {
 			self.processingFailed?(error)
 		}
 	}
 
-	private func missingPasswordForPDFOnMain(_ callback: @escaping (String) -> Void) {
-		DispatchQueue.main.async {
+	private func missingPasswordForPDFOnQueue(_ callback: @escaping (String) -> Void) {
+		queue.async {
 			self.missingPasswordForPDF?(callback)
 		}
 	}
