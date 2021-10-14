@@ -24,6 +24,8 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 			return
 		}
 
+		titleLabel.text = AppStrings.Home.MoreInfoCard.title
+
 		for item in MoreInfoItem.allCases {
 			let nibName = String(describing: MoreActionItemView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
