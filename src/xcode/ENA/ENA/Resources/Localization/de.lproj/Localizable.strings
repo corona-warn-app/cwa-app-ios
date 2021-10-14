@@ -1319,10 +1319,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Info Card */
 
-"Home_SettingsCard_Title" = "Einstellungen";
-
-"Home_AppInformationCard_Title" = "App-Informationen";
-
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home More Card */
@@ -1344,6 +1340,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als 14 Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* App Information */
+
+"Home_AppInformationNavigation_Title" = "App-Informationen";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
