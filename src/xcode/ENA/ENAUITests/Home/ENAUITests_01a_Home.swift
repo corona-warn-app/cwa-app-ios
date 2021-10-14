@@ -28,10 +28,19 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .medium))
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
+
+		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
+		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
+	
+		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
+	
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
@@ -43,10 +52,19 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
+
+		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
+		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
+	
+		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
+	
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
@@ -59,11 +77,19 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .short))
-		app.swipeUp()
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
+
+		let faqLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
+		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
+	
+		let infoLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
+	
+		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 	
 	func test_riskCardHigh_details_faqLink() throws {
