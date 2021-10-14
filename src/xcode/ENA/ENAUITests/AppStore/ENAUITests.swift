@@ -78,7 +78,10 @@ class ENAUITests: CWATestCase {
 		// todo: need accessibility for Back (navigation bar back button)
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 		app.swipeUp()
-		app.cells["AppStrings.Home.infoCardShareTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+
+		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		shareLabel.waitAndTap()
 		if snapshotsActive { snapshot("AppStore_0007") }
 
 		print("Snapshot.screenshotsDirectory")
