@@ -93,10 +93,6 @@ enum LaunchArguments {
 			static let removeAntigenTestProfile = LaunchArgument(name: "removeAntigenTestProfile")
 		}
 	}
-	enum statistics {
-		/// To use the mock data for statistics
-		static let useMockDataForStatistics = LaunchArgument(name: "useMockDataForStatistics")
-	}
 	enum errorReport {
 		/// To show if els logging should be active when starting the app
 		static let elsLogActive = LaunchArgument(name: "elsLogActive")
