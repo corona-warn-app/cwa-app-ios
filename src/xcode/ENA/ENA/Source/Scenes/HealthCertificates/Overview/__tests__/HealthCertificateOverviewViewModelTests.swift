@@ -50,7 +50,8 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 	}()
 

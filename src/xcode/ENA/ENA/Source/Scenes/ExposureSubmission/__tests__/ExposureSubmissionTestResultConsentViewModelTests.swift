@@ -31,7 +31,8 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			testResultAvailability: .availableAndPositive,
@@ -82,7 +83,8 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			testResultAvailability: .availableAndPositive,
@@ -121,7 +123,8 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			testResultAvailability: .availableAndPositive,

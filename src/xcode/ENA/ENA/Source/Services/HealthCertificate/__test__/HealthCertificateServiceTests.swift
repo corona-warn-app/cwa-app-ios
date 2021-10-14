@@ -23,7 +23,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
@@ -105,7 +106,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
@@ -134,7 +136,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let firstTestCertificateBase45 = try base45Fake(
@@ -174,7 +177,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
@@ -450,7 +454,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let healthCertificate1 = try HealthCertificate(
@@ -586,7 +591,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -633,7 +639,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		waitForExpectations(timeout: .short)
@@ -684,7 +691,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		waitForExpectations(timeout: .short)
@@ -735,7 +743,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		waitForExpectations(timeout: .short)
@@ -799,7 +808,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		waitForExpectations(timeout: .short)
@@ -857,7 +867,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		waitForExpectations(timeout: .short)
@@ -911,7 +922,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let requestsSubscription = service.$testCertificateRequests
@@ -1019,7 +1031,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -1108,7 +1121,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -1199,7 +1213,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -1275,7 +1290,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -1355,7 +1371,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
@@ -1429,7 +1446,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -1488,7 +1506,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -1546,7 +1565,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -1608,7 +1628,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let completionExpectation = expectation(description: "completion called")
@@ -1649,7 +1670,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let completionExpectation = expectation(description: "Completion is called.")
@@ -1712,7 +1734,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let requestsSubscription = service.$testCertificateRequests
@@ -1763,7 +1786,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		let testCertificateBase45 = try base45Fake(
@@ -1851,7 +1875,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		// There should be now 1 notification for invalid, 1 for expireSoon and 1 for expired.
@@ -1869,7 +1894,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)

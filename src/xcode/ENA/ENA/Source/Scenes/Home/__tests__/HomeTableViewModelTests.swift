@@ -41,7 +41,8 @@ class HomeTableViewModelTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
+					recycleBin: .fake()
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -124,7 +125,8 @@ class HomeTableViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -176,7 +178,8 @@ class HomeTableViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -221,7 +224,8 @@ class HomeTableViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			onTestResultCellTap: { _ in }
@@ -273,7 +277,8 @@ class HomeTableViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			onTestResultCellTap: { _ in }
