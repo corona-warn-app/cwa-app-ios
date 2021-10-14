@@ -1280,17 +1280,6 @@
 "Home_TraceLocationsCard_Button" = "Utwórz kod QR";
 
 /* Home Info Card */
-"Home_InfoCard_ShareTitle" = "Udostępnij Corona-Warn-App";
-
-"Home_InfoCard_ShareBody" = "Im więcej osób będzie korzystać z aplikacji, tym szybciej będziemy mogli przerwać łańcuchy zakażeń. Zachęć rodzinę i znajomych do pobrania aplikacji.";
-
-"Home_InfoCard_AboutTitle" = "Często zadawane pytania";
-
-"Home_InfoCard_AboutBody" = "Tutaj możesz znaleźć odpowiedzi na często zadawane pytania dotyczące Corona-Warn-App. Zostaniesz przekierowany(-a) na zewnętrzną stronę internetową administracji Niemiec.";
-
-"Home_SettingsCard_Title" = "Ustawienia";
-
-"Home_AppInformationCard_Title" = "Informacje o aplikacji";
 
 "Home_AppInformationCard_Version" = "Wersja";
 
@@ -3111,6 +3100,10 @@
 "FileScanner_PasswordEntry_placeholder" = "Hasło";
 
 "FileScanner_PasswordError_title" = "Nieprawidłowe hasło";
+
+"FileScanner_AlreadyRegistered_title" = "Certyfikat już zarejestrowany";
+
+"FileScanner_AlreadyRegistered_message" = "Certyfikat jest już zarejestrowany w Twojej aplikacji.";
 
 "FileScanner_PasswordError_message" = "Wprowadź prawidłowe hasło.";
 

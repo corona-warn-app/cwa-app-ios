@@ -965,6 +965,14 @@ enum AppStrings {
 			static let button = NSLocalizedString("Home_TestRegistration_Button", comment: "")
 		}
 
+		enum MoreInfoCard {
+			static let settingsTitle = NSLocalizedString("Home_MoreCard_SettingsTitle", comment: "")
+			static let recycleBinTitle = NSLocalizedString("Home_MoreCard_RecycleBinTitle", comment: "")
+			static let appInformationTitle = NSLocalizedString("Home_MoreCard_AppInformationTitle", comment: "")
+			static let faqTitle = NSLocalizedString("Home_MoreCard_FAQTitle", comment: "")
+			static let shareTitle = NSLocalizedString("Home_MoreCard_ShareTitle", comment: "")
+		}
+		
 		// Trace Locations Card
 		static let traceLocationsCardTitle = NSLocalizedString("Home_TraceLocationsCard_Title", comment: "")
 		static let traceLocationsCardBody = NSLocalizedString("Home_TraceLocationsCard_Body", comment: "")
@@ -974,12 +982,6 @@ enum AppStrings {
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
-
-		// Info
-		static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
-		static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
-		static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
-		static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
 
 		// Risk Detection HowTo Alert
 
@@ -1388,7 +1390,6 @@ enum AppStrings {
 
 			static let localCardTitle = NSLocalizedString("Statistics_Add_LocalCardTitle", comment: "")
 			static let stateWide = NSLocalizedString("Statistics_Add_fromTheWholeCountry", comment: "")
-			static let localCardPrimarySubtitle = NSLocalizedString("Statistics_Card_Add_LocalCardPrimarySubtitle", comment: "")
 			static let modify = NSLocalizedString("Statistics_Card_Manage", comment: "")
 		}
 		enum Card {
@@ -1404,12 +1405,13 @@ enum AppStrings {
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_TertiaryLabelTitle", comment: "")
 			}
 
-			enum Incidence {
-				static let title = NSLocalizedString("Statistics_Card_Incidence_Title", comment: "")
-				static let today = NSLocalizedString("Statistics_Card_Incidence_Today", comment: "")
-				static let yesterday = NSLocalizedString("Statistics_Card_Incidence_Yesterday", comment: "")
-				static let date = NSLocalizedString("Statistics_Card_Incidence_Date", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_SecondaryLabelTitle", comment: "")
+			enum Region {
+				static let today = NSLocalizedString("Statistics_Card_Region_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_Region_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_Region_Date", comment: "")
+				static let primaryLabelSubtitle = NSLocalizedString("Statistics_Card_Region_PrimaryLabelSubtitle", comment: "")
+				static let secondaryLabelSubtitleFederalState = NSLocalizedString("Statistics_Card_Region_SecondaryLabelSubtitle_FederalState", comment: "")
+				static let secondaryLabelSubtitleAdministrativeUnit = NSLocalizedString("Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit", comment: "")
 			}
 
 			enum KeySubmissions {
@@ -1460,15 +1462,16 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AppliedDoseRates_TertiaryLabelTitle", comment: "")
 			}
-
-			enum HospitalizationRate {
-				static let title = NSLocalizedString("Statistics_Card_HospitalizationRate_Title", comment: "")
-				static let today = NSLocalizedString("Statistics_Card_HospitalizationRate_Today", comment: "")
-				static let yesterday = NSLocalizedString("Statistics_Card_HospitalizationRate_Yesterday", comment: "")
-				static let date = NSLocalizedString("Statistics_Card_HospitalizationRate_Date", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_HospitalizationRate_SecondaryLabelTitle", comment: "")
-			}
 			
+			enum Combined7DaysIncidence {
+				static let title = NSLocalizedString("Statistics_Card_CombinedIncidence_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_CombinedIncidence_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_CombinedIncidence_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_CombinedIncidence_Date", comment: "")
+				static let primaryLabelSubtitle = NSLocalizedString("Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle", comment: "")
+				static let secondaryLabelSubtitle = NSLocalizedString("Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle", comment: "")
+			}
+
 			enum IntensiveCare {
 				static let title = NSLocalizedString("Statistics_Card_IntensiveCare_Title", comment: "")
 				static let today = NSLocalizedString("Statistics_Card_IntensiveCare_Today", comment: "")
@@ -1492,10 +1495,11 @@ enum AppStrings {
 		enum Info {
 			static let title = NSLocalizedString("Statistics_Info_Title", comment: "")
 			static let subtitle = NSLocalizedString("Statistics_Info_Subtitle", comment: "")
+			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
 			static let local7DaysTitle = NSLocalizedString("Statistics_Info_Local7Days_Title", comment: "")
 			static let local7DaysText = NSLocalizedString("Statistics_Info_Local7Days_Text", comment: "")
-			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
-			static let incidenceText = NSLocalizedString("Statistics_Info_Incidence_Text", comment: "")
+			static let newInfectionTitle = NSLocalizedString("Statistics_Info_NewInfection_Title", comment: "")
+			static let newInfectionText = NSLocalizedString("Statistics_Info_NewInfection_Text", comment: "")
 			static let hospitalizationRateTitle = NSLocalizedString("Statistics_Info_HospitalizationRate_Title", comment: "")
 			static let hospitalizationRateText = NSLocalizedString("Statistics_Info_HospitalizationRate_Text", comment: "")
 			static let intensiveCareTitle = NSLocalizedString("Statistics_Info_IntensiveCare_Title", comment: "")
