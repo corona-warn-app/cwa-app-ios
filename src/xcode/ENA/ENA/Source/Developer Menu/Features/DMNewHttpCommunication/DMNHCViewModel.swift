@@ -88,11 +88,23 @@ final class DMNHCViewModel {
 			)
 		case .traceWarningPackageDiscovery:
 			return DMButtonCellViewModel(
-				text: "traceWarningPackageDiscovery",
+				text: "dccPublicKeyRequest",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					
+				action: { [weak self] in
+					let location = DccPublicKeyLocationResource(isFake: false)
+					let sendModel = RegistrationTokenModel(registrationToken: "lassdesdfds")
+					let sendResource = JSONSendResource<RegistrationTokenModel>(sendModel)
+					let receiveResource = EmptyReceiveResource<Any>()
+					self?.restService.load(location, sendResource, receiveResource) { result in
+						switch result {
+						case let .success(model):
+							print(model)
+							print("HTTP CALL SUCCESS")
+						case let .failure(error):
+							print("HTTP CALL FAIL")
+						}
+					}
 				}
 			)
 		}

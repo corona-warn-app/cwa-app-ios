@@ -22,6 +22,7 @@ extension Service {
 			result.appendingPathComponent(component, isDirectory: false)
 		}
 		var urlRequest = URLRequest(url: url)
+		urlRequest.httpMethod = locator.method.rawValue
 		switch sendResource?.encode() {
 		case let .success(data):
 			urlRequest.httpBody = data
