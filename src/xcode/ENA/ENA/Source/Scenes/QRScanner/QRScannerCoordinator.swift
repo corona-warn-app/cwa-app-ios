@@ -119,7 +119,7 @@ class QRScannerCoordinator {
 				)
 				self?.fileScannerCoordinator = FileScannerCoordinator(
 					qrScannerViewController,
-					fileScannerViewModel: viewModel,
+					viewModel: viewModel,
 					qrCodeFound: { [weak self] qrCodeResult in
 						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 						self?.fileScannerCoordinator = nil
