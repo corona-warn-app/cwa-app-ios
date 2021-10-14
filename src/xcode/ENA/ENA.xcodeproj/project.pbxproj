@@ -220,7 +220,6 @@
 		01A4DD0325926A6A007D5794 /* HomeTextItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0225926A6A007D5794 /* HomeTextItemViewModel.swift */; };
 		01A4DD0825926A6E007D5794 /* HomeListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0725926A6E007D5794 /* HomeListItemViewModel.swift */; };
 		01A4DD0D25926A73007D5794 /* HomeLoadingItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */; };
-		01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */; };
 		01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */; };
 		01A6C2F62626DE1300B6E95A /* HomeTestRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E82626D71700B6E95A /* HomeTestRegistrationCellModel.swift */; };
 		01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E72626D71700B6E95A /* HomeTestRegistrationTableViewCell.swift */; };
@@ -330,13 +329,10 @@
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
 		01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */; };
-		01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */; };
 		01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */; };
 		01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17712590F03000E98E02 /* HomeCardView.swift */; };
 		01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */; };
 		01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */; };
-		01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */; };
-		01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */; };
 		01EA17FE259217B100E98E02 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17FD259217B100E98E02 /* HomeState.swift */; };
 		01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */; };
 		01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */; };
@@ -745,6 +741,11 @@
 		8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */; };
 		8F3167E826A5D929008F35AA /* RegionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E726A5D929008F35AA /* RegionType.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
+		8F39058A2715B0E000A90E79 /* HomeMoreInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3905882715B0E000A90E79 /* HomeMoreInfoTableViewCell.swift */; };
+		8F39058B2715B0E000A90E79 /* HomeMoreInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F3905892715B0E000A90E79 /* HomeMoreInfoTableViewCell.xib */; };
+		8F39058D2715B82E00A90E79 /* MoreActionItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F39058C2715B82E00A90E79 /* MoreActionItemView.xib */; };
+		8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39058E2715B84400A90E79 /* MoreActionItemView.swift */; };
+		8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3905912715BF4C00A90E79 /* HomeMoreItem.swift */; };
 		8F39D05E263C414A0096F4E2 /* VaccinationValueSetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */; };
 		8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */; };
 		8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */; };
@@ -1298,7 +1299,6 @@
 		BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */; };
 		BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */; };
 		BAFAED5726A8489700AC1DD6 /* DSCListProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */; };
-		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		BAFC6ABC26A716CC00F18BBE /* default_dsc_list.bin in Resources */ = {isa = PBXBuildFile; fileRef = BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */; };
 		BAFC6ABE26A7183000F18BBE /* DSCListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFC6ABD26A7183000F18BBE /* DSCListProvider.swift */; };
 		BAFC6AC026A71F7900F18BBE /* DSCListMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFC6ABF26A71F7900F18BBE /* DSCListMetaData.swift */; };
@@ -1635,7 +1635,6 @@
 		01A4DD0225926A6A007D5794 /* HomeTextItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTextItemViewModel.swift; sourceTree = "<group>"; };
 		01A4DD0725926A6E007D5794 /* HomeListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemViewModel.swift; sourceTree = "<group>"; };
 		01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingItemViewModel.swift; sourceTree = "<group>"; };
-		01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPositionInSection.swift; sourceTree = "<group>"; };
 		01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModel.swift; sourceTree = "<group>"; };
 		01A6C2E22626D71600B6E95A /* HomeTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModel.swift; sourceTree = "<group>"; };
 		01A6C2E32626D71600B6E95A /* HomeTestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTestResultTableViewCell.xib; sourceTree = "<group>"; };
@@ -1747,11 +1746,8 @@
 		01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModel.swift; sourceTree = "<group>"; };
 		01EA17712590F03000E98E02 /* HomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardView.swift; sourceTree = "<group>"; };
 		01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingTableViewCell.swift; sourceTree = "<group>"; };
-		01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeExposureLoggingTableViewCell.xib; sourceTree = "<group>"; };
-		01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModel.swift; sourceTree = "<group>"; };
-		01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModel.swift; sourceTree = "<group>"; };
 		01EA17FD259217B100E98E02 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModelTests.swift; sourceTree = "<group>"; };
 		01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_Statistics+SupportedIDsTests.swift"; sourceTree = "<group>"; };
@@ -2179,6 +2175,11 @@
 		8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionStatisticsData.swift; sourceTree = "<group>"; };
 		8F3167E726A5D929008F35AA /* RegionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionType.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
+		8F3905882715B0E000A90E79 /* HomeMoreInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreInfoTableViewCell.swift; sourceTree = "<group>"; };
+		8F3905892715B0E000A90E79 /* HomeMoreInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeMoreInfoTableViewCell.xib; sourceTree = "<group>"; };
+		8F39058C2715B82E00A90E79 /* MoreActionItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoreActionItemView.xib; sourceTree = "<group>"; };
+		8F39058E2715B84400A90E79 /* MoreActionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreActionItemView.swift; sourceTree = "<group>"; };
+		8F3905912715BF4C00A90E79 /* HomeMoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMoreItem.swift; sourceTree = "<group>"; };
 		8F39D05D263C414A0096F4E2 /* VaccinationValueSetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProvider.swift; sourceTree = "<group>"; };
 		8F39D065263C41990096F4E2 /* VaccinationValueSetsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProviding.swift; sourceTree = "<group>"; };
 		8F39D07C263F62A80096F4E2 /* els_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = els_otp_request_ios.pb.swift; sourceTree = "<group>"; };
@@ -2729,7 +2730,6 @@
 		BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeCell.swift; sourceTree = "<group>"; };
 		BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviderTests.swift; sourceTree = "<group>"; };
-		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_dsc_list.bin; sourceTree = "<group>"; };
 		BAFC6ABD26A7183000F18BBE /* DSCListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProvider.swift; sourceTree = "<group>"; };
 		BAFC6ABF26A71F7900F18BBE /* DSCListMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListMetaData.swift; sourceTree = "<group>"; };
@@ -3884,7 +3884,7 @@
 				01A4DC8025922EC3007D5794 /* TestResult */,
 				01A6C2E12626D71600B6E95A /* TestRegistration */,
 				016E25E825AF138B0077C64C /* Statistics */,
-				01EA17C42591348100E98E02 /* Info */,
+				8F3905872715B06400A90E79 /* More */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3898,18 +3898,6 @@
 				01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */,
 			);
 			path = ExposureLogging;
-			sourceTree = "<group>";
-		};
-		01EA17C42591348100E98E02 /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				BAFBF36725ADE0AA003F5DC2 /* __tests__ */,
-				01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */,
-				01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */,
-				01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */,
-				01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */,
-			);
-			path = Info;
 			sourceTree = "<group>";
 		};
 		01EBC9A425B5FFF40003496F /* __tests__ */ = {
@@ -5560,6 +5548,26 @@
 				ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */,
 			);
 			path = StoreV1;
+			sourceTree = "<group>";
+		};
+		8F3905872715B06400A90E79 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				8F3905912715BF4C00A90E79 /* HomeMoreItem.swift */,
+				8F3905882715B0E000A90E79 /* HomeMoreInfoTableViewCell.swift */,
+				8F3905892715B0E000A90E79 /* HomeMoreInfoTableViewCell.xib */,
+				8F3905902715B84D00A90E79 /* MoreActionItem */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
+		8F3905902715B84D00A90E79 /* MoreActionItem */ = {
+			isa = PBXGroup;
+			children = (
+				8F39058C2715B82E00A90E79 /* MoreActionItemView.xib */,
+				8F39058E2715B84400A90E79 /* MoreActionItemView.swift */,
+			);
+			path = MoreActionItem;
 			sourceTree = "<group>";
 		};
 		8F39D05C263C40DB0096F4E2 /* VaccinationValueSets */ = {
@@ -7933,14 +7941,6 @@
 			path = Default;
 			sourceTree = "<group>";
 		};
-		BAFBF36725ADE0AA003F5DC2 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		CD99A398245B229F00BF12AF /* ExposureSubmission */ = {
 			isa = PBXGroup;
 			children = (
@@ -8386,7 +8386,6 @@
 				ABEA875E26D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf in Resources */,
 				AB9B991226D522B700F2506D /* OpenSans-BoldItalic.ttf in Resources */,
 				AB9B991626D522B700F2506D /* OpenSans-LightItalic.ttf in Resources */,
-				01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */,
 				8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				016E25F425AF13EA0077C64C /* HomeStatisticsTableViewCell.xib in Resources */,
@@ -8416,6 +8415,7 @@
 				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
 				01A6C3022626DE2500B6E95A /* HomeTestResultTableViewCell.xib in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
+				8F39058D2715B82E00A90E79 /* MoreActionItemView.xib in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
 				01D02697258BA0E000B6389A /* ExposureDetectionLoadingCell.xib in Resources */,
 				0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */,
@@ -8429,6 +8429,7 @@
 				01D02761258BD58600B6389A /* ResetViewController.xib in Resources */,
 				01A4DCE625926934007D5794 /* HomeTextItemView.xib in Resources */,
 				8F499B03267CDE420047C1A6 /* ManageStatisticsCardView.xib in Resources */,
+				8F39058B2715B0E000A90E79 /* HomeMoreInfoTableViewCell.xib in Resources */,
 				AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */,
 				01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */,
 			);
@@ -8614,7 +8615,6 @@
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
 				35BA8DBB25F252AF00BD8B47 /* ELSService.swift in Sources */,
 				AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */,
-				01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */,
 				357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				01887D3B25DAB4E400FCAFB2 /* DiarySegmentedControl.swift in Sources */,
@@ -8776,7 +8776,6 @@
 				EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				019E2F1426AF08D0000EC4AD /* MockDSCListProvider.swift in Sources */,
-				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
 				8F3167E826A5D929008F35AA /* RegionType.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
@@ -8869,7 +8868,6 @@
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
-				01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */,
 				018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
 				945CD04D25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift in Sources */,
@@ -9099,6 +9097,7 @@
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
 				01164CF426C65B76007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift in Sources */,
 				BACF83A026A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift in Sources */,
+				8F39058A2715B0E000A90E79 /* HomeMoreInfoTableViewCell.swift in Sources */,
 				0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */,
 				BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
@@ -9209,6 +9208,7 @@
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
+				8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
@@ -9437,6 +9437,7 @@
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingCrossCountrySupportViewModel.swift in Sources */,
+				8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9445,7 +9446,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				35A99565262877080023104A /* MockPublicKeyStore.swift in Sources */,
-				BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */,
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
 				BAAC572E26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift in Sources */,

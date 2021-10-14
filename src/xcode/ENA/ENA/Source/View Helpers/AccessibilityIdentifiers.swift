@@ -80,12 +80,18 @@ enum AccessibilityIdentifiers {
 			static let deleteAlertDeleteButton = "AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButton"
 		}
 
+		enum MoreInfoCell {
+			static let moreCell = "AppStrings.Home.moreCell"
+
+			static let settingsLabel = "AppStrings.Home.settingsActionView"
+			static let recycleBinLabel = "AppStrings.Home.recycleBinActionView"
+			static let appInformationLabel = "AppStrings.Home.appInformationActionView"
+			static let faqLabel = "AppStrings.Home.faqActionView"
+			static let shareLabel = "AppStrings.Home.shareActionView"
+		}
+		
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
-		static let infoCardShareTitle = "AppStrings.Home.infoCardShareTitle"
-		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
-		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
-		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 	}
 	
 	enum ContactDiary {

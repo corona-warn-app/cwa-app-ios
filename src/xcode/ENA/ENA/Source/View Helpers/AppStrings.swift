@@ -965,6 +965,14 @@ enum AppStrings {
 			static let button = NSLocalizedString("Home_TestRegistration_Button", comment: "")
 		}
 
+		enum MoreInfoCard {
+			static let settingsTitle = NSLocalizedString("Home_MoreCard_SettingsTitle", comment: "")
+			static let recycleBinTitle = NSLocalizedString("Home_MoreCard_RecycleBinTitle", comment: "")
+			static let appInformationTitle = NSLocalizedString("Home_MoreCard_AppInformationTitle", comment: "")
+			static let faqTitle = NSLocalizedString("Home_MoreCard_FAQTitle", comment: "")
+			static let shareTitle = NSLocalizedString("Home_MoreCard_ShareTitle", comment: "")
+		}
+		
 		// Trace Locations Card
 		static let traceLocationsCardTitle = NSLocalizedString("Home_TraceLocationsCard_Title", comment: "")
 		static let traceLocationsCardBody = NSLocalizedString("Home_TraceLocationsCard_Body", comment: "")
@@ -974,12 +982,6 @@ enum AppStrings {
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
-
-		// Info
-		static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
-		static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
-		static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
-		static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
 
 		// Risk Detection HowTo Alert
 
