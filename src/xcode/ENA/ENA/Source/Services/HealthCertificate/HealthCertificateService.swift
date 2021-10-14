@@ -402,15 +402,15 @@ class HealthCertificateService {
 		// reinsert all health certificates will do the job (it uses the new groupingStandardizedName)
 		let originalInitialHealthCertifiedPersonsReadFromStore = initialHealthCertifiedPersonsReadFromStore
 		initialHealthCertifiedPersonsReadFromStore = false
-		let original = store.healthCertifiedPersons
+		let originalHealthCertifiedPersons = store.healthCertifiedPersons
 		healthCertifiedPersons.removeAll()
-		for person in original {
+		for person in originalHealthCertifiedPersons {
 			person.healthCertificates.forEach { healthCertificate in
-				Log.debug("Will reregister health certificate")
+				Log.debug("Will register health certificate again")
 				registerHealthCertificate(base45: healthCertificate.base45)
 			}
 		}
-		if original != healthCertifiedPersons {
+		if originalHealthCertifiedPersons != healthCertifiedPersons {
 			Log.debug("Did update grouping name of certificates")
 			store.healthCertifiedPersons = healthCertifiedPersons
 		}
