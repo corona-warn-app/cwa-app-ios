@@ -24,16 +24,18 @@ struct Locator: Hashable {
 		self.headers = defaultHeaders
 	}
 
-	// MARK: - Internal
-
-	let endpoint: Endpoint
-	let paths: [String]
-	let method: HTTP.Method
-	let headers: [String: String]
+	// MARK: Protocol Hashable
 
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(endpoint)
 		hasher.combine(paths)
 		hasher.combine(method)
 	}
+
+	// MARK: - Internal
+
+	let endpoint: Endpoint
+	let paths: [String]
+	let method: HTTP.Method
+	let headers: [String: String]
 }
