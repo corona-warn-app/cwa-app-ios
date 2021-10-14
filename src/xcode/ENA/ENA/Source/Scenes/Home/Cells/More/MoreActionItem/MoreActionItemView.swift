@@ -22,10 +22,10 @@ class MoreActionItemView: UIView {
 		actionItem: MoreInfoItem,
 		completion: @escaping ((MoreInfoItem) -> Void)
 	) {
-		self.imageView.image = actionItem.image
-		self.titleLabel.text = actionItem.title
-		self.titleLabel.accessibilityIdentifier = actionItem.accessibilityIdentifier
-		self.separatorView.isHidden = actionItem == .share
+		imageView.image = actionItem.image
+		titleLabel.text = actionItem.title
+		titleLabel.accessibilityIdentifier = actionItem.accessibilityIdentifier
+		separatorView.isHidden = actionItem == .share
 		self.actionItem = actionItem
 		self.completion = completion
 	}
