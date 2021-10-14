@@ -349,7 +349,7 @@
 		01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5C22581183800DA96A6 /* DiaryDayEntryTableViewCell.xib */; };
 		01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */; };
 		01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */; };
-		01F33231270F3E45005CE21E /* RecycleBinModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3322D270F3D8D005CE21E /* RecycleBinModelTest.swift */; };
+		01F33231270F3E45005CE21E /* RecycleBinViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3322D270F3D8D005CE21E /* RecycleBinViewModelTest.swift */; };
 		01F33234270F3E4E005CE21E /* RecycleBinEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F33226270F3D8B005CE21E /* RecycleBinEmptyStateViewModel.swift */; };
 		01F3323527146EF5005CE21E /* RecycleBinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F33228270F3D8C005CE21E /* RecycleBinViewModel.swift */; };
 		01F3323627146EF5005CE21E /* RecycleBinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F33227270F3D8B005CE21E /* RecycleBinViewController.swift */; };
@@ -1783,7 +1783,7 @@
 		01F33227270F3D8B005CE21E /* RecycleBinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinViewController.swift; sourceTree = "<group>"; };
 		01F33228270F3D8C005CE21E /* RecycleBinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinViewModel.swift; sourceTree = "<group>"; };
 		01F3322A270F3D8C005CE21E /* RecycleBinItemCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinItemCellModel.swift; sourceTree = "<group>"; };
-		01F3322D270F3D8D005CE21E /* RecycleBinModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinModelTest.swift; sourceTree = "<group>"; };
+		01F3322D270F3D8D005CE21E /* RecycleBinViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinViewModelTest.swift; sourceTree = "<group>"; };
 		01F3322F270F3D8D005CE21E /* TraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		01F33230270F3D8D005CE21E /* AddTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationExposureWindow.swift; sourceTree = "<group>"; };
@@ -4000,7 +4000,7 @@
 		01F3322C270F3D8C005CE21E /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
-				01F3322D270F3D8D005CE21E /* RecycleBinModelTest.swift */,
+				01F3322D270F3D8D005CE21E /* RecycleBinViewModelTest.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -9682,7 +9682,7 @@
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
 				BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */,
 				01915574268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift in Sources */,
-				01F33231270F3E45005CE21E /* RecycleBinModelTest.swift in Sources */,
+				01F33231270F3E45005CE21E /* RecycleBinViewModelTest.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
