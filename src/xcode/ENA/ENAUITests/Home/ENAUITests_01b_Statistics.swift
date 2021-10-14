@@ -317,8 +317,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssert(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .medium))
 		app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].cells.element(boundBy: 2).waitAndTap()
 		
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(appInformationLabel.waitForExistence(timeout: .medium))
+
 		app.swipeDown(velocity: .slow)
 		XCTAssert(self.app.staticTexts[localStatisticsTitle].waitForExistence(timeout: .medium))
 		snapshot("statistics_local_7day_values")
