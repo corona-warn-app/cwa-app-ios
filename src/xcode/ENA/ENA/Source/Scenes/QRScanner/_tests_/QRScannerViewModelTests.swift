@@ -51,7 +51,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -108,7 +109,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -160,7 +162,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -214,7 +217,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -268,7 +272,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
@@ -321,7 +326,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 
 		let validGuid = "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"

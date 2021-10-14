@@ -34,7 +34,7 @@ class HomeStatisticsCellModel {
 	}
 
 	// MARK: - Internal
-
+	
 	/// The default set of 'global' statistics for every user
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@DidSetPublished private(set) var regionStatisticsData = [RegionStatisticsData]()
@@ -53,5 +53,4 @@ class HomeStatisticsCellModel {
 	private let localStatisticsProvider: LocalStatisticsProviding
 
 	private var subscriptions = Set<AnyCancellable>()
-
 }

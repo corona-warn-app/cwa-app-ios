@@ -127,3 +127,12 @@ class RecycleBin {
 
 	private let store: RecycleBinStoring
 }
+
+extension RecycleBin {
+	static func fake() -> RecycleBin {
+		let recycleBin = RecycleBin(store: MockTestStore())
+		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.certificateRestorationHandler = CertificateRestorationHandlerFake()
+		return recycleBin
+	}
+}
