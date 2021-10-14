@@ -7,6 +7,10 @@ import OpenCombine
 import HealthCertificateToolkit
 import UserNotifications
 
+// global to access in unit tests
+// version will be used for migration logic
+public let kCurrentHealthCertifiedPersonsVersion = 1
+
 // swiftlint:disable:next type_body_length
 class HealthCertificateService {
 
@@ -382,6 +386,37 @@ class HealthCertificateService {
 		updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
 	}
 
+	func migration() {
+		// at the moment we only have 1 migration step
+		// if more is needed we should add a migration serial queue
+		let lastVersion = store.healthCertifiedPersonsVersion ?? 0
+		guard lastVersion < kCurrentHealthCertifiedPersonsVersion else {
+			Log.debug("Migration was done already - stop here")
+			return
+		}
+		defer {
+			// after leaving mark migration as done
+			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
+		}
+
+		// reinsert all health certificates will do the job (it uses the new groupingStandardizedName)
+		let originalInitialHealthCertifiedPersonsReadFromStore = initialHealthCertifiedPersonsReadFromStore
+		initialHealthCertifiedPersonsReadFromStore = false
+		let originalHealthCertifiedPersons = store.healthCertifiedPersons
+		healthCertifiedPersons.removeAll()
+		for person in originalHealthCertifiedPersons {
+			person.healthCertificates.forEach { healthCertificate in
+				Log.debug("Will register health certificate again")
+				registerHealthCertificate(base45: healthCertificate.base45)
+			}
+		}
+		if originalHealthCertifiedPersons != healthCertifiedPersons {
+			Log.debug("Did update grouping name of certificates")
+			store.healthCertifiedPersons = healthCertifiedPersons
+		}
+		initialHealthCertifiedPersonsReadFromStore = originalInitialHealthCertifiedPersonsReadFromStore
+	}
+
 	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
 		// .dropFirst: drops the first callback, which is called with default signing certificates.
 		// .first: only executes 1 element and no subsequent elements.
@@ -506,6 +541,8 @@ class HealthCertificateService {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setup() {
+
+		migration()
 		updatePublishersFromStore()
 
 		subscribeToNotifications()
