@@ -35,8 +35,6 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 					onItemTap(selectedItem)
 				}
 				stackView.addArrangedSubview(actionItemView)
-
-				accessibilityElements?.append(actionItemView as Any)
 			}
 		}
 
