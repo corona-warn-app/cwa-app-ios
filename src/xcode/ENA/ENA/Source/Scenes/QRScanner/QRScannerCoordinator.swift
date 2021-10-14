@@ -139,8 +139,20 @@ class QRScannerCoordinator {
 			switch qrCodeResult {
 			case let .coronaTest(testRegistrationInformation):
 				self?.showScannedTestResult(testRegistrationInformation)
-			case let .certificate(healthCertifiedPerson, healthCertificate):
-				self?.showScannedHealthCertificate(for: healthCertifiedPerson, with: healthCertificate)
+			case let .certificate(certificateResult):
+				if certificateResult.restoredFromBin {
+					self?.showRestoredFromBinAlert {
+						self?.showScannedHealthCertificate(
+							for: certificateResult.person,
+							with: certificateResult.certificate
+						)
+					}
+				} else {
+					self?.showScannedHealthCertificate(
+						for: certificateResult.person,
+						with: certificateResult.certificate
+					)
+				}
 			case let .traceLocation(traceLocation):
 				self?.showScannedCheckin(traceLocation)
 			}
@@ -300,6 +312,23 @@ class QRScannerCoordinator {
 		case .none:
 			break
 		}
+	}
+
+	private func showRestoredFromBinAlert(completion: @escaping () -> Void) {
+		let alert = UIAlertController(
+			title: "Zertifikat wiederherstellen",
+			message: "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Das Zertifikat wird aus dem Papierkorb wiederhergestellt.",
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default,
+				handler: { _ in
+					completion()
+				}
+			)
+		)
 	}
 	
 }

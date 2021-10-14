@@ -135,13 +135,21 @@ class HealthCertificateService {
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
 		markAsNew: Bool = false
-	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
+	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		// If the certificate is in the recycle bin, restore it and skip registration process.
 		if case let .certificate(healthCertificate) = recycleBin.item(for: base45) {
-			restore(healthCertificate: healthCertificate)
-			return .failure(.restoredFromBin)
+			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
+			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
+
+			return .success(
+				CertificateResult(
+					restoredFromBin: true,
+					person: healthCertifiedPerson,
+					certificate: healthCertificate
+				)
+			)
 		}
 
 		do {
@@ -175,7 +183,14 @@ class HealthCertificateService {
 			}
 
 			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
-			return .success((healthCertifiedPerson, healthCertificate))
+
+			return .success(
+				CertificateResult(
+					restoredFromBin: false,
+					person: healthCertifiedPerson,
+					certificate: healthCertificate
+				)
+			)
 
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
@@ -185,19 +200,19 @@ class HealthCertificateService {
 		}
 	}
 
-	func restore(healthCertificate: HealthCertificate) {
-		addHealthCertificate(
-			healthCertificate,
-			to: healthCertifiedPerson(for: healthCertificate)
-		)
-	}
-
 	func healthCertifiedPerson(for healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
 		healthCertifiedPersons
 			.first(where: {
 				$0.healthCertificates.first?.name.standardizedName == healthCertificate.name.standardizedName &&
 				$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
 			}) ?? HealthCertifiedPerson(healthCertificates: [])
+	}
+
+	func addHealthCertificate(_ healthCertificate: HealthCertificate) {
+		addHealthCertificate(
+			healthCertificate,
+			to: healthCertifiedPerson(for: healthCertificate)
+		)
 	}
 
 	func addHealthCertificate(_ healthCertificate: HealthCertificate, to healthCertifiedPerson: HealthCertifiedPerson) {
@@ -611,16 +626,16 @@ class HealthCertificateService {
 			if case let .success(base45) = firstDose {
 				let result = registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 
-				if case let .success((person, _)) = result,
+				if case let .success(certificateResult) = result,
 					LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
-					person.boosterRule = .fake(
+					certificateResult.person.boosterRule = .fake(
 						identifier: "EX-ID-005",
 						description: [
 							.fake(lang: "en", desc: "You may be eligible for a booster because your vaccination with Astra Zeneca was more than 5 months ago."),
 							.fake(lang: "de", desc: "Sie könnten für eine Auffrischungsimpfung berechtigt sein, da Ihre Impfung mit Astra Zeneca vor mehr als 5 Monaten war.")
 						]
 					)
-					person.isNewBoosterRule = true
+					certificateResult.person.isNewBoosterRule = true
 				}
 			}
 			
@@ -884,10 +899,10 @@ class HealthCertificateService {
 				)
 
 				switch registerResult {
-				case .success((_, let healthCertificate)):
+				case .success(let certificateResult):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(healthCertificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
+					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))

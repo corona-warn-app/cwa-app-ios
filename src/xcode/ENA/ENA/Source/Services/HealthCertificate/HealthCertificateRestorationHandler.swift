@@ -6,7 +6,7 @@ struct HealthCertificateRestorationHandler: CertificateRestorationHandling {
 
 	init(service: HealthCertificateService) {
 		self.restore = { healthCertificate in
-			service.restore(healthCertificate: healthCertificate)
+			service.addHealthCertificate(healthCertificate)
 		}
 	}
 

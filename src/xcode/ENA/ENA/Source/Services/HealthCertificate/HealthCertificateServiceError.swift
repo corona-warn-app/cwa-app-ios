@@ -12,7 +12,6 @@ enum HealthCertificateServiceError: Error {
 		case certificateAlreadyRegistered(HealthCertificate.CertificateType)
 		case certificateHasTooManyEntries
 		case invalidSignature(DCCSignatureVerificationError)
-		case restoredFromBin
 		case other(Error)
 
 		var errorDescription: String? {
@@ -65,8 +64,6 @@ enum HealthCertificateServiceError: Error {
 				return "\(AppStrings.HealthCertificate.Error.hcNotSupported) (HC_TOO_MANY_ENTRIES)"
 			case .invalidSignature(let error):
 				return "\(AppStrings.HealthCertificate.Error.invalidSignatureText) (\(error))"
-			case .restoredFromBin:
-				return "Restored from bin."
 			case .other(let error):
 				return error.localizedDescription
 

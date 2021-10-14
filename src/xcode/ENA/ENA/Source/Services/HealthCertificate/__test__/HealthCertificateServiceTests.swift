@@ -564,7 +564,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
 
-		// Move certificat to bin.
+		// Move certificate to bin.
 
 		let firstTestCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
