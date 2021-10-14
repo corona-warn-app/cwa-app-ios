@@ -204,6 +204,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.heightForRow(at: indexPath)
 	}
 
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 0
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return 0
+	}
+	
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
