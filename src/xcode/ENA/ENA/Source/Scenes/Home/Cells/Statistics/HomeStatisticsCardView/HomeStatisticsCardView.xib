@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -120,14 +120,14 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="T6u-5R-LOa">
-                                                    <rect key="frame" x="0.0" y="92.5" width="196.5" height="19"/>
+                                                    <rect key="frame" x="0.0" y="92.5" width="147" height="19"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7FW-D9-qZ5" customClass="StackViewLabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="19"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="19"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         </view>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="Pfeil_sinkend" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-im-uTD">
-                                                            <rect key="frame" x="177.5" y="0.0" width="19" height="19"/>
+                                                            <rect key="frame" x="128" y="0.0" width="19" height="19"/>
                                                             <accessibility key="accessibilityConfiguration">
                                                                 <bool key="isElement" value="YES"/>
                                                             </accessibility>
@@ -138,6 +138,10 @@
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zcJ-kF-WHL" userLabel="Secondary Subtitle Label" customClass="StackViewLabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="111.5" width="144" height="0.0"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DbG-Ia-Adu" userLabel="Spacer">
                                                     <rect key="frame" x="0.0" y="111.5" width="50" height="8"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -209,6 +213,7 @@
                 <outlet property="primaryTitleLabel" destination="6Nz-Lg-yxo" id="To7-Bh-cl8"/>
                 <outlet property="primaryTrendImageView" destination="5TC-4n-wbc" id="wav-uT-Iui"/>
                 <outlet property="primaryValueLabel" destination="tFm-rZ-EMS" id="824-l9-TcJ"/>
+                <outlet property="secondarySubtitleLabel" destination="zcJ-kF-WHL" id="Cuv-Sl-1tN"/>
                 <outlet property="secondaryTitleLabel" destination="8sM-Ox-qIC" id="pMc-zo-NYD"/>
                 <outlet property="secondaryTrendImageView" destination="nk6-im-uTD" id="0r3-zi-5Ci"/>
                 <outlet property="secondaryValueLabel" destination="7FW-D9-qZ5" id="vJu-f1-ant"/>
