@@ -1305,6 +1305,7 @@
 		BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */; };
 		BAD362EA271876B300B6F04B /* RegistrationTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD362E9271876B300B6F04B /* RegistrationTokenModel.swift */; };
 		BAD362EC2718792700B6F04B /* DccPublicKeyLocationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */; };
+		BAD362EE2718856000B6F04B /* RegistrationTokenLocationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADA5B50266574B900D76C1C /* BirthdayDatePickerCell.swift */; };
@@ -2782,6 +2783,7 @@
 		BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewTests.swift; sourceTree = "<group>"; };
 		BAD362E9271876B300B6F04B /* RegistrationTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenModel.swift; sourceTree = "<group>"; };
 		BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DccPublicKeyLocationResource.swift; sourceTree = "<group>"; };
+		BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenLocationResource.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		BADA5B50266574B900D76C1C /* BirthdayDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayDatePickerCell.swift; sourceTree = "<group>"; };
@@ -7317,6 +7319,7 @@
 			children = (
 				BA52A6A026EA1CBA00AA0732 /* AppConfigurationLocationResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesLocationResource.swift */,
+				BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */,
 				BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */,
 			);
 			path = LocationResource;
@@ -8836,6 +8839,7 @@
 				523D5E7A256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift in Sources */,
 				01FD3EDB25D2F0DF0049497A /* UserNotificationCenter.swift in Sources */,
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
+				BAD362EE2718856000B6F04B /* RegistrationTokenLocationResource.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				01164CD826C568F9007F9C3E /* OnBehalfThankYouViewModel.swift in Sources */,

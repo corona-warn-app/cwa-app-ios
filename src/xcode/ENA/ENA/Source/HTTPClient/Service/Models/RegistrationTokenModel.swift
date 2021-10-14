@@ -4,21 +4,12 @@
 
 import Foundation
 
-protocol PaddingJsonResource {
+protocol PaddingJsonResource: Encodable {
 	var requestPadding: String { get set }
 	var paddingCount: String { get }
 }
 
-struct RegistrationTokenModel: Encodable, PaddingJsonResource {
-
-	init(registrationToken: String) {
-		self.registrationToken = registrationToken
-	}
-
-	let registrationToken: String
-//	let publicKey: String?
-
-	var requestPadding: String = ""
+extension PaddingJsonResource {
 
 	var paddingCount: String {
 		let maxRequestPayloadSize = 250
@@ -28,5 +19,25 @@ struct RegistrationTokenModel: Encodable, PaddingJsonResource {
 		let paddingSize = maxRequestPayloadSize - paddedData.count
 		return String.getRandomString(of: max(0, paddingSize))
 	}
+}
+
+struct RegistrationTokenModel: PaddingJsonResource {
+
+	init(registrationToken: String) {
+		self.registrationToken = registrationToken
+	}
+
+	let registrationToken: String
+	var requestPadding: String = ""
+//	let publicKey: String?
+
+}
+
+struct KeyModel: PaddingJsonResource {
+
+	let key: String
+	let keyType: String
+	// ToDo optional dob?
+	var requestPadding: String = ""
 
 }

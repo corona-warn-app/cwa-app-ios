@@ -11,11 +11,14 @@ extension Locator {
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
-			endpoint: .distribution,
-			paths: ["version", "v1", "diagnosis-keys", "registrationToken"],
+			endpoint: .verification,
+			paths: ["version", "v1", "registrationToken"],
 			method: .post,
-			defaultHeaders: [fake: "cwa-fake", "": "cwa-header-padding"]
-			// TODO: Body is missing here
+			defaultHeaders: [
+				"Content-Type": "application/json",
+				"cwa-fake": fake,
+				"cwa-header-padding": ""
+			]
 		)
 	}
 
