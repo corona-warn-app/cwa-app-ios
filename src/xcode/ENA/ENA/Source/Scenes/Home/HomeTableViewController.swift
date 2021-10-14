@@ -629,7 +629,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreInfoTableViewCell.self), for: indexPath) as? HomeMoreInfoTableViewCell else {
 			fatalError("Could not dequeue HomeMoreInfoTableViewCell")
 		}
-		cell.configure(completion: { [weak self] selectedItem in
+		cell.configure(onItemTap: { [weak self] selectedItem in
 			guard let self = self else { return }
 			switch selectedItem {
 			case .settings:
