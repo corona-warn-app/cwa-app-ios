@@ -51,8 +51,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let result = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
 
 		switch result {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [vaccinationCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [vaccinationCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
@@ -200,8 +200,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate])
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
@@ -269,8 +269,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstTestCertificate, secondTestCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -299,8 +299,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -330,8 +330,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [secondVaccinationCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [secondVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -362,8 +362,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -392,8 +392,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstRecoveryCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [firstRecoveryCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -584,11 +584,11 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
-		guard case let .failure(error) = registrationResult,
-			  case .restoredFromBin = error else {
-				  XCTFail("restoredFromBin error expected.")
+		guard case let .success(certificateResult) = registrationResult else {
+				  XCTFail("certificateResult expected.")
 				  return
 		}
+		XCTAssertTrue(certificateResult.restoredFromBin)
 	}
 
 	func testValidityStateUpdate_Valid() throws {
@@ -1965,8 +1965,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
 		switch registrationResult {
-		case let .success((healthCertifiedPerson, _)):
-			XCTAssertEqual(healthCertifiedPerson.healthCertificates, [firstVaccinationCertificate])
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
