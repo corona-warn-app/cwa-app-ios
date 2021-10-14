@@ -112,6 +112,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			onSettingsCellTap: { [weak self] enState in
 				self?.showSettings(enState: enState)
 			},
+			onRecycleBinCellTap: { [weak self] in
+				self?.showRecycleBin()
+			},
 			showTestInformationResult: { [weak self] testInformationResult in
 				self?.showExposureSubmission(testInformationResult: testInformationResult)
 			},
