@@ -152,16 +152,12 @@ class HealthCertificateService {
 				}
 			}
 
-			let healthCertifiedPerson = healthCertifiedPersons
-				.first(where: {
-					$0.healthCertificates.first?.name.standardizedName == healthCertificate.name.standardizedName &&
-					$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
-				}) ?? HealthCertifiedPerson(healthCertificates: [])
-
 			if healthCertificate.hasTooManyEntries {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
 				return .failure(.certificateHasTooManyEntries)
 			}
+
+			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
@@ -172,26 +168,40 @@ class HealthCertificateService {
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
-			healthCertifiedPerson.healthCertificates.append(healthCertificate)
-			healthCertifiedPerson.healthCertificates.sort(by: <)
-
-			if !healthCertifiedPersons.contains(healthCertifiedPerson) {
-				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-				healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
-				updateValidityStatesAndNotifications()
-				updateGradients()
-			} else {
-				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
-			}
-			if healthCertificate.type != .test {
-				createNotifications(for: healthCertificate)
-			}
+			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
 			return .success((healthCertifiedPerson, healthCertificate))
+
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
 			return .failure(.decodingError(error))
 		} catch {
 			return .failure(.other(error))
+		}
+	}
+
+	func healthCertifiedPerson(for healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
+		healthCertifiedPersons
+			.first(where: {
+				$0.healthCertificates.first?.name.standardizedName == healthCertificate.name.standardizedName &&
+				$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
+			}) ?? HealthCertifiedPerson(healthCertificates: [])
+	}
+
+	func addHealthCertificate(_ healthCertificate: HealthCertificate, to healthCertifiedPerson: HealthCertifiedPerson) {
+
+		healthCertifiedPerson.healthCertificates.append(healthCertificate)
+		healthCertifiedPerson.healthCertificates.sort(by: <)
+
+		if !healthCertifiedPersons.contains(healthCertifiedPerson) {
+			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
+			healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
+			updateValidityStatesAndNotifications()
+			updateGradients()
+		} else {
+			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
+		}
+		if healthCertificate.type != .test {
+			createNotifications(for: healthCertificate)
 		}
 	}
 
@@ -1098,5 +1108,6 @@ class HealthCertificateService {
 
 		addNotification(request: request)
 	}
+
 	// swiftlint:disable:next file_length
 }

@@ -54,10 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
+		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
+
+		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
 		
@@ -436,12 +440,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService
 	)
 
-	private lazy var recycleBin: RecycleBin = {
-		let recycleBin = RecycleBin(store: store)
-		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
-		recycleBin.certificateRestorationHandler = CertificateRestorationHandlerFake()
-		return recycleBin
-	}()
+	private let recycleBin: RecycleBin
 
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -457,7 +456,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	#else
 	lazy var exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-
 
 	/// A set of required dependencies
 	///
