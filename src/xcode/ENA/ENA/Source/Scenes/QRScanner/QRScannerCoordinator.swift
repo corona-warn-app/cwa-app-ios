@@ -316,8 +316,8 @@ class QRScannerCoordinator {
 
 	private func showRestoredFromBinAlert(completion: @escaping () -> Void) {
 		let alert = UIAlertController(
-			title: "Zertifikat wiederherstellen",
-			message: "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Das Zertifikat wird aus dem Papierkorb wiederhergestellt.",
+			title: AppStrings.UniversalQRScanner.restoredFromBinAlertTitle,
+			message: AppStrings.UniversalQRScanner.restoredFromBinAlertMessage,
 			preferredStyle: .alert
 		)
 		alert.addAction(
