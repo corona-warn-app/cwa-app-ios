@@ -195,7 +195,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerView = UIView()
-		headerView.backgroundColor = .enaColor(for: .separator)
+
+		return headerView
+	}
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		let headerView = UIView()
 
 		return headerView
 	}
@@ -211,7 +216,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0
 	}
-	
+
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
