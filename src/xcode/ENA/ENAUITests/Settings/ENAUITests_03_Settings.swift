@@ -43,7 +43,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		XCTAssertTrue(app.images["AppStrings.Settings.backgroundAppRefreshImageDescription"].waitForExistence(timeout: 5.0))
 	}
 	
-	func test_screenshot_SettingsNotificationsOn() throws {
+	func test_SettingsNotificationsOn() throws {
 		app.setLaunchArgument(LaunchArguments.notifications.isNotificationsEnabled, to: true)
 		app.launch()
 				
@@ -62,14 +62,8 @@ class ENAUITests_03_Settings: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletPoint3].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.textViews[AccessibilityIdentifiers.NotificationSettings.bulletDesc2].waitForExistence(timeout: .short))
 		
-		var screenshotCounter = 0
-		let screenshotLabel = "screenshot_settings_notifications_on"
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 		app.swipeUp()
 		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
-
 		// Jump to system settings.
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
 		
@@ -78,7 +72,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
 	}
 	
-	func test_screenshot_SettingsNotificationsOff() throws {
+	func test_SettingsNotificationsOff() throws {
 		app.setLaunchArgument(LaunchArguments.notifications.isNotificationsEnabled, to: false)
 		app.launch()
 				
@@ -92,11 +86,6 @@ class ENAUITests_03_Settings: CWATestCase {
 		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOff].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.notificationsOff].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.bulletDescOff].waitForExistence(timeout: .short))
-		
-		var screenshotCounter = 0
-		let screenshotLabel = "screenshot_settings_notifications_on"
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 		
 		// Jump to system settings.
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()

@@ -4,71 +4,136 @@
 
 import UIKit
 import PhotosUI
+import PDFKit
 
-class FileScannerCoordinator {
+class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate, UIDocumentPickerDelegate {
 	
 	// MARK: - Init
 
 	init(
 		_ parentViewController: UIViewController,
-		qrCodeParser: QRCodeParsable,
+		viewModel: FileScannerProcessing,
 		qrCodeFound: @escaping (QRCodeResult) -> Void,
 		noQRCodeFound: @escaping () -> Void
 	) {
 		self.parentViewController = parentViewController
+		self.viewModel = viewModel
 		self.qrCodeFound = qrCodeFound
-		self.qrCodeParser = qrCodeParser
 		self.noQRCodeFound = noQRCodeFound
+	}
+
+	// MARK: - UIImagePickerControllerDelegate
+
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+		finishedPickingImage()
+
+		DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+			guard let self = self,
+				let image = info[.originalImage] as? UIImage
+			else {
+				Log.debug("No image found in user selection.", log: .fileScanner)
+				self?.presentSimpleAlert(.noQRCodeFound)
+				return
+			}
+
+			self.viewModel.scan(image)
+		}
+	}
+
+	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+		finishedPickingImage()
+	}
+
+	// MARK: - Protocol PHPickerViewControllerDelegate
+
+	@available(iOS 14, *)
+	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+		finishedPickingImage()
+
+		// There can only be one selected image, because the selectionLimit is set to 1.
+		guard let result = results.first else {
+			presentSimpleAlert(nil)
+			return
+		}
+		viewModel.processItemProvider(result.itemProvider)
+	}
+
+	// MARK: Protocol UIDocumentPickerDelegate
+
+	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+		Log.debug("User picked files for QR-Code scan.", log: .fileScanner)
+		// we can handle multiple documents here - nice
+		guard let url = urls.first else {
+			presentSimpleAlert(.noQRCodeFound)
+			Log.debug("We need to select a least one file")
+			return
+		}
+
+		if let image = UIImage(contentsOfFile: url.path) {
+			self.viewModel.scan(image)
+		} else if url.pathExtension.lowercased() == "pdf",
+				  let pdfDocument = PDFDocument(url: url) {
+			Log.debug("PDF picked, will scan for QR codes", log: .fileScanner)
+
+			// If the document is encrypted and locked, try to unlock it.
+			// The case where the document is locked, but not encrypted does not exist.
+			if pdfDocument.isEncrypted && pdfDocument.isLocked {
+				viewModel.unlockAndScan(pdfDocument)
+			} else {
+				viewModel.scan(pdfDocument)
+			}
+		} else {
+			Log.debug("User picked unknown filetype for QR-Code scan.", log: .fileScanner)
+			presentSimpleAlert(.fileNotReadable)
+		}
 	}
 
 	// MARK: - Internal
 	
 	func start() {
-		self.viewModel = FileScannerCoordinatorViewModel(
-			qrCodeParser: qrCodeParser,
-			finishedPickingImage: { [weak self] in
-				DispatchQueue.main.async {
-					self?.parentViewController?.dismiss(animated: true)
-				}
-			},
-			processingStarted: { [weak self] in
-				DispatchQueue.main.async {
-					self?.showIndicator()
-				}
-			},
-			processingFinished: { [weak self] qrCodeResult in
-				DispatchQueue.main.async {
-					self?.qrCodeFound(qrCodeResult)
-					self?.hideIndicator()
-				}
-			},
-			processingFailed: { [weak self] alertType in
-				DispatchQueue.main.async {
-					self?.hideIndicator()
-					self?.presentSimpleAlert(alertType)
-				}
-			},
-			missingPasswordForPDF: { [weak self] callback in
-				DispatchQueue.main.async {
-					self?.presentPasswordAlert(callback)
-				}
+
+		viewModel.processingStarted = { [weak self] in
+			DispatchQueue.main.async {
+				self?.showIndicator()
 			}
-		)
-		
+		}
+
+		viewModel.processingFinished = { [weak self] qrCodeResult in
+			DispatchQueue.main.async {
+				self?.qrCodeFound(qrCodeResult)
+				self?.hideIndicator()
+			}
+		}
+
+		viewModel.processingFailed = { [weak self] alertType in
+			self?.presentSimpleAlert(alertType)
+		}
+
+		viewModel.missingPasswordForPDF = { [weak self] callback in
+			DispatchQueue.main.async {
+				self?.presentPasswordAlert(callback)
+			}
+		}
+
 		presentActionSheet()
 	}
 
 	// MARK: - Private
+
 	private let activityIndicatorView = FileScannerIndicatorView()
 	private let duration = 0.45
+	private let parentViewController: UIViewController
+	private let qrCodeFound: (QRCodeResult) -> Void
+	private let noQRCodeFound: () -> Void
 
-	private var viewModel: FileScannerCoordinatorViewModel!
-	private var parentViewController: UIViewController?
-	private var qrCodeFound: (QRCodeResult) -> Void
-	private let qrCodeParser: QRCodeParsable
-	private var noQRCodeFound: () -> Void
-	private var rootViewController: UIViewController?
-	
+	private var viewModel: FileScannerProcessing
+
+	private func finishedPickingImage() {
+		DispatchQueue.main.async { [weak self] in
+			self?.parentViewController.dismiss(animated: true)
+		}
+	}
+
 	private func presentActionSheet() {
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		sheet.addAction(photoAction)
@@ -81,7 +146,7 @@ class FileScannerCoordinator {
 		sheet.addAction(
 			cancelAction
 		)
-		parentViewController?.present(sheet, animated: true)
+		parentViewController.present(sheet, animated: true)
 	}
 	
 	private lazy var photoAction: UIAlertAction = {
@@ -130,15 +195,15 @@ class FileScannerCoordinator {
 				configuration.selectionLimit = 1
 				
 				let picker = PHPickerViewController(configuration: configuration)
-				picker.delegate = self.viewModel
-				self.parentViewController?.present(picker, animated: true)
+				picker.delegate = self
+				self.parentViewController.present(picker, animated: true)
 			} else {
 				let pickerController = UIImagePickerController()
-				pickerController.delegate = self.viewModel
+				pickerController.delegate = self
 				pickerController.allowsEditing = false
 				pickerController.mediaTypes = ["public.image"]
 				pickerController.sourceType = .photoLibrary
-				self.parentViewController?.present(pickerController, animated: true)
+				self.parentViewController.present(pickerController, animated: true)
 			}
 		}
 	}
@@ -150,8 +215,8 @@ class FileScannerCoordinator {
 		} else {
 			pickerViewController = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
 		}
-		pickerViewController.delegate = viewModel
-		parentViewController?.present(pickerViewController, animated: true)
+		pickerViewController.delegate = self
+		parentViewController.present(pickerViewController, animated: true)
 	}
 
 	private func presentPhotoAccessAlert() {
@@ -171,7 +236,7 @@ class FileScannerCoordinator {
 				}
 			)
 		)
-		parentViewController?.present(alert, animated: true)
+		parentViewController.present(alert, animated: true)
 	}
 
 	private func presentPasswordAlert(_ completion: @escaping (String) -> Void) {
@@ -200,11 +265,11 @@ class FileScannerCoordinator {
 			}
 		)
 
-		parentViewController?.present(alert, animated: true)
+		parentViewController.present(alert, animated: true)
 	}
 
 	private func showIndicator() {
-		guard let parentView = parentViewController?.view else {
+		guard let parentView = parentViewController.view else {
 			Log.error("Failed to get parentViewController - stop", log: .fileScanner)
 			return
 		}
@@ -236,14 +301,16 @@ class FileScannerCoordinator {
 		animator.startAnimation()
 	}
 
-	private func presentSimpleAlert(_ error: FileScannerError) {
+	private func presentSimpleAlert(_ error: FileScannerError?) {
 		DispatchQueue.main.async { [weak self] in
-			guard let self = self else {
+			self?.hideIndicator()
+			guard let self = self,
+				  let error = error else {
 				Log.error("Failed to get strong self", log: .fileScanner)
 				return
 			}
 			let alert = self.alertWithOK(error)
-			self.parentViewController?.present(alert, animated: true)
+			self.parentViewController.present(alert, animated: true)
 		}
 	}
 

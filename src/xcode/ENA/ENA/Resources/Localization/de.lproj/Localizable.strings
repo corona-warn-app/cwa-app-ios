@@ -2068,7 +2068,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_IntensiveCare_Date" = "Bis %@";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung  aller betreibbaren Intensivbetten";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung aller betreibbaren Intensivbetten";
 
 /* Error */
 
@@ -3229,6 +3229,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "FileScanner_PasswordEntry_placeholder" = "Passwort";
 
 "FileScanner_PasswordError_title" = "Falsches Passwort";
+
+"FileScanner_AlreadyRegistered_title" = "Zertifikat schon registriert";
+
+"FileScanner_AlreadyRegistered_message" = "Das Zertifikat ist bereits in Ihrer App registriert.";
 
 "FileScanner_PasswordError_message" = "Bitte geben Sie ein gültiges Passwort ein.";
 

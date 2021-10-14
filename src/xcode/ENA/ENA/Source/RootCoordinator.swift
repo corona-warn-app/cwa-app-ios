@@ -5,7 +5,7 @@
 import UIKit
 
 /**
-	A delegate protocol for reseting the state of the app, when Reset functionality is used.
+	A delegate protocol for resetting the state of the app, when Reset functionality is used.
 */
 protocol CoordinatorDelegate: AnyObject {
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService)
@@ -17,7 +17,7 @@ protocol CoordinatorDelegate: AnyObject {
 	This class is the first point of contact for handling navigation inside the app.
 	It's supposed to be instantiated from `AppDelegate` or `SceneDelegate` and handed over the root view controller.
 	It instantiates view controllers with dependencies and presents them.
-	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transfering state).
+	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transferring state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
 class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDelegate {

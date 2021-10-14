@@ -310,7 +310,7 @@ class HomeStatisticsCardViewModel {
 		illustrationImage = UIImage(named: "Illu_Intensive_Care")
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
-			primaryValue = primaryFigure.formattedValue
+			primaryValue = primaryFigure.formattedValueWithPercent
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
 			primaryTitle = updateDate.formatted(
 				todayString: AppStrings.Statistics.Card.IntensiveCare.today,

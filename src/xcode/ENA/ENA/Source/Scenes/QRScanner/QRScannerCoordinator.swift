@@ -96,8 +96,10 @@ class QRScannerCoordinator {
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
 			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			markCertificateAsNew: markCertificateAsNew
 		)
+
+		let qrCodeDetector = QRCodeDetector()
 
 		var qrScannerViewController: QRScannerViewController!
 		qrScannerViewController = QRScannerViewController(
@@ -111,9 +113,13 @@ class QRScannerCoordinator {
 				self?.parentViewController?.dismiss(animated: true)
 			},
 			presentFileScanner: { [weak self] in
+				let viewModel = FileScannerCoordinatorViewModel(
+					qrCodeDetector: qrCodeDetector,
+					qrCodeParser: qrCodeParser
+				)
 				self?.fileScannerCoordinator = FileScannerCoordinator(
 					qrScannerViewController,
-					qrCodeParser: qrCodeParser,
+					viewModel: viewModel,
 					qrCodeFound: { [weak self] qrCodeResult in
 						self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 						self?.fileScannerCoordinator = nil
@@ -177,6 +183,7 @@ class QRScannerCoordinator {
 				return
 			}
 
+			let markNewlyAddedCoronaTestAsUnseen: Bool = presenter != .universalScanner(.home)
 			let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 				parentViewController: parentViewController,
 				exposureSubmissionService: exposureSubmissionService,
@@ -190,7 +197,7 @@ class QRScannerCoordinator {
 				qrScannerCoordinator: self
 			)
 
-			exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+			exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: markNewlyAddedCoronaTestAsUnseen)
 		case .none:
 			break
 		}

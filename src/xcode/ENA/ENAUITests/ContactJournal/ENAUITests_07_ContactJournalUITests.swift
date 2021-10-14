@@ -478,10 +478,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 	
-	// MARK: - Screenshots
-	
-	func test_screenshot_Overview() throws {
-		var screenshotCounter = 0
+	func test_Overview() throws {
 		// setting up launch arguments
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
@@ -490,49 +487,9 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// navigate to desired screen
 		navigateToJournalOverview()
-		
-		// take screenshot from overview cell with high encounter risk and high checkin risk
-		snapshot("contact_journal_overview_high_risks_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
-		var screenshotCounter = 0
-		// setting up launch arguments
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
-		
-		// navigate to desired screen
-		navigateToJournalOverview()
-		
-		// select first cell
-		app.cells.element(boundBy: 1).waitAndTap()
-		
-		// add a person
-		addPersonToDayEntry("Andrea")
-		
-		// add a person
-		addPersonToDayEntry("Michael")
-		
-		// switch to places
-		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
-		
-		// add a location
-		addLocationToDayEntry("Physiotherapie")
-		
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-		
-		app.swipeDown()
-		// take screenshot
-		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		app.swipeUp()
-		// take screenshot
-		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func test_screenshot_AddTwoPersonsAndOneLocationToDate() throws {
-		var screenshotCounter = 0
+	func test_AddTwoPersonsAndOneLocationToDate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 
@@ -570,7 +527,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		XCTAssertEqual(dayTableView.cells.count, 2)
 
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-		snapshot("contact_journal_listing2_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// check count for overview: day cell 15 days plus 1 description cell
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
@@ -580,7 +536,40 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
 		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
-		// XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
+	}
+	
+	// MARK: - Screenshots
+	
+	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
+		var screenshotCounter = 0
+		// setting up launch arguments
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.cells.element(boundBy: 1).waitAndTap()
+		
+		// add a person
+		addPersonToDayEntry("Andrea")
+		
+		// add a person
+		addPersonToDayEntry("Michael")
+		
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
+		
+		// add a location
+		addLocationToDayEntry("Physiotherapie")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
+		
+		app.swipeDown()
+		// take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_ContactJournalInformation() throws {
@@ -595,14 +584,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
-
-		app.swipeUp(velocity: .fast)
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		app.swipeUp(velocity: .fast)
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_AddTwoPersonsTwoLocations() throws {
@@ -739,7 +720,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 	}
 
 	/// we will search for the given identifier inside a scrollable element
-	/// scroll and collect all visible elements until the collection doen't change
+	/// scroll and collect all visible elements until the collection doesn't change
 	private func search(_ identifier: String, element: XCUIElement) -> XCUIElement? {
 		var allElementsFound = false
 		var lastLoopSeenElements: [String] = []

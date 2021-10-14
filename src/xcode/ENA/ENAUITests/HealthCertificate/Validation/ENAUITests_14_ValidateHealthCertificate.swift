@@ -24,7 +24,54 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 	var app: XCUIApplication!
 
 	// MARK: - Tests
+	
+	func test_validation_result_valid() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.invalidCertificateCheck, to: false)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
+
+		// Open Validation Screen
+		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
+
+		// Tap on Date Time Selection
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap(.extraLong)
+		
+		// Tap on Check button
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+	}
+	
+	func test_validation_result_invalid() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.invalidCertificateCheck, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
+
+		// Open Validation Screen
+		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
+
+		// Tap on Date Time Selection
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap()
+		
+		// Tap on button to validate
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+	}
+	
+	// MARK: - Screenshots
+	
 	func test_screenshot_validation_country_picker() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
@@ -71,51 +118,5 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		snapshot("screenshot_certificate_validation_date_selection")
 	}
 	
-	func test_screenshot_validation_result_valid() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.invalidCertificateCheck, to: false)
-		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.launch()
-		
-		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		// Navigate to the person screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
-
-		// Open Validation Screen
-		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
-
-		// Tap on Date Time Selection
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap(.extraLong)
-		
-		// Tap on Check button
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-
-		snapshot("screenshot_certificate_validation_result_valid")
-	}
-	
-	func test_screenshot_validation_result_invalid() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.invalidCertificateCheck, to: true)
-		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.launch()
-		
-		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-
-		// Navigate to the person screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
-
-		// Open Validation Screen
-		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
-
-		// Tap on Date Time Selection
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Validation.dateTimeSelection].waitAndTap()
-		
-		// Tap on button to validate
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
-
-		snapshot("screenshot_certificate_validation_result_invalid")
-	}
 }

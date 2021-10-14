@@ -103,7 +103,7 @@ class DMPPACViewController: UITableViewController {
 
 	@objc
 	private func didTapShareButton() {
-		// the device toke gets generated every time, tt's not stored
+		// the device token gets generated every time, tt's not stored
 		guard let deviceToken = viewModel.deviceTokenText else {
 			let alert = UIAlertController(
 				title: "Missing device token",

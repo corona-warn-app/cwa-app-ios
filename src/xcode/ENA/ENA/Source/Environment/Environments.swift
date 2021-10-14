@@ -1,4 +1,4 @@
-// Local configuation
+// Local configuration
 
 import Foundation
 
@@ -9,7 +9,7 @@ struct Map: Codable {
 }
 
 struct EnvironmentData: Codable {
-	/// Environemnt name
+	/// Environment name
 	let name: String
 
 	// Hosts

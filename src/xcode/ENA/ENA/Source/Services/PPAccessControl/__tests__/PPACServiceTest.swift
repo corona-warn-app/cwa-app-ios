@@ -115,7 +115,7 @@ class PPACServiceTest: CWATestCase {
 				XCTAssertEqual(store.ppacApiTokenEdus?.token, ppaToken.apiToken)
 
 			case .failure:
-				XCTFail("Unexpected error happend")
+				XCTFail("Unexpected error happened")
 			}
 		})
 

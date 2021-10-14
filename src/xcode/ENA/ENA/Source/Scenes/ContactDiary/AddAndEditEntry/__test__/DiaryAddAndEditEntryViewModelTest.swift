@@ -108,7 +108,7 @@ class DiaryAddAndEditEntryViewModelTest: CWATestCase {
 		// THEN
 		XCTAssertTrue(name.isEmpty, "should init with empty name")
 		XCTAssertTrue(phone.isEmpty, "should init with empty phonenumber")
-		XCTAssertTrue(email.isEmpty, "should init with empty email addess")
+		XCTAssertTrue(email.isEmpty, "should init with empty email address")
 	}
 	
 	func testGIVEN_ContactPerson_WHEN_resetName_THEN_TextIsEmpty() {
@@ -383,7 +383,7 @@ class DiaryAddAndEditEntryViewModelTest: CWATestCase {
 				.contactPerson(DiaryContactPerson(id: 0, name: "Nick Gündling", emailAddress: "email@test.de")),
 				.contactPerson(DiaryContactPerson(id: 9, name: "Omar Ahmed", phoneNumber: "987456")),
 				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause", phoneNumber: "123456")),
-				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali", emailAddress: "unkown"))
+				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali", emailAddress: "unknown"))
 			],
 			tests: []
 		)

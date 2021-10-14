@@ -3106,11 +3106,15 @@
 
 "FileScanner_PasswordEntry_title" = "Dosya Parola Korumalı";
 
-"FileScanner_PasswordEntry_message" = "Parolanızı girin.";
+"FileScanner_PasswordEntry_message" = "Lütfen parolanızı girin.";
 
 "FileScanner_PasswordEntry_placeholder" = "Parola";
 
 "FileScanner_PasswordError_title" = "Parola Yanlış";
+
+"FileScanner_AlreadyRegistered_title" = "Sertifika Zaten Kayıtlı";
+
+"FileScanner_AlreadyRegistered_message" = "Sertifika zaten uygulamanıza kaydedilmiş.";
 
 "FileScanner_PasswordError_message" = "Lütfen geçerli bir parola girin.";
 

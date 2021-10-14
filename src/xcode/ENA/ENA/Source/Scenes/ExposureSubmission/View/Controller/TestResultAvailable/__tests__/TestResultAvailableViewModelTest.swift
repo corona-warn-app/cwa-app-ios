@@ -12,7 +12,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 
 		let client = ClientMock()
@@ -57,7 +57,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 	
 	func testGIVEN_ViewModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellMatchExpectation() {
 		// GIVEN
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
@@ -112,7 +112,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
 		// GIVEN
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 

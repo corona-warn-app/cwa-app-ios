@@ -45,6 +45,8 @@ extension OSLog {
 	static let localStatistics = OSLog(subsystem: subsystem, category: "localStatistics")
 	/// Filescanner
 	static let fileScanner = OSLog(subsystem: subsystem, category: "fileScanner")
+	/// Onboarding
+	static let onboarding = OSLog(subsystem: subsystem, category: "onboarding")
 }
 
 /// Logging
@@ -72,7 +74,7 @@ extension OSLog {
 /// - TAN Code for submission
 /// ```
 /// Log.debug("some key \(private: "some sensitive values")")
-/// Log.debug("some key \(private: "some sensitive values", public: "explination what data is censored here")")
+/// Log.debug("some key \(private: "some sensitive values", public: "explanation what data is censored here")")
 ///
 /// ```
 enum Log {

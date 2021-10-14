@@ -93,7 +93,7 @@ The following channels are available for discussions, feedback, and support requ
 
 ## Data privacy
 
-For the possibility to read and export the log files which are created and filled at using the app, we ensure respecting the data privacy by censoring private informations (e.g. names of people in the contact journal). To ensure an efficent bug fixing on the side of the developers and testers, the corresponding information is still logged but marked as private. This affects that in release builds for the general public, the logged information is replaced by '🙈🙉🙊'. It may appear an additional text which explains what information is censored at this point.
+For the possibility to read and export the log files which are created and filled at using the app, we ensure respecting the data privacy by censoring private information (e.g. names of people in the contact journal). To ensure an efficient bug fixing on the side of the developers and testers, the corresponding information is still logged but marked as private. This affects that in release builds for the general public, the logged information is replaced by '🙈🙉🙊'. It may appear an additional text which explains what information is censored at this point.
 
 ## How to Contribute
 
