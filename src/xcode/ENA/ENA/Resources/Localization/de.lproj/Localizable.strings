@@ -1319,7 +1319,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Info Card */
 
-"Home_AppInformationCard_Title" = "App-Information";
+"Home_AppInformationCard_Title" = "App-Informationen";
 
 "Home_AppInformationCard_Version" = "Version";
 
