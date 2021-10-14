@@ -1281,6 +1281,8 @@
 
 /* Home Info Card */
 
+"Home_AppInformationCard_Title" = "App-Information";
+
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home More Card */
