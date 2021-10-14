@@ -129,8 +129,8 @@ class RecycleBin {
 }
 
 extension RecycleBin {
-	static func fake() -> RecycleBin {
-		let recycleBin = RecycleBin(store: MockTestStore())
+	static func fake(store: RecycleBinStoring = MockTestStore()) -> RecycleBin {
+		let recycleBin = RecycleBin(store: store)
 		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
 		recycleBin.certificateRestorationHandler = CertificateRestorationHandlerFake()
 		return recycleBin

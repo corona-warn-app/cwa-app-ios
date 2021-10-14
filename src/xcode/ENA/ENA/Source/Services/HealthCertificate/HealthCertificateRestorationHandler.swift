@@ -5,11 +5,8 @@
 struct HealthCertificateRestorationHandler: CertificateRestorationHandling {
 
 	init(service: HealthCertificateService) {
-		self.service = service
-
-		self.restore  = { certificate in
-			let healthCertifiedPerson = service.healthCertifiedPerson(for: certificate)
-			service.addHealthCertificate(certificate, to: healthCertifiedPerson)
+		self.restore = { healthCertificate in
+			service.restore(healthCertificate: healthCertificate)
 		}
 	}
 
@@ -18,6 +15,4 @@ struct HealthCertificateRestorationHandler: CertificateRestorationHandling {
 	}
 
 	var restore: ((HealthCertificate) -> Void)
-
-	private let service: HealthCertificateService
 }

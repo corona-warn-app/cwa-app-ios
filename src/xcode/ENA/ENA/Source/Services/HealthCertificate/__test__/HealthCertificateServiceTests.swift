@@ -545,6 +545,52 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(service.healthCertifiedPersons.isEmpty)
 	}
 
+	func testRestoreCertificateFromRecycleBin() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+		let recycleBin = RecycleBin.fake(store: store)
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			),
+			recycleBin: recycleBin
+		)
+
+		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
+
+		// Move certificat to bin.
+
+		let firstTestCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				testEntries: [TestEntry.fake(
+					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
+					uniqueCertificateIdentifier: "0"
+				)]
+			),
+			and: .fake(expirationTime: .distantFuture)
+		)
+		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
+
+		recycleBin.moveToBin(.certificate(firstTestCertificate))
+
+		// registerHealthCertificate() should restore the certificate from bin and return .restoredFromBin error.
+
+		let registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+
+		guard case let .failure(error) = registrationResult,
+			  case .restoredFromBin = error else {
+				  XCTFail("restoredFromBin error expected.")
+				  return
+		}
+	}
+
 	func testValidityStateUpdate_Valid() throws {
 		let expirationThresholdInDays = 14
 		let expiringSoonDate = Calendar.current.date(
