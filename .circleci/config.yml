@@ -256,16 +256,6 @@ workflows:
         - test:
             matrix:
               parameters:
-                testplan: ["UnitTests"]
-            requires:
-              - build-for-testing
-            filters:
-              branches:
-                ignore:
-                  - /release\/.*/
-        - test:
-            matrix:
-              parameters:
                 testplan: ["UITests"]
             requires:
               - build-for-testing
@@ -276,7 +266,7 @@ workflows:
         - test:
             matrix:
               parameters:
-                testplan: ["OnboardingUITests"]
+                testplan: ["UnitTests", "AntigenTestProfileUITests", "AppInformationUITests", "CheckInsUITests", "ContactJournalUITests", "CreateHealthCertificateUITests", "DataDonationUITests", "DeltaOnboardingUITests", "ExposureDetectionUITests", "ExposureLoggingUITests", "ExposureSubmissionUITests", "FileScannerUITests", "HomeUITests", "OnBehalfCheckinSubmissionUITests", "OnboardingUITests", "QuickActionsUITests", "SettingsUITests", "StatisticsUITests", "TraceLocationsUITests", "UniversalQRCodeScannerUITests", "UpdateOSUITests", "ValidateHealthCertificateUITests"]
             requires:
               - build-for-testing
             filters:
