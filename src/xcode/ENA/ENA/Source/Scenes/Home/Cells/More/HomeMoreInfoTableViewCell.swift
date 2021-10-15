@@ -11,26 +11,36 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		self.accessibilityIdentifier = AccessibilityIdentifiers.Home.MoreInfoCell.moreCell
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.MoreInfoCell.moreCell
+		isAccessibilityElement = false
+
+
 	}
 	
 	// MARK: - Internal
 	
-	func configure(completion: @escaping ((MoreInfoItem) -> Void)) {
-		if !isCellConfigured {
-			for item in MoreInfoItem.allCases {
-				let nibName = String(describing: MoreActionItemView.self)
-				let nib = UINib(nibName: nibName, bundle: .main)
-				
-				if let actionItemView = nib.instantiate(withOwner: self, options: nil).first as? MoreActionItemView {
-					actionItemView.configure(actionItem: item) { selectedItem in
-						completion(selectedItem)
-					}
-					stackView.addArrangedSubview(actionItemView)
-				}
-			}
-			isCellConfigured = true
+	func configure(onItemTap: @escaping ((MoreInfoItem) -> Void)) {
+		guard !isCellConfigured else {
+			return
 		}
+
+		titleLabel.text = AppStrings.Home.MoreInfoCard.title
+
+		for item in MoreInfoItem.allCases {
+			let nibName = String(describing: MoreActionItemView.self)
+			let nib = UINib(nibName: nibName, bundle: .main)
+
+			if let actionItemView = nib.instantiate(withOwner: self, options: nil).first as? MoreActionItemView {
+				actionItemView.configure(actionItem: item) { selectedItem in
+					onItemTap(selectedItem)
+				}
+				stackView.addArrangedSubview(actionItemView)
+			}
+		}
+
+		accessibilityElements = [titleLabel as Any] + stackView.arrangedSubviews
+
+		isCellConfigured = true
 	}
 	
 	// MARK: - Private

@@ -195,7 +195,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerView = UIView()
-		headerView.backgroundColor = .enaColor(for: .separator)
+
+		return headerView
+	}
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		let headerView = UIView()
 
 		return headerView
 	}
@@ -211,7 +216,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0
 	}
-	
+
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -624,7 +629,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreInfoTableViewCell.self), for: indexPath) as? HomeMoreInfoTableViewCell else {
 			fatalError("Could not dequeue HomeMoreInfoTableViewCell")
 		}
-		cell.configure(completion: { [weak self] selectedItem in
+		cell.configure(onItemTap: { [weak self] selectedItem in
 			guard let self = self else { return }
 			switch selectedItem {
 			case .settings:
