@@ -49,13 +49,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
 		rightBarButton.accessibilityLabel = AppStrings.ContactDiary.Overview.menuButtonTitle
 		rightBarButton.tintColor = .enaColor(for: .tint)
-		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		// navigationbar is a shared property - so we need to trigger a resizing because others could have set it to false
-		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.setRightBarButton(rightBarButton, animated: false)
+		navigationItem.setHidesBackButton(true, animated: false)
 		navigationController?.navigationBar.sizeToFit()
 	}
 

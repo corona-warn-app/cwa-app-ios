@@ -27,24 +27,28 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 
 	// MARK: - Overrides
 
+	override var navigationController: DismissHandlingNavigationController? {
+		return super.navigationController as? DismissHandlingNavigationController
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-			dismissHandlingNC.setupTransparentNavigationBar()
-		}
-
-		if let parent = parent, !parent.isKind(of: UINavigationController.self) {
-			parent.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-			parent.navigationItem.hidesBackButton = true
-			parent.navigationItem.largeTitleDisplayMode = .never
-		} else {
-			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-			navigationItem.hidesBackButton = true
-			navigationItem.largeTitleDisplayMode = .never
-		}
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.largeTitleDisplayMode = .never
 
 		setupTableView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.setupTransparentNavigationBar()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.restoreOriginalNavigationBar()
 	}
 
 	// MARK: - DismissHandling

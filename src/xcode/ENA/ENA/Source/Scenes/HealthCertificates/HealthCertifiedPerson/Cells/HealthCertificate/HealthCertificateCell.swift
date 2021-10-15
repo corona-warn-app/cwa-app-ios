@@ -24,7 +24,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
-		updateBorderWidth()
+		updateBorder()
 	}
 
 	// MARK: - Internal
@@ -37,7 +37,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		subheadlineLabel.text = cellViewModel.subheadline
 		detailsLabel.text = cellViewModel.detail
 
+		validityStateInfoLabel.text = cellViewModel.validityStateInfo
+		validityStateInfoLabel.isHidden = cellViewModel.validityStateInfo == nil
+
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
+		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 
 		setupAccessibility()
 	}
@@ -47,13 +51,17 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let backgroundContainerView = UIView()
 	private let disclosureContainerView = UIView()
 	private let disclosureImageView = UIImageView()
-	private let headlineLabel = ENALabel()
-	private let subheadlineLabel = ENALabel()
-	private let detailsLabel = ENALabel()
+
+	private let headlineLabel = ENALabel(style: .headline)
+	private let subheadlineLabel = ENALabel(style: .body)
+	private let detailsLabel = ENALabel(style: .body)
+	private let validityStateInfoLabel = ENALabel(style: .body)
+
 	private let currentlyUsedStackView = UIStackView()
 	private let currentlyUsedImageView = UIImageView()
 	private let currentlyUsedLabel = ENALabel()
 	private let iconImageView = UIImageView()
+	private let unseenNewsIndicator = CertificateBadgeView()
 	private let gradientBackground = GradientView()
 
 	private func setupView() {
@@ -70,12 +78,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		backgroundContainerView.layer.cornerRadius = 15.0
 		backgroundContainerView.layer.masksToBounds = true
-		updateBorderWidth()
+		updateBorder()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
-		headlineLabel.style = .headline
 		headlineLabel.numberOfLines = 0
 		headlineLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
@@ -92,17 +99,18 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineStackView.axis = .horizontal
 		headlineStackView.spacing = 8
 
-		subheadlineLabel.style = .body
 		subheadlineLabel.textColor = .enaColor(for: .textPrimary2)
 		subheadlineLabel.numberOfLines = 0
 
-		detailsLabel.style = .body
 		detailsLabel.textColor = .enaColor(for: .textPrimary2)
 		detailsLabel.numberOfLines = 0
 
 		let subheadlineDetailsStackView = UIStackView(arrangedSubviews: [subheadlineLabel, detailsLabel])
 		subheadlineDetailsStackView.axis = .vertical
 		subheadlineDetailsStackView.spacing = 0
+
+		validityStateInfoLabel.textColor = .enaColor(for: .textPrimary1)
+		validityStateInfoLabel.numberOfLines = 0
 
 		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
 		currentlyUsedImageView.contentMode = .scaleAspectFit
@@ -119,11 +127,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		currentlyUsedStackView.alignment = .top
 		currentlyUsedStackView.spacing = 6
 
-		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView, currentlyUsedStackView])
+		let vStackView = UIStackView(arrangedSubviews: [headlineStackView, subheadlineDetailsStackView, validityStateInfoLabel, currentlyUsedStackView])
 		vStackView.axis = .vertical
 		vStackView.spacing = 6
 
-		gradientBackground.type = .solidGrey
+		gradientBackground.type = .solidGrey(withStars: false)
 		gradientBackground.translatesAutoresizingMaskIntoConstraints = false
 		if #available(iOS 13.0, *) {
 			gradientBackground.layer.cornerCurve = .continuous
@@ -143,6 +151,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		hStackView.alignment = .top
 		backgroundContainerView.addSubview(hStackView)
 
+		unseenNewsIndicator.backgroundColor = .systemRed
+		unseenNewsIndicator.translatesAutoresizingMaskIntoConstraints = false
+		backgroundContainerView.insertSubview(unseenNewsIndicator, aboveSubview: gradientBackground)
+
 		NSLayoutConstraint.activate(
 			[
 				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4.0),
@@ -157,6 +169,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				iconImageView.heightAnchor.constraint(equalTo: gradientBackground.heightAnchor),
 				iconImageView.centerXAnchor.constraint(equalTo: gradientBackground.centerXAnchor),
 				iconImageView.centerYAnchor.constraint(equalTo: gradientBackground.centerYAnchor),
+
+				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 15),
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 15),
+				unseenNewsIndicator.centerXAnchor.constraint(equalTo: gradientBackground.trailingAnchor, constant: -4),
+				unseenNewsIndicator.centerYAnchor.constraint(equalTo: gradientBackground.topAnchor, constant: 4),
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),
@@ -186,7 +203,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
-	private func updateBorderWidth() {
+	private func updateBorder() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 

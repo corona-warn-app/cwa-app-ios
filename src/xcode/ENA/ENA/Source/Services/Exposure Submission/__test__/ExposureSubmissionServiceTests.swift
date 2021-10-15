@@ -5,6 +5,7 @@
 @testable import ENA
 import ExposureNotification
 import XCTest
+import HealthCertificateToolkit
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
@@ -30,8 +31,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -104,8 +110,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: mockStore,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: mockStore, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -153,8 +164,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -209,8 +225,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -259,8 +280,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -309,8 +335,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -361,8 +392,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -410,8 +446,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -459,8 +500,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -508,8 +554,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -553,8 +604,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -600,8 +656,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -653,8 +714,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -724,8 +790,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -776,8 +847,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -832,8 +908,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -886,8 +967,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfigurationProvider
+				appConfiguration: appConfigurationProvider,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(

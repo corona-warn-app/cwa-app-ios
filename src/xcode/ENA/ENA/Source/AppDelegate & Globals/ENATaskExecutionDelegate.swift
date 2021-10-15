@@ -5,6 +5,8 @@
 import BackgroundTasks
 import Foundation
 import UIKit
+import HealthCertificateToolkit
+import OpenCombine
 
 class TaskExecutionHandler: ENATaskExecutionDelegate {
 
@@ -12,26 +14,30 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	init(
 		riskProvider: RiskProvider,
+		exposureManager: ExposureManager,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
 		eventStore: EventStoring,
 		eventCheckoutService: EventCheckoutService,
 		store: Store,
-		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.riskProvider = riskProvider
-		self.pdService = plausibleDeniabilityService
+		self.exposureManager = exposureManager
+		self.plausibleDeniabilityService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
+		self.healthCertificateService = healthCertificateService
 	}
 
 
 	// MARK: - Protocol ENATaskExecutionDelegate
 
-	var pdService: PlausibleDeniability
+	var plausibleDeniabilityService: PlausibleDeniability
 	var dependencies: ExposureSubmissionServiceDependencies
 	var contactDiaryStore: DiaryStoring
 
@@ -43,13 +49,20 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	///         This will set the background task state to _completed_. We only mark the task as incomplete
 	///         when the OS calls the expiration handler before all tasks were able to finish.
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
-		Log.info("Starting background task…", log: .background)
+		Log.info("Starting background task...", log: .background)
+
+		guard store.isOnboarded else {
+			Log.info("Cancelling background task because user is not onboarded yet.", log: .background)
+
+			completion(true)
+			return
+		}
 
 		let group = DispatchGroup()
 
 		group.enter()
 		DispatchQueue.global().async {
-			Log.info("Starting ExposureDetection…", log: .background)
+			Log.info("Starting ExposureDetection...", log: .background)
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
 				
@@ -57,28 +70,28 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Trying to submit TEKs…", log: .background)
+					Log.info("Trying to submit TEKs...", log: .background)
 					self.executeSubmitTemporaryExposureKeys { _ in
 						group.leave()
-						Log.info("Done submitting TEKs…", log: .background)
+						Log.info("Done submitting TEKs...", log: .background)
 					}
 				}
 
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Trying to fetch TestResults…", log: .background)
+					Log.info("Trying to fetch TestResults...", log: .background)
 					self.executeFetchTestResults { _ in
 						group.leave()
-						Log.info("Done fetching TestResults…", log: .background)
+						Log.info("Done fetching TestResults...", log: .background)
 					}
 				}
 
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Starting FakeRequests…", log: .background)
-					self.pdService.executeFakeRequests {
+					Log.info("Starting FakeRequests...", log: .background)
+					self.plausibleDeniabilityService.executeFakeRequests {
 						group.leave()
-						Log.info("Done sending FakeRequests…", log: .background)
+						Log.info("Done sending FakeRequests...", log: .background)
 					}
 				}
 
@@ -114,9 +127,25 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 						Log.info("Done triggering analytics submission…", log: .background)
 					}
 				}
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Check for invalid certificates", log: .background)
+					self.checkCertificateValidityStates {
+						group.leave()
+						Log.info("Done checking for invalid certificates.", log: .background)
+					}
+				}
+				
+				group.enter()
+				DispatchQueue.global().async {
+					Log.info("Check if Booster Notifications need to be downloaded.", log: .background)
+					self.executeBoosterNotificationsCreation {
+						group.leave()
+						Log.info("Done Checking if Booster Notifications should download …", log: .background)
+					}
+				}
 				
 				group.leave() // Leave from the Exposure detection
-
 			}
 		}
 		
@@ -132,9 +161,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	// MARK: - Private
 
+	private let exposureManager: ExposureManager
 	private let backgroundTaskConsumer = RiskConsumer()
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
+	private let healthCertificateService: HealthCertificateService
+	private var subscriptions = Set<AnyCancellable>()
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
@@ -185,17 +217,20 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
+		
 		// First check if user activated notification setting
-		guard self.dependencies.store.allowTestsStatusNotification else {
-			completion(false)
-			return
-		}
-
-		dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
-			switch result {
-			case .success:
-				completion(true)
-			case .failure:
+		UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+			if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+				self?.dependencies.coronaTestService.updateTestResults(force: false, presentNotification: true) { result in
+					switch result {
+					case .success:
+						completion(true)
+					case .failure:
+						completion(false)
+					}
+				}
+			} else {
+				Log.info("[ENATaskExecutionDelegate] Cancel updating test results. User deactivated notification setting.", log: .riskDetection)
 				completion(false)
 			}
 		}
@@ -263,7 +298,17 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
 
-		riskProvider.requestRisk(userInitiated: false)
+		if exposureManager.exposureManagerState.status == .unknown {
+			exposureManager.activate { [weak self] error in
+				if let error = error {
+					Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+				}
+
+				self?.riskProvider.requestRisk(userInitiated: false)
+			}
+		} else {
+			riskProvider.requestRisk(userInitiated: false)
+		}
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
@@ -278,5 +323,20 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			}
 			completion()
 		})
+	}
+	
+	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
+		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
+			guard let errorMessage = errorMessage else {
+				return
+			}
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		})
+		completion()
+	}
+	
+	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
 	}
 }

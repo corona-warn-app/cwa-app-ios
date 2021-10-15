@@ -11,15 +11,16 @@ class HealthCertificateViewModelTests: CWATestCase {
 	func testGIVEN_HealthCertificateViewModel_TableViewSection_THEN_SectionsAreCorrect() {
 
 		// THEN
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.numberOfSections, 7)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.numberOfSections, 8)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(0), .headline)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(1), .qrCode)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(2), .topCorner)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(3), .details)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(4), .bottomCorner)
 		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(5), .vaccinationOneOfOneHint)
-		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(6), .additionalInfo)
-		XCTAssertNil(HealthCertificateViewModel.TableViewSection.map(7))
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(6), .expirationDate)
+		XCTAssertEqual(HealthCertificateViewModel.TableViewSection.map(7), .additionalInfo)
+		XCTAssertNil(HealthCertificateViewModel.TableViewSection.map(8))
 	}
 
 	func testGIVEN_Vaccination1Of2_WHEN_CreateViewModel_THEN_IsSetup() throws {
@@ -40,7 +41,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -55,9 +58,10 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .details), 11)
+		XCTAssertEqual(viewModel.numberOfItems(in: .details), 12)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationOneOfOneHint), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .expirationDate), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .additionalInfo), 2)
 		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
 	}
@@ -80,7 +84,9 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: certifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
 		)
 
 		// THEN
@@ -95,11 +101,43 @@ class HealthCertificateViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .topCorner), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .details), 11)
+		XCTAssertEqual(viewModel.numberOfItems(in: .details), 12)
 		XCTAssertEqual(viewModel.numberOfItems(in: .bottomCorner), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationOneOfOneHint), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .expirationDate), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .additionalInfo), 2)
 		XCTAssertEqual(viewModel.additionalInfoCellViewModels.count, 2)
+	}
+
+	func testMarkAsSeen() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			isNew: true,
+			isValidityStateNew: true
+		)
+
+		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+
+		let viewModel = HealthCertificateViewModel(
+			healthCertifiedPerson: certifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
+		)
+
+		XCTAssertTrue(healthCertificate.isNew)
+		XCTAssertTrue(healthCertificate.isValidityStateNew)
+
+		viewModel.markAsSeen()
+
+		XCTAssertFalse(healthCertificate.isNew)
+		XCTAssertFalse(healthCertificate.isValidityStateNew)
 	}
 
 }

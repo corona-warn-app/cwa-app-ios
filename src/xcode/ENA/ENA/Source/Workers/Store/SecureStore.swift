@@ -101,19 +101,14 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
 	}
 
-	var allowRiskChangesNotification: Bool {
-		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
-		set { kvStore["allowRiskChangesNotification"] = newValue }
-	}
-
-	var allowTestsStatusNotification: Bool {
-		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
-		set { kvStore["allowTestsStatusNotification"] = newValue }
-	}
-
 	var appInstallationDate: Date? {
 		get { kvStore["appInstallationDate"] as Date? }
 		set { kvStore["appInstallationDate"] = newValue }
+	}
+
+	var referenceDateForRateLimitLogger: Date? {
+		get { kvStore["referenceDateForRateLimitLogger"] as Date? }
+		set { kvStore["referenceDateForRateLimitLogger"] = newValue }
 	}
 
 	var enfRiskCalculationResult: ENFRiskCalculationResult? {
@@ -137,6 +132,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
 	}
 
+	var shouldShowQRScannerTooltip: Bool {
+		get { kvStore["shouldShowQRScannerTooltip"] as Bool? ?? true }
+		set { kvStore["shouldShowQRScannerTooltip"] = newValue }
+	}
+
 	var lastBackgroundFakeRequest: Date {
 		get { kvStore["lastBackgroundFakeRequest"] as Date? ?? Date() }
 		set { kvStore["lastBackgroundFakeRequest"] = newValue }
@@ -156,21 +156,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
     }
-
-	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
-		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
-		set { kvStore["deviceTimeCheckResult"] = newValue }
-	}
-
-	var deviceTimeLastStateChange: Date {
-		get { kvStore["deviceTimeLastStateChange"] as Date? ?? Date() }
-		set { kvStore["deviceTimeLastStateChange"] = newValue }
-	}
-
-	var wasDeviceTimeErrorShown: Bool {
-		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
-		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
-	}
 
 	var lastKeyPackageDownloadDate: Date {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
@@ -207,6 +192,12 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
+	
+	var lastBoosterNotificationsExecutionDate: Date? {
+		get { kvStore["lastBoosterNotificationsExecutionDate"] as Date? }
+		set { kvStore["lastBoosterNotificationsExecutionDate"] = newValue }
+	}
+
 
     // MARK: - Protocol AntigenTestProfileStoring
 
@@ -240,11 +231,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var testCertificateRequests: [TestCertificateRequest] {
 		get { kvStore["testCertificateRequests"] as [TestCertificateRequest]? ?? [] }
 		set { kvStore["testCertificateRequests"] = newValue }
-	}
-
-	var unseenTestCertificateCount: Int {
-		get { kvStore["unseenTestCertificateCount"] as Int? ?? 0 }
-		set { kvStore["unseenTestCertificateCount"] = newValue }
 	}
 
 	var lastSelectedValidationCountry: Country {
@@ -281,6 +267,13 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 		set { kvStore["invalidationRulesCache"] = newValue }
 	}
 	
+	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
+	
+	var boosterRulesCache: ValidationRulesCache? {
+		get { kvStore["boosterRulesCache"] as ValidationRulesCache? ?? nil }
+		set { kvStore["boosterRulesCache"] = newValue }
+	}
+
 	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE
@@ -290,11 +283,6 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var fakeSQLiteError: Int32? {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
-	}
-
-	var dmKillDeviceTimeCheck: Bool {
-		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
-		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
 	}
 
 	var mostRecentRiskCalculation: ENFRiskCalculation? {
@@ -366,6 +354,37 @@ extension SecureStore: WarnOthersTimeIntervalStoring {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 
+}
+
+extension SecureStore: DeviceTimeCheckStoring {
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
+		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
+		set { kvStore["deviceTimeCheckResult"] = newValue }
+	}
+
+	var deviceTimeLastStateChange: Date {
+		get { kvStore["deviceTimeLastStateChange"] as Date? ?? Date() }
+		set { kvStore["deviceTimeLastStateChange"] = newValue }
+	}
+
+	var wasDeviceTimeErrorShown: Bool {
+		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+}
+
+extension SecureStore: AppFeaturesStoring {
+	#if !RELEASE
+	var dmKillDeviceTimeCheck: Bool {
+		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
+		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
+
+	var unencryptedCheckinsEnabled: Bool {
+		get { kvStore["unencryptedCheckinsEnabled"] as Bool? ?? false }
+		set { kvStore["unencryptedCheckinsEnabled"] = newValue }
+	}
+	#endif
 }
 
 extension SecureStore: AppConfigCaching {
@@ -473,6 +492,10 @@ extension SecureStore: CoronaTestStoring {
 		set { kvStore["antigenTest"] = newValue }
 	}
 
+	var unseenTestsCount: Int {
+		get { kvStore["unseenTestsCount"] as Int? ?? 0 }
+		set { kvStore["unseenTestsCount"] = newValue }
+	}
 }
 
 extension SecureStore: CoronaTestStoringLegacy {
@@ -538,6 +561,14 @@ extension SecureStore: CoronaTestStoringLegacy {
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
 
+}
+
+extension SecureStore: DSCListCaching {
+
+	var dscList: DSCListMetaData? {
+		get { kvStore["DSCList"] as DSCListMetaData? }
+		set { kvStore["DSCList"] = newValue }
+	}
 }
 
 extension SecureStore {

@@ -29,7 +29,7 @@ enum QuickAction: String {
 		update()
 	}
 	
-	/// Adds or removes quick actions accoring to the current application state
+	/// Adds or removes quick actions according to the current application state
 	private static func update() {
 		
 		Log.info(#function, log: .ui)
@@ -70,7 +70,7 @@ extension AppDelegate {
 		handleShortcutItem(shortcutItem)
 	}
 
-	/// Checks wether the application is launched from a shortcut or not.
+	/// Checks whether the application is launched from a shortcut or not.
 	///
 	/// - Parameter launchOptions: the launch options passed in the app launch (will/did) functions
 	/// - Returns: `false` if the application was launched(!) from a shortcut to prevent further calls to `application(_:performActionFor:completionHandler:)`
@@ -107,7 +107,7 @@ extension AppDelegate {
 		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 3
+			tabBarController.selectedIndex = 4
 
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
@@ -117,13 +117,13 @@ extension AppDelegate {
 		case QuickAction.eventCheckin.rawValue:
 			Log.info("Shortcut: Event checkin 📷", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 2
+			tabBarController.selectedIndex = 3
 			
 			// dismiss an overlaying, modally presented view controller
-			coordinator.checkInCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
+			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 			
 			// open qr code scanner for fast event checkin
-			coordinator.checkInCoordinator?.showQRCodeScanner()
+			coordinator.checkinTabCoordinator?.showQRCodeScanner()
 		default:
 			Log.warning("unhandled shortcut item type \(shortcutItem.type)", log: .ui)
 			assertionFailure("Check this!")

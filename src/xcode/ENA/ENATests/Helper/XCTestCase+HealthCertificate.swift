@@ -12,10 +12,13 @@ extension XCTestCase {
 		case failed
 	}
 
-	func base45Fake(from digitalCovidCertificate: DigitalCovidCertificate) throws -> Base45 {
+	func base45Fake(
+		from digitalCovidCertificate: DigitalCovidCertificate,
+		and webTokenHeader: CBORWebTokenHeader = .fake()
+	) throws -> Base45 {
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
 			from: digitalCovidCertificate,
-			and: CBORWebTokenHeader.fake()
+			and: webTokenHeader
 		)
 
 		guard case let .success(base45) = base45Result else {
@@ -36,7 +39,7 @@ extension XCTestCase {
 		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
 		let vaccinationEntry = VaccinationEntry.fake(
 			doseNumber: doseNumber,
-			totalSeriesOfDoses: 2,
+			totalSeriesOfDoses: totalSeriesOfDoses,
 			dateOfVaccination: ISO8601DateFormatter.justUTCDateFormatter.string(from: try XCTUnwrap(date)),
 			uniqueCertificateIdentifier: identifier
 		)

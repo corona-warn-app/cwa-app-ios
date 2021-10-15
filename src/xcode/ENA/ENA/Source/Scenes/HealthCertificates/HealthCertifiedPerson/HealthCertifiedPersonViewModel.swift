@@ -15,39 +15,31 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
-		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void
+		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healtCertificateValueSetsProvider = healthCertificateValueSetsProvider
+		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
 		self.didTapValidationButton = didTapValidationButton
+		self.showInfo = showInfoHit
 
-		healthCertifiedPerson.$healthCertificates
-			.sink { [weak self] in
-				guard !$0.isEmpty else {
+		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
+
+		healthCertifiedPerson.objectDidChange
+			.sink { [weak self] person in
+				self?.constructHealthCertificateCellViewModels(for: person)
+				
+				guard !person.healthCertificates.isEmpty else {
+					// Prevent trigger reload if we the person was removed before because we removed their last certificate.
+					self?.triggerReload = false
 					dismiss()
 					return
 				}
 
-				self?.triggerCertificatesReload = true
-			}
-			.store(in: &subscriptions)
-
-		healthCertifiedPerson.$vaccinationState
-			.sink { [weak self] _ in
-				self?.triggerCertificatesReload = true
-			}
-			.store(in: &subscriptions)
-
-		healthCertifiedPerson.$mostRelevantHealthCertificate
-			.sink { [weak self] in
-				guard $0 != nil else {
-					dismiss()
-					return
-				}
-
-				self?.triggerQRCodeReload = true
+				self?.triggerReload = true
 			}
 			.store(in: &subscriptions)
 
@@ -71,8 +63,8 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
-		case person
 		case vaccinationHint
+		case person
 		case certificates
 
 		static var numberOfSections: Int {
@@ -87,21 +79,44 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
-	let headerCellViewModel: HealthCertificateSimpleTextCellViewModel = {
-		HealthCertificateSimpleTextCellViewModel(
+	var headerCellViewModel: HealthCertificateSimpleTextCellViewModel {
+		let centerParagraphStyle = NSMutableParagraphStyle()
+		centerParagraphStyle.alignment = .center
+		centerParagraphStyle.lineSpacing = 4.0
+
+		let attributedTitle = NSAttributedString(
+			string: AppStrings.HealthCertificate.Person.title,
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		let attributedSubtitle = NSAttributedString(
+			string: healthCertifiedPerson.name?.fullName ?? "",
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
+
+		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
-			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			text: AppStrings.HealthCertificate.Person.title,
-			topSpace: 42.0,
+			attributedText: [attributedTitle, attributedSubtitle]
+				.joined(with: "\n"),
+			topSpace: 14.0,
 			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText
 		)
-	}()
+	}
+
+	let vaccinationHintCellViewModel: VaccinationHintCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
-	@OpenCombine.Published private(set) var triggerQRCodeReload: Bool = false
-	@OpenCombine.Published private(set) var triggerCertificatesReload: Bool = false
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
@@ -111,53 +126,25 @@ final class HealthCertifiedPersonViewModel {
 		}
 
 		return HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
 			healthCertificate: mostRelevantHealthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
 			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
 				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+			},
+			showInfoHit: { [ weak self] in
+				self?.showInfo()
 			}
 		)
 	}
 
-	var vaccinationHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		let text: String
-
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated:
-			text = AppStrings.HealthCertificate.Person.partiallyVaccinated
-		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
-			text = String(
-				format: AppStrings.HealthCertificate.Person.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			)
-		case .notVaccinated, .completelyProtected:
-			fatalError("Cell cannot be shown in any other vaccination state than .partiallyVaccinated or .fullyVaccinated")
-		}
-
-		return HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			textAlignment: .left,
-			text: text,
-			topSpace: 16.0,
-			font: .enaFont(for: .body),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
-		)
-	}
-
 	var vaccinationHintIsVisible: Bool {
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated, .fullyVaccinated:
-			return true
-		case .notVaccinated, .completelyProtected:
-			return false
-		}
+		return !healthCertifiedPerson.vaccinationCertificates.isEmpty
 	}
 
 	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateService: healthCertificateService
+			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
 
@@ -186,10 +173,7 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	func healthCertificateCellViewModel(row: Int) -> HealthCertificateCellViewModel {
-		HealthCertificateCellViewModel(
-			healthCertificate: sortedHealthCertificates[row],
-			healthCertifiedPerson: healthCertifiedPerson
-		)
+		return healthCertificateCellViewModels[row]
 	}
 
 	func healthCertificate(for indexPath: IndexPath) -> HealthCertificate? {
@@ -197,7 +181,7 @@ final class HealthCertifiedPersonViewModel {
 			return nil
 		}
 
-		return sortedHealthCertificates[safe: indexPath.row]
+		return healthCertificateCellViewModels[safe: indexPath.row]?.healthCertificate
 	}
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
@@ -209,21 +193,32 @@ final class HealthCertifiedPersonViewModel {
 			return
 		}
 
-		healthCertificateService.removeHealthCertificate(sortedHealthCertificates[indexPath.row])
+		healthCertificateService.removeHealthCertificate(healthCertificateCellViewModels[indexPath.row].healthCertificate)
+	}
+
+	func markBoosterRuleAsSeen() {
+		healthCertifiedPerson.isNewBoosterRule = false
 	}
 
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
-	private let healtCertificateValueSetsProvider: VaccinationValueSetsProviding
+	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
-
+	private let showInfo: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
-	private var sortedHealthCertificates: [HealthCertificate] {
-		healthCertifiedPerson.healthCertificates.sorted(by: >)
-	}
+	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 
+	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
+		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
+		healthCertificateCellViewModels = sortedHealthCertificates.map {
+			HealthCertificateCellViewModel(
+				healthCertificate: $0,
+				healthCertifiedPerson: person
+			)
+		}
+	}
 }

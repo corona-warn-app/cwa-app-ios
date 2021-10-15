@@ -211,7 +211,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
@@ -220,6 +220,31 @@ final class HTTPClient: Client {
 		session.response(for: request, isFake: isFake) { result in
 			#if !RELEASE
 			UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+			#endif
+
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200..<300: completion(.success(()))
+				case 400: completion(.failure(SubmissionError.invalidPayloadOrHeaders))
+				case 403: completion(.failure(SubmissionError.invalidTan))
+				default: completion(.failure(SubmissionError.serverError(response.statusCode)))
+				}
+			case let .failure(error):
+				completion(.failure(SubmissionError.other(error)))
+			}
+		}
+	}
+	
+	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		guard let request = try? URLRequest.onBehalfCheckinSubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
+			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
+			return
+		}
+
+		session.response(for: request, isFake: isFake) { result in
+			#if !RELEASE
+			UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest = request.httpBody
 			#endif
 
 			switch result {
@@ -375,16 +400,18 @@ final class HTTPClient: Client {
 	}
 	
 	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	) {
 		guard let request = try? URLRequest.traceWarningPackageDiscovery(
+				unencrypted: unencrypted,
 				configuration: configuration,
 				country: country) else {
 			completion(.failure(.requestCreationError))
 			return
 		}
-		
+
 		session.response(for: request, completion: { result in
 			switch result {
 			case let .success(response):
@@ -395,7 +422,7 @@ final class HTTPClient: Client {
 						completion(.failure(.invalidResponseError(response.statusCode)))
 						return
 					}
-					
+
 					do {
 						let decoder = JSONDecoder()
 						let decodedResponse = try decoder.decode(
@@ -403,17 +430,17 @@ final class HTTPClient: Client {
 							from: body
 						)
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-						
+
 						guard let oldest = decodedResponse.oldest,
 							  let latest = decodedResponse.latest else {
-							Log.info("Succesfully discovered that there are no availablePackagesOnCDN", log: .api)
+							Log.info("Successfully discovered that there are no availablePackagesOnCDN", log: .api)
 							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
 							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
 							return
 						}
-						
+
 						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
-						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
+						Log.info("Successfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))
 					} catch {
 						Log.error("Failed to decode response json", log: .api)
@@ -429,13 +456,21 @@ final class HTTPClient: Client {
 			}
 		})
 	}
-	
+
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
-		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
+		if unencrypted {
+			Log.info("unencrypted traceWarningPackageDownload", log: .api)
+		} else {
+			Log.info("encrypted traceWarningPackageDownload", log: .api)
+		}
+		let url = unencrypted ?
+			configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId) :
+			configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
 		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
 
@@ -667,6 +702,53 @@ final class HTTPClient: Client {
 		})
 	}
 	
+	func getBoosterNotificationRules(
+		eTag: String? = nil,
+		isFake: Bool = false,
+		completion: @escaping BoosterRulesCompletionHandler
+	) {
+		guard let request = try? URLRequest.boosterRulesRequest(
+				configuration: configuration,
+				eTag: eTag,
+				headerValue: isFake ? 1 : 0) else {
+			Log.error("Could not create url request for rule type: booster notification", log: .api)
+			completion(.failure(.invalidRequest))
+			return
+		}
+		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let body = response.body else {
+						Log.error("Could not get body from response", log: .api)
+						completion(.failure(.invalidResponse))
+						return
+					}
+					guard let sapPackage = SAPDownloadedPackage(compressedData: body) else {
+						Log.error("Could not create sapPackage", log: .api)
+						completion(.failure(.invalidResponse))
+						return
+					}
+					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let packageDownloadResponse = PackageDownloadResponse(package: sapPackage, etag: etag)
+					Log.info("Successfully got rules for ruleType: Booster")
+					completion(.success(packageDownloadResponse))
+				case 304:
+					Log.info("Content was not modified - 304.", log: .api)
+					completion(.failure(.notModified))
+				default:
+					Log.error("General server error.", log: .api)
+					completion(.failure(.serverError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Failure at GET for rules of type: Booster.", log: .api, error: error)
+				completion(.failure(.invalidResponse))
+			}
+		})
+	}
+	
 	func getDCCRules(
 		eTag: String? = nil,
 		isFake: Bool = false,
@@ -726,10 +808,10 @@ final class HTTPClient: Client {
 
 	private let environmentProvider: EnvironmentProviding
 	private let session: URLSession
+	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
+
 	private var fetchDayRetries: [URL: Int] = [:]
 	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
-
-	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
 
 	private func fetchDay(
 		from url: URL,
@@ -941,7 +1023,7 @@ final class HTTPClient: Client {
 						// "expectedContentLength" will be -1 if the "content-length" header field is missing.
 						if response.httpResponse.expectedContentLength <= 0 {
 							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
-							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
+							Log.info("Successfully downloaded empty traceWarningPackage", log: .api)
 							completion(.success(emptyPackage))
 						} else {
 							guard let package = SAPDownloadedPackage(compressedData: body) else {
@@ -950,7 +1032,7 @@ final class HTTPClient: Client {
 								return
 							}
 							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
-							Log.info("Succesfully downloaded zipped traceWarningPackage", log: .api)
+							Log.info("Successfully downloaded zipped traceWarningPackage", log: .api)
 							completion(.success(downloadedZippedPackage))
 						}
 					default:
@@ -984,7 +1066,7 @@ private extension URLRequest {
 
 	static func keySubmissionRequest(
 		configuration: HTTPClient.Configuration,
-		payload: CountrySubmissionPayload,
+		payload: SubmissionPayload,
 		isFake: Bool
 	) throws -> URLRequest {
 		// construct the request
@@ -996,9 +1078,60 @@ private extension URLRequest {
 			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 			$0.submissionType = payload.submissionType
+			$0.checkInProtectedReports = payload.checkinProtectedReports
 		}
 		let payloadData = try submPayload.serializedData()
 		let url = configuration.submissionURL
+		var request = URLRequest(url: url)
+
+		// headers
+		request.setValue(
+			payload.tan,
+			// TAN code associated with this diagnosis key submission.
+			forHTTPHeaderField: "cwa-authorization"
+		)
+		
+		request.setValue(
+			isFake ? "1" : "0",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
+		// Add header padding for the GUID, in case it is
+		// a fake request, otherwise leave empty.
+		request.setValue(
+			isFake ? String.getRandomString(of: 36) : "",
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+		
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+		
+		request.httpMethod = HttpMethod.post
+		request.httpBody = payloadData
+		
+		return request
+	}
+	
+	static func onBehalfCheckinSubmissionRequest(
+		configuration: HTTPClient.Configuration,
+		payload: SubmissionPayload,
+		isFake: Bool
+	) throws -> URLRequest {
+		// construct the request
+		let submPayload = SAP_Internal_SubmissionPayload.with {
+			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
+			$0.checkIns = payload.checkins
+			$0.checkInProtectedReports = payload.checkinProtectedReports
+			$0.consentToFederation = false
+			$0.submissionType = payload.submissionType
+		}
+		let payloadData = try submPayload.serializedData()
+		let url = configuration.onBehalfCheckinSubmissionURL
 		var request = URLRequest(url: url)
 
 		// headers
@@ -1373,18 +1506,25 @@ private extension URLRequest {
 	}
 
 	static func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		configuration: HTTPClient.Configuration,
 		country: String
 	) throws -> URLRequest {
-
-		let url = configuration.traceWarningPackageDiscoveryURL(country: country)
+		if unencrypted {
+			Log.info("unencrypted traceWarningPackageDiscovery", log: .api)
+		} else {
+			Log.info("encrypted traceWarningPackageDiscovery", log: .api)
+		}
+		let url = unencrypted ?
+			configuration.traceWarningPackageDiscoveryURL(country: country) :
+			configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
 		var request = URLRequest(url: url)
 
 		request.httpMethod = HttpMethod.get
 		
 		return request
 	}
-	
+
 	static func dccRequest(
 		configuration: HTTPClient.Configuration,
 		registrationToken: String,
@@ -1458,6 +1598,40 @@ private extension URLRequest {
 		return request
 	}
 	
+	static func boosterRulesRequest(
+		configuration: HTTPClient.Configuration,
+		eTag: String?,
+		headerValue: Int
+	) throws -> URLRequest {
+		
+		var request = URLRequest(url: configuration.boosterRulesURL)
+		
+		if let eTag = eTag {
+			request.setValue(
+				eTag,
+				forHTTPHeaderField: "If-None-Match"
+			)
+		}
+		
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+		
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+		
+		request.httpMethod = HttpMethod.get
+	
+		return request
+	}
+	
 	static func dccRulesRequest(
 		ruleType: HealthCertificateValidationRuleType,
 		configuration: HTTPClient.Configuration,
@@ -1492,7 +1666,38 @@ private extension URLRequest {
 	
 		return request
 	}
-	
+
+	static func dscListRequest(
+		configuration: HTTPClient.Configuration,
+		eTag: String?,
+		headerValue: Int
+	) -> URLRequest {
+		var request = URLRequest(url: configuration.DSCListURL)
+
+		if let eTag = eTag {
+			request.setValue(
+				eTag,
+				forHTTPHeaderField: "If-None-Match"
+			)
+		}
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.httpMethod = HttpMethod.get
+		return request
+	}
+
 	// MARK: - Helper methods for adding padding to the requests.
 	
 	/// This method recreates the request body with a padding that consists of a random string.

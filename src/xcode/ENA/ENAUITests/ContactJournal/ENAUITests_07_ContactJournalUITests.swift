@@ -236,7 +236,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		XCTAssertTrue(app.staticTexts["Some note!"].exists)
 	}
 
-	func testDetailsSelectionOfLocationVisit() {
+	func testDetailsSelectionOfLocationVisit() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		navigateToJournalOverview()
@@ -245,7 +245,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitAndTap()
 
-		// Navigate to locatin section.
+		// Navigate to location section.
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
@@ -256,23 +256,42 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Select duration.
 		
-		// Until iOS 14.4 the datePicker was declared as "OtherElement" with an label called "Hours". From 14.5 and above, Apple changed the XCUIElement to "TextField" (🤷‍♂️) and its label is now localized. We cannot set any identifier. Because of this we do some magic and we take the remaining one without any identifier.
-		if #available(iOS 14.5, *) {
-			let datePickerAsTextField = app.textFields.element(boundBy: 1)
-			XCTAssertTrue(datePickerAsTextField.identifier.isEmpty)
+		// We cannot set an accessibilityIdentifier on this datePicker, so we have to improve:
+		if #available(iOS 15.0, *) {
+			// With iOS 15.x, the datePicker was localized. So search for the localized string.
+			app.otherElements["Zeitauswahl"].firstMatch.waitAndTap()
+			
+		} else if #available(iOS 14.5, *) {
+			// With iOS 14.5, the datePicker's identifier was removed. We know there are only textFields, one where we set an own identifier, and the other is the one we search.
+			var datePicker: XCUIElement?
+			for i in 0...1 {
+				if app.textFields.element(boundBy: i).identifier.isEmpty {
+					datePicker = app.textFields.element(boundBy: i)
+				}
+			}
+			XCTAssertNotNil(datePicker)
+			let datePickerAsTextField = try XCTUnwrap(datePicker)
 			datePickerAsTextField.firstMatch.waitAndTap()
 		} else {
+			// And above iOS 14.4, the datePicker has an non-localized identifier.
 			app.otherElements["Hours"].firstMatch.waitAndTap()
 		}
 		
-		app.keys["0"].waitAndTap()
-		app.keys["4"].waitAndTap()
-		app.keys["2"].waitAndTap()
-		// Close keyboard.
-		app.waitAndTap()
-
-		// Wait for closing.
-
+		// iOS 15 changed the time picker to a wheel again.
+		if #available(iOS 15.0, *) {
+			// Spin wheel one time so the value will be 20:00
+			app.datePickers.firstMatch.swipeUp()
+			// Wait for closing wheel.
+			app.otherElements["Zeitauswahl"].firstMatch.waitAndTap()
+		} else {
+			app.keys["2"].waitAndTap()
+			app.keys["0"].waitAndTap()
+			app.keys["0"].waitAndTap()
+			app.keys["0"].waitAndTap()
+			// Wait for closing keyboard
+			app.waitAndTap()
+		}
+		
 		let textField = app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch
 		let exists = NSPredicate(format: "exists == 1")
 		expectation(for: exists, evaluatedWith: textField, handler: nil)
@@ -289,7 +308,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Check if the label for the settings exists on the overview.
 
-		XCTAssertTrue(app.staticTexts["00:42 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
+		XCTAssertTrue(app.staticTexts["20:00 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
 		XCTAssertTrue(app.staticTexts["Some note!"].exists)
 	}
 
@@ -459,10 +478,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		XCTAssertFalse(checkinCellEmpty.waitForExistence(timeout: .short))
 	}
 	
-	// MARK: - Screenshots
-	
-	func test_screenshot_Overview() throws {
-		var screenshotCounter = 0
+	func test_Overview() throws {
 		// setting up launch arguments
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
@@ -471,55 +487,9 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// navigate to desired screen
 		navigateToJournalOverview()
-		
-		// take screenshot from overview cell with high encounter risk and high checkin risk
-		snapshot("contact_journal_overview_high_risks_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
-		var screenshotCounter = 0
-		// setting up launch arguments
-		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
-		
-		// navigate to desired screen
-		navigateToJournalOverview()
-		
-		// select first cell
-		app.cells.element(boundBy: 1).waitAndTap()
-		
-		// add a person
-		addPersonToDayEntry("Andrea")
-		
-		// switch to places
-		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
-		
-		// add a location
-		addLocationToDayEntry("Physiotherapie")
-		
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-		
-		// select fourth cell
-		app.cells.element(boundBy: 4).waitAndTap()
-		
-		// add a person
-		addPersonToDayEntry("Michael")
-		
-		// go back
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-		
-		app.swipeDown()
-		// take screenshot
-		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		app.swipeUp()
-		// take screenshot
-		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func test_screenshot_AddTwoPersonsAndOneLocationToDate() throws {
-		var screenshotCounter = 0
+	func test_AddTwoPersonsAndOneLocationToDate() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
 
@@ -557,7 +527,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		XCTAssertEqual(dayTableView.cells.count, 2)
 
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-		snapshot("contact_journal_listing2_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// check count for overview: day cell 15 days plus 1 description cell
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
@@ -567,7 +536,40 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
 		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
-		// XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
+	}
+	
+	// MARK: - Screenshots
+	
+	func test_screenshot_TwoPersonsOneLocationAndMessages() throws {
+		var screenshotCounter = 0
+		// setting up launch arguments
+		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.cells.element(boundBy: 1).waitAndTap()
+		
+		// add a person
+		addPersonToDayEntry("Andrea")
+		
+		// add a person
+		addPersonToDayEntry("Michael")
+		
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].waitAndTap()
+		
+		// add a location
+		addLocationToDayEntry("Physiotherapie")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
+		
+		app.swipeDown()
+		// take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_ContactJournalInformation() throws {
@@ -582,14 +584,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
-
-		app.swipeUp(velocity: .fast)
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		app.swipeUp(velocity: .fast)
-		// take screenshot
-		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_AddTwoPersonsTwoLocations() throws {
@@ -726,7 +720,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 	}
 
 	/// we will search for the given identifier inside a scrollable element
-	/// scroll and collect all visible elements until the collection doen't change
+	/// scroll and collect all visible elements until the collection doesn't change
 	private func search(_ identifier: String, element: XCUIElement) -> XCUIElement? {
 		var allElementsFound = false
 		var lastLoopSeenElements: [String] = []

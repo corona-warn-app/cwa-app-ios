@@ -4,6 +4,7 @@
 
 import Foundation
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
@@ -24,8 +25,13 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			testResultAvailability: .availableAndPositive,
@@ -70,8 +76,13 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			testResultAvailability: .availableAndPositive,
@@ -104,8 +115,13 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			testResultAvailability: .availableAndPositive,

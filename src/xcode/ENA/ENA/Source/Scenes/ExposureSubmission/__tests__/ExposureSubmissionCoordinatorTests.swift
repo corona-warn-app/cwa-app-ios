@@ -5,6 +5,8 @@
 @testable import ENA
 import Foundation
 import XCTest
+import CertLogic
+import HealthCertificateToolkit
 
 class ExposureSubmissionCoordinatorTests: CWATestCase {
 
@@ -14,6 +16,12 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	private var exposureSubmissionService: MockExposureSubmissionService!
 	private var store: Store!
 	private var coronaTestService: CoronaTestService!
+	private var healthCertificateService: HealthCertificateService!
+	private var healthCertificateValidationService: HealthCertificateValidationService!
+	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider!
+	private var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider!
+	private var qrScannerCoordinator: QRScannerCoordinator!
+	private var eventStore: EventStoringProviding!
 
 	// MARK: - Setup and teardown methods.
 
@@ -25,20 +33,95 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
+		let diaryStore = MockDiaryStore()
+
+		eventStore = MockEventStore()
 
 		coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
+			eventStore: eventStore,
+			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
 				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfiguration
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				)
 			)
 		)
+		
+		healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: appConfiguration,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
+		)
+		
+		vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		
+		healthCertificateValidationOnboardedCountriesProvider = HealthCertificateValidationOnboardedCountriesProvider(
+			store: store,
+			client: client,
+			signatureVerifier: MockVerifier()
+		)
+		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+		
+		let validationResults = [
+			ValidationResult(rule: Rule.fake(identifier: "A"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "B"), result: .passed),
+			ValidationResult(rule: Rule.fake(identifier: "C"), result: .passed)
+		]
+		
+		var validationRulesAccess = MockValidationRulesAccess()
+		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
+		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
+		validationRulesAccess.expectedValidationResult = .success(validationResults)
+		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
+
+		healthCertificateValidationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			validationRulesAccess: validationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
+		)
+
+		qrScannerCoordinator = QRScannerCoordinator(
+			store: store,
+			client: client,
+			eventStore: eventStore,
+			appConfiguration: appConfiguration,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: diaryStore
+			),
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService
+		)
 	}
+
 
 	// MARK: - Helper methods.
 
@@ -47,11 +130,16 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		exposureSubmissionService: ExposureSubmissionService
 	) -> ExposureSubmissionCoordinator {
 		ExposureSubmissionCoordinator(
-			parentNavigationController: parentNavigationController,
+			parentViewController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
-			eventProvider: MockEventStore(),
-			antigenTestProfileStore: store
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			eventProvider: eventStore,
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 	}
 

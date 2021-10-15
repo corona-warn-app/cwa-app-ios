@@ -11,6 +11,7 @@ enum HealthCertificateServiceError: Error {
 		case decodingError(CertificateDecodingError)
 		case certificateAlreadyRegistered(HealthCertificate.CertificateType)
 		case certificateHasTooManyEntries
+		case invalidSignature(DCCSignatureVerificationError)
 		case other(Error)
 
 		var errorDescription: String? {
@@ -21,14 +22,16 @@ enum HealthCertificateServiceError: Error {
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_BASE45_DECODING_FAILED)"
 				case .HC_ZLIB_DECOMPRESSION_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_ZLIB_DECOMPRESSION_FAILED)"
-				case .HC_COSE_TAG_INVALID:
-					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_TAG_INVALID)"
+				case .HC_COSE_TAG_OR_ARRAY_INVALID:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_TAG_OR_ARRAY_INVALID)"
 				case .HC_COSE_MESSAGE_INVALID:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_MESSAGE_INVALID)"
 				case .HC_COSE_NO_KEYIDENTIFIER:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_NO_KEYIDENTIFIER)"
 				case .HC_CBOR_DECODING_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CBOR_DECODING_FAILED)"
+				case .HC_CBOR_TRIMMING_FAILED:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CBOR_TRIMMING_FAILED)"
 				case .HC_CBORWEBTOKEN_NO_ISSUER:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CWT_NO_ISS)"
 				case .HC_CBORWEBTOKEN_NO_EXPIRATIONTIME:
@@ -61,6 +64,17 @@ enum HealthCertificateServiceError: Error {
 				return "\(AppStrings.HealthCertificate.Error.hcNotSupported) (HC_TOO_MANY_ENTRIES)"
 			case .other(let error):
 				return error.localizedDescription
+			case .invalidSignature(let error):
+				return "\(AppStrings.HealthCertificate.Error.invalidSignatureText) (\(error))"
+			}
+		}
+
+		var errorTitle: String? {
+			switch self {
+			case .invalidSignature:
+				return AppStrings.HealthCertificate.Error.invalidSignatureTitle
+			default:
+				return nil
 			}
 		}
 	}
@@ -162,7 +176,7 @@ enum HealthCertificateServiceError: Error {
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_BASE45_DECODING_FAILED")
 				case .HC_ZLIB_DECOMPRESSION_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_ZLIB_DECOMPRESSION_FAILED")
-				case .HC_COSE_TAG_INVALID:
+				case .HC_COSE_TAG_OR_ARRAY_INVALID:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COSE_TAG_INVALID")
 				case .HC_COSE_NO_KEYIDENTIFIER:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_NO_KEYIDENTIFIER")
@@ -170,6 +184,8 @@ enum HealthCertificateServiceError: Error {
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COSE_MESSAGE_INVALID")
 				case .HC_CBOR_DECODING_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CBOR_DECODING_FAILED")
+				case .HC_CBOR_TRIMMING_FAILED:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "HC_CBOR_TRIMMING_FAILED")
 				case .HC_CBORWEBTOKEN_NO_ISSUER:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CWT_NO_ISS")
 				case .HC_CBORWEBTOKEN_NO_EXPIRATIONTIME:

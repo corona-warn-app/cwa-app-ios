@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
+class DMButtonTableViewCell: UITableViewCell, ConfigureableCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -25,11 +25,12 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
 
 	func configure<T>(cellViewModel: T) {
 		guard let cellViewModel = cellViewModel as? DMButtonCellViewModel else {
-			fatalError("CellViewModel doesn't macht expecations")
+			fatalError("CellViewModel doesn't macht expectations")
 		}
 		buttonAction = cellViewModel.action
 		button.setTitle(cellViewModel.text, for: .normal)
 		button.setTitleColor(cellViewModel.textColor, for: .normal)
+		button.titleLabel?.numberOfLines = 0
 		let backgroundImage = UIImage.with(color: cellViewModel.backgroundColor)
 		button.setBackgroundImage(backgroundImage, for: .normal)
 		button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
@@ -58,7 +59,7 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
 			button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
 			button.topAnchor.constraint(equalTo: contentView.topAnchor),
 			button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 35.0)
+			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45.0)
 		])
 
 	}

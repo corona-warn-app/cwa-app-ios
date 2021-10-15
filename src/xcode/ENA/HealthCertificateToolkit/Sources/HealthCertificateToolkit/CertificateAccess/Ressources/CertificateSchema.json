@@ -28,7 +28,7 @@
       "title": "Date of birth",
       "description": "Date of Birth of the person addressed in the DCC. ISO 8601 date format restricted to range 1900-2099 or empty",
       "type": "string",
-      "pattern": "^(((19|20)\\d\\d-\\d\\d-\\d\\d(T.*)?)|(((19|20)\\d\\d(-\\d\\d){0,2}))|)$",
+      "pattern": "^((19|20)\\d\\d(-\\d\\d){0,2}){0,1}.*$",
       "examples": [
         "1979-04-14",
         "1950",
@@ -38,7 +38,7 @@
     },
     "v": {
       "description": "Vaccination Group",
-      "type": ["array", null],
+      "type": ["array", "null"],
       "items": {
         "$ref": "#/$defs/vaccination_entry"
       },
@@ -47,7 +47,7 @@
     },
     "t": {
       "description": "Test Group",
-      "type": ["array", null],
+      "type": ["array", "null"],
       "items": {
         "$ref": "#/$defs/test_entry"
       },
@@ -56,7 +56,7 @@
     },
     "r": {
       "description": "Recovery Group",
-      "type": ["array", null],
+      "type": ["array", "null"],
       "items": {
         "$ref": "#/$defs/recovery_entry"
       },
@@ -95,7 +95,8 @@
           "title": "Standardised surname",
           "description": "The surname(s) of the person, transliterated ICAO 9303",
           "type": "string",
-          "pattern": "^[A-Z<]*$",
+          "__comment": "Special case handling: original pattern check dropped",
+          "__pattern": "^[A-Z<]*$",
           "maxLength": 80,
           "examples": [
             "DCERVENKOVA<PANKLOVA"
@@ -114,7 +115,8 @@
           "title": "Standardised forename",
           "description": "The forename(s) of the person, transliterated ICAO 9303",
           "type": "string",
-          "pattern": "^[A-Z<]*$",
+          "__comment": "Special case handling: original pattern check dropped",
+          "__pattern": "^[A-Z<]*$",
           "maxLength": 80,
           "examples": [
             "JIRINA<MARIA<ALENA"
@@ -149,18 +151,15 @@
         },
         "vp": {
           "description": "vaccine or prophylaxis",
-          "$ref": "#/$defs/vaccine-prophylaxis",
-          "minLength": 1
+          "$ref": "#/$defs/vaccine-prophylaxis"
         },
         "mp": {
           "description": "vaccine medicinal product",
-          "$ref": "#/$defs/vaccine-medicinal-product",
-          "minLength": 1
+          "$ref": "#/$defs/vaccine-medicinal-product"
         },
         "ma": {
           "description": "Marketing Authorization Holder - if no MAH present, then manufacturer",
-          "$ref": "#/$defs/vaccine-mah-manf",
-          "minLength": 1
+          "$ref": "#/$defs/vaccine-mah-manf"
         },
         "dn": {
           "description": "Dose Number",

@@ -27,7 +27,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		
 		// WHEN
 		var response: TraceWarningDiscovery?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(country: "DE", completion: { result in
+		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case let .success(traceWarningDiscovery):
 				response = traceWarningDiscovery
@@ -56,7 +56,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		
 		// WHEN
 		var responseError: TraceWarningError?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(country: "DE", completion: { result in
+		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
@@ -88,7 +88,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		
 		// WHEN
 		var response: TraceWarningDiscovery?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(country: "DE", completion: { result in
+		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case let .success(traceWarningDiscovery):
 				response = traceWarningDiscovery
@@ -122,7 +122,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		
 		// WHEN
 		var expectedResponse: TraceWarningDiscovery?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(country: "DE", completion: { result in
+		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case let .success(traceWarningDiscovery):
 				expectedResponse = traceWarningDiscovery

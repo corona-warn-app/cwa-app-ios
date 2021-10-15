@@ -130,6 +130,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationController?.navigationBar.sizeToFit()
 
 		viewModel.state.requestRisk(userInitiated: false)
+		viewModel.resetBadgeCount()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -302,11 +303,21 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	func showDeltaOnboardingAndAlertsIfNeeded() {
-		self.showRouteIfNeeded(completion: {
-			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+		guard !deltaOnboardingIsRunning else {
+			Log.debug("Skip onboarding and alerts, because the process is already in progress.", log: .onboarding)
+			return
+		}
+		self.deltaOnboardingIsRunning = true
+
+		self.showRouteIfNeeded(completion: { [weak self] in
+			self?.showDeltaOnboardingIfNeeded(completion: {
 				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded()
+						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+								self?.deltaOnboardingIsRunning = false
+							})
+						})
 					})
 				})
 			})
@@ -336,6 +347,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var onDismissDistrict: (Bool) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+	private var deltaOnboardingIsRunning = false
 	private var riskCell: UITableViewCell?
 	private var pcrTestResultCell: UITableViewCell?
 	private var pcrTestShownPositiveResultCell: UITableViewCell?
@@ -596,7 +608,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		Log.debug("Configure statistics cell", log: .localStatistics)
 
 		cell.configure(
-			with: HomeStatisticsCellModel(homeState: viewModel.state),
+			with: HomeStatisticsCellModel(
+				homeState: viewModel.state,
+				localStatisticsProvider: viewModel.state.localStatisticsProvider
+			),
 			store: viewModel.store,
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
@@ -609,33 +624,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.onAddDistrict(selectValueViewController)
 				self?.statisticsCell?.updateManagementCellState()
 			},
-			onDeleteLocalStatistic: { [weak self] administrativeUnit, region in
-				Log.debug("Delete \(private: region.regionType) \(private: administrativeUnit.id), \(private: region.name)", log: .localStatistics)
-				
-				// removing the district from the store
-				guard let selectedLocalStatisticsDistricts = self?.viewModel.store.selectedLocalStatisticsRegions else {
-					Log.error("Could not assign selected local statistics districts", log: .localStatistics)
-					return
-				}
-				self?.viewModel.store.selectedLocalStatisticsRegions = selectedLocalStatisticsDistricts.filter { $0.id != String(administrativeUnit.id) }
-				
-				self?.statisticsCell?.updateManagementCellState()
-				self?.statisticsCell?.layoutIfNeeded()
-			},
 			onDismissState: { [weak self] in
 				self?.onDismissState()
 			},
 			onDismissDistrict: { [weak self] dismissToRoot in
 				self?.onDismissDistrict(dismissToRoot)
-			},
-			onFetchGroupData: { [weak self] region in
-				self?.viewModel.state.fetchLocalStatistics(region: region)
-			},
-			onToggleEditMode: { enabled in
-				Log.debug("Edit mode on: \(enabled)", log: .localStatistics)
-				DispatchQueue.main.async {
-					cell.setEditing(enabled, animated: true)
-				}
 			},
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0
@@ -643,7 +636,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onUpdate: { [weak self] in
 				DispatchQueue.main.async { [weak self] in
+					let isEditing = HomeStatisticsTableViewCell.editingStatistics
 					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+					self?.statisticsCell?.setEditing(isEditing, animated: false)
 					self?.statisticsCell?.updateManagementCellState()
 				}
 			}
@@ -714,10 +709,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		guard deltaOnboardingCoordinator == nil else { return }
-
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
-			guard let self = self else { return }
+			guard let self = self else {
+				Log.debug("Skip onboarding call, because HomeTableViewController was deallocated.", log: .onboarding)
+				completion()
+				return
+			}
 
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 
@@ -731,20 +728,34 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 			#endif
 
-			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
-					DeltaOnboardingDataDonation(store: self.viewModel.store),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
-				]
-				Log.debug("Delta Onboarding list size: \(onboardings.count)")
+			let onboardings: [DeltaOnboarding] = [
+				DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
+				DeltaOnboardingNotificationRework(store: self.viewModel.store),
+				DeltaOnboardingCrossCountrySupport(store: self.viewModel.store, supportedCountries: supportedCountries),
+				DeltaOnboardingDataDonation(store: self.viewModel.store)
+			]
 
-				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
-				self.deltaOnboardingCoordinator?.finished = { [weak self] in
-					self?.deltaOnboardingCoordinator = nil
+			Log.debug("Delta Onboarding list size: \(onboardings.count)", log: .onboarding)
+
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(
+				rootViewController: self,
+				onboardings: onboardings,
+				store: self.viewModel.store
+			)
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+				guard self.presentedViewController == nil else {
+					Log.debug("Don't show onboarding this time, because another view controller is currently presented.", log: .onboarding)
+					completion()
+					return
+				}
+
+				self.deltaOnboardingCoordinator?.finished = {
+					Log.debug("Onboarding finished.", log: .onboarding)
 					completion()
 				}
 
+				Log.debug("Start onboarding.", log: .onboarding)
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
 		}.store(in: &subscriptions)
@@ -852,6 +863,29 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
+	private func showQRScannerTooltipIfNeeded(completion: @escaping () -> Void = {}) {
+		guard viewModel.store.shouldShowQRScannerTooltip,
+			let tabBar = tabBarController?.tabBar else {
+			completion()
+			return
+		}
+
+		let tooltipViewController = QRScannerTooltipViewController(
+			onDismiss: { [weak self] in
+				self?.dismiss(animated: true) {
+					completion()
+				}
+			}
+		)
+
+		tooltipViewController.popoverPresentationController?.sourceView = tabBar
+		tooltipViewController.popoverPresentationController?.sourceRect = tabBar.bounds
+
+		present(tooltipViewController, animated: true) { [weak self] in
+			self?.viewModel.store.shouldShowQRScannerTooltip = false
+		}
+	}
+
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
 		refreshUI()
@@ -860,10 +894,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	@objc
 	private func refreshUI() {
+		Log.info("Refresh UI.")
+
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.updateTestResult()
 			self?.viewModel.state.updateStatistics()
-			self?.viewModel.state.updateSelectedLocalStatistics(self?.viewModel.store.selectedLocalStatisticsRegions)
 		}
 	}
 	// swiftlint:disable:next file_length

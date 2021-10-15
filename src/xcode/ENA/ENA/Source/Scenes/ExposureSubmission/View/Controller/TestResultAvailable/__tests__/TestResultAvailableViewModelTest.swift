@@ -4,6 +4,7 @@
 
 import XCTest
 import OpenCombine
+import HealthCertificateToolkit
 @testable import ENA
 
 class TestResultAvailableViewModelTest: CWATestCase {
@@ -11,7 +12,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 
 		let client = ClientMock()
@@ -29,8 +30,13 @@ class TestResultAvailableViewModelTest: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onSubmissionConsentCellTap: { _ in
@@ -51,7 +57,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 	
 	func testGIVEN_ViewModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellMatchExpectation() {
 		// GIVEN
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
@@ -70,8 +76,13 @@ class TestResultAvailableViewModelTest: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onSubmissionConsentCellTap: { _ in
@@ -101,7 +112,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
 		// GIVEN
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 
@@ -120,8 +131,13 @@ class TestResultAvailableViewModelTest: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfiguration
+					appConfiguration: appConfiguration,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			),
 			onSubmissionConsentCellTap: { _ in

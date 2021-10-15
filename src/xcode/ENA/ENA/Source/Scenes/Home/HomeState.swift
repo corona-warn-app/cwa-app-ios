@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -47,6 +47,8 @@ class HomeState: ENStateHandlerUpdating {
 		self.localStatisticsProvider = localStatisticsProvider
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
+		statistics = store.statistics?.statistics ?? SAP_Internal_Stats_Statistics()
+
 		observeRisk()
 	}
 
@@ -62,15 +64,15 @@ class HomeState: ENStateHandlerUpdating {
 		case dataVerificationError
 	}
 
+	let localStatisticsProvider: LocalStatisticsProviding
+
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
 	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
 	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
-	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
-	@OpenCombine.Published var localStatistics: SAP_Internal_Stats_LocalStatistics = SAP_Internal_Stats_LocalStatistics()
-	@OpenCombine.Published var selectedLocalStatistics: [SelectedLocalStatisticsTuple] = [SelectedLocalStatisticsTuple]()
+	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -140,59 +142,26 @@ class HomeState: ENStateHandlerUpdating {
 				}
 			)
 			.store(in: &subscriptions)
-	}
-	
-	func fetchLocalStatistics(region: LocalStatisticsRegion) {
-		// check for the selected Region in persisted Regions
-		let selectedLocalStatisticsRegion = store.selectedLocalStatisticsRegions.filter({
-			$0.id == region.id
-		}).compactMap { $0 }.first
-		
-		// selected Region is not there in persisted Regions
-		if selectedLocalStatisticsRegion == nil {
-			// persist the Region to the list of selected Regions
-			store.selectedLocalStatisticsRegions.append(region)
-			
-			DispatchQueue.main.async { [weak self] in
-				self?.updateLocalStatistics(selectedLocalStatisticsRegion: region)
+
+		localStatisticsProvider.updateLocalStatistics { [weak self] result in
+			switch result {
+			case .success:
+				return
+			case .failure(let error):
+				// Propagate signature verification error to the user
+				if case CachingHTTPClient.CacheError.dataVerificationError = error {
+					self?.statisticsLoadingError = .dataVerificationError
+				}
+				Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
 			}
 		}
 	}
 
-	func updateLocalStatistics(selectedLocalStatisticsRegion: LocalStatisticsRegion) {
-		localStatisticsProvider.latestLocalStatistics(groupID: String(selectedLocalStatisticsRegion.federalState.groupID), eTag: nil)
-			.sink(
-				receiveCompletion: { [weak self] result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						// Propagate signature verification error to the user
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							self?.statisticsLoadingError = .dataVerificationError
-						}
-						Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
-					}
-				}, receiveValue: { [weak self] in
-					self?.localStatistics = $0
-				}
-			)
-			.store(in: &subscriptions)
-	}
-	
-	func updateSelectedLocalStatistics(_ selection: [LocalStatisticsRegion]?) {
-		localStatisticsProvider.latestSelectedLocalStatistics(selectedlocalStatisticsRegions: selection ?? [], completion: { selectedLocalStatistics in
-			self.selectedLocalStatistics = selectedLocalStatistics
-			Log.debug("fetched selected local statistics: \(private: selectedLocalStatistics) entities", log: .localStatistics)
-		})
-	}
-
 	// MARK: - Private
 
-	private let store: Store
+	private (set) var store: Store
 
 	private let statisticsProvider: StatisticsProviding
-	private let localStatisticsProvider: LocalStatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
 
 	private let riskProvider: RiskProviding

@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Darwin
+
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
@@ -17,9 +19,24 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum NotificationSettings {
-		static let riskChanges = "AppStrings.NotificationSettings.riskChanges"
-		static let testsStatus = "AppStrings.NotificationSettings.testsStatus"
-		static let onTitle = "AppStrings.NotificationSettings.onTitle"
+		enum DeltaOnboarding {
+			static let imageOn = "AppStrings.NotificationSettings.imageDescriptionOn"
+			static let imageOff = "AppStrings.NotificationSettings.imageDescriptionOff"
+			static let description = "AppStrings.NotificationSettings.DeltaOnboarding.description"
+		}
+		static let notifications = "AppStrings.NotificationSettings.notifications"
+		static let notificationsOn = "AppStrings.NotificationSettings.notificationsOn"
+		static let notificationsOff = "AppStrings.NotificationSettings.notificationsOff"
+		
+		static let bulletDescOn = "AppStrings.NotificationSettings.bulletDescOn"
+		static let bulletDescOff = "AppStrings.NotificationSettings.bulletDescOff"
+		static let bulletPoint1 = "AppStrings.NotificationSettings.bulletPoint1"
+		static let bulletPoint2 = "AppStrings.NotificationSettings.bulletPoint2"
+		static let bulletPoint3 = "AppStrings.NotificationSettings.bulletPoint3"
+		static let bulletDesc2 = "AppStrings.NotificationSettings.bulletDesc2"
+		
+		static let openSystemSettings = "AppStrings.NotificationSettings.openSystemSettings"
+		static let close = "AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle"
 	}
 	
 	enum Home {
@@ -129,7 +146,6 @@ enum AccessibilityIdentifiers {
 		static let onboardingInfo_howDoesDataExchangeWorkPage_imageDescription = "AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription"
 		static let onboardingInfo_alwaysStayInformedPage_title = "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title"
 		static let onboardingInfo_alwaysStayInformedPage_imageDescription = "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription"
-		static let onboardingDoNotAllow = "AppStrings.Onboarding.onboardingDoNotAllow"
 	}
 	
 	enum RiskLegend {
@@ -233,8 +249,22 @@ enum AccessibilityIdentifiers {
 		static let legalDetailsButton = "AppStrings.SurveyConsent.legalDetailsButton"
 	}
 	
-	enum ExposureSubmissionQRScanner {
+	enum UniversalQRScanner {
 		static let flash = "ExposureSubmissionQRScanner_flash"
+		static let file = "QRScanner_file"
+		static let fakeHC1 = "QRScanner_FAKE_HC1"
+		static let fakeHC2 = "QRScanner_FAKE_HC2"
+		static let fakePCR = "QRScanner_FAKE_PCR"
+		static let fakePCR2 = "QRScanner_FAKE_PCR2"
+		static let fakeEvent = "QRScanner_FAKE_EVENT"
+		static let other = "QRScanner_OTHER"
+		static let cancel = "QRScanner_CANCEL"
+	}
+
+	enum FileScanner {
+		static let cancelSheet = "FileScanner_Sheet_Cancel_Button"
+		static let photo = "FileScanner_Sheet_Photo_Button"
+		static let file = "FileScanner_Sheet_File_Button"
 	}
 	
 	enum ExposureSubmissionQRInfo {
@@ -501,6 +531,14 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
 		}
+		enum HospitalizationRate {
+			static let title = "AppStrings.Statistics.Card.HospitalizationRate.title"
+			static let infoButton = "AppStrings.Statistics.Card.HospitalizationRate.infoButton"
+		}
+		enum IntensiveCare {
+			static let title = "AppStrings.Statistics.Card.IntensiveCare.title"
+			static let infoButton = "AppStrings.Statistics.Card.IntensiveCare.infoButton"
+		}
 		enum General {
 			static let tableViewCell = "HomeStatisticsTableViewCell"
 			static let card = "HomeStatisticsCard"
@@ -517,6 +555,7 @@ enum AccessibilityIdentifiers {
 	enum TabBar {
 		static let home = "TabBar.home"
 		static let certificates = "TabBar.certificates"
+		static let scanner = "TabBar.scanner"
 		static let checkin = "TabBar.checkin"
 		static let diary = "TabBar.diary"
 	}
@@ -621,6 +660,19 @@ enum AccessibilityIdentifiers {
 		}
 		
 	}
+
+	enum OnBehalfCheckinSubmission {
+
+		enum TraceLocationSelection {
+			static let selectionCell = "OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell"
+		}
+
+		enum DateTimeSelection {
+			static let dateCell = "OnBehalfCheckinSubmission.DateTimeSelection.dateCell"
+			static let durationCell = "OnBehalfCheckinSubmission.DateTimeSelection.durationCell"
+		}
+
+	}
 	
 	enum AntigenProfile {
 		
@@ -675,6 +727,15 @@ enum AccessibilityIdentifiers {
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
+		}
+		
+		enum PrintPdf {
+			static let imageDescription = "AppStrings.HealthCertificate.PrintPDF.imageDescription"
+			static let infoPrimaryButton = "AppStrings.HealthCertificate.PrintPDF.infoPrimaryButton"
+			static let printButton = "AppStrings.HealthCertificate.PrintPDF.printButton"
+			static let shareButton = "AppStrings.HealthCertificate.PrintPDF.shareButton"
+			static let faqAction = "AppStrings.HealthCertificate.PrintPDF.faqAction"
+			static let okAction = "AppStrings.HealthCertificate.PrintPDF.okAction"
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"

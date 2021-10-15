@@ -60,6 +60,8 @@ class CoronaTestService {
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
+		healthCertificateService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+
 		setup()
 	}
 
@@ -86,10 +88,12 @@ class CoronaTestService {
 			return antigenTest.map { .antigen($0) }
 		}
 	}
-
+	
+	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
@@ -128,6 +132,10 @@ class CoronaTestService {
 					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+					// updating badge count for home tab
+					if markAsUnseen {
+						self?.unseenTestsCount.value += 1
+					}
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
@@ -143,6 +151,7 @@ class CoronaTestService {
 		)
 	}
 
+	// This function is responsible to register a PCR test from TeleTAN
 	func registerPCRTest(
 		teleTAN: String,
 		isSubmissionConsentGiven: Bool,
@@ -180,7 +189,7 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					Analytics.collect(.testResultMetadata(.updateTestResult(.positive, registrationToken, .pcr)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true, .pcr)))
-					
+
 					// Because every test registered per teleTAN is positive, we can add this PCR test as positive in the contact diary.
 					// testDate: For PCR -> registration date
 					// testType: Always PCR
@@ -227,6 +236,7 @@ class CoronaTestService {
 		lastName: String?,
 		dateOfBirth: String?,
 		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
@@ -265,6 +275,11 @@ class CoronaTestService {
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
 
+					// updating badge count for home tab
+					if markAsUnseen {
+						self?.unseenTestsCount.value += 1
+					}
+
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
 					}
@@ -282,12 +297,15 @@ class CoronaTestService {
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
+		Log.info("[CoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
+
 		let group = DispatchGroup()
 		var errors = [CoronaTestServiceError]()
 
 		for coronaTestType in CoronaTestType.allCases {
 			group.enter()
-
+			Log.info("[CoronaTestService] Dispatch group entered in updateTestResults for (coronaTestType: \(coronaTestType))")
+			
 			updateTestResult(for: coronaTestType, force: force, presentNotification: presentNotification) { result in
 				switch result {
 				case .failure(let error):
@@ -297,6 +315,7 @@ class CoronaTestService {
 					break
 				}
 
+				Log.info("[CoronaTestService] Dispatch group exited in updateTestResults for (coronaTestType: \(coronaTestType))")
 				group.leave()
 			}
 		}
@@ -316,9 +335,17 @@ class CoronaTestService {
 		presentNotification: Bool = false,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType))", log: .api)
+		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
-		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { result in
+		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
+			Log.info("[CoronaTestService] Received test result from getTestResult: \(private: result)")
+			
+			guard let self = self else {
+				completion(result)
+				Log.warning("[CoronaTestService] Could not get self, skipping fakeRequestService call")
+				return
+			}
+
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
@@ -465,6 +492,22 @@ class CoronaTestService {
 		store.positiveTestResultWasShown = false
 		store.isSubmissionConsentGiven = false
 	}
+	
+	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
+		var healthTuple: (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
+		self.healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				if healthCertificate.uniqueCertificateIdentifier == uniqueCertificateIdentifier {
+					healthTuple = (certificate: healthCertificate, certifiedPerson: healthCertifiedPerson)
+				}
+			}
+		}
+		return healthTuple
+	}
+
+	func resetUnseenTestsCount() {
+		unseenTestsCount.value = 0
+	}
 
 	// MARK: - Private
 
@@ -484,6 +527,8 @@ class CoronaTestService {
 	private var antigenTestOutdatedDate: Date?
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private(set) var unseenTestsCount = CurrentValueSubject<Int, Never>(0)
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -512,6 +557,12 @@ class CoronaTestService {
 				if let antigenTest = antigenTest {
 					self?.setupOutdatedPublisher(for: antigenTest)
 				}
+			}
+			.store(in: &subscriptions)
+		
+		unseenTestsCount
+			.sink { [weak self] in
+				self?.store.unseenTestsCount = $0
 			}
 			.store(in: &subscriptions)
 	}
@@ -575,6 +626,7 @@ class CoronaTestService {
 		}
 
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+			Log.info("[CoronaTestService] Get test result completed early because final test result is present.", log: .api)
 			completion(.success(coronaTest.testResult))
 			return
 		}
@@ -845,6 +897,19 @@ class CoronaTestService {
 		RunLoop.current.add(outdatedStateTimer, forMode: .common)
 	}
 
+	private func setUniqueCertificateIdentifier(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
+		switch testCertificateRequest.coronaTestType {
+		case .pcr:
+			if self.pcrTest?.registrationToken == testCertificateRequest.registrationToken {
+				pcrTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		case .antigen:
+			if self.antigenTest?.registrationToken == testCertificateRequest.registrationToken {
+				self.antigenTest?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		}
+	}
+
 	@objc
 	private func invalidateTimer() {
 		outdatedStateTimer?.invalidate()
@@ -917,6 +982,13 @@ class CoronaTestService {
 		case .antigen:
 			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
 		}
+	}
+
+	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
+		guard let certificate = self.healthCertificateService.healthCertifiedPersons[0].testCertificates.first else { return nil }
+		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons[0]
+		
+		return (certificate: certificate, certifiedPerson: certifiedPerson)
 	}
 
 	#endif

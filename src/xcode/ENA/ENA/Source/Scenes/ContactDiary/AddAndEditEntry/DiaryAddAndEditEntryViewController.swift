@@ -31,23 +31,15 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		parent?.navigationItem.title = viewModel.title
-		parent?.navigationItem.largeTitleDisplayMode = .always
-		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
+		navigationItem.title = viewModel.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.dismiss()
 			}
 		)
 		setupBindings()
 		setupView()
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
-		parent?.navigationController?.navigationBar.sizeToFit()
-
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -146,7 +138,7 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		case .next, .continue:
 			self.textField(for: textField.tag + 1)?.becomeFirstResponder()
 		default:
-			Log.debug("unsupport return key type")
+			Log.debug("unsupported return key type")
 		}
 		return false
 	}

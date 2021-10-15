@@ -4,6 +4,7 @@
 
 import Foundation
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class ExposureSubmissionViewControllerTests: CWATestCase {
@@ -39,15 +40,21 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: HealthCertificateService(
 						store: store,
+						dccSignatureVerifier: DCCSignatureVerifyingStub(),
+						dscListProvider: MockDSCListProvider(),
 						client: client,
-						appConfiguration: appConfiguration
+						appConfiguration: appConfiguration,
+						boosterNotificationsService: BoosterNotificationsService(
+							rulesDownloadService: RulesDownloadService(store: store, client: client)
+						)
 					)
 				),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onTestCertificateCellTap: { _, _ in }
 			),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onDismiss: { _, _ in }

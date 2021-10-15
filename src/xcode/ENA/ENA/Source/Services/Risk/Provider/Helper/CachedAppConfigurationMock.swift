@@ -6,11 +6,19 @@ import Foundation
 import OpenCombine
 import ZIPFoundation
 
-#if DEBUG
+#if !RELEASE
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
-	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
+	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
+	var featureProvider: AppFeatureProviding {
+		AppFeatureProvider(appConfigurationProvider: self)
+	}
 
+	var deviceTimeCheck: DeviceTimeChecking {
+		DeviceTimeCheck(store: store, appFeatureProvider: featureProvider)
+	}
+
+	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
 
 	/// A special configuration for screenshots.
 	///
@@ -22,12 +30,12 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 	}()
 
 
-	/// The default app configration loaded directly from file.
+	/// The default app configuration loaded directly from file.
 	///
 	///	This is synchronously for test and screenshot purposes. Use `AppConfigurationProviding` for 'real' config fetching!
 	static let defaultAppConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS = {
 		guard
-			let url = Bundle.main.url(forResource: "default_app_config_200", withExtension: ""),
+			let url = Bundle.main.url(forResource: "default_app_config_270", withExtension: ""),
 			let data = try? Data(contentsOf: url),
 			let zip = Archive(data: data, accessMode: .read),
 			var staticConfig = try? zip.extractAppConfiguration() else {
@@ -36,21 +44,30 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		return staticConfig
 	}()
 
-	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration) {
+	init(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
+		store: AppConfigCaching & DeviceTimeCheckStoring = MockTestStore()
+	) {
 		self.config = config
+		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
+		self.store = store
 	}
 	
 	init(
 		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
 		isEventSurveyEnabled: Bool,
-		isEventSurveyUrlAvailable: Bool
+		isEventSurveyUrlAvailable: Bool,
+		store: AppConfigCaching & DeviceTimeCheckStoring = MockTestStore()
 	) {
 		self.config = config
+		self.currentAppConfig = CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never>(config)
+		self.store = store
 		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
 			isEnabled: isEventSurveyEnabled,
-			isCorrectURL: isEventSurveyUrlAvailable)
+			isCorrectURL: isEventSurveyUrlAvailable
+		)
 	}
-	
+
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return Just(config)
 			.receive(on: DispatchQueue.main.ocombine)
@@ -67,11 +84,14 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 			return countries.isEmpty ? [.defaultCountry()] : countries
 		}).eraseToAnyPublisher()
 	}
+
 	private func eventDrivenUserSurveyParametersEnabled(isEnabled: Bool, isCorrectURL: Bool) -> SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS {
 		var surveyParameters = SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()
 		surveyParameters.common.surveyOnHighRiskURL = isCorrectURL ? "https://www.test.de" : "https://w.test.de"
 		surveyParameters.common.surveyOnHighRiskEnabled = isEnabled ? true : false
 		return surveyParameters
 	}
+
+	private let store: AppConfigCaching & DeviceTimeCheckStoring
 }
 #endif

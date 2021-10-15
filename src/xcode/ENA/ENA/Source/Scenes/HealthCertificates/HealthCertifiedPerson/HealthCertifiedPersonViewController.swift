@@ -16,7 +16,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
-		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void
+		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
@@ -27,7 +28,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: dismiss,
-			didTapValidationButton: didTapValidationButton
+			didTapValidationButton: didTapValidationButton,
+			showInfoHit: showInfoHit
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -47,6 +49,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		setupNavigationBar()
 		setupTableView()
 		setupViewModel()
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		viewModel.markBoosterRuleAsSeen()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -85,7 +93,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			return cell
 
 		case .vaccinationHint:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: VaccinationHintTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationHintCellViewModel)
 			return cell
 
@@ -173,6 +181,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in
 				self.isAnimatingChanges = false
+
+				// Reload is required to update cells with new cell models if most relevant certificate was deleted
+				if self.viewModel.numberOfItems(in: .certificates) > 0 {
+					self.tableView.reloadData()
+				}
 			})
 		}
 	}
@@ -184,7 +197,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private let didSwipeToDelete: (HealthCertificate, @escaping () -> Void) -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -269,6 +282,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			PreferredPersonTableViewCell.self,
 			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
 		)
+		tableView.register(
+			VaccinationHintTableViewCell.self,
+			forCellReuseIdentifier: VaccinationHintTableViewCell.reuseIdentifier
+		)
 	}
 
 	private func setupViewModel() {
@@ -277,30 +294,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 
-		viewModel.$triggerQRCodeReload
+		viewModel.$triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] triggerCertificatesReload in
-				guard triggerCertificatesReload, let self = self, !self.isAnimatingChanges else { return }
+			.sink { [weak self] triggerReload in
+				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
-				self.tableView.reloadSections(
-					[HealthCertifiedPersonViewModel.TableViewSection.qrCode.rawValue],
-					with: .none
-				)
-			}
-			.store(in: &subscriptions)
-
-		viewModel.$triggerCertificatesReload
-			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] triggerCertificatesReload in
-				guard triggerCertificatesReload, let self = self, !self.isAnimatingChanges else { return }
-
-				self.tableView.reloadSections(
-					[
-						HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue,
-						HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue
-					],
-					with: .none
-				)
+				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}

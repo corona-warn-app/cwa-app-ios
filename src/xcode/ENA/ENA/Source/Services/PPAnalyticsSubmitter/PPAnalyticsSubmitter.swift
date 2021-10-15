@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
 import OpenCombine
 
 // swiftlint:disable file_length
@@ -12,7 +12,7 @@ protocol PPAnalyticsSubmitting {
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 	
 	#if !RELEASE
-	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, without any checks.
 	/// This method should only be called by the PPAnalyticsCollector
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
 	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
@@ -58,11 +58,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacToken: PPACToken? = nil,
 		completion: ((Result<Void, PPASError>) -> Void)? = nil
 	) {
-		Log.info("Analytics submission was triggered. Checking now if we can submit...", log: .ppa)
+		Log.info("Analytics submission was triggered \(applicationState). Checking now if we can submit...", log: .ppa)
 		
 		// Check if a submission is already in progress
 		guard submissionState == .readyForSubmission else {
-			Log.warning("Analytics submission abord due to submission is already in progress", log: .ppa)
+			Log.warning("Analytics submission \(applicationState) abort due to submission is already in progress", log: .ppa)
 			completion?(.failure(.submissionInProgress))
 			return
 		}
@@ -71,16 +71,16 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		
 		// Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
-			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
+			Log.warning("Analytics submission \(applicationState) abort due to missing users consent", log: .ppa)
 			submissionState = .readyForSubmission
 			completion?(.failure(.userConsentError))
 			return
 		}
 		
-		Log.debug("PPAnayticsSubmitter requesting AppConfig…", log: .ppa)
+		Log.debug("PPAnayticsSubmitter \(applicationState) requesting AppConfig…", log: .ppa)
 		// Sink on the app configuration if something has changed. But do this in background.
 		self.configurationProvider.appConfiguration().sink { [ weak self] configuration in
-			Log.debug("PPAnayticsSubmitter recieved AppConfig", log: .ppa)
+			Log.debug("PPAnayticsSubmitter received AppConfig \(String(describing: self?.applicationState)))", log: .ppa)
 			let ppaConfigData = configuration.privacyPreservingAnalyticsParameters.common
 			self?.probabilityToSubmitPPAUsageData = ppaConfigData.probabilityToSubmit
 			self?.hoursSinceTestResultToSubmitKeySubmissionMetadata = ppaConfigData.hoursSinceTestResultToSubmitKeySubmissionMetadata
@@ -88,7 +88,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			self?.probabilityToSubmitExposureWindows = ppaConfigData.probabilityToSubmitExposureWindows
 			
 			guard let strongSelf = self else {
-				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
+				Log.warning("Analytics submission \(String(describing: self?.applicationState))) abort due fail at creating strong self", log: .ppa)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.generalError))
 				return
@@ -97,23 +97,23 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			// Check configuration parameter
 			let random = Double.random(in: 0...1)
 			if random > strongSelf.probabilityToSubmitPPAUsageData {
-				Log.warning("Analytics submission abord due to randomness. Random is: \(random), probabilityToSubmit is: \(strongSelf.probabilityToSubmitPPAUsageData)", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to randomness. Random is: \(random), probabilityToSubmit is: \(strongSelf.probabilityToSubmitPPAUsageData)", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.probibilityError))
 				return
 			}
 			
 			// Last submission check
-			if strongSelf.submissionWithinLast23Hours {
-				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+			if strongSelf.submissionWithinLast23HoursAnd55Minutes {
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to submission last 23 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
-				completion?(.failure(.submission23hoursError))
+				completion?(.failure(.submissionTimeAmountUndercutError))
 				return
 			}
 			
 			// Onboarding check
 			if strongSelf.onboardingCompletedWithinLast24Hours {
-				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to onboarding completed last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.onboardingError))
 				return
@@ -121,17 +121,17 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			
 			// App Reset check
 			if strongSelf.appResetWithinLast24Hours {
-				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to app resetted last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.appResetError))
 				return
 			}
 
 			if let token = ppacToken {
-				Log.info("Analytics submission has an injected ppac token.", log: .ppa)
+				Log.info("Analytics submission \(strongSelf.applicationState)) has an injected ppac token.", log: .ppa)
 				strongSelf.submitData(with: token, completion: completion)
 			} else {
-				Log.info("Analytics submission needs to generate new ppac token.", log: .ppa)
+				Log.info("Analytics submission \(strongSelf.applicationState)) needs to generate new ppac token.", log: .ppa)
 				strongSelf.generatePPACAndSubmitData(completion: completion)
 			}
 		}.store(in: &subscriptions)
@@ -189,13 +189,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
 	
-	private var submissionWithinLast23Hours: Bool {
+	private var submissionWithinLast23HoursAnd55Minutes: Bool {
 		guard let lastSubmission = store.lastSubmissionAnalytics,
-			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()) else {
+			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()),
+			  let twentyThreeHoursAndFiftyFiveMinutesAgo = Calendar.current.date(byAdding: .minute, value: -55, to: twentyThreeHoursAgo) else {
 			return false
 		}
-		let lastTwentyThreeHours = twentyThreeHoursAgo...Date()
-		return lastTwentyThreeHours.contains(lastSubmission)
+		let lastTwentyThreeHoursAndFiftyMinutes = twentyThreeHoursAndFiftyFiveMinutesAgo...Date()
+		return lastTwentyThreeHoursAndFiftyMinutes.contains(lastSubmission)
 	}
 	
 	private var onboardingCompletedWithinLast24Hours: Bool {
@@ -215,6 +216,38 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		let lastTwentyFourHours = twentyFourHoursAgo...Date()
 		return lastTwentyFourHours.contains(lastResetDate)
+	}
+	
+	private var applicationState: String {
+		if Thread.current.isMainThread {
+			switch UIApplication.shared.applicationState {
+			case .active:
+				return "(AppState: active)"
+			case .background:
+				return "(AppState: background)"
+			case .inactive:
+				return "(AppState: inactive)"
+			@unknown default:
+				return "(AppState: unknown)"
+			}
+		} else {
+			var state = ""
+
+			DispatchQueue.main.sync {
+				switch UIApplication.shared.applicationState {
+				case .active:
+					state = "(AppState: active)"
+				case .background:
+					state = "(AppState: background)"
+				case .inactive:
+					state = "(AppState: inactive)"
+				@unknown default:
+					state = "(AppState: unknown)"
+				}
+			}
+			return state
+		}
+		
 	}
 
 	private func shouldIncludeKeySubmissionMetadata(for type: CoronaTestType) -> Bool {
@@ -294,10 +327,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacService.getPPACTokenEDUS { [weak self] result in
 			switch result {
 			case let .success(token):
-				Log.info("Succesfully created new ppac token to submit analytics data.", log: .ppa)
+				Log.info("Successfully created new ppac token to submit analytics data \(String(describing: self?.applicationState))).", log: .ppa)
 				self?.submitData(with: token, disableExposureWindowsProbability: disableExposureWindowsProbability, completion: completion)
 			case let .failure(error):
-				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+				Log.error("Could not submit analytics data due to ppac authorization error \(String(describing: self?.applicationState)))", log: .ppa, error: error)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.ppacError(error)))
 				return
@@ -306,7 +339,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private func obtainUsageData(disableExposureWindowsProbability: Bool = false) -> SAP_Internal_Ppdd_PPADataIOS {
-		Log.info("Obtaining now all usage data for analytics submission...", log: .ppa)
+		Log.info("Obtaining now all usage data for analytics submission \(applicationState)...", log: .ppa)
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
@@ -316,6 +349,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let antigenTestResultMetadata = gatherTestResultMetadata(for: .antigen)
 		let newExposureWindows = gatherNewExposureWindows()
 		
+		Log.info("Adding \(newExposureWindows.count) new exposure windows to PPA submission \(applicationState)", log: .ppa)
+
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
 			$0.userMetadata = userMetadata
@@ -354,8 +389,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				if randomProbability <= probabilityToSubmitExposureWindows {
 					$0.newExposureWindows = newExposureWindows
 				}
-				Log.warning("generated probability to submit New Exposure Windows: \(randomProbability)", log: .ppa)
-				Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows)", log: .ppa)
+				Log.warning("generated probability to submit New Exposure Windows: \(randomProbability) \(applicationState)", log: .ppa)
+				Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows) \(applicationState)", log: .ppa)
 			}
 		}
 		
@@ -364,9 +399,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	private func submitData(with ppacToken: PPACToken, disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		
-		Log.info("All checks passed succesfully to submit ppa. Obtaining usage data right now...", log: .ppa)
+		Log.info("All checks passed successfully to submit ppa \(applicationState). Obtaining usage data right now...", log: .ppa)
 		let payload = obtainUsageData(disableExposureWindowsProbability: disableExposureWindowsProbability)
-		Log.info("Completed obtaining all usage data for analytics submission. Sending right now to server...", log: .ppa)
+		Log.info("Completed obtaining all usage data for analytics submission \(applicationState). Sending right now to server...", log: .ppa)
 		
 		var forceApiTokenHeader = false
 		#if !RELEASE
@@ -390,7 +425,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			completion: { [weak self] result in
 				switch result {
 				case .success:
-					Log.info("Analytics data succesfully submitted", log: .ppa)
+					Log.info("Analytics data successfully submitted \(String(describing: self?.applicationState)))", log: .ppa)
+					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
 					// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
 					self?.store.currentENFRiskExposureMetadata = nil
@@ -415,9 +451,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					self?.store.lastSubmissionAnalytics = Date()
 					self?.submissionState = .readyForSubmission
+					Log.info("Analytics submission successfully post-processed \(String(describing: self?.applicationState)))", log: .ppa)
 					completion?(result)
 				case let .failure(error):
-					Log.error("Analytics data were not submitted. Error: \(error)", log: .ppa, error: error)
+					Log.error("Analytics data were not submitted \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
+					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
 					// tech spec says, we want a fresh state if submission fails
 					self?.store.currentENFRiskExposureMetadata = nil
 					self?.store.currentCheckinRiskExposureMetadata = nil
@@ -437,9 +475,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let enfRiskLevelChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
 				$0.riskLevelChangedComparedToPreviousSubmission = enfRiskLevelChangedComparedToPreviousSubmission
 			}
-			if let enfMostRecentDateAtRiskLevel = store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: enfMostRecentDateAtRiskLevel)
-			}
+
+			// must be set to ensure sending -1 when we have no date
+			$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel)
+			
 			if let enfDateChangedComparedToPreviousSubmission = store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.dateChangedComparedToPreviousSubmission = enfDateChangedComparedToPreviousSubmission
 			}
@@ -450,9 +489,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let checkinRiskLevelChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission {
 				$0.ptRiskLevelChangedComparedToPreviousSubmission = checkinRiskLevelChangedComparedToPreviousSubmission
 			}
-			if let checkinMostRecentDateAtRiskLevel = store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: checkinMostRecentDateAtRiskLevel)
-			}
+			
+			// must be set to ensure sending -1 when we have no date
+			$0.ptMostRecentDateAtRiskLevel = formatToUnixTimestamp(for: store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel)
+			
 			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
 			}

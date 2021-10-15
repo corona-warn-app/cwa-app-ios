@@ -34,10 +34,13 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 		}
 
 		let startCompletionCalled = expectation(description: "start completion called")
+
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 		detection.start { _ in
 			startCompletionCalled.fulfill()

@@ -10,7 +10,7 @@ import ExposureNotification
 /// This protocol ensures that a given ErrorType can be transformed into an
 /// `ExposureSubmissionError`.
 /// For the future, if other transformations are needed, it is advised to create
-/// a corrseponding protocol specific to the destination error type.
+/// A corresponding protocol specific to the destination error type.
 protocol ExposureSubmissionErrorTransformable {
 	func toExposureSubmissionError() -> ExposureSubmissionError
 }
@@ -44,7 +44,8 @@ extension ExposureNotificationError: ExposureSubmissionErrorTransformable {
 		switch self {
 		case .exposureNotificationRequired,
 			 .exposureNotificationAuthorization,
-			 .exposureNotificationUnavailable:
+			 .exposureNotificationUnavailable,
+			 .notResponding:
 			return .enNotEnabled
 		case .apiMisuse, .unknown:
 			return .other("ENErrorCodeAPIMisuse")

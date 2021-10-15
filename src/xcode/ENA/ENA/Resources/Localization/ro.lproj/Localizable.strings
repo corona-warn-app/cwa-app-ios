@@ -1,3 +1,6 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
 /* General */
 "Alert_TitleGeneral" = "A apărut o eroare.";
 
@@ -15,7 +18,7 @@
 
 "Alert_BluetoothOff_Title" = "Porniți Bluetooth";
 
-"Alert_BluetoothOff_Description" = "Activați Bluetooth-ul în configurările sistemului dvs. pentru a utiliza această aplicație.";
+"Alert_BluetoothOff_Description" = "Activați Bluetooth-ul în configurările dispozitivului dvs. pentru a utiliza această aplicație.";
 
 "Alert_CancelAction_Later" = "Mai târziu";
 
@@ -93,6 +96,8 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți:";
 
+"ExposureDetection_Guide_Vaccination" = "Vaccinați-vă împotriva virusului SARS-CoV-2 dacă nu ați făcut deja acest lucru.";
+
 "ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini cu săpun timp de 20 de secunde.";
 
 "ExposureDetection_Guide_Mask" = "Purtați o mască facială când întâlniți alte persoane.";
@@ -103,15 +108,19 @@
 
 "ExposureDetection_Guide_Ventilation" = "Aerisiți spațiile interioare de mai multe ori pe zi. Astfel, deschideți ferestrele cât mai larg posibil timp de câteva minute („ventilație șoc”).";
 
+"ExposureDetection_Guide_Symptoms" = "Fiți vigilenți pentru depistarea simptomelor specifice pentru COVID-19. Chiar și persoanele vaccinate pot prezenta simptome în caz de infectare post-vaccinare. Dacă observați simptome suspecte, testați-vă.";
+
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
 
 "ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau măsurile de carantină, contactați fie:";
 
 "ExposureDetection_Guide_Hotline2" = "Medicul de familie";
 
-"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116117";
+"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116 117";
 
 "ExposureDetection_Guide_Hotline4" = "Autoritatea de sănătate publică relevantă";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie sau serviciul medical de urgență pentru a stabili efectuarea unui test. După testare, discutați opțiunile de vaccinare împotriva SARS-CoV-2 cu medicul dvs. de familie.";
 
 /* Placeholder points to `ExposureDetection_LinkText` */
 "ExposureDetection_Guide_FAQ" = "Dacă vă testați, veți găsi mai multe informații despre procedura de testare în %@.";
@@ -282,32 +291,46 @@
 
 "Settings_DataDonation_StatusInactive" = "Oprită";
 
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Doriți să activați notificările privind starea riscului de infectare cu COVID-19?";
+/* Notification Settings */
+"NotificationSettings_Title" = "Notificări";
 
-"NotificationSettings_On_SectionTitle" = "Setare";
+"NotificationSettings_ImageDescriptionOn" = "O femeie primește o notificare de la Corona-Warn-App.";
 
-"NotificationSettings_On_RiskChanges" = "Riscul dvs. de infectare s-a modificat";
+"NotificationSettings_ImageDescriptionOff" = "O femeie nu poate primi notificări de la Corona-Warn-App.";
 
-"NotificationSettings_On_TestsStatus" = "Starea testului COVID-19";
+"NotificationSettings_SettingsDescription" = "SETARE";
 
-"NotificationSettings_Off_SectionTitle" = "Setare";
+"NotificationSettings_Notifications" = "Notificări";
 
-"NotificationSettings_Off_EnableNotifications" = "Notificări";
+"NotificationSettings_NotificationsOn" = "Pornit";
 
-"NotificationSettings_Off_StatusInactive" = "Oprită";
+"NotificationSettings_NotificationsOff" = "Oprit";
 
-"NotificationSettings_Off_InfoTitle" = "Activați Notificările";
+"NotificationSettings_BulletHeadlineOn" = "Gestionare notificări";
 
-"NotificationSettings_Off_InfoDescription" = "Pentru a activa notificările, trebuie să permiteți notificările pentru Corona-Warn-App în setările dispozitivului.";
+"NotificationSettings_BulletHeadlineOff" = "Activați notificările";
 
-"NotificationSettings_Off_OpenSettings" = "Deschideți Configurări";
+"NotificationSettings_BulletDescOn" = "Puteți defini următoarele setări aici:";
 
-"NotificationSettings_NavTitle" = "Notificări";
+"NotificationSettings_BulletDescOff" = "Pentru a activa notificările în Corona-Warn-App, trebuie să permiteți notificările în setările dispozitivului.";
 
-"NotificationSettings_onImageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
+"NotificationSettings_BulletPoint1" = "Doriți să primiți notificările în general";
 
-"NotificationSettings_offImageDescription" = "O femeie nu poate primi notificări de la Corona-Warn-App.";
+"NotificationSettings_BulletPoint2" = "Doriți ca textele notificărilor să fie afișate pe ecranul de blocare";
+
+"NotificationSettings_BulletPoint3" = "Nu doriți ca textele de notificare să fie afișate până când nu deblocați smartphone-ul dvs.";
+
+"NotificationSettings_BulletDesc2" = "Pentru detalii despre setările pentru sistemul dvs. de operare, consultați pagina noastră %@.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "Întrebări frecvente";
+
+"NotificationSettings_OpenSystemSettings" = "Deschideți configurările dispozitivului";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Gestionare notificări";
+
+"NotificationSettings_DeltaOnboarding_Description" = "Setările pentru notificări sunt gestionate central acum în setările dispozitivului de pe smartphone-ul dvs.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Continuare";
 
 /* Background App Referesh Settings */
 "BackgroundAppRefreshSettings_Title" = "Împrospătarea aplicației în fundal";
@@ -356,7 +379,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Deschideți Configurări";
 
-"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Deschideți setările pentru Corona-Warn-App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Deschideți Corona-Warn-App";
 
 "BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activați împrospătarea aplicației în fundal";
 
@@ -372,8 +395,6 @@
 "Onboarding_EnableLogging_actionText" = "Activați înregistrarea în jurnal a expunerilor";
 
 "Onboarding_Continue_actionTextHint" = "Puteți sări peste acest ecran";
-
-"Onboarding_doNotAllow_actionText" = "Nu permiteți";
 
 "Onboarding_DoNotActivate_actionText" = "Nu activați";
 
@@ -431,9 +452,9 @@
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Primiți avertizări și identificați riscurile";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aplicația vă poate notifica automat despre starea riscului dvs. și vă poate avertiza despre noi infectări ale persoanelor la care ați fost expus. Permiteți-i acum aplicației să vă notifice.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aplicația vă poate trimite automat notificări despre starea riscului dvs. și despre valabilitatea certificatelor dvs., printre alte informații. Pentru a activa această opțiune, modificați setările dvs. de notificare.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Apoi vă puteți autocarantina pentru a-i proteja pe ceilalți și aflați unde puteți face testul.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "În acest mod vă puteți proteja pe dvs. și pe ceilalți și păstrați evidența valabilității certificatelor dvs.";
 
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -446,6 +467,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Puteți vedea țările participante în detaliile înregistrării în jurnal a expunerilor.";
 
+/* Exposure Submission */
 /* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
@@ -463,8 +485,6 @@
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Permiteți";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nu permiteți";
 
 "ExposureSubmission_Submit" = "Introduceți TAN";
 
@@ -511,7 +531,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Găsire centru de testare";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs. Veți fi redirecționat către un site web RKI extern.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Solicitare cod TAN pentru testul PCR";
@@ -592,25 +612,6 @@
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "Scanare cod QR";
-
-"ExposureSubmissionQRScanner_instruction" = "Poziționați cadrul peste codul QR al documentului.";
-
-"ExposureSubmissionQRScanner_otherError" = "A apărut o eroare necunoscută.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Permiteți-i aplicației să utilizeze camera pentru a scana codul QR.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Bliț cameră";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Pornit";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Oprit";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Pornire bliț cameră";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Oprire bliț cameră";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vă mulţumim";
 
@@ -649,7 +650,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vă mulțumim pentru că sunteți de acord să partajați rezultatul testului dvs. și să ajutați astfel la avertizarea celorlalți.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "La pasul următor, partajați rezultatul testului dvs. apăsând „Partajare”.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Dacă nu ați acordat consimțământul pentru a accesa ID-urile aleatorii sau dacă au trecut mai mult de cinci zile de atunci, acordați consimțământul la pasul următor.";
 
 "ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Ați ales să nu partajați rezultatul testului dvs. Ceilalți nu vor fi avertizați.";
 
@@ -1020,7 +1021,7 @@
 
 "ExposureNotificationSetting_DescriptionText3" = "Puteți utiliza comutatorul pentru a dezactiva în orice moment înregistrarea în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_DescriptionText4" = "Aplicația nu colectează niciodată date personale, precum numele, adresa sau locația dvs., iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
+"ExposureNotificationSetting_DescriptionText4" = "Datele personale, precum numele, adresa sau locația dvs. nu sunt înregistrate niciodată în timpul înregistrăii în jurnal a expunerilor, iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Porniți Bluetooth";
 
@@ -1034,21 +1035,21 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Activați notificările privind expunerea";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările sistemului a notificărilor privind expunerea, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Partajați informații privind expunerea”. Apoi definiți aplicația ca activă pentru notificările privind expunerea selectând „Specificați ca regiune activă”.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările dispozitivului a notificărilor privind expunerea, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Partajați informații privind expunerea”. Apoi definiți aplicația ca activă pentru notificările privind expunerea selectând „Specificați ca regiune activă”.";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activați notificările privind expunerea la COVID-19";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările sistemului a notificărilor privind expunerea la COVID-19, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” și activați „Notificările privind expunerea la COVID-19” în setări.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită activarea în setările dispozitivului a notificărilor privind expunerea la COVID-19, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” și activați „Notificările privind expunerea la COVID-19” în setări.";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Specificați regiunea activă";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările sistemului, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Setări pentru înregistrarea în jurnal a expunerii la COVID-19” și selectați aplicația Corona-Warn ca activă.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările dispozitivului dvs., pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Setări pentru înregistrarea în jurnal a expunerii la COVID-19” și selectați aplicația Corona-Warn ca activă.";
 
-"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările sistemului, pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Specificați ca regiune activă”.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Înregistrarea în jurnal a expunerilor necesită ca aplicația Corona-Warn să fie definită ca activă în setările dispozitivului dvs., pentru ca întâlnirile să poată fi înregistrate în jurnal. Selectați „Deschideți configurările dispozitivului” -> „Notificări privind expunerea” -> „Specificați ca regiune activă”.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru a putea fi înregistrate întâlnirile. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările dispozitivului dvs., pentru ca întâlnirile să poată fi înregistrate în jurnal. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorizație necesară";
 
@@ -1081,6 +1082,8 @@
 "ExposureNotificationSetting_unknownError" = "A apărut o eroare necunoscută. Pentru mai multe informații, vizitați pagina noastră de întrebări frecvente.";
 
 "ExposureNotificationSetting_apiMisuse" = "A apărut o eroare internă la activarea caracteristicii de înregistrare în jurnal a expunerilor. Pentru mai multe informații, vizitați pagina noastră de întrebări frecvente și reîncercați mai târziu.";
+
+"ExposureNotificationSetting_notResponding" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Reporniți dispozitivul. Dacă eroarea persistă, consultați site-ul web de întrebări frecvente sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
 
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1461,6 +1464,12 @@
 
 "local_notifications_testresults_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
 
+"local_notifications_certificate_title" = "Corona-Warn-App";
+
+"local_notifications_certificate_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
+
+"local_notifications_certificate_validity_body" = "Verificați valabilitatea certificatelor dvs.";
+
 /* Risk Legend */
 "RiskLegend_Title" = "Sumar";
 
@@ -1545,18 +1554,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.6 */
-"NewVersionFeature_26_euCertCheck_title" = "Validare certificat UE";
+/* Version 2.12 */
+"NewVersionFeature_212_newStatisticsTiles_title" = "Statistică extinsă";
 
-"NewVersionFeature_26_euCertCheck_description" = "Acum puteți verifica valabilitatea certificatelor pentru o țară selectată înainte de a călători.";
+"NewVersionFeature_212_newStatisticsTiles_description" = "Următoarea statistică este acum disponibilă în aplicație:\n\t\U2022 Incidența spitalizării pe 7 zile\n\t\U2022 Pacienți cu COVID-19 în\n\tunități de terapie intensivă";
 
-"NewVersionFeature_26_enhancedStats_title" = "Statistică extinsă";
+"NewVersionFeature_212_notificationManagement_title" = "Gestionare notificări";
 
-"NewVersionFeature_26_enhancedStats_description" = "Acum puteți adăuga până la cinci cifre ale incidenței locale pe ultimele 7 zile în aplicație.";
+"NewVersionFeature_212_notificationManagement_description" = "Acum setările pentru notificări sunt gestionate central în setările smartphone-ului dvs. Verificați din nou setările dvs. de notificare pentru Corona-Warn-App în setările dispozitivului dvs.";
 
-"NewVersionFeature_26_editRapidTestProfile_title" = "Editarea profilului de test rapid";
+"NewVersionFeature_212_qrCodeScannerButton_title" = "Acces direct la scannerul de coduri QR";
 
-"NewVersionFeature_26_editRapidTestProfile_description" = "Acum puteți edita profilul dvs. de test rapid în aplicație, de exemplu, pentru a vă modifica adresa.";
+"NewVersionFeature_212_qrCodeScannerButton_description" = "Acum aveți acces direct la scannerul de coduri QR universal în bara de navigare inferioară.";
+
+"NewVersionFeature_212_qrCodeImport_title" = "Importare cod QR";
+
+"NewVersionFeature_212_qrCodeImport_description" = "Acum puteți utiliza scannerul de coduri QR pentru a importa codurile QR din fotografii sau fișiere PDF.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1661,6 +1674,7 @@
 
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Ștergere test";
 
+/* Contact Diary */
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Meniu";
 
@@ -1678,9 +1692,9 @@
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "pe baza mai multor expuneri cu risc redus.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Mai puțin de 15 min.";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Mai puțin de 10 min.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Mai mult de 15 min.";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "Mai mult de 10 min.";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Cu mască";
 
@@ -1743,9 +1757,9 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "O clădire este marcată cu o piuneză.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "Mai puțin de 15 min.";
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Mai puțin de 10 min.";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Mai mult de 15 min.";
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "Mai mult de 10 min.";
 
 "ContactDiary_Day_Encounter_WithMask" = "Cu mască";
 
@@ -1848,6 +1862,7 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
 
+/* Statistics */
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
 
@@ -1975,6 +1990,28 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
 
+/* - Infected People Hospitalization Rate */
+"Statistics_Card_HospitalizationRate_Title" = "Incidența spitalizării pe 7 zile";
+
+"Statistics_Card_HospitalizationRate_Today" = "Până astăzi";
+
+"Statistics_Card_HospitalizationRate_Yesterday" = "Până ieri";
+
+"Statistics_Card_HospitalizationRate_Date" = "Până la %@";
+
+"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "Spitalizări COVID-19 per 100.000 de locuitori";
+
+/* - Infected People in Intensive Care */
+"Statistics_Card_IntensiveCare_Title" = "Pacienți COVID-19 în unități de terapie intensivă";
+
+"Statistics_Card_IntensiveCare_Today" = "Până astăzi";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "Până ieri";
+
+"Statistics_Card_IntensiveCare_Date" = "Până la %@";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "Rata de ocupare COVID-19 a tuturor paturilor de terapie intensivă";
+
 /* Error */
 "Statistics_LoadingError" = "Statistica nu poate fi încărcată. Închideți aplicația și reîncercați.";
 
@@ -1989,15 +2026,23 @@
 
 "Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
 
-"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori";
+"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Incidența spitalizării pe 7 zile";
+
+"Statistics_Info_HospitalizationRate_Text" = "Numărul total de admiteri în spital din cauza COVID-19 în ultimele 7 zile (după data raportării) la 100.000 de locuitori.";
+
+"Statistics_Info_IntensiveCare_Title" = "Pacienți COVID-19 în unități de terapie intensivă";
+
+"Statistics_Info_IntensiveCare_Text" = "Proporția de persoane în unitățile de terapie intensivă din cauza COVID-19 în raport cu capacitatea ATI totală.";
 
 "Statistics_Info_Infections_Title" = "Infecții noi confirmate";
 
-"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI";
+"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI.";
 
 "Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
 
-"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus prin test PCR și care i-au avertizat pe ceilalți prin aplicație";
+"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus prin test PCR și care i-au avertizat pe ceilalți prin aplicație.";
 
 "Statistics_Info_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
 
@@ -2037,7 +2082,7 @@
 
 "Statistics_Info_Trend_Title" = "Tendință";
 
-"Statistics_Info_Trend_Text" = "Direcția săgeții indică dacă tendința este în creștere, în scădere sau dacă rămâne constantă – mai exact, demonstrează o abatere de sub 1% în comparație cu ziua precedentă sau de 5% în comparație cu săptămâna precedentă. Culoarea indică faptul că tendința este pozitivă (verde), negativă (roșu) sau neutră (gri). Tendința compară valoarea din ziua precedentă cu valoarea de acum două zile sau, pentru tendințele pe 7 zile, valoarea medie din ultimele 7 zile cu valoarea medie din ultimele 7 zile anterioare acesteia.";
+"Statistics_Info_Trend_Text" = "Tendința compară valoarea din ziua anterioară cu valoarea de acum două zile (pentru incidența pe 7 zile, incidența spitalizării pe 7 zile, pacienții COVID-19 din unitățile de terapie intensivă, valoarea R pe 7 zile) sau, pentru tendințele pe 7 zile, valoarea medie din ultimele 7 zile cu valoarea medie din cele 7 zile anterioare acestora (pentru valoarea medie pe 7 zile a infectărilor noi confirmate, avertizări de către utilizatorii aplicației, dozele de vaccin administrate). Este utilizată versiunea respectivă a datelor publicate inițial; actualizările ulterioare nu sunt luate în considerare.\n\nDirecția săgeții indică dacă tendința este în creștere, în scădere sau dacă rămâne constantă – mai exact, demonstrează o abatere de sub 1% în comparație cu ziua precedentă sau de 5% în comparație cu săptămâna precedentă (ținând cont de pozițiile zecimale). Culoarea indică faptul că tendința este pozitivă (verde), negativă (roșu) sau neutră (gri). ";
 
 "Statistics_Info_Trends_Title" = "Pot fi afișate următoarele tendințe:";
 
@@ -2051,15 +2096,21 @@
 
 "Statistics_Info_Image_AccLabel" = "O imagine abstractă a unui smartphone cu patru substituenți pentru informații";
 
+"Statistics_Info_Blog_Description" = "Pentru mai multe detalii despre indicatorii individuali, citiți %@ nostru.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
+
 /* Update OS */
 "UpdateOS_title" = "Vă rugăm să vă actualizați versiunea iOS.";
 
 "UpdateOS_text" = "Aveți nevoie de versiunea iOS actuală pentru a instala Corona-Warn-App.\nPentru aceasta, deschideți configurările din iPhone și selectați General -> Actualizare software.";
 
 /* Tabbar */
-"Tabbar_Home_Title" = "Ecran inițial";
+"Tabbar_Home_Title" = "Stare";
 
 "Tabbar_Certificates_Title" = "Certificate";
+
+"Tabbar_Scanner_Title" = "Scanner de coduri QR";
 
 "Tabbar_Diary_Title" = "Jurnal";
 
@@ -2188,8 +2239,6 @@
 "QuickAction_eventCheckin" = "Check-in";
 
 /* Checkins */
-"Checkins_QR_Scanner_Title" = "Scanare cod QR";
-
 "Checkins_Overview_Title" = "Check-inurile mele";
 
 "Checkins_Overview_MenuButtonTitle" = "Meniu";
@@ -2212,12 +2261,6 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Check-out acum";
 
-"Checkins_Overview_MissingPermissions_Title" = "Permiteți accesul la cameră";
-
-"Checkins_Overview_MissingPermissions_Description" = "Pentru a utiliza camera smartphone-ului să scanați codurile QR, trebuie să permiteți accesul la cameră în setările dispozitivului pentru aplicație.";
-
-"Checkins_Overview_MissingPermissions_ButtonTitle" = "Deschideți configurările dispozitivului";
-
 "Checkins_Overview_DeleteOne_AlertTitle" = "Sigur doriți să eliminați această intrare?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Nu veți mai putea avertiza alte persoane care au făcut check-in în acest loc sau la acest eveniment în același timp cu dvs. și nici dvs. nu veți mai fi avertizat de către acestea.";
@@ -2237,8 +2280,6 @@
 "Checkins_Overview_ActionSheet_InfoTitle" = "Informații";
 
 "Checkins_Overview_ActionSheet_EditTitle" = "Editare";
-
-"Checkins_Overview_QRScanner_Instruction" = "Scanare cod QR și check-in";
 
 "Checkins_Overview_Item_Prefix_CheckIn" = "Check-in pentru %@.";
 
@@ -2294,6 +2335,8 @@
 "TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Anulare";
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informații";
+
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Avertizarea altor persoane";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Editare";
 
@@ -2373,6 +2416,67 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ ore.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+
+/* On Behalf Checkin Submission */
+/* - Info */
+"OnBehalfCheckinSubmission_Info_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Siguranță crescută pentru dvs. și invitații dvs.";
+
+"OnBehalfCheckinSubmission_Info_Description" = "Vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Dacă o persoană care nu a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, invitații pot fi notificați dacă au fost în aceeași cameră în același timp sau în decurs de 30 de minute după persoana diagnosticată.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Vă puteți avertiza invitații în numele altor persoane doar dacă vi se solicită acest lucru de către autoritățile de sănătate publică. Acestea vă vor trimite un TAN, în acest caz.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Continuare";
+
+/* - Trace Location Selection */
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Selectați un eveniment pentru care doriți să avertizați alte persoane în numele unei persoane care a fost diagnosticată cu coronavirus sau să restaurați un eveniment șters scanând din nou codul QR al evenimentului respectiv.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scanare cod QR";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continuare";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Nu există evenimente disponibile";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scanați codul QR al evenimentului relevant din nou pentru a avertiza în numele altor persoane.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
+
+/* - Date Time Selection */
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Specificați durata șederii persoanei care a fost diagnosticată cu coronavirus în numele căreia doriți să avertizați alte persoane. Primiți această informație de la autoritățile de sănătate publică.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Început/Sosire";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Durată";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Continuare";
+
+/* - TAN Input */
+"OnBehalfCheckinSubmission_TANInput_Title" = "Avertizarea altor persoane";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Introduceți codul TAN din 10 caractere pe care l-ați primit.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Trimitere avertizare";
+
+/* - Thank You */
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Vă mulțumim!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Datorită sprijinului dvs., alte persoane pot fi acum avertizate și pot reacționa adecvat.";
+
+/* - Errors */
+"OnBehalfCheckinSubmissionError_Failed" = "A apărut o eroare. Contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "TAN nevalabil. Verificați intrarea dvs. sau contactați organizația care v-a trimis TAN-ul.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Conexiunea dvs. la internet a fost pierdută. Verificați conexiunea și încercați din nou.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
@@ -2552,11 +2656,11 @@
 
 "HealthCertificate_Overview_EmptyTitle" = "Nu sunt încă disponibile certificate";
 
-"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.";
+"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.\n\nPentru a adăuga un certificat, scanați codul QR corespunzător.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
 
-"HealthCertificate_Overview_Covid_Title" = "**Certificat COVID digital**\nUE";
+"HealthCertificate_Overview_Covid_Title" = "Certificat COVID digital UE";
 
 "VaccinationCertificate_title" = "**Certificat de vaccinare digital**\nUE";
 
@@ -2565,6 +2669,8 @@
 "VaccinationCertificate_vaccinationValidUntil" = "Valabil până la %@";
 
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Un cod QR cu certificatul";
+
+"HealthCertificate_Overview_News" = "Există noutăți despre certificatele dvs.";
 
 /* - Test Certificate Info */
 "TestCertificate_Info_title" = "**Certificat de test COVID digital**\nUE";
@@ -2639,15 +2745,33 @@
 
 "HealthCertificate_Info_primaryButton" = "Continuare";
 
-/* QR Scanner */
-"HealthCertificate_QRScanner_title" = "Scanare cod QR";
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Verificare certificat de către parteneri (terți)";
 
-"HealthCertificate_QRScanner_instruction" = "Scanați codul QR și adăugați certificatul";
+"CovPass_Check_Info_body" = "Terții pot utiliza aplicația CovPassCheck pentru a verifica, cu încredere, dacă certificatul de vaccinare, certificatul de recuperare sau certificatul de test este valabil.";
+
+"CovPass_Check_Info_faq" = "Întrebări frecvente pentru verificarea certificatului de către terți";
+
+"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
+
+"CovPass_Check_Info_text02" = "Totuși, o verificare vizuală a certificatelor nu este suficientă pentru terți. Aceștia trebuie să utilizeze aplicația CovPassCheck în Germania.";
+
+"CovPass_Check_Info_text03" = "Rețineți că terții din alte țări pot utiliza alte aplicații pentru a verifica certificatele.";
 
 /* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Acest cod QR poate fi verificat cu încredere cu aplicația CovPassCheck.";
+
 "HealthCertifiedPerson_title" = "Certificat COVID digital UE";
 
+"HealthCertifiedPerson_VaccinationHint_title" = "Starea vaccinării";
+
 "HealthCertifiedPerson_partiallyVaccinated" = "Nu ați primit încă toate vaccinările planificate curente. Astfel, protecția dvs. prin vaccinare nu este completă încă.";
+
+"HealthCertifiedPerson_completelyProtected" = "Ați primit toate vaccinările planificate în acest moment. Protecția prin vaccinare este completă.";
+
+"HealthCertifiedPerson_boosterRuleFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
+
+"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "Întrebări frecvente";
 
 "HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
 
@@ -2676,6 +2800,8 @@
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valabil până la %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Certificat utilizat în prezent";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Nou";
 
 /* Vaccination Certificate Details */
 "HealthCertificate_Details_vaccinationCount" = "Vaccinarea %i din %i";
@@ -2710,6 +2836,14 @@
 
 "HealthCertificate_Details_deleteButtonTitle" = "Ștergere certificat de vaccinare";
 
+"HealthCertificate_Details_expirationDateTitle" = "Data de expirare tehnică";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Valabil până la %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
+
+"HealthCertificate_Details_moreButtonTitle" = "Mai mult";
+
 /* Vaccination Certificate Details */
 "VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
 
@@ -2721,7 +2855,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
 
-"VaccinationCertificate_Alert_message" = "Dacă ștergeți certificatul de vaccinare, aplicația nu mai poate utiliza vaccinarea pentru a verifica starea vaccinării dvs.";
+"VaccinationCertificate_Alert_message" = "Vă recomandăm să păstrați certificatele de vaccinare în aplicație, chiar dacă nu mai sunt de actualitate.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certificat de test";
@@ -2751,6 +2885,36 @@
 
 "RecoveryCertificate_Alert_message" = "Dacă eliminați certificatul de recuperare, nu îl mai puteți utiliza ca dovadă în aplicație.";
 
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Afișare versiune de tipărire";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Anulare";
+
+"HealthCertificate_PrintPdf_Info_title" = "Generarea documentului tipărit pentru UE";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Puteți salva certificatul ca document PDF. Această etapă este voluntară. Dvs. sunteți singura persoană care poate accesa inițial documentul PDF. Apoi puteți decide dacă doriți să îl salvați pe smartphone-ul dvs. sau dacă doriți să îl importați în alte aplicații.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Vă rugăm să rețineți că documentul PDF conține informații sensibile. Vă recomandăm să îl utilizați cu atenție și să îl arătați doar persoanelor în care aveți încredere și care sunt autorizate să verifice certificatul.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Vă recomandăm să nu publicați documentul PDF, să nu îl transmiteți prin e-mail și să nu îl partajați prin alte aplicații.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Continuare";
+
+"HealthCertificate_PrintPdf_Share_title" = "Versiunea de tipărire a certificatului digital";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Imposibil de afișat versiunea de tipărire";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu a fost emis în Germania";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Întrebări frecvente despre versiunea de tipărire";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Imposibil de afișat versiunea de tipărire";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu poate fi obținut în acest moment. Încercați din nou mai târziu.";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
 
@@ -2765,6 +2929,12 @@
 "HealthCertificate_Error_HC_NOT_SUPPORTED" = "Acest certificat nu este acceptat.";
 
 "HealthCertificate_Error_HC_QR_CODE_ERROR" = "Codul QR nu a putut fi generat. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"HealthCertificate_Error_invalidSignature_title" = "Semnătură nevalabilă";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Semnătura de pe certificat este nevalabilă. Certificatul nu poate fi utilizat ca dovadă și de aceea nu poate fi importat.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Întrebări frecvente privind validarea semnăturii";
 
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Validare nereușită";
@@ -2788,17 +2958,15 @@
 
 "HealthCertificate_Validation_Body2" = "Un certificat COVID este o dovadă valabilă pentru deplasarea în UE.";
 
-"HealthCertificate_Validation_Headline2" = "Notă";
+"HealthCertificate_Validation_Headline2" = "Note";
 
 "HealthCertificate_Validation_Bullet1" = "Rețineți că regulile de intrare se supun modificărilor. În consecință, verificați certificatul cu puțin timp înainte de a intra în țara de destinație (cu maximum 48 de ore înainte).";
 
 "HealthCertificate_Validation_Bullet2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
 
-"HealthCertificate_Validation_Bullet3" = "Pentru a asigura autenticitatea certificatului, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
+"HealthCertificate_Validation_Bullet3" = "Pentru a asigura autenticitatea certificatelor, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
 
 "HealthCertificate_Validation_Bullet4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
-
-"HealthCertificate_Validation_Body3" = "Pentru mai multe informații, consultați pagina de întrebări frecvente și vizitați https://reopen.europa.eu/en.";
 
 "HealthCertificate_Validation_Legal_Title" = "Confidențialitate și securitatea datelor";
 
@@ -2822,15 +2990,19 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Certificatul este valabil";
 
+"HealthCertificate_Validation_Passed_unknownTitle" = "Certificatul nu poate fi validat";
+
 "HealthCertificate_Validation_Passed_subtitle" = "Certificatul dvs. este valabil în țara selectată";
 
-"HealthCertificate_Validation_Passed_hintsTitle" = "Notă";
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Certificatul dvs. nu a putut fi validat";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Note";
 
 "HealthCertificate_Validation_Passed_hint1" = "Rețineți că regulile de intrare se supun modificărilor. În consecință, verificați certificatul cu puțin timp înainte de a intra în țara de destinație (cu maximum 48 de ore înainte).";
 
 "HealthCertificate_Validation_Passed_hint2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
 
-"HealthCertificate_Validation_Passed_hint3" = "Pentru a asigura autenticitatea certificatului, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
+"HealthCertificate_Validation_Passed_hint3" = "Pentru a asigura autenticitatea certificatelor, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
 
@@ -2841,7 +3013,7 @@
 
 "HealthCertificate_Validation_Open_subtitle" = "Certificatul dvs. nu a putut fi validat complet";
 
-"HealthCertificate_Validation_Open_openSectionTitle" = "Notă";
+"HealthCertificate_Validation_Open_openSectionTitle" = "Note";
 
 "HealthCertificate_Validation_Open_openSectionDescription" = "Următoarele reguli nu au putut fi verificate. Asigurați-vă că certificatul îndeplinește regulile țării de destinație.";
 
@@ -2867,5 +3039,131 @@
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Următoarele reguli nu sunt îndeplinite:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateExpired" = "Certificatul nu trebuie să fie expirat.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Semnătura de pe certificat trebuie să fie valabilă.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Data de expirare tehnică a certificatului nu trebuie să fi trecut.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Data de expirare tehnică";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valabil până la %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Certificatul expiră pe %@ la %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
+
+"HealthCertificate_ValidityState_Expired" = "Certificat expirat";
+
+"HealthCertificate_ValidityState_Expired_description" = "Data de expirare a trecut. Obțineți un certificat digital nou.";
+
+"HealthCertificate_ValidityState_Invalid" = "Certificat (Semnătură) nevalabil(ă)";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "Scanner de coduri QR";
+
+"UniversalQRScanner_InstructionTitle" = "Ce coduri QR puteți scana?";
+
+"UniversalQRScanner_InstructionDescription" = "Teste PCR și teste rapide, certificate de test, certificate de vaccinare, certificate de recuperare și check-inuri.";
+
+"UniversalQRScanner_FileButtonTitle" = "Deschidere fișier";
+
+"UniversalQRScanner_CameraFlash" = "Bliț cameră";
+
+"UniversalQRScanner_CameraFlash_On" = "Pornit";
+
+"UniversalQRScanner_CameraFlash_Off" = "Oprit";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Pornire bliț cameră";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Oprire bliț cameră";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Acces nepermis";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Permiteți-i aplicației să utilizeze camera pentru a scana codul QR.";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Setări";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "Codul QR nu este acceptat de Corona-Warn-App. Scanați un cod QR potrivit.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Bibliotecă de fotografii";
+
+"FileScanner_sheet_documents" = "Document";
+
+"FileScanner_sheet_cancel" = "Anulare";
+
+"FileScanner_AccessError_title" = "Acces nepermis";
+
+"FileScanner_AccessError_message" = "Corona-Warn-App nu are acces la biblioteca dvs. de fotografii. Puteți acorda accesul în setările dispozitivului dvs.";
+
+"FileScanner_AccessError_cancel" = "Anulare";
+
+"FileScanner_AccessError_settings" = "Setări";
+
+"FileScanner_HUD_text" = "Citire cod QR...";
+
+"FileScanner_PasswordEntry_title" = "Fișierul este protejat prin parolă";
+
+"FileScanner_PasswordEntry_message" = "Introduceți parola dvs.";
+
+"FileScanner_PasswordEntry_placeholder" = "Parolă";
+
+"FileScanner_PasswordError_title" = "Parolă incorectă";
+
+"FileScanner_AlreadyRegistered_title" = "Certificat deja înregistrat";
+
+"FileScanner_AlreadyRegistered_message" = "Certificatul este deja înregistrat în aplicația dvs.";
+
+"FileScanner_PasswordError_message" = "Introduceți o parolă valabilă.";
+
+"FileScanner_InvalidQRCode_title" = "Niciun cod QR potrivit";
+
+"FileScanner_InvalidQRCode_message" = "Codul QR nu este acceptat de Corona-Warn-App. Selectați un fișier cu un cod QR potrivit.";
+
+"FileScanner_FileNotReadable_title" = "Fișier imposibil de citit";
+
+"FileScanner_FileNotReadable_message" = "Fișierul selectat poate să fie deteriorat sau protejat prin parolă și nu a putut fi citit. Selectați un fișier potrivit.";
+
+"FileScanner_NoQRCodeFound_title" = "Niciun cod QR detectat";
+
+"FileScanner_NoQRCodeFound_message" = "Niciun cod QR nu a fost detectat în fișierul selectat. Alegeți un alt fișier.";
+
+"UniversalQRScanner_Tooltip_title" = "Scanner de coduri QR";
+
+"UniversalQRScanner_Tooltip_description" = "Utilizați acest scanner pentru a scana testele, certificatele și check-inurile.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Baden-Württemberg";
+
+"FederalState_Bayern" = "Bavaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburg";
+
+"FederalState_Bremen" = "Bremen";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hessa";
+
+"FederalState_MecklenburgVorpommern" = "Mecklenburg-Pomerania de Vest";
+
+"FederalState_Niedersachsen" = "Saxonia Inferioară";
+
+"FederalState_NordrheinWestfalen" = "Renania de Nord-Westfalia";
+
+"FederalState_RheinlandPfalz" = "Renania-Palatinat";
+
+"FederalState_Saarland" = "Saarland";
+
+"FederalState_Sachsen" = "Saxonia";
+
+"FederalState_SachsenAnhalt" = "Saxonia-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Schleswig-Holstein";
+
+"FederalState_Thueringen" = "Turingia";
 

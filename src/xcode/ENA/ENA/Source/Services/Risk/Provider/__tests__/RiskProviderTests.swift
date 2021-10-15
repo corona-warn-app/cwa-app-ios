@@ -4,6 +4,7 @@
 
 import XCTest
 import ExposureNotification
+import HealthCertificateToolkit
 @testable import ENA
 
 // swiftlint:disable file_length
@@ -24,15 +25,15 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-		
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-		   client: client,
-		   store: store,
-		   eventStore: eventStore
-	   )
+			client: client,
+			store: store,
+			eventStore: eventStore
+		)
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.high]
 		let riskLevelPerDateCheckin = [today: RiskLevel.low]
@@ -40,7 +41,7 @@ final class RiskProviderTests: CWATestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfig,
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
@@ -52,11 +53,16 @@ final class RiskProviderTests: CWATestCase {
 				store: store,
 				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
+				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -110,15 +116,16 @@ final class RiskProviderTests: CWATestCase {
 			exposureDetectionInterval: duration
 		)
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-		
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-		   client: client,
-		   store: store,
-		   eventStore: eventStore
-	   )
+			client: client,
+			store: store,
+			eventStore: eventStore
+		)
+
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.low]
 		let riskLevelPerDateCheckin = [today: RiskLevel.high]
@@ -126,7 +133,7 @@ final class RiskProviderTests: CWATestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfig,
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
@@ -138,11 +145,16 @@ final class RiskProviderTests: CWATestCase {
 				store: store,
 				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
+				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -197,14 +209,15 @@ final class RiskProviderTests: CWATestCase {
 		)
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 		
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-		   client: client,
-		   store: store,
-		   eventStore: eventStore
-	   )
+			client: client,
+			store: store,
+			eventStore: eventStore
+		)
+
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let riskLevelPerDateENF = [today: RiskLevel.low]
 		let riskLevelPerDateCheckin = [today: RiskLevel.low]
@@ -212,7 +225,7 @@ final class RiskProviderTests: CWATestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfig,
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
 			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
@@ -224,11 +237,16 @@ final class RiskProviderTests: CWATestCase {
 				store: store,
 				eventStore: eventStore,
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
+				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -302,8 +320,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -325,7 +348,7 @@ final class RiskProviderTests: CWATestCase {
 		riskProvider.observeRisk(consumer)
 
 		// WHEN
-		// use an timeout interval of -1 secounds to set timeout limit in the past
+		// use an timeout interval of -1 seconds to set timeout limit in the past
 		riskProvider.requestRisk(userInitiated: true, timeoutInterval: TimeInterval(-1.0))
 
 		// THEN
@@ -364,8 +387,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -452,8 +480,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -507,8 +540,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -574,8 +612,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -648,8 +691,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -729,8 +777,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -975,6 +1028,7 @@ final class RiskProviderTests: CWATestCase {
 
 		let appDelegate = AppDelegate()
 		appDelegate.riskProvider = riskProvider
+		appDelegate.store.isOnboarded = true
 
 		for _ in 0...numberOfExecuteENABackgroundTask - 1 {
 			appDelegate.taskExecutionDelegate.executeENABackgroundTask { _ in }
@@ -1024,8 +1078,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig
+					appConfiguration: appConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1124,8 +1183,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfigurationProvider
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1211,8 +1275,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1308,8 +1377,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1407,8 +1481,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)
@@ -1504,8 +1583,13 @@ final class RiskProviderTests: CWATestCase {
 				appConfiguration: cachedAppConfig,
 				healthCertificateService: HealthCertificateService(
 					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: cachedAppConfig
+					appConfiguration: cachedAppConfig,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					)
 				)
 			)
 		)

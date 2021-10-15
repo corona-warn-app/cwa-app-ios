@@ -38,6 +38,7 @@ final class RiskProvider: RiskProviding {
 		self.coronaTestService = coronaTestService
 		self.keyPackageDownloadStatus = .idle
 		self.traceWarningDownloadStatus = .idle
+		self.rateLimitLogger = RateLimitLogger(store: store)
 
 		self.registerForPackagesDownloadStatusUpdates()
 	}
@@ -55,26 +56,16 @@ final class RiskProvider: RiskProviding {
 	var exposureManagerState: ExposureManagerState
 	private(set) var activityState: RiskProviderActivityState = .idle
 
-	var riskCalculatonDate: Date? {
-		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
-		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
-			let risk = Risk(enfRiskCalculationResult: enfRiskCalculationResult, checkinCalculationResult: checkinRiskCalculationResult)
-			return risk.details.calculationDate
-		} else {
-			return nil
-		}
-	}
-
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
-			lastExposureDetectionDate: riskCalculatonDate
+			lastExposureDetectionDate: riskCalculationDate
 		)
 	}
 
 	/// Returns the next possible date of a exposureDetection
 	var nextExposureDetectionDate: Date {
 		riskProvidingConfiguration.nextExposureDetectionDate(
-			lastExposureDetectionDate: riskCalculatonDate
+			lastExposureDetectionDate: riskCalculationDate
 		)
 	}
 
@@ -173,11 +164,22 @@ final class RiskProvider: RiskProviding {
 	private var subscriptions = [AnyCancellable]()
 	private var keyPackageDownloadStatus: KeyPackageDownloadStatus
 	private var traceWarningDownloadStatus: TraceWarningDownloadStatus
+	private var rateLimitLogger: RateLimitLogger
 	
 	private var _consumers: Set<RiskConsumer> = Set<RiskConsumer>()
 	private var consumers: Set<RiskConsumer> {
 		get { consumersQueue.sync { _consumers } }
 		set { consumersQueue.sync { _consumers = newValue } }
+	}
+
+	private var riskCalculationDate: Date? {
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
+		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
+			let risk = Risk(enfRiskCalculationResult: enfRiskCalculationResult, checkinCalculationResult: checkinRiskCalculationResult)
+			return risk.details.calculationDate
+		} else {
+			return nil
+		}
 	}
 
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
@@ -363,20 +365,24 @@ final class RiskProvider: RiskProviding {
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
 		guard exposureDetection == nil else {
-			// in the future someone should debug why this funtion is called twice in the first place.
+			// in the future someone should debug why this function is called twice in the first place.
 			completion(.failure(.riskProviderIsRunning))
 			return
 		}
 		
 		self.updateActivityState(.detecting)
 
+		let softBlocking = rateLimitLogger.logBlocking(configuration: riskProvidingConfiguration)
+		store.referenceDateForRateLimitLogger = Date()
+
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			deviceTimeCheck: appConfigurationProvider.deviceTimeCheck
 		)
 
 		exposureDetection?.start { [weak self] result in
+			self?.rateLimitLogger.logEffect(result: result, blocking: softBlocking)
 			switch result {
 			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)

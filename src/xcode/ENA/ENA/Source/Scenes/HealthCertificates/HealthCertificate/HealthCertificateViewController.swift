@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -10,20 +10,24 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson?,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		markAsSeenOnDisappearance: Bool,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping () -> Void,
-		didTapDeleteButton: @escaping () -> Void
+		didTapMoreButton: @escaping () -> Void,
+		showInfoHit: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapValidationButton = didTapValidationButton
-		self.didTapDeleteButton = didTapDeleteButton
+		self.didTapMoreButton = didTapMoreButton
 		self.viewModel = HealthCertificateViewModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificate: healthCertificate,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: markAsSeenOnDisappearance,
+			showInfoHit: showInfoHit
 		)
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -44,6 +48,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		setupViewModel()
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		viewModel.markAsSeen()
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -62,7 +72,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		case .primary:
 			didTapValidationButton()
 		case .secondary:
-			didTapDeleteButton()
+			didTapMoreButton()
 		}
 	}
 
@@ -88,7 +98,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(with: viewModel.headlineCellViewModel)
 			return cell
 		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateDetailsQRCodeCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 		case .topCorner:
@@ -102,6 +112,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		case .vaccinationOneOfOneHint:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationOneOfOneHintCellViewModel)
+			return cell
+		case .expirationDate:
+			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateExpirationDateCell.self, for: indexPath)
+			cell.configure(with: viewModel.expirationDateCellViewModel)
 			return cell
 		case .additionalInfo:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateTextViewCell.self, for: indexPath)
@@ -130,10 +144,10 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 	private let dismiss: () -> Void
 	private let didTapValidationButton: () -> Void
-	private let didTapDeleteButton: () -> Void
+	private let didTapMoreButton: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey)
+	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -148,12 +162,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 		// check is we are the first one on the navigation stack
 		if navigationController?.viewControllers.count == 1 {
-			parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
+			navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
 		} else {
-			parent?.navigationItem.titleView = logoImageView
+			navigationItem.titleView = logoImageView
 		}
 
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 
 		// create a transparent navigation bar
 		let emptyImage = UIImage()
@@ -162,9 +176,9 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
 
-		parent?.navigationController?.navigationBar.prefersLargeTitles = false
-		parent?.navigationController?.navigationBar.sizeToFit()
-		parent?.navigationItem.largeTitleDisplayMode = .never
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.sizeToFit()
+		navigationItem.largeTitleDisplayMode = .never
 	}
 
 	private func setupBackground() {
@@ -219,8 +233,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		)
 
 		tableView.register(
-			HealthCertificateDetailsQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateDetailsQRCodeCell.reuseIdentifier
+			HealthCertificateQRCodeCell.self,
+			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 
 		tableView.register(
@@ -237,6 +251,12 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			HealthCertificateBottomCornerCell.self,
 			forCellReuseIdentifier: HealthCertificateBottomCornerCell.reuseIdentifier
 		)
+
+		tableView.register(
+			HealthCertificateExpirationDateCell.self,
+			forCellReuseIdentifier: HealthCertificateExpirationDateCell.reuseIdentifier
+		)
+
 	}
 
 	private func setupViewModel() {
@@ -256,6 +276,13 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 					],
 					with: .none
 				)
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$triggerReload
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}

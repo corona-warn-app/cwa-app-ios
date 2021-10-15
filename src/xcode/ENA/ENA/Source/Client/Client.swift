@@ -10,7 +10,7 @@ protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias KeySubmissionResponse = (Result<Void, Error>) -> Void
+	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
@@ -27,7 +27,8 @@ protocol Client {
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 	typealias ValidationOnboardedCountriesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	
+	typealias BoosterRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.
@@ -90,11 +91,22 @@ protocol Client {
 	///   - isFake: flag to indicate a fake request
 	///   - completion: the completion handler of the submission call
 	func submit(
-		payload: CountrySubmissionPayload,
+		payload: SubmissionPayload,
 		isFake: Bool,
 		completion: @escaping KeySubmissionResponse
 	)
-
+	
+	/// Submits Checkins to the backend on behalf.
+	/// - Parameters:
+	///   - payload: A set of properties to provide during the submission process
+	///   - isFake: flag to indicate a fake request
+	///   - completion: the completion handler of the submission call
+	func submitOnBehalf(
+		payload: SubmissionPayload,
+		isFake: Bool,
+		completion: @escaping KeySubmissionResponse
+	)
+	
 	// MARK: OTP Authorization
 
 	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
@@ -161,16 +173,18 @@ protocol Client {
 	///   - country: The country.ID for which country we want the IDs.
 	///   - completion: The completion handler of the get call, which contains the set of availablePackagesOnCDN.
 	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	)
 	
-	/// GET call to load the packge to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
+	/// GET call to load the package to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
 	/// - Parameters:
 	///   - country: The country.ID for which country we want the IDs.
 	///   - packageId: The packageID for the package we want to download
 	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
@@ -191,7 +205,7 @@ protocol Client {
 		completion: @escaping DCCRegistrationCompletionHandler
 	)
 
-	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encyption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
+	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encryption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
 	/// - Parameters:
 	///   - registrationToken: The registration token
 	///   - isFake: Flag to indicate a fake request
@@ -225,10 +239,20 @@ protocol Client {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping DCCRulesCompletionHandler
 	)
+	
+	/// GET call to receive the Booster notifications rules as a PackageDownloadResponse. Must be extracted and verified afterwards.
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
+	func getBoosterNotificationRules(
+		eTag: String?,
+		isFake: Bool,
+		completion: @escaping BoosterRulesCompletionHandler
+	)
 }
 
-enum SubmissionError: Error {
-	case other(Error)
+enum SubmissionError: Error, Equatable {
+	case other(URLSession.Response.Failure)
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case serverError(Int)
@@ -305,7 +329,7 @@ struct PackageDownloadResponse {
 }
 
 /// Combined model for a submit keys request
-struct CountrySubmissionPayload {
+struct SubmissionPayload {
 
 	/// The exposure keys to submit
 	let exposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]
@@ -314,6 +338,8 @@ struct CountrySubmissionPayload {
 	let visitedCountries: [Country]
 
 	let checkins: [SAP_Internal_Pt_CheckIn]
+
+	let checkinProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport]
 
 	/// a transaction number
 	let tan: String

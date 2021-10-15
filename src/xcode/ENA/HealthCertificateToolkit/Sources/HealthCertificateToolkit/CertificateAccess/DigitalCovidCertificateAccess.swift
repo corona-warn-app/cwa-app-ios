@@ -6,6 +6,7 @@ import Foundation
 import base45_swift
 import SwiftCBOR
 import JSONSchema
+import ENASecurity
 
 public typealias Base45 = String
 public typealias Base64 = String
@@ -67,6 +68,13 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
 
     // MARK: - Internal
 
+    func extractCOSEEntries(from base45: Base45) -> Result<[CBOR], CertificateDecodingError> {
+        removePrefix(from: base45)
+            .flatMap(convertBase45ToData)
+            .flatMap(decompressZLib)
+            .flatMap(decodeCOSEEntries)
+    }
+
     func decryptAndComposeToWebToken(from base64: Base64, dataEncryptionKey: Data) -> Result<CBOR, CertificateDecodingError> {
         let entriesResult = convertBase64ToData(base64: base64)
             .flatMap(decodeCOSEEntries)
@@ -80,6 +88,30 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             .flatMap(extractCOSEPayload)
             .flatMap { decryptPayload(payload: $0, dataEncryptionKey: dataEncryptionKey) }
             .map { reassembleCose(webTokenEntries: webTokenEntries, payload: $0) }
+    }
+
+    func extractKeyIdentifier(from coseEntries: [CBOR]) -> Result<Base64, CertificateDecodingError> {
+        if case let .byteString(protectedHeaderBytes) = coseEntries[0],
+           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
+           case let .byteString(keyIdentifierBytes) = protectedHeaderCBOR[4] {
+            return .success(Data(keyIdentifierBytes).base64EncodedString())
+        }
+
+        let unprotectedHeaderCBOR = coseEntries[1]
+        if case let .byteString(keyIdentifierBytes) = unprotectedHeaderCBOR[4] {
+            return .success(Data(keyIdentifierBytes).base64EncodedString())
+        }
+
+        return .failure(.HC_COSE_NO_KEYIDENTIFIER)
+    }
+
+    func extractCOSEPayload(from coseEntries: [CBOR]) -> Result<Data, CertificateDecodingError> {
+        let payload = coseEntries[2]
+        if case let .byteString(payloadBytes) = payload {
+            return .success(Data(payloadBytes))
+        } else {
+            return .failure(.HC_COSE_MESSAGE_INVALID)
+        }
     }
 
     // MARK: - Private
@@ -99,34 +131,10 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         return CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
     }
 
-    private func extractCOSEPayload(from coseEntries: [CBOR]) -> Result<Data, CertificateDecodingError> {
-        let payload = coseEntries[2]
-        if case let .byteString(payloadBytes) = payload {
-            return .success(Data(payloadBytes))
-        } else {
-            return .failure(.HC_COSE_MESSAGE_INVALID)
-        }
-    }
-
-    private func extractKeyIdentifier(from coseEntries: [CBOR]) -> Result<Base64, CertificateDecodingError> {
-        if case let .byteString(protectedHeaderBytes) = coseEntries[0],
-           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
-           case let .byteString(keyIdentifierBytes) = protectedHeaderCBOR[4] {
-            return .success(Data(keyIdentifierBytes).base64EncodedString())
-        }
-
-        let unprotectedHeaderCBOR = coseEntries[1]
-        if case let .byteString(keyIdentifierBytes) = unprotectedHeaderCBOR[4] {
-            return .success(Data(keyIdentifierBytes).base64EncodedString())
-        }
-
-        return .failure(.HC_COSE_NO_KEYIDENTIFIER)
-    }
-
     private func decryptPayload(payload: Data, dataEncryptionKey: Data) -> Result<Data, CertificateDecodingError> {
         let aesEncryption = AESEncryption(
             encryptionKey: dataEncryptionKey,
-            initializationVector: AESEncryptionConstants.initializationVector
+            initializationVector: AESEncryptionConstants.zeroInitializationVector
         )
 
         let decryptedResult = aesEncryption.decrypt(data: payload)
@@ -220,11 +228,23 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         guard  let healthCertificateCBOR = healthCertificateMap[1] else {
             return .failure(.HC_CBORWEBTOKEN_NO_DIGITALGREENCERTIFICATE)
         }
-
+        
+        guard let trimmedHealthCertificateCBOR = cborMapWithTrimming(certificateCBOR: healthCertificateCBOR) else {
+            return .failure(.HC_CBOR_TRIMMING_FAILED)
+        }
         return loadSchemaAsDict()
-            .flatMap { validateSchema(of: healthCertificateCBOR, schemaDict: $0) }
+            .flatMap { validateSchema(of: trimmedHealthCertificateCBOR, schemaDict: $0) }
             .flatMap(convertCBORToStruct)
     }
+    
+    private func cborMapWithTrimming(certificateCBOR: CBOR) -> CBOR? {
+        guard case let CBOR.map(certificateMap) = certificateCBOR else {
+            return nil
+        }
+        // we need to remove spaces from attributes of the certificate CBOR itself so we pass back a modifiedCertificate
+        return CBOR.map(certificateMap.trimmed)
+    }
+
 
     private func convertCBORToStruct(_ cbor: CBOR) -> Result<DigitalCovidCertificate, CertificateDecodingError> {
         guard case let CBOR.map(certificateMap) = cbor else {
@@ -257,18 +277,18 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             }
 
             let validationResult = try JSONSchema.validate(certificateMap.anyMap, schema: schemaDict)
-
+            
             switch validationResult {
             case .invalid(let errors):
                 return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_RESULT_FAILED(errors)))
             case .valid:
-                return .success((certificate))
+                return .success(certificate)
             }
         } catch {
             return .failure(.HC_JSON_SCHEMA_INVALID(.VALIDATION_FAILED(error)))
         }
     }
-
+    
     private func decodeCOSEEntries(from cborData: CBORData) -> Result<[CBOR], CertificateDecodingError> {
         decodeDataToCBOR(cborData)
             .flatMap(extractCOSE)
@@ -288,14 +308,22 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
     }
 
     private func extractCOSE(from cborPayload: CBOR) -> Result<CBOR, CertificateDecodingError> {
-        guard case let CBOR.tagged(tag, cborWebTokenMessage) = cborPayload,
+        // COSE is one of the following ...
+
+        // ... a tagged CBOR message with tag 18, which indicates signed data. The value is an array with exactly 4 elements.
+        if case let CBOR.tagged(tag, cborWebTokenMessage) = cborPayload,
               // 18: CBOR tag value for a COSE Single Signer Data Object
-              tag.rawValue == 18 else {
-
-            return .failure(.HC_COSE_TAG_INVALID)
+              tag.rawValue == 18 {
+            return .success(cborWebTokenMessage)
         }
-
-        return .success(cborWebTokenMessage)
+        // ... an array with exactly four elements (i.e. no tagged CBOR message).
+        else if case let CBOR.array(coseArray) = cborPayload,
+                coseArray.count == 4 {
+            // Return cborPayload directly because it is already what we need in further steps. A CBOR array with 4 entries.
+            return .success(cborPayload)
+        } else {
+            return .failure(.HC_COSE_TAG_OR_ARRAY_INVALID)
+        }
     }
 
     private func extractCOSEEntries(_ cose: CBOR) -> Result<[CBOR], CertificateDecodingError> {

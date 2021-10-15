@@ -95,8 +95,6 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				),
 				footer: .space(height: 16),
 				cells: [
-					/* not used at the moment - let's keep it for later use
-
 					// Lokale 7-Tage-Inzidenz
 					.title2(
 						text: AppStrings.Statistics.Info.local7DaysTitle,
@@ -106,8 +104,6 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.local7DaysText,
 						accessibilityIdentifier: nil
 					),
-					*/
-					
 					// 7-Tage-Inzidenz
 					.title2(
 						text: AppStrings.Statistics.Info.incidenceTitle,
@@ -115,6 +111,24 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.Statistics.Info.incidenceText,
+						accessibilityIdentifier: nil
+					),
+					// 7-Tage-Inzidenz Hospitalisierung
+					.title2(
+						text: AppStrings.Statistics.Info.hospitalizationRateTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.hospitalizationRateText,
+						accessibilityIdentifier: nil
+					),
+					// COVID-19-Erkrankte auf Intensivstationen
+					.title2(
+						text: AppStrings.Statistics.Info.intensiveCareTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.intensiveCareText,
 						accessibilityIdentifier: nil
 					),
 					// Bestätigte Neuinfektionen
@@ -241,6 +255,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.trendTitle,
 						accessibilityIdentifier: nil
 					),
+					.space(height: 8),
 					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.trendText,
 						accessibilityIdentifier: nil
@@ -256,6 +271,16 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					.footnote(
 						text: AppStrings.Statistics.Info.trendsFootnote,
 						accessibilityIdentifier: nil
+					),
+					.textWithLinks(
+						text: String(
+							format: AppStrings.Statistics.Info.blogDescription,
+							AppStrings.Statistics.Info.blog),
+						links: [
+							AppStrings.Statistics.Info.blog: AppStrings.Links.statisticsInfoBlog
+						],
+						linksColor: .enaColor(for: .textTint),
+						style: .footnote
 					)
 				]
 			)

@@ -118,9 +118,20 @@ enum LaunchArguments {
 		static let noHealthCertificate = LaunchArgument(name: "noHealthCertificate")
 		static let firstHealthCertificate = LaunchArgument(name: "firstHealthCertificate")
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
+		static let hasBoosterNotification = LaunchArgument(name: "hasBoosterNotification")
+		static let firstAndSecondHealthCertificateIssuerDE = LaunchArgument(name: "firstAndSecondHealthCertificateIssuerDE")
+		static let isCertificateInvalid = LaunchArgument(name: "isCertificateInvalid")
+		static let isCertificateExpiring = LaunchArgument(name: "isCertificateExpiring")
+		static let hasCertificateExpired = LaunchArgument(name: "hasCertificateExpired")
+		static let newTestCertificateRegistered = LaunchArgument(name: "newTestCertificateRegistered")
 		static let testCertificateRegistered = LaunchArgument(name: "testCertificateRegistered")
 		static let recoveryCertificateRegistered = LaunchArgument(name: "recoveryCertificateRegistered")
 		static let familyCertificates = LaunchArgument(name: "familyCertificates")
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
+		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
+	}
+	enum notifications {
+		/// Turn notifications for the settings screen on or off - does NOT sync or reflect the system setting. But needed to test the different screens.
+		static let isNotificationsEnabled = LaunchArgument(name: "isNotificationsEnabled")
 	}
 }

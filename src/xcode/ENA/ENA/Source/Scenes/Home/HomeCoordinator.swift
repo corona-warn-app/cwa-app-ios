@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HomeCoordinator: RequiresAppDependencies {
 
@@ -14,14 +15,24 @@ class HomeCoordinator: RequiresAppDependencies {
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
 		coronaTestService: CoronaTestService,
-		elsService: ErrorLogSubmissionProviding
+		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
+		elsService: ErrorLogSubmissionProviding,
+		exposureSubmissionService: ExposureSubmissionService,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
+		self.exposureSubmissionService = exposureSubmissionService
+		self.qrScannerCoordinator = qrScannerCoordinator
+
+		setupHomeBadgeCount()
 	}
 
 	deinit {
@@ -108,10 +119,11 @@ class HomeCoordinator: RequiresAppDependencies {
 				)
 			},
 			onAddDistrict: { [weak self] selectValueViewController in
-				self?.rootViewController.presentedViewController?.present(
-					UINavigationController(rootViewController: selectValueViewController),
-					animated: true
-				)
+				guard let navigationController = self?.rootViewController.presentedViewController as? UINavigationController else {
+					Log.error("add statistics Navigation controller should be presented")
+					return
+				}
+				navigationController.pushViewController(selectValueViewController, animated: true)
 			},
 			onDismissState: { [weak self] in
 				self?.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
@@ -160,6 +172,10 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestService
 	private let elsService: ErrorLogSubmissionProviding
+	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -169,33 +185,10 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
 
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
+	private var subscriptions = Set<AnyCancellable>()
 
 	private weak var delegate: CoordinatorDelegate?
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		#if DEBUG
-		if isUITesting {
-			return ENAExposureSubmissionService(
-				diagnosisKeysRetrieval: exposureManager,
-				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration),
-				client: ClientMock(),
-				store: MockTestStore(),
-				eventStore: eventStore,
-				coronaTestService: coronaTestService
-			)
-		}
-		#endif
-
-		return ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: coronaTestService
-		)
-	}()
-
+	   
 	private lazy var statisticsProvider: StatisticsProvider = {
 			#if DEBUG
 			if isUITesting {
@@ -228,12 +221,26 @@ class HomeCoordinator: RequiresAppDependencies {
 			)
 		}()
 
-		private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
-			return QRCodePosterTemplateProvider(
-				client: CachingHTTPClient(),
-				store: store
-			)
-		}()
+	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+		return QRCodePosterTemplateProvider(
+			client: CachingHTTPClient(),
+			store: store
+		)
+	}()
+	
+	private lazy var vaccinationValueSetsProvider: VaccinationValueSetsProvider = {
+		return VaccinationValueSetsProvider(
+			client: CachingHTTPClient(),
+			store: store
+		)
+	}()
+
+	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider = {
+		return HealthCertificateValidationOnboardedCountriesProvider(
+			store: store,
+			client: client
+		)
+	}()
 
 	private func selectHomeTabSection(route: Route?) {
 		DispatchQueue.main.async { [weak self] in
@@ -305,11 +312,16 @@ class HomeCoordinator: RequiresAppDependencies {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			parentNavigationController: rootViewController,
+			parentViewController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
-			antigenTestProfileStore: store
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 
 		if let testInformationResult = testInformationResult {
@@ -338,7 +350,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
-			parentNavigationController: rootViewController
+			client: client,
+			parentNavigationController: rootViewController,
+			qrScannerCoordinator: qrScannerCoordinator
 		)
 
 		traceLocationsCoordinator?.start()
@@ -392,6 +406,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
+	private func setupHomeBadgeCount() {
+		coronaTestService.unseenTestsCount
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] in
+				self?.rootViewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+			}
+			.store(in: &subscriptions)
+	}
+
 	// MARK: - HealthCertificate
 
 	#if !RELEASE
@@ -410,7 +433,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			coronaTestService: coronaTestService,
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
-			ppacService: ppacService
+			ppacService: ppacService,
+			healthCertificateService: healthCertificateService
 		)
 		developerMenu?.enableIfAllowed()
 	}

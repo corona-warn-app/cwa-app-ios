@@ -6,6 +6,7 @@ import Foundation
 import UIKit
 import OpenCombine
 import ExposureNotification
+import PDFKit
 
 // swiftlint:disable file_length
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
@@ -15,15 +16,26 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: - Init
 
 	init(
-		parentNavigationController: UINavigationController,
+		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestService,
+		healthCertificateService: HealthCertificateService,
+		healthCertificateValidationService: HealthCertificateValidationProviding,
 		eventProvider: EventProviding,
-		antigenTestProfileStore: AntigenTestProfileStoring
+		antigenTestProfileStore: AntigenTestProfileStoring,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
+		qrScannerCoordinator: QRScannerCoordinator
 	) {
-		self.parentNavigationController = parentNavigationController
+		self.parentViewController = parentViewController
 		self.antigenTestProfileStore = antigenTestProfileStore
-		
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
+		self.qrScannerCoordinator = qrScannerCoordinator
+
+		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
+
 		super.init()
 
 		model = ExposureSubmissionCoordinatorModel(
@@ -41,7 +53,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		start(with: self.getInitialViewController())
 	}
 
-	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>) {
+	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>, markNewlyAddedCoronaTestAsUnseen: Bool = false) {
+		model.markNewlyAddedCoronaTestAsUnseen = markNewlyAddedCoronaTestAsUnseen
+
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in },
 			onSuccess: { supportedCountries in
@@ -52,14 +66,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				case let .failure(qrCodeError):
 					switch qrCodeError {
 					case .invalidTestCode:
-						self.showRATInvalidQQCode()
+						self.showRATInvalidQRCode()
 					}
 				}
 			}
 		)
 	}
 
-	private func showRATInvalidQQCode() {
+	private func showRATInvalidQRCode() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
 			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
@@ -70,7 +84,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				style: .default
 			)
 		)
-		parentNavigationController?.present(alert, animated: true)
+		parentViewController?.present(alert, animated: true)
 	}
 
 	func dismiss(completion: (() -> Void)? = nil) {
@@ -91,9 +105,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
-			coronaTestService: model.coronaTestService,
-			onSuccess: { [weak self] testRegistrationInformation, isLoading in
-				self?.showOverrideTestNoticeIfNecessary(testRegistrationInformation: testRegistrationInformation, submissionConsentGiven: false, isLoading: isLoading)
+			title: AppStrings.ExposureSubmissionTanEntry.title,
+			description: AppStrings.ExposureSubmissionTanEntry.description,
+			onPrimaryButtonTap: { [weak self] tan, isLoading in
+				self?.showOverrideTestNoticeIfNecessary(
+					testRegistrationInformation: .teleTAN(tan: tan),
+					submissionConsentGiven: false,
+					isLoading: isLoading
+				)
 			}
 		)
 
@@ -138,12 +157,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] isLoading in
-				self?.model.exposureSubmissionService.loadSupportedCountries(
-					isLoading: isLoading,
-					onSuccess: { supportedCountries in
-						self?.showQRInfoScreen(supportedCountries: supportedCountries)
-					}
-				)
+				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			onFindTestCentersTap: {
 				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
@@ -174,11 +188,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Private
 
-	private weak var parentNavigationController: UINavigationController?
-	private weak var presentedViewController: UIViewController?
+	private weak var parentViewController: UIViewController?
 
 	private var model: ExposureSubmissionCoordinatorModel!
 	private let antigenTestProfileStore: AntigenTestProfileStoring
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
+	private let qrScannerCoordinator: QRScannerCoordinator
+
+	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateValidationService: HealthCertificateValidationProviding
+	private var validationCoordinator: HealthCertificateValidationCoordinator?
+	private var printNavigationController: UINavigationController!
 	
 	private func push(_ vc: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
@@ -189,12 +210,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.navigationController?.popViewController(animated: true)
 	}
 
-	private var subscriptions = [AnyCancellable]()
-
 	// MARK: Start
 
 	private func start(with initialViewController: UIViewController) {
-		guard let parentNavigationController = parentNavigationController else {
+		guard let parentViewController = parentViewController else {
 			Log.error("Parent navigation controller not set.", log: .ui)
 			return
 		}
@@ -208,14 +227,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			rootViewController: initialViewController
 		)
-		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
+		parentViewController.present(exposureSubmissionNavigationController, animated: true)
 		navigationController = exposureSubmissionNavigationController
 	}
 
 	// MARK: Initial Screens
 
 	private func createTestResultAvailableViewController() -> UIViewController {
-        guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
+		guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
 			fatalError("Cannot create a test result available view controller without a corona test")
 		}
 
@@ -326,6 +345,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			onTestDeleted: { [weak self] in
 				self?.dismiss()
+			},
+			onTestCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+				self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate)
 			}
 		)
 		
@@ -414,7 +436,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 
-	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation?) -> UIViewController {
+	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -424,23 +446,37 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 							if let error = error as? ENError {
 								switch error.toExposureSubmissionError() {
 								case .notAuthorized:
-									// user did not authorize -> continue to scanning the qr code
-									self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+									self?.showOverrideTestNoticeIfNecessary(
+										testRegistrationInformation: testRegistrationInformation,
+										submissionConsentGiven: true,
+										isLoading: isLoading
+									)
 								default:
 									// present alert
 									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
-										self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+										self?.showOverrideTestNoticeIfNecessary(
+											testRegistrationInformation: testRegistrationInformation,
+											submissionConsentGiven: true,
+											isLoading: isLoading
+										)
 									})
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
 							} else {
-								// continue to scanning the qr code
-								self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+								self?.showOverrideTestNoticeIfNecessary(
+									testRegistrationInformation: testRegistrationInformation,
+									submissionConsentGiven: true,
+									isLoading: isLoading
+								)
 							}
 						}
 					})
 				} else {
-					self?.showQRScreen(testRegistrationInformation: testRegistrationInformation, isLoading: isLoading)
+					self?.showOverrideTestNoticeIfNecessary(
+						testRegistrationInformation: testRegistrationInformation,
+						submissionConsentGiven: true,
+						isLoading: isLoading
+					)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -464,8 +500,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
-	private func showQRInfoScreen(supportedCountries: [Country]) {
-		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: nil))
+	private func showQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) {
+		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
@@ -476,55 +512,26 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				isLoading: isLoading
 			)
 		} else {
-			let scannerViewController = ExposureSubmissionQRScannerViewController(
-				onSuccess: { testRegistrationInformation in
-					DispatchQueue.main.async { [weak self] in
-						self?.presentedViewController?.dismiss(animated: true) {
-							self?.showOverrideTestNoticeIfNecessary(
-								testRegistrationInformation: testRegistrationInformation,
-								submissionConsentGiven: true,
-								isLoading: isLoading
-							)
+			guard let navigationController = navigationController else {
+				Log.error("Cannot present QR code scanner without navigation controller in submission flow")
+				return
+			}
+
+			qrScannerCoordinator.didScanCoronaTestInSubmissionFlow = { [weak self] testRegistrationInformation in
+				DispatchQueue.main.async {
+					self?.model.exposureSubmissionService.loadSupportedCountries(
+						isLoading: isLoading,
+						onSuccess: { supportedCountries in
+							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
 						}
-					}
-				},
-				onError: { [weak self] error, reactivateScanning in
-					switch error {
-					case .cameraPermissionDenied:
-						DispatchQueue.main.async {
-							let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
-								self?.presentedViewController?.dismiss(animated: true)
-							})
-							self?.presentedViewController?.present(alert, animated: true)
-						}
-					case .codeNotFound:
-						DispatchQueue.main.async {
-							let alert = UIAlertController.errorAlert(
-								title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-								message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
-								okTitle: AppStrings.Common.alertActionCancel,
-								secondaryActionTitle: AppStrings.Common.alertActionRetry,
-								completion: { [weak self] in
-									self?.presentedViewController?.dismiss(animated: true)
-								},
-								secondaryActionCompletion: { reactivateScanning() }
-							)
-							self?.presentedViewController?.present(alert, animated: true)
-						}
-					case .other:
-						Log.error("QRScannerError.other occurred.", log: .ui)
-					}
-				},
-				onCancel: { [weak self] in
-					self?.presentedViewController?.dismiss(animated: true)
+					)
 				}
+			}
+
+			qrScannerCoordinator.start(
+				parentViewController: navigationController,
+				presenter: .submissionFlow
 			)
-
-			let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
-			qrScannerNavigationController.modalPresentationStyle = .fullScreen
-
-			navigationController?.present(qrScannerNavigationController, animated: true)
-			presentedViewController = qrScannerNavigationController
 		}
 
 	}
@@ -564,7 +571,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			didTapCloseButton: { [weak self] in
 				// on cancel the submission flow is stopped immediately
-				self?.parentNavigationController?.dismiss(animated: true)
+				self?.parentViewController?.dismiss(animated: true)
 			}
 		)
 
@@ -625,7 +632,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			primaryButtonName: AppStrings.ExposureSubmissionCheckins.continueButton,
 			secondaryButtonName: AppStrings.ExposureSubmissionCheckins.skipButton,
 			isPrimaryButtonEnabled: false,
-			backgroundColor: .enaColor(for: .darkBackground)
+			backgroundColor: .enaColor(for: .background)
 		)
 
 		let checkinsVC = ExposureSubmissionCheckinsViewController(
@@ -661,6 +668,365 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let topBottomVC = TopBottomContainerViewController(topController: checkinsVC, bottomController: footerVC)
 		
 		push(topBottomVC)
+	}
+
+	private func showHealthCertificate(
+		healthCertifiedPerson: HealthCertifiedPerson,
+		healthCertificate: HealthCertificate
+	) {
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.HealthCertificate.Details.validationButtonTitle,
+			secondaryButtonName: AppStrings.HealthCertificate.Details.moreButtonTitle,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isSecondaryButtonHidden: false,
+			primaryButtonInverted: false,
+			secondaryButtonInverted: true,
+			backgroundColor: .enaColor(for: .cellBackground)
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+
+		let healthCertificateViewController = HealthCertificateViewController(
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			dismiss: { [weak self] in
+				self?.dismiss()
+			},
+			didTapValidationButton: { [weak self] in
+				footerViewModel.setLoadingIndicator(true, disable: true, button: .primary)
+				footerViewModel.setLoadingIndicator(false, disable: true, button: .secondary)
+
+				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
+					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
+					footerViewModel.setLoadingIndicator(false, disable: false, button: .secondary)
+
+					switch result {
+					case .success(let countries):
+						self?.showValidationFlow(
+							healthCertificate: healthCertificate,
+							countries: countries
+						)
+					case .failure(let error):
+						self?.showValidationErrorAlert(
+							title: AppStrings.HealthCertificate.Validation.Error.title,
+							error: error
+						)
+					}
+				}
+			},
+			didTapMoreButton: { [weak self] in
+				self?.showActionSheet(
+					healthCertificate: healthCertificate,
+					removeAction: { [weak self] in
+						self?.showDeleteAlert(
+							certificateType: healthCertificate.type,
+							submitAction: UIAlertAction(
+								title: AppStrings.HealthCertificate.Alert.deleteButton,
+								style: .destructive,
+								handler: { _ in
+									guard let self = self else {
+										Log.error("Could not create strong self")
+										return
+									}
+									self.healthCertificateService.removeHealthCertificate(healthCertificate)
+									self.navigationController?.popViewController(animated: true)
+								}
+							)
+						)
+					}
+				)
+			},
+			showInfoHit: { [weak self] in
+				self?.presentCovPassInfoScreen()
+			}
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificateViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController?.pushViewController(topBottomContainerViewController, animated: true)
+	}
+
+	private func showValidationFlow(
+		healthCertificate: HealthCertificate,
+		countries: [Country]
+	) {
+		guard let parentViewController = navigationController else { return }
+
+		validationCoordinator = HealthCertificateValidationCoordinator(
+			parentViewController: parentViewController,
+			healthCertificate: healthCertificate,
+			countries: countries,
+			store: store,
+			healthCertificateValidationService: healthCertificateValidationService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+		)
+
+		validationCoordinator?.start()
+	}
+
+	private func presentCovPassInfoScreen() {
+		let covPassInformationViewController = CovPassCheckInformationViewController(
+			onDismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let dismissNavigationController = DismissHandlingNavigationController(rootViewController: covPassInformationViewController, transparent: true)
+		navigationController?.present(dismissNavigationController, animated: true)
+	}
+
+	private func showActionSheet(
+		healthCertificate: HealthCertificate,
+		removeAction: @escaping () -> Void
+	) {
+		let actionSheet = UIAlertController(
+			title: nil,
+			message: nil,
+			preferredStyle: .actionSheet
+		)
+		
+		let printAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
+			style: .default,
+			handler: { [weak self] _ in
+				// Check first if the certificate is obtained in DE. If not, show error alert.
+				guard healthCertificate.cborWebTokenHeader.issuer == "DE" else {
+					self?.showPdfPrintErrorAlert()
+					return
+				}
+				self?.showPdfGenerationInfo(
+					healthCertificate: healthCertificate
+				)
+			}
+		)
+		actionSheet.addAction(printAction)
+
+		let deleteButtonTitle: String
+		switch healthCertificate.type {
+		case .vaccination:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.deleteButtonTitle
+		case .test:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.TestCertificate.primaryButton
+		case .recovery:
+			deleteButtonTitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.primaryButton
+		}
+		
+		let removeAction = UIAlertAction(
+			title: deleteButtonTitle,
+			style: .destructive,
+			handler: { _ in
+				removeAction()
+			}
+		)
+		actionSheet.addAction(removeAction)
+		
+		let cancelAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.cancel,
+			style: .cancel,
+			handler: nil
+		)
+		actionSheet.addAction(cancelAction)
+		navigationController?.present(actionSheet, animated: true, completion: nil)
+	}
+	
+	private func showPdfGenerationInfo(
+		healthCertificate: HealthCertificate
+	) {
+		let healthCertificatePDFGenerationInfoViewController = HealthCertificatePDFGenerationInfoViewController(
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			onTapContinue: { [weak self] pdfDocument in
+				self?.showPdfGenerationResult(
+					healthCertificate: healthCertificate,
+					pdfDocument: pdfDocument
+				)
+			},
+			onDismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			},
+			showErrorAlert: { [weak self] error in
+				self?.showErrorAlert(
+					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+					error: error
+				)
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.PrintPDF.Info.primaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificatePDFGenerationInfoViewController,
+			bottomController: footerViewController
+		)
+		
+		printNavigationController = DismissHandlingNavigationController(
+			rootViewController: topBottomContainerViewController,
+			transparent: true
+		)
+		navigationController?.present(printNavigationController, animated: true)
+	}
+	
+	private func showPdfGenerationResult(
+		healthCertificate: HealthCertificate,
+		pdfDocument: PDFDocument
+	) {
+		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
+			healthCertificate: healthCertificate,
+			pdfDocument: pdfDocument
+		)
+		
+		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
+			viewModel: healthCertificatePDFVersionViewModel,
+			onTapPrintPdf: printPdf,
+			onTapExportPdf: exportPdf
+		)
+		printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
+	}
+	
+	private func printPdf(
+		pdfData: Data
+	) {
+		let printController = UIPrintInteractionController.shared
+		printController.printingItem = pdfData
+		printController.present(animated: true, completionHandler: nil)
+	}
+	
+	private func exportPdf(
+		exportItem: PDFExportItem
+	) {
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
+		printNavigationController.present(activityViewController, animated: true, completion: nil)
+	}
+	
+	private func showDeleteAlert(
+		certificateType: HealthCertificate.CertificateType,
+		submitAction: UIAlertAction
+	) {
+		let title: String
+		let message: String
+
+		switch certificateType {
+		case .vaccination:
+			title = AppStrings.HealthCertificate.Alert.VaccinationCertificate.title
+			message = AppStrings.HealthCertificate.Alert.VaccinationCertificate.message
+		case .test:
+			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
+			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
+		case .recovery:
+			title = AppStrings.HealthCertificate.Alert.RecoveryCertificate.title
+			message = AppStrings.HealthCertificate.Alert.RecoveryCertificate.message
+		}
+
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Alert.cancelButton,
+				style: .cancel,
+				handler: nil
+			)
+		)
+		alert.addAction(submitAction)
+		
+		navigationController?.present(alert, animated: true)
+	}
+	
+	private func showErrorAlert(
+		title: String,
+		error: Error
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {
+				fatalError("Could not create strong self")
+			}
+			
+			if let navigationController = self.navigationController,
+			   navigationController.isBeingPresented {
+				self.navigationController?.present(alert, animated: true, completion: nil)
+			} else {
+				self.printNavigationController.present(alert, animated: true, completion: nil)
+			}
+		}
+	}
+	
+	private func showPdfPrintErrorAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
+			preferredStyle: .alert
+		)
+		
+		let faqAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
+			style: .default,
+			handler: { _ in
+				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
+			}
+		)
+		alert.addAction(faqAction)
+		
+		let okayAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		navigationController?.present(alert, animated: true, completion: nil)
+	}
+
+	private func showValidationErrorAlert(
+		title: String,
+		error: Error
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	// MARK: Late consent
@@ -851,13 +1217,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			store: store,
 			didTapContinue: { [weak self] isLoading in
 				self?.model.coronaTestType = .antigen
-				self?.model.exposureSubmissionService.loadSupportedCountries(
-					isLoading: isLoading,
-					onSuccess: { supportedCountries in
-						self?.showQRInfoScreen(supportedCountries: supportedCountries)
-					}
-				)
-
+				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()

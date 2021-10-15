@@ -16,9 +16,6 @@ protocol StoreProtocol: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 
-	var allowRiskChangesNotification: Bool { get set }
-	var allowTestsStatusNotification: Bool { get set }
-
 	var appInstallationDate: Date? { get set }
 
 	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
@@ -32,6 +29,8 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
+	var referenceDateForRateLimitLogger: Date? { get set }
+
 	var enfRiskCalculationResult: ENFRiskCalculationResult? { get set }
 
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
@@ -42,6 +41,10 @@ protocol StoreProtocol: AnyObject {
 	/// `true` if the user needs to be informed about how risk detection works.
 	/// We only inform the user once. By default the value of this property is `true`.
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
+
+	/// `true` if the user needs to be shown the QR code scanner tooltip.
+	/// We only show it once. By default the value of this property is `true`.
+	var shouldShowQRScannerTooltip: Bool { get set }
 
 	/// Time when the app sent the last background fake request.
 	var lastBackgroundFakeRequest: Date { get set }
@@ -54,12 +57,6 @@ protocol StoreProtocol: AnyObject {
 	var wasRecentHourKeyDownloadSuccessful: Bool { get set }
 
 	var lastKeyPackageDownloadDate: Date { get set }
-
-	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
-
-	var deviceTimeLastStateChange: Date { get set }
-
-	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
 	
@@ -81,14 +78,25 @@ protocol StoreProtocol: AnyObject {
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
-	var dmKillDeviceTimeCheck: Bool { get set }
-
 	var forceAPITokenAuthorization: Bool { get set }
 	
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
 
 	#endif
 
+}
+
+protocol DeviceTimeCheckStoring: AnyObject {
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
+	var deviceTimeLastStateChange: Date { get set }
+	var wasDeviceTimeErrorShown: Bool { get set }
+}
+
+protocol AppFeaturesStoring: AnyObject {
+	#if !RELEASE
+	var dmKillDeviceTimeCheck: Bool { get set }
+	var unencryptedCheckinsEnabled: Bool { get set }
+	#endif
 }
 
 protocol AppConfigCaching: AnyObject {
@@ -167,7 +175,8 @@ protocol CoronaTestStoring {
 	var pcrTest: PCRTest? { get set }
 
 	var antigenTest: AntigenTest? { get set }
-
+	
+	var unseenTestsCount: Int { get set }
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
@@ -188,11 +197,12 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var testCertificateRequests: [TestCertificateRequest] { get set }
 
-	var unseenTestCertificateCount: Int { get set }
-
 	var lastSelectedValidationCountry: Country { get set }
 
 	var lastSelectedValidationDate: Date { get set }
+	
+	var lastBoosterNotificationsExecutionDate: Date? { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here
@@ -214,7 +224,7 @@ protocol CoronaTestStoringLegacy {
 	var devicePairingSuccessfulTimestamp: Int64? { get set }
 
 	/// Timestamp that represents the date at which
-	/// the user has received a test reult.
+	/// the user has received a test result.
 	var testResultReceivedTimeStamp: Int64? { get set }
 
 	/// Date when the test was registered for both TAN and QR
@@ -240,6 +250,16 @@ protocol HealthCertificateValidationCaching: AnyObject {
 	var invalidationRulesCache: ValidationRulesCache? { get set }
 }
 
+protocol HealthCertificateBoosterNotificationCaching: AnyObject {
+	
+	/// The cache for the Booster notification rules. Contains the eTag and the Booster rules received before or nil, when never cached.
+	var boosterRulesCache: ValidationRulesCache? { get set }
+}
+
+protocol DSCListCaching: AnyObject {
+	// the cache for last fetched DSC List
+	var dscList: DSCListMetaData? { get set }
+}
 
 // swiftlint:disable all
 /// Wrapper protocol
@@ -249,6 +269,7 @@ protocol Store:
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
 	HealthCertificateValidationCaching,
+	HealthCertificateBoosterNotificationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
@@ -258,6 +279,9 @@ protocol Store:
 	LocalStatisticsCaching,
 	StoreProtocol,
 	VaccinationCaching,
-	WarnOthersTimeIntervalStoring
+	WarnOthersTimeIntervalStoring,
+	DSCListCaching,
+	DeviceTimeCheckStoring,
+	AppFeaturesStoring
 {}
 // swiftlint:enable all

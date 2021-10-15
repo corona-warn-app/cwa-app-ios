@@ -17,8 +17,18 @@ extension Name {
 		return [resolvedFamilyName, resolvedGivenName].formatted()
 	}
 
+	var reversedFullNameWithoutFallback: String {
+		return [familyName, givenName].formatted(separator: ", ")
+	}
+
 	var standardizedName: String {
 		return [standardizedGivenName, standardizedFamilyName].formatted()
+	}
+	
+	var reversedStandardizedName: String {
+		var standardizedFamilyName = self.standardizedFamilyName
+		standardizedFamilyName += ","
+		return [standardizedFamilyName, standardizedGivenName].formatted()
 	}
 
 	private var resolvedGivenName: String? {
@@ -40,11 +50,11 @@ extension Name {
 
 fileprivate extension Sequence where Element == String? {
 	
-	func formatted() -> String {
+	func formatted(separator: String = " ") -> String {
 		return self
 			.compactMap { $0 }
 			.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines) != "" }
-			.joined(separator: " ")
+			.joined(separator: separator)
 			
 	}
 }

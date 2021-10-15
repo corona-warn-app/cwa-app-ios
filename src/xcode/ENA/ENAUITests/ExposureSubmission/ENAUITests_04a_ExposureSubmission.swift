@@ -55,8 +55,11 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// QR Code Info Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want to cancel here.
+		let cancelButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.cancel])
+		cancelButton.waitAndTap()
+		
 		// QR Code Scanner Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 	}
@@ -68,12 +71,12 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		// Open pending test result screen.
 		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.pendingPCRButton].waitAndTap()
-		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .long))
 
 		app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell].waitAndTap()
 		
 		let consentSwitch = app.cells[AccessibilityIdentifiers.ExposureSubmissionTestResultConsent.switchIdentifier]
-		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
+		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .long))
 		XCTAssertEqual(consentSwitch.value as? String, "0")
 		consentSwitch.waitAndTap()
 		XCTAssertEqual(consentSwitch.value as? String, "1")
@@ -410,46 +413,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
-
-	func test_screenshot_TestCertificateScreen() throws {
-		launch()
-
-		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
-		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-
-		// Intro screen
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
-
-		// -> Select QRCode screen.
-		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
-
-		// QR Code Info Screen
-		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
-
-		// QR Code Scanner Screen
-		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-
-		// Wait for the birthday field.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitForExistence(timeout: .extraLong))
-
-		snapshot("submissionflow_screenshot_test_certificate_request")
-
-		// Tap on birthday field.
-		app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitAndTap()
-
-		// Pick another year to enable the button
-		let datePicker = XCUIApplication().datePickers.firstMatch
-		datePicker.pickerWheels["2000"].adjust(toPickerWheelValue: "1985")
-
-		// Check if the button is enabled.
-		let buttonEnabled = NSPredicate(format: "enabled == true")
-		expectation(for: buttonEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
-		waitForExpectations(timeout: .medium, handler: nil)
-
-		snapshot("submissionflow_screenshot_test_certificate_entered_birthday")
-	}
 	
 	func test_Tester_Centers_Opens_Website_In_Safari() {
 		launch()
@@ -465,118 +428,15 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
 	
 		// Check if safari was opened
-		let safariApp = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
-		XCTAssertTrue(safariApp.state == .runningForeground)
+		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+
 	}
 	
-	// MARK: - Screenshots
-
-	func test_screenshot_SymptomsOptionYes() {
-		var screenshotCounter = 0
-
-		launchAndNavigateToSymptomsScreen()
-		
-		// capturing and selecting Yes button
-		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
-		optionYes.waitAndTap()
-
-		// take snapshot of the selection
-		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func test_screenshot_SubmitTAN() {
-		var screenshotCounter = 0
-
-		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		launch()
-
-		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
-		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
-			return false
-		}
-
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc())))")
-		
-		// Open Intro screen.
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
-				
-		// Overview Screen: click TAN button.
-		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
-		
-		// Fill in dummy TAN.
-		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
-		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(continueButton.isEnabled)
-		
-		type(app, text: "qwdzxcsrhe")
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
-		
-		// Click continue button.
-		XCTAssertTrue(continueButton.isEnabled)
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
-		
-		// TAN tests are ALWAYS positive!
-		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
-		
-		// Click secondary button to skip symptoms.
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-	}
-
-	func test_screenshot_SubmitQR() {
-		var screenshotCounter = 0
-
-		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-
-		if #available(iOS 13.4, *) {
-			app.resetAuthorizationStatus(for: .camera)
-		}
-		launch()
-
-		// monitor system dialogues and use default handler to simply dismiss any alert
-		// see https://developer.apple.com/videos/play/wwdc2020/10220/
-		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
-			return false
-		}
-
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		/// Home Screen
-		
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
-		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
-		/// Register your test screen
-		
-		let scanQRCodeButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription]
-		scanQRCodeButton.waitAndTap()
-		
-		/// Your consent screen
-		
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription].waitForExistence(timeout: .short))
-		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
-		continueButton.waitAndTap()
-
-		/// Camera mode
-		
-		// fake tap to trigger interruption handler in case of privacy alerts
-
-		let flashButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash]
-		if flashButton.waitForExistence(timeout: .short) {
-			flashButton.waitAndTap()
-		}
-		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-
-	func test_screenshot_SubmissionNotPossible() throws {
+	func test_SubmissionNotPossible() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
-		var screenshotCounter = 0
 
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.disabled.stringValue)
 		launch()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// Open Intro screen.
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
@@ -601,8 +461,272 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// expect an error dialogue due to disabled exposure notification
 		XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: .short))
+	}
+	
+	func test_test_result_negative() {
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		launch()
 
-		snapshot("error_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		// Open test result screen.
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton].waitAndTap()
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
+	}
+	
+	func test_exposureSubmissionSuccess_screen() {
+		launchAndNavigateToSymptomsScreen()
+
+		// Symptoms Screen: Select no symptoms option
+		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
+		XCTAssertTrue(optionNo.waitForExistence(timeout: .medium))
+		optionNo.waitAndTap()
+
+		let btnContinue = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
+		XCTAssertTrue(btnContinue.isEnabled)
+		btnContinue.waitAndTap()
+
+		// We should see now the exposureSubmissionSuccessViewController
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
+		
+		// the old thank you screen == exposureSubmissionSuccessViewController
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
+
+		// Back to homescreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+	}
+	
+	func test_RegisterCertificateFromSubmissionFlowWithoutInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let certificateButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
+		certificateButton.waitAndTap()
+
+		/// Certificate Screen
+		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
+		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+	}
+
+	func test_CheckinFromSubmissionFlowWithInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: false)
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
+
+		// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+
+		// Checkin Info Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Information.descriptionTitle].waitForExistence(timeout: .short))
+
+		app.buttons[AccessibilityIdentifiers.Checkin.Information.primaryButton].waitAndTap()
+
+		// Checkin Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
+	}
+
+	func test_CheckinFromSubmissionFlowWithoutInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.checkinInfoScreenShown, to: true)
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
+		eventButton.waitAndTap()
+
+		/// Checkin Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Checkin.Details.checkinFor].waitForExistence(timeout: .short))
+	}
+	
+	func test_RegisterCertificateFromSubmissionFlowWithInfoScreen() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: false)
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan
+		let certificateButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
+		certificateButton.waitAndTap()
+
+		/// Certificate Info Screen
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.HealthCertificate.Info.title)].waitForExistence(timeout: .short))
+
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+		/// Certificate Screen
+		let headlineCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline])
+		XCTAssertTrue(headlineCell.waitForExistence(timeout: .short))
+	}
+	
+	// MARK: - Screenshots
+
+	func test_screenshot_TestCertificateScreen() throws {
+		launch()
+
+		// -> Open Intro screen
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
+
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR here.
+		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR2])
+		pcrButton.waitAndTap()
+		
+		// QR Code Info Screen
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap(.long)
+
+		// QR Code Scanner Screen
+		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
+
+		// Wait for the birthday field.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitForExistence(timeout: .extraLong))
+
+		// Tap on birthday field.
+		app.cells[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder].waitAndTap()
+
+		// Pick another year to enable the button
+		let datePicker = XCUIApplication().datePickers.firstMatch
+		datePicker.pickerWheels["2000"].adjust(toPickerWheelValue: "1985")
+
+		// Check if the button is enabled.
+		let buttonEnabled = NSPredicate(format: "enabled == true")
+		expectation(for: buttonEnabled, evaluatedWith: app.buttons[AccessibilityIdentifiers.General.primaryFooterButton], handler: nil)
+		waitForExpectations(timeout: .medium, handler: nil)
+
+		snapshot("submissionflow_screenshot_test_certificate_entered_birthday")
+	}
+
+	func test_screenshot_SymptomsOptionYes() {
+		var screenshotCounter = 0
+
+		launchAndNavigateToSymptomsScreen()
+		
+		// capturing and selecting Yes button
+		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
+		optionYes.waitAndTap()
+
+		// take snapshot of the selection
+		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_SubmitTAN() {
+		var screenshotCounter = 0
+
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		launch()
+
+		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
+			return false
+		}
+		
+		// Open Intro screen.
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+				
+		// Overview Screen: click TAN button.
+		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc())))")
+		
+		// Fill in dummy TAN.
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
+		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
+		XCTAssertFalse(continueButton.isEnabled)
+		
+		type(app, text: "qwdzxcsrhe")
+		
+		// Click continue button.
+		XCTAssertTrue(continueButton.isEnabled)
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+				
+		// Click secondary button to skip symptoms.
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
+	}
+
+	func test_screenshot_SubmitQR() throws {
+		var screenshotCounter = 0
+
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+
+		if #available(iOS 13.4, *) {
+			app.resetAuthorizationStatus(for: .camera)
+		}
+		launch()
+
+		// monitor system dialogues and use default handler to simply dismiss any alert
+		// see https://developer.apple.com/videos/play/wwdc2020/10220/
+		addUIInterruptionMonitor(withDescription: "System Dialog") { alert -> Bool in
+			let button = alert.buttons.element(boundBy: 1)
+			  if button.exists {
+				button.waitAndTap()
+			}
+			return true
+		}
+
+		/// Home Screen
+		
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		/// Register your test screen
+		
+		let scanQRCodeButton = app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription]
+		scanQRCodeButton.waitAndTap()
+		
+		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR2 here.
+		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR2])
+		pcrButton.waitAndTap()
+		
+		/// Your consent screen
+		
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription].waitForExistence(timeout: .extraLong))
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
+		continueButton.waitAndTap()
+
 	}
 	
 	func test_screenshot_test_result_available() {
@@ -629,17 +753,23 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_test_result_pending")
 	}
-
-	func test_screenshot_test_result_negative() {
+	
+	func test_screenshot_test_certificate_test_result_negative() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.showTestCertificateOnTestResult, to: true)
 		launch()
 
 		// Open test result screen.
 		app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.negativePCRButton].waitAndTap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
 
-		snapshot("submissionflow_screenshot_test_result_negative")
+		snapshot("screenshot_test_certificate_button_test_result_negative")
+		
+		// Open test certificate.
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Certificate.headline].waitForExistence(timeout: .medium))
 	}
 
 	func test_screenshot_test_result_positive() {
@@ -669,31 +799,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
-
-	func test_screenshot_exposureSubmissionSuccess_screen() {
-		launchAndNavigateToSymptomsScreen()
-
-		// Symptoms Screen: Select no symptoms option
-		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
-		XCTAssertTrue(optionNo.waitForExistence(timeout: .medium))
-		optionNo.waitAndTap()
-
-		let btnContinue = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
-		XCTAssertTrue(btnContinue.isEnabled)
-		btnContinue.waitAndTap()
-
-		// We should see now the exposureSubmissionSuccessViewController
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription].waitForExistence(timeout: .short))
-		
-		// the old thank you screen == exposureSubmissionSuccessViewController
-		snapshot("submissionflow_screenshot_thank_you_screen")
-		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
-
-		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
-	}
+	
 }
 
 // MARK: - Helpers.

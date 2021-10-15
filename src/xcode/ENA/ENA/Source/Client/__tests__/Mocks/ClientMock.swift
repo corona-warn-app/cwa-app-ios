@@ -52,7 +52,8 @@ final class ClientMock {
 	// MARK: - Configurable Mock Callbacks.
 
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
-	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
+	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
+	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onGetRegistrationToken: ((String, String, String?, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
@@ -66,6 +67,7 @@ final class ClientMock {
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
 	var onValidationOnboardedCountries: ((Bool, @escaping ValidationOnboardedCountriesCompletionHandler) -> Void)?
 	var onGetDCCRules: ((Bool, HealthCertificateValidationRuleType, @escaping DCCRulesCompletionHandler) -> Void)?
+	var onGetBoosterNotificationsRules: ((Bool, @escaping BoosterRulesCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -111,6 +113,14 @@ extension ClientMock: ClientWifiOnly {
 }
 
 extension ClientMock: Client {
+	func getBoosterNotificationRules(eTag: String?, isFake: Bool, completion: @escaping BoosterRulesCompletionHandler) {
+		guard let onGetBoosterRules = self.onGetBoosterNotificationsRules else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onGetBoosterRules(isFake, completion)
+	}
+	
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
@@ -137,8 +147,12 @@ extension ClientMock: Client {
 		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
 	}
 
-	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitCountries(payload, isFake, completion)
+	}
+	
+	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		onSubmitOnBehalf(payload, isFake, completion)
 	}
 
 	func getRegistrationToken(
@@ -224,6 +238,7 @@ extension ClientMock: Client {
 	}
 	
 	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
 		country: String,
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	) {
@@ -235,6 +250,7 @@ extension ClientMock: Client {
 	}
 	
 	func traceWarningPackageDownload(
+		unencrypted: Bool,
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
@@ -295,7 +311,7 @@ extension ClientMock: Client {
 		}
 		onValidationOnboardedCountries(isFake, completion)
 	}
-	
+
 	func getDCCRules(
 		eTag: String?,
 		isFake: Bool,
@@ -308,6 +324,6 @@ extension ClientMock: Client {
 		}
 		onGetDCCRules(isFake, ruleType, completion)
 	}
-	
+
 }
 #endif

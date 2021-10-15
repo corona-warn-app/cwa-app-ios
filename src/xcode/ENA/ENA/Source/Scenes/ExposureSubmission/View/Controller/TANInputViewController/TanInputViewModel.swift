@@ -10,18 +10,21 @@ final class TanInputViewModel {
 	// MARK: - Init
 	
 	init(
-		coronaTestService: CoronaTestService,
-		onSuccess: @escaping (CoronaTestRegistrationInformation, @escaping (Bool) -> Void) -> Void,
+		title: String,
+		description: String,
+		onPrimaryButtonTap: @escaping (String, @escaping (Bool) -> Void) -> Void,
 		givenTan: String? = nil
 	) {
-		self.coronaTestService = coronaTestService
-		self.onSuccess = onSuccess
+		self.title = title
+		self.description = description
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.text = givenTan ?? ""
 	}
-	
-	// MARK: - Overrides
 
-	// MARK: - Public
+	// MARK: - Internal
+
+	let title: String
+	let description: String
 
 	@OpenCombine.Published private(set) var errorText: String = ""
 	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool = false
@@ -32,8 +35,6 @@ final class TanInputViewModel {
 			isPrimaryButtonEnabled = isChecksumValid
 		}
 	}
-
-	// MARK: - Internal
 
 	let digitGroups: [Int] = [3, 3, 4]
 
@@ -54,13 +55,13 @@ final class TanInputViewModel {
 	}
 
 	func submitTan() {
-		// isChecksumValid will perfome isValid internal
+		// isChecksumValid will perform isValid internal
 		guard isChecksumValid else {
 			Log.debug("tried to submit tan \(private: text, public: "TeleTan ID"), but it is invalid")
 			return
 		}
 		
-		onSuccess(.teleTAN(tan: text), { [weak self] isLoading in
+		onPrimaryButtonTap(text, { [weak self] isLoading in
 			self?.isPrimaryButtonEnabled = !isLoading
 			self?.isPrimaryBarButtonIsLoading = isLoading
 		})
@@ -86,8 +87,7 @@ final class TanInputViewModel {
 		errorText = errors.joined(separator: "\n\n")
 	}
 
-	private let coronaTestService: CoronaTestService
-	private let onSuccess: (CoronaTestRegistrationInformation, @escaping (Bool) -> Void) -> Void
+	private let onPrimaryButtonTap: (String, @escaping (Bool) -> Void) -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = ENAHasher.sha256(input)

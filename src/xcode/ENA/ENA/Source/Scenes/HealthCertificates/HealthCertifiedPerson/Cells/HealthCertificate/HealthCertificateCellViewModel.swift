@@ -17,16 +17,20 @@ final class HealthCertificateCellViewModel {
 	}
 
 	// MARK: - Internal
+	
+	let healthCertificate: HealthCertificate
 
-	var gradientType: GradientView.GradientType {
-		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-			return .lightBlue(withStars: false)
+	lazy var gradientType: GradientView.GradientType = {
+		if healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState == .expired) ||
+			healthCertificate != healthCertifiedPerson.mostRelevantHealthCertificate {
+			return .solidGrey(withStars: false)
 		} else {
-			return .solidGrey
+			return .lightBlue(withStars: false)
 		}
-	}
+	}()
 
-	var headline: String? {
+	lazy var headline: String? = {
 		switch healthCertificate.type {
 		case .vaccination:
 			return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
@@ -35,9 +39,9 @@ final class HealthCertificateCellViewModel {
 		case .recovery:
 			return AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
 		}
-	}
+	}()
 
-	var subheadline: String? {
+	lazy var subheadline: String? = {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			return String(
@@ -55,9 +59,9 @@ final class HealthCertificateCellViewModel {
 		case .recovery:
 			return nil
 		}
-	}
+	}()
 
-	var detail: String? {
+	lazy var detail: String? = {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate.map {
@@ -81,34 +85,64 @@ final class HealthCertificateCellViewModel {
 				)
 			}
 		}
-	}
+	}()
 
-	var image: UIImage {
-		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry):
-			if vaccinationEntry.isLastDoseInASeries {
-				if case .completelyProtected = healthCertifiedPerson.vaccinationState {
-					return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
-				} else {
-					return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
-				}
-			} else {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
+	lazy var validityStateInfo: String? = {
+		if healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+			switch healthCertificate.validityState {
+			case .valid:
+				return nil
+			case .expiringSoon:
+				return String(
+					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
+					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
+				)
+			case .expired:
+				return AppStrings.HealthCertificate.ValidityState.expired
+			case .invalid:
+				return AppStrings.HealthCertificate.ValidityState.invalid
 			}
+		} else if healthCertificate.isNew {
+			return AppStrings.HealthCertificate.Person.newlyAddedCertificate
+		} else {
+			return nil
+		}
+	}()
+
+	lazy var image: UIImage = {
+		if healthCertificate.validityState == .invalid ||
+			(healthCertificate.type != .test && healthCertificate.validityState == .expired) {
+			return UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small")
+		}
+
+		switch healthCertificate.entry {
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries:
+			if case .completelyProtected = healthCertifiedPerson.vaccinationState {
+				return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
+			} else {
+				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
+			}
+		case .vaccination:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 		case .test:
 			return UIImage(imageLiteralResourceName: "TestCertificate_Icon")
 		case .recovery:
 			return UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon")
 		}
-	}
+	}()
 
-	var isCurrentlyUsedCertificateHintVisible: Bool {
+	lazy var isCurrentlyUsedCertificateHintVisible: Bool = {
 		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
-	}
+	}()
+
+	lazy var isUnseenNewsIndicatorVisible: Bool = {
+		healthCertificate.isNew || healthCertificate.isValidityStateNew
+	}()
 
 	// MARK: - Private
 
-	private let healthCertificate: HealthCertificate
 	private let healthCertifiedPerson: HealthCertifiedPerson
 
 }

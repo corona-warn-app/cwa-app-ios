@@ -3,11 +3,12 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
 class HealthCertificateOverviewViewModelTests: XCTestCase {
 
-	func testGIVEN_HealthCertificateOverviewViewModel_THEN_SetupIstCorrect() {
+	func testGIVEN_HealthCertificateOverviewViewModel_THEN_SetupIsCorrect() {
 		// GIVEN
 		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service)
 
@@ -39,10 +40,17 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	// MARK: - Private
 
 	private let service: HealthCertificateService = {
-		HealthCertificateService(
-			store: MockTestStore(),
-			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock()
+		let client = ClientMock()
+		let store = MockTestStore()
+		return HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			)
 		)
 	}()
 

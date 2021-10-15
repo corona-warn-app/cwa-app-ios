@@ -130,6 +130,9 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		case .noNetworkConnection:
 			Log.error("Could not download onboarded countries due to no network.", log: .vaccination, error: error)
 			completion(.failure(.ONBOARDED_COUNTRIES_NO_NETWORK))
+		case .noResponse:
+			Log.error("Could not download onboarded countries due to no response.", log: .vaccination, error: error)
+			completion(.failure(.ONBOARDED_COUNTRIES_NO_NETWORK))
 		case let .serverError(statusCode):
 			switch statusCode {
 			case 400...409:

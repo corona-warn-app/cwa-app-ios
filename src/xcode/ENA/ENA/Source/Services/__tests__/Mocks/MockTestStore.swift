@@ -5,12 +5,13 @@
 import Foundation
 import OpenCombine
 
-#if DEBUG
+#if !RELEASE
 
 final class MockTestStore: Store, PPAnalyticsData {
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
+	var referenceDateForRateLimitLogger: Date?
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
@@ -24,10 +25,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var developerSubmissionBaseURLOverride: String?
 	var developerDistributionBaseURLOverride: String?
 	var developerVerificationBaseURLOverride: String?
-	var allowRiskChangesNotification: Bool = true
-	var allowTestsStatusNotification: Bool = true
 	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+	var shouldShowQRScannerTooltip = false
 	var selectedServerEnvironment: EnvironmentData = Environments().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
@@ -40,14 +40,14 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-
+	var lastBoosterNotificationsExecutionDate: Date?
+	
 	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
 	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
-	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	#endif
@@ -122,6 +122,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
+	var unseenTestsCount: Int = 0
 
 	// MARK: - AntigenTestProfileStoring
 
@@ -140,7 +141,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var healthCertificateInfoScreenShown: Bool = false
 	var healthCertifiedPersons: [HealthCertifiedPerson] = []
 	var testCertificateRequests: [TestCertificateRequest] = []
-	var unseenTestCertificateCount: Int = 0
 	var lastSelectedValidationCountry: Country = .defaultCountry()
 	var lastSelectedValidationDate: Date = Date()
 
@@ -153,6 +153,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache?
 	var acceptanceRulesCache: ValidationRulesCache?
 	var invalidationRulesCache: ValidationRulesCache?
+
+	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
+
+	var boosterRulesCache: ValidationRulesCache?
 
 	// MARK: - CoronaTestStoringLegacy
 
@@ -168,6 +172,14 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var positiveTestResultWasShown: Bool = false
 	var isSubmissionConsentGiven = false
+
+	// MARK: - Protocol DSCListCaching
+
+	var dscList: DSCListMetaData?
+
+	// MARK: - Protocol AppFeaturesStoring
+	var dmKillDeviceTimeCheck = false
+	var unencryptedCheckinsEnabled = false
 }
 
 #endif

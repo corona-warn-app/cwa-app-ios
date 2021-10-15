@@ -5,6 +5,8 @@ extension OSLog {
 
 	private static var subsystem = Bundle.main.unwrappedBundleIdentifier
 
+	/// Application lifecycle
+	static let appLifecycle = OSLog(subsystem: subsystem, category: "appLifecycle")
     /// API interactions
     static let api = OSLog(subsystem: subsystem, category: "api")
     /// UI
@@ -41,6 +43,10 @@ extension OSLog {
 	static let vaccination = OSLog(subsystem: subsystem, category: "vaccination")
 	/// Local Statistics
 	static let localStatistics = OSLog(subsystem: subsystem, category: "localStatistics")
+	/// Filescanner
+	static let fileScanner = OSLog(subsystem: subsystem, category: "fileScanner")
+	/// Onboarding
+	static let onboarding = OSLog(subsystem: subsystem, category: "onboarding")
 }
 
 /// Logging
@@ -68,7 +74,7 @@ extension OSLog {
 /// - TAN Code for submission
 /// ```
 /// Log.debug("some key \(private: "some sensitive values")")
-/// Log.debug("some key \(private: "some sensitive values", public: "explination what data is censored here")")
+/// Log.debug("some key \(private: "some sensitive values", public: "explanation what data is censored here")")
 ///
 /// ```
 enum Log {
@@ -94,10 +100,17 @@ enum Log {
 	private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
 		// Console logging
 		let meta: String = "[\(file):\(line)] [\(function)]"
-		
-		// obviously we have to disable swiftlint here:
-		// swiftlint:disable:next no_direct_oslog
-		os_log("%{public}@ %{public}@", log: log, type: type, meta, message)
+
+		if let error = error {
+			// obviously we have to disable swiftlint here:
+			// swiftlint:disable:next no_direct_oslog
+			os_log("%{public}@ %{public}@ %{public}@ %{public}@", log: log, type: type, meta, message, error as CVarArg, error.localizedDescription)
+		} else {
+			// obviously we have to disable swiftlint here:
+			// swiftlint:disable:next no_direct_oslog
+			os_log("%{public}@ %{public}@", log: log, type: type, meta, message)
+		}
+
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
 		fileLogger.log(message, logType: type, file: file, line: line, function: function)
 	}
@@ -314,5 +327,50 @@ struct FileLogger {
 			Log.error("File handle error", log: .localData, error: error)
 			return nil
 		}
+	}
+}
+
+protocol Logging {
+	func debug(_ message: String, log: OSLog, file: String, line: Int, function: String)
+	func info(_ message: String, log: OSLog, file: String, line: Int, function: String)
+	func warning(_ message: String, log: OSLog, file: String, line: Int, function: String)
+	func error(_ message: String, log: OSLog, error: Error?, file: String, line: Int, function: String)
+}
+
+extension Log {
+	static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function, logger: Logging?) {
+		#if DEBUG
+		if let logger = logger {
+			logger.debug(message, log: log, file: file, line: line, function: function)
+		}
+		#endif
+		debug(message, log: log, file: file, line: line, function: function)
+	}
+
+	static func info(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function, logger: Logging?) {
+		#if DEBUG
+		if let logger = logger {
+			logger.info(message, log: log, file: file, line: line, function: function)
+		}
+		#endif
+		info(message, log: log, file: file, line: line, function: function)
+	}
+
+	static func warning(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function, logger: Logging?) {
+		#if DEBUG
+		if let logger = logger {
+			logger.warning(message, log: log, file: file, line: line, function: function)
+		}
+		#endif
+		warning(message, log: log, file: file, line: line, function: function)
+	}
+
+	static func error(_ message: String, log: OSLog = .default, error err: Error? = nil, file: String = #fileID, line: Int = #line, function: String = #function, logger: Logging?) {
+		#if DEBUG
+		if let logger = logger {
+			logger.error(message, log: log, error: err, file: file, line: line, function: function)
+		}
+		#endif
+		error(message, log: log, error: err, file: file, line: line, function: function)
 	}
 }

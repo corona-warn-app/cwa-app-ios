@@ -139,4 +139,35 @@ extension Checkin {
 		// `transmissionRiskLevel` currently calculated outside this function and left at the default value
 		return checkin
 	}
+
+	func createCheckinProtectedReport(transmissionRiskLevel: Int) -> SAP_Internal_Pt_CheckInProtectedReport? {
+
+		// 10 minute time interval; derived from the unix timestamps
+		// see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#derive-10-minute-interval-from-timestamp
+		let startIntervalNumber = Int(checkinStartDate.timeIntervalSince1970 / EventStore.tenMinutesIntervalLength)
+		let endIntervalNumber = Int(checkinEndDate.timeIntervalSince1970 / EventStore.tenMinutesIntervalLength)
+
+		let encryptionResult = CheckinEncryption().encrypt(
+			locationId: traceLocationId,
+			startInterval: startIntervalNumber,
+			endInterval: endIntervalNumber,
+			riskLevel: transmissionRiskLevel
+		)
+
+		switch encryptionResult {
+		case .success(let result):
+			var checkinReport = SAP_Internal_Pt_CheckInProtectedReport()
+			checkinReport.locationIDHash = traceLocationIdHash
+			checkinReport.iv = result.initializationVector
+			checkinReport.mac = result.messageAuthenticationCode
+			checkinReport.encryptedCheckInRecord = result.encryptedCheckInRecord
+
+			return checkinReport
+
+		case .failure(let error):
+			Log.error("Failed to encrypt checkin.", log: .checkin, error: error)
+			return nil
+		}
+
+	}
 }

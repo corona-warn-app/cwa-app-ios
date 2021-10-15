@@ -7,7 +7,7 @@ import Foundation
 final class PPAAnalyticsTestResultCollector {
 
 	init(store: Store) {
-		// We put the PPAnalyticsData protocol and its implementation in a seperate file because this protocol is only used by the collector. And only the collector should use it!
+		// We put the PPAnalyticsData protocol and its implementation in a separate file because this protocol is only used by the collector. And only the collector should use it!
 		// This way we avoid the direct access of analytics data at other places over the store.
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
@@ -170,7 +170,7 @@ final class PPAAnalyticsTestResultCollector {
 
 				updateTestResultHoursSinceTestRegistration(diffComponents.hour, testType: type)
 
-				Log.info("update TestResultMetadataof type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
+				Log.info("update TestResultMetadata of type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
 
 			case .expired, .invalid:
 				break

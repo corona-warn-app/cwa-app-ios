@@ -20,7 +20,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		coronaTestService: CoronaTestService,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -30,6 +31,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.eventStore = eventStore
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
+		self.healthCertificateService = healthCertificateService
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -85,6 +87,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .notifications:
+			vc = DMLocalNotificationsViewController(healthCertificateService: healthCertificateService)
+		case .boosterRules:
+			vc = DMBoosterChoosePersonViewController(store: store, healthCertificateService: healthCertificateService)
 		case .wifiClient:
 			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:
@@ -101,6 +107,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
+		case .lastOnBehalfSubmissionRequest:
+			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest)
 		case .errorLog:
 			vc = DMLogsViewController()
 		case .els:
@@ -143,6 +151,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
 		case .adHocPosterGeneration:
 			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: true)
+		case .appFeatures:
+			vc = DMAppFeaturesViewController(store: store)
+		case .dscLists:
+			vc = DMDSCListsController(store: store)
 		}
 
 		if let vc = vc {
@@ -170,6 +182,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let eventStore: EventStoringProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
+	private let healthCertificateService: HealthCertificateService
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {

@@ -119,7 +119,7 @@ extension AppNavigationController: UINavigationControllerDelegate {
 	/// If the passed in `UIViewController` is a `NavigationBarOpacityDelegate` and contains a `UIScrollView`,
 	/// register an observer for the `contentOffset` property so that the navigation bar's `backgroundAlpha` is set as the controller scrolls.
 	///
-	/// - parameter viewController: The controller to regsiter the observer for
+	/// - parameter viewController: The controller to register the observer for
 	private func observeScrollView(of viewController: UIViewController) {
 		guard
 			let opacityDelegate = viewController as? NavigationBarOpacityDelegate,
@@ -171,4 +171,25 @@ extension NavigationBarOpacityDelegate {
 	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { nil }
 	var preferredLargeTitleBackgroundColor: UIColor? { nil }
 	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
+}
+
+extension UINavigationController {
+	// only if on top level of the navigation hierarchy: scroll the embedded view up
+	func scrollEmbeddedViewToTop() {
+		guard !isEditing && presentedViewController == nil && viewControllers.count == 1 else {
+			return
+		}
+		if let embeddedScrollView = topViewController?.scrollView {
+			scrollViewToTop(embeddedScrollView)
+		}
+	}
+
+	private func scrollViewToTop(_ scrollView: UIScrollView) {
+		scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)	// no large title
+		let estimatedScrollingDuration = 0.25
+		// wait till the scrolling animation is finished plus slightly longer, to be on the safe side
+		DispatchQueue.main.asyncAfter(deadline: .now() + estimatedScrollingDuration + 0.1) {
+			self.navigationBar.sizeToFit()
+		}
+	}
 }

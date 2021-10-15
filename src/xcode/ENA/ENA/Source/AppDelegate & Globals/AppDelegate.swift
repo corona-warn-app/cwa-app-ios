@@ -104,6 +104,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		Log.info("Application did finish launching.", log: .appLifecycle)
+
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
@@ -114,12 +116,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
+			didSetupUI = true
 			return true
 		}
 
 		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
-		let route = routeFromLaunchOptions(launchOptions)
-		setupUI(route)
+		// Route will be executed in 'applicationDidBecomeActive'
+		route = routeFromLaunchOptions(launchOptions)
+
 		QuickAction.setup()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -142,6 +146,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+
+		// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+		if #available(iOS 13.5, *) {
+			// Do nothing since we can use BGTask in this case.
+		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
+			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
+				self.exposureManager.activate { error in
+					if let error = error {
+						Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+					}
+				}
+			}
+		}
+
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -153,10 +171,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
+			guard let errorMessage = errorMessage else {
+				return
+			}
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		})
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
-		Log.info("Application did become active.", log: .background)
+		Log.info("Application did become active.", log: .appLifecycle)
+
+		if !didSetupUI {
+			setupUI(route)
+			didSetupUI = true
+			route = nil
+		}
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
@@ -171,11 +201,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if #available(iOS 13.0, *) {
 			taskScheduler.scheduleTask()
 		}
-		Log.info("Application did enter background.", log: .background)
+		Log.info("Application did enter background.", log: .appLifecycle)
 	}
 
 	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-		// handle QR cdes scanned in the camera app
+		Log.info("Application continue user activity.", log: .appLifecycle)
+
+		// handle QR codes scanned in the camera app
 		var route: Route?
 		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
 			route = Route(url: incomingURL)
@@ -192,10 +224,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	let client: HTTPClient
 	let wifiClient: WifiOnlyHTTPClient
+	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
-	let eventStore: EventStoringProviding = EventStore.make()
+	let eventStore: EventStoringProviding = {
+		#if DEBUG
+		if isUITesting {
+			return MockEventStore()
+		}
+		#endif
+		
+		return EventStore.make()
+	}()
     let environmentProvider: EnvironmentProviding
 	var store: Store
 
@@ -246,7 +287,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			wifiClient: wifiClient,
 			store: store
 		)
-		
+
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
@@ -286,6 +327,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 		#endif
 	}()
+	
+	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
+		store: store,
+		dccSignatureVerifier: dccSignatureVerificationService,
+		dscListProvider: dscListProvider,
+		client: client,
+		appConfiguration: appConfigurationProvider,
+		boosterNotificationsService: BoosterNotificationsService(
+			rulesDownloadService: RulesDownloadService(
+				store: store,
+				client: client
+			)
+		)
+	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
@@ -308,12 +363,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		deviceCheck: PPACDeviceCheck()
 	)
 
-	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
-		store: store,
-		client: client,
-		appConfiguration: appConfigurationProvider
-	)
-	
+	private lazy var dccSignatureVerificationService: DCCSignatureVerifying = {
+		#if DEBUG
+		if isUITesting {
+			if LaunchArguments.healthCertificate.isCertificateInvalid.boolValue {
+				return DCCSignatureVerifyingStub(error: .HC_DSC_NOT_YET_VALID)
+			}
+			return DCCSignatureVerifyingStub()
+		}
+		#endif
+
+		return DCCSignatureVerification()
+	}()
+
+	private lazy var dscListProvider: DSCListProviding = {
+		return DSCListProvider(client: cachingClient, store: store)
+	}()
+
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider {
 		#if DEBUG
 		if isUITesting {
@@ -321,7 +387,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 
-		return VaccinationValueSetsProvider(client: CachingHTTPClient(), store: store)
+		return VaccinationValueSetsProvider(client: cachingClient, store: store)
 	}
 	
 	private lazy var healthCertificateValidationService: HealthCertificateValidationProviding = {
@@ -342,11 +408,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return mock
 		}
 		#endif
-		
+		let rulesDownloadService = RulesDownloadService(store: store, client: client)
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			dccSignatureVerifier: dccSignatureVerificationService,
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
 		)
 	}()
 	
@@ -363,9 +432,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService
 	)
 
-	#if targetEnvironment(simulator) || COMMUNITY
+	#if COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
+	lazy var exposureManager: ExposureManager = {
+		return ENAExposureManager(manager: MockENManager())
+	}()
+	#elseif targetEnvironment(simulator)
 	lazy var exposureManager: ExposureManager = {
 		let keys = [ENTemporaryExposureKey()]
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
@@ -377,7 +450,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	/// A set of required dependencies
 	///
-	/// Computed instead of lazy 'fixed' var because previous implementation created multiple instances of the `WarnOthersReminder` for themselfs.
+	/// Computed instead of lazy 'fixed' var because previous implementation created multiple instances of the `WarnOthersReminder` for themselves.
 	/// Currently we copy this behavior until further checks where made to refactor this.
 	var exposureSubmissionServiceDependencies: ExposureSubmissionServiceDependencies {
 		ExposureSubmissionServiceDependencies(
@@ -401,19 +474,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// will be released in `deinit`
 		TaskExecutionHandler(
 			riskProvider: self.riskProvider,
+			exposureManager: exposureManager,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
 			eventStore: self.eventStore,
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			healthCertificateService: self.healthCertificateService
 		)
 	}()
 
 	lazy var notificationManager: NotificationManager = {
-		let notificationManager = NotificationManager()
-		notificationManager.appDelegate = self
-
+		let notificationManager = NotificationManager(
+			coronaTestService: coronaTestService,
+			eventCheckoutService: eventCheckoutService,
+			healthCertificateService: healthCertificateService,
+			showHome: { [weak self] in
+				// We don't need the Route parameter in the NotificationManager
+				self?.showHome()
+			},
+			showTestResultFromNotification: coordinator.showTestResultFromNotification,
+			showHealthCertificate: { [weak self] route in
+				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
+				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
+				self?.route = route
+			}, showHealthCertifiedPerson: { [weak self] route in
+				guard let self = self else { return }
+				/*
+					The booster notifications can be fired when the app is running (either foreground or background) or when the app is killed
+					in case the app is running then we need to show the Home using the route of the booster notifications
+					in case the app is killed and then reopened then we should just set the route into the health certified person,
+					as the showHome flow will begin anyway at the startup process of the app
+				*/
+				if self.didSetupUI {
+					self.showHome(route)
+				} else {
+					self.route = route
+				}
+			}
+		)
 		return notificationManager
 	}()
 
@@ -504,7 +604,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
 	private var postOnboardingRoute: Route?
-	
+	private var route: Route?
+	private var didSetupUI = false
+
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
@@ -687,14 +789,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func showHome(_ route: Route? = nil) {
-		if exposureManager.exposureManagerState.status == .unknown {
-			exposureManager.activate { [weak self] error in
-				if let error = error {
-					Log.error("Cannot activate the ENManager. The reason is \(error)", log: .api)
+		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+		if #available(iOS 13.5, *) {
+			if exposureManager.exposureManagerState.status == .unknown {
+				exposureManager.activate { [weak self] error in
+					if let error = error {
+						Log.error("Cannot activate the ENManager.", log: .api, error: error)
+					}
+					self?.presentHomeVC(route)
 				}
-				self?.presentHomeVC(route)
+			} else {
+				presentHomeVC(route)
 			}
-		} else {
+		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
 			presentHomeVC(route)
 		}
 	}

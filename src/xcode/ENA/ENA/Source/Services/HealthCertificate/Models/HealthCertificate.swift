@@ -3,39 +3,61 @@
 //
 
 import Foundation
+import OpenCombine
 import HealthCertificateToolkit
 
-struct HealthCertificate: Codable, Equatable, Comparable {
+final class HealthCertificate: Encodable, Equatable, Comparable {
 
 	// MARK: - Init
 
-	init(base45: Base45) throws {
+	init(
+		base45: Base45,
+		validityState: HealthCertificateValidityState = .valid,
+		didShowInvalidNotification: Bool = false,
+		isNew: Bool = false,
+		isValidityStateNew: Bool = false
+	) throws {
 		self.base45 = base45
-		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		self.keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		self.validityState = validityState
+		self.didShowInvalidNotification = didShowInvalidNotification
+		self.isNew = isNew
+		self.isValidityStateNew = isValidityStateNew
+
+		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
+		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
+		keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
-	// MARK: - Protocol Codable
+	// MARK: - Protocol Encodable
+
+	// Decoding is handled by the HealthCertificateDecodingContainer!
 
 	enum CodingKeys: String, CodingKey {
 		case base45
-	}
-
-	init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-
-		base45 = try container.decode(Base45.self, forKey: .base45)
-
-		self.cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		self.digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		self.keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		case validityState
+		case isNew
+		case isValidityStateNew
+		case didShowInvalidNotification
 	}
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(base45, forKey: .base45)
+		try container.encode(validityState, forKey: .validityState)
+		try container.encode(isNew, forKey: .isNew)
+		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
+		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
+	}
+
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
+		lhs.base45 == rhs.base45 &&
+		lhs.validityState == rhs.validityState &&
+		lhs.isNew == rhs.isNew &&
+		lhs.isValidityStateNew == rhs.isValidityStateNew &&
+		lhs.didShowInvalidNotification == rhs.didShowInvalidNotification
 	}
 
 	// MARK: - Protocol Comparable
@@ -66,6 +88,40 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
 	let keyIdentifier: String?
+
+	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()
+
+	@DidSetPublished var validityState: HealthCertificateValidityState {
+		didSet {
+			if validityState != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var didShowInvalidNotification: Bool {
+		didSet {
+			if didShowInvalidNotification != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+				
+	@DidSetPublished var isNew: Bool {
+		didSet {
+			if isNew != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var isValidityStateNew: Bool {
+		didSet {
+			if isValidityStateNew != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
 	
 	var version: String {
 		digitalCovidCertificate.version
@@ -133,13 +189,6 @@ struct HealthCertificate: Codable, Equatable, Comparable {
 	}
 
 	var expirationDate: Date {
-		#if DEBUG
-		if isUITesting, let localVaccinationDate = vaccinationEntry?.localVaccinationDate {
-			return Calendar.current.date(byAdding: .year, value: 1, to: localVaccinationDate) ??
-				cborWebTokenHeader.expirationTime
-		}
-		#endif
-
 		return cborWebTokenHeader.expirationTime
 	}
 

@@ -127,5 +127,34 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		}
 		handler(eTag, completion)
 	}
+
+	// MARK: Protocol DSCListFetching
+
+	static let staticDSCList: SAP_Internal_Dgc_DscList = {
+		guard
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "default_dsc_list", withExtension: "bin"),
+			let data = try? Data(contentsOf: url),
+			let dscList = try? SAP_Internal_Dgc_DscList(serializedData: data)
+		else {
+			Log.debug("Cannot initialize static test data", log: .vaccination)
+			return SAP_Internal_Dgc_DscList()
+		}
+		return dscList
+	}()
+
+	var onFetchLocalDSCList: ((String?, @escaping CachingHTTPClient.DSCListCompletionHandler) -> Void)?
+
+	override func fetchDSCList(
+		etag: String?,
+		completion: @escaping DSCListCompletionHandler
+	) {
+		guard let handler = self.onFetchLocalDSCList else {
+			let response = DSCListResponse(dscList: CachingHTTPClientMock.staticDSCList, eTag: "fake")
+			completion(.success(response))
+			return
+		}
+		handler(etag, completion)
+	}
+
 }
 #endif
