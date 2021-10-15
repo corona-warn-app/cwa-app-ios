@@ -7318,9 +7318,9 @@
 			isa = PBXGroup;
 			children = (
 				BA52A6A026EA1CBA00AA0732 /* AppConfigurationLocationResource.swift */,
-				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesLocationResource.swift */,
-				BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */,
 				BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */,
+				BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */,
+				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesLocationResource.swift */,
 			);
 			path = LocationResource;
 			sourceTree = "<group>";
