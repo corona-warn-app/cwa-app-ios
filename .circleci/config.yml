@@ -276,6 +276,16 @@ workflows:
         - test:
             matrix:
               parameters:
+                testplan: ["UIOnboarding"]
+            requires:
+              - build-for-testing
+            filters:
+              branches:
+                ignore:
+                  - /release\/.*/
+        - test:
+            matrix:
+              parameters:
                 testplan: ["AllTests"]
             requires:
               - dependencies
