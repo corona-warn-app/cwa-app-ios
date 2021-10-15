@@ -96,7 +96,7 @@
             reference = "container:TestPlans/UnitTests.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:../UIOnboarding.xctestplan">
+            reference = "container:TestPlans/UIOnboardingTests.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:UIOnboarding.xctestplan">
-   </FileRef>
-   <FileRef
       location = "group:ENA/ENASecurity">
    </FileRef>
    <FileRef

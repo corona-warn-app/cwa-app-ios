@@ -276,7 +276,7 @@ workflows:
         - test:
             matrix:
               parameters:
-                testplan: ["UIOnboarding"]
+                testplan: ["UIOnboardingTests"]
             requires:
               - build-for-testing
             filters:
