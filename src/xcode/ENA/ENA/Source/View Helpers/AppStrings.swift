@@ -1067,8 +1067,8 @@ enum AppStrings {
 	}
 
 	enum AppInformation {
-		static let appInformationNavigationTitle = NSLocalizedString("Home_AppInformationNavigation_Title", comment: "")
-		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
+		static let appInformationNavigationTitle = NSLocalizedString("App_Information_Title", comment: "")
+		static let appInformationVersion = NSLocalizedString("App_Information_Version", comment: "")
 
 		static let newFeaturesNavigation = NSLocalizedString("App_Information_New_Features_Navigation", comment: "")
 		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")

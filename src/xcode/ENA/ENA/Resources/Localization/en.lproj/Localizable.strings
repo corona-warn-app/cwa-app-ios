@@ -1279,10 +1279,6 @@
 
 "Home_TraceLocationsCard_Button" = "Create QR Code";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Version";
-
 /* Home More Card */
 
 "Home_MoreCard_SettingsTitle" = "Settings";

@@ -1317,10 +1317,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TraceLocationsCard_Button" = "QR-Code erstellen";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Version";
-
 /* Home More Card */
 
 "Home_MoreCard_Title" = "Mehr";
@@ -1345,9 +1341,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* App Information */
 
-"Home_AppInformationNavigation_Title" = "App-Informationen";
+"App_Information_Title" = "App-Informationen";
+"App_Information_Version" = "Version";
 
 /* App Information - About */
+
 "App_Information_About_Navigation" = "Über die App";
 
 "App_Information_About_ImageDescription" = "";

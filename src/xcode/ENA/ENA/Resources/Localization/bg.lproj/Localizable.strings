@@ -1279,10 +1279,6 @@
 
 "Home_TraceLocationsCard_Button" = "Създаване на QR код";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Версия";
-
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Промяна на Вашия статус на риск";
 

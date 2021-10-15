@@ -1279,10 +1279,6 @@
 
 "Home_TraceLocationsCard_Button" = "QR Kod Oluştur";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Versiyon";
-
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
 
