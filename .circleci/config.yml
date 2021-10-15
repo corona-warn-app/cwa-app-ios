@@ -109,42 +109,42 @@ jobs:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test_without_building testplan:<<parameters.testplan>>
           no_output_timeout: 5m
-      - restore_cache:
-          key: sonar-cloud-v2
-      - run:
-          name: Convert coverage information to SonarCloud format
-          shell: /bin/zsh
-          command: |
-            ./scripts/cococo \
-              src/xcode/fastlane/test_output/ENA.xcresult > \
-              src/xcode/fastlane/test_output/coverage.xml
+      # - restore_cache:
+      #     key: sonar-cloud-v2
+      # - run:
+      #     name: Convert coverage information to SonarCloud format
+      #     shell: /bin/zsh
+      #     command: |
+      #       ./scripts/cococo \
+      #         src/xcode/fastlane/test_output/ENA.xcresult > \
+      #         src/xcode/fastlane/test_output/coverage.xml
       - store_test_results:
           path: src/xcode/fastlane/test_output/
       - store_artifacts:
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
-      - run:
-          name: Skip SonarCloud for external Pull Requests
-          shell: /bin/zsh
-          command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
-      - run:
-          name: Install and run sonar-scanner
-          shell: /bin/zsh
-          command: |
-            SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
-            SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
-            if [[ ! -x "$SCANNERDIR/bin/sonar-scanner" ]]; then
-              curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
-              unzip -qq -o $SCANNER.zip -d ~/sonar/
-            fi
-            chmod +x $SCANNERDIR/bin/sonar-scanner
-            chmod +x $SCANNERDIR/jre/bin/java
-            $SCANNERDIR/bin/sonar-scanner
-          environment:
-            SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
-      - save_cache:
-          key: sonar-cloud-v2
-          paths:
-            - ~/sonar/
+      # - run:
+      #     name: Skip SonarCloud for external Pull Requests
+      #     shell: /bin/zsh
+      #     command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
+      # - run:
+      #     name: Install and run sonar-scanner
+      #     shell: /bin/zsh
+      #     command: |
+      #       SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
+      #       SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
+      #       if [[ ! -x "$SCANNERDIR/bin/sonar-scanner" ]]; then
+      #         curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
+      #         unzip -qq -o $SCANNER.zip -d ~/sonar/
+      #       fi
+      #       chmod +x $SCANNERDIR/bin/sonar-scanner
+      #       chmod +x $SCANNERDIR/jre/bin/java
+      #       $SCANNERDIR/bin/sonar-scanner
+      #     environment:
+      #       SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
+      # - save_cache:
+      #     key: sonar-cloud-v2
+      #     paths:
+      #       - ~/sonar/
   test-community:
     macos:
       xcode: *xcode_version
@@ -253,16 +253,6 @@ workflows:
         - swiftlint:
             requires:
               - dependencies
-        - test:
-            matrix:
-              parameters:
-                testplan: ["UITests"]
-            requires:
-              - build-for-testing
-            filters:
-              branches:
-                ignore:
-                  - /release\/.*/
         - test:
             matrix:
               parameters:
