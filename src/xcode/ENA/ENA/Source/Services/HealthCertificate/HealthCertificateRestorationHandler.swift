@@ -10,9 +10,5 @@ struct HealthCertificateRestorationHandler: CertificateRestorationHandling {
 		}
 	}
 
-	var canRestore: ((HealthCertificate) -> Result<Void, CertificateRestorationError>) = { _ in
-		return .success(())
-	}
-
 	var restore: ((HealthCertificate) -> Void)
 }

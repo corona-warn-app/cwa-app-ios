@@ -49,10 +49,9 @@ class RecycleBin {
 		Log.info("Ask for item restoration.", log: .recycleBin)
 
 		switch item.item {
-		case .certificate(let certificate):
+		case .certificate:
 			Log.info("Ask for certificate item restoration.", log: .recycleBin)
-			let canRestoreResult = certificateRestorationHandler.canRestore(certificate)
-			return canRestoreResult.mapError { RestorationError.certificateError($0) }
+			return .success(())
 		case .coronaTest(let coronaTest):
 			Log.info("Ask for test item restoration.", log: .recycleBin)
 			let canRestoreResult = testRestorationHandler.canRestore(coronaTest)
