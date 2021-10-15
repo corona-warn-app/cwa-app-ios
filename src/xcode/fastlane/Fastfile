@@ -55,21 +55,38 @@ platform :ios do
 
   desc "Runs unit tests without building"
   lane :test_without_building do | options |
-        # Execute tests for given test plan
-    testPlan = options[:testplan] || "AllTests"
-  run_tests(
-    scheme: "ENA",
-    derived_data_path: "./DerivedData",
-    test_without_building: true,
-    testplan: testPlan,
-    only_test_configurations: ["DE"],
-    devices: ["iPhone 13"],
-    prelaunch_simulator: true,
-    result_bundle: true,
-    code_coverage: true,
-    output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
-    output_types: ""
-  )
+    begin
+      # Execute tests for given test plan
+      testPlan = options[:testplan] || "AllTests"
+      run_tests(
+        scheme: "ENA",
+        derived_data_path: "./DerivedData",
+        test_without_building: true,
+        testplan: testPlan,
+        only_test_configurations: ["DE"],
+        devices: ["iPhone 13"],
+        prelaunch_simulator: true,
+        result_bundle: true,
+        code_coverage: true,
+        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
+        output_types: ""
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit",
+        fail_build: false
+      )
+
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
+    end
   end
 
   desc "Build project (Community)"
