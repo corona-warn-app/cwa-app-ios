@@ -13,18 +13,9 @@ struct AppConfigurationLocationResource: LocationResource {
 		self.type = .caching
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol LocationResource
 
 	var locator: Locator
 
 	var type: ServiceType
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	// MARK: - Private
-
 }

@@ -6,7 +6,7 @@ import Foundation
 
 extension Locator {
 
-	static func diagnosicKeys(
+	static func diagnosisKeys(
 		day: String,
 		country: String
 	) -> Locator {
