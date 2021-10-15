@@ -201,7 +201,6 @@ class QRScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	// swiftlint:disable pattern_matching_keywords
 	func test_ifValid_Certificate_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
 		let client = ClientMock()
