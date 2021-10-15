@@ -69,18 +69,7 @@ jobs:
       - run:
           name: Build for testing
           command: |
-            cd src/xcode && \
-            xcodebuild \
-              -workspace "ENA.xcworkspace" \
-              -scheme ENA \
-              -destination "platform=iOS Simulator,OS=15.0,name=iPhone 11" \
-              -testPlan AllTests \
-              -only-test-configuration "DE" \
-              -derivedDataPath "./DerivedData" \
-              -jobs `sysctl -n hw.ncpu` \
-              -parallelizeTargets \
-              -quiet \
-              build-for-testing
+            cd src/xcode && bundle exec fastlane build_for_testing
       - persist_to_workspace:
           root: .
           paths:
@@ -103,23 +92,6 @@ jobs:
             cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
           path: src/xcode/swiftlint.html
-  analyze:
-    macos:
-      xcode: *xcode_version
-    steps:
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          key: *cache_key
-      - restore_cache:
-          key: *tools_cache_key
-      - run:
-          name: Analyze (experimental)
-          command: |
-            swiftlint --version
-            cd src/xcode && bundle exec fastlane analyze || true
-      - store_artifacts:
-          path: src/xcode/swiftlint.analyze.html
   test:
     macos:
       xcode: *xcode_version
@@ -135,7 +107,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test testplan:<<parameters.testplan>>
+          command: cd src/xcode && bundle exec fastlane test_without_building testplan:<<parameters.testplan>>
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
@@ -275,6 +247,9 @@ workflows:
     build-and-test:
       jobs:
         - dependencies
+        - build-for-testing:
+            requires:
+              - dependencies
         - swiftlint:
             requires:
               - dependencies
@@ -283,7 +258,7 @@ workflows:
               parameters:
                 testplan: ["UnitTests"]
             requires:
-              - dependencies
+              - build-for-testing
             filters:
               branches:
                 ignore:
