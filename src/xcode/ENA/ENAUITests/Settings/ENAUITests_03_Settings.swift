@@ -73,9 +73,8 @@ class ENAUITests_03_Settings: CWATestCase {
 		// Jump to system settings.
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
 		
-		// Ensure we are in the settings.
-		let systemSettings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
-		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
+		// Check if URL that would get opened is 'app-settings:'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["app-settings:"].waitForExistence(timeout: .short))
 	}
 	
 	func test_SettingsNotificationsOff() throws {
@@ -98,8 +97,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		// Jump to system settings.
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
 		
-		// Ensure we are in the settings.
-		let systemSettings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
-		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
+		// Check if URL that would get opened is 'app-settings:'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["app-settings:"].waitForExistence(timeout: .short))
 	}
 }
