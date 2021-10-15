@@ -16,7 +16,10 @@ extension Locator {
 			endpoint: .errorLogSubmission,
 			paths: ["api", "logs"],
 			method: .post,
-			defaultHeaders: [otpEls: "cwa-otp", fake: "cwa-fake"]
+			defaultHeaders: [
+				"cwa-otp": otpEls,
+				"cwa-fake": fake
+			]
 			// TODO: "application/x-protobuf" as Content Type?
 			// TODO: Body (Protobuf) is missing here
 		)

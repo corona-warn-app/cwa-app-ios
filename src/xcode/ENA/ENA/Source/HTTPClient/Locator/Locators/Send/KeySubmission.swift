@@ -16,7 +16,11 @@ extension Locator {
 			endpoint: .distribution,
 			paths: ["version", "v1", "diagnosis-keys"],
 			method: .post,
-			defaultHeaders: [payload.tan: "cwa-authorization", fake: "cwa-fake", fakePadding: "cwa-header-padding"]
+			defaultHeaders: [
+				"cwa-authorization": payload.tan,
+				"cwa-fake": fake,
+				"cwa-header-padding": fakePadding
+			]
 			// TODO: "application/x-protobuf" as Content Type?
 			// TODO: Body (Protobuf) is missing here
 		)
