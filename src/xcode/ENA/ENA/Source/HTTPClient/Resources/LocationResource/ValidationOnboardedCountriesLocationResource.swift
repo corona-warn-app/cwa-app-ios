@@ -12,7 +12,7 @@ struct ValidationOnboardedCountriesLocationResource: LocationResource {
 		isFake: Bool
 	) {
 		self.locator = Locator.validationOnboardedCountries(isFake: isFake)
-		self.type = .default
+		self.type = .caching
 	}
 
 	// MARK: - Protocol LocationResource

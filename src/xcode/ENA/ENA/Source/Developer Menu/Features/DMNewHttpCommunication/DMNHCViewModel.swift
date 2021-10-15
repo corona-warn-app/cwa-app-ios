@@ -71,8 +71,9 @@ final class DMNHCViewModel {
 					// Example of building a request without request body but with response body.
 					let locationResource = ValidationOnboardedCountriesLocationResource(isFake: false)
 					let sendResource = EmptySendResource<Any>()
-					// TODO Create ReceiveResource of Type....String?
-					let receiveResource = JSONReceiveResource<[String]>()
+					// TODO Create ReceiveResource of Type CBOR
+//					let receiveResource = ProtobufReceiveResource<CBOR>
+					let receiveResource = EmptyReceiveResource<Any>()
 
 					self?.restService.load(locationResource, sendResource, receiveResource) { result in
 						switch result {
