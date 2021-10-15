@@ -53,11 +53,10 @@ final class DMNHCViewModel {
 
 					self?.restService.load(locationResource, sendResource, receiveResource) { result in
 						switch result {
-						case let .success(model):
-							print(model?.appFeatures)
-							print("HTTP CALL SUCCESS")
-						case let .failure(error):
-							print("HTTP CALL FAIL")
+						case .success:
+							Log.info("New HTTP Call for AppConfig successful")
+						case .failure:
+							Log.error("New HTTP Call for AppConfig failed")
 						}
 					}
 				}
@@ -77,11 +76,10 @@ final class DMNHCViewModel {
 
 					self?.restService.load(locationResource, sendResource, receiveResource) { result in
 						switch result {
-						case let .success(model):
-							print(model)
-							print("HTTP CALL SUCCESS")
-						case let .failure(error):
-							print("HTTP CALL FAIL")
+						case .success:
+							Log.info("New HTTP Call for validationOnboardedCountries successful")
+						case .failure:
+							Log.error("New HTTP Call for validationOnboardedCountries failed")
 						}
 					}
 				}
@@ -93,16 +91,15 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					let location = RegistrationTokenLocationResource(isFake: false)
-					let sendModel = KeyModel(key: "FCG4CBN7RE", keyType: "TELETAN")
+					let sendModel = KeyModel(key: "EKRWNPPGAB", keyType: "TELETAN")
 					let sendResource = JSONSendResource<KeyModel>(sendModel)
 					let receiveResource = EmptyReceiveResource<Any>()
 					self?.restService.load(location, sendResource, receiveResource) { result in
 						switch result {
-						case let .success(model):
-							print(model)
-							print("HTTP CALL SUCCESS")
-						case let .failure(error):
-							print("HTTP CALL FAIL")
+						case .success:
+							Log.info("New HTTP Call for Registration Token successful")
+						case .failure:
+							Log.error("New HTTP Call for Registration Token failed")
 						}
 					}
 				}
