@@ -71,8 +71,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		tableView.reloadData()
-		updateEmptyState()
-
 		title = AppStrings.HealthCertificate.Overview.title
 	}
 
@@ -83,6 +81,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		navigationController?.navigationBar.sizeToFit()
 
 		tableView.reloadData()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		updateEmptyState()
 	}
 
@@ -336,12 +338,19 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func updateEmptyState() {
-		// Since we set the empty state view as a background view we want to push it to a position
-		// that looks good on large and small screens.
-		// Align the additionalTopPadding between CheckinsOverviewViewController, TraceLocationsOverviewViewController and HealthCertificateOverviewViewController.
-		let additionalTopPadding = UIScreen.main.bounds.height / 3
+		// Since we set the empty state view as a background view we need to push it into the visible area by
+		// adding the height of the button cell to the safe area (navigation bar and status bar)
+		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY + tableView.adjustedContentInset.top
+		// If possible, we want to push it to a position that looks good on large and small screens and that is aligned
+		// between CheckinsOverviewViewController, TraceLocationsOverviewViewController and HealthCertificateOverviewViewController.
+		let alignmentPadding = UIScreen.main.bounds.height / 3
 		tableView.backgroundView = viewModel.isEmpty
-			? EmptyStateView(viewModel: HealthCertificateOverviewEmptyStateViewModel(), additionalTopPadding: additionalTopPadding)
+			? EmptyStateView(
+				viewModel: HealthCertificateOverviewEmptyStateViewModel(),
+				safeInsetTop: safeInsetTop,
+				safeInsetBottom: tableView.adjustedContentInset.bottom,
+				alignmentPadding: alignmentPadding
+			)
 			: nil
 	}
 }

@@ -38,7 +38,6 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 
 		setUpTableView()
 		tableView.reloadData()
-		setUpEmptyState()
 		
 		viewModel.$continueEnabled
 			.receive(on: DispatchQueue.main.ocombine)
@@ -46,6 +45,11 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		setUpEmptyState()
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -178,25 +182,16 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 
 	private func setUpEmptyState() {
 		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the description and scan QR code cell
-		var additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
-		additionalTopPadding += tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY
-		// … + the height of the navigation bar
-		additionalTopPadding += navigationController?.navigationBar.frame.height ?? 0
-		// … + the height of the status bar
-		if #available(iOS 13.0, *) {
-			additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-		} else {
-			additionalTopPadding += UIApplication.shared.statusBarFrame.height
-		}
+		// adding top padding for the description cell and scan QR code cell to the safe area (navigation bar and status bar).
+		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY + tableView.adjustedContentInset.top
 		// for larger screens pull it even more down - it looks better
-		additionalTopPadding = max(additionalTopPadding, UIScreen.main.bounds.height / 3)
-
+		let alignmentPadding = max(safeInsetTop, UIScreen.main.bounds.height / 3)
 		tableView.backgroundView = viewModel.isEmptyStateVisible
 			? EmptyStateView(
 				viewModel: OnBehalfTraceLocationSelectionEmptyStateViewModel(),
-				additionalTopPadding: additionalTopPadding
-			  )
+				safeInsetTop: safeInsetTop,
+				alignmentPadding: alignmentPadding
+			)
 			: nil
 	}
 		
