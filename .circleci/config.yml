@@ -209,12 +209,8 @@ jobs:
       - run:
           name: Snapshot
           shell: /bin/zsh
-          command: 'cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> || true'
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
           no_output_timeout: 1h
-      - run:
-          name: Publish notification if screenshots failed
-          shell: /bin/zsh
-          command: ./scripts/announce_failing_screenshots.sh https://${CIRCLE_BUILD_NUM}-268042230-gh.circle-artifacts.com/0/src/xcode/screenshots/screenshots.tar.gz ${CIRCLE_BUILD_URL}
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
           # test results also land here which is the reason of this weird path
