@@ -208,7 +208,6 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Snapshot
-          shell: /bin/zsh
           command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
           no_output_timeout: 1h
       - store_test_results:
