@@ -55,6 +55,10 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		return image
 	}()
 
+	private var healthCertificate: HealthCertificate = {
+		.mock()
+	}()
+
 	// MARK: - UIDocumentPicker
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PickImageWithQRCode_THEN_QRCodeResult() throws {
@@ -63,20 +67,26 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
 		viewModel.scan(fakeImage)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PickImageWithoutQRCode_THEN_Error() throws {
@@ -85,12 +95,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -98,7 +110,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.scan(fakeImage)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_SelectedFileWithQRCode_THEN_QRCodeResult() throws {
@@ -107,13 +119,19 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
@@ -121,7 +139,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.scan(pdfDocument)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithoutQRCode_THEN_QRCodeResult() throws {
@@ -130,12 +148,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -148,7 +168,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.unlockAndScan(pdfDocument)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileButWrongPasswordIsGicen_THEN_ResultIsAnError() throws {
@@ -157,12 +177,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFailed = { error in
 			if case .passwordInput = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -175,26 +197,34 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.unlockAndScan(pdfDocument)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_PasswordProtectedPDFFileWithQRCode_THEN_QRCodeResult() throws {
 		// GIVEN
-		let expectation = expectation(description: "result found")
+		let processingFinishedExpectation = expectation(description: "result found")
+		let missingPasswordForPDFExpectation = expectation(description: "missingPasswordForPDF is called")
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
-				expectation.fulfill()
+				processingFinishedExpectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
 		}
 
 		viewModel.missingPasswordForPDF = { password in
 			password("123456")
+			missingPasswordForPDFExpectation.fulfill()
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing of password protected PDF failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
@@ -202,7 +232,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.unlockAndScan(pdfDocument)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	// MARK: UIImagePicker
@@ -213,20 +243,26 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
 		viewModel.scan(fakeImage)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	func testGIVEN_FileScannerCoordinatorViewModel_WHEN_SelectedImageWithoutQRCode_THEN_QRCodeResult() throws {
@@ -235,12 +271,14 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFailed with unexpected result.")
 			}
 		}
 
@@ -248,7 +286,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		viewModel.scan(fakeImage)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 	// MARK: PHPicker
@@ -260,20 +298,26 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
+			} else {
+				XCTFail("processingFinished with unexpected result.")
 			}
+		}
+
+		viewModel.processingFailed = { error in
+			XCTFail("Processing failed. Error: \(String(describing: error))")
 		}
 
 		// WHEN
 		viewModel.scan(fakeImage)
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .long)
 	}
 
 }
