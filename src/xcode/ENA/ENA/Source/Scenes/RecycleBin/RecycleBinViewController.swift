@@ -156,7 +156,6 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
-		tableView.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.tableView
 	}
 
 	private func animateCellHeightChanges() {
@@ -298,15 +297,15 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 			)
 		)
 
-		alert.addAction(
-			UIAlertAction(
-				title: confirmButtonTitle,
-				style: confirmButtonStyle,
-				handler: { _ in
-					confirmAction()
-				}
-			)
+		let confirmAlertAction = UIAlertAction(
+			title: confirmButtonTitle,
+			style: confirmButtonStyle,
+			handler: { _ in
+				confirmAction()
+			}
 		)
+		confirmAlertAction.accessibilityIdentifier = AccessibilityIdentifiers.RecycleBin.restorationConfirmationButton
+		alert.addAction(confirmAlertAction)
 
 		present(alert, animated: true, completion: nil)
 	}
