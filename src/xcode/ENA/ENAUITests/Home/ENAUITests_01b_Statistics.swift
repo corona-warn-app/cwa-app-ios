@@ -282,7 +282,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title5].swipeLeft()
 			
 			cardReproductionNumberInfoScreenTest(title6)
-			app.staticTexts[title6].swipeLeft()
+			app.staticTexts[title6].swipeRight()
 			
 			cardAtLeastOneVaccinationInfoScreenTest(title7)
 			app.staticTexts[title7].swipeLeft()
