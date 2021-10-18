@@ -49,10 +49,9 @@ class RecycleBin {
 		Log.info("Ask for item restoration.", log: .recycleBin)
 
 		switch item.item {
-		case .certificate(let certificate):
+		case .certificate:
 			Log.info("Ask for certificate item restoration.", log: .recycleBin)
-			let canRestoreResult = certificateRestorationHandler.canRestore(certificate)
-			return canRestoreResult.mapError { RestorationError.certificateError($0) }
+			return .success(())
 		case .coronaTest(let coronaTest):
 			Log.info("Ask for test item restoration.", log: .recycleBin)
 			let canRestoreResult = testRestorationHandler.canRestore(coronaTest)
@@ -129,8 +128,8 @@ class RecycleBin {
 }
 
 extension RecycleBin {
-	static func fake() -> RecycleBin {
-		let recycleBin = RecycleBin(store: MockTestStore())
+	static func fake(store: RecycleBinStoring = MockTestStore()) -> RecycleBin {
+		let recycleBin = RecycleBin(store: store)
 		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
 		recycleBin.certificateRestorationHandler = CertificateRestorationHandlerFake()
 		return recycleBin
