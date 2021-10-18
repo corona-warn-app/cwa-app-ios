@@ -87,7 +87,7 @@ final class DeltaOnboardingNotificationReworkViewController: DynamicTableViewCon
 		navigationFooterItem?.secondaryButtonTitle = AppStrings.NotificationSettings.DeltaOnboarding.primaryButtonTitle
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.NotificationSettings.close
 		
-		navigationController?.navigationItem.largeTitleDisplayMode = .always
+		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
 		
 		setupTableView()

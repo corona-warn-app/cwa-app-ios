@@ -32,7 +32,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertNil(viewModel.validityStateIcon)
@@ -68,7 +68,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertNil(viewModel.validityStateIcon)
@@ -172,7 +172,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
@@ -217,7 +217,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
