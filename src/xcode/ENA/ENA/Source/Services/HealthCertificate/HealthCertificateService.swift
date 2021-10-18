@@ -1062,24 +1062,14 @@ class HealthCertificateService {
 				} else {
 					let errorMessage = "The New passed booster rule has the same identifier as the old one saved for this person, so we will not trigger the notification"
 					Log.debug(errorMessage, log: .vaccination)
-					
-					#if DEBUG
 					let name = healthCertifiedPerson.name?.standardizedName ?? ""
-					completion("for \(name): \(errorMessage)")
-					#else
-					completion("for xxx: \(errorMessage)")
-					#endif
+					completion("for \(private: name): \(errorMessage)")
 				}
 				
 			case .failure(let validationError):
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
-				
-				#if DEBUG
 				let name = healthCertifiedPerson.name?.standardizedName ?? ""
-				completion("for \(name): \(validationError.localizedDescription)")
-				#else
-				completion("for xxx: \(validationError.localizedDescription)")
-				#endif
+				completion("for \(private: name): \(validationError.localizedDescription)")
 			}
 		})
 	}
