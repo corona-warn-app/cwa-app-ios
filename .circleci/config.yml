@@ -208,7 +208,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> || true
           no_output_timeout: 1h
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
