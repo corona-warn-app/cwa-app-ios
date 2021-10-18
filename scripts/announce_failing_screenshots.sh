@@ -39,4 +39,3 @@ curl --output /dev/null --silent $Failed_SCREENSHOTS_TEAMS \
     }]
 }
 EOF
-return 1
