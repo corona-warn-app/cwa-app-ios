@@ -217,6 +217,27 @@ jobs:
           root: .
           paths:
             - src/xcode/screenshots/*
+  snapshot-test: # Creates one set of screenshots to see if screenshot test are still fine
+    macos:
+      xcode: *xcode_version
+    resource_class: *resource_class
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          key: *tools_cache_key
+      - run:
+          name: Snapshot
+          command: cd src/xcode && bundle exec fastlane screenshot languages:"de-DE" mode:"light"
+          no_output_timeout: 1h
+      - store_test_results:
+          # Fastlane's snapshot only defines one output path which is intended forscreenshots
+          # test results also land here which is the reason of this weird path
+          path: src/xcode/fastlane/test_output/<<parameters.language>>-<<parameters.displaymode>>/
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/xcode/screenshots/*
 
   collect-snapshots:
     macos:
@@ -306,11 +327,7 @@ workflows:
         - test-community:
             requires:
               - dependencies
-        - snapshot: # Create one set of screenshot on all branches
-            matrix:
-              parameters:
-                language: ["de-DE"]
-                displaymode: ["light"]
+        - snapshot-test: # Create one set of screenshot on all branches
             requires:
               - dependencies
             filters:
