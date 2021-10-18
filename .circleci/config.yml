@@ -377,13 +377,12 @@ workflows:
               branches:
                 ignore: /.*/
 
-  sonar-workflow:
-    triggers:
-      - schedule:
-          cron: "0 1 * * 1,2,3,4,5"
-          filters:
-            branches:
-              only: /release\/.*/
-
-    jobs:
-      - sonar
+    sonar-workflow:
+      triggers:
+        - schedule:
+            cron: "0 1 * * 1,2,3,4,5"
+            filters:
+              branches:
+                only: /release\/.*/
+      jobs:
+        - sonar
