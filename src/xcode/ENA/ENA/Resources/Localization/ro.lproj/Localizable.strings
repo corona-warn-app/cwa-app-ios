@@ -1279,6 +1279,10 @@
 
 "Home_TraceLocationsCard_Button" = "Creare cod QR";
 
+/* Home Info Card */
+
+"Home_AppInformationCard_Version" = "Versiune";
+
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Modificarea stării riscului dvs.";
 

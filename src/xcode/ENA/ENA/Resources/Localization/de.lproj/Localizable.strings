@@ -1342,6 +1342,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* App Information */
 
 "App_Information_Title" = "App-Informationen";
+
 "App_Information_Version" = "Version";
 
 /* App Information - About */

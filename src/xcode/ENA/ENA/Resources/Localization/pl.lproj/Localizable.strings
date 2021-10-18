@@ -1279,6 +1279,10 @@
 
 "Home_TraceLocationsCard_Button" = "Utwórz kod QR";
 
+/* Home Info Card */
+
+"Home_AppInformationCard_Version" = "Wersja";
+
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Zmiana Twojego statusu ryzyka";
 
