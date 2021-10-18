@@ -376,7 +376,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 			XCTAssert(self.app.staticTexts[combinedIncidenceTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7day_combined_incidences")
-			app.staticTexts[combinedIncidenceTitle].swipeRight()
+			app.staticTexts[combinedIncidenceTitle].swipeLeft()
 			
 			XCTAssert(self.app.staticTexts[intensiveCareTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_intensive_care")
