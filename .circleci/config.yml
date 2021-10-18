@@ -303,10 +303,20 @@ workflows:
               branches:
                 only:
                   - /release\/.*/
-                  - chore/fix-ui-tests
         - test-community:
             requires:
               - dependencies
+        - snapshot-probe:
+            matrix:
+              parameters:
+                language: ["de-DE"]
+                displaymode: ["light"]
+            requires:
+              - dependencies
+            filters:
+              branches:
+                ignore:
+                  - /release\/.*/
         - snapshot:
             matrix:
               parameters:
