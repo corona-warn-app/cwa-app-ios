@@ -306,7 +306,7 @@ workflows:
         - test-community:
             requires:
               - dependencies
-        - snapshot-probe:
+        - snapshot: # Create one set of screenshot on all branches
             matrix:
               parameters:
                 language: ["de-DE"]
