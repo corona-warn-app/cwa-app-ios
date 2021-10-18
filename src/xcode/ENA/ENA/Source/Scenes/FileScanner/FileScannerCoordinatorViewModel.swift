@@ -78,7 +78,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	init(
 		qrCodeDetector: QRCodeDetecting,
 		qrCodeParser: QRCodeParsable,
-		queue: DispatchQueue = .main
+		queue: DispatchQueue = DispatchQueue.global(qos: .background)
 	) {
 		self.qrCodeDetector = qrCodeDetector
 		self.qrCodeParser = qrCodeParser
@@ -116,9 +116,8 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 
 	func scan(_ image: UIImage) {
 		processingStartedOnQueue()
-		let processingQueue = DispatchQueue.global(qos: .background)
 
-		processingQueue.async { [weak self] in
+		queue.async { [weak self] in
 			guard let self = self,
 				  let codes = self.qrCodeDetector.findQRCodes(in: image)
 			else {
@@ -131,7 +130,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 				return
 			}
 
-			self.findValidQRCode(from: codes, queue: processingQueue) { [weak self] result in
+			self.findValidQRCode(from: codes) { [weak self] result in
 				if let result = result {
 					self?.processingFinishedOnQueue(result)
 				} else {
@@ -160,9 +159,8 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 
 	func scan(_ pdfDocument: PDFDocument) {
 		processingStartedOnQueue()
-		let processingQueue = DispatchQueue.global(qos: .background)
 
-		processingQueue.async { [weak self] in
+		queue.async { [weak self] in
 			guard let self = self else {
 				self?.processingFailedOnQueue(.noQRCodeFound)
 				Log.error("Failed to strong self pointer")
@@ -170,7 +168,12 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 			}
 
 			let codes = self.qrCodes(from: pdfDocument)
-			self.findValidQRCode(from: codes, queue: processingQueue) { [weak self] result in
+			if codes.isEmpty {
+				self.processingFailedOnQueue(.noQRCodeFound)
+				return
+			}
+
+			self.findValidQRCode(from: codes) { [weak self] result in
 				if let result = result {
 					self?.processingFinishedOnQueue(result)
 				} else {
@@ -188,7 +191,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 
 	@available(iOS 14, *)
 	func processItemProvider(_ itemProvider: NSItemProvider) {
-		DispatchQueue.global(qos: .background).async { [weak self] in
+		queue.async { [weak self] in
 			guard itemProvider.canLoadObject(ofClass: UIImage.self) else {
 				self?.processingFailedOnQueue(.noQRCodeFound)
 				return
@@ -215,9 +218,6 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 				found.append(contentsOf: codes)
 			}
 		}
-		if found.isEmpty {
-			processingFailedOnQueue(.noQRCodeFound)
-		}
 		return found
 	}
 
@@ -238,7 +238,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 		return images
 	}
 
-	private func findValidQRCode(from codes: [String], queue: DispatchQueue, completion: @escaping (QRCodeResult?) -> Void) {
+	private func findValidQRCode(from codes: [String], completion: @escaping (QRCodeResult?) -> Void) {
 		Log.debug("Try to find a valid QR-Code from codes.", log: .fileScanner)
 
 		let group = DispatchGroup()
@@ -280,25 +280,25 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	}
 
 	private func processingStartedOnQueue() {
-		queue.async {
+		DispatchQueue.main.async {
 			self.processingStarted?()
 		}
 	}
 
 	private func processingFinishedOnQueue(_ result: QRCodeResult) {
-		queue.async {
+		DispatchQueue.main.async {
 			self.processingFinished?(result)
 		}
 	}
 
 	private func processingFailedOnQueue(_ error: FileScannerError?) {
-		queue.async {
+		DispatchQueue.main.async {
 			self.processingFailed?(error)
 		}
 	}
 
 	private func missingPasswordForPDFOnQueue(_ callback: @escaping (String) -> Void) {
-		queue.async {
+		DispatchQueue.main.async {
 			self.missingPasswordForPDF?(callback)
 		}
 	}
