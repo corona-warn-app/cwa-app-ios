@@ -160,7 +160,8 @@ class NotificationManagerTests: XCTestCase {
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		let coronaTestService = CoronaTestService(

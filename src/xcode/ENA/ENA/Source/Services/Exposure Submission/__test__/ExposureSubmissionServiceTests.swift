@@ -37,7 +37,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -116,7 +117,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: mockStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -170,7 +172,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -231,7 +234,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -286,7 +290,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -341,7 +346,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -398,7 +404,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -452,7 +459,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -506,7 +514,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -560,7 +569,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -610,7 +620,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -662,7 +673,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -720,7 +732,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -796,7 +809,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			)
 		)
@@ -853,7 +867,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			)
 		)
@@ -914,7 +929,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			)
 		)
@@ -973,7 +989,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
