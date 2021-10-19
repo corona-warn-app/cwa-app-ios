@@ -8,13 +8,10 @@ import Foundation
 Just a Protocol where a service has to implement the load method.
 */
 protocol RestServiceProviding {
-
-	func load<S, R>(
-		_ locationResource: LocationResource,
-		_ sendResource: S?,
-		_ receiveResource: R,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where S: SendResource, R: ReceiveResource
+	func load<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError>) -> Void
+	) where R: Resource
 }
 
 /**
@@ -31,19 +28,18 @@ class RestServiceProvider: RestServiceProviding {
 		self.wifiRestService = WifiOnlyRestService(environment: environment)
 	}
 
-	func load<S, R>(
-		_ locationResource: LocationResource,
-		_ sendResource: S? = nil,
-		_ receiveResource: R,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where S: SendResource, R: ReceiveResource {
-		switch locationResource.type {
+	func load<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError>) -> Void
+	) where R: Resource {
+		// dispatch loading to the correct rest service
+		switch resource.type {
 		case .default:
-			restService.load(locationResource.locator, sendResource, receiveResource, completion)
+			restService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
 		case .caching:
-			cachedRestService.load(locationResource.locator, sendResource, receiveResource, completion)
+			cachedRestService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
 		case .wifiOnly:
-			wifiRestService.load(locationResource.locator, sendResource, receiveResource, completion)
+			wifiRestService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
 
 		case .retrying:
 			fatalError("missing service - NYD")

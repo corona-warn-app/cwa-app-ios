@@ -47,12 +47,7 @@ final class DMNHCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					// Example of building a request without request body but with response body.
-					let locationResource = AppConfigurationLocationResource()
-					let sendResource = EmptySendResource<Any>()
-					let receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
-
-					self?.restService.load(locationResource, sendResource, receiveResource) { result in
+					self?.restService.load(AppConfigurationResource()) { result in
 						switch result {
 						case .success:
 							Log.info("New HTTP Call for AppConfig successful")
@@ -68,15 +63,7 @@ final class DMNHCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					
-					// Example of building a request without request body but with response body.
-					let locationResource = ValidationOnboardedCountriesLocationResource(isFake: false)
-					let sendResource = EmptySendResource<Any>()
-					// TODO Create ReceiveResource of Type CBOR
-//					let receiveResource = ProtobufReceiveResource<CBOR>
-					let receiveResource = EmptyReceiveResource<Any>()
-
-					self?.restService.load(locationResource, sendResource, receiveResource) { result in
+					self?.restService.load(ValidationOnboardedCountriesResource()) { result in
 						switch result {
 						case .success:
 							Log.info("New HTTP Call for validationOnboardedCountries successful")
@@ -123,28 +110,28 @@ final class DMNHCViewModel {
 			)
 		)
 		alert.addAction(
-			UIAlertAction(title: "Ok", style: .default, handler: { [weak self] _ in
-				guard let textField = alert.textFields?.first,
-					  let teleTan = textField.text,
-					  !teleTan.isEmpty else {
-					fatalError("No textField found")
-				}
-
-				let location = RegistrationTokenLocationResource(isFake: false)
-				let sendModel = KeyModel(key: teleTan, keyType: "TELETAN")
-				let sendResource = JSONSendResource<KeyModel>(sendModel)
-				let receiveResource = EmptyReceiveResource<Any>()
-				self?.restService.load(location, sendResource, receiveResource) { result in
-					switch result {
-					case .success:
-						Log.info("New HTTP Call for Registration Token successful")
-					case .failure:
-						Log.error("New HTTP Call for Registration Token failed")
+			UIAlertAction(
+				title: "Ok",
+				style: .default,
+				handler: { [weak self] _ in
+					guard let textField = alert.textFields?.first,
+						  let teleTan = textField.text,
+						  !teleTan.isEmpty else {
+							  Log.error("no textfield found")
+							  return
+						  }
+					let resource = TeleTanResource(sendModel: KeyModel(key: teleTan, keyType: "TELETAN"))
+					self?.restService.load(resource) { result in
+						switch result {
+						case .success:
+							Log.info("New HTTP Call for Registration Token successful")
+						case .failure:
+							Log.error("New HTTP Call for Registration Token failed")
+						}
 					}
+
 				}
-
-
-			})
+			)
 		)
 		viewController?.present(alert, animated: true)
 	}

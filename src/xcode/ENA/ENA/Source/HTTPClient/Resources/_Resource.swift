@@ -5,11 +5,30 @@
 import Foundation
 
 /**
-A LocationResource describes where a resources can be found (Locator) and how to load it and so which service should be used (ServiceType)
+A Resource describes where a resources can be found (Locator), which service should be used (ServiceType), what data to send (sendResource) and what data to receive (receiveResource).
 */
-protocol LocationResource {
+protocol Resource {
+	associatedtype Send: SendResource
+	associatedtype Receive: ReceiveResource
+
 	var locator: Locator { get }
 	var type: ServiceType { get }
+
+	var sendResource: Send { get }
+	var receiveResource: Receive { get }
+}
+
+/**
+The errors that can occur while handling resources
+*/
+enum ResourceError: Error {
+	case missingData
+	case decoding
+	case encoding
+	case packageCreation
+	case signatureVerification
+	case notModified
+	case undefined
 }
 
 /**

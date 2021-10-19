@@ -19,7 +19,6 @@ extension Locator {
 				"cwa-fake": fake,
 				"cwa-header-padding": String.getRandomString(of: 14)
 			]
-			// TODO: Body is missing here
 		)
 	}
 
