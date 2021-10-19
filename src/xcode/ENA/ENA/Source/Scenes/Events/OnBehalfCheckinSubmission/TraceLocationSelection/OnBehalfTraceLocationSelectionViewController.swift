@@ -37,7 +37,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setUpTableView()
-		setUpEmptyState()
+		tableView.reloadData()
 		
 		viewModel.$continueEnabled
 			.receive(on: DispatchQueue.main.ocombine)
@@ -45,6 +45,11 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		setUpEmptyState()
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -176,23 +181,18 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 	}
 
 	private func setUpEmptyState() {
-		let emptyStateView = EmptyStateView(
-			viewModel: OnBehalfTraceLocationSelectionEmptyStateViewModel()
-		)
-
 		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the description and scan QR code cell
-		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY
-		// … + the height of the navigation bar
-		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
-		// … + the height of the status bar
-		if #available(iOS 13.0, *) {
-			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-		} else {
-			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
-		}
-
-		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
+		// adding top padding for the description cell and scan QR code cell to the safe area (navigation bar and status bar).
+		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 1)).maxY + tableView.adjustedContentInset.top
+		// for larger screens pull it even more down - it looks better
+		let alignmentPadding = max(safeInsetTop, UIScreen.main.bounds.height / 3)
+		tableView.backgroundView = viewModel.isEmptyStateVisible
+			? EmptyStateView(
+				viewModel: OnBehalfTraceLocationSelectionEmptyStateViewModel(),
+				safeInsetTop: safeInsetTop,
+				alignmentPadding: alignmentPadding
+			)
+			: nil
 	}
 		
 }
