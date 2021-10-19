@@ -475,6 +475,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 	func test_exposureSubmissionSuccess_screen() {
 		launchAndNavigateToSymptomsScreen()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
 		// Symptoms Screen: Select no symptoms option
 		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
@@ -492,6 +493,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
 
 		// Back to homescreen
+		app.swipeDown()
+		app.swipeDown()
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
 	}
@@ -644,7 +647,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		var screenshotCounter = 0
 
 		launchAndNavigateToSymptomsScreen()
-		
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+
 		// capturing and selecting Yes button
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
 		optionYes.waitAndTap()
@@ -862,6 +866,7 @@ extension ENAUITests_04a_ExposureSubmission {
 
 	func launchAndNavigateToSymptomsOnsetScreen() {
 		launchAndNavigateToSymptomsScreen()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
 

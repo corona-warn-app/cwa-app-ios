@@ -59,7 +59,7 @@ class ENAUITests: CWATestCase {
 		// ScreenShot_0004: Settings > Risk exposure
 		app.swipeUp() // the home screen got longer and for some reason we have to scroll to `tap()`
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap(.extraLong)
 
 		app.cells["AppStrings.Settings.tracingLabel"].waitAndTap(.extraLong)
@@ -82,7 +82,7 @@ class ENAUITests: CWATestCase {
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 		app.swipeUp()
 
-		let shareLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		let shareLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
 		shareLabel.waitAndTap()
 		if snapshotsActive { snapshot("AppStore_0007") }
 
