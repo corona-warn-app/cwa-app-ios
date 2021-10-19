@@ -76,6 +76,9 @@ class HealthCertificateServiceMigrationTests: XCTestCase {
 			),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			),
+			recycleBin: RecycleBin(
+				store: store
 			)
 		)
 	}
