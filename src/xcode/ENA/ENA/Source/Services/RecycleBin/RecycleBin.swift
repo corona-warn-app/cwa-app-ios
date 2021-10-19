@@ -127,6 +127,8 @@ class RecycleBin {
 	private let store: RecycleBinStoring
 }
 
+#if !RELEASE
+
 extension RecycleBin {
 	static func fake(store: RecycleBinStoring = MockTestStore()) -> RecycleBin {
 		let recycleBin = RecycleBin(store: store)
@@ -135,3 +137,5 @@ extension RecycleBin {
 		return recycleBin
 	}
 }
+
+#endif
