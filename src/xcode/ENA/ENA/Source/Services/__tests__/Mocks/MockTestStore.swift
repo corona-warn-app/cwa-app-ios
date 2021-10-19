@@ -8,6 +8,7 @@ import OpenCombine
 #if !RELEASE
 
 final class MockTestStore: Store, PPAnalyticsData {
+
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
@@ -182,6 +183,17 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - Protocol AppFeaturesStoring
 	var dmKillDeviceTimeCheck = false
 	var unencryptedCheckinsEnabled = false
+
+	// MARK: - Protocol RecycleBinStoring
+
+	lazy var recycleBinItemsSubject = {
+		CurrentValueSubject<Set<RecycleBinItem>, Never>(recycleBinItems)
+	}()
+	var recycleBinItems: Set<RecycleBinItem> = [] {
+		didSet {
+			recycleBinItemsSubject.value = recycleBinItems
+		}
+	}
 }
 
 #endif

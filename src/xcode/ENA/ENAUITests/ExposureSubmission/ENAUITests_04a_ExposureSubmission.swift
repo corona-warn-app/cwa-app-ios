@@ -427,8 +427,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// -> Select to find test centers
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription].waitAndTap()
 	
-		// Check if safari was opened
-		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/#where_can_i_get_tested'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/#where_can_i_get_tested"].waitForExistence(timeout: .short))
 
 	}
 	
@@ -857,7 +857,7 @@ extension ENAUITests_04a_ExposureSubmission {
 		
 		// Thank You screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .short))
 	}
 
 	func launchAndNavigateToSymptomsOnsetScreen() {

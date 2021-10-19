@@ -303,6 +303,8 @@ final class HealthCertificateCoordinator {
 			}
 		)
 		actionSheet.addAction(removeAction)
+
+		removeAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Certificate.deleteButton
 		
 		let cancelAction = UIAlertAction(
 			title: AppStrings.HealthCertificate.PrintPDF.cancel,
@@ -337,6 +339,7 @@ final class HealthCertificateCoordinator {
 			message: message,
 			preferredStyle: .alert
 		)
+
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.HealthCertificate.Alert.cancelButton,
@@ -344,7 +347,10 @@ final class HealthCertificateCoordinator {
 				handler: nil
 			)
 		)
+
 		alert.addAction(submitAction)
+		submitAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Certificate.deletionConfirmationButton
+
 		navigationController.present(alert, animated: true)
 	}
 	

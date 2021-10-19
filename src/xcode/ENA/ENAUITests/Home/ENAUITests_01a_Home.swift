@@ -28,10 +28,19 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .medium))
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+
+		let shareLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
+
+		let faqLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
+		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
+	
+		let infoLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
+	
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
@@ -43,10 +52,19 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		
+		let shareLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
+
+		let faqLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
+		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
+	
+		let infoLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
+	
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
@@ -59,11 +77,19 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: .short))
-		app.swipeUp()
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .short))
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+
+		let shareLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel]
+		XCTAssertTrue(shareLabel.waitForExistence(timeout: .medium))
+
+		let faqLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
+		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
+	
+		let infoLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
+	
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 	
 	func test_riskCardHigh_details_faqLink() throws {
@@ -78,8 +104,8 @@ class ENAUITests_01a_Home: CWATestCase {
 		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
 		faqCell.waitAndTap()
 
-		// get safari and wait for safari to be in foreground
-		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/#red_card_how_to_test'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/#red_card_how_to_test"].waitForExistence(timeout: .short))
 	}
 	
 	func test_homescreen_remove_positive_test_result() throws {

@@ -24,7 +24,8 @@ class HealthCertificateService {
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		boosterNotificationsService: BoosterNotificationsServiceProviding
+		boosterNotificationsService: BoosterNotificationsServiceProviding,
+		recycleBin: RecycleBin
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -38,6 +39,7 @@ class HealthCertificateService {
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
 			self.boosterNotificationsService = boosterNotificationsService
+			self.recycleBin = recycleBin
 			setup()
 			configureForLaunchArguments()
 
@@ -53,6 +55,7 @@ class HealthCertificateService {
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.notificationCenter = notificationCenter
 		self.boosterNotificationsService = boosterNotificationsService
+		self.recycleBin = recycleBin
 
 		setup()
 	}
@@ -136,8 +139,22 @@ class HealthCertificateService {
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
 		markAsNew: Bool = false
-	) -> Result<(HealthCertifiedPerson, HealthCertificate), HealthCertificateServiceError.RegistrationError> {
+	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
+
+		// If the certificate is in the recycle bin, restore it and skip registration process.
+		if case let .certificate(healthCertificate) = recycleBin.item(for: base45) {
+			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
+			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
+
+			return .success(
+				CertificateResult(
+					restoredFromBin: true,
+					person: healthCertifiedPerson,
+					certificate: healthCertificate
+				)
+			)
+		}
 
 		do {
 			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
@@ -153,16 +170,12 @@ class HealthCertificateService {
 				}
 			}
 
-			let healthCertifiedPerson = healthCertifiedPersons
-				.first(where: {
-					$0.healthCertificates.first?.name.groupingStandardizedName == healthCertificate.name.groupingStandardizedName &&
-					$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
-				}) ?? HealthCertifiedPerson(healthCertificates: [])
-
 			if healthCertificate.hasTooManyEntries {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
 				return .failure(.certificateHasTooManyEntries)
 			}
+
+			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
@@ -173,26 +186,54 @@ class HealthCertificateService {
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
-			healthCertifiedPerson.healthCertificates.append(healthCertificate)
-			healthCertifiedPerson.healthCertificates.sort(by: <)
+			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
 
-			if !healthCertifiedPersons.contains(healthCertifiedPerson) {
-				Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-				healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
-				updateValidityStatesAndNotifications()
-				updateGradients()
-			} else {
-				Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
-			}
-			if healthCertificate.type != .test {
-				createNotifications(for: healthCertificate)
-			}
-			return .success((healthCertifiedPerson, healthCertificate))
+			return .success(
+				CertificateResult(
+					restoredFromBin: false,
+					person: healthCertifiedPerson,
+					certificate: healthCertificate
+				)
+			)
+
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
 			return .failure(.decodingError(error))
 		} catch {
 			return .failure(.other(error))
+		}
+	}
+
+	func healthCertifiedPerson(for healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
+		healthCertifiedPersons
+			.first(where: {
+				$0.healthCertificates.first?.name.groupingStandardizedName == healthCertificate.name.groupingStandardizedName &&
+				$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
+			}) ?? HealthCertifiedPerson(healthCertificates: [])
+	}
+
+	func addHealthCertificate(_ healthCertificate: HealthCertificate) {
+		addHealthCertificate(
+			healthCertificate,
+			to: healthCertifiedPerson(for: healthCertificate)
+		)
+	}
+
+	func addHealthCertificate(_ healthCertificate: HealthCertificate, to healthCertifiedPerson: HealthCertifiedPerson) {
+
+		healthCertifiedPerson.healthCertificates.append(healthCertificate)
+		healthCertifiedPerson.healthCertificates.sort(by: <)
+
+		if !healthCertifiedPersons.contains(healthCertifiedPerson) {
+			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
+			healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
+			updateValidityStatesAndNotifications()
+			updateGradients()
+		} else {
+			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
+		}
+		if healthCertificate.type != .test {
+			createNotifications(for: healthCertificate)
 		}
 	}
 
@@ -215,6 +256,9 @@ class HealthCertificateService {
 		}
 		// we do not have to wait here, so we leave the completion empty
 		removeAllNotifications(for: healthCertificate, completion: {})
+
+		// Move HealthCertificate to the recycle-bin
+		recycleBin.moveToBin(.certificate(healthCertificate))
 	}
 
 	func registerAndExecuteTestCertificateRequest(
@@ -532,6 +576,7 @@ class HealthCertificateService {
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 	private let notificationCenter: UserNotificationCenter
+	private let recycleBin: RecycleBin
 
 	private var initialHealthCertifiedPersonsReadFromStore = false
 	private var initialTestCertificateRequestsReadFromStore = false
@@ -618,16 +663,16 @@ class HealthCertificateService {
 			if case let .success(base45) = firstDose {
 				let result = registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 
-				if case let .success((person, _)) = result,
+				if case let .success(certificateResult) = result,
 					LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
-					person.boosterRule = .fake(
+					certificateResult.person.boosterRule = .fake(
 						identifier: "EX-ID-005",
 						description: [
 							.fake(lang: "en", desc: "You may be eligible for a booster because your vaccination with Astra Zeneca was more than 5 months ago."),
 							.fake(lang: "de", desc: "Sie könnten für eine Auffrischungsimpfung berechtigt sein, da Ihre Impfung mit Astra Zeneca vor mehr als 5 Monaten war.")
 						]
 					)
-					person.isNewBoosterRule = true
+					certificateResult.person.isNewBoosterRule = true
 				}
 			}
 			
@@ -891,10 +936,10 @@ class HealthCertificateService {
 				)
 
 				switch registerResult {
-				case .success((_, let healthCertificate)):
+				case .success(let certificateResult):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(healthCertificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
+					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
@@ -1128,5 +1173,6 @@ class HealthCertificateService {
 
 		addNotification(request: request)
 	}
+
 	// swiftlint:disable:next file_length
 }

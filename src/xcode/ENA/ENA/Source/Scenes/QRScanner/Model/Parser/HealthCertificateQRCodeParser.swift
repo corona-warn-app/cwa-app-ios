@@ -24,8 +24,8 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 	) {
 		let result = healthCertificateService.registerHealthCertificate(base45: qrCode, markAsNew: markAsNew)
 		switch result {
-		case let .success((healthCertifiedPerson, healthCertificate)):
-			completion(.success(.certificate(healthCertifiedPerson, healthCertificate)))
+		case let .success(certificateResult):
+			completion(.success(.certificate(certificateResult)))
 		case .failure(let registrationError):
 			// wrap RegistrationError into an QRScannerError.other error
 			completion(.failure(.certificateQrError(registrationError)))

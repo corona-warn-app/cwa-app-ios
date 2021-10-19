@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeMoreInfoTableViewCell" rowHeight="285" id="KGk-i7-Jjw" customClass="HomeMoreInfoTableViewCell" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="371" height="285"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="371" height="285"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7E-yS-iJA" userLabel="HomeCardView" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
+                        <rect key="frame" x="16" y="12" width="339" height="262"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdX-dE-9Ab" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="16" y="20" width="62.5" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZAY-jg-r7t">
+                                <rect key="frame" x="0.0" y="61.5" width="339" height="190.5"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="ENA Background Color"/>
+                        <constraints>
+                            <constraint firstItem="ZAY-jg-r7t" firstAttribute="leading" secondItem="M7E-yS-iJA" secondAttribute="leading" id="2Ek-B8-REH"/>
+                            <constraint firstAttribute="bottom" secondItem="ZAY-jg-r7t" secondAttribute="bottom" constant="10" id="2Lc-F7-D4i"/>
+                            <constraint firstItem="ZAY-jg-r7t" firstAttribute="top" secondItem="kdX-dE-9Ab" secondAttribute="bottom" constant="10" id="BBt-O9-mo2"/>
+                            <constraint firstAttribute="trailing" secondItem="ZAY-jg-r7t" secondAttribute="trailing" id="Jyv-aR-GGv"/>
+                            <constraint firstItem="kdX-dE-9Ab" firstAttribute="top" secondItem="M7E-yS-iJA" secondAttribute="top" constant="20" id="MB2-GI-roF"/>
+                            <constraint firstItem="kdX-dE-9Ab" firstAttribute="leading" secondItem="M7E-yS-iJA" secondAttribute="leading" constant="16" id="yXI-QU-TJj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="M7E-yS-iJA" secondAttribute="trailing" constant="16" id="URh-gt-GCb"/>
+                    <constraint firstItem="M7E-yS-iJA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Zrh-k7-sbC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="M7E-yS-iJA" secondAttribute="bottom" id="fOf-Mp-R3x"/>
+                    <constraint firstItem="M7E-yS-iJA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="q8a-Jg-LnI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="homeCardView" destination="M7E-yS-iJA" id="JNe-lp-CbE"/>
+                <outlet property="stackView" destination="ZAY-jg-r7t" id="GnV-kL-1JG"/>
+                <outlet property="titleLabel" destination="kdX-dE-9Ab" id="gS0-Ys-cfw"/>
+            </connections>
+            <point key="canvasLocation" x="174.63768115942031" y="211.27232142857142"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="kdX-dE-9Ab">
+            <size key="intrinsicContentSize" width="62.5" height="31.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
