@@ -20,7 +20,7 @@ protocol Service {
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
 	
-	/// This loads a ReceiveModel from an external endpoint via http call.
+	/// loads a ReceiveModel from an external endpoint via http call.
 	///
 	/// - Parameters:
 	///   - locator: The locator of the load call. The locator contains the url, the endpoint and other describing things to build the URLRequest.
@@ -34,7 +34,7 @@ protocol Service {
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where S: SendResource, R: ReceiveResource
 	
-	/// This creates the url for the http call.
+	/// creates the url for the http call.
 	///
 	/// - Parameters:
 	///   - locator: The locator of the load call. The locator contains the url, the endpoint and other describing things to build the URLRequest.
@@ -47,7 +47,7 @@ protocol Service {
 		_ receiveResource: R
 	) -> Result<URLRequest, ResourceError> where S: SendResource, R: ReceiveResource
 	
-	/// This decodes the data from the http response.
+	/// decodes the data from the http response.
 	///
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
@@ -63,7 +63,7 @@ protocol Service {
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where R: ReceiveResource
 
-	/// Call this functions if you want to cache a resource.
+	/// implement this functions if you want to cache a resource.
 	///
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
@@ -75,7 +75,7 @@ protocol Service {
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where R: ReceiveResource
 	
-	/// Call this functions if you want to cache a resource.
+	/// implement this functions if you want to set special headers.
 	///
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.

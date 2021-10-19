@@ -1228,6 +1228,9 @@
 		BA7F15AD2629DA1000CA4783 /* AntigenTestInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15AC2629DA1000CA4783 /* AntigenTestInformationTests.swift */; };
 		BA7F7343271F09F600E3CE14 /* AppConfigurationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */; };
 		BA7F7344271F0C6900E3CE14 /* ValidationOnboardedCountriesResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */; };
+		BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7345271F124D00E3CE14 /* _RestServiceProviding.swift */; };
+		BA7F7348271F12CE00E3CE14 /* _ReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7347271F12CE00E3CE14 /* _ReceiveResource.swift */; };
+		BA7F734A271F130200E3CE14 /* _SendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7349271F130200E3CE14 /* _SendResource.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA821E9326B41F81008DA362 /* ValidationStateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */; };
 		BA83C19727171AFD0039D504 /* URLSessionConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */; };
@@ -1302,7 +1305,6 @@
 		BACF83A026A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACF839F26A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift */; };
 		BAD3199926FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3199826FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift */; };
 		BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */; };
-		BAD362EA271876B300B6F04B /* RegistrationTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD362E9271876B300B6F04B /* RegistrationTokenModel.swift */; };
 		BAD3CCD3271EEB2C004C06AD /* KeyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */; };
 		BAD3CCD5271EEB5A004C06AD /* _PaddingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */; };
 		BAD3CCD8271EF973004C06AD /* TeleTANResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */; };
@@ -2708,6 +2710,9 @@
 		BA7F15A02629D3F200CA4783 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
 		BA7F15AC2629DA1000CA4783 /* AntigenTestInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestInformationTests.swift; sourceTree = "<group>"; };
 		BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurationResource.swift; sourceTree = "<group>"; };
+		BA7F7345271F124D00E3CE14 /* _RestServiceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _RestServiceProviding.swift; sourceTree = "<group>"; };
+		BA7F7347271F12CE00E3CE14 /* _ReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ReceiveResource.swift; sourceTree = "<group>"; };
+		BA7F7349271F130200E3CE14 /* _SendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SendResource.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationStateServiceTests.swift; sourceTree = "<group>"; };
 		BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Default.swift"; sourceTree = "<group>"; };
@@ -2780,7 +2785,6 @@
 		BACF839F26A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExpirationDateCellViewModel.swift; sourceTree = "<group>"; };
 		BAD3199826FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewModelTests.swift; sourceTree = "<group>"; };
 		BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewTests.swift; sourceTree = "<group>"; };
-		BAD362E9271876B300B6F04B /* RegistrationTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenModel.swift; sourceTree = "<group>"; };
 		BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DccPublicKeyLocationResource.swift; sourceTree = "<group>"; };
 		BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenLocationResource.swift; sourceTree = "<group>"; };
 		BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyModel.swift; sourceTree = "<group>"; };
@@ -7289,9 +7293,10 @@
 		BA52A69926EA1A1700AA0732 /* SendResources */ = {
 			isa = PBXGroup;
 			children = (
-				BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */,
-				5071A87426EA662F00B09B40 /* JSONSendResource.swift */,
+				BA7F7349271F130200E3CE14 /* _SendResource.swift */,
 				5071A87626EB76E000B09B40 /* EmptySendResource.swift */,
+				5071A87426EA662F00B09B40 /* JSONSendResource.swift */,
+				BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */,
 			);
 			path = SendResources;
 			sourceTree = "<group>";
@@ -7299,9 +7304,10 @@
 		BA52A69A26EA1A2400AA0732 /* ReceiveResources */ = {
 			isa = PBXGroup;
 			children = (
-				BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */,
-				5071A87226EA662400B09B40 /* JSONReceiveResource.swift */,
+				BA7F7347271F12CE00E3CE14 /* _ReceiveResource.swift */,
 				5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */,
+				5071A87226EA662400B09B40 /* JSONReceiveResource.swift */,
+				BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */,
 			);
 			path = ReceiveResources;
 			sourceTree = "<group>";
@@ -7442,7 +7448,6 @@
 				BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */,
 				5071A87F26EB808A00B09B40 /* HTTP+Method.swift */,
 				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
-				50D7BD6F26DE405100494FB7 /* Locator.swift */,
 				BA64FA8026D79BFD00DD4705 /* Resources */,
 				BAF640E926DF862800B3A18E /* Service */,
 			);
@@ -7945,7 +7950,6 @@
 			children = (
 				BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */,
 				BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */,
-				BAD362E9271876B300B6F04B /* RegistrationTokenModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -8161,8 +8165,9 @@
 		BAF640E926DF862800B3A18E /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				BAD362E82718769F00B6F04B /* Models */,
+				BA7F7345271F124D00E3CE14 /* _RestServiceProviding.swift */,
 				BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */,
+				BAD362E82718769F00B6F04B /* Models */,
 				5071A88126EB80D900B09B40 /* ServiceError.swift */,
 				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				5071A88526EB815C00B09B40 /* Services */,
@@ -8173,6 +8178,7 @@
 		BAF640EF26DFA08E00B3A18E /* Locators */ = {
 			isa = PBXGroup;
 			children = (
+				50D7BD6F26DE405100494FB7 /* Locator.swift */,
 				BAF45AE826E7B94200B80391 /* Receive */,
 				BAF45AE726E7B93700B80391 /* Send */,
 			);
@@ -9044,7 +9050,6 @@
 				AB190E7D25FB5FE500FBFF0D /* StoreQuery.swift in Sources */,
 				504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */,
 				EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */,
-				BAD362EA271876B300B6F04B /* RegistrationTokenModel.swift in Sources */,
 				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
 				50293D56267A41BC004B3EBE /* AddCertificateCellModel.swift in Sources */,
@@ -9385,6 +9390,7 @@
 				ABE9617125F1220600D0F699 /* EventStore.swift in Sources */,
 				50C0298525E4067400460FA4 /* UserMetadata.swift in Sources */,
 				8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */,
+				BA7F7348271F12CE00E3CE14 /* _ReceiveResource.swift in Sources */,
 				BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */,
 				508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */,
 				BA5B7FDB26458EF400502087 /* HealthCertifiedPersonViewModel.swift in Sources */,
@@ -9410,6 +9416,7 @@
 				4BAB48F426C9B4FB00CC4C11 /* RateLimitLogger.swift in Sources */,
 				AB190ED725FBC45D00FBFF0D /* FMDB+Utils.swift in Sources */,
 				AB86B2AA26026AB5007C77B3 /* EventCheckoutService.swift in Sources */,
+				BA7F734A271F130200E3CE14 /* _SendResource.swift in Sources */,
 				5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */,
 				0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */,
 				50E861F92705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift in Sources */,
@@ -9538,6 +9545,7 @@
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
+				BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
 				BAAC573226CBEF7C0049B55C /* VaccinationProductType.swift in Sources */,
 				3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */,

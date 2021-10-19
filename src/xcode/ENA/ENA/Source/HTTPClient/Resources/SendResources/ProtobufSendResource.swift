@@ -5,7 +5,6 @@
 import Foundation
 import SwiftProtobuf
 
-
 struct ProtobufSendResource<S>: SendResource where S: SwiftProtobuf.Message {
 
 	// MARK: - Init
@@ -15,8 +14,6 @@ struct ProtobufSendResource<S>: SendResource where S: SwiftProtobuf.Message {
 	) {
 		self.sendModel = sendModel
 	}
-
-	// MARK: - Overrides
 
 	// MARK: - Protocol SendResource
 
@@ -34,11 +31,5 @@ struct ProtobufSendResource<S>: SendResource where S: SwiftProtobuf.Message {
 			return Result.failure(.encoding)
 		}
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	// MARK: - Private
 
 }

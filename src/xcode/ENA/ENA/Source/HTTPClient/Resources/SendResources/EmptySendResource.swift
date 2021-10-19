@@ -10,12 +10,6 @@ Will always return .success.
 */
 struct EmptySendResource<S>: SendResource {
 
-	// MARK: - Init
-	
-	init() {
-		self.sendModel = nil
-	}
-		
 	// MARK: - Protocol ReceiveResource
 	
 	typealias SendModel = S

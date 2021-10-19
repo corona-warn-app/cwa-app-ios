@@ -21,8 +21,6 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 		self.signatureVerifier = signatureVerifier
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol ReceiveResource
 
 	typealias ReceiveModel = R
@@ -45,10 +43,6 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 			return Result.failure(.decoding)
 		}
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 

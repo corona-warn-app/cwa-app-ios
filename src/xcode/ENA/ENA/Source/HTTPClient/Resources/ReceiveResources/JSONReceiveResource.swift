@@ -11,12 +11,6 @@ Returns different RessourceErrors when decoding fails.
 */
 struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 	
-	// MARK: - Init
-	
-	init() {}
-	
-	// MARK: - Overrides
-	
 	// MARK: - Protocol ReceiveResource
 	
 	typealias ReceiveModel = R
@@ -44,10 +38,6 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 		}
 		return .failure(.decoding)
 	}
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
 	
 	// MARK: - Private
 	

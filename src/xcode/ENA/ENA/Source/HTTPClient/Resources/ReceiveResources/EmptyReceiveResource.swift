@@ -10,10 +10,6 @@ Will always return .success.
 */
 struct EmptyReceiveResource<R>: ReceiveResource {
 	
-	// MARK: - Init
-	
-	init() {}
-		
 	// MARK: - Protocol ReceiveResource
 	
 	typealias ReceiveModel = R

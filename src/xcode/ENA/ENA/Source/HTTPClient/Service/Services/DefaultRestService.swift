@@ -19,8 +19,6 @@ class DefaultRestService: Service {
 		self.environment = environment
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol Service
 
 	let environment: EnvironmentProviding

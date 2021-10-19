@@ -20,8 +20,6 @@ class CachedRestService: Service {
 		self.environment = environment
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol Service
 
 	let environment: EnvironmentProviding
@@ -29,7 +27,6 @@ class CachedRestService: Service {
 	lazy var session: URLSession = {
 		URLSession(configuration: .cachingSessionConfiguration())
 	}()
-
 
 	func decodeModel<R>(
 		_ resource: R,
@@ -80,17 +77,16 @@ class CachedRestService: Service {
 		return ["If-None-Match": cachedModel.eTag]
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-	
 	// MARK: - Private
 
-	// dummy cache for the moment
+	/// at the moment we use a simple NSCache
 	private let cache: NSCache<NSNumber, CacheData> = NSCache<NSNumber, CacheData>()
 }
 
-class CacheData: NSObject {
+
+/// helper class for the NSCache
+
+fileprivate class CacheData: NSObject {
 
 	init(data: Data, eTag: String, date: Date) {
 		self.data = data

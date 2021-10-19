@@ -2,11 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 
 /**
 The locator describes where (endpoint and path) a resource should be send or received. I can also add some headers, like the fake request header.
-
 */
 struct Locator: Hashable {
 

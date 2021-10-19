@@ -4,7 +4,6 @@
 
 import Foundation
 
-
 /**
 This is a special default implementation of Service and serves not only as default implementation but also as a hook to the generic resources and different service implementations.
 When calling a function of a service, it traverses this hook and in the implementations of the functions of the protocol. Here we do some stuff every service implementation normally should do and prevent so code duplication (e.g. setting the standard http request headers).
