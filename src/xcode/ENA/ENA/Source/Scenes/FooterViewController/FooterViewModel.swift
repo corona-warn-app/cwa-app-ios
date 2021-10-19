@@ -88,7 +88,8 @@ final class FooterViewModel {
 
 	var primaryButtonName: String?
 	var secondaryButtonName: String?
-	var topBottomInset: CGFloat
+
+	@OpenCombine.Published private(set) var topBottomInset: CGFloat
 
 	@OpenCombine.Published var backgroundColor: UIColor?
 

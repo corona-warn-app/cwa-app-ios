@@ -79,7 +79,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.Home.appInformationCardTitle
+		navigationItem.title = AppStrings.AppInformation.appInformationNavigationTitle
 
 		dynamicTableViewModel = .init([
 			.section(
@@ -156,7 +156,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 
 		let bundleVersion = Bundle.main.appVersion
 		let bundleBuild = Bundle.main.appBuildNumber
-		versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+		versionLabel.text = "\(AppStrings.AppInformation.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
 
 		let footerView = UIView()
 		footerView.addSubview(versionLabel)

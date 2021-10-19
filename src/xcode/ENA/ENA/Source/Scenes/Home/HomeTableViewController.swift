@@ -25,6 +25,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
+		onRecycleBinCellTap: @escaping () -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
 		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
@@ -45,6 +46,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
+		self.onRecycleBinCellTap = onRecycleBinCellTap
 		self.showTestInformationResult = showTestInformationResult
 		self.onAddStateButtonTap = onAddLocalStatisticsTap
 		self.onAddDistrict = onAddDistrict
@@ -195,13 +197,26 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerView = UIView()
-		headerView.backgroundColor = .enaColor(for: .separator)
+
+		return headerView
+	}
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		let headerView = UIView()
 
 		return headerView
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return viewModel.heightForRow(at: indexPath)
+	}
+
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 0
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return 0
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -286,6 +301,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
+	private let onRecycleBinCellTap: () -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
 	private var onAddDistrict: (SelectValueTableViewController) -> Void
@@ -616,13 +632,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreInfoTableViewCell.self), for: indexPath) as? HomeMoreInfoTableViewCell else {
 			fatalError("Could not dequeue HomeMoreInfoTableViewCell")
 		}
-		cell.configure(completion: { [weak self] selectedItem in
+		cell.configure(onItemTap: { [weak self] selectedItem in
 			guard let self = self else { return }
 			switch selectedItem {
 			case .settings:
 				self.onSettingsCellTap(self.viewModel.state.enState)
 			case .recycleBin:
-				Log.debug("Implement navigation to the recycle bin")
+				self.onRecycleBinCellTap()
 			case .appInformation:
 				self.onAppInformationCellTap()
 			case .faq:
