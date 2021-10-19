@@ -78,7 +78,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	init(
 		qrCodeDetector: QRCodeDetecting,
 		qrCodeParser: QRCodeParsable,
-		queue: DispatchQueue = DispatchQueue.global(qos: .background)
+		queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
 	) {
 		self.qrCodeDetector = qrCodeDetector
 		self.qrCodeParser = qrCodeParser
