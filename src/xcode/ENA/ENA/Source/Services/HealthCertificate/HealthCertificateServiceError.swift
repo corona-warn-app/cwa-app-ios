@@ -62,10 +62,11 @@ enum HealthCertificateServiceError: Error {
 				}
 			case .certificateHasTooManyEntries:
 				return "\(AppStrings.HealthCertificate.Error.hcNotSupported) (HC_TOO_MANY_ENTRIES)"
-			case .other(let error):
-				return error.localizedDescription
 			case .invalidSignature(let error):
 				return "\(AppStrings.HealthCertificate.Error.invalidSignatureText) (\(error))"
+			case .other(let error):
+				return error.localizedDescription
+
 			}
 		}
 

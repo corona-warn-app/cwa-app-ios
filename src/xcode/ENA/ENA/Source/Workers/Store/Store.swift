@@ -261,6 +261,12 @@ protocol DSCListCaching: AnyObject {
 	var dscList: DSCListMetaData? { get set }
 }
 
+protocol RecycleBinStoring: AnyObject {
+	var recycleBinItemsSubject: CurrentValueSubject<Set<RecycleBinItem>, Never> { get }
+
+	var recycleBinItems: Set<RecycleBinItem> { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -282,6 +288,7 @@ protocol Store:
 	WarnOthersTimeIntervalStoring,
 	DSCListCaching,
 	DeviceTimeCheckStoring,
-	AppFeaturesStoring
+	AppFeaturesStoring,
+	RecycleBinStoring
 {}
 // swiftlint:enable all

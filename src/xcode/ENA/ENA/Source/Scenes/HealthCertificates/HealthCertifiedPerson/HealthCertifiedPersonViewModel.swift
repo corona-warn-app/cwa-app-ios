@@ -188,14 +188,6 @@ final class HealthCertifiedPersonViewModel {
 		return TableViewSection.map(indexPath.section) == .certificates
 	}
 
-	func removeHealthCertificate(at indexPath: IndexPath) {
-		guard TableViewSection.map(indexPath.section) == .certificates else {
-			return
-		}
-
-		healthCertificateService.removeHealthCertificate(healthCertificateCellViewModels[indexPath.row].healthCertificate)
-	}
-
 	func markBoosterRuleAsSeen() {
 		healthCertifiedPerson.isNewBoosterRule = false
 	}
