@@ -43,6 +43,6 @@ if curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"; then
 }
 EOF
 else
-  echo  "Could not locate screenshots at $SCREENSHOT_URL"
+  echo "Could not locate screenshots at $SCREENSHOT_URL"
   return 1
 fi
