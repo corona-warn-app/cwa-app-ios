@@ -17,62 +17,6 @@ class RecycleBinTests: XCTestCase {
 		XCTAssertEqual(mockStore.recycleBinItems.count, 1)
 	}
 
-	func test_canRestore_Certificate() {
-		let mockStore = MockTestStore()
-		let recycleBin = RecycleBin(store: mockStore)
-		let item = RecycleBinItem(
-			recycledAt: Date(),
-			item: RecycledItem.certificate(HealthCertificate.mock())
-		)
-
-		let canRestoreExpectation = expectation(description: "canRestore is called.")
-		let handler = CertificateRestorationHandler(
-			canRestore: { _ in
-				canRestoreExpectation.fulfill()
-				return .success(())
-			},
-			restore: { _ in }
-		)
-
-		recycleBin.certificateRestorationHandler = handler
-		let canRestoreResult = recycleBin.canRestore(item)
-
-		guard case .success = canRestoreResult else {
-			XCTFail("Success expected")
-			return
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
-	func test_canRestore_Certificate_Fail() {
-		let mockStore = MockTestStore()
-		let recycleBin = RecycleBin(store: mockStore)
-		let item = RecycleBinItem(
-			recycledAt: Date(),
-			item: RecycledItem.certificate(HealthCertificate.mock())
-		)
-
-		let canRestoreExpectation = expectation(description: "canRestore is called.")
-		let handler = CertificateRestorationHandler(
-			canRestore: { _ in
-				canRestoreExpectation.fulfill()
-				return .failure(.some)
-			},
-			restore: { _ in }
-		)
-
-		recycleBin.certificateRestorationHandler = handler
-		let canRestoreResult = recycleBin.canRestore(item)
-
-		guard case .failure = canRestoreResult else {
-			XCTFail("Failure expected")
-			return
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
 	func test_canRestore_Test() {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
@@ -82,13 +26,12 @@ class RecycleBinTests: XCTestCase {
 		)
 
 		let canRestoreExpectation = expectation(description: "canRestore is called.")
-		let handler = TestRestorationHandler(
-			canRestore: { _ in
-				canRestoreExpectation.fulfill()
-				return .success(())
-			},
-			restore: { _ in }
-		)
+		var handler = TestRestorationHandlerFake()
+		handler.canRestore = { _ in
+			canRestoreExpectation.fulfill()
+			return .success(())
+		}
+		handler.restore = { _ in }
 
 		recycleBin.testRestorationHandler = handler
 		let canRestoreResult = recycleBin.canRestore(item)
@@ -110,13 +53,13 @@ class RecycleBinTests: XCTestCase {
 		)
 
 		let canRestoreExpectation = expectation(description: "canRestore is called.")
-		let handler = TestRestorationHandler(
-			canRestore: { _ in
-				canRestoreExpectation.fulfill()
-				return .failure(.some)
-			},
-			restore: { _ in }
-		)
+		var handler = TestRestorationHandlerFake()
+		handler.canRestore = { _ in
+			canRestoreExpectation.fulfill()
+			return .failure(.some)
+		}
+		handler.restore = { _ in }
+
 
 		recycleBin.testRestorationHandler = handler
 		let canRestoreResult = recycleBin.canRestore(item)
@@ -135,14 +78,10 @@ class RecycleBinTests: XCTestCase {
 		let item = RecycledItem.certificate(HealthCertificate.mock())
 
 		let canRestoreExpectation = expectation(description: "restore is called.")
-		let handler = CertificateRestorationHandler(
-			canRestore: { _ in
-				return .success(())
-			},
-			restore: { _ in
-				canRestoreExpectation.fulfill()
-			}
-		)
+		var handler = CertificateRestorationHandlerFake()
+		handler.restore = { _ in
+			canRestoreExpectation.fulfill()
+		}
 
 		recycleBin.certificateRestorationHandler = handler
 
@@ -255,14 +194,4 @@ class RecycleBinTests: XCTestCase {
 
 		XCTAssertEqual(mockStore.recycleBinItems.count, 2)
 	}
-}
-
-struct CertificateRestorationHandler: CertificateRestorationHandling {
-	var canRestore: ((HealthCertificate) -> Result<Void, CertificateRestorationError>)
-	var restore: ((HealthCertificate) -> Void)
-}
-
-struct TestRestorationHandler: TestRestorationHandling {
-	var canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>)
-	var restore: ((CoronaTest) -> Void)
 }

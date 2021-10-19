@@ -201,7 +201,6 @@ class QRScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	// swiftlint:disable pattern_matching_keywords
 	func test_ifValid_Certificate_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -237,10 +236,10 @@ class QRScannerViewModelTests: XCTestCase {
 			switch result {
 			case .success(let result):
 				switch result {
-				case .certificate(let person, let certificate):
-					XCTAssertEqual(person.dateOfBirth, "1981-08-30", "Expected correct person dateOfBirth")
-					XCTAssertEqual(person.name?.standardizedName, "MITCHELL ROBERT", "Expected correct person standardizedName")
-					XCTAssertEqual(certificate.type, .vaccination, "Expected correct person standardizedName")
+				case let .certificate(certificateResult):
+					XCTAssertEqual(certificateResult.person.dateOfBirth, "1981-08-30", "Expected correct person dateOfBirth")
+					XCTAssertEqual(certificateResult.person.name?.standardizedName, "MITCHELL ROBERT", "Expected correct person standardizedName")
+					XCTAssertEqual(certificateResult.certificate.type, .vaccination, "Expected correct person standardizedName")
 					onSuccessExpectation.fulfill()
 				default:
 					XCTFail("Expected a successful scan of Vaccination Certificate")
