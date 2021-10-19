@@ -3214,6 +3214,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
 
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Zertifikat wiederherstellen";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Das Zertifikat wird aus dem Papierkorb wiederhergestellt.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Foto Mediathek";
 
