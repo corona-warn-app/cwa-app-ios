@@ -139,9 +139,10 @@ class HealthCertificateService {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
 
 		// If the certificate is in the recycle bin, restore it and skip registration process.
-		if case let .certificate(healthCertificate) = recycleBin.item(for: base45) {
+		if let recycleBinItem = recycleBin.item(for: base45), case let .certificate(healthCertificate) = recycleBinItem.item {
 			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
 			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
+			recycleBin.remove(recycleBinItem)
 
 			return .success(
 				CertificateResult(
