@@ -175,6 +175,11 @@ enum AccessibilityIdentifiers {
 		static let randomTitle = "AppStrings.RiskLegend.randomTitle"
 		static let randomText = "AppStrings.RiskLegend.randomText"
 	}
+
+	enum RecycleBin {
+		static let itemCell = "RecycleBin.itemCell"
+		static let restorationConfirmationButton = "RecycleBin.restorationConfirmationButton"
+	}
 	
 	enum Settings {
 		static let tracingLabel = "AppStrings.Settings.tracingLabel"
@@ -731,6 +736,8 @@ enum AccessibilityIdentifiers {
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
+			static let deleteButton = "HealthCertificate.deleteButton"
+			static let deletionConfirmationButton = "HealthCertificate.deletionConfirmationButton"
 		}
 		
 		enum PrintPdf {
