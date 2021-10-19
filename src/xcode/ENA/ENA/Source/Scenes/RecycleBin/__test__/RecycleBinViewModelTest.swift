@@ -144,7 +144,7 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		viewModel.removeEntry(at: IndexPath(row: 1, section: 1))
 
-		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }
+		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
 		XCTAssertEqual(remainingIds, [HealthCertificateMocks.mockBase45, "b"])
 	}
 
