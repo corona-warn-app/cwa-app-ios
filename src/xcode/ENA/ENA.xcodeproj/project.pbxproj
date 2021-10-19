@@ -2804,6 +2804,7 @@
 		EB54936A25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPDFDocument+EmbedImageTests.swift"; sourceTree = "<group>"; };
 		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
 		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
+		EB5DAABC271EE2EE0043065D /* RecycleBinUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = RecycleBinUITests.xctestplan; path = TestPlans/RecycleBinUITests.xctestplan; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
 		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewController.swift; sourceTree = "<group>"; };
@@ -4339,6 +4340,7 @@
 		35075C002526367700DE92F7 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
+				35075C092526378D00DE92F7 /* AllTests.xctestplan */,
 				EB9DDB862719BF8300A19A53 /* AntigenTestProfileUITests.xctestplan */,
 				EB9DDB782719BF8200A19A53 /* AppInformationUITests.xctestplan */,
 				EB9DDB7A2719BF8300A19A53 /* CheckInsUITests.xctestplan */,
@@ -4354,17 +4356,17 @@
 				EB9DDB7D2719BF8300A19A53 /* OnBehalfCheckinSubmissionUITests.xctestplan */,
 				EB9DDB852719BF8300A19A53 /* OnboardingUITests.xctestplan */,
 				EB9DDB792719BF8200A19A53 /* QuickActionsUITests.xctestplan */,
+				EB5DAABC271EE2EE0043065D /* RecycleBinUITests.xctestplan */,
+				3523CA31252DC617002E6DEC /* Screenshots.xctestplan */,
 				EB9DDB7E2719BF8300A19A53 /* SettingsUITests.xctestplan */,
+				35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */,
 				EB9DDB812719BF8300A19A53 /* StatisticsUITests.xctestplan */,
 				EB9DDB822719BF8300A19A53 /* TraceLocationsUITests.xctestplan */,
+				35178CCA26553EDC00FFB31E /* UITests.xctestplan */,
+				35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */,
 				EB9DDB742719BF8200A19A53 /* UniversalQRCodeScannerUITests.xctestplan */,
 				EB9DDB7F2719BF8300A19A53 /* UpdateOSUITests.xctestplan */,
 				EB9DDB802719BF8300A19A53 /* ValidateHealthCertificateUITests.xctestplan */,
-				35075C092526378D00DE92F7 /* AllTests.xctestplan */,
-				35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */,
-				3523CA31252DC617002E6DEC /* Screenshots.xctestplan */,
-				35178CCA26553EDC00FFB31E /* UITests.xctestplan */,
-				35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */,
 			);
 			name = TestPlans;
 			sourceTree = "<group>";

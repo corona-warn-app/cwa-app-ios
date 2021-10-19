@@ -158,6 +158,9 @@
          <TestPlanReference
             reference = "container:TestPlans/ValidateHealthCertificateUITests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/RecycleBinUITests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
