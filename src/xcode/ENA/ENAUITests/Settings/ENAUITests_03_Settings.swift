@@ -23,7 +23,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		app.swipeUp(velocity: .fast)
 
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: 5.0))
@@ -39,7 +39,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		app.swipeUp(velocity: .fast)
 
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitAndTap()
@@ -53,7 +53,7 @@ class ENAUITests_03_Settings: CWATestCase {
 				
 		// Open settings
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		// Open Notifications
@@ -83,7 +83,7 @@ class ENAUITests_03_Settings: CWATestCase {
 				
 		// Open settings
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		// Open Notifications

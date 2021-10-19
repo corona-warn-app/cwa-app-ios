@@ -857,7 +857,7 @@ extension ENAUITests_04a_ExposureSubmission {
 		
 		// Thank You screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .short))
 	}
 
 	func launchAndNavigateToSymptomsOnsetScreen() {
