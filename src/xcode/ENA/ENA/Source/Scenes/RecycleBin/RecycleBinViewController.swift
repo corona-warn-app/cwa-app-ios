@@ -201,12 +201,13 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 	}
 
 	private func updateEmptyState() {
-		let emptyStateView = EmptyStateView(viewModel: RecycleBinEmptyStateViewModel())
-
-		// Since we set the empty state view as a background view we need to push it below the navigation bar
-		emptyStateView.additionalTopPadding = tableView.adjustedContentInset.top
-
-		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
+		tableView.backgroundView = viewModel.isEmpty
+			? EmptyStateView(
+				viewModel: RecycleBinEmptyStateViewModel(),
+				safeInsetTop: tableView.adjustedContentInset.top,
+				alignmentPadding: UIScreen.main.bounds.height / 3
+			)
+			: nil
 	}
 
 	private func didTapDeleteAllButton() {
