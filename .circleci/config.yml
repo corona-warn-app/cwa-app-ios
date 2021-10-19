@@ -306,9 +306,9 @@ workflows:
           requires:
             - dependencies
       - test:
-        matrix:
-          parameters:
-            testplan: ["UnitTests", "AntigenTestProfileUITests", "AppInformationUITests", "CheckInsUITests", "ContactJournalUITests", "CreateHealthCertificateUITests", "DataDonationUITests", "DeltaOnboardingUITests", "ExposureDetectionUITests", "ExposureLoggingUITests", "ExposureSubmissionUITests", "FileScannerUITests", "HomeUITests", "OnBehalfCheckinSubmissionUITests", "OnboardingUITests", "QuickActionsUITests", "SettingsUITests", "StatisticsUITests", "TraceLocationsUITests", "UniversalQRCodeScannerUITests", "UpdateOSUITests", "ValidateHealthCertificateUITests", "RecycleBinUITests"]
+          matrix:
+            parameters:
+              testplan: ["UnitTests", "AntigenTestProfileUITests", "AppInformationUITests", "CheckInsUITests", "ContactJournalUITests", "CreateHealthCertificateUITests", "DataDonationUITests", "DeltaOnboardingUITests", "ExposureDetectionUITests", "ExposureLoggingUITests", "ExposureSubmissionUITests", "FileScannerUITests", "HomeUITests", "OnBehalfCheckinSubmissionUITests", "OnboardingUITests", "QuickActionsUITests", "SettingsUITests", "StatisticsUITests", "TraceLocationsUITests", "UniversalQRCodeScannerUITests", "UpdateOSUITests", "ValidateHealthCertificateUITests", "RecycleBinUITests"]
           requires:
             - build-for-testing
           filters:
