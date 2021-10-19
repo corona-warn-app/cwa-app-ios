@@ -28,7 +28,7 @@ class MoreActionItemView: UIView {
 		imageView.image = actionItem.image
 
 		titleLabel.text = actionItem.title
-		titleLabel.accessibilityIdentifier = actionItem.accessibilityIdentifier
+		accessibilityIdentifier = actionItem.accessibilityIdentifier
 		accessibilityLabel = actionItem.title
 
 		separatorView.isHidden = actionItem == .share
