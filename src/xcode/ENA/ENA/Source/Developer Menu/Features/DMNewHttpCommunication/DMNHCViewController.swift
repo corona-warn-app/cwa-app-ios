@@ -75,6 +75,7 @@ class DMNHCViewController: UITableViewController {
 				self?.tableView.reloadSections(indexSet, with: .fade)
 			}
 		}
+		viewModel.viewController = self
 	}
 
 	private func setupNavigationBar() {

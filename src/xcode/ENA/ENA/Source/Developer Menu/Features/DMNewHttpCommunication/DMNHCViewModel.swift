@@ -20,6 +20,7 @@ final class DMNHCViewModel {
 
 	// MARK: - Internal
 
+	var viewController: UIViewController?
 	var refreshTableView: (IndexSet) -> Void = { _ in }
 
 	var numberOfSections: Int {
@@ -85,23 +86,14 @@ final class DMNHCViewModel {
 					}
 				}
 			)
-		case .traceWarningPackageDiscovery:
+		case .registerTeleTAN:
 			return DMButtonCellViewModel(
-				text: "Registration Token",
+				text: "Register TeleTan",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: { [weak self] in
-					let location = RegistrationTokenLocationResource(isFake: false)
-					let sendModel = KeyModel(key: "EKRWNPPGAB", keyType: "TELETAN")
-					let sendResource = JSONSendResource<KeyModel>(sendModel)
-					let receiveResource = EmptyReceiveResource<Any>()
-					self?.restService.load(location, sendResource, receiveResource) { result in
-						switch result {
-						case .success:
-							Log.info("New HTTP Call for Registration Token successful")
-						case .failure:
-							Log.error("New HTTP Call for Registration Token failed")
-						}
+				action: {
+					DispatchQueue.main.async { [weak self] in
+						self?.showAskTANAlertAndSubmit()
 					}
 				}
 			)
@@ -114,10 +106,48 @@ final class DMNHCViewModel {
 	private enum TableViewSections: Int, CaseIterable {
 		case appConfig
 		case otpEdusAuthorization
-		case traceWarningPackageDiscovery
+		case registerTeleTAN
 	}
 
 	private let store: Store
 	private let restService: RestServiceProviding
+
+	private func showAskTANAlertAndSubmit() {
+		let alert = UIAlertController(title: "TELETAN", message: "Please enter TeleTAN", preferredStyle: .alert)
+		alert.addTextField { textField in
+			textField.placeholder = "TeleTan"
+		}
+		alert.addAction(
+			UIAlertAction(
+				title: "Cancel", style: .cancel, handler: nil
+			)
+		)
+		alert.addAction(
+			UIAlertAction(title: "Ok", style: .default, handler: { [weak self] _ in
+				guard let textField = alert.textFields?.first,
+					  let teleTan = textField.text,
+					  !teleTan.isEmpty else {
+					fatalError("No textField found")
+				}
+
+				let location = RegistrationTokenLocationResource(isFake: false)
+				let sendModel = KeyModel(key: teleTan, keyType: "TELETAN")
+				let sendResource = JSONSendResource<KeyModel>(sendModel)
+				let receiveResource = EmptyReceiveResource<Any>()
+				self?.restService.load(location, sendResource, receiveResource) { result in
+					switch result {
+					case .success:
+						Log.info("New HTTP Call for Registration Token successful")
+					case .failure:
+						Log.error("New HTTP Call for Registration Token failed")
+					}
+				}
+
+
+			})
+		)
+		viewController?.present(alert, animated: true)
+	}
+
 }
 #endif
