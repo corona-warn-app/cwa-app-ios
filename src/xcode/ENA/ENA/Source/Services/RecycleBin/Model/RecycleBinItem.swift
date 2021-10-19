@@ -25,6 +25,8 @@ enum RecycledItem: Hashable, Equatable, Codable {
 		switch (lhs, rhs) {
 		case let (.certificate(lhsCert), .certificate(rhsCert)):
 			return lhsCert.recycleBinIdentifier == rhsCert.recycleBinIdentifier
+		case let (.coronaTest(lhsTest), .coronaTest(rhsTest)):
+			return lhsTest.recycleBinIdentifier == rhsTest.recycleBinIdentifier
 		default:
 			return false
 		}

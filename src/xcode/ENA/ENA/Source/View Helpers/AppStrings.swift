@@ -2419,5 +2419,64 @@ enum AppStrings {
 		static let thueringen = NSLocalizedString("FederalState_Thueringen", comment: "")
 	}
 
+	enum RecycleBin {
+		static let title = NSLocalizedString("RecycleBin_title", comment: "")
+		static let description = NSLocalizedString("RecycleBin_description", comment: "")
+		static let deleteAllButtonTitle = NSLocalizedString("RecycleBin_deleteAllButtonTitle", comment: "")
+
+		enum VaccinationCertificate {
+			static let headline = NSLocalizedString("RecycleBin_VaccinationCertificate_headline", comment: "")
+			static let vaccinationCount = NSLocalizedString("RecycleBin_VaccinationCertificate_vaccinationCount", comment: "")
+			static let vaccinationDate = NSLocalizedString("RecycleBin_VaccinationCertificate_vaccinationDate", comment: "")
+		}
+
+		enum TestCertificate {
+			static let headline = NSLocalizedString("RecycleBin_TestCertificate_headline", comment: "")
+			static let pcrTest = NSLocalizedString("RecycleBin_TestCertificate_pcrTest", comment: "")
+			static let antigenTest = NSLocalizedString("RecycleBin_TestCertificate_antigenTest", comment: "")
+			static let sampleCollectionDate = NSLocalizedString("RecycleBin_TestCertificate_sampleCollectionDate", comment: "")
+		}
+
+		enum RecoveryCertificate {
+			static let headline = NSLocalizedString("RecycleBin_RecoveryCertificate_headline", comment: "")
+			static let validityDate = NSLocalizedString("RecycleBin_RecoveryCertificate_validityDate", comment: "")
+		}
+
+		enum CoronaTest {
+			static let headline = NSLocalizedString("RecycleBin_CoronaTest_headline", comment: "")
+			static let pcrTest = NSLocalizedString("RecycleBin_CoronaTest_pcrTest", comment: "")
+			static let antigenTest = NSLocalizedString("RecycleBin_CoronaTest_antigenTest", comment: "")
+			static let registrationDate = NSLocalizedString("RecycleBin_CoronaTest_registrationDate", comment: "")
+			static let sampleCollectionDate = NSLocalizedString("RecycleBin_CoronaTest_sampleCollectionDate", comment: "")
+		}
+
+		enum EmptyState {
+			static let title = NSLocalizedString("RecycleBin_EmptyState_title", comment: "")
+			static let description = NSLocalizedString("RecycleBin_EmptyState_description", comment: "")
+			static let imageDescription = NSLocalizedString("RecycleBin_EmptyState_imageDescription", comment: "")
+		}
+
+		enum RestoreCertificateAlert {
+			static let title = NSLocalizedString("RecycleBin_RestoreCertificate_AlertTitle", comment: "")
+			static let message = NSLocalizedString("RecycleBin_RestoreCertificate_AlertMessage", comment: "")
+			static let confirmButtonTitle = NSLocalizedString("RecycleBin_RestoreCertificate_AlertConfirmButtonTitle", comment: "")
+			static let cancelButtonTitle = NSLocalizedString("RecycleBin_RestoreCertificate_AlertCancelButtonTitle", comment: "")
+		}
+
+		enum RestoreCoronaTestAlert {
+			static let title = NSLocalizedString("RecycleBin_CoronaTest_AlertTitle", comment: "")
+			static let message = NSLocalizedString("RecycleBin_CoronaTest_AlertMessage", comment: "")
+			static let confirmButtonTitle = NSLocalizedString("RecycleBin_CoronaTest_AlertConfirmButtonTitle", comment: "")
+			static let cancelButtonTitle = NSLocalizedString("RecycleBin_CoronaTest_AlertCancelButtonTitle", comment: "")
+		}
+
+		enum DeleteAllAlert {
+			static let title = NSLocalizedString("RecycleBin_DeleteAll_AlertTitle", comment: "")
+			static let message = NSLocalizedString("RecycleBin_DeleteAll_AlertMessage", comment: "")
+			static let confirmButtonTitle = NSLocalizedString("RecycleBin_DeleteAll_AlertConfirmButtonTitle", comment: "")
+			static let cancelButtonTitle = NSLocalizedString("RecycleBin_DeleteAll_AlertCancelButtonTitle", comment: "")
+		}
+	}
+
 	// swiftlint:disable:next file_length
 }
