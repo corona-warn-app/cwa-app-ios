@@ -315,47 +315,47 @@ workflows:
             branches:
               ignore:
                 - /release\/.*/
-      - test:
-          matrix:
-            parameters:
-              testplan: ["AllTests"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - test-community:
-          requires:
-            - dependencies
-      - snapshot-test: # Create one set of screenshot on all branches
-          requires:
-            - dependencies
-          filters:
-            branches:
-              ignore:
-                - /release\/.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
-      - update-docs:
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - main
+      # - test:
+      #     matrix:
+      #       parameters:
+      #         testplan: ["AllTests"]
+      #     requires:
+      #       - dependencies
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /release\/.*/
+      # - test-community:
+      #     requires:
+      #       - dependencies
+      # - snapshot-test: # Create one set of screenshot on all branches
+      #     requires:
+      #       - dependencies
+      #     filters:
+      #       branches:
+      #         ignore:
+      #           - /release\/.*/
+      # - snapshot:
+      #     matrix:
+      #       parameters:
+      #         language: ["de-DE", "en-EN"]
+      #         displaymode: ["dark", "light"]
+      #     requires:
+      #       - dependencies
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /release\/.*/
+      # - collect-snapshots:
+      #     requires:
+      #       - snapshot
+      # - update-docs:
+      #     requires:
+      #       - dependencies
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
 
   beta-release:
     jobs:
