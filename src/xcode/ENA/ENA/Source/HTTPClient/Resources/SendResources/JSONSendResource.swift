@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct JSONSendResource<S>: SendResource where S: Encodable & PaddingJsonResource {
+struct JSONSendResource<S>: SendResource where S: Encodable & PaddingResource {
 	
 	// MARK: - Init
 	
