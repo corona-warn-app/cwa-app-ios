@@ -966,6 +966,7 @@ enum AppStrings {
 		}
 
 		enum MoreInfoCard {
+			static let title = NSLocalizedString("Home_MoreCard_Title", comment: "")
 			static let settingsTitle = NSLocalizedString("Home_MoreCard_SettingsTitle", comment: "")
 			static let recycleBinTitle = NSLocalizedString("Home_MoreCard_RecycleBinTitle", comment: "")
 			static let appInformationTitle = NSLocalizedString("Home_MoreCard_AppInformationTitle", comment: "")
@@ -977,11 +978,6 @@ enum AppStrings {
 		static let traceLocationsCardTitle = NSLocalizedString("Home_TraceLocationsCard_Title", comment: "")
 		static let traceLocationsCardBody = NSLocalizedString("Home_TraceLocationsCard_Body", comment: "")
 		static let traceLocationsCardButton = NSLocalizedString("Home_TraceLocationsCard_Button", comment: "")
-
-		// Settings
-		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
-		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
-		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
 
 		// Risk Detection HowTo Alert
 
@@ -1071,6 +1067,9 @@ enum AppStrings {
 	}
 
 	enum AppInformation {
+		static let appInformationNavigationTitle = NSLocalizedString("App_Information_Title", comment: "")
+		static let appInformationVersion = NSLocalizedString("App_Information_Version", comment: "")
+
 		static let newFeaturesNavigation = NSLocalizedString("App_Information_New_Features_Navigation", comment: "")
 		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
 		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")

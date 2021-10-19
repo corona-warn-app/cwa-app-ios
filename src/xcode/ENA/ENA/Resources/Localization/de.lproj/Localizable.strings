@@ -1317,11 +1317,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TraceLocationsCard_Button" = "QR-Code erstellen";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Version";
-
 /* Home More Card */
+
+"Home_MoreCard_Title" = "Mehr";
 
 "Home_MoreCard_SettingsTitle" = "Einstellungen";
 
@@ -1341,7 +1339,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* App Information */
+
+"App_Information_Title" = "App-Informationen";
+
+"App_Information_Version" = "Version";
+
 /* App Information - About */
+
 "App_Information_About_Navigation" = "Über die App";
 
 "App_Information_About_ImageDescription" = "";
@@ -2736,9 +2741,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Info_title" = "Informationen";
 
-"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+"HealthCertificate_Validation_Info_byCar" = "Wählen Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland aus.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, wählen Sie die geplante Uhrzeit Ihres Abflugs aus.";
 
 /* Health Certificate Overview */
 
@@ -3065,7 +3070,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_DateTimeSelection_Title" = "Datum und Uhrzeit";
 
-"HealthCertificate_Validation_DateTimeSelection_Info" = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein.";
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Wählen Sie Ihr Einreisedatum und Ihre lokale Uhrzeit aus.";
 
 "HealthCertificate_Validation_Body1" = "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.";
 
