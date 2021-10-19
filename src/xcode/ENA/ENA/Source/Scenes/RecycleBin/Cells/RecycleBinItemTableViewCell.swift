@@ -18,6 +18,7 @@ class RecycleBinItemTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 
 		accessibilityTraits = [.button]
+		accessibilityIdentifier = AccessibilityIdentifiers.RecycleBin.itemCell
 
 		setCellBackgroundColor()
 	}

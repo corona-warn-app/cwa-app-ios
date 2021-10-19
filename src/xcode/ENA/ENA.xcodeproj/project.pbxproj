@@ -19,6 +19,7 @@
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
 		0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */; };
 		010A57A427185E4D001F5A09 /* RecycleBinItemCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3322F270F3D8D005CE21E /* RecycleBinItemCellModelTests.swift */; };
+		010A57A92719C181001F5A09 /* ENAUITests_18_RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
 		010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */; };
@@ -1453,6 +1454,7 @@
 		0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Mock.swift"; sourceTree = "<group>"; };
 		0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+Mock.swift"; sourceTree = "<group>"; };
+		010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_18_RecycleBin.swift; sourceTree = "<group>"; };
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
 		010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModelTests.swift; sourceTree = "<group>"; };
 		010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestServiceError.swift; sourceTree = "<group>"; };
@@ -2972,6 +2974,14 @@
 				0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		010A57A72719C157001F5A09 /* RecycleBin */ = {
+			isa = PBXGroup;
+			children = (
+				010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */,
+			);
+			path = RecycleBin;
 			sourceTree = "<group>";
 		};
 		010B3D8425ADE5EC00EB44AB /* __tests__ */ = {
@@ -5463,6 +5473,7 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
+				010A57A72719C157001F5A09 /* RecycleBin */,
 				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
 				35573D002657A1D80057723F /* AppDelegate */,
 				13E5046A248E3CE60086641C /* AppInformation */,
@@ -9923,6 +9934,7 @@
 				35573D022657A1D80057723F /* ENAUITests_11_QuickActions.swift in Sources */,
 				340421D4263DDDA700155BC6 /* ENAUITests_05_DataDonation.swift in Sources */,
 				509C69FE25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift in Sources */,
+				010A57A92719C181001F5A09 /* ENAUITests_18_RecycleBin.swift in Sources */,
 				347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 			);
