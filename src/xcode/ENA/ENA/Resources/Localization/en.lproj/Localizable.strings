@@ -1280,19 +1280,20 @@
 "Home_TraceLocationsCard_Button" = "Create QR Code";
 
 /* Home Info Card */
-"Home_InfoCard_ShareTitle" = "Share the Corona-Warn-App";
-
-"Home_InfoCard_ShareBody" = "The more people who use the app, the faster we can break chains of infection. Please invite your family and friends to download the app.";
-
-"Home_InfoCard_AboutTitle" = "FAQ";
-
-"Home_InfoCard_AboutBody" = "Here you can find answers to frequently asked questions about the Corona-Warn-App. You will be forwarded to an external German government website.";
-
-"Home_SettingsCard_Title" = "Settings";
-
-"Home_AppInformationCard_Title" = "App Information";
 
 "Home_AppInformationCard_Version" = "Version";
+
+/* Home More Card */
+
+"Home_MoreCard_SettingsTitle" = "Settings";
+
+"Home_MoreCard_RecycleBinTitle" = "Recycle bin";
+
+"Home_MoreCard_AppInformationTitle" = "App-Information";
+
+"Home_MoreCard_FAQTitle" = "FAQ";
+
+"Home_MoreCard_ShareTitle" = "Share";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
@@ -3111,6 +3112,10 @@
 "FileScanner_PasswordEntry_placeholder" = "Password";
 
 "FileScanner_PasswordError_title" = "Password Incorrect";
+
+"FileScanner_AlreadyRegistered_title" = "Certificate Already Registered";
+
+"FileScanner_AlreadyRegistered_message" = "The certificate is already registered in your app.";
 
 "FileScanner_PasswordError_message" = "Please enter a valid password.";
 
