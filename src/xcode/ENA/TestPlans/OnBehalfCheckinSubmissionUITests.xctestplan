@@ -88,8 +88,7 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_15_OnBehalfCheckinSubmission\/testOnBehalfCheckinSubmissionWithQRCodeScan()",
-        "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()"
+        "ENAUITests_15_OnBehalfCheckinSubmission\/testOnBehalfCheckinSubmissionWithQRCodeScan()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

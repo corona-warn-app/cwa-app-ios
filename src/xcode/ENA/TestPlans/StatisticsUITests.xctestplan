@@ -91,9 +91,7 @@
         "ENAUITests_01b_Statistics\/test_AddStatisticsButton_flow()",
         "ENAUITests_01b_Statistics\/test_AddStatisticsButton_maximumNumberOfCards()",
         "ENAUITests_01b_Statistics\/test_StatisticsCardInfoButtons()",
-        "ENAUITests_01b_Statistics\/test_StatisticsCardTitles()",
-        "ENAUITests_01b_Statistics\/test_screenshot_local_statistics_card()",
-        "ENAUITests_01b_Statistics\/test_screenshot_statistics_card_titles()"
+        "ENAUITests_01b_Statistics\/test_StatisticsCardTitles()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
