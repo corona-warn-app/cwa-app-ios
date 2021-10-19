@@ -65,8 +65,8 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.state == .runningForeground)
 		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
 		
-		// get safari and wait for safari to be in foreground
-		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
+		// Check if URL that would get opened is 'https://www.bundesregierung.de/corona-warn-app-faq'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.bundesregierung.de/corona-warn-app-faq"].waitForExistence(timeout: .short))
 
 	}
 

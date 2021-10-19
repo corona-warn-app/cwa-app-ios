@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7E-yS-iJA" userLabel="HomeCardView" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                        <rect key="frame" x="20" y="0.0" width="331" height="274"/>
+                        <rect key="frame" x="16" y="12" width="339" height="262"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdX-dE-9Ab" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="16" y="20" width="62.5" height="31.5"/>
@@ -31,7 +31,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZAY-jg-r7t">
-                                <rect key="frame" x="0.0" y="61.5" width="331" height="202.5"/>
+                                <rect key="frame" x="0.0" y="61.5" width="339" height="190.5"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
@@ -46,10 +46,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="M7E-yS-iJA" secondAttribute="trailing" id="URh-gt-GCb"/>
-                    <constraint firstItem="M7E-yS-iJA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Zrh-k7-sbC"/>
+                    <constraint firstAttribute="trailing" secondItem="M7E-yS-iJA" secondAttribute="trailing" constant="16" id="URh-gt-GCb"/>
+                    <constraint firstItem="M7E-yS-iJA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Zrh-k7-sbC"/>
                     <constraint firstAttribute="bottomMargin" secondItem="M7E-yS-iJA" secondAttribute="bottom" id="fOf-Mp-R3x"/>
-                    <constraint firstItem="M7E-yS-iJA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="q8a-Jg-LnI"/>
+                    <constraint firstItem="M7E-yS-iJA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="q8a-Jg-LnI"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
