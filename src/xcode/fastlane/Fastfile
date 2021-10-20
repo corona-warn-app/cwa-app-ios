@@ -41,14 +41,52 @@ platform :ios do
     update_third_party_notice()
   end
 
-  desc "Build project"
+  desc "Build project for testing"
   lane :build_for_testing do
     # build only, no tests
     run_tests(
       build_for_testing: true,
+      output_xctestrun: true,
+      clean: true,
       scheme: "ENA",
       derived_data_path: "./DerivedData"
     )
+  end
+
+  desc "Runs unit tests without building"
+  lane :test_without_building do | options |
+    begin
+      # Execute tests for given test plan
+      testPlan = options[:testplan] || "AllTests"
+      run_tests(
+        scheme: "ENA",
+        derived_data_path: "./DerivedData",
+        test_without_building: true,
+        testplan: testPlan,
+        only_test_configurations: ["DE"],
+        devices: ["iPhone 13"],
+        prelaunch_simulator: true,
+        result_bundle: true,
+        code_coverage: true,
+        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
+        output_types: ""
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit",
+        fail_build: false
+      )
+
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
+    end
   end
 
   desc "Build project (Community)"
@@ -73,32 +111,6 @@ platform :ios do
       quiet: true,
       no_cache: false,
       reporter: "html"
-    )
-  end
-
-  desc "Static code analysis via swiftlint's experimental feature"
-  lane :analyze do
-    UI.important "This lane uses experimental features and takes very long to complete!"
-    UI.message "Better get a coffee… ☕️"
-
-    build_ios_app(
-      skip_codesigning: true,
-      export_method: "ad-hoc",
-      skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=15.0,name=iPhone 11",
-      scheme: "ENA",
-      buildlog_path: "DerivedData/logs/"
-    )
-    swiftlint(
-      executable: "../../vendor/swiftlint",
-      mode: :analyze,
-      compiler_log_path: "DerivedData/logs/ENA-ENA.log",
-      output_file: "swiftlint.analyze",
-      config_file: "ENA/.swiftlint.yml",
-      strict: false,
-      quiet: false,
-      no_cache: true,
-      reporter: "xcode"
     )
   end
 

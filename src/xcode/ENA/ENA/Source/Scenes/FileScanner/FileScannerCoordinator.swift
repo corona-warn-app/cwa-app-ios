@@ -175,7 +175,9 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 		guard viewModel.authorizationStatus == .authorized else {
 			if case .notDetermined = viewModel.authorizationStatus {
 				viewModel.requestPhotoAccess { [weak self] _ in
-					self?.presentPhotoPicker()
+					DispatchQueue.main.async { [weak self] in
+						self?.presentPhotoPicker()
+					}
 				}
 			} else {
 				presentPhotoAccessAlert()

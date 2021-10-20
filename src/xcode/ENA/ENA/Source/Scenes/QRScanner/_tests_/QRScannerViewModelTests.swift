@@ -51,7 +51,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -108,7 +109,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -160,7 +162,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -198,7 +201,6 @@ class QRScannerViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	// swiftlint:disable pattern_matching_keywords
 	func test_ifValid_Certificate_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -214,7 +216,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
@@ -233,10 +236,10 @@ class QRScannerViewModelTests: XCTestCase {
 			switch result {
 			case .success(let result):
 				switch result {
-				case .certificate(let person, let certificate):
-					XCTAssertEqual(person.dateOfBirth, "1981-08-30", "Expected correct person dateOfBirth")
-					XCTAssertEqual(person.name?.standardizedName, "MITCHELL ROBERT", "Expected correct person standardizedName")
-					XCTAssertEqual(certificate.type, .vaccination, "Expected correct person standardizedName")
+				case let .certificate(certificateResult):
+					XCTAssertEqual(certificateResult.person.dateOfBirth, "1981-08-30", "Expected correct person dateOfBirth")
+					XCTAssertEqual(certificateResult.person.name?.standardizedName, "MITCHELL ROBERT", "Expected correct person standardizedName")
+					XCTAssertEqual(certificateResult.certificate.type, .vaccination, "Expected correct person standardizedName")
 					onSuccessExpectation.fulfill()
 				default:
 					XCTFail("Expected a successful scan of Vaccination Certificate")
@@ -268,7 +271,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
@@ -321,7 +325,8 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
 		)
 
 		let validGuid = "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"

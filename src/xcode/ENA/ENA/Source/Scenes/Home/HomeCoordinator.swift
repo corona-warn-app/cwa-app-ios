@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class HomeCoordinator: RequiresAppDependencies {
 
 	// MARK: - Init
@@ -19,7 +20,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
 		exposureSubmissionService: ExposureSubmissionService,
-		qrScannerCoordinator: QRScannerCoordinator
+		qrScannerCoordinator: QRScannerCoordinator,
+		recycleBin: RecycleBin
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -31,6 +33,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.elsService = elsService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
+		self.recycleBin = recycleBin
 
 		setupHomeBadgeCount()
 	}
@@ -109,6 +112,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			onSettingsCellTap: { [weak self] enState in
 				self?.showSettings(enState: enState)
 			},
+			onRecycleBinCellTap: { [weak self] in
+				self?.showRecycleBin()
+			},
 			showTestInformationResult: { [weak self] testInformationResult in
 				self?.showExposureSubmission(testInformationResult: testInformationResult)
 			},
@@ -176,6 +182,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let qrScannerCoordinator: QRScannerCoordinator
+	private let recycleBin: RecycleBin
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -397,6 +404,35 @@ class HomeCoordinator: RequiresAppDependencies {
 		settingsCoordinator?.start()
 
 		addToEnStateUpdateList(settingsCoordinator)
+	}
+
+	private func showRecycleBin() {
+		let recycleBinViewController = RecycleBinViewController(
+			viewModel: RecycleBinViewModel(
+				store: store,
+				recycleBin: recycleBin
+			)
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.RecycleBin.deleteAllButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: true,
+				isSecondaryButtonHidden: true,
+				primaryButtonColor: .systemRed
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: recycleBinViewController,
+			bottomController: footerViewController
+		)
+
+		rootViewController.pushViewController(
+			topBottomContainerViewController,
+			animated: true
+		)
 	}
 
 	private func addToEnStateUpdateList(_ anyObject: AnyObject?) {

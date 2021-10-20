@@ -36,7 +36,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
-		elsService: ErrorLogSubmissionProviding
+		elsService: ErrorLogSubmissionProviding,
+		recycleBin: RecycleBin
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -50,6 +51,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.elsService = elsService
+		self.recycleBin = recycleBin
 	}
 
 	deinit {
@@ -151,7 +153,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			healthCertificateValidationService: healthCertificateValidationService,
 			elsService: elsService,
 			exposureSubmissionService: exposureSubmissionService,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			recycleBin: recycleBin
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -336,6 +339,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let recycleBin: RecycleBin
+
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?

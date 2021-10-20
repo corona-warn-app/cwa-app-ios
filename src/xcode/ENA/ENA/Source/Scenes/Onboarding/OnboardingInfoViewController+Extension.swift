@@ -137,7 +137,7 @@ extension OnboardingInfoViewController {
 			topSeparator.heightAnchor.constraint(equalToConstant: 1),
 			containerStackView.topAnchor.constraint(equalTo: topSeparator.bottomAnchor, constant: 12),
 			containerStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 18),
-			containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 18),
+			containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -18),
 			bottomSeparator.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
 			bottomSeparator.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
 			bottomSeparator.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),

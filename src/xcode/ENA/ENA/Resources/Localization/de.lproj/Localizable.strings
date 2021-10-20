@@ -1317,11 +1317,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TraceLocationsCard_Button" = "QR-Code erstellen";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Version";
-
 /* Home More Card */
+
+"Home_MoreCard_Title" = "Mehr";
 
 "Home_MoreCard_SettingsTitle" = "Einstellungen";
 
@@ -1341,7 +1339,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* App Information */
+
+"App_Information_Title" = "App-Informationen";
+
+"App_Information_Version" = "Version";
+
 /* App Information - About */
+
 "App_Information_About_Navigation" = "Über die App";
 
 "App_Information_About_ImageDescription" = "";
@@ -2736,9 +2741,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Info_title" = "Informationen";
 
-"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+"HealthCertificate_Validation_Info_byCar" = "Wählen Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland aus.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, wählen Sie die geplante Uhrzeit Ihres Abflugs aus.";
 
 /* Health Certificate Overview */
 
@@ -2953,15 +2958,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Delete Alert */
 
-"HealthCertificate_Alert_deleteButton" = "Entfernen";
+"HealthCertificate_Alert_deleteButton" = "Zertifikat entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Vaccination Certificate Delete Alert */
 
-"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat entfernen?";
 
-"VaccinationCertificate_Alert_message" = "Wir empfehlen die Impfzertifikate in der App zu behalten, auch wenn diese nicht mehr aktuell sind.";
+"VaccinationCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Test Certificate Details */
 
@@ -2977,9 +2982,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Test Certificate Delete Alert */
 
-"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat entfernen?";
 
-"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+"TestCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Recovery Certificate Details */
 
@@ -2991,9 +2996,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Recovery Certificate Delete Alert */
 
-"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat entfernen?";
 
-"RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+"RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Health Certificate Print PDF */
 
@@ -3065,7 +3070,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_DateTimeSelection_Title" = "Datum und Uhrzeit";
 
-"HealthCertificate_Validation_DateTimeSelection_Info" = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein.";
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Wählen Sie Ihr Einreisedatum und Ihre lokale Uhrzeit aus.";
 
 "HealthCertificate_Validation_Body1" = "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.";
 
@@ -3209,6 +3214,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
 
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Zertifikat wiederherstellen";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Das Zertifikat wird aus dem Papierkorb wiederhergestellt.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Foto Mediathek";
 
@@ -3290,3 +3299,84 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FederalState_Thueringen" = "Thüringen";
 
+/* Recycle Bin */
+
+"RecycleBin_title" = "Papierkorb";
+
+"RecycleBin_description" = "Tippen Sie auf ein Element um es wiederherzustellen. Nach 30 Tagen wird ein Element automatisch gelöscht.";
+
+"RecycleBin_deleteAllButtonTitle" = "Alle entfernen";
+
+/* - Vaccination Certificate */
+
+"RecycleBin_VaccinationCertificate_headline" = "Impfzertifikat";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+/* - Test Certificate */
+
+"RecycleBin_TestCertificate_headline" = "Testzertifikat";
+
+"RecycleBin_TestCertificate_pcrTest" = "PCR-Test";
+
+"RecycleBin_TestCertificate_antigenTest" = "Schnelltest";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
+/* - Recovery Certificate */
+
+"RecycleBin_RecoveryCertificate_headline" = "Genesenenzertifikat";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "gültig bis %@";
+
+/* - Corona Test */
+
+"RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_pcrTest" = "PCR-Test";
+
+"RecycleBin_CoronaTest_antigenTest" = "Schnelltest";
+
+"RecycleBin_CoronaTest_registrationDate" = "registriert am %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "durchgeführt am %@";
+
+/* - Empty State */
+
+"RecycleBin_EmptyState_title" = "Ihr Papierkorb ist leer";
+
+"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
+
+"RecycleBin_EmptyState_imageDescription" = "Ein Papierkorb";
+
+/* - Restore Certificate Alert */
+
+"RecycleBin_RestoreCertificate_AlertTitle" = "Zertifikat wiederherstellen";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "Das wiederhergestellte Zertifikat wird an seinen ursprünglichen Ort verschoben. Sie finden es dann in der Registerkarte „Zertifikate“.";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Wiederherstellen";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Corona Test */
+
+"RecycleBin_CoronaTest_AlertTitle" = "Test wiederherstellen";
+
+"RecycleBin_CoronaTest_AlertMessage" = "Der wiederhergestellte Test wird an seinen ursprünglichen Ort verschoben. Sie finden ihn dann in der Registerkarte „Status“.";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Wiederherstellen";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Delete All Alert */
+
+"RecycleBin_DeleteAll_AlertTitle" = "Wollen Sie den Inhalt des Papierkorbs wirklich entfernen?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "Dieser kann dann nicht wiederhergestellt werden.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
