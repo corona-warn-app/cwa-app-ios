@@ -318,7 +318,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].cells.element(boundBy: 2).waitAndTap()
 		
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(appInformationLabel.waitForExistence(timeout: .medium))
 
 		app.swipeDown(velocity: .slow)
