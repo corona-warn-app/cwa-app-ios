@@ -25,6 +25,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
+		onRecycleBinCellTap: @escaping () -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
 		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
@@ -45,6 +46,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
+		self.onRecycleBinCellTap = onRecycleBinCellTap
 		self.showTestInformationResult = showTestInformationResult
 		self.onAddStateButtonTap = onAddLocalStatisticsTap
 		self.onAddDistrict = onAddDistrict
@@ -268,12 +270,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 		self.deltaOnboardingIsRunning = true
 
-		self.showRouteIfNeeded(completion: { [weak self] in
-			self?.showDeltaOnboardingIfNeeded(completion: {
-				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+				self?.showBackgroundFetchAlertIfNeeded(completion: {
+					self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+						self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+							self?.showRouteIfNeeded(completion: { [weak self] in
 								self?.deltaOnboardingIsRunning = false
 							})
 						})
@@ -281,6 +283,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				})
 			})
 		})
+
 	}
 
 	// MARK: - Private
@@ -299,6 +302,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
+	private let onRecycleBinCellTap: () -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
 	private var onAddDistrict: (SelectValueTableViewController) -> Void
@@ -635,7 +639,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .settings:
 				self.onSettingsCellTap(self.viewModel.state.enState)
 			case .recycleBin:
-				Log.debug("Implement navigation to the recycle bin")
+				self.onRecycleBinCellTap()
 			case .appInformation:
 				self.onAppInformationCellTap()
 			case .faq:
@@ -662,6 +666,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 		showTestInformationResult(testResult)
+		completion()
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {

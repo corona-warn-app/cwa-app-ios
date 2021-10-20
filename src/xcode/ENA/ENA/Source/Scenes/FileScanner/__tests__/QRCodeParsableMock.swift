@@ -18,7 +18,16 @@ class QRCodeParsableMock: QRCodeParsable {
 	func parse(qrCode: String, completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void) {
 
 		if accept {
-			completion(.success(QRCodeResult.certificate(HealthCertifiedPerson(healthCertificates: []), certificate)))
+			completion(.success(
+				QRCodeResult.certificate(
+					CertificateResult(
+						restoredFromBin: false,
+						person: HealthCertifiedPerson(healthCertificates: []),
+						certificate: certificate
+					)
+				)
+			)
+			)
 		} else {
 			completion(.failure(.checkinQrError(.codeNotFound)))
 		}

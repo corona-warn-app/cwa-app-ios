@@ -54,10 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
+		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
+
+		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
 		
@@ -194,6 +198,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			// explicitly disabled as per #EXPOSUREAPP-2214
 			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
 		}
+
+		// Cleanup recycle-bin. Remove old entries.
+		recycleBin.cleanup()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -339,7 +346,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				store: store,
 				client: client
 			)
-		)
+		),
+		recycleBin: recycleBin
 	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
@@ -432,6 +440,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService
 	)
 
+	private let recycleBin: RecycleBin
+
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -446,7 +456,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	#else
 	lazy var exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-
 
 	/// A set of required dependencies
 	///
@@ -736,7 +745,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-		elsService: elsService
+		elsService: elsService,
+		recycleBin: recycleBin
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

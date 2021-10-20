@@ -36,7 +36,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -103,7 +104,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -160,7 +162,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -225,7 +228,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -273,7 +277,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -330,7 +335,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -393,7 +399,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -448,7 +455,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -500,7 +508,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		

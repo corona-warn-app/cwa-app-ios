@@ -18,8 +18,11 @@ class EmptyStateView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	init(viewModel: EmptyStateViewModel) {
+	init(viewModel: EmptyStateViewModel, safeInsetTop: CGFloat = 0, safeInsetBottom: CGFloat = 0, alignmentPadding: CGFloat = 0) {
 		self.viewModel = viewModel
+		self.safeInsetTop = safeInsetTop
+		self.safeInsetBottom = safeInsetBottom
+		self.alignmentPadding = alignmentPadding
 
 		super.init(frame: .zero)
 
@@ -28,25 +31,15 @@ class EmptyStateView: UIView {
 
 	// MARK: - Internal
 
-	var additionalTopPadding: CGFloat = 0 {
-		didSet {
-			topConstraint.constant = additionalTopPadding
-		}
-	}
-
 	// MARK: - Private
 
 	private let viewModel: EmptyStateViewModel
-
-	private var topConstraint: NSLayoutConstraint!
+	private let safeInsetTop: CGFloat
+	private let safeInsetBottom: CGFloat
+	private let alignmentPadding: CGFloat
 
 	private func setUp() {
 		backgroundColor = .clear
-
-		let containerView = UIView()
-		containerView.backgroundColor = .clear
-		addSubview(containerView)
-		containerView.translatesAutoresizingMaskIntoConstraints = false
 
 		let stackView = UIStackView()
 		stackView.axis = .vertical
@@ -66,7 +59,7 @@ class EmptyStateView: UIView {
 		titleLabel.style = .headline
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.textAlignment = .center
-		titleLabel.numberOfLines = 0
+		titleLabel.numberOfLines = 1
 		titleLabel.adjustsFontSizeToFitWidth = true
 		titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		titleLabel.text = viewModel.title
@@ -82,26 +75,44 @@ class EmptyStateView: UIView {
 		descriptionLabel.text = viewModel.description
 		stackView.addArrangedSubview(descriptionLabel)
 
-		topConstraint = containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
-		
-		// We take a number for that the image is not too big and not too small and fits for big and small devices for all four occurrences of the EmptyStateView (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay). The result was 3.
-		let percentageWidth = UIScreen.main.bounds.width / 3
-		
-		NSLayoutConstraint.activate([
-			containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-			topConstraint,
-			containerView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-			containerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-			stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
-			stackView.leadingAnchor.constraint(greaterThanOrEqualTo: containerView.leadingAnchor, constant: 16),
-			stackView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor, constant: 16),
-			stackView.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -16),
-			stackView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -16),
-			stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: percentageWidth)
-		])
-	}
+		// We take a number for that the image is not too big and not too small and fits for big and small devices for all five occurrences of the EmptyStateView
+		// (in CertificatesOverview, CheckinOverview, TraceLocationsOverview, ContactDiaryDay, OnBehalfWarning).
+		// The result was 3.
+		let maxImageWidth = UIScreen.main.bounds.width / 3
+		let minImageWidth = UIScreen.main.bounds.width / 10
 
+		// layout strategy / required constraints:
+		// stack view with full width (with margin) for effective horizontal centered alignment.
+		// keep the text on the visible page (this visible page is configurable by the caller).
+		// limit size of title
+		// keep aspect ratio of the image; shrink it if needed, or push it above visible page
+		NSLayoutConstraint.activate([
+			stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+			stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -(safeInsetBottom + 16)),
+			titleLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: safeInsetTop + 16),
+			titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: maxImageWidth),
+			imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: minImageWidth)
+		])
+
+		// additional layout strategy for a pleasant layout:
+		// break these constraints for extreme screen or extreme font sizes (a11y).
+
+		// align the appearance of this view across pages.
+		let topAlignmentConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: alignmentPadding + 16)
+		topAlignmentConstraint.priority = UILayoutPriority(997)
+		topAlignmentConstraint.isActive = true
+
+		// image: 1/3 of the screen width
+		let imageSizeConstraint = imageView.widthAnchor.constraint(equalToConstant: maxImageWidth)
+		imageSizeConstraint.priority = UILayoutPriority(998)
+		imageSizeConstraint.isActive = true
+
+		// if it really doesn't fit on the visible page, then sacrifice the image
+		let topAnchorConstraint = stackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: safeInsetTop + 16)
+		topAnchorConstraint.priority = UILayoutPriority(999)
+		topAnchorConstraint.isActive = true
+	}
 }
