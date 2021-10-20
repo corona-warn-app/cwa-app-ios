@@ -178,8 +178,6 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		store: LocalStatisticsCaching,
 		groupID: StatisticsGroupIdentifier
 	) -> Bool {
-		return true
-
 		guard let localStatistics = self.store.localStatistics.first(where: { $0.groupID == groupID }) else {
 			return true
 		}
