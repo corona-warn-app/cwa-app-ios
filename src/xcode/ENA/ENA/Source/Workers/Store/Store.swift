@@ -203,6 +203,8 @@ protocol HealthCertificateStoring: AnyObject {
 	
 	var lastBoosterNotificationsExecutionDate: Date? { get set }
 
+	var healthCertifiedPersonsVersion: Int? { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here
