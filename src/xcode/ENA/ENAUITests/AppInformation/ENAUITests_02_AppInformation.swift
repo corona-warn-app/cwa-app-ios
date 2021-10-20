@@ -24,7 +24,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: .medium))
@@ -43,7 +43,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.aboutNavigation"].waitAndTap()
@@ -59,15 +59,14 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 
 		XCTAssertTrue(app.state == .runningForeground)
 		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
 		
-		// Check if URL that would get opened is 'https://www.bundesregierung.de/corona-warn-app-faq'
-		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.bundesregierung.de/corona-warn-app-faq"].waitForExistence(timeout: .short))
-
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/"].waitForExistence(timeout: .short))
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {
@@ -78,7 +77,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.contactNavigation"].waitAndTap()
@@ -94,7 +93,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.privacyNavigation"].waitAndTap()
@@ -115,7 +114,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.termsNavigation"].waitAndTap()
@@ -221,7 +220,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 	private func navigateToErrorReporting() {
 		// navigate to App Information
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		appInformationLabel.waitAndTap()
 
 		// navigate to Error Reporting
