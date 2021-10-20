@@ -25,7 +25,9 @@ class CachedRestService: Service {
 	let environment: EnvironmentProviding
 
 	lazy var session: URLSession = {
-		URLSession(configuration: .cachingSessionConfiguration())
+		.coronaWarnSession(
+			configuration: .cachingSessionConfiguration()
+		)
 	}()
 
 	func decodeModel<R>(

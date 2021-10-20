@@ -24,7 +24,10 @@ class DefaultRestService: Service {
 	let environment: EnvironmentProviding
 
 	lazy var session: URLSession = {
-		URLSession(configuration: .coronaWarnSessionConfiguration())
+		.coronaWarnSession(
+			configuration: .coronaWarnSessionConfiguration(),
+			delegateQueue: .main
+		)
 	}()
 
 /*

@@ -26,7 +26,9 @@ class WifiOnlyRestService: Service {
 	let environment: EnvironmentProviding
 
 	lazy var session: URLSession = {
-		URLSession(configuration: .coronaWarnSessionConfigurationWifiOnly())
+		.coronaWarnSession(
+			configuration: .coronaWarnSessionConfigurationWifiOnly()
+		)
 	}()
 
 	// MARK: - Public
