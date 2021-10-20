@@ -228,6 +228,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
         set { kvStore["healthCertifiedPersons"] = newValue }
     }
 
+	var healthCertifiedPersonsVersion: Int? {
+		get { kvStore["healthCertifiedPersonsVersion"] as Int? ?? nil }
+		set { kvStore["healthCertifiedPersonsVersion"] = newValue }
+	}
+
 	var testCertificateRequests: [TestCertificateRequest] {
 		get { kvStore["testCertificateRequests"] as [TestCertificateRequest]? ?? [] }
 		set { kvStore["testCertificateRequests"] = newValue }
