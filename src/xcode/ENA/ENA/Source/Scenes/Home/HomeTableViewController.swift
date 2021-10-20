@@ -270,12 +270,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 		self.deltaOnboardingIsRunning = true
 
-		self.showRouteIfNeeded(completion: { [weak self] in
-			self?.showDeltaOnboardingIfNeeded(completion: {
-				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+				self?.showBackgroundFetchAlertIfNeeded(completion: {
+					self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+						self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+							self?.showRouteIfNeeded(completion: { [weak self] in
 								self?.deltaOnboardingIsRunning = false
 							})
 						})
@@ -283,6 +283,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				})
 			})
 		})
+
 	}
 
 	// MARK: - Private
@@ -665,6 +666,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 		showTestInformationResult(testResult)
+		completion()
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
