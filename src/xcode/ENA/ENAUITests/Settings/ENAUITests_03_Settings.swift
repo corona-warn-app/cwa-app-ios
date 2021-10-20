@@ -23,7 +23,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		app.swipeUp(velocity: .fast)
 
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: 5.0))
@@ -39,7 +39,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		app.swipeUp(velocity: .fast)
 
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitAndTap()
@@ -53,7 +53,7 @@ class ENAUITests_03_Settings: CWATestCase {
 				
 		// Open settings
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		// Open Notifications
@@ -73,9 +73,8 @@ class ENAUITests_03_Settings: CWATestCase {
 		// Jump to system settings.
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
 		
-		// Ensure we are in the settings.
-		let systemSettings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
-		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
+		// Check if URL that would get opened is 'app-settings:'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["app-settings:"].waitForExistence(timeout: .short))
 	}
 	
 	func test_SettingsNotificationsOff() throws {
@@ -84,7 +83,7 @@ class ENAUITests_03_Settings: CWATestCase {
 				
 		// Open settings
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		// Open Notifications
@@ -98,8 +97,7 @@ class ENAUITests_03_Settings: CWATestCase {
 		// Jump to system settings.
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
 		
-		// Ensure we are in the settings.
-		let systemSettings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
-		XCTAssertTrue(systemSettings.wait(for: .runningForeground, timeout: .long))
+		// Check if URL that would get opened is 'app-settings:'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["app-settings:"].waitForExistence(timeout: .short))
 	}
 }

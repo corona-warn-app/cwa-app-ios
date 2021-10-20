@@ -14,6 +14,9 @@ class MoreActionItemView: UIView {
 		longPressGestureRecognizer.minimumPressDuration = 0.1
 		
 		configureHighlightView()
+
+		isAccessibilityElement = true
+		accessibilityTraits = .button
 	}
 	
 	// MARK: - Internal
@@ -23,9 +26,13 @@ class MoreActionItemView: UIView {
 		completion: @escaping ((MoreInfoItem) -> Void)
 	) {
 		imageView.image = actionItem.image
+
 		titleLabel.text = actionItem.title
-		titleLabel.accessibilityIdentifier = actionItem.accessibilityIdentifier
+		accessibilityIdentifier = actionItem.accessibilityIdentifier
+		accessibilityLabel = actionItem.title
+
 		separatorView.isHidden = actionItem == .share
+
 		self.actionItem = actionItem
 		self.completion = completion
 	}

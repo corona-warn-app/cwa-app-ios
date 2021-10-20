@@ -67,14 +67,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFinished with unexpected result.")
+				XCTFail("processingFinished with unexpected result: \(result)")
 			}
 		}
 
@@ -95,14 +96,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFailed with unexpected result.")
+				XCTFail("processingFailed with unexpected error: \(String(describing: error))")
 			}
 		}
 
@@ -119,14 +121,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFinished with unexpected result.")
+				XCTFail("processingFinished with unexpected result: \(result)")
 			}
 		}
 
@@ -148,14 +151,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFailed with unexpected result.")
+				XCTFail("processingFailed with unexpected error: \(String(describing: error))")
 			}
 		}
 
@@ -177,14 +181,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFailed = { error in
 			if case .passwordInput = error {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFailed with unexpected result.")
+				XCTFail("processingFailed with unexpected error: \(String(describing: error))")
 			}
 		}
 
@@ -207,14 +212,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				processingFinishedExpectation.fulfill()
 			} else {
-				XCTFail("processingFinished with unexpected result.")
+				XCTFail("processingFinished with unexpected result: \(result)")
 			}
 		}
 
@@ -243,14 +249,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFinished with unexpected result.")
+				XCTFail("processingFinished with unexpected result: \(result)")
 			}
 		}
 
@@ -259,7 +266,7 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 		}
 
 		// WHEN
-		viewModel.scan(fakeImage)
+		viewModel.scan(UIImage())
 
 		// THEN
 		waitForExpectations(timeout: .long)
@@ -271,14 +278,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake(),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFailed = { error in
 			if case .noQRCodeFound = error {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFailed with unexpected result.")
+				XCTFail("processingFailed with unexpected error: \(String(describing: error))")
 			}
 		}
 
@@ -298,14 +306,15 @@ class FileScannerCoordinatorViewModelTests: CWATestCase {
 
 		let viewModel = FileScannerCoordinatorViewModel(
 			qrCodeDetector: QRCodeDetectorFake("something found"),
-			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate)
+			qrCodeParser: QRCodeParsableMock(acceptAll: true, certificate: healthCertificate),
+			queue: .main
 		)
 
 		viewModel.processingFinished = { result in
 			if case .certificate = result {
 				expectation.fulfill()
 			} else {
-				XCTFail("processingFinished with unexpected result.")
+				XCTFail("processingFinished with unexpected result: \(result)")
 			}
 		}
 

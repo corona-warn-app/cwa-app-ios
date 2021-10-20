@@ -333,6 +333,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.primaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.secondaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.primarySubtitleLabel.firstBaselineAnchor),
+				statisticsCardView.secondarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.secondarySubtitleLabel.firstBaselineAnchor),
 				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.tertiaryTitleLabel.firstBaselineAnchor)
 			]
 
