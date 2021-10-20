@@ -26,7 +26,7 @@ class ENAUITests_05_DataDonation: CWATestCase {
 
 		// Navigate to settings
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let settingsLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
 		settingsLabel.waitAndTap()
 
 		// Navigate to data donation screen

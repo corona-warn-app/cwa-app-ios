@@ -201,7 +201,7 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 
     // MARK: - Protocol AntigenTestProfileStoring
 
-	lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	private(set) lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
 
 	var antigenTestProfile: AntigenTestProfile? {
 		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
@@ -227,6 +227,11 @@ final class SecureStore: Store, AntigenTestProfileStoring {
         get { kvStore["healthCertifiedPersons"] as [HealthCertifiedPerson]? ?? [] }
         set { kvStore["healthCertifiedPersons"] = newValue }
     }
+
+	var healthCertifiedPersonsVersion: Int? {
+		get { kvStore["healthCertifiedPersonsVersion"] as Int? ?? nil }
+		set { kvStore["healthCertifiedPersonsVersion"] = newValue }
+	}
 
 	var testCertificateRequests: [TestCertificateRequest] {
 		get { kvStore["testCertificateRequests"] as [TestCertificateRequest]? ?? [] }
@@ -272,6 +277,18 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	var boosterRulesCache: ValidationRulesCache? {
 		get { kvStore["boosterRulesCache"] as ValidationRulesCache? ?? nil }
 		set { kvStore["boosterRulesCache"] = newValue }
+	}
+
+	// MARK: - Protocol RecycleBinStoring
+
+	private(set) lazy var recycleBinItemsSubject = CurrentValueSubject<Set<RecycleBinItem>, Never>(recycleBinItems)
+
+	var recycleBinItems: Set<RecycleBinItem> {
+		get { kvStore["recycleBinItems"] as Set<RecycleBinItem>? ?? [] }
+		set {
+			kvStore["recycleBinItems"] = newValue
+			recycleBinItemsSubject.send(newValue)
+		}
 	}
 
 	// MARK: - Non-Release Stuff

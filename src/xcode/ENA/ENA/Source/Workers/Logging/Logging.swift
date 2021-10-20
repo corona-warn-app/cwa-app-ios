@@ -45,6 +45,8 @@ extension OSLog {
 	static let localStatistics = OSLog(subsystem: subsystem, category: "localStatistics")
 	/// Filescanner
 	static let fileScanner = OSLog(subsystem: subsystem, category: "fileScanner")
+	/// RecycleBin
+	static let recycleBin = OSLog(subsystem: subsystem, category: "recyclebin")
 	/// Onboarding
 	static let onboarding = OSLog(subsystem: subsystem, category: "onboarding")
 }
