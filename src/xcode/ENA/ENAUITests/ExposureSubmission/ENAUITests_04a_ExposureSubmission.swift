@@ -121,8 +121,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
 		
 		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 	}
 
 	func test_SymptomsOptionPreferNotToSay() {
@@ -160,8 +159,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
 		
 		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 	}
 
 	func test_SymptomsOnsetDateOption() {
@@ -245,8 +243,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
 		
 		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 
 	}
 
@@ -290,8 +287,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
 
 		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 	}
 	
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
@@ -359,8 +355,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.alerts.firstMatch.buttons.firstMatch.waitAndTap() // yes
 		
 		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].isHittable)
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitAndTap()
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
@@ -475,7 +470,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 	func test_exposureSubmissionSuccess_screen() {
 		launchAndNavigateToSymptomsScreen()
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
 		// Symptoms Screen: Select no symptoms option
 		let optionNo = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionNo"]
@@ -493,10 +487,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSuccess.closeButton].waitAndTap()
 
 		// Back to homescreen
-		app.swipeDown()
-		app.swipeDown()
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 	}
 	
 	func test_RegisterCertificateFromSubmissionFlowWithoutInfoScreen() throws {
@@ -647,7 +638,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		var screenshotCounter = 0
 
 		launchAndNavigateToSymptomsScreen()
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
 		// capturing and selecting Yes button
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
@@ -861,12 +851,12 @@ extension ENAUITests_04a_ExposureSubmission {
 		
 		// Thank You screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .short))
+        app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+		
 	}
 
 	func launchAndNavigateToSymptomsOnsetScreen() {
 		launchAndNavigateToSymptomsScreen()
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
 
@@ -877,9 +867,11 @@ extension ENAUITests_04a_ExposureSubmission {
 
 	private func acceptInformationSharingIfNecessary() {
 		let buttonTitle = "Teilen"
-		guard app.buttons[buttonTitle].waitForExistence(timeout: .short) else {
+		guard app.buttons[buttonTitle].waitForExistence(timeout: .short),
+			  app.buttons[buttonTitle].isHittable else {
 			return
 		}
+		app.swipeUp(velocity: .fast)
 		app.buttons[buttonTitle].waitAndTap(0)
 	}
 }
