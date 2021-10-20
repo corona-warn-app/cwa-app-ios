@@ -144,7 +144,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 					self.store.localStatistics.append(LocalStatisticsMetadata(with: response))
 					completion(.success(LocalStatisticsMetadata(with: response)))
 				case .failure(let error):
-					Log.error(error.localizedDescription, log: .vaccination)
+					Log.error(error.localizedDescription, log: .localStatistics)
 					switch error {
 					case URLSessionError.notModified:
 						if let cachedIndex = self.store.localStatistics.firstIndex(where: { $0.groupID == groupID }) {
@@ -178,6 +178,8 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		store: LocalStatisticsCaching,
 		groupID: StatisticsGroupIdentifier
 	) -> Bool {
+		return true
+
 		guard let localStatistics = self.store.localStatistics.first(where: { $0.groupID == groupID }) else {
 			return true
 		}
