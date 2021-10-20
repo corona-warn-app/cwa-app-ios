@@ -68,10 +68,16 @@ class HomeStatisticsCardView: UIView {
 
 			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
 				var secondaryAccessibilityLabel = secondaryTitleLabel.text
+
 				if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
 					secondaryAccessibilityLabel?.append(" ")
 					secondaryAccessibilityLabel?.append(secondaryValueLabel.text ?? "")
 				}
+				
+				if let secondarySubtitle = viewModel?.secondarySubtitle {
+					secondaryAccessibilityLabel?.append(" \(secondarySubtitle)")
+				}
+				
 				secondaryTitleLabel.accessibilityLabel = secondaryAccessibilityLabel
 				accessibilityElements.append(secondaryTitleLabel)
 			}
