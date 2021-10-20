@@ -68,10 +68,16 @@ class HomeStatisticsCardView: UIView {
 
 			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
 				var secondaryAccessibilityLabel = secondaryTitleLabel.text
+
 				if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
 					secondaryAccessibilityLabel?.append(" ")
 					secondaryAccessibilityLabel?.append(secondaryValueLabel.text ?? "")
 				}
+				
+				if let secondarySubtitle = viewModel?.secondarySubtitle {
+					secondaryAccessibilityLabel?.append(" \(secondarySubtitle)")
+				}
+				
 				secondaryTitleLabel.accessibilityLabel = secondaryAccessibilityLabel
 				accessibilityElements.append(secondaryTitleLabel)
 			}
@@ -321,7 +327,7 @@ class HomeStatisticsCardView: UIView {
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		primarySubtitleLabel.style = .body
+		primarySubtitleLabel.style = .subheadline
 		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primarySubtitleLabel.numberOfLines = 0
 		primarySubtitleLabel.adjustsFontSizeToFitWidth = false
@@ -347,7 +353,7 @@ class HomeStatisticsCardView: UIView {
 		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		secondarySubtitleLabel.style = .body
+		secondarySubtitleLabel.style = .subheadline
 		secondarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondarySubtitleLabel.numberOfLines = 0
 		secondarySubtitleLabel.adjustsFontSizeToFitWidth = false
