@@ -1143,16 +1143,16 @@ class HealthCertificateService {
 					self.scheduleBoosterNotification(id: id)
 					completion(nil)
 				} else {
-					let name = healthCertifiedPerson.name?.standardizedName ?? ""
 					let errorMessage = "The New passed booster rule has the same identifier as the old one saved for this person, so we will not trigger the notification"
 					Log.debug(errorMessage, log: .vaccination)
-					completion("for \(name): \(errorMessage)")
+					let name = healthCertifiedPerson.name?.standardizedName ?? ""
+					completion("for \(private: name): \(errorMessage)")
 				}
 				
 			case .failure(let validationError):
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
 				let name = healthCertifiedPerson.name?.standardizedName ?? ""
-				completion("for \(name): \(validationError.localizedDescription)")
+				completion("for \(private: name): \(validationError.localizedDescription)")
 			}
 		})
 	}
