@@ -26,7 +26,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 
 		// Open Recycling Bin screen
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let recycleBinLabel = moreCell.staticTexts[AccessibilityIdentifiers.Home.MoreInfoCell.recycleBinLabel]
+		let recycleBinLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.recycleBinLabel]
 		recycleBinLabel.waitAndTap()
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.RecycleBin.title)].waitForExistence(timeout: .short))
