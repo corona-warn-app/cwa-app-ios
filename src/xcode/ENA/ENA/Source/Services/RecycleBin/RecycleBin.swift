@@ -97,9 +97,9 @@ class RecycleBin {
 	///
 	/// - Parameter identifier: Identifier string for the item.
 	/// - Returns: An item for the specified `identifier`. Or `nil` if the item does not exist.
-	func item(for identifier: String) -> RecycledItem? {
+	func item(for identifier: String) -> RecycleBinItem? {
 		Log.info("Read item.", log: .recycleBin)
-		return store.recycleBinItems.first { $0.item.recycleBinIdentifier == identifier }?.item
+		return store.recycleBinItems.first { $0.item.recycleBinIdentifier == identifier }
 	}
 
 	/// Removes all items which where moved into the bin more then 30 days ago.

@@ -140,19 +140,7 @@ class QRScannerCoordinator {
 			case let .coronaTest(testRegistrationInformation):
 				self?.showScannedTestResult(testRegistrationInformation)
 			case let .certificate(certificateResult):
-				if certificateResult.restoredFromBin {
-					self?.showRestoredFromBinAlert {
-						self?.showScannedHealthCertificate(
-							for: certificateResult.person,
-							with: certificateResult.certificate
-						)
-					}
-				} else {
-					self?.showScannedHealthCertificate(
-						for: certificateResult.person,
-						with: certificateResult.certificate
-					)
-				}
+				self?.showScannedHealthCertificate(certificateResult)
 			case let .traceLocation(traceLocation):
 				self?.showScannedCheckin(traceLocation)
 			}
@@ -216,8 +204,7 @@ class QRScannerCoordinator {
 	}
 	
 	private func showScannedHealthCertificate(
-		for person: HealthCertifiedPerson,
-		with certificate: HealthCertificate
+		_ certificateResult: CertificateResult
 	) {
 		switch presenter {
 		case .submissionFlow, .onBehalfFlow:
@@ -230,10 +217,32 @@ class QRScannerCoordinator {
 					return
 				}
 
+				self.showRestoredFromBinAlertIfNeeded(for: certificateResult, from: parentViewController) {
+					self.healthCertificateCoordinator = HealthCertificateCoordinator(
+						parentingViewController: .present(parentViewController),
+						healthCertifiedPerson: certificateResult.person,
+						healthCertificate: certificateResult.certificate,
+						store: self.store,
+						healthCertificateService: self.healthCertificateService,
+						healthCertificateValidationService: self.healthCertificateValidationService,
+						healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+						vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+						markAsSeenOnDisappearance: false
+					)
+
+					self.healthCertificateCoordinator?.start()
+				}
+			}
+		case .checkinTab, .certificateTab, .universalScanner:
+			guard let parentViewController = parentViewController else {
+				return
+			}
+
+			self.showRestoredFromBinAlertIfNeeded(for: certificateResult, from: parentViewController) {
 				self.healthCertificateCoordinator = HealthCertificateCoordinator(
 					parentingViewController: .present(parentViewController),
-					healthCertifiedPerson: person,
-					healthCertificate: certificate,
+					healthCertifiedPerson: certificateResult.person,
+					healthCertificate: certificateResult.certificate,
 					store: self.store,
 					healthCertificateService: self.healthCertificateService,
 					healthCertificateValidationService: self.healthCertificateValidationService,
@@ -244,24 +253,6 @@ class QRScannerCoordinator {
 
 				self.healthCertificateCoordinator?.start()
 			}
-		case .checkinTab, .certificateTab, .universalScanner:
-			guard let parentViewController = parentViewController else {
-				return
-			}
-
-			healthCertificateCoordinator = HealthCertificateCoordinator(
-				parentingViewController: .present(parentViewController),
-				healthCertifiedPerson: person,
-				healthCertificate: certificate,
-				store: store,
-				healthCertificateService: healthCertificateService,
-				healthCertificateValidationService: healthCertificateValidationService,
-				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-				markAsSeenOnDisappearance: false
-			)
-
-			healthCertificateCoordinator?.start()
 		case .none:
 			break
 		}
@@ -314,7 +305,16 @@ class QRScannerCoordinator {
 		}
 	}
 
-	private func showRestoredFromBinAlert(completion: @escaping () -> Void) {
+	private func showRestoredFromBinAlertIfNeeded(
+		for certificateResult: CertificateResult,
+		from presentationController: UIViewController,
+		completion: @escaping () -> Void
+	) {
+		guard certificateResult.restoredFromBin else {
+			completion()
+			return
+		}
+
 		let alert = UIAlertController(
 			title: AppStrings.UniversalQRScanner.restoredFromBinAlertTitle,
 			message: AppStrings.UniversalQRScanner.restoredFromBinAlertMessage,
@@ -329,6 +329,8 @@ class QRScannerCoordinator {
 				}
 			)
 		)
+
+		presentationController.present(alert, animated: true)
 	}
 	
 }
