@@ -327,7 +327,7 @@ class HomeStatisticsCardView: UIView {
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		primarySubtitleLabel.style = .body
+		primarySubtitleLabel.style = .subheadline
 		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primarySubtitleLabel.numberOfLines = 0
 		primarySubtitleLabel.adjustsFontSizeToFitWidth = false
@@ -353,7 +353,7 @@ class HomeStatisticsCardView: UIView {
 		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		secondarySubtitleLabel.style = .body
+		secondarySubtitleLabel.style = .subheadline
 		secondarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondarySubtitleLabel.numberOfLines = 0
 		secondarySubtitleLabel.adjustsFontSizeToFitWidth = false
