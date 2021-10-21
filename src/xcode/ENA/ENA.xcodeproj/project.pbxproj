@@ -2819,8 +2819,6 @@
 		BACF839F26A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExpirationDateCellViewModel.swift; sourceTree = "<group>"; };
 		BAD3199826FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewModelTests.swift; sourceTree = "<group>"; };
 		BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewTests.swift; sourceTree = "<group>"; };
-		BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DccPublicKeyLocationResource.swift; sourceTree = "<group>"; };
-		BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenLocationResource.swift; sourceTree = "<group>"; };
 		BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyModel.swift; sourceTree = "<group>"; };
 		BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _PaddingResource.swift; sourceTree = "<group>"; };
 		BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleTANResource.swift; sourceTree = "<group>"; };
@@ -7470,15 +7468,6 @@
 			path = ReceiveResources;
 			sourceTree = "<group>";
 		};
-		BA52A69F26EA1C7C00AA0732 /* LocationResource */ = {
-			isa = PBXGroup;
-			children = (
-				BAD362EB2718792700B6F04B /* DccPublicKeyLocationResource.swift */,
-				BAD362ED2718856000B6F04B /* RegistrationTokenLocationResource.swift */,
-			);
-			path = LocationResource;
-			sourceTree = "<group>";
-		};
 		BA53FD25270B284500CF8475 /* FileScanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -7620,7 +7609,6 @@
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
 				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */,
-				BA52A69F26EA1C7C00AA0732 /* LocationResource */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
 				BA52A69926EA1A1700AA0732 /* SendResources */,
