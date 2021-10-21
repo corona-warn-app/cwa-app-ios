@@ -65,7 +65,7 @@ platform :ios do
         testplan: testPlan,
         only_test_configurations: ["DE"],
         devices: ["iPhone 13"],
-        prelaunch_simulator: true,
+        prelaunch_simulator: false,
         max_concurrent_simulators: 4,
         concurrent_workers: 4,
         skip_package_dependencies_resolution: true,
