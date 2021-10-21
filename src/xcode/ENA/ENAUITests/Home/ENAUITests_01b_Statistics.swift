@@ -45,7 +45,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
 		
-		// coming back to the first card
+		// coming back to the add region button
 		statisticsCell.swipeRight()
 		statisticsCell.swipeRight()
 		statisticsCell.swipeRight()
