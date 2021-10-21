@@ -31,6 +31,30 @@ class HomeStatisticsCellModel {
 				  Log.debug("Updating local statistics cell model. \(private: "\(self?.regionStatisticsData.count ?? -1)")", log: .localStatistics)
 			}
 			.store(in: &subscriptions)
+		
+		
+		#if DEBUG
+		if isUITesting {
+			var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
+			sevenDayIncidence.trend = .increasing
+			sevenDayIncidence.value = 43.1
+
+			let dummyRegionStatisticsData = RegionStatisticsData(
+				region: LocalStatisticsRegion(
+					federalState: .badenWürttemberg,
+					name: "Heidelberg",
+					id: "1432",
+					regionType: .administrativeUnit
+				),
+				updatedAt: 1234,
+				sevenDayIncidence: sevenDayIncidence,
+				sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+				sevenDayHospitalizationIncidence: sevenDayIncidence
+			)
+			
+			self.regionStatisticsData = [dummyRegionStatisticsData]
+		}
+		#endif
 	}
 
 	// MARK: - Internal
