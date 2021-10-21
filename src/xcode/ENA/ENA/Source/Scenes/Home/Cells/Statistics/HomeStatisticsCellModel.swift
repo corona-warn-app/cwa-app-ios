@@ -35,7 +35,7 @@ class HomeStatisticsCellModel {
 		
 		#if DEBUG
 		if isUITesting {
-
+			setupMaximumCards()
 		}
 		#endif
 	}
@@ -66,7 +66,7 @@ class HomeStatisticsCellModel {
 		sevenDayIncidence.trend = .increasing
 		sevenDayIncidence.value = 43.1
 
-		let dummyRegionStatisticsData = RegionStatisticsData(
+		let heidelbergData = RegionStatisticsData(
 			region: LocalStatisticsRegion(
 				federalState: .badenWürttemberg,
 				name: "Heidelberg",
@@ -79,6 +79,19 @@ class HomeStatisticsCellModel {
 			sevenDayHospitalizationIncidence: sevenDayIncidence
 		)
 		
-		self.regionStatisticsData = [dummyRegionStatisticsData]
+		let badenWuerttembergData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Baden Württemberg",
+				id: "2342",
+				regionType: .federalState
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		self.regionStatisticsData = [heidelbergData, badenWuerttembergData]
 	}
 }
