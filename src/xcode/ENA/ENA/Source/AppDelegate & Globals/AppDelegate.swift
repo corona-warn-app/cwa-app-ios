@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return false
 		}
 
-		// 'appLaunchedFromUserActivityURL' inidcates, if the app was launched through a QR-Code scan.
+		// 'appLaunchedFromUserActivityURL' inidcates, if the app was launched through a QR-Code scan, from the System Camera.
 		// Based on that, the routing and UI rendering works differently in the subsequent delegate callbacks.
 		//
 		// We can have different paths of delegate callbacks depending on the app was started with a QR-Code scan or not.
