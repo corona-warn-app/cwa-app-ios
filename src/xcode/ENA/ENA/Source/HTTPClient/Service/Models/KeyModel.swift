@@ -7,6 +7,6 @@ import Foundation
 struct KeyModel: PaddingResource {
 	let key: String
 	let keyType: String
-	// ToDo optional dob?
+	// we might need dob later here
 	var requestPadding: String = ""
 }

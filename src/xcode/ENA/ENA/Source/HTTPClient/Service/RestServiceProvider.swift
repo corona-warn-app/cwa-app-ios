@@ -13,7 +13,7 @@ class RestServiceProvider: RestServiceProviding {
 	required init(
 		environment: EnvironmentProviding = Environments()
 	) {
-		self.restService = DefaultRestService(environment: environment)
+		self.restService = StandardRestService(environment: environment)
 		self.cachedRestService = CachedRestService(environment: environment)
 		self.wifiRestService = WifiOnlyRestService(environment: environment)
 	}
@@ -35,7 +35,7 @@ class RestServiceProvider: RestServiceProviding {
 		}
 	}
 
-	private let restService: DefaultRestService
+	private let restService: StandardRestService
 	private let cachedRestService: CachedRestService
 	private let wifiRestService: WifiOnlyRestService
 

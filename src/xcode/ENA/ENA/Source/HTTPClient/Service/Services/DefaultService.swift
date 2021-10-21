@@ -5,8 +5,9 @@
 import Foundation
 
 /**
-This is a special default implementation of Service and serves not only as default implementation but also as a hook to the generic resources and different service implementations.
-When calling a function of a service, it traverses this hook and in the implementations of the functions of the protocol. Here we do some stuff every service implementation normally should do and prevent so code duplication (e.g. setting the standard http request headers).
+This is the default implementation of a service and serves not only as default implementation. It provides some hooks to the generic resources and make different service implementations possible.
+
+ When calling a function of a service, it traverses this hook and in the implementations of the functions of the protocol. Here we do some stuff every service implementation normally should do and prevent so code duplication (e.g. setting the standard http request headers).
 When a service wants a more specific handling, it can just implements the protocols functions and inherits from start the implementation of here.
 */
 extension Service {
