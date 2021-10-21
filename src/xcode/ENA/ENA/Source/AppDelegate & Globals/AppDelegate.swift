@@ -655,7 +655,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	/// - Parameter launchOptions: Launch options passed on app launch
-	/// - Returns: A `Route` if a valid URL is passed in the launch options
+	/// - Returns: `true` if `launchOptions` contains user activity of type `NSUserActivityTypeBrowsingWeb`, returns `false` otherwhise.
 	private func appLaunchedFromUserActicityURL(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
 			return false
