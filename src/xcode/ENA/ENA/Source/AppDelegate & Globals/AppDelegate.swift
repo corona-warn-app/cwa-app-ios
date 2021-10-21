@@ -894,9 +894,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 														regionType: .administrativeUnit
 													),
 													LocalStatisticsRegion(
-														federalState: .hessen,
-														name: "Hessen",
-														id: "1144",
+														federalState: .badenWürttemberg,
+														name: "Baden Württemberg",
+														id: "2342",
 														regionType: .federalState
 													),
 													LocalStatisticsRegion(
