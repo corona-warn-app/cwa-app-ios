@@ -72,6 +72,7 @@ platform :ios do
         disable_package_automatic_updates: true,
         result_bundle: true,
         code_coverage: true,
+        number_of_retries: 1, #take this you flaky tests
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
       )
