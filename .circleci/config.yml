@@ -22,7 +22,7 @@ commands:
       - save_cache:
           key: repo-source-{{ .Branch }}-{{ .Revision }}
           paths:
-        - ".git"
+            - ".git"
       - restore_cache:
           key: *cache_key
       - restore_cache:
