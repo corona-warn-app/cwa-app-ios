@@ -914,7 +914,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.selectedLocalStatisticsRegions = [heidelbergRegion, mannheimRegion, badenWurttembergRegion, hessenRegion, rheinlandPfalzRegion]
 		}
 	}
-	
 	#endif
 
 	@objc
