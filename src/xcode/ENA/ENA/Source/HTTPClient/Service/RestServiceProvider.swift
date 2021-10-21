@@ -5,7 +5,7 @@
 import Foundation
 
 /**
-The RestServiceProvider is the service called from "outside" and is initialized in regular only once with the given Environments.
+RestServiceProvider is basically a dispatcher that directs work to the correct service by type.
 When calling the loading function, the RestServiceProvider decides which service has to be used by the LocationResource's serviceType. When it passes everything to the ServiceHook and from there to the concrete service implementation.
 */
 class RestServiceProvider: RestServiceProviding {
