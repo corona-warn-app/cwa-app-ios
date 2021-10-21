@@ -413,4 +413,14 @@ workflows:
             branches:
               only: /release\/.*/
     jobs:
-      - sonar
+      - dependencies:
+          filters:
+            branches:
+              only: /release\/.*/
+      - sonar:
+          requires:
+            - dependencies
+          filters:
+            branches:
+              only:
+                - /release\/.*/
