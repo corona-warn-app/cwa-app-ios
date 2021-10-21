@@ -101,7 +101,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.buttons[modifyButton].waitAndTap()
 		
 		app.buttons[modifyButton].swipeLeft()
-		XCTAssertTrue(deleteButton.waitForExistence(timeout: .short))
+		XCTAssertTrue(deleteButton.waitForExistence(timeout: .medium))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
 		XCTAssertFalse(localStatisticCell.isHittable)
