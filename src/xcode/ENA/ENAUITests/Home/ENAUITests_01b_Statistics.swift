@@ -21,14 +21,37 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	func test_AddStatisticsButton_maximumNumberOfCards() {
 		app.setLaunchArgument(LaunchArguments.statistics.maximumRegionsSelected, to: true)
 		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-
+		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
 		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
-		statisticsCell.swipeRight()
 		
+		// checking if all five cards exist
+		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeLeft()
+		
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeLeft()
+		
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeLeft()
+		
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeLeft()
+		
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		
+		// coming back to the first card
+		statisticsCell.swipeRight()
+		statisticsCell.swipeRight()
+		statisticsCell.swipeRight()
+		statisticsCell.swipeRight()
+		statisticsCell.swipeRight()
+
 		// check for the text for the add button
 		let addButton = app.buttons[addButtonIdentifier]
 		let expectTitle = AccessibilityLabels.localized(AppStrings.Statistics.AddCard.disabledAddTitle)
