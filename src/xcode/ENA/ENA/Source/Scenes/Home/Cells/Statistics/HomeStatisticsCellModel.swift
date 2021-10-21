@@ -79,6 +79,19 @@ class HomeStatisticsCellModel {
 			sevenDayHospitalizationIncidence: sevenDayIncidence
 		)
 		
+		let mannheimData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Mannheim",
+				id: "1434",
+				regionType: .administrativeUnit
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
 		let badenWuerttembergData = RegionStatisticsData(
 			region: LocalStatisticsRegion(
 				federalState: .badenWürttemberg,
@@ -92,6 +105,6 @@ class HomeStatisticsCellModel {
 			sevenDayHospitalizationIncidence: sevenDayIncidence
 		)
 		
-		self.regionStatisticsData = [heidelbergData, badenWuerttembergData]
+		self.regionStatisticsData = [heidelbergData, mannheimData, badenWuerttembergData]
 	}
 }
