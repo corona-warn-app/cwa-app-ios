@@ -878,6 +878,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 	
+	private func setupSelectedRegionsForTesting() {
+		if isUITesting, LaunchArguments.statistics.maximumRegionsSelected.boolValue {
+			store.selectedLocalStatisticsRegions = [LocalStatisticsRegion(
+													   federalState: .badenWürttemberg,
+													   name: "Heidelberg",
+													   id: "1432",
+													   regionType: .administrativeUnit
+													),
+													LocalStatisticsRegion(
+														federalState: .badenWürttemberg,
+														name: "Mannheim",
+														id: "1434",
+														regionType: .administrativeUnit
+													),
+													LocalStatisticsRegion(
+														federalState: .hessen,
+														name: "Hessen",
+														id: "1144",
+														regionType: .federalState
+													),
+													LocalStatisticsRegion(
+														federalState: .hessen,
+														name: "Hessen",
+														id: "1144",
+														regionType: .federalState
+													),
+													LocalStatisticsRegion(
+														federalState: .rheinlandPfalz,
+														name: "Rheinland Pfalz",
+														id: "1456",
+														regionType: .federalState
+													)]
+		}
+	}
+	
 	#endif
 
 	@objc
