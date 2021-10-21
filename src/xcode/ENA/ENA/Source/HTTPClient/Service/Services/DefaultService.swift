@@ -14,7 +14,7 @@ extension Service {
 	
 	func urlRequest<S, R>(
 		_ locator: Locator,
-		_ sendResource: S? = nil,
+		_ sendResource: S,
 		_ receiveResource: R
 	) -> Result<URLRequest, ResourceError> where S: SendResource, R: ReceiveResource {
 		let endpointURL = locator.endpoint.url(environment.currentEnvironment())
@@ -23,14 +23,11 @@ extension Service {
 		}
 		var urlRequest = URLRequest(url: url)
 		urlRequest.httpMethod = locator.method.rawValue
-		switch sendResource?.encode() {
+		switch sendResource.encode() {
 		case let .success(data):
 			urlRequest.httpBody = data
 		case let .failure(error):
 			return .failure(error)
-		case .none:
-			// We have no body to set.
-			break
 		}
 
 		locator.headers.forEach { key, value in
@@ -45,7 +42,7 @@ extension Service {
 
 	func load<S, R>(
 		_ locator: Locator,
-		_ sendResource: S?,
+		_ sendResource: S,
 		_ receiveResource: R,
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where S: SendResource, R: ReceiveResource {
@@ -82,13 +79,13 @@ extension Service {
 	}
 
 	func decodeModel<R>(
-		_ resource: R,
+		_ receiveResource: R,
 		_ locator: Locator,
 		_ bodyData: Data? = nil,
 		_ response: HTTPURLResponse? = nil,
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where R: ReceiveResource {
-		switch resource.decode(bodyData) {
+		switch receiveResource.decode(bodyData) {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
@@ -97,7 +94,7 @@ extension Service {
 	}
 
 	func cached<R>(
-		_ resource: R,
+		_ receiveResource: R,
 		_ locator: Locator,
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where R: ReceiveResource {
@@ -105,7 +102,7 @@ extension Service {
 	}
 	
 	func customHeaders<R>(
-		_ resource: R,
+		_ receiveResource: R,
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
 		return nil

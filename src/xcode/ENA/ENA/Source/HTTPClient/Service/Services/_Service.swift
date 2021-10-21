@@ -29,7 +29,7 @@ protocol Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call and is defined in the receiveResource parameter. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func load<S, R>(
 		_ locator: Locator,
-		_ sendResource: S?,
+		_ sendResource: S,
 		_ receiveResource: R,
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where S: SendResource, R: ReceiveResource
@@ -43,7 +43,7 @@ protocol Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call and is defined in the receiveResource parameter. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func urlRequest<S, R>(
 		_ locator: Locator,
-		_ sendResource: S?,
+		_ sendResource: S,
 		_ receiveResource: R
 	) -> Result<URLRequest, ResourceError> where S: SendResource, R: ReceiveResource
 	
@@ -56,7 +56,7 @@ protocol Service {
 	///   - response: The HTTPURLResponse of the http response
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func decodeModel<R>(
-		_ resource: R,
+		_ receiveResource: R,
 		_ locator: Locator,
 		_ bodyData: Data?,
 		_ response: HTTPURLResponse?,
@@ -70,7 +70,7 @@ protocol Service {
 	///   - locator: The locator of the load call. The locator contains the url, the endpoint and other describing things to build the URLRequest.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func cached<R>(
-		_ resource: R,
+		_ receiveResource: R,
 		_ locator: Locator,
 		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
 	) where R: ReceiveResource
@@ -82,7 +82,7 @@ protocol Service {
 	///   - locator: The locator of the load call. The locator contains the url, the endpoint and other describing things to build the URLRequest.
 	///   - return: Returns nil or the header fields as dictionary. Example here are the ETag or applicationType- header fields.
 	func customHeaders<R>(
-		_ resource: R,
+		_ receiveResource: R,
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource
 	

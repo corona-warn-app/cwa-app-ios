@@ -4847,9 +4847,9 @@
 		5071A88526EB815C00B09B40 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				5071A88326EB810D00B09B40 /* DefaultService.swift */,
+				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				BA64FA8126D79C2300DD4705 /* StandardRestService.swift */,
 			);
 			path = Services;
