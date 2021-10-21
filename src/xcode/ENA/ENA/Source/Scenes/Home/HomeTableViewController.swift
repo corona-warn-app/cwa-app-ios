@@ -520,7 +520,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButtonTitle,
 					style: .destructive,
 					handler: { [weak self] _ in
-						self?.viewModel.coronaTestService.removeTest(coronaTestType)
+						self?.viewModel.coronaTestService.moveTestToBin(coronaTestType)
 					}
 				)
 				deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.deleteAlertDeleteButton

@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		super.init()
 
-		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.testRestorationHandler = TestRestorationHandler(service: coronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
@@ -254,7 +254,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			recycleBin: recycleBin
 		)
 	}()
 
