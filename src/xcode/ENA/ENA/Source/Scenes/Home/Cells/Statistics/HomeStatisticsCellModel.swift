@@ -105,6 +105,32 @@ class HomeStatisticsCellModel {
 			sevenDayHospitalizationIncidence: sevenDayIncidence
 		)
 		
-		self.regionStatisticsData = [heidelbergData, mannheimData, badenWuerttembergData]
+		let hessenData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .hessen,
+				name: "Hessen",
+				id: "1144",
+				regionType: .federalState
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		let rheinlandPfalzData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .rheinlandPfalz,
+				name: "Rheinland Pfalz",
+				id: "1456",
+				regionType: .federalState
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+
+		self.regionStatisticsData = [heidelbergData, mannheimData, badenWuerttembergData, hessenData, rheinlandPfalzData]
 	}
 }
