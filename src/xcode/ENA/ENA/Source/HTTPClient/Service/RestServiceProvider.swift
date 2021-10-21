@@ -33,6 +33,8 @@ class RestServiceProvider: RestServiceProviding {
 		}
 	}
 
+	// MARK: - Private
+
 	private let restService: StandardRestService
 
 }
