@@ -14,8 +14,6 @@ class RestServiceProvider: RestServiceProviding {
 		environment: EnvironmentProviding = Environments()
 	) {
 		self.restService = StandardRestService(environment: environment)
-		self.cachedRestService = CachedRestService(environment: environment)
-		self.wifiRestService = WifiOnlyRestService(environment: environment)
 	}
 
 	func load<R>(
@@ -27,16 +25,14 @@ class RestServiceProvider: RestServiceProviding {
 		case .default:
 			restService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
 		case .caching:
-			cachedRestService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
+			Log.error("Not yet implemented")
 		case .wifiOnly:
-			wifiRestService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
+			Log.error("Not yet implemented")
 		case .retrying:
-			fatalError("missing service - NYD")
+			Log.error("Not yet implemented")
 		}
 	}
 
 	private let restService: StandardRestService
-	private let cachedRestService: CachedRestService
-	private let wifiRestService: WifiOnlyRestService
 
 }

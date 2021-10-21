@@ -1147,8 +1147,6 @@
 		BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FA3E12667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift */; };
 		BA41016226F8D7DB0073F28D /* CovPassCheckInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016126F8D7DB0073F28D /* CovPassCheckInformationViewController.swift */; };
 		BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */; };
-		BA43CB6626E1203C00B86132 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */; };
-		BA43CB6726E1203C00B86132 /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */; };
 		BA43CB6926E1237E00B86132 /* RestServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
@@ -2806,8 +2804,6 @@
 		BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeCell.swift; sourceTree = "<group>"; };
 		BAF640E726DF85A600B3A18E /* _Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Service.swift; sourceTree = "<group>"; };
 		BAF640ED26DF86BF00B3A18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiOnlyRestService.swift; sourceTree = "<group>"; };
-		BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedRestService.swift; sourceTree = "<group>"; };
 		BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviderTests.swift; sourceTree = "<group>"; };
 		BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_dsc_list.bin; sourceTree = "<group>"; };
 		BAFC6ABD26A7183000F18BBE /* DSCListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProvider.swift; sourceTree = "<group>"; };
@@ -4843,10 +4839,9 @@
 		5071A88526EB815C00B09B40 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				5071A88326EB810D00B09B40 /* DefaultService.swift */,
-				BAF640F226DFB9CA00B3A18E /* CachedRestService.swift */,
-				BAF640F026DFA0FA00B3A18E /* WifiOnlyRestService.swift */,
 				BA64FA8126D79C2300DD4705 /* StandardRestService.swift */,
 			);
 			path = Services;
@@ -8217,7 +8212,6 @@
 				BA43CB6826E1237E00B86132 /* RestServiceProvider.swift */,
 				BAD362E82718769F00B6F04B /* Models */,
 				5071A88126EB80D900B09B40 /* ServiceError.swift */,
-				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				5071A88526EB815C00B09B40 /* Services */,
 			);
 			path = Service;
@@ -9109,7 +9103,6 @@
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */,
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
-				BA43CB6626E1203C00B86132 /* CachedRestService.swift in Sources */,
 				BA0073EA25D196900036DFDD /* DefaultDataDonationViewModel.swift in Sources */,
 				35AAA19126139FE500D3A4C1 /* Array+SaveAccess.swift in Sources */,
 				50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */,
@@ -9605,7 +9598,6 @@
 				019C9F34258951BB00B26392 /* DiaryDay.swift in Sources */,
 				01F3323827148396005CE21E /* RecycleBinItemCellModel.swift in Sources */,
 				AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */,
-				BA43CB6726E1203C00B86132 /* WifiOnlyRestService.swift in Sources */,
 				018FD47E2696E19B000088F8 /* HealthCertificateValidationFailedViewModel.swift in Sources */,
 				B1E8C99D2479D4E7006DC678 /* DMSubmissionStateViewController.swift in Sources */,
 				2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */,
