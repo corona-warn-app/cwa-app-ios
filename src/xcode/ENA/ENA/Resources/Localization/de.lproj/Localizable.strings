@@ -3349,7 +3349,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_EmptyState_title" = "Ihr Papierkorb ist leer";
 
-"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
+"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate und Tests entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
 
 "RecycleBin_EmptyState_imageDescription" = "Ein Papierkorb";
 
