@@ -881,36 +881,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	private func setupSelectedRegionsForTesting() {
 		if isUITesting, LaunchArguments.statistics.maximumRegionsSelected.boolValue {
-			store.selectedLocalStatisticsRegions = [LocalStatisticsRegion(
-													   federalState: .badenWürttemberg,
-													   name: "Heidelberg",
-													   id: "1432",
-													   regionType: .administrativeUnit
-													),
-													LocalStatisticsRegion(
-														federalState: .badenWürttemberg,
-														name: "Mannheim",
-														id: "1434",
-														regionType: .administrativeUnit
-													),
-													LocalStatisticsRegion(
-														federalState: .badenWürttemberg,
-														name: "Baden Württemberg",
-														id: "2342",
-														regionType: .federalState
-													),
-													LocalStatisticsRegion(
-														federalState: .hessen,
-														name: "Hessen",
-														id: "1144",
-														regionType: .federalState
-													),
-													LocalStatisticsRegion(
-														federalState: .rheinlandPfalz,
-														name: "Rheinland Pfalz",
-														id: "1456",
-														regionType: .federalState
-													)]
+			let heidelbergRegion = LocalStatisticsRegion(
+									   federalState: .badenWürttemberg,
+									   name: "Heidelberg",
+									   id: "1432",
+									   regionType: .administrativeUnit
+								   )
+			let mannheimRegion = LocalStatisticsRegion(
+									   federalState: .badenWürttemberg,
+									   name: "Mannheim",
+									   id: "1434",
+									   regionType: .administrativeUnit
+								   )
+			let badenWurttembergRegion = LocalStatisticsRegion(
+									   federalState: .badenWürttemberg,
+									   name: "Baden Württemberg",
+									   id: "2342",
+									   regionType: .administrativeUnit
+								   )
+			let hessenRegion = LocalStatisticsRegion(
+									   federalState: .badenWürttemberg,
+									   name: "Hessen",
+									   id: "1144",
+									   regionType: .administrativeUnit
+								   )
+			let rheinlandPfalzRegion = LocalStatisticsRegion(
+									   federalState: .badenWürttemberg,
+									   name: "Rheinland Pfalz",
+									   id: "1456",
+									   regionType: .administrativeUnit
+								   )
+			store.selectedLocalStatisticsRegions = [heidelbergRegion, mannheimRegion, badenWurttembergRegion, hessenRegion, rheinlandPfalzRegion]
 		}
 	}
 	
