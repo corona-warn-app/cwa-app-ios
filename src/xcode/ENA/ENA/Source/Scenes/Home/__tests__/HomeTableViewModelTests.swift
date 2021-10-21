@@ -43,7 +43,8 @@ class HomeTableViewModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
 					recycleBin: .fake()
-				)
+			),
+			recycleBin: .fake()
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -107,7 +108,8 @@ class HomeTableViewModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+			),
+			recycleBin: .fake()
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -160,7 +162,8 @@ class HomeTableViewModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+			),
+			recycleBin: .fake()
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -206,7 +209,8 @@ class HomeTableViewModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+			),
+			recycleBin: .fake()
 			),
 			onTestResultCellTap: { _ in }
 		)
@@ -259,7 +263,8 @@ class HomeTableViewModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+			),
+			recycleBin: .fake()
 			),
 			onTestResultCellTap: { _ in }
 		)
