@@ -592,7 +592,9 @@
 		50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */; };
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
+		5071A87326EA662400B09B40 /* JSONReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87226EA662400B09B40 /* JSONReceiveResource.swift */; };
 		5071A87526EA662F00B09B40 /* JSONSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87426EA662F00B09B40 /* JSONSendResource.swift */; };
+		5071A87726EB76E000B09B40 /* EmptySendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87626EB76E000B09B40 /* EmptySendResource.swift */; };
 		5071A87926EB76EC00B09B40 /* EmptyReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */; };
 		5071A87D26EB803F00B09B40 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87C26EB803F00B09B40 /* ServiceType.swift */; };
 		5071A88026EB808A00B09B40 /* HTTP+Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87F26EB808A00B09B40 /* HTTP+Method.swift */; };
@@ -1152,6 +1154,8 @@
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
 		BA4934262701F09C00017FD8 /* FileScannerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */; };
 		BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4985E326385928009D395C /* Dateformatter+vCard.swift */; };
+		BA52A69C26EA1A4F00AA0732 /* ProtobufReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */; };
+		BA52A69E26EA1B8D00AA0732 /* ProtobufSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */; };
 		BA53FD27270B28A200CF8475 /* ENAUITests_17_FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53FD26270B28A200CF8475 /* ENAUITests_17_FileScanner.swift */; };
 		BA53FD31270B519E00CF8475 /* FileScannerCoordinatorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */; };
 		BA53FD34270B5C7F00CF8475 /* QRCodeParsableMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53FD33270B5C7F00CF8475 /* QRCodeParsableMock.swift */; };
@@ -2044,7 +2048,9 @@
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
 		506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewController.swift; sourceTree = "<group>"; };
 		506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewModel.swift; sourceTree = "<group>"; };
+		5071A87226EA662400B09B40 /* JSONReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONReceiveResource.swift; sourceTree = "<group>"; };
 		5071A87426EA662F00B09B40 /* JSONSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSendResource.swift; sourceTree = "<group>"; };
+		5071A87626EB76E000B09B40 /* EmptySendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySendResource.swift; sourceTree = "<group>"; };
 		5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReceiveResource.swift; sourceTree = "<group>"; };
 		5071A87C26EB803F00B09B40 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
 		5071A87F26EB808A00B09B40 /* HTTP+Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTP+Method.swift"; sourceTree = "<group>"; };
@@ -2622,6 +2628,8 @@
 		BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerIndicatorView.swift; sourceTree = "<group>"; };
 		BA4985E326385928009D395C /* Dateformatter+vCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+vCard.swift"; sourceTree = "<group>"; };
 		BA52627626BACA6100C4F12F /* AppConfiguration+FeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfiguration+FeaturesTests.swift"; sourceTree = "<group>"; };
+		BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufReceiveResource.swift; sourceTree = "<group>"; };
+		BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufSendResource.swift; sourceTree = "<group>"; };
 		BA53FD26270B28A200CF8475 /* ENAUITests_17_FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_17_FileScanner.swift; sourceTree = "<group>"; };
 		BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerCoordinatorViewModelTests.swift; sourceTree = "<group>"; };
 		BA53FD33270B5C7F00CF8475 /* QRCodeParsableMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeParsableMock.swift; sourceTree = "<group>"; };
@@ -7389,7 +7397,9 @@
 			isa = PBXGroup;
 			children = (
 				BA7F7349271F130200E3CE14 /* _SendResource.swift */,
+				5071A87626EB76E000B09B40 /* EmptySendResource.swift */,
 				5071A87426EA662F00B09B40 /* JSONSendResource.swift */,
+				BA52A69D26EA1B8D00AA0732 /* ProtobufSendResource.swift */,
 			);
 			path = SendResources;
 			sourceTree = "<group>";
@@ -7399,6 +7409,8 @@
 			children = (
 				BA7F7347271F12CE00E3CE14 /* _ReceiveResource.swift */,
 				5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */,
+				5071A87226EA662400B09B40 /* JSONReceiveResource.swift */,
+				BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */,
 			);
 			path = ReceiveResources;
 			sourceTree = "<group>";
@@ -8907,6 +8919,7 @@
 				4B2D873B26ED4ED3006F5E93 /* NavigationControllerWithLargeTitle.swift in Sources */,
 				BA0073BE25D18A5B0036DFDD /* DataDonationViewController.swift in Sources */,
 				BA6898CD25ED49E00037A3EE /* Route.swift in Sources */,
+				5071A87326EA662400B09B40 /* JSONReceiveResource.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
 				35BA8DBB25F252AF00BD8B47 /* ELSService.swift in Sources */,
 				AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */,
@@ -9077,6 +9090,7 @@
 				EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				019E2F1426AF08D0000EC4AD /* MockDSCListProvider.swift in Sources */,
+				BA52A69C26EA1A4F00AA0732 /* ProtobufReceiveResource.swift in Sources */,
 				8F3167E826A5D929008F35AA /* RegionType.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
@@ -9413,6 +9427,7 @@
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
 				01164CF426C65B76007F9C3E /* OnBehalfDateTimeSelectionViewModel.swift in Sources */,
 				BACF83A026A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift in Sources */,
+				5071A87726EB76E000B09B40 /* EmptySendResource.swift in Sources */,
 				8F39058A2715B0E000A90E79 /* HomeMoreInfoTableViewCell.swift in Sources */,
 				0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */,
 				BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */,
@@ -9507,6 +9522,7 @@
 				CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */,
 				503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */,
 				ABE9613425EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift in Sources */,
+				BA52A69E26EA1B8D00AA0732 /* ProtobufSendResource.swift in Sources */,
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
 				BA94BBAD260DF4F0005CF38F /* CheckInTimeModel.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
