@@ -68,6 +68,8 @@ platform :ios do
         prelaunch_simulator: true,
         max_concurrent_simulators: 2,
         concurrent_workers: 2,
+        skip_package_dependencies_resolution: true,
+        disable_package_automatic_updates: true,
         result_bundle: true,
         code_coverage: true,
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
