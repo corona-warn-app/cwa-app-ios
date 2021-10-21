@@ -3,7 +3,7 @@
 //
 
 /**
-A Resource is a composition of a Locator (where a resources can be found), which service should be used (ServiceType), what data to send (sendResource) and what data to receive (receiveResource).
+A Resource is a composition of locator (where a resources can be found), service type to be used, data to send (sendResource) and data to receive (receiveResource).
 */
 protocol Resource {
 	associatedtype Send: SendResource
