@@ -13,7 +13,16 @@ configuration:
 commands:
   prepare-dependencies:
     steps:
+      - restore_cache:
+          keys:
+            - repo-source-{{ .Branch }}-{{ .Revision }}
+            - repo-source-{{ .Branch }}-
+            - repo-source-
       - checkout
+      - save_cache:
+          key: repo-source-{{ .Branch }}-{{ .Revision }}
+          paths:
+        - ".git"
       - restore_cache:
           key: *cache_key
       - restore_cache:
