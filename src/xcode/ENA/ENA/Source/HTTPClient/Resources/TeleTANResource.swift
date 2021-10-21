@@ -15,17 +15,17 @@ struct TeleTanResource: Resource {
 		self.locator = .registrationToken(isFake: isFake)
 		self.type = .default
 		self.sendResource = JSONSendResource<KeyModel>(sendModel)
-		self.receiveResource = EmptyReceiveResource<Any>()
+		self.receiveResource = EmptyReceiveResource()
 	}
 
 	// MARK: - Protocol Resource
 
 	typealias Send = JSONSendResource<KeyModel>
-	typealias Receive = EmptyReceiveResource<Any>
+	typealias Receive = EmptyReceiveResource
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: JSONSendResource<KeyModel>
-	var receiveResource: EmptyReceiveResource<Any>
+	var receiveResource: EmptyReceiveResource
 
 }
