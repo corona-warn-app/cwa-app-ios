@@ -34,8 +34,8 @@ class HomeStatisticsCellModel {
 		
 		
 		#if DEBUG
-		if isUITesting {
-			setupMaximumCards()
+		if isUITesting, LaunchArguments.statistics.maximumRegionsSelected.boolValue {
+			setupMockDataMaximumCards()
 		}
 		#endif
 	}
@@ -61,7 +61,8 @@ class HomeStatisticsCellModel {
 
 	private var subscriptions = Set<AnyCancellable>()
 	
-	private func setupMaximumCards() {
+	#if DEBUG
+	private func setupMockDataMaximumCards() {
 		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
 		sevenDayIncidence.trend = .increasing
 		sevenDayIncidence.value = 43.1
@@ -133,4 +134,5 @@ class HomeStatisticsCellModel {
 
 		self.regionStatisticsData = [heidelbergData, mannheimData, badenWuerttembergData, hessenData, rheinlandPfalzData]
 	}
+	#endif
 }
