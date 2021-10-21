@@ -867,9 +867,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Result */
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis entfernen?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Wenn Sie den Test entfernen, können Sie Ihr Testergebnis nicht mehr abrufen. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Testergebnis entfernen";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
