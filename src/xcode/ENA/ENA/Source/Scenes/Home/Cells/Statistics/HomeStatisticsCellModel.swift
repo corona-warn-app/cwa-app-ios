@@ -35,24 +35,7 @@ class HomeStatisticsCellModel {
 		
 		#if DEBUG
 		if isUITesting {
-			var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
-			sevenDayIncidence.trend = .increasing
-			sevenDayIncidence.value = 43.1
 
-			let dummyRegionStatisticsData = RegionStatisticsData(
-				region: LocalStatisticsRegion(
-					federalState: .badenWürttemberg,
-					name: "Heidelberg",
-					id: "1432",
-					regionType: .administrativeUnit
-				),
-				updatedAt: 1234,
-				sevenDayIncidence: sevenDayIncidence,
-				sevenDayHospitalizationIncidenceUpdatedAt: 1234,
-				sevenDayHospitalizationIncidence: sevenDayIncidence
-			)
-			
-			self.regionStatisticsData = [dummyRegionStatisticsData]
 		}
 		#endif
 	}
@@ -77,4 +60,25 @@ class HomeStatisticsCellModel {
 	private let localStatisticsProvider: LocalStatisticsProviding
 
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private func setupMaximumCards() {
+		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
+		sevenDayIncidence.trend = .increasing
+		sevenDayIncidence.value = 43.1
+
+		let dummyRegionStatisticsData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Heidelberg",
+				id: "1432",
+				regionType: .administrativeUnit
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		self.regionStatisticsData = [dummyRegionStatisticsData]
+	}
 }
