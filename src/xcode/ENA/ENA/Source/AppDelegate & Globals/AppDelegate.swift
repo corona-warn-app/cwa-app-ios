@@ -115,6 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupDatadonationForTesting()
 		setupInstallationDateForTesting()
 		setupAntigenTestProfileForTesting()
+		setupSelectedRegionsForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
