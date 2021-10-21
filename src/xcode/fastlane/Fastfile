@@ -66,6 +66,8 @@ platform :ios do
         only_test_configurations: ["DE"],
         devices: ["iPhone 13"],
         prelaunch_simulator: true,
+        max_concurrent_simulators: 2,
+        concurrent_workers: 2,
         result_bundle: true,
         code_coverage: true,
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
