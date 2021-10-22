@@ -298,6 +298,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 				self?.updateFor(isEditing: true)
 			}
 		)
+		editAction.isEnabled = !viewModel.isEmpty
 		actionSheet.addAction(editAction)
 
 		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
