@@ -41,8 +41,8 @@ struct TeleTanResource: Resource {
 		}
 	}
 
-	func map(serviceError: ServiceError) -> TeleTanError {
-		guard case let .resourceError(resourceError) = serviceError,
+	func map(_ error: ServiceError) -> TeleTanError {
+		guard case let .resourceError(resourceError) = error,
 		   case let .special(customError) = resourceError,
 		   let tanError = customError as? TeleTanError else {
 			   return .unknown
@@ -58,6 +58,6 @@ struct TeleTanResource: Resource {
 
 enum TeleTanError: Error {
 	case teleTanAlreadyUsed
-	case qrCodeisInvalid
+	case qrCodeInvalid
 	case unknown
 }
