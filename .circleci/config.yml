@@ -132,7 +132,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test_without_building testplan:<<parameters.testplan>>
+          command: cd src/xcode && bundle exec fastlane test testplan:<<parameters.testplan>>
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
@@ -321,7 +321,7 @@ workflows:
             parameters:
               testplan: ["AllTests"]
           requires:
-            - dependencies
+            - build-for-testing
           filters:
             branches:
               only:
@@ -369,7 +369,7 @@ workflows:
               ignore: /.*/
       - test:
           requires:
-            - dependencies
+            - build-for-testing
           filters:
             tags:
               only:
