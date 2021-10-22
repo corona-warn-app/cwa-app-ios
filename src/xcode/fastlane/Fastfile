@@ -66,8 +66,6 @@ platform :ios do
         only_test_configurations: ["DE"],
         devices: ["iPhone 13"],
         prelaunch_simulator: false,
-        max_concurrent_simulators: 5,
-        concurrent_workers: 5,
         skip_package_dependencies_resolution: true,
         disable_package_automatic_updates: true,
         result_bundle: true,
