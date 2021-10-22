@@ -31,8 +31,9 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 		case (.resourceError, _):
 			return false
 
-			// toDo: equal cases
-		case (.receivedResourceError(_), _):
+		case let (.receivedResourceError(lError), .receivedResourceError(rError)):
+			return lError.localizedDescription == rError.localizedDescription
+		case (.receivedResourceError, _):
 			return false
 		}
 	}
