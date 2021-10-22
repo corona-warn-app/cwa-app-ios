@@ -130,4 +130,8 @@ enum LaunchArguments {
 		/// Turn notifications for the settings screen on or off - does NOT sync or reflect the system setting. But needed to test the different screens.
 		static let isNotificationsEnabled = LaunchArgument(name: "isNotificationsEnabled")
 	}
+	enum statistics {
+		/// Set the selected regions to maximum i.e., 5
+		static let maximumRegionsSelected = LaunchArgument(name: "maximumRegionsSelected")
+	}
 }

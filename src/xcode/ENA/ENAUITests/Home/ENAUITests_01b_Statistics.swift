@@ -5,7 +5,6 @@
 import XCTest
 import ExposureNotification
 
-// swiftlint:disable type_body_length
 class ENAUITests_01b_Statistics: CWATestCase {
 	var app: XCUIApplication!
 	
@@ -20,83 +19,20 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 
 	func test_AddStatisticsButton_maximumNumberOfCards() {
+		app.setLaunchArgument(LaunchArguments.statistics.maximumRegionsSelected, to: true)
 		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-		let modifyButton = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
-
+		
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
 		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
-		statisticsCell.swipeRight()
-
-		// Management card(s) pt.1 - addition
-		XCTAssertTrue(self.app.buttons[addButtonIdentifier].waitForExistence(timeout: .medium))
-		XCTAssertTrue(statisticsCell.buttons[addButtonIdentifier].isHittable)
-		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
-		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 		
-		// ADDING Card number: 1
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 6).waitAndTap() // adding adminsitrative unit
-		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
-		app.swipeDown(velocity: .slow) // glitch
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		
-		// ADDING Card number: 2
-		localStatisticCell.swipeRight()
-		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 2).waitAndTap() // adding adminsitrative unit
-		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
-		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeRight()
 
-		// ADDING Card number: 3
-		statisticsCell.swipeRight()
-		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 7).waitAndTap() // adding adminsitrative unit
-		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
-		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-
-		// ADDING Card number: 4
-		statisticsCell.swipeRight()
-		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 4).waitAndTap() // adding adminsitrative unit
-		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
-		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		
-		// ADDING Card number: 5
-		statisticsCell.swipeRight()
-		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 1).waitAndTap()
-		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectDistrict].waitForExistence(timeout: .long))
-		app.cells.element(boundBy: 0).waitAndTap() // adding federal state
-		// the Local statistics card will appear.
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
-		app.swipeDown(velocity: .slow) // glitch
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		statisticsCell.swipeRight()
-		
 		// check for the text for the add button
 		let addButton = app.buttons[addButtonIdentifier]
 		let expectTitle = AccessibilityLabels.localized(AppStrings.Statistics.AddCard.disabledAddTitle)
@@ -146,7 +82,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.buttons[modifyButton].waitAndTap()
 		
 		app.buttons[modifyButton].swipeLeft()
-		XCTAssertTrue(deleteButton.waitForExistence(timeout: .short))
+		XCTAssertTrue(deleteButton.waitForExistence(timeout: .medium))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
 		XCTAssertFalse(localStatisticCell.isHittable)

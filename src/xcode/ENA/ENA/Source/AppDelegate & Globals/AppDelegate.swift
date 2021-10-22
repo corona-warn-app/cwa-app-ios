@@ -112,9 +112,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		#if DEBUG
 		setupOnboardingForTesting()
-		setupDatadonationForTesting()
+		setupDataDonationForTesting()
 		setupInstallationDateForTesting()
 		setupAntigenTestProfileForTesting()
+		setupSelectedRegionsForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -864,53 +865,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
-
-	#if DEBUG
-	private func setupOnboardingForTesting() {
-		if isUITesting {
-			// Only disable onboarding if it was explicitly set to "NO"
-			if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
-				store.isOnboarded = isOnboarded != "NO"
-			}
-
-			if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
-				store.onboardingVersion = onboardingVersion
-			}
-
-			if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
-				store.finishedDeltaOnboardings = [:]
-			}
-
-			if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
-				store.onboardingVersion = Bundle.main.appVersion
-			}
-		}
-	}
-
-	private func setupDatadonationForTesting() {
-		if isUITesting {
-			store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
-		}
-	}
-
-	private func setupInstallationDateForTesting() {
-		if isUITesting, let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
-			let installationDays = Int(installationDaysString) ?? 0
-			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
-			store.appInstallationDate = date
-		}
-	}
-
-	private func setupAntigenTestProfileForTesting() {
-		if isUITesting {
-			store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
-			if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
-				store.antigenTestProfile = nil
-			}
-		}
-	}
-	
-	#endif
 
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
