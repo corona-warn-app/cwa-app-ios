@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		#if DEBUG
 		setupOnboardingForTesting()
-		setupDatadonationForTesting()
+		setupDataDonationForTesting()
 		setupInstallationDateForTesting()
 		setupAntigenTestProfileForTesting()
 		setupSelectedRegionsForTesting()

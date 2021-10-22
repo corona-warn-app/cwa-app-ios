@@ -25,7 +25,7 @@ extension AppDelegate {
 		}
 	}
 
-	func setupDatadonationForTesting() {
+	func setupDataDonationForTesting() {
 		if isUITesting {
 			store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
 		}
