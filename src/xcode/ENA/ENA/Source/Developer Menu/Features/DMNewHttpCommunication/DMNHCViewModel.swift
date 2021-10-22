@@ -86,13 +86,20 @@ final class DMNHCViewModel {
 							  Log.error("no textfield found")
 							  return
 						  }
-					let resource = TeleTanResource(sendModel: KeyModel(key: teleTan, keyType: "TELETAN"))
+					let resource = TeleTanResource(sendModel: KeyModel(key: teleTan, keyType: .teleTan))
 					self?.restService.load(resource) { result in
 						switch result {
 						case .success:
 							Log.info("New HTTP Call for Registration Token successful")
-						case .failure:
-							Log.error("New HTTP Call for Registration Token failed")
+						case let .failure(serviceError):
+							switch resource.map(serviceError: serviceError) {
+							case .teleTanAlreadyUsed:
+								Log.error("TeleTan already used")
+							case .qrCodeisInvalid:
+								Log.error("QRCode is invalid")
+							case .unknown:
+								Log.error("Unknown TeleTanError")
+							}
 						}
 					}
 

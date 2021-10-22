@@ -69,7 +69,11 @@ extension Service {
 					cached(resource.receiveResource, resource.locator, completion)
 
 				default:
-					completion(.failure(.unexpectedResponse(response.statusCode)))
+					if let resourceError = resource.customError(statusCode: response.statusCode) {
+						completion(.failure(.resourceError(.special(resourceError))))
+					} else {
+						completion(.failure(.unexpectedResponse(response.statusCode)))
+					}
 				}
 			}.resume()
 		}
