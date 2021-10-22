@@ -30,7 +30,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      xcversion(version: "~> 13.0.0")
+      xcversion(version: "~> 13.1.0")
     end
   end
 
@@ -65,9 +65,12 @@ platform :ios do
         testplan: testPlan,
         only_test_configurations: ["DE"],
         devices: ["iPhone 13"],
-        prelaunch_simulator: true,
+        prelaunch_simulator: false,
+        skip_package_dependencies_resolution: true,
+        disable_package_automatic_updates: true,
         result_bundle: true,
         code_coverage: true,
+        number_of_retries: 1, #take this you flaky tests
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
       )
