@@ -6,8 +6,8 @@
 The errors that can occur while using the service and calling http methods.
 */
 enum ServiceError<RE>: Error, Equatable where RE: Error {
-	case serverError(Error?)
-	case unexpectedResponse(Int)
+	case transportationError(Error?)
+	case unexpectedServerError(Int)
 	case resourceError(ResourceError?)
 	case receivedResourceError(RE)
 
@@ -16,14 +16,14 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 	static func == (lhs: ServiceError, rhs: ServiceError) -> Bool {
 		switch (lhs, rhs) {
 
-		case let (.serverError(lError), .serverError(rError)):
+		case let (.transportationError(lError), .transportationError(rError)):
 			return lError?.localizedDescription == rError?.localizedDescription
-		case (.serverError, _):
+		case (.transportationError, _):
 			return false
 
-		case let (.unexpectedResponse(lInt), .unexpectedResponse(rInt)):
+		case let (.unexpectedServerError(lInt), .unexpectedServerError(rInt)):
 			return lInt == rInt
-		case (.unexpectedResponse, _):
+		case (.unexpectedServerError, _):
 			return false
 
 		case let (.resourceError(lResourceError), .resourceError(rResourceError)):

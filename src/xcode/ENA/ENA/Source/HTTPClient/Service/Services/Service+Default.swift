@@ -46,13 +46,13 @@ extension Service {
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
-			completion(.failure(.serverError(resourceError)))
+			completion(.failure(.transportationError(resourceError)))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				guard error == nil,
 					  let response = response as? HTTPURLResponse else {
 					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
-					completion(.failure(.serverError(error)))
+					completion(.failure(.transportationError(error)))
 					return
 				}
 				#if DEBUG
@@ -72,7 +72,7 @@ extension Service {
 					if let resourceError = resource.customError(statusCode: response.statusCode) {
 						completion(.failure(ServiceError<R.CustomError>.receivedResourceError(resourceError)))
 					} else {
-						completion(.failure(.unexpectedResponse(response.statusCode)))
+						completion(.failure(.unexpectedServerError(response.statusCode)))
 					}
 				}
 			}.resume()
