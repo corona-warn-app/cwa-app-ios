@@ -35,6 +35,7 @@ enum ResourceError: Error, Equatable {
 
 	// MARK: - Protocol Equatable
 
+	// swiftlint:disable cyclomatic_complexity
 	static func == (lhs: ResourceError, rhs: ResourceError) -> Bool {
 		switch (lhs, rhs) {
 		case (.missingData, .missingData):
@@ -71,8 +72,10 @@ enum ResourceError: Error, Equatable {
 		case (.undefined, _):
 			return false
 
-		case let (.special(LInner), RInner):
+		case let (.special(LInner), .special(RInner)):
 			return LInner.localizedDescription == RInner.localizedDescription
+		case (.special, _):
+			return false
 		}
 	}
 }
