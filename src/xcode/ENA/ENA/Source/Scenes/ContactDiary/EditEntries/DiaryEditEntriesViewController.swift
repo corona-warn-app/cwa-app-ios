@@ -107,6 +107,10 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 					tableView.deleteRows(at: [indexPath], with: .automatic)
 				}, completion: { _ in
 					self.shouldReload = true
+
+					if self.viewModel.entries.isEmpty {
+						self.onDismiss()
+					}
 				})
 			}
 		)
@@ -164,6 +168,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 					)
 				}, completion: { _ in
 					self.shouldReload = true
+					self.onDismiss()
 				})
 			}
 		)
