@@ -367,6 +367,9 @@ workflows:
                 - /^v.*/
             branches:
               ignore: /.*/
+      - build-for-testing:
+          requires:
+            - dependencies
       - test:
           requires:
             - build-for-testing
