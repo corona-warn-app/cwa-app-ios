@@ -284,6 +284,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 				self?.updateFor(isEditing: true)
 			}
 		)
+		editAction.isEnabled = !viewModel.isEmpty
 		actionSheet.addAction(editAction)
 
 		let onBehalfCheckinSubmissionAction = UIAlertAction(
