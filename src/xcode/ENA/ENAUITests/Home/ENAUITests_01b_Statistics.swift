@@ -29,27 +29,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
 		
-		// checking if all five cards exist
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		statisticsCell.swipeLeft()
-		
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		statisticsCell.swipeLeft()
-		
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		statisticsCell.swipeLeft()
-		
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		statisticsCell.swipeLeft()
-		
-		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
-		
-		// coming back to the add region button
-		statisticsCell.swipeRight()
-		statisticsCell.swipeRight()
-		statisticsCell.swipeRight()
-		statisticsCell.swipeRight()
 		statisticsCell.swipeRight()
 
 		// check for the text for the add button
