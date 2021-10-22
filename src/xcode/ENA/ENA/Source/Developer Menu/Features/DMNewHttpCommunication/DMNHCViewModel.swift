@@ -92,14 +92,17 @@ final class DMNHCViewModel {
 						case .success:
 							Log.info("New HTTP Call for Registration Token successful")
 						case let .failure(serviceError):
-							switch resource.map(serviceError) {
-							case .teleTanAlreadyUsed:
-								Log.error("TeleTan already used")
-							case .qrCodeInvalid:
-								Log.error("QRCode is invalid")
-							case .unknown:
-								Log.error("Unknown TeleTanError")
+							if case let .receivedResourceError(teleTanError) = serviceError {
+								switch teleTanError {
+								case .teleTanAlreadyUsed:
+									Log.error(".teleTanAlreadyUsed")
+								case .qrCodeInvalid:
+									Log.error(".qrCodeInvalid")
+								case .unknown:
+									Log.error(".unknown")
+								}
 							}
+
 						}
 					}
 

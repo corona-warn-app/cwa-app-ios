@@ -41,15 +41,6 @@ struct TeleTanResource: Resource {
 		}
 	}
 
-	func map(_ error: ServiceError) -> TeleTanError {
-		guard case let .resourceError(resourceError) = error,
-		   case let .special(customError) = resourceError,
-		   let tanError = customError as? TeleTanError else {
-			   return .unknown
-		}
-		return tanError
-	}
-
 	// MARK: - Private
 
 	private let keyModel: KeyModel

@@ -5,10 +5,11 @@
 /**
 The errors that can occur while using the service and calling http methods.
 */
-enum ServiceError: Error, Equatable {
+enum ServiceError<RE>: Error, Equatable where RE: Error {
 	case serverError(Error?)
 	case unexpectedResponse(Int)
 	case resourceError(ResourceError?)
+	case receivedResourceError(RE)
 
 	// MARK: - Protocol Equatable
 
@@ -28,6 +29,10 @@ enum ServiceError: Error, Equatable {
 		case let (.resourceError(lResourceError), .resourceError(rResourceError)):
 			return lResourceError == rResourceError
 		case (.resourceError, _):
+			return false
+
+			// toDo: equal cases
+		case (.receivedResourceError(_), _):
 			return false
 		}
 	}
