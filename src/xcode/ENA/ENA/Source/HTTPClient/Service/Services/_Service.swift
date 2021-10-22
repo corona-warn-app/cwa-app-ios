@@ -27,12 +27,10 @@ protocol Service {
 	///   - sendResource: Generic ("S") object of type SendResource. This is afaik the object to be send in the body of the http request.
 	///   - receiveResource: Generic ("R") object of type ReceiveResource. This is afaik the object to be received in the body of the http response.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call and is defined in the receiveResource parameter. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
-	func load<S, R>(
-		_ locator: Locator,
-		_ sendResource: S,
-		_ receiveResource: R,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where S: SendResource, R: ReceiveResource
+	func load<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError>) -> Void
+	) where R: Resource
 	
 	/// creates the url for the http call.
 	///

@@ -23,7 +23,7 @@ class RestServiceProvider: RestServiceProviding {
 		// dispatch loading to the correct rest service
 		switch resource.type {
 		case .default:
-			restService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
+			restService.load(resource, completion)
 		case .caching:
 			Log.error("Not yet implemented")
 		case .wifiOnly:

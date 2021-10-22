@@ -40,14 +40,11 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	func load<S, R>(
-		_ locator: Locator,
-		_ sendResource: S,
-		_ receiveResource: R,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where S: SendResource, R: ReceiveResource {
-		
-		switch urlRequest(locator, sendResource, receiveResource) {
+	func load<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError>) -> Void
+	) where R: Resource {
+		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			completion(.failure(.serverError(resourceError)))
 		case let .success(request):
@@ -63,13 +60,13 @@ extension Service {
 				#endif
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(receiveResource, locator, bodyData, response, completion)
+					decodeModel(resource.receiveResource, resource.locator, bodyData, response, completion)
 
 				case 202...204:
 					completion(.success(nil))
 
 				case 304:
-					cached(receiveResource, locator, completion)
+					cached(resource.receiveResource, resource.locator, completion)
 
 				default:
 					completion(.failure(.unexpectedResponse(response.statusCode)))
