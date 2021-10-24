@@ -62,7 +62,7 @@ final class ExposureDetection {
 		case .success(let exposureWindows):
 			didDetectExposureWindows(exposureWindows)
 		case .failure(let error):
-			endPrematurely(reason: .noExposureWindows(error))
+			endPrematurely(reason: .noExposureWindows(error, Date()))
 		}
 	}
 

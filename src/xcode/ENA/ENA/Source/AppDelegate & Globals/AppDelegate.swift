@@ -703,10 +703,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noExposureWindows(error):
+			case let .noExposureWindows(error, date):
 				return makeAlertController(
 					noExposureWindowsError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					date: date,
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
@@ -732,7 +733,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, date: Date, rootController: UIViewController) -> UIAlertController? {
 
 		if let enError = noExposureWindowsError as? ENError {
 			switch enError.code {
@@ -746,7 +747,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					}
 				}()
 				return rootController.setupErrorAlert(
-					message: localizedDescription,
+					message: localizedDescription + "\n\(date)",
 					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 					secondaryActionCompletion: openFAQ
 				)
