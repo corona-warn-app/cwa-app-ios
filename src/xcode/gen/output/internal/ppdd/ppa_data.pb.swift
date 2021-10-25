@@ -614,6 +614,8 @@ struct SAP_Internal_Ppdd_PPATestResultMetadata {
 
   var ptHoursSinceHighRiskWarningAtTestRegistration: Int32 = 0
 
+  var exposureWindowsAtTestRegistration: [SAP_Internal_Ppdd_PPANewExposureWindow] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -1143,6 +1145,7 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
     6: .same(proto: "ptRiskLevelAtTestRegistration"),
     7: .same(proto: "ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration"),
     8: .same(proto: "ptHoursSinceHighRiskWarningAtTestRegistration"),
+    9: .same(proto: "exposureWindowsAtTestRegistration"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1159,6 +1162,7 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
       case 6: try { try decoder.decodeSingularEnumField(value: &self.ptRiskLevelAtTestRegistration) }()
       case 7: try { try decoder.decodeSingularInt32Field(value: &self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
       case 8: try { try decoder.decodeSingularInt32Field(value: &self.ptHoursSinceHighRiskWarningAtTestRegistration) }()
+      case 9: try { try decoder.decodeRepeatedMessageField(value: &self.exposureWindowsAtTestRegistration) }()
       default: break
       }
     }
@@ -1189,6 +1193,9 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
     if self.ptHoursSinceHighRiskWarningAtTestRegistration != 0 {
       try visitor.visitSingularInt32Field(value: self.ptHoursSinceHighRiskWarningAtTestRegistration, fieldNumber: 8)
     }
+    if !self.exposureWindowsAtTestRegistration.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.exposureWindowsAtTestRegistration, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1201,6 +1208,7 @@ extension SAP_Internal_Ppdd_PPATestResultMetadata: SwiftProtobuf.Message, SwiftP
     if lhs.ptRiskLevelAtTestRegistration != rhs.ptRiskLevelAtTestRegistration {return false}
     if lhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration != rhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration {return false}
     if lhs.ptHoursSinceHighRiskWarningAtTestRegistration != rhs.ptHoursSinceHighRiskWarningAtTestRegistration {return false}
+    if lhs.exposureWindowsAtTestRegistration != rhs.exposureWindowsAtTestRegistration {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
