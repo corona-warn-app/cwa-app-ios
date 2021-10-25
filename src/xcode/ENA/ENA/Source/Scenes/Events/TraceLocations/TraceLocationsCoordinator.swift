@@ -11,6 +11,7 @@ class TraceLocationsCoordinator {
 	
 	init(
 		store: Store,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
@@ -19,6 +20,7 @@ class TraceLocationsCoordinator {
 		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.store = store
+		self.restServiceProvider = restServiceProvider
 		self.appConfig = appConfig
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
@@ -46,6 +48,7 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 	
 	private let store: Store
+	private let restServiceProvider: RestServiceProviding
 	private let appConfig: AppConfigurationProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let qrCodeErrorCorrectionLevelProvider = QRCodeErrorCorrectionLevelProvider()
@@ -284,6 +287,7 @@ class TraceLocationsCoordinator {
 	private func showOnBehalfCheckinSubmissionFlow() {
 		onBehalfCheckinSubmissionCoordinator = OnBehalfCheckinSubmissionCoordinator(
 			parentViewController: parentNavigationController,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			eventStore: eventStore,
 			client: client,

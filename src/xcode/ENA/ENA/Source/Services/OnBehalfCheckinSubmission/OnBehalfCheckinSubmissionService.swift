@@ -10,6 +10,7 @@ class OnBehalfCheckinSubmissionService {
 	// MARK: - Init
 
 	init(
+		restServiceProvider: RestServiceProviding,
 		client: Client,
 		appConfigurationProvider: AppConfigurationProviding
 	) {
@@ -17,6 +18,7 @@ class OnBehalfCheckinSubmissionService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.appConfigurationProvider = CachedAppConfigurationMock()
+			self.restServiceProvider = restServiceProvider
 
 			return
 		}
@@ -24,6 +26,7 @@ class OnBehalfCheckinSubmissionService {
 
 		self.client = client
 		self.appConfigurationProvider = appConfigurationProvider
+		self.restServiceProvider = restServiceProvider
 	}
 
 	// MARK: - Internal
@@ -77,6 +80,7 @@ class OnBehalfCheckinSubmissionService {
 
 	// MARK: - Private
 
+	private let restServiceProvider: RestServiceProviding
 	private let client: Client
 	private let appConfigurationProvider: AppConfigurationProviding
 
@@ -84,15 +88,43 @@ class OnBehalfCheckinSubmissionService {
 
 	private func getRegistrationToken(
 		for tan: String,
-		completion: @escaping (Result<String, URLSession.Response.Failure>) -> Void
+		completion: @escaping (Result<String, ServiceError<TeleTanError>>) -> Void
 	) {
-		client.getRegistrationToken(
-			forKey: tan,
-			withType: "TELETAN",
-			dateOfBirthKey: nil,
-			isFake: false,
-			completion: completion
+		let resource = TeleTanResource(
+			isFake: true,
+			sendModel: KeyModel(
+				key: tan,
+				type: .teleTan,
+				dateOfBirthKey: nil
+			)
 		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success(let model):
+				guard let model = model else {
+					completion(.failure(.unknown))
+					return
+				}
+
+				guard let token = model.registrationToken else {
+					completion(.failure(.receivedResourceError(.invalidResponse)))
+					return
+				}
+
+				completion(.success(token))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+
+//		client.getRegistrationToken(
+//			forKey: tan,
+//			withType: "TELETAN",
+//			dateOfBirthKey: nil,
+//			isFake: false,
+//			completion: completion
+//		)
 	}
 
 	private func getSubmissionTAN(

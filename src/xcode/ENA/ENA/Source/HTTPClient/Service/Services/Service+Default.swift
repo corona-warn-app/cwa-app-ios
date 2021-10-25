@@ -49,27 +49,47 @@ extension Service {
 			completion(.failure(.transportationError(resourceError)))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
-				guard error == nil,
-					  let response = response as? HTTPURLResponse else {
-					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
+				if let error = error {
 					completion(.failure(.transportationError(error)))
+				}
+
+				guard let response = response as? HTTPURLResponse else {
+					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
+					completion(.failure(.unknown))
 					return
 				}
+
 				#if DEBUG
 				Log.debug("URL Response \(response.statusCode)", log: .client)
 				#endif
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(resource, bodyData, response, completion)
+					decodeModel(resource, bodyData, response, { result in
+						switch result {
+						case .success(let model):
+							guard let model = model else {
+								completion(.failure(.invalidResponse))
+								return
+							}
+							if let modelError = resource.customModelError(model: model) {
+								completion(.failure(ServiceError<R.CustomError>.receivedResourceError(modelError)))
+							} else {
+								completion(.success(model))
+							}
+						case .failure(let error):
+							completion(.failure(error))
+						}
+					})
 
-				case 202...204:
-					completion(.success(nil))
+				// ToDo: Mit Kai abstimmen
+//				case 202...204:
+//					completion(.success(nil))
 
 				case 304:
 					cached(resource, completion)
 
 				default:
-					if let resourceError = resource.customError(statusCode: response.statusCode) {
+					if let resourceError = resource.customStatusCodeError(statusCode: response.statusCode) {
 						completion(.failure(ServiceError<R.CustomError>.receivedResourceError(resourceError)))
 					} else {
 						completion(.failure(.unexpectedServerError(response.statusCode)))

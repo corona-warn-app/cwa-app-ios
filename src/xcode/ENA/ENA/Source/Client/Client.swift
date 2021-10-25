@@ -61,6 +61,7 @@ protocol Client {
 	///   - dateOfBirthKey: Optional and only needed for PCR tests. Expects the guid concatenated with the date of birth (format: "ddMMyyyy"), hashed with SHA256 and the first character of that hash replaced by an "x".
 	///   - isFake: Set to true if we want this request as a fake request
 	///   - completion: the completion handler of the call
+	@available(*, deprecated)
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String,

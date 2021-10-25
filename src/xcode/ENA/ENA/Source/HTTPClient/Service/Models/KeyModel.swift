@@ -6,9 +6,8 @@ import Foundation
 
 struct KeyModel: PaddingResource {
 	let key: String
-	let keyType: KeyType
-	// we might need dob later here
-	var requestPadding: String = ""
+	let type: KeyType
+	let dateOfBirthKey: String?
 }
 
 enum KeyType: String, Encodable {

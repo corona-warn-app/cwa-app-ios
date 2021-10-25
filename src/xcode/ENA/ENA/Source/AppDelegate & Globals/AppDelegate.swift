@@ -442,6 +442,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private let recycleBin: RecycleBin
 
+	private let restServiceProvider = RestServiceProvider()
+
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -746,7 +748,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 		elsService: elsService,
-		recycleBin: recycleBin
+		recycleBin: recycleBin,
+		restServiceProvider: restServiceProvider
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

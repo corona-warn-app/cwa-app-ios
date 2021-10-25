@@ -24,9 +24,7 @@ struct JSONSendResource<S>: SendResource where S: Encodable & PaddingResource {
 			return .success(nil)
 		}
 		do {
-			var paddingModel = model
-			paddingModel.requestPadding = model.paddingCount
-			let data = try encoder.encode(paddingModel)
+			let data = try encoder.encode(model)
 			return Result.success(data)
 		} catch {
 			return Result.failure(.encoding)
