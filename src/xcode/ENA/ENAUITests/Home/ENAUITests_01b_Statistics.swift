@@ -47,6 +47,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
+		// Wait and check for the navbar to make sure App is really launched, otherwise the swipe will do nothing
+		let leftNavbarButton = app.images[AccessibilityIdentifiers.Home.leftBarButtonDescription]
+		XCTAssertTrue(leftNavbarButton.waitForExistence(timeout: .medium))
 		app.swipeUp(velocity: .slow)
 		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
@@ -81,7 +84,6 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
 		statisticsCell.buttons[modifyButton].waitAndTap()
 		
-		app.buttons[modifyButton].swipeLeft()
 		XCTAssertTrue(deleteButton.waitForExistence(timeout: .medium))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
