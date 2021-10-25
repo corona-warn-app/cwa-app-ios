@@ -307,7 +307,13 @@ class CoronaTestService {
 			self.antigenTest = antigenTest
 		}
 
-		// TODO: PPA
+		if coronaTest.testResult != .pending {
+			createKeySubmissionMetadataDefaultValues(for: coronaTest)
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), coronaTest.registrationToken ?? "", coronaTest.type)))
+			Analytics.collect(.testResultMetadata(.updateTestResult(coronaTest.testResult, coronaTest.registrationToken ?? "", coronaTest.type)))
+		} else {
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), coronaTest.registrationToken ?? "", coronaTest.type)))
+		}
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
