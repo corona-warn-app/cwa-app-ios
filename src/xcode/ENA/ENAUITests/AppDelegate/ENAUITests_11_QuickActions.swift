@@ -8,7 +8,7 @@ import ExposureNotification
 class ENAUITests_11_QuickActions: CWATestCase {
 
 	private let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-	private lazy var cwaBundleDisplayName = { XCUIApplication().label }() // "Corona-Warn"
+	private lazy var cwaBundleDisplayName = "Corona-Warn" // "Corona-Warn"
 	/// The translated label string as we can't (?) use any identifiers there
 	private lazy var newDiaryEntryLabel = XCUIApplication().localized(AppStrings.QuickActions.contactDiaryNewEntry)
 	private lazy var eventCheckinLabel = XCUIApplication().localized(AppStrings.QuickActions.eventCheckin)
