@@ -1,9 +1,9 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v11-{{ checksum "src/xcode/Gemfile.lock" }}
-  - tools_cache_key: &tools_cache_key v5-{{ checksum "Brewfile.lock.json" }}
-  - xcode_version: &xcode_version 13.0.0
+  - cache_key: &cache_key v12-{{ checksum "src/xcode/Gemfile.lock" }}
+  - tools_cache_key: &tools_cache_key v6-{{ checksum "Brewfile.lock.json" }}
+  - xcode_version: &xcode_version 13.1.0
   - resource_class: &resource_class large
 
 ###
@@ -132,7 +132,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test_without_building testplan:<<parameters.testplan>>
+          command: cd src/xcode && bundle exec fastlane test testplan:<<parameters.testplan>>
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
@@ -321,7 +321,7 @@ workflows:
             parameters:
               testplan: ["AllTests"]
           requires:
-            - dependencies
+            - build-for-testing
           filters:
             branches:
               only:
@@ -367,9 +367,12 @@ workflows:
                 - /^v.*/
             branches:
               ignore: /.*/
-      - test:
+      - build-for-testing:
           requires:
             - dependencies
+      - test:
+          requires:
+            - build-for-testing
           filters:
             tags:
               only:
