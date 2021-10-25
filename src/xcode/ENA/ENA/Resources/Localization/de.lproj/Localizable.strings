@@ -2071,7 +2071,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_IntensiveCare_Today" = "Bis heute";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Bis gestern";
+"Statistics_Card_IntensiveCare_Yesterday" = "Gestern";
 
 "Statistics_Card_IntensiveCare_Date" = "Bis %@";
 
