@@ -91,7 +91,6 @@ class OnBehalfCheckinSubmissionService {
 		completion: @escaping (Result<String, ServiceError<TeleTanError>>) -> Void
 	) {
 		let resource = TeleTanResource(
-			isFake: true,
 			sendModel: KeyModel(
 				key: tan,
 				keyType: .teleTan,
@@ -117,14 +116,6 @@ class OnBehalfCheckinSubmissionService {
 				completion(.failure(error))
 			}
 		}
-
-//		client.getRegistrationToken(
-//			forKey: tan,
-//			withType: "TELETAN",
-//			dateOfBirthKey: nil,
-//			isFake: false,
-//			completion: completion
-//		)
 	}
 
 	private func getSubmissionTAN(

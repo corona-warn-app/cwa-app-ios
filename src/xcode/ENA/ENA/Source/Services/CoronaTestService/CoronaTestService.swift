@@ -578,7 +578,6 @@ class CoronaTestService {
 		completion: @escaping RegistrationResultHandler
 	) {
 		let resource = TeleTanResource(
-			isFake: true,
 			sendModel: KeyModel(
 				key: key,
 				keyType: type,
@@ -604,20 +603,6 @@ class CoronaTestService {
 				completion(.failure(.serviceError(error)))
 			}
 		}
-
-//		client.getRegistrationToken(
-//			forKey: key,
-//			withType: type,
-//			dateOfBirthKey: dateOfBirthKey,
-//			isFake: false
-//		) { result in
-//			switch result {
-//			case let .failure(error):
-//				completion(.failure(.responseFailure(error)))
-//			case let .success(registrationToken):
-//				completion(.success(registrationToken))
-//			}
-//		}
 	}
 
 	private func hashedKey(dateOfBirthString: String, guid: String) -> String? {
