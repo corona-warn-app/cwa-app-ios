@@ -34,8 +34,8 @@ struct TeleTanResource: Resource {
 		switch (keyModel.keyType, statusCode) {
 		case (.teleTan, 400):
 			return .teleTanAlreadyUsed
-		case (.qrCode, 400):
-			return .qrCodeInvalid
+		case (_, 400):
+			return .qrAlreadyUsed
 		default:
 			return nil
 		}
@@ -57,6 +57,6 @@ struct TeleTanResource: Resource {
 
 enum TeleTanError: Error {
 	case teleTanAlreadyUsed
-	case qrCodeInvalid
+	case qrAlreadyUsed
 	case invalidResponse
 }

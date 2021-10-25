@@ -102,7 +102,7 @@ final class DMNHCViewModel {
 								switch teleTanError {
 								case .teleTanAlreadyUsed:
 									Log.error(".teleTanAlreadyUsed")
-								case .qrCodeInvalid:
+								case .qrAlreadyUsed:
 									Log.error(".qrCodeInvalid")
 								case .invalidResponse:
 									Log.error(".invalidResponse")

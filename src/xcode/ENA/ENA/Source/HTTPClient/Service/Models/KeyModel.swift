@@ -5,7 +5,7 @@
 import Foundation
 
 struct KeyModel: PaddingResource {
-	// Don't change names, they are used as keys for a http request.
+	// Don't change these names, they are used as keys for a http request.
 	let key: String
 	let keyType: KeyType
 	let keyDob: String?
@@ -15,6 +15,6 @@ struct KeyModel: PaddingResource {
 
 enum KeyType: String, Encodable {
 	case teleTan = "TELETAN"
-	case qrCode = "QRCode"  // don't know if this is correct right now
+	case qrCode = "QRCode"
 	case guid = "GUID"
 }

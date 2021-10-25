@@ -16,7 +16,7 @@ enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 			switch failure {
 			case .receivedResourceError(let teletanError):
 				switch teletanError {
-				case .teleTanAlreadyUsed, .qrCodeInvalid:
+				case .teleTanAlreadyUsed, .qrAlreadyUsed:
 					return "\(AppStrings.OnBehalfCheckinSubmission.Error.invalidTAN) (REGTOKEN_OB_CLIENT_ERROR)"
 				case .invalidResponse:
 					return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(teletanError))"
