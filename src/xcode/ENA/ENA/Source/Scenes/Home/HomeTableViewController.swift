@@ -464,7 +464,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
-				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
+				guard let self = self else { return }
+
+				if self.viewModel.shouldShowDeletionConfirmationAlert(for: coronaTestType) {
+					self.showDeletionConfirmationAlert(for: coronaTestType)
+				} else {
+					self.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
+				}
 			}
 		)
 
@@ -845,6 +851,35 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		present(tooltipViewController, animated: true) { [weak self] in
 			self?.viewModel.store.shouldShowQRScannerTooltip = false
 		}
+	}
+
+	private func showDeletionConfirmationAlert(for coronaTestType: CoronaTestType) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
+			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
+			preferredStyle: .alert
+		)
+
+		let cancelAction = UIAlertAction(
+			title: AppStrings.Common.alertActionCancel,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+
+		let deleteAction = UIAlertAction(
+			title: AppStrings.ExposureSubmissionResult.removeAlert_ConfirmButtonTitle,
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.viewModel.moveTestToBin(type: coronaTestType)
+			}
+		)
+
+		alert.addAction(deleteAction)
+		alert.addAction(cancelAction)
+
+		present(alert, animated: true, completion: nil)
 	}
 
 	@objc
