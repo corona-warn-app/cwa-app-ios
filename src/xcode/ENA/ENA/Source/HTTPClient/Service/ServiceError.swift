@@ -15,6 +15,7 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 
 	// MARK: - Protocol Equatable
 
+	// swiftlint:disable cyclomatic_complexity
 	static func == (lhs: ServiceError, rhs: ServiceError) -> Bool {
 		switch (lhs, rhs) {
 		case let (.transportationError(lError), .transportationError(rError)):

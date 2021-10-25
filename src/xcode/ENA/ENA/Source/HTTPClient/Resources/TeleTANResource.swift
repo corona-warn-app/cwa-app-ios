@@ -31,7 +31,7 @@ struct TeleTanResource: Resource {
 	var receiveResource: JSONReceiveResource<GetRegistrationTokenResponse>
 
 	func customStatusCodeError(statusCode: Int) -> TeleTanError? {
-		switch (keyModel.type, statusCode) {
+		switch (keyModel.keyType, statusCode) {
 		case (.teleTan, 400):
 			return .teleTanAlreadyUsed
 		case (.qrCode, 400):

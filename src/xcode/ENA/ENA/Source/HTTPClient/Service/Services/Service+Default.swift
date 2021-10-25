@@ -65,20 +65,11 @@ extension Service {
 				switch response.statusCode {
 				case 200, 201:
 					decodeModel(resource, bodyData, response, { result in
-						switch result {
-						case .success(let model):
-							guard let model = model else {
-								completion(.failure(.invalidResponse))
-								return
-							}
-							if let modelError = resource.customModelError(model: model) {
-								completion(.failure(ServiceError<R.CustomError>.receivedResourceError(modelError)))
-							} else {
-								completion(.success(model))
-							}
-						case .failure(let error):
-							completion(.failure(error))
-						}
+						handleDecodingResult(
+							result: result,
+							resource: resource,
+							completion: completion
+						)
 					})
 
 				// ToDo: Mit Kai abstimmen
@@ -125,5 +116,27 @@ extension Service {
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
 		return nil
+	}
+
+	private func handleDecodingResult<R: Resource>(
+		result: Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>,
+		resource: R,
+		completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+	) {
+
+		switch result {
+		case .success(let model):
+			guard let model = model else {
+				completion(.failure(.invalidResponse))
+				return
+			}
+			if let modelError = resource.customModelError(model: model) {
+				completion(.failure(ServiceError<R.CustomError>.receivedResourceError(modelError)))
+			} else {
+				completion(.success(model))
+			}
+		case .failure(let error):
+			completion(.failure(error))
+		}
 	}
 }

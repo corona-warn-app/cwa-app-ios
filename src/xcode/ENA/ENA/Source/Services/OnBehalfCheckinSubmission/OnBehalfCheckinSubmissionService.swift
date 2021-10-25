@@ -94,8 +94,8 @@ class OnBehalfCheckinSubmissionService {
 			isFake: true,
 			sendModel: KeyModel(
 				key: tan,
-				type: .teleTan,
-				dateOfBirthKey: nil
+				keyType: .teleTan,
+				keyDob: nil
 			)
 		)
 

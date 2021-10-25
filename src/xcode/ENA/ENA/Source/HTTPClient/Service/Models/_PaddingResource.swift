@@ -8,12 +8,13 @@ import Foundation
 /// all(?) JSON SendResources will use that
 
 protocol PaddingResource: Encodable {
-	var requestPadding: String { get }
+	var requestPadding: String { get set }
+	var paddingCount: String { get }
 }
 
 extension PaddingResource {
 
-	var requestPadding: String {
+	var paddingCount: String {
 		let maxRequestPayloadSize = 250
 		guard let paddedData = try? JSONEncoder().encode(self) else {
 			fatalError("padding count error")

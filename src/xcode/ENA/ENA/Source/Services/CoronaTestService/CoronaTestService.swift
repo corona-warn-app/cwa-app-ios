@@ -19,6 +19,7 @@ class CoronaTestService {
 
 	init(
 		client: Client,
+		restServiceProvider: RestServiceProvider,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
@@ -29,6 +30,7 @@ class CoronaTestService {
 		#if DEBUG
 		if isUITesting {
 			self.client = ClientMock()
+			self.restServiceProvider = restServiceProvider
 			self.store = MockTestStore()
 			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
@@ -50,6 +52,7 @@ class CoronaTestService {
 		#endif
 
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
 		self.diaryStore = diaryStore
@@ -110,7 +113,7 @@ class CoronaTestService {
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
-			withType: "GUID",
+			withType: .guid,
 			dateOfBirthKey: dateOfBirthKey,
 			completion: { [weak self] result in
 				switch result {
@@ -155,13 +158,13 @@ class CoronaTestService {
 	func registerPCRTest(
 		teleTAN: String,
 		isSubmissionConsentGiven: Bool,
-		completion: @escaping VoidResultHandler
+		completion: @escaping (Result<Void, CoronaTestServiceError>) -> Void
 	) {
 		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(private: teleTAN, public: "teleTAN ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: teleTAN,
-			withType: "TELETAN",
+			withType: .teleTan,
 			dateOfBirthKey: nil,
 			completion: { [weak self] result in
 				self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
@@ -245,7 +248,7 @@ class CoronaTestService {
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
-			withType: "GUID",
+			withType: .guid,
 			dateOfBirthKey: nil,
 			completion: { [weak self] result in
 				switch result {
@@ -512,6 +515,7 @@ class CoronaTestService {
 	// MARK: - Private
 
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
 	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
@@ -569,23 +573,51 @@ class CoronaTestService {
 	
 	private func getRegistrationToken(
 		forKey key: String,
-		withType type: String,
+		withType type: KeyType,
 		dateOfBirthKey: String?,
 		completion: @escaping RegistrationResultHandler
 	) {
-		client.getRegistrationToken(
-			forKey: key,
-			withType: type,
-			dateOfBirthKey: dateOfBirthKey,
-			isFake: false
-		) { result in
+		let resource = TeleTanResource(
+			isFake: true,
+			sendModel: KeyModel(
+				key: key,
+				keyType: type,
+				keyDob: dateOfBirthKey
+			)
+		)
+
+		restServiceProvider.load(resource) { result in
 			switch result {
-			case let .failure(error):
-				completion(.failure(.responseFailure(error)))
-			case let .success(registrationToken):
-				completion(.success(registrationToken))
+			case .success(let model):
+				guard let model = model else {
+					completion(.failure(.serviceError(.unknown)))
+					return
+				}
+
+				guard let token = model.registrationToken else {
+					completion(.failure(.serviceError(.receivedResourceError(.invalidResponse))))
+					return
+				}
+
+				completion(.success(token))
+			case .failure(let error):
+				completion(.failure(.serviceError(error)))
 			}
 		}
+
+//		client.getRegistrationToken(
+//			forKey: key,
+//			withType: type,
+//			dateOfBirthKey: dateOfBirthKey,
+//			isFake: false
+//		) { result in
+//			switch result {
+//			case let .failure(error):
+//				completion(.failure(.responseFailure(error)))
+//			case let .success(registrationToken):
+//				completion(.success(registrationToken))
+//			}
+//		}
 	}
 
 	private func hashedKey(dateOfBirthString: String, guid: String) -> String? {

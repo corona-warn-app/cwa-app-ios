@@ -89,8 +89,8 @@ final class DMNHCViewModel {
 					let resource = TeleTanResource(
 						sendModel: KeyModel(
 							key: teleTan,
-							type: .teleTan,
-							dateOfBirthKey: nil
+							keyType: .teleTan,
+							keyDob: nil
 						)
 					)
 					self?.restService.load(resource) { result in

@@ -250,6 +250,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var coronaTestService: CoronaTestService = {
 		return CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
