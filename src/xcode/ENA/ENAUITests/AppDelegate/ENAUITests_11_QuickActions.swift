@@ -102,11 +102,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(continueButton.isEnabled)
 
-		"qwdzxcsrhe".forEach {
-			app.keyboards.keys[String($0)].waitAndTap()
-		}
 
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
 		XCTAssertTrue(continueButton.isEnabled)
