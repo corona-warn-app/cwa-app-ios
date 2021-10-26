@@ -3010,7 +3010,67 @@ class CoronaTestServiceTests: CWATestCase {
 
 	// MARK: - Test Removal
 
-	// TODO: MoveToBin Test
+	func testMovingCoronaTestToBin() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		let recycleBin = RecycleBin(store: store)
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				),
+				recycleBin: recycleBin
+			),
+			recycleBin: recycleBin
+		)
+
+		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+
+		XCTAssertNotNil(service.pcrTest)
+		XCTAssertNotNil(service.antigenTest)
+		XCTAssertTrue(store.recycleBinItems.isEmpty)
+		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
+
+		service.moveTestToBin(.pcr)
+
+		XCTAssertNil(service.pcrTest)
+		XCTAssertNotNil(service.antigenTest)
+		XCTAssertEqual(store.recycleBinItems.count, 1)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
+
+		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken2")
+
+		XCTAssertNotNil(service.pcrTest)
+		XCTAssertNotNil(service.antigenTest)
+
+		service.moveTestToBin(.antigen)
+
+		XCTAssertNotNil(service.pcrTest)
+		XCTAssertNil(service.antigenTest)
+		XCTAssertEqual(store.recycleBinItems.count, 2)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
+
+		service.moveTestToBin(.pcr)
+
+		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(service.antigenTest)
+		XCTAssertEqual(store.recycleBinItems.count, 3)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
+	}
+
 	func testDeletingCoronaTest() {
 		let client = ClientMock()
 		let store = MockTestStore()

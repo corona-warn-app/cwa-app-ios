@@ -116,7 +116,6 @@ class HomeTableViewModel {
 		}
 	}
 
-	// TODO: Unit tests
 	func shouldShowDeletionConfirmationAlert(for coronaTestType: CoronaTestType) -> Bool {
 		coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired
 	}
