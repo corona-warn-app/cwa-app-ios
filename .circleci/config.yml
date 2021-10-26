@@ -171,7 +171,7 @@ jobs:
           paths:
             - ~/sonar/
 
-  test-community:
+  build-community:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
@@ -181,13 +181,9 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run Fastlane smoke tests
-          command: cd src/xcode && bundle exec fastlane test_community
+          name: Build Community
+          command: cd src/xcode && bundle exec fastlane build_community
           no_output_timeout: 10m
-      - store_test_results:
-          path: src/xcode/fastlane/test_output/
-      - store_artifacts:
-          path: src/xcode/fastlane/test_output/ENACommunity.xcresult.zip
 
   snapshot:
     macos:
@@ -326,7 +322,7 @@ workflows:
             branches:
               only:
                 - /release\/.*/
-      - test-community:
+      - build-community:
           requires:
             - dependencies
       - snapshot-test: # Create one set of screenshot on all branches
