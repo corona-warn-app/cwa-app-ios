@@ -109,8 +109,7 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultButton(coronaTestType: CoronaTestType) {
-		if (coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated) {
-			// TODO: Check if also correct for .expired or alert should be shown/moved to bin instead
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
 			coronaTestService.removeTest(coronaTestType)
 		} else {
 			onTestResultCellTap(coronaTestType)
