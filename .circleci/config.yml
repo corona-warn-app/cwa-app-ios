@@ -181,7 +181,7 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run Fastlane smoke tests
+          name: Build Community
           command: cd src/xcode && bundle exec fastlane build_community
           no_output_timeout: 10m
 
