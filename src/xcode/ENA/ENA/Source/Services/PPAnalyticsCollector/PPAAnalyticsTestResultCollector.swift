@@ -29,6 +29,8 @@ final class PPAAnalyticsTestResultCollector {
 			store.dateOfConversionToENFHighRisk = date
 		case let .setDateOfConversionToCheckinHighRisk(date):
 			store.dateOfConversionToCheckinHighRisk = date
+		case let .collectCurrentExposureWindows(exposureWindows):
+			collectCurrentExposureWindows(exposureWindows)
 		}
 	}
 
@@ -123,6 +125,10 @@ final class PPAAnalyticsTestResultCollector {
 			}
 		}
 		
+		if let currentExposureWindows = store.currentExposureWindows {
+			testResultMetadata.exposureWindowsAtTestRegistration = currentExposureWindows
+		}
+
 		createTestResultMetadata(testResultMetadata)
 	}
 
@@ -180,6 +186,21 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
+	private func collectCurrentExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+
+		store.currentExposureWindows = mappedSubmissionExposureWindows
+		Log.info("Number of current exposure windows: \(String(describing: store.currentExposureWindows?.count)) windows", log: .ppa)
+	}
+	
 	private func shouldUpdateTestResult(token: String, type: CoronaTestType) -> Bool {
 		switch type {
 		case .pcr:
@@ -205,5 +226,16 @@ final class PPAAnalyticsTestResultCollector {
 		case .antigen:
 			return store.antigenTestResultMetadata
 		}
+	}
+	
+	private func generateSHA256(_ window: ExposureWindow) -> String? {
+		let encoder = JSONEncoder()
+		do {
+			let windowData = try encoder.encode(window)
+			return windowData.sha256String()
+		} catch {
+			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
+		}
+		return nil
 	}
 }
