@@ -37,14 +37,17 @@ protocol PPAnalyticsData: AnyObject {
 	var antigenTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
+	/// Stores the exposure windows
+	var currentExposureWindows: [SubmissionExposureWindow] { get set }
 	/// Date when the ENF risk was changed to high
 	var dateOfConversionToENFHighRisk: Date? { get set }
 	/// Date when the event risk was changed to high
 	var dateOfConversionToCheckinHighRisk: Date? { get set }
+	
+	
 }
 
 extension SecureStore: PPAnalyticsData {
-		
 	var lastSubmissionAnalytics: Date? {
 		get { kvStore["lastSubmissionAnalytics"] as Date? }
 		set { kvStore["lastSubmissionAnalytics"] = newValue }
@@ -132,6 +135,11 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 	
+	var currentExposureWindows: [SubmissionExposureWindow] {
+		get { kvStore["currentExposureWindows"] as [SubmissionExposureWindow]? ?? [] }
+		set { kvStore["currentExposureWindows"] = newValue }
+	}
+
 	var dateOfConversionToENFHighRisk: Date? {
 		// old named key matches not to property name to avoid migration
 		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
@@ -142,4 +150,6 @@ extension SecureStore: PPAnalyticsData {
 		get { kvStore["dateOfConversionToCheckinHighRisk"] as Date? ?? nil }
 		set { kvStore["dateOfConversionToCheckinHighRisk"] = newValue }
 	}
+	
+	
 }
