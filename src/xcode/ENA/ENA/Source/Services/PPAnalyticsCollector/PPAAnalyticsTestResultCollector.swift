@@ -191,7 +191,7 @@ final class PPAAnalyticsTestResultCollector {
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,
 				normalizedTime: $0.normalizedTime,
-				hash: generateSHA256($0.exposureWindow),
+				hash: Analytics.generateSHA256($0.exposureWindow),
 				date: $0.date
 			)
 		}
@@ -225,16 +225,5 @@ final class PPAAnalyticsTestResultCollector {
 		case .antigen:
 			return store.antigenTestResultMetadata
 		}
-	}
-	
-	private func generateSHA256(_ window: ExposureWindow) -> String? {
-		let encoder = JSONEncoder()
-		do {
-			let windowData = try encoder.encode(window)
-			return windowData.sha256String()
-		} catch {
-			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
-		}
-		return nil
 	}
 }
