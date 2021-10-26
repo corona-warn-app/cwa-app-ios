@@ -496,7 +496,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
 			}
-			
 		}]
 	}
 	
@@ -533,7 +532,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
-		// According to the tech spec, grap the user metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
+		// According to the tech spec, grab the user metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
 		store.userMetadata = store.userData
 		guard let storedUserData = store.userMetadata else {
 			return SAP_Internal_Ppdd_PPAUserMetadata.with { _ in }
@@ -553,7 +552,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
-		// According to the tech spec, grap the client metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
+		// According to the tech spec, grab the client metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
 		let eTag = store.appConfigMetadata?.lastAppConfigETag
 		store.clientMetadata = ClientMetadata(etag: eTag)
 		
