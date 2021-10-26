@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct TestRestorationHandler: TestRestorationHandling {
+struct CoronaTestRestorationHandler: TestRestorationHandling {
 
 	// MARK: - Init
 
