@@ -87,6 +87,7 @@ enum PPAnalyticsCollector {
 		store?.pcrKeySubmissionMetadata = nil
 		store?.antigenKeySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
+		store?.currentExposureWindows = nil
 		store?.dateOfConversionToENFHighRisk = nil
 		store?.dateOfConversionToCheckinHighRisk = nil
 
@@ -229,7 +230,6 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func collectExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
-		
 		self.clearReportedExposureWindowsQueueIfNeeded()
 		var mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
 			SubmissionExposureWindow(

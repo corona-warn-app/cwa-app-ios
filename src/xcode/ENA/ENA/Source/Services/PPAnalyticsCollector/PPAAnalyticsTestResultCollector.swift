@@ -158,7 +158,6 @@ final class PPAAnalyticsTestResultCollector {
 			return
 		}
 
-
 		let storedTestResultMetaData = storedTestResultMetadata(for: type)
 		let storedTestResult = storedTestResultMetaData?.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
