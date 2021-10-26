@@ -322,7 +322,7 @@ workflows:
             branches:
               only:
                 - /release\/.*/
-      - test-community:
+      - build-community:
           requires:
             - dependencies
       - snapshot-test: # Create one set of screenshot on all branches
