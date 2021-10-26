@@ -46,11 +46,6 @@ Lint code
 fastlane ios test
 ```
 Run tests
-### ios test_community
-```
-fastlane ios test_community
-```
-Run smoke tests (Community)
 ### ios screenshot
 ```
 fastlane ios screenshot
