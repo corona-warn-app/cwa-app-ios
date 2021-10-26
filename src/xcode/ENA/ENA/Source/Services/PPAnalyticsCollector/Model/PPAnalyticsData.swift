@@ -37,7 +37,7 @@ protocol PPAnalyticsData: AnyObject {
 	var antigenTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
-	/// Stores the exposure windows
+	/// Stores the current exposure windows, should not be assigned to nil in deleteAnalyticsData!
 	var currentExposureWindows: [SubmissionExposureWindow]? { get set }
 	/// Date when the ENF risk was changed to high
 	var dateOfConversionToENFHighRisk: Date? { get set }

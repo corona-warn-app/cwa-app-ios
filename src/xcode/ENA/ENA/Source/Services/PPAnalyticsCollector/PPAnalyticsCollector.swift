@@ -87,7 +87,6 @@ enum PPAnalyticsCollector {
 		store?.pcrKeySubmissionMetadata = nil
 		store?.antigenKeySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
-		store?.currentExposureWindows = nil
 		store?.dateOfConversionToENFHighRisk = nil
 		store?.dateOfConversionToCheckinHighRisk = nil
 
