@@ -104,7 +104,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
-		
 	}
 
 	// MARK: - Failures
@@ -742,7 +741,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
-		
 	}
 
 	// MARK: - Conversion to protobuf
@@ -838,6 +836,20 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
+		// collect current exposure windows, it imitates the collection which will happen in risk provider
+		
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(mappedExposureWindows)))
+		
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = mappedExposureWindows.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+		
 		// collect testResultMetadata
 		
 		let today = Date()
@@ -897,6 +909,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, testResult, "Wrong TestResult")
 		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
+		XCTAssertEqual(store.pcrTestResultMetadata?.exposureWindowsAtTestRegistration, mappedSubmissionExposureWindows, "Wrong current exposure windows")
 
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherTestResultMetadata(for: .pcr)
@@ -1056,7 +1069,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
 		XCTAssertEqual(protobuf.first?.ptMostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
-
 	}
 	
 	func testGatherExposureWindowsMetadata() {
