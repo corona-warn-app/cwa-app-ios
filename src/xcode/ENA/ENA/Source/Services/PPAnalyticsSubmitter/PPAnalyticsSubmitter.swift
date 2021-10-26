@@ -637,6 +637,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	func gatherTestResultMetadata(for type: CoronaTestType) -> SAP_Internal_Ppdd_PPATestResultMetadata {
 		let metadata: TestResultMetadata?
 
@@ -697,7 +698,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 							  }
 						  })
 					  })
-				  }
+				 }
 				}
 			}
 		}
