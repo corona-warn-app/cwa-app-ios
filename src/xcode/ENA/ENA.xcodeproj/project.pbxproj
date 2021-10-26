@@ -49,6 +49,7 @@
 		0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */; };
 		0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */; };
 		0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */; };
+		0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */; };
 		012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */; };
 		013069512705D4A900D945E3 /* QRScannerTooltipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */; };
 		013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013069502705D4A900D945E3 /* QRScannerTooltipViewController.swift */; };
@@ -1488,6 +1489,7 @@
 		0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModelTest.swift; sourceTree = "<group>"; };
 		0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayAddCellModelTest.swift; sourceTree = "<group>"; };
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
+		0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRestorationHandlerTests.swift; sourceTree = "<group>"; };
 		0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRScannerTooltipViewController.xib; sourceTree = "<group>"; };
 		013069502705D4A900D945E3 /* QRScannerTooltipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerTooltipViewController.swift; sourceTree = "<group>"; };
 		013069542707452E00D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_16_UniversalQRCodeScanner.swift; sourceTree = "<group>"; };
@@ -3786,6 +3788,7 @@
 				01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */,
 				01BA06FA261F5B1000237DD8 /* AntigenTest+Mock.swift */,
 				ABAC9D2D2624938100EB183F /* TestResultTests.swift */,
+				0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */,
 				01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */,
 			);
 			path = __tests__;
@@ -9770,6 +9773,7 @@
 				358D780C2632FA7C00070BED /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */,
 				BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
+				0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */,
 				AB86B2B926033E8F007C77B3 /* CheckinSplittingServiceTests.swift in Sources */,
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
 				01BA07202620921400237DD8 /* CheckinTestCase.swift in Sources */,
