@@ -1150,6 +1150,8 @@ class HealthCertificateService {
 				}
 				
 			case .failure(let validationError):
+				healthCertifiedPerson.boosterRule = nil
+
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
 				let name = healthCertifiedPerson.name?.standardizedName ?? ""
 				completion("for \(private: name): \(validationError.localizedDescription)")
