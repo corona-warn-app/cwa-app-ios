@@ -13,7 +13,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -214,7 +214,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -254,7 +254,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -294,7 +294,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -334,7 +334,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -374,7 +374,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -414,7 +414,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -454,7 +454,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)
@@ -494,7 +494,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
-					GetRegistrationTokenResponse2(registrationToken: "fake")
+					RegistrationTokenModel(registrationToken: "fake")
 				)
 			]
 		)

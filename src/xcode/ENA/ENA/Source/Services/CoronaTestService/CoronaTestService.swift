@@ -570,8 +570,9 @@ class CoronaTestService {
 			}
 			.store(in: &subscriptions)
 	}
-	
-	private func getRegistrationToken(
+
+	// internal for testing
+	func getRegistrationToken(
 		forKey key: String,
 		withType type: KeyType,
 		dateOfBirthKey: String?,

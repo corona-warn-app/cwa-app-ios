@@ -10,6 +10,43 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class CoronaTestServiceTests: CWATestCase {
 
+	func testGIVEN_Service_WHEN_getRegistrationToken_THEN_MallFormattedDOB() {
+		// GIVEN
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				),
+				recycleBin: .fake()
+			)
+		)
+
+		// WHEN
+		let expectation = expectation(description: "mal formatted date of birth")
+		service.getRegistrationToken(forKey: "", withType: .teleTan, dateOfBirthKey: "x987654321") { result in
+			if result == .failure(.malformedDateOfBirthKey) {
+				expectation.fulfill()
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+	}
+
 	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
 		let client = ClientMock()
 		let store = MockTestStore()
@@ -494,7 +531,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+				"registrationToken"
 			)
 		])
 
@@ -586,7 +623,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					GetRegistrationTokenResponse2(registrationToken: "registrationToken2")
+					"registrationToken2"
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -705,7 +742,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					GetRegistrationTokenResponse2(registrationToken: "registrationToken2")
+					"registrationToken2"
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -797,7 +834,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					GetRegistrationTokenResponse2(registrationToken: "registrationToken2")
+					"registrationToken2"
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -933,7 +970,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+				"registrationToken"
 			)
 		])
 
@@ -1019,7 +1056,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+				"registrationToken"
 			)
 		])
 
@@ -1106,7 +1143,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken2")
+				"registrationToken2"
 			)
 		])
 
@@ -1240,7 +1277,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+					"registrationToken"
 				),
 				willLoadResource: { resource in
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
@@ -1338,7 +1375,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+				"registrationToken"
 			)
 		])
 
@@ -1446,7 +1483,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+					"registrationToken"
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -1460,7 +1497,6 @@ class CoronaTestServiceTests: CWATestCase {
 		])
 
 		let client = ClientMock()
-
 
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
@@ -1598,7 +1634,7 @@ class CoronaTestServiceTests: CWATestCase {
 
         let restServiceProvider = RestServiceProviderStub(results: [
             .success(
-                GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+                "registrationToken"
             )
         ])
 
@@ -1677,7 +1713,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testUpdatePCRTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+				"registrationToken"
 			)
 		])
 
@@ -1740,7 +1776,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+				"registrationToken"
 			)
 		])
 		
@@ -3125,7 +3161,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					GetRegistrationTokenResponse2(registrationToken: "dummyRegToken")
+					"dummyRegToken"
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource  else {
