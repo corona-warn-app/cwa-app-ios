@@ -10,7 +10,7 @@ class OnBehalfCheckinSubmissionService {
 	// MARK: - Init
 
 	init(
-		restServiceProvider: RestServiceProviding,
+		restServiceProvider: RestServiceProviding = .fake(),
 		client: Client,
 		appConfigurationProvider: AppConfigurationProviding
 	) {
@@ -101,17 +101,7 @@ class OnBehalfCheckinSubmissionService {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
-				guard let model = model else {
-					completion(.failure(.unknown))
-					return
-				}
-
-				guard let token = model.registrationToken else {
-					completion(.failure(.receivedResourceError(.invalidResponse)))
-					return
-				}
-
-				completion(.success(token))
+				completion(.success(model.registrationToken))
 			case .failure(let error):
 				completion(.failure(error))
 			}

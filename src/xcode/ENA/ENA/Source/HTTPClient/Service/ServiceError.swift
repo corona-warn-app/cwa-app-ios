@@ -11,7 +11,7 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 	case resourceError(ResourceError?)
 	case receivedResourceError(RE)
 	case invalidResponse
-	case unknown
+	case invalidResponseType
 
 	// MARK: - Protocol Equatable
 
@@ -37,13 +37,13 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 			return lError.localizedDescription == rError.localizedDescription
 		case (.receivedResourceError, _):
 			return false
-		case (.unknown, .unknown):
-			return true
-		case (.unknown, _):
-			return false
 		case (.invalidResponse, .invalidResponse):
 			return true
 		case (.invalidResponse, _):
+			return false
+		case (.invalidResponseType, .invalidResponseType):
+			return true
+		case (.invalidResponseType, _):
 			return false
 		}
 	}

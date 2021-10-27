@@ -29,7 +29,7 @@ protocol Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call and is defined in the receiveResource parameter. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func load<R>(
 		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 	/// creates the url for the http call.
 	///
@@ -56,7 +56,7 @@ protocol Service {
 		_ resource: R,
 		_ bodyData: Data?,
 		_ response: HTTPURLResponse?,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 
 	/// implement this functions if you want to cache a resource.
@@ -67,7 +67,7 @@ protocol Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func cached<R>(
 		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 	
 	/// implement this functions if you want to set special headers.

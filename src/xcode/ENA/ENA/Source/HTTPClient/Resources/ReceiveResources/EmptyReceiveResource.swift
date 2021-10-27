@@ -12,9 +12,9 @@ struct EmptyReceiveResource: ReceiveResource {
 	
 	// MARK: - Protocol ReceiveResource
 	
-	typealias ReceiveModel = Any
-	
-	func decode(_ data: Data?) -> Result<Any?, ResourceError> {
-		return .success(nil)
+	typealias ReceiveModel = Void
+
+	func decode(_ data: Data?) -> Result<ReceiveModel, ResourceError> {
+		return .success(())
 	}
 }

@@ -1054,6 +1054,7 @@ final class HTTPClient: Client {
 // MARK: Extensions
 
 private extension HTTPClient {
+	@available(*, deprecated)
 	struct GetRegistrationTokenResponse: Codable {
 		let registrationToken: String?
 	}

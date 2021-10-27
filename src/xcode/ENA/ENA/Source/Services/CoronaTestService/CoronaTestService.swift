@@ -19,7 +19,7 @@ class CoronaTestService {
 
 	init(
 		client: Client,
-		restServiceProvider: RestServiceProvider,
+		restServiceProvider: RestServiceProviding = .fake(),
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
@@ -588,17 +588,7 @@ class CoronaTestService {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
-				guard let model = model else {
-					completion(.failure(.serviceError(.unknown)))
-					return
-				}
-
-				guard let token = model.registrationToken else {
-					completion(.failure(.serviceError(.receivedResourceError(.invalidResponse))))
-					return
-				}
-
-				completion(.success(token))
+				completion(.success(model.registrationToken))
 			case .failure(let error):
 				completion(.failure(.serviceError(error)))
 			}

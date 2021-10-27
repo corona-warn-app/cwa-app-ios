@@ -17,7 +17,6 @@ protocol Resource {
 	var receiveResource: Receive { get }
 
 	func customStatusCodeError(statusCode: Int) -> CustomError?
-	func customModelError(model: Receive.ReceiveModel) -> CustomError?
 }
 
 /**

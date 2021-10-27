@@ -1375,6 +1375,12 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let restServiceProvider = RestServiceProviderResultsStub(results: [
+			.success(
+				GetRegistrationTokenResponse2(registrationToken: "registrationToken")
+			)
+		])
+
 		let client = ClientMock()
 		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
 			XCTAssertNil(dateOfBirthKey)
@@ -1389,6 +1395,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),

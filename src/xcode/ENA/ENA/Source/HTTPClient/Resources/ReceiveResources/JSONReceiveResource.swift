@@ -15,7 +15,7 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 	
 	typealias ReceiveModel = R
 	
-	func decode(_ data: Data?) -> Result<R?, ResourceError> {
+	func decode(_ data: Data?) -> Result<R, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
 		}
