@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "Persoanele care au făcut check-in la aceleași evenimente sau în aceleași locuri în același timp cu dvs. vor fi, de asemenea, avertizate.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Puteți afla rezultatul testului dvs. chiar dacă nu alegeți să îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Consimțământul dvs. este voluntar.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Puteți afla rezultatul testului dvs. chiar dacă alegeți să nu îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infectării.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
@@ -1284,7 +1284,7 @@
 
 "Home_MoreCard_SettingsTitle" = "Setări";
 
-"Home_MoreCard_RecycleBinTitle" = "Coș de gunoi";
+"Home_MoreCard_RecycleBinTitle" = "Coș de reciclare";
 
 "Home_MoreCard_AppInformationTitle" = "Info aplicație";
 
@@ -1572,7 +1572,7 @@
 
 "NewVersionFeature_213_restoreCertificate_title" = "Restaurare certificate";
 
-"NewVersionFeature_213_restoreCertificate_description" = "Certificatele eliminate sunt mutate în coșul de gunoi. Acestea pot fi restaurate în 30 de zile.";
+"NewVersionFeature_213_restoreCertificate_description" = "Certificatele eliminate sunt mutate în coșul de reciclare. Acestea pot fi restaurate în 30 de zile.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2011,7 +2011,7 @@
 
 "Statistics_Card_IntensiveCare_Today" = "Până astăzi";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Până ieri";
+"Statistics_Card_IntensiveCare_Yesterday" = "Ieri";
 
 "Statistics_Card_IntensiveCare_Date" = "Până la %@";
 
@@ -2862,7 +2862,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Doriți să eliminați certificatul de vaccinare?";
 
-"VaccinationCertificate_Alert_message" = "Certificatul va fi mutat în coșul de gunoi. Veți găsi coșul de gunoi pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
+"VaccinationCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certificat de test";
@@ -2878,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Doriți să eliminați certificatul de test?";
 
-"TestCertificate_Alert_message" = "Certificatul va fi mutat în coșul de gunoi. Veți găsi coșul de gunoi pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
+"TestCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificat de recuperare";
@@ -2890,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Doriți să eliminați certificatul de recuperare?";
 
-"RecoveryCertificate_Alert_message" = "Certificatul va fi mutat în coșul de gunoi. Veți găsi coșul de gunoi pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
+"RecoveryCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Afișare versiune de tipărire";
@@ -3096,7 +3096,7 @@
 
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Restaurare certificat";
 
-"UniversalQRScanner_RestoredFromBinAlert_Message" = "Codul QR a fost deja înregistrat pe smartphone-ul dvs. Certificatul va fi restaurat din coșul de gunoi.";
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "Codul QR a fost deja înregistrat pe smartphone-ul dvs. Certificatul va fi restaurat din coșul de reciclare.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Bibliotecă de fotografii";
@@ -3179,7 +3179,7 @@
 "FederalState_Thueringen" = "Turingia";
 
 /* Recycle Bin */
-"RecycleBin_title" = "Coș de gunoi";
+"RecycleBin_title" = "Coș de reciclare";
 
 "RecycleBin_description" = "Atingeți un element pentru a-l restaura. Elementele vor fi șterse automat după 30 de zile.";
 
@@ -3218,11 +3218,11 @@
 "RecycleBin_CoronaTest_sampleCollectionDate" = "Efectuat pe %@";
 
 /* - Empty State */
-"RecycleBin_EmptyState_title" = "Coșul de gunoi este gol";
+"RecycleBin_EmptyState_title" = "Coșul de reciclare este gol";
 
-"RecycleBin_EmptyState_description" = "Când eliminați certificatele, acestea sunt mutate în coșul de gunoi și sunt afișate acolo.";
+"RecycleBin_EmptyState_description" = "Când eliminați certificatele, acestea sunt mutate în coșul de reciclare și sunt afișate acolo.";
 
-"RecycleBin_EmptyState_imageDescription" = "Coș de gunoi";
+"RecycleBin_EmptyState_imageDescription" = "Un coș de reciclare";
 
 /* - Restore Certificate Alert */
 "RecycleBin_RestoreCertificate_AlertTitle" = "Restaurare certificat";
@@ -3243,7 +3243,7 @@
 "RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Anulare";
 
 /* - Delete All Alert */
-"RecycleBin_DeleteAll_AlertTitle" = "Doriți să goliți coșul de gunoi?";
+"RecycleBin_DeleteAll_AlertTitle" = "Doriți să goliți coșul de reciclare?";
 
 "RecycleBin_DeleteAll_AlertMessage" = "Nu veți mai putea restaura conținutul său.";
 
