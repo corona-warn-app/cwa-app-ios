@@ -106,7 +106,7 @@ class PPAnalyticsCollectorTests: CWATestCase {
 			
 		let mirror = Mirror(reflecting: dummyImplementation)
 		// -1 because currentExposureWindows list should not be emptied
-		let countOfPropertiesToDelete = mirror.children.count-1
+		let countOfPropertiesToDelete = mirror.children.count - 1
 		var countOfDeletedProperties = 0
 		
 		// WHEN
