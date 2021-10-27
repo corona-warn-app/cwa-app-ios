@@ -37,7 +37,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// WHEN
 		let expectation = expectation(description: "mal formatted date of birth")
-		service.getRegistrationToken(forKey: "", withType: .teleTan, dateOfBirthKey: "x987654321") { result in
+		service.getRegistrationToken(forKey: "", withType: .teleTan, dateOfBirthKey: "987654321") { result in
 			if result == .failure(.malformedDateOfBirthKey) {
 				expectation.fulfill()
 			}
