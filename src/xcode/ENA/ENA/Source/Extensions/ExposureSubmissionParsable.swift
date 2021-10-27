@@ -102,8 +102,6 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .serverError(304)
 		case .fakeResponse:
 			return .fakeResponse
-		case .malformedDateOfBirthKey:
-			return .malformedDateOfBirthKey
 		case .invalidRequest:
 			return .invalidRequest
 		}

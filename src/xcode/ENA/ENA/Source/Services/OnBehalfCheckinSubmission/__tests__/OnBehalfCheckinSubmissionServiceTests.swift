@@ -10,7 +10,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSuccessfulSubmission() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -50,7 +50,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithRegistrationTokenRequestErrorTeleTanAlreadyUsed() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.failure(ServiceError<TeleTanError>.receivedResourceError(.teleTanAlreadyUsed))
 			]
@@ -82,7 +82,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithRegistrationTokenRequestErrorQRAlreadyUsed() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed))
 			]
@@ -114,7 +114,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithRegistrationTokenRequestError40x() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.failure(ServiceError<TeleTanError>.unexpectedServerError(400))
 			]
@@ -146,7 +146,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithRegistrationTokenRequestError50x() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.failure(ServiceError<TeleTanError>.unexpectedServerError(500))
 			]
@@ -179,7 +179,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 	func testSubmissionWithRegistrationTokenRequestNoNetworkError() {
 		let client = ClientMock()
 		let errorFake = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.failure(ServiceError<TeleTanError>.transportationError(errorFake))
 			]
@@ -211,7 +211,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionTANRequestError40x() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -251,7 +251,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionTANRequestError50x() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -291,7 +291,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionTANRequestNoNetworkError() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -331,7 +331,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionRequestInvalidPayloadOrHeadersError() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -371,7 +371,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionRequestInvalidTanError() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -411,7 +411,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionRequestError40x() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -451,7 +451,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionRequestError50x() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")
@@ -491,7 +491,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 
 	func testSubmissionWithSubmissionRequestNoNetworkError() {
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderResultsStub(
+		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(
 					GetRegistrationTokenResponse2(registrationToken: "fake")

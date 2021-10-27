@@ -52,12 +52,12 @@ final class HTTPClient: Client {
 	) {
 		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
 		// -> move this from HTTP to caller of getRegistrationToken
-		if let dateOfBirthKey = dateOfBirthKey {
-			guard dateOfBirthKey.first == "x" else {
-				completeWith(.failure(.malformedDateOfBirthKey))
-				return
-			}
-		}
+//		if let dateOfBirthKey = dateOfBirthKey {
+//			guard dateOfBirthKey.first == "x" else {
+//				completeWith(.failure(.malformedDateOfBirthKey))
+//				return
+//			}
+//		}
 		
 		guard let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
 				configuration: configuration,

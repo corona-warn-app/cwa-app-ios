@@ -577,6 +577,14 @@ class CoronaTestService {
 		dateOfBirthKey: String?,
 		completion: @escaping RegistrationResultHandler
 	) {
+		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
+		if let dateOfBirthKey = dateOfBirthKey {
+			guard dateOfBirthKey.first == "x" else {
+				completion(.failure(.malformedDateOfBirthKey))
+				return
+			}
+		}
+
 		let resource = TeleTanResource(
 			sendModel: KeyModel(
 				key: key,

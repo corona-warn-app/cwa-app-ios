@@ -43,10 +43,10 @@ class RestServiceProvider: RestServiceProviding {
 
 struct LoadResource {
 	let result: Result<Any, Error>
-	let resourceWillLoad: ((Any) -> Void)?
+	let willLoadResource: ((Any) -> Void)?
 }
 
-class RestServiceProviderResultsStub: RestServiceProviding {
+class RestServiceProviderStub: RestServiceProviding {
 	init(
 		loadResources: [LoadResource]
 	) {
@@ -55,7 +55,7 @@ class RestServiceProviderResultsStub: RestServiceProviding {
 
 	convenience init(results: [Result<Any, Error>]) {
 		let _loadResources = results.map {
-			LoadResource(result: $0, resourceWillLoad: nil)
+			LoadResource(result: $0, willLoadResource: nil)
 		}
 		self.init(loadResources: _loadResources)
 	}
@@ -69,7 +69,7 @@ class RestServiceProviderResultsStub: RestServiceProviding {
 		guard let loadResource = loadResources.first else {
 			fatalError("load was called to often.")
 		}
-		loadResource.resourceWillLoad?(resource)
+		loadResource.willLoadResource?(resource)
 
 		switch loadResource.result {
 		case .success(let model):
@@ -87,9 +87,9 @@ class RestServiceProviderResultsStub: RestServiceProviding {
 	}
 }
 
-extension RestServiceProviding where Self == RestServiceProviderResultsStub {
+extension RestServiceProviding where Self == RestServiceProviderStub {
 	static func fake() -> RestServiceProviding {
-		return RestServiceProviderResultsStub(loadResources: [])
+		return RestServiceProviderStub(loadResources: [])
 	}
 }
 

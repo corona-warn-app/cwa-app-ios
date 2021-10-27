@@ -11,6 +11,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 	case testExpired
 	case noRegistrationToken
 	case noCoronaTestOfRequestedType
+	case malformedDateOfBirthKey
 
 	var errorDescription: String? {
 		switch self {
