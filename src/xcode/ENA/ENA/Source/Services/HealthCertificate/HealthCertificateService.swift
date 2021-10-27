@@ -233,6 +233,12 @@ class HealthCertificateService {
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
+
+		applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson) { errorMessage in
+			guard let errorMessage = errorMessage else { return }
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		}
+
 		if healthCertificate.type != .test {
 			createNotifications(for: healthCertificate)
 		}
