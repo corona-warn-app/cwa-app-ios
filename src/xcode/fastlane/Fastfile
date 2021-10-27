@@ -134,6 +134,7 @@ platform :ios do
         prelaunch_simulator: true,
         result_bundle: true,
         code_coverage: true,
+        number_of_retries: 1, #take this you flaky tests
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
       )
@@ -150,39 +151,6 @@ platform :ios do
       zip(
         path: "fastlane/test_output/ENA.xcresult",
         output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
-    end
-  end
-
-  desc "Run smoke tests (Community)"
-  lane :test_community do
-    begin
-      run_tests(
-        scheme: "ENACommunity",
-        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: "SmokeTests",
-        concurrent_workers: 6,
-        max_concurrent_simulators: 4,
-        result_bundle: true,
-        code_coverage: false,
-        fail_build: false,
-        output_types: "junit",
-        output_files: "report_community.junit"
-      )
-    rescue
-      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
-    ensure
-      trainer(
-        output_directory: "fastlane/test_output/",
-        path: "fastlane/test_output/",
-        extension: ".junit",
-        fail_build: false
-      )
-
-      zip(
-        path: "fastlane/test_output/ENACommunity.xcresult",
-        output_path: "fastlane/test_output/ENACommunity.xcresult.zip",
         verbose: false
       )
     end
