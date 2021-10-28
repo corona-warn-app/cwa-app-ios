@@ -65,6 +65,31 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 	
+	private func updateExposureWindowsUntilTestResult(_ exposureWindows: [SubmissionExposureWindow], testType: CoronaTestType) {
+		var currentExposureWindows = exposureWindows
+		
+		switch testType {
+		case .pcr:
+			if let exposureWindowsAtTestRegistration = store.pcrTestResultMetadata?.exposureWindowsAtTestRegistration {
+				// removing all the exposureWindowsAtTestRegistration from current exposure windows
+				currentExposureWindows.removeAll(where: { window -> Bool in
+					return exposureWindowsAtTestRegistration.contains(where: { $0.hash == window.hash })
+				})
+				store.pcrTestResultMetadata?.exposureWindowsUntilTestResult = currentExposureWindows
+				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there until pcr test result is arrived", log: .ppa)
+			}
+		case .antigen:
+			if let exposureWindowsAtTestRegistration = store.antigenTestResultMetadata?.exposureWindowsAtTestRegistration {
+				// removing all the exposureWindowsAtTestRegistration from current exposure windows
+				currentExposureWindows.removeAll(where: { window -> Bool in
+					return exposureWindowsAtTestRegistration.contains(where: { $0.hash == window.hash })
+				})
+				store.antigenTestResultMetadata?.exposureWindowsUntilTestResult = currentExposureWindows
+				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there until antigen test result is arrived", log: .ppa)
+			}
+		}
+	}
+	
 	// swiftlint:disable:next cyclomatic_complexity
 	private func registerNewTestMetadata(_ date: Date = Date(), _ token: String, _ type: CoronaTestType) {
 		guard store.enfRiskCalculationResult != nil || store.checkinRiskCalculationResult != nil else {
@@ -127,6 +152,7 @@ final class PPAAnalyticsTestResultCollector {
 		
 		if let currentExposureWindows = store.currentExposureWindows {
 			testResultMetadata.exposureWindowsAtTestRegistration = currentExposureWindows
+			Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there at the test registration", log: .ppa)
 		}
 
 		createTestResultMetadata(testResultMetadata)
@@ -171,12 +197,15 @@ final class PPAAnalyticsTestResultCollector {
 
 				persistTestResult(testResult: testResult, testType: type)
 
+				if testResult != .pending, let currentExposureWindows = store.currentExposureWindows {
+					updateExposureWindowsUntilTestResult(currentExposureWindows, testType: type)
+				}
+
 				let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 
 				updateTestResultHoursSinceTestRegistration(diffComponents.hour, testType: type)
 
 				Log.info("update TestResultMetadata of type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
-
 			case .expired, .invalid:
 				break
 			}
