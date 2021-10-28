@@ -410,7 +410,10 @@ class HomeCoordinator: RequiresAppDependencies {
 		let recycleBinViewController = RecycleBinViewController(
 			viewModel: RecycleBinViewModel(
 				store: store,
-				recycleBin: recycleBin
+				recycleBin: recycleBin,
+				onOverride: { [weak self] in
+					self?.showTestOverwriteNotice(recycleBinItem: $0)
+				}
 			)
 		)
 
@@ -431,6 +434,41 @@ class HomeCoordinator: RequiresAppDependencies {
 
 		rootViewController.pushViewController(
 			topBottomContainerViewController,
+			animated: true
+		)
+	}
+
+	private func showTestOverwriteNotice(
+		recycleBinItem: RecycleBinItem
+	) {
+		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+			return
+		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+			isSecondaryButtonHidden: true
+		)
+
+		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: coronaTest.type,
+			didTapPrimaryButton: { [weak self] in
+				self?.recycleBin.restore(recycleBinItem)
+				self?.rootViewController.dismiss(animated: true)
+			},
+			didTapCloseButton: { [weak self] in
+				self?.rootViewController.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(
+			topController: overwriteNoticeViewController,
+			bottomController: footerViewController
+		)
+
+		rootViewController.present(
+			NavigationControllerWithLargeTitle(rootViewController: topBottomViewController),
 			animated: true
 		)
 	}
