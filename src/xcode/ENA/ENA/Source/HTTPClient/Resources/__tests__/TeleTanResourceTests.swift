@@ -242,11 +242,9 @@ final class TeleTanResourceTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .short)
 	}
-/*
+
 	func testGetRegistrationToken_VerifyPOSTBodyContent() throws {
-		let expectedToken = "SomeToken"
-		let key = "1234567890"
-		let type = "GUID"
+		let testKey = "1234567890"
 
 		let sendPostExpectation = expectation(
 			description: "Expect that the client sends a POST request"
@@ -259,24 +257,37 @@ final class TeleTanResourceTests: CWATestCase {
 				return
 			}
 
-			guard content["key"] == key else {
+			guard content["key"] == testKey else {
 				XCTFail("POST JSON body did not have key value, or it was incorrect!")
 				return
 			}
 
-			guard content["keyType"] == type else {
+			guard content["keyType"] == KeyType.guid.rawValue else {
 				XCTFail("POST JSON body did not have keyType value, or it was incorrect!")
 				return
 			}
 		}
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			responseData: try JSONEncoder().encode(
+				RegistrationTokenModel(
+					registrationToken: "SomeToken"
+				)
+			),
 			requestObserver: verifyPostBodyContent
 		)
 
-		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: key, withType: type) { _ in }
-		waitForExpectations(timeout: expectationsTimeout)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let teleTanResource = TeleTanResource(
+			isFake: false,
+			sendModel: KeyModel(
+				key: testKey,
+				keyType: .guid
+			)
+		)
+		serviceProvider.load(teleTanResource) { _ in }
+
+		waitForExpectations(timeout: .short)
 	}
- */
+
 }
