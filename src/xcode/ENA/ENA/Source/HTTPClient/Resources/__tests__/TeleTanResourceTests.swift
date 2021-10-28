@@ -74,41 +74,41 @@ final class TeleTanResourceTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .short)
 	}
-/*
+
 	func testGIVEN_Client_WHEN_GetRegistrationTokenIsCalledWithBirthdate_THEN_TokenIsReturned() throws {
-		// GIVEN
-		let expectedToken = "SomeToken"
+		let fakeToken = "SomeToken"
+		let expectation = expectation(description: "Expect that we got a completion")
+
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
+			responseData: try JSONEncoder().encode(
+				RegistrationTokenModel(
+					registrationToken: fakeToken
+				)
+			)
 		)
 
-		let expectation = self.expectation(
-			description: "Expect that we got a completion"
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let teleTanResource = TeleTanResource(
+			isFake: false,
+			sendModel: KeyModel(
+				key: fakeToken,
+				keyType: .guid,
+				keyDob: "x987654321"
+			)
 		)
-
-		var responseToken: String?
-
-		// WHEN
-		HTTPClient.makeWith(mock: stack).getRegistrationToken(
-			forKey: "1234567890",
-			withType: "GUID",
-			dateOfBirthKey: "x987654321"
-		) { result in
-			switch result {
-			case .success(let token):
-				responseToken = token
-			case .failure:
-				XCTFail("Test should not fail.")
-			}
+		serviceProvider.load(teleTanResource) { result in
 			expectation.fulfill()
+			switch result {
+			case .success(let model):
+				XCTAssertEqual(model.registrationToken, fakeToken)
+			case .failure:
+				XCTFail("Encountered Error when receiving registration token!")
+			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
-
-		// THEN
-		XCTAssertEqual(responseToken ?? "FAIL", expectedToken)
+		waitForExpectations(timeout: .short)
 	}
-
+/*
 	func testGetRegistrationToken_TANAlreadyUsed() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 400,
