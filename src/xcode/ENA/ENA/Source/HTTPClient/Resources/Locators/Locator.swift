@@ -35,11 +35,7 @@ struct Locator: Hashable {
 	let paths: [String]
 	let method: HTTP.Method
 	let headers: [String: String]
-}
 
-#if !RELEASE
-
-extension Locator {
 
 	var isFake: Bool {
 		guard let isFakeValue = headers["cwa-fake"] else {
@@ -48,5 +44,3 @@ extension Locator {
 		return isFakeValue == "1"
 	}
 }
-
-#endif
