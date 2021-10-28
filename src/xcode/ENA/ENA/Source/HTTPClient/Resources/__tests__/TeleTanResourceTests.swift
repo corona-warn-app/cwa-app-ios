@@ -141,34 +141,40 @@ final class TeleTanResourceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 	}
-/*
+
 	func testGetRegistrationToken_GUIDAlreadyUsed() throws {
+		let expectation = expectation(description: "Expect that we got a completion")
+
 		let stack = MockNetworkStack(
 			httpStatus: 400,
 			responseData: Data()
 		)
 
-		let successExpectation = expectation(
-			description: "Expect that we got a completion"
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let teleTanResource = TeleTanResource(
+			isFake: false,
+			sendModel: KeyModel(
+				key: "some value",
+				keyType: .guid
+			)
 		)
-
-		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
-			defer { successExpectation.fulfill() }
+		serviceProvider.load(teleTanResource) { result in
 			switch result {
 			case .success:
-				XCTFail("Backend returned 400 - the request should have failed!")
+				XCTFail("TAN already used - should not succeed")
 			case .failure(let error):
-				switch error {
-				case .qrAlreadyUsed:
-					break
-				default:
-					XCTFail("The error was not .qrAlreadyUsed!")
-				}
+				guard case let .receivedResourceError(customError) = error,
+					  .qrAlreadyUsed == customError else {
+						  XCTFail("unexpected error case")
+						  return
+					  }
 			}
+			expectation.fulfill()
 		}
-		waitForExpectations(timeout: expectationsTimeout)
-	}
 
+		waitForExpectations(timeout: .short)
+	}
+/*
 	func testGetRegistrationToken_MalformedResponse() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
