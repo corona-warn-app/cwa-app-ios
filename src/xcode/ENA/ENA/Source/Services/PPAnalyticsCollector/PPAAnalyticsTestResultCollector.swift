@@ -76,7 +76,7 @@ final class PPAAnalyticsTestResultCollector {
 					return exposureWindowsAtTestRegistration.contains(where: { $0.hash == window.hash })
 				})
 				store.pcrTestResultMetadata?.exposureWindowsUntilTestResult = currentExposureWindows
-				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there when pcr test result received", log: .ppa)
+				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there until pcr test result is arrived", log: .ppa)
 			}
 		case .antigen:
 			if let exposureWindowsAtTestRegistration = store.antigenTestResultMetadata?.exposureWindowsAtTestRegistration {
@@ -85,7 +85,7 @@ final class PPAAnalyticsTestResultCollector {
 					return exposureWindowsAtTestRegistration.contains(where: { $0.hash == window.hash })
 				})
 				store.antigenTestResultMetadata?.exposureWindowsUntilTestResult = currentExposureWindows
-				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there when antigen test result received", log: .ppa)
+				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there until antigen test result is arrived", log: .ppa)
 			}
 		}
 	}
