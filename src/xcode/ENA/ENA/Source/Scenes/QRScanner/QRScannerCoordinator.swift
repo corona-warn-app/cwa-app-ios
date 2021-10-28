@@ -316,8 +316,8 @@ class QRScannerCoordinator {
 		}
 
 		let alert = UIAlertController(
-			title: AppStrings.UniversalQRScanner.restoredFromBinAlertTitle,
-			message: AppStrings.UniversalQRScanner.restoredFromBinAlertMessage,
+			title: AppStrings.UniversalQRScanner.certificateRestoredFromBinAlertTitle,
+			message: AppStrings.UniversalQRScanner.certificateRestoredFromBinAlertMessage,
 			preferredStyle: .alert
 		)
 		alert.addAction(
