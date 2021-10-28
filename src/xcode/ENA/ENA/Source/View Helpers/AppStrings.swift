@@ -1138,7 +1138,7 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.13 */
+		/* Version 2.14 */
 		
 		static let feature213HospitalizationRateTileTitle = NSLocalizedString("NewVersionFeature_213_hospitalizationRateTile_title", comment: "")
 		

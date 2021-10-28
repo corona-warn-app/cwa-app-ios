@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.13"
+		self.featureVersion = "2.14"
 		
 		// New combined hospitalization rate tile
 		self.newVersionFeatures.append(
