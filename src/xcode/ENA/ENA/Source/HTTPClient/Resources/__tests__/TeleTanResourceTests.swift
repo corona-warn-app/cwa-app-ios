@@ -208,8 +208,9 @@ final class TeleTanResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	/*
 	func testGetRegistrationToken_MalformedJSONResponse() throws {
+		let expectation = expectation(description: "Expect that we got a completion")
+
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: """
@@ -217,27 +218,31 @@ final class TeleTanResourceTests: CWATestCase {
 			""".data(using: .utf8)
 		)
 
-		let successExpectation = expectation(
-			description: "Expect that we got a completion"
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let teleTanResource = TeleTanResource(
+			isFake: false,
+			sendModel: KeyModel(
+				key: "1234567890",
+				keyType: .guid
+			)
 		)
 
-		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
-			defer { successExpectation.fulfill() }
+		serviceProvider.load(teleTanResource) { result in
 			switch result {
 			case .success:
-				XCTFail("Backend returned 400 - the request should have failed!")
+				XCTFail("Backend returned random bytes - the request should have failed!")
 			case .failure(let error):
-				switch error {
-				case .invalidResponse:
-					break
-				default:
-					XCTFail("The error was not .invalidResponse!")
+				guard case let .resourceError(resourceError) = error,
+					  resourceError == .decoding else {
+					XCTFail("unexpected error case")
+					return
 				}
 			}
+			expectation.fulfill()
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 	}
-
+/*
 	func testGetRegistrationToken_VerifyPOSTBodyContent() throws {
 		let expectedToken = "SomeToken"
 		let key = "1234567890"
