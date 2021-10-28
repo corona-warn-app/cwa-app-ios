@@ -15,24 +15,9 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.featureVersion = "2.14"
 		
-		// New combined hospitalization rate tile
+		// Recycle bin feature
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213HospitalizationRateTileTitle, description: AppStrings.NewVersionFeatures.feature213HospitalizationRateTileDescription)
-		)
-		
-		// New FAQ links
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213ChangesFAQLinksTitle, description: AppStrings.NewVersionFeatures.feature213ChangesFAQLinksDescription)
-		)
-		
-		// Fault tolerance certificate assignment
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213CertificateAssignmentTitle, description: AppStrings.NewVersionFeatures.feature213CertificateAssignmentDescription)
-		)
-		
-		// Restore certificates
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature213RestoreCertificateTitle, description: AppStrings.NewVersionFeatures.feature213RestoreCertificateDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature214RecycleBinTitle, description: AppStrings.NewVersionFeatures.feature214RecycleBinTitle)
 		)
 	}
 
