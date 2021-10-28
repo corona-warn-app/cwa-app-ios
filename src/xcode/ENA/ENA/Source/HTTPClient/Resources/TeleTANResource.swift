@@ -51,4 +51,15 @@ enum TeleTanError: Error {
 	case teleTanAlreadyUsed
 	case qrAlreadyUsed
 	case invalidResponse
+
+	var errorDescription: String? {
+		switch self {
+		case .invalidResponse:
+			return AppStrings.ExposureSubmissionError.invalidResponse
+		case .qrAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .teleTanAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
+		}
+	}
 }

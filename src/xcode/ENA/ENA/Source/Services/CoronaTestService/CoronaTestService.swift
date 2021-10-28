@@ -19,7 +19,7 @@ class CoronaTestService {
 
 	init(
 		client: Client,
-		restServiceProvider: RestServiceProviding = .fake(),
+		restServiceProvider: RestServiceProviding,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,

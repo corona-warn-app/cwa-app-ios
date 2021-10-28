@@ -1587,6 +1587,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
 						message: error.localizedDescription
 					)
+				case .serviceError(let teleTanError):
+					switch teleTanError {
+					case .qrAlreadyUsed:
+						alert = UIAlertController.errorAlert(
+							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+							message: error.localizedDescription,
+							okTitle: AppStrings.Common.alertActionCancel,
+							secondaryActionTitle: AppStrings.Common.alertActionRetry,
+							completion: { [weak self] in
+								self?.dismiss()
+							},
+							secondaryActionCompletion: { [weak self] in
+								self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
+							}
+						)
+					}
 				case .responseFailure(.qrAlreadyUsed):
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,

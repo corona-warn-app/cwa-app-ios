@@ -119,8 +119,6 @@ extension URLSession.Response {
 	enum Failure: Error, Equatable {
 		/// The session received an `Error`.
 		case httpError(String, HTTPURLResponse)
-		case teleTanAlreadyUsed
-		case qrAlreadyUsed
 		case qrDoesNotExist
 		case regTokenNotExist
 		case invalidResponse
@@ -128,7 +126,6 @@ extension URLSession.Response {
 		case noNetworkConnection
 		case serverError(Int)
 		case fakeResponse
-//		case malformedDateOfBirthKey
 
 		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
 		case notModified
@@ -155,12 +152,8 @@ extension URLSession.Response.Failure: LocalizedError {
 			return AppStrings.ExposureSubmissionError.noResponse
 		case .noNetworkConnection:
 			return AppStrings.ExposureSubmissionError.noNetworkConnection
-		case .qrAlreadyUsed:
-			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
 		case .qrDoesNotExist:
 			return AppStrings.ExposureSubmissionError.qrNotExist
-		case .teleTanAlreadyUsed:
-			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		default:

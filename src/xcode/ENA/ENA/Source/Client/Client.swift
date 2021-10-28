@@ -13,7 +13,6 @@ protocol Client {
 	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-	typealias RegistrationHandler = (Result<String, Failure>) -> Void
 	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
