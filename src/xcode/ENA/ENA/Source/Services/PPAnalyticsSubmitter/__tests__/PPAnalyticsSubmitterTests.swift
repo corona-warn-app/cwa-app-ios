@@ -1287,7 +1287,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .high,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1298,7 +1298,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1309,7 +1309,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .medium,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1323,7 +1323,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .high,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1334,7 +1334,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1345,7 +1345,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .medium,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1356,7 +1356,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .standard,
 				scanInstances: []
@@ -1367,7 +1367,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .none,
 				scanInstances: []
@@ -1381,7 +1381,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .standard,
 				scanInstances: []
@@ -1392,7 +1392,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .none,
 				scanInstances: []
