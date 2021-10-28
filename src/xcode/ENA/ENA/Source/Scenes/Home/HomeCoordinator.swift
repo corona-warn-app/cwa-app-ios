@@ -411,7 +411,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			viewModel: RecycleBinViewModel(
 				store: store,
 				recycleBin: recycleBin,
-				onOverride: { [weak self] in
+				onOverwrite: { [weak self] in
 					self?.showTestOverwriteNotice(recycleBinItem: $0)
 				}
 			)
