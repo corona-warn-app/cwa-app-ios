@@ -76,18 +76,12 @@ extension SubmissionError: ExposureSubmissionErrorTransformable {
 
 extension URLSessionError: ExposureSubmissionErrorTransformable {
 
-	// swiftlint:disable cyclomatic_complexity
-	/// no clue why we still have this…
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
 		case let .httpError(localizedDescription, _):
 			return .httpError(localizedDescription)
 		case .invalidResponse:
 			return .invalidResponse
-		case .teleTanAlreadyUsed:
-			return .teleTanAlreadyUsed
-		case .qrAlreadyUsed:
-			return .qrAlreadyUsed
 		case .regTokenNotExist:
 			return .regTokenNotExist
 		case .qrDoesNotExist:
@@ -106,5 +100,4 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .invalidRequest
 		}
 	}
-	// swiftlint:enable cyclomatic_complexity
 }
