@@ -1140,21 +1140,9 @@ enum AppStrings {
 		
 		/* Version 2.14 */
 		
-		static let feature213HospitalizationRateTileTitle = NSLocalizedString("NewVersionFeature_213_hospitalizationRateTile_title", comment: "")
+		static let feature214RecycleBinTitle = NSLocalizedString("NewVersionFeature_214_recycleBin_title", comment: "")
 		
-		static let feature213HospitalizationRateTileDescription = NSLocalizedString("NewVersionFeature_213_hospitalizationRateTile_description", comment: "")
-		
-		static let feature213ChangesFAQLinksTitle = NSLocalizedString("NewVersionFeature_213_changesFAQLinks_title", comment: "")
-		
-		static let feature213ChangesFAQLinksDescription = NSLocalizedString("NewVersionFeature_213_changesFAQLinks_description", comment: "")
-		
-		static let feature213CertificateAssignmentTitle = NSLocalizedString("NewVersionFeature_213_certificateAssignment_title", comment: "")
-		
-		static let feature213CertificateAssignmentDescription = NSLocalizedString("NewVersionFeature_213_certificateAssignment_description", comment: "")
-		
-		static let feature213RestoreCertificateTitle = NSLocalizedString("NewVersionFeature_213_restoreCertificate_title", comment: "")
-		
-		static let feature213RestoreCertificateDescription = NSLocalizedString("NewVersionFeature_213_restoreCertificate_description", comment: "")
+		static let feature214RecycleBinDescription = NSLocalizedString("NewVersionFeature_214_recycleBin_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
