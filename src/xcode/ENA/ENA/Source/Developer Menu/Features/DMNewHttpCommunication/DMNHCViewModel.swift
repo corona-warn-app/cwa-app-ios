@@ -41,6 +41,38 @@ final class DMNHCViewModel {
 		}
 
 		switch section {
+		case .appConfig:
+			return DMButtonCellViewModel(
+				text: "appConfig",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.restService.load(AppConfigurationResource()) { result in
+						switch result {
+						case .success:
+							Log.info("New HTTP Call for AppConfig successful")
+						case .failure:
+							Log.error("New HTTP Call for AppConfig failed")
+						}
+					}
+				}
+			)
+		case .otpEdusAuthorization:
+			return DMButtonCellViewModel(
+				text: "validationOnboardedCountries",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.restService.load(ValidationOnboardedCountriesResource()) { result in
+						switch result {
+						case .success:
+							Log.info("New HTTP Call for validationOnboardedCountries successful")
+						case .failure:
+							Log.error("New HTTP Call for validationOnboardedCountries failed")
+						}
+					}
+				}
+			)
 		case .registerTeleTAN:
 			return DMButtonCellViewModel(
 				text: "Register TeleTan",
@@ -59,6 +91,8 @@ final class DMNHCViewModel {
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
+		case appConfig
+		case otpEdusAuthorization
 		case registerTeleTAN
 	}
 
