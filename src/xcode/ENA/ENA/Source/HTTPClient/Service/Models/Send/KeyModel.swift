@@ -5,12 +5,32 @@
 import Foundation
 
 struct KeyModel: PaddingResource {
+
+	// MARK: - Init
+
+	init(
+		key: String,
+		keyType: KeyType,
+		keyDob: String? = nil
+	) {
+		self.key = key
+		self.keyType = keyType
+		self.keyDob = keyDob
+	}
+
+	// MARK: - Protocol PaddingResource
+
+	var requestPadding: String = ""
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
 	// Don't change these names, they are used as keys for a http request.
 	let key: String
 	let keyType: KeyType
 	let keyDob: String?
 
-	var requestPadding: String = ""
 }
 
 enum KeyType: String, Encodable {

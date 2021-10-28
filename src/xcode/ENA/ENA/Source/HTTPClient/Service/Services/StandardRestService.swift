@@ -14,9 +14,11 @@ class StandardRestService: Service {
 	// MARK: - Init
 
 	required init(
-		environment: EnvironmentProviding = Environments()
+		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil
 	) {
 		self.environment = environment
+		self.optionalSession = session
 	}
 
 	// MARK: - Protocol Service
@@ -24,10 +26,15 @@ class StandardRestService: Service {
 	let environment: EnvironmentProviding
 
 	lazy var session: URLSession = {
+		optionalSession ??
 		.coronaWarnSession(
 			configuration: .coronaWarnSessionConfiguration(),
 			delegateQueue: .main
 		)
 	}()
+
+	// MARK: - Private
+
+	private let optionalSession: URLSession?
 
 }

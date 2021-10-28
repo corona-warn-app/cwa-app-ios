@@ -15,7 +15,10 @@ A Service has to define:
 
 protocol Service {
 
-	init(environment: EnvironmentProviding)
+	init(
+		environment: EnvironmentProviding,
+		session: URLSession?
+	)
 
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }

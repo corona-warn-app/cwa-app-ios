@@ -41,6 +41,7 @@ struct MockNetworkStack {
 	}
 }
 
+@available(*, deprecated)
 extension HTTPClient {
 	/// Configure a `HTTPClient` with `.fake` configuration and mocked `URLSession`
 	static func makeWith(mock stack: MockNetworkStack) -> HTTPClient {
@@ -48,24 +49,29 @@ extension HTTPClient {
 	}
 }
 
+@available(*, deprecated)
 extension WifiOnlyHTTPClient {
 	static func makeWith(mock stack: MockNetworkStack) -> WifiOnlyHTTPClient {
 		WifiOnlyHTTPClient(session: stack.urlSession)
 	}
 }
 
+@available(*, deprecated)
 enum TestError: Error {
 	case error
 }
 
+@available(*, deprecated)
 struct GetTANResponse: Codable {
 	let tan: String
 }
 
+@available(*, deprecated)
 struct GetTestResultResponse: Codable {
 	let testResult: Int
 }
 
+@available(*, deprecated)
 struct GetRegistrationTokenResponse: Codable {
 	let registrationToken: String
 }

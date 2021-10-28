@@ -10,10 +10,11 @@ When calling the loading function, the RestServiceProvider decides which service
 */
 class RestServiceProvider: RestServiceProviding {
 
-	required init(
-		environment: EnvironmentProviding = Environments()
+	init(
+		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil
 	) {
-		self.restService = StandardRestService(environment: environment)
+		self.restService = StandardRestService(environment: environment, session: session)
 	}
 
 	func load<R>(
