@@ -90,6 +90,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTestResultMetadata: TestResultMetadata?
 	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var currentExposureWindows: [SubmissionExposureWindow]? = []
 	var dateOfConversionToENFHighRisk: Date?
 	var dateOfConversionToCheckinHighRisk: Date?
 
