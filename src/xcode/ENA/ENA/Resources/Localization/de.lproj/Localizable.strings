@@ -3305,7 +3305,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_description" = "Tippen Sie auf ein Element um es wiederherzustellen. Nach 30 Tagen wird ein Element automatisch gelöscht.";
 
-"RecycleBin_deleteAllButtonTitle" = "Alle entfernen";
+"RecycleBin_deleteAllButtonTitle" = "Alle endgültig löschen";
 
 /* - Vaccination Certificate */
 
