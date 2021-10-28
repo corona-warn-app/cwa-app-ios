@@ -13,18 +13,19 @@ struct ValidationOnboardedCountriesResource: Resource {
 	) {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
 		self.type = .caching
-		self.sendResource = EmptySendResource<Any>()
-		self.receiveResource = EmptyReceiveResource<Any>()
+		self.sendResource = EmptySendResource()
+		self.receiveResource = EmptyReceiveResource()
 	}
 
 	// MARK: - Protocol Resource
 
-	typealias Send = EmptySendResource<Any>
-	typealias Receive = EmptyReceiveResource<Any>
+	typealias Send = EmptySendResource
+	typealias Receive = EmptyReceiveResource
+	typealias CustomError = Error // no CustomError at the moment
 
 	var locator: Locator
 	var type: ServiceType
-	var sendResource: EmptySendResource<Any>
-	var receiveResource: EmptyReceiveResource<Any>
+	var sendResource: EmptySendResource
+	var receiveResource: EmptyReceiveResource
 
 }
