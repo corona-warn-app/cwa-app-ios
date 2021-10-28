@@ -17,7 +17,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// Recycle bin feature
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature214RecycleBinTitle, description: AppStrings.NewVersionFeatures.feature214RecycleBinTitle)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature214RecycleBinTitle, description: AppStrings.NewVersionFeatures.feature214RecycleBinDescription)
 		)
 	}
 
