@@ -252,29 +252,31 @@ struct FileLogger {
 	// MARK: - Private
 
 	private let logDateFormatter = ISO8601DateFormatter()
-
+	private let writeQueue = DispatchQueue(label: "de.rki.coronawarnapp.logging.write") // Serial by default
+	
 	private func writeLog(of logType: OSLogType, message: String) {
 		let logHandle = makeWriteFileHandle(with: logType)
 		let allLogsHandle = makeWriteFileHandle(with: allLogsFileURL)
 		let errorLogHandle = makeWriteFileHandle(with: errorLogFileURL)
 
 		guard let logMessageData = message.data(using: .utf8) else { return }
-
 		defer {
 			logHandle?.closeFile()
 			allLogsHandle?.closeFile()
 			errorLogHandle?.closeFile()
 		}
+		
+		writeQueue.async {
+			logHandle?.seekToEndOfFile()
+			logHandle?.write(logMessageData)
 
-		logHandle?.seekToEndOfFile()
-		logHandle?.write(logMessageData)
+			allLogsHandle?.seekToEndOfFile()
+			allLogsHandle?.write(logMessageData)
 
-		allLogsHandle?.seekToEndOfFile()
-		allLogsHandle?.write(logMessageData)
-
-		if ErrorLogSubmissionService.errorLoggingEnabled {
-			errorLogHandle?.seekToEndOfFile()
-			errorLogHandle?.write(logMessageData)
+			if ErrorLogSubmissionService.errorLoggingEnabled {
+				errorLogHandle?.seekToEndOfFile()
+				errorLogHandle?.write(logMessageData)
+			}
 		}
 	}
 	
