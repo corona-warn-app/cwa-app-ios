@@ -266,7 +266,7 @@ struct FileLogger {
 			errorLogHandle?.closeFile()
 		}
 		
-		writeQueue.async {
+		writeQueue.sync {
 			logHandle?.seekToEndOfFile()
 			logHandle?.write(logMessageData)
 
