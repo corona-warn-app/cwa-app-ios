@@ -71,6 +71,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
+		captionCountLabel.heightAnchor.constraint(equalToConstant: captionCountLabel.intrinsicContentSize.height).isActive = true
 	}
 	
 	// MARK: - Private
@@ -174,16 +175,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return captionCountLabel
-	}()
-
-	// construct it the same way as captionCountLabel, but with a text.
-	// use it as layout constraint to calculate the ideal size for the badge
-	private let dummyLabel: ENALabel = {
-		let dummyLabel = ENALabel()
-		dummyLabel.font = .enaFont(for: .subheadline, weight: .bold, italic: false)
-		dummyLabel.text = String(1)
-		dummyLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-		return dummyLabel
 	}()
 
 	private let captionCountView: UIView = {
@@ -296,11 +287,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				captionCountLabel.leadingAnchor.constraint(equalTo: captionCountView.leadingAnchor, constant: 2.0),
 				captionCountLabel.topAnchor.constraint(equalTo: captionCountView.topAnchor, constant: 2.0),
 				captionCountLabel.trailingAnchor.constraint(equalTo: captionCountView.trailingAnchor, constant: -2.0),
-				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0),
-				captionCountLabel.heightAnchor.constraint(equalToConstant: dummyLabel.intrinsicContentSize.height)
+				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0)
 			]
 		)
-
 	}
 
 	private func updateBorderColors() {
