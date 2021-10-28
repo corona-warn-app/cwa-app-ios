@@ -93,12 +93,8 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 
 		let tanContinueButton = app.buttons[AccessibilityIdentifiers.General.primaryFooterButton]
 		XCTAssertTrue(tanContinueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(tanContinueButton.isEnabled)
-
+		
 		snapshot("onbehalfwarning_tan")
-
-		// Fill in dummy TAN.
-		type(app, text: "qwdzxcsrhe")
 
 		// Tap continue
 		XCTAssertTrue(tanContinueButton.isEnabled)
@@ -166,11 +162,6 @@ class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
 
 		let tanContinueButton = app.buttons[AccessibilityIdentifiers.General.primaryFooterButton]
 		XCTAssertTrue(tanContinueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(tanContinueButton.isEnabled)
-
-		// Fill in dummy TAN.
-		XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: .medium))
-		type(app, text: "qwdzxcsrhe")
 
 		// Tap continue
 		XCTAssertTrue(tanContinueButton.isEnabled)

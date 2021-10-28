@@ -1,0 +1,118 @@
+{
+  "configurations" : [
+    {
+      "id" : "A11977F5-134B-4CB5-B798-B2F3F30138CD",
+      "name" : "DE",
+      "options" : {
+        "language" : "de",
+        "region" : "DE"
+      }
+    },
+    {
+      "enabled" : false,
+      "id" : "1A0C143D-8EB4-4EDC-90D0-2D24EAC78C4B",
+      "name" : "EN",
+      "options" : {
+        "language" : "en",
+        "region" : "GB"
+      }
+    },
+    {
+      "enabled" : false,
+      "id" : "923744F6-0D40-4591-9147-70780A54A89E",
+      "name" : "RO",
+      "options" : {
+        "language" : "ro",
+        "region" : "RO"
+      }
+    },
+    {
+      "enabled" : false,
+      "id" : "76F58801-D234-473B-92BB-F77A906BC887",
+      "name" : "PL",
+      "options" : {
+        "language" : "pl",
+        "region" : "PL"
+      }
+    },
+    {
+      "enabled" : false,
+      "id" : "1C2ECF54-A91A-4614-823F-9F010BCC63ED",
+      "name" : "TR",
+      "options" : {
+        "language" : "tr",
+        "region" : "TR"
+      }
+    },
+    {
+      "enabled" : false,
+      "id" : "23BB78C4-766D-4EE2-87E6-E0C288E37D26",
+      "name" : "fake-Klingon",
+      "options" : {
+        "language" : "IDELaunchSchemeLanguageRLO",
+        "region" : "AS"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:ENA.xcodeproj",
+          "identifier" : "85D7593A2457048F008175F0",
+          "name" : "ENA"
+        }
+      ]
+    },
+    "commandLineArgumentEntries" : [
+
+    ],
+    "defaultTestExecutionTimeAllowance" : 300,
+    "maximumTestExecutionTimeAllowance" : 600,
+    "testExecutionOrdering" : "random",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "skippedTests" : [
+        "StatisticsProviderTests\/testFetchLiveStats()"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595324570491008175F0",
+        "name" : "ENATests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "selectedTests" : [
+        "ENAUITests_04a_ExposureSubmission\/test_CheckinFromSubmissionFlowWithInfoScreen()",
+        "ENAUITests_04a_ExposureSubmission\/test_CheckinFromSubmissionFlowWithoutInfoScreen()",
+        "ENAUITests_04a_ExposureSubmission\/test_NavigateToIntroVC()",
+        "ENAUITests_04a_ExposureSubmission\/test_QRCodeScanOpened()",
+        "ENAUITests_04a_ExposureSubmission\/test_RegisterCertificateFromSubmissionFlowWithInfoScreen()",
+        "ENAUITests_04a_ExposureSubmission\/test_RegisterCertificateFromSubmissionFlowWithoutInfoScreen()",
+        "ENAUITests_04a_ExposureSubmission\/test_SubmissionNotPossible()",
+        "ENAUITests_04a_ExposureSubmission\/test_SubmitTAN_CancelOnTestResultScreen()",
+        "ENAUITests_04a_ExposureSubmission\/test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens()",
+        "ENAUITests_04a_ExposureSubmission\/test_Switch_consentSubmission()",
+        "ENAUITests_04a_ExposureSubmission\/test_SymptomsOnsetDateOption()",
+        "ENAUITests_04a_ExposureSubmission\/test_SymptomsOptionNo()",
+        "ENAUITests_04a_ExposureSubmission\/test_SymptomsOptionPreferNotToSay()",
+        "ENAUITests_04a_ExposureSubmission\/test_Tester_Centers_Opens_Website_In_Safari()",
+        "ENAUITests_04a_ExposureSubmission\/test_ThankYouScreen_WarnOthersFromAlert()",
+        "ENAUITests_04a_ExposureSubmission\/test_ThankYouScreen_withWarnOthers()",
+        "ENAUITests_04a_ExposureSubmission\/test_exposureSubmissionSuccess_screen()",
+        "ENAUITests_04a_ExposureSubmission\/test_test_result_negative()"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595E24570491008175F0",
+        "name" : "ENAUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

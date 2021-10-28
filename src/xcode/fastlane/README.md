@@ -25,7 +25,12 @@ Update license file
 ```
 fastlane ios build_for_testing
 ```
-Build project
+Build project for testing
+### ios test_without_building
+```
+fastlane ios test_without_building
+```
+Runs unit tests without building
 ### ios build_community
 ```
 fastlane ios build_community
@@ -36,21 +41,11 @@ Build project (Community)
 fastlane ios lint
 ```
 Lint code
-### ios analyze
-```
-fastlane ios analyze
-```
-Static code analysis via swiftlint's experimental feature
 ### ios test
 ```
 fastlane ios test
 ```
 Run tests
-### ios test_community
-```
-fastlane ios test_community
-```
-Run smoke tests (Community)
 ### ios screenshot
 ```
 fastlane ios screenshot
