@@ -32,6 +32,15 @@ enum CoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiable {
 		}
 	}
 
+	var qrCodeHash: String? {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.qrCodeHash
+		case .antigen(let antigenTest):
+			return antigenTest.qrCodeHash
+		}
+	}
+
 	var testResult: TestResult {
 		switch self {
 		case .pcr(let pcrTest):

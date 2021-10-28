@@ -95,6 +95,7 @@ class CoronaTestService {
 	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		guid: String,
+		qrCodeHash: String,
 		isSubmissionConsentGiven: Bool,
 		markAsUnseen: Bool = false,
 		certificateConsent: TestCertificateConsent,
@@ -121,6 +122,7 @@ class CoronaTestService {
 					self?.pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
@@ -234,6 +236,7 @@ class CoronaTestService {
 	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		with hash: String,
+		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
 		firstName: String?,
 		lastName: String?,
@@ -262,6 +265,7 @@ class CoronaTestService {
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationDate: Date(),
 						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
