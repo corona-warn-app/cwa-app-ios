@@ -196,8 +196,7 @@ final class PPAAnalyticsTestResultCollector {
 				Log.info("update TestResultMetadata of type: \(type), with testResult: \(testResult.stringValue)", log: .ppa)
 
 				persistTestResult(testResult: testResult, testType: type)
-				
-				//
+
 				if testResult != .pending, let currentExposureWindows = store.currentExposureWindows {
 					updateExposureWindowsUntilTestResult(currentExposureWindows, testType: type)
 				}
