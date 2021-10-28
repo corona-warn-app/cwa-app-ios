@@ -12,10 +12,10 @@ struct EmptySendResource: SendResource {
 
 	// MARK: - Protocol ReceiveResource
 	
-	typealias SendModel = Any
+	typealias SendModel = Void
 	var sendModel: Any?
 	
 	func encode() -> Result<Data?, ResourceError> {
-		return .success(nil)
+		return .success(())
 	}
 }
