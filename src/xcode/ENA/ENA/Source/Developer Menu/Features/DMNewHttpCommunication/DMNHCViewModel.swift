@@ -104,8 +104,6 @@ final class DMNHCViewModel {
 									Log.error(".teleTanAlreadyUsed")
 								case .qrAlreadyUsed:
 									Log.error(".qrCodeInvalid")
-								case .invalidResponse:
-									Log.error(".invalidResponse")
 								}
 							}
 

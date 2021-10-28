@@ -14,12 +14,10 @@ enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 		switch self {
 		case .registrationTokenError(let failure):
 			switch failure {
-			case .receivedResourceError(let teletanError):
-				switch teletanError {
+			case .receivedResourceError(let teleTanError):
+				switch teleTanError {
 				case .teleTanAlreadyUsed, .qrAlreadyUsed:
 					return "\(AppStrings.OnBehalfCheckinSubmission.Error.invalidTAN) (REGTOKEN_OB_CLIENT_ERROR)"
-				case .invalidResponse:
-					return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(teletanError))"
 				}
 			case .transportationError(let transportationError):
 				if let error = transportationError as NSError?,
