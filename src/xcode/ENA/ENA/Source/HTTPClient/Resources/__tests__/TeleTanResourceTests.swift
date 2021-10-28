@@ -30,13 +30,13 @@ final class TeleTanResourceTests: CWATestCase {
 			)
 		)
 		serviceProvider.load(teleTanResource) { result in
-			expectation.fulfill()
 			switch result {
 			case .success(let model):
 				XCTAssertEqual(model.registrationToken, fakeToken)
 			case .failure:
 				XCTFail("Encountered Error when receiving registration token!")
 			}
+			expectation.fulfill()
 		}
 		waitForExpectations(timeout: .short)
 	}
@@ -64,13 +64,13 @@ final class TeleTanResourceTests: CWATestCase {
 			)
 		)
 		serviceProvider.load(teleTanResource) { result in
-			expectation.fulfill()
 			switch result {
 			case .success(let model):
 				XCTAssertEqual(model.registrationToken, fakeToken)
 			case .failure:
 				XCTFail("Encountered Error when receiving registration token!")
 			}
+			expectation.fulfill()
 		}
 		waitForExpectations(timeout: .short)
 	}
@@ -98,44 +98,50 @@ final class TeleTanResourceTests: CWATestCase {
 			)
 		)
 		serviceProvider.load(teleTanResource) { result in
-			expectation.fulfill()
 			switch result {
 			case .success(let model):
 				XCTAssertEqual(model.registrationToken, fakeToken)
 			case .failure:
 				XCTFail("Encountered Error when receiving registration token!")
 			}
+			expectation.fulfill()
 		}
 		waitForExpectations(timeout: .short)
 	}
-/*
+
 	func testGetRegistrationToken_TANAlreadyUsed() throws {
+		let expectation = expectation(description: "Expect that we got a completion")
+
 		let stack = MockNetworkStack(
 			httpStatus: 400,
 			responseData: Data()
 		)
 
-		let successExpectation = expectation(
-			description: "Test should succeed with token returned"
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let teleTanResource = TeleTanResource(
+			isFake: false,
+			sendModel: KeyModel(
+				key: "some value",
+				keyType: .teleTan
+			)
 		)
-
-		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
-			defer { successExpectation.fulfill() }
+		serviceProvider.load(teleTanResource) { result in
 			switch result {
 			case .success:
-				XCTFail("Backend returned 400 - the request should have failed!")
+				XCTFail("TAN already used - should not succeed")
 			case .failure(let error):
-				switch error {
-				case .teleTanAlreadyUsed:
-					break
-				default:
-					XCTFail("The error was not .teleTanAlreadyUsed!")
-				}
+				guard case let .receivedResourceError(customError) = error,
+					  .teleTanAlreadyUsed == customError else {
+						  XCTFail("unexpected error case")
+						  return
+					  }
 			}
+			expectation.fulfill()
 		}
-		waitForExpectations(timeout: expectationsTimeout)
-	}
 
+		waitForExpectations(timeout: .short)
+	}
+/*
 	func testGetRegistrationToken_GUIDAlreadyUsed() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 400,
