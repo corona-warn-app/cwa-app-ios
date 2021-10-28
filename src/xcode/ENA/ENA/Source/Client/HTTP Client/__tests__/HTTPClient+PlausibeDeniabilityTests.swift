@@ -95,10 +95,6 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 				XCTFail("Could not execute test")
 				return
 			}
-			Log.debug("url.count \(url.count)")
-			Log.debug("data.count \(data.count)")
-			Log.debug("previousSize \(previousSize)")
-
 			let size = url.count + data.count
 			if previousSize == nil { previousSize = size }
 			XCTAssertEqual(size, previousSize)
