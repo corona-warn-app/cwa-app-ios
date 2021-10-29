@@ -406,6 +406,7 @@ final class RiskProvider: RiskProviding {
 		let enfRiskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 		let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(mappedWindows)))
 
 		let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 

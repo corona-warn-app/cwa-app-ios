@@ -579,7 +579,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
+		XCTAssertEqual(viewModel.primaryTitle, "Gestern")
 	}
 
 	func testIntensiveCareCardPrimaryTitleOtherDate() throws {

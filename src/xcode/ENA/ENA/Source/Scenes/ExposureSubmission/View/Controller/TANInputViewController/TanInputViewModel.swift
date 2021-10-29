@@ -19,6 +19,13 @@ final class TanInputViewModel {
 		self.description = description
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.text = givenTan ?? ""
+#if DEBUG
+		if isUITesting {
+			// UI-Tests sometimes fail to enter a tan via the software keyboard, so we prefill it on UI-Tests
+			self.text = "QWDZXCSRHE"
+			isPrimaryButtonEnabled = isChecksumValid
+		}
+#endif
 	}
 
 	// MARK: - Internal

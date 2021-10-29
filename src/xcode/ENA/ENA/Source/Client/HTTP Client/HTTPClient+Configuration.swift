@@ -391,11 +391,11 @@ extension HTTPClient.Configuration {
 		init(
 			baseURL: URL,
 			requiresTrailingSlash: Bool,
-			requiresTrailingIndex: Bool = true
+			requiresTrailingIndex _: Bool = true
 		) {
 			self.baseURL = baseURL
 			self.requiresTrailingSlash = requiresTrailingSlash
-			self.requiresTrailingIndex = false
+			requiresTrailingIndex = false
 		}
 
 		// MARK: Properties

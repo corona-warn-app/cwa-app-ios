@@ -1,9 +1,9 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v11-{{ checksum "src/xcode/Gemfile.lock" }}
-  - tools_cache_key: &tools_cache_key v5-{{ checksum "Brewfile.lock.json" }}
-  - xcode_version: &xcode_version 13.0.0
+  - cache_key: &cache_key v12-{{ checksum "src/xcode/Gemfile.lock" }}
+  - tools_cache_key: &tools_cache_key v6-{{ checksum "Brewfile.lock.json" }}
+  - xcode_version: &xcode_version 13.1.0
   - resource_class: &resource_class large
 
 ###
@@ -132,7 +132,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Run Fastlane tests
-          command: cd src/xcode && bundle exec fastlane test_without_building testplan:<<parameters.testplan>>
+          command: cd src/xcode && bundle exec fastlane test testplan:<<parameters.testplan>>
           no_output_timeout: 5m
       - restore_cache:
           key: sonar-cloud-v2
@@ -171,7 +171,7 @@ jobs:
           paths:
             - ~/sonar/
 
-  test-community:
+  build-community:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
@@ -181,13 +181,9 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run Fastlane smoke tests
-          command: cd src/xcode && bundle exec fastlane test_community
+          name: Build Community
+          command: cd src/xcode && bundle exec fastlane build_community
           no_output_timeout: 10m
-      - store_test_results:
-          path: src/xcode/fastlane/test_output/
-      - store_artifacts:
-          path: src/xcode/fastlane/test_output/ENACommunity.xcresult.zip
 
   snapshot:
     macos:
@@ -206,8 +202,9 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
+      # Run the announce failed screenshots script only if the snapshot job failed
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> || (cd /Users/distiller/project/scripts && /Users/distiller/project/scripts/announce_failing_screenshots.sh)
           no_output_timeout: 1h
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
@@ -320,12 +317,12 @@ workflows:
             parameters:
               testplan: ["AllTests"]
           requires:
-            - dependencies
+            - build-for-testing
           filters:
             branches:
               only:
                 - /release\/.*/
-      - test-community:
+      - build-community:
           requires:
             - dependencies
       - snapshot-test: # Create one set of screenshot on all branches
@@ -366,9 +363,12 @@ workflows:
                 - /^v.*/
             branches:
               ignore: /.*/
-      - test:
+      - build-for-testing:
           requires:
             - dependencies
+      - test:
+          requires:
+            - build-for-testing
           filters:
             tags:
               only:
@@ -413,4 +413,14 @@ workflows:
             branches:
               only: /release\/.*/
     jobs:
-      - sonar
+      - dependencies:
+          filters:
+            branches:
+              only: /release\/.*/
+      - sonar:
+          requires:
+            - dependencies
+          filters:
+            branches:
+              only:
+                - /release\/.*/
