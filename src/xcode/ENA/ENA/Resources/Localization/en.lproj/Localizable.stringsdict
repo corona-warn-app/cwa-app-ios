@@ -308,10 +308,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>last vaccination today</string>
+			<string>Last vaccination today</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>last vaccination %u day ago</string>
+			<string>Last vaccination %u  day ago</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>Last vaccination %u days ago</string>

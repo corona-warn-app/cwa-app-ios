@@ -105,7 +105,8 @@ class PPAnalyticsCollectorTests: CWATestCase {
 		let dummyImplementation = TestDummyPPAnalyticsDataImplementation()
 			
 		let mirror = Mirror(reflecting: dummyImplementation)
-		let countOfPropertiesToDelete = mirror.children.count
+		// -1 because currentExposureWindows list should not be emptied
+		let countOfPropertiesToDelete = mirror.children.count - 1
 		var countOfDeletedProperties = 0
 		
 		// WHEN
@@ -146,7 +147,5 @@ class PPAnalyticsCollectorTests: CWATestCase {
 		countOfDeletedProperties += 1
 		
 		XCTAssertEqual(countOfPropertiesToDelete, countOfDeletedProperties, "The count must match. Did you perhaps forget to delete a property in Analytics.deleteAnalyticsData()?")
-
 	}
-
 }

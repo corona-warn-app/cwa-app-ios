@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "People who were checked in to the same events or places at the same time as you were will also be warned.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "If you share your test result, you will help to protect others against infection.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Your consent is voluntary.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "If you share your test result, you will help to protect others against infection.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
@@ -1279,17 +1279,14 @@
 
 "Home_TraceLocationsCard_Button" = "Create QR Code";
 
-/* Home Info Card */
-
-"Home_AppInformationCard_Version" = "Version";
-
 /* Home More Card */
+"Home_MoreCard_Title" = "More";
 
 "Home_MoreCard_SettingsTitle" = "Settings";
 
-"Home_MoreCard_RecycleBinTitle" = "Recycle bin";
+"Home_MoreCard_RecycleBinTitle" = "Recycle Bin";
 
-"Home_MoreCard_AppInformationTitle" = "App-Information";
+"Home_MoreCard_AppInformationTitle" = "App Information";
 
 "Home_MoreCard_FAQTitle" = "FAQ";
 
@@ -1301,6 +1298,11 @@
 "Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* App Information */
+"App_Information_Title" = "App Information";
+
+"App_Information_Version" = "Version";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
@@ -1556,21 +1558,21 @@
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
 /* Version 2.12 */
-"NewVersionFeature_212_newStatisticsTiles_title" = "Extended Statistics";
+"NewVersionFeature_213_hospitalizationRateTile_title" = "Local 7-Day Hospitalization Incidence";
 
-"NewVersionFeature_212_newStatisticsTiles_description" = "The following statistics are now available in the app:\n\t\U2022 7-day hospitalization incidence\n\t\U2022 COVID-19 patients in intensive\n\t   care units";
+"NewVersionFeature_213_hospitalizationRateTile_description" = "The local tiles for the 7-day incidence of new infections now also displays the 7-day hospitalization incidence. Since this key figure is only available at the state level, if a district is selected, the hospitalization rate for the respective state will be displayed.";
 
-"NewVersionFeature_212_notificationManagement_title" = "Manage Notifications";
+"NewVersionFeature_213_changesFAQLinks_title" = "Change of Link to FAQ";
 
-"NewVersionFeature_212_notificationManagement_description" = "The settings for notifications are now managed centrally in your smartphone settings. Check your notification settings for the Corona-Warn-App again in your device settings.";
+"NewVersionFeature_213_changesFAQLinks_description" = "When you call a FAQ in the app, you are now forwarded to pages at coronawarn.app. You will find more details about your questions there.";
 
-"NewVersionFeature_212_qrCodeScannerButton_title" = "Direct Access to QR Code Scanner";
+"NewVersionFeature_213_certificateAssignment_title" = "Certificate Assignment";
 
-"NewVersionFeature_212_qrCodeScannerButton_description" = "You now have direct access to the universal QR code scanner in the lower navigation bar.";
+"NewVersionFeature_213_certificateAssignment_description" = "The assignment of certificates to people has been made more error-tolerant. The app now ignores different numbers of spaces in names, making it possible to assign the certificates to the same person despite such differences.";
 
-"NewVersionFeature_212_qrCodeImport_title" = "Import QR Code";
+"NewVersionFeature_213_restoreCertificate_title" = "Restore Certificates";
 
-"NewVersionFeature_212_qrCodeImport_description" = "You can now use the QR code scanner to import QR codes from photos or PDF files.";
+"NewVersionFeature_213_restoreCertificate_description" = "Removed certificates are moved to the recycle bin. They can be restored within 30 days.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1894,9 +1896,20 @@
 
 "Statistics_Add_fromTheWholeCountry" = "Entire state";
 
-"Statistics_Card_Add_LocalCardPrimarySubtitle" = "confirmed new infections per 100,000 residents";
-
 "Statistics_Card_Manage" = "Edit";
+
+/* - 7 Days Incedence */
+"Statistics_Card_CombinedIncidence_Title" = "7-Day Incidence";
+
+"Statistics_Card_CombinedIncidence_Today" = "Up to today";
+
+"Statistics_Card_CombinedIncidence_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_CombinedIncidence_Date" = "Up to %@";
+
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "New Infections";
+
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalizations";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Confirmed New Infections";
@@ -1912,15 +1925,17 @@
 "Statistics_Card_Infections_TertiaryLabelTitle" = "Total";
 
 /* - Incidence Card */
-"Statistics_Card_Incidence_Title" = "7-Day Incidence";
+"Statistics_Card_Region_Today" = "Up to today";
 
-"Statistics_Card_Incidence_Today" = "Up to today";
+"Statistics_Card_Region_Yesterday" = "Up to yesterday";
 
-"Statistics_Card_Incidence_Yesterday" = "Up to yesterday";
+"Statistics_Card_Region_Date" = "Up to %@";
 
-"Statistics_Card_Incidence_Date" = "Up to %@";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "New Infections";
 
-"Statistics_Card_Incidence_SecondaryLabelTitle" = "confirmed new infections per 100,000 residents";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalizations";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalizations in %@";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Warnings by App Users";
@@ -1991,23 +2006,12 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
 
-/* - Infected People Hospitalization Rate */
-"Statistics_Card_HospitalizationRate_Title" = "7-Day Hospitalization Incidence";
-
-"Statistics_Card_HospitalizationRate_Today" = "Up to today";
-
-"Statistics_Card_HospitalizationRate_Yesterday" = "Up to yesterday";
-
-"Statistics_Card_HospitalizationRate_Date" = "Up to %@";
-
-"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19 Hospitalizations per 100,000 Residents";
-
 /* - Infected People in Intensive Care */
 "Statistics_Card_IntensiveCare_Title" = "COVID-19 Patients in Intensive Care Units";
 
 "Statistics_Card_IntensiveCare_Today" = "Up to today";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Up to yesterday";
+"Statistics_Card_IntensiveCare_Yesterday" = "Yesterday";
 
 "Statistics_Card_IntensiveCare_Date" = "Up to %@";
 
@@ -2021,15 +2025,17 @@
 
 "Statistics_Info_Subtitle" = "Explanation of Statistics";
 
-"Statistics_Info_Local7Days_Title" = "Local 7-Day Incidence";
-
-"Statistics_Info_Local7Days_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents in the configured district or federal state.";
-
 "Statistics_Info_Incidence_Title" = "7-Day Incidence";
 
-"Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents.";
+"Statistics_Info_Local7Days_Title" = "Local 7-Day Incidence";
 
-"Statistics_Info_HospitalizationRate_Title" = "7-Day Hospitalization Incidence";
+"Statistics_Info_Local7Days_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents in the configured district or federal state.\nThe hospitalization data refers to the corresponding German state.";
+
+"Statistics_Info_NewInfection_Title" = "Confirmed New Infections";
+
+"Statistics_Info_NewInfection_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Hospitalization";
 
 "Statistics_Info_HospitalizationRate_Text" = "Total number of hospital admissions due to COVID-19 in the last 7 days (by reporting date) per 100,000 residents.";
 
@@ -2646,9 +2652,9 @@
 
 "HealthCertificate_Validation_Info_title" = "Information";
 
-"HealthCertificate_Validation_Info_byCar" = "Enter the planned local arrival time at the border of your destination country.";
+"HealthCertificate_Validation_Info_byCar" = "Select the planned local arrival time at the border of your destination country.";
 
-"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, enter the scheduled departure time of your flight.";
+"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, select the scheduled departure time of your flight.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificates";
@@ -2786,7 +2792,7 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Vaccination %i of %i";
 
-"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "vaccinated on %@";
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Vaccinated on %@";
 
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Certificate";
 
@@ -2849,14 +2855,14 @@
 "VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
 
 /* Health Certificate Delete Alert */
-"HealthCertificate_Alert_deleteButton" = "Delete";
+"HealthCertificate_Alert_deleteButton" = "Remove Certificate";
 
 "HealthCertificate_Alert_cancelButton" = "Cancel";
 
 /* Vaccination Certificate Delete Alert */
-"VaccinationCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
+"VaccinationCertificate_Alert_title" = "Do you want to remove the vaccination certificate?";
 
-"VaccinationCertificate_Alert_message" = "We recommend keeping the vaccination certificates in the app even if they are no longer current.";
+"VaccinationCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Certificate";
@@ -2872,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Do you want to remove the test certificate?";
 
-"TestCertificate_Alert_message" = "If you remove the test certificate, you can no longer use it as proof in the app.";
+"TestCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificate of Recovery";
@@ -2884,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
 
-"RecoveryCertificate_Alert_message" = "If you remove the certificate of recovery, you can no longer use it as proof in the app.";
+"RecoveryCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Display Print Version";
@@ -2951,7 +2957,7 @@
 
 "HealthCertificate_Validation_DateTimeSelection_Title" = "Date and time";
 
-"HealthCertificate_Validation_DateTimeSelection_Info" = "Enter your entry date and your local time.";
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Select your entry date and your local time.";
 
 "HealthCertificate_Validation_Body1" = "Please check in advance whether your certificate will be valid in your destination country at the time of your trip. The entry rules for the selected destination country will be taken into account.";
 
@@ -3088,6 +3094,10 @@
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "The QR code is not supported by the Corona-Warn-App. Please scan a suitable QR code.";
 
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Restore Certificate";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "The QR code has already been registered on your smartphone. The certificate will be restored from the recycle bin.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Photo Library";
 
@@ -3097,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Access not allowed";
 
-"FileScanner_AccessError_message" = "\\“Corona-Warn-App\\” does not have access to your photo library. You can grant access in your device settings.";
+"FileScanner_AccessError_message" = "Corona-Warn-App does not have access to your photo library. You can grant access in your device settings.";
 
 "FileScanner_AccessError_cancel" = "Cancel";
 
@@ -3121,7 +3131,7 @@
 
 "FileScanner_InvalidQRCode_title" = "No Suitable QR Code";
 
-"FileScanner_InvalidQRCode_message" = "The QR code is not supported by the Corona-Warn-App. Please select a file with a suitable QR code.";
+"FileScanner_InvalidQRCode_message" = "The QR code is not supported by the Corona-Warn-App. Please scan a suitable QR code.";
 
 "FileScanner_FileNotReadable_title" = "File Unreadable";
 
@@ -3167,4 +3177,77 @@
 "FederalState_SchleswigHolstein" = "Schleswig-Holstein";
 
 "FederalState_Thueringen" = "Thuringia";
+
+/* Recycle Bin */
+"RecycleBin_title" = "Recycle Bin";
+
+"RecycleBin_description" = "Tap an element to restore it. Elements will be deleted automatically after 30 days.";
+
+"RecycleBin_deleteAllButtonTitle" = "Remove All";
+
+/* - Vaccination Certificate */
+"RecycleBin_VaccinationCertificate_headline" = "Vaccination Certificate";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Vaccination %i of %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "vaccinated on %@";
+
+/* - Test Certificate */
+"RecycleBin_TestCertificate_headline" = "Test Certificate";
+
+"RecycleBin_TestCertificate_pcrTest" = "PCR Test";
+
+"RecycleBin_TestCertificate_antigenTest" = "Rapid Test";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Sample taken %@";
+
+/* - Recovery Certificate */
+"RecycleBin_RecoveryCertificate_headline" = "Certificate of Recovery";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "valid to %@";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_pcrTest" = "PCR Test";
+
+"RecycleBin_CoronaTest_antigenTest" = "Rapid Test";
+
+"RecycleBin_CoronaTest_registrationDate" = "Registered on %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "Performed on %@";
+
+/* - Empty State */
+"RecycleBin_EmptyState_title" = "The Recycle Bin Is Empty";
+
+"RecycleBin_EmptyState_description" = "When you remove certificates, they are moved to the recycle bin and displayed here.";
+
+"RecycleBin_EmptyState_imageDescription" = "A recycle bin";
+
+/* - Restore Certificate Alert */
+"RecycleBin_RestoreCertificate_AlertTitle" = "Restore Certificate";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "The restored certificate will be moved to its original location. You will then find it on the “Certificates” tab page.";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Restore";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "Cancel";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_AlertTitle" = "Restore Test";
+
+"RecycleBin_CoronaTest_AlertMessage" = "The restored test will be moved to its original location. You will then find it on the “Status” tab page.";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Restore";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Cancel";
+
+/* - Delete All Alert */
+"RecycleBin_DeleteAll_AlertTitle" = "Do you want to empty the recycle bin?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "You will no longer be able to restore its contents.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Delete";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Cancel";
 

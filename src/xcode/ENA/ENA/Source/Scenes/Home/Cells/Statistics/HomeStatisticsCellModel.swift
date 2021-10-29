@@ -31,6 +31,13 @@ class HomeStatisticsCellModel {
 				  Log.debug("Updating local statistics cell model. \(private: "\(self?.regionStatisticsData.count ?? -1)")", log: .localStatistics)
 			}
 			.store(in: &subscriptions)
+		
+		
+		#if DEBUG
+		if isUITesting, LaunchArguments.statistics.maximumRegionsSelected.boolValue {
+			setupMockDataMaximumCards()
+		}
+		#endif
 	}
 
 	// MARK: - Internal
@@ -53,4 +60,79 @@ class HomeStatisticsCellModel {
 	private let localStatisticsProvider: LocalStatisticsProviding
 
 	private var subscriptions = Set<AnyCancellable>()
+	
+	#if DEBUG
+	private func setupMockDataMaximumCards() {
+		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
+		sevenDayIncidence.trend = .increasing
+		sevenDayIncidence.value = 43.1
+
+		let heidelbergData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Heidelberg",
+				id: "1432",
+				regionType: .administrativeUnit
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		let mannheimData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Mannheim",
+				id: "1434",
+				regionType: .administrativeUnit
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		let badenWuerttembergData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .badenWürttemberg,
+				name: "Baden Württemberg",
+				id: "2342",
+				regionType: .federalState
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		let hessenData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .hessen,
+				name: "Hessen",
+				id: "1144",
+				regionType: .federalState
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+		
+		let rheinlandPfalzData = RegionStatisticsData(
+			region: LocalStatisticsRegion(
+				federalState: .rheinlandPfalz,
+				name: "Rheinland Pfalz",
+				id: "1456",
+				regionType: .federalState
+			),
+			updatedAt: 1234,
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
+		)
+
+		self.regionStatisticsData = [heidelbergData, mannheimData, badenWuerttembergData, hessenData, rheinlandPfalzData]
+	}
+	#endif
 }

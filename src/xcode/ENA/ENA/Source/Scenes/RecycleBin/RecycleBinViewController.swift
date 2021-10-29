@@ -33,7 +33,6 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 		setupTableView()
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.RecycleBin.title
-		navigationItem.rightBarButtonItem = editButtonItem
 
 		viewModel.$recycleBinItems
 			.receive(on: DispatchQueue.main.ocombine)
@@ -208,6 +207,8 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 				alignmentPadding: UIScreen.main.bounds.height / 3
 			)
 			: nil
+
+		navigationItem.rightBarButtonItem = viewModel.isEmpty ? nil : editButtonItem
 	}
 
 	private func didTapDeleteAllButton() {

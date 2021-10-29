@@ -265,10 +265,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(continueButton.isEnabled)
-
-		// Fill in dummy TAN.
-		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
 		XCTAssertTrue(continueButton.isEnabled)
@@ -309,10 +305,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(continueButton.isEnabled)
-
-		// Fill in dummy TAN.
-		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
 
@@ -441,10 +433,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(continueButton.isEnabled)
-
-		// Fill in dummy TAN.
-		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
 		XCTAssertTrue(continueButton.isEnabled)
@@ -668,9 +656,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Fill in dummy TAN.
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		XCTAssertTrue(continueButton.waitForExistence(timeout: .medium))
-		XCTAssertFalse(continueButton.isEnabled)
-		
-		type(app, text: "qwdzxcsrhe")
 		
 		// Click continue button.
 		XCTAssertTrue(continueButton.isEnabled)
