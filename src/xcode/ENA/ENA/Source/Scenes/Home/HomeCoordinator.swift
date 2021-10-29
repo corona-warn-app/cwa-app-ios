@@ -21,7 +21,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		elsService: ErrorLogSubmissionProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		qrScannerCoordinator: QRScannerCoordinator,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -34,6 +35,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.recycleBin = recycleBin
+		self.restServiceProvider = restServiceProvider
 
 		setupHomeBadgeCount()
 	}
@@ -183,6 +185,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let recycleBin: RecycleBin
+	private let restServiceProvider: RestServiceProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -354,6 +357,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,

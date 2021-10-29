@@ -35,4 +35,12 @@ struct Locator: Hashable {
 	let paths: [String]
 	let method: HTTP.Method
 	let headers: [String: String]
+
+
+	var isFake: Bool {
+		guard let isFakeValue = headers["cwa-fake"] else {
+			return false
+		}
+		return isFakeValue == "1"
+	}
 }

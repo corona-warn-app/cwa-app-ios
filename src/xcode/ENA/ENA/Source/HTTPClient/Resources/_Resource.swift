@@ -16,7 +16,7 @@ protocol Resource {
 	var sendResource: Send { get }
 	var receiveResource: Receive { get }
 
-	func customError(statusCode: Int) -> CustomError?
+	func customStatusCodeError(statusCode: Int) -> CustomError?
 }
 
 /**
