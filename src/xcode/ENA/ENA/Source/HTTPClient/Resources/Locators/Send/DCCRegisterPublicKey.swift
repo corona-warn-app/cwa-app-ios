@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	JSON
+	// receive:	Empty
+	// type:	default
+	// comment:	Custom error handling required
 	static func dccRegisterPublicKey(
 		isFake: Bool
 	) -> Locator {

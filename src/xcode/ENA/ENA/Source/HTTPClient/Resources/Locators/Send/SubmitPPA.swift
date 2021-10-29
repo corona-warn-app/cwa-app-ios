@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	ProtoBuf SAP_Internal_Ppdd_PPADataRequestIOS
+	// receive: Empty
+	// type:	default
+	// comment:	Custom error handling required
 	static func submitPPA(
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		forceApiTokenHeader: Bool = false,
@@ -18,6 +22,7 @@ extension Locator {
 			paths: ["version", "v1", "ios", "dat"],
 			method: .post,
 			defaultHeaders: [
+				"Content-Type": "application/x-protobuf",
 				"cwa-ppac-ios-accept-api-token": forceApiHeader,
 				"cwa-fake": fake
 			]

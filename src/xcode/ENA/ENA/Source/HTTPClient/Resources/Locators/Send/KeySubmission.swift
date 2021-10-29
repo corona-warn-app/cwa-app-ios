@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	ProtoBuf SAP_Internal_SubmissionPayload
+	// receive:	Empty
+	// type:
+	// comment:	Custom error handling required
 	static func keySubmission(
 		payload: SubmissionPayload,
 		isFake: Bool
@@ -17,6 +21,7 @@ extension Locator {
 			paths: ["version", "v1", "diagnosis-keys"],
 			method: .post,
 			defaultHeaders: [
+				"Content-Type": "application/x-protobuf",
 				"cwa-authorization": payload.tan,
 				"cwa-fake": fake,
 				"cwa-header-padding": fakePadding

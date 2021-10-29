@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	JSON
+	// receive:	JSON
+	// type:	default
+	// comment:
 	static func registrationToken(
 		isFake: Bool
 	) -> Locator {

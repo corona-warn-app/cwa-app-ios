@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	ProtoBuf SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS
+	// receive:	JSON
+	// type:	default
+	// comment:
 	static func authorizeOtpEls(
 		forceApiTokenHeader: Bool = false,
 		isFake: Bool

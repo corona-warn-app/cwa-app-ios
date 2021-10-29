@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	JSON
+	// receive:	JSON
+	// type:	default
+	// comment:	Custom error handling required
 	static func testResult(
 		registrationToken: String,
 		isFake: Bool
@@ -16,6 +20,7 @@ extension Locator {
 			paths: ["version", "v1", "testresult"],
 			method: .post,
 			defaultHeaders: [
+				"Content-Type": "application/json",
 				"cwa-fake": fake,
 				"cwa-header-padding": String.getRandomString(of: 7)
 			]

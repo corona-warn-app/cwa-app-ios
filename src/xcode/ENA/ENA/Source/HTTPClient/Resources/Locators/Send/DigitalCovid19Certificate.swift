@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	JSON
+	// receive:	JSON
+	// type:	default
+	// comment:	Custom error handling required
 	static func digitalCovid19Certificate(
 		registrationToken: String,
 		isFake: Bool
