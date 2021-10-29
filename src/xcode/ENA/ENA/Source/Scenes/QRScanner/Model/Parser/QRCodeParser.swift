@@ -44,7 +44,7 @@ class QRCodeParser: QRCodeParsable {
 		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
 
-		// Trace location QRCodes need to be matched from a regex provided by the app configuration
+		// Trace location QR codes need to be matched with a regex provided by the app configuration
 		var traceLocationMatch: NSTextCheckingResult?
 		let traceLocationDescriptor = appConfigurationProvider.currentAppConfig.value.presenceTracingParameters.qrCodeDescriptors.first {
 			do {
