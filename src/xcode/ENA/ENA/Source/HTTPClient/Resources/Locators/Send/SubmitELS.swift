@@ -10,7 +10,6 @@ extension Locator {
 		otpEls: String,
 		isFake: Bool
 	) -> Locator {
-		// TODO: Super special case: Multipart
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
 			endpoint: .errorLogSubmission,

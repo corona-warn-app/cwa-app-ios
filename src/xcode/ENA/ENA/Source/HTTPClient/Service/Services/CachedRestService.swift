@@ -27,6 +27,7 @@ class CachedRestService: Service {
 	let environment: EnvironmentProviding
 
 	lazy var session: URLSession = {
+		optionalSession ??
 		.coronaWarnSession(
 			configuration: .cachingSessionConfiguration()
 		)
@@ -89,7 +90,7 @@ class CachedRestService: Service {
 
 
 /// helper class for the NSCache
-
+// swiftlint:disable private_over_fileprivate
 fileprivate class CacheData: NSObject {
 
 	init(data: Data, eTag: String, date: Date) {
