@@ -152,17 +152,8 @@ class DiaryCoordinator {
 			onCellSelection: { [weak self] day in
 				self?.showDayScreen(day: day)
 			},
-			onInfoButtonTap: { [weak self] in
-				self?.presentInfoScreen()
-			},
-			onExportButtonTap: { [weak self] in
-				self?.showExportActivity()
-			},
-			onEditContactPersonsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(entryType: .contactPerson)
-			},
-			onEditLocationsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(entryType: .location)
+			onMoreButtonTap: { [weak self] in
+				self?.showMoreActionSheet()
 			}
 		)
 	}()
@@ -252,6 +243,37 @@ class DiaryCoordinator {
 		self.viewController.popToRootViewController(animated: false)
 		
 		self.viewController.pushViewController(viewController, animated: true)
+	}
+
+	private func showMoreActionSheet() {
+		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+		let infoAction = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.infoActionTitle, style: .default) { [weak self] _ in
+			self?.presentInfoScreen()
+		}
+		actionSheet.addAction(infoAction)
+
+		let exportAction = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.exportActionTitle, style: .default) { [weak self] _ in
+			self?.showExportActivity()
+		}
+		actionSheet.addAction(exportAction)
+
+		let editPerson = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.editPersonTitle, style: .default) { [weak self] _ in
+			self?.showEditEntriesScreen(entryType: .contactPerson)
+		}
+		editPerson.isEnabled = diaryStore.diaryDaysPublisher.value.first?.entries.contains { $0.type == .contactPerson } ?? false
+		actionSheet.addAction(editPerson)
+
+		let editLocation = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.editLocationTitle, style: .default) { [weak self] _ in
+			self?.showEditEntriesScreen(entryType: .location)
+		}
+		editLocation.isEnabled = diaryStore.diaryDaysPublisher.value.first?.entries.contains { $0.type == .location } ?? false
+		actionSheet.addAction(editLocation)
+
+		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
+		actionSheet.addAction(cancelAction)
+
+		viewController.present(actionSheet, animated: true, completion: nil)
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from fromViewController: UIViewController? = nil) {

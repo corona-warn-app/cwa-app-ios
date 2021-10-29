@@ -430,6 +430,7 @@
 		341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */; };
 		341DC33726849D1F0003E6BA /* LocalStatisticsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC335268485EF0003E6BA /* LocalStatisticsProviderTests.swift */; };
 		341DC33A26849E3A0003E6BA /* default_local_statistics.bin in Resources */ = {isa = PBXBuildFile; fileRef = 341DC33926849E3A0003E6BA /* default_local_statistics.bin */; };
+		341FE0B32721BA2100A4D28F /* AppDelegate+UITestingMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341FE0B22721BA2000A4D28F /* AppDelegate+UITestingMethods.swift */; };
 		3456D95225EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95125EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift */; };
 		3456D95725EFD51900A62F5D /* ErrorReportHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95625EFD51900A62F5D /* ErrorReportHistoryViewModel.swift */; };
 		3456D95C25EFE02E00A62F5D /* ErrorReportHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */; };
@@ -1914,6 +1915,7 @@
 		341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsMetadata.swift; sourceTree = "<group>"; };
 		341DC335268485EF0003E6BA /* LocalStatisticsProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsProviderTests.swift; sourceTree = "<group>"; };
 		341DC33926849E3A0003E6BA /* default_local_statistics.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_local_statistics.bin; sourceTree = "<group>"; };
+		341FE0B22721BA2000A4D28F /* AppDelegate+UITestingMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppDelegate+UITestingMethods.swift"; path = "ENA/Source/AppDelegate & Globals/AppDelegate+UITestingMethods.swift"; sourceTree = SOURCE_ROOT; };
 		3456D95125EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryViewController.swift; sourceTree = "<group>"; };
 		3456D95625EFD51900A62F5D /* ErrorReportHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryViewModel.swift; sourceTree = "<group>"; };
 		3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryCell.swift; sourceTree = "<group>"; };
@@ -4558,9 +4560,10 @@
 				3543134E25DE990B00926575 /* __tests__ */,
 				EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */,
 				EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */,
+				35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */,
+				341FE0B22721BA2000A4D28F /* AppDelegate+UITestingMethods.swift */,
 				BA6898CC25ED49E00037A3EE /* Route.swift */,
 				8F634083262DBB6900077240 /* Route+Equatable.swift */,
-				35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */,
 				35B2FAA925B9CE8F009ABC8E /* main.swift */,
 				353412CB2525EE4A0086D15C /* Globals.swift */,
 				35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */,
@@ -9847,6 +9850,7 @@
 				8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
 				AB190E9925FB677800FBFF0D /* DeleteCheckinQuery.swift in Sources */,
+				341FE0B32721BA2100A4D28F /* AppDelegate+UITestingMethods.swift in Sources */,
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
 				8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */,
@@ -10517,7 +10521,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10672,7 +10676,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -10851,7 +10855,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -11092,7 +11096,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -11132,7 +11136,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -11275,7 +11279,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -11319,7 +11323,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -11362,7 +11366,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
