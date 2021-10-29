@@ -6,6 +6,8 @@ import Foundation
 
 extension Locator {
 
+	// send:	Empty
+	// receive:	Protobuf SAP_Internal_V2_ApplicationConfigurationIOS
 	static var appConfiguration: Locator {
 		Locator(
 			endpoint: .distribution,

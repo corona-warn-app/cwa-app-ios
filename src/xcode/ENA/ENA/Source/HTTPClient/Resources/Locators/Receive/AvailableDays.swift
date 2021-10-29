@@ -6,6 +6,8 @@ import Foundation
 
 extension Locator {
 
+	// send:	Empty
+	// receive:	JSON
 	static func availableDays(
 		country: String
 	) -> Locator {
