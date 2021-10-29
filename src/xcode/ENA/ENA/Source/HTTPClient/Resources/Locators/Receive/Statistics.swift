@@ -7,9 +7,9 @@ import Foundation
 extension Locator {
 
 	// send:	Empty
-	// receive:	Protobuf SAP_Internal_Stats_Statistics
+	// receive:	ProtoBuf SAP_Internal_Stats_Statistics
 	// type:	caching
-	// comment: 
+	// comment:
 	static var statistics: Locator {
 		Locator(
 			endpoint: .distribution,
