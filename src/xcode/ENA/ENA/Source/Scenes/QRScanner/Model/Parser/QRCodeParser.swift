@@ -33,6 +33,7 @@ class QRCodeParser: QRCodeParsable {
 		qrCode: String,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
 	) {
+		var parser: QRCodeParsable?
 
 		// Check the prefix to know which type
 		// if we go directly and try to parse we might get an incorrect error
@@ -60,15 +61,18 @@ class QRCodeParser: QRCodeParsable {
 			)
 		}
 
-		guard let parser = parser else {
+		guard parser != nil else {
 			Log.error("QRCode parser not initialized, Scanned code prefix doesn't match any of the scannable structs", log: .qrCode, error: nil)
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
 
-		parser.parse(qrCode: qrCode) { result in
+		parser?.parse(qrCode: qrCode) { result in
 			completion(result)
-			self.parser = nil
+
+			/// Setting to nil keeps the parser in memory up until this point. Using a property to keep it in memory is not advisable as it led to a bug:
+			/// The QRCodeParser instance is shared and concurrently used, but a separate parser is actually needed per call. Storing the parser in a property can lead to the wrong parser being used.
+			parser = nil
 		}
 	}
 
@@ -77,5 +81,5 @@ class QRCodeParser: QRCodeParsable {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let markCertificateAsNew: Bool
-	private var parser: QRCodeParsable?
+
 }

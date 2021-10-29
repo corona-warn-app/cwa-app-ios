@@ -12,17 +12,11 @@ class DiaryOverviewTableViewController: UITableViewController {
 	init(
 		viewModel: DiaryOverviewViewModel,
 		onCellSelection: @escaping (DiaryDay) -> Void,
-		onInfoButtonTap: @escaping () -> Void,
-		onExportButtonTap: @escaping () -> Void,
-		onEditContactPersonsButtonTap: @escaping () -> Void,
-		onEditLocationsButtonTap: @escaping () -> Void
+		onMoreButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onCellSelection = onCellSelection
-		self.onInfoButtonTap = onInfoButtonTap
-		self.onExportButtonTap = onExportButtonTap
-		self.onEditContactPersonsButtonTap = onEditContactPersonsButtonTap
-		self.onEditLocationsButtonTap = onEditLocationsButtonTap
+		self.onMoreButtonTap = onMoreButtonTap
 
 		super.init(style: .plain)
 	}
@@ -89,10 +83,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 	private let viewModel: DiaryOverviewViewModel
 	private let onCellSelection: (DiaryDay) -> Void
-	private let onInfoButtonTap: () -> Void
-	private let onExportButtonTap: () -> Void
-	private let onEditContactPersonsButtonTap: () -> Void
-	private let onEditLocationsButtonTap: () -> Void
+	private let onMoreButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 	
@@ -148,31 +139,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 	
 	@objc
 	private func onMore() {
-		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-		
-		let infoAction = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.infoActionTitle, style: .default, handler: { [weak self] _ in
-			self?.onInfoButtonTap()
-		})
-		actionSheet.addAction(infoAction)
-		
-		let exportAction = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.exportActionTitle, style: .default, handler: { [weak self] _ in
-			self?.onExportButtonTap()
-		})
-		actionSheet.addAction(exportAction)
-
-		let editPerson = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.editPersonTitle, style: .default, handler: { [weak self] _ in
-			self?.onEditContactPersonsButtonTap()
-		})
-		actionSheet.addAction(editPerson)
-		
-		let editLocation = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.editLocationTitle, style: .default, handler: { [weak self] _ in
-			self?.onEditLocationsButtonTap()
-		})
-		actionSheet.addAction(editLocation)
-		
-		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel, handler: nil)
-		actionSheet.addAction(cancelAction)
-		
-		present(actionSheet, animated: true, completion: nil)
+		onMoreButtonTap()
 	}
+
 }

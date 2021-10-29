@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "Sizinle aynı anda aynı etkinliklerde veya yerlerde check in yapan kişilere de uyarı gönderilecektir.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Onayınız gönüllülük esasına dayalıdır.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
@@ -1279,9 +1279,18 @@
 
 "Home_TraceLocationsCard_Button" = "QR Kod Oluştur";
 
-/* Home Info Card */
+/* Home More Card */
+"Home_MoreCard_Title" = "Daha Fazla";
 
-"Home_AppInformationCard_Version" = "Versiyon";
+"Home_MoreCard_SettingsTitle" = "Ayarlar";
+
+"Home_MoreCard_RecycleBinTitle" = "Geri Dönüşüm Kutusu";
+
+"Home_MoreCard_AppInformationTitle" = "Uygulama Bilgileri";
+
+"Home_MoreCard_FAQTitle" = "SSS";
+
+"Home_MoreCard_ShareTitle" = "Paylaş";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
@@ -1289,6 +1298,11 @@
 "Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma 14 günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
+
+/* App Information */
+"App_Information_Title" = "Uygulama Bilgileri";
+
+"App_Information_Version" = "Versiyon";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Uygulama Hakkında";
@@ -1544,21 +1558,21 @@
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
 /* Version 2.12 */
-"NewVersionFeature_212_newStatisticsTiles_title" = "Genişletilmiş İstatistikler";
+"NewVersionFeature_213_hospitalizationRateTile_title" = "Yerel 7 Günlük Hastaneye Yatış Olayı";
 
-"NewVersionFeature_212_newStatisticsTiles_description" = "Artık uygulamada şu istatistikler mevcuttur:\n\t\U2022 7 günlük hastaneye yatış olayı\n\t\U2022 Yoğun bakım ünitelerindeki\n\t   COVID-19 hastaları";
+"NewVersionFeature_213_hospitalizationRateTile_description" = "7 günlük yeni enfeksiyon olayına ilişkin yerel kutucuklarında artık 7 günlük hastaneye yatış olayı da görüntülenmektedir. Bu önemli değer yalnızca eyalet düzeyinde kullanılabilir olduğu için bir bölge seçilirse ilgili eyalete ilişkin hastaneye yatış oranı görüntülenecektir.";
 
-"NewVersionFeature_212_notificationManagement_title" = "Bildirimleri Yönet";
+"NewVersionFeature_213_changesFAQLinks_title" = "SSS Bağlantısında Değişiklik";
 
-"NewVersionFeature_212_notificationManagement_description" = "Bildirim ayarları artık akıllı telefonunuzun ayarlarından merkezi olarak yönetilir. Cihazınızın ayarlarında Corona-Warn-App'e ilişkin bildirim ayarlarınızı yeniden kontrol edin.";
+"NewVersionFeature_213_changesFAQLinks_description" = "Uygulamada bir SSS'ye ulaşmak istediğinizde artık coronawarn.app adresindeki sayfalara yönlendiriliyorsunuz. Bu sayfalarda sorularınız hakkında daha ayrıntılı bilgi bulabileceksiniz.";
 
-"NewVersionFeature_212_qrCodeScannerButton_title" = "QR Kod Tarayıcıya Doğrudan Erişim";
+"NewVersionFeature_213_certificateAssignment_title" = "Sertifika Ataması";
 
-"NewVersionFeature_212_qrCodeScannerButton_description" = "Artık alt gezinti çubuğunda evrensel QR kod tarayıcıya doğrudan erişebilirsiniz.";
+"NewVersionFeature_213_certificateAssignment_description" = "Sertifikaların kişilere atanması konusunda daha fazla hata tolere edilebilir hale getirildi. Uygulama artık adlarda farklı sayıda boşluk olmasını göz ardı etmekte ve bu sayede bu tür farklılıklara rağmen sertifikalar aynı kişiye atanabilmektedir.";
 
-"NewVersionFeature_212_qrCodeImport_title" = "QR Kodu İçe Aktar";
+"NewVersionFeature_213_restoreCertificate_title" = "Sertifikaları Geri Yükleme";
 
-"NewVersionFeature_212_qrCodeImport_description" = "Artık QR kod tarayıcıyı kullanarak fotoğraf veya PDF dosyalarından QR kodları içe aktarabilirsiniz.";
+"NewVersionFeature_213_restoreCertificate_description" = "Kaldırılan sertifikalar geri dönüşüm kutusuna taşınır. Bu sertifikalar 30 gün içinde geri yüklenebilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1882,9 +1896,20 @@
 
 "Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
 
-"Statistics_Card_Add_LocalCardPrimarySubtitle" = "her 100.000 vatandaşta onaylanan yeni enfeksiyon sayısı";
-
 "Statistics_Card_Manage" = "Düzenle";
+
+/* - 7 Days Incedence */
+"Statistics_Card_CombinedIncidence_Title" = "7 Günlük Olay";
+
+"Statistics_Card_CombinedIncidence_Today" = "Bugüne kadar";
+
+"Statistics_Card_CombinedIncidence_Yesterday" = "Düne kadar";
+
+"Statistics_Card_CombinedIncidence_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Yeni Enfeksiyon Sayısı";
+
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hastaneye Yatış Sayısı";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
@@ -1900,15 +1925,17 @@
 "Statistics_Card_Infections_TertiaryLabelTitle" = "Toplam";
 
 /* - Incidence Card */
-"Statistics_Card_Incidence_Title" = "7 Günlük Olay";
+"Statistics_Card_Region_Today" = "Bugüne kadar";
 
-"Statistics_Card_Incidence_Today" = "Bugüne kadar";
+"Statistics_Card_Region_Yesterday" = "Düne kadar";
 
-"Statistics_Card_Incidence_Yesterday" = "Düne kadar";
+"Statistics_Card_Region_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_Incidence_Date" = "%@ tarihine kadar";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "Yeni Enfeksiyon Sayısı";
 
-"Statistics_Card_Incidence_SecondaryLabelTitle" = "her 100.000 vatandaşta onaylanan yeni enfeksiyon sayısı";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hastaneye Yatış Sayısı";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "%@ için hastaneye yatış sayısı";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
@@ -1979,23 +2006,12 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Toplam";
 
-/* - Infected People Hospitalization Rate */
-"Statistics_Card_HospitalizationRate_Title" = "7 Günlük Hastaneye Yatış Olayı";
-
-"Statistics_Card_HospitalizationRate_Today" = "Bugüne kadar";
-
-"Statistics_Card_HospitalizationRate_Yesterday" = "Düne kadar";
-
-"Statistics_Card_HospitalizationRate_Date" = "%@ tarihine kadar";
-
-"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19 Nedeniyle Her 100.000 Vatandaşta Hastaneye Yatış Sayısı";
-
 /* - Infected People in Intensive Care */
 "Statistics_Card_IntensiveCare_Title" = "Yoğun Bakım Ünitelerindeki COVID-19 Hastaları";
 
 "Statistics_Card_IntensiveCare_Today" = "Bugüne kadar";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Düne kadar";
+"Statistics_Card_IntensiveCare_Yesterday" = "Dün";
 
 "Statistics_Card_IntensiveCare_Date" = "%@ tarihine kadar";
 
@@ -2009,15 +2025,17 @@
 
 "Statistics_Info_Subtitle" = "İstatistiklerin Açıklaması";
 
-"Statistics_Info_Local7Days_Title" = "Yerel 7 Günlük Olay";
-
-"Statistics_Info_Local7Days_Text" = "Konfigüre edilen bölgede veya federal eyalette her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
-
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
-"Statistics_Info_Incidence_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
+"Statistics_Info_Local7Days_Title" = "Yerel 7 Günlük Olay";
 
-"Statistics_Info_HospitalizationRate_Title" = "7 Günlük Hastaneye Yatış Olayı";
+"Statistics_Info_Local7Days_Text" = "Konfigüre edilen bölgede veya federal eyalette her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.\nHastaneye yatış verilerinde, Almanya'daki ilgili eyaleti referans alınır.";
+
+"Statistics_Info_NewInfection_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
+
+"Statistics_Info_NewInfection_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Hastaneye Yatış Sayısı";
 
 "Statistics_Info_HospitalizationRate_Text" = "Son 7 günde COVID-19 nedeniyle her 100.000 vatandaşta toplam hastaneye giriş sayısı.";
 
@@ -2634,9 +2652,9 @@
 
 "HealthCertificate_Validation_Info_title" = "Bilgi";
 
-"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini girin.";
+"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini seçin.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini girin.";
+"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini seçin.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Sertifikalar";
@@ -2774,7 +2792,7 @@
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Aşı %i / %i";
 
-"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "aşı tarihi: %@";
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Aşı tarihi: %@";
 
 "HealthCertifiedPerson_TestCertificate_headline" = "Test Sertifikası";
 
@@ -2837,14 +2855,14 @@
 "VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
 
 /* Health Certificate Delete Alert */
-"HealthCertificate_Alert_deleteButton" = "Sil";
+"HealthCertificate_Alert_deleteButton" = "Sertifikayı Kaldır";
 
 "HealthCertificate_Alert_cancelButton" = "İptal Et";
 
 /* Vaccination Certificate Delete Alert */
-"VaccinationCertificate_Alert_title" = "Aşı sertifikasını silmek istiyor musunuz?";
+"VaccinationCertificate_Alert_title" = "Aşı sertifikasını kaldırmak istiyor musunuz?";
 
-"VaccinationCertificate_Alert_message" = "Artık geçerli olmasalar da aşı sertifikalarını uygulamada tutmanızı öneririz.";
+"VaccinationCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Sertifikası";
@@ -2860,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Test sertifikasını kaldırmak istiyor musunuz?";
 
-"TestCertificate_Alert_message" = "Test sertifikasını kaldırırsanız artık bunu uygulamada kanıt olarak kullanamazsınız.";
+"TestCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "İyileşme Sertifikası";
@@ -2872,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "İyileşme sertifikasını kaldırmak istiyor musunuz?";
 
-"RecoveryCertificate_Alert_message" = "İyileşme sertifikasını kaldırırsanız artık bunu uygulamada kanıt olarak kullanamazsınız.";
+"RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";
@@ -2939,7 +2957,7 @@
 
 "HealthCertificate_Validation_DateTimeSelection_Title" = "Tarih ve saat";
 
-"HealthCertificate_Validation_DateTimeSelection_Info" = "Giriş tarihinizi ve yerel saatinizi girin.";
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Giriş tarihinizi ve yerel saatinizi seçin.";
 
 "HealthCertificate_Validation_Body1" = "Lütfen gideceğiniz ülkede seyahatiniz sırasında sertifikanızın geçerli olup olmayacağını önceden kontrol edin. Seçilen hedef ülkeye ilişkin giriş kuralları göz önünde bulundurulacaktır.";
 
@@ -3076,6 +3094,10 @@
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod tarayın.";
 
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Sertifikayı Geri Yükle";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Sertifika geri dönüşüm kutusundan geri yüklenecektir.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Fotoğraf Kitaplığı";
 
@@ -3085,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Erişime izin verilmiyor";
 
-"FileScanner_AccessError_message" = "\\\"Corona-Warn-App\\\" fotoğraf kitaplığınıza erişemiyor. Cihazınızın ayarlarında erişim verebilirsiniz.";
+"FileScanner_AccessError_message" = "Corona-Warn-App fotoğraf kitaplığınıza erişemiyor. Cihazınızın ayarlarında erişim verebilirsiniz.";
 
 "FileScanner_AccessError_cancel" = "İptal";
 
@@ -3109,7 +3131,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Uygun QR Kod Yok";
 
-"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun QR kod içeren bir dosya seçin.";
+"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod tarayın.";
 
 "FileScanner_FileNotReadable_title" = "Dosya Okunamıyor";
 
@@ -3155,4 +3177,77 @@
 "FederalState_SchleswigHolstein" = "Schleswig-Holstein";
 
 "FederalState_Thueringen" = "Türingiya";
+
+/* Recycle Bin */
+"RecycleBin_title" = "Geri Dönüşüm Kutusu";
+
+"RecycleBin_description" = "Geri yüklemek için bir öğeye dokunun. Öğeler 30 gün sonra otomatik olarak silinir.";
+
+"RecycleBin_deleteAllButtonTitle" = "Tümünü Kaldır";
+
+/* - Vaccination Certificate */
+"RecycleBin_VaccinationCertificate_headline" = "Aşı Sertifikası";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Aşı %i / %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "aşı tarihi: %@";
+
+/* - Test Certificate */
+"RecycleBin_TestCertificate_headline" = "Test Sertifikası";
+
+"RecycleBin_TestCertificate_pcrTest" = "PCR Testi";
+
+"RecycleBin_TestCertificate_antigenTest" = "Hızlı Test";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Numune alma tarihi: %@";
+
+/* - Recovery Certificate */
+"RecycleBin_RecoveryCertificate_headline" = "İyileşme Sertifikası";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_pcrTest" = "PCR Testi";
+
+"RecycleBin_CoronaTest_antigenTest" = "Hızlı Test";
+
+"RecycleBin_CoronaTest_registrationDate" = "Kayıt tarihi: %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "Gerçekleştirilme tarihi: %@";
+
+/* - Empty State */
+"RecycleBin_EmptyState_title" = "Geri Dönüşüm Kutusu Boş";
+
+"RecycleBin_EmptyState_description" = "Sertifikaları kaldırdığınızda sertifikalar geri dönüşüm kutusuna taşınır ve burada görüntülenir.";
+
+"RecycleBin_EmptyState_imageDescription" = "Geri dönüşüm kutusu";
+
+/* - Restore Certificate Alert */
+"RecycleBin_RestoreCertificate_AlertTitle" = "Sertifikayı Geri Yükle";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "Geri yüklenen sertifika orijinal konumuna taşınır. Daha sonra \"Sertifikalar\" sekme sayfasında bulabilirsiniz.";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Geri Yükle";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "İptal";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_AlertTitle" = "Testi Geri Yükle";
+
+"RecycleBin_CoronaTest_AlertMessage" = "Geri yüklenen test orijinal konumuna taşınır. Daha sonra \"Durum\" sekme sayfasında bulabilirsiniz.";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Geri Yükle";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "İptal";
+
+/* - Delete All Alert */
+"RecycleBin_DeleteAll_AlertTitle" = "Geri dönüşüm kutusunu boşaltmak istiyor musunuz?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "İçindekileri geri yükleyemeyeceksiniz.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Sil";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "İptal Et";
 

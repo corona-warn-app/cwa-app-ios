@@ -38,6 +38,14 @@ struct TestResultMetadata: Codable {
 			Int.self,
 			forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration
 		)
+		exposureWindowsAtTestRegistration = try container.decodeIfPresent(
+			[SubmissionExposureWindow].self,
+			forKey: .exposureWindowsAtTestRegistration
+		)
+		exposureWindowsUntilTestResult = try container.decodeIfPresent(
+			[SubmissionExposureWindow].self,
+			forKey: .exposureWindowsUntilTestResult
+		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
 		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
 
@@ -59,6 +67,8 @@ struct TestResultMetadata: Codable {
 		case checkinRiskLevelAtTestRegistration
 		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		case hoursSinceCheckinHighRiskWarningAtTestRegistration
+		case exposureWindowsAtTestRegistration
+		case exposureWindowsUntilTestResult
 		case testRegistrationDate
 		case testRegistrationToken
 		case testType
@@ -97,6 +107,12 @@ struct TestResultMetadata: Codable {
 	// if high = timestamp of when the checkin risk got high -  timestamp of test registration
 	// if low = -1
 	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int?
+	
+	// Set of Exposure Windows that are available in ENF upon test registration.
+	var exposureWindowsAtTestRegistration: [SubmissionExposureWindow]?
+	
+	// Set of Exposure Windows that are available in ENF until test result is arrived.
+	var exposureWindowsUntilTestResult: [SubmissionExposureWindow]?
 	
 	// The following variables are not part of the submitted data but we need them for calculating the saved data
 	
