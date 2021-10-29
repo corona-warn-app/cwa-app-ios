@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	Empty
+	// receive:	JSON
+	// type:	default
+	// comment:
 	static func traceWarningPackageDownload(
 		unencrypted: Bool,
 		country: String,

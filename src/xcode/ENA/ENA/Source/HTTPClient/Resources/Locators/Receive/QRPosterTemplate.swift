@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	Empty
+	// receive:	Protobuf SAP_Internal_Pt_QRCodePosterTemplateIOS
+	// type:	caching
+	// comment:
 	static var qrCodePosterTemplate: Locator {
 		Locator(
 			endpoint: .distribution,

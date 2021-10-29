@@ -8,6 +8,8 @@ extension Locator {
 
 	// send:	Empty
 	// receive:	JSON
+	// type:	default
+	// comment:
 	static func availableDays(
 		country: String
 	) -> Locator {

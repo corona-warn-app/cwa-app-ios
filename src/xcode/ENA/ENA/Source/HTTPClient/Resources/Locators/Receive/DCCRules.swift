@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	Empty
+	// receive:	JSON Rule - attention special handling might be required here
+	// type:	caching
+	// comment:
 	static func DCCRules(
 		rulePath: String,
 		isFake: Bool

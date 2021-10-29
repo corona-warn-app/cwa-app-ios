@@ -6,6 +6,10 @@ import Foundation
 
 extension Locator {
 
+	// send:	Empty
+	// receive:	PackageDownloadResponse
+	// type:	retrying
+	// comment: we need to look how we will handle PackageDownloadResponse
 	static func diagnosisKeys(
 		day: String,
 		country: String
