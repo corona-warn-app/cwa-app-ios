@@ -61,10 +61,14 @@ class QRScannerCoordinator {
 	) {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
+
+		let qrScannerViewController = qrScannerViewController(
+			markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates)
+		)
+		self.qrScannerViewController = qrScannerViewController
+
 		let navigationController = UINavigationController(
-			rootViewController: qrScannerViewController(
-				markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates)
-			)
+			rootViewController: qrScannerViewController
 		)
 		self.parentViewController?.present(navigationController, animated: true)
 	}
@@ -85,6 +89,7 @@ class QRScannerCoordinator {
 	
 	private var presenter: QRScannerPresenter!
 	private weak var parentViewController: UIViewController?
+	private weak var qrScannerViewController: UIViewController?
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
@@ -150,6 +155,29 @@ class QRScannerCoordinator {
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
+//		let shouldBeRestoredFromBin: Bool
+//		switch testRegistrationInformation {
+//		case let .pcr(guid: _, qrCodeHash: qrCodeHash):
+//			shouldBeRestoredFromBin = coronaTestService.pcrTest?.qrCodeHash == qrCodeHash
+//		case let .antigen(qrCodeInformation: _, qrCodeHash: qrCodeHash):
+//			shouldBeRestoredFromBin = coronaTestService.antigenTest?.qrCodeHash == qrCodeHash
+//		case .teleTAN:
+//			shouldBeRestoredFromBin = false
+//		}
+//
+//		if shouldBeRestoredFromBin {
+//			showTestRestoredFromBinAlert { [weak self] in
+//				self?.
+//
+//				switch presenter {
+//				case .submissionFlow, .onBehalfFlow:
+//					self?.parentViewController?.dismiss(animated: true)
+//				case .checkinTab, .certificateTab, .universalScanner, .none:
+//					break
+//				}
+//			}
+//		}
+
 		switch presenter {
 		case .submissionFlow:
 			didScanCoronaTestInSubmissionFlow?(testRegistrationInformation)
@@ -331,6 +359,27 @@ class QRScannerCoordinator {
 		)
 
 		presentationController.present(alert, animated: true)
+	}
+
+	private func showTestRestoredFromBinAlert(
+		completion: @escaping () -> Void
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.UniversalQRScanner.testRestoredFromBinAlertTitle,
+			message: AppStrings.UniversalQRScanner.testRestoredFromBinAlertMessage,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default,
+				handler: { _ in
+					completion()
+				}
+			)
+		)
+
+		qrScannerViewController?.present(alert, animated: true)
 	}
 	
 }

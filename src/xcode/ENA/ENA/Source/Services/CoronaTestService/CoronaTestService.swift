@@ -310,6 +310,8 @@ class CoronaTestService {
 		case .antigen(let antigenTest):
 			self.antigenTest = antigenTest
 		}
+
+		// TODO: Reschedule warn others reminder
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
