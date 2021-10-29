@@ -80,7 +80,7 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 
 		// Setup.
 		let expectation = self.expectation(description: "all callbacks called")
-		expectation.expectedFulfillmentCount = 12
+		expectation.expectedFulfillmentCount = 8
 
 		var previousSize: Int?
 
