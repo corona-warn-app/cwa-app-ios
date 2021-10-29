@@ -8,12 +8,15 @@ A Resource is a composition of locator (where a resources can be found), service
 protocol Resource {
 	associatedtype Send: SendResource
 	associatedtype Receive: ReceiveResource
+	associatedtype CustomError: Error
 
 	var locator: Locator { get }
 	var type: ServiceType { get }
 
 	var sendResource: Send { get }
 	var receiveResource: Receive { get }
+
+	func customError(statusCode: Int) -> CustomError?
 }
 
 /**

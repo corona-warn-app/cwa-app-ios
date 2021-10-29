@@ -40,22 +40,19 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	func load<S, R>(
-		_ locator: Locator,
-		_ sendResource: S,
-		_ receiveResource: R,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where S: SendResource, R: ReceiveResource {
-		
-		switch urlRequest(locator, sendResource, receiveResource) {
+	func load<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
-			completion(.failure(.serverError(resourceError)))
+			completion(.failure(.transportationError(resourceError)))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				guard error == nil,
 					  let response = response as? HTTPURLResponse else {
 					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
-					completion(.failure(.serverError(error)))
+					completion(.failure(.transportationError(error)))
 					return
 				}
 				#if DEBUG
@@ -63,29 +60,32 @@ extension Service {
 				#endif
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(receiveResource, locator, bodyData, response, completion)
+					decodeModel(resource, bodyData, response, completion)
 
 				case 202...204:
 					completion(.success(nil))
 
 				case 304:
-					cached(receiveResource, locator, completion)
+					cached(resource, completion)
 
 				default:
-					completion(.failure(.unexpectedResponse(response.statusCode)))
+					if let resourceError = resource.customError(statusCode: response.statusCode) {
+						completion(.failure(ServiceError<R.CustomError>.receivedResourceError(resourceError)))
+					} else {
+						completion(.failure(.unexpectedServerError(response.statusCode)))
+					}
 				}
 			}.resume()
 		}
 	}
 
 	func decodeModel<R>(
-		_ receiveResource: R,
-		_ locator: Locator,
-		_ bodyData: Data? = nil,
-		_ response: HTTPURLResponse? = nil,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where R: ReceiveResource {
-		switch receiveResource.decode(bodyData) {
+		_ resource: R,
+		_ bodyData: Data?,
+		_ response: HTTPURLResponse?,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		switch resource.receiveResource.decode(bodyData) {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
@@ -94,10 +94,9 @@ extension Service {
 	}
 
 	func cached<R>(
-		_ receiveResource: R,
-		_ locator: Locator,
-		_ completion: @escaping (Result<R.ReceiveModel?, ServiceError>) -> Void
-	) where R: ReceiveResource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		completion(.failure(.resourceError(.notModified)))
 	}
 	

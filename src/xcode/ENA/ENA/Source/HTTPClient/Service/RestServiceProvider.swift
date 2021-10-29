@@ -18,12 +18,12 @@ class RestServiceProvider: RestServiceProviding {
 
 	func load<R>(
 		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError>) -> Void
+		_ completion: @escaping (Result<R.Receive.ReceiveModel?, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		// dispatch loading to the correct rest service
 		switch resource.type {
 		case .default:
-			restService.load(resource.locator, resource.sendResource, resource.receiveResource, completion)
+			restService.load(resource, completion)
 		case .caching:
 			Log.error("Not yet implemented")
 		case .wifiOnly:
