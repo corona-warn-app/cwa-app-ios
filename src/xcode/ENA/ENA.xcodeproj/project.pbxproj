@@ -1246,6 +1246,7 @@
 		BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7345271F124D00E3CE14 /* _RestServiceProviding.swift */; };
 		BA7F7348271F12CE00E3CE14 /* _ReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7347271F12CE00E3CE14 /* _ReceiveResource.swift */; };
 		BA7F734A271F130200E3CE14 /* _SendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F7349271F130200E3CE14 /* _SendResource.swift */; };
+		BA7FDD09272C2C49009829AB /* WifiOnlyRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7FDD08272C2C49009829AB /* WifiOnlyRestService.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA821E9326B41F81008DA362 /* ValidationStateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */; };
 		BA83C193271702A50039D504 /* MockTestStore+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA83C192271702A50039D504 /* MockTestStore+Migration.swift */; };
@@ -2750,6 +2751,7 @@
 		BA7F7345271F124D00E3CE14 /* _RestServiceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _RestServiceProviding.swift; sourceTree = "<group>"; };
 		BA7F7347271F12CE00E3CE14 /* _ReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ReceiveResource.swift; sourceTree = "<group>"; };
 		BA7F7349271F130200E3CE14 /* _SendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _SendResource.swift; sourceTree = "<group>"; };
+		BA7FDD08272C2C49009829AB /* WifiOnlyRestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyRestService.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationStateServiceTests.swift; sourceTree = "<group>"; };
 		BA83C192271702A50039D504 /* MockTestStore+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockTestStore+Migration.swift"; sourceTree = "<group>"; };
@@ -4908,6 +4910,7 @@
 				5071A88326EB810D00B09B40 /* _Service+Default.swift */,
 				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				BADE51ED272B058000CBAA63 /* CachedRestService.swift */,
+				BA7FDD08272C2C49009829AB /* WifiOnlyRestService.swift */,
 				BA64FA8126D79C2300DD4705 /* StandardRestService.swift */,
 			);
 			path = Services;
@@ -9372,6 +9375,7 @@
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
 				018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */,
 				01F3323627146EF5005CE21E /* RecycleBinViewController.swift in Sources */,
+				BA7FDD09272C2C49009829AB /* WifiOnlyRestService.swift in Sources */,
 				50FEB18B26580B1E005C3322 /* DMPPAActualDataViewModel.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
 				8FB776ED26EA323C005255BB /* DMBoosterRulesViewController.swift in Sources */,
