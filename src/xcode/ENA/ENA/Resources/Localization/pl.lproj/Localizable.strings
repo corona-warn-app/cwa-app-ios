@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "Osoby, które zameldowały swoją obecność w tych samych wydarzeniach lub miejscach w tym samym czasie co Ty, również zostaną ostrzeżone.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Możesz pobrać swój wynik testu, nawet jeśli nie zamierzasz go udostępniać. Jeśli jednak zdecydujesz się na jego udostępnienie, pomożesz chronić innych przed zakażeniem.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Jeśli udostępnisz wynik testu, pomożesz chronić innych przed zakażeniem.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Twoja zgoda jest dobrowolna.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Możesz pobrać swój wynik testu, nawet jeśli nie zamierzasz go udostępniać. Jeśli jednak zdecydujesz się na jego udostępnienie, pomożesz chronić innych przed zakażeniem.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Jeśli udostępnisz wynik testu, pomożesz chronić innych przed zakażeniem.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
 
@@ -2011,7 +2011,7 @@
 
 "Statistics_Card_IntensiveCare_Today" = "Do dzisiaj";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Do wczoraj";
+"Statistics_Card_IntensiveCare_Yesterday" = "Wczoraj";
 
 "Statistics_Card_IntensiveCare_Date" = "Do %@";
 
@@ -3107,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Niedozwolony dostęp";
 
-"FileScanner_AccessError_message" = "\\„Corona-Warn-App\\” nie ma dostępu do Twojej biblioteki zdjęć. Możesz przyznać dostęp w ustawieniach urządzenia.";
+"FileScanner_AccessError_message" = "Aplikacja Corona-Warn-App nie ma dostępu do Twojej biblioteki zdjęć. Możesz przyznać dostęp w ustawieniach urządzenia.";
 
 "FileScanner_AccessError_cancel" = "Anuluj";
 

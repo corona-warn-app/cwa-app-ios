@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "People who were checked in to the same events or places at the same time as you were will also be warned.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "If you share your test result, you will help to protect others against infection.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Your consent is voluntary.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "If you share your test result, you will help to protect others against infection.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
@@ -1284,7 +1284,7 @@
 
 "Home_MoreCard_SettingsTitle" = "Settings";
 
-"Home_MoreCard_RecycleBinTitle" = "Trash";
+"Home_MoreCard_RecycleBinTitle" = "Recycle Bin";
 
 "Home_MoreCard_AppInformationTitle" = "App Information";
 
@@ -1572,7 +1572,7 @@
 
 "NewVersionFeature_213_restoreCertificate_title" = "Restore Certificates";
 
-"NewVersionFeature_213_restoreCertificate_description" = "Removed certificates are moved to the trash. They can be restored within 30 days.";
+"NewVersionFeature_213_restoreCertificate_description" = "Removed certificates are moved to the recycle bin. They can be restored within 30 days.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2011,7 +2011,7 @@
 
 "Statistics_Card_IntensiveCare_Today" = "Up to today";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Up to yesterday";
+"Statistics_Card_IntensiveCare_Yesterday" = "Yesterday";
 
 "Statistics_Card_IntensiveCare_Date" = "Up to %@";
 
@@ -2862,7 +2862,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Do you want to remove the vaccination certificate?";
 
-"VaccinationCertificate_Alert_message" = "The certificate will be moved to the trash. You’ll find the trash on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
+"VaccinationCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Certificate";
@@ -2878,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Do you want to remove the test certificate?";
 
-"TestCertificate_Alert_message" = "The certificate will be moved to the trash. You’ll find the trash on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
+"TestCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificate of Recovery";
@@ -2890,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
 
-"RecoveryCertificate_Alert_message" = "The certificate will be moved to the trash. You’ll find the trash on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
+"RecoveryCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Display Print Version";
@@ -3096,7 +3096,7 @@
 
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Restore Certificate";
 
-"UniversalQRScanner_RestoredFromBinAlert_Message" = "The QR code has already been registered on your smartphone. The certificate will be restored from the trash.";
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "The QR code has already been registered on your smartphone. The certificate will be restored from the recycle bin.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Photo Library";
@@ -3107,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Access not allowed";
 
-"FileScanner_AccessError_message" = "\\“Corona-Warn-App\\” does not have access to your photo library. You can grant access in your device settings.";
+"FileScanner_AccessError_message" = "Corona-Warn-App does not have access to your photo library. You can grant access in your device settings.";
 
 "FileScanner_AccessError_cancel" = "Cancel";
 
@@ -3179,7 +3179,7 @@
 "FederalState_Thueringen" = "Thuringia";
 
 /* Recycle Bin */
-"RecycleBin_title" = "Trash";
+"RecycleBin_title" = "Recycle Bin";
 
 "RecycleBin_description" = "Tap an element to restore it. Elements will be deleted automatically after 30 days.";
 
@@ -3218,11 +3218,11 @@
 "RecycleBin_CoronaTest_sampleCollectionDate" = "Performed on %@";
 
 /* - Empty State */
-"RecycleBin_EmptyState_title" = "The trash is empty";
+"RecycleBin_EmptyState_title" = "The Recycle Bin Is Empty";
 
-"RecycleBin_EmptyState_description" = "When you remove certificates, they are moved to the trash and displayed here.";
+"RecycleBin_EmptyState_description" = "When you remove certificates, they are moved to the recycle bin and displayed here.";
 
-"RecycleBin_EmptyState_imageDescription" = "Trash";
+"RecycleBin_EmptyState_imageDescription" = "A recycle bin";
 
 /* - Restore Certificate Alert */
 "RecycleBin_RestoreCertificate_AlertTitle" = "Restore Certificate";
@@ -3243,7 +3243,7 @@
 "RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Cancel";
 
 /* - Delete All Alert */
-"RecycleBin_DeleteAll_AlertTitle" = "Do you want to empty the trash?";
+"RecycleBin_DeleteAll_AlertTitle" = "Do you want to empty the recycle bin?";
 
 "RecycleBin_DeleteAll_AlertMessage" = "You will no longer be able to restore its contents.";
 

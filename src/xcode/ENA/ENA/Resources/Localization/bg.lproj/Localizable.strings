@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "Ще бъдат предупредени и хората, които са се регистрирали за същите събития или места по същото време.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте. Ако обаче споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Вашето съгласие е доброволно.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте, но ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
@@ -2011,7 +2011,7 @@
 
 "Statistics_Card_IntensiveCare_Today" = "До днес";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "До вчера";
+"Statistics_Card_IntensiveCare_Yesterday" = "Вчера";
 
 "Statistics_Card_IntensiveCare_Date" = "До %@";
 
@@ -2862,7 +2862,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
 
-"VaccinationCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето. То се намира на плочка \"Още\" от страницата на таб \"Статус\", където можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
+"VaccinationCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертификат за тест";
@@ -2878,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Желаете ли да изтриете сертификата за тестване?";
 
-"TestCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето. То се намира на плочка \"Още\" от страницата на таб \"Статус\", където можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
+"TestCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Сертификат за възстановяване";
@@ -2890,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Желаете ли да изтриете сертификата за възстановяване?";
 
-"RecoveryCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето. То се намира на плочка \"Още\" от страницата на таб \"Статус\", където можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
+"RecoveryCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Показване на версия за печат";
@@ -3096,7 +3096,7 @@
 
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Възстановяване на сертификат";
 
-"UniversalQRScanner_RestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството ви. Сертификатът ще бъде възстановен от кошчето.";
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Сертификатът ще бъде възстановен от кошчето.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Галерия със снимки";
@@ -3107,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Достъпът не е разрешен";
 
-"FileScanner_AccessError_message" = "\\“Corona-Warn-App\\” няма достъп до галерията Ви със снимки. Можете да разрешите достъпа от настройките на Вашето устройство.";
+"FileScanner_AccessError_message" = "Corona-Warn-App няма достъп до галерията Ви със снимки. Можете да разрешите достъпа от настройките на Вашето устройство.";
 
 "FileScanner_AccessError_cancel" = "Отказ";
 
