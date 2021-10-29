@@ -30,7 +30,7 @@ class CoronaTestService {
 		#if DEBUG
 		if isUITesting {
 			self.client = ClientMock()
-			self.restServiceProvider = restServiceProvider
+			self.restServiceProvider = .coronaTestServiceProvider
 			self.store = MockTestStore()
 			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
@@ -67,6 +67,31 @@ class CoronaTestService {
 
 		setup()
 	}
+
+	#if DEBUG
+
+	convenience init(
+		client: Client,
+		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		eventStore: EventStoringProviding,
+		diaryStore: DiaryStoring,
+		appConfiguration: AppConfigurationProviding,
+		healthCertificateService: HealthCertificateService,
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+	) {
+		self.init(
+			client: client,
+			restServiceProvider: .coronaTestServiceProvider,
+			store: store,
+			eventStore: eventStore,
+			diaryStore: diaryStore,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			notificationCenter: notificationCenter
+		)
+	}
+
+	#endif
 
 	// MARK: - Protocol CoronaTestServiceProviding
 

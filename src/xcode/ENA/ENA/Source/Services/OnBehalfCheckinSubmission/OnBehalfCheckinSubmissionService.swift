@@ -18,7 +18,7 @@ class OnBehalfCheckinSubmissionService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.appConfigurationProvider = CachedAppConfigurationMock()
-			self.restServiceProvider = restServiceProvider
+			self.restServiceProvider = .onBehalfCheckinSubmissionServiceProviderStub
 
 			return
 		}
