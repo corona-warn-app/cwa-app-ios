@@ -53,7 +53,7 @@ class QRCodeParser: QRCodeParsable {
 		} else if String(qrCode.prefix(antigenTestPrefix.count)).lowercased() == antigenTestPrefix || String(qrCode.prefix(pcrTestPrefix.count)).lowercased() == pcrTestPrefix {
 			// it is a test
 			parser = CoronaTestsQRCodeParser()
-		} else if String(qrCode.prefix(healthCertificatePrefix.count)).lowercased() == healthCertificatePrefix {
+		} else if qrCode.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
 			// it is a digital certificate
 			parser = HealthCertificateQRCodeParser(
 				healthCertificateService: healthCertificateService,
