@@ -6,7 +6,6 @@ import Foundation
 
 struct AppConfigurationResource: Resource {
 
-
 	// MARK: - Init
 
 	init() {
