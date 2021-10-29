@@ -7,11 +7,11 @@ import Foundation
 extension Locator {
 
 	// send:	Empty
-	// receive:	Protobuf SAP_Internal_Stats_LocalStatistics
+	// receive:	ProtoBuf SAP_Internal_Stats_LocalStatistics
 	// type:	caching
 	// comment:
 
-	
+
 	static func localStatistics(
 		groupID: StatisticsGroupIdentifier
 	) -> Locator {

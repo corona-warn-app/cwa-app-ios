@@ -7,7 +7,7 @@ import Foundation
 extension Locator {
 
 	// send:	Empty
-	// receive:	Protobuf SAP_Internal_Dgc_ValueSets
+	// receive:	ProtoBuf SAP_Internal_Dgc_ValueSets
 	// type:	caching
 	// comment:
 	static var vaccinationValueSets: Locator {

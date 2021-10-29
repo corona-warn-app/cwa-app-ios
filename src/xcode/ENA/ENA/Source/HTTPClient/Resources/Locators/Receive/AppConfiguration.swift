@@ -7,7 +7,7 @@ import Foundation
 extension Locator {
 
 	// send:	Empty
-	// receive:	Protobuf SAP_Internal_V2_ApplicationConfigurationIOS
+	// receive:	ProtoBuf SAP_Internal_V2_ApplicationConfigurationIOS
 	// type:	caching
 	// comment:
 	static var appConfiguration: Locator {

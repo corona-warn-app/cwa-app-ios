@@ -6,7 +6,7 @@ import Foundation
 
 extension Locator {
 
-	// send:	Protobuf SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS
+	// send:	ProtoBuf SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS
 	// receive:	JSON
 	// type:	default
 	// comment:
