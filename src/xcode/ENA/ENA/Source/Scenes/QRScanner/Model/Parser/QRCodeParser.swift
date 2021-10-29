@@ -45,15 +45,15 @@ class QRCodeParser: QRCodeParsable {
 		let pcrTestPrefix = "https://localhost"
 		let healthCertificatePrefix = "HC1:"
 
-		if qrCode.prefix(traceLocationsPrefix.count) == traceLocationsPrefix {
+		if String(qrCode.prefix(traceLocationsPrefix.count)).lowercased() == traceLocationsPrefix {
 			// it is a trace Locations QRCode
 			parser = CheckinQRCodeParser(
 				appConfigurationProvider: appConfigurationProvider
 			)
-		} else if qrCode.prefix(antigenTestPrefix.count) == antigenTestPrefix || qrCode.prefix(pcrTestPrefix.count) == pcrTestPrefix {
+		} else if String(qrCode.prefix(antigenTestPrefix.count)).lowercased() == antigenTestPrefix || String(qrCode.prefix(pcrTestPrefix.count)).lowercased() == pcrTestPrefix {
 			// it is a test
 			parser = CoronaTestsQRCodeParser()
-		} else if qrCode.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
+		} else if String(qrCode.prefix(healthCertificatePrefix.count)).lowercased() == healthCertificatePrefix {
 			// it is a digital certificate
 			parser = HealthCertificateQRCodeParser(
 				healthCertificateService: healthCertificateService,
