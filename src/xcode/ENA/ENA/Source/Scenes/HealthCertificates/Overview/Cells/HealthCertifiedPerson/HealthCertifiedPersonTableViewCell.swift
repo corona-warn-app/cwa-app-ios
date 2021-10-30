@@ -71,7 +71,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
-		captionCountLabel.heightAnchor.constraint(equalToConstant: captionCountLabel.intrinsicContentSize.height).isActive = true
+		captionCountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: captionCountLabel.intrinsicContentSize.height).isActive = true
 	}
 	
 	// MARK: - Private
