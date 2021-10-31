@@ -10,7 +10,7 @@ extension ExposureDetection {
 		/// Delegate was unable to provide an exposure manager to the transaction.
 		case noExposureManager
 		/// The actual exposure detection was started but did produce an error.
-		case noExposureWindows(Error, Date)
+		case noExposureWindows(Error, date: Date = Date())
 		/// It was not possible to determine the remote days and/or hours that can be loaded.
 		case noDaysAndHours
 		/// Unable to get exposure configuration

@@ -15,11 +15,11 @@ class RateLimitLoggerTests: CWATestCase {
 		let logger = RateLimitLogger(store: MockTestStore())
 
 		let failure = ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime
-		let error = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning, Date())
-		let enError1 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.unknown), Date())
-		let enError11 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.internal), Date())
-		let enError12 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory), Date())
-		let enError13 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited), Date())
+		let error = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning)
+		let enError1 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.unknown))
+		let enError11 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.internal))
+		let enError12 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory))
+		let enError13 = ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited))
 
 		XCTAssertEqual(logger.description(reason: failure), "failure")
 		XCTAssertEqual(logger.description(reason: error), "error")
@@ -146,7 +146,7 @@ class RateLimitLoggerTests: CWATestCase {
 		store.referenceDateForRateLimitLogger = previousReferenceDate
 		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
-		let result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.unknown), Date()))
+		let result: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.unknown)))
 
 		let blocking = logger.logBlocking(configuration: config)
 		store.referenceDateForRateLimitLogger = Date()
@@ -175,7 +175,7 @@ class RateLimitLoggerTests: CWATestCase {
 		let config = makeRiskConfigHighFrequency()
 		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning, Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning))
 
 		let blocking = logger.logBlocking(configuration: config)
 		store.referenceDateForRateLimitLogger = Date()
@@ -205,9 +205,9 @@ class RateLimitLoggerTests: CWATestCase {
 		store.referenceDateForRateLimitLogger = previousReferenceDate
 		let logger = RateLimitLogger(store: store, logger: mock)
 		let config = makeRiskConfigHighFrequency()
-		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory), Date()))
+		let result0: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory)))
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.wrongDeviceTime)
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning, Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning))
 
 		let blocking = logger.logBlocking(configuration: config)
 		store.referenceDateForRateLimitLogger = Date()
@@ -248,7 +248,7 @@ class RateLimitLoggerTests: CWATestCase {
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 		logger.logEffect(result: result1, blocking: blocking1)
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited), Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited)))
 		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
@@ -289,7 +289,7 @@ class RateLimitLoggerTests: CWATestCase {
 
 		let blocking2 = logger.logBlocking(configuration: config)
 		store.referenceDateForRateLimitLogger = Date()
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited), Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited)))
 		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertFalse(blocking2, "Soft rate limit does not block second exposure detection")
@@ -357,7 +357,7 @@ class RateLimitLoggerTests: CWATestCase {
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 		logger.logEffect(result: result1, blocking: blocking1)
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory), Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.insufficientMemory)))
 		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
@@ -391,7 +391,7 @@ class RateLimitLoggerTests: CWATestCase {
 
 		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .success([MutableENExposureWindow()])
 		logger.logEffect(result: result1, blocking: blocking1)
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning, Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ExposureDetectionError.isAlreadyRunning))
 		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit blocks second exposure detection")
@@ -455,7 +455,7 @@ class RateLimitLoggerTests: CWATestCase {
 
 		let blocking1 = logger.logBlocking(configuration: config)
 		store.referenceDateForRateLimitLogger = Date()
-		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.internal), Date()))
+		let result1: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.internal)))
 		logger.logEffect(result: result1, blocking: blocking1)
 
 		let blocking2 = logger.logBlocking(configuration: config)
@@ -463,7 +463,7 @@ class RateLimitLoggerTests: CWATestCase {
 		// Note: according to Apple, ENError does not count against their rate limit.
 		// See https://github.com/corona-warn-app/cwa-app-ios/pull/3284#issuecomment-890104094
 		// Still we test here also this edge case.
-		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited), Date()))
+		let result2: Result<[ENExposureWindow], ExposureDetection.DidEndPrematurelyReason> = .failure(ExposureDetection.DidEndPrematurelyReason.noExposureWindows(ENError(.rateLimited)))
 		logger.logEffect(result: result2, blocking: blocking2)
 
 		XCTAssertTrue(blocking2, "Soft rate limit shall block exposure detection shortly after ENError")
