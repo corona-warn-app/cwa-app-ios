@@ -6,9 +6,9 @@ import Foundation
 import SwiftProtobuf
 
 /**
-Concrete implementation of ReceiveResource for Protobuf objects.
-Because Protofbuf objects are always packed into a signed package, we need the SignatureVerifier to ensure the correctness of the package.
-When a service receives a http response with body, containing some data, we just decode the data to make some protobuf file of it.
+Concrete implementation of ReceiveResource for ProtoBuf objects.
+Because ProtoBuf objects are always packed into a signed package, we need the SignatureVerifier to ensure the correctness of the package.
+When a service receives a http response with body, containing some data, we just decode the data to make some ProtoBuf file of it.
 Returns different RessourceErrors when decoding fails.
 */
 struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Message {

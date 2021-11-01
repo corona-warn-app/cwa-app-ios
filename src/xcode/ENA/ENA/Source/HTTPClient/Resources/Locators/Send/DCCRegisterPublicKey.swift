@@ -6,18 +6,22 @@ import Foundation
 
 extension Locator {
 
-	static func registrationToken(
+	// send:	JSON
+	// receive:	Empty
+	// type:	default
+	// comment:	Custom error handling required
+	static func dccRegisterPublicKey(
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
-			endpoint: .verification,
-			paths: ["version", "v1", "registrationToken"],
+			endpoint: .dcc,
+			paths: ["version", "v1", "publicKey"],
 			method: .post,
 			defaultHeaders: [
 				"Content-Type": "application/json",
 				"cwa-fake": fake,
-				"cwa-header-padding": ""
+				"cwa-header-padding": String.getRandomString(of: 14)
 			]
 		)
 	}

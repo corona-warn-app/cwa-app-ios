@@ -19,6 +19,12 @@ protocol Resource {
 	func customStatusCodeError(statusCode: Int) -> CustomError?
 }
 
+extension Resource {
+	func customStatusCodeError(statusCode: Int) -> CustomError? {
+		return nil
+	}
+}
+
 /**
 The errors that can occur while handling resources
 */
