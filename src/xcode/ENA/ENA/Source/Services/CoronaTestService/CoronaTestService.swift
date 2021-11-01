@@ -311,7 +311,7 @@ class CoronaTestService {
 			self.antigenTest = antigenTest
 		}
 
-		// TODO: Reschedule warn others reminder
+		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTest.type)
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
@@ -434,6 +434,7 @@ class CoronaTestService {
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
+		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -452,12 +453,7 @@ class CoronaTestService {
 			break
 		}
 
-		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
-
-		if let coronaTest = coronaTest(ofType: coronaTestType), !coronaTest.isSubmissionConsentGiven,
-			coronaTest.positiveTestResultWasShown, !coronaTest.keysSubmitted {
-			warnOthersReminder.scheduleNotifications(for: coronaTestType)
-		}
+		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTestType)
 	}
 
 	func updatePublishersFromStore() {
@@ -871,6 +867,16 @@ class CoronaTestService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+			DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+
+			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
+				warnOthersReminder.scheduleNotifications(for: coronaTestType)
+			}
+		}
 	}
 
 	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
