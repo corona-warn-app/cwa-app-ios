@@ -516,15 +516,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
 			},
 			onSecondaryAction: { [weak self] in
-				// TODO: Check Strings
 				let alert = UIAlertController(
-					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertTitle,
-					message: AppStrings.Home.TestResult.ShownPositive.deleteAlertDescription,
+					title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
+					message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 					preferredStyle: .alert
 				)
 				
 				let deleteAction = UIAlertAction(
-					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertDeleteButtonTitle,
+					title: AppStrings.ExposureSubmissionResult.removeAlert_ConfirmButtonTitle,
 					style: .destructive,
 					handler: { [weak self] _ in
 						self?.viewModel.coronaTestService.moveTestToBin(coronaTestType)

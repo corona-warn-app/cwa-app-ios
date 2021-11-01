@@ -953,10 +953,6 @@ enum AppStrings {
 				static let shareItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Share_Item_Title", comment: "")
 				static let button = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
 				static let removeTestButton = NSLocalizedString("Home_Finding_Positive_Card_Button_Remove_Test", comment: "")
-				static let deleteAlertTitle = NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Title", comment: "")
-				static let deleteAlertDescription =
-					NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Description", comment: "")
-				static let deleteAlertDeleteButtonTitle = NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button", comment: "")
 			}
 		}
 
