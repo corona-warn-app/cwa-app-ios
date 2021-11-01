@@ -53,8 +53,9 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 		
 		healthCertificateService = HealthCertificateService(
 			store: store,

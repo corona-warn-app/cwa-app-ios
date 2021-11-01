@@ -24,7 +24,8 @@ class CoronaTestService {
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
-		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
+		recycleBin: RecycleBin
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -36,6 +37,7 @@ class CoronaTestService {
 
 			self.healthCertificateService = healthCertificateService
 			self.notificationCenter = notificationCenter
+			self.recycleBin = recycleBin
 
 			self.fakeRequestService = FakeRequestService(client: client)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -56,6 +58,7 @@ class CoronaTestService {
 		self.appConfiguration = appConfiguration
 		self.healthCertificateService = healthCertificateService
 		self.notificationCenter = notificationCenter
+		self.recycleBin = recycleBin
 
 		self.fakeRequestService = FakeRequestService(client: client)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -296,6 +299,15 @@ class CoronaTestService {
 		)
 	}
 
+	func reregister(coronaTest: CoronaTest) {
+		switch coronaTest {
+		case .pcr(let pcrTest):
+			self.pcrTest = pcrTest
+		case .antigen(let antigenTest):
+			self.antigenTest = antigenTest
+		}
+	}
+
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
 		Log.info("[CoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
 
@@ -393,6 +405,16 @@ class CoronaTestService {
 				completion(.success(submissionTAN))
 			}
 		}
+	}
+
+	func moveTestToBin(_ coronaTestType: CoronaTestType) {
+		Log.info("[CoronaTestService] Moving test to bin (coronaTestType: \(coronaTestType)", log: .api)
+
+		if let coronaTest = coronaTest(ofType: coronaTestType) {
+			recycleBin.moveToBin(.coronaTest(coronaTest))
+		}
+
+		removeTest(coronaTestType)
 	}
 
 	func removeTest(_ coronaTestType: CoronaTestType) {
@@ -518,6 +540,7 @@ class CoronaTestService {
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let notificationCenter: UserNotificationCenter
+	private let recycleBin: RecycleBin
 	private let serialQueue = AsyncOperation.serialQueue(named: "CoronaTestService.serialQueue")
 
 	private let fakeRequestService: FakeRequestService

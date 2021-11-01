@@ -106,8 +106,9 @@ class HomeTestResultCellModelTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 		coronaTestService.pcrTest = PCRTest.mock()
 
 		let cellModel = HomeTestResultCellModel(

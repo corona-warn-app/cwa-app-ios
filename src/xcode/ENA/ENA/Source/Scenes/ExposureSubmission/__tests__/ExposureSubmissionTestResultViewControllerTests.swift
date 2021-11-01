@@ -48,7 +48,8 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 							rulesDownloadService: RulesDownloadService(store: store, client: client)
 						),
 						recycleBin: .fake()
-					)
+					),
+					recycleBin: .fake()
 				),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },

@@ -33,7 +33,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		coronaTestService.pcrTest = nil
@@ -70,7 +71,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -120,7 +122,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		coronaTestService.pcrTest = nil
@@ -174,7 +177,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -215,7 +219,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -246,7 +251,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -288,7 +294,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -330,7 +337,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -372,7 +380,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -405,7 +414,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -445,7 +455,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -492,7 +503,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -541,7 +553,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -590,7 +603,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -636,7 +650,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -683,7 +698,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -729,7 +745,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -775,7 +792,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -834,7 +852,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -893,7 +912,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -954,7 +974,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -1014,7 +1035,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -1081,7 +1103,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
 			eventProvider: MockEventStore()
 		)

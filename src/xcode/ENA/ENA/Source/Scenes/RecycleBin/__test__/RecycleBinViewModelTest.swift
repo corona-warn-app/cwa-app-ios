@@ -100,10 +100,14 @@ class RecycleBinViewModelTest: CWATestCase {
 
 	func testRestoringCertificate() throws {
 		let store = MockTestStore()
+
+		let pcrTest: CoronaTest = .pcr(.mock())
+		let antigenTest: CoronaTest = .antigen(.mock())
+
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock(base45: HealthCertificateMocks.mockBase45))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
 		]
 
 		let restoreHandlerExpectation = expectation(description: "restore called on handler")
@@ -126,15 +130,19 @@ class RecycleBinViewModelTest: CWATestCase {
 		waitForExpectations(timeout: .medium)
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, ["a", "b"])
+		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, antigenTest.recycleBinIdentifier])
 	}
 
 	func testRemoveEntry() throws {
 		let store = MockTestStore()
+
+		let pcrTest: CoronaTest = .pcr(.mock())
+		let antigenTest: CoronaTest = .antigen(.mock())
+
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock(base45: HealthCertificateMocks.mockBase45))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
 		]
 
 		let viewModel = RecycleBinViewModel(
@@ -145,7 +153,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		viewModel.removeEntry(at: IndexPath(row: 1, section: 1))
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, [HealthCertificateMocks.mockBase45, "b"])
+		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, HealthCertificateMocks.mockBase45])
 	}
 
 	func testRemoveAll() throws {

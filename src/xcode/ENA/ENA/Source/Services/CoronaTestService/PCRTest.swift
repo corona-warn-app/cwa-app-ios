@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct PCRTest: Equatable {
+struct PCRTest: Equatable, Hashable {
 
 	// MARK: - Internal
 

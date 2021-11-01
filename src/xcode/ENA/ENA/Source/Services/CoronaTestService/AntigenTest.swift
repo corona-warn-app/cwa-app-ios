@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct AntigenTest: Equatable {
+struct AntigenTest: Equatable, Hashable {
 
 	// MARK: - Internal
 
