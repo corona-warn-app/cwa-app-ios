@@ -71,7 +71,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
-		captionCountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: captionCountLabel.intrinsicContentSize.height).isActive = true
 	}
 	
 	// MARK: - Private
@@ -173,6 +172,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionCountLabel.textColor = .enaColor(for: .textContrast)
 		captionCountLabel.textAlignment = .center
 		captionCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		captionCountLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
 		return captionCountLabel
 	}()
@@ -190,7 +190,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionLabel.style = .body
 		captionLabel.textColor = .enaColor(for: .textPrimary1)
 		captionLabel.numberOfLines = 0
-		captionLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		captionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
 		return captionLabel
 	}()
