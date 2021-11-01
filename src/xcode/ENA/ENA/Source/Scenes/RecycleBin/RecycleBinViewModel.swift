@@ -72,7 +72,6 @@ class RecycleBinViewModel {
 		case .failure(.testError(.testTypeAlreadyRegistered)):
 			onOverwrite(item)
 		}
-
 	}
 
 	func removeEntry(at indexPath: IndexPath) {

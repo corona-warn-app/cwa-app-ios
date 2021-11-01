@@ -35,7 +35,8 @@ class QRScannerCoordinator {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestService,
+		recycleBin: RecycleBin
 	) {
 		self.store = store
 		self.client = client
@@ -48,6 +49,7 @@ class QRScannerCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.exposureSubmissionService = exposureSubmissionService
 		self.coronaTestService = coronaTestService
+		self.recycleBin = recycleBin
 	}
 	
 	// MARK: - Internal
@@ -86,6 +88,7 @@ class QRScannerCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestService
+	private let recycleBin: RecycleBin
 	
 	private var presenter: QRScannerPresenter!
 	private weak var parentViewController: UIViewController?
@@ -140,57 +143,77 @@ class QRScannerCoordinator {
 	}
 
 	private func showQRCodeResult(qrCodeResult: QRCodeResult) {
-		parentViewController?.dismiss(animated: true, completion: { [weak self] in
-			switch qrCodeResult {
-			case let .coronaTest(testRegistrationInformation):
-				self?.showScannedTestResult(testRegistrationInformation)
-			case let .certificate(certificateResult):
-				self?.showScannedHealthCertificate(certificateResult)
-			case let .traceLocation(traceLocation):
-				self?.showScannedCheckin(traceLocation)
-			}
-		})
+		switch qrCodeResult {
+		case let .coronaTest(testRegistrationInformation):
+			showScannedTestResult(testRegistrationInformation)
+		case let .certificate(certificateResult):
+			showScannedHealthCertificate(certificateResult)
+		case let .traceLocation(traceLocation):
+			showScannedCheckin(traceLocation)
+		}
 	}
 
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
-//		let shouldBeRestoredFromBin: Bool
-//		switch testRegistrationInformation {
-//		case let .pcr(guid: _, qrCodeHash: qrCodeHash):
-//			shouldBeRestoredFromBin = coronaTestService.pcrTest?.qrCodeHash == qrCodeHash
-//		case let .antigen(qrCodeInformation: _, qrCodeHash: qrCodeHash):
-//			shouldBeRestoredFromBin = coronaTestService.antigenTest?.qrCodeHash == qrCodeHash
-//		case .teleTAN:
-//			shouldBeRestoredFromBin = false
-//		}
-//
-//		if shouldBeRestoredFromBin {
-//			showTestRestoredFromBinAlert { [weak self] in
-//				self?.
-//
-//				switch presenter {
-//				case .submissionFlow, .onBehalfFlow:
-//					self?.parentViewController?.dismiss(animated: true)
-//				case .checkinTab, .certificateTab, .universalScanner, .none:
-//					break
-//				}
-//			}
-//		}
+		let recycleBinItemToRestore: RecycleBinItem?
+		switch testRegistrationInformation {
+		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			recycleBinItemToRestore = store.recycleBinItems.first {
+				guard case .coronaTest(let coronaTest) = $0.item else {
+					return false
+				}
 
-		switch presenter {
-		case .submissionFlow:
-			didScanCoronaTestInSubmissionFlow?(testRegistrationInformation)
-		case .onBehalfFlow:
-			let parentPresentingViewController = parentViewController?.presentingViewController
+				return coronaTest.qrCodeHash == qrCodeHash
+			}
+		case .teleTAN:
+			recycleBinItemToRestore = nil
+		}
 
-			parentViewController?.dismiss(animated: true) {
-				self.parentViewController = parentPresentingViewController
+		if let recycleBinItemToRestore = recycleBinItemToRestore {
+			showTestRestoredFromBinAlert(recycleBinItem: recycleBinItemToRestore)
+			return
+		}
 
+		qrScannerViewController?.dismiss(animated: true) { [weak self] in
+			guard let self = self else { return }
+
+			switch self.presenter {
+			case .submissionFlow:
+				self.didScanCoronaTestInSubmissionFlow?(testRegistrationInformation)
+			case .onBehalfFlow:
+				let parentPresentingViewController = self.parentViewController?.presentingViewController
+
+				// Dismiss on behalf submission flow
+				self.parentViewController?.dismiss(animated: true) {
+					self.parentViewController = parentPresentingViewController
+
+					guard let parentViewController = self.parentViewController else {
+						return
+					}
+
+					let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+						parentViewController: parentViewController,
+						exposureSubmissionService: self.exposureSubmissionService,
+						coronaTestService: self.coronaTestService,
+						healthCertificateService: self.healthCertificateService,
+						healthCertificateValidationService: self.healthCertificateValidationService,
+						eventProvider: self.eventStore,
+						antigenTestProfileStore: self.store,
+						vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+						healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+						qrScannerCoordinator: self
+					)
+
+					exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+				}
+			case .checkinTab, .certificateTab, .universalScanner:
 				guard let parentViewController = self.parentViewController else {
 					return
 				}
 
+				let markNewlyAddedCoronaTestAsUnseen: Bool = self.presenter != .universalScanner(.home)
 				let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
 					parentViewController: parentViewController,
 					exposureSubmissionService: self.exposureSubmissionService,
@@ -204,48 +227,55 @@ class QRScannerCoordinator {
 					qrScannerCoordinator: self
 				)
 
-				exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+				exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: markNewlyAddedCoronaTestAsUnseen)
+			case .none:
+				break
 			}
-		case .checkinTab, .certificateTab, .universalScanner:
-			guard let parentViewController = parentViewController else {
-				return
-			}
-
-			let markNewlyAddedCoronaTestAsUnseen: Bool = presenter != .universalScanner(.home)
-			let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-				parentViewController: parentViewController,
-				exposureSubmissionService: exposureSubmissionService,
-				coronaTestService: coronaTestService,
-				healthCertificateService: healthCertificateService,
-				healthCertificateValidationService: healthCertificateValidationService,
-				eventProvider: eventStore,
-				antigenTestProfileStore: store,
-				vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-				healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-				qrScannerCoordinator: self
-			)
-
-			exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: markNewlyAddedCoronaTestAsUnseen)
-		case .none:
-			break
 		}
 	}
 	
 	private func showScannedHealthCertificate(
 		_ certificateResult: CertificateResult
 	) {
-		switch presenter {
-		case .submissionFlow, .onBehalfFlow:
-			let parentPresentingViewController = parentViewController?.presentingViewController
+		guard let qrScannerViewController = self.qrScannerViewController else {
+			return
+		}
 
-			parentViewController?.dismiss(animated: true) {
-				self.parentViewController = parentPresentingViewController
+		showRestoredFromBinAlertIfNeeded(for: certificateResult, from: qrScannerViewController) { [weak self] in
+			guard let self = self else { return }
 
-				guard let parentViewController = self.parentViewController else {
-					return
-				}
+			self.qrScannerViewController?.dismiss(animated: true) {
+				switch self.presenter {
+				case .submissionFlow, .onBehalfFlow:
+					let parentPresentingViewController = self.parentViewController?.presentingViewController
 
-				self.showRestoredFromBinAlertIfNeeded(for: certificateResult, from: parentViewController) {
+					// Dismiss submission/on behalf submission flow
+					self.parentViewController?.dismiss(animated: true) {
+						self.parentViewController = parentPresentingViewController
+
+						guard let parentViewController = self.parentViewController else {
+							return
+						}
+
+						self.healthCertificateCoordinator = HealthCertificateCoordinator(
+							parentingViewController: .present(parentViewController),
+							healthCertifiedPerson: certificateResult.person,
+							healthCertificate: certificateResult.certificate,
+							store: self.store,
+							healthCertificateService: self.healthCertificateService,
+							healthCertificateValidationService: self.healthCertificateValidationService,
+							healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+							vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+							markAsSeenOnDisappearance: false
+						)
+
+						self.healthCertificateCoordinator?.start()
+					}
+				case .checkinTab, .certificateTab, .universalScanner:
+					guard let parentViewController = self.parentViewController else {
+						return
+					}
+
 					self.healthCertificateCoordinator = HealthCertificateCoordinator(
 						parentingViewController: .present(parentViewController),
 						healthCertifiedPerson: certificateResult.person,
@@ -259,45 +289,43 @@ class QRScannerCoordinator {
 					)
 
 					self.healthCertificateCoordinator?.start()
+				case .none:
+					break
 				}
 			}
-		case .checkinTab, .certificateTab, .universalScanner:
-			guard let parentViewController = parentViewController else {
-				return
-			}
-
-			self.showRestoredFromBinAlertIfNeeded(for: certificateResult, from: parentViewController) {
-				self.healthCertificateCoordinator = HealthCertificateCoordinator(
-					parentingViewController: .present(parentViewController),
-					healthCertifiedPerson: certificateResult.person,
-					healthCertificate: certificateResult.certificate,
-					store: self.store,
-					healthCertificateService: self.healthCertificateService,
-					healthCertificateValidationService: self.healthCertificateValidationService,
-					healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
-					vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
-					markAsSeenOnDisappearance: false
-				)
-
-				self.healthCertificateCoordinator?.start()
-			}
-		case .none:
-			break
 		}
 	}
 	
 	private func showScannedCheckin(
 		_ traceLocation: TraceLocation
 	) {
-		switch presenter {
-		case .onBehalfFlow:
-			didScanTraceLocationInOnBehalfFlow?(traceLocation)
-		case .submissionFlow:
-			let parentPresentingViewController = parentViewController?.presentingViewController
+		qrScannerViewController?.dismiss(animated: true) {
+			switch self.presenter {
+			case .onBehalfFlow:
+				self.didScanTraceLocationInOnBehalfFlow?(traceLocation)
+			case .submissionFlow:
+				let parentPresentingViewController = self.parentViewController?.presentingViewController
 
-			parentViewController?.dismiss(animated: true) {
-				self.parentViewController = parentPresentingViewController
+				// Dismiss submission flow
+				self.parentViewController?.dismiss(animated: true) {
+					self.parentViewController = parentPresentingViewController
 
+					guard let parentViewController = self.parentViewController else {
+						return
+					}
+
+					self.traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
+						parentViewController: parentViewController,
+						traceLocation: traceLocation,
+						store: self.store,
+						eventStore: self.eventStore,
+						appConfiguration: self.appConfiguration,
+						eventCheckoutService: self.eventCheckoutService
+					)
+
+					self.traceLocationCheckinCoordinator?.start()
+				}
+			case .checkinTab, .certificateTab, .universalScanner:
 				guard let parentViewController = self.parentViewController else {
 					return
 				}
@@ -312,24 +340,9 @@ class QRScannerCoordinator {
 				)
 
 				self.traceLocationCheckinCoordinator?.start()
+			case .none:
+				break
 			}
-		case .checkinTab, .certificateTab, .universalScanner:
-			guard let parentViewController = parentViewController else {
-				return
-			}
-
-			traceLocationCheckinCoordinator = TraceLocationCheckinCoordinator(
-				parentViewController: parentViewController,
-				traceLocation: traceLocation,
-				store: store,
-				eventStore: eventStore,
-				appConfiguration: appConfiguration,
-				eventCheckoutService: eventCheckoutService
-			)
-
-			traceLocationCheckinCoordinator?.start()
-		case .none:
-			break
 		}
 	}
 
@@ -362,7 +375,7 @@ class QRScannerCoordinator {
 	}
 
 	private func showTestRestoredFromBinAlert(
-		completion: @escaping () -> Void
+		recycleBinItem: RecycleBinItem
 	) {
 		let alert = UIAlertController(
 			title: AppStrings.UniversalQRScanner.testRestoredFromBinAlertTitle,
@@ -373,13 +386,102 @@ class QRScannerCoordinator {
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
 				style: .default,
-				handler: { _ in
-					completion()
+				handler: { [weak self] _ in
+					guard let self = self else { return }
+
+					switch self.recycleBin.canRestore(recycleBinItem) {
+					case .success:
+						self.qrScannerViewController?.dismiss(animated: true) {
+							self.recycleBin.restore(recycleBinItem)
+
+							switch self.presenter {
+							case .submissionFlow, .onBehalfFlow:
+								// Dismiss submission/on behalf submission flow
+								self.parentViewController?.dismiss(animated: true)
+							case .checkinTab, .certificateTab, .universalScanner, .none:
+								break
+							}
+						}
+					case .failure(.testError(.testTypeAlreadyRegistered)):
+						self.showTestOverwriteNotice(recycleBinItem: recycleBinItem)
+					}
 				}
 			)
 		)
 
 		qrScannerViewController?.present(alert, animated: true)
+	}
+
+	private func showTestOverwriteNotice(
+		recycleBinItem: RecycleBinItem
+	) {
+		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+			return
+		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+			isSecondaryButtonHidden: true
+		)
+
+		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: coronaTest.type,
+			didTapPrimaryButton: { [weak self] in
+				guard let self = self,
+					  let parentViewController = self.parentViewController,
+					  case .coronaTest(let coronaTest) = recycleBinItem.item
+				else {
+					return
+				}
+
+				self.recycleBin.restore(recycleBinItem)
+				self.parentViewController?.dismiss(animated: true) {
+					let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+						parentViewController: parentViewController,
+						exposureSubmissionService: self.exposureSubmissionService,
+						coronaTestService: self.coronaTestService,
+						healthCertificateService: self.healthCertificateService,
+						healthCertificateValidationService: self.healthCertificateValidationService,
+						eventProvider: self.eventStore,
+						antigenTestProfileStore: self.store,
+						vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+						healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+						qrScannerCoordinator: self
+					)
+
+					exposureSubmissionCoordinator.start(with: coronaTest.type)
+				}
+			},
+			didTapCloseButton: { [weak self] in
+				self?.parentViewController?.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(
+			topController: overwriteNoticeViewController,
+			bottomController: footerViewController
+		)
+
+		let navigationController = NavigationControllerWithLargeTitle(rootViewController: topBottomViewController)
+
+		switch self.presenter {
+		case .submissionFlow, .onBehalfFlow:
+			let parentPresentingViewController = self.parentViewController?.presentingViewController
+
+			// Dismiss QR scanner and submission/on behalf submission flow at once
+			parentPresentingViewController?.dismiss(animated: true) {
+				self.parentViewController = parentPresentingViewController
+				self.parentViewController?.present(navigationController, animated: true)
+			}
+		case .checkinTab, .certificateTab, .universalScanner:
+			// Dismiss QR scanner
+			parentViewController?.dismiss(animated: true) {
+				self.parentViewController?.present(navigationController, animated: true)
+			}
+		case .none:
+			break
+		}
 	}
 	
 }

@@ -516,6 +516,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.viewModel.didTapTestResultButton(coronaTestType: coronaTestType)
 			},
 			onSecondaryAction: { [weak self] in
+				// TODO: Check Strings
 				let alert = UIAlertController(
 					title: AppStrings.Home.TestResult.ShownPositive.deleteAlertTitle,
 					message: AppStrings.Home.TestResult.ShownPositive.deleteAlertDescription,
