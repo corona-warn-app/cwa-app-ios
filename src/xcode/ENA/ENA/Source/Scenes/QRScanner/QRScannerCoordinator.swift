@@ -20,6 +20,7 @@ enum SelectedTab: Equatable {
 	case diary
 }
 
+// swiftlint:disable type_body_length
 class QRScannerCoordinator {
 	
 	// MARK: - Init
@@ -153,6 +154,7 @@ class QRScannerCoordinator {
 		}
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
