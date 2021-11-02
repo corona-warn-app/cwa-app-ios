@@ -148,4 +148,119 @@ class PPAnalyticsCollectorTests: CWATestCase {
 		
 		XCTAssertEqual(countOfPropertiesToDelete, countOfDeletedProperties, "The count must match. Did you perhaps forget to delete a property in Analytics.deleteAnalyticsData()?")
 	}
+	
+	func testGIVEN_TodayLowRisk_WHEN_YesterdayLow_THEN_mostRecentDateChanged_True() {
+		// GIVEN
+
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		
+		let yesterdayRiskResult = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: Calendar.current.date(byAdding: .day, value: -1, to: Date()),
+			dateChangedComparedToPreviousSubmission: false
+		)
+		
+		let todayRiskResult = ENFRiskCalculationResult(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 17,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithHighRisk: Date(),
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		store.previousENFRiskExposureMetadata = yesterdayRiskResult
+		store.enfRiskCalculationResult = todayRiskResult
+		
+		
+		// WHEN
+		Analytics.collect(.riskExposureMetadata(.update))
+
+		// THEN
+		guard let currentENFRiskExposureMetadata = store.currentENFRiskExposureMetadata else { return }
+		XCTAssertTrue(currentENFRiskExposureMetadata.dateChangedComparedToPreviousSubmission)
+	}
+	
+	func testGIVEN_TodayLowRisk_WHEN_TodayHigh_THEN_mostRecentDateChanged_False() {
+		// GIVEN
+		
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let today = Date()
+		
+		let todayLowRiskMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: today,
+			dateChangedComparedToPreviousSubmission: false
+		)
+		
+		let todayHighRiskResult = ENFRiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 17,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: today,
+			mostRecentDateWithHighRisk: today,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: today,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		store.previousENFRiskExposureMetadata = todayLowRiskMetadata
+		store.enfRiskCalculationResult = todayHighRiskResult
+		
+		
+		// WHEN
+		Analytics.collect(.riskExposureMetadata(.update))
+		
+		// THEN
+		guard let currentENFRiskExposureMetadata = store.currentENFRiskExposureMetadata else { return }
+		XCTAssertFalse(currentENFRiskExposureMetadata.dateChangedComparedToPreviousSubmission)
+	}
+	
+	func testGIVEN_TodayLowRisk_WHEN_yesterDayDateWasNill_THEN_mostRecentDateChanged_False() {
+		// GIVEN
+		
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		
+		let todayLowRiskMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: nil,
+			dateChangedComparedToPreviousSubmission: false
+		)
+		
+		let todayHighRiskResult = ENFRiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 17,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithHighRisk: Date(),
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		store.previousENFRiskExposureMetadata = todayLowRiskMetadata
+		store.enfRiskCalculationResult = todayHighRiskResult
+		
+		
+		// WHEN
+		Analytics.collect(.riskExposureMetadata(.update))
+		
+		// THEN
+		guard let currentENFRiskExposureMetadata = store.currentENFRiskExposureMetadata else { return }
+		XCTAssertTrue(currentENFRiskExposureMetadata.dateChangedComparedToPreviousSubmission)
+	}
 }
