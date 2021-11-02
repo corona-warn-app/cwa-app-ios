@@ -41,10 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if isUITesting {
 			self.store = MockTestStore()
 		} else {
-			self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+			self.store = SecureStore(subDirectory: "database")
 		}
 		#else
-		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		self.store = SecureStore(subDirectory: "database")
 		#endif
 
 		if store.appInstallationDate == nil {
@@ -592,7 +592,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			let ppacEdusApiToken = store.ppacApiTokenEdus
 			let installationDate = store.appInstallationDate
 
-			let newKey = try KeychainHelper().generateDatabaseKey()
+			let newKey = try KeychainHelper().generateDatabaseKey(storeAtKeychainKey: SecureStore.encryptionKeyKeychainKey)
 			store.wipeAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
