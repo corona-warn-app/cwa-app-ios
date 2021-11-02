@@ -95,6 +95,7 @@ class CoronaTestService {
 	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		guid: String,
+		qrCodeHash: String,
 		isSubmissionConsentGiven: Bool,
 		markAsUnseen: Bool = false,
 		certificateConsent: TestCertificateConsent,
@@ -121,6 +122,7 @@ class CoronaTestService {
 					self?.pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
@@ -234,6 +236,7 @@ class CoronaTestService {
 	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		with hash: String,
+		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
 		firstName: String?,
 		lastName: String?,
@@ -262,6 +265,7 @@ class CoronaTestService {
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationDate: Date(),
 						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
@@ -306,6 +310,8 @@ class CoronaTestService {
 		case .antigen(let antigenTest):
 			self.antigenTest = antigenTest
 		}
+
+		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTest.type)
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
@@ -428,6 +434,7 @@ class CoronaTestService {
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
+		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -446,12 +453,7 @@ class CoronaTestService {
 			break
 		}
 
-		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
-
-		if let coronaTest = coronaTest(ofType: coronaTestType), !coronaTest.isSubmissionConsentGiven,
-			coronaTest.positiveTestResultWasShown, !coronaTest.keysSubmitted {
-			warnOthersReminder.scheduleNotifications(for: coronaTestType)
-		}
+		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTestType)
 	}
 
 	func updatePublishersFromStore() {
@@ -865,6 +867,16 @@ class CoronaTestService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+			DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+
+			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
+				warnOthersReminder.scheduleNotifications(for: coronaTestType)
+			}
+		}
 	}
 
 	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {

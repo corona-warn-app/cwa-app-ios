@@ -10,6 +10,7 @@ struct PCRTest: Equatable, Hashable {
 
 	var registrationDate: Date
 	var registrationToken: String?
+	var qrCodeHash: String?
 
 	var testResult: TestResult
 	var finalTestResultReceivedDate: Date?
@@ -35,6 +36,7 @@ extension PCRTest: Codable {
 	enum CodingKeys: String, CodingKey {
 		case registrationDate
 		case registrationToken
+		case qrCodeHash
 		case testResult
 		case finalTestResultReceivedDate
 		case positiveTestResultWasShown
@@ -52,6 +54,7 @@ extension PCRTest: Codable {
 
 		registrationDate = try container.decode(Date.self, forKey: .registrationDate)
 		registrationToken = try container.decodeIfPresent(String.self, forKey: .registrationToken)
+		qrCodeHash = try container.decodeIfPresent(String.self, forKey: .qrCodeHash)
 
 		testResult = try container.decode(TestResult.self, forKey: .testResult)
 		finalTestResultReceivedDate = try container.decodeIfPresent(Date.self, forKey: .finalTestResultReceivedDate)
