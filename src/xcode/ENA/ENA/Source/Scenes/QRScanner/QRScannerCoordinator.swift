@@ -154,26 +154,10 @@ class QRScannerCoordinator {
 		}
 	}
 
-	// swiftlint:disable cyclomatic_complexity
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
-		let recycleBinItemToRestore: RecycleBinItem?
-		switch testRegistrationInformation {
-		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
-			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
-			recycleBinItemToRestore = store.recycleBinItems.first {
-				guard case .coronaTest(let coronaTest) = $0.item else {
-					return false
-				}
-
-				return coronaTest.qrCodeHash == qrCodeHash
-			}
-		case .teleTAN:
-			recycleBinItemToRestore = nil
-		}
-
-		if let recycleBinItemToRestore = recycleBinItemToRestore {
+		if let recycleBinItemToRestore = recycleBinItemToRestore(for: testRegistrationInformation) {
 			showTestRestoredFromBinAlert(recycleBinItem: recycleBinItemToRestore)
 			return
 		}
@@ -195,41 +179,24 @@ class QRScannerCoordinator {
 						return
 					}
 
-					let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-						parentViewController: parentViewController,
-						exposureSubmissionService: self.exposureSubmissionService,
-						coronaTestService: self.coronaTestService,
-						healthCertificateService: self.healthCertificateService,
-						healthCertificateValidationService: self.healthCertificateValidationService,
-						eventProvider: self.eventStore,
-						antigenTestProfileStore: self.store,
-						vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
-						healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
-						qrScannerCoordinator: self
-					)
+					let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
 
-					exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: true)
+					exposureSubmissionCoordinator.start(
+						with: .success(testRegistrationInformation),
+						markNewlyAddedCoronaTestAsUnseen: true
+					)
 				}
 			case .checkinTab, .certificateTab, .universalScanner:
 				guard let parentViewController = self.parentViewController else {
 					return
 				}
 
-				let markNewlyAddedCoronaTestAsUnseen: Bool = self.presenter != .universalScanner(.home)
-				let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-					parentViewController: parentViewController,
-					exposureSubmissionService: self.exposureSubmissionService,
-					coronaTestService: self.coronaTestService,
-					healthCertificateService: self.healthCertificateService,
-					healthCertificateValidationService: self.healthCertificateValidationService,
-					eventProvider: self.eventStore,
-					antigenTestProfileStore: self.store,
-					vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
-					healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
-					qrScannerCoordinator: self
-				)
+				let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
 
-				exposureSubmissionCoordinator.start(with: .success(testRegistrationInformation), markNewlyAddedCoronaTestAsUnseen: markNewlyAddedCoronaTestAsUnseen)
+				exposureSubmissionCoordinator.start(
+					with: .success(testRegistrationInformation),
+					markNewlyAddedCoronaTestAsUnseen: self.presenter != .universalScanner(.home)
+				)
 			case .none:
 				break
 			}
@@ -477,20 +444,45 @@ class QRScannerCoordinator {
 		self.recycleBin.restore(recycleBinItem)
 
 		self.parentViewController?.dismiss(animated: true) {
-			let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-				parentViewController: parentViewController,
-				exposureSubmissionService: self.exposureSubmissionService,
-				coronaTestService: self.coronaTestService,
-				healthCertificateService: self.healthCertificateService,
-				healthCertificateValidationService: self.healthCertificateValidationService,
-				eventProvider: self.eventStore,
-				antigenTestProfileStore: self.store,
-				vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
-				healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
-				qrScannerCoordinator: self
-			)
-
+			let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
 			exposureSubmissionCoordinator.start(with: coronaTest.type)
+		}
+	}
+
+	// MARK: Helpers
+
+	private func exposureSubmissionCoordinator(
+		parentViewController: UIViewController
+	) -> ExposureSubmissionCoordinator {
+		ExposureSubmissionCoordinator(
+			parentViewController: parentViewController,
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			eventProvider: eventStore,
+			antigenTestProfileStore: store,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			qrScannerCoordinator: self
+		)
+	}
+
+	private func recycleBinItemToRestore(
+		for testRegistrationInformation: CoronaTestRegistrationInformation
+	) -> RecycleBinItem? {
+		switch testRegistrationInformation {
+		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			return store.recycleBinItems.first {
+				guard case .coronaTest(let coronaTest) = $0.item else {
+					return false
+				}
+
+				return coronaTest.qrCodeHash == qrCodeHash
+			}
+		case .teleTAN:
+			return nil
 		}
 	}
 	
