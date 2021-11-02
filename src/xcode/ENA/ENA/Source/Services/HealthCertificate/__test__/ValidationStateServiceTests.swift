@@ -25,7 +25,8 @@ class TestHealthCertificateService: HealthCertificateService {
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: MockTestStore(), client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
@@ -69,7 +70,8 @@ class ValidationStateServiceTests: XCTestCase {
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
@@ -101,7 +103,8 @@ class ValidationStateServiceTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()

@@ -62,9 +62,9 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, Foot
 	
 	private func setupView() {
 		
-		parent?.navigationItem.title = AppStrings.ThankYouScreen.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		parent?.navigationItem.hidesBackButton = true
+		navigationItem.title = AppStrings.ThankYouScreen.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
 		
 		view.backgroundColor = .enaColor(for: .background)
 		

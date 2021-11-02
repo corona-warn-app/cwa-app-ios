@@ -54,10 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
+		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
+
+		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
 		
@@ -92,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	deinit {
-		// We are (intentionally) keeping strong references for delegates. Let's clean them ups.
+		// We are (intentionally) keeping strong references for delegates. Let's clean them up.
 		self.taskExecutionDelegate = nil
 	}
 
@@ -108,21 +112,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		#if DEBUG
 		setupOnboardingForTesting()
-		setupDatadonationForTesting()
+		setupDataDonationForTesting()
 		setupInstallationDateForTesting()
 		setupAntigenTestProfileForTesting()
+		setupSelectedRegionsForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
 			didSetupUI = true
-			return true
+
+			// Return false, because if the app is disabled, we cannot handle URL ressources or user activity.
+			// More information: https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622921-application
+			return false
 		}
 
-		// Check for any URLs passed into the app – most likely via scanning a QR code from event or antigen rapid test
-		// Route will be executed in 'applicationDidBecomeActive'
-		route = routeFromLaunchOptions(launchOptions)
+		// 'appLaunchedFromUserActivityURL' inidcates, if the app was launched through a QR-Code scan, from the System Camera.
+		// Based on that, the routing and UI rendering works differently in the subsequent delegate callbacks.
+		//
+		// We can have different paths of delegate callbacks depending on the app was started with a QR-Code scan or not.
+		// Possible paths after QR-Code was scanned:
+		// App was suspended: didFinishLaunchingWithOptions -> applicationDidBecomeActive -> continue userActivity
+		// App was in background: continue userActivity -> applicationDidBecomeActive
+		//
+		// Either 'continue userActivity' or 'applicationDidBecomeActive' needs to show the UI.
+		// 'appLaunchedFromUserActivityURL' helps to indicate which of the two callbacks needs to show the UI.
+		appLaunchedFromUserActivityURL = appLaunchedFromUserActicityURL(launchOptions)
 
 		QuickAction.setup()
 
@@ -182,8 +198,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)
 
-		if !didSetupUI {
-			setupUI(route)
+		// If the UI was not setup before, and the app was NOT started from an user activity,
+		// 'applicationDidBecomeActive' is the last delegate callback and needs to build up the UI.
+		if !didSetupUI && !appLaunchedFromUserActivityURL {
+			setupUI()
+			showUI()
+
+			appLaunchedFromUserActivityURL = false
 			didSetupUI = true
 			route = nil
 		}
@@ -194,6 +215,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			// explicitly disabled as per #EXPOSUREAPP-2214
 			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
 		}
+
+		// Cleanup recycle-bin. Remove old entries.
+		recycleBin.cleanup()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -208,15 +232,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Log.info("Application continue user activity.", log: .appLifecycle)
 
 		// handle QR codes scanned in the camera app
-		var route: Route?
 		if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let incomingURL = userActivity.webpageURL {
 			route = Route(url: incomingURL)
 		}
-		guard store.isOnboarded else {
-			postOnboardingRoute = route
-			return false
+
+		// If the UI was not setup before, and the app was started from an user activity,
+		// 'continue userActivity' is the last delegate callback and needs to build up the UI.
+		if !didSetupUI && appLaunchedFromUserActivityURL {
+			setupUI()
+			showUI()
+
+			appLaunchedFromUserActivityURL = false
+			didSetupUI = true
+			route = nil
+		} else {
+			guard store.isOnboarded else {
+				postOnboardingRoute = route
+				return false
+			}
+			showHome(route)
 		}
-		showHome(route)
+
 		return true
 	}
 
@@ -339,7 +375,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				store: store,
 				client: client
 			)
-		)
+		),
+		recycleBin: recycleBin
 	)
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
@@ -432,6 +469,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService
 	)
 
+	private let recycleBin: RecycleBin
+
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -446,7 +485,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	#else
 	lazy var exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-
 
 	/// A set of required dependencies
 	///
@@ -498,6 +536,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
 				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
+				Log.debug("new route is set: \(route)")
 				self?.route = route
 			}, showHealthCertifiedPerson: { [weak self] route in
 				guard let self = self else { return }
@@ -510,6 +549,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				if self.didSetupUI {
 					self.showHome(route)
 				} else {
+					Log.debug("new route is set: \(route)")
 					self.route = route
 				}
 			}
@@ -606,6 +646,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private var postOnboardingRoute: Route?
 	private var route: Route?
 	private var didSetupUI = false
+	private var appLaunchedFromUserActivityURL = false
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
@@ -617,21 +658,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	/// - Parameter launchOptions: Launch options passed on app launch
-	/// - Returns: A `Route` if a valid URL is passed in the launch options
-	private func routeFromLaunchOptions(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
+	/// - Returns: `true` if `launchOptions` contains user activity of type `NSUserActivityTypeBrowsingWeb`, returns `false` otherwhise.
+	private func appLaunchedFromUserActicityURL(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
-			return nil
+			return false
 		}
 
 		for key in activityDictionary.keys {
 			if let userActivity = activityDictionary[key] as? NSUserActivity,
 			   userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-			   let url = userActivity.webpageURL {
-				return Route(url: url)
+			   userActivity.webpageURL != nil {
+				return true
 			}
 		}
 
-		return nil
+		return false
 	}
 
 	private func showError(_ riskProviderError: RiskProviderError) {
@@ -736,7 +777,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-		elsService: elsService
+		elsService: elsService,
+		recycleBin: recycleBin
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -745,16 +787,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private let riskConsumer = RiskConsumer()
 
-	private func setupUI(_ route: Route?) {
+	private func setupUI() {
 		setupNavigationBarAppearance()
 		setupAlertViewAppearance()
 
-		if store.isOnboarded {
-			showHome(route)
-		} else {
-			postOnboardingRoute = route
-			showOnboarding()
-		}
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 
 		window = UIWindow(frame: UIScreen.main.bounds)
@@ -767,6 +803,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			window?.layer.speed = 100
 		}
 		#endif
+	}
+
+	private func showUI() {
+		if store.isOnboarded {
+			showHome(route)
+		} else {
+			postOnboardingRoute = route
+			showOnboarding()
+		}
 	}
 
 	private func setupNavigationBarAppearance() {
@@ -790,6 +835,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func showHome(_ route: Route? = nil) {
 		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+		Log.debug("showHome Flow is called with current route: \(String(describing: route))")
 		if #available(iOS 13.5, *) {
 			if exposureManager.exposureManagerState.status == .unknown {
 				exposureManager.activate { [weak self] error in
@@ -822,53 +868,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
-
-	#if DEBUG
-	private func setupOnboardingForTesting() {
-		if isUITesting {
-			// Only disable onboarding if it was explicitly set to "NO"
-			if let isOnboarded = LaunchArguments.onboarding.isOnboarded.stringValue {
-				store.isOnboarded = isOnboarded != "NO"
-			}
-
-			if let onboardingVersion = LaunchArguments.onboarding.onboardingVersion.stringValue {
-				store.onboardingVersion = onboardingVersion
-			}
-
-			if LaunchArguments.onboarding.resetFinishedDeltaOnboardings.boolValue {
-				store.finishedDeltaOnboardings = [:]
-			}
-
-			if LaunchArguments.onboarding.setCurrentOnboardingVersion.boolValue {
-				store.onboardingVersion = Bundle.main.appVersion
-			}
-		}
-	}
-
-	private func setupDatadonationForTesting() {
-		if isUITesting {
-			store.isPrivacyPreservingAnalyticsConsentGiven = LaunchArguments.consent.isDatadonationConsentGiven.boolValue
-		}
-	}
-
-	private func setupInstallationDateForTesting() {
-		if isUITesting, let installationDaysString = LaunchArguments.common.appInstallationDays.stringValue {
-			let installationDays = Int(installationDaysString) ?? 0
-			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
-			store.appInstallationDate = date
-		}
-	}
-
-	private func setupAntigenTestProfileForTesting() {
-		if isUITesting {
-			store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
-			if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
-				store.antigenTestProfile = nil
-			}
-		}
-	}
-	
-	#endif
 
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {

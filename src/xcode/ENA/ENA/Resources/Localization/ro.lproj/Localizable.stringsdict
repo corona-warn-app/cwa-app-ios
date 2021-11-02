@@ -308,10 +308,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>ultima vaccinare astăzi</string>
+			<string>Ultima vaccinare astăzi</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>ultima vaccinare: acum %u zi</string>
+			<string>Ultima vaccinare: acum %u zi</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>Ultima vaccinare: acum %u zile</string>

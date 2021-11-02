@@ -8,7 +8,13 @@ import Foundation
 enum QRCodeResult {
 	case traceLocation(TraceLocation)
 	case coronaTest(CoronaTestRegistrationInformation)
-	case certificate(HealthCertifiedPerson, HealthCertificate)
+	case certificate(CertificateResult)
+}
+
+struct CertificateResult {
+	let restoredFromBin: Bool
+	let person: HealthCertifiedPerson
+	let certificate: HealthCertificate
 }
 
 enum QRCodeParserError: Error, Equatable {

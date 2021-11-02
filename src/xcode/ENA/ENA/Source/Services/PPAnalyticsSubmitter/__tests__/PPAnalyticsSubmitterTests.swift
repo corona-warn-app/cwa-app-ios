@@ -44,7 +44,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -137,7 +138,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -194,7 +196,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -251,7 +254,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -307,7 +311,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -364,7 +369,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -424,7 +430,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -486,7 +493,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -545,7 +553,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -602,7 +611,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -676,7 +686,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -1114,7 +1125,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		coronaTestService.registerPCRTest(
@@ -1217,7 +1229,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)

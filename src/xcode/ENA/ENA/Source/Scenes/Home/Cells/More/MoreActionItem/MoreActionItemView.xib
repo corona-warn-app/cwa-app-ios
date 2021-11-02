@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MoreActionItemView" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="478" height="85"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUp-wt-tH0">
+                    <rect key="frame" x="16" y="10" width="65" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bUp-wt-tH0" secondAttribute="height" multiplier="1:1" id="5Ic-9g-an6"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5h-gL-4WM" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="96" y="33.5" width="366" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZH-TS-McA" userLabel="Separator">
+                    <rect key="frame" x="16" y="84" width="446" height="1"/>
+                    <color key="backgroundColor" name="ENA Separator Color"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="l4a-Zh-PTk"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" name="ENA Background Color"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="bUp-wt-tH0" secondAttribute="bottom" constant="10" id="50g-mm-Z7n"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="l5h-gL-4WM" secondAttribute="trailing" constant="16" id="7uX-qr-X8g"/>
+                <constraint firstItem="bUp-wt-tH0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="GJ8-3m-h42"/>
+                <constraint firstItem="l5h-gL-4WM" firstAttribute="centerY" secondItem="bUp-wt-tH0" secondAttribute="centerY" id="HOV-Hh-qgT"/>
+                <constraint firstAttribute="bottom" secondItem="MZH-TS-McA" secondAttribute="bottom" id="Mae-yj-H5W"/>
+                <constraint firstItem="bUp-wt-tH0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Tv3-Az-U3z"/>
+                <constraint firstItem="MZH-TS-McA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="bvC-pB-d7D"/>
+                <constraint firstItem="l5h-gL-4WM" firstAttribute="leading" secondItem="bUp-wt-tH0" secondAttribute="trailing" constant="15" id="tAb-AP-mcP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MZH-TS-McA" secondAttribute="trailing" constant="16" id="wJz-J7-wUy"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imageView" destination="bUp-wt-tH0" id="lDw-k6-x5d"/>
+                <outlet property="longPressGestureRecognizer" destination="ZVg-Kd-a89" id="1N8-xD-f7F"/>
+                <outlet property="separatorView" destination="MZH-TS-McA" id="WrB-Py-KQi"/>
+                <outlet property="titleLabel" destination="l5h-gL-4WM" id="oUU-fm-de3"/>
+                <outletCollection property="gestureRecognizers" destination="dLq-J4-byJ" appends="YES" id="nty-4h-Yzk"/>
+                <outletCollection property="gestureRecognizers" destination="ZVg-Kd-a89" appends="YES" id="F6k-qu-wSM"/>
+            </connections>
+            <point key="canvasLocation" x="184.05797101449278" y="-140.95982142857142"/>
+        </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ZVg-Kd-a89">
+            <connections>
+                <action selector="didHighlight:" destination="iN0-l3-epB" id="ax4-tS-XUX"/>
+            </connections>
+        </pongPressGestureRecognizer>
+        <tapGestureRecognizer id="dLq-J4-byJ">
+            <connections>
+                <action selector="didTap:" destination="iN0-l3-epB" id="6K7-Dr-Ovq"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <designables>
+        <designable name="l5h-gL-4WM">
+            <size key="intrinsicContentSize" width="60" height="18"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Separator Color">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

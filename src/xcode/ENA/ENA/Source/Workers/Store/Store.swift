@@ -203,6 +203,8 @@ protocol HealthCertificateStoring: AnyObject {
 	
 	var lastBoosterNotificationsExecutionDate: Date? { get set }
 
+	var healthCertifiedPersonsVersion: Int? { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here
@@ -261,6 +263,12 @@ protocol DSCListCaching: AnyObject {
 	var dscList: DSCListMetaData? { get set }
 }
 
+protocol RecycleBinStoring: AnyObject {
+	var recycleBinItemsSubject: CurrentValueSubject<Set<RecycleBinItem>, Never> { get }
+
+	var recycleBinItems: Set<RecycleBinItem> { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -282,6 +290,7 @@ protocol Store:
 	WarnOthersTimeIntervalStoring,
 	DSCListCaching,
 	DeviceTimeCheckStoring,
-	AppFeaturesStoring
+	AppFeaturesStoring,
+	RecycleBinStoring
 {}
 // swiftlint:enable all

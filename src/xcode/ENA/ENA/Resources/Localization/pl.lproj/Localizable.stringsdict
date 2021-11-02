@@ -310,10 +310,10 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>ostatnie szczepienie dzisiaj</string>
+			<string>Ostatnie szczepienie dzisiaj</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>ostatnie szczepienie %u dzień temu</string>
+			<string>Ostatnie szczepienie %u dzień temu</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>Ostatnie szczepienie %u dni temu</string>

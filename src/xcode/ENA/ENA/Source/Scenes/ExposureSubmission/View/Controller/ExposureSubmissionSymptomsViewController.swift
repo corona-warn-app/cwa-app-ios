@@ -110,8 +110,8 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	private func setupView() {
 
-		parent?.navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		
 		view.backgroundColor = .enaColor(for: .background)
 
@@ -193,7 +193,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	private func updateForLoadingState(isLoading: Bool) {
 		view.isUserInteractionEnabled = !isLoading
-		parent?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+		navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 		footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 	}
 

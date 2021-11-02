@@ -95,31 +95,36 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				),
 				footer: .space(height: 16),
 				cells: [
-					// Lokale 7-Tage-Inzidenz
-					.title2(
-						text: AppStrings.Statistics.Info.local7DaysTitle,
-						accessibilityIdentifier: nil
-					) { _, cell, _ in cell.accessibilityTraits = .header },
-					.body(
-						text: AppStrings.Statistics.Info.local7DaysText,
-						accessibilityIdentifier: nil
-					),
 					// 7-Tage-Inzidenz
 					.title2(
 						text: AppStrings.Statistics.Info.incidenceTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
+					// Bestätigte Neuinfektionen
+					.headline(
+						text: AppStrings.Statistics.Info.newInfectionTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.Statistics.Info.incidenceText,
+						text: AppStrings.Statistics.Info.newInfectionText,
 						accessibilityIdentifier: nil
 					),
-					// 7-Tage-Inzidenz Hospitalisierung
-					.title2(
+					// Hospitalisierung
+					.headline(
 						text: AppStrings.Statistics.Info.hospitalizationRateTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.Statistics.Info.hospitalizationRateText,
+						accessibilityIdentifier: nil
+					),
+					// Lokale 7-Tage-Inzidenz
+					.headline(
+						text: AppStrings.Statistics.Info.local7DaysTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.local7DaysText,
 						accessibilityIdentifier: nil
 					),
 					// COVID-19-Erkrankte auf Intensivstationen

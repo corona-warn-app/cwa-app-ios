@@ -86,6 +86,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	) {
 		guard cellModel == nil else { return }
 		
+		// Retaining cell model so it gets updated
+		self.cellModel = keyFigureCellModel
+
 		keyFigureCellModel.$keyFigureCards
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
@@ -119,9 +122,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				)
 			}
 			.store(in: &subscriptions)
-
-		// Retaining cell model so it gets updated
-		self.cellModel = keyFigureCellModel
 	}
 
 	// swiftlint:disable:next function_parameter_count
@@ -333,6 +333,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.primaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.secondaryTitleLabel.firstBaselineAnchor),
 				statisticsCardView.primarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.primarySubtitleLabel.firstBaselineAnchor),
+				statisticsCardView.secondarySubtitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.secondarySubtitleLabel.firstBaselineAnchor),
 				statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: firstStatisticsCardView.tertiaryTitleLabel.firstBaselineAnchor)
 			]
 

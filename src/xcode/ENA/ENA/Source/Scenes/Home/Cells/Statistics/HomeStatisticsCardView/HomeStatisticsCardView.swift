@@ -68,10 +68,16 @@ class HomeStatisticsCardView: UIView {
 
 			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
 				var secondaryAccessibilityLabel = secondaryTitleLabel.text
+
 				if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
 					secondaryAccessibilityLabel?.append(" ")
 					secondaryAccessibilityLabel?.append(secondaryValueLabel.text ?? "")
 				}
+				
+				if let secondarySubtitle = viewModel?.secondarySubtitle {
+					secondaryAccessibilityLabel?.append(" \(secondarySubtitle)")
+				}
+				
 				secondaryTitleLabel.accessibilityLabel = secondaryAccessibilityLabel
 				accessibilityElements.append(secondaryTitleLabel)
 			}
@@ -113,6 +119,7 @@ class HomeStatisticsCardView: UIView {
 
 	@IBOutlet weak var secondaryTitleLabel: StackViewLabel!
 	@IBOutlet weak var secondaryValueLabel: StackViewLabel!
+	@IBOutlet weak var secondarySubtitleLabel: StackViewLabel!
 	@IBOutlet weak var secondaryTrendImageView: UIImageView!
 
 	@IBOutlet weak var tertiaryTitleLabel: StackViewLabel!
@@ -152,6 +159,13 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$primarySubtitle
+			.sink { [weak self] in
+				self?.primarySubtitleLabel.isHidden = $0 == nil
+				self?.primarySubtitleLabel.text = $0
+			}
+			.store(in: &subscriptions)
+
 		viewModel.$primaryTrendImage
 			.sink { [weak self] in
 				self?.primaryTrendImageView.isHidden = $0 == nil
@@ -185,10 +199,16 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$primarySubtitle
+		viewModel.$secondaryValueFontStyle
 			.sink { [weak self] in
-				self?.primarySubtitleLabel.isHidden = $0 == nil
-				self?.primarySubtitleLabel.text = $0
+				self?.secondaryValueLabel.style = $0 ?? .headline
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$secondarySubtitle
+			.sink { [weak self] in
+				self?.secondarySubtitleLabel.isHidden = $0 == nil
+				self?.secondarySubtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 
@@ -292,7 +312,7 @@ class HomeStatisticsCardView: UIView {
 	}
 	
 	private func configurePrimarySection() {
-		primaryTitleLabel.style = .body
+		primaryTitleLabel.style = .subheadline
 		primaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primaryTitleLabel.numberOfLines = 0
 		primaryTitleLabel.adjustsFontSizeToFitWidth = false
@@ -307,7 +327,7 @@ class HomeStatisticsCardView: UIView {
 		primaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-		primarySubtitleLabel.style = .body
+		primarySubtitleLabel.style = .subheadline
 		primarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
 		primarySubtitleLabel.numberOfLines = 0
 		primarySubtitleLabel.adjustsFontSizeToFitWidth = false
@@ -319,7 +339,7 @@ class HomeStatisticsCardView: UIView {
 	}
 	
 	private func configureSecondarySection() {
-		secondaryTitleLabel.style = .body
+		secondaryTitleLabel.style = .subheadline
 		secondaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		secondaryTitleLabel.numberOfLines = 0
 		secondaryTitleLabel.adjustsFontSizeToFitWidth = false
@@ -327,19 +347,25 @@ class HomeStatisticsCardView: UIView {
 		secondaryTitleLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
-
-		secondaryValueLabel.style = .headline
 		secondaryValueLabel.numberOfLines = 0
 		secondaryValueLabel.adjustsFontSizeToFitWidth = false
 		secondaryValueLabel.allowsDefaultTighteningForTruncation = true
 		secondaryValueLabel.onAccessibilityFocus = { [weak self] in
 			self?.onAccessibilityFocus?()
 		}
+		secondarySubtitleLabel.style = .subheadline
+		secondarySubtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		secondarySubtitleLabel.numberOfLines = 0
+		secondarySubtitleLabel.adjustsFontSizeToFitWidth = false
+		secondarySubtitleLabel.allowsDefaultTighteningForTruncation = true
+		secondarySubtitleLabel.onAccessibilityFocus = { [weak self] in
+			self?.onAccessibilityFocus?()
+		}
 		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
 	}
 	
 	private func configureTertiarySection() {
-		tertiaryTitleLabel.style = .body
+		tertiaryTitleLabel.style = .subheadline
 		tertiaryTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		tertiaryTitleLabel.numberOfLines = 0
 		tertiaryTitleLabel.adjustsFontSizeToFitWidth = false

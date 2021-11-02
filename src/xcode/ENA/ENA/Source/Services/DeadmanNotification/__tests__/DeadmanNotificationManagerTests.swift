@@ -27,7 +27,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -77,7 +78,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -110,7 +112,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -145,7 +148,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client))
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -183,7 +187,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -220,7 +225,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter
@@ -258,7 +264,8 @@ class DeadmanNotificationManagerTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			userNotificationCenter: notificationCenter

@@ -308,10 +308,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>последна ваксинация днес</string>
+			<string>Последна ваксинация днес</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>последна ваксинация преди %u ден</string>
+			<string>Последна ваксинация преди %u ден</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>Последна ваксинация преди %u дни</string>

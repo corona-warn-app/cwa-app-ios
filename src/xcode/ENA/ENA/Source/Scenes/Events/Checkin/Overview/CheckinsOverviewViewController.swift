@@ -41,7 +41,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		navigationItem.setHidesBackButton(true, animated: false)
 
 		tableView.reloadData()
-		updateEmptyState()
 
 		viewModel.onUpdate = { [weak self] in
 			self?.animateChanges()
@@ -70,6 +69,11 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		viewModel.checkoutOverdueCheckins()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		updateEmptyState()
+	}
+	
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
@@ -258,20 +262,19 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	}
 
 	private func updateEmptyState() {
-		let emptyStateView = EmptyStateView(viewModel: CheckinsOverviewEmptyStateViewModel())
-
-		// Since we set the empty state view as a background view we need to push it below the add cell by
-		// adding top padding for the height of the add cell …
-		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
-		// … + the height of the navigation bar
-		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
-		// … + the height of the status bar
-		if #available(iOS 13.0, *) {
-			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-		} else {
-			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
-		}
-		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
+		// Since we set the empty state view as a background view we need to push it into the visible area by
+		// adding the height of the button cell to the safe area (navigation bar and status bar)
+		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY + tableView.adjustedContentInset.top
+		// If possible, we want to push it to a position that looks good on large and small screens and that is aligned
+		// between CheckinsOverviewViewController, TraceLocationsOverviewViewController and HealthCertificateOverviewViewController.
+		let alignmentPadding = UIScreen.main.bounds.height / 3
+		tableView.backgroundView = viewModel.isEmpty
+			? EmptyStateView(
+				viewModel: CheckinsOverviewEmptyStateViewModel(),
+				safeInsetTop: safeInsetTop,
+				alignmentPadding: alignmentPadding
+			)
+			: nil
 	}
 
 	@objc
@@ -295,6 +298,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 				self?.updateFor(isEditing: true)
 			}
 		)
+		editAction.isEnabled = !viewModel.isEmpty
 		actionSheet.addAction(editAction)
 
 		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)

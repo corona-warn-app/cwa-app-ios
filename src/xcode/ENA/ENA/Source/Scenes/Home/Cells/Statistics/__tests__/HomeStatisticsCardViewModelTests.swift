@@ -396,31 +396,41 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTitle, "17.01.2021")
 	}
 
-	// MARK: - Incedences Card
+	// MARK: - Combined incidences Card
 
-	func testIncidenceCardStaticValues() {
+	func testCombinedIncidencesCardStaticValues() {
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 2,
-				keyFigures: []
+				cardID: 10,
+				keyFigures: [
+					keyFigure(
+						rank: .primary
+					),
+					keyFigure(
+						rank: .secondary
+					)
+				]
 			)
 		)
 
-		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.Incidence.title)
+		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.Combined7DaysIncidence.title)
 		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Illu_7-Tage-Inzidenz"))
-		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.Incidence.secondaryLabelTitle)
+		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.Combined7DaysIncidence.primaryLabelSubtitle)
+		XCTAssertEqual(viewModel.secondarySubtitle, AppStrings.Statistics.Card.Combined7DaysIncidence.secondaryLabelSubtitle)
+
 	}
 
-	func testIncidenceCardPrimaryTitleToday() throws {
+	func testCombinedIncidencesCardPrimaryTitleToday() throws {
 		let today = Date()
 
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 2,
+				cardID: 10,
 				updatedAt: Int64(today.timeIntervalSince1970),
 				keyFigures: [
 					keyFigure(
-						rank: .primary
+						rank: .primary,
+						updatedAt: Int64(today.timeIntervalSince1970)
 					)
 				]
 			)
@@ -429,16 +439,17 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTitle, "Bis heute")
 	}
 
-	func testIncidenceCardPrimaryTitleYesterday() throws {
+	func testCombinedIncidencesCardPrimaryTitleYesterday() throws {
 		let yesterday = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()))
 
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 2,
+				cardID: 10,
 				updatedAt: Int64(yesterday.timeIntervalSince1970),
 				keyFigures: [
 					keyFigure(
-						rank: .primary
+						rank: .primary,
+						updatedAt: Int64(yesterday.timeIntervalSince1970)
 					)
 				]
 			)
@@ -447,14 +458,15 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
 	}
 
-	func testIncidenceCardPrimaryTitleOtherDate() throws {
+	func testCombinedIncidencesCardCardPrimaryTitleOtherDate() throws {
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 2,
+				cardID: 10,
 				updatedAt: 1610891698, // 2021-01-17
 				keyFigures: [
 					keyFigure(
-						rank: .primary
+						rank: .primary,
+						updatedAt: 1610891698
 					)
 				]
 			)
@@ -462,72 +474,61 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
 	}
+
 	
-	// MARK: - Hospitalization Rate Card
-
-	func testHospitalizationRateCardStaticValues() {
-		let viewModel = HomeStatisticsCardViewModel(
-			for: keyFigureCard(
-				cardID: 8,
-				keyFigures: []
-			)
-		)
-
-		XCTAssertEqual(viewModel.title, AppStrings.Statistics.Card.HospitalizationRate.title)
-		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Illu_7Days_Hospital_Rate"))
-		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.HospitalizationRate.secondaryLabelTitle)
-	}
-
-	func testHospitalizationRateCardPrimaryTitleToday() throws {
+	func testCombinedIncidencesCardSecondaryTitleToday() throws {
 		let today = Date()
 
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 8,
+				cardID: 10,
 				updatedAt: Int64(today.timeIntervalSince1970),
 				keyFigures: [
 					keyFigure(
-						rank: .primary
+						rank: .secondary,
+						updatedAt: Int64(today.timeIntervalSince1970)
 					)
 				]
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis heute")
+		XCTAssertEqual(viewModel.secondaryTitle, "Bis heute")
 	}
 
-	func testHospitalizationRateCardPrimaryTitleYesterday() throws {
+	func testCombinedIncidencesCardSecondaryTitleYesterday() throws {
 		let yesterday = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()))
 
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 8,
+				cardID: 10,
 				updatedAt: Int64(yesterday.timeIntervalSince1970),
 				keyFigures: [
 					keyFigure(
-						rank: .primary
+						rank: .secondary,
+						updatedAt: Int64(yesterday.timeIntervalSince1970)
 					)
 				]
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
+		XCTAssertEqual(viewModel.secondaryTitle, "Bis gestern")
 	}
 
-	func testHospitalizationRateCardPrimaryTitleOtherDate() throws {
+	func testCombinedIncidencesCardCardSecondaryTitleOtherDate() throws {
 		let viewModel = HomeStatisticsCardViewModel(
 			for: keyFigureCard(
-				cardID: 8,
+				cardID: 10,
 				updatedAt: 1610891698, // 2021-01-17
 				keyFigures: [
 					keyFigure(
-						rank: .primary
+						rank: .secondary,
+						updatedAt: 1610891698
 					)
 				]
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis 17.01.2021")
+		XCTAssertEqual(viewModel.secondaryTitle, "Bis 17.01.2021")
 	}
 
 	// MARK: - Intensive Care Card
@@ -578,7 +579,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 			)
 		)
 
-		XCTAssertEqual(viewModel.primaryTitle, "Bis gestern")
+		XCTAssertEqual(viewModel.primaryTitle, "Gestern")
 	}
 
 	func testIntensiveCareCardPrimaryTitleOtherDate() throws {
@@ -679,7 +680,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.primaryTrendImageTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(viewModel.primaryTrendAccessibilityLabel, AppStrings.Statistics.Card.trendIncreasing)
 		XCTAssertEqual(viewModel.primaryTrendAccessibilityValue, AppStrings.Statistics.Card.trendSemanticNegative)
-		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.AddCard.localCardPrimarySubtitle)
+		XCTAssertEqual(viewModel.primarySubtitle, AppStrings.Statistics.Card.Region.primaryLabelSubtitle)
 	}
 	
 	private func regionStatisticsDataLocalTrend(trend: SAP_Internal_Stats_KeyFigure.Trend, value: Double) -> RegionStatisticsData {
@@ -695,7 +696,9 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 				regionType: .administrativeUnit
 			),
 			updatedAt: 1234,
-			sevenDayIncidence: sevenDayIncidence
+			sevenDayIncidence: sevenDayIncidence,
+			sevenDayHospitalizationIncidenceUpdatedAt: 1234,
+			sevenDayHospitalizationIncidence: sevenDayIncidence
 		)
 		return regionStatisticsData
 	}
@@ -833,6 +836,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 	private func keyFigure(
 		rank: SAP_Internal_Stats_KeyFigure.Rank = .unspecifiedRank,
 		value: Double = 0,
+		updatedAt: Int64 = 0,
 		decimals: Int32 = 0,
 		trend: SAP_Internal_Stats_KeyFigure.Trend = .unspecifiedTrend,
 		trendSemantic: SAP_Internal_Stats_KeyFigure.TrendSemantic = .unspecifiedTrendSemantic
@@ -840,6 +844,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		var keyFigure = SAP_Internal_Stats_KeyFigure()
 		keyFigure.rank = rank
 		keyFigure.value = value
+		keyFigure.updatedAt = updatedAt
 		keyFigure.decimals = decimals
 		keyFigure.trend = trend
 		keyFigure.trendSemantic = trendSemantic
@@ -871,7 +876,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 					switch HomeStatisticsCard(rawValue: id) {
 					case .atLeastOneVaccinatedPerson, .fullyVaccinatedPeople, .infectedPeopleInIntensiveCare:
 						XCTAssertEqual(viewModel.primaryValue, expectedStringWithPercent)
-					case .infections, .incidence, .infectedPeopleHospitalizationRate, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates:
+					case .infections, .keySubmissions, .reproductionNumber, .appliedVaccinationsDoseRates, .combinedSevenDayAndHospitalization:
 						XCTAssertEqual(viewModel.primaryValue, expectedString)
 					case .none:
 						XCTFail("Unrecognised Card type")

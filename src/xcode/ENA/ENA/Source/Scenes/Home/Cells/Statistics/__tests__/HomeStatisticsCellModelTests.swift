@@ -44,8 +44,8 @@ class HomeStatisticsCellModelTests: CWATestCase {
 		}
 
 		var loadedStatistics = SAP_Internal_Stats_Statistics()
-		loadedStatistics.cardIDSequence = [1, 3, 2, 17]
-		loadedStatistics.keyFigureCards = [keyFigureCard(cardID: 1), keyFigureCard(cardID: 2), keyFigureCard(cardID: 3), keyFigureCard(cardID: 17)]
+		loadedStatistics.cardIDSequence = [1, 3, 10, 2]
+		loadedStatistics.keyFigureCards = [keyFigureCard(cardID: 1), keyFigureCard(cardID: 3), keyFigureCard(cardID: 10), keyFigureCard(cardID: 2)]
 
 		homeState.statistics = loadedStatistics
 
@@ -53,12 +53,12 @@ class HomeStatisticsCellModelTests: CWATestCase {
 
 		XCTAssertEqual(
 			receivedValues,
-			[[], [keyFigureCard(cardID: 1), keyFigureCard(cardID: 3), keyFigureCard(cardID: 2)]]
+			[[], [keyFigureCard(cardID: 1), keyFigureCard(cardID: 3), keyFigureCard(cardID: 10)]]
 		)
 
 		subscription.cancel()
 	}
-
+	
 	// MARK: - Private
 	private func keyFigureCard(
 		cardID: Int32 = 0

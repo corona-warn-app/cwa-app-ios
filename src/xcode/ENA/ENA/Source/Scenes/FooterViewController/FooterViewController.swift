@@ -74,11 +74,14 @@ class FooterViewController: UIViewController {
 		
 		secondaryButtonHeightConstraint = secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
 		secondaryButtonHeightConstraint.priority = .defaultHigh
+
+		topInsetConstraint = buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset)
+		bottomInsetConstraint = buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset)
 		
 		NSLayoutConstraint.activate([
 			// buttonsStackView
-			buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: viewModel.topBottomInset),
-			buttonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -viewModel.topBottomInset),
+			topInsetConstraint,
+			bottomInsetConstraint,
 			buttonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: viewModel.leftRightInset),
 			buttonsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -viewModel.leftRightInset),
 			// primaryButton
@@ -111,6 +114,8 @@ class FooterViewController: UIViewController {
 	private var buttonsStackView: UIStackView!
 	private var primaryButtonHeightConstraint: NSLayoutConstraint!
 	private var secondaryButtonHeightConstraint: NSLayoutConstraint!
+	private var topInsetConstraint: NSLayoutConstraint!
+	private var bottomInsetConstraint: NSLayoutConstraint!
 	private var subscription: [AnyCancellable] = []
 
 	@objc
@@ -221,6 +226,14 @@ class FooterViewController: UIViewController {
 		viewModel.$backgroundColor
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.backgroundColor, on: view)
+			.store(in: &subscription)
+
+		viewModel.$topBottomInset
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink(receiveValue: { [weak self] topBottomInset in
+				self?.topInsetConstraint.constant = topBottomInset
+				self?.bottomInsetConstraint.constant = -topBottomInset
+			})
 			.store(in: &subscription)
 	}
 	

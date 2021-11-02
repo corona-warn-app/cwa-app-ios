@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "Ще бъдат предупредени и хората, които са се регистрирали за същите събития или места по същото време.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте. Ако обаче споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Вашето съгласие е доброволно.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте, но ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
@@ -1279,20 +1279,18 @@
 
 "Home_TraceLocationsCard_Button" = "Създаване на QR код";
 
-/* Home Info Card */
-"Home_InfoCard_ShareTitle" = "Споделете приложението Corona-Warn-App";
+/* Home More Card */
+"Home_MoreCard_Title" = "Повече";
 
-"Home_InfoCard_ShareBody" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригите на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
+"Home_MoreCard_SettingsTitle" = "Настройки";
 
-"Home_InfoCard_AboutTitle" = "ЧЗВ";
+"Home_MoreCard_RecycleBinTitle" = "Кошче";
 
-"Home_InfoCard_AboutBody" = "Тук можете да намерите отговори на често задавани въпроси относно приложението Corona-Warn-App. Ще Ви пренасочим към външен уебсайт на правителството на Германия.";
+"Home_MoreCard_AppInformationTitle" = "За приложението";
 
-"Home_SettingsCard_Title" = "Настройки";
+"Home_MoreCard_FAQTitle" = "ЧЗВ";
 
-"Home_AppInformationCard_Title" = "За приложението";
-
-"Home_AppInformationCard_Version" = "Версия";
+"Home_MoreCard_ShareTitle" = "Споделяне";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Промяна на Вашия статус на риск";
@@ -1300,6 +1298,11 @@
 "Home_Alert_RiskStatusLowered_Message" = "Изминаха повече от 14 дни от последния контакт, който предизвика повишаване на нивото на Вашия риск. Затова рискът Ви от заразяване отново е определен като нисък.\n\nКакво трябва да направите:\n1. Ако нямате симптоми за заразяване с COVID-19, продължете да следвате общоприетите правила за спазване на дистанция и хигиена.\n2. Ако имате симптоми за заразяване с COVID-19, препоръчваме Ви да посетите своя лекар и да се тествате.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* App Information */
+"App_Information_Title" = "За приложението";
+
+"App_Information_Version" = "Версия";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "За приложението";
@@ -1555,21 +1558,21 @@
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
 /* Version 2.12 */
-"NewVersionFeature_212_newStatisticsTiles_title" = "Разширена статистика";
+"NewVersionFeature_213_hospitalizationRateTile_title" = "7-дневна заболеваемост с хоспитализация на местно ниво";
 
-"NewVersionFeature_212_newStatisticsTiles_description" = "В приложението вече е налична следната статистика:\n\n\t \U2022 7-дневна заболеваемост с хоспитализация\n\t \U2022 Пациенти с COVID-19 в интензивни\n\t  отделения";
+"NewVersionFeature_213_hospitalizationRateTile_description" = "Локалните плочки за 7-дневната заболеваемост с нови заразявания вече показват и 7-дневната заболеваемост с хоспитализации. Тъй като този показател е наличен само на ниво провинция, ако се избере отделна област, ще се покаже процентът на хоспитализиране за съответната провинция.";
 
-"NewVersionFeature_212_notificationManagement_title" = "Управление на известия";
+"NewVersionFeature_213_changesFAQLinks_title" = "Промяна на връзката към ЧЗВ";
 
-"NewVersionFeature_212_notificationManagement_description" = "Настройките за известията вече се управляват централно през настройките на устройството Ви. Проверете отново настройките за известията на Corona-Warn-App в настройките на Вашето устройство.";
+"NewVersionFeature_213_changesFAQLinks_description" = "Когато отваряте ЧЗВ в приложението, вече ще бъдете препращани към страниците в coronawarn.app. Там ще намерите още информация, свързана с въпросите ви.";
 
-"NewVersionFeature_212_qrCodeScannerButton_title" = "Директен достъп до скенера на QR кодове";
+"NewVersionFeature_213_certificateAssignment_title" = "Присъединяване на сертификат";
 
-"NewVersionFeature_212_qrCodeScannerButton_description" = "Вече имате директен достъп до универсалния скенер за QR кодове в долната лента за навигация.";
+"NewVersionFeature_213_certificateAssignment_description" = "Присъединяването на сертификати към лица вече отчита по-малко грешки. Сега приложението игнорира различния брой интервали в имената, което позволява присъединяване на сертификата към въпросното лице, въпреки тези разлики.";
 
-"NewVersionFeature_212_qrCodeImport_title" = "Импортиране не QR код";
+"NewVersionFeature_213_restoreCertificate_title" = "Възстановяване на сертификати";
 
-"NewVersionFeature_212_qrCodeImport_description" = "Вече можете да използвате скенера за QR кодове, за да импортирате QR кодове от снимки или PDF файлове.";
+"NewVersionFeature_213_restoreCertificate_description" = "Изтритите сертификати се преместват в кошчето. Те могат да бъдат възстановени в рамките на 30 дни.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1893,9 +1896,20 @@
 
 "Statistics_Add_fromTheWholeCountry" = "Национално ниво";
 
-"Statistics_Card_Add_LocalCardPrimarySubtitle" = "Потвърдени нови случаи на заразяване на 100 000 души";
-
 "Statistics_Card_Manage" = "Редактиране";
+
+/* - 7 Days Incedence */
+"Statistics_Card_CombinedIncidence_Title" = "7-дневна заболеваемост";
+
+"Statistics_Card_CombinedIncidence_Today" = "До днес";
+
+"Statistics_Card_CombinedIncidence_Yesterday" = "До вчера";
+
+"Statistics_Card_CombinedIncidence_Date" = "До %@";
+
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Нови случаи на заразяване";
+
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Хоспитализации";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Потвърдени нови случаи на заразяване";
@@ -1911,15 +1925,17 @@
 "Statistics_Card_Infections_TertiaryLabelTitle" = "Общо";
 
 /* - Incidence Card */
-"Statistics_Card_Incidence_Title" = "7-дневна заболеваемост";
+"Statistics_Card_Region_Today" = "До днес";
 
-"Statistics_Card_Incidence_Today" = "До днес";
+"Statistics_Card_Region_Yesterday" = "До вчера";
 
-"Statistics_Card_Incidence_Yesterday" = "До вчера";
+"Statistics_Card_Region_Date" = "До %@";
 
-"Statistics_Card_Incidence_Date" = "До %@";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "Нови случаи на заразяване";
 
-"Statistics_Card_Incidence_SecondaryLabelTitle" = "Потвърдени нови случаи на заразяване на 100 000 души";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Хоспитализации";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Хоспитализации в %@";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Лица, които изпращат предупреждения";
@@ -1990,23 +2006,12 @@
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Общо";
 
-/* - Infected People Hospitalization Rate */
-"Statistics_Card_HospitalizationRate_Title" = "7-дневна заболеваемост с хоспитализация";
-
-"Statistics_Card_HospitalizationRate_Today" = "До днес";
-
-"Statistics_Card_HospitalizationRate_Yesterday" = "До вчера";
-
-"Statistics_Card_HospitalizationRate_Date" = "До %@";
-
-"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "Хоспитализации на пациенти с COVID-19 на 100 000 души";
-
 /* - Infected People in Intensive Care */
 "Statistics_Card_IntensiveCare_Title" = "Пациенти с COVID-19 в интензивни отделения";
 
 "Statistics_Card_IntensiveCare_Today" = "До днес";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "До вчера";
+"Statistics_Card_IntensiveCare_Yesterday" = "Вчера";
 
 "Statistics_Card_IntensiveCare_Date" = "До %@";
 
@@ -2020,15 +2025,17 @@
 
 "Statistics_Info_Subtitle" = "Пояснение на статистиката";
 
-"Statistics_Info_Local7Days_Title" = "7-дневна заболеваемост на местно ниво";
-
-"Statistics_Info_Local7Days_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души в посочения окръг или федерална провинция.";
-
 "Statistics_Info_Incidence_Title" = "7-дневна заболеваемост";
 
-"Statistics_Info_Incidence_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души.";
+"Statistics_Info_Local7Days_Title" = "7-дневна заболеваемост на местно ниво";
 
-"Statistics_Info_HospitalizationRate_Title" = "7-дневна заболеваемост с хоспитализация";
+"Statistics_Info_Local7Days_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души в посочения окръг или федерална провинция.\nДанните за хоспитализация се отнасят за съответната провинция в Германия.";
+
+"Statistics_Info_NewInfection_Title" = "Потвърдени нови случаи на заразяване";
+
+"Statistics_Info_NewInfection_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Хоспитализация";
 
 "Statistics_Info_HospitalizationRate_Text" = "Общ брой приети в болница пациенти заради COVID-19 през последните 7 дни (по дата на регистриране) на 100 000 души.";
 
@@ -2645,7 +2652,7 @@
 
 "HealthCertificate_Validation_Info_title" = "Информация";
 
-"HealthCertificate_Validation_Info_byCar" = "Въведете планирания час на пристигане на границата на държавата на местоназначение по местно време.";
+"HealthCertificate_Validation_Info_byCar" = "Изберете планирания час на пристигане на границата на държавата на местоназначение по местно време.";
 
 "HealthCertificate_Validation_Info_byPlane" = "Ако пътувате със самолет, въведете планирания час на заминаване на полета ви.";
 
@@ -2848,14 +2855,14 @@
 "VaccinationCertificate_Details_OneOfOneHint" = "Тази ваксина осигурява защита с една доза или се поставя на преболедувало лице, което се нуждае само от една доза.";
 
 /* Health Certificate Delete Alert */
-"HealthCertificate_Alert_deleteButton" = "Изтриване";
+"HealthCertificate_Alert_deleteButton" = "Изтриване на сертификат";
 
 "HealthCertificate_Alert_cancelButton" = "Отказ";
 
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Желаете ли да изтриете сертификата за ваксинация?";
 
-"VaccinationCertificate_Alert_message" = "Препоръчваме да пазите ваксинационните си сертификати в приложението дори и да не са вече актуални.";
+"VaccinationCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертификат за тест";
@@ -2871,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Желаете ли да изтриете сертификата за тестване?";
 
-"TestCertificate_Alert_message" = "Ако изтриете този сертификат, повече няма да можете да го използвате за доказателство чрез приложението.";
+"TestCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Сертификат за възстановяване";
@@ -2883,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Желаете ли да изтриете сертификата за възстановяване?";
 
-"RecoveryCertificate_Alert_message" = "Ако изтриете този сертификат за възстановяване, повече няма да може да го използвате за доказателство в приложението.";
+"RecoveryCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Показване на версия за печат";
@@ -3087,6 +3094,10 @@
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "QR кодът не се поддържа от Corona-Warn-App. Моля, сканирайте подходящ QR код.";
 
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Възстановяване на сертификат";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Сертификатът ще бъде възстановен от кошчето.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Галерия със снимки";
 
@@ -3096,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Достъпът не е разрешен";
 
-"FileScanner_AccessError_message" = "\\“Corona-Warn-App\\” няма достъп до галерията Ви със снимки. Можете да разрешите достъпа от настройките на Вашето устройство.";
+"FileScanner_AccessError_message" = "Corona-Warn-App няма достъп до галерията Ви със снимки. Можете да разрешите достъпа от настройките на Вашето устройство.";
 
 "FileScanner_AccessError_cancel" = "Отказ";
 
@@ -3120,7 +3131,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Няма подходящ QR код";
 
-"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, изберете файл с подходящ QR код.";
+"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, сканирайте подходящ QR код.";
 
 "FileScanner_FileNotReadable_title" = "Файлът не се чете";
 
@@ -3166,4 +3177,77 @@
 "FederalState_SchleswigHolstein" = "Шлезвиг-Холщайн";
 
 "FederalState_Thueringen" = "Тюрингия";
+
+/* Recycle Bin */
+"RecycleBin_title" = "Кошче";
+
+"RecycleBin_description" = "Докоснете елемент, за да го възстановите. Елементите се изтриват автоматично след 30 дни.";
+
+"RecycleBin_deleteAllButtonTitle" = "Изтриване на всички";
+
+/* - Vaccination Certificate */
+"RecycleBin_VaccinationCertificate_headline" = "Сертификат за ваксинация";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Ваксинация %i от %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "Дата на ваксинация: %@";
+
+/* - Test Certificate */
+"RecycleBin_TestCertificate_headline" = "Сертификат за тест";
+
+"RecycleBin_TestCertificate_pcrTest" = "PCR тест";
+
+"RecycleBin_TestCertificate_antigenTest" = "Бърз тест";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Взета проба %@";
+
+/* - Recovery Certificate */
+"RecycleBin_RecoveryCertificate_headline" = "Сертификат за възстановяване";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "валиден до %@";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_headline" = "Тест";
+
+"RecycleBin_CoronaTest_pcrTest" = "PCR тест";
+
+"RecycleBin_CoronaTest_antigenTest" = "Бърз тест";
+
+"RecycleBin_CoronaTest_registrationDate" = "Регистрирано на %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "Извършено на %@";
+
+/* - Empty State */
+"RecycleBin_EmptyState_title" = "Кошчето е празно";
+
+"RecycleBin_EmptyState_description" = "Когато изтривате сертификати, те се преместват в кошчето и се показват там.";
+
+"RecycleBin_EmptyState_imageDescription" = "Кошче";
+
+/* - Restore Certificate Alert */
+"RecycleBin_RestoreCertificate_AlertTitle" = "Възстановяване на сертификат";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "Възстановеният сертификат ще бъде преместен на оригиналното си местоположение. Ще можете да го намерите на страницата за таб \"Сертификати\".";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Възстановяване";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "Отказ";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_AlertTitle" = "Възстановяване на тест";
+
+"RecycleBin_CoronaTest_AlertMessage" = "Възстановеният тест ще бъде преместен на оригиналното си местоположение. Ще можете да го намерите на страницата за таб \"Статус\".";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Възстановяване";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Отказ";
+
+/* - Delete All Alert */
+"RecycleBin_DeleteAll_AlertTitle" = "Искате ли да изпразните кошчето?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "След това няма да можете да възстановите съдържанието му.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Изтриване";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Отказ";
 

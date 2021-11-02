@@ -126,21 +126,25 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 				healthCertifiedPerson: certifiedPerson,
 				healthCertificate: healthCertificate
 			)
+			Log.debug("Received certificateExpired notification")
 			showHealthCertificate(route)
 		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateExpiringSoon.rawValue, from: identifier) {
 			let route = Route(
 				healthCertifiedPerson: certifiedPerson,
 				healthCertificate: healthCertificate
 			)
+			Log.debug("Received certificateExpiringSoon notification")
 			showHealthCertificate(route)
 		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateInvalid.rawValue, from: identifier) {
 			let route = Route(
 				healthCertifiedPerson: certifiedPerson,
 				healthCertificate: healthCertificate
 			)
+			Log.debug("Received certificateInvalid notification")
 			showHealthCertificate(route)
 		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.boosterVaccination.rawValue, from: identifier) {
 			let route = Route(healthCertifiedPerson: certifiedPerson)
+			Log.debug("Received boosterVaccination notification")
 			showHealthCertifiedPerson(route)
 		}
 	}
@@ -157,7 +161,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	
 	private func findHealthCertifiedPerson(_ identifier: String) -> (HealthCertifiedPerson)? {
 		let matchedPerson = healthCertificateService.healthCertifiedPersons.first {
-			if let name = $0.name?.standardizedName,
+			if let name = $0.name?.groupingStandardizedName,
 			   let dateOfBirth = $0.dateOfBirth {
 				let hashedID = ENAHasher.sha256(name + dateOfBirth)
 				return hashedID == identifier

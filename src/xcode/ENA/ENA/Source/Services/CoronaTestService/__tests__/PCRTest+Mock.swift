@@ -18,7 +18,8 @@ extension PCRTest {
 		keysSubmitted: Bool = false,
 		journalEntryCreated: Bool = false,
 		certificateConsentGiven: Bool = false,
-		certificateRequested: Bool = false
+		certificateRequested: Bool = false,
+		uniqueCertificateIdentifier: String? = nil
 	) -> PCRTest {
 		PCRTest(
 			registrationDate: registrationDate,
@@ -31,7 +32,8 @@ extension PCRTest {
 			keysSubmitted: keysSubmitted,
 			journalEntryCreated: journalEntryCreated,
 			certificateConsentGiven: certificateConsentGiven,
-			certificateRequested: certificateRequested
+			certificateRequested: certificateRequested,
+			uniqueCertificateIdentifier: uniqueCertificateIdentifier
 		)
 	}
 

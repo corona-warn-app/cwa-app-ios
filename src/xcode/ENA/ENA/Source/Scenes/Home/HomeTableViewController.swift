@@ -25,6 +25,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
+		onRecycleBinCellTap: @escaping () -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
 		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
@@ -45,6 +46,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
+		self.onRecycleBinCellTap = onRecycleBinCellTap
 		self.showTestInformationResult = showTestInformationResult
 		self.onAddStateButtonTap = onAddLocalStatisticsTap
 		self.onAddDistrict = onAddDistrict
@@ -186,70 +188,39 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return statisticsCell(forRowAt: indexPath)
 		case .traceLocations:
 			return traceLocationsCell(forRowAt: indexPath)
-		case .infos:
-			return infoCell(forRowAt: indexPath)
-		case .settings:
-			return infoCell(forRowAt: indexPath)
+		case .moreInfo:
+			return moreInfoCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
 	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard HomeTableViewModel.Section(rawValue: section) == .settings else {
-			return UIView()
-		}
-
 		let headerView = UIView()
-		headerView.backgroundColor = .enaColor(for: .separator)
 
 		return headerView
 	}
 
-	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return viewModel.heightForHeader(in: section)
-	}
-
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		if HomeTableViewModel.Section(rawValue: section) == .infos {
-			let footerView = UIView()
-			footerView.backgroundColor = .enaColor(for: .separator)
+		let headerView = UIView()
 
-			return footerView
-		} else if HomeTableViewModel.Section(rawValue: section) == .settings {
-			let footerView = UIView()
-
-			let colorView = UIView()
-			colorView.backgroundColor = .enaColor(for: .separator)
-
-			footerView.addSubview(colorView)
-			colorView.translatesAutoresizingMaskIntoConstraints = false
-
-			NSLayoutConstraint.activate([
-				colorView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
-				colorView.topAnchor.constraint(equalTo: footerView.topAnchor),
-				colorView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
-				// Extend the last footer view so the color is shown even when rubber banding the scroll view
-				colorView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: UIScreen.main.bounds.height)
-			])
-
-			return footerView
-		} else {
-			return UIView()
-		}
-	}
-
-	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return viewModel.heightForFooter(in: section)
+		return headerView
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return viewModel.heightForRow(at: indexPath)
 	}
 
-	// MARK: - Protocol UITableViewDelegate
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 0
+	}
 	
-	// swiftlint:disable:next cyclomatic_complexity
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return 0
+	}
+
+	// MARK: - Protocol UITableViewDelegate
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
@@ -270,18 +241,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .infos:
-			if indexPath.row == 0 {
-				onInviteFriendsCellTap()
-			} else {
-				onFAQCellTap()
-			}
-		case .settings:
-			if indexPath.row == 0 {
-				onAppInformationCellTap()
-			} else {
-				onSettingsCellTap(viewModel.state.enState)
-			}
+		case .moreInfo:
+			break
 		default:
 			fatalError("Invalid section")
 		}
@@ -309,12 +270,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 		self.deltaOnboardingIsRunning = true
 
-		self.showRouteIfNeeded(completion: { [weak self] in
-			self?.showDeltaOnboardingIfNeeded(completion: {
-				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-					self?.showBackgroundFetchAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+				self?.showBackgroundFetchAlertIfNeeded(completion: {
+					self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+						self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+							self?.showRouteIfNeeded(completion: { [weak self] in
 								self?.deltaOnboardingIsRunning = false
 							})
 						})
@@ -322,6 +283,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				})
 			})
 		})
+
 	}
 
 	// MARK: - Private
@@ -340,6 +302,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
+	private let onRecycleBinCellTap: () -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
 	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
 	private var onAddDistrict: (SelectValueTableViewController) -> Void
@@ -405,8 +368,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeTraceLocationsTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeInfoTableViewCell.self)
+			UINib(nibName: String(describing: HomeMoreInfoTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeMoreInfoTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
@@ -666,28 +629,25 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func infoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeInfoTableViewCell.self), for: indexPath) as? HomeInfoTableViewCell else {
-			fatalError("Could not dequeue HomeInfoTableViewCell")
+	private func moreInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeMoreInfoTableViewCell.self), for: indexPath) as? HomeMoreInfoTableViewCell else {
+			fatalError("Could not dequeue HomeMoreInfoTableViewCell")
 		}
-
-		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
-		case .infos:
-			if indexPath.row == 0 {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .inviteFriends))
-			} else {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .faq))
+		cell.configure(onItemTap: { [weak self] selectedItem in
+			guard let self = self else { return }
+			switch selectedItem {
+			case .settings:
+				self.onSettingsCellTap(self.viewModel.state.enState)
+			case .recycleBin:
+				self.onRecycleBinCellTap()
+			case .appInformation:
+				self.onAppInformationCellTap()
+			case .faq:
+				self.onFAQCellTap()
+			case .share:
+				self.onInviteFriendsCellTap()
 			}
-		case .settings:
-			if indexPath.row == 0 {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .appInformation))
-			} else {
-				cell.configure(with: HomeInfoCellModel(infoCellType: .settings))
-			}
-		default:
-			fatalError("Invalid section")
-		}
-
+		})
 		return cell
 	}
 
@@ -706,6 +666,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 		showTestInformationResult(testResult)
+		completion()
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {

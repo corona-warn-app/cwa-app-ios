@@ -31,7 +31,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -67,7 +68,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -116,7 +118,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -169,7 +172,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 
@@ -209,7 +213,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -239,7 +244,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -280,7 +286,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -321,7 +328,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -362,7 +370,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -394,7 +403,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -433,7 +443,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -479,7 +490,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -527,7 +539,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -575,7 +588,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -620,7 +634,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -666,7 +681,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -711,7 +727,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -756,7 +773,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -814,7 +832,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -872,7 +891,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -932,7 +952,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -991,7 +1012,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()
@@ -1057,7 +1079,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					)
+					),
+					recycleBin: .fake()
 				)
 			),
 			eventProvider: MockEventStore()

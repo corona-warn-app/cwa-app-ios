@@ -207,8 +207,9 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
+      # Run the announce failed screenshots script only if the snapshot job failed
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>>
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> || (cd /Users/distiller/project/scripts && /Users/distiller/project/scripts/announce_failing_screenshots.sh)
           no_output_timeout: 1h
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots

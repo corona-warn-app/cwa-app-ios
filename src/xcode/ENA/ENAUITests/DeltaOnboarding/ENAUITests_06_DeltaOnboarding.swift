@@ -139,26 +139,4 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		// leave screen
 		app.buttons[AccessibilityIdentifiers.NotificationSettings.close].waitAndTap()
 	}
-	
-	private func checkNotificationReworkScreen() {
-		
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .short))
-		
-		// jump to system settings
-		app.buttons[AccessibilityIdentifiers.NotificationSettings.openSystemSettings].waitAndTap()
-		
-		// ensure we are in the settings
-		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.Preferences").wait(for: .runningForeground, timeout: .long))
-	
-		// return to app
-		XCUIApplication().activate()
-		
-		// ensure we are back on our screen
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.description].waitForExistence(timeout: .long))
-		
-		// leave screen
-		app.buttons[AccessibilityIdentifiers.NotificationSettings.close].waitAndTap()
-	}
 }

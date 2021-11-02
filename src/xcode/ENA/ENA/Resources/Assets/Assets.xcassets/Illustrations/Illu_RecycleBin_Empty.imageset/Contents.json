@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "hospital_rate_light.pdf",
-      "idiom" : "iphone"
+      "filename" : "Illu_RecycleBin_Empty.pdf",
+      "idiom" : "universal"
     },
     {
       "appearances" : [
@@ -11,8 +11,8 @@
           "value" : "dark"
         }
       ],
-      "filename" : "hospital_rate_dark.pdf",
-      "idiom" : "iphone"
+      "filename" : "Illu_RecycleBin_Empty_Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -61,6 +61,9 @@ struct SAP_Internal_Stats_KeyFigure {
 
   var trendSemantic: SAP_Internal_Stats_KeyFigure.TrendSemantic = .unspecifiedTrendSemantic
 
+  /// may overrule header.updatedAt if != 0
+  var updatedAt: Int64 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum Rank: SwiftProtobuf.Enum {
@@ -252,6 +255,7 @@ extension SAP_Internal_Stats_KeyFigure: SwiftProtobuf.Message, SwiftProtobuf._Me
     3: .same(proto: "decimals"),
     4: .same(proto: "trend"),
     5: .same(proto: "trendSemantic"),
+    6: .same(proto: "updatedAt"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -265,6 +269,7 @@ extension SAP_Internal_Stats_KeyFigure: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.decimals) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.trend) }()
       case 5: try { try decoder.decodeSingularEnumField(value: &self.trendSemantic) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.updatedAt) }()
       default: break
       }
     }
@@ -286,6 +291,9 @@ extension SAP_Internal_Stats_KeyFigure: SwiftProtobuf.Message, SwiftProtobuf._Me
     if self.trendSemantic != .unspecifiedTrendSemantic {
       try visitor.visitSingularEnumField(value: self.trendSemantic, fieldNumber: 5)
     }
+    if self.updatedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.updatedAt, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -295,6 +303,7 @@ extension SAP_Internal_Stats_KeyFigure: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.decimals != rhs.decimals {return false}
     if lhs.trend != rhs.trend {return false}
     if lhs.trendSemantic != rhs.trendSemantic {return false}
+    if lhs.updatedAt != rhs.updatedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

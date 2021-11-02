@@ -308,19 +308,19 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>son aşı bugün yapıldı</string>
+			<string>Son aşı bugün yapıldı</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>son aşı %u gün önce yapıldı</string>
+			<string>Son aşı %u gün önce yapıldı</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>son aşı %u gün önce yapıldı</string>
+			<string>Son aşı %u gün önce yapıldı</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>son aşı %u gün önce yapıldı</string>
+			<string>Son aşı %u gün önce yapıldı</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>son aşı %u gün önce yapıldı</string>
+			<string>Son aşı %u gün önce yapıldı</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>son aşı %u gün önce yapıldı</string>

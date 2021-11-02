@@ -19,13 +19,14 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 	func test_0020_AppInformationFlow() throws {
 		app.launch()
-
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		// assert cells
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
-
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
+		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.contactNavigation].waitForExistence(timeout: .medium))
@@ -41,7 +42,9 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		// assert cells
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.aboutNavigation"].waitAndTap()
 
@@ -55,14 +58,15 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		// assert cells
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
 
 		XCTAssertTrue(app.state == .runningForeground)
 		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
 		
-		// get safari and wait for safari to be in foreground
-		XCTAssertTrue(XCUIApplication(bundleIdentifier: "com.apple.mobilesafari").wait(for: .runningForeground, timeout: .extraLong))
-
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/"].waitForExistence(timeout: .short))
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {
@@ -72,7 +76,9 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		// assert cells
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.contactNavigation"].waitAndTap()
 
@@ -86,7 +92,9 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
 
 		// assert cells
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.privacyNavigation"].waitAndTap()
 
@@ -105,7 +113,9 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		// assert cells
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
 
 		app.cells["AppStrings.AppInformation.termsNavigation"].waitAndTap()
 
@@ -209,7 +219,9 @@ class ENAUITests_02_AppInformation: CWATestCase {
 	
 	private func navigateToErrorReporting() {
 		// navigate to App Information
-		app.cells["AppStrings.Home.appInformationCardTitle"].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
 
 		// navigate to Error Reporting
 		app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitAndTap()

@@ -126,7 +126,7 @@ class NotificationManagerTests: XCTestCase {
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
 		
 		// WHEN
-		guard let name = healthCertifiedPerson.name?.standardizedName,
+		guard let name = healthCertifiedPerson.name?.groupingStandardizedName,
 			  let dateOfBirth = healthCertifiedPerson.dateOfBirth
 		else {
 			XCTFail("Person name and dob cant be nil")
@@ -160,7 +160,8 @@ class NotificationManagerTests: XCTestCase {
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		let coronaTestService = CoronaTestService(

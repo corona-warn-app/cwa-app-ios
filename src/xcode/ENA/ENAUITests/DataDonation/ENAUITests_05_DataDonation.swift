@@ -25,7 +25,9 @@ class ENAUITests_05_DataDonation: CWATestCase {
 		app.swipeUp(velocity: .fast)
 
 		// Navigate to settings
-		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitAndTap()
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let settingsLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.settingsLabel]
+		settingsLabel.waitAndTap()
 
 		// Navigate to data donation screen
 		app.cells[AccessibilityIdentifiers.Settings.dataDonation].waitAndTap()

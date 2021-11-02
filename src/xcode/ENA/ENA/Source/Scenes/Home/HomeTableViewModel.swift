@@ -41,8 +41,7 @@ class HomeTableViewModel {
 		case testRegistration
 		case statistics
 		case traceLocations
-		case infos
-		case settings
+		case moreInfo
 	}
 
 	enum RiskAndTestResultsRow: Equatable {
@@ -80,10 +79,8 @@ class HomeTableViewModel {
 			return 1
 		case .traceLocations:
 			return 1
-		case .infos:
-			return 2
-		case .settings:
-			return 2
+		case .moreInfo:
+			return 1
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -102,30 +99,6 @@ class HomeTableViewModel {
 		}
 
 		return UITableView.automaticDimension
-	}
-
-	func heightForHeader(in section: Int) -> CGFloat {
-		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
-			return 0
-		case .infos, .settings:
-			return 16
-		case .none:
-			fatalError("Invalid section")
-		}
-	}
-
-	func heightForFooter(in section: Int) -> CGFloat {
-		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTestResults, .testRegistration, .statistics, .traceLocations:
-			return 0
-		case .infos:
-			return 12
-		case .settings:
-			return 24
-		case .none:
-			fatalError("Invalid section")
-		}
 	}
 
 	func didTapTestResultCell(coronaTestType: CoronaTestType) {

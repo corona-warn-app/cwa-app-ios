@@ -605,7 +605,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_body_section_3" = "Es werden auch Ihre Mitmenschen gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Wenn Sie Ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
 
@@ -856,7 +856,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Ihr Einverständnis ist freiwillig.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Wenn Sie Ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
 "ExposureSubmissionWarnOthers_consent_bullet4" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-ins auch entfernen und so von der Warnung ausschließen.";
@@ -977,7 +977,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Noice_Text" = "Bitte zeigen Sie diesen QR-Code an der Teststelle vor, um Ihre persönlichen Daten schnell erfassen zu lassen. Bitte halten Sie zusätzlich Ihren Personalausweis bereit.";
 
-"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "geboren %@";
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Geboren %@";
 
 "ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
 
@@ -1317,21 +1317,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_TraceLocationsCard_Button" = "QR-Code erstellen";
 
-/* Home Info Card */
+/* Home More Card */
 
-"Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
+"Home_MoreCard_Title" = "Mehr";
 
-"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
+"Home_MoreCard_SettingsTitle" = "Einstellungen";
 
-"Home_InfoCard_AboutTitle" = "Häufige Fragen";
+"Home_MoreCard_RecycleBinTitle" = "Papierkorb";
 
-"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App. Sie werden auf eine externe Website der Bundesregierung weitergeleitet.";
+"Home_MoreCard_AppInformationTitle" = "App-Informationen";
 
-"Home_SettingsCard_Title" = "Einstellungen";
+"Home_MoreCard_FAQTitle" = "Häufige Fragen";
 
-"Home_AppInformationCard_Title" = "App-Informationen";
-
-"Home_AppInformationCard_Version" = "Version";
+"Home_MoreCard_ShareTitle" = "Teilen";
 
 /* Home Alert Risk Lowered */
 
@@ -1341,7 +1339,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* App Information */
+
+"App_Information_Title" = "App-Informationen";
+
+"App_Information_Version" = "Version";
+
 /* App Information - About */
+
 "App_Information_About_Navigation" = "Über die App";
 
 "App_Information_About_ImageDescription" = "";
@@ -1598,21 +1603,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Version 2.12 */
 
-"NewVersionFeature_212_newStatisticsTiles_title" = "Erweiterung Statistiken";
+"NewVersionFeature_213_hospitalizationRateTile_title" = "Lokale 7-Tage-Inzidenz Hospitalisierung";
 
-"NewVersionFeature_212_newStatisticsTiles_description" = "Es sind nun folgende Statistiken in der App verfügbar:\n\t\U2022 7-Tage-Inzidenz Hospitalisierung\n\t\U2022 COVID-19-Erkrankte auf \n\t   Intensivstationen";
+"NewVersionFeature_213_hospitalizationRateTile_description" = "Auf den lokalen Kacheln zur 7-Tage-Inzidenz der Neuinfektionen wird nun zusätzlich die 7-Tage-Inzidenz der Hospitalisierung angezeigt. Da diese Kennzahl nur auf Bundeslandebene verfügbar ist, wird bei Auswahl eines Kreises die Hospitalisierung zum jeweiligen Bundesland angezeigt.";
 
-"NewVersionFeature_212_notificationManagement_title" = "Mitteilungen verwalten";
+"NewVersionFeature_213_changesFAQLinks_title" = "Änderung des Links zu Häufige Fragen";
 
-"NewVersionFeature_212_notificationManagement_description" = "Einstellungen für Mitteilungen werden ab jetzt zentral in den Einstellungen Ihres Smartphones verwaltet. Überprüfen Sie Ihre Mitteilungseinstellungen für die Corona-Warn-App in den Geräteeinstellungen erneut.";
+"NewVersionFeature_213_changesFAQLinks_description" = "Wenn Sie in der App die häufigen Fragen aufrufen, werden Sie nun auf Seiten unter coronawarn.app geleitet. Dort finden Sie mehr Details zu Ihren Fragen.";
 
-"NewVersionFeature_212_qrCodeScannerButton_title" = "Direkter Zugriff QR-Code-Scanner";
+"NewVersionFeature_213_certificateAssignment_title" = "Zuordnung von Zertifikaten";
 
-"NewVersionFeature_212_qrCodeScannerButton_description" = "Sie haben nun von der unteren Navigationsleiste aus direkten Zugriff auf den universellen QR-Code-Scanner.";
+"NewVersionFeature_213_certificateAssignment_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Die App ignoriert nun eine unterschiedliche Anzahl von Leerzeichen im Namen, sodass die Zertifikate unabhängig davon der gleichen Person zugeordnet werden können.";
 
-"NewVersionFeature_212_qrCodeImport_title" = "QR-Code importieren";
+"NewVersionFeature_213_restoreCertificate_title" = "Zertifikate wiederherstellen";
 
-"NewVersionFeature_212_qrCodeImport_description" = "Sie können nun auch QR-Codes von Fotos oder PDF-Dateien über den QR-Code-Scanner importieren.";
+"NewVersionFeature_213_restoreCertificate_description" = "Entfernte Zertifikate werden in einen Papierkorb verschoben. Sie können sie innerhalb von 30 Tagen wiederherstellen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1942,9 +1947,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
 
-"Statistics_Card_Add_LocalCardPrimarySubtitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
-
 "Statistics_Card_Manage" = "Bearbeiten";
+
+/* - 7 Days Incedence */
+
+"Statistics_Card_CombinedIncidence_Title" = "7-Tage-Inzidenz";
+
+"Statistics_Card_CombinedIncidence_Today" = "Bis heute";
+
+"Statistics_Card_CombinedIncidence_Yesterday" = "Bis gestern";
+
+"Statistics_Card_CombinedIncidence_Date" = "Bis %@";
+
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Neuinfektionen";
+
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalisierungen";
 
 /* - Infections Card */
 
@@ -1962,15 +1979,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* - Incidence Card */
 
-"Statistics_Card_Incidence_Title" = "7-Tage-Inzidenz";
+"Statistics_Card_Region_Today" = "Bis heute";
 
-"Statistics_Card_Incidence_Today" = "Bis heute";
+"Statistics_Card_Region_Yesterday" = "Bis gestern";
 
-"Statistics_Card_Incidence_Yesterday" = "Bis gestern";
+"Statistics_Card_Region_Date" = "Bis %@";
 
-"Statistics_Card_Incidence_Date" = "Bis %@";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "Neuinfektionen";
 
-"Statistics_Card_Incidence_SecondaryLabelTitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalisierungen";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalisierungen in %@";
 
 /* - Key Submissions Card */
 
@@ -2046,25 +2065,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Gesamt";
 
-/* - Infected People Hospitalization Rate */
-
-"Statistics_Card_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
-
-"Statistics_Card_HospitalizationRate_Today" = "Bis heute";
-
-"Statistics_Card_HospitalizationRate_Yesterday" = "Bis gestern";
-
-"Statistics_Card_HospitalizationRate_Date" = "Bis %@";
-
-"Statistics_Card_HospitalizationRate_SecondaryLabelTitle" = "COVID-19-Hospitalisierungen je 100.000 Einwohner";
-
 /* - Infected People in Intensive Care */
 
 "Statistics_Card_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
 
 "Statistics_Card_IntensiveCare_Today" = "Bis heute";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Bis gestern";
+"Statistics_Card_IntensiveCare_Yesterday" = "Gestern";
 
 "Statistics_Card_IntensiveCare_Date" = "Bis %@";
 
@@ -2080,17 +2087,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Subtitle" = "Erklärung der Statistiken";
 
-"Statistics_Info_Local7Days_Title" = "Lokale 7-Tage-Inzidenz";
-
-"Statistics_Info_Local7Days_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner im konfigurierten Kreis oder Bundesland.";
-
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 
-"Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+"Statistics_Info_Local7Days_Title" = "Lokale 7-Tage-Inzidenz";
 
-"Statistics_Info_HospitalizationRate_Title" = "7-Tage-Inzidenz Hospitalisierung";
+"Statistics_Info_Local7Days_Text" = "Gesamtzahl der bestätigten Neuinfektionen bzw. Hospitalisierungen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner im konfigurierten Kreis oder Bundesland.\nDie Hospitalisierungsdaten beziehen sich auf das zugehörige Bundesland.";
 
-"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+"Statistics_Info_NewInfection_Title" = "Bestätigte Neuinfektionen";
+
+"Statistics_Info_NewInfection_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Hospitalisierung";
+
+"Statistics_Info_HospitalizationRate_Text" = "Gesamtzahl der Krankenhausaufnahmen aufgrund von COVID-19 der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
 
 "Statistics_Info_IntensiveCare_Title" = "COVID-19-Erkrankte auf Intensivstationen";
 
@@ -2732,9 +2741,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Info_title" = "Informationen";
 
-"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
+"HealthCertificate_Validation_Info_byCar" = "Wählen Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland aus.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, geben Sie die geplante Uhrzeit Ihres Abflugs ein.";
+"HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, wählen Sie die geplante Uhrzeit Ihres Abflugs aus.";
 
 /* Health Certificate Overview */
 
@@ -2870,7 +2879,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
 
-"HealthCertifiedPerson_dateOfBirth" = "geboren %@";
+"HealthCertifiedPerson_dateOfBirth" = "Geboren %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Bitte aktivieren Sie diesen Schalter, wenn Sie selbst %@ sind und die App hauptsächlich nutzen. Ihre Zertifikate erscheinen in der Liste an erster Stelle.";
 
@@ -2882,7 +2891,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
 
-"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Geimpft am %@";
 
 "HealthCertifiedPerson_TestCertificate_headline" = "Testzertifikat";
 
@@ -2914,7 +2923,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_validity" = "Geimpft %@ - gültig bis %@";
 
-"HealthCertificate_Details_dateOfBirth" = "geboren %@";
+"HealthCertificate_Details_dateOfBirth" = "Geboren %@";
 
 "HealthCertificate_Details_dateOfVaccination" = "Datum der Impfung";
 
@@ -2949,15 +2958,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Delete Alert */
 
-"HealthCertificate_Alert_deleteButton" = "Entfernen";
+"HealthCertificate_Alert_deleteButton" = "Zertifikat entfernen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Vaccination Certificate Delete Alert */
 
-"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat wirklich entfernen?";
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat entfernen?";
 
-"VaccinationCertificate_Alert_message" = "Wir empfehlen die Impfzertifikate in der App zu behalten, auch wenn diese nicht mehr aktuell sind.";
+"VaccinationCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Test Certificate Details */
 
@@ -2973,9 +2982,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Test Certificate Delete Alert */
 
-"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat wirklich entfernen?";
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat entfernen?";
 
-"TestCertificate_Alert_message" = "Wenn Sie das Testzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+"TestCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Recovery Certificate Details */
 
@@ -2987,9 +2996,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Recovery Certificate Delete Alert */
 
-"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat wirklich entfernen?";
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat entfernen?";
 
-"RecoveryCertificate_Alert_message" = "Wenn Sie das Genesenenzertifikat entfernen, können Sie es nicht mehr als Nachweis in der App verwenden.";
+"RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
 /* Health Certificate Print PDF */
 
@@ -3061,7 +3070,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_DateTimeSelection_Title" = "Datum und Uhrzeit";
 
-"HealthCertificate_Validation_DateTimeSelection_Info" = "Geben Sie Ihr Einreisedatum und Ihre lokale Uhrzeit ein.";
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Wählen Sie Ihr Einreisedatum und Ihre lokale Uhrzeit aus.";
 
 "HealthCertificate_Validation_Body1" = "Prüfen Sie vorab, ob Ihr Zertifikat im Reiseland zum Zeitpunkt der Reise gültig ist. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselandes berücksichtigt.";
 
@@ -3205,6 +3214,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Error_unsupportedQRCode" = "Der QR-Code wird nicht in der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code.";
 
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Zertifikat wiederherstellen";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Das Zertifikat wird aus dem Papierkorb wiederhergestellt.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Foto Mediathek";
 
@@ -3214,7 +3227,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_AccessError_title" = "Zugriff nicht erlaubt";
 
-"FileScanner_AccessError_message" = "\“Corona-Warn-App\” hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.";
+"FileScanner_AccessError_message" = "Corona-Warn-App hat keinen Zugriff auf Ihre Foto Mediathek. Sie können den Zugriff in Ihren Einstellungen verwalten.";
 
 "FileScanner_AccessError_cancel" = "Abbrechen";
 
@@ -3238,7 +3251,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
 
-"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie eine Datei mit einem geeigneten QR-Code."; 
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code."; 
 
 "FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
 
@@ -3286,3 +3299,84 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FederalState_Thueringen" = "Thüringen";
 
+/* Recycle Bin */
+
+"RecycleBin_title" = "Papierkorb";
+
+"RecycleBin_description" = "Tippen Sie auf ein Element um es wiederherzustellen. Nach 30 Tagen wird ein Element automatisch gelöscht.";
+
+"RecycleBin_deleteAllButtonTitle" = "Alle entfernen";
+
+/* - Vaccination Certificate */
+
+"RecycleBin_VaccinationCertificate_headline" = "Impfzertifikat";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Impfung %i von %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "geimpft am %@";
+
+/* - Test Certificate */
+
+"RecycleBin_TestCertificate_headline" = "Testzertifikat";
+
+"RecycleBin_TestCertificate_pcrTest" = "PCR-Test";
+
+"RecycleBin_TestCertificate_antigenTest" = "Schnelltest";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
+/* - Recovery Certificate */
+
+"RecycleBin_RecoveryCertificate_headline" = "Genesenenzertifikat";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "gültig bis %@";
+
+/* - Corona Test */
+
+"RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_pcrTest" = "PCR-Test";
+
+"RecycleBin_CoronaTest_antigenTest" = "Schnelltest";
+
+"RecycleBin_CoronaTest_registrationDate" = "registriert am %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "durchgeführt am %@";
+
+/* - Empty State */
+
+"RecycleBin_EmptyState_title" = "Ihr Papierkorb ist leer";
+
+"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
+
+"RecycleBin_EmptyState_imageDescription" = "Ein Papierkorb";
+
+/* - Restore Certificate Alert */
+
+"RecycleBin_RestoreCertificate_AlertTitle" = "Zertifikat wiederherstellen";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "Das wiederhergestellte Zertifikat wird an seinen ursprünglichen Ort verschoben. Sie finden es dann in der Registerkarte „Zertifikate“.";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Wiederherstellen";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Corona Test */
+
+"RecycleBin_CoronaTest_AlertTitle" = "Test wiederherstellen";
+
+"RecycleBin_CoronaTest_AlertMessage" = "Der wiederhergestellte Test wird an seinen ursprünglichen Ort verschoben. Sie finden ihn dann in der Registerkarte „Status“.";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Wiederherstellen";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Delete All Alert */
+
+"RecycleBin_DeleteAll_AlertTitle" = "Wollen Sie den Inhalt des Papierkorbs wirklich entfernen?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "Dieser kann dann nicht wiederhergestellt werden.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";

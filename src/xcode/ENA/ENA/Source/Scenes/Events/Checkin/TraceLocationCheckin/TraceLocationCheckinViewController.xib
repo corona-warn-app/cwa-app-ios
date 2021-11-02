@@ -40,7 +40,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-F5-RWF">
-                    <rect key="frame" x="0.0" y="80" width="414" height="707"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="743"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkR-AT-WXT" userLabel="contentView">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="669.5"/>
@@ -355,7 +355,7 @@ deutschen SAP Anwendergruppe</string>
             <constraints>
                 <constraint firstItem="M82-Om-I6C" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="bottom" constant="8" id="D0K-at-lMO"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="EC9-5g-hWO"/>
-                <constraint firstItem="lQK-F5-RWF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="FxD-L3-jwj"/>
+                <constraint firstItem="lQK-F5-RWF" firstAttribute="top" secondItem="M82-Om-I6C" secondAttribute="top" id="FxD-L3-jwj"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="top" constant="-16" id="GIv-Bw-Moc"/>
                 <constraint firstAttribute="trailing" secondItem="LzL-ri-WCR" secondAttribute="trailing" constant="16" id="Ox4-8M-dwR"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sib-2g-zc6"/>

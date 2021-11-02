@@ -51,7 +51,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				)
+				),
+				recycleBin: .fake()
 			)
 		)
 		
@@ -63,7 +64,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		vaccinationValueSetsProvider = VaccinationValueSetsProvider(

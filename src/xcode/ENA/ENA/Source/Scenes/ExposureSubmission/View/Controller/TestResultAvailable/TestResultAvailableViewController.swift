@@ -26,9 +26,9 @@ final class TestResultAvailableViewController: DynamicTableViewController, Foote
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		parent?.navigationItem.hidesBackButton = true
-		parent?.navigationItem.title = AppStrings.ExposureSubmissionTestResultAvailable.title
-		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.title = AppStrings.ExposureSubmissionTestResultAvailable.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setupTableView()
 		setupViewModel()

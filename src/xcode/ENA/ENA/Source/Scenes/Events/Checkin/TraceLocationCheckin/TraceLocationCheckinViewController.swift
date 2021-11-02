@@ -158,7 +158,7 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 		backgroundView.updatedTopLayout(with: scrollView.contentOffset.y, limit: scrollView.frame.origin.y)
 
 		view.layoutIfNeeded()
-		backgroundView.gradientHeightConstraint.constant = descriptionView.convert(descriptionView.frame, to: view).midY
+		backgroundView.gradientHeightConstraint.constant = scrollView.frame.origin.y + descriptionView.convert(descriptionView.frame, to: scrollView).midY
 	}
 	
 	private func setupLabels() {

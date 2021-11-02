@@ -38,6 +38,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		setupSegmentedControl()
 		setupTableView()
+		tableView.reloadData()
 
 		viewModel.$day
 			.sink { [weak self] _ in
@@ -262,7 +263,18 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			}
 		}
 		
-        tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? EmptyStateView(viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType)) : nil
+		// Since we set the empty state view as a background view we want to push it to a position where the text is visible,
+		// and that looks good on large and small screens
+		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY + tableView.adjustedContentInset.top
+		let alignmentPadding = UIScreen.main.bounds.height / 5
+		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty
+			? EmptyStateView(
+				viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType),
+				safeInsetTop: safeInsetTop,
+				safeInsetBottom: tableView.adjustedContentInset.bottom,
+				alignmentPadding: alignmentPadding
+			  )
+			: nil
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
