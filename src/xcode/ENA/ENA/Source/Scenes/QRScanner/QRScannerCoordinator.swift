@@ -394,13 +394,18 @@ class QRScannerCoordinator {
 					switch self.recycleBin.canRestore(recycleBinItem) {
 					case .success:
 						self.qrScannerViewController?.dismiss(animated: true) {
-							self.recycleBin.restore(recycleBinItem)
-
 							switch self.presenter {
 							case .submissionFlow, .onBehalfFlow:
+								let parentPresentingViewController = self.parentViewController?.presentingViewController
+
 								// Dismiss submission/on behalf submission flow
-								self.parentViewController?.dismiss(animated: true)
-							case .checkinTab, .certificateTab, .universalScanner, .none:
+								parentPresentingViewController?.dismiss(animated: true) {
+									self.parentViewController = parentPresentingViewController
+									self.restoreAndShow(recycleBinItem: recycleBinItem)
+								}
+							case .checkinTab, .certificateTab, .universalScanner:
+								self.restoreAndShow(recycleBinItem: recycleBinItem)
+							case .none:
 								break
 							}
 						}
@@ -429,30 +434,7 @@ class QRScannerCoordinator {
 		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
 			testType: coronaTest.type,
 			didTapPrimaryButton: { [weak self] in
-				guard let self = self,
-					  let parentViewController = self.parentViewController,
-					  case .coronaTest(let coronaTest) = recycleBinItem.item
-				else {
-					return
-				}
-
-				self.recycleBin.restore(recycleBinItem)
-				self.parentViewController?.dismiss(animated: true) {
-					let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
-						parentViewController: parentViewController,
-						exposureSubmissionService: self.exposureSubmissionService,
-						coronaTestService: self.coronaTestService,
-						healthCertificateService: self.healthCertificateService,
-						healthCertificateValidationService: self.healthCertificateValidationService,
-						eventProvider: self.eventStore,
-						antigenTestProfileStore: self.store,
-						vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
-						healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
-						qrScannerCoordinator: self
-					)
-
-					exposureSubmissionCoordinator.start(with: coronaTest.type)
-				}
+				self?.restoreAndShow(recycleBinItem: recycleBinItem)
 			},
 			didTapCloseButton: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
@@ -483,6 +465,32 @@ class QRScannerCoordinator {
 			}
 		case .none:
 			break
+		}
+	}
+
+	private func restoreAndShow(recycleBinItem: RecycleBinItem) {
+		guard let parentViewController = self.parentViewController,
+			  case .coronaTest(let coronaTest) = recycleBinItem.item else {
+			return
+		}
+
+		self.recycleBin.restore(recycleBinItem)
+
+		self.parentViewController?.dismiss(animated: true) {
+			let exposureSubmissionCoordinator = ExposureSubmissionCoordinator(
+				parentViewController: parentViewController,
+				exposureSubmissionService: self.exposureSubmissionService,
+				coronaTestService: self.coronaTestService,
+				healthCertificateService: self.healthCertificateService,
+				healthCertificateValidationService: self.healthCertificateValidationService,
+				eventProvider: self.eventStore,
+				antigenTestProfileStore: self.store,
+				vaccinationValueSetsProvider: self.vaccinationValueSetsProvider,
+				healthCertificateValidationOnboardedCountriesProvider: self.healthCertificateValidationOnboardedCountriesProvider,
+				qrScannerCoordinator: self
+			)
+
+			exposureSubmissionCoordinator.start(with: coronaTest.type)
 		}
 	}
 	
