@@ -45,6 +45,7 @@ enum PPATestResultMetadata {
 	case updateTestResult(TestResult, String, CoronaTestType)
 	case setDateOfConversionToENFHighRisk(Date)
 	case setDateOfConversionToCheckinHighRisk(Date)
+	case collectCurrentExposureWindows([RiskCalculationExposureWindow])
 }
 
 enum PPAKeySubmissionMetadata {

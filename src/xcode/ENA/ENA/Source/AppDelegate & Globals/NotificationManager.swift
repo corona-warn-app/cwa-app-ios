@@ -126,21 +126,25 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 				healthCertifiedPerson: certifiedPerson,
 				healthCertificate: healthCertificate
 			)
+			Log.debug("Received certificateExpired notification")
 			showHealthCertificate(route)
 		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateExpiringSoon.rawValue, from: identifier) {
 			let route = Route(
 				healthCertifiedPerson: certifiedPerson,
 				healthCertificate: healthCertificate
 			)
+			Log.debug("Received certificateExpiringSoon notification")
 			showHealthCertificate(route)
 		} else if let (certifiedPerson, healthCertificate) = extract(LocalNotificationIdentifier.certificateInvalid.rawValue, from: identifier) {
 			let route = Route(
 				healthCertifiedPerson: certifiedPerson,
 				healthCertificate: healthCertificate
 			)
+			Log.debug("Received certificateInvalid notification")
 			showHealthCertificate(route)
 		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.boosterVaccination.rawValue, from: identifier) {
 			let route = Route(healthCertifiedPerson: certifiedPerson)
+			Log.debug("Received boosterVaccination notification")
 			showHealthCertifiedPerson(route)
 		}
 	}

@@ -104,7 +104,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
-		
 	}
 
 	// MARK: - Failures
@@ -742,7 +741,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
-		
 	}
 
 	// MARK: - Conversion to protobuf
@@ -838,6 +836,20 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
+		// collect current exposure windows, it imitates the collection which will happen in risk provider
+		
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(mappedExposureWindows)))
+		
+		let mappedSubmissionExposureWindowsAtTestRegistration: [SubmissionExposureWindow] = mappedExposureWindows.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+		
 		// collect testResultMetadata
 		
 		let today = Date()
@@ -893,10 +905,26 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(store.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, riskLevel, "Wrong checkin Risk Level")
 		XCTAssertEqual(store.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this checkin risk level")
 		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceCheckinHighRiskWarningAtTestRegistration")
-
+		XCTAssertEqual(store.pcrTestResultMetadata?.exposureWindowsAtTestRegistration, mappedSubmissionExposureWindowsAtTestRegistration, "Wrong exposure windows")
+		
+		// update current exposure windows, it imitates the update which will happen in risk provider
+		
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(updatedMappedExposureWindows)))
+		
+		let mappedSubmissionExposureWindowsUntilTestResult: [SubmissionExposureWindow] = mappedExposureWindowsUntilTestResult.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+		
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, testResult, "Wrong TestResult")
 		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
+		XCTAssertEqual(store.pcrTestResultMetadata?.exposureWindowsUntilTestResult, mappedSubmissionExposureWindowsUntilTestResult, "Wrong exposure windows")
 
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherTestResultMetadata(for: .pcr)
@@ -1056,7 +1084,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
 		XCTAssertEqual(protobuf.first?.ptMostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
-
 	}
 	
 	func testGatherExposureWindowsMetadata() {
@@ -1260,7 +1287,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .high,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1271,7 +1298,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1282,9 +1309,92 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .medium,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		)
+	]
+	
+	private var updatedMappedExposureWindows: [RiskCalculationExposureWindow] = [
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .high,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .medium,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .standard,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .none,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		)
+	]
+	
+	private var mappedExposureWindowsUntilTestResult: [RiskCalculationExposureWindow] = [
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .standard,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .none,
 				scanInstances: []
 			),
 			configuration: RiskCalculationConfiguration(
