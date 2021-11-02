@@ -138,7 +138,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		waitForExpectations(timeout: .medium)
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, antigenTest.recycleBinIdentifier])
+		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, antigenTest.recycleBinIdentifier].sorted())
 	}
 
 	func testRestoringTestWithoutOverwrite() throws {
@@ -190,7 +190,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		waitForExpectations(timeout: .medium)
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, certificate.recycleBinIdentifier])
+		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, certificate.recycleBinIdentifier].sorted())
 	}
 
 	func testRestoringTestWithOverwrite() throws {
@@ -245,7 +245,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		waitForExpectations(timeout: .medium)
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, certificate.recycleBinIdentifier])
+		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, certificate.recycleBinIdentifier].sorted())
 	}
 
 	func testRemoveEntry() throws {
@@ -269,7 +269,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		viewModel.removeEntry(at: IndexPath(row: 1, section: 1))
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, HealthCertificateMocks.mockBase45])
+		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, HealthCertificateMocks.mockBase45].sorted())
 	}
 
 	func testRemoveAll() throws {
