@@ -172,6 +172,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionCountLabel.textColor = .enaColor(for: .textContrast)
 		captionCountLabel.textAlignment = .center
 		captionCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		captionCountLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
 		return captionCountLabel
 	}()
@@ -189,7 +190,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionLabel.style = .body
 		captionLabel.textColor = .enaColor(for: .textPrimary1)
 		captionLabel.numberOfLines = 0
-		captionLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		captionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
 		return captionLabel
 	}()
@@ -289,7 +290,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0)
 			]
 		)
-
 	}
 
 	private func updateBorderColors() {
