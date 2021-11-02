@@ -119,6 +119,10 @@ class CoronaTestService {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
+					if self?.pcrTest != nil {
+						self?.moveTestToBin(.pcr)
+					}
+
 					self?.pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
@@ -173,6 +177,10 @@ class CoronaTestService {
 
 				switch result {
 				case .success(let registrationToken):
+					if self?.pcrTest != nil {
+						self?.moveTestToBin(.pcr)
+					}
+
 					 let _pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
@@ -256,6 +264,10 @@ class CoronaTestService {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
+					if self?.antigenTest != nil {
+						self?.moveTestToBin(.antigen)
+					}
+
 					var certificateConsentGiven = false
 					if case .given = certificateConsent {
 						certificateConsentGiven = true
