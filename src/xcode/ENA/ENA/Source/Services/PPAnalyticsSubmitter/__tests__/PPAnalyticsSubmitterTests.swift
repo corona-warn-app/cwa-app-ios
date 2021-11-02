@@ -1014,7 +1014,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
-		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, true, "should be true as this is the first submission")
 		
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
