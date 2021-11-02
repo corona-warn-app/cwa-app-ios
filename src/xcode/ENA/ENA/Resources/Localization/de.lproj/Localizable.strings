@@ -2845,7 +2845,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "CovPass_Check_Info_faq" = "FAQ zur Zertifikatsprüfung durch Dritte";
 
-"CovPass_Check_Info_text01" = "Sie selbst können ihre Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
+"CovPass_Check_Info_text01" = "Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
 
 "CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
 
