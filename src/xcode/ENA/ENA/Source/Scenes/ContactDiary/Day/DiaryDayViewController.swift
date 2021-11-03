@@ -34,11 +34,19 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
+		if #available(iOS 15, *) {
+			let appearance = UITabBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			appearance.backgroundColor = .enaColor(for: .backgroundLightGray)
+			tabBarController?.tabBar.standardAppearance = appearance
+			tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
+		}
+		
 		tableView.keyboardDismissMode = .interactive
 
 		setupSegmentedControl()
 		setupTableView()
-		tableView.reloadData()
+		// tableView.reloadData()
 
 		viewModel.$day
 			.sink { [weak self] _ in
