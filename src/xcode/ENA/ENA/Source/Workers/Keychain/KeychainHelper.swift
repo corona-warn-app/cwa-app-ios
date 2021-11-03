@@ -79,7 +79,7 @@ struct KeychainHelper {
 	/// Generates and stores a new random database key
 	/// - Throws: a `KeychainError` in case the generation or database save fails
 	/// - Returns: the newly created key
-	func generateDatabaseKey(storeAtKeychainKey keychainKey: String) throws -> String {
+	func generateDatabaseKey(persistAtKeychainKey keychainKey: String) throws -> String {
 		var bytes = [UInt8](repeating: 0, count: 32)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {

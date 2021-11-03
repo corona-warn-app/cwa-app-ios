@@ -110,7 +110,7 @@ extension ContactDiaryStore {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
-				key = try keychain.generateDatabaseKey(storeAtKeychainKey: ContactDiaryStore.encryptionKeyKey)
+				key = try keychain.generateDatabaseKey(persistAtKeychainKey: ContactDiaryStore.encryptionKeyKey)
 			} catch {
 				fatalError("[ContactDiaryStore] Failed to create key for contact diary store.")
 			}
