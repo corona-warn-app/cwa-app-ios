@@ -26,8 +26,6 @@ protocol KeyValueCaching {
 	subscript(cacheEntryKey: Int) -> CacheData? { get set }
 }
 
-/// SecureCache uses an SQLite Database that still needs to be encrypted
-
 final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 
 	// MARK: - Init
