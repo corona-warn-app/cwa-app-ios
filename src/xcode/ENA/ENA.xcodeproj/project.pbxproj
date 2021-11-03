@@ -818,6 +818,9 @@
 		8F7C3A1A261BB53700AEC979 /* CheckinQRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */; };
 		8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */; };
 		8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */; };
+		8F80802A2730AF7800F8FA3F /* RegistrationTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */; };
+		8F80802C2730B48F00F8FA3F /* SendRegistrationTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */; };
+		8F80802E2731242900F8FA3F /* SubmissionTANModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
 		8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F9E2613A7E300FD36DA /* EncodingType.swift */; };
@@ -2326,6 +2329,9 @@
 		8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRScannerError.swift; sourceTree = "<group>"; };
 		8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewController.swift; sourceTree = "<group>"; };
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
+		8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenResource.swift; sourceTree = "<group>"; };
+		8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRegistrationTokenModel.swift; sourceTree = "<group>"; };
+		8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionTANModel.swift; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
 		8FA88F9E2613A7E300FD36DA /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
@@ -7581,6 +7587,7 @@
 			isa = PBXGroup;
 			children = (
 				BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */,
+				8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -7589,6 +7596,7 @@
 			isa = PBXGroup;
 			children = (
 				AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */,
+				8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -7633,6 +7641,7 @@
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
 				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
+				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
@@ -9363,6 +9372,7 @@
 				34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */,
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
+				8F80802E2731242900F8FA3F /* SubmissionTANModel.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
@@ -9430,6 +9440,7 @@
 				35E121A925B1CFB00098D754 /* StatisticsProvider.swift in Sources */,
 				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
+				8F80802C2730B48F00F8FA3F /* SendRegistrationTokenModel.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				5001DE8226E2057C004242FA /* TestResultDownload.swift in Sources */,
 				019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */,
@@ -9695,6 +9706,7 @@
 				504C9CC925C44C180005875B /* OTPService.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				ABB078EE272C260B0037B30F /* RestServiceProviderFactory.swift in Sources */,
+				8F80802A2730AF7800F8FA3F /* RegistrationTokenResource.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
