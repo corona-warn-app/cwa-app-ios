@@ -34,6 +34,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
+		// a fix for transparent tab bar when there is content on the back
 		if #available(iOS 15, *) {
 			let appearance = UITabBarAppearance()
 			appearance.configureWithOpaqueBackground()
@@ -46,7 +47,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		setupSegmentedControl()
 		setupTableView()
-		// tableView.reloadData()
+		tableView.reloadData()
 
 		viewModel.$day
 			.sink { [weak self] _ in
