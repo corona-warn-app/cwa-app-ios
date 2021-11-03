@@ -93,6 +93,17 @@ enum PPAnalyticsCollector {
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
+	static func generateSHA256(_ window: ExposureWindow) -> String? {
+		let encoder = JSONEncoder()
+		do {
+			let windowData = try encoder.encode(window)
+			return windowData.sha256String()
+		} catch {
+			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
+		}
+		return nil
+	}
+
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get the success or failure handlers.
 	static func triggerAnalyticsSubmission(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		guard let submitter = submitter else {
@@ -163,7 +174,7 @@ enum PPAnalyticsCollector {
 		riskLevelChangedComparedToPreviousSubmission = riskLevel != previousRiskLevel && previousRiskLevel != nil
 		
 		// If mostRecentDateAtRiskLevel is nil, set to false. Otherwise, change it when it changed compared to previous submission.
-		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel && previousMostRecentDateWithCurrentRiskLevel != nil
+		dateChangedComparedToPreviousSubmission = mostRecentDateWithCurrentRiskLevel != previousMostRecentDateWithCurrentRiskLevel
 		
 		guard let mostRecentDate = mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
@@ -229,7 +240,6 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func collectExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
-		
 		self.clearReportedExposureWindowsQueueIfNeeded()
 		var mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
 			SubmissionExposureWindow(
@@ -272,17 +282,6 @@ enum PPAnalyticsCollector {
 		}) {
 			store?.exposureWindowsMetadata?.reportedExposureWindowsQueue = nonExpiredWindows
 		}
-	}
-
-	private static func generateSHA256(_ window: ExposureWindow) -> String? {
-		let encoder = JSONEncoder()
-		do {
-			let windowData = try encoder.encode(window)
-			return windowData.sha256String()
-		} catch {
-			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
-		}
-		return nil
 	}
 
 	// MARK: - SubmissionMetadata

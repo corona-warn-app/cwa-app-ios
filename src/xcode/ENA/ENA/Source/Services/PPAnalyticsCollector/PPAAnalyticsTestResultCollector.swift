@@ -29,6 +29,8 @@ final class PPAAnalyticsTestResultCollector {
 			store.dateOfConversionToENFHighRisk = date
 		case let .setDateOfConversionToCheckinHighRisk(date):
 			store.dateOfConversionToCheckinHighRisk = date
+		case let .collectCurrentExposureWindows(exposureWindows):
+			collectCurrentExposureWindows(exposureWindows)
 		}
 	}
 
@@ -60,6 +62,31 @@ final class PPAAnalyticsTestResultCollector {
 			store.pcrTestResultMetadata?.hoursSinceTestRegistration = hours
 		case .antigen:
 			store.antigenTestResultMetadata?.hoursSinceTestRegistration = hours
+		}
+	}
+	
+	private func updateExposureWindowsUntilTestResult(_ exposureWindows: [SubmissionExposureWindow], testType: CoronaTestType) {
+		var currentExposureWindows = exposureWindows
+		
+		switch testType {
+		case .pcr:
+			if let exposureWindowsAtTestRegistration = store.pcrTestResultMetadata?.exposureWindowsAtTestRegistration {
+				// removing all the exposureWindowsAtTestRegistration from current exposure windows
+				currentExposureWindows.removeAll(where: { window -> Bool in
+					return exposureWindowsAtTestRegistration.contains(where: { $0.hash == window.hash })
+				})
+				store.pcrTestResultMetadata?.exposureWindowsUntilTestResult = currentExposureWindows
+				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there until pcr test result is arrived", log: .ppa)
+			}
+		case .antigen:
+			if let exposureWindowsAtTestRegistration = store.antigenTestResultMetadata?.exposureWindowsAtTestRegistration {
+				// removing all the exposureWindowsAtTestRegistration from current exposure windows
+				currentExposureWindows.removeAll(where: { window -> Bool in
+					return exposureWindowsAtTestRegistration.contains(where: { $0.hash == window.hash })
+				})
+				store.antigenTestResultMetadata?.exposureWindowsUntilTestResult = currentExposureWindows
+				Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there until antigen test result is arrived", log: .ppa)
+			}
 		}
 	}
 	
@@ -123,6 +150,11 @@ final class PPAAnalyticsTestResultCollector {
 			}
 		}
 		
+		if let currentExposureWindows = store.currentExposureWindows {
+			testResultMetadata.exposureWindowsAtTestRegistration = currentExposureWindows
+			Log.info("\(String(describing: currentExposureWindows.count)) exposure windows were there at the test registration", log: .ppa)
+		}
+
 		createTestResultMetadata(testResultMetadata)
 	}
 
@@ -152,7 +184,6 @@ final class PPAAnalyticsTestResultCollector {
 			return
 		}
 
-
 		let storedTestResultMetaData = storedTestResultMetadata(for: type)
 		let storedTestResult = storedTestResultMetaData?.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
@@ -166,12 +197,15 @@ final class PPAAnalyticsTestResultCollector {
 
 				persistTestResult(testResult: testResult, testType: type)
 
+				if testResult != .pending, let currentExposureWindows = store.currentExposureWindows {
+					updateExposureWindowsUntilTestResult(currentExposureWindows, testType: type)
+				}
+
 				let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 
 				updateTestResultHoursSinceTestRegistration(diffComponents.hour, testType: type)
 
 				Log.info("update TestResultMetadata of type: \(type), with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
-
 			case .expired, .invalid:
 				break
 			}
@@ -180,6 +214,21 @@ final class PPAAnalyticsTestResultCollector {
 		}
 	}
 
+	private func collectCurrentExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: Analytics.generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+
+		store.currentExposureWindows = mappedSubmissionExposureWindows
+		Log.info("Number of current exposure windows: \(String(describing: store.currentExposureWindows?.count)) windows", log: .ppa)
+	}
+	
 	private func shouldUpdateTestResult(token: String, type: CoronaTestType) -> Bool {
 		switch type {
 		case .pcr:

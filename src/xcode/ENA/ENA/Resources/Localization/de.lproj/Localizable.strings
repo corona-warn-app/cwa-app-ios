@@ -1597,23 +1597,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.12 */
+/* Version 2.14 */
 
-"NewVersionFeature_213_hospitalizationRateTile_title" = "Lokale 7-Tage-Inzidenz Hospitalisierung";
+"NewVersionFeature_214_recycleBin_title" = "Papierkorbfunktion für Tests";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "Auf den lokalen Kacheln zur 7-Tage-Inzidenz der Neuinfektionen wird nun zusätzlich die 7-Tage-Inzidenz der Hospitalisierung angezeigt. Da diese Kennzahl nur auf Bundeslandebene verfügbar ist, wird bei Auswahl eines Kreises die Hospitalisierung zum jeweiligen Bundesland angezeigt.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "Änderung des Links zu Häufige Fragen";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "Wenn Sie in der App die häufigen Fragen aufrufen, werden Sie nun auf Seiten unter coronawarn.app geleitet. Dort finden Sie mehr Details zu Ihren Fragen.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Zuordnung von Zertifikaten";
-
-"NewVersionFeature_213_certificateAssignment_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Die App ignoriert nun eine unterschiedliche Anzahl von Leerzeichen im Namen, sodass die Zertifikate unabhängig davon der gleichen Person zugeordnet werden können.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Zertifikate wiederherstellen";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Entfernte Zertifikate werden in einen Papierkorb verschoben. Sie können sie innerhalb von 30 Tagen wiederherstellen.";
+"NewVersionFeature_214_recycleBin_description" = "Sie können in der App Schnelltests und PCR-Tests nach dem Löschen wiederherstellen. Sie haben somit die Möglichkeit Objekte die sie versehentlich gelöscht haben, wiederherzustellen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2853,7 +2841,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "CovPass_Check_Info_faq" = "FAQ zur Zertifikatsprüfung durch Dritte";
 
-"CovPass_Check_Info_text01" = "Sie selbst können Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
+"CovPass_Check_Info_text01" = "Sie selbst können Ihre Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
 
 "CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
 
@@ -3305,7 +3293,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_description" = "Tippen Sie auf ein Element um es wiederherzustellen. Nach 30 Tagen wird ein Element automatisch gelöscht.";
 
-"RecycleBin_deleteAllButtonTitle" = "Alle entfernen";
+"RecycleBin_deleteAllButtonTitle" = "Alle endgültig löschen";
 
 /* - Vaccination Certificate */
 

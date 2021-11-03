@@ -46,7 +46,7 @@ class RateLimitLogger {
 			previousErrorCode = nil
 		case let .failure(failure):
 			switch failure {
-			case let .noExposureWindows(error as ENError):
+			case let .noExposureWindows(error as ENError, _):
 				guard error.code != .rateLimited else {
 					let qualifier = blocking ? "" : " NOT"
 					Log.info("Soft rate limit would\(qualifier) have prevented this \(description(reason: failure))", log: .riskDetection, logger: logger)
@@ -69,7 +69,7 @@ class RateLimitLogger {
 		
 	func description(reason: ExposureDetection.DidEndPrematurelyReason) -> String {
 		switch reason {
-		case .noExposureWindows(let error):
+		case .noExposureWindows(let error, _):
 			if let enError = error as? ENError {
 				return "ENError \(enError.code.rawValue)"
 			} else {
