@@ -221,7 +221,6 @@ class HealthCertificateService {
 	}
 
 	func addHealthCertificate(_ healthCertificate: HealthCertificate, to healthCertifiedPerson: HealthCertifiedPerson) {
-
 		healthCertifiedPerson.healthCertificates.append(healthCertificate)
 		healthCertifiedPerson.healthCertificates.sort(by: <)
 
@@ -233,6 +232,12 @@ class HealthCertificateService {
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
+
+		applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson) { errorMessage in
+			guard let errorMessage = errorMessage else { return }
+			Log.error(errorMessage, log: .vaccination, error: nil)
+		}
+
 		if healthCertificate.type != .test {
 			createNotifications(for: healthCertificate)
 		}
@@ -444,22 +449,33 @@ class HealthCertificateService {
 			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
 		}
 
-		// reinsert all health certificates will do the job (it uses the new groupingStandardizedName)
-		let originalInitialHealthCertifiedPersonsReadFromStore = initialHealthCertifiedPersonsReadFromStore
-		initialHealthCertifiedPersonsReadFromStore = false
 		let originalHealthCertifiedPersons = store.healthCertifiedPersons
-		healthCertifiedPersons.removeAll()
-		for person in originalHealthCertifiedPersons {
-			person.healthCertificates.forEach { healthCertificate in
-				Log.debug("Will register health certificate again")
-				registerHealthCertificate(base45: healthCertificate.base45)
+		let groupedPersons = Dictionary(grouping: store.healthCertifiedPersons) { (person: HealthCertifiedPerson) -> String in
+			guard let firstHealthCertificate = person.healthCertificates.first else { return "" }
+
+			return "\(firstHealthCertificate.name.groupingStandardizedName)<<\(DCCDateStringFormatter.formattedString(from: firstHealthCertificate.dateOfBirth))"
+		}
+
+		var newHealthCertifiedPersons = [HealthCertifiedPerson]()
+		for personGroup in groupedPersons {
+			if personGroup.value.count > 1 {
+				let combinedHealthCertifiedPerson = HealthCertifiedPerson(
+					healthCertificates: personGroup.value.flatMap { $0.healthCertificates }.sorted(by: <),
+					isPreferredPerson: personGroup.value.contains { $0.isPreferredPerson },
+					boosterRule: nil,
+					isNewBoosterRule: false
+				)
+				newHealthCertifiedPersons.append(combinedHealthCertifiedPerson)
+			} else {
+				newHealthCertifiedPersons.append(contentsOf: personGroup.value)
 			}
 		}
-		if originalHealthCertifiedPersons != healthCertifiedPersons {
+		newHealthCertifiedPersons.sort()
+
+		if originalHealthCertifiedPersons != newHealthCertifiedPersons {
 			Log.debug("Did update grouping name of certificates")
-			store.healthCertifiedPersons = healthCertifiedPersons
+			store.healthCertifiedPersons = newHealthCertifiedPersons
 		}
-		initialHealthCertifiedPersonsReadFromStore = originalInitialHealthCertifiedPersonsReadFromStore
 	}
 
 	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
@@ -587,7 +603,6 @@ class HealthCertificateService {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setup() {
-
 		migration()
 		updatePublishersFromStore()
 
@@ -1150,6 +1165,8 @@ class HealthCertificateService {
 				}
 				
 			case .failure(let validationError):
+				healthCertifiedPerson.boosterRule = nil
+
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
 				let name = healthCertifiedPerson.name?.standardizedName ?? ""
 				completion("for \(private: name): \(validationError.localizedDescription)")

@@ -590,7 +590,7 @@
 
 "ExposureSubmissionQRInfo_body_section_3" = "Sizinle aynı anda aynı etkinliklerde veya yerlerde check in yapan kişilere de uyarı gönderilecektir.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
@@ -839,7 +839,7 @@
 
 "ExposureSubmissionWarnOthers_consent_bullet1" = "Onayınız gönüllülük esasına dayalıdır.";
 
-"ExposureSubmissionWarnOthers_consent_bullet2" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
 "ExposureSubmissionWarnOthers_consent_bullet3" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
@@ -1284,7 +1284,7 @@
 
 "Home_MoreCard_SettingsTitle" = "Ayarlar";
 
-"Home_MoreCard_RecycleBinTitle" = "Çöp kutusu";
+"Home_MoreCard_RecycleBinTitle" = "Geri Dönüşüm Kutusu";
 
 "Home_MoreCard_AppInformationTitle" = "Uygulama Bilgileri";
 
@@ -1572,7 +1572,7 @@
 
 "NewVersionFeature_213_restoreCertificate_title" = "Sertifikaları Geri Yükleme";
 
-"NewVersionFeature_213_restoreCertificate_description" = "Kaldırılan sertifikalar çöp kutusuna taşınır. Bu sertifikalar 30 gün içinde geri yüklenebilir.";
+"NewVersionFeature_213_restoreCertificate_description" = "Kaldırılan sertifikalar geri dönüşüm kutusuna taşınır. Bu sertifikalar 30 gün içinde geri yüklenebilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2011,7 +2011,7 @@
 
 "Statistics_Card_IntensiveCare_Today" = "Bugüne kadar";
 
-"Statistics_Card_IntensiveCare_Yesterday" = "Düne kadar";
+"Statistics_Card_IntensiveCare_Yesterday" = "Dün";
 
 "Statistics_Card_IntensiveCare_Date" = "%@ tarihine kadar";
 
@@ -2862,7 +2862,7 @@
 /* Vaccination Certificate Delete Alert */
 "VaccinationCertificate_Alert_title" = "Aşı sertifikasını kaldırmak istiyor musunuz?";
 
-"VaccinationCertificate_Alert_message" = "Sertifika çöp kutusuna taşınacak. Çöp kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
+"VaccinationCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Sertifikası";
@@ -2878,7 +2878,7 @@
 /* Test Certificate Delete Alert */
 "TestCertificate_Alert_title" = "Test sertifikasını kaldırmak istiyor musunuz?";
 
-"TestCertificate_Alert_message" = "Sertifika çöp kutusuna taşınacak. Çöp kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
+"TestCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "İyileşme Sertifikası";
@@ -2890,7 +2890,7 @@
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "İyileşme sertifikasını kaldırmak istiyor musunuz?";
 
-"RecoveryCertificate_Alert_message" = "Sertifika çöp kutusuna taşınacak. Çöp kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
+"RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";
@@ -3096,7 +3096,7 @@
 
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Sertifikayı Geri Yükle";
 
-"UniversalQRScanner_RestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Sertifika çöp kutusundan geri yüklenecektir.";
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Sertifika geri dönüşüm kutusundan geri yüklenecektir.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Fotoğraf Kitaplığı";
@@ -3107,7 +3107,7 @@
 
 "FileScanner_AccessError_title" = "Erişime izin verilmiyor";
 
-"FileScanner_AccessError_message" = "\\\"Corona-Warn-App\\\" fotoğraf kitaplığınıza erişemiyor. Cihazınızın ayarlarında erişim verebilirsiniz.";
+"FileScanner_AccessError_message" = "Corona-Warn-App fotoğraf kitaplığınıza erişemiyor. Cihazınızın ayarlarında erişim verebilirsiniz.";
 
 "FileScanner_AccessError_cancel" = "İptal";
 
@@ -3179,7 +3179,7 @@
 "FederalState_Thueringen" = "Türingiya";
 
 /* Recycle Bin */
-"RecycleBin_title" = "Çöp kutusu";
+"RecycleBin_title" = "Geri Dönüşüm Kutusu";
 
 "RecycleBin_description" = "Geri yüklemek için bir öğeye dokunun. Öğeler 30 gün sonra otomatik olarak silinir.";
 
@@ -3218,11 +3218,11 @@
 "RecycleBin_CoronaTest_sampleCollectionDate" = "Gerçekleştirilme tarihi: %@";
 
 /* - Empty State */
-"RecycleBin_EmptyState_title" = "Çöp kutusu boş";
+"RecycleBin_EmptyState_title" = "Geri Dönüşüm Kutusu Boş";
 
-"RecycleBin_EmptyState_description" = "Sertifikaları kaldırdığınızda sertifikalar çöp kutusuna taşınır ve burada görüntülenir.";
+"RecycleBin_EmptyState_description" = "Sertifikaları kaldırdığınızda sertifikalar geri dönüşüm kutusuna taşınır ve burada görüntülenir.";
 
-"RecycleBin_EmptyState_imageDescription" = "Çöp kutusu";
+"RecycleBin_EmptyState_imageDescription" = "Geri dönüşüm kutusu";
 
 /* - Restore Certificate Alert */
 "RecycleBin_RestoreCertificate_AlertTitle" = "Sertifikayı Geri Yükle";
@@ -3243,7 +3243,7 @@
 "RecycleBin_CoronaTest_AlertCancelButtonTitle" = "İptal";
 
 /* - Delete All Alert */
-"RecycleBin_DeleteAll_AlertTitle" = "Çöp kutusunu boşaltmak istiyor musunuz?";
+"RecycleBin_DeleteAll_AlertTitle" = "Geri dönüşüm kutusunu boşaltmak istiyor musunuz?";
 
 "RecycleBin_DeleteAll_AlertMessage" = "İçindekileri geri yükleyemeyeceksiniz.";
 

@@ -537,6 +537,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
 				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
+				Log.debug("new route is set: \(route)")
 				self?.route = route
 			}, showHealthCertifiedPerson: { [weak self] route in
 				guard let self = self else { return }
@@ -549,6 +550,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				if self.didSetupUI {
 					self.showHome(route)
 				} else {
+					Log.debug("new route is set: \(route)")
 					self.route = route
 				}
 			}
@@ -704,10 +706,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noExposureWindows(error):
+			case let .noExposureWindows(error, date):
 				return makeAlertController(
 					noExposureWindowsError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					date: date,
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
@@ -733,7 +736,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, date: Date, rootController: UIViewController) -> UIAlertController? {
 
 		if let enError = noExposureWindowsError as? ENError {
 			switch enError.code {
@@ -747,7 +750,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					}
 				}()
 				return rootController.setupErrorAlert(
-					message: localizedDescription,
+					message: localizedDescription + "\n\(date)",
 					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 					secondaryActionCompletion: openFAQ
 				)
@@ -834,6 +837,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func showHome(_ route: Route? = nil) {
 		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+		Log.debug("showHome Flow is called with current route: \(String(describing: route))")
 		if #available(iOS 13.5, *) {
 			if exposureManager.exposureManagerState.status == .unknown {
 				exposureManager.activate { [weak self] error in
