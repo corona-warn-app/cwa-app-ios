@@ -126,6 +126,21 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			}
 			.store(in: &subscriptions)
 	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		// we need to reset to our default behaviour for tabbar's standardAppearance and scrollEdgeAppearance
+		if #available(iOS 15, *) {
+			let defaultAppearance = UITabBarAppearance()
+			defaultAppearance.configureWithDefaultBackground()
+			tabBarController?.tabBar.standardAppearance = defaultAppearance
+			
+			let transparentAppearance = UITabBarAppearance()
+			transparentAppearance.configureWithTransparentBackground()
+			tabBarController?.tabBar.scrollEdgeAppearance = transparentAppearance
+		}
+	}
 
 	// MARK: - Protocol UITableViewDataSource
 
