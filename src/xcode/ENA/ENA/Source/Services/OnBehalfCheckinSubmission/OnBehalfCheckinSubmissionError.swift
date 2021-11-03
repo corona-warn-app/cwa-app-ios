@@ -6,8 +6,8 @@ import Foundation
 import OpenCombine
 
 enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
-	case registrationTokenError(ServiceError<TeleTanError>)
-	case submissionTANError(URLSession.Response.Failure)
+	case teleTanError(ServiceError<TeleTanError>)
+	case registrationTokenError(ServiceError<RegistrationTokenError>)
 	case submissionError(SubmissionError)
 
 	var errorDescription: String? {
