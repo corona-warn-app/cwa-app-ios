@@ -82,7 +82,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 		/// Wait until Home Screen is ready
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
-		/// Open recycling bin screen
+		/// Open recycle bin screen
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
 		let recycleBinLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.recycleBinLabel]
 		recycleBinLabel.waitAndTap()
@@ -127,7 +127,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 		/// Wait until Home Screen with shown positive PCR test is ready
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitForExistence(timeout: .medium))
 
-		/// Open recycling bin screen
+		/// Open recycle bin screen
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
 		let recycleBinLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.recycleBinLabel]
 		recycleBinLabel.waitAndTap()
