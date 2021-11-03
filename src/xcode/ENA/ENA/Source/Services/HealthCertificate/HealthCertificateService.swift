@@ -243,7 +243,7 @@ class HealthCertificateService {
 		}
 	}
 
-	func removeHealthCertificate(_ healthCertificate: HealthCertificate) {
+	func moveHealthCertificateToBin(_ healthCertificate: HealthCertificate) {
 		for healthCertifiedPerson in healthCertifiedPersons {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)

@@ -1557,22 +1557,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.12 */
-"NewVersionFeature_213_hospitalizationRateTile_title" = "Incidența locală a spitalizării pe 7 zile";
+/* Version 2.14 */
+"NewVersionFeature_214_recycleBin_title" = "Funcția Coș de reciclare pentru teste";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "Mozaicurile locale pentru incidența pe 7 zile a infectărilor noi arată acum și incidența spitalizării pe 7 zile. Deoarece acest indicator este disponibil doar la nivel de stat, dacă este selectat un district, va fi afișată rata spitalizării pentru statul respectiv.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "Modificarea legăturii la întrebările frecvente";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "Când apelați întrebările frecvente în aplicație, acum sunteți redirecționat la paginile coronawarn.app. Acolo veți găsi mai multe detalii la întrebările dvs.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Atribuirea certificatului";
-
-"NewVersionFeature_213_certificateAssignment_description" = "Atribuirea de certificate persoanelor a fost îmbunătățită pentru fi mai tolerantă la erori. Acum aplicația ignoră numărul diferit de spații din numele persoanelor, permițând atribuirea certificatelor aceleiași persoane, în ciuda acestor diferențe.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Restaurare certificate";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Certificatele eliminate sunt mutate în coșul de reciclare. Acestea pot fi restaurate în 30 de zile.";
+"NewVersionFeature_214_recycleBin_description" = "Puteți restaura testele rapide și testele PCR pe care le-ați șters anterior din aplicație. Aceasta înseamnă că puteți recupera obiectele pe care le-ați șters din greșeală.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2759,7 +2747,7 @@
 
 "CovPass_Check_Info_faq" = "Întrebări frecvente pentru verificarea certificatului de către terți";
 
-"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
+"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor dvs. în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Totuși, o verificare vizuală a certificatelor nu este suficientă pentru terți. Aceștia trebuie să utilizeze aplicația CovPassCheck în Germania.";
 
@@ -3183,7 +3171,7 @@
 
 "RecycleBin_description" = "Atingeți un element pentru a-l restaura. Elementele vor fi șterse automat după 30 de zile.";
 
-"RecycleBin_deleteAllButtonTitle" = "Eliminare toate";
+"RecycleBin_deleteAllButtonTitle" = "Ștergere definitivă tot";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certificat de vaccinare";

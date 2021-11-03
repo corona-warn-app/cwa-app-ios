@@ -241,7 +241,7 @@ final class HealthCertificatesTabCoordinator {
 								Log.error("Could not create strong self")
 								return
 							}
-							self.healthCertificateService.removeHealthCertificate(healthCertificate)
+							self.healthCertificateService.moveHealthCertificateToBin(healthCertificate)
 							// Do not confirm deletion if we removed the last certificate of the person (this removes the person, too) because it would trigger a new reload of the table where no person can be shown. Instead, we dismiss the view controller.
 							if self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson) {
 								confirmDeletion()

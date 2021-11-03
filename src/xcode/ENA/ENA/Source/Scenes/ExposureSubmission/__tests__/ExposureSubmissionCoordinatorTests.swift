@@ -34,6 +34,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
+		let recycleBin = RecycleBin(store: store)
 
 		eventStore = MockEventStore()
 
@@ -52,9 +53,10 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				boosterNotificationsService: BoosterNotificationsService(
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
-				recycleBin: .fake()
-			)
-		)
+				recycleBin: recycleBin
+            ),
+            recycleBin: recycleBin
+        )
 		
 		healthCertificateService = HealthCertificateService(
 			store: store,
@@ -65,7 +67,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
 			),
-			recycleBin: .fake()
+			recycleBin: recycleBin
 		)
 		
 		vaccinationValueSetsProvider = VaccinationValueSetsProvider(
@@ -120,7 +122,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			recycleBin: recycleBin
 		)
 	}
 

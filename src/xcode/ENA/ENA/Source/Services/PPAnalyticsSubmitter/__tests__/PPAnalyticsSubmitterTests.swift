@@ -46,8 +46,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -139,8 +140,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -197,8 +199,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -255,8 +258,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -312,8 +316,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -370,8 +375,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -431,8 +437,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -494,8 +501,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -554,8 +562,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -612,8 +621,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -687,8 +697,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -1154,7 +1165,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.registerPCRTest(
 			teleTAN: "tele-tan",
@@ -1258,8 +1270,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}

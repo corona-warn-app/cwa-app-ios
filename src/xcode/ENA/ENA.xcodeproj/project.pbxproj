@@ -23,6 +23,7 @@
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
 		010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */; };
+		01115C332721AEB2006F390D /* CoronaTestRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01115C322721AC6F006F390D /* CoronaTestRestorationHandler.swift */; };
 		011216FA2617363D00320745 /* CoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011216F92617363D00320745 /* CoronaTestService.swift */; };
 		011217052617446500320745 /* CoronaTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011217012617412300320745 /* CoronaTest.swift */; };
 		0112170A2617695100320745 /* FakeRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011217092617693D00320745 /* FakeRequestService.swift */; };
@@ -48,6 +49,7 @@
 		0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */; };
 		0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */; };
 		0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */; };
+		0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */; };
 		012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */; };
 		013069512705D4A900D945E3 /* QRScannerTooltipViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */; };
 		013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013069502705D4A900D945E3 /* QRScannerTooltipViewController.swift */; };
@@ -1462,6 +1464,7 @@
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
 		010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModelTests.swift; sourceTree = "<group>"; };
 		010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestServiceError.swift; sourceTree = "<group>"; };
+		01115C322721AC6F006F390D /* CoronaTestRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRestorationHandler.swift; sourceTree = "<group>"; };
 		011216F92617363D00320745 /* CoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestService.swift; sourceTree = "<group>"; };
 		011217012617412300320745 /* CoronaTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTest.swift; sourceTree = "<group>"; };
 		011217092617693D00320745 /* FakeRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRequestService.swift; sourceTree = "<group>"; };
@@ -1486,6 +1489,7 @@
 		0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModelTest.swift; sourceTree = "<group>"; };
 		0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayAddCellModelTest.swift; sourceTree = "<group>"; };
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
+		0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRestorationHandlerTests.swift; sourceTree = "<group>"; };
 		0130694F2705D4A900D945E3 /* QRScannerTooltipViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRScannerTooltipViewController.xib; sourceTree = "<group>"; };
 		013069502705D4A900D945E3 /* QRScannerTooltipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerTooltipViewController.swift; sourceTree = "<group>"; };
 		013069542707452E00D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_16_UniversalQRCodeScanner.swift; sourceTree = "<group>"; };
@@ -3035,6 +3039,7 @@
 				2FA9E39224D2F2920030561C /* TestResult.swift */,
 				01960F42266542C1000D714E /* TestCertificateConsent.swift */,
 				2EB7D68A2680790D00633D30 /* CoronaTestResultOperation.swift */,
+				01115C322721AC6F006F390D /* CoronaTestRestorationHandler.swift */,
 			);
 			path = CoronaTestService;
 			sourceTree = "<group>";
@@ -3783,6 +3788,7 @@
 				01CBD88F261B3FBC00158B3E /* PCRTest+Mock.swift */,
 				01BA06FA261F5B1000237DD8 /* AntigenTest+Mock.swift */,
 				ABAC9D2D2624938100EB183F /* TestResultTests.swift */,
+				0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */,
 				01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */,
 			);
 			path = __tests__;
@@ -8825,6 +8831,7 @@
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				35682057267CCA2F0031C762 /* HTMLView.swift in Sources */,
 				BA9CD38426FC84C200CB1C51 /* FileScannerCoordinator.swift in Sources */,
+				01115C332721AEB2006F390D /* CoronaTestRestorationHandler.swift in Sources */,
 				8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */,
 				BA5B7FD926458EF400502087 /* HealthCertificateQRCodeCellViewModel.swift in Sources */,
 				BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */,
@@ -9766,6 +9773,7 @@
 				358D780C2632FA7C00070BED /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */,
 				BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
+				0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */,
 				AB86B2B926033E8F007C77B3 /* CheckinSplittingServiceTests.swift in Sources */,
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
 				01BA07202620921400237DD8 /* CheckinTestCase.swift in Sources */,
@@ -10193,7 +10201,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10348,7 +10356,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -10527,7 +10535,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -10768,7 +10776,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -10808,7 +10816,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -10951,7 +10959,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -10995,7 +11003,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -11038,7 +11046,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

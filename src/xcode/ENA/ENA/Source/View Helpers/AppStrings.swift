@@ -277,6 +277,7 @@ enum AppStrings {
 		static let furtherInfos_TestAgain = NSLocalizedString("ExposureSubmissionResult_furtherInfos_hint_testAgain", comment: "")
 		static let removeAlert_Title = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Title", comment: "")
 		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
+		static let removeAlert_ConfirmButtonTitle = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle", comment: "")
 		static let registrationDateUnknown = NSLocalizedString("ExposureSubmissionResult_RegistrationDateUnknown", comment: "")
 	}
 
@@ -952,10 +953,6 @@ enum AppStrings {
 				static let shareItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Share_Item_Title", comment: "")
 				static let button = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
 				static let removeTestButton = NSLocalizedString("Home_Finding_Positive_Card_Button_Remove_Test", comment: "")
-				static let deleteAlertTitle = NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Title", comment: "")
-				static let deleteAlertDescription =
-					NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Description", comment: "")
-				static let deleteAlertDeleteButtonTitle = NSLocalizedString("Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button", comment: "")
 			}
 		}
 
@@ -2324,8 +2321,11 @@ enum AppStrings {
 		static let flashButtonAccessibilityEnableAction = NSLocalizedString("UniversalQRScanner_CameraFlash_Enable", comment: "")
 		static let flashButtonAccessibilityDisableAction = NSLocalizedString("UniversalQRScanner_CameraFlash_Disable", comment: "")
 
-		static let restoredFromBinAlertTitle = NSLocalizedString("UniversalQRScanner_RestoredFromBinAlert_Title", comment: "")
-		static let restoredFromBinAlertMessage = NSLocalizedString("UniversalQRScanner_RestoredFromBinAlert_Message", comment: "")
+		static let certificateRestoredFromBinAlertTitle = NSLocalizedString("UniversalQRScanner_RestoredFromBinAlert_Title", comment: "")
+		static let certificateRestoredFromBinAlertMessage = NSLocalizedString("UniversalQRScanner_RestoredFromBinAlert_Message", comment: "")
+
+		static let testRestoredFromBinAlertTitle = NSLocalizedString("UniversalQRScanner_TestRestoredFromBinAlert_Title", comment: "")
+		static let testRestoredFromBinAlertMessage = NSLocalizedString("UniversalQRScanner_TestRestoredFromBinAlert_Message", comment: "")
 
 		enum Error {
 			enum CameraPermissionDenied {

@@ -38,8 +38,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -106,8 +107,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -164,8 +166,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -230,8 +233,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -279,8 +283,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -337,8 +342,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -401,8 +407,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		
@@ -457,8 +464,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 
 		Analytics.setupMock(
 			store: secureStore,
@@ -510,8 +518,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
 				),
 				recycleBin: .fake()
-			)
-		)
+            ),
+            recycleBin: .fake()
+        )
 		
 		Analytics.setupMock(
 			store: secureStore,

@@ -867,9 +867,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Result */
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis entfernen?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Wenn Sie den Test entfernen, können Sie Ihr Testergebnis nicht mehr abrufen. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Das Testergebnis wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Testergebnis automatisch gelöscht.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Testergebnis entfernen";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
@@ -913,7 +915,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionError_NoResponse" = "Die Antwort enthält keinen Inhalt.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde bereits auf einem Smartphone registriert. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde bereits auf Ihrem Smartphone registriert.\nIhr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.\nSollten Sie den Test in der App gelöscht haben, können Sie ihn aus dem Papierkorb wiederherstellen.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR-Code ist ungültig";
 
@@ -1295,12 +1297,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Test entfernen";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sind Sie sicher, dass Sie Ihren Test entfernen wollen?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Dadurch werden andere nicht gewarnt.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Entfernen";
-
 /* Home Test Registration Card */
 
 "Home_TestRegistration_Title" = "Sie lassen sich testen?";
@@ -1605,7 +1601,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_214_recycleBin_title" = "Papierkorbfunktion für Tests";
 
-"NewVersionFeature_214_recycleBin_description" = "Sie können in der App Schnelltests und PCR-Tests nach dem Löschen wiederherstellen. Sie haben somit die Möglichkeit Objekte die sie versehentlich gelöscht haben, wiederherzustellen.";
+"NewVersionFeature_214_recycleBin_description" = "Sie können in der App Schnelltests und PCR-Tests nach dem Löschen wiederherstellen. Sie haben somit die Möglichkeit, Objekte, die sie versehentlich gelöscht haben, wiederherzustellen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3206,6 +3202,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Das Zertifikat wird aus dem Papierkorb wiederhergestellt.";
 
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Test wiederherstellen";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
+
 /* File Scanner */
 "FileScanner_sheet_photos" = "Foto Mediathek";
 
@@ -3335,7 +3335,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_EmptyState_title" = "Ihr Papierkorb ist leer";
 
-"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
+"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate und Tests entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
 
 "RecycleBin_EmptyState_imageDescription" = "Ein Papierkorb";
 

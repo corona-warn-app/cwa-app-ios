@@ -84,7 +84,7 @@ enum Route {
 				return
 			}
 			
-			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation)))
+			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
 
 		case "e.coronawarn.app":
 			self = .checkIn(url.absoluteString)
