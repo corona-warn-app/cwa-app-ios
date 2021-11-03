@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
+		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
+		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 		self.recycleBin = RecycleBin(store: store)
@@ -275,6 +277,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
     let environmentProvider: EnvironmentProviding
 	var store: Store
+	let restServiceCache: KeyValueCaching
 
 	lazy var coronaTestService: CoronaTestService = {
 		return CoronaTestService(
@@ -472,7 +475,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private let recycleBin: RecycleBin
 
-	private let restServiceProvider = RestServiceProvider()
+	private let restServiceProvider: RestServiceProviding
 
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
