@@ -67,13 +67,13 @@ class OnBehalfCheckinSubmissionService {
 					case .failure(let error):
 						Log.error("[OnBehalfCheckinSubmissionService] Getting submission TAN failed", log: .api, error: error)
 
-						completion(.failure(.submissionTANError(error)))
+						completion(.failure(.registrationTokenError(error)))
 					}
 				}
 			case .failure(let error):
 				Log.error("[OnBehalfCheckinSubmissionService] Getting registration token failed", log: .api, error: error)
 
-				completion(.failure(.registrationTokenError(error)))
+				completion(.failure(.teleTanError(error)))
 			}
 		}
 	}
