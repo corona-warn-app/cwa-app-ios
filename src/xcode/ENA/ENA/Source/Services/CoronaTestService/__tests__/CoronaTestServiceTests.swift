@@ -31,7 +31,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
@@ -85,7 +86,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -137,7 +139,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		// Outdated only according to sample collection date, not according to point of care consent date
@@ -191,7 +194,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -243,7 +247,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -299,7 +304,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -360,7 +366,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		service.antigenTest = AntigenTest.mock(
@@ -423,7 +430,8 @@ class CoronaTestServiceTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			)
 
 			service.antigenTest = AntigenTest.mock(
@@ -470,7 +478,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		XCTAssertNil(service.coronaTest(ofType: .pcr))
@@ -522,7 +531,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = nil
 
@@ -530,6 +540,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
+			qrCodeHash: "qrCodeHash",
 			isSubmissionConsentGiven: false,
 			certificateConsent: .notGiven
 		) { result in
@@ -550,6 +561,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(pcrTest.registrationToken, "registrationToken")
+		XCTAssertEqual(pcrTest.qrCodeHash, "qrCodeHash")
 		XCTAssertEqual(
 			try XCTUnwrap(pcrTest.registrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
@@ -608,7 +620,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		let expectedCounts = [0, 1, 0]
@@ -627,6 +640,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "E1277F-E1277F24-4AD2-40BC-AFF8-CBCCCD893E4B",
+			qrCodeHash: "qrCodeHash",
 			isSubmissionConsentGiven: true,
 			markAsUnseen: true,
 			certificateConsent: .given(dateOfBirth: "2000-01-01")
@@ -653,6 +667,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertEqual(pcrTest.registrationToken, "registrationToken2")
+		XCTAssertEqual(pcrTest.qrCodeHash, "qrCodeHash")
 		XCTAssertEqual(
 			try XCTUnwrap(pcrTest.registrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
@@ -715,7 +730,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		let expectedCounts = [0]
@@ -734,6 +750,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915",
+			qrCodeHash: "",
 			isSubmissionConsentGiven: true,
 			certificateConsent: .given(dateOfBirth: "1995-06-07")
 		) { result in
@@ -795,7 +812,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = nil
 
@@ -803,6 +821,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915",
+			qrCodeHash: "",
 			isSubmissionConsentGiven: true,
 			certificateConsent: .given(dateOfBirth: nil)
 		) { result in
@@ -856,7 +875,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = nil
 
@@ -864,6 +884,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
+			qrCodeHash: "",
 			isSubmissionConsentGiven: false,
 			certificateConsent: .notGiven
 		) { result in
@@ -916,7 +937,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = nil
 
@@ -924,6 +946,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerPCRTestAndGetResult(
 			guid: "guid",
+			qrCodeHash: "qrCodeHash",
 			isSubmissionConsentGiven: false,
 			certificateConsent: .notGiven
 		) { result in
@@ -944,6 +967,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(pcrTest.registrationToken, "registrationToken")
+		XCTAssertEqual(pcrTest.qrCodeHash, "qrCodeHash")
 		XCTAssertEqual(
 			try XCTUnwrap(pcrTest.registrationDate).timeIntervalSince1970,
 			Date().timeIntervalSince1970,
@@ -996,7 +1020,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		Analytics.setupMock(
 			store: store,
@@ -1080,7 +1105,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		service.pcrTest = nil
@@ -1157,7 +1183,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = nil
 
@@ -1218,7 +1245,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1226,6 +1254,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerAntigenTestAndGetResult(
 			with: "hash",
+			qrCodeHash: "qrCodeHash",
 			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
 			firstName: "Erika",
 			lastName: "Mustermann",
@@ -1252,6 +1281,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(antigenTest.registrationToken, "registrationToken")
+		XCTAssertEqual(antigenTest.qrCodeHash, "qrCodeHash")
 		XCTAssertEqual(antigenTest.pointOfCareConsentDate, Date(timeIntervalSince1970: 2222))
 		XCTAssertEqual(antigenTest.testedPerson.firstName, "Erika")
 		XCTAssertEqual(antigenTest.testedPerson.lastName, "Mustermann")
@@ -1299,7 +1329,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		let expectedCounts = [0, 1, 0]
@@ -1320,6 +1351,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerAntigenTestAndGetResult(
 			with: "hash",
+			qrCodeHash: "qrCodeHash",
 			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
 			firstName: nil,
 			lastName: nil,
@@ -1351,6 +1383,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertEqual(antigenTest.registrationToken, "registrationToken")
+		XCTAssertEqual(antigenTest.qrCodeHash, "qrCodeHash")
 		XCTAssertEqual(antigenTest.pointOfCareConsentDate, Date(timeIntervalSince1970: 2222))
 		XCTAssertNil(antigenTest.testedPerson.firstName)
 		XCTAssertNil(antigenTest.testedPerson.lastName)
@@ -1403,7 +1436,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		
 		let expectedCounts = [0]
@@ -1422,6 +1456,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerAntigenTestAndGetResult(
 			with: "hash",
+			qrCodeHash: "",
 			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
 			firstName: "Erika",
 			lastName: "Mustermann",
@@ -1479,7 +1514,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1487,6 +1523,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerAntigenTestAndGetResult(
 			with: "hash",
+			qrCodeHash: "",
 			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
 			firstName: nil,
 			lastName: nil,
@@ -1538,7 +1575,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1546,6 +1584,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.registerAntigenTestAndGetResult(
 			with: "hash",
+			qrCodeHash: "qrCodeHash",
 			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
 			firstName: nil,
 			lastName: nil,
@@ -1571,6 +1610,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(antigenTest.registrationToken, "registrationToken")
+		XCTAssertEqual(antigenTest.qrCodeHash, "qrCodeHash")
 		XCTAssertEqual(antigenTest.pointOfCareConsentDate, Date(timeIntervalSince1970: 2222))
 		XCTAssertNil(antigenTest.testedPerson.firstName)
 		XCTAssertNil(antigenTest.testedPerson.lastName)
@@ -1611,7 +1651,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 
@@ -1667,7 +1708,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 
@@ -1719,7 +1761,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = nil
 
@@ -1759,7 +1802,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1799,7 +1843,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: nil)
 
@@ -1847,7 +1892,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: nil)
 
@@ -1901,7 +1947,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -1953,7 +2000,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -1992,7 +2040,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2034,7 +2083,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2078,7 +2128,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		let antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2135,7 +2186,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2180,7 +2232,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2225,7 +2278,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2270,7 +2324,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2314,7 +2369,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2351,7 +2407,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2398,7 +2455,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2444,7 +2502,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2493,7 +2552,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2543,7 +2603,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2590,7 +2651,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2642,7 +2704,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: mockNotificationCenter
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2691,7 +2754,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: MockUserNotificationCenter()
+			notificationCenter: MockUserNotificationCenter(),
+			recycleBin: .fake()
 		)
 		testService.pcrTest = PCRTest.mock(
 			registrationToken: "regToken",
@@ -2738,7 +2802,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: MockUserNotificationCenter()
+			notificationCenter: MockUserNotificationCenter(),
+			recycleBin: .fake()
 		)
 		testService.pcrTest = PCRTest.mock(
 			registrationToken: "regToken",
@@ -2788,7 +2853,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: MockUserNotificationCenter()
+			notificationCenter: MockUserNotificationCenter(),
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2838,7 +2904,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: MockUserNotificationCenter()
+			notificationCenter: MockUserNotificationCenter(),
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2887,7 +2954,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: MockUserNotificationCenter()
+			notificationCenter: MockUserNotificationCenter(),
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2936,7 +3004,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			notificationCenter: MockUserNotificationCenter()
+			notificationCenter: MockUserNotificationCenter(),
+			recycleBin: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2957,6 +3026,67 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	// MARK: - Test Removal
+
+	func testMovingCoronaTestToBin() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		let recycleBin = RecycleBin(store: store)
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				),
+				recycleBin: recycleBin
+			),
+			recycleBin: recycleBin
+		)
+
+		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+
+		XCTAssertNotNil(service.pcrTest)
+		XCTAssertNotNil(service.antigenTest)
+		XCTAssertTrue(store.recycleBinItems.isEmpty)
+		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
+
+		service.moveTestToBin(.pcr)
+
+		XCTAssertNil(service.pcrTest)
+		XCTAssertNotNil(service.antigenTest)
+		XCTAssertEqual(store.recycleBinItems.count, 1)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
+
+		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken2")
+
+		XCTAssertNotNil(service.pcrTest)
+		XCTAssertNotNil(service.antigenTest)
+
+		service.moveTestToBin(.antigen)
+
+		XCTAssertNotNil(service.pcrTest)
+		XCTAssertNil(service.antigenTest)
+		XCTAssertEqual(store.recycleBinItems.count, 2)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
+
+		service.moveTestToBin(.pcr)
+
+		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(service.antigenTest)
+		XCTAssertEqual(store.recycleBinItems.count, 3)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
+	}
 
 	func testDeletingCoronaTest() {
 		let client = ClientMock()
@@ -2979,7 +3109,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
@@ -3067,7 +3198,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -3169,7 +3301,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")

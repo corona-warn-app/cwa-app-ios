@@ -14,7 +14,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertEqual(viewModel.numberOfSections, 2)
@@ -25,7 +26,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
@@ -42,7 +44,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
@@ -54,7 +57,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertTrue(viewModel.isEmpty)
@@ -70,7 +74,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertFalse(viewModel.isEmpty)
@@ -81,7 +86,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: RecycleBinViewModel.Section.description.rawValue)))
@@ -92,7 +98,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: RecycleBinViewModel.Section.entries.rawValue)))
@@ -100,10 +107,14 @@ class RecycleBinViewModelTest: CWATestCase {
 
 	func testRestoringCertificate() throws {
 		let store = MockTestStore()
+
+		let pcrTest: CoronaTest = .pcr(.mock())
+		let antigenTest: CoronaTest = .antigen(.mock())
+
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock(base45: HealthCertificateMocks.mockBase45))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
 		]
 
 		let restoreHandlerExpectation = expectation(description: "restore called on handler")
@@ -118,7 +129,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			onOverwrite: { _ in }
 		)
 
 		viewModel.restoreItem(at: IndexPath(row: 0, section: 1))
@@ -126,26 +138,138 @@ class RecycleBinViewModelTest: CWATestCase {
 		waitForExpectations(timeout: .medium)
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, ["a", "b"])
+		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, antigenTest.recycleBinIdentifier].sorted())
+	}
+
+	func testRestoringTestWithoutOverwrite() throws {
+		let store = MockTestStore()
+
+		let certificate: HealthCertificate = .mock(base45: HealthCertificateMocks.mockBase45)
+		let pcrTest: CoronaTest = .pcr(.mock())
+		let antigenTest: CoronaTest = .antigen(.mock())
+
+		store.recycleBinItems = [
+			RecycleBinItem(recycledAt: Date(), item: .certificate(certificate)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
+		]
+
+
+		let canRestoreHandlerExpectation = expectation(description: "canRestore called on handler")
+		let restoreHandlerExpectation = expectation(description: "restore called on handler")
+		var testRestorationHandler = TestRestorationHandlerFake()
+
+		testRestorationHandler.canRestore = { test in
+			XCTAssertEqual(test, pcrTest)
+			canRestoreHandlerExpectation.fulfill()
+
+			return .success(())
+		}
+
+		testRestorationHandler.restore = { test in
+			XCTAssertEqual(test, pcrTest)
+			restoreHandlerExpectation.fulfill()
+		}
+
+		let recycleBin = RecycleBin(store: store)
+		recycleBin.testRestorationHandler = testRestorationHandler
+
+		let onOverrideExpectation = expectation(description: "onOverride not called")
+		onOverrideExpectation.isInverted = true
+
+		let viewModel = RecycleBinViewModel(
+			store: store,
+			recycleBin: recycleBin,
+			onOverwrite: { _ in
+				onOverrideExpectation.fulfill()
+			}
+		)
+
+		viewModel.restoreItem(at: IndexPath(row: 1, section: 1))
+
+		waitForExpectations(timeout: .medium)
+
+		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
+		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, certificate.recycleBinIdentifier].sorted())
+	}
+
+	func testRestoringTestWithOverwrite() throws {
+		let store = MockTestStore()
+
+		let certificate: HealthCertificate = .mock(base45: HealthCertificateMocks.mockBase45)
+		let pcrTest: CoronaTest = .pcr(.mock())
+		let antigenTest: CoronaTest = .antigen(.mock())
+
+		store.recycleBinItems = [
+			RecycleBinItem(recycledAt: Date(), item: .certificate(certificate)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
+		]
+
+		let canRestoreHandlerExpectation = expectation(description: "canRestore called on handler")
+		let restoreHandlerExpectation = expectation(description: "restore called on handler")
+		var testRestorationHandler = TestRestorationHandlerFake()
+
+		testRestorationHandler.canRestore = { test in
+			XCTAssertEqual(test, antigenTest)
+			canRestoreHandlerExpectation.fulfill()
+
+			return .failure(.testTypeAlreadyRegistered)
+		}
+
+		testRestorationHandler.restore = { test in
+			XCTAssertEqual(test, antigenTest)
+			restoreHandlerExpectation.fulfill()
+		}
+
+		let recycleBin = RecycleBin(store: store)
+		recycleBin.testRestorationHandler = testRestorationHandler
+
+		let onOverrideExpectation = expectation(description: "onOverride called")
+
+		let viewModel = RecycleBinViewModel(
+			store: store,
+			recycleBin: recycleBin,
+			onOverwrite: { recycleBinItem in
+				if case let .coronaTest(coronaTest) = recycleBinItem.item, coronaTest == antigenTest {} else {
+					XCTFail("Expected antigenTest to be passed as parameter")
+				}
+
+				onOverrideExpectation.fulfill()
+				recycleBin.restore(recycleBinItem)
+			}
+		)
+
+		viewModel.restoreItem(at: IndexPath(row: 2, section: 1))
+
+		waitForExpectations(timeout: .medium)
+
+		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
+		XCTAssertEqual(remainingIds, [pcrTest.recycleBinIdentifier, certificate.recycleBinIdentifier].sorted())
 	}
 
 	func testRemoveEntry() throws {
 		let store = MockTestStore()
+
+		let pcrTest: CoronaTest = .pcr(.mock())
+		let antigenTest: CoronaTest = .antigen(.mock())
+
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock(base45: HealthCertificateMocks.mockBase45))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
 		]
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		viewModel.removeEntry(at: IndexPath(row: 1, section: 1))
 
 		let remainingIds = store.recycleBinItemsSubject.value.map { $0.item.recycleBinIdentifier }.sorted()
-		XCTAssertEqual(remainingIds, [HealthCertificateMocks.mockBase45, "b"])
+		XCTAssertEqual(remainingIds, [antigenTest.recycleBinIdentifier, HealthCertificateMocks.mockBase45].sorted())
 	}
 
 	func testRemoveAll() throws {
@@ -158,7 +282,8 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		let viewModel = RecycleBinViewModel(
 			store: store,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
 		)
 
 		viewModel.removeAll()

@@ -7,16 +7,16 @@ enum RestorationError: Error {
 }
 
 enum TestRestorationError: Error {
-	case some
+	case testTypeAlreadyRegistered
 }
 
 protocol TestRestorationHandling {
-	var canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>) { get set }
-	var restore: ((CoronaTest) -> Void) { get set }
+	var canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>) { get }
+	var restore: ((CoronaTest) -> Void) { get }
 }
 
 protocol CertificateRestorationHandling {
-	var restore: ((HealthCertificate) -> Void) { get set }
+	var restore: ((HealthCertificate) -> Void) { get }
 }
 
 struct TestRestorationHandlerFake: TestRestorationHandling {
