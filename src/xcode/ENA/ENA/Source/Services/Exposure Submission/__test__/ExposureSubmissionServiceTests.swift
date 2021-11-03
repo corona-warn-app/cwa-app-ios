@@ -775,7 +775,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	// MARK: - Country Loading
