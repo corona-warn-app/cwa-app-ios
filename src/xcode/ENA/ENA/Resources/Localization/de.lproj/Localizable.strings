@@ -1601,7 +1601,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_214_recycleBin_title" = "Papierkorbfunktion für Tests";
 
-"NewVersionFeature_214_recycleBin_description" = "Sie können in der App Schnelltests und PCR-Tests nach dem Löschen wiederherstellen. Sie haben somit die Möglichkeit Objekte die sie versehentlich gelöscht haben, wiederherzustellen.";
+"NewVersionFeature_214_recycleBin_description" = "Sie können in der App Schnelltests und PCR-Tests nach dem Löschen wiederherstellen. Sie haben somit die Möglichkeit, Objekte, die sie versehentlich gelöscht haben, wiederherzustellen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
