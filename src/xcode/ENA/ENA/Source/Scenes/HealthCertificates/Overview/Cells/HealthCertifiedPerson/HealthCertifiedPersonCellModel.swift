@@ -31,8 +31,7 @@ class HealthCertifiedPersonCellModel {
 
 		if healthCertifiedPerson.unseenNewsCount > 0 {
 			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
-		} else if mostRelevantCertificate.validityState == .invalid ||
-			(mostRelevantCertificate.type != .test && mostRelevantCertificate.validityState != .valid) {
+		} else if mostRelevantCertificate.validityState == .invalid || mostRelevantCertificate.validityState == .blocked || (mostRelevantCertificate.type != .test && mostRelevantCertificate.validityState != .valid) {
 			switch mostRelevantCertificate.validityState {
 			case .valid:
 				self.caption = nil
@@ -56,6 +55,11 @@ class HealthCertifiedPersonCellModel {
 				self.caption = .validityState(
 					image: UIImage(named: "Icon_ExpiredInvalid"),
 					description: AppStrings.HealthCertificate.ValidityState.invalid
+				)
+			case .blocked:
+				self.caption = .validityState(
+					image: UIImage(named: "Icon_ExpiredInvalid"),
+					description: AppStrings.HealthCertificate.ValidityState.blocked
 				)
 			}
 		} else {

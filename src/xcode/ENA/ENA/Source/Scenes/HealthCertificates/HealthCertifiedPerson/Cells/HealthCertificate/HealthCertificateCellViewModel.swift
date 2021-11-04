@@ -21,8 +21,7 @@ final class HealthCertificateCellViewModel {
 	let healthCertificate: HealthCertificate
 
 	lazy var gradientType: GradientView.GradientType = {
-		if healthCertificate.validityState == .invalid ||
-			(healthCertificate.type != .test && healthCertificate.validityState == .expired) ||
+		if healthCertificate.validityState == .invalid || healthCertificate.validityState == .blocked || (healthCertificate.type != .test && healthCertificate.validityState == .expired) ||
 			healthCertificate != healthCertifiedPerson.mostRelevantHealthCertificate {
 			return .solidGrey(withStars: false)
 		} else {
@@ -88,8 +87,7 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var validityStateInfo: String? = {
-		if healthCertificate.validityState == .invalid ||
-			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+		if healthCertificate.validityState == .invalid || healthCertificate.validityState == .blocked || (healthCertificate.type != .test && healthCertificate.validityState != .valid) {
 			switch healthCertificate.validityState {
 			case .valid:
 				return nil
@@ -103,6 +101,8 @@ final class HealthCertificateCellViewModel {
 				return AppStrings.HealthCertificate.ValidityState.expired
 			case .invalid:
 				return AppStrings.HealthCertificate.ValidityState.invalid
+			case .blocked:
+				return AppStrings.HealthCertificate.ValidityState.blocked
 			}
 		} else if healthCertificate.isNew {
 			return AppStrings.HealthCertificate.Person.newlyAddedCertificate
@@ -112,8 +112,7 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var image: UIImage = {
-		if healthCertificate.validityState == .invalid ||
-			(healthCertificate.type != .test && healthCertificate.validityState == .expired) {
+		if healthCertificate.validityState == .invalid || healthCertificate.validityState == .blocked || (healthCertificate.type != .test && healthCertificate.validityState == .expired) {
 			return UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small")
 		}
 
