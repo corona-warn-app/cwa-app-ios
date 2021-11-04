@@ -114,6 +114,32 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
 	}
 
+	func testBlockedVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
+		)
+
+		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			"https://www.coronawarn.app/de/faq/#hc_signature_invalid"
+		)
+
+		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
+	}
+
 	// MARK: - Test Certificate
 
 	func testValidTestCertificate() throws {
@@ -220,6 +246,32 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
 	}
 
+	func testBlockedTestCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
+		)
+
+		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			"https://www.coronawarn.app/de/faq/#hc_signature_invalid"
+		)
+
+		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
+	}
+
 	// MARK: - Recovery Certificate
 
 	func testValidRecoveryCertificate() throws {
@@ -308,6 +360,32 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 				)
 			),
 			validityState: .invalid
+		)
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
+		)
+
+		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			"https://www.coronawarn.app/de/faq/#hc_signature_invalid"
+		)
+
+		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
+	}
+
+	func testBlockedRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
 		)
 
 		let viewModel = HealthCertificateQRCodeViewModel(
