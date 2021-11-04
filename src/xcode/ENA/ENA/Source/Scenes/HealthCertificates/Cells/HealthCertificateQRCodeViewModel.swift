@@ -15,8 +15,7 @@ struct HealthCertificateQRCodeViewModel {
 		showInfoHit: @escaping () -> Void
 	) {
 		self.base45 = healthCertificate.base45
-		self.shouldBlockCertificateCode = healthCertificate.validityState == .invalid ||
-		(healthCertificate.type != .test && healthCertificate.validityState == .expired)
+		self.shouldBlockCertificateCode = !healthCertificate.isUsable
 		self.accessibilityLabel = accessibilityLabel
 		self.showInfo = showInfoHit
 	}

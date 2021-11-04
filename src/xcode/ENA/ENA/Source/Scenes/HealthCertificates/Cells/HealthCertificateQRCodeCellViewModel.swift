@@ -27,8 +27,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			showInfoHit: showInfoHit
 		)
 
-		if healthCertificate.validityState == .invalid ||
-			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+		if !healthCertificate.isConsideredValid {
 			switch healthCertificate.validityState {
 			case .valid:
 				self.validityStateIcon = nil
@@ -66,7 +65,16 @@ struct HealthCertificateQRCodeCellViewModel {
 					self.validityStateDescription = nil
 				}
 				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
-			}
+			case .blocked:
+				   self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
+				   self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.blocked
+				   if mode == .details {
+					   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedDescription
+				   } else {
+					   self.validityStateDescription = nil
+				   }
+				   self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
+		   }
 		} else {
 			self.validityStateIcon = nil
 			self.validityStateTitle = nil
@@ -85,9 +93,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
 	var title: String? {
-		if mode == .overview ||
-			healthCertificate.validityState == .invalid ||
-			(healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+		if mode == .overview || !healthCertificate.isConsideredValid {
 			switch healthCertificate.entry {
 			case .vaccination:
 				return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
