@@ -34,7 +34,12 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
-		// a fix for transparent tab bar when there is content on the back
+		/*
+		    In iOS 15, the tab bar background automatically adjusts it self, when there is no content on the back it becomes transparent
+		    where as it has a background when there is content on the back. Unfortunately, in our case the tab bar remains transparent even
+		    through there is content on the back, so we fix this by overriding the appearance with a background.
+			Solution is inspired from: https://developer.apple.com/forums/thread/682420
+		*/
 		if #available(iOS 15, *) {
 			let appearance = UITabBarAppearance()
 			appearance.configureWithOpaqueBackground()
