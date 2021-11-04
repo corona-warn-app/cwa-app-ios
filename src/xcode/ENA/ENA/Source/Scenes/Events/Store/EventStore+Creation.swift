@@ -105,7 +105,7 @@ extension EventStore {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
-				key = try keychain.generateDatabaseKey(persistAtKeychainKey: EventStore.encryptionKeyKey)
+				key = try keychain.generateDatabaseKey(persistForKeychainKey: EventStore.encryptionKeyKey)
 			} catch {
 				fatalError("[EventStore] Failed to create key for event store.")
 			}

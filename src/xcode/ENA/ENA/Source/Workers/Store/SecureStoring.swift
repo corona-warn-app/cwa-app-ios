@@ -40,12 +40,12 @@ extension SecureKeyValueStoring {
 
 					key = String(decoding: keyData, as: UTF8.self)
 				} else {
-					key = try keychain.generateDatabaseKey(persistAtKeychainKey: Self.encryptionKeyKeychainKey)
+					key = try keychain.generateDatabaseKey(persistForKeychainKey: Self.encryptionKeyKeychainKey)
 				}
 				try self.init(at: directoryURL, key: key)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-				let key = try keychain.generateDatabaseKey(persistAtKeychainKey: Self.encryptionKeyKeychainKey)
+				let key = try keychain.generateDatabaseKey(persistForKeychainKey: Self.encryptionKeyKeychainKey)
 				try self.init(at: directoryURL, key: key)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
