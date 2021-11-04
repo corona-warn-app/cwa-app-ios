@@ -2205,6 +2205,8 @@ enum AppStrings {
 			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
 			static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
 			static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
+			static let blocked = NSLocalizedString("HealthCertificate_ValidityState_Blocked", comment: "")
+			static let blockedDescription = NSLocalizedString("HealthCertificate_ValidityState_Blocked_description", comment: "")
 		}
 
 		enum Alert {
