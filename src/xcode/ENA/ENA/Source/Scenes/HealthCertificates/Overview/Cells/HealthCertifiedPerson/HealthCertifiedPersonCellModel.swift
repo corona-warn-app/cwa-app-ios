@@ -31,7 +31,7 @@ class HealthCertifiedPersonCellModel {
 
 		if healthCertifiedPerson.unseenNewsCount > 0 {
 			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
-		} else if mostRelevantCertificate.validityState == .invalid || mostRelevantCertificate.validityState == .blocked || (mostRelevantCertificate.type != .test && mostRelevantCertificate.validityState != .valid) {
+		} else if !mostRelevantCertificate.isConsideredValid {
 			switch mostRelevantCertificate.validityState {
 			case .valid:
 				self.caption = nil

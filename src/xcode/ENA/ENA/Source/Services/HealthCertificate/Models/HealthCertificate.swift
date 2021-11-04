@@ -228,6 +228,15 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		return Calendar.current.dateComponents([.day], from: sortDate, to: Date()).day
 	}
 
+	var isUsable: Bool {
+		validityState == .valid || validityState == .expiringSoon || (type == .test && validityState == .expired)
+	}
+
+	var isConsideredValid: Bool {
+		/// On test certificates only `.valid`, `.invalid`, and `.blocked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
+		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
+	}
+
 	// MARK: - Private
 
 	private var sortDate: Date? {

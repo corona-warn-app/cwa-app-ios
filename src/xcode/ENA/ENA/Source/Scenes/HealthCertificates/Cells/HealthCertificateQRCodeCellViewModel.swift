@@ -27,7 +27,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			showInfoHit: showInfoHit
 		)
 
-		if healthCertificate.validityState == .invalid || healthCertificate.validityState == .blocked || (healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+		if !healthCertificate.isConsideredValid {
 			switch healthCertificate.validityState {
 			case .valid:
 				self.validityStateIcon = nil
@@ -93,8 +93,7 @@ struct HealthCertificateQRCodeCellViewModel {
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
 	var title: String? {
-		if mode == .overview ||
-			healthCertificate.validityState == .invalid || healthCertificate.validityState == .blocked || (healthCertificate.type != .test && healthCertificate.validityState != .valid) {
+		if mode == .overview || !healthCertificate.isConsideredValid {
 			switch healthCertificate.entry {
 			case .vaccination:
 				return AppStrings.HealthCertificate.Person.VaccinationCertificate.headline
