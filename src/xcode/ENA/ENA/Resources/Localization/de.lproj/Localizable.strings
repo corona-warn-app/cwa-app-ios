@@ -3239,7 +3239,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
 
-"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code."; 
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie einen geeigneten QR-Code."; 
 
 "FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
 
