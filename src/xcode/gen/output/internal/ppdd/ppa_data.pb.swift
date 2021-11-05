@@ -909,6 +909,10 @@ extension SAP_Internal_Ppdd_PPADataIOS: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.requestPadding.isEmpty {
       try visitor.visitSingularBytesField(value: self.requestPadding, fieldNumber: 1)
     }
@@ -924,12 +928,12 @@ extension SAP_Internal_Ppdd_PPADataIOS: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.keySubmissionMetadataSet.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.keySubmissionMetadataSet, fieldNumber: 5)
     }
-    if let v = self._clientMetadata {
+    try { if let v = self._clientMetadata {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    }
-    if let v = self._userMetadata {
+    } }()
+    try { if let v = self._userMetadata {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -977,6 +981,10 @@ extension SAP_Internal_Ppdd_PPADataAndroid: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.requestPadding.isEmpty {
       try visitor.visitSingularBytesField(value: self.requestPadding, fieldNumber: 1)
     }
@@ -992,12 +1000,12 @@ extension SAP_Internal_Ppdd_PPADataAndroid: SwiftProtobuf.Message, SwiftProtobuf
     if !self.keySubmissionMetadataSet.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.keySubmissionMetadataSet, fieldNumber: 5)
     }
-    if let v = self._clientMetadata {
+    try { if let v = self._clientMetadata {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    }
-    if let v = self._userMetadata {
+    } }()
+    try { if let v = self._userMetadata {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1111,9 +1119,13 @@ extension SAP_Internal_Ppdd_PPANewExposureWindow: SwiftProtobuf.Message, SwiftPr
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._exposureWindow {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._exposureWindow {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.transmissionRiskLevel != 0 {
       try visitor.visitSingularInt32Field(value: self.transmissionRiskLevel, fieldNumber: 2)
     }
@@ -1445,12 +1457,16 @@ extension SAP_Internal_Ppdd_PPAClientMetadataIOS: SwiftProtobuf.Message, SwiftPr
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._cwaVersion {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._cwaVersion {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._iosVersion {
+    } }()
+    try { if let v = self._iosVersion {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     if !self.appConfigEtag.isEmpty {
       try visitor.visitSingularStringField(value: self.appConfigEtag, fieldNumber: 3)
     }
@@ -1491,9 +1507,13 @@ extension SAP_Internal_Ppdd_PPAClientMetadataAndroid: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._cwaVersion {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._cwaVersion {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.androidApiLevel != 0 {
       try visitor.visitSingularInt64Field(value: self.androidApiLevel, fieldNumber: 2)
     }
