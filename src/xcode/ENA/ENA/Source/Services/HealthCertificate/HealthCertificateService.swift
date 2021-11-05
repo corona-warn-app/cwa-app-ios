@@ -986,10 +986,7 @@ class HealthCertificateService {
 		for healthCertificate: HealthCertificate,
 		completion: @escaping () -> Void
 	) {
-		guard let id = healthCertificate.uniqueCertificateIdentifier else {
-			Log.error("Could not delete notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
-			return
-		}
+		let id = healthCertificate.uniqueCertificateIdentifier
 		
 		Log.info("Cancel all notifications for certificate with id: \(private: id).", log: .vaccination)
 		
@@ -1010,10 +1007,7 @@ class HealthCertificateService {
 	}
 	
 	private func createNotifications(for healthCertificate: HealthCertificate) {
-		guard let id = healthCertificate.uniqueCertificateIdentifier else {
-			Log.error("Could not schedule notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
-			return
-		}
+		let id = healthCertificate.uniqueCertificateIdentifier
 		
 		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(

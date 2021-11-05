@@ -159,8 +159,15 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalCovidCertificate.dateOfBirth)
 	}
 
-	var uniqueCertificateIdentifier: String? {
-		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier ?? recoveryEntry?.uniqueCertificateIdentifier
+	var uniqueCertificateIdentifier: String {
+		switch entry {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.uniqueCertificateIdentifier
+		case .test(let testEntry):
+			return testEntry.uniqueCertificateIdentifier
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.uniqueCertificateIdentifier
+		}
 	}
 
 	var vaccinationEntry: VaccinationEntry? {
