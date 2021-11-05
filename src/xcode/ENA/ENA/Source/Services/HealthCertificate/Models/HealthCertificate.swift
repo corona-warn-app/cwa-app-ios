@@ -244,6 +244,30 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
 	}
 
+	var uniqueCertificateIdentifierChunks: [String] {
+		uniqueCertificateIdentifier
+			.dropPrefix("URN:UVCI:")
+			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
+	}
+
+	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
+		blockedIdentifierChunks.contains {
+			/// Skip if at least on index would be out of bounds
+			guard $0.indices.allSatisfy({ $0 < uniqueCertificateIdentifierChunks.count }) else {
+				return false
+			}
+
+			let blockedChunks =	$0.indices
+				.map { uniqueCertificateIdentifierChunks[Int($0)] }
+				.joined(separator: "/")
+
+			let hash = ENAHasher.sha256(blockedChunks)
+			let hashData = Data(base64Encoded: hash)
+
+			return hashData == $0.hash
+		}
+	}
+
 	// MARK: - Private
 
 	private var sortDate: Date? {
