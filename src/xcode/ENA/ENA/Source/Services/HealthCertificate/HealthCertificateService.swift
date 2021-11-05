@@ -955,7 +955,7 @@ class HealthCertificateService {
 				case .success(let certificateResult):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
+					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier, testCertificateRequest)
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))

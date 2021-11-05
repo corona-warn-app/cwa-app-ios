@@ -7,6 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 
 // swiftlint:disable file_length
+// swiftlint:disable type_body_length
 class HealthCertificateTests: XCTestCase {
 			
 	func testGIVEN_Base45WellformedEncoded_WHEN_InitIsCalled_THEN_HealthCertificateIsCreated() throws {
