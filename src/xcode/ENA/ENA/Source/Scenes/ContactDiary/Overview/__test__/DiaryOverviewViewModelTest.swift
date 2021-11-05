@@ -149,7 +149,7 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
-		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -5, to: today))
 		let todayMinus5DaysString = dateFormatter.string(from: wrongFormattedTodayMinus5Days)
 		let todayMinus5Days = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
 		
@@ -186,7 +186,7 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
-		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
+		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -7, to: today))
 		let todayMinus7DaysString = dateFormatter.string(from: wrongFormattedTodayMinus5Days)
 		let todayMinus7Days = try XCTUnwrap(dateFormatter.date(from: todayMinus7DaysString))
 		
@@ -228,7 +228,7 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
-		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -5, to: today))
 		let todayMinus5DaysString = dateFormatter.string(from: wrongFormattedTodayMinus5Days)
 		let todayMinus5Days = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
 		
