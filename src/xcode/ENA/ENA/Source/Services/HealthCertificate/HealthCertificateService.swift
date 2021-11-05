@@ -137,6 +137,7 @@ class HealthCertificateService {
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
+		checkIfBlockedUpfront: Bool = true,
 		checkSignatureUpfront: Bool = true,
 		markAsNew: Bool = false
 	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
@@ -159,6 +160,12 @@ class HealthCertificateService {
 
 		do {
 			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
+
+			let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
+				.dgcParameters.blockListParameters.blockedUvciChunks
+			if checkIfBlockedUpfront && healthCertificate.isBlocked(by: blockedIdentifierChunks) {
+				return .failure(.certificateBlocked)
+			}
 
 			// check signature
 			if checkSignatureUpfront {
@@ -502,25 +509,31 @@ class HealthCertificateService {
 					to: healthCertificate.expirationDate
 				)
 
-				let signatureVerificationResult = self.dccSignatureVerifier.verify(
-					certificate: healthCertificate.base45,
-					with: self.dscListProvider.signingCertificates.value,
-					and: Date()
-				)
-
 				let previousValidityState = healthCertificate.validityState
 
-				switch signatureVerificationResult {
-				case .success:
-					if Date() >= healthCertificate.expirationDate {
-						healthCertificate.validityState = .expired
-					} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-						healthCertificate.validityState = .expiringSoon
-					} else {
-						healthCertificate.validityState = .valid
+				let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
+					.dgcParameters.blockListParameters.blockedUvciChunks
+				if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
+					healthCertificate.validityState = .blocked
+				} else {
+					let signatureVerificationResult = self.dccSignatureVerifier.verify(
+						certificate: healthCertificate.base45,
+						with: self.dscListProvider.signingCertificates.value,
+						and: Date()
+					)
+
+					switch signatureVerificationResult {
+					case .success:
+						if Date() >= healthCertificate.expirationDate {
+							healthCertificate.validityState = .expired
+						} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+							healthCertificate.validityState = .expiringSoon
+						} else {
+							healthCertificate.validityState = .valid
+						}
+					case .failure:
+						healthCertificate.validityState = .invalid
 					}
-				case .failure:
-					healthCertificate.validityState = .invalid
 				}
 
 				if healthCertificate.validityState != previousValidityState {
@@ -947,6 +960,7 @@ class HealthCertificateService {
 			case .success(let healthCertificateBase45):
 				let registerResult = registerHealthCertificate(
 					base45: healthCertificateBase45,
+					checkIfBlockedUpfront: false,
 					checkSignatureUpfront: false,
 					markAsNew: true
 				)
