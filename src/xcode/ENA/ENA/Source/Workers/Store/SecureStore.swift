@@ -179,7 +179,10 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	}
 
 	var submissionCountries: [Country] {
-		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
+		get {
+			let countries = kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()]
+			return countries.map({ Country(withCountryCodeFallback: $0.id) })
+		}
 		set { kvStore["submissionCountries"] = newValue }
 	}
 
@@ -239,7 +242,10 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	}
 
 	var lastSelectedValidationCountry: Country {
-		get { kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry() }
+		get {
+			let country = kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry()
+			return Country(withCountryCodeFallback: country.id)
+		}
 		set { kvStore["lastSelectedValidationCountry"] = newValue }
 	}
 
@@ -258,7 +264,16 @@ final class SecureStore: Store, AntigenTestProfileStoring {
 	// MARK: - Protocol HealthCertificateValidationCaching
 	
 	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? {
-		get { kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil }
+		get {
+			let countriesCache = kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil
+			guard let countries = countriesCache?.onboardedCountries,
+				  let eTag = countriesCache?.lastOnboardedCountriesETag
+			else {
+				return nil
+			}
+			let mappedCountries = countries.map({ Country(withCountryCodeFallback: $0.id) })
+			return HealthCertificateValidationOnboardedCountriesCache(onboardedCountries: mappedCountries, lastOnboardedCountriesETag: eTag)
+		}
 		set { kvStore["validationOnboardedCountriesCache"] = newValue }
 	}
 	
