@@ -2006,4 +2006,128 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
 
+	func testBoosterRuleIsResetOnNoPassedResultError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.BOOSTER_VALIDATION_ERROR(.NO_PASSED_RESULT)))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
+	func testBoosterRuleIsResetOnNoVaccinationCertificateError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.BOOSTER_VALIDATION_ERROR(.NO_VACCINATION_CERTIFICATE)))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
+	func testBoosterRuleIsNotResetOnRuleServerError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.RULE_SERVER_ERROR(.boosterNotification))))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNotNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
+	func testBoosterRuleIsNotResetOnNoNetworkError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.NO_NETWORK)))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNotNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
 }
