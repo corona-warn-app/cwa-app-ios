@@ -2690,7 +2690,7 @@
 
 "TestCertificateRequest_tryAgainButtonTitle" = "Try Again";
 
-"TestCertificateRequest_removeButtonTitle" = "Remove Test Certificate";
+"TestCertificateRequest_removeButtonTitle" = "Delete Test Certificate";
 
 /* - Test Certificate Request Error Alert */
 "TestCertificateRequest_ErrorAlert_title" = "There are still problems with the request.";
@@ -2873,7 +2873,7 @@
 
 "RecoveryCertificate_Details_subtitle" = "EU Digital COVID Certificate";
 
-"RecoveryCertificate_Details_primaryButton" = "Remove Certificate of Recovery";
+"RecoveryCertificate_Details_primaryButton" = "Delete Certificate of Recovery";
 
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
