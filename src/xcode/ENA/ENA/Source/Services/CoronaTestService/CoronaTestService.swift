@@ -39,7 +39,7 @@ class CoronaTestService {
 			self.healthCertificateService = healthCertificateService
 			self.notificationCenter = notificationCenter
 
-			self.fakeRequestService = FakeRequestService(client: client)
+			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
 
 			setup()
@@ -60,7 +60,7 @@ class CoronaTestService {
 		self.healthCertificateService = healthCertificateService
 		self.notificationCenter = notificationCenter
 
-		self.fakeRequestService = FakeRequestService(client: client)
+		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
 		healthCertificateService.didRegisterTestCertificate = setUniqueCertificateIdentifier
