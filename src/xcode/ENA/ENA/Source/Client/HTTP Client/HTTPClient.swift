@@ -1070,43 +1070,6 @@ private extension URLRequest {
 		return request
 	}
 	
-	static func getTanForExposureSubmitRequest(
-		configuration: HTTPClient.Configuration,
-		registrationToken: String,
-		headerValue: Int
-	) throws -> URLRequest {
-		
-		var request = URLRequest(url: configuration.tanRetrievalURL)
-		
-		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
-		)
-		
-		// Add header padding.
-		request.setValue(
-			String.getRandomString(of: 14),
-			forHTTPHeaderField: "cwa-header-padding"
-		)
-		
-		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.httpMethod = HttpMethod.post
-		
-		// Add body padding to request.
-		let originalBody = ["registrationToken": registrationToken]
-		let paddedData = try getPaddedRequestBody(for: originalBody)
-		request.httpBody = paddedData
-		
-		return request
-	}
-
 	static func authorizeOTPRequest(
 		configuration: HTTPClient.Configuration,
 		otpEdus: String,
