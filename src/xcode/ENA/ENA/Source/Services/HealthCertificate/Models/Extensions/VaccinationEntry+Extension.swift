@@ -45,7 +45,7 @@ extension VaccinationEntry {
 	var isBoosterWithBMA: Bool {
 		switch VaccinationProductType(value: vaccineMedicinalProduct) {
 		case .biontech, .astraZeneca, .moderna:
-			return totalSeriesOfDoses == 2 && doseNumber == 2
+			return doseNumber > 2
 		case .johnsonAndJohnson:
 			return false
 		case .other:
@@ -53,13 +53,13 @@ extension VaccinationEntry {
 		}
 	}
 	
-	// if administered with Johnson & Johnson
-	var isJohnsonAndJohnson: Bool {
+	// if the booster was administered with Johnson & Johnson
+	var isBoosterWithJohnsonAndJohnson: Bool {
 		switch VaccinationProductType(value: vaccineMedicinalProduct) {
 		case .biontech, .astraZeneca, .moderna:
 			return false
 		case .johnsonAndJohnson:
-			return totalSeriesOfDoses == 1 && doseNumber == 1
+			return doseNumber > 1
 		case .other:
 			return false
 		}
