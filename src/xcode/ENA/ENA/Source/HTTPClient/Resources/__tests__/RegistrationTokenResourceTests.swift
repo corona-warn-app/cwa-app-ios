@@ -98,4 +98,36 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGetTANForExposureSubmission_MalformedJSONResponse() throws {
+		let expectation = expectation(description: "Expect that we got a completion")
+
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: """
+			{ "Wrongexample":"Hello" }
+			""".data(using: .utf8)
+		)
+
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let registrationTokenResource = RegistrationTokenResource(
+			isFake: false,
+			sendModel: SendRegistrationTokenModel(token: "Fake")
+		)
+
+
+		serviceProvider.load(registrationTokenResource) { result in
+			switch result {
+			case .success:
+				XCTFail("Backend returned random bytes - the request should have failed!")
+			case .failure(let error):
+				guard case let .resourceError(resourceError) = error,
+					  resourceError == .decoding else {
+					XCTFail("unexpected error case")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
 }
