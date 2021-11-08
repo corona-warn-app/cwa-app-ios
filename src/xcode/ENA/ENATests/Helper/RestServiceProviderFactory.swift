@@ -12,7 +12,10 @@ extension RestServiceProviding where Self == RestServiceProviderStub {
 	static var coronaTestServiceProvider: RestServiceProviderStub {
 		RestServiceProviderStub(results: [
 			.success(
-				RegistrationTokenModel(registrationToken: "registrationToken")
+				SubmissionTANModel(submissionTAN: "registrationToken")
+			),
+			.success(
+				SubmissionTANModel(submissionTAN: "registrationToken")
 			)
 		])
 	}
@@ -21,6 +24,9 @@ extension RestServiceProviding where Self == RestServiceProviderStub {
 		RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
+			),
+			.success(
+				SubmissionTANModel(submissionTAN: "registrationToken")
 			)
 		])
 	}
