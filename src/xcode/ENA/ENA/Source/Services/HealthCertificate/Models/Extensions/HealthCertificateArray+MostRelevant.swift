@@ -88,6 +88,9 @@ extension Array where Element == HealthCertificate {
 
 		// Booster Vaccination Certificate
 		
+		// Booster (3/3) on Biontech, Moderna, Astra (2/2) -> gets priority
+		// Booster (2/2) on J&J (1/1) -> gets priority
+		
 		if let boosterVaccinationCertificate = last(where: { $0.vaccinationEntry?.isBoosterVaccination ?? false }) {
 			return boosterVaccinationCertificate
 		}
