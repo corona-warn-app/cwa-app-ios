@@ -94,17 +94,20 @@ extension Array where Element == HealthCertificate {
 		if let boosterVaccinationCertificate = last(where: { $0.vaccinationEntry?.isBoosterVaccination ?? false }) {
 			return boosterVaccinationCertificate
 		}
-
+		
 		// Series-completing Vaccination Certificate > 14 days
 
+		// Booster with Moderna, Biontech, Astra (2/2) after Recovery Vaccination (1/1) -> gets priority after 14 days
+		// Booster with Moderna, Biontech, Astra (2/2) after J&J (1/1) -> gets priority after 14 days
+		
 		let protectingVaccinationCertificate = last {
-			guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
+			guard let isBoosterWithBMA = $0.vaccinationEntry?.isBoosterWithBMA, let ageInDays = $0.ageInDays else {
 				return false
 			}
 			
-			return isLastDoseInASeries && ageInDays > 14
+			return isBoosterWithBMA && ageInDays > 14
 		}
-
+		
 		if let protectingVaccinationCertificate = protectingVaccinationCertificate {
 			return protectingVaccinationCertificate
 		}
