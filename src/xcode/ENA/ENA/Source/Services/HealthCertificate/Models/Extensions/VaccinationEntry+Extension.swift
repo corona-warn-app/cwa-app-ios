@@ -39,6 +39,18 @@ extension VaccinationEntry {
 			return false
 		}
 	}
+	
+	// check if the booster was administered with AstraZeneca, Moderna or BioNTech
+	var isBoosterWithBMA: Bool {
+		switch VaccinationProductType(value: vaccineMedicinalProduct) {
+		case .biontech, .astraZeneca, .moderna:
+			return totalSeriesOfDoses == 2 && doseNumber == 2
+		case .johnsonAndJohnson:
+			return false
+		case .other:
+			return false
+		}
+	}
 
 	// swiftlint:disable:next cyclomatic_complexity
 	func title(for keyPath: PartialKeyPath<VaccinationEntry>) -> String? {
