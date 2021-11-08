@@ -14,12 +14,14 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		base45: Base45,
 		validityState: HealthCertificateValidityState = .valid,
 		didShowInvalidNotification: Bool = false,
+		didShowBlockedNotification: Bool = false,
 		isNew: Bool = false,
 		isValidityStateNew: Bool = false
 	) throws {
 		self.base45 = base45
 		self.validityState = validityState
 		self.didShowInvalidNotification = didShowInvalidNotification
+		self.didShowBlockedNotification = didShowBlockedNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
 
@@ -36,6 +38,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		isValidityStateNew = try container.decodeIfPresent(Bool.self, forKey: .isValidityStateNew) ?? false
 		isNew = try container.decodeIfPresent(Bool.self, forKey: .isNew) ?? false
 		didShowInvalidNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowInvalidNotification) ?? false
+		didShowBlockedNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowBlockedNotification) ?? false
 
 		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
 		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
@@ -58,6 +61,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case isNew
 		case isValidityStateNew
 		case didShowInvalidNotification
+		case didShowBlockedNotification
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -68,6 +72,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		try container.encode(isNew, forKey: .isNew)
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
 		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
+		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
 	}
 
 	// MARK: - Protocol Equatable
@@ -77,7 +82,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		lhs.validityState == rhs.validityState &&
 		lhs.isNew == rhs.isNew &&
 		lhs.isValidityStateNew == rhs.isValidityStateNew &&
-		lhs.didShowInvalidNotification == rhs.didShowInvalidNotification
+		lhs.didShowInvalidNotification == rhs.didShowInvalidNotification &&
+		lhs.didShowBlockedNotification == rhs.didShowBlockedNotification
 	}
 
 	// MARK: - Protocol Comparable
@@ -122,6 +128,14 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	@DidSetPublished var didShowInvalidNotification: Bool {
 		didSet {
 			if didShowInvalidNotification != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var didShowBlockedNotification: Bool {
+		didSet {
+			if didShowBlockedNotification != oldValue {
 				objectDidChange.send(self)
 			}
 		}
