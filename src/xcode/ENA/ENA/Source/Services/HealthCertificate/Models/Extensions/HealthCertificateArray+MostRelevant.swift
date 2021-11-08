@@ -112,6 +112,12 @@ extension Array where Element == HealthCertificate {
 			return protectingVaccinationCertificate
 		}
 
+		// Vaccination with Moderna, Biontech, Astra (1/1) after recovery -> gets priority
+		
+		if let bmaAfterRecoveryVaccinationCertificate = last(where: { $0.vaccinationEntry?.isRecoveredVaccination ?? false }) {
+			return bmaAfterRecoveryVaccinationCertificate
+		}
+		
 		// Recovery Certificate <= 180 days
 
 		let validRecoveryCertificate = last {
