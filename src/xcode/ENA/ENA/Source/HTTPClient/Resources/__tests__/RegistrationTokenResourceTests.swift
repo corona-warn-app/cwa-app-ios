@@ -130,4 +130,42 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .short)
 	}
+
+	func testGetTANForExposureSubmission_VerifyPOSTBodyContent() throws {
+		let fakeToken = "fake"
+
+		let sendPostExpectation = expectation(
+			description: "Expect that the client sends a POST request"
+		)
+		let verifyPostBodyContent: MockUrlSession.URLRequestObserver = { request in
+			defer { sendPostExpectation.fulfill() }
+
+			guard let content = try? JSONDecoder().decode([String: String].self, from: request.httpBody ?? Data()) else {
+				XCTFail("POST body was empty, expected key & key type as JSON!")
+				return
+			}
+
+			guard content["tokenString"] == fakeToken else {
+				XCTFail("POST JSON body did not have tokenString value, or it was incorrect!")
+				return
+			}
+
+		}
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode(
+				SubmissionTANModel(submissionTAN: "fakeTan")
+			),
+			requestObserver: verifyPostBodyContent
+		)
+
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let registrationTokenResource = RegistrationTokenResource(
+			isFake: false,
+			sendModel: SendRegistrationTokenModel(token: fakeToken)
+		)
+		serviceProvider.load(registrationTokenResource) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
 }
