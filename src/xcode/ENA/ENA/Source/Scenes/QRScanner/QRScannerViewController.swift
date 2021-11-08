@@ -299,7 +299,7 @@ class QRScannerViewController: UIViewController {
 				}
 			)
 		} else if case .certificateQrError(.certificateBlocked) = error {
-			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
+			// blocked certificate error needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.HealthCertificate.Error.invalidOrBlockedCertificateTitle
 			errorMessage = unwrappedError.localizedDescription
 			faqAlertAction = UIAlertAction(
