@@ -53,6 +53,18 @@ extension VaccinationEntry {
 		}
 	}
 	
+	// if administered with Johnson & Johnson
+	var isJohnsonAndJohnson: Bool {
+		switch VaccinationProductType(value: vaccineMedicinalProduct) {
+		case .biontech, .astraZeneca, .moderna:
+			return false
+		case .johnsonAndJohnson:
+			return totalSeriesOfDoses == 1 && doseNumber == 1
+		case .other:
+			return false
+		}
+	}
+	
 	// swiftlint:disable:next cyclomatic_complexity
 	func title(for keyPath: PartialKeyPath<VaccinationEntry>) -> String? {
 		switch keyPath {
