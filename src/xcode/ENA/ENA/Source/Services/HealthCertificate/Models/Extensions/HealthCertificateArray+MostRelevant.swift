@@ -98,11 +98,11 @@ extension Array where Element == HealthCertificate {
 		// Vaccination with J&J (1/1) after recovery -> get priority after 14 days
 		
 		if let completeVaccinationCertificate = last(where: {
-			$0.vaccinationEntry?.isBoosterVaccination ?? false || $0.vaccinationEntry?.isLastDoseInASeries && (
-			$0.ageInDays > 14 ||
-			$0.vaccinationEntry?.isBoosterWithBMA ||
-			$0.vaccinationEntry?.isBoosterWithJohnsonAndJohnson ||
-			$0.vaccinationEntry?.isRecoveredVaccination)
+			$0.vaccinationEntry?.isBoosterVaccination ?? false || $0.vaccinationEntry?.isLastDoseInASeries ?? false && (
+			$0.ageInDays ?? 0 > 14 ||
+			$0.vaccinationEntry?.isBoosterWithBMA ?? false ||
+			$0.vaccinationEntry?.isBoosterWithJohnsonAndJohnson ?? false ||
+			$0.vaccinationEntry?.isRecoveredVaccination ?? false)
 		}) {
 			return completeVaccinationCertificate
 		}
