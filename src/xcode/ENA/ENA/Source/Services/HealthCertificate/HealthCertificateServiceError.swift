@@ -76,7 +76,7 @@ enum HealthCertificateServiceError: Error {
 		var errorTitle: String? {
 			switch self {
 			case .invalidSignature:
-				return AppStrings.HealthCertificate.Error.invalidSignatureTitle
+				return AppStrings.HealthCertificate.Error.invalidOrBlockedCertificateTitle
 			default:
 				return nil
 			}
