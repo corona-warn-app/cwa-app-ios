@@ -118,6 +118,20 @@ extension Array where Element == HealthCertificate {
 			return bmaAfterRecoveryVaccinationCertificate
 		}
 		
+		// Vaccination with J&J (1/1) after recovery -> get priority after 14 days
+
+		let johnsonAndJohnsonVaccinationCertificate = last {
+			guard let isJohnsonAndJohnson = $0.vaccinationEntry?.isJohnsonAndJohnson, let ageInDays = $0.ageInDays else {
+				return false
+			}
+			
+			return isJohnsonAndJohnson && ageInDays > 14
+		}
+		
+		if let johnsonAndJohnsonVaccinationCertificate = johnsonAndJohnsonVaccinationCertificate {
+			return johnsonAndJohnsonVaccinationCertificate
+		}
+
 		// Recovery Certificate <= 180 days
 
 		let validRecoveryCertificate = last {
