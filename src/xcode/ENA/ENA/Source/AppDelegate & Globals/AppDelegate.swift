@@ -296,6 +296,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
 			client: self.client,
+			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			coronaTestService: coronaTestService
 		)
@@ -498,6 +499,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureManager: self.exposureManager,
 			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
+			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			eventStore: self.eventStore,
 			coronaTestService: coronaTestService)
@@ -515,6 +517,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// will be released in `deinit`
 		TaskExecutionHandler(
 			riskProvider: self.riskProvider,
+			restServiceProvider: restServiceProvider,
 			exposureManager: exposureManager,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
