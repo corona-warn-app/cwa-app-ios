@@ -252,12 +252,12 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 
 	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
 		blockedIdentifierChunks.contains {
-			/// Skip if at least on index would be out of bounds
+			/// Skip if at least one index would be out of bounds
 			guard $0.indices.allSatisfy({ $0 < uniqueCertificateIdentifierChunks.count }) else {
 				return false
 			}
 
-			let blockedChunks =	$0.indices
+			let blockedChunks = $0.indices
 				.map { uniqueCertificateIdentifierChunks[Int($0)] }
 				.joined(separator: "/")
 
