@@ -10,9 +10,11 @@ class FakeRequestService {
 	// MARK: - Init
 
 	init(
-		client: Client
+		client: Client,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 	}
 
 	// MARK: - Internal
@@ -39,7 +41,13 @@ class FakeRequestService {
 
 	/// This method represents a dummy method that is sent to the verification server.
 	func fakeVerificationServerRequest(completion: (() -> Void)? = nil) {
-		client.getTANForExposureSubmit(forDevice: Self.fakeRegistrationToken, isFake: true) { _ in
+		let resource = RegistrationTokenResource(
+			isFake: true,
+			sendModel: SendRegistrationTokenModel(
+				token: Self.fakeRegistrationToken
+			)
+		)
+		restServiceProvider.load(resource) { _ in
 			completion?()
 		}
 	}
@@ -80,5 +88,5 @@ class FakeRequestService {
 	// MARK: - Private
 
 	private let client: Client
-
+	private let restServiceProvider: RestServiceProviding
 }
