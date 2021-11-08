@@ -276,7 +276,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 				.joined(separator: "/")
 
 			let hash = ENAHasher.sha256(blockedChunks)
-			let hashData = Data(base64Encoded: hash)
+			let hashData = hash.dataWithHexString()
 
 			return hashData == $0.hash
 		}

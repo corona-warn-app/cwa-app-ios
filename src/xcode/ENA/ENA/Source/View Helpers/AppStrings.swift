@@ -2237,11 +2237,11 @@ enum AppStrings {
 			static let hcInvalid = NSLocalizedString("HealthCertificate_Error_HC_INVALID", comment: "")
 			static let hcNotSupported = NSLocalizedString("HealthCertificate_Error_HC_NOT_SUPPORTED", comment: "")
 			static let hcQRCodeError = NSLocalizedString("HealthCertificate_Error_HC_QR_CODE_ERROR", comment: "")
-			static let hcBlockedError = NSLocalizedString("HealthCertificate_Error_HC_DCC_BLOCKED", comment: "")
 
-			static let invalidSignatureTitle = NSLocalizedString("HealthCertificate_Error_invalidSignature_title", comment: "")
+			static let invalidOrBlockedCertificateTitle = NSLocalizedString("HealthCertificate_Error_invalidSignature_title", comment: "")
+			static let invalidOrBlockedCertificateFAQButtonTitle = NSLocalizedString("HealthCertificate_Error_invalidSignature_FAQ_Button_Title", comment: "")
 			static let invalidSignatureText = NSLocalizedString("HealthCertificate_Error_invalidSignature_msg", comment: "")
-			static let invalidSignatureFAQButtonTitle = NSLocalizedString("HealthCertificate_Error_invalidSignature_FAQ_Button_Title", comment: "")
+			static let blockedCertificateText = NSLocalizedString("HealthCertificate_Error_HC_DCC_BLOCKED", comment: "")
 
 		}
 

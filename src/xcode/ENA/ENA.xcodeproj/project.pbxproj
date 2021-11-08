@@ -111,6 +111,7 @@
 		01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */ = {isa = PBXBuildFile; fileRef = 01571B79255E9A6F00E4E891 /* config-wru-2020-11-13 */; };
 		015E8C0824C997D200C0A4B3 /* CWASQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1FF6B6A2497D0B40041CF02 /* CWASQLite.framework */; };
 		015E8C0924C9983600C0A4B3 /* CWASQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B1FF6B6A2497D0B40041CF02 /* CWASQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		015FC28227395E96000BEDE2 /* String+DataWithHexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015FC28127395DCF000BEDE2 /* String+DataWithHexString.swift */; };
 		0160CC2A26B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2826B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift */; };
 		0160CC2B26B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */; };
 		0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */; };
@@ -1546,6 +1547,7 @@
 		0156F05B25D2DA2300543640 /* DeadmanNotificationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadmanNotificationManagerTests.swift; sourceTree = "<group>"; };
 		01571B79255E9A6F00E4E891 /* config-wru-2020-11-13 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "config-wru-2020-11-13"; sourceTree = "<group>"; };
 		015B0A8826C542980006DB42 /* OnBehalfCheckinSubmissionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionCoordinator.swift; sourceTree = "<group>"; };
+		015FC28127395DCF000BEDE2 /* String+DataWithHexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DataWithHexString.swift"; sourceTree = "<group>"; };
 		0160CC2826B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewModel.swift; sourceTree = "<group>"; };
 		0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeView.swift; sourceTree = "<group>"; };
 		0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewModelTests.swift; sourceTree = "<group>"; };
@@ -5201,6 +5203,7 @@
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
+				015FC28127395DCF000BEDE2 /* String+DataWithHexString.swift */,
 				EB2FDF942639A75D00B2BBF0 /* StringInterpolation+Private.swift */,
 				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
 				34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */,
@@ -9049,6 +9052,7 @@
 				8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */,
 				BA4934262701F09C00017FD8 /* FileScannerIndicatorView.swift in Sources */,
 				8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */,
+				015FC28227395E96000BEDE2 /* String+DataWithHexString.swift in Sources */,
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
