@@ -18,7 +18,6 @@ struct SendRegistrationTokenModel: PaddingResource {
 
 	var requestPadding: String = ""
 
-	// MARK: - Public
 
 	// MARK: - Internal
 
