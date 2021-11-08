@@ -3,8 +3,6 @@
 //
 
 import Foundation
-import CommonCrypto
-import CryptoKit
 import ASN1Decoder
 
 enum CertificateChainCheckError: Error {
@@ -15,15 +13,21 @@ enum CertificateChainCheckError: Error {
 
 class TrustEvaluation {
 
-    func check(certificateChain: [Data], against jwkSet: [Data]) -> Result<Void, CertificateChainCheckError> {
-
+    func check(trust: SecTrust, against jwkSet: [Data]) -> Result<Void, CertificateChainCheckError> {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
-        guard let leafCertificateData = certificateChain.first else {
+        if let serverCertificate = SecTrustGetCertificateAtIndex(trust, SecTrustGetCertificateCount(trust) - 1),
+           let serverPublicKey = SecCertificateCopyKey(serverCertificate),
+           let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data? {
+
+            return check(serverKeyData: serverPublicKeyData, against: jwkSet)
+        } else {
             return .failure(.CERT_CHAIN_EMTPY)
         }
+    }
 
+    func check(serverKeyData: Data, against jwkSet: [Data]) -> Result<Void, CertificateChainCheckError> {
         // Determine requiredKid: the requiredKid (a string) shall be determined by taking the first 8 bytes of the SHA-256 fingerprint of the leafCertificate and encoding it with base64.
-        let requiredKid = leafCertificateData.keyIdentifier
+        let requiredKid = serverKeyData.keyIdentifier
 
         // Find requiredJwkSet: the requiredJwkSet shall be set to the array of entries from jwkSet where kid matches the requiredKid.
         let requiredJwkSet = jwkSet
@@ -54,42 +58,11 @@ class TrustEvaluation {
         }
 
         // Compare fingerprints: if the SHA-256 fingerprints of leafCertificate is not included in requiredFingerprints, the operation shall abort with error code CERT_PIN_MISMATCH.
-        if requiredFingerprints.contains(leafCertificateData.fingerprint) {
+        if requiredFingerprints.contains(serverKeyData.fingerprint) {
             return .success(())
         } else {
             return .failure(.CERT_PIN_MISMATCH)
         }
     }
 
-}
-
-extension Data {
-
-    func sha256() -> Data {
-        // via https://www.agnosticdev.com/content/how-use-commoncrypto-apis-swift-5
-
-        // #define CC_SHA256_DIGEST_LENGTH     32
-        // Creates an array of unsigned 8 bit integers that contains 32 zeros
-        var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-
-        // CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (md)
-        // Takes the strData referenced value (const unsigned char *d) and hashes it into a reference to the digest parameter.
-        _ = self.withUnsafeBytes {
-            // CommonCrypto
-            // extern unsigned char *CC_SHA256(const void *data, CC_LONG len, unsigned char *md)  -|
-            // OpenSSL                                                                             |
-            // unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md)        <-|
-            CC_SHA256($0.baseAddress, UInt32(self.count), &digest)
-        }
-
-        return Data(digest)
-    }
-
-    var fingerprint: String {
-        sha256().base64EncodedString()
-    }
-
-    var keyIdentifier: String {
-        sha256().subdata(in: 0..<8).base64EncodedString()
-    }
 }
