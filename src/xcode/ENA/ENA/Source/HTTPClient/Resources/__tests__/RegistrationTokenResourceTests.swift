@@ -37,4 +37,34 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGetTANForExposureSubmission_TokenDoesNotExist() throws {
+		let expectation = expectation(description: "Expect that we got a completion")
+
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: Data()
+		)
+
+		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let registrationTokenResource = RegistrationTokenResource(
+			isFake: false,
+			sendModel: SendRegistrationTokenModel(token: "Fake")
+		)
+		
+		serviceProvider.load(registrationTokenResource) { result in
+			switch result {
+			case .success:
+				XCTFail("Registration Token already used - should not succeed")
+			case .failure(let error):
+				guard case let .receivedResourceError(customError) = error,
+					  .regTokenNotExist == customError else {
+						  XCTFail("unexpected error case")
+						  return
+					  }
+			}
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 }
