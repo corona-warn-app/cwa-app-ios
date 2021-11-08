@@ -57,7 +57,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 		onSuccess: @escaping((TraceLocation) -> Void),
 		onError: @escaping((CheckinQRScannerError) -> Void)
 	) {
-		appConfigurationProvider.appConfiguration().sink { [weak self] appConfig in
+		appConfigurationProvider.currentAppConfig.sink { [weak self] appConfig in
 			// 1-Validate URL
 			var match: NSTextCheckingResult?
 			let descriptor = appConfig.presenceTracingParameters.qrCodeDescriptors.first {

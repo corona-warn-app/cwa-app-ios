@@ -19,7 +19,7 @@ class QRCodeErrorCorrectionLevelProvider {
 		appConfigurationProvider: AppConfigurationProviding,
 		onCompletion: @escaping((MappedErrorCorrectionType) -> Void)
 	) {
-		appConfigurationProvider.appConfiguration().sink { appConfig in
+		appConfigurationProvider.currentAppConfig.sink { appConfig in
 			let qrCodeErrorCorrectionLevel = appConfig.presenceTracingParameters.qrCodeErrorCorrectionLevel
 			let mappedErrorCorrectionLevel = MappedErrorCorrectionType(qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel)
 			
