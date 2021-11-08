@@ -463,6 +463,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			wifiClient: wifiClient,
 			store: store,
 			exposureManager: exposureManager,
