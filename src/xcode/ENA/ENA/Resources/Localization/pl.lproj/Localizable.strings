@@ -854,6 +854,8 @@
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Jeśli usuniesz test, nie będziesz mieć możliwości pobrania wyniku swojego testu. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
 
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Testergebnis entfernen";
+
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data rejestracji nieznana";
 
 "ExposureSubmissionResult_RegistrationDate" = "Test dodany dnia";
@@ -1258,12 +1260,6 @@
 "Home_Finding_Positive_Card_Button" = "Ostrzegaj innych";
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Usuń test";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Czy na pewno chcesz usunąć test?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Jeśli to zrobisz, inne osoby nie otrzymają ostrzeżeń.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Usuń";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Zarządzaj testami";
@@ -3085,6 +3081,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Odzyskaj certyfikat";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "Kod QR został już zarejestrowany na Twoim smartfonie. Certyfikat zostanie odzyskany z kosza.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Test wiederherstellen";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Biblioteka zdjęć";

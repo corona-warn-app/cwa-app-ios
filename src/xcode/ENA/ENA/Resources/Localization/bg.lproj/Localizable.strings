@@ -854,6 +854,8 @@
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да извлечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
 
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Testergebnis entfernen";
+
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
 "ExposureSubmissionResult_RegistrationDate" = "Дата на добавяне на теста";
@@ -1258,12 +1260,6 @@
 "Home_Finding_Positive_Card_Button" = "Предупредете другите";
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Премахване на теста";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Наистина ли искате да премахнете теста?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Ако го направите, другите няма да бъдат предупредени.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Премахване";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Управлявайте тестовете си";
@@ -3085,6 +3081,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Възстановяване на сертификат";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Сертификатът ще бъде възстановен от кошчето.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Test wiederherstellen";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Галерия със снимки";
