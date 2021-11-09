@@ -1039,6 +1039,12 @@ class HealthCertificateService {
 			scheduleInvalidNotification(id: id)
 			healthCertificate.didShowInvalidNotification = true
 		}
+
+		// Schedule a 'blocked' notification, if it was not scheduled before.
+		if healthCertificate.validityState == .blocked && !healthCertificate.didShowBlockedNotification {
+			scheduleBlockedNotification(id: id)
+			healthCertificate.didShowBlockedNotification = true
+		}
 	}
 	
 	private func scheduleNotificationForExpiringSoon(
@@ -1113,6 +1119,25 @@ class HealthCertificateService {
 
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(id)",
+			content: content,
+			trigger: nil
+		)
+
+		addNotification(request: request)
+	}
+
+	private func scheduleBlockedNotification(
+		id: String
+	) {
+		Log.info("Schedule blocked notification for certificate with id: \(private: id)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
+		content.sound = .default
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateBlocked.rawValue + "\(id)",
 			content: content,
 			trigger: nil
 		)
