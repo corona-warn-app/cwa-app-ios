@@ -22,14 +22,17 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		let invalidRecentAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 1, validityState: .invalid)
 
 		let mostRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 15)
-		let olderBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 298)
+		let olderBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 60)
 		let expiredRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 1, validityState: .expired)
 		let invalidRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 1, validityState: .invalid)
 
-		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 17)
-		let olderProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 302)
+		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 90)
+		let olderProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 120)
 		let expiredRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15, validityState: .expired)
 		let invalidRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15, validityState: .invalid)
+
+		let mostRecentRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 12)
+		let olderRecoveryVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 60)
 
 		let mostRecentValidRecoveryCertificate = try recoveryCertificate(ageInDays: 10)
 		let olderValidRecoveryCertificate = try recoveryCertificate(ageInDays: 180)
@@ -82,6 +85,9 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 			expiredRecentProtectingVaccinationCertificate,
 			invalidRecentProtectingVaccinationCertificate,
 			
+			mostRecentRecoveryVaccinationCertificate,
+			olderRecoveryVaccinationCertificate,
+
 			mostRecentValidRecoveryCertificate,
 			olderValidRecoveryCertificate,
 			expiredRecentValidRecoveryCertificate,
@@ -139,9 +145,17 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, olderBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == olderBoosterVaccinationCertificate })
+		print(healthCertificates.mostRelevant == mostRecentBoosterVaccinationCertificate)
+		print(healthCertificates.mostRelevant == olderBoosterVaccinationCertificate)
+		print(healthCertificates.mostRelevant == mostRecentProtectingVaccinationCertificate)
+		print(healthCertificates.mostRelevant == olderProtectingVaccinationCertificate)
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentProtectingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentProtectingVaccinationCertificate })
+		print(healthCertificates.mostRelevant == mostRecentBoosterVaccinationCertificate)
+		print(healthCertificates.mostRelevant == olderBoosterVaccinationCertificate)
+		print(healthCertificates.mostRelevant == mostRecentProtectingVaccinationCertificate)
+		print(healthCertificates.mostRelevant == olderProtectingVaccinationCertificate)
 		XCTAssertEqual(healthCertificates.mostRelevant, olderProtectingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == olderProtectingVaccinationCertificate })
@@ -256,6 +270,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 	private enum VaccinationCertificateType {
 		case booster
 		case seriesCompleting
+		case recovery
 		case incomplete
 	}
 
@@ -336,6 +351,12 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 				(vaccinationProductType: .biontech, doseNumber: 2, totalSeriesOfDoses: 2),
 				(vaccinationProductType: .moderna, doseNumber: 2, totalSeriesOfDoses: 2),
 				(vaccinationProductType: .johnsonAndJohnson, doseNumber: 1, totalSeriesOfDoses: 1)
+			]
+		case .recovery:
+			vaccinations = [
+				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 1),
+				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 1),
+				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1),
 			]
 		case .incomplete:
 			vaccinations = [
