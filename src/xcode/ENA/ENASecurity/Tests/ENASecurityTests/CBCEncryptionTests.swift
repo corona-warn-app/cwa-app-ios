@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENASecurity
 
-final class AESEncryptionTests: XCTestCase {
+final class CBCEncryptionTests: XCTestCase {
 
     func test_When_Decrypt_Then_CorrectStringIsReturned() {
 
@@ -16,11 +16,11 @@ final class AESEncryptionTests: XCTestCase {
             return
         }
 
-        let aesEncryption = AESEncryption(
+        let cbcEncryption = CBCEncryption(
             encryptionKey: key,
             initializationVector: AESEncryptionConstants.zeroInitializationVector
         )
-        let result = aesEncryption.decrypt(data: encrypted)
+        let result = cbcEncryption.decrypt(data: encrypted)
 
         guard case let .success(decryptedData) = result else {
             return
