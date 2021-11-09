@@ -22,17 +22,17 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		let invalidRecentAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 1, validityState: .invalid)
 
 		let mostRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 15)
-		let olderBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 60)
+		let olderBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 30)
 		let expiredRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 1, validityState: .expired)
 		let invalidRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 1, validityState: .invalid)
 
-		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 90)
-		let olderProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 120)
+		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 45)
+		let olderProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 60)
 		let expiredRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15, validityState: .expired)
 		let invalidRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15, validityState: .invalid)
 
-		let mostRecentRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 12)
-		let olderRecoveryVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 60)
+		let mostRecentRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 75)
+		let olderRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 90)
 
 		let mostRecentValidRecoveryCertificate = try recoveryCertificate(ageInDays: 10)
 		let olderValidRecoveryCertificate = try recoveryCertificate(ageInDays: 180)
@@ -362,7 +362,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 			vaccinations = [
 				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 1),
 				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1),
+				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1)
 			]
 		case .incomplete:
 			vaccinations = [
