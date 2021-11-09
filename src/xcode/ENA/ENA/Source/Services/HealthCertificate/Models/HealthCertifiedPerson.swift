@@ -196,7 +196,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		scheduleMostRelevantCertificateTimer()
 	}
 
-	// internal for testing
 	var recoveredVaccinationCertificate: HealthCertificate? {
 		return vaccinationCertificates.first { $0.vaccinationEntry?.isRecoveredVaccination ?? false }
 	}
