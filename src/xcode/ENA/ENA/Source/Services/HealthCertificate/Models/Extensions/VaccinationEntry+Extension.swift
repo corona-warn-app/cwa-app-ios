@@ -10,6 +10,14 @@ extension VaccinationEntry {
 	var isLastDoseInASeries: Bool {
 		doseNumber == totalSeriesOfDoses
 	}
+	
+	var ageInDays: Int? {
+		guard let localVaccinationDate = localVaccinationDate else {
+			return nil
+		}
+
+		return Calendar.current.dateComponents([.day], from: localVaccinationDate, to: Date()).day
+	}
 
 	var localVaccinationDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfVaccination)
