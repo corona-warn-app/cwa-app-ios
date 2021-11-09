@@ -36,6 +36,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 				cnPublicKey: Data()
 			)
 			completion(.success(.traceLocation(traceLocation)))
+			return
 		}
 		#endif
 
