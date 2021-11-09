@@ -1198,7 +1198,9 @@ class HealthCertificateService {
 				}
 				
 			case .failure(let validationError):
-				healthCertifiedPerson.boosterRule = nil
+				if validationError == .BOOSTER_VALIDATION_ERROR(.NO_VACCINATION_CERTIFICATE) || validationError == .BOOSTER_VALIDATION_ERROR(.NO_PASSED_RESULT) {
+					healthCertifiedPerson.boosterRule = nil
+				}
 
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
 				let name = healthCertifiedPerson.name?.standardizedName ?? ""
