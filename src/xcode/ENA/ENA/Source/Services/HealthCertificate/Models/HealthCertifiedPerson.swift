@@ -214,15 +214,19 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var mostRelevantCertificateTimer: Timer?
 
 	private var completeVaccinationProtectionDate: Date? {
-		if let completeBoosterVaccinationProtectionDate = self.completeBoosterVaccinationProtectionDate {
-			return completeBoosterVaccinationProtectionDate
-		} else if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
+		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
 		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
-			// if recovery date found -> use it
+			// if recovery date found
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
-		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false }).max(),
-				  let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
-			// else if last vaccination date -> use it
+		} else if let completeBoosterVaccinationProtectionDate = self.completeBoosterVaccinationProtectionDate {
+			// if booster vaccination found
+			return completeBoosterVaccinationProtectionDate
+		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false &&
+			$0.vaccinationEntry?.ageInDays ?? 0 > 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
+			// if series completion vaccination > 14 days found
+			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
+		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false && $0.vaccinationEntry?.ageInDays ?? 0 <= 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
+			// if series completion vaccination <= 14 days found
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else {
 			// no date -> completeVaccinationProtectionDate is nil
