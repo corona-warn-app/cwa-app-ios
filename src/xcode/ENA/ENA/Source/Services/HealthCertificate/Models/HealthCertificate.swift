@@ -159,8 +159,15 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalCovidCertificate.dateOfBirth)
 	}
 
-	var uniqueCertificateIdentifier: String? {
-		vaccinationEntry?.uniqueCertificateIdentifier ?? testEntry?.uniqueCertificateIdentifier ?? recoveryEntry?.uniqueCertificateIdentifier
+	var uniqueCertificateIdentifier: String {
+		switch entry {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.uniqueCertificateIdentifier
+		case .test(let testEntry):
+			return testEntry.uniqueCertificateIdentifier
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.uniqueCertificateIdentifier
+		}
 	}
 
 	var vaccinationEntry: VaccinationEntry? {
@@ -235,6 +242,30 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	/// On test certificates only `.valid`, `.invalid`, and `.blocked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
 	var isConsideredValid: Bool {
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
+	}
+
+	var uniqueCertificateIdentifierChunks: [String] {
+		uniqueCertificateIdentifier
+			.dropPrefix("URN:UVCI:")
+			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
+	}
+
+	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
+		blockedIdentifierChunks.contains {
+			/// Skip if at least one index would be out of bounds
+			guard $0.indices.allSatisfy({ $0 < uniqueCertificateIdentifierChunks.count }) else {
+				return false
+			}
+
+			let blockedChunks = $0.indices
+				.map { uniqueCertificateIdentifierChunks[Int($0)] }
+				.joined(separator: "/")
+
+			let hash = ENAHasher.sha256(blockedChunks)
+			let hashData = hash.dataWithHexString()
+
+			return hashData == $0.hash
+		}
 	}
 
 	// MARK: - Private
