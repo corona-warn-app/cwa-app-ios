@@ -216,17 +216,17 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var completeVaccinationProtectionDate: Date? {
 		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
 		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
-			// if recovery date found
+			// if recovery vaccination date found
 			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
 		} else if let completeBoosterVaccinationProtectionDate = self.completeBoosterVaccinationProtectionDate {
-			// if booster vaccination found
+			// if booster vaccination date found
 			return completeBoosterVaccinationProtectionDate
 		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false &&
 			$0.vaccinationEntry?.ageInDays ?? 0 > 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
-			// if series completion vaccination > 14 days found
+			// if series completion vaccination date found with > 14 days
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false && $0.vaccinationEntry?.ageInDays ?? 0 <= 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
-			// if series completion vaccination <= 14 days found
+			// if series completion vaccination date found <= 14 days
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else {
 			// no date -> completeVaccinationProtectionDate is nil
