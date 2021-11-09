@@ -159,6 +159,12 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, olderProtectingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == olderProtectingVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentRecoveryVaccinationCertificate)
+		
+		healthCertificates.removeAll(where: { $0 == mostRecentRecoveryVaccinationCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderRecoveryVaccinationCertificate)
+		
+		healthCertificates.removeAll(where: { $0 == olderRecoveryVaccinationCertificate })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentValidRecoveryCertificate })
