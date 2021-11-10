@@ -22,6 +22,7 @@ final class AESEncryptionTests: XCTestCase {
         let result = aesEncryption.decrypt(data: encrypted)
 
         guard case let .success(decryptedData) = result else {
+            XCTFail("Success expected.")
             return
         }
 
@@ -44,6 +45,7 @@ final class AESEncryptionTests: XCTestCase {
             let result = aesEncryption.decrypt(data: encrypted)
 
             guard case let .success(decryptedData) = result else {
+                XCTFail("Success expected.")
                 return
             }
 
@@ -67,6 +69,7 @@ final class AESEncryptionTests: XCTestCase {
             let result = aesEncryption.encrypt(data: decrypted)
 
             guard case let .success(encryptedData) = result else {
+                XCTFail("Success expected.")
                 return
             }
 
