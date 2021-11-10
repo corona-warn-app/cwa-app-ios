@@ -101,7 +101,10 @@ extension Array where Element == HealthCertificate {
 			guard let vaccinationEntry = $0.vaccinationEntry else {
 				return false
 			}
-			return vaccinationEntry.doseNumber >= vaccinationEntry.totalSeriesOfDoses && ($0.ageInDays ?? 0 > 14 || vaccinationEntry.isBoosterVaccination || vaccinationEntry.isRecoveredVaccination)
+			return vaccinationEntry.doseNumber >= vaccinationEntry.totalSeriesOfDoses && (
+				$0.ageInDays ?? 0 > 14 ||
+				vaccinationEntry.isBoosterVaccination ||
+				vaccinationEntry.isRecoveredVaccination)
 		}) {
 			return completeVaccinationCertificate
 		}
