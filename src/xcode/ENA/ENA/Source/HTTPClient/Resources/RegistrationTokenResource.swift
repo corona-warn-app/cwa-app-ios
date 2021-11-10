@@ -39,9 +39,9 @@ struct RegistrationTokenResource: Resource {
 		}
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
-	private let registrationTokenModel: SendRegistrationTokenModel
+	let registrationTokenModel: SendRegistrationTokenModel
 
 }
 
