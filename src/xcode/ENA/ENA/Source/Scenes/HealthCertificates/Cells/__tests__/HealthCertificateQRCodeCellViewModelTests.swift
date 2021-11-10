@@ -43,6 +43,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyValidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -80,6 +82,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithValidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -114,6 +118,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyValidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -149,6 +155,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithSoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -194,6 +202,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlySoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -240,6 +250,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithSoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -283,6 +295,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlySoonExpiringVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -362,6 +376,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyExpiredVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -399,6 +415,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithExpiredVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -433,6 +451,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyExpiredVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -468,6 +488,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithInvalidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -504,6 +526,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyInvalidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -541,6 +565,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithInvalidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -575,6 +601,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyInvalidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -610,6 +638,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithBlockedVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -646,6 +676,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyBlockedVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -683,6 +715,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithBlockedVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -717,6 +751,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyBlockedVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -752,6 +788,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithValidTestCertificate_THEN_IsInitCorrect() throws {
@@ -792,6 +830,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyValidTestCertificate_THEN_IsInitCorrect() throws {
@@ -833,6 +873,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithValidTestCertificate_THEN_IsInitCorrect() throws {
@@ -867,6 +909,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyValidTestCertificate_THEN_IsInitCorrect() throws {
@@ -902,6 +946,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithSoonExpiringTestCertificate_THEN_IsInitCorrect() throws {
@@ -943,6 +989,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlySoonExpiringTestCertificate_THEN_IsInitCorrect() throws {
@@ -985,6 +1033,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithSoonExpiringTestCertificate_THEN_IsInitCorrect() throws {
@@ -1020,6 +1070,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlySoonExpiringTestCertificate_THEN_IsInitCorrect() throws {
@@ -1056,6 +1108,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithExpiredTestCertificate_THEN_IsInitCorrect() throws {
@@ -1096,6 +1150,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyExpiredTestCertificate_THEN_IsInitCorrect() throws {
@@ -1137,6 +1193,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithExpiredTestCertificate_THEN_IsInitCorrect() throws {
@@ -1171,6 +1229,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyExpiredTestCertificate_THEN_IsInitCorrect() throws {
@@ -1206,6 +1266,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithInvalidTestCertificate_THEN_IsInitCorrect() throws {
@@ -1240,6 +1302,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyInvalidTestCertificate_THEN_IsInitCorrect() throws {
@@ -1275,6 +1339,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithInvalidTestCertificate_THEN_IsInitCorrect() throws {
@@ -1309,6 +1375,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyInvalidTestCertificate_THEN_IsInitCorrect() throws {
@@ -1344,6 +1412,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithBlockedTestCertificate_THEN_IsInitCorrect() throws {
@@ -1378,6 +1448,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyBlockedTestCertificate_THEN_IsInitCorrect() throws {
@@ -1413,6 +1485,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithBlockedTestCertificate_THEN_IsInitCorrect() throws {
@@ -1447,6 +1521,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyBlockedTestCertificate_THEN_IsInitCorrect() throws {
@@ -1482,6 +1558,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithValidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1518,6 +1596,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyValidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1555,6 +1635,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithValidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1589,6 +1671,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyValidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1624,6 +1708,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithSoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1669,6 +1755,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlySoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1757,6 +1845,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlySoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1801,6 +1891,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithExpiredRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1835,6 +1927,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyExpiredRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1870,6 +1964,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithExpiredRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1904,6 +2000,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyExpiredRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1939,6 +2037,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithInvalidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1973,6 +2073,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyInvalidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2008,6 +2110,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithInvalidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2042,6 +2146,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyInvalidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2077,6 +2183,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertTrue(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithBlockedRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2111,6 +2219,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithNewlyBlockedRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2146,6 +2256,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithBlockedRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2180,6 +2292,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_DetailsViewModelWithNewlyBlockedRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2215,6 +2329,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	// swiftlint:disable file_length
