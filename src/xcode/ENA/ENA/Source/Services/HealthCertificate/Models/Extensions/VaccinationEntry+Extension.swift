@@ -19,7 +19,7 @@ extension VaccinationEntry {
 		"\(doseNumber) of \(totalSeriesOfDoses)"
 	}
 
-	// if administered with one dost of AstraZeneca, Moderna or BioNTech as recovery vaccination
+	// if administered with one dose of AstraZeneca, Moderna or BioNTech as recovery vaccination
 	var isRecoveredVaccination: Bool {
 		switch VaccinationProductType(value: vaccineMedicinalProduct) {
 		case .biontech, .astraZeneca, .moderna:
