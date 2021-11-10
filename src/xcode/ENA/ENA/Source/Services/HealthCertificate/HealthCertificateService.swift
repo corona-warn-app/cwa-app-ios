@@ -137,7 +137,6 @@ class HealthCertificateService {
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
-		checkIfBlockedUpfront: Bool = true,
 		checkSignatureUpfront: Bool = true,
 		markAsNew: Bool = false
 	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
@@ -160,12 +159,6 @@ class HealthCertificateService {
 
 		do {
 			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
-
-			let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
-				.dgcParameters.blockListParameters.blockedUvciChunks
-			if checkIfBlockedUpfront && healthCertificate.isBlocked(by: blockedIdentifierChunks) {
-				return .failure(.certificateBlocked)
-			}
 
 			// check signature
 			if checkSignatureUpfront {
@@ -960,7 +953,6 @@ class HealthCertificateService {
 			case .success(let healthCertificateBase45):
 				let registerResult = registerHealthCertificate(
 					base45: healthCertificateBase45,
-					checkIfBlockedUpfront: false,
 					checkSignatureUpfront: false,
 					markAsNew: true
 				)

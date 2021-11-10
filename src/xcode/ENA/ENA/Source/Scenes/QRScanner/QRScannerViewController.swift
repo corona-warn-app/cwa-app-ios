@@ -287,23 +287,10 @@ class QRScannerViewController: UIViewController {
 
 		if case .certificateQrError(.invalidSignature) = error {
 			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
-			alertTitle = AppStrings.HealthCertificate.Error.invalidOrBlockedCertificateTitle
+			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
 			errorMessage = unwrappedError.localizedDescription
 			faqAlertAction = UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.invalidOrBlockedCertificateFAQButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
-						self?.viewModel?.activateScanning()
-					}
-				}
-			)
-		} else if case .certificateQrError(.certificateBlocked) = error {
-			// blocked certificate error needs a specific title, errorMessage and FAQ action
-			alertTitle = AppStrings.HealthCertificate.Error.invalidOrBlockedCertificateTitle
-			errorMessage = unwrappedError.localizedDescription
-			faqAlertAction = UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.invalidOrBlockedCertificateFAQButtonTitle,
+				title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
 				style: .default,
 				handler: { [weak self] _ in
 					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
