@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import CryptoSwift
 
 public enum RSAEncryptionError: Error {
     case RSA_ENC_INVALID_KEY // public key cannot be used for encryption
