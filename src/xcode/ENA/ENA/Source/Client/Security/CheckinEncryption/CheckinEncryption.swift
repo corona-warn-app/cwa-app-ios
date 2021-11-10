@@ -114,7 +114,7 @@ struct CheckinEncryption: CheckinEncrypting {
 		// Determine `encryption key`: the `encryption key` shall be determined
 		let encryptionKey = self.encryptionKey(for: locationId)
 
-		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 32 bytes.
+		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 16 bytes.
 		guard let randomInitializationVector = randomBytes(length: 16) else {
 			return .failure(.randomBytesCreationFailed)
 		}
