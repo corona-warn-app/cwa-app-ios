@@ -18,7 +18,7 @@ public struct RSAEncryption {
 
     // MARK: - Init
 
-    init(
+    public init(
         publicKeyData: Data,
         privateKeyData: Data
     ) {
