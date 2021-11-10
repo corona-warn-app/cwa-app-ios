@@ -767,7 +767,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Einverständnis „Andere warnen“ nicht erteilt";
 
-"ExposureSubmissionResult_testRemove" = "Test entfernen";
+"ExposureSubmissionResult_testRemove" = "Test löschen";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Bevor Sie einen neuen Test registrieren können, muss der letzte Test entfernt werden.";
 
@@ -775,7 +775,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_secondaryButtonTitle" = "Weiter ohne Symptom-Erfassung";
 
-"ExposureSubmissionResult_deleteButton" = "Test entfernen";
+"ExposureSubmissionResult_deleteButton" = "Test löschen";
 
 "ExposureSubmissionResult_refreshButton" = "Aktualisieren";
 
@@ -867,11 +867,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Exposure Submission Result */
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis entfernen?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis löschen?";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Das Testergebnis wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Testergebnis automatisch gelöscht.";
 
-"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Testergebnis entfernen";
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Testergebnis löschen";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
@@ -1295,7 +1295,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
 
-"Home_Finding_Positive_Card_Button_Remove_Test" = "Test entfernen";
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Test löschen";
 
 /* Home Test Registration Card */
 
@@ -1703,7 +1703,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_FurtherInfo4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Isolationszeit in jedem Fall ein.";
 
-"TestResultPositive_KeysSubmitted_PrimaryButton" = "Test entfernen";
+"TestResultPositive_KeysSubmitted_PrimaryButton" = "Test löschen";
 
 /* Contact Diary*/
 
@@ -1812,19 +1812,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_EditEntries_ContactPersons_Title" = "Personen bearbeiten";
 
-"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Alle entfernen";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Alle löschen";
 
-"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Wollen Sie wirklich alle Personen entfernen?";
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Wollen Sie wirklich alle Personen löschen?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie alle Personen entfernen, werden alle Einträge für alle Personen aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie alle Personen löschen, werden alle Einträge für alle Personen aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Ja";
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nein";
 
-"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Wollen Sie diese Person wirklich entfernen?";
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Wollen Sie diese Person wirklich löschen?";
 
-"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Wenn Sie eine Person entfernen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Wenn Sie eine Person löschen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Ja";
 
@@ -1832,19 +1832,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_EditEntries_Locations_Title" = "Orte bearbeiten";
 
-"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle entfernen";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle löschen";
 
-"ContactDiary_EditEntries_Locations_AlertTitle" = "Wollen Sie wirklich alle Orte entfernen?";
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Wollen Sie wirklich alle Orte löschen?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie alle Orte entfernen, werden alle Einträge für alle Orte aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie alle Orte löschen, werden alle Einträge für alle Orte aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Ja";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nein";
 
-"ContactDiary_EditEntries_Location_AlertTitle" = "Wollen Sie diesen Ort wirklich entfernen?";
+"ContactDiary_EditEntries_Location_AlertTitle" = "Wollen Sie diesen Ort wirklich löschen?";
 
-"ContactDiary_EditEntries_Location_AlertMessage" = "Wenn Sie einen Ort entfernen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_Location_AlertMessage" = "Wenn Sie einen Ort löschen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Ja";
 
@@ -1865,7 +1865,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Information_Item_Lock_Title" = "Ihr Tagebuch ist nur für Sie bestimmt. Ihre Einträge werden nur auf Ihrem Smartphone gespeichert.";
 
-"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Sie können hinzugefügte Personen und Orte jederzeit wieder aus dem Tagebuch entfernen. Tagebuch-Einträge werden nach 16 Tagen automatisch gelöscht.";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Sie können hinzugefügte Personen und Orte jederzeit wieder aus dem Tagebuch löschen. Tagebuch-Einträge werden nach 16 Tagen automatisch gelöscht.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "Sie können Ihr Kontakt-Tagebuch im Textformat exportieren. So können Sie bei Bedarf Ihre Einträge ausdrucken, bearbeiten oder dem Gesundheitsamt zur Verfügung stellen.";
 
@@ -2312,7 +2312,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_EmptyImageDescription" = "Gebäude mit QR-Code-Symbol im Hintergrund";
 
-"Checkins_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+"Checkins_Overview_DeleteAllButtonTitle" = "Alle löschen";
 
 "Checkins_Overview_DurationTitle" = "Dauer";
 
@@ -2322,19 +2322,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
 
-"Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich entfernen?";
+"Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich löschen?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
 
-"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Entfernen";
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Löschen";
 
 "Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
 
-"Checkins_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle Einträge entfernen?";
+"Checkins_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle Einträge löschen?";
 
 "Checkins_Overview_DeleteAll_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diese Orte oder Events eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
 
-"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
 
 "Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
@@ -2376,7 +2376,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_EmptyImageDescription" = "Smartphone mit QR-Code-Symbol";
 
-"TraceLocations_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Alle löschen";
 
 "TraceLocations_Overview_SelfCheckinButtonTitle" = "Selbst einchecken";
 
@@ -2709,15 +2709,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
 
-"AntigenProfile_Delete_Action_Title" = "Schnelltest-Profil entfernen";
+"AntigenProfile_Delete_Action_Title" = "Schnelltest-Profil löschen";
 
 "AntigenProfile_Cancel_Action_Title" = "Abbrechen";
 
-"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil entfernen?";
+"AntigenProfile_Delete_Alert_Title" = "Wollen Sie das Schnelltest-Profil löschen?";
 
 "AntigenProfile_Delete_Alert_Description" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Registrieren verwendet werden kann.";
 
-"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Entfernen";
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Löschen";
 
 /* Health Certificate Validation Info */
 
@@ -2779,7 +2779,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificateRequest_tryAgainButtonTitle" = "Nochmal versuchen";
 
-"TestCertificateRequest_removeButtonTitle" = "Testzertifikat entfernen";
+"TestCertificateRequest_removeButtonTitle" = "Testzertifikat löschen";
 
 /* - Test Certificate Request Error Alert */
 
@@ -2789,19 +2789,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Test Certificate Request Remove Alert */
 
-"TestCertificateRequest_RemoveAlert_title" = "Wollen Sie das Zertifikat wirklich entfernen?";
+"TestCertificateRequest_RemoveAlert_title" = "Wollen Sie das Zertifikat wirklich löschen?";
 
 "TestCertificateRequest_RemoveAlert_message" = "Wenn das Zertifikat entfernt wird, kann es nicht noch einmal angefordert werden.";
 
 "TestCertificateRequest_RemoveAlert_CancelButton_title" = "Abbrechen";
 
-"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Entfernen";
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Löschen";
 
 /* Test Certificate Request Errors */
 
 "TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
-"TestCertificateRequest_Error_DCC_EXPIRED" = "Das Zertifikat ist nicht mehr aktuell, Sie können es aus der Corona-App entfernen. (%@)";
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Das Zertifikat ist nicht mehr aktuell, Sie können es aus der Corona-App löschen. (%@)";
 
 "TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt. Bitte löschen Sie das Zertifikat oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
@@ -2925,7 +2925,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
 
-"HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat entfernen";
+"HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat löschen";
 
 "HealthCertificate_Details_expirationDateTitle" = "Technisches Ablaufdatum";
 
@@ -2942,13 +2942,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Delete Alert */
 
-"HealthCertificate_Alert_deleteButton" = "Zertifikat entfernen";
+"HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
 
 "HealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Vaccination Certificate Delete Alert */
 
-"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat entfernen?";
+"VaccinationCertificate_Alert_title" = "Wollen Sie das Impfzertifikat löschen?";
 
 "VaccinationCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
@@ -2958,7 +2958,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
 
-"TestCertificate_Details_primaryButton" = "Testzertifikat entfernen";
+"TestCertificate_Details_primaryButton" = "Testzertifikat löschen";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Testzertifikats finden Sie in den FAQ.";
 
@@ -2966,7 +2966,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Test Certificate Delete Alert */
 
-"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat entfernen?";
+"TestCertificate_Alert_title" = "Wollen Sie das Testzertifikat löschen?";
 
 "TestCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
@@ -2976,11 +2976,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Details_subtitle" = "Digitales COVID-Zertifikat der EU";
 
-"RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat entfernen";
+"RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat löschen";
 
 /* Recovery Certificate Delete Alert */
 
-"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat entfernen?";
+"RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat löschen?";
 
 "RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
@@ -3339,7 +3339,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_EmptyState_title" = "Ihr Papierkorb ist leer";
 
-"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate und Tests entfernen, werden sie in den Papierkorb verschoben und hier angezeigt.";
+"RecycleBin_EmptyState_description" = "Wenn Sie Zertifikate und Tests löschen, werden sie in den Papierkorb verschoben und hier angezeigt.";
 
 "RecycleBin_EmptyState_imageDescription" = "Ein Papierkorb";
 
@@ -3365,10 +3365,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Delete All Alert */
 
-"RecycleBin_DeleteAll_AlertTitle" = "Wollen Sie den Inhalt des Papierkorbs wirklich entfernen?";
+"RecycleBin_DeleteAll_AlertTitle" = "Wollen Sie den Inhalt des Papierkorbs wirklich löschen?";
 
 "RecycleBin_DeleteAll_AlertMessage" = "Dieser kann dann nicht wiederhergestellt werden.";
 
-"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
