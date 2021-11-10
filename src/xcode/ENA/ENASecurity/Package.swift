@@ -15,6 +15,7 @@ let package = Package(
             targets: ["ENASecurity"]),
     ],
     dependencies: [
+        .package(name: "CryptoSwift", url: "https://github.com/krzyzanowskim/CryptoSwift", from: "1.4.2")
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMajor(from: "1.4.2"))
