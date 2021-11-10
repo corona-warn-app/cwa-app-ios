@@ -55,6 +55,118 @@ final class GCMEncryptionTests: XCTestCase {
         }
     }
 
+    func test_When_Encrypt_Then_Error_AES_GCM_INVALID_KEY() {
+        let testData = testDatas[0]
+
+        // Empty key is an invalid key.
+        // Encryption should return error .AES_GCM_INVALID_KEY with this key.
+        let key = Data()
+
+        guard let decrypted = Data(base64Encoded: testData.plaintextBase64),
+              let initializationVector = Data(base64Encoded: testData.ivBase64) else {
+                  XCTFail("Could not create test data.")
+                  return
+              }
+
+        let gcmEncryption = GCMEncryption(
+            encryptionKey: key,
+            initializationVector: initializationVector
+        )
+
+        let result = gcmEncryption.encrypt(data: decrypted)
+
+        guard case .failure(let error) = result,
+              case .AES_GCM_INVALID_KEY = error else {
+                  XCTFail("Failure expected.")
+                  return
+              }
+    }
+
+    func test_When_Decrypt_Then_Error_AES_GCM_INVALID_KEY() {
+        let testData = testDatas[0]
+
+        // Empty key is an invalid key.
+        // Encryption should return error .AES_GCM_INVALID_KEY with this key.
+        let key = Data()
+
+        guard let decrypted = Data(base64Encoded: testData.plaintextBase64),
+              let initializationVector = Data(base64Encoded: testData.ivBase64) else {
+                  XCTFail("Could not create test data.")
+                  return
+              }
+
+        let gcmEncryption = GCMEncryption(
+            encryptionKey: key,
+            initializationVector: initializationVector
+        )
+
+        let result = gcmEncryption.decrypt(data: decrypted)
+
+        guard case .failure(let error) = result,
+              case .AES_GCM_INVALID_KEY = error else {
+                  XCTFail("Failure expected.")
+                  return
+              }
+    }
+
+    func test_When_Encrypt_Then_Error_AES_GCM_INVALID_IV() {
+        let testData = testDatas[0]
+
+        // Empty initializationVector is an invalid initialization vector.
+        // Encryption should return error .AES_GCM_INVALID_IV with this initialization vector.
+        let initializationVector = Data(capacity: 0)
+
+        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
+
+        guard let key = Data(base64Encoded: testData.keyBase64),
+            let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
+                  XCTFail("Could not create test data.")
+                  return
+              }
+
+        let gcmEncryption = GCMEncryption(
+            encryptionKey: key,
+            initializationVector: initializationVector
+        )
+
+        let result = gcmEncryption.encrypt(data: decrypted)
+
+        guard case .failure(let error) = result,
+              case .AES_GCM_INVALID_IV = error else {
+                  XCTFail("Failure expected.")
+                  return
+              }
+    }
+
+    func test_When_Decrypt_Then_Error_AES_GCM_INVALID_IV() {
+        let testData = testDatas[0]
+
+        // Empty initializationVector is an invalid initialization vector.
+        // Encryption should return error .AES_GCM_INVALID_IV with this initialization vector.
+        let initializationVector = Data(capacity: 0)
+
+        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
+
+        guard let key = Data(base64Encoded: testData.keyBase64),
+            let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
+                  XCTFail("Could not create test data.")
+                  return
+              }
+
+        let gcmEncryption = GCMEncryption(
+            encryptionKey: key,
+            initializationVector: initializationVector
+        )
+
+        let result = gcmEncryption.decrypt(data: decrypted)
+
+        guard case .failure(let error) = result,
+              case .AES_GCM_INVALID_IV = error else {
+                  XCTFail("Failure expected.")
+                  return
+              }
+    }
+
     private struct TestData {
         let keyBase64: String
         let ivBase64: String
