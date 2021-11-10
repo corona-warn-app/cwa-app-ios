@@ -22,11 +22,7 @@ public struct GCMEncryption {
 
     public func encrypt(data: Data) -> Result<Data, GCMEncryptionError> {
         do {
-            let aes = try AES(
-                key: [UInt8](encryptionKey),
-                blockMode: GCM(iv: [UInt8](initializationVector)),
-                padding: .pkcs7
-            )
+            let aes = try aesGCMEncryption(with: data, encryptionKey: encryptionKey)
             let encryptedBytes = try aes.encrypt(data.bytes)
             let encryptedData = Data(encryptedBytes)
             return .success(encryptedData)
@@ -37,11 +33,7 @@ public struct GCMEncryption {
 
     public func decrypt(data: Data) -> Result<Data, GCMEncryptionError> {
         do {
-            let aes = try AES(
-                key: [UInt8](encryptionKey),
-                blockMode: GCM(iv: [UInt8](initializationVector)),
-                padding: .pkcs7
-            )
+            let aes = try aesGCMEncryption(with: data, encryptionKey: encryptionKey)
             let decryptedBytes = try aes.decrypt(data.bytes)
             let decryptedData = Data(decryptedBytes)
             return .success(decryptedData)
@@ -54,4 +46,17 @@ public struct GCMEncryption {
 
     private let encryptionKey: Data
     private let initializationVector: Data
+
+    private func aesGCMEncryption(with initializationVector: Data, encryptionKey: Data) throws -> AES {
+        let gcm = GCM(
+            iv: [UInt8](initializationVector),
+            mode: .combined
+        )
+        let aes = try AES(
+            key: [UInt8](encryptionKey),
+            blockMode: gcm,
+            padding: .noPadding
+        )
+        return aes
+    }
 }

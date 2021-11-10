@@ -4,12 +4,12 @@
 
 import Foundation
 import XCTest
+import CryptoSwift
 @testable import ENASecurity
 
 final class GCMEncryptionTests: XCTestCase {
 
     func test_When_Decrypt_Then_CorrectStringIsReturned() {
-
         for testData in testDatas {
             guard let key = Data(base64Encoded: testData.keyBase64),
                   let encrypted = Data(base64Encoded: testData.expectedCiphertextBase64),
@@ -33,7 +33,6 @@ final class GCMEncryptionTests: XCTestCase {
     }
 
     func test_When_Encrypt_Then_CorrectStringIsReturned() {
-
         for testData in testDatas {
             guard let key = Data(base64Encoded: testData.keyBase64),
                   let decrypted = Data(base64Encoded: testData.plaintextBase64),
