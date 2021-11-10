@@ -98,4 +98,12 @@
     "license": "Apache 2.0 License",
     "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt"
   }
+  ,
+  {
+    "component": "CryptoSwift",
+    "licensor": "Marcin Krzyżanowski",
+    "website": "https://github.com/krzyzanowskim/CryptoSwift",
+    "license": "Custom",
+    "licenseUrl": "https://raw.githubusercontent.com/krzyzanowskim/CryptoSwift/main/LICENSE"
+  }
 ]
