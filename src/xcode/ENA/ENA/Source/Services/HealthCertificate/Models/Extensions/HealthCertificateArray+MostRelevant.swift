@@ -96,13 +96,12 @@ extension Array where Element == HealthCertificate {
 
 		// Vaccination with Moderna, Biontech, Astra (1/1) after recovery -> gets priority
 		// Vaccination with J&J (1/1) after recovery -> get priority after 14 days
-		
+
 		if let completeVaccinationCertificate = last(where: {
-			$0.vaccinationEntry?.isBoosterVaccination ?? false || $0.vaccinationEntry?.isLastDoseInASeries ?? false && (
-			$0.ageInDays ?? 0 > 14 ||
-			$0.vaccinationEntry?.isBoosterWithBMA ?? false ||
-			$0.vaccinationEntry?.isBoosterWithJohnsonAndJohnson ?? false ||
-			$0.vaccinationEntry?.isRecoveredVaccination ?? false)
+			guard let vaccinationEntry = $0.vaccinationEntry else {
+				return false
+			}
+			return vaccinationEntry.doseNumber >= vaccinationEntry.totalSeriesOfDoses && ($0.ageInDays ?? 0 > 14 || vaccinationEntry.isBoosterVaccination || vaccinationEntry.isRecoveredVaccination)
 		}) {
 			return completeVaccinationCertificate
 		}
