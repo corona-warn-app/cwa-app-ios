@@ -3214,6 +3214,7 @@ class CoronaTestServiceTests: CWATestCase {
 				willLoadResource: { _ in
 					expectation.fulfill()
 					XCTAssertEqual(count, 1)
+					count += 1
 				})
 		])
 
@@ -3222,7 +3223,7 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 1)
+			XCTAssertEqual(count, 2)
 			count += 1
 			completion(.success(()))
 		}
