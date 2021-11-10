@@ -6,7 +6,7 @@ import Foundation
 import CryptoSwift
 
 public enum GCMEncryptionError: Error {
-    case EncryptionFailed(Int)
+    case EncryptionFailed(Error)
 }
 
 public struct GCMEncryption {
@@ -27,12 +27,11 @@ public struct GCMEncryption {
                 blockMode: GCM(iv: [UInt8](initializationVector)),
                 padding: .pkcs7
             )
-            let inputData = Data()
-            let encryptedBytes = try aes.encrypt(inputData.bytes)
+            let encryptedBytes = try aes.encrypt(data.bytes)
             let encryptedData = Data(encryptedBytes)
             return .success(encryptedData)
         } catch {
-            return .failure(.EncryptionFailed(0))
+            return .failure(.EncryptionFailed(error))
         }
     }
 
@@ -43,12 +42,11 @@ public struct GCMEncryption {
                 blockMode: GCM(iv: [UInt8](initializationVector)),
                 padding: .pkcs7
             )
-            let inputData = Data()
-            let decryptedBytes = try aes.decrypt(inputData.bytes)
+            let decryptedBytes = try aes.decrypt(data.bytes)
             let decryptedData = Data(decryptedBytes)
             return .success(decryptedData)
         } catch {
-            return .failure(.EncryptionFailed(0))
+            return .failure(.EncryptionFailed(error))
         }
     }
 

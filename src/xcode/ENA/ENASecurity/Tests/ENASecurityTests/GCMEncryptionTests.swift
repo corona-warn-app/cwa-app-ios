@@ -12,22 +12,47 @@ final class GCMEncryptionTests: XCTestCase {
 
         for testData in testDatas {
             guard let key = Data(base64Encoded: testData.keyBase64),
-                  let encrypted = Data(base64Encoded: testData.expectedCiphertextBase64) else {
+                  let encrypted = Data(base64Encoded: testData.expectedCiphertextBase64),
+                let initializationVector = Data(base64Encoded: testData.ivBase64) else {
                 XCTFail("Could not create test data.")
                 return
             }
 
-            let cbcEncryption = GCMEncryption(
+            let gcmEncryption = GCMEncryption(
                 encryptionKey: key,
-                initializationVector: AESEncryptionConstants.zeroInitializationVector
+                initializationVector: initializationVector
             )
-            let result = cbcEncryption.decrypt(data: encrypted)
 
-            guard case let .success(decryptedData) = result else {
+            switch gcmEncryption.decrypt(data: encrypted) {
+            case .failure(let error):
+                XCTFail("Test failed with error: \(error)")
+            case .success(let decryptedData):
+                XCTAssertEqual(testData.plaintextUtf8, String(data: decryptedData, encoding: .utf8))
+            }
+        }
+    }
+
+    func test_When_Encrypt_Then_CorrectStringIsReturned() {
+
+        for testData in testDatas {
+            guard let key = Data(base64Encoded: testData.keyBase64),
+                  let decrypted = Data(base64Encoded: testData.plaintextBase64),
+                let initializationVector = Data(base64Encoded: testData.ivBase64) else {
+                XCTFail("Could not create test data.")
                 return
             }
 
-            XCTAssertEqual(testData.plaintextUtf8, String(data: decryptedData, encoding: .utf8))
+            let gcmEncryption = GCMEncryption(
+                encryptionKey: key,
+                initializationVector: initializationVector
+            )
+
+            switch gcmEncryption.encrypt(data: decrypted) {
+            case .failure(let error):
+                XCTFail("Test failed with error: \(error)")
+            case .success(let encryptedData):
+                XCTAssertEqual(testData.expectedCiphertextBase64, encryptedData.base64EncodedString())
+            }
         }
     }
 
