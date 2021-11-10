@@ -25,11 +25,7 @@ public struct RSAEncryption {
     // MARK: - Public
 
     public func encrypt(_ data: Data) -> Result<Data, RSAEncryptionError> {
-        // try to get the public key from pair or private key
-        guard let publicKey = SecKeyCopyPublicKey(publicKey) else {
-                  return .failure(.RSA_ENC_INVALID_KEY)
-              }
-        // check algorithm is supporrted
+        // check algorithm is supported
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
