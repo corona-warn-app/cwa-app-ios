@@ -36,11 +36,6 @@ enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 			}
 		case .registrationTokenError(let failure):
 			switch failure {
-			case .receivedResourceError(let registrationTokenError):
-				switch registrationTokenError {
-				case .regTokenNotExist :
-					return registrationTokenError.errorDescription
-				}
 			case .transportationError(let transportationError):
 				if let error = transportationError as NSError?,
 				   error.domain == NSURLErrorDomain,
