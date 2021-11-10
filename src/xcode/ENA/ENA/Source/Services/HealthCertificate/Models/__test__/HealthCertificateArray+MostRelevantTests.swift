@@ -21,18 +21,17 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		let expiredRecentAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 1, validityState: .expired)
 		let invalidRecentAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 1, validityState: .invalid)
 
-		let mostRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 15)
+		let mostRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 10)
 		let olderBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 30)
 		let expiredRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 1, validityState: .expired)
 		let invalidRecentBoosterVaccinationCertificate = try vaccinationCertificate(type: .booster, ageInDays: 1, validityState: .invalid)
 
-		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 45)
-		let olderProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 60)
+		let mostRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 16)
+		let olderProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 30)
 		let expiredRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15, validityState: .expired)
 		let invalidRecentProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15, validityState: .invalid)
 
-		let mostRecentRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 75)
-		let olderRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 90)
+		let mostRecentRecoveryVaccinationCertificate = try vaccinationCertificate(type: .recovery, ageInDays: 45)
 
 		let mostRecentValidRecoveryCertificate = try recoveryCertificate(ageInDays: 10)
 		let olderValidRecoveryCertificate = try recoveryCertificate(ageInDays: 180)
@@ -76,7 +75,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 			invalidRecentAntigenTest,
 
 			mostRecentBoosterVaccinationCertificate,
-			olderBoosterVaccinationCertificate,
 			expiredRecentBoosterVaccinationCertificate,
 			invalidRecentBoosterVaccinationCertificate,
 			
@@ -86,7 +84,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 			invalidRecentProtectingVaccinationCertificate,
 			
 			mostRecentRecoveryVaccinationCertificate,
-			olderRecoveryVaccinationCertificate,
 
 			mostRecentValidRecoveryCertificate,
 			olderValidRecoveryCertificate,
@@ -133,38 +130,18 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, olderValidAntigenTest)
 
 		healthCertificates.removeAll(where: { $0 == olderValidAntigenTest })
-		print(healthCertificates.mostRelevant == mostRecentBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == olderBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == mostRecentProtectingVaccinationCertificate)
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentBoosterVaccinationCertificate })
-		print(healthCertificates.mostRelevant == mostRecentBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == olderBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == mostRecentProtectingVaccinationCertificate)
-		XCTAssertEqual(healthCertificates.mostRelevant, olderBoosterVaccinationCertificate)
-
-		healthCertificates.removeAll(where: { $0 == olderBoosterVaccinationCertificate })
-		print(healthCertificates.mostRelevant == mostRecentBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == olderBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == mostRecentProtectingVaccinationCertificate)
-		print(healthCertificates.mostRelevant == olderProtectingVaccinationCertificate)
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentProtectingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentProtectingVaccinationCertificate })
-		print(healthCertificates.mostRelevant == mostRecentBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == olderBoosterVaccinationCertificate)
-		print(healthCertificates.mostRelevant == mostRecentProtectingVaccinationCertificate)
-		print(healthCertificates.mostRelevant == olderProtectingVaccinationCertificate)
 		XCTAssertEqual(healthCertificates.mostRelevant, olderProtectingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == olderProtectingVaccinationCertificate })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentRecoveryVaccinationCertificate)
 		
 		healthCertificates.removeAll(where: { $0 == mostRecentRecoveryVaccinationCertificate })
-		XCTAssertEqual(healthCertificates.mostRelevant, olderRecoveryVaccinationCertificate)
-		
-		healthCertificates.removeAll(where: { $0 == olderRecoveryVaccinationCertificate })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentValidRecoveryCertificate })
@@ -362,7 +339,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 			vaccinations = [
 				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 1),
 				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1)
+				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1),
 			]
 		case .incomplete:
 			vaccinations = [
