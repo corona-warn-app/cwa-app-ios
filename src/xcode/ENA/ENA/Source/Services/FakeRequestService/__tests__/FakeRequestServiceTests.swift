@@ -112,11 +112,6 @@ class FakeRequestServiceTests: CWATestCase {
 
 		])
 
-		client.onGetTANForExposureSubmit = { _, isFake, _ in
-			XCTAssertTrue(isFake)
-			expectation.fulfill()
-		}
-
 		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
 		// Run test.
@@ -174,14 +169,6 @@ class FakeRequestServiceTests: CWATestCase {
 		])
 
 		let client = ClientMock()
-
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertTrue(isFake)
