@@ -30,7 +30,7 @@
       },
       {
         "package": "CryptoSwift",
-        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
           "revision": "4b0565384d3c4c588af09e660535b2c7c9bf5b39",
