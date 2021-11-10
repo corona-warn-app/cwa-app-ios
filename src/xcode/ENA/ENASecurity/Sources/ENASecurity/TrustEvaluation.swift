@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import ASN1Decoder
 
 enum TrustEvaluationError: Error {
     case CERT_CHAIN_EMTPY
