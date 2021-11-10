@@ -38,26 +38,34 @@ extension Array where Element == HealthCertificate {
 	}
 
 	var mostRelevant: HealthCertificate? {
-		let sortedHealthCertificates = sorted()
+		mostRelevantValidOrExpiringSoon ?? mostRelevantExpired ?? mostRelevantInvalidOrBlocked ?? first
+	}
 
-		return sortedHealthCertificates.filter({
-			$0.validityState == .valid || $0.validityState == .expiringSoon
-		}).mostRelevantIgnoringValidityState ??
-		
-		sortedHealthCertificates.filter({
-			$0.validityState == .expired
-		}).mostRelevantIgnoringValidityState ??
-		
-		sortedHealthCertificates.filter({
-			$0.validityState == .invalid
-		}).mostRelevantIgnoringValidityState ??
+	private var mostRelevantValidOrExpiringSoon: HealthCertificate? {
+		sorted()
+			.filter {
+				$0.validityState == .valid || $0.validityState == .expiringSoon
+			}
+			.mostRelevantIgnoringValidityState
+	}
 
-		// Fallback
-		first
+	private var mostRelevantExpired: HealthCertificate? {
+		sorted()
+			.filter {
+				$0.validityState == .expired
+			}
+			.mostRelevantIgnoringValidityState
+	}
+
+	private var mostRelevantInvalidOrBlocked: HealthCertificate? {
+		sorted()
+			.filter {
+				$0.validityState == .invalid || $0.validityState == .blocked
+			}
+			.mostRelevantIgnoringValidityState
 	}
 	
 	private var mostRelevantIgnoringValidityState: HealthCertificate? {
-		
 		// PCR Test Certificate < 48 hours
 
 		let currentPCRTestCertificate = last {

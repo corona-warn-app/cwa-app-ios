@@ -57,6 +57,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 
+		validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
 		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
 	}
 

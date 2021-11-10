@@ -25,14 +25,14 @@ class HealthCertifiedPersonCellModel {
 
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: mostRelevantCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
 			showInfoHit: showInfoHit
 		)
 
 		if healthCertifiedPerson.unseenNewsCount > 0 {
 			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
-		} else if mostRelevantCertificate.validityState == .invalid ||
-			(mostRelevantCertificate.type != .test && mostRelevantCertificate.validityState != .valid) {
+		} else if !mostRelevantCertificate.isConsideredValid {
 			switch mostRelevantCertificate.validityState {
 			case .valid:
 				self.caption = nil
@@ -56,6 +56,11 @@ class HealthCertifiedPersonCellModel {
 				self.caption = .validityState(
 					image: UIImage(named: "Icon_ExpiredInvalid"),
 					description: AppStrings.HealthCertificate.ValidityState.invalid
+				)
+			case .blocked:
+				self.caption = .validityState(
+					image: UIImage(named: "Icon_ExpiredInvalid"),
+					description: AppStrings.HealthCertificate.ValidityState.blocked
 				)
 			}
 		} else {

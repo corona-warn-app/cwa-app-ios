@@ -50,6 +50,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					base45: $0.base45,
 					validityState: $0.validityState ?? .valid,
 					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
+					didShowBlockedNotification: $0.didShowBlockedNotification ?? false,
 					isNew: $0.isNew ?? false,
 					isValidityStateNew: $0.isValidityStateNew ?? false
 				)

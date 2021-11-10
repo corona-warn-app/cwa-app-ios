@@ -187,23 +187,11 @@ struct SAP_Internal_Stats_AdministrativeUnitData {
   /// Clears the value of `sevenDayIncidence`. Subsequent reads from it will return its default value.
   mutating func clearSevenDayIncidence() {self._sevenDayIncidence = nil}
 
-  var sevenDayHospitalizationIncidenceUpdatedAt: Int64 = 0
-
-  var sevenDayHospitalizationIncidence: SAP_Internal_Stats_SevenDayIncidenceData {
-    get {return _sevenDayHospitalizationIncidence ?? SAP_Internal_Stats_SevenDayIncidenceData()}
-    set {_sevenDayHospitalizationIncidence = newValue}
-  }
-  /// Returns true if `sevenDayHospitalizationIncidence` has been explicitly set.
-  var hasSevenDayHospitalizationIncidence: Bool {return self._sevenDayHospitalizationIncidence != nil}
-  /// Clears the value of `sevenDayHospitalizationIncidence`. Subsequent reads from it will return its default value.
-  mutating func clearSevenDayHospitalizationIncidence() {self._sevenDayHospitalizationIncidence = nil}
-
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _sevenDayIncidence: SAP_Internal_Stats_SevenDayIncidenceData? = nil
-  fileprivate var _sevenDayHospitalizationIncidence: SAP_Internal_Stats_SevenDayIncidenceData? = nil
 }
 
 struct SAP_Internal_Stats_SevenDayIncidenceData {
@@ -289,21 +277,25 @@ extension SAP_Internal_Stats_FederalStateData: SwiftProtobuf.Message, SwiftProto
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.federalState != .sh {
       try visitor.visitSingularEnumField(value: self.federalState, fieldNumber: 1)
     }
     if self.updatedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.updatedAt, fieldNumber: 2)
     }
-    if let v = self._sevenDayIncidence {
+    try { if let v = self._sevenDayIncidence {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     if self.sevenDayHospitalizationIncidenceUpdatedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.sevenDayHospitalizationIncidenceUpdatedAt, fieldNumber: 4)
     }
-    if let v = self._sevenDayHospitalizationIncidence {
+    try { if let v = self._sevenDayHospitalizationIncidence {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -345,8 +337,6 @@ extension SAP_Internal_Stats_AdministrativeUnitData: SwiftProtobuf.Message, Swif
     1: .same(proto: "administrativeUnitShortId"),
     2: .same(proto: "updatedAt"),
     3: .same(proto: "sevenDayIncidence"),
-    4: .same(proto: "sevenDayHospitalizationIncidenceUpdatedAt"),
-    5: .same(proto: "sevenDayHospitalizationIncidence"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -358,29 +348,25 @@ extension SAP_Internal_Stats_AdministrativeUnitData: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.administrativeUnitShortID) }()
       case 2: try { try decoder.decodeSingularInt64Field(value: &self.updatedAt) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._sevenDayIncidence) }()
-      case 4: try { try decoder.decodeSingularInt64Field(value: &self.sevenDayHospitalizationIncidenceUpdatedAt) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._sevenDayHospitalizationIncidence) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.administrativeUnitShortID != 0 {
       try visitor.visitSingularUInt32Field(value: self.administrativeUnitShortID, fieldNumber: 1)
     }
     if self.updatedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.updatedAt, fieldNumber: 2)
     }
-    if let v = self._sevenDayIncidence {
+    try { if let v = self._sevenDayIncidence {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
-    if self.sevenDayHospitalizationIncidenceUpdatedAt != 0 {
-      try visitor.visitSingularInt64Field(value: self.sevenDayHospitalizationIncidenceUpdatedAt, fieldNumber: 4)
-    }
-    if let v = self._sevenDayHospitalizationIncidence {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -388,8 +374,6 @@ extension SAP_Internal_Stats_AdministrativeUnitData: SwiftProtobuf.Message, Swif
     if lhs.administrativeUnitShortID != rhs.administrativeUnitShortID {return false}
     if lhs.updatedAt != rhs.updatedAt {return false}
     if lhs._sevenDayIncidence != rhs._sevenDayIncidence {return false}
-    if lhs.sevenDayHospitalizationIncidenceUpdatedAt != rhs.sevenDayHospitalizationIncidenceUpdatedAt {return false}
-    if lhs._sevenDayHospitalizationIncidence != rhs._sevenDayHospitalizationIncidence {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
