@@ -8,13 +8,10 @@ import CryptoSwift
 public enum RSAEncryptionError: Error {
     case publicKeyIrretrievable
     case algorithmNotSupported
-    case encryptionFailed(String?)
-}
-
-public enum RSADecryptionError: Error {
-    case publicKeyIrretrievable
-    case algorithmNotSupported
+    case publicKeyMissing
+    case privateKeyMissing
     case decryptionFailed(String?)
+    case encryptionFailed(String?)
 }
 
 public struct RSAEncryption {
@@ -22,23 +19,39 @@ public struct RSAEncryption {
     // MARK: - Init
 
     init(
-        _ publicKey: SecKey
+        publicKeyData: Data,
+        privateKeyData: Data
     ) {
-        self.publicKey = publicKey
+        self.publicKey = SecKeyCreateWithData(
+            publicKeyData as NSData,
+            [
+                kSecAttrKeyType: kSecAttrKeyTypeRSA,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            ] as NSDictionary,
+            nil
+        )
+        self.privateKey = SecKeyCreateWithData(
+            privateKeyData as NSData,
+            [
+                kSecAttrKeyType: kSecAttrKeyTypeRSA,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+            ] as NSDictionary,
+            nil
+        )
     }
-
-    // MARK: - Overrides
-
-    // MARK: - Protocol <#Name#>
 
     // MARK: - Public
 
-    public func encrypt(_ plainText: Data) -> Result<Data, RSAEncryptionError> {
+    public func encrypt(_ data: Data) -> Result<Data, RSAEncryptionError> {
+        // check if keys are available
+        guard let publicKey = publicKey else {
+            return .failure(.publicKeyMissing)
+        }
         // try to get the public key from pair or private key
         guard let publicKey = SecKeyCopyPublicKey(publicKey) else {
-            return .failure(.publicKeyIrretrievable)
-        }
-        // check algorithm is sipporrted
+                  return .failure(.publicKeyIrretrievable)
+              }
+        // check algorithm is supporrted
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.algorithmNotSupported)
         }
@@ -47,7 +60,7 @@ public struct RSAEncryption {
         guard let cipherData = SecKeyCreateEncryptedData(
             publicKey,
             SecKeyAlgorithm.rsaEncryptionOAEPSHA256,
-            plainText as CFData,
+            data as CFData,
             &error
         ) as Data?,
               error == nil else {
@@ -56,23 +69,24 @@ public struct RSAEncryption {
         return .success(cipherData)
     }
 
-    public func decrypt(privateKey: SecKey, cipherData: Data) -> Result<Data, RSADecryptionError> {
-
-        // check algorithm is sipporrted
-//        guard SecKeyIsAlgorithmSupported(privateKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
-//            return .failure(.algorithmNotSupported)
-//        }
+    public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
+        // check if keys are available
+        guard let publicKey = publicKey else {
+            return .failure(.publicKeyMissing)
+        }
+        guard let privateKey = privateKey else {
+            return .failure(.privateKeyMissing)
+        }
+        // check algorithm is supported
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.algorithmNotSupported)
         }
-
-
+        // let's try to decrypt cipher
         var error: Unmanaged<CFError>?
-
         guard let decodedData = SecKeyCreateDecryptedData(
             privateKey,
             SecKeyAlgorithm.rsaEncryptionOAEPSHA256,
-            cipherData as CFData,
+            data as CFData,
             &error
         ) as Data?,
               error == nil else {
@@ -81,54 +95,9 @@ public struct RSAEncryption {
         return .success(decodedData)
     }
 
-    public func decode(privateKey: SecKey, _ encrypted: [UInt8]) -> Result<String, RSADecryptionError> {
-        var plaintextBufferSize = Int(SecKeyGetBlockSize(privateKey))
-        var plaintextBuffer = [UInt8](repeating:0, count:Int(plaintextBufferSize))
-
-        let status = SecKeyDecrypt(privateKey, SecPadding.PKCS1, encrypted, plaintextBufferSize, &plaintextBuffer, &plaintextBufferSize)
-
-        if (status != errSecSuccess) {
-            return .failure(.decryptionFailed(nil))
-        }
-        if let resultString = String(bytesNoCopy: &plaintextBuffer, length: plaintextBufferSize, encoding: .utf8, freeWhenDone: true) {
-            return .success(resultString)
-        }
-        else {
-            return .failure(.decryptionFailed("failed to convert to string"))
-        }
-    }
-
-    /*
-    func encrypt(text: String) -> [UInt8] {
-        let plainBuffer = [UInt8](text.utf8)
-        var cipherBufferSize : Int = Int(SecKeyGetBlockSize((self.publicKey)!))
-        var cipherBuffer = [UInt8](repeating:0, count:Int(cipherBufferSize))
-
-        // Encrypto  should less than key length
-        let status = SecKeyEncrypt((self.publicKey)!, SecPadding.PKCS1, plainBuffer, plainBuffer.count, &cipherBuffer, &cipherBufferSize)
-        if (status != errSecSuccess) {
-            print("Failed Encryption")
-        }
-        return cipherBuffer
-    }
-
-    func decprypt(encrpted: [UInt8]) -> String? {
-        var plaintextBufferSize = Int(SecKeyGetBlockSize((self.privateKey)!))
-        var plaintextBuffer = [UInt8](repeating:0, count:Int(plaintextBufferSize))
-
-        let status = SecKeyDecrypt((self.privateKey)!, SecPadding.PKCS1, encrpted, plaintextBufferSize, &plaintextBuffer, &plaintextBufferSize)
-
-        if (status != errSecSuccess) {
-            print("Failed Decrypt")
-            return nil
-        }
-        return NSString(bytes: &plaintextBuffer, length: plaintextBufferSize, encoding: String.Encoding.utf8.rawValue)! as String
-    }
-*/
-    // MARK: - Internal
-
     // MARK: - Private
 
-    private let publicKey: SecKey
+    private let publicKey: SecKey?
+    private let privateKey: SecKey?
 
 }
