@@ -1054,9 +1054,10 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 	func test_submitExposurePlaybook() {
 		// Counter to track the execution order.
+		var count = 0
 
 		let expectation = self.expectation(description: "execute all callbacks")
-		expectation.expectedFulfillmentCount = 2
+		expectation.expectedFulfillmentCount = 4
 
 		// Initialize.
 
@@ -1064,16 +1065,46 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		let client = ClientMock()
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
-			]
-		)
-
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					expectation.fulfill()
+					guard let resource = resource as? RegistrationTokenResource else {
+							  XCTFail("RegistrationTokenResource expected.")
+							  return
+						  }
+					XCTAssertTrue(resource.locator.isFake)
+					XCTAssertEqual(count, 0)
+					count += 1
+					
+				}
+			),
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					expectation.fulfill()
+					guard let resource = resource as? RegistrationTokenResource else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					XCTAssertFalse(resource.locator.isFake)
+					XCTAssertEqual(count, 1)
+					count += 1
+				}
+			)
+		])
+		
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
 			completion(.success(()))
 		}
 
