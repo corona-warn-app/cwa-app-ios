@@ -339,7 +339,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 			vaccinations = [
 				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 1),
 				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1),
+				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1)
 			]
 		case .incomplete:
 			vaccinations = [
