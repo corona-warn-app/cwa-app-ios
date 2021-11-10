@@ -3170,13 +3170,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
 
+"HealthCertificate_ValidityState_Blocked" = "Zertifikat ungültig";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
 /* Universal QR Scanner */
 
 "UniversalQRScanner_ScannerTitle" = "QR-Code-Scanner";
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "PCR-Tests und Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate und Check-ins.";
+"UniversalQRScanner_InstructionDescription" = "Ihre PCR-Tests, Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate sowie Check-ins";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
@@ -3239,7 +3243,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
 
-"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte scannen Sie einen geeigneten QR-Code."; 
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie einen geeigneten QR-Code."; 
 
 "FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
 

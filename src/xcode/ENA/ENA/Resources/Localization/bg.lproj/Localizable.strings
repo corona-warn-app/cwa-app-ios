@@ -850,9 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Тестът може да се сканира само веднъж.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Изтриване на резултат от тест?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да извлечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Резултатът от тест ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Резултатът от тест ще бъде изтрит автоматично след 30 дни.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Изтриване на резултат от тест";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
@@ -895,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Съдържанието на отговора е празно.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на друг смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на Вашия смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас. Ако сте изтрили този тест в приложението може да го възстановите от кошчето.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Невалиден QR код";
 
@@ -1259,12 +1261,6 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Премахване на теста";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Наистина ли искате да премахнете теста?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Ако го направите, другите няма да бъдат предупредени.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Премахване";
-
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Управлявайте тестовете си";
 
@@ -1560,7 +1556,7 @@
 /* Version 2.14 */
 "NewVersionFeature_214_recycleBin_title" = "Функция \"Кошче\" за тестове";
 
-"NewVersionFeature_214_recycleBin_description" = "Можете да възстановите бързи и PCR тестове, които по-рано сте изтрили в приложението. Това означава, че имате възможност да възстановявате файлове, които сте изтрили неволно.";
+"NewVersionFeature_214_recycleBin_description" = "Изтритите бързи и PCR тестове са преместени в кошчето. Това означава, че имате възможност да възстановявате файлове, които сте изтрили неволно.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -3060,7 +3056,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
 
-"UniversalQRScanner_InstructionDescription" = "PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
+"UniversalQRScanner_InstructionDescription" = "Вашите PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
 
 "UniversalQRScanner_FileButtonTitle" = "Отваряне на файл";
 
@@ -3085,6 +3081,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Възстановяване на сертификат";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Сертификатът ще бъде възстановен от кошчето.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Възстановяване на тест";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Тестът ще бъде възстановен от кошчето.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Галерия със снимки";
@@ -3119,7 +3119,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Няма подходящ QR код";
 
-"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, сканирайте подходящ QR код.";
+"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, изберете  подходящ QR код.";
 
 "FileScanner_FileNotReadable_title" = "Файлът не се чете";
 
@@ -3208,7 +3208,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Кошчето е празно";
 
-"RecycleBin_EmptyState_description" = "Когато изтривате сертификати, те се преместват в кошчето и се показват там.";
+"RecycleBin_EmptyState_description" = "Когато изтривате сертификати и тестове, те се преместват в кошчето и се показват там.";
 
 "RecycleBin_EmptyState_imageDescription" = "Кошче";
 
