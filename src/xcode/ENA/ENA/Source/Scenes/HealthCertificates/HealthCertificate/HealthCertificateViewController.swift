@@ -265,10 +265,17 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			.assign(to: \.type, on: backgroundView)
 			.store(in: &subscriptions)
 
+		viewModel.$isPrimaryFooterButtonEnabled
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink {	[weak self] in
+				self?.footerView?.setEnabled($0, button: .primary)
+			}
+			.store(in: &subscriptions)
+
 		viewModel.$healthCertificateKeyValueCellViewModel
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { _ in
-				self.tableView.reloadSections(
+			.sink { [weak self] _ in
+				self?.tableView.reloadSections(
 					[
 						HealthCertificateViewModel.TableViewSection.topCorner.rawValue,
 						HealthCertificateViewModel.TableViewSection.details.rawValue,
