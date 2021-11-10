@@ -785,16 +785,50 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		// Force submission error. (Which should result in a 4xx, not a 5xx!)
 		let client = ClientMock(submissionError: .serverError(500))
 
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.failure(ServiceError<RegistrationTokenError>.unexpectedServerError(400)),
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.failure(ServiceError<RegistrationTokenError>.unexpectedServerError(400))
-//				.success(RegistrationTokenModel(registrationToken: "fake")),
-
-			]
-		)
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					XCTAssertTrue(resource.locator.isFake)
+				}
+			),
+			LoadResource(
+				result: .failure(
+					ServiceError<RegistrationTokenError>.unexpectedServerError(400)
+				),
+				willLoadResource: nil
+			),
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					XCTAssertTrue(resource.locator.isFake)
+				}
+			),
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "not fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					XCTAssertFalse(resource.locator.isFake)
+				}
+			)
+		])
 
 		let coronaTestService = CoronaTestService(
 			client: client,
@@ -843,14 +877,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 				// Retry.
 				client.onSubmitCountries = { $2(.success(())) }
-				client.onGetTANForExposureSubmit = { _, isFake, completion in
-					XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
-					completion(.failure(.fakeResponse))
-				}
 				service.submitExposure(coronaTestType: .pcr) { result in
-
 					expectation.fulfill()
-				//	XCTAssertNil(result)
+					XCTAssertNil(result)
 				}
 			}
 		}
