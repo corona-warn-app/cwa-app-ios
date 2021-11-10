@@ -10,14 +10,6 @@ extension VaccinationEntry {
 	var isLastDoseInASeries: Bool {
 		doseNumber == totalSeriesOfDoses
 	}
-	
-	var ageInDays: Int? {
-		guard let localVaccinationDate = localVaccinationDate else {
-			return nil
-		}
-
-		return Calendar.current.dateComponents([.day], from: localVaccinationDate, to: Date()).day
-	}
 
 	var localVaccinationDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfVaccination)
@@ -42,30 +34,6 @@ extension VaccinationEntry {
 		switch VaccinationProductType(value: vaccineMedicinalProduct) {
 		case .biontech, .astraZeneca, .moderna:
 			return doseNumber > 2
-		case .johnsonAndJohnson:
-			return doseNumber > 1
-		case .other:
-			return false
-		}
-	}
-	
-	// if the booster was administered with AstraZeneca, Moderna or BioNTech
-	var isBoosterWithBMA: Bool {
-		switch VaccinationProductType(value: vaccineMedicinalProduct) {
-		case .biontech, .astraZeneca, .moderna:
-			return doseNumber > 2
-		case .johnsonAndJohnson:
-			return false
-		case .other:
-			return false
-		}
-	}
-	
-	// if the booster was administered with Johnson & Johnson
-	var isBoosterWithJohnsonAndJohnson: Bool {
-		switch VaccinationProductType(value: vaccineMedicinalProduct) {
-		case .biontech, .astraZeneca, .moderna:
-			return false
 		case .johnsonAndJohnson:
 			return doseNumber > 1
 		case .other:
