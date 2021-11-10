@@ -34,17 +34,7 @@ public struct RSAEncryption {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
 
-        var error: Unmanaged<CFError>?
-        guard let cipherData = SecKeyCreateEncryptedData(
-            publicKey,
-            SecKeyAlgorithm.rsaEncryptionOAEPSHA256,
-            data as CFData,
-            &error
-        ) as Data?,
-              error == nil else {
-                  return .failure(.unknown(error?.takeRetainedValue().localizedDescription))
-              }
-        return .success(cipherData)
+        return encode(data)
     }
 
     public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
@@ -52,18 +42,8 @@ public struct RSAEncryption {
         guard SecKeyIsAlgorithmSupported(privateKey, .decrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
-        // let's try to decrypt cipher
-        var error: Unmanaged<CFError>?
-        guard let decodedData = SecKeyCreateDecryptedData(
-            privateKey,
-            SecKeyAlgorithm.rsaEncryptionOAEPSHA256,
-            data as CFData,
-            &error
-        ) as Data?,
-              error == nil else {
-                  return .failure(.unknown(error?.takeRetainedValue().localizedDescription))
-              }
-        return .success(decodedData)
+
+        return decode(data)
     }
 
     // MARK: - Private
@@ -71,28 +51,40 @@ public struct RSAEncryption {
     private let publicKey: SecKey
     private let privateKey: SecKey
 
-    /*
-    private var publicSecKey: SecKey? {
-        SecKeyCreateWithData(
-            publicKey as NSData,
-            [
-                kSecAttrKeyType: kSecAttrKeyTypeRSA,
-                kSecAttrKeyClass: kSecAttrKeyClassPublic,
-            ] as NSDictionary,
-            nil
-        )
+    private func decode(_ data: Data) -> Result<Data, RSAEncryptionError> {
+        var error: Unmanaged<CFError>?
+        let decodedData = SecKeyCreateDecryptedData(
+            privateKey,
+            SecKeyAlgorithm.rsaEncryptionOAEPSHA256,
+            data as CFData,
+            &error
+        ) as Data?
+
+        if let errorText = error?.takeRetainedValue().localizedDescription {
+            return .failure(.unknown(errorText))
+        } else if let data = decodedData {
+            return .success(data)
+        } else {
+            return .failure(.unknown(nil))
+        }
     }
 
-    private var privateSecKey: SecKey? {
-        SecKeyCreateWithData(
-            privateKey as NSData,
-            [
-                kSecAttrKeyType: kSecAttrKeyTypeRSA,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-            ] as NSDictionary,
-            nil
-        )
+    private func encode(_ data: Data) -> Result<Data, RSAEncryptionError> {
+        var error: Unmanaged<CFError>?
+        let cipherData = SecKeyCreateEncryptedData(
+            publicKey,
+            SecKeyAlgorithm.rsaEncryptionOAEPSHA256,
+            data as CFData,
+            &error
+        ) as Data?
+
+        if let errorText = error?.takeRetainedValue().localizedDescription {
+            return .failure(.unknown(errorText))
+        } else if let data = cipherData {
+            return .success(data)
+        } else {
+            return .failure(.unknown(nil))
+        }
     }
-     */
 
 }
