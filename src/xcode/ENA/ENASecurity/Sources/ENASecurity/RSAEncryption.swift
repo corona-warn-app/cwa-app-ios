@@ -52,15 +52,12 @@ public struct RSAEncryption {
     }
 
     public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
-        // check if keys are available
-        guard let publicKey = publicSecKey else {
-            return .failure(.unknown("public key is missing"))
-        }
+        // check if private key is available
         guard let privateKey = privateSecKey else {
             return .failure(.unknown("private key is missing"))
         }
         // check algorithm is supported
-        guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
+        guard SecKeyIsAlgorithmSupported(privateKey, .decrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
         // let's try to decrypt cipher
