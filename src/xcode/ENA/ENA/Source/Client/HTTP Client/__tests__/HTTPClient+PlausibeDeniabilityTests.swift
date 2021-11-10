@@ -73,6 +73,12 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 			)
 		)
 		restServiceProvider.load(resource) { _ in
+			guard let paddedData = try? JSONEncoder().encode(resource.registrationTokenModel) else {
+				fatalError("padding count error")
+			}
+			let paddedDataCount = paddedData.count
+			let sendRequestPaddingCount = resource.sendResource.sendModel?.paddingCount.count ?? 0
+			XCTAssertEqual((paddedDataCount + sendRequestPaddingCount), 250)
 			expectation.fulfill()
 		}
 		let fakeRequestResource = RegistrationTokenResource(
