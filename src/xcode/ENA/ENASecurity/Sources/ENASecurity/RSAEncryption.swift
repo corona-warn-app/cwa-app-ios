@@ -22,29 +22,15 @@ public struct RSAEncryption {
         publicKeyData: Data,
         privateKeyData: Data
     ) {
-        self.publicKey = SecKeyCreateWithData(
-            publicKeyData as NSData,
-            [
-                kSecAttrKeyType: kSecAttrKeyTypeRSA,
-                kSecAttrKeyClass: kSecAttrKeyClassPublic,
-            ] as NSDictionary,
-            nil
-        )
-        self.privateKey = SecKeyCreateWithData(
-            privateKeyData as NSData,
-            [
-                kSecAttrKeyType: kSecAttrKeyTypeRSA,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-            ] as NSDictionary,
-            nil
-        )
+        self.publicKey = publicKeyData
+        self.privateKey = privateKeyData
     }
 
     // MARK: - Public
 
     public func encrypt(_ data: Data) -> Result<Data, RSAEncryptionError> {
         // check if keys are available
-        guard let publicKey = publicKey else {
+        guard let publicKey = publicSecKey else {
             return .failure(.publicKeyMissing)
         }
         // try to get the public key from pair or private key
@@ -71,10 +57,10 @@ public struct RSAEncryption {
 
     public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
         // check if keys are available
-        guard let publicKey = publicKey else {
+        guard let publicKey = publicSecKey else {
             return .failure(.publicKeyMissing)
         }
-        guard let privateKey = privateKey else {
+        guard let privateKey = privateSecKey else {
             return .failure(.privateKeyMissing)
         }
         // check algorithm is supported
@@ -97,7 +83,29 @@ public struct RSAEncryption {
 
     // MARK: - Private
 
-    private let publicKey: SecKey?
-    private let privateKey: SecKey?
+    private let publicKey: Data
+    private let privateKey: Data
+
+    private var publicSecKey: SecKey? {
+        SecKeyCreateWithData(
+            publicKey as NSData,
+            [
+                kSecAttrKeyType: kSecAttrKeyTypeRSA,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            ] as NSDictionary,
+            nil
+        )
+    }
+
+    private var privateSecKey: SecKey? {
+        SecKeyCreateWithData(
+            privateKey as NSData,
+            [
+                kSecAttrKeyType: kSecAttrKeyTypeRSA,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+            ] as NSDictionary,
+            nil
+        )
+    }
 
 }
