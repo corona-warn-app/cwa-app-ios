@@ -222,10 +222,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			// if booster vaccination date found
 			return completeBoosterVaccinationProtectionDate
 		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false &&
-			$0.vaccinationEntry?.ageInDays ?? 0 > 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
+			$0.ageInDays ?? 0 > 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
 			// if series completion vaccination date found with > 14 days
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
-		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false && $0.vaccinationEntry?.ageInDays ?? 0 <= 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
+		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false && $0.ageInDays ?? 0 <= 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
 			// if series completion vaccination date found <= 14 days
 			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
 		} else {
