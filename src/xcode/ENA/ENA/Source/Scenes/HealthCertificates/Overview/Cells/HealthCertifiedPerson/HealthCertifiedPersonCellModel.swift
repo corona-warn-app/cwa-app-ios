@@ -25,6 +25,7 @@ class HealthCertifiedPersonCellModel {
 
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: mostRelevantCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
 			showInfoHit: showInfoHit
 		)

@@ -22,6 +22,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -48,6 +49,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -74,6 +76,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -100,6 +103,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -126,6 +130,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -138,6 +143,33 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		)
 
 		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
+	}
+
+	func testBlockedVaccinationCertificateShowingRealQRCode() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: true,
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
+		)
+
+		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			healthCertificate.base45
+		)
+
+		XCTAssertFalse(viewModel.shouldBlockCertificateCode)
 	}
 
 	// MARK: - Test Certificate
@@ -154,6 +186,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -180,6 +213,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -206,6 +240,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -232,6 +267,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -258,6 +294,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -270,6 +307,33 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		)
 
 		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
+	}
+
+	func testBlockedTestCertificateShowingRealQRCode() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: true,
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
+		)
+
+		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			healthCertificate.base45
+		)
+
+		XCTAssertFalse(viewModel.shouldBlockCertificateCode)
 	}
 
 	// MARK: - Recovery Certificate
@@ -286,6 +350,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -312,6 +377,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -338,6 +404,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -364,6 +431,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -390,6 +458,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
 			showInfoHit: { }
 		)
@@ -402,6 +471,33 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		)
 
 		XCTAssertTrue(viewModel.shouldBlockCertificateCode)
+	}
+
+	func testBlockedRecoveryCertificateShowingRealQRCode() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: true,
+			accessibilityLabel: "accessibilityLabel",
+			showInfoHit: { }
+		)
+
+		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			healthCertificate.base45
+		)
+
+		XCTAssertFalse(viewModel.shouldBlockCertificateCode)
 	}
 
 }
