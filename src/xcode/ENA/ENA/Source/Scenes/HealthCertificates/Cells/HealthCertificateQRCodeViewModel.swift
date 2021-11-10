@@ -11,11 +11,12 @@ struct HealthCertificateQRCodeViewModel {
 
 	init(
 		healthCertificate: HealthCertificate,
+		showRealQRCodeIfValidityStateBlocked: Bool,
 		accessibilityLabel: String,
 		showInfoHit: @escaping () -> Void
 	) {
 		self.base45 = healthCertificate.base45
-		self.shouldBlockCertificateCode = !healthCertificate.isUsable
+		self.shouldBlockCertificateCode = !healthCertificate.isUsable && !(showRealQRCodeIfValidityStateBlocked && healthCertificate.validityState == .blocked)
 		self.accessibilityLabel = accessibilityLabel
 		self.showInfo = showInfoHit
 	}
