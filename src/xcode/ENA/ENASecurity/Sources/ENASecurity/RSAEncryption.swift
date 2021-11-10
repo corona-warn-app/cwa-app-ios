@@ -15,20 +15,16 @@ public struct RSAEncryption {
     // MARK: - Init
 
     public init(
-        publicKeyData: Data,
-        privateKeyData: Data
+        publicKey: SecKey,
+        privateKey: SecKey
     ) {
-        self.publicKey = publicKeyData
-        self.privateKey = privateKeyData
+        self.publicKey = publicKey
+        self.privateKey = privateKey
     }
 
     // MARK: - Public
 
     public func encrypt(_ data: Data) -> Result<Data, RSAEncryptionError> {
-        // check if keys are available
-        guard let publicKey = publicSecKey else {
-            return .failure(.unknown("public key is missing"))
-        }
         // try to get the public key from pair or private key
         guard let publicKey = SecKeyCopyPublicKey(publicKey) else {
                   return .failure(.RSA_ENC_INVALID_KEY)
@@ -52,10 +48,6 @@ public struct RSAEncryption {
     }
 
     public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
-        // check if private key is available
-        guard let privateKey = privateSecKey else {
-            return .failure(.unknown("private key is missing"))
-        }
         // check algorithm is supported
         guard SecKeyIsAlgorithmSupported(privateKey, .decrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
@@ -76,9 +68,10 @@ public struct RSAEncryption {
 
     // MARK: - Private
 
-    private let publicKey: Data
-    private let privateKey: Data
+    private let publicKey: SecKey
+    private let privateKey: SecKey
 
+    /*
     private var publicSecKey: SecKey? {
         SecKeyCreateWithData(
             publicKey as NSData,
@@ -100,5 +93,6 @@ public struct RSAEncryption {
             nil
         )
     }
+     */
 
 }
