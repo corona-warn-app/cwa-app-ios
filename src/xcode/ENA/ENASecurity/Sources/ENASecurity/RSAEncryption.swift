@@ -6,12 +6,9 @@ import Foundation
 import CryptoSwift
 
 public enum RSAEncryptionError: Error {
-    case publicKeyIrretrievable
-    case algorithmNotSupported
-    case publicKeyMissing
-    case privateKeyMissing
-    case decryptionFailed(String?)
-    case encryptionFailed(String?)
+    case RSA_ENC_INVALID_KEY // public key cannot be used for encryption
+    case RSA_ENC_NOT_SUPPORTED // algorithm is not supported
+    case unknown(String?)
 }
 
 public struct RSAEncryption {
@@ -31,15 +28,15 @@ public struct RSAEncryption {
     public func encrypt(_ data: Data) -> Result<Data, RSAEncryptionError> {
         // check if keys are available
         guard let publicKey = publicSecKey else {
-            return .failure(.publicKeyMissing)
+            return .failure(.unknown("public key is missing"))
         }
         // try to get the public key from pair or private key
         guard let publicKey = SecKeyCopyPublicKey(publicKey) else {
-                  return .failure(.publicKeyIrretrievable)
+                  return .failure(.RSA_ENC_INVALID_KEY)
               }
         // check algorithm is supporrted
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
-            return .failure(.algorithmNotSupported)
+            return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
 
         var error: Unmanaged<CFError>?
@@ -50,7 +47,7 @@ public struct RSAEncryption {
             &error
         ) as Data?,
               error == nil else {
-                  return .failure(.encryptionFailed(error?.takeRetainedValue().localizedDescription))
+                  return .failure(.unknown(error?.takeRetainedValue().localizedDescription))
               }
         return .success(cipherData)
     }
@@ -58,14 +55,14 @@ public struct RSAEncryption {
     public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
         // check if keys are available
         guard let publicKey = publicSecKey else {
-            return .failure(.publicKeyMissing)
+            return .failure(.unknown("public key is missing"))
         }
         guard let privateKey = privateSecKey else {
-            return .failure(.privateKeyMissing)
+            return .failure(.unknown("private key is missing"))
         }
         // check algorithm is supported
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
-            return .failure(.algorithmNotSupported)
+            return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
         // let's try to decrypt cipher
         var error: Unmanaged<CFError>?
@@ -76,7 +73,7 @@ public struct RSAEncryption {
             &error
         ) as Data?,
               error == nil else {
-                  return .failure(.decryptionFailed(error?.takeRetainedValue().localizedDescription))
+                  return .failure(.unknown(error?.takeRetainedValue().localizedDescription))
               }
         return .success(decodedData)
     }
