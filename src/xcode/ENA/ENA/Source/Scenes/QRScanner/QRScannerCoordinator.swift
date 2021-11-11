@@ -97,6 +97,7 @@ class QRScannerCoordinator {
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
+	private var ticketValidationCoordinator: TicketValidationCoordinator?
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
 	private func qrScannerViewController(
@@ -151,6 +152,8 @@ class QRScannerCoordinator {
 			showScannedHealthCertificate(certificateResult)
 		case let .traceLocation(traceLocation):
 			showScannedCheckin(traceLocation)
+		case let .ticketValidation(ticketValidationInitializationData):
+			showScannedTicketValidation(ticketValidationInitializationData)
 		}
 	}
 
@@ -309,6 +312,44 @@ class QRScannerCoordinator {
 				)
 
 				self.traceLocationCheckinCoordinator?.start()
+			case .none:
+				break
+			}
+		}
+	}
+
+	private func showScannedTicketValidation(
+		_ initializationData: TicketValidationInitializationData
+	) {
+		qrScannerViewController?.dismiss(animated: true) {
+			switch self.presenter {
+			case .onBehalfFlow, .submissionFlow:
+				let parentPresentingViewController = self.parentViewController?.presentingViewController
+
+				// Dismiss submission/on behalf submission flow
+				self.parentViewController?.dismiss(animated: true) {
+					self.parentViewController = parentPresentingViewController
+
+					guard let parentViewController = self.parentViewController else {
+						return
+					}
+
+					self.ticketValidationCoordinator = TicketValidationCoordinator(
+						parentViewController: parentViewController
+					)
+
+					self.ticketValidationCoordinator?.start(initializationData: initializationData)
+				}
+			case .checkinTab, .certificateTab, .universalScanner:
+				guard let parentViewController = self.parentViewController else {
+					return
+				}
+
+				self.ticketValidationCoordinator = TicketValidationCoordinator(
+					parentViewController: parentViewController
+				)
+
+				self.ticketValidationCoordinator?.start(initializationData: initializationData)
 			case .none:
 				break
 			}
