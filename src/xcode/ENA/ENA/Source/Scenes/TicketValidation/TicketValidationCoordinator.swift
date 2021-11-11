@@ -35,19 +35,20 @@ final class TicketValidationCoordinator {
 	private func firstConsentScreen(
 		initializationData: TicketValidationInitializationData
 	) -> UIViewController {
-//		let firstConsentViewController = FirstTicketValidationConsentViewController(
-//			viewModel: FirstTicketValidationConsentViewModel(
-//				initializationData: initializationData
-//			),
-//			onDataPrivacyTap: {
-//				self.showDataPrivacy()
-//			},
-//			onDismiss: {
-//				self.showDismissAlert()
-//			}
-//		)
+		let firstConsentViewController = FirstTicketValidationConsentViewController(
+			viewModel: FirstTicketValidationConsentViewModel(
+				initializationData: initializationData,
+				onDataPrivacyTap: {
+					self.showDataPrivacy()
+				}
+			),
+			onPrimaryButtonTap: {
 
-		let firstConsentViewController = UIViewController()
+			},
+			onDismiss: {
+				self.showDismissAlert()
+			}
+		)
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(

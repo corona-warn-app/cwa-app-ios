@@ -23,6 +23,8 @@
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
 		010E07AB273D00AE00C2BE5F /* TicketValidationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010E07AA273D009C00C2BE5F /* TicketValidationCoordinator.swift */; };
+		010E07AE273D3AB400C2BE5F /* FirstTicketValidationConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010E07AC273D3AB400C2BE5F /* FirstTicketValidationConsentViewController.swift */; };
+		010E07AF273D3AB400C2BE5F /* FirstTicketValidationConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010E07AD273D3AB400C2BE5F /* FirstTicketValidationConsentViewModel.swift */; };
 		010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */; };
 		01115C332721AEB2006F390D /* CoronaTestRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01115C322721AC6F006F390D /* CoronaTestRestorationHandler.swift */; };
 		011216FA2617363D00320745 /* CoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011216F92617363D00320745 /* CoronaTestService.swift */; };
@@ -1466,6 +1468,8 @@
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
 		010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModelTests.swift; sourceTree = "<group>"; };
 		010E07AA273D009C00C2BE5F /* TicketValidationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationCoordinator.swift; sourceTree = "<group>"; };
+		010E07AC273D3AB400C2BE5F /* FirstTicketValidationConsentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTicketValidationConsentViewController.swift; sourceTree = "<group>"; };
+		010E07AD273D3AB400C2BE5F /* FirstTicketValidationConsentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTicketValidationConsentViewModel.swift; sourceTree = "<group>"; };
 		010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestServiceError.swift; sourceTree = "<group>"; };
 		01115C322721AC6F006F390D /* CoronaTestRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRestorationHandler.swift; sourceTree = "<group>"; };
 		011216F92617363D00320745 /* CoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestService.swift; sourceTree = "<group>"; };
@@ -3034,8 +3038,18 @@
 			isa = PBXGroup;
 			children = (
 				010E07AA273D009C00C2BE5F /* TicketValidationCoordinator.swift */,
+				010E07B0273D4CC400C2BE5F /* FirstConsent */,
 			);
 			path = TicketValidation;
+			sourceTree = "<group>";
+		};
+		010E07B0273D4CC400C2BE5F /* FirstConsent */ = {
+			isa = PBXGroup;
+			children = (
+				010E07AC273D3AB400C2BE5F /* FirstTicketValidationConsentViewController.swift */,
+				010E07AD273D3AB400C2BE5F /* FirstTicketValidationConsentViewModel.swift */,
+			);
+			path = FirstConsent;
 			sourceTree = "<group>";
 		};
 		011216F22617360800320745 /* CoronaTestService */ = {
@@ -8960,6 +8974,7 @@
 				EB08F1862541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift in Sources */,
 				010E07AB273D00AE00C2BE5F /* TicketValidationCoordinator.swift in Sources */,
 				01A4DD0D25926A73007D5794 /* HomeLoadingItemViewModel.swift in Sources */,
+				010E07AF273D3AB400C2BE5F /* FirstTicketValidationConsentViewModel.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
 				EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */,
@@ -9552,6 +9567,7 @@
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
 				AB190E9925FB677800FBFF0D /* DeleteCheckinQuery.swift in Sources */,
 				341FE0B32721BA2100A4D28F /* AppDelegate+UITestingMethods.swift in Sources */,
+				010E07AE273D3AB400C2BE5F /* FirstTicketValidationConsentViewController.swift in Sources */,
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
 				8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */,
