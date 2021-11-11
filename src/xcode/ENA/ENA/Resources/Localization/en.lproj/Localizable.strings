@@ -3051,6 +3051,10 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
+"HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
+
+"HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Code Scanner";
 
