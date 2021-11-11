@@ -3051,6 +3051,10 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
 
+"HealthCertificate_ValidityState_Blocked" = "Certificat nevalabil";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certificatul a fost revocat de către autoritatea emitentă. Obțineți un certificat digital nou.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Scanner de coduri QR";
 

@@ -3051,6 +3051,10 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
 
+"HealthCertificate_ValidityState_Blocked" = "Certyfikat nieważny";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certyfikat został wycofany przez urząd wydający. Zdobądź nowy cyfrowy certyfikat.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Skaner kodów QR";
 
