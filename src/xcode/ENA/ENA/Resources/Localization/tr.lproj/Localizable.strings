@@ -3067,6 +3067,10 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 
+"HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Kod Tarayıcı";
 
