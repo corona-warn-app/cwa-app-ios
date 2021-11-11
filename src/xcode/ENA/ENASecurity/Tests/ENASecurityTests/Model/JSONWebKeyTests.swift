@@ -3,18 +3,21 @@
 //
 
 import XCTest
+import ASN1Decoder
 @testable import ENASecurity
 
 class JSONWebKeyTests: XCTestCase {
 
-    func test_some() {
+    func test_PublicKeyAccess() {
         for testData in testDatas {
-            guard let publicKey = testData.webKey.publicKey() else {
+            guard let publicKey = testData.webKey.publicKey(),
+                  let publicKeyData = testData.webKey.publicKeyData() else {
                 XCTFail("PublicKey expexted.")
                 return
             }
             XCTAssertEqual(publicKey.algName, testData.type)
             XCTAssertEqual(publicKey.derEncodedKey?.base64EncodedString(), testData.expectedPublicKeyBase64)
+            XCTAssertEqual(publicKeyData.base64EncodedString(), testData.expectedPublicKeyBase64)
         }
     }
 
@@ -46,7 +49,7 @@ class JSONWebKeyTests: XCTestCase {
             expectedPublicKeyBase64: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDFRBNFvVLdf3L5kNtzEs7qUi4L/p/+yo+JMxE8/DWxZA94OnrgwC9qIBuJdZLdws2kjcJiATMEgOmAujf6UFBRb/z07Pleo3LhUS+AA0xNhAkGetW5qb5d966MPehiyqbGhmivUPE7a6CaHF1vluFufkKw7E3QVGPINZBt4zaj9QIDAQAB"
         ),
         TestData(
-            type: "rsa-pss",
+            type: "rsassaPSS",
             webKey: JSONWebKey(
                 x5c: "MIICiTCCAi4CFE1j4zu8fwdXVFAfuF1BTaXF+/wYMAoGCCqGSM49BAMCMGIxCzAJBgNVBAYTAkRFMQswCQYDVQQIDAJCVzERMA8GA1UEBwwIV2FsbGRvcmYxDzANBgNVBAoMBlNBUCBTRTEQMA4GA1UECwwHQ1dBIENMSTEQMA4GA1UEAwwHY3dhLWNsaTAeFw0yMTEwMjgxNDQ0NTdaFw0zMTEwMjYxNDQ0NTdaMGIxCzAJBgNVBAYTAkRFMQswCQYDVQQIDAJCVzERMA8GA1UEBwwIV2FsbGRvcmYxDzANBgNVBAoMBlNBUCBTRTEQMA4GA1UECwwHQ1dBIENMSTEQMA4GA1UEAwwHY3dhLWNsaTCCASAwCwYJKoZIhvcNAQEKA4IBDwAwggEKAoIBAQDezyQ7r6vZhDEMxeK4FdSAfN/nuZ1V90e2146XpsTxV7zX2SGnqx1LEm5jI5zQ36Kri+IPVHvt9SsvGEmgHajOKpzEA0nSukBFABTnC/Fz6lU3UlgZxeGgAJAUfhPX1adzt4/qJtD/bLsuSill1YLjNKesQZ0qoG13VqDP6X3l1dkeAwK+TqNLclU/LSDOqlwoY2r71IL2Mwd8xuTCJSSkx6vKAhjYbJh1HPUyqBTOb36ojacc/M9n9TJ1wheaCN0VvTE/P3o+KWMBYlPQLseu2d6LZ1lsyz8t11lDAVxDXmTvTRF5Zg+Xs67zzHGWdmCKUXYJ/NZib+0R5KDNu1X9AgMBAAEwCgYIKoZIzj0EAwIDSQAwRgIhANCsXgfP4FQ5zfq7fx/OgZDBdRmjKSoe2OCIfX1DgoC1AiEAjEDcIdERLgpV6Fgt+ds95IfNP6C+u02hoRFaIqBEquE=",
                 kid: "DF8FkiQwmd0=",
