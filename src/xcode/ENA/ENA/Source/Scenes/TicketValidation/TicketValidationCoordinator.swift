@@ -80,7 +80,28 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showDismissAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.TicketValidation.CancelAlert.title,
+			message: AppStrings.TicketValidation.CancelAlert.message,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.TicketValidation.CancelAlert.continueButtonTitle,
+				style: .default
+			)
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.TicketValidation.CancelAlert.cancelButtonTitle,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.navigationController.dismiss(animated: true)
+				}
+			)
+		)
 
+		navigationController.present(alert, animated: true)
 	}
 
 }
