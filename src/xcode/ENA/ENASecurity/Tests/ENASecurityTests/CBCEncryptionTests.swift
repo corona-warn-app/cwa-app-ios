@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENASecurity
 
-final class AESEncryptionTests: XCTestCase {
+final class CBCEncryptionTests: XCTestCase {
 
     func test_When_Decrypt_Then_CorrectStringIsReturned() {
         guard let key = Data(base64Encoded: "d56t/juMw5r4qNx1n1igs1pobUjZBT5yq0Ct7MHUuKM="),
@@ -15,11 +15,11 @@ final class AESEncryptionTests: XCTestCase {
             return
         }
 
-        let aesEncryption = AESEncryption(
+        let cbcEncryption = CBCEncryption(
             encryptionKey: key,
             initializationVector: AESEncryptionConstants.zeroInitializationVector
         )
-        let result = aesEncryption.decrypt(data: encrypted)
+        let result = cbcEncryption.decrypt(data: encrypted)
 
         guard case let .success(decryptedData) = result else {
             XCTFail("Success expected.")
@@ -38,11 +38,11 @@ final class AESEncryptionTests: XCTestCase {
                 return
             }
 
-            let aesEncryption = AESEncryption(
+            let cbcEncryption = CBCEncryption(
                 encryptionKey: key,
                 initializationVector: vector
             )
-            let result = aesEncryption.decrypt(data: encrypted)
+            let result = cbcEncryption.decrypt(data: encrypted)
 
             guard case let .success(decryptedData) = result else {
                 XCTFail("Success expected.")
@@ -62,11 +62,11 @@ final class AESEncryptionTests: XCTestCase {
                 return
             }
 
-            let aesEncryption = AESEncryption(
+            let cbcEncryption = CBCEncryption(
                 encryptionKey: key,
                 initializationVector: vector
             )
-            let result = aesEncryption.encrypt(data: decrypted)
+            let result = cbcEncryption.encrypt(data: decrypted)
 
             guard case let .success(encryptedData) = result else {
                 XCTFail("Success expected.")

@@ -976,6 +976,7 @@
 		AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
 		AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E9E79261308C000515408 /* RiskTests.swift */; };
 		ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC9D2D2624938100EB183F /* TestResultTests.swift */; };
+		ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABBBC055273AD2C3009A4B56 /* ENASecurity */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
 		ABC1C273267B854E00223625 /* DCCDateStringFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */; };
@@ -2926,6 +2927,7 @@
 				AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
 				B1EDFD88248E741B00E7EAFF /* SwiftProtobuf in Frameworks */,
+				ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */,
 				EB7AF62C2587E98C00D94CA8 /* OpenCombine in Frameworks */,
 				B1EDFD89248E741B00E7EAFF /* ZIPFoundation in Frameworks */,
 			);
@@ -8384,6 +8386,7 @@
 				EB7AF62B2587E98C00D94CA8 /* OpenCombine */,
 				EB7AF62D2587E98C00D94CA8 /* OpenCombineDispatch */,
 				AB42A192263C284200892536 /* HealthCertificateToolkit */,
+				ABBBC055273AD2C3009A4B56 /* ENASecurity */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -11187,6 +11190,10 @@
 		AB42A192263C284200892536 /* HealthCertificateToolkit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HealthCertificateToolkit;
+		};
+		ABBBC055273AD2C3009A4B56 /* ENASecurity */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ENASecurity;
 		};
 		B10FB02F246036F3004CA11E /* SwiftProtobuf */ = {
 			isa = XCSwiftPackageProductDependency;

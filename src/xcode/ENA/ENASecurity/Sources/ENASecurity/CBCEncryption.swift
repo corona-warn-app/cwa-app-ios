@@ -5,11 +5,11 @@
 import Foundation
 import CommonCrypto
 
-public enum AESEncryptionError: Error {
+public enum CBCEncryptionError: Error {
     case EncryptionFailed(Int)
 }
 
-public struct AESEncryption {
+public struct CBCEncryption {
 
     // MARK: - Init
 
@@ -20,11 +20,11 @@ public struct AESEncryption {
 
     // MARK: - Public
 
-    public func encrypt(data: Data) -> Result<Data, AESEncryptionError> {
+    public func encrypt(data: Data) -> Result<Data, CBCEncryptionError> {
         return crypt(data: data, option: CCOperation(kCCEncrypt))
     }
 
-    public func decrypt(data: Data) -> Result<Data, AESEncryptionError> {
+    public func decrypt(data: Data) -> Result<Data, CBCEncryptionError> {
         return crypt(data: data, option: CCOperation(kCCDecrypt))
     }
 
@@ -33,7 +33,7 @@ public struct AESEncryption {
     private let encryptionKey: Data
     private let initializationVector: Data
 
-    private func crypt(data: Data, option: CCOperation) -> Result<Data, AESEncryptionError> {
+    private func crypt(data: Data, option: CCOperation) -> Result<Data, CBCEncryptionError> {
         let cryptedDataLength = data.count + kCCBlockSizeAES128
         var cryptedData = Data(count: cryptedDataLength)
         let keyLength = encryptionKey.count
