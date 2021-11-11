@@ -48,7 +48,7 @@ class TrustEvaluation {
         // Find requiredCertificates: the requiredCertificates shall be set by mapping each entry in requiredJwkSet to their native x509 certificate object by parsing the x5c attribute.
         // Note that x5c is a base64-encoded string.
         let requiredCertificates = requiredJwkSet.compactMap { jsonWebKey -> Data? in
-            Data(base64Encoded: jsonWebKey.x5x)
+            Data(base64Encoded: jsonWebKey.x5c)
         }
 
         // Find requiredFingerprints: the requiredFingerprints shall be set by mapping each entry in requiredCertificates to their respective SHA-256 fingerprint.
