@@ -116,8 +116,6 @@ final class GCMEncryptionTests: XCTestCase {
         // Encryption should return error .AES_GCM_INVALID_IV with this initialization vector.
         let initializationVector = Data(capacity: 0)
 
-        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
-
         guard let key = Data(base64Encoded: testData.keyBase64),
             let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
                   XCTFail("Could not create test data.")
@@ -145,8 +143,6 @@ final class GCMEncryptionTests: XCTestCase {
         // Encryption should return error .AES_GCM_INVALID_IV with this initialization vector.
         let initializationVector = Data(capacity: 0)
 
-        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
-
         guard let key = Data(base64Encoded: testData.keyBase64),
             let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
                   XCTFail("Could not create test data.")
@@ -172,8 +168,6 @@ final class GCMEncryptionTests: XCTestCase {
 
         // initializationVector of size 13 should return an error with ivLengthConstraint of 16
         let initializationVector = Data(capacity: 13)
-
-        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
 
         guard let key = Data(base64Encoded: testData.keyBase64),
             let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
@@ -201,8 +195,6 @@ final class GCMEncryptionTests: XCTestCase {
 
         // initializationVector of size 13 should return an error with ivLengthConstraint of 16
         let initializationVector = Data(capacity: 13)
-
-        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
 
         guard let key = Data(base64Encoded: testData.keyBase64),
             let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
