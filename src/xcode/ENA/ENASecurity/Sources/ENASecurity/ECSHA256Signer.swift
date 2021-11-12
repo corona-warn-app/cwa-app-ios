@@ -51,37 +51,4 @@ public struct ECSHA256Signer {
 }
 
 
-extension SecKey {
-    
-    // We need this since Apple expects only the raw keys no headers allowed. 🙄
-    static func privateEC(from pemData: CFData) -> SecKey?{
-        let attributes: [String: Any] = [
-            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecAttrKeyClass as String: kSecAttrKeyClassPrivate
-        ]
-        
-        guard let mutableData = CFDataCreateMutable(kCFAllocatorDefault, CFIndex(0)) else {
-            return nil
-        }
-        
-        CFDataAppendBytes(mutableData, CFDataGetBytePtr(pemData) + 56, 65) // get public key data plus some headers
-        CFDataAppendBytes(mutableData, CFDataGetBytePtr(pemData) + 7 , 32) // append private key data
-        return SecKeyCreateWithData(mutableData, attributes as CFDictionary, nil)
-    }
-    
-    static func publicEC(from pemData: CFData) -> SecKey?{
-        let attributes: [String: Any] = [
-            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecAttrKeyClass as String: kSecAttrKeyClassPublic
-        ]
-        
-        guard let mutableData = CFDataCreateMutable(kCFAllocatorDefault, CFIndex(0)) else {
-            return nil
-        }
-        
-        CFDataAppendBytes(mutableData, CFDataGetBytePtr(pemData), CFDataGetLength(pemData))
-        CFDataDeleteBytes(mutableData, CFRangeMake(CFIndex(0), 26)) // Remove Header
-        
-        return SecKeyCreateWithData(mutableData, attributes as CFDictionary, nil)
-    }
-}
+
