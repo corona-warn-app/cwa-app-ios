@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "You have already registered a PCR test.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "You have already registered a PCR test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another PCR test, the first PCR test will be deleted from the app.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "You have already registered a PCR test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another PCR test, the first PCR test will be moved to the recycle bin, where you can restore it or delete it permanently.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "You have already registered a rapid test.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be deleted from the app.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be moved to the recycle bin, where you can restore it or delete it permanently.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Rapid Test Profile";

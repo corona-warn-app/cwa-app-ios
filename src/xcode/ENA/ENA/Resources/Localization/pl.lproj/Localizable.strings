@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zarejestrowano już test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie usunięty z aplikacji.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zarejestrowano już szybki test.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie usunięty z aplikacji.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil szybkiego testu";
