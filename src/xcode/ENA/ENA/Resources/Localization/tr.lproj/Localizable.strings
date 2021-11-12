@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zaten bir PCR testi kaydı oluşturdunuz.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi uygulamadan silinir.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi geri dönüşüm kutusuna taşınır. Geri dönüşüm kutusunda PCR testini geri yükleyebilir ya da kalıcı olarak silebilirsiniz.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zaten bir hızlı test kaydı oluşturdunuz.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test uygulamadan silinir.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test geri dönüşüm kutusuna taşınır. Geri dönüşüm kutusunda hızlı testi geri yükleyebilir ya da kalıcı olarak silebilirsiniz.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Hızlı Test Profili";
