@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Ați înregistrat deja un test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Ați înregistrat deja un test rapid.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil de test rapid";

@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Вече сте регистрирали PCR тест.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Вече сте регистрирали PCR тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг PCR тест, предходният PCR тест ще бъде изтрит.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Вече сте регистрирали PCR тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг PCR тест, предходният PCR тест ще бъде преместен в кошчето, от където може да го възстановите или изтриете.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Вече сте регистрирали бърз тест.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Вече сте регистрирали бърз тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг бърз тест, предходният бърз тест ще бъде изтрит.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Вече сте регистрирали бърз тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг бърз тест, предходният бърз тест ще бъде преместен в кошчето, от където може да го възстановите или изтриете.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Профил за бързи тестове";
