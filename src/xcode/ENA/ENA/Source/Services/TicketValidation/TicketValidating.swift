@@ -9,11 +9,11 @@ protocol TicketValidating {
 
 	func initialize(
 		with initializationData: TicketValidationInitializationData,
-		completion: (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	)
 
 	func grantFirstConsent(
-		completion: (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	)
 
 	func selectCertificate(
@@ -21,7 +21,7 @@ protocol TicketValidating {
 	)
 
 	func validate(
-		completion: (Result<TicketValidationResult, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationResult, TicketValidationError>) -> Void
 	)
 
 	func cancel()

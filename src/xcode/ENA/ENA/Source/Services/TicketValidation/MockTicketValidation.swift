@@ -13,17 +13,23 @@ final class MockTicketValidation: TicketValidating {
 	var firstConsentResult: Result<Void, TicketValidationError>?
 	var validationResult: Result<TicketValidationResult, TicketValidationError>?
 
+	var delay: TimeInterval = 0
+
 	func initialize(
 		with initializationData: TicketValidationInitializationData,
-		completion: (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		completion(initializationResult ?? .success(()))
+		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+			completion(self.initializationResult ?? .success(()))
+		}
 	}
 
 	func grantFirstConsent(
-		completion: (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		completion(firstConsentResult ?? .success(()))
+		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+			completion(self.firstConsentResult ?? .success(()))
+		}
 	}
 
 	func selectCertificate(
@@ -33,9 +39,11 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func validate(
-		completion: (Result<TicketValidationResult, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationResult, TicketValidationError>) -> Void
 	) {
-		completion(validationResult ?? .success(.fake()))
+		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
+			completion(self.validationResult ?? .success(.fake()))
+		}
 	}
 
 	func cancel() {

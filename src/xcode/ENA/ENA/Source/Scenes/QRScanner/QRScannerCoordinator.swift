@@ -321,6 +321,13 @@ class QRScannerCoordinator {
 	private func showScannedTicketValidation(
 		_ initializationData: TicketValidationInitializationData
 	) {
+		let ticketValidation = MockTicketValidation()
+		ticketValidation.delay = 3
+
+		ticketValidation.initialize(with: initializationData) { [weak self] result in
+			
+		}
+
 		qrScannerViewController?.dismiss(animated: true) {
 			switch self.presenter {
 			case .onBehalfFlow, .submissionFlow:
