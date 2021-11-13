@@ -3068,8 +3068,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
 
-"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
-
 "HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
 "HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
@@ -3107,8 +3105,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_Passed_hint1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
 "HealthCertificate_Validation_Passed_hint2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
-
-"HealthCertificate_Validation_Passed_hint3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 

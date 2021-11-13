@@ -2240,7 +2240,6 @@ enum AppStrings {
 			static let headline2 = NSLocalizedString("HealthCertificate_Validation_Headline2", comment: "")
 			static let bullet1 = NSLocalizedString("HealthCertificate_Validation_Bullet1", comment: "")
 			static let bullet2 = NSLocalizedString("HealthCertificate_Validation_Bullet2", comment: "")
-			static let bullet3 = NSLocalizedString("HealthCertificate_Validation_Bullet3", comment: "")
 			static let bullet4 = NSLocalizedString("HealthCertificate_Validation_Bullet4", comment: "")
 			static let legalTitle = NSLocalizedString("HealthCertificate_Validation_Legal_Title", comment: "")
 			static let legalDescription = NSLocalizedString("HealthCertificate_Validation_Legal_Description", comment: "")
@@ -2276,7 +2275,6 @@ enum AppStrings {
 					static let hintsTitle = NSLocalizedString("HealthCertificate_Validation_Passed_hintsTitle", comment: "")
 					static let hint1 = NSLocalizedString("HealthCertificate_Validation_Passed_hint1", comment: "")
 					static let hint2 = NSLocalizedString("HealthCertificate_Validation_Passed_hint2", comment: "")
-					static let hint3 = NSLocalizedString("HealthCertificate_Validation_Passed_hint3", comment: "")
 					static let hint4 = NSLocalizedString("HealthCertificate_Validation_Passed_hint4", comment: "")
 					static let primaryButtonTitle = NSLocalizedString("HealthCertificate_Validation_Passed_primaryButtonTitle", comment: "")
 				}
