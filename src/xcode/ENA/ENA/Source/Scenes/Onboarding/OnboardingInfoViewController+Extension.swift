@@ -177,15 +177,6 @@ extension OnboardingInfoViewController {
 
 }
 
-// MARK: - Protocol UITextViewDelegate
-
-extension OnboardingInfoViewController: UITextViewDelegate {
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		LinkHelper.open(url: url)
-		return false
-	}
-}
-
 // MARK: - Protocol NavigationBarOpacityDelegate
 
 extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
