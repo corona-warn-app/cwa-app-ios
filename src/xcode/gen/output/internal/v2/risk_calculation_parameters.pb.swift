@@ -294,10 +294,6 @@ extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.minutesAtAttenuationFilters.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.minutesAtAttenuationFilters, fieldNumber: 1)
     }
@@ -313,9 +309,9 @@ extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
     if !self.normalizedTimePerDayToRiskLevelMapping.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.normalizedTimePerDayToRiskLevelMapping, fieldNumber: 5)
     }
-    try { if let v = self._trlEncoding {
+    if let v = self._trlEncoding {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    } }()
+    }
     if self.transmissionRiskLevelMultiplier != 0 {
       try visitor.visitSingularDoubleField(value: self.transmissionRiskLevelMultiplier, fieldNumber: 7)
     }
@@ -410,16 +406,12 @@ extension SAP_Internal_V2_MinutesAtAttenuationFilter: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._attenuationRange {
+    if let v = self._attenuationRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._dropIfMinutesInRange {
+    }
+    if let v = self._dropIfMinutesInRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -450,13 +442,9 @@ extension SAP_Internal_V2_TrlFilter: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._dropIfTrlInRange {
+    if let v = self._dropIfTrlInRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -488,13 +476,9 @@ extension SAP_Internal_V2_MinutesAtAttenuationWeight: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._attenuationRange {
+    if let v = self._attenuationRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     if self.weight != 0 {
       try visitor.visitSingularDoubleField(value: self.weight, fieldNumber: 2)
     }
@@ -530,13 +514,9 @@ extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping: SwiftProtobuf.Messag
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._normalizedTimeRange {
+    if let v = self._normalizedTimeRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     if self.riskLevel != .unspecified {
       try visitor.visitSingularEnumField(value: self.riskLevel, fieldNumber: 2)
     }

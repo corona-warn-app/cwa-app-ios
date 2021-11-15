@@ -341,25 +341,21 @@ extension SAP_Internal_V2_PresenceTracingParameters: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._riskCalculationParameters {
+    if let v = self._riskCalculationParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._submissionParameters {
+    }
+    if let v = self._submissionParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    }
     if self.qrCodeErrorCorrectionLevel != .medium {
       try visitor.visitSingularEnumField(value: self.qrCodeErrorCorrectionLevel, fieldNumber: 3)
     }
     if !self.revokedTraceLocationVersions.isEmpty {
       try visitor.visitPackedUInt32Field(value: self.revokedTraceLocationVersions, fieldNumber: 4)
     }
-    try { if let v = self._plausibleDeniabilityParameters {
+    if let v = self._plausibleDeniabilityParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    } }()
+    }
     if !self.qrCodeDescriptors.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.qrCodeDescriptors, fieldNumber: 6)
     }
@@ -488,13 +484,9 @@ extension SAP_Internal_V2_PresenceTracingSubmissionParameters.DurationFilter: Sw
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._dropIfMinutesInRange {
+    if let v = self._dropIfMinutesInRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -528,13 +520,9 @@ extension SAP_Internal_V2_PresenceTracingSubmissionParameters.AerosoleDecayFunct
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._minutesRange {
+    if let v = self._minutesRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     if self.slope != 0 {
       try visitor.visitSingularDoubleField(value: self.slope, fieldNumber: 2)
     }
@@ -640,13 +628,9 @@ extension SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOf
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._randomNumberRange {
+    if let v = self._randomNumberRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     if self.p != 0 {
       try visitor.visitSingularDoubleField(value: self.p, fieldNumber: 2)
     }
