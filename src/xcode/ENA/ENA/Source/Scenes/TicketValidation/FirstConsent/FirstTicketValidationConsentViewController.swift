@@ -32,6 +32,11 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 		super.viewDidLoad()
 		setupView()
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = false
+	}
 
 	// MARK: - Protocol FooterViewHandling
 

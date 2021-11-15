@@ -752,5 +752,12 @@ enum AccessibilityIdentifiers {
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
 	}
+	
+	enum TicketValidation {
+		
+		enum FirstConsent {
+			static let image = "TicketValidation.FirstConsent.image"
+		}
+	}
 
 }

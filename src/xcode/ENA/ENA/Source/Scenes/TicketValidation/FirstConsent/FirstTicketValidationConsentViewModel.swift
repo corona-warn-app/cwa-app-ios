@@ -21,6 +21,15 @@ struct FirstTicketValidationConsentViewModel {
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
+			.section(
+				header: .image(
+					UIImage(named: "Illu_TicketValidation"),
+					title: AppStrings.TicketValidation.FirstConsent.title,
+					accessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
+					accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
+				),
+				cells: []
+			),
 			// Data privacy cell
 			.section(
 				separators: .all,

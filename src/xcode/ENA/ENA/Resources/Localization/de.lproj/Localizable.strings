@@ -3372,3 +3372,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Ticket Validation */
+
+"TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
+
+"TicketValidation_FirstConsent_imageDescription" = "Ein Zertifikat wird für ein Ticketkauf übertragen";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Einverstanden";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
+
