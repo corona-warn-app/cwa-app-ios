@@ -11,7 +11,7 @@ struct JSONWebKey: Codable {
     let alg: String
     let use: String
 
-    func publicKey() -> X509PublicKey? {
+    var publicKey: X509PublicKey? {
         guard let x5cData = Data(base64Encoded: x5c),
               let x509Certificate = try? X509Certificate(data: x5cData) else {
             return nil
@@ -19,7 +19,7 @@ struct JSONWebKey: Codable {
         return x509Certificate.publicKey
     }
 
-    func publicKeyData() -> Data? {
+    var publicKeyData: Data? {
         guard let x5cData = Data(base64Encoded: x5c),
               let x509Certificate = try? X509Certificate(data: x5cData) else {
             return nil
