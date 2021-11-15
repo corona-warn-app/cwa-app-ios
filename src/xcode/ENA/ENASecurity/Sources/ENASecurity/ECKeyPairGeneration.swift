@@ -61,4 +61,11 @@ public struct ECKeyPairGeneration {
         
         return (modifiedData, nil)
     }
+    
+    // MARK: - Private
+    
+    private func tag(for name: String) -> Data {
+      "\(Bundle.main.bundleIdentifier ?? "app").\(name)".data(using: .utf8)!
+    }
+    
 }
