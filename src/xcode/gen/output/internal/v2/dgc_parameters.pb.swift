@@ -122,19 +122,15 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._testCertificateParameters {
+    if let v = self._testCertificateParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    }
     if self.expirationThresholdInDays != 0 {
       try visitor.visitSingularUInt32Field(value: self.expirationThresholdInDays, fieldNumber: 2)
     }
-    try { if let v = self._blockListParameters {
+    if let v = self._blockListParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 

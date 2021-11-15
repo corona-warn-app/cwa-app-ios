@@ -157,16 +157,12 @@ extension SAP_Internal_Evreg_CheckIn: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if self.trl != 0 {
       try visitor.visitSingularUInt32Field(value: self.trl, fieldNumber: 1)
     }
-    try { if let v = self._signedEvent {
+    if let v = self._signedEvent {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    }
     if self.checkinTime != 0 {
       try visitor.visitSingularUInt32Field(value: self.checkinTime, fieldNumber: 3)
     }
@@ -343,16 +339,12 @@ extension SAP_Internal_Evreg_CheckInOption4: SwiftProtobuf.Message, SwiftProtobu
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if self.trl != 0 {
       try visitor.visitSingularUInt32Field(value: self.trl, fieldNumber: 1)
     }
-    try { if let v = self._signedEvent {
+    if let v = self._signedEvent {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    }
     if self.checkinTime != 0 {
       try visitor.visitSingularUInt32Field(value: self.checkinTime, fieldNumber: 3)
     }
