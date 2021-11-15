@@ -2470,5 +2470,19 @@ enum AppStrings {
 		}
 	}
 
+	enum TicketValidation {
+		enum FirstConsent {
+			static let primaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_primaryButtonTitle", comment: "")
+			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_secondaryButtonTitle", comment: "")
+		}
+
+		enum CancelAlert {
+			static let title = NSLocalizedString("TicketValidation_CancelAlert_title", comment: "")
+			static let message = NSLocalizedString("TicketValidation_CancelAlert_message", comment: "")
+			static let cancelButtonTitle = NSLocalizedString("TicketValidation_CancelAlert_cancelButtonTitle", comment: "")
+			static let continueButtonTitle = NSLocalizedString("TicketValidation_CancelAlert_continueButtonTitle", comment: "")
+		}
+	}
+
 	// swiftlint:disable:next file_length
 }

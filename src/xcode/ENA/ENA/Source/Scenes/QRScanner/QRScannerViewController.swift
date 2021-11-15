@@ -431,6 +431,12 @@ class QRScannerViewController: UIViewController {
 		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
 		alertVC.addAction(event)
 
+		let ticketValidation = UIAlertAction(title: "Ticket Validation", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeTicketValidation()
+		})
+		ticketValidation.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeTicketValidation
+		alertVC.addAction(ticketValidation)
+
 		let other = UIAlertAction(title: "Other", style: .destructive, handler: nil)
 		other.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.other
 		alertVC.addAction(other)

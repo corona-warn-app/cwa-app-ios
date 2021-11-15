@@ -4,17 +4,28 @@
 
 import Foundation
 
-/// The result of a qrScan is a TraceLocation for checkins or warnings on behalf, a corona test or a healthCertificate (as a tuple of person and certificate)
 enum QRCodeResult {
 	case traceLocation(TraceLocation)
 	case coronaTest(CoronaTestRegistrationInformation)
 	case certificate(CertificateResult)
+	case ticketValidation(TicketValidationInitializationData)
 }
 
 struct CertificateResult {
 	let restoredFromBin: Bool
 	let person: HealthCertifiedPerson
 	let certificate: HealthCertificate
+}
+
+struct TicketValidationInitializationData: Codable {
+	let `protocol`: String
+	let protocolVersion: String
+	let serviceIdentity: String
+	let privacyUrl: String
+	let token: String
+	let consent: String
+	let subject: String
+	let serviceProvider: String
 }
 
 enum QRCodeParserError: Error, Equatable {

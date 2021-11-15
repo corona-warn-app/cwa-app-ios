@@ -171,6 +171,23 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	func fakeEventScan() {
 		parseTheExtractedQRCode(url: "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA")
 	}
+
+	func fakeTicketValidation() {
+		parseTheExtractedQRCode(
+			url: """
+				{
+					"protocol": "DCCVALIDATION",
+					"protocolVersion": "1.0.0",
+					"serviceIdentity": "https://dgca-booking-demo-eu-test.cfapps.eu10.hana.ondemand.com/api/identity",
+					"privacyUrl": "https://validation-decorator.example",
+					"token": "eyJ0eXAiOiJKV1QiLCJraWQiOiJiUzhEMi9XejV0WT0iLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RnY2EtYm9va2luZy1kZW1vLWV1LXRlc3QuY2ZhcHBzLmV1MTAuaGFuYS5vbmRlbWFuZC5jb20vYXBpL2lkZW50aXR5IiwiZXhwIjoxNjM1NDk2MzYwLCJzdWIiOiIwMDI0MWQxMS0yN2I0LTQxYWYtOWU3Ny0zNDE4YzNlY2NmZDQifQ.X0wUdET3omy3qXyOhBh1UuAUEvfYMCdapv0yVShynfZpc4yS3kH57TrPLgSqS7A9ZhbgIdCIfZwr0Chm1ELyTw",
+					"consent": "Please confirm to start the DCC exchange flow. If you not confirm, the flow is aborted.",
+					"subject": "00241d11-27b4-41af-9e77-3418c3eccfd4",
+					"serviceProvider": "Booking Demo"
+				}
+			"""
+		)
+	}
 	#endif
 
 	// MARK: - Private

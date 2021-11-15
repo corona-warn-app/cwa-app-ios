@@ -97,6 +97,7 @@ class QRScannerCoordinator {
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
+	private var ticketValidationCoordinator: TicketValidationCoordinator?
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
 	private func qrScannerViewController(
@@ -151,6 +152,8 @@ class QRScannerCoordinator {
 			showScannedHealthCertificate(certificateResult)
 		case let .traceLocation(traceLocation):
 			showScannedCheckin(traceLocation)
+		case let .ticketValidation(ticketValidationInitializationData):
+			evaluateScannedTicketValidation(ticketValidationInitializationData)
 		}
 	}
 
@@ -309,6 +312,62 @@ class QRScannerCoordinator {
 				)
 
 				self.traceLocationCheckinCoordinator?.start()
+			case .none:
+				break
+			}
+		}
+	}
+
+	private func evaluateScannedTicketValidation(
+		_ initializationData: TicketValidationInitializationData
+	) {
+		let ticketValidation = MockTicketValidation()
+		ticketValidation.delay = 1
+
+		ticketValidation.initialize(with: initializationData) { [weak self] result in
+			switch result {
+			case .success:
+				DispatchQueue.main.async {
+					self?.showScannedTicketValidation(ticketValidation)
+				}
+			case .failure:
+				break
+			}
+		}
+	}
+
+	private func showScannedTicketValidation(
+		_ ticketValidation: TicketValidating
+	) {
+		qrScannerViewController?.dismiss(animated: true) {
+			switch self.presenter {
+			case .onBehalfFlow, .submissionFlow:
+				let parentPresentingViewController = self.parentViewController?.presentingViewController
+
+				// Dismiss submission/on behalf submission flow
+				self.parentViewController?.dismiss(animated: true) {
+					self.parentViewController = parentPresentingViewController
+
+					guard let parentViewController = self.parentViewController else {
+						return
+					}
+
+					self.ticketValidationCoordinator = TicketValidationCoordinator(
+						parentViewController: parentViewController
+					)
+
+					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
+				}
+			case .checkinTab, .certificateTab, .universalScanner:
+				guard let parentViewController = self.parentViewController else {
+					return
+				}
+
+				self.ticketValidationCoordinator = TicketValidationCoordinator(
+					parentViewController: parentViewController
+				)
+
+				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
 			case .none:
 				break
 			}
