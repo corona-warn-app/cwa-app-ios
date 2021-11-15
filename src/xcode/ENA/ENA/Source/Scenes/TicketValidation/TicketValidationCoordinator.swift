@@ -91,7 +91,7 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showCertificateSelectionScreen() {
-
+		let 
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {
