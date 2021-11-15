@@ -7,12 +7,22 @@ import OpenCombine
 
 final class TicketValidation: TicketValidating {
 	
-	// MARK: - Internal
+	// MARK: - Protocol TicketValidating
+
+	var serviceProvider: String {
+		initializationData?.serviceProvider ?? ""
+	}
+
+	var subject: String {
+		initializationData?.subject ?? ""
+	}
 
 	func initialize(
 		with initializationData: TicketValidationInitializationData,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
+		self.initializationData = initializationData
+
 
 	}
 
@@ -37,5 +47,9 @@ final class TicketValidation: TicketValidating {
 	func cancel() {
 
 	}
+
+	// MARK: - Private
+
+	private var initializationData: TicketValidationInitializationData?
 
 }

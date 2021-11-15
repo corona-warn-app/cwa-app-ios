@@ -17,11 +17,11 @@ final class TicketValidationCoordinator {
 	
 	// MARK: - Internal
 
-	func start(initializationData: TicketValidationInitializationData) {
+	func start(ticketValidation: TicketValidating) {
+		self.ticketValidation = ticketValidation
+
 		navigationController = DismissHandlingNavigationController(
-			rootViewController: firstConsentScreen(
-				initializationData: initializationData
-			),
+			rootViewController: firstConsentScreen,
 			transparent: true
 		)
 		parentViewController.present(navigationController, animated: true)
@@ -31,19 +31,30 @@ final class TicketValidationCoordinator {
 	
 	private weak var parentViewController: UIViewController!
 	private var navigationController: UINavigationController!
+	private var ticketValidation: TicketValidating!
 	
-	private func firstConsentScreen(
-		initializationData: TicketValidationInitializationData
-	) -> UIViewController {
+	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
 			viewModel: FirstTicketValidationConsentViewModel(
-				initializationData: initializationData,
+				serviceProvider: ticketValidation.serviceProvider,
+				subject: ticketValidation.subject,
 				onDataPrivacyTap: {
 					self.showDataPrivacy()
 				}
 			),
-			onPrimaryButtonTap: {
+			onPrimaryButtonTap: { [weak self] isLoading in
+				isLoading(true)
 
+				self?.ticketValidation.grantFirstConsent { result in
+					isLoading(false)
+
+					switch result {
+					case .success:
+						self?.showCertificateSelectionScreen()
+					case .failure(let error):
+						self?.showErrorAlert(error: error)
+					}
+				}
 			},
 			onDismiss: {
 				self.showDismissAlert()
@@ -77,6 +88,14 @@ final class TicketValidationCoordinator {
 		}
 
 		navigationController.pushViewController(detailViewController, animated: true)
+	}
+
+	private func showCertificateSelectionScreen() {
+
+	}
+
+	private func showErrorAlert(error: TicketValidationError) {
+
 	}
 
 	private func showDismissAlert() {

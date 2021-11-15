@@ -11,7 +11,7 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	
 	init(
 		viewModel: FirstTicketValidationConsentViewModel,
-		onPrimaryButtonTap: @escaping () -> Void,
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
@@ -38,7 +38,12 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			onPrimaryButtonTap()
+			onPrimaryButtonTap { [weak self] isLoading in
+				guard let self = self else { return }
+
+				self.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
+				self.footerView?.setLoadingIndicator(false, disable: isLoading, button: .secondary)
+			}
 		case .secondary:
 			onDismiss()
 		}
@@ -47,7 +52,7 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	// MARK: - Private
 
 	private let viewModel: FirstTicketValidationConsentViewModel
-	private let onPrimaryButtonTap: () -> Void
+	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onDismiss: () -> Void
 
 	private func setupView() {

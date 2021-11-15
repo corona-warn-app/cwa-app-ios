@@ -7,6 +7,9 @@ import OpenCombine
 
 protocol TicketValidating {
 
+	var serviceProvider: String { get }
+	var subject: String { get }
+
 	func initialize(
 		with initializationData: TicketValidationInitializationData,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void

@@ -153,7 +153,7 @@ class QRScannerCoordinator {
 		case let .traceLocation(traceLocation):
 			showScannedCheckin(traceLocation)
 		case let .ticketValidation(ticketValidationInitializationData):
-			showScannedTicketValidation(ticketValidationInitializationData)
+			evaluateScannedTicketValidation(ticketValidationInitializationData)
 		}
 	}
 
@@ -318,16 +318,27 @@ class QRScannerCoordinator {
 		}
 	}
 
-	private func showScannedTicketValidation(
+	private func evaluateScannedTicketValidation(
 		_ initializationData: TicketValidationInitializationData
 	) {
 		let ticketValidation = MockTicketValidation()
-		ticketValidation.delay = 3
+		ticketValidation.delay = 1
 
 		ticketValidation.initialize(with: initializationData) { [weak self] result in
-			
+			switch result {
+			case .success:
+				DispatchQueue.main.async {
+					self?.showScannedTicketValidation(ticketValidation)
+				}
+			case .failure:
+				break
+			}
 		}
+	}
 
+	private func showScannedTicketValidation(
+		_ ticketValidation: TicketValidating
+	) {
 		qrScannerViewController?.dismiss(animated: true) {
 			switch self.presenter {
 			case .onBehalfFlow, .submissionFlow:
@@ -345,7 +356,7 @@ class QRScannerCoordinator {
 						parentViewController: parentViewController
 					)
 
-					self.ticketValidationCoordinator?.start(initializationData: initializationData)
+					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
 				}
 			case .checkinTab, .certificateTab, .universalScanner:
 				guard let parentViewController = self.parentViewController else {
@@ -356,7 +367,7 @@ class QRScannerCoordinator {
 					parentViewController: parentViewController
 				)
 
-				self.ticketValidationCoordinator?.start(initializationData: initializationData)
+				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
 			case .none:
 				break
 			}

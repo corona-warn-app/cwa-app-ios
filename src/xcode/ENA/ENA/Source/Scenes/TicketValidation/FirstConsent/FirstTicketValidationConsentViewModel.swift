@@ -8,10 +8,12 @@ import UIKit
 struct FirstTicketValidationConsentViewModel {
 
 	init(
-		initializationData: TicketValidationInitializationData,
+		serviceProvider: String,
+		subject: String,
 		onDataPrivacyTap: @escaping () -> Void
 	) {
-		self.initializationData = initializationData
+		self.serviceProvider = serviceProvider
+		self.subject = subject
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
 
@@ -42,7 +44,8 @@ struct FirstTicketValidationConsentViewModel {
 
 	// MARK: - Private
 
-	private let initializationData: TicketValidationInitializationData
+	private let serviceProvider: String
+	private let subject: String
 	private let onDataPrivacyTap: () -> Void
 
 }

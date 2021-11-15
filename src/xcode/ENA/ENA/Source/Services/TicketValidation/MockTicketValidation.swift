@@ -6,14 +6,16 @@ import UIKit
 import OpenCombine
 
 final class MockTicketValidation: TicketValidating {
-	
-	// MARK: - Internal
 
-	var initializationResult: Result<Void, TicketValidationError>?
-	var firstConsentResult: Result<Void, TicketValidationError>?
-	var validationResult: Result<TicketValidationResult, TicketValidationError>?
+	// MARK: - Protocol TicketValidating
 
-	var delay: TimeInterval = 0
+	var serviceProvider: String {
+		initializationData?.serviceProvider ?? ""
+	}
+
+	var subject: String {
+		initializationData?.subject ?? ""
+	}
 
 	func initialize(
 		with initializationData: TicketValidationInitializationData,
@@ -49,5 +51,17 @@ final class MockTicketValidation: TicketValidating {
 	func cancel() {
 
 	}
+
+	// MARK: - Internal
+
+	var initializationResult: Result<Void, TicketValidationError>?
+	var firstConsentResult: Result<Void, TicketValidationError>?
+	var validationResult: Result<TicketValidationResult, TicketValidationError>?
+
+	var delay: TimeInterval = 0
+
+	// MARK: - Private
+
+	private var initializationData: TicketValidationInitializationData?
 
 }
