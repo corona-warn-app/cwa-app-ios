@@ -45,4 +45,8 @@ public struct ECKeyPairGeneration {
       }
       return (privateKey, nil)
     }
+    
+    public func generatePublicKey(from privateKey: SecKey) -> SecKey? {
+        return SecKeyCopyPublicKey(privateKey)
+    }
 }
