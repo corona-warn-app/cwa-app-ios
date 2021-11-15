@@ -245,19 +245,15 @@ extension SAP_Internal_Pt_QRCodePayload: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if self.version != 0 {
       try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 1)
     }
-    try { if let v = self._locationData {
+    if let v = self._locationData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._crowdNotifierData {
+    }
+    if let v = self._crowdNotifierData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
+    }
     if !self.vendorData.isEmpty {
       try visitor.visitSingularBytesField(value: self.vendorData, fieldNumber: 4)
     }
