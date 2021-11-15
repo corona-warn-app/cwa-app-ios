@@ -16,7 +16,7 @@ class TrustEvaluation {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
         if let serverCertificate = SecTrustGetCertificateAtIndex(trust, SecTrustGetCertificateCount(trust) - 1),
            let serverPublicKey = SecCertificateCopyKey(serverCertificate),
-           let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data? {
+           let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil) as Data? {
 
             return check(serverKeyData: serverPublicKeyData, against: jwkSet)
         } else {
