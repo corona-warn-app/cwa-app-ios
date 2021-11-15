@@ -3379,6 +3379,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_imageDescription" = "Ein Zertifikat wird für ein Ticketkauf übertragen";
 
+"TicketValidation_FirstConsent_subtitle" = "Zertifikatsprüfung bei Ticketbuchungen";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Anbieter:";
+
+"TicketValidation_FirstConsent_subject" = "Buchung:";
+
+"TicketValidation_FirstConsent_explination" = "Der Anbieter möchte sicherstellen, dass ein gültiges Zertifikat zu Ihrer Buchung vorliegt. Für den Abruf Ihrer Buchungsdetails vom Anbieter und die Freigabe Ihrer gespeicherten Zertifikate ist Ihr Einverständnis erforderlich.";
+
 "TicketValidation_FirstConsent_primaryButtonTitle" = "Einverstanden";
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";

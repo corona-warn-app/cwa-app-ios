@@ -12,8 +12,8 @@ struct FirstTicketValidationConsentViewModel {
 		subject: String,
 		onDataPrivacyTap: @escaping () -> Void
 	) {
-		self.serviceProvider = serviceProvider
-		self.subject = subject
+		self.serviceProvider = "Lufthansa"
+		self.subject = "Flug LH 3243"
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
 
@@ -21,6 +21,7 @@ struct FirstTicketValidationConsentViewModel {
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
+			// image with title
 			.section(
 				header: .image(
 					UIImage(named: "Illu_TicketValidation"),
@@ -30,6 +31,62 @@ struct FirstTicketValidationConsentViewModel {
 				),
 				cells: []
 			),
+			// subtitle with service provider and subject
+			.section(
+				cells: [
+					.title2(
+						text: AppStrings.TicketValidation.FirstConsent.subtitle
+					),
+					.footnote(
+						text: AppStrings.TicketValidation.FirstConsent.serviceProvider,
+						color: .enaColor(for: .textPrimary2)
+					),
+					.bodyWithoutTopInset(
+						text: String(
+							format: AppStrings.TicketValidation.FirstConsent.serviceProviderValue,
+							serviceProvider
+						)
+					),
+					.footnote(
+						text: AppStrings.TicketValidation.FirstConsent.subject,
+						color: .enaColor(for: .textPrimary2)
+					),
+					.bodyWithoutTopInset(
+						text: String(
+							format: AppStrings.TicketValidation.FirstConsent.subjectValue,
+							subject
+						)
+					),
+					.body(
+						text: AppStrings.TicketValidation.FirstConsent.explination
+					)
+				]
+			),
+			// bulletpoints in consent box
+			
+			/*
+			.section(cells: [
+				.legalExtended(
+					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
+					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
+					bulletPoints1: [
+						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
+						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_2)
+						],
+					subheadline2: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2),
+					bulletPoints2: [
+						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
+						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
+						],
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+					configure: { _, cell, _ in
+						cell.backgroundColor = .enaColor(for: .background)
+					}
+				)
+			]),
+			 */
+			// bulletpoints without box
+			
 			// Data privacy cell
 			.section(
 				separators: .all,
