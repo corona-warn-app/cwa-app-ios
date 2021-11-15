@@ -49,4 +49,16 @@ public struct ECKeyPairGeneration {
     public func generatePublicKey(from privateKey: SecKey) -> SecKey? {
         return SecKeyCopyPublicKey(privateKey)
     }
+    
+    public func generateData(from key: SecKey) -> (Data?, String?) {
+        var error: Unmanaged<CFError>?
+
+        guard let keyCFData = SecKeyCopyExternalRepresentation(key, &error) else {
+            let convertedError = error!.takeRetainedValue() as Error
+            return (nil, convertedError.localizedDescription)
+        }
+        let modifiedData = appendHeaderToData(data: keyCFData as Data)
+        
+        return (modifiedData, nil)
+    }
 }
