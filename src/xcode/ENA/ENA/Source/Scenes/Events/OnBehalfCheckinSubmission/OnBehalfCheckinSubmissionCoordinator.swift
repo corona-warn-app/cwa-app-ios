@@ -10,6 +10,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 	
 	init(
 		parentViewController: UIViewController,
+		restServiceProvider: RestServiceProviding,
 		appConfiguration: AppConfigurationProviding,
 		eventStore: EventStoringProviding,
 		client: Client,
@@ -22,6 +23,7 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		self.qrScannerCoordinator = qrScannerCoordinator
 
 		self.checkinSubmissionService = OnBehalfCheckinSubmissionService(
+			restServiceProvider: restServiceProvider,
 			client: client,
 			appConfigurationProvider: appConfiguration
 		)

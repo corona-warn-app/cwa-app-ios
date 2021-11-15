@@ -19,6 +19,7 @@ class CoronaTestService {
 
 	init(
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
@@ -30,6 +31,7 @@ class CoronaTestService {
 		#if DEBUG
 		if isUITesting {
 			self.client = ClientMock()
+			self.restServiceProvider = .coronaTestServiceProvider
 			self.store = MockTestStore()
 			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
@@ -52,6 +54,7 @@ class CoronaTestService {
 		#endif
 
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
 		self.diaryStore = diaryStore
@@ -67,6 +70,31 @@ class CoronaTestService {
 
 		setup()
 	}
+
+	#if DEBUG
+
+	convenience init(
+		client: Client,
+		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
+		eventStore: EventStoringProviding,
+		diaryStore: DiaryStoring,
+		appConfiguration: AppConfigurationProviding,
+		healthCertificateService: HealthCertificateService,
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+	) {
+		self.init(
+			client: client,
+			restServiceProvider: .coronaTestServiceProvider,
+			store: store,
+			eventStore: eventStore,
+			diaryStore: diaryStore,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			notificationCenter: notificationCenter
+		)
+	}
+
+	#endif
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
@@ -114,7 +142,7 @@ class CoronaTestService {
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
-			withType: "GUID",
+			withType: .guid,
 			dateOfBirthKey: dateOfBirthKey,
 			completion: { [weak self] result in
 				switch result {
@@ -164,13 +192,13 @@ class CoronaTestService {
 	func registerPCRTest(
 		teleTAN: String,
 		isSubmissionConsentGiven: Bool,
-		completion: @escaping VoidResultHandler
+		completion: @escaping (Result<Void, CoronaTestServiceError>) -> Void
 	) {
 		Log.info("[CoronaTestService] Registering PCR test (teleTAN: \(private: teleTAN, public: "teleTAN ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: teleTAN,
-			withType: "TELETAN",
+			withType: .teleTan,
 			dateOfBirthKey: nil,
 			completion: { [weak self] result in
 				self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
@@ -259,7 +287,7 @@ class CoronaTestService {
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
-			withType: "GUID",
+			withType: .guid,
 			dateOfBirthKey: nil,
 			completion: { [weak self] result in
 				switch result {
@@ -548,6 +576,7 @@ class CoronaTestService {
 	// MARK: - Private
 
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
 	private let eventStore: EventStoringProviding
 	private let diaryStore: DiaryStoring
@@ -603,24 +632,36 @@ class CoronaTestService {
 			}
 			.store(in: &subscriptions)
 	}
-	
-	private func getRegistrationToken(
+
+	// internal for testing
+	func getRegistrationToken(
 		forKey key: String,
-		withType type: String,
+		withType type: KeyType,
 		dateOfBirthKey: String?,
 		completion: @escaping RegistrationResultHandler
 	) {
-		client.getRegistrationToken(
-			forKey: key,
-			withType: type,
-			dateOfBirthKey: dateOfBirthKey,
-			isFake: false
-		) { result in
+		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
+		if let dateOfBirthKey = dateOfBirthKey {
+			guard dateOfBirthKey.first == "x" else {
+				completion(.failure(.malformedDateOfBirthKey))
+				return
+			}
+		}
+
+		let resource = TeleTanResource(
+			sendModel: KeyModel(
+				key: key,
+				keyType: type,
+				keyDob: dateOfBirthKey
+			)
+		)
+
+		restServiceProvider.load(resource) { result in
 			switch result {
-			case let .failure(error):
-				completion(.failure(.responseFailure(error)))
-			case let .success(registrationToken):
-				completion(.success(registrationToken))
+			case .success(let model):
+				completion(.success(model.registrationToken))
+			case .failure(let error):
+				completion(.failure(.serviceError(error)))
 			}
 		}
 	}

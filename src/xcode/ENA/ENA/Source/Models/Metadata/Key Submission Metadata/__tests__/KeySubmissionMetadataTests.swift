@@ -14,33 +14,36 @@ import XCTest
 // ENF low, Checkin low
 // inside these tests, we alter for testType (pcr & antigen)
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class KeySubmissionMetadataTests: CWATestCase {
-		
-	func testKeySubmissionMetadataValues_ENFHighRisk() {
+
+	private func makeCoronaTestService(store: Store) -> CoronaTestService {
 		let client = ClientMock()
-		let secureStore = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
+
+		return CoronaTestService(
 			client: client,
-			store: secureStore,
+			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
 			healthCertificateService: HealthCertificateService(
-				store: secureStore,
+				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+			)
+		)
+	}
+		
+	func testKeySubmissionMetadataValues_ENFHighRisk() {
+		let secureStore = MockTestStore()
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -88,28 +91,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 	
 	func testKeySubmissionMetadataValues_CheckinHighRisk() {
-		let client = ClientMock()
 		let secureStore = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -147,28 +130,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 	
 	func testKeySubmissionMetadataValues_BothHighRisk() {
-		let client = ClientMock()
 		let secureStore = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -214,28 +177,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_ENFLowRisk() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -264,28 +206,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_CheckinLowRisk() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -323,28 +244,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_BothLowRisk() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -388,28 +288,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		
@@ -445,28 +324,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_submittedInBackground() {
-		let client = ClientMock()
 		let secureStore = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(
 			store: secureStore,
@@ -499,28 +358,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 	}
 
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
-		let client = ClientMock()
 		let secureStore = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: secureStore,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: secureStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: secureStore, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
+		let coronaTestService = makeCoronaTestService(store: secureStore)
 		
 		Analytics.setupMock(
 			store: secureStore,
