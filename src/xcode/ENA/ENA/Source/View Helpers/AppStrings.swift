@@ -52,6 +52,7 @@ enum AppStrings {
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
+		static let ticketValidationFAQ = NSLocalizedString("TicketValidation_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -2480,6 +2481,11 @@ enum AppStrings {
 			static let title = NSLocalizedString("TicketValidation_CertificateSelection_title", comment: "")
 			static let serviceProviderRequirementsHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline", comment: "")
 			static let serviceProviderRelevantCertificatesHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline", comment: "")
+			static let serviceProviderRequiredCertificateHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline", comment: "")
+			static let noSuitableCertificateHeadline = NSLocalizedString("TicketValidation_CertificateSelection_noSuitableCertificateHeadline", comment: "")
+			static let noSuitableCertificateDescription = NSLocalizedString("TicketValidation_CertificateSelection_noSuitableCertificateDescription", comment: "")
+			static let faqDescription = NSLocalizedString("TicketValidation_CertificateSelection_faqDescription", comment: "")
+			static let faq = NSLocalizedString("TicketValidation_CertificateSelection_faq", comment: "")
 		}
 
 		enum CancelAlert {
