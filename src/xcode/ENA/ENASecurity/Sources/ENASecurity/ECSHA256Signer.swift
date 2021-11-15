@@ -6,7 +6,6 @@ import Foundation
 
 
 public enum ECSHA256SignerError: Error {
-    case EC_SIGN_INVALID_KEY // if privateKey cannot be used for signing
     case EC_SIGN_NOT_SUPPORTED // if the algorithm is not supported
     case unknown(Error?) // Unknown error
 }
@@ -23,7 +22,7 @@ public struct ECSHA256Signer {
     
     public func sign() -> Result<Data, ECSHA256SignerError> {
         guard SecKeyIsAlgorithmSupported(privateKey, .sign, algorithm) else {
-            return .failure(.EC_SIGN_INVALID_KEY)
+            return .failure(.EC_SIGN_NOT_SUPPORTED)
         }
         
         var error: Unmanaged<CFError>?

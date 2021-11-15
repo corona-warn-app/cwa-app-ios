@@ -7,9 +7,9 @@ import XCTest
 @testable import ENASecurity
 
 final class ECSHA256SignerTests: XCTestCase {
-
+    
     func testGIVEN_SampleData1_WHEN_Signing_THEN_SampleDataMatches() throws {
-    ///https://github.com/corona-warn-app/cwa-app-tech-spec/blob/ed371224ff6dbbd1968083f08babfcb7c06396a2/docs/spec/dcc-validation-service.md#sample-data-for-signing-data-with-sha256-and-an-ec-private-key
+        ///https://github.com/corona-warn-app/cwa-app-tech-spec/blob/ed371224ff6dbbd1968083f08babfcb7c06396a2/docs/spec/dcc-validation-service.md#sample-data-for-signing-data-with-sha256-and-an-ec-private-key
         // GIVEN
         let privateKeyBase64 = "MHcCAQEEIIIihYR7g405IESCjzqoUBTVi10rw+KoI4GA40QOrGCroAoGCCqGSM49AwEHoUQDQgAEqrIRZyw2XD7RhUAMXn/2gm9S1Z8BFrQd+peTEixW+jT3gzErD9a7hyZQXHHspqgwwmgUY6VX4NxR1puM43FTPQ=="
         let publicKeyBase64 = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEqrIRZyw2XD7RhUAMXn/2gm9S1Z8BFrQd+peTEixW+jT3gzErD9a7hyZQXHHspqgwwmgUY6VX4NxR1puM43FTPQ=="
@@ -41,18 +41,19 @@ final class ECSHA256SignerTests: XCTestCase {
             return
         }
         
-        var error: Unmanaged<CFError>?       
+        var error: Unmanaged<CFError>?
         let signatureUnderTestDataSignatureVerficiation = SecKeyVerifySignature(publicKey, signer.algorithm, data as CFData, signatureUnderTest as CFData, &error)
         
         
         // THEN
         XCTAssertTrue(expectedSignatureDataSignatureVerficiation, "Failed to verify verification")
         XCTAssertTrue(signatureUnderTestDataSignatureVerficiation, "SignatureUnderTest failed to verifiy \(String(describing: error))")
-
+        
     }
     
     func testGIVEN_SampleData2_WHEN_Signing_THEN_SampleDataMatches() throws {
         ///https://github.com/corona-warn-app/cwa-app-tech-spec/blob/ed371224ff6dbbd1968083f08babfcb7c06396a2/docs/spec/dcc-validation-service.md#sample-data-for-signing-data-with-sha256-and-an-ec-private-key
+        // GIVEN
         let privateKeyBase64 = "MHcCAQEEICCuN2u+TLlBc5RsPkDFM0pLyH3lmpIc6vGd94FaQq8RoAoGCCqGSM49AwEHoUQDQgAENfTfICbBzrLfgGI8PfhXk/eNVunsik+/X+/uFqnmb2ZqPtcyS4X6/7wXmjCvWtvUv+6DI/Ejtd3a+B7Lf8IpQA=="
         let publicKeyBase64 = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENfTfICbBzrLfgGI8PfhXk/eNVunsik+/X+/uFqnmb2ZqPtcyS4X6/7wXmjCvWtvUv+6DI/Ejtd3a+B7Lf8IpQA=="
         let dataBase64 = "VGVjaFNwZWNzIGFyZSBncjgh"
@@ -90,5 +91,58 @@ final class ECSHA256SignerTests: XCTestCase {
         // THEN
         XCTAssertTrue(expectedSignatureDataSignatureVerficiation, "Failed to verify verification")
         XCTAssertTrue(signatureUnderTestDataSignatureVerficiation, "SignatureUnderTest failed to verifiy \(String(describing: error))")
+    }
+    
+    
+    func testGIVEN_NonECKey_WHEN_Signing_THEN_EC_SIGN_INVALID_KEY() throws {
+        // GIVEN
+        var statusCode: OSStatus?
+        var publicKey: SecKey?
+        var privateKey: SecKey?
+        
+        
+        let publicKeyAttr: [NSObject: NSObject] = [
+            kSecAttrIsPermanent: false as NSObject,
+            kSecAttrApplicationTag: "publicKeyTag" as NSObject,
+            kSecClass: kSecClassKey,
+            kSecReturnData: kCFBooleanTrue
+        ]
+        
+        let privateKeyAttr: [NSObject: NSObject] = [
+            kSecAttrIsPermanent: false as NSObject,
+            kSecAttrApplicationTag: "privateKeyTag" as NSObject,
+            kSecClass: kSecClassKey,
+            kSecReturnData: kCFBooleanTrue
+        ]
+        
+        var keyPairAttr = [NSObject: NSObject]()
+        keyPairAttr[kSecAttrKeyType] = kSecAttrKeyTypeRSA
+        keyPairAttr[kSecAttrKeySizeInBits] = 3072 as NSObject
+        keyPairAttr[kSecPublicKeyAttrs] = publicKeyAttr as NSObject
+        keyPairAttr[kSecPrivateKeyAttrs] = privateKeyAttr as NSObject
+        
+        statusCode = SecKeyGeneratePair(keyPairAttr as CFDictionary, &publicKey, &privateKey)
+        
+        guard statusCode == noErr,
+              let privateKey = privateKey else {
+                  XCTFail("Failed to generate Keypair")
+                  return
+              }
+        
+        let data = Data()
+        
+        // WHEN
+        let signer = ECSHA256Signer(privateKey: privateKey, data: data)
+        
+        // THEN
+        guard case .failure(let error) = signer.sign() else {
+            XCTFail("Success was expected but something else happened.")
+            return
+        }
+        
+        guard case .EC_SIGN_NOT_SUPPORTED = error else {
+            XCTFail("Wrong error returned")
+            return
+        }
     }
 }
