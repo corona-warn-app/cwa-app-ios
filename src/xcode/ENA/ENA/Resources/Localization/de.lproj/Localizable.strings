@@ -3372,3 +3372,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+/* Ticket Validation */
+
+"TicketValidation_CertificateSelection_title" = "Zertifikat auswählen";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Anforderungen des Anbieters:"
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Folgende Zertifikate entsprechen den Anforderungen des Anbieters und können zum Nachweis verwendet werden:"
