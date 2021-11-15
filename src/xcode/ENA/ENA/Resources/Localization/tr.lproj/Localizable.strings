@@ -850,9 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test sonucu kaldırılsın mı?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Testi silerseniz test sonucunuzu alamazsınız. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. Koronavirüs tanısı alırsanız kamu sağlığı yetkilisi yasal olarak belirlenen kanal üzerinden bilgilendirilecektir ve kamu sağlığı yetkilisi sizinle iletişime geçecektir.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Test sonucu geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz.\nBurada test sonucunu kalıcı olarak silebilir veya geri yükleyebilirsiniz. Test sonucu 30 gün sonra otomatik olarak silinir.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Test Sonucunu Kaldır";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
@@ -895,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Yanıtın içeriği yok.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya başka bir akıllı telefona zaten kaydedilmiş. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. Koronavirüs tanısı alırsanız kamu sağlığı yetkilisi yasal olarak belirlenen kanal üzerinden bilgilendirilecektir ve kamu sağlığı yetkilisi sizinle iletişime geçecektir.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya akıllı telefonunuza zaten kaydedilmiş.\nQR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. Koronavirüs tanısı alırsanız kamu sağlığı yetkilisi yasal olarak belirlenen kanal üzerinden bilgilendirilecektir ve kamu sağlığı yetkilisi sizinle iletişime geçecektir.\nTesti uygulamada sildiyseniz geri dönüşüm kutusundan geri yükleyebilirsiniz.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR kod geçersiz";
 
@@ -930,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zaten bir PCR testi kaydı oluşturdunuz.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi uygulamadan silinir.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi geri dönüşüm kutusuna taşınır. Geri dönüşüm kutusunda PCR testini geri yükleyebilir ya da kalıcı olarak silebilirsiniz.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zaten bir hızlı test kaydı oluşturdunuz.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test uygulamadan silinir.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test geri dönüşüm kutusuna taşınır. Geri dönüşüm kutusunda hızlı testi geri yükleyebilir ya da kalıcı olarak silebilirsiniz.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Hızlı Test Profili";
@@ -1259,12 +1261,6 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Testi Kaldır";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Testi kaldırmak istediğinizden emin misiniz?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Bu işlemi gerçekleştirirseniz diğer kullanıcılar uyarılmaz.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Kaldır";
-
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Testlerinizi Yönetin";
 
@@ -1560,7 +1556,7 @@
 /* Version 2.14 */
 "NewVersionFeature_214_recycleBin_title" = "Testler için Geri Dönüşüm Kutusunun İşlevi";
 
-"NewVersionFeature_214_recycleBin_description" = "Daha önce uygulamada sildiğiniz hızlı testleri ve PCR testlerini geri yükleyebilirsiniz. Yani yanlışlıkla sildiğiniz nesneleri geri yükleyebilirsiniz.";
+"NewVersionFeature_214_recycleBin_description" = "Kaldırılan hızlı testler ve PCR testleri de artık geri dönüşüm kutusuna taşınır. Yani, yanlışlıkla sildiğiniz nesneleri geri yükleyebilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1880,7 +1876,7 @@
 
 "Statistics_Add_DisabledAddTitle" = "Maksimum yerel 7 günlük olay sayısına ulaşıldı.";
 
-"Statistics_Add_LocalCardTitle" = "Yerel 7 günlük olay";
+"Statistics_Add_LocalCardTitle" = "Yerel 7 Günlük Olay";
 
 "Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
 
@@ -3055,12 +3051,16 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 
+"HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Kod Tarayıcı";
 
 "UniversalQRScanner_InstructionTitle" = "Hangi QR kodları tarayabilirsiniz?";
 
-"UniversalQRScanner_InstructionDescription" = "PCR testleri ve hızlı testler, test sertifikaları, aşı sertifikaları, iyileşme sertifikaları ve check-in'ler.";
+"UniversalQRScanner_InstructionDescription" = "PCR testleriniz, hızlı testleriniz, test sertifikalarınız, aşı sertifikalarınız, iyileşme sertifikalarınız ve check-in'leriniz.";
 
 "UniversalQRScanner_FileButtonTitle" = "Dosya Aç";
 
@@ -3085,6 +3085,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Sertifikayı Geri Yükle";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Sertifika geri dönüşüm kutusundan geri yüklenecektir.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Testi Geri Yükle";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Test geri dönüşüm kutusundan geri yüklenecektir.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Fotoğraf Kitaplığı";
@@ -3119,7 +3123,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Uygun QR Kod Yok";
 
-"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod tarayın.";
+"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod seçin.";
 
 "FileScanner_FileNotReadable_title" = "Dosya Okunamıyor";
 
@@ -3208,7 +3212,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Geri Dönüşüm Kutusu Boş";
 
-"RecycleBin_EmptyState_description" = "Sertifikaları kaldırdığınızda sertifikalar geri dönüşüm kutusuna taşınır ve burada görüntülenir.";
+"RecycleBin_EmptyState_description" = "Sertifikaları ve testleri kaldırdığınızda sertifikalar ve testler geri dönüşüm kutusuna taşınır ve burada görüntülenir.";
 
 "RecycleBin_EmptyState_imageDescription" = "Geri dönüşüm kutusu";
 
