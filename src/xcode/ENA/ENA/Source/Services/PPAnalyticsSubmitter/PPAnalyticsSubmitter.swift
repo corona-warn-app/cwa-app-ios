@@ -702,7 +702,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				}
 			}
             if let exposureWindowsUntilTestResult = metadata?.exposureWindowsUntilTestResult {
-                $0.exposure = exposureWindowsAtTestRegistration.map { exposureWindow in
+                $0.exposureWindowsUntilTestResult = exposureWindowsUntilTestResult.map { exposureWindow in
                     SAP_Internal_Ppdd_PPANewExposureWindow.with {
                   
                       $0.normalizedTime = exposureWindow.normalizedTime
