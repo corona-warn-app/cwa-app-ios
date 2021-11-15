@@ -68,4 +68,12 @@ public struct ECKeyPairGeneration {
       "\(Bundle.main.bundleIdentifier ?? "app").\(name)".data(using: .utf8)!
     }
     
+    private func appendHeaderToData(data: Data) -> Data {
+        var appendedData = data
+        let headerBytes = [0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x02, 0x01, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x03, 0x01, 0x07, 0x03, 0x42, 0x00] as [UInt8]
+        appendedData.insert(contentsOf: headerBytes, at: 0)
+        
+        return appendedData
+    }
+
 }
