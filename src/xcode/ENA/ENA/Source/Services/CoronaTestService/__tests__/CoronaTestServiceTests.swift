@@ -10,6 +10,44 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class CoronaTestServiceTests: CWATestCase {
 
+	func testGIVEN_Service_WHEN_getRegistrationToken_THEN_MallFormattedDOB() {
+		// GIVEN
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				boosterNotificationsService: BoosterNotificationsService(
+					rulesDownloadService: RulesDownloadService(store: store, client: client)
+				),
+				recycleBin: .fake()
+			),
+			recycleBin: .fake()
+		)
+
+		// WHEN
+		let expectation = expectation(description: "mal formatted date of birth")
+		service.getRegistrationToken(forKey: "", withType: .teleTan, dateOfBirthKey: "987654321") { result in
+			if result == .failure(.malformedDateOfBirthKey) {
+				expectation.fulfill()
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .short)
+	}
+
 	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
 		let client = ClientMock()
 		let store = MockTestStore()
@@ -501,11 +539,13 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.success("registrationToken"))
-		}
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+			)
+		])
 
+		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(
 									testResult: TestResult.pending.rawValue,
@@ -517,6 +557,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -592,12 +633,23 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
-			XCTAssertEqual(dateOfBirthKey, "xfa760e171f000ef5a7f863ab180f6f6e8185c4890224550395281d839d85458")
-			completion(.success("registrationToken2"))
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					RegistrationTokenModel(registrationToken: "registrationToken2")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertEqual(sendModel.keyDob, "xfa760e171f000ef5a7f863ab180f6f6e8185c4890224550395281d839d85458")
+				}
+			)
+		])
 
+		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
@@ -606,6 +658,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -702,12 +755,23 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
-			XCTAssertEqual(dateOfBirthKey, "x4a7788ef394bc7d52112014b127fe2bf142c51fe1bbb385214280e9db670193")
-			completion(.success("registrationToken2"))
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					RegistrationTokenModel(registrationToken: "registrationToken2")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertEqual(sendModel.keyDob, "x4a7788ef394bc7d52112014b127fe2bf142c51fe1bbb385214280e9db670193")
+				}
+			)
+		])
 
+		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
 		}
@@ -716,6 +780,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -784,11 +849,23 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					RegistrationTokenModel(registrationToken: "registrationToken2")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			)
+		])
+
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
-			XCTAssertNil(dateOfBirthKey)
-			completion(.success("registrationToken2"))
-		}
 
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
@@ -798,6 +875,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -852,15 +930,17 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed))
+		])
+
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.failure(.qrAlreadyUsed))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -891,7 +971,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .responseFailure(.qrAlreadyUsed))
+				XCTAssertEqual(error, .serviceError(.receivedResourceError(.qrAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -910,11 +990,13 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.success("registrationToken"))
-		}
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+			)
+		])
 
+		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.serverError(500)))
 		}
@@ -923,6 +1005,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -995,17 +1078,20 @@ class CoronaTestServiceTests: CWATestCase {
 		let checkInMock = Checkin.mock()
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(checkInMock)
-		
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.success("registrationToken"))
-		}
 
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+			)
+		])
+
+		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: diaryStore,
@@ -1081,16 +1167,20 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken2")
+			)
+		])
+
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.success("registrationToken2"))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -1160,15 +1250,16 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.failure(.teleTanAlreadyUsed))
-		}
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.teleTanAlreadyUsed))
+		])
 
+		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -1197,7 +1288,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .responseFailure(.teleTanAlreadyUsed))
+				XCTAssertEqual(error, .serviceError(.receivedResourceError(.teleTanAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1211,13 +1302,25 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
-			// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
-			XCTAssertNil(dateOfBirthKey)
-			completion(.success("registrationToken"))
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					RegistrationTokenModel(registrationToken: "registrationToken")
+				),
+				willLoadResource: { resource in
+					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
 
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			)
+		])
+
+		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(
 									testResult: TestResult.pending.rawValue,
@@ -1231,6 +1334,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1300,12 +1404,13 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
-		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
-			XCTAssertNil(dateOfBirthKey)
-			completion(.success("registrationToken"))
-		}
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+			)
+		])
 
+		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
 		}
@@ -1315,6 +1420,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1408,11 +1514,23 @@ class CoronaTestServiceTests: CWATestCase {
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					RegistrationTokenModel(registrationToken: "registrationToken")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			)
+		])
+
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, dateOfBirthKey, _, completion in
-			XCTAssertNil(dateOfBirthKey)
-			completion(.success("registrationToken"))
-		}
 
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
@@ -1422,6 +1540,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1491,15 +1610,17 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.failure(.qrAlreadyUsed))
-		}
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed))
+		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1535,7 +1656,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .responseFailure(.qrAlreadyUsed))
+				XCTAssertEqual(error, .serviceError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1548,9 +1669,12 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
 		let client = ClientMock()
-		client.onGetRegistrationToken = { _, _, _, _, completion in
-			completion(.success("registrationToken"))
-		}
+
+        let restServiceProvider = RestServiceProviderStub(results: [
+            .success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+            )
+        ])
 
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.serverError(500)))
@@ -1561,6 +1685,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1627,6 +1752,12 @@ class CoronaTestServiceTests: CWATestCase {
 	// MARK: - Test Result Update
 
 	func testUpdatePCRTestResult_success() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+			)
+		])
+
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
@@ -1637,6 +1768,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1684,16 +1816,23 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdateAntigenTestResult_success() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				RegistrationTokenModel(registrationToken: "registrationToken")
+			)
+		])
+		
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
 		}
-
+		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1712,9 +1851,9 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-
+		
 		let expectation = self.expectation(description: "Expect to receive a result.")
-
+		
 		service.updateTestResult(for: .antigen) { result in
 			expectation.fulfill()
 			switch result {
@@ -1724,14 +1863,14 @@ class CoronaTestServiceTests: CWATestCase {
 				XCTAssertEqual(testResult, TestResult.positive)
 			}
 		}
-
+		
 		waitForExpectations(timeout: .short)
-
+		
 		guard let antigenTest = service.antigenTest else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
-
+		
 		XCTAssertEqual(antigenTest.testResult, .positive)
 		XCTAssertEqual(
 			try XCTUnwrap(antigenTest.finalTestResultReceivedDate).timeIntervalSince1970,
@@ -3151,15 +3290,27 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let client = ClientMock()
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					RegistrationTokenModel(registrationToken: "dummyRegToken")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource  else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					expectation.fulfill()
 
-		client.onGetRegistrationToken = { _, _, _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertFalse(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.success("dummyRegToken"))
-		}
+					XCTAssertFalse(resource.locator.isFake)
+					XCTAssertEqual(count, 0)
+
+					count += 1
+				}
+			)
+		])
+
+		let client = ClientMock()
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
@@ -3184,6 +3335,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),

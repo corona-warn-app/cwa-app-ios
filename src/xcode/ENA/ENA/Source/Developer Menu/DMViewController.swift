@@ -81,6 +81,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		let vc: UIViewController?
 
 		switch menuItem {
+		case .newHttp:
+			vc = DMNHCViewController(
+				store: store
+			)
 		case .keys:
 			vc = DMKeysViewController(
 				client: client,

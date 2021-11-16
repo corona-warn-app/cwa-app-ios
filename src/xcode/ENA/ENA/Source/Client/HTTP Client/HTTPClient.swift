@@ -41,76 +41,6 @@ final class HTTPClient: Client {
 		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
 		fetchDay(from: url, completion: completeWith)
 	}
-	
-	// swiftlint:disable:next cyclomatic_complexity
-	func getRegistrationToken(
-		forKey key: String,
-		withType type: String,
-		dateOfBirthKey: String? = nil,
-		isFake: Bool = false,
-		completion completeWith: @escaping RegistrationHandler
-	) {
-		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
-		if let dateOfBirthKey = dateOfBirthKey {
-			guard dateOfBirthKey.first == "x" else {
-				completeWith(.failure(.malformedDateOfBirthKey))
-				return
-			}
-		}
-		
-		guard let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
-				configuration: configuration,
-				key: key,
-				type: type,
-				dateOfBirthKey: dateOfBirthKey,
-				headerValue: isFake ? 1 : 0
-			) else {
-			completeWith(.failure(.invalidResponse))
-			return
-		}
-
-		session.response(for: registrationTokenRequest, isFake: isFake) { result in
-			switch result {
-			case let .success(response):
-				if response.statusCode == 400 {
-					if type == "TELETAN" {
-						completeWith(.failure(.teleTanAlreadyUsed))
-					} else {
-						completeWith(.failure(.qrAlreadyUsed))
-					}
-					return
-				}
-				guard response.hasAcceptableStatusCode else {
-					completeWith(.failure(.serverError(response.statusCode)))
-					return
-				}
-				guard let registerResponseData = response.body else {
-					completeWith(.failure(.invalidResponse))
-					Log.error("Failed to register Device with invalid response", log: .api)
-					return
-				}
-
-				do {
-					let response = try JSONDecoder().decode(
-						GetRegistrationTokenResponse.self,
-						from: registerResponseData
-					)
-					guard let registrationToken = response.registrationToken else {
-						Log.error("Failed to register Device with invalid response payload structure", log: .api)
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					completeWith(.success(registrationToken))
-				} catch _ {
-					Log.error("Failed to register Device with invalid response payload structure", log: .api)
-					completeWith(.failure(.invalidResponse))
-				}
-			case let .failure(error):
-				completeWith(.failure(error))
-				Log.error("Failed to registerDevices due to error: \(error).", log: .api)
-			}
-		}
-	}
 
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 		guard
@@ -1053,9 +983,6 @@ final class HTTPClient: Client {
 // MARK: Extensions
 
 private extension HTTPClient {
-	struct GetRegistrationTokenResponse: Codable {
-		let registrationToken: String?
-	}
 	
 	struct GetTANForExposureSubmitResponse: Codable {
 		let tan: String?
@@ -1235,51 +1162,6 @@ private extension URLRequest {
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
-		let paddedData = try getPaddedRequestBody(for: originalBody)
-		request.httpBody = paddedData
-		
-		return request
-	}
-	
-	static func getRegistrationTokenRequest(
-		configuration: HTTPClient.Configuration,
-		key: String,
-		type: String,
-		dateOfBirthKey: String?,
-		headerValue: Int
-	) throws -> URLRequest {
-		
-		var request = URLRequest(url: configuration.registrationURL)
-		
-		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
-		)
-		
-		// Add header padding.
-		request.setValue(
-			"",
-			forHTTPHeaderField: "cwa-header-padding"
-		)
-		
-		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.httpMethod = HttpMethod.post
-		
-		// Create body.
-		var originalBody: [String: String] = [:]
-		if let dateOfBirthKey = dateOfBirthKey {
-			originalBody = ["key": key, "keyDob": dateOfBirthKey, "keyType": type]
-		} else {
-			originalBody = ["key": key, "keyType": type]
-		}
-		// Add body padding to request.
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
 		
