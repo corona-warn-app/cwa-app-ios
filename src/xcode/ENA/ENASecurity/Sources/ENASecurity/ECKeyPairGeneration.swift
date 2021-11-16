@@ -57,7 +57,7 @@ public struct ECKeyPairGeneration {
             let convertedError = error!.takeRetainedValue() as Error
             return (nil, convertedError.localizedDescription)
         }
-        let modifiedData = appendHeaderToData(data: keyCFData as Data)
+        let modifiedData = prependHeaderToData(data: keyCFData as Data)
         
         return (modifiedData, nil)
     }
