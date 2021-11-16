@@ -166,7 +166,7 @@ public extension SecKey {
         return SecKeyCreateWithData(mutableData, attributes as CFDictionary, nil)
     }
     
-    static func publicEC(from pemData: CFData) -> SecKey?{
+    static func publicECKey(from pemData: CFData) -> SecKey?{
         let attributes: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeyClass as String: kSecAttrKeyClassPublic
