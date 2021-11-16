@@ -72,8 +72,8 @@ module Fastlane
             # Store the full text so it can be reused when writing the swift file.
             full_licenses[component] = license_text
 
-          rescue => error
-            UI.user_error!("#{error} Could not download the full license for #{license['component']}")
+          rescue
+            UI.user_error!("Could not download the full license for #{license['component']}")
           end
         end
 
