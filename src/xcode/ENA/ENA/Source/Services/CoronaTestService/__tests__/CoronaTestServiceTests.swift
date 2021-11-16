@@ -32,7 +32,8 @@ class CoronaTestServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 
 		// WHEN

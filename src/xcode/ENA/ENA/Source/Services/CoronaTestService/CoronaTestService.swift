@@ -80,7 +80,8 @@ class CoronaTestService {
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
-		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
+		recycleBin: RecycleBin
 	) {
 		self.init(
 			client: client,
@@ -90,7 +91,8 @@ class CoronaTestService {
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
-			notificationCenter: notificationCenter
+			notificationCenter: notificationCenter,
+			recycleBin: recycleBin
 		)
 	}
 
