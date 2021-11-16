@@ -928,6 +928,8 @@ final class HTTPClient: Client {
 
 }
 
+// MARK: Extensions
+
 private extension URLRequest {
 
 	static func keySubmissionRequest(

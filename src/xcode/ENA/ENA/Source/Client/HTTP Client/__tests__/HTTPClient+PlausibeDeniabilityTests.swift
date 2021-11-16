@@ -53,46 +53,20 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 	}
 
 	func test_getTANForExposureSubmit_requestPadding() {
-
-		// Setup.
-
-		let expectation = self.expectation(description: "all callbacks called")
-		expectation.expectedFulfillmentCount = 2
-
-		// Test.
-
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
-			]
+		
+		let sendResource = JSONSendResource<SendRegistrationTokenModel>(
+			SendRegistrationTokenModel(token: "dummyRegToken")
 		)
-		let resource = RegistrationTokenResource(
-			sendModel: SendRegistrationTokenModel(
-				token: "dummyRegToken"
-			)
-		)
-		restServiceProvider.load(resource) { _ in
-			guard let paddedData = try? JSONEncoder().encode(resource.registrationTokenModel) else {
-				fatalError("padding count error")
+		if case let .success(bodyData) = sendResource.encode() {
+			do {
+				let data = try XCTUnwrap(bodyData)
+				XCTAssertEqual(data.count, 250)
+			} catch {
+				XCTFail("Should unwrap data object \(error.localizedDescription)")
 			}
-			let paddedDataCount = paddedData.count
-			let sendRequestPaddingCount = resource.sendResource.sendModel?.paddingCount.count ?? 0
-			XCTAssertEqual((paddedDataCount + sendRequestPaddingCount), 250)
-			expectation.fulfill()
+		} else {
+			XCTFail("Wrong padding body size")
 		}
-		let fakeRequestResource = RegistrationTokenResource(
-			isFake: true,
-			sendModel: SendRegistrationTokenModel(
-				token: "dummyRegToken"
-			)
-		)
-
-		restServiceProvider.load(fakeRequestResource) { _ in
-			expectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .short)
 	}
 
 	// This test makes sure that all headers + urls have the same length.

@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-
 struct SendRegistrationTokenModel: PaddingResource {
 
 	// MARK: - Init
@@ -17,7 +15,6 @@ struct SendRegistrationTokenModel: PaddingResource {
 	// MARK: - Protocol PaddingResource
 
 	var requestPadding: String = ""
-
 
 	// MARK: - Internal
 
