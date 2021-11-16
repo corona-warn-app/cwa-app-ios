@@ -94,7 +94,7 @@ final class ECSHA256SignerTests: XCTestCase {
     }
     
     
-    func testGIVEN_NonECKey_WHEN_Signing_THEN_EC_SIGN_INVALID_KEY() throws {
+    func testGIVEN_NonECKey_WHEN_Signing_THEN_EC_SIGN_NOT_SUPPORTED() throws {
         // GIVEN
         var statusCode: OSStatus?
         var publicKey: SecKey?
