@@ -98,8 +98,7 @@ final class TicketValidationCoordinator {
 	private func showCertificateSelectionScreen() {
 		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
 			viewModel: TicketValidationCertificateSelectionViewModel(
-				serviceProviderRequirementsDescription: "Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat Geburtsdatum: 1989-12-12 SCHNEIDER<<ANDREA",
-				ticketValidationCertificateSelectionState: .noSuitableCertificate
+				healthCertificateService: healthCertificateService
 			),
 			onDismiss: {
 				self.showDismissAlert()

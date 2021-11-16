@@ -353,7 +353,8 @@ class QRScannerCoordinator {
 					}
 
 					self.ticketValidationCoordinator = TicketValidationCoordinator(
-						parentViewController: parentViewController
+						parentViewController: parentViewController,
+						healthCertificateService: self.healthCertificateService
 					)
 
 					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
@@ -364,7 +365,8 @@ class QRScannerCoordinator {
 				}
 
 				self.ticketValidationCoordinator = TicketValidationCoordinator(
-					parentViewController: parentViewController
+					parentViewController: parentViewController,
+					healthCertificateService: self.healthCertificateService
 				)
 
 				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)

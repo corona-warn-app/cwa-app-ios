@@ -11,12 +11,13 @@ class TicketValidationCertificateSelectionViewModel {
 	// MARK: - Init
 
 	init(
-		serviceProviderRequirementsDescription: String,
-		ticketValidationCertificateSelectionState: TicketValidationCertificateSelectionState
+		healthCertificateService: HealthCertificateService
 	) {
-		self.serviceProviderRequirementsDescription = serviceProviderRequirementsDescription
+		self.healthCertificateService = healthCertificateService
 		
-		self.setup(for: ticketValidationCertificateSelectionState, with: serviceProviderRequirementsDescription)
+		let serviceProviderRequirementsDescription = "Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat Geburtsdatum: 1989-12-12 SCHNEIDER<<ANDREA"
+
+		self.setup(for: .suitableCertificates, with: serviceProviderRequirementsDescription)
 	}
 	
 	// MARK: - Internal
@@ -24,9 +25,9 @@ class TicketValidationCertificateSelectionViewModel {
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	
 	// MARK: - Private
-
-	private let serviceProviderRequirementsDescription: String
 	
+	private var healthCertificateService: HealthCertificateService
+
 	private func setup(for ticketValidationCertificateSelectionState: TicketValidationCertificateSelectionState, with serviceProviderRequirementsDescription: String) {
 		switch ticketValidationCertificateSelectionState {
 		case .suitableCertificates:
