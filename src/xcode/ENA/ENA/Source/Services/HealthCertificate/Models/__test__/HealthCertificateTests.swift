@@ -7,6 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 
 // swiftlint:disable file_length
+// swiftlint:disable type_body_length
 class HealthCertificateTests: XCTestCase {
 			
 	func testGIVEN_Base45WellformedEncoded_WHEN_InitIsCalled_THEN_HealthCertificateIsCreated() throws {
@@ -606,6 +607,91 @@ class HealthCertificateTests: XCTestCase {
 		// In case of more than 1 entry for vaccinationEntries the initializer of HealthCertificate will fail due to a json schema validation error.
 		let fifthWrongCertificate = try? HealthCertificate(base45: fifthWrongCertificateBase45)
 		XCTAssertNil(fifthWrongCertificate)
+	}
+
+	func testUniqueCertificateIdentifierChunks() throws {
+		let certificate1Base45 = try base45Fake(
+			from: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/bar::baz#999lizards")])
+		)
+		let certificate2Base45 = try base45Fake(
+			from: .fake(recoveryEntries: [.fake(uniqueCertificateIdentifier: "URN:UVCI:foo/bar::baz#999lizards")])
+		)
+		let certificate3Base45 = try base45Fake(
+			from: .fake(testEntries: [.fake(uniqueCertificateIdentifier: "a::c/#/f")])
+		)
+
+		let certificate1 = try HealthCertificate(base45: certificate1Base45)
+		let certificate2 = try HealthCertificate(base45: certificate2Base45)
+		let certificate3 = try HealthCertificate(base45: certificate3Base45)
+
+		XCTAssertEqual(
+			certificate1.uniqueCertificateIdentifierChunks,
+			["foo", "bar", "", "baz", "999lizards"]
+		)
+		XCTAssertEqual(
+			certificate2.uniqueCertificateIdentifierChunks,
+			["foo", "bar", "", "baz", "999lizards"]
+		)
+		XCTAssertEqual(
+			certificate3.uniqueCertificateIdentifierChunks,
+			["a", "", "c", "", "", "f"]
+		)
+	}
+
+	func testIsBlocked1() throws {
+		let certificateBase45 = try base45Fake(
+			from: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/bar::baz#999lizards")])
+		)
+
+		let certificate = try HealthCertificate(base45: certificateBase45)
+
+		var blockedChunk = SAP_Internal_V2_DGCBlockedUVCIChunk()
+		blockedChunk.indices = [1]
+		blockedChunk.hash = "fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9".dataWithHexString()
+
+		XCTAssertTrue(certificate.isBlocked(by: [blockedChunk]))
+	}
+
+	func testIsBlocked2() throws {
+		let certificateBase45 = try base45Fake(
+			from: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/baz::baz#999lizards")])
+		)
+
+		let certificate = try HealthCertificate(base45: certificateBase45)
+
+		var blockedChunk = SAP_Internal_V2_DGCBlockedUVCIChunk()
+		blockedChunk.indices = [1]
+		blockedChunk.hash = "fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9".dataWithHexString()
+
+		XCTAssertFalse(certificate.isBlocked(by: [blockedChunk]))
+	}
+
+	func testIsBlocked3() throws {
+		let certificateBase45 = try base45Fake(
+			from: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/bar::baz#999lizards")])
+		)
+
+		let certificate = try HealthCertificate(base45: certificateBase45)
+
+		var blockedChunk = SAP_Internal_V2_DGCBlockedUVCIChunk()
+		blockedChunk.indices = [0, 1]
+		blockedChunk.hash = "cc5d46bdb4991c6eae3eb739c9c8a7a46fe9654fab79c47b4fe48383b5b25e1c".dataWithHexString()
+
+		XCTAssertTrue(certificate.isBlocked(by: [blockedChunk]))
+	}
+
+	func testIsBlocked4() throws {
+		let certificateBase45 = try base45Fake(
+			from: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/baz::baz#999lizards")])
+		)
+
+		let certificate = try HealthCertificate(base45: certificateBase45)
+
+		var blockedChunk = SAP_Internal_V2_DGCBlockedUVCIChunk()
+		blockedChunk.indices = [0, 1]
+		blockedChunk.hash = "cc5d46bdb4991c6eae3eb739c9c8a7a46fe9654fab79c47b4fe48383b5b25e1c".dataWithHexString()
+
+		XCTAssertFalse(certificate.isBlocked(by: [blockedChunk]))
 	}
 
 }

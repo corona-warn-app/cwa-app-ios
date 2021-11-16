@@ -3067,6 +3067,10 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
 
+"HealthCertificate_ValidityState_Blocked" = "Невалиден сертификат";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Сертификатът е изтеглен от издаващия орган. Моля, снабдете се с нов цифров сертификат.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Скенер за QR кодове";
 

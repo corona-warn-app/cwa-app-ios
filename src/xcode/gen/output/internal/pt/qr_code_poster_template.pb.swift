@@ -167,6 +167,10 @@ extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: SwiftProtobuf.Message, Sw
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.template.isEmpty {
       try visitor.visitSingularBytesField(value: self.template, fieldNumber: 1)
     }
@@ -179,9 +183,9 @@ extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: SwiftProtobuf.Message, Sw
     if self.qrCodeSideLength != 0 {
       try visitor.visitSingularUInt32Field(value: self.qrCodeSideLength, fieldNumber: 4)
     }
-    if let v = self._descriptionTextBox {
+    try { if let v = self._descriptionTextBox {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -287,6 +291,10 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.template.isEmpty {
       try visitor.visitSingularBytesField(value: self.template, fieldNumber: 1)
     }
@@ -299,12 +307,12 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     if self.qrCodeSideLength != 0 {
       try visitor.visitSingularUInt32Field(value: self.qrCodeSideLength, fieldNumber: 4)
     }
-    if let v = self._descriptionTextBox {
+    try { if let v = self._descriptionTextBox {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
-    if let v = self._addressTextBox {
+    } }()
+    try { if let v = self._addressTextBox {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 

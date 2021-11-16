@@ -25,6 +25,7 @@ final class HealthCertificateViewModel {
 
 		updateHealthCertificateKeyValueCellViewModels()
 		updateGradient()
+		updateFooterView()
 
 		// load certificate value sets
 		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
@@ -64,6 +65,7 @@ final class HealthCertificateViewModel {
 			.dropFirst()
 			.sink { [weak self] _ in
 				self?.updateGradient()
+				self?.updateFooterView()
 			}
 			.store(in: &subscriptions)
 
@@ -119,9 +121,10 @@ final class HealthCertificateViewModel {
 		)
 	}
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
-	@OpenCombine.Published private(set) var triggerReload: Bool = false
-	@OpenCombine.Published private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
+	@DidSetPublished private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@DidSetPublished private(set) var isPrimaryFooterButtonEnabled: Bool = true
+	@DidSetPublished private(set) var triggerReload: Bool = false
+	@DidSetPublished private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
 
 	var headlineCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let centerParagraphStyle = NSMutableParagraphStyle()
@@ -406,6 +409,10 @@ final class HealthCertificateViewModel {
 		} else {
 			gradientType = .solidGrey(withStars: true)
 		}
+	}
+
+	private func updateFooterView() {
+		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked
 	}
 
 }

@@ -502,30 +502,36 @@ class HealthCertificateService {
 					to: healthCertificate.expirationDate
 				)
 
-				let signatureVerificationResult = self.dccSignatureVerifier.verify(
-					certificate: healthCertificate.base45,
-					with: self.dscListProvider.signingCertificates.value,
-					and: Date()
-				)
-
 				let previousValidityState = healthCertificate.validityState
 
-				switch signatureVerificationResult {
-				case .success:
-					if Date() >= healthCertificate.expirationDate {
-						healthCertificate.validityState = .expired
-					} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-						healthCertificate.validityState = .expiringSoon
-					} else {
-						healthCertificate.validityState = .valid
+				let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
+					.dgcParameters.blockListParameters.blockedUvciChunks
+				if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
+					healthCertificate.validityState = .blocked
+				} else {
+					let signatureVerificationResult = self.dccSignatureVerifier.verify(
+						certificate: healthCertificate.base45,
+						with: self.dscListProvider.signingCertificates.value,
+						and: Date()
+					)
+
+					switch signatureVerificationResult {
+					case .success:
+						if Date() >= healthCertificate.expirationDate {
+							healthCertificate.validityState = .expired
+						} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+							healthCertificate.validityState = .expiringSoon
+						} else {
+							healthCertificate.validityState = .valid
+						}
+					case .failure:
+						healthCertificate.validityState = .invalid
 					}
-				case .failure:
-					healthCertificate.validityState = .invalid
 				}
 
 				if healthCertificate.validityState != previousValidityState {
-					/// Only validity states that are not `.valid` should be marked as new for the user. On test certificates only `.valid` and `.invalid` state are shown, so only the `.invalid` state is marked as new.
-					healthCertificate.isValidityStateNew = healthCertificate.type == .test && healthCertificate.validityState == .invalid || healthCertificate.type != .test && healthCertificate.validityState != .valid
+					/// Only validity states that are not shown as `.valid` should be marked as new for the user.
+					healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
 				}
 
 				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
@@ -955,7 +961,7 @@ class HealthCertificateService {
 				case .success(let certificateResult):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier ?? "", testCertificateRequest)
+					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier, testCertificateRequest)
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))
@@ -986,10 +992,7 @@ class HealthCertificateService {
 		for healthCertificate: HealthCertificate,
 		completion: @escaping () -> Void
 	) {
-		guard let id = healthCertificate.uniqueCertificateIdentifier else {
-			Log.error("Could not delete notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
-			return
-		}
+		let id = healthCertificate.uniqueCertificateIdentifier
 		
 		Log.info("Cancel all notifications for certificate with id: \(private: id).", log: .vaccination)
 		
@@ -1010,10 +1013,7 @@ class HealthCertificateService {
 	}
 	
 	private func createNotifications(for healthCertificate: HealthCertificate) {
-		guard let id = healthCertificate.uniqueCertificateIdentifier else {
-			Log.error("Could not schedule notifications for certificate: \(private: healthCertificate) due to invalid uniqueCertificateIdentifier")
-			return
-		}
+		let id = healthCertificate.uniqueCertificateIdentifier
 		
 		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(
@@ -1030,6 +1030,12 @@ class HealthCertificateService {
 		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
 			scheduleInvalidNotification(id: id)
 			healthCertificate.didShowInvalidNotification = true
+		}
+
+		// Schedule a 'blocked' notification, if it was not scheduled before.
+		if healthCertificate.validityState == .blocked && !healthCertificate.didShowBlockedNotification {
+			scheduleBlockedNotification(id: id)
+			healthCertificate.didShowBlockedNotification = true
 		}
 	}
 	
@@ -1111,6 +1117,25 @@ class HealthCertificateService {
 
 		addNotification(request: request)
 	}
+
+	private func scheduleBlockedNotification(
+		id: String
+	) {
+		Log.info("Schedule blocked notification for certificate with id: \(private: id)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
+		content.sound = .default
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateBlocked.rawValue + "\(id)",
+			content: content,
+			trigger: nil
+		)
+
+		addNotification(request: request)
+	}
 	
 	private func addNotification(request: UNNotificationRequest) {
 		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
@@ -1165,7 +1190,9 @@ class HealthCertificateService {
 				}
 				
 			case .failure(let validationError):
-				healthCertifiedPerson.boosterRule = nil
+				if validationError == .BOOSTER_VALIDATION_ERROR(.NO_VACCINATION_CERTIFICATE) || validationError == .BOOSTER_VALIDATION_ERROR(.NO_PASSED_RESULT) {
+					healthCertifiedPerson.boosterRule = nil
+				}
 
 				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
 				let name = healthCertifiedPerson.name?.standardizedName ?? ""
