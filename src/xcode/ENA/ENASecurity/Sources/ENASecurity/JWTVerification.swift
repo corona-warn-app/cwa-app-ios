@@ -52,7 +52,11 @@ public class JWTVerification {
 
         // Verify signature: the entries of jwkSet shall be used sequentially to check the signature as per Verifying the Signature of a JWT with a Public Key.
         let passedJwk = filteredJwkSet.first {
-            switch verify(jwtString: jwtString, against: $0) {
+            guard let pemData = $0.pemUtf8Data() else {
+                return false
+            }
+
+            switch verify(jwtString: jwtString, against: pemData, and: $0.alg) {
             case .success:
                 return true
             case .failure:
@@ -67,19 +71,15 @@ public class JWTVerification {
         }
     }
 
-    public func verify(jwtString: String, against jwk: JSONWebKey) -> Result<Void, JWTVerificationError> {
-        guard let pemData = jwk.pemUtf8Data() else {
-            return .failure(.JWT_VER_ALG_NOT_SUPPORTED)
-        }
-
+    public func verify(jwtString: String, against publicKey: Data, and algorithm: String) -> Result<Void, JWTVerificationError> {
         let verifier: JWTVerifier
-        switch jwk.alg {
+        switch algorithm {
         case "ES256":
-            verifier = JWTVerifier.es256(publicKey: pemData)
+            verifier = JWTVerifier.es256(publicKey: publicKey)
         case "RS256":
-            verifier = JWTVerifier.rs256(publicKey: pemData)
+            verifier = JWTVerifier.rs256(publicKey: publicKey)
         case "PS256":
-            verifier = JWTVerifier.ps256(publicKey: pemData)
+            verifier = JWTVerifier.ps256(publicKey: publicKey)
         default:
             return .failure(.JWT_VER_ALG_NOT_SUPPORTED)
         }

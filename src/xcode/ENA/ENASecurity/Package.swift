@@ -19,7 +19,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMajor(from: "1.4.2")),
         .package(url: "https://github.com/corona-warn-app/ASN1Decoder", .upToNextMajor(from: "1.8.1")),
-        .package(url: "https://github.com/Kitura/Swift-JWT.git", .upToNextMajor(from: "3.6.201"))
+        .package(url: "https://github.com/corona-warn-app/Swift-JWT.git", .revision("881f1f34be480e185fcabee49d4e2d9994c78653"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

@@ -48,11 +48,11 @@
       },
       {
         "package": "CryptorRSA",
-        "repositoryURL": "https://github.com/Kitura/BlueRSA.git",
+        "repositoryURL": "https://github.com/corona-warn-app/BlueRSA.git",
         "state": {
           "branch": null,
-          "revision": "440f78db26d8bb073f29590f1c7bd31004da09ae",
-          "version": "1.0.201"
+          "revision": "4bece7a18aac6e905f5acc215719fc050c2ecbc4",
+          "version": null
         }
       },
       {
@@ -156,11 +156,11 @@
       },
       {
         "package": "SwiftJWT",
-        "repositoryURL": "https://github.com/Kitura/Swift-JWT.git",
+        "repositoryURL": "https://github.com/corona-warn-app/Swift-JWT.git",
         "state": {
           "branch": null,
-          "revision": "47c6384b6923e9bb1f214d2ba4bd52af39440588",
-          "version": "3.6.201"
+          "revision": "881f1f34be480e185fcabee49d4e2d9994c78653",
+          "version": null
         }
       },
       {
