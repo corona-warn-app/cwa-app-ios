@@ -87,15 +87,33 @@ struct FirstTicketValidationConsentViewModel {
 			// Bulletpoints without box
 			.section(
 				cells: [
-					.space(height: 20),
-					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint1),
-					.space(height: 20),
-					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint2),
-					.space(height: 20),
-					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint3),
-					.space(height: 20),
-					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint4),
-					.space(height: 20)
+					.space(
+						height: 20
+					),
+					.bulletPoint(
+						text: AppStrings.TicketValidation.FirstConsent.bulletPoint1
+					),
+					.space(
+						height: 20
+					),
+					.bulletPoint(
+						text: AppStrings.TicketValidation.FirstConsent.bulletPoint2
+					),
+					.space(
+						height: 20
+					),
+					.bulletPoint(
+						text: AppStrings.TicketValidation.FirstConsent.bulletPoint3
+					),
+					.space(
+						height: 20
+					),
+					.bulletPoint(
+						text: AppStrings.TicketValidation.FirstConsent.bulletPoint4
+					),
+					.space(
+						height: 20
+					)
 				]
 			),
 			
