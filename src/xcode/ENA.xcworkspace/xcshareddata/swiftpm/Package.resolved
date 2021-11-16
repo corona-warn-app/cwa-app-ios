@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "ASN1Decoder",
-        "repositoryURL": "https://github.com/filom/ASN1Decoder",
+        "repositoryURL": "https://github.com/corona-warn-app/ASN1Decoder",
         "state": {
           "branch": null,
-          "revision": "65953a42a0f039f53c73e48fd88c02809f7db607",
-          "version": "1.8.0"
+          "revision": "6799658a8dde751d932896282ee9cda912a8f384",
+          "version": "1.8.1"
         }
       },
       {
