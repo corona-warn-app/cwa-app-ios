@@ -2,21 +2,20 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
+import Foundation
 
 protocol TicketValidating {
 
-	var serviceProvider: String { get }
-	var subject: String { get }
+	init(with initializationData: TicketValidationInitializationData)
+
+	var initializationData: TicketValidationInitializationData { get }
 
 	func initialize(
-		with initializationData: TicketValidationInitializationData,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	)
 
 	func grantFirstConsent(
-		completion: @escaping (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
 	)
 
 	func selectCertificate(

@@ -246,6 +246,8 @@
 		01A6C3152626EA8000B6E95A /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E52626D71600B6E95A /* HomeTestResultCellModelTests.swift */; };
 		01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */; };
 		01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */; };
+		01B45CC02743DE2400A54B7B /* ValidationConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */; };
+		01B45CC22743DE3400A54B7B /* ValidationConditions+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */; };
 		01B5DFD826E0FD9500043955 /* VaccinationHintCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */; };
 		01B5DFD926E0FD9500043955 /* VaccinationHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */; };
 		01B605C4258A30C70093DB8E /* DiaryOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */; };
@@ -1153,7 +1155,7 @@
 		BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
-		BA4934262701F09C00017FD8 /* FileScannerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */; };
+		BA4934262701F09C00017FD8 /* QRScannerActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4934252701F09C00017FD8 /* QRScannerActivityIndicatorView.swift */; };
 		BA4985E426385928009D395C /* Dateformatter+vCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4985E326385928009D395C /* Dateformatter+vCard.swift */; };
 		BA53FD27270B28A200CF8475 /* ENAUITests_17_FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53FD26270B28A200CF8475 /* ENAUITests_17_FileScanner.swift */; };
 		BA53FD31270B519E00CF8475 /* FileScannerCoordinatorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA53FD2F270B519A00CF8475 /* FileScannerCoordinatorViewModelTests.swift */; };
@@ -1689,6 +1691,8 @@
 		01A6C30D2626DE4F00B6E95A /* HomeTestRegistrationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestRegistrationCellModelTests.swift; sourceTree = "<group>"; };
 		01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModelTests.swift; sourceTree = "<group>"; };
 		01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModelTests.swift; sourceTree = "<group>"; };
+		01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationConditions.swift; sourceTree = "<group>"; };
+		01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationConditions+Fake.swift"; sourceTree = "<group>"; };
 		01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintCellModel.swift; sourceTree = "<group>"; };
 		01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintTableViewCell.swift; sourceTree = "<group>"; };
 		01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModelTest.swift; sourceTree = "<group>"; };
@@ -2614,7 +2618,7 @@
 		BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewModel.swift; sourceTree = "<group>"; };
 		BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewController.swift; sourceTree = "<group>"; };
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
-		BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerIndicatorView.swift; sourceTree = "<group>"; };
+		BA4934252701F09C00017FD8 /* QRScannerActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerActivityIndicatorView.swift; sourceTree = "<group>"; };
 		BA4985E326385928009D395C /* Dateformatter+vCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+vCard.swift"; sourceTree = "<group>"; };
 		BA52627626BACA6100C4F12F /* AppConfiguration+FeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfiguration+FeaturesTests.swift"; sourceTree = "<group>"; };
 		BA53FD26270B28A200CF8475 /* ENAUITests_17_FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_17_FileScanner.swift; sourceTree = "<group>"; };
@@ -3019,6 +3023,8 @@
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
 				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
 				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
+				01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */,
+				01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -4645,6 +4651,7 @@
 				5065E12A26F0F0F000F18B96 /* QRScannerCoordinator.swift */,
 				5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */,
 				5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */,
+				BA4934252701F09C00017FD8 /* QRScannerActivityIndicatorView.swift */,
 				01A1B449252DFD7700841B63 /* MetadataObject.swift */,
 			);
 			path = QRScanner;
@@ -7724,7 +7731,6 @@
 				BA53FD2E270B518400CF8475 /* __tests__ */,
 				BA9CD38326FC84C200CB1C51 /* FileScannerCoordinator.swift */,
 				BA9CD38526FCA0C700CB1C51 /* FileScannerCoordinatorViewModel.swift */,
-				BA4934252701F09C00017FD8 /* FileScannerIndicatorView.swift */,
 				BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */,
 			);
 			path = FileScanner;
@@ -8791,6 +8797,7 @@
 				ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */,
 				BA5B7FD326458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
+				01B45CC02743DE2400A54B7B /* ValidationConditions.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
@@ -8845,6 +8852,7 @@
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */,
+				01B45CC22743DE3400A54B7B /* ValidationConditions+Fake.swift in Sources */,
 				01E1025D266665A6009ED803 /* AntigenTest.swift in Sources */,
 				BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */,
 				011217052617446500320745 /* CoronaTest.swift in Sources */,
@@ -9156,7 +9164,7 @@
 				508AFDD126F371B400A02D98 /* TraceLocationCheckinCoordinator.swift in Sources */,
 				BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */,
 				8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */,
-				BA4934262701F09C00017FD8 /* FileScannerIndicatorView.swift in Sources */,
+				BA4934262701F09C00017FD8 /* QRScannerActivityIndicatorView.swift in Sources */,
 				8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */,
 				015FC28227395E96000BEDE2 /* String+DataWithHexString.swift in Sources */,
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
@@ -10769,7 +10777,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
+				OTHER_SWIFT_FLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

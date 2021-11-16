@@ -36,23 +36,25 @@ final class TicketValidationCoordinator {
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
 			viewModel: FirstTicketValidationConsentViewModel(
-				serviceProvider: ticketValidation.serviceProvider,
-				subject: ticketValidation.subject,
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				subject: ticketValidation.initializationData.subject,
 				onDataPrivacyTap: {
 					self.showDataPrivacy()
 				}
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
-				isLoading(true)
+				DispatchQueue.main.async {
+					isLoading(true)
 
-				self?.ticketValidation.grantFirstConsent { result in
-					isLoading(false)
+					self?.ticketValidation.grantFirstConsent { result in
+						isLoading(false)
 
-					switch result {
-					case .success:
-						self?.showCertificateSelectionScreen()
-					case .failure(let error):
-						self?.showErrorAlert(error: error)
+						switch result {
+						case .success(let validationConditions):
+							self?.showCertificateSelectionScreen(validationConditions: validationConditions)
+						case .failure(let error):
+							self?.showErrorAlert(error: error)
+						}
 					}
 				}
 			},
@@ -90,7 +92,7 @@ final class TicketValidationCoordinator {
 		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
-	private func showCertificateSelectionScreen() {
+	private func showCertificateSelectionScreen(validationConditions: ValidationConditions) {
 
 	}
 
