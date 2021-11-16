@@ -4,15 +4,21 @@
 
 import Foundation
 
-enum TrustEvaluationError: Error {
+public enum TrustEvaluationError: Error {
     case CERT_CHAIN_EMTPY
     case CERT_PIN_NO_JWK_FOR_KID
     case CERT_PIN_MISMATCH
 }
 
-class TrustEvaluation {
+public class TrustEvaluation {
 
-    func check(trust: SecTrust, against jwkSet: [Data]) -> Result<Void, TrustEvaluationError> {
+    // MARK: - Init
+
+    public init() {}
+
+    // MARK: - Public
+
+    public func check(trust: SecTrust, against jwkSet: [Data]) -> Result<Void, TrustEvaluationError> {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
         if let serverCertificate = SecTrustGetCertificateAtIndex(trust, SecTrustGetCertificateCount(trust) - 1),
            let serverPublicKey = SecCertificateCopyKey(serverCertificate),
@@ -23,6 +29,8 @@ class TrustEvaluation {
             return .failure(.CERT_CHAIN_EMTPY)
         }
     }
+
+    // MARK: - Internal
 
     func check(serverKeyData: Data, against jwkSet: [Data]) -> Result<Void, TrustEvaluationError> {
         // Determine requiredKid: the requiredKid (a string) shall be determined by taking the first 8 bytes of the SHA-256 fingerprint of the leafCertificate and encoding it with base64.
