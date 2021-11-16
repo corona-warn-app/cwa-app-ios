@@ -3,7 +3,6 @@ module Fastlane
     class UpdateThirdPartyNoticeAction < Action
       def self.run(params)
         require 'json'
-        require 'open-uri'
 
         # Dir.pwd should result in '/src/xcode' of the project.
         unless Dir.pwd.end_with?("/src/xcode")
@@ -60,7 +59,7 @@ module Fastlane
           end
 
           begin
-            license_text = open(license_url) { |f| f.read }
+            license_text = URI.open(license_url) { |f| f.read }
 
             # When the license is an Apache License cut off the APPENDIX section.
             if license_text["Apache License"]
@@ -73,8 +72,8 @@ module Fastlane
             # Store the full text so it can be reused when writing the swift file.
             full_licenses[component] = license_text
 
-          rescue
-            UI.user_error!("Could not download the full license for #{license['component']}")
+          rescue => error
+            UI.user_error!("#{error} Could not download the full license for #{license['component']}")
           end
         end
 

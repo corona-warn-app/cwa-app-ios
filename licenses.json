@@ -106,4 +106,12 @@
     "license": "Custom",
     "licenseUrl": "https://raw.githubusercontent.com/krzyzanowskim/CryptoSwift/main/LICENSE"
   }
+  ,
+  {
+    "component": "Swift-JWT",
+    "licensor": "Kitura",
+    "website": "https://github.com/Kitura/Swift-JWT",
+    "license": "Apache 2.0 License",
+    "licenseUrl": "https://raw.githubusercontent.com/Kitura/Swift-JWT/master/LICENSE"
+  }
 ]
