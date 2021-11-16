@@ -21,7 +21,7 @@ struct FirstTicketValidationConsentViewModel {
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			// image with title
+			// Image with title
 			.section(
 				header: .image(
 					UIImage(named: "Illu_TicketValidation"),
@@ -31,7 +31,7 @@ struct FirstTicketValidationConsentViewModel {
 				),
 				cells: []
 			),
-			// subtitle with service provider and subject
+			// Subtitle with service provider and subject
 			.section(
 				cells: [
 					.title2(
@@ -62,7 +62,7 @@ struct FirstTicketValidationConsentViewModel {
 					)
 				]
 			),
-			// bulletpoints in consent box
+			// Bulletpoints in consent box
 			.section(
 				cells: [
 					.legalExtendedDataDonation(
@@ -84,7 +84,21 @@ struct FirstTicketValidationConsentViewModel {
 					)
 				]
 			),
-				
+			// Bulletpoints without box
+			.section(
+				cells: [
+					.space(height: 20),
+					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint1),
+					.space(height: 20),
+					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint2),
+					.space(height: 20),
+					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint3),
+					.space(height: 20),
+					.bulletPoint(text: AppStrings.TicketValidation.FirstConsent.bulletPoint4),
+					.space(height: 20)
+				]
+			),
+			
 			// Data privacy cell
 			.section(
 				separators: .all,

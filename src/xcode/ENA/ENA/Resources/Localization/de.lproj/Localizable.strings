@@ -3395,6 +3395,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_Legal_bulletPoint2" = "Die abgerufenen Daten werden von der App genutzt, um festzustellen, welche Ihrer gespeicherten Zertifikate verwendet werden können.";
 
+"TicketValidation_FirstConsent_BulletPoint1" = "Sie sind nicht verpflichtet, die Überprüfung Ihres Zertifikats mit der Corona-Warn-App zu erlauben. Der Nachweis Ihres Impf-, Test- oder Genesungsstatus kann auch auf andere Weise erbracht werden.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Die Anforderungen an das Zertifikat werden vom Anbieter festgelegt. Das RKI hat darauf keinen Einfluss. Weitere Informationen zu den Zertifikatsanforderungen erhalten Sie bei dem Anbieter.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Die Ermittlung der geeigneten Zertifikate erfolgt lokal auf Ihrem Smartphone. Es werden dabei keine Daten an das RKI oder den Anbieter übermittelt.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "Das RKI erfährt die Daten zu Ihrer Buchung oder den von Ihnen gespeicherten Zertifikaten nicht.";
+
 "TicketValidation_FirstConsent_primaryButtonTitle" = "Einverstanden";
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
