@@ -4,7 +4,6 @@
 
 import Foundation
 
-
 public enum ECSHA256SignerError: Error {
     case EC_SIGN_NOT_SUPPORTED // if the algorithm is not supported
     case unknown(Error?) // Unknown error
