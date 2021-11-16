@@ -25,8 +25,8 @@ final class ECSHA256SignerTests: XCTestCase {
             return
         }
         
-        guard let privateKey = SecKey.privateEC(from: privateKeyData as CFData),
-              let publicKey = SecKey.publicEC(from: publicKeyData as CFData) else {
+        guard let privateKey = SecKey.privateECKey(from: privateKeyData as CFData),
+              let publicKey = SecKey.publicECKey(from: publicKeyData as CFData) else {
                   XCTFail("Could not create SecKeys from Data")
                   return
               }
@@ -68,8 +68,8 @@ final class ECSHA256SignerTests: XCTestCase {
             return
         }
         
-        guard let privateKey = SecKey.privateEC(from: privateKeyData as CFData),
-              let publicKey = SecKey.publicEC(from: publicKeyData as CFData) else {
+        guard let privateKey = SecKey.privateECKey(from: privateKeyData as CFData),
+              let publicKey = SecKey.publicECKey(from: publicKeyData as CFData) else {
                   XCTFail("Could not create SecKeys from Data")
                   return
               }
