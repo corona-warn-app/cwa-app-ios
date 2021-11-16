@@ -4,8 +4,6 @@
 
 import Foundation
 import SwiftJWT
-import ASN1Decoder
-import CryptorECC
 
 public enum JWTVerificationError: Error {
     case JWT_VER_ALG_NOT_SUPPORTED
