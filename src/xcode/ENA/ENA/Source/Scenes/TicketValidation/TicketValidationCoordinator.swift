@@ -36,8 +36,8 @@ final class TicketValidationCoordinator {
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
 			viewModel: FirstTicketValidationConsentViewModel(
-				serviceProvider: ticketValidation.serviceProvider,
-				subject: ticketValidation.subject,
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				subject: ticketValidation.initializationData.subject,
 				onDataPrivacyTap: {
 					self.showDataPrivacy()
 				}
@@ -50,8 +50,8 @@ final class TicketValidationCoordinator {
 						isLoading(false)
 
 						switch result {
-						case .success:
-							self?.showCertificateSelectionScreen()
+						case .success(let validationConditions):
+							self?.showCertificateSelectionScreen(validationConditions: validationConditions)
 						case .failure(let error):
 							self?.showErrorAlert(error: error)
 						}
@@ -92,7 +92,7 @@ final class TicketValidationCoordinator {
 		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
-	private func showCertificateSelectionScreen() {
+	private func showCertificateSelectionScreen(validationConditions: ValidationConditions) {
 
 	}
 

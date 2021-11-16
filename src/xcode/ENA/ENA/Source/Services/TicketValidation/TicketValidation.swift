@@ -2,32 +2,26 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
+import Foundation
 
 final class TicketValidation: TicketValidating {
 	
 	// MARK: - Protocol TicketValidating
 
-	var serviceProvider: String {
-		initializationData?.serviceProvider ?? ""
+	init(with initializationData: TicketValidationInitializationData) {
+		self.initializationData = initializationData
 	}
 
-	var subject: String {
-		initializationData?.subject ?? ""
-	}
+	var initializationData: TicketValidationInitializationData
 
 	func initialize(
-		with initializationData: TicketValidationInitializationData,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		self.initializationData = initializationData
-
 
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
 	) {
 
 	}
@@ -47,9 +41,5 @@ final class TicketValidation: TicketValidating {
 	func cancel() {
 
 	}
-
-	// MARK: - Private
-
-	private var initializationData: TicketValidationInitializationData?
 
 }

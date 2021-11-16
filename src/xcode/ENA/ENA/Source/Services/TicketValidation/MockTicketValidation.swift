@@ -2,23 +2,19 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
+import Foundation
 
 final class MockTicketValidation: TicketValidating {
 
 	// MARK: - Protocol TicketValidating
 
-	var serviceProvider: String {
-		initializationData?.serviceProvider ?? ""
+	init(with initializationData: TicketValidationInitializationData) {
+		self.initializationData = initializationData
 	}
 
-	var subject: String {
-		initializationData?.subject ?? ""
-	}
+	var initializationData: TicketValidationInitializationData
 
 	func initialize(
-		with initializationData: TicketValidationInitializationData,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
@@ -27,10 +23,10 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<Void, TicketValidationError>) -> Void
+		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
-			completion(self.firstConsentResult ?? .success(()))
+			completion(self.firstConsentResult ?? .success(.fake()))
 		}
 	}
 
@@ -55,13 +51,9 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Internal
 
 	var initializationResult: Result<Void, TicketValidationError>?
-	var firstConsentResult: Result<Void, TicketValidationError>?
+	var firstConsentResult: Result<ValidationConditions, TicketValidationError>?
 	var validationResult: Result<TicketValidationResult, TicketValidationError>?
 
 	var delay: TimeInterval = 0
-
-	// MARK: - Private
-
-	private var initializationData: TicketValidationInitializationData?
 
 }
