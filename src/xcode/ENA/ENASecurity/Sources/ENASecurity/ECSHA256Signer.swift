@@ -11,6 +11,7 @@ public enum ECSHA256SignerError: Error {
 }
 
 public struct ECSHA256Signer {
+
     // MARK: - Init
 
     public init(privateKey: SecKey, data: Data) {
