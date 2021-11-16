@@ -18,7 +18,7 @@ class RouteTests: CWATestCase {
 		guard
 			case let .rapidAntigen(result) = route,
 			case let .success(coronaTestRegistrationInformation) = result,
-			case let .antigen(qrCodeInformation: antigenTestQRCodeInformation) = coronaTestRegistrationInformation
+			case let .antigen(qrCodeInformation: antigenTestQRCodeInformation, qrCodeHash: _) = coronaTestRegistrationInformation
 		else {
 			XCTFail("unexpected route type")
 			return
@@ -182,7 +182,7 @@ class RouteTests: CWATestCase {
 		switch route {
 		case .rapidAntigen(.success(let test)):
 			switch test {
-			case .antigen(qrCodeInformation: let qrCodeInformation):
+			case .antigen(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
 				XCTAssertEqual(testInformation, qrCodeInformation)
 			case .pcr, .teleTAN:
 				XCTFail("Wrong test. Expected Antigen")

@@ -9,4 +9,5 @@ enum HealthCertificateValidityState: Int, Codable {
 	case expiringSoon
 	case expired
 	case invalid
+	case blocked
 }

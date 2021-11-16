@@ -87,7 +87,6 @@ class HomeTableViewModel {
 	}
 
 	func heightForRow(at indexPath: IndexPath) -> CGFloat {
-		
 		let isStatisticsCell = HomeTableViewModel.Section(rawValue: indexPath.section) == .statistics
 		let isGlobalStatisticsNotLoaded = state.statistics.supportedCardIDSequence.isEmpty
 		let isLocalStatisticsNotCached = state.store.selectedLocalStatisticsRegions.isEmpty
@@ -110,12 +109,19 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultButton(coronaTestType: CoronaTestType) {
-		if coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired ||
-			(coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated) {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
 			coronaTestService.removeTest(coronaTestType)
 		} else {
 			onTestResultCellTap(coronaTestType)
 		}
+	}
+
+	func shouldShowDeletionConfirmationAlert(for coronaTestType: CoronaTestType) -> Bool {
+		coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired
+	}
+
+	func moveTestToBin(type coronaTestType: CoronaTestType) {
+		coronaTestService.moveTestToBin(coronaTestType)
 	}
 
 	func updateTestResult() {

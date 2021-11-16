@@ -100,7 +100,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch  result {
 		case .antigen:
 			XCTFail("Expected PCR test")
-		case .pcr(let result):
+		case .pcr(let result, _):
 			XCTAssertEqual(result, validPcrGuid)
 		case .teleTAN:
 			XCTFail("Expected PCR test")
@@ -117,7 +117,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch  result {
 		case .antigen:
 			XCTFail("Expected PCR test")
-		case .pcr(let result):
+		case .pcr(let result, _):
 			XCTAssertEqual(result, validPcrGuid.lowercased())
 		case .teleTAN:
 			XCTFail("Expected PCR test")
@@ -136,7 +136,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch  result {
 		case .antigen:
 			XCTFail("Expected PCR test")
-		case .pcr(let result):
+		case .pcr(let result, _):
 			XCTAssertEqual(result, mixedCaseGuid)
 		case .teleTAN:
 			XCTFail("Expected PCR test")
@@ -177,7 +177,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		// THEN
 		switch result {
-		case .pcr(let guid):
+		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
@@ -198,7 +198,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		// THEN
 		switch result {
-		case .pcr(let guid):
+		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
@@ -252,7 +252,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		// THEN
 		switch result {
-		case .pcr(let guid):
+		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
@@ -273,7 +273,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		// THEN
 		switch result {
-		case .pcr(let guid):
+		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
@@ -294,7 +294,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		// THEN
 		switch result {
-		case .pcr(let guid):
+		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
 		case .antigen:
 			XCTFail("expected PCR test")
@@ -315,7 +315,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		// THEN
 		switch result {
-		case .pcr(let guid):
+		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
 		case .antigen:
 			XCTFail("expected PCR test")

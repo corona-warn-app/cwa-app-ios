@@ -37,7 +37,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 	}
 		
@@ -177,6 +178,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_ENFLowRisk() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
 		let coronaTestService = makeCoronaTestService(store: secureStore)
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
@@ -360,7 +362,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
 		let secureStore = MockTestStore()
 		let coronaTestService = makeCoronaTestService(store: secureStore)
-		
+
 		Analytics.setupMock(
 			store: secureStore,
 			coronaTestService: coronaTestService

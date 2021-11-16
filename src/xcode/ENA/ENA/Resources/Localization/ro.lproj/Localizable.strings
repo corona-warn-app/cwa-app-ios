@@ -850,9 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Eliminați rezultatul testului?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă ștergeți testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Rezultatul testului va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare.\nPuteți șterge definitiv sau restaura de acolo rezultatul testului. Rezultatul testului va fi șters automat după 30 de zile.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Eliminare rezultat test";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
@@ -895,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Răspunsul nu are conținut.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe un alt smartphone. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe smartphone-ul dvs.\nVeți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.\nDacă ați șters testul din aplicație, îl puteți restaura din coșul de reciclare.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Codul QR este nevalabil";
 
@@ -930,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Ați înregistrat deja un test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Ați înregistrat deja un test rapid.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil de test rapid";
@@ -1259,12 +1261,6 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Eliminare test";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sigur doriți să eliminați testul dvs.?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "În caz afirmativ, alte persoane nu vor fi avertizate.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Eliminare";
-
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Gestionarea testelor dvs.";
 
@@ -1557,22 +1553,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.12 */
-"NewVersionFeature_213_hospitalizationRateTile_title" = "Incidența locală a spitalizării pe 7 zile";
+/* Version 2.14 */
+"NewVersionFeature_214_recycleBin_title" = "Funcția Coș de reciclare pentru teste";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "Mozaicurile locale pentru incidența pe 7 zile a infectărilor noi arată acum și incidența spitalizării pe 7 zile. Deoarece acest indicator este disponibil doar la nivel de stat, dacă este selectat un district, va fi afișată rata spitalizării pentru statul respectiv.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "Modificarea legăturii la întrebările frecvente";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "Când apelați întrebările frecvente în aplicație, acum sunteți redirecționat la paginile coronawarn.app. Acolo veți găsi mai multe detalii la întrebările dvs.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Atribuirea certificatului";
-
-"NewVersionFeature_213_certificateAssignment_description" = "Atribuirea de certificate persoanelor a fost îmbunătățită pentru fi mai tolerantă la erori. Acum aplicația ignoră numărul diferit de spații din numele persoanelor, permițând atribuirea certificatelor aceleiași persoane, în ciuda acestor diferențe.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Restaurare certificate";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Certificatele eliminate sunt mutate în coșul de reciclare. Acestea pot fi restaurate în 30 de zile.";
+"NewVersionFeature_214_recycleBin_description" = "Testele rapide și testele PCR eliminate sunt mutate acum tot în coșul de reciclare. Aceasta înseamnă că puteți recupera obiectele pe care le-ați șters din greșeală.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2759,7 +2743,7 @@
 
 "CovPass_Check_Info_faq" = "Întrebări frecvente pentru verificarea certificatului de către terți";
 
-"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
+"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor dvs. în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Totuși, o verificare vizuală a certificatelor nu este suficientă pentru terți. Aceștia trebuie să utilizeze aplicația CovPassCheck în Germania.";
 
@@ -3067,12 +3051,16 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
 
+"HealthCertificate_ValidityState_Blocked" = "Certificat nevalabil";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certificatul a fost revocat de către autoritatea emitentă. Obțineți un certificat digital nou.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Scanner de coduri QR";
 
 "UniversalQRScanner_InstructionTitle" = "Ce coduri QR puteți scana?";
 
-"UniversalQRScanner_InstructionDescription" = "Teste PCR și teste rapide, certificate de test, certificate de vaccinare, certificate de recuperare și check-inuri.";
+"UniversalQRScanner_InstructionDescription" = "Testele dvs. PCR, testele rapide, certificatele de test, certificatele de vaccinare, certificatele de recuperare și check-inurile.";
 
 "UniversalQRScanner_FileButtonTitle" = "Deschidere fișier";
 
@@ -3097,6 +3085,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Restaurare certificat";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "Codul QR a fost deja înregistrat pe smartphone-ul dvs. Certificatul va fi restaurat din coșul de reciclare.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Restaurare test";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Codul QR a fost deja înregistrat pe smartphone-ul dvs. Testul va fi restaurat din coșul de reciclare.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Bibliotecă de fotografii";
@@ -3131,7 +3123,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Niciun cod QR potrivit";
 
-"FileScanner_InvalidQRCode_message" = "Codul QR nu este acceptat de Corona-Warn-App. Scanați un cod QR potrivit.";
+"FileScanner_InvalidQRCode_message" = "Codul QR nu este acceptat de Corona-Warn-App. Selectați un cod QR potrivit.";
 
 "FileScanner_FileNotReadable_title" = "Fișier imposibil de citit";
 
@@ -3183,7 +3175,7 @@
 
 "RecycleBin_description" = "Atingeți un element pentru a-l restaura. Elementele vor fi șterse automat după 30 de zile.";
 
-"RecycleBin_deleteAllButtonTitle" = "Eliminare toate";
+"RecycleBin_deleteAllButtonTitle" = "Ștergere definitivă tot";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certificat de vaccinare";
@@ -3220,7 +3212,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Coșul de reciclare este gol";
 
-"RecycleBin_EmptyState_description" = "Când eliminați certificatele, acestea sunt mutate în coșul de reciclare și sunt afișate acolo.";
+"RecycleBin_EmptyState_description" = "Când eliminați certificatele și testele, acestea sunt mutate în coșul de reciclare și sunt afișate acolo.";
 
 "RecycleBin_EmptyState_imageDescription" = "Un coș de reciclare";
 

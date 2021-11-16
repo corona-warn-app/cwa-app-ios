@@ -56,7 +56,7 @@ class RecycleBinTests: XCTestCase {
 		var handler = TestRestorationHandlerFake()
 		handler.canRestore = { _ in
 			canRestoreExpectation.fulfill()
-			return .failure(.some)
+			return .failure(.testTypeAlreadyRegistered)
 		}
 		handler.restore = { _ in }
 

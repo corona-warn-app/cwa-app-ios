@@ -731,7 +731,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 										Log.error("Could not create strong self")
 										return
 									}
-									self.healthCertificateService.removeHealthCertificate(healthCertificate)
+									self.healthCertificateService.moveHealthCertificateToBin(healthCertificate)
 									self.navigationController?.popViewController(animated: true)
 								}
 							)

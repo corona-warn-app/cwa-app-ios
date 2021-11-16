@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct TestedPerson: Codable, Equatable {
+struct TestedPerson: Codable, Equatable, Hashable {
 
 	// MARK: - Internal
 

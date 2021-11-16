@@ -23,6 +23,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "",
 			showInfoHit: {}
 		)
@@ -50,6 +51,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 
 		let viewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "",
 			showInfoHit: {}
 		)

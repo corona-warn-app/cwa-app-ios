@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		super.init()
 
-		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
@@ -287,7 +287,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			recycleBin: recycleBin
 		)
 	}()
 
@@ -711,10 +712,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noExposureWindows(error):
+			case let .noExposureWindows(error, date):
 				return makeAlertController(
 					noExposureWindowsError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					date: date,
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
@@ -740,7 +742,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, date: Date, rootController: UIViewController) -> UIAlertController? {
 
 		if let enError = noExposureWindowsError as? ENError {
 			switch enError.code {
@@ -754,7 +756,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					}
 				}()
 				return rootController.setupErrorAlert(
-					message: localizedDescription,
+					message: localizedDescription + "\n\(date)",
 					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 					secondaryActionCompletion: openFAQ
 				)

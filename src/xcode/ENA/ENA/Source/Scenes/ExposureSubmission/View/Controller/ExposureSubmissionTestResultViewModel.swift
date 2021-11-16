@@ -95,7 +95,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func deleteTest() {
-		coronaTestService.removeTest(coronaTestType)
+		coronaTestService.moveTestToBin(coronaTestType)
 		onTestDeleted()
 	}
 	
