@@ -38,26 +38,34 @@ extension Array where Element == HealthCertificate {
 	}
 
 	var mostRelevant: HealthCertificate? {
-		let sortedHealthCertificates = sorted()
+		mostRelevantValidOrExpiringSoon ?? mostRelevantExpired ?? mostRelevantInvalidOrBlocked ?? first
+	}
 
-		return sortedHealthCertificates.filter({
-			$0.validityState == .valid || $0.validityState == .expiringSoon
-		}).mostRelevantIgnoringValidityState ??
-		
-		sortedHealthCertificates.filter({
-			$0.validityState == .expired
-		}).mostRelevantIgnoringValidityState ??
-		
-		sortedHealthCertificates.filter({
-			$0.validityState == .invalid
-		}).mostRelevantIgnoringValidityState ??
+	private var mostRelevantValidOrExpiringSoon: HealthCertificate? {
+		sorted()
+			.filter {
+				$0.validityState == .valid || $0.validityState == .expiringSoon
+			}
+			.mostRelevantIgnoringValidityState
+	}
 
-		// Fallback
-		first
+	private var mostRelevantExpired: HealthCertificate? {
+		sorted()
+			.filter {
+				$0.validityState == .expired
+			}
+			.mostRelevantIgnoringValidityState
+	}
+
+	private var mostRelevantInvalidOrBlocked: HealthCertificate? {
+		sorted()
+			.filter {
+				$0.validityState == .invalid || $0.validityState == .blocked
+			}
+			.mostRelevantIgnoringValidityState
 	}
 	
 	private var mostRelevantIgnoringValidityState: HealthCertificate? {
-		
 		// PCR Test Certificate < 48 hours
 
 		let currentPCRTestCertificate = last {
@@ -85,25 +93,28 @@ extension Array where Element == HealthCertificate {
 		if let currentAntigenTestCertificate = currentAntigenTestCertificate {
 			return currentAntigenTestCertificate
 		}
-
-		// Booster Vaccination Certificate
 		
-		if let boosterVaccinationCertificate = last(where: { $0.vaccinationEntry?.isBoosterVaccination ?? false }) {
-			return boosterVaccinationCertificate
-		}
+		// Valid / Complete Vaccination Certificate
+		
+		// Booster (3/3) on Biontech, Moderna, Astra (2/2) -> gets priority
+		// Booster (2/2) on J&J (1/1) -> gets priority
 
-		// Series-completing Vaccination Certificate > 14 days
+		// Booster with Moderna, Biontech, Astra (2/2) after Recovery Vaccination (1/1) -> gets priority after 14 days
+		// Booster with Moderna, Biontech, Astra (2/2) after J&J (1/1) -> gets priority after 14 days
 
-		let protectingVaccinationCertificate = last {
-			guard let isLastDoseInASeries = $0.vaccinationEntry?.isLastDoseInASeries, let ageInDays = $0.ageInDays else {
+		// Vaccination with Moderna, Biontech, Astra (1/1) after recovery -> gets priority
+		// Vaccination with J&J (1/1) after recovery -> get priority after 14 days
+
+		if let completeVaccinationCertificate = last(where: {
+			guard let vaccinationEntry = $0.vaccinationEntry else {
 				return false
 			}
-			
-			return isLastDoseInASeries && ageInDays > 14
-		}
-
-		if let protectingVaccinationCertificate = protectingVaccinationCertificate {
-			return protectingVaccinationCertificate
+			return vaccinationEntry.doseNumber >= vaccinationEntry.totalSeriesOfDoses && (
+				$0.ageInDays ?? 0 > 14 ||
+				vaccinationEntry.isBoosterVaccination ||
+				vaccinationEntry.isRecoveredVaccination)
+		}) {
+			return completeVaccinationCertificate
 		}
 
 		// Recovery Certificate <= 180 days

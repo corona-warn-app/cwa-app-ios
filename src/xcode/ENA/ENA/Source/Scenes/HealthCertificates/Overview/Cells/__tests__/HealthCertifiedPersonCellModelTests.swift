@@ -6,6 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 	func testHealthCertifiedPersonWithValidVaccinationCertificate() throws {
@@ -140,6 +141,38 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		}
 	}
 
+	func testHealthCertifiedPersonWithBlockedVaccinationCertificate() throws {
+		// GIVEN
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
+			)
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+	}
+
 	func testHealthCertifiedPersonWithValidTestCertificate() throws {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
@@ -248,6 +281,37 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
 			XCTAssertEqual(description, "Zertifikat (Signatur) ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+	}
+
+	func testHealthCertifiedPersonWithBlockedTestCertificate() throws {
+		// GIVEN
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
+			)
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat ungültig")
 		} else {
 			XCTFail("Expected caption to be set to validityState")
 		}
@@ -380,6 +444,38 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
 			XCTAssertEqual(description, "Zertifikat (Signatur) ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+	}
+
+	func testHealthCertifiedPersonWithBlockedRecoveryCertificate() throws {
+		// GIVEN
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			),
+			validityState: .blocked
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				showInfoHit: { }
+			)
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat ungültig")
 		} else {
 			XCTFail("Expected caption to be set to validityState")
 		}
