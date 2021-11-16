@@ -2,11 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-/**
-Specific implementation of a service who is only sending and receiving when using wifi.
-It uses the coronaWarnSessionConfigurationWifiOnly.
-*/
-class WifiOnlyRestService: Service {
+class DynamicPinningRestService: Service {
 
 	// MARK: - Init
 
@@ -16,9 +12,18 @@ class WifiOnlyRestService: Service {
 	) {
 		self.environment = environment
 		self.optionalSession = session
+		self.jwkSet = []
 	}
 
-	// MARK: - Overrides
+	init(
+		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil,
+		jwkSet: [Data]
+	) {
+		self.environment = environment
+		self.optionalSession = session
+		self.jwkSet = jwkSet
+	}
 
 	// MARK: - Protocol Service
 
@@ -34,5 +39,5 @@ class WifiOnlyRestService: Service {
 	// MARK: - Private
 
 	private let optionalSession: URLSession?
-
+	private let jwkSet: [Data]
 }
