@@ -3375,6 +3375,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Ticket Validation */
 
+"TicketValidation_CancelAlert_title" = "Wollen Sie die Überprüfung wirklich abbrechen?";
+
+"TicketValidation_CancelAlert_message" = "Wenn Sie die Überprüfung abbrechen, kann kein Zertifikat überprüft werden.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung fortsetzen";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung abbrechen";
+
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
 
 "TicketValidation_FirstConsent_imageDescription" = "Ein Zertifikat wird für ein Ticketkauf übertragen";
