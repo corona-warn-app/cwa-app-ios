@@ -92,7 +92,7 @@ internal extension DynamicCell {
 			guard let cell = cell as? DynamicLegalExtendedCell else {
 				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
 			}
-			cell.configure(title: title, description: description, bulletPoints: bulletPoints)
+			cell.configure(title: title, description: description, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
 			configure?(viewController, cell, indexPath)
 		}
 	}
