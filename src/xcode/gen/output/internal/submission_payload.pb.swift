@@ -155,31 +155,27 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.keys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.keys, fieldNumber: 1)
     }
-    try { if let v = self._requestPadding {
+    if let v = self._requestPadding {
       try visitor.visitSingularBytesField(value: v, fieldNumber: 2)
-    } }()
+    }
     if !self.visitedCountries.isEmpty {
       try visitor.visitRepeatedStringField(value: self.visitedCountries, fieldNumber: 3)
     }
-    try { if let v = self._origin {
+    if let v = self._origin {
       try visitor.visitSingularStringField(value: v, fieldNumber: 4)
-    } }()
-    try { if let v = self._consentToFederation {
+    }
+    if let v = self._consentToFederation {
       try visitor.visitSingularBoolField(value: v, fieldNumber: 5)
-    } }()
+    }
     if !self.checkIns.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.checkIns, fieldNumber: 6)
     }
-    try { if let v = self._submissionType {
+    if let v = self._submissionType {
       try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
-    } }()
+    }
     if !self.checkInProtectedReports.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.checkInProtectedReports, fieldNumber: 8)
     }
