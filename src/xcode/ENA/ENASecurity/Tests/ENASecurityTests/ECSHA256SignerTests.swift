@@ -151,7 +151,7 @@ public extension SecKey {
     
     // We need this since Apple expects only the raw keys no headers allowed. 🙄 and we cant use CryptoKit since we have to support iOS 12
     // Depending on where else we will need this in our awesome app we might have to move this extension into its own file. Currently its only need for unit testing
-    static func privateEC(from pemData: CFData) -> SecKey?{
+    static func privateECKey(from pemData: CFData) -> SecKey?{
         let attributes: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate
