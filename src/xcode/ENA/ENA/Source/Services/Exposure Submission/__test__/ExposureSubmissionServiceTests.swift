@@ -46,7 +46,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -134,7 +135,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: mockStore, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "regToken",
@@ -197,7 +199,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			isSubmissionConsentGiven: false
@@ -267,7 +270,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -324,7 +328,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: false,
@@ -381,7 +386,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -440,7 +446,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -496,7 +503,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			positiveTestResultWasShown: true,
@@ -559,7 +567,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "asdf",
@@ -622,7 +631,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: nil,
@@ -681,7 +691,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -742,7 +753,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -847,7 +859,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
@@ -921,8 +934,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -980,8 +994,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -1043,8 +1058,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		XCTAssertEqual(service.exposureManagerState, exposureManagerState)
@@ -1125,7 +1141,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(
 			registrationToken: "dummyRegToken",

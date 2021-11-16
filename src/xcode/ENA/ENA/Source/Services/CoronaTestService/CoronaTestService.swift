@@ -25,7 +25,8 @@ class CoronaTestService {
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
-		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
+		recycleBin: RecycleBin
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -38,6 +39,7 @@ class CoronaTestService {
 
 			self.healthCertificateService = healthCertificateService
 			self.notificationCenter = notificationCenter
+			self.recycleBin = recycleBin
 
 			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -59,6 +61,7 @@ class CoronaTestService {
 		self.appConfiguration = appConfiguration
 		self.healthCertificateService = healthCertificateService
 		self.notificationCenter = notificationCenter
+		self.recycleBin = recycleBin
 
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -77,7 +80,8 @@ class CoronaTestService {
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
-		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
+		recycleBin: RecycleBin
 	) {
 		self.init(
 			client: client,
@@ -87,7 +91,8 @@ class CoronaTestService {
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
-			notificationCenter: notificationCenter
+			notificationCenter: notificationCenter,
+			recycleBin: recycleBin
 		)
 	}
 
@@ -120,6 +125,7 @@ class CoronaTestService {
 	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		guid: String,
+		qrCodeHash: String,
 		isSubmissionConsentGiven: Bool,
 		markAsUnseen: Bool = false,
 		certificateConsent: TestCertificateConsent,
@@ -143,9 +149,14 @@ class CoronaTestService {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
+					if self?.pcrTest != nil {
+						self?.moveTestToBin(.pcr)
+					}
+
 					self?.pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
@@ -196,6 +207,10 @@ class CoronaTestService {
 
 				switch result {
 				case .success(let registrationToken):
+					if self?.pcrTest != nil {
+						self?.moveTestToBin(.pcr)
+					}
+
 					 let _pcrTest = PCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
@@ -259,6 +274,7 @@ class CoronaTestService {
 	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		with hash: String,
+		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
 		firstName: String?,
 		lastName: String?,
@@ -278,6 +294,10 @@ class CoronaTestService {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
+					if self?.antigenTest != nil {
+						self?.moveTestToBin(.antigen)
+					}
+
 					var certificateConsentGiven = false
 					if case .given = certificateConsent {
 						certificateConsentGiven = true
@@ -287,6 +307,7 @@ class CoronaTestService {
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationDate: Date(),
 						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
 						testedPerson: TestedPerson(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth),
 						testResult: .pending,
 						finalTestResultReceivedDate: nil,
@@ -322,6 +343,17 @@ class CoronaTestService {
 				}
 			}
 		)
+	}
+
+	func reregister(coronaTest: CoronaTest) {
+		switch coronaTest {
+		case .pcr(let pcrTest):
+			self.pcrTest = pcrTest
+		case .antigen(let antigenTest):
+			self.antigenTest = antigenTest
+		}
+
+		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTest.type)
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
@@ -429,6 +461,16 @@ class CoronaTestService {
 			}
 	}
 
+	func moveTestToBin(_ coronaTestType: CoronaTestType) {
+		Log.info("[CoronaTestService] Moving test to bin (coronaTestType: \(coronaTestType)", log: .api)
+
+		if let coronaTest = coronaTest(ofType: coronaTestType) {
+			recycleBin.moveToBin(.coronaTest(coronaTest))
+		}
+
+		removeTest(coronaTestType)
+	}
+
 	func removeTest(_ coronaTestType: CoronaTestType) {
 		Log.info("[CoronaTestService] Removing test (coronaTestType: \(coronaTestType)", log: .api)
 
@@ -440,6 +482,7 @@ class CoronaTestService {
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
+		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -458,12 +501,7 @@ class CoronaTestService {
 			break
 		}
 
-		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
-
-		if let coronaTest = coronaTest(ofType: coronaTestType), !coronaTest.isSubmissionConsentGiven,
-			coronaTest.positiveTestResultWasShown, !coronaTest.keysSubmitted {
-			warnOthersReminder.scheduleNotifications(for: coronaTestType)
-		}
+		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTestType)
 	}
 
 	func updatePublishersFromStore() {
@@ -553,6 +591,7 @@ class CoronaTestService {
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let notificationCenter: UserNotificationCenter
+	private let recycleBin: RecycleBin
 	private let serialQueue = AsyncOperation.serialQueue(named: "CoronaTestService.serialQueue")
 
 	private let fakeRequestService: FakeRequestService
@@ -889,6 +928,16 @@ class CoronaTestService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+			DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+
+			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
+				warnOthersReminder.scheduleNotifications(for: coronaTestType)
+			}
+		}
 	}
 
 	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {

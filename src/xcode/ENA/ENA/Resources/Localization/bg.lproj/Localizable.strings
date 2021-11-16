@@ -80,7 +80,7 @@
 
 "ExposureDetection_RefreshIn" = "Актуализиране след %@";
 
-"ExposureDetection_LastRiskLevel" = "Последна проверка за излагане на иск: %@";
+"ExposureDetection_LastRiskLevel" = "Последна проверка за излагане на риск: %@";
 
 "ExposureDetection_OffText" = "Активирайте регистрирането на излагания на риск, за да може да бъде изчислено текущото Ви ниво на риск.";
 
@@ -408,7 +408,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Повече защита за Вас и за всички нас. С помощта на приложението Corona-Warn-App можем да прекъснем веригите на заразяване много по-бързо.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Превърнете устройството си в предупредителна система за коронавирус. Вижте своя статус на риск от заразяване и разберете дали сте били в контакт с хора, диагностицирани с коронавирус през последните 14 дни.\n\nПриложението регистрира контакти на лица посредством обмяна на криптирани случайни ИД между смартфоните им, без да осъществява достъп до каквито и да било лични данни.\n\nАко желаете, може да използвате приложението за доказване на личния ви статус на заразяване (например отрицателен бърз тест). Но имайте предвид, че по никакъв начин не сте задължени да използвате приложението за тази цел. Може да докажете статуса си и по друг начин, съобразен с правните разпоредби на вашето място на пребиваване.\n\nМожете също така да потвърдите личния си ваксинационен статус.\n\nПриложението регистрира контакти на лица посредством обмяна на криптирани случайни ИД между смартфоните им, без да осъществява достъп до каквито и да било лични данни";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Превърнете устройството си в предупредителна система за коронавирус. Вижте своя статус на риск от заразяване и разберете дали сте били в контакт с хора, диагностицирани с коронавирус през последните 14 дни.\n\nПриложението регистрира контакти на лица посредством обмяна на криптирани случайни ИД между смартфоните им, без да осъществява достъп до каквито и да било лични данни.\n\nАко желаете, може да използвате приложението за доказване на личния ви статус на заразяване (например отрицателен бърз тест). Но имайте предвид, че по никакъв начин не сте задължени да използвате приложението за тази цел. Може да докажете статуса си и по друг начин, съобразен с правните разпоредби на вашето място на пребиваване.\n\nМожете също така да докажете личния си ваксинационен статус.\n\nПриложението регистрира контакти на лица посредством обмяна на криптирани случайни ИД между смартфоните им, без да осъществява достъп до каквито и да било лични данни";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Информация за приложението на опростен и жестомимичен език.";
 
@@ -850,9 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Тестът може да се сканира само веднъж.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Изтриване на резултат от тест?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да извлечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Резултатът от тест ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Резултатът от тест ще бъде изтрит автоматично след 30 дни.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Изтриване на резултат от тест";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
@@ -895,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Съдържанието на отговора е празно.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на друг смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на Вашия смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас. Ако сте изтрили този тест в приложението може да го възстановите от кошчето.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Невалиден QR код";
 
@@ -930,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Вече сте регистрирали PCR тест.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Вече сте регистрирали PCR тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг PCR тест, предходният PCR тест ще бъде изтрит.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Вече сте регистрирали PCR тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг PCR тест, предходният PCR тест ще бъде преместен в кошчето, от където може да го възстановите или изтриете.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Вече сте регистрирали бърз тест.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Вече сте регистрирали бърз тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг бърз тест, предходният бърз тест ще бъде изтрит.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Вече сте регистрирали бърз тест. Приложението може да обработва едновременно само един бърз тест и един PCR тест. Ако регистрирате друг бърз тест, предходният бърз тест ще бъде преместен в кошчето, от където може да го възстановите или изтриете.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Профил за бързи тестове";
@@ -1259,12 +1261,6 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Премахване на теста";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Наистина ли искате да премахнете теста?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Ако го направите, другите няма да бъдат предупредени.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Премахване";
-
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Управлявайте тестовете си";
 
@@ -1280,7 +1276,7 @@
 "Home_TraceLocationsCard_Button" = "Създаване на QR код";
 
 /* Home More Card */
-"Home_MoreCard_Title" = "Повече";
+"Home_MoreCard_Title" = "Още";
 
 "Home_MoreCard_SettingsTitle" = "Настройки";
 
@@ -1557,22 +1553,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.12 */
-"NewVersionFeature_213_hospitalizationRateTile_title" = "7-дневна заболеваемост с хоспитализация на местно ниво";
+/* Version 2.14 */
+"NewVersionFeature_214_recycleBin_title" = "Функция \"Кошче\" за тестове";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "Локалните плочки за 7-дневната заболеваемост с нови заразявания вече показват и 7-дневната заболеваемост с хоспитализации. Тъй като този показател е наличен само на ниво провинция, ако се избере отделна област, ще се покаже процентът на хоспитализиране за съответната провинция.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "Промяна на връзката към ЧЗВ";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "Когато отваряте ЧЗВ в приложението, вече ще бъдете препращани към страниците в coronawarn.app. Там ще намерите още информация, свързана с въпросите ви.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Присъединяване на сертификат";
-
-"NewVersionFeature_213_certificateAssignment_description" = "Присъединяването на сертификати към лица вече отчита по-малко грешки. Сега приложението игнорира различния брой интервали в имената, което позволява присъединяване на сертификата към въпросното лице, въпреки тези разлики.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Възстановяване на сертификати";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Изтритите сертификати се преместват в кошчето. Те могат да бъдат възстановени в рамките на 30 дни.";
+"NewVersionFeature_214_recycleBin_description" = "Изтритите бързи и PCR тестове са преместени в кошчето. Това означава, че имате възможност да възстановявате файлове, които сте изтрили неволно.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2759,7 +2743,7 @@
 
 "CovPass_Check_Info_faq" = "ЧЗВ за проверка на сертификати от трети лица";
 
-"CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите в приложението Corona-Warn-App. Не ви е нужно приложението CovPassCheck.";
+"CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите си в приложението Corona-Warn-App. Не ви е нужно приложението CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Но имайте предвид, че визуалната проверка на сертификатите не е достатъчна за третите лица. В Германия те трябва да използват приложението CovPassCheck.";
 
@@ -3067,12 +3051,16 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
 
+"HealthCertificate_ValidityState_Blocked" = "Невалиден сертификат";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Сертификатът е изтеглен от издаващия орган. Моля, снабдете се с нов цифров сертификат.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Скенер за QR кодове";
 
 "UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
 
-"UniversalQRScanner_InstructionDescription" = "PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
+"UniversalQRScanner_InstructionDescription" = "Вашите PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
 
 "UniversalQRScanner_FileButtonTitle" = "Отваряне на файл";
 
@@ -3097,6 +3085,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Възстановяване на сертификат";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Сертификатът ще бъде възстановен от кошчето.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Възстановяване на тест";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Тестът ще бъде възстановен от кошчето.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Галерия със снимки";
@@ -3131,7 +3123,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Няма подходящ QR код";
 
-"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, сканирайте подходящ QR код.";
+"FileScanner_InvalidQRCode_message" = "QR кодът не се поддържа от Corona-Warn-App. Моля, изберете  подходящ QR код.";
 
 "FileScanner_FileNotReadable_title" = "Файлът не се чете";
 
@@ -3183,7 +3175,7 @@
 
 "RecycleBin_description" = "Докоснете елемент, за да го възстановите. Елементите се изтриват автоматично след 30 дни.";
 
-"RecycleBin_deleteAllButtonTitle" = "Изтриване на всички";
+"RecycleBin_deleteAllButtonTitle" = "Изтриване на всички за постоянно";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Сертификат за ваксинация";
@@ -3220,7 +3212,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Кошчето е празно";
 
-"RecycleBin_EmptyState_description" = "Когато изтривате сертификати, те се преместват в кошчето и се показват там.";
+"RecycleBin_EmptyState_description" = "Когато изтривате сертификати и тестове, те се преместват в кошчето и се показват там.";
 
 "RecycleBin_EmptyState_imageDescription" = "Кошче";
 

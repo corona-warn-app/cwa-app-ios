@@ -12,12 +12,26 @@ class RestServiceProvider: RestServiceProviding {
 
 	init(
 		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil,
+		cache: KeyValueCaching
+	) {
+		self.restService = StandardRestService(environment: environment, session: session)
+		self.cachedService = CachedRestService(environment: environment, session: session, cache: cache)
+		self.wifiOnlyService = WifiOnlyRestService(environment: environment, session: session)
+	}
+
+	#if DEBUG
+
+	init(
+		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil
 	) {
 		self.restService = StandardRestService(environment: environment, session: session)
-		self.cachedService = CachedRestService(environment: environment, session: session)
+		self.cachedService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
 		self.wifiOnlyService = WifiOnlyRestService(environment: environment, session: session)
 	}
+
+	#endif
 
 	func load<R>(
 		_ resource: R,

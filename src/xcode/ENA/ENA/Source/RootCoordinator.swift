@@ -102,7 +102,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.view.backgroundColor = .enaColor(for: .background)
 		return viewController
 	}()
-	
+
+	// swiftlint:disable function_body_length
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
@@ -141,7 +142,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			recycleBin: recycleBin
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 		

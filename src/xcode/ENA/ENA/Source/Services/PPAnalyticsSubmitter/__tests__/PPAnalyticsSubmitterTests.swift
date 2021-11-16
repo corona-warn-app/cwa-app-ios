@@ -46,8 +46,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -140,8 +141,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -198,8 +200,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -256,8 +259,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -313,8 +317,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -371,8 +376,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -432,8 +438,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -495,8 +502,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -555,8 +563,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -613,8 +622,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -688,8 +698,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -1015,7 +1026,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
-		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, true, "should be true as this is the first submission")
 		
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
@@ -1162,7 +1173,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.registerPCRTest(
 			teleTAN: "tele-tan",
@@ -1266,8 +1278,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}

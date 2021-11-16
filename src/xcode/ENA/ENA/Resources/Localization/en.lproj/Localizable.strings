@@ -408,7 +408,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also verify your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also prove your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -850,9 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Remove the test result?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus, the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "The test result will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page.\nYou can permanently delete the test result or restore it there. The test result will be deleted automatically after 30 days.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Remove Test Result";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
@@ -895,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on your smartphone already.\nYou will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus the public health authority will be notified through the legally prescribed channel and will contact you.\nIf you have deleted the test in the app, you can restore it from the recycle bin.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
 
@@ -930,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "You have already registered a PCR test.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "You have already registered a PCR test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another PCR test, the first PCR test will be deleted from the app.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "You have already registered a PCR test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another PCR test, the first PCR test will be moved to the recycle bin, where you can restore it or delete it permanently.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "You have already registered a rapid test.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be deleted from the app.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be moved to the recycle bin, where you can restore it or delete it permanently.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Rapid Test Profile";
@@ -1259,12 +1261,6 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Remove Test";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Are you sure you want to remove your test?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "If you do, others will not be warned.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Remove";
-
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Manage Your Tests";
 
@@ -1557,22 +1553,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.12 */
-"NewVersionFeature_213_hospitalizationRateTile_title" = "Local 7-Day Hospitalization Incidence";
+/* Version 2.14 */
+"NewVersionFeature_214_recycleBin_title" = "Recycle Bin Function for Tests";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "The local tiles for the 7-day incidence of new infections now also displays the 7-day hospitalization incidence. Since this key figure is only available at the state level, if a district is selected, the hospitalization rate for the respective state will be displayed.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "Change of Link to FAQ";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "When you call a FAQ in the app, you are now forwarded to pages at coronawarn.app. You will find more details about your questions there.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Certificate Assignment";
-
-"NewVersionFeature_213_certificateAssignment_description" = "The assignment of certificates to people has been made more error-tolerant. The app now ignores different numbers of spaces in names, making it possible to assign the certificates to the same person despite such differences.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Restore Certificates";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Removed certificates are moved to the recycle bin. They can be restored within 30 days.";
+"NewVersionFeature_214_recycleBin_description" = "Removed rapid tests and PCR tests are now also moved to the recycle bin. This means you can recover objects that you deleted accidentally.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1892,7 +1876,7 @@
 
 "Statistics_Add_DisabledAddTitle" = "Maximum number of local 7-day incidence figures reached.";
 
-"Statistics_Add_LocalCardTitle" = "Local 7-day incidence";
+"Statistics_Add_LocalCardTitle" = "Local 7-Day Incidence";
 
 "Statistics_Add_fromTheWholeCountry" = "Entire state";
 
@@ -2759,7 +2743,7 @@
 
 "CovPass_Check_Info_faq" = "FAQ for Certificate Verification by Third Parties";
 
-"CovPass_Check_Info_text01" = "You can check the validity of certificates in the Corona-Warn-App yourself and do not need the CovPassCheck app.";
+"CovPass_Check_Info_text01" = "You can check the validity of your certificates in the Corona-Warn-App yourself and do not need the CovPassCheck app.";
 
 "CovPass_Check_Info_text02" = "A visual check of the certificates is not sufficient for third parties, however. They must use the CovPassCheck app in Germany.";
 
@@ -3067,12 +3051,16 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
+"HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
+
+"HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Code Scanner";
 
 "UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
 
-"UniversalQRScanner_InstructionDescription" = "PCR tests and rapid tests, test certificates, vaccination certificates, certificates of recovery, and check-ins.";
+"UniversalQRScanner_InstructionDescription" = "Your PCR tests, rapid tests, test certificates, vaccination certificates, certificates of recovery, and check-ins.";
 
 "UniversalQRScanner_FileButtonTitle" = "Open File";
 
@@ -3097,6 +3085,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Restore Certificate";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "The QR code has already been registered on your smartphone. The certificate will be restored from the recycle bin.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Restore Test";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "The QR code has already been registered on your smartphone. The test will be restored from the recycle bin.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Photo Library";
@@ -3131,7 +3123,7 @@
 
 "FileScanner_InvalidQRCode_title" = "No Suitable QR Code";
 
-"FileScanner_InvalidQRCode_message" = "The QR code is not supported by the Corona-Warn-App. Please scan a suitable QR code.";
+"FileScanner_InvalidQRCode_message" = "The QR code is not supported by the Corona-Warn-App. Please select a suitable QR code.";
 
 "FileScanner_FileNotReadable_title" = "File Unreadable";
 
@@ -3183,7 +3175,7 @@
 
 "RecycleBin_description" = "Tap an element to restore it. Elements will be deleted automatically after 30 days.";
 
-"RecycleBin_deleteAllButtonTitle" = "Remove All";
+"RecycleBin_deleteAllButtonTitle" = "Delete All Permanently";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Vaccination Certificate";
@@ -3220,7 +3212,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "The Recycle Bin Is Empty";
 
-"RecycleBin_EmptyState_description" = "When you remove certificates, they are moved to the recycle bin and displayed here.";
+"RecycleBin_EmptyState_description" = "When you remove certificates and tests, they are moved to the recycle bin and displayed here.";
 
 "RecycleBin_EmptyState_imageDescription" = "A recycle bin";
 

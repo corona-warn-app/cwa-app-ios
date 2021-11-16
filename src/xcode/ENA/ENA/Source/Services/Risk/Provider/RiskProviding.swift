@@ -24,7 +24,7 @@ enum RiskProviderError: Error {
 		case .failedKeyPackageDownload(let keyPackageDownloadError):
 			return keyPackageDownloadError == .downloadIsRunning
 		case .failedRiskDetection(let didEndPrematuralyReason):
-			if case let .noExposureWindows(exposureWindowsError) = didEndPrematuralyReason {
+			if case let .noExposureWindows(exposureWindowsError, _) = didEndPrematuralyReason {
 				if let exposureDetectionError = exposureWindowsError as? ExposureDetectionError {
 					return exposureDetectionError == .isAlreadyRunning
 				}
@@ -42,7 +42,7 @@ enum RiskProviderError: Error {
 
 	private var isENError16DataInaccessible: Bool {
 		guard case let .failedRiskDetection(didEndPrematuralyReason) = self,
-			  case let .noExposureWindows(noExposureWindowsError) = didEndPrematuralyReason,
+			  case let .noExposureWindows(noExposureWindowsError, _) = didEndPrematuralyReason,
 			  let enError = noExposureWindowsError as? ENError else {
 			return false
 		}

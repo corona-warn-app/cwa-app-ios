@@ -18,8 +18,17 @@ class CachedRestService: Service {
 		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil
 	) {
+		fatalError("CachedRestService cannot be used without a cache. Please use the other init and provide a cache.")
+	}
+
+	init(
+		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil,
+		cache: KeyValueCaching
+	) {
 		self.environment = environment
 		self.optionalSession = session
+		self.cache = cache
 	}
 
 	// MARK: - Protocol Service
@@ -49,7 +58,7 @@ class CachedRestService: Service {
 			}
 			let serverDate = response?.dateHeader ?? Date()
 			let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
-			cache.setObject(cachedModel, forKey: NSNumber(value: resource.locator.hashValue))
+			cache[resource.locator.hashValue] = cachedModel
 			completion(.success(model))
 
 		case .failure:
@@ -61,7 +70,7 @@ class CachedRestService: Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		guard let cachedModel = cache.object(forKey: NSNumber(value: resource.locator.hashValue)) else {
+		guard let cachedModel = cache[resource.locator.hashValue] else {
 			Log.debug("no data found in cache", log: .client)
 			completion(.failure(.resourceError(.missingData)))
 			return
@@ -73,7 +82,7 @@ class CachedRestService: Service {
 		_ receiveResource: R,
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
-		guard let cachedModel = cache.object(forKey: NSNumber(value: locator.hashValue)) else {
+		guard let cachedModel = cache[locator.hashValue] else {
 			Log.debug("ResponseResource not found in cache", log: .client)
 			return nil
 		}
@@ -83,23 +92,5 @@ class CachedRestService: Service {
 	// MARK: - Private
 
 	private let optionalSession: URLSession?
-
-	/// at the moment we use a simple NSCache
-	private let cache: NSCache<NSNumber, CacheData> = NSCache<NSNumber, CacheData>()
-}
-
-
-/// helper class for the NSCache
-// swiftlint:disable private_over_fileprivate
-fileprivate class CacheData: NSObject {
-
-	init(data: Data, eTag: String, date: Date) {
-		self.data = data
-		self.eTag = eTag
-		self.date = date
-	}
-
-	let data: Data
-	let eTag: String
-	let date: Date
+	private var cache: KeyValueCaching
 }

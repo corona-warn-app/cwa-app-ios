@@ -64,8 +64,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 		
 		let consumer = RiskConsumer()
@@ -157,8 +158,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 		
 		let consumer = RiskConsumer()
@@ -250,8 +252,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 		
 		let consumer = RiskConsumer()
@@ -331,8 +334,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called once")
@@ -399,8 +403,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
@@ -493,8 +498,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -554,8 +560,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let consumer = RiskConsumer()
@@ -627,8 +634,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let consumer = RiskConsumer()
@@ -707,8 +715,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let consumer = RiskConsumer()
@@ -794,8 +803,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let consumer = RiskConsumer()
@@ -1096,8 +1106,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 	}
@@ -1202,8 +1213,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 	}
 
@@ -1295,8 +1307,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -1398,8 +1411,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -1503,8 +1517,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let requestRiskExpectation = expectation(description: "")
@@ -1606,8 +1621,9 @@ final class RiskProviderTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			)
+                ),
+                recycleBin: .fake()
+            )
 		)
 
 		let requestRiskExpectation = expectation(description: "")

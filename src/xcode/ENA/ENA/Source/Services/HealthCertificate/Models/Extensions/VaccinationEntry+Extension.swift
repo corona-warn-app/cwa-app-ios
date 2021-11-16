@@ -19,6 +19,7 @@ extension VaccinationEntry {
 		"\(doseNumber) of \(totalSeriesOfDoses)"
 	}
 
+	// if administered with one dose of AstraZeneca, Moderna or BioNTech as recovery vaccination
 	var isRecoveredVaccination: Bool {
 		switch VaccinationProductType(value: vaccineMedicinalProduct) {
 		case .biontech, .astraZeneca, .moderna:
@@ -39,7 +40,7 @@ extension VaccinationEntry {
 			return false
 		}
 	}
-
+	
 	// swiftlint:disable:next cyclomatic_complexity
 	func title(for keyPath: PartialKeyPath<VaccinationEntry>) -> String? {
 		switch keyPath {

@@ -429,9 +429,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
-		service.removeHealthCertificate(firstVaccinationCertificate)
-		service.removeHealthCertificate(firstTestCertificate)
-		service.removeHealthCertificate(secondTestCertificate)
+		service.moveHealthCertificateToBin(firstVaccinationCertificate)
+		service.moveHealthCertificateToBin(firstTestCertificate)
+		service.moveHealthCertificateToBin(secondTestCertificate)
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
@@ -515,7 +515,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Removing one of multiple certificates
 
-		service.removeHealthCertificate(healthCertificate2)
+		service.moveHealthCertificateToBin(healthCertificate2)
 
 		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
@@ -529,7 +529,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Removing last certificate of a person
 
-		service.removeHealthCertificate(healthCertificate1)
+		service.moveHealthCertificateToBin(healthCertificate1)
 
 		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
@@ -540,7 +540,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Removing last certificate of last person
 
-		service.removeHealthCertificate(healthCertificate3)
+		service.moveHealthCertificateToBin(healthCertificate3)
 
 		XCTAssertTrue(service.healthCertifiedPersons.isEmpty)
 	}
@@ -644,7 +644,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(healthCertificate.validityState, .valid)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .valid)
 
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_InvalidSignature() throws {
@@ -695,7 +695,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .invalid)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_JustExpired() throws {
@@ -747,7 +747,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_LongExpired() throws {
@@ -799,7 +799,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_ExpiresSoonStateBegins() throws {
@@ -864,7 +864,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_ExpiresSoonStateAlmostEnds() throws {
@@ -923,7 +923,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testTestCertificateRegistrationAndExecution_Success() throws {
@@ -1877,7 +1877,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 4)
 		
 		// WHEN
-		service.removeHealthCertificate(recoveryCertificate)
+		service.moveHealthCertificateToBin(recoveryCertificate)
 		
 		// THEN
 		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
@@ -2004,6 +2004,130 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons.first?.isNewBoosterRule = false
 		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 0)
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
+	}
+
+	func testBoosterRuleIsResetOnNoPassedResultError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.BOOSTER_VALIDATION_ERROR(.NO_PASSED_RESULT)))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
+	func testBoosterRuleIsResetOnNoVaccinationCertificateError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.BOOSTER_VALIDATION_ERROR(.NO_VACCINATION_CERTIFICATE)))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
+	func testBoosterRuleIsNotResetOnRuleServerError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.RULE_SERVER_ERROR(.boosterNotification))))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNotNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+	}
+
+	func testBoosterRuleIsNotResetOnNoNetworkError() throws {
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [.mock(base45: HealthCertificateMocks.firstBase45Mock)],
+				boosterRule: .fake()
+			)
+		]
+
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.NO_NETWORK)))
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: boosterNotificationsService,
+			recycleBin: .fake()
+		)
+
+		let registrationResult = service.registerHealthCertificate(base45: HealthCertificateMocks.lastBase45Mock)
+
+		switch registrationResult {
+		case .success:
+			XCTAssertNotNil(store.healthCertifiedPersons.first?.boosterRule)
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
 	}
 
 }
