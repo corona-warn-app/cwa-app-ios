@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+
 /**
 Specific implementation of a service who is doing nothing special, so it is the default one.
 It uses the coronaWarnSessionConfiguration.

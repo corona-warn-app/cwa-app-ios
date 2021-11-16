@@ -10,6 +10,7 @@ struct LoadResource {
 }
 
 class RestServiceProviderStub: RestServiceProviding {
+
 	init(
 		loadResources: [LoadResource]
 	) {
@@ -24,6 +25,8 @@ class RestServiceProviderStub: RestServiceProviding {
 	}
 
 	private var loadResources: [LoadResource]
+
+	// MARK: Protocol RestServiceProviding
 
 	func load<R>(
 		_ resource: R,
@@ -48,6 +51,9 @@ class RestServiceProviderStub: RestServiceProviding {
 		}
 		loadResources.removeFirst()
 	}
+
+	func update(jwkSet: [Data]) {}
+
 }
 
 extension RestServiceProviding where Self == RestServiceProviderStub {

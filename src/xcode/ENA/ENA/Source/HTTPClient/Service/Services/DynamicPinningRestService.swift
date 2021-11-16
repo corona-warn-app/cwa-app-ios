@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+
 class DynamicPinningRestService: Service {
 
 	// MARK: - Init
@@ -30,9 +32,14 @@ class DynamicPinningRestService: Service {
 	let environment: EnvironmentProviding
 
 	lazy var session: URLSession = {
-		optionalSession ??
-		.coronaWarnSession(
-			configuration: .coronaWarnSessionConfigurationWifiOnly()
+		if let session = optionalSession {
+			return session
+		}
+
+		return URLSession(
+			configuration: .coronaWarnSessionConfiguration(),
+			delegate: DynamicPinningSessionDelegate(jwkSet: jwkSet),
+			delegateQueue: .main
 		)
 	}()
 
