@@ -20,7 +20,9 @@ class FileScannerCoordinatorTests: XCTestCase {
 			qrCodeFound: { _ in
 				qrCodeFoundExpectation.fulfill()
 			},
-			noQRCodeFound: { }
+			noQRCodeFound: {},
+			showActivityIndicator: {},
+			hideActivityIndicator: {}
 		)
 		fileScannerCoordinator.start()
 
@@ -38,7 +40,9 @@ class FileScannerCoordinatorTests: XCTestCase {
 			viewControllerSpy,
 			viewModel: viewModel,
 			qrCodeFound: { _ in },
-			noQRCodeFound: { }
+			noQRCodeFound: {},
+			showActivityIndicator: {},
+			hideActivityIndicator: {}
 		)
 		fileScannerCoordinator.start()
 
@@ -60,7 +64,9 @@ class FileScannerCoordinatorTests: XCTestCase {
 			viewControllerSpy,
 			viewModel: viewModel,
 			qrCodeFound: { _ in },
-			noQRCodeFound: { }
+			noQRCodeFound: {},
+			showActivityIndicator: {},
+			hideActivityIndicator: {}
 		)
 		fileScannerCoordinator.start()
 
