@@ -88,7 +88,7 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_19_TicketValidation\/test_Dummy()"
+        "ENAUITests_19_TicketValidation\/test_isFirstConsentShown()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
