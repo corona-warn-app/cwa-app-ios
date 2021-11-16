@@ -40,6 +40,7 @@ public struct ECSHA256Signer {
     
     
     // MARK: - Internal
+    
     let algorithm = SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256
     
     // MARK: - Private
