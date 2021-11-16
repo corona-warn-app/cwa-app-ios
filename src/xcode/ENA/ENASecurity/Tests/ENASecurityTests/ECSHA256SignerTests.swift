@@ -136,7 +136,7 @@ final class ECSHA256SignerTests: XCTestCase {
         
         // THEN
         guard case .failure(let error) = signer.sign() else {
-            XCTFail("Success was expected but something else happened.")
+            XCTFail("Failure was expected but something else happened.")
             return
         }
         
