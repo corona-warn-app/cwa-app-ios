@@ -5,8 +5,6 @@
 import Foundation
 import XCTest
 @testable import ENASecurity
-import CryptorRSA
-import ASN1Decoder
 
 public class JWTVerificationTests: XCTestCase {
 
