@@ -116,8 +116,6 @@ final class GCMEncryptionTests: XCTestCase {
         // Encryption should return error .AES_GCM_INVALID_IV with this initialization vector.
         let initializationVector = Data(capacity: 0)
 
-        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
-
         guard let key = Data(base64Encoded: testData.keyBase64),
             let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
                   XCTFail("Could not create test data.")
@@ -145,8 +143,6 @@ final class GCMEncryptionTests: XCTestCase {
         // Encryption should return error .AES_GCM_INVALID_IV with this initialization vector.
         let initializationVector = Data(capacity: 0)
 
-        print("initializationVector.isEmpty: \(initializationVector.isEmpty)")
-
         guard let key = Data(base64Encoded: testData.keyBase64),
             let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
                   XCTFail("Could not create test data.")
@@ -156,6 +152,60 @@ final class GCMEncryptionTests: XCTestCase {
         let gcmEncryption = GCMEncryption(
             encryptionKey: key,
             initializationVector: initializationVector
+        )
+
+        let result = gcmEncryption.decrypt(data: decrypted)
+
+        guard case .failure(let error) = result,
+              case .AES_GCM_INVALID_IV = error else {
+                  XCTFail("Failure expected.")
+                  return
+              }
+    }
+
+    func test_When_Encrypt_With_ivLengthConstraint_Then_Error_AES_GCM_INVALID_IV() {
+        let testData = testDatas[0]
+
+        // initializationVector of size 13 should return an error with ivLengthConstraint of 16
+        let initializationVector = Data(capacity: 13)
+
+        guard let key = Data(base64Encoded: testData.keyBase64),
+            let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
+                  XCTFail("Could not create test data.")
+                  return
+              }
+
+        let gcmEncryption = GCMEncryption(
+            encryptionKey: key,
+            initializationVector: initializationVector,
+            ivLengthConstraint: 16
+        )
+
+        let result = gcmEncryption.encrypt(data: decrypted)
+
+        guard case .failure(let error) = result,
+              case .AES_GCM_INVALID_IV = error else {
+                  XCTFail("Failure expected.")
+                  return
+              }
+    }
+
+    func test_When_Decrypt_With_ivLengthConstraint_Then_Error_AES_GCM_INVALID_IV() {
+        let testData = testDatas[0]
+
+        // initializationVector of size 13 should return an error with ivLengthConstraint of 16
+        let initializationVector = Data(capacity: 13)
+
+        guard let key = Data(base64Encoded: testData.keyBase64),
+            let decrypted = Data(base64Encoded: testData.plaintextBase64) else {
+                  XCTFail("Could not create test data.")
+                  return
+              }
+
+        let gcmEncryption = GCMEncryption(
+            encryptionKey: key,
+            initializationVector: initializationVector,
+            ivLengthConstraint: 16
         )
 
         let result = gcmEncryption.decrypt(data: decrypted)

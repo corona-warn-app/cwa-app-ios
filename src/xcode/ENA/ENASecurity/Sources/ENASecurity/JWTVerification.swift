@@ -50,7 +50,7 @@ public class JWTVerification {
 
         // Verify signature: the entries of jwkSet shall be used sequentially to check the signature as per Verifying the Signature of a JWT with a Public Key.
         let passedJwk = filteredJwkSet.first {
-            guard let pemData = $0.pemUtf8Data() else {
+            guard let pemData = $0.pemUtf8Data else {
                 return false
             }
 

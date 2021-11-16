@@ -7,7 +7,7 @@ import CommonCrypto
 
 extension Data {
 
-    func sha256() -> Data {
+    var sha256: Data {
         // via https://www.agnosticdev.com/content/how-use-commoncrypto-apis-swift-5
 
         // Creates an array of unsigned 8 bit integers that contains 32 zeros

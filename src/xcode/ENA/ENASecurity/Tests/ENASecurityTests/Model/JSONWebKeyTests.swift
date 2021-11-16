@@ -10,8 +10,8 @@ class JSONWebKeyTests: XCTestCase {
 
     func test_PublicKeyAccess() {
         for testData in testDatas {
-            guard let publicKey = testData.webKey.publicKey(),
-                  let publicKeyData = testData.webKey.publicKeyDERData() else {
+            guard let publicKey = testData.webKey.publicKey,
+                  let publicKeyData = testData.webKey.publicKeyData else {
                 XCTFail("PublicKey expexted.")
                 return
             }

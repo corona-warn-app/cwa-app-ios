@@ -15,14 +15,23 @@ public struct GCMEncryption {
 
     // MARK: - Init
 
-    public init(encryptionKey: Data, initializationVector: Data) {
+    public init(
+        encryptionKey: Data,
+        initializationVector: Data,
+        ivLengthConstraint: Int? = nil
+    ) {
         self.encryptionKey = encryptionKey
         self.initializationVector = initializationVector
+        self.ivLengthConstraint = ivLengthConstraint
     }
 
     // MARK: - Public
 
     public func encrypt(data: Data) -> Result<Data, GCMEncryptionError> {
+        guard isIVLengthCorrect else {
+            return .failure(.AES_GCM_INVALID_IV)
+        }
+
         do {
             let aes = try aesGCMEncryption(with: initializationVector, encryptionKey: encryptionKey)
             let encryptedBytes = try aes.encrypt(data.bytes)
@@ -34,6 +43,10 @@ public struct GCMEncryption {
     }
 
     public func decrypt(data: Data) -> Result<Data, GCMEncryptionError> {
+        guard isIVLengthCorrect else {
+            return .failure(.AES_GCM_INVALID_IV)
+        }
+        
         do {
             let aes = try aesGCMEncryption(with: initializationVector, encryptionKey: encryptionKey)
             let decryptedBytes = try aes.decrypt(data.bytes)
@@ -48,6 +61,17 @@ public struct GCMEncryption {
 
     private let encryptionKey: Data
     private let initializationVector: Data
+    private let ivLengthConstraint: Int?
+
+    private var isIVLengthCorrect: Bool {
+        if let ivLengthConstraint = ivLengthConstraint,
+           initializationVector.count != ivLengthConstraint
+        {
+            return false
+        } else {
+            return true
+        }
+    }
 
     private func aesGCMEncryption(with initializationVector: Data, encryptionKey: Data) throws -> AES {
         let ivBytes = [UInt8](initializationVector)
