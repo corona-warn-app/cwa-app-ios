@@ -2480,6 +2480,11 @@ enum AppStrings {
 			static let subject = NSLocalizedString("TicketValidation_FirstConsent_subject", comment: "")
 			static let subjectValue = NSLocalizedString("\"%@\"", comment: "")
 			static let explination = NSLocalizedString("TicketValidation_FirstConsent_explination", comment: "")
+			static let legalTitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_title", comment: "")
+			static let legalSubtitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_subtitle", comment: "")
+			static let legalBulletPoint1 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint1", comment: "")
+			static let legalBulletPoint2 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint2", comment: "")
+			
 			static let primaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_primaryButtonTitle", comment: "")
 			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_secondaryButtonTitle", comment: "")
 		}

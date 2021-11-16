@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 
 struct FirstTicketValidationConsentViewModel {
-
+	
 	init(
 		serviceProvider: String,
 		subject: String,
@@ -16,9 +16,9 @@ struct FirstTicketValidationConsentViewModel {
 		self.subject = "Flug LH 3243"
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
-
+	
 	// MARK: - Internal
-
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			// image with title
@@ -63,30 +63,28 @@ struct FirstTicketValidationConsentViewModel {
 				]
 			),
 			// bulletpoints in consent box
-			
-			/*
-			.section(cells: [
-				.legalExtended(
-					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
-					bulletPoints1: [
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_2)
+			.section(
+				cells: [
+					.legalExtendedDataDonation(
+						title: NSAttributedString(
+							string: AppStrings.TicketValidation.FirstConsent.legalTitle
+						),
+						description: NSAttributedString(
+							string: AppStrings.TicketValidation.FirstConsent.legalSubtitle,
+							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]
+						),
+						bulletPoints: [
+							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint1),
+							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint2)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2),
-					bulletPoints2: [
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
-						],
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
-					configure: { _, cell, _ in
-						cell.backgroundColor = .enaColor(for: .background)
-					}
-				)
-			]),
-			 */
-			// bulletpoints without box
-			
+						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox,
+						configure: { _, cell, _ in
+							cell.backgroundColor = .enaColor(for: .background)
+						}
+					)
+				]
+			),
+				
 			// Data privacy cell
 			.section(
 				separators: .all,
@@ -102,16 +100,17 @@ struct FirstTicketValidationConsentViewModel {
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 							cell.selectionStyle = .default
-						})
+						}
+					)
 				]
 			)
 		])
 	}
-
+	
 	// MARK: - Private
-
+	
 	private let serviceProvider: String
 	private let subject: String
 	private let onDataPrivacyTap: () -> Void
-
+	
 }
