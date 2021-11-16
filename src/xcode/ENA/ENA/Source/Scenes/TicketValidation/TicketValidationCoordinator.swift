@@ -43,16 +43,18 @@ final class TicketValidationCoordinator {
 				}
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
-				isLoading(true)
+				DispatchQueue.main.async {
+					isLoading(true)
 
-				self?.ticketValidation.grantFirstConsent { result in
-					isLoading(false)
+					self?.ticketValidation.grantFirstConsent { result in
+						isLoading(false)
 
-					switch result {
-					case .success:
-						self?.showCertificateSelectionScreen()
-					case .failure(let error):
-						self?.showErrorAlert(error: error)
+						switch result {
+						case .success:
+							self?.showCertificateSelectionScreen()
+						case .failure(let error):
+							self?.showErrorAlert(error: error)
+						}
 					}
 				}
 			},
