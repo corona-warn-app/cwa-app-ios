@@ -12,8 +12,8 @@ struct FirstTicketValidationConsentViewModel {
 		subject: String,
 		onDataPrivacyTap: @escaping () -> Void
 	) {
-		self.serviceProvider = "Lufthansa"
-		self.subject = "Flug LH 3243"
+		self.serviceProvider = serviceProvider
+		self.subject = subject
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
 	
