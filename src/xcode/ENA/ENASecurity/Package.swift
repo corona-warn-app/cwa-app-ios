@@ -24,9 +24,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "ENASecurity",
-            dependencies: ["CryptoSwift"]),
+            dependencies: ["CryptoSwift"]
+        ),
         .testTarget(
             name: "ENASecurityTests",
-            dependencies: ["ENASecurity"]),
+            dependencies: ["ENASecurity"]
+        )
     ]
 )
