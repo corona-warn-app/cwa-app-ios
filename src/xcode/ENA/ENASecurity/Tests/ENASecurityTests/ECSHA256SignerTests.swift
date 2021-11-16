@@ -161,7 +161,7 @@ public extension SecKey {
             return nil
         }
         
-        CFDataAppendBytes(mutableData, CFDataGetBytePtr(pemData) + 56, 65) // get public key data plus some headers
+        CFDataAppendBytes(mutableData, CFDataGetBytePtr(pemData) + 56, 65) // append public key data plus some headers
         CFDataAppendBytes(mutableData, CFDataGetBytePtr(pemData) + 7 , 32) // append private key data
         return SecKeyCreateWithData(mutableData, attributes as CFDictionary, nil)
     }
