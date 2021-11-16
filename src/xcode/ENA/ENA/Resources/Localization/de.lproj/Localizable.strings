@@ -3403,6 +3403,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_BulletPoint4" = "Das RKI erfährt die Daten zu Ihrer Buchung oder den von Ihnen gespeicherten Zertifikaten nicht.";
 
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
 "TicketValidation_FirstConsent_primaryButtonTitle" = "Einverstanden";
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";

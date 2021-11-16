@@ -104,9 +104,9 @@ struct FirstTicketValidationConsentViewModel {
 				separators: .all,
 				cells: [
 					.body(
-						text: AppStrings.ContactDiary.Information.dataPrivacyTitle,
+						text: AppStrings.TicketValidation.FirstConsent.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.dataPrivacyTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.dataPrivacy,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
 							onDataPrivacyTap()
