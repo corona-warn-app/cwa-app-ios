@@ -102,7 +102,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.view.backgroundColor = .enaColor(for: .background)
 		return viewController
 	}()
-	
+
+	// swiftlint:disable function_body_length
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
