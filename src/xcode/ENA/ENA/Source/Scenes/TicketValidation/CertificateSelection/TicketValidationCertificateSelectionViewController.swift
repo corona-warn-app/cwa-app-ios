@@ -28,7 +28,11 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton(.normal)]
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
 		navigationItem.title = AppStrings.TicketValidation.CertificateSelection.title
 
 		setupTableView()
@@ -59,4 +63,9 @@ extension TicketValidationCertificateSelectionViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case healthCertificateCell
 	}
+}
+
+enum TicketValidationCertificateSelectionState: Equatable {
+	case suitableCertificates
+	case noSuitableCertificate
 }

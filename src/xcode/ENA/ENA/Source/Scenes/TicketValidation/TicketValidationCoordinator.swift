@@ -10,9 +10,11 @@ final class TicketValidationCoordinator {
 	// MARK: - Init
 	
 	init(
-		parentViewController: UIViewController
+		parentViewController: UIViewController,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.parentViewController = parentViewController
+		self.healthCertificateService = healthCertificateService
 	}
 	
 	// MARK: - Internal
@@ -32,7 +34,8 @@ final class TicketValidationCoordinator {
 	private weak var parentViewController: UIViewController!
 	private var navigationController: UINavigationController!
 	private var ticketValidation: TicketValidating!
-	
+	private var healthCertificateService: HealthCertificateService
+
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
 			viewModel: FirstTicketValidationConsentViewModel(
@@ -44,7 +47,9 @@ final class TicketValidationCoordinator {
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
 				isLoading(true)
-
+                
+				self?.showCertificateSelectionScreen()
+				
 				self?.ticketValidation.grantFirstConsent { result in
 					isLoading(false)
 
@@ -91,7 +96,21 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showCertificateSelectionScreen() {
-		let 
+		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
+			viewModel: TicketValidationCertificateSelectionViewModel(
+				serviceProviderRequirementsDescription: "Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat Geburtsdatum: 1989-12-12 SCHNEIDER<<ANDREA",
+				ticketValidationCertificateSelectionState: .noSuitableCertificate
+			),
+			onDismiss: {
+				self.showDismissAlert()
+			}
+		)
+		
+		if #available(iOS 13.0, *) {
+			certificateSelectionViewController.isModalInPresentation = true
+		}
+		
+		navigationController.pushViewController(certificateSelectionViewController, animated: true)
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {
