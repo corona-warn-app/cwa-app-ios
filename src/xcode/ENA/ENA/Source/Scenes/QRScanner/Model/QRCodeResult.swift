@@ -17,21 +17,11 @@ struct CertificateResult {
 	let certificate: HealthCertificate
 }
 
-struct TicketValidationInitializationData: Codable {
-	let `protocol`: String
-	let protocolVersion: String
-	let serviceIdentity: String
-	let privacyUrl: String
-	let token: String
-	let consent: String
-	let subject: String
-	let serviceProvider: String
-}
-
 enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case certificateQrError(HealthCertificateServiceError.RegistrationError)
+	case ticketValidation(TicketValidationQRScannerError)
 	
 	// MARK: - Protocol Equatable
 	// swiftlint:disable pattern_matching_keywords
@@ -43,6 +33,8 @@ enum QRCodeParserError: Error, Equatable {
 			return checkinQrErrorLhs == checkinQrErrorRhs
 		case (.certificateQrError(let certificateQrErrorLhs), .certificateQrError(let certificateQrErrorRhs)):
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
+		case (.ticketValidation(let ticketValidationLhs), .ticketValidation(let ticketValidationRhs)):
+			return ticketValidationLhs == ticketValidationRhs
 		default:
 			return false
 		}
