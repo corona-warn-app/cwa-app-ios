@@ -11,7 +11,6 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		try super.setUpWithError()
 		continueAfterFailure = false
 		app = XCUIApplication()
-		setupSnapshot(app)
 		app.setDefaults()
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
