@@ -96,6 +96,14 @@ final class TicketValidationCoordinator {
 
 	}
 
+	private func showSecondConsentScreen(selectedCertificate: HealthCertificate) {
+
+	}
+
+	private func showResultScreen(for result: TicketValidationResult) {
+
+	}
+
 	private func showErrorAlert(error: TicketValidationError) {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.Error.title,
