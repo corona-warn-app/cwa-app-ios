@@ -218,3 +218,13 @@
 "ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "Eğer Uygulamada test sertifikasına ilişkin QR kodu gösterirseniz ve bu bir kontrol uygulamasıyla taranırsa, diğer kişiler sizin test sertifikanızı öğrenebilir. Kontrol işlemi sırasında adınız ve doğum tarihiniz de resmi kontrol uygulamasında görüntülenecektir.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "Test sertifikasını istediğiniz zaman Uygulamadan kaldırma seçeneğiniz vardır. Bunu yapıncaya kadar test sertifikaları akıllı telefonunuzda kayıtlı kalacaktır. ";
+
+/* Ticket Validation */
+
+"TicketValidation_FirstConsent_Legal_title" = "Rıza beyanız";
+
+"TicketValidation_FirstConsent_Legal_subtitle" = "“Anladım” üzerine tıklayarak aşağıdaki adımları onaylarsınız:";
+
+"TicketValidation_FirstConsent_Legal_bulletPoint1" = "Uygulama, sağlayıcının sunduğu rezervasyonda belirtilen kişinin isim ve doğum tarihini, kontrolle ilgili rezervasyon ayrıntılarını (örn. hedef ülke ve seyahat tarihi) ve sağlayıcı tarafından rezervasyonunuza ilişkin belirlenen sertifika taleplerini açar.";
+
+"TicketValidation_FirstConsent_Legal_bulletPoint2" = "Açılan bilgiler kayıtlı sertifikalarınızdan hangilerinin kullanılabileceğini belirlemek için uygulama tarafından kullanılır.";

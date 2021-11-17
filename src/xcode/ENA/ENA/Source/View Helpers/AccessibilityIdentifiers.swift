@@ -268,6 +268,7 @@ enum AccessibilityIdentifiers {
 		static let fakePCR = "QRScanner_FAKE_PCR"
 		static let fakePCR2 = "QRScanner_FAKE_PCR2"
 		static let fakeEvent = "QRScanner_FAKE_EVENT"
+		static let fakeTicketValidation = "QRScanner_FAKE_TICKET_VALIDATION"
 		static let other = "QRScanner_OTHER"
 		static let cancel = "QRScanner_CANCEL"
 	}
@@ -750,6 +751,15 @@ enum AccessibilityIdentifiers {
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+	}
+	
+	enum TicketValidation {
+		
+		enum FirstConsent {
+			static let image = "TicketValidation.FirstConsent.image"
+			static let legalBox = "TicketValidation.FirstConsent.legalBox"
+			static let dataPrivacy = "TicketValidation.FirstConsent.dataPrivacy"
+		}
 	}
 
 }

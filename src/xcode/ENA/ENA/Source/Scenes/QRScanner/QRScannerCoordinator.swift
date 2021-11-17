@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 
+// swiftlint:disable file_length
 enum QRScannerPresenter: Equatable {
 	case submissionFlow
 	case onBehalfFlow
@@ -90,6 +91,9 @@ class QRScannerCoordinator {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestService
 	private let recycleBin: RecycleBin
+
+	private let activityIndicatorView = QRScannerActivityIndicatorView()
+	private let activityIndicatorAnimationDuration = 0.45
 	
 	private var presenter: QRScannerPresenter!
 	private weak var parentViewController: UIViewController?
@@ -97,6 +101,7 @@ class QRScannerCoordinator {
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
+	private var ticketValidationCoordinator: TicketValidationCoordinator?
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
 	private func qrScannerViewController(
@@ -135,6 +140,12 @@ class QRScannerCoordinator {
 					},
 					noQRCodeFound: {
 						self?.fileScannerCoordinator = nil
+					},
+					showActivityIndicator: {
+						self?.showActivityIndicator()
+					},
+					hideActivityIndicator: {
+						self?.hideActivityIndicator()
 					}
 				)
 				self?.fileScannerCoordinator?.start()
@@ -151,6 +162,8 @@ class QRScannerCoordinator {
 			showScannedHealthCertificate(certificateResult)
 		case let .traceLocation(traceLocation):
 			showScannedCheckin(traceLocation)
+		case let .ticketValidation(ticketValidationInitializationData):
+			evaluateScannedTicketValidation(ticketValidationInitializationData)
 		}
 	}
 
@@ -315,6 +328,84 @@ class QRScannerCoordinator {
 		}
 	}
 
+	private func evaluateScannedTicketValidation(
+		_ initializationData: TicketValidationInitializationData
+	) {
+		showActivityIndicator()
+		let ticketValidation = MockTicketValidation(with: initializationData)
+		ticketValidation.delay = 1
+
+		ticketValidation.initialize { [weak self] result in
+			DispatchQueue.main.async {
+				self?.hideActivityIndicator()
+
+				switch result {
+				case .success:
+					self?.showScannedTicketValidation(ticketValidation)
+				case .failure(let error):
+					self?.showErrorAlert(error: error)
+				}
+			}
+		}
+	}
+
+	private func showErrorAlert(error: TicketValidationError) {
+		let alert = UIAlertController(
+			title: AppStrings.TicketValidation.Error.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		DispatchQueue.main.async {
+			self.qrScannerViewController?.present(alert, animated: true)
+		}
+	}
+
+	private func showScannedTicketValidation(
+		_ ticketValidation: TicketValidating
+	) {
+		qrScannerViewController?.dismiss(animated: true) {
+			switch self.presenter {
+			case .onBehalfFlow, .submissionFlow:
+				let parentPresentingViewController = self.parentViewController?.presentingViewController
+
+				// Dismiss submission/on behalf submission flow
+				self.parentViewController?.dismiss(animated: true) {
+					self.parentViewController = parentPresentingViewController
+
+					guard let parentViewController = self.parentViewController else {
+						return
+					}
+
+					self.ticketValidationCoordinator = TicketValidationCoordinator(
+						parentViewController: parentViewController
+					)
+
+					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
+				}
+			case .checkinTab, .certificateTab, .universalScanner:
+				guard let parentViewController = self.parentViewController else {
+					return
+				}
+
+				self.ticketValidationCoordinator = TicketValidationCoordinator(
+					parentViewController: parentViewController
+				)
+
+				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
+			case .none:
+				break
+			}
+		}
+	}
+
 	private func showRestoredFromBinAlertIfNeeded(
 		for certificateResult: CertificateResult,
 		from presentationController: UIViewController,
@@ -447,6 +538,39 @@ class QRScannerCoordinator {
 			let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
 			exposureSubmissionCoordinator.start(with: coronaTest.type)
 		}
+	}
+
+	private func showActivityIndicator() {
+		guard let scannerView = qrScannerViewController?.view else {
+			Log.error("Failed to get qrScannerViewController - stop", log: .fileScanner)
+			return
+		}
+		activityIndicatorView.alpha = 0.0
+		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+		scannerView.addSubview(activityIndicatorView)
+		NSLayoutConstraint.activate(
+			[
+				activityIndicatorView.topAnchor.constraint(equalTo: scannerView.layoutMarginsGuide.topAnchor),
+				activityIndicatorView.bottomAnchor.constraint(equalTo: scannerView.layoutMarginsGuide.bottomAnchor),
+				activityIndicatorView.leadingAnchor.constraint(equalTo: scannerView.leadingAnchor),
+				activityIndicatorView.trailingAnchor.constraint(equalTo: scannerView.trailingAnchor)
+			]
+		)
+
+		let animator = UIViewPropertyAnimator(duration: activityIndicatorAnimationDuration, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 1.0
+		}
+		animator.startAnimation()
+	}
+
+	private func hideActivityIndicator() {
+		let animator = UIViewPropertyAnimator(duration: activityIndicatorAnimationDuration, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 0.0
+		}
+		animator.addCompletion { [weak self] _ in
+			self?.activityIndicatorView.removeFromSuperview()
+		}
+		animator.startAnimation()
 	}
 
 	// MARK: Helpers
