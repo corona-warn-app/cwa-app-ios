@@ -11,26 +11,27 @@ final class ECKeyPairGenerationTests: XCTestCase {
     
     func test_validPublicKeyBase64_isGenerated() {
         let generationClass = ECKeyPairGeneration()
-        let generationOutput = generationClass.generatePrivateKey(with: "test")
+        let generationOutputResult = generationClass.generateECPair(with: "test")
         
-        guard let privateKey = generationOutput.0 else {
-            XCTFail("Error while generating private EC key: \(generationOutput.1)")
-            return
+        switch generationOutputResult {
+        case .success(let ecKeyPair):
+            let expectedHeaderString = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE"
+            XCTAssertEqual(ecKeyPair.publicKeyData.bytes.count, 91, "number of publicKeyDataBytes should be 91")
+            XCTAssertEqual(ecKeyPair.publicKeyBase64.count, 124, "length of publicKeyBase64String should be 124")
+            XCTAssertEqual(String(ecKeyPair.publicKeyBase64.prefix(36)), expectedHeaderString, "the first 36 characters should match the expected padding string")
+
+        case .failure(let error):
+            switch error {
+            case .privateKeyGenerationError(let localizedErrorMessage):
+                XCTFail("Error while generating private EC key: \(String(describing: localizedErrorMessage))")
+
+            case .publicKeyGenerationFailed:
+                XCTFail("Error while generating Public EC key")
+
+            case .dataGenerationFromKeyFailed(let localizedErrorMessage):
+                XCTFail("Error Converting the SecKey to CFData \(String(describing: localizedErrorMessage))")
+
+            }
         }
-        guard let publicKey = generationClass.generatePublicKey(from: privateKey) else {
-            XCTFail("Error while generating Public EC key")
-            return
-        }
-        let generatedDataFromKey = generationClass.generateData(from: publicKey)
-        guard let publicKeyData = generatedDataFromKey.0 else {
-            XCTFail("Error Converting the SecKey to CFData \(generatedDataFromKey.1)")
-            return
-        }
-        let bas64String = publicKeyData.base64EncodedString()
-        let expectedHeaderString = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE"
-        
-        XCTAssertEqual(publicKeyData.bytes.count, 91)
-        XCTAssertEqual(bas64String.count, 124)
-        XCTAssertEqual(String(bas64String.prefix(36)), expectedHeaderString)
     }
 }
