@@ -31,7 +31,11 @@ class CoronaTestService {
 		#if DEBUG
 		if isUITesting {
 			self.client = ClientMock()
-			self.restServiceProvider = .coronaTestServiceProvider
+			if LaunchArguments.exposureSubmission.isFetchingSubmissionTan.boolValue {
+				self.restServiceProvider = .exposureSubmissionServiceProvider
+			} else {
+				self.restServiceProvider = .coronaTestServiceProvider
+			}
 			self.store = MockTestStore()
 			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
