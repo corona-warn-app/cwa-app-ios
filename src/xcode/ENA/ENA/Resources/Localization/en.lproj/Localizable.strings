@@ -408,7 +408,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also verify your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also prove your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "You have already registered a PCR test.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "You have already registered a PCR test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another PCR test, the first PCR test will be deleted from the app.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "You have already registered a PCR test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another PCR test, the first PCR test will be moved to the recycle bin, where you can restore it or delete it permanently.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "You have already registered a rapid test.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be deleted from the app.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "You have already registered a rapid test. The app can manage a maximum of one rapid test and one PCR test at the same time. If you register another rapid test, the first rapid test will be moved to the recycle bin, where you can restore it or delete it permanently.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Rapid Test Profile";
@@ -3050,6 +3050,10 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
+
+"HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
+
+"HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Code Scanner";

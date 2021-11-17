@@ -408,7 +408,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto masz możliwość weryfikacji swojego osobistego statusu szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto możesz udowodnić swój osobisty status szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zarejestrowano już test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie usunięty z aplikacji.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zarejestrowano już szybki test.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie usunięty z aplikacji.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil szybkiego testu";
@@ -3050,6 +3050,10 @@
 "HealthCertificate_ValidityState_Invalid" = "Certyfikat (podpis) jest nieprawidłowy";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
+
+"HealthCertificate_ValidityState_Blocked" = "Certyfikat nieważny";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certyfikat został wycofany przez urząd wydający. Zdobądź nowy cyfrowy certyfikat.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Skaner kodów QR";

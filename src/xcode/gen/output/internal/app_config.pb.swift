@@ -211,43 +211,39 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
       if _storage._minRiskScore != 0 {
         try visitor.visitSingularInt32Field(value: _storage._minRiskScore, fieldNumber: 1)
       }
-      try { if let v = _storage._riskScoreClasses {
+      if let v = _storage._riskScoreClasses {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._exposureConfig {
+      }
+      if let v = _storage._exposureConfig {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-      try { if let v = _storage._attenuationDuration {
+      }
+      if let v = _storage._attenuationDuration {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      } }()
-      try { if let v = _storage._appVersion {
+      }
+      if let v = _storage._appVersion {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      } }()
-      try { if let v = _storage._appFeatures {
+      }
+      if let v = _storage._appFeatures {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      } }()
+      }
       if !_storage._supportedCountries.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._supportedCountries, fieldNumber: 7)
       }
-      try { if let v = _storage._iosKeyDownloadParameters {
+      if let v = _storage._iosKeyDownloadParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-      } }()
-      try { if let v = _storage._androidKeyDownloadParameters {
+      }
+      if let v = _storage._androidKeyDownloadParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-      } }()
-      try { if let v = _storage._iosExposureDetectionParameters {
+      }
+      if let v = _storage._iosExposureDetectionParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-      } }()
-      try { if let v = _storage._androidExposureDetectionParameters {
+      }
+      if let v = _storage._androidExposureDetectionParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-      } }()
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }

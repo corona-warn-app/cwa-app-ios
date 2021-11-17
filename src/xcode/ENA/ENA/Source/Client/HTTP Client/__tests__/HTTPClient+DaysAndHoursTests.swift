@@ -126,10 +126,10 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 					hours,
 					[1, 2, 3, 4, 5]
 				)
-				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("a valid response should never yield an error like \(error)")
 			}
+			expectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 	}
