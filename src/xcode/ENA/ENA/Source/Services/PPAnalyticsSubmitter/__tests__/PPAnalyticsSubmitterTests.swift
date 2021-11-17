@@ -120,6 +120,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		#else
 		let deviceCheck = PPACDeviceCheck()
 		#endif
+
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
@@ -1144,6 +1145,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	func testGatherKeySubmissionMetadata() {
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(RegistrationTokenModel(registrationToken: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1151,6 +1158,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
