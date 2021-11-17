@@ -46,11 +46,9 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_ticket_validation_first_consent_1")
-		app.swipeDown()
+		app.swipeUp()
 		snapshot("screenshot_ticket_validation_first_consent_2")
-		app.swipeDown()
-		snapshot("screenshot_ticket_validation_first_consent_3")
-		app.swipeDown()
-		snapshot("screenshot_ticket_validation_first_consent_4")
+		app.swipeUp()
+		snapshot("screenshot_ticket_validation_first_consent_3")		
 	}
 }
