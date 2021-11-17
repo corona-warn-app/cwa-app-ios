@@ -325,6 +325,7 @@
 		01DDF4462654221A0043B4E1 /* DidSetPublishedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4452654221A0043B4E1 /* DidSetPublishedTests.swift */; };
 		01DDF4482657A5E20043B4E1 /* Locale+SupportedLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4472657A5B10043B4E1 /* Locale+SupportedLanguage.swift */; };
 		01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4492657B0450043B4E1 /* Locale+SupportedLanguageTests.swift */; };
+		01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */; };
@@ -1768,6 +1769,7 @@
 		01DDF4452654221A0043B4E1 /* DidSetPublishedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidSetPublishedTests.swift; sourceTree = "<group>"; };
 		01DDF4472657A5B10043B4E1 /* Locale+SupportedLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+SupportedLanguage.swift"; sourceTree = "<group>"; };
 		01DDF4492657B0450043B4E1 /* Locale+SupportedLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+SupportedLanguageTests.swift"; sourceTree = "<group>"; };
+		01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationInitializationData.swift; sourceTree = "<group>"; };
 		01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationConfigurationViewController.xib; sourceTree = "<group>"; };
 		01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModel.swift; sourceTree = "<group>"; };
@@ -3021,10 +3023,7 @@
 				0104CBD4273EAD72009A543D /* TicketValidation.swift */,
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
-				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
-				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
-				01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */,
-				01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */,
+				01DE60732744EF2E00E12FA4 /* Models */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -3945,6 +3944,18 @@
 				01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		01DE60732744EF2E00E12FA4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */,
+				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
+				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
+				01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */,
+				01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		01DF18692603B16800A002E4 /* __test__ */ = {
@@ -8945,6 +8956,7 @@
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */,
+				01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
