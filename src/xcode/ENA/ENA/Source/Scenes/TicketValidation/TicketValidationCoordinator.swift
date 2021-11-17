@@ -43,10 +43,10 @@ final class TicketValidationCoordinator {
 				}
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
-				DispatchQueue.main.async {
-					isLoading(true)
+				isLoading(true)
 
-					self?.ticketValidation.grantFirstConsent { result in
+				self?.ticketValidation.grantFirstConsent { result in
+					DispatchQueue.main.async {
 						isLoading(false)
 
 						switch result {
