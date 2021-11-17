@@ -278,25 +278,21 @@ extension SAP_External_Exposurenotification_TemporaryExposureKeyExport: SwiftPro
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._startTimestamp {
+    if let v = self._startTimestamp {
       try visitor.visitSingularFixed64Field(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._endTimestamp {
+    }
+    if let v = self._endTimestamp {
       try visitor.visitSingularFixed64Field(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._region {
+    }
+    if let v = self._region {
       try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._batchNum {
+    }
+    if let v = self._batchNum {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
-    } }()
-    try { if let v = self._batchSize {
+    }
+    if let v = self._batchSize {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 5)
-    } }()
+    }
     if !self.signatureInfos.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.signatureInfos, fieldNumber: 6)
     }
@@ -346,25 +342,21 @@ extension SAP_External_Exposurenotification_SignatureInfo: SwiftProtobuf.Message
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._appBundleID {
+    if let v = self._appBundleID {
       try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._androidPackage {
+    }
+    if let v = self._androidPackage {
       try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._verificationKeyVersion {
+    }
+    if let v = self._verificationKeyVersion {
       try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._verificationKeyID {
+    }
+    if let v = self._verificationKeyID {
       try visitor.visitSingularStringField(value: v, fieldNumber: 4)
-    } }()
-    try { if let v = self._signatureAlgorithm {
+    }
+    if let v = self._signatureAlgorithm {
       try visitor.visitSingularStringField(value: v, fieldNumber: 5)
-    } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -408,28 +400,24 @@ extension SAP_External_Exposurenotification_TemporaryExposureKey: SwiftProtobuf.
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._keyData {
+    if let v = self._keyData {
       try visitor.visitSingularBytesField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._transmissionRiskLevel {
+    }
+    if let v = self._transmissionRiskLevel {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._rollingStartIntervalNumber {
+    }
+    if let v = self._rollingStartIntervalNumber {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._rollingPeriod {
+    }
+    if let v = self._rollingPeriod {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
-    } }()
-    try { if let v = self._reportType {
+    }
+    if let v = self._reportType {
       try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
-    } }()
-    try { if let v = self._daysSinceOnsetOfSymptoms {
+    }
+    if let v = self._daysSinceOnsetOfSymptoms {
       try visitor.visitSingularSInt32Field(value: v, fieldNumber: 6)
-    } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 

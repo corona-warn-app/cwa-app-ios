@@ -408,7 +408,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțurile de infectare.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți verifica starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți consulta starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -932,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Ați înregistrat deja un test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Ați înregistrat deja un test rapid.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil de test rapid";
@@ -3050,6 +3050,10 @@
 "HealthCertificate_ValidityState_Invalid" = "Certificat (Semnătură) nevalabil(ă)";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
+
+"HealthCertificate_ValidityState_Blocked" = "Certificat nevalabil";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certificatul a fost revocat de către autoritatea emitentă. Obțineți un certificat digital nou.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Scanner de coduri QR";

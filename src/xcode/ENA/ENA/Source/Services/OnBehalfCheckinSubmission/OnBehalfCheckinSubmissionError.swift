@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
-	case registrationTokenError(URLSession.Response.Failure)
+	case registrationTokenError(ServiceError<TeleTanError>)
 	case submissionTANError(URLSession.Response.Failure)
 	case submissionError(SubmissionError)
 
@@ -14,14 +14,23 @@ enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 		switch self {
 		case .registrationTokenError(let failure):
 			switch failure {
-			case .teleTanAlreadyUsed, .qrAlreadyUsed:
+			case .receivedResourceError(let teleTanError):
+				switch teleTanError {
+				case .teleTanAlreadyUsed, .qrAlreadyUsed:
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.invalidTAN) (REGTOKEN_OB_CLIENT_ERROR)"
+				}
+			case .transportationError(let transportationError):
+				if let error = transportationError as NSError?,
+				   error.domain == NSURLErrorDomain,
+				   error.code == NSURLErrorNotConnectedToInternet {
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.noNetwork) (REGTOKEN_OB_NO_NETWORK)"
+				} else {
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.noNetwork) (UNKOWN)"
+				}
+			case .unexpectedServerError(let statusCode) where (400...409).contains(statusCode):
 				return "\(AppStrings.OnBehalfCheckinSubmission.Error.invalidTAN) (REGTOKEN_OB_CLIENT_ERROR)"
-			case .serverError(let statusCode) where (400...409).contains(statusCode):
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.invalidTAN) (REGTOKEN_OB_CLIENT_ERROR)"
-			case .serverError(let statusCode) where (500...509).contains(statusCode):
+			case .unexpectedServerError(let statusCode) where (500...509).contains(statusCode):
 				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (REGTOKEN_OB_SERVER_ERROR)"
-			case .noNetworkConnection:
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.noNetwork) (REGTOKEN_OB_NO_NETWORK)"
 			default:
 				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(failure))"
 			}
