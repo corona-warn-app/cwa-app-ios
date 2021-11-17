@@ -41,6 +41,7 @@ final class DMDeveloperMenu {
 	init(
 		presentingViewController: UIViewController,
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		wifiClient: WifiOnlyHTTPClient,
 		store: Store,
 		exposureManager: ExposureManager,
@@ -56,6 +57,7 @@ final class DMDeveloperMenu {
 
 	) {
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.wifiClient = wifiClient
 		self.presentingViewController = presentingViewController
 		self.store = store
@@ -88,6 +90,7 @@ final class DMDeveloperMenu {
 	func showDeveloperMenu() {
 		let vc = DMViewController(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			wifiClient: wifiClient,
 			exposureSubmissionService: exposureSubmissionService,
 			otpService: otpService,
@@ -126,6 +129,7 @@ final class DMDeveloperMenu {
 	
 	private let presentingViewController: UIViewController
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let wifiClient: WifiOnlyHTTPClient
 	private let store: Store
 	private let eventStore: EventStoringProviding
