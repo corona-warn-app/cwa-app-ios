@@ -1007,6 +1007,12 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testGetTestResultSucceeds() {
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(RegistrationTokenModel(registrationToken: "fake"))
+			]
+		)
+
 		let expectedTestResult: TestResult = .positive
 
 		let client = ClientMock()
@@ -1021,6 +1027,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: CoronaTestService(
 				client: client,
+				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
@@ -1076,6 +1083,12 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let expectedError: CoronaTestServiceError = .responseFailure(.invalidResponse)
 
 		let exposureSubmissionService = MockExposureSubmissionService()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(RegistrationTokenModel(registrationToken: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
@@ -1089,6 +1102,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: CoronaTestService(
 				client: client,
+				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),

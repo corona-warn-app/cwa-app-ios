@@ -54,7 +54,6 @@ final class ClientMock {
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
-	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onGetOTPEls: ((String, PPACToken, @escaping OTPAuthorizationCompletionHandler) -> Void)?
@@ -169,15 +168,6 @@ extension ClientMock: Client {
 		}
 
 		onGetTestResult(device, isFake, completeWith)
-	}
-
-	func getTANForExposureSubmit(forDevice device: String, isFake: Bool, completion completeWith: @escaping TANHandler) {
-		guard let onGetTANForExposureSubmit = self.onGetTANForExposureSubmit else {
-			completeWith(.success("dummyTan"))
-			return
-		}
-
-		onGetTANForExposureSubmit(device, isFake, completeWith)
 	}
 
 	func authorize(
