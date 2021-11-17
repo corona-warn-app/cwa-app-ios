@@ -713,6 +713,7 @@
 		50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EACA9A25E682AE004DDADB /* ENInfectiousness+Protobuf.swift */; };
 		50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EACAA225E68672004DDADB /* PPAnalyticsData.swift */; };
 		50EB4FDA268DFC86009FB402 /* ValidationRulesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB4FD9268DFC86009FB402 /* ValidationRulesCache.swift */; };
+		50EE76022743FC87003DE929 /* ENAUITests_19_TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */; };
 		50F0653A2654FFC200774173 /* tri_state_boolean.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F065392654FFC200774173 /* tri_state_boolean.pb.swift */; };
 		50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */; };
 		50FA071126021180003C1E46 /* api-response-traceWarning in Resources */ = {isa = PBXBuildFile; fileRef = 50FA071026021180003C1E46 /* api-response-traceWarning */; };
@@ -2227,6 +2228,8 @@
 		50EACA9A25E682AE004DDADB /* ENInfectiousness+Protobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENInfectiousness+Protobuf.swift"; sourceTree = "<group>"; };
 		50EACAA225E68672004DDADB /* PPAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsData.swift; sourceTree = "<group>"; };
 		50EB4FD9268DFC86009FB402 /* ValidationRulesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationRulesCache.swift; sourceTree = "<group>"; };
+		50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_19_TicketValidation.swift; sourceTree = "<group>"; };
+		50EE76012743FC6F003DE929 /* TicketValidationUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = TicketValidationUITests.xctestplan; path = TestPlans/TicketValidationUITests.xctestplan; sourceTree = "<group>"; };
 		50F065392654FFC200774173 /* tri_state_boolean.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tri_state_boolean.pb.swift; sourceTree = "<group>"; };
 		50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageType.swift; sourceTree = "<group>"; };
 		50FA071026021180003C1E46 /* api-response-traceWarning */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-traceWarning"; sourceTree = "<group>"; };
@@ -4570,6 +4573,7 @@
 				EB9DDB7E2719BF8300A19A53 /* SettingsUITests.xctestplan */,
 				35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */,
 				EB9DDB812719BF8300A19A53 /* StatisticsUITests.xctestplan */,
+				50EE76012743FC6F003DE929 /* TicketValidationUITests.xctestplan */,
 				EB9DDB822719BF8300A19A53 /* TraceLocationsUITests.xctestplan */,
 				35178CCA26553EDC00FFB31E /* UITests.xctestplan */,
 				35178CCB26553EDC00FFB31E /* UnitTests.xctestplan */,
@@ -5301,6 +5305,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		50EE75FE2743FB9B003DE929 /* TicketValidation */ = {
+			isa = PBXGroup;
+			children = (
+				50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */,
+			);
+			path = TicketValidation;
+			sourceTree = "<group>";
+		};
 		50FA07822609EC6A003C1E46 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -5754,7 +5766,6 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				010A57A72719C157001F5A09 /* RecycleBin */,
 				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
 				35573D002657A1D80057723F /* AppDelegate */,
 				13E5046A248E3CE60086641C /* AppInformation */,
@@ -5774,8 +5785,10 @@
 				85D7596524570491008175F0 /* Info.plist */,
 				34A407502655254E00F9307D /* LaunchArguments.swift */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
+				010A57A72719C157001F5A09 /* RecycleBin */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
+				50EE75FE2743FB9B003DE929 /* TicketValidation */,
 				347FBB15260C8BBA00672770 /* TraceLocations */,
 				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
 				013069532707451500D945E3 /* UniversalQRCodeScanner */,
@@ -10444,6 +10457,7 @@
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
 				01306955270746D100D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift in Sources */,
 				BA53FD27270B28A200CF8475 /* ENAUITests_17_FileScanner.swift in Sources */,
+				50EE76022743FC87003DE929 /* ENAUITests_19_TicketValidation.swift in Sources */,
 				5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */,
 				AB8A6694266F922500F65E1D /* ENAUITests_13_CreateHealthCertificate.swift in Sources */,
 				13E50469248E3CD20086641C /* ENAUITests_02_AppInformation.swift in Sources */,
