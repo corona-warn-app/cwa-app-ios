@@ -8,7 +8,9 @@ final class TicketValidation: TicketValidating {
 	
 	// MARK: - Protocol TicketValidating
 
-	init(with initializationData: TicketValidationInitializationData) {
+	init(
+		with initializationData: TicketValidationInitializationData
+	) {
 		self.initializationData = initializationData
 	}
 

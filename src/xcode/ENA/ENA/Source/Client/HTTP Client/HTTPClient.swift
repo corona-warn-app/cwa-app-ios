@@ -89,58 +89,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
-
-		guard
-			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
-				configuration: configuration,
-				registrationToken: registrationToken,
-				headerValue: isFake ? 1 : 0
-			) else {
-			completeWith(.failure(.invalidResponse))
-			return
-		}
-
-		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
-			switch result {
-			case let .success(response):
-
-				if response.statusCode == 400 {
-					completeWith(.failure(.regTokenNotExist))
-					return
-				}
-				guard response.hasAcceptableStatusCode else {
-					completeWith(.failure(.serverError(response.statusCode)))
-					return
-				}
-				guard let tanResponseData = response.body else {
-					completeWith(.failure(.invalidResponse))
-					Log.error("Failed to get TAN", log: .api)
-					Log.error(String(response.statusCode), log: .api)
-					return
-				}
-				do {
-					let response = try JSONDecoder().decode(
-						GetTANForExposureSubmitResponse.self,
-						from: tanResponseData
-					)
-					guard let tan = response.tan else {
-						Log.error("Failed to get TAN because of invalid response payload structure", log: .api)
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					completeWith(.success(tan))
-				} catch _ {
-					Log.error("Failed to get TAN because of invalid response payload structure", log: .api)
-					completeWith(.failure(.invalidResponse))
-				}
-			case let .failure(error):
-				completeWith(.failure(error))
-				Log.error("Failed to get TAN due to error: \(error).", log: .api)
-			}
-		}
-	}
-
 	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
@@ -982,13 +930,6 @@ final class HTTPClient: Client {
 
 // MARK: Extensions
 
-private extension HTTPClient {
-	
-	struct GetTANForExposureSubmitResponse: Codable {
-		let tan: String?
-	}
-}
-
 private extension URLRequest {
 
 	static func keySubmissionRequest(
@@ -1131,43 +1072,6 @@ private extension URLRequest {
 		return request
 	}
 	
-	static func getTanForExposureSubmitRequest(
-		configuration: HTTPClient.Configuration,
-		registrationToken: String,
-		headerValue: Int
-	) throws -> URLRequest {
-		
-		var request = URLRequest(url: configuration.tanRetrievalURL)
-		
-		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
-		)
-		
-		// Add header padding.
-		request.setValue(
-			String.getRandomString(of: 14),
-			forHTTPHeaderField: "cwa-header-padding"
-		)
-		
-		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.httpMethod = HttpMethod.post
-		
-		// Add body padding to request.
-		let originalBody = ["registrationToken": registrationToken]
-		let paddedData = try getPaddedRequestBody(for: originalBody)
-		request.httpBody = paddedData
-		
-		return request
-	}
-
 	static func authorizeOTPRequest(
 		configuration: HTTPClient.Configuration,
 		otpEdus: String,

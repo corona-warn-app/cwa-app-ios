@@ -28,12 +28,36 @@ class FakeRequestServiceTests: CWATestCase {
 
 		let client = ClientMock()
 
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+
+					expectation.fulfill()
+					XCTAssertTrue(resource.locator.isFake)
+					count += 1
+				}),
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+
+					expectation.fulfill()
+					XCTAssertTrue(resource.locator.isFake)
+					count += 1
+				})
+		])
 
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
@@ -43,7 +67,7 @@ class FakeRequestServiceTests: CWATestCase {
 			completion(.success(()))
 		}
 
-		let fakeRequestService = FakeRequestService(client: client)
+		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
 		// Run test.
 
@@ -58,13 +82,37 @@ class FakeRequestServiceTests: CWATestCase {
 		// Initialize.
 
 		let client = ClientMock()
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
 
-		client.onGetTANForExposureSubmit = { _, isFake, _ in
-			XCTAssertTrue(isFake)
-			expectation.fulfill()
-		}
+					expectation.fulfill()
+					XCTAssertTrue(resource.locator.isFake)
+				}),
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
 
-		let fakeRequestService = FakeRequestService(client: client)
+					expectation.fulfill()
+					XCTAssertTrue(resource.locator.isFake)
+				})
+
+		])
+
+		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
 		// Run test.
 
@@ -85,7 +133,7 @@ class FakeRequestServiceTests: CWATestCase {
 			expectation.fulfill()
 		}
 
-		let fakeRequestService = FakeRequestService(client: client)
+		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: .fake())
 
 		// Run test.
 
@@ -102,16 +150,25 @@ class FakeRequestServiceTests: CWATestCase {
 		expectation.expectedFulfillmentCount = 2
 
 		// Initialize.
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+
+					expectation.fulfill()
+					XCTAssertTrue(resource.locator.isFake)
+					count += 1
+				})
+			
+		])
 
 		let client = ClientMock()
-
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertTrue(isFake)
@@ -120,7 +177,7 @@ class FakeRequestServiceTests: CWATestCase {
 			completion(.success(()))
 		}
 
-		let fakeRequestService = FakeRequestService(client: client)
+		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
 		// Run test.
 

@@ -65,6 +65,12 @@ enum LaunchArguments {
 		/// Set the level of risk for checkin
 		static let checkinRiskLevel = LaunchArgument(name: "checkinRiskLevel")
 	}
+	
+	enum exposureSubmission {
+        /// the problem is in UITesting sometimes we directly try to fetch the submissionTan without fetching the registration token first, this make setting the restServiceProvider in coronaTestService dynamic as in this case we expect directly the tan result and without the token result
+
+		static let isFetchingSubmissionTan = LaunchArgument(name: "isFetchingSubmissionTan")
+	}
 
 	enum consent {
 		/// To set the various consent flags
