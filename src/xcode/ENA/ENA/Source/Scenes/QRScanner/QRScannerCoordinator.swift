@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 
+// swiftlint:disable file_length
 enum QRScannerPresenter: Equatable {
 	case submissionFlow
 	case onBehalfFlow
