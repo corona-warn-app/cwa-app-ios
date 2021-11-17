@@ -351,7 +351,7 @@ class QRScannerCoordinator {
 
 	private func showErrorAlert(error: TicketValidationError) {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.Error.title,
+			title: AppStrings.TicketValidation.Error.title,
 			message: error.localizedDescription,
 			preferredStyle: .alert
 		)

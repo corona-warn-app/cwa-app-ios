@@ -2484,6 +2484,7 @@ enum AppStrings {
 		}
 
 		enum Error {
+			static let title = NSLocalizedString("TicketValidation_Error_title", comment: "")
 			static let serviceProviderErrorNoName = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoName", comment: "")
 			static let serviceProviderError = NSLocalizedString("TicketValidation_Error_serviceProviderError", comment: "")
 			static let tryAgain = NSLocalizedString("TicketValidation_Error_tryAgain", comment: "")
