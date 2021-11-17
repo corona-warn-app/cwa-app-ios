@@ -89,6 +89,11 @@ class RestServiceProviderStub: RestServiceProviding {
 			fatalError("load was called to often.")
 		}
 		loadResource.willLoadResource?(resource)
+		guard !resource.locator.isFake else {
+			Log.debug("Fake detected no response given", log: .client)
+			completion(.failure(.fakeResponse))
+			return
+		}
 
 		switch loadResource.result {
 		case .success(let model):
