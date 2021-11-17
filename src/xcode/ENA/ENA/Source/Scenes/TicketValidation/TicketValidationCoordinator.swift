@@ -129,22 +129,24 @@ final class TicketValidationCoordinator {
 			message: AppStrings.TicketValidation.CancelAlert.message,
 			preferredStyle: .alert
 		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.TicketValidation.CancelAlert.cancelButtonTitle,
-				style: .cancel,
-				handler: { [weak self] _ in
-					self?.navigationController.dismiss(animated: true)
-				}
-			)
-		)
+		
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.TicketValidation.CancelAlert.continueButtonTitle,
 				style: .default
 			)
 		)
-
+		
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.TicketValidation.CancelAlert.cancelButtonTitle,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.ticketValidation.cancel()
+					self?.navigationController.dismiss(animated: true)
+				}
+			)
+		)
 		navigationController.present(alert, animated: true)
 	}
 

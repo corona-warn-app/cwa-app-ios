@@ -3379,9 +3379,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_CancelAlert_message" = "Wenn Sie die Überprüfung abbrechen, kann kein Zertifikat überprüft werden.";
 
-"TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung fortsetzen";
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung abbrechen";
 
-"TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung abbrechen";
+"TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
 
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
 
@@ -3394,14 +3394,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_FirstConsent_subject" = "Buchung:";
 
 "TicketValidation_FirstConsent_explination" = "Der Anbieter möchte sicherstellen, dass ein gültiges Zertifikat zu Ihrer Buchung vorliegt. Für den Abruf Ihrer Buchungsdetails vom Anbieter und die Freigabe Ihrer gespeicherten Zertifikate ist Ihr Einverständnis erforderlich.";
-
-"TicketValidation_FirstConsent_Legal_title" = "Ihr Einverständnis";
-
-"TicketValidation_FirstConsent_Legal_subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
-
-"TicketValidation_FirstConsent_Legal_bulletPoint1" = "Die App ruft vom Anbieter den Namen und das Geburtsdatum der bei Buchung angegebenen Person, die für die Prüfung relevanten Buchungsdetails (z. B. Zielland und Reisedatum) und die vom Anbieter zu Ihrer Buchung festgelegten Anforderungen an das Zertifikat ab.";
-
-"TicketValidation_FirstConsent_Legal_bulletPoint2" = "Die abgerufenen Daten werden von der App genutzt, um festzustellen, welche Ihrer gespeicherten Zertifikate verwendet werden können.";
 
 "TicketValidation_FirstConsent_BulletPoint1" = "Sie sind nicht verpflichtet, die Überprüfung Ihres Zertifikats mit der Corona-Warn-App zu erlauben. Der Nachweis Ihres Impf-, Test- oder Genesungsstatus kann auch auf andere Weise erbracht werden.";
 
