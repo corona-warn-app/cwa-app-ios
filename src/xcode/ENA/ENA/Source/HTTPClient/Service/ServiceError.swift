@@ -12,6 +12,7 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 	case receivedResourceError(RE)
 	case invalidResponse
 	case invalidResponseType
+	case fakeResponse
 
 	// MARK: - Protocol Equatable
 
@@ -44,6 +45,10 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 		case (.invalidResponseType, .invalidResponseType):
 			return true
 		case (.invalidResponseType, _):
+			return false
+		case (.fakeResponse, .fakeResponse):
+			return true
+		case (.fakeResponse, _):
 			return false
 		}
 	}

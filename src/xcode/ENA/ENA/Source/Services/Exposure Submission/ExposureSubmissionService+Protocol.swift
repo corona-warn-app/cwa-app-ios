@@ -28,6 +28,7 @@ struct ExposureSubmissionServiceDependencies {
 	let exposureManager: DiagnosisKeysRetrieval
 	let appConfigurationProvider: AppConfigurationProviding
 	let client: Client
+	let restServiceProvider: RestServiceProviding
 	let store: Store
 	let eventStore: EventStoringProviding
 	let coronaTestService: CoronaTestService

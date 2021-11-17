@@ -14,6 +14,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	init(
 		riskProvider: RiskProvider,
+		restServiceProvider: RestServiceProviding,
 		exposureManager: ExposureManager,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
@@ -24,6 +25,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		healthCertificateService: HealthCertificateService
 	) {
 		self.riskProvider = riskProvider
+		self.restServiceProvider = restServiceProvider
 		self.exposureManager = exposureManager
 		self.plausibleDeniabilityService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
@@ -162,6 +164,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	// MARK: - Private
 
 	private let exposureManager: ExposureManager
+	private let restServiceProvider: RestServiceProviding
 	private let backgroundTaskConsumer = RiskConsumer()
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
@@ -177,6 +180,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			diagnosisKeysRetrieval: dependencies.exposureManager,
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
+			restServiceProvider: restServiceProvider,
 			store: dependencies.store,
 			eventStore: dependencies.eventStore,
 			coronaTestService: dependencies.coronaTestService

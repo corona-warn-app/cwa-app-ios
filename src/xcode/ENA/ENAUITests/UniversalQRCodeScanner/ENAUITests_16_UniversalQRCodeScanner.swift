@@ -98,5 +98,4 @@ class ENAUITests_16_UniversalQRCodeScanner: CWATestCase {
 		/// Exposure Submission QR Info Screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRInfo.title)].waitForExistence(timeout: .short))
 	}
-
 }
