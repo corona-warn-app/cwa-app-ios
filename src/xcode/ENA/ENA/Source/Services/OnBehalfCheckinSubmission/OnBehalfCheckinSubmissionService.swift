@@ -10,7 +10,7 @@ class OnBehalfCheckinSubmissionService {
 	// MARK: - Init
 
 	init(
-		restServiceProvider: RestServiceProviding = .fake(),
+		restServiceProvider: RestServiceProviding,
 		client: Client,
 		appConfigurationProvider: AppConfigurationProviding
 	) {
