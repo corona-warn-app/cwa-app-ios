@@ -14,4 +14,5 @@ enum TicketValidationQRScannerError: Error, LocalizedError {
 	var errorDescription: String? {
 		return AppStrings.TicketValidation.Error.serviceProviderErrorNoName + " (\(self))"
 	}
+	
 }
