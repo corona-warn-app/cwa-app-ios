@@ -98,18 +98,4 @@ class ENAUITests_16_UniversalQRCodeScanner: CWATestCase {
 		/// Exposure Submission QR Info Screen
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRInfo.title)].waitForExistence(timeout: .short))
 	}
-	
-	func test_TicketValidationTestFromUniversalQRCodeScanner() throws {
-		app.launch()
-		
-		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
-		
-		/// Simulator only Alert will open where you can choose what the QRScanner should scan
-		let ticketValidationButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeTicketValidation])
-		ticketValidationButton.waitAndTap()
-
-		/// Ticket validation Info Screen
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.TicketValidation.FirstConsent.title)].waitForExistence(timeout: .short))
-	}
-
 }
