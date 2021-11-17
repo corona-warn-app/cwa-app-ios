@@ -796,7 +796,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 		// Force submission error. (Which should result in a 4xx, not a 5xx!)
 		let client = ClientMock(submissionError: .serverError(500))
-
+		var count = 0
+		let getTANExpectation = self.expectation(description: "should be called twice one fake and one not")
+		getTANExpectation.expectedFulfillmentCount = 2
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
@@ -807,7 +809,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 						XCTFail("RegistrationTokenResource expected.")
 						return
 					}
-					XCTAssertTrue(resource.locator.isFake)
+					if resource.locator.isFake {
+						count += 1
+						getTANExpectation.fulfill()
+					} else {
+						count += 0
+						getTANExpectation.fulfill()
+					}
 				}
 			),
 			LoadResource(
@@ -815,30 +823,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					ServiceError<RegistrationTokenError>.unexpectedServerError(400)
 				),
 				willLoadResource: nil
-			),
-			LoadResource(
-				result: .success(
-					SubmissionTANModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-					XCTAssertTrue(resource.locator.isFake)
-				}
-			),
-			LoadResource(
-				result: .success(
-					SubmissionTANModel(submissionTAN: "not fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-					XCTAssertFalse(resource.locator.isFake)
-				}
 			)
 		])
 
@@ -1090,31 +1074,21 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				willLoadResource: { resource in
 					expectation.fulfill()
 					guard let resource = resource as? RegistrationTokenResource else {
-							  XCTFail("RegistrationTokenResource expected.")
-							  return
-						  }
-					XCTAssertTrue(resource.locator.isFake)
-					XCTAssertEqual(count, 0)
-					count += 1
-					
-				}
-			),
-			LoadResource(
-				result: .success(
-					SubmissionTANModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					expectation.fulfill()
-					guard let resource = resource as? RegistrationTokenResource else {
 						XCTFail("RegistrationTokenResource expected.")
 						return
 					}
-					XCTAssertFalse(resource.locator.isFake)
-					XCTAssertEqual(count, 1)
-					count += 1
+					if resource.locator.isFake {
+						XCTAssertEqual(count, 0)
+						count += 1
+						
+					} else {
+						XCTAssertEqual(count, 1)
+						count += 1
+						
+					}
 				}
-			)
-		])
+			)]
+		)
 		
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
