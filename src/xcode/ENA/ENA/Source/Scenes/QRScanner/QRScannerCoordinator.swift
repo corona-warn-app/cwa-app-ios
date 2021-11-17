@@ -336,15 +336,34 @@ class QRScannerCoordinator {
 
 		ticketValidation.initialize { [weak self] result in
 			DispatchQueue.main.async {
-				self?.showActivityIndicator()
+				self?.hideActivityIndicator()
 
 				switch result {
 				case .success:
 					self?.showScannedTicketValidation(ticketValidation)
-				case .failure:
-					break
+				case .failure(let error):
+					self?.showErrorAlert(error: error)
 				}
 			}
+		}
+	}
+
+	private func showErrorAlert(error: TicketValidationError) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Error.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		DispatchQueue.main.async {
+			self.qrScannerViewController?.present(alert, animated: true)
 		}
 	}
 

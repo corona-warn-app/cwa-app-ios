@@ -97,7 +97,22 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Error.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
 
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		DispatchQueue.main.async {
+			self.navigationController.present(alert, animated: true)
+		}
 	}
 
 	private func showDismissAlert() {
