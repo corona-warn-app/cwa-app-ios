@@ -39,25 +39,25 @@ final class TicketValidationCoordinator {
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
 			viewModel: FirstTicketValidationConsentViewModel(
-				serviceProvider: ticketValidation.serviceProvider,
-				subject: ticketValidation.subject,
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				subject: ticketValidation.initializationData.subject,
 				onDataPrivacyTap: {
 					self.showDataPrivacy()
 				}
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
-				isLoading(true)
-                
-				self?.showCertificateSelectionScreen()
-				
-				self?.ticketValidation.grantFirstConsent { result in
-					isLoading(false)
+				DispatchQueue.main.async {
+					isLoading(true)
 
-					switch result {
-					case .success:
-						self?.showCertificateSelectionScreen()
-					case .failure(let error):
-						self?.showErrorAlert(error: error)
+					self?.ticketValidation.grantFirstConsent { result in
+						isLoading(false)
+
+						switch result {
+						case .success(let validationConditions):
+							self?.showCertificateSelectionScreen(validationConditions: validationConditions)
+						case .failure(let error):
+							self?.showErrorAlert(error: error)
+						}
 					}
 				}
 			},
@@ -95,9 +95,10 @@ final class TicketValidationCoordinator {
 		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
-	private func showCertificateSelectionScreen() {
+	private func showCertificateSelectionScreen(validationConditions: ValidationConditions) {
 		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
 			viewModel: TicketValidationCertificateSelectionViewModel(
+				validationConditions: validationConditions,
 				healthCertificateService: healthCertificateService
 			),
 			onDismiss: {
@@ -105,11 +106,13 @@ final class TicketValidationCoordinator {
 			}
 		)
 		
-		if #available(iOS 13.0, *) {
-			certificateSelectionViewController.isModalInPresentation = true
+		DispatchQueue.main.async { [self] in
+			if #available(iOS 13.0, *) {
+				certificateSelectionViewController.isModalInPresentation = true
+			}
+			
+			self.navigationController.pushViewController(certificateSelectionViewController, animated: true)
 		}
-		
-		navigationController.pushViewController(certificateSelectionViewController, animated: true)
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {

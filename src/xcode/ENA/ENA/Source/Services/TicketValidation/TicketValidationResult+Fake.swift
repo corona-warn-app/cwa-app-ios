@@ -2,8 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
+#if !RELEASE
+
+import Foundation
 
 extension TicketValidationResult {
 
@@ -48,3 +49,5 @@ extension TicketValidationResult.ResultItem {
 	}
 
 }
+
+#endif

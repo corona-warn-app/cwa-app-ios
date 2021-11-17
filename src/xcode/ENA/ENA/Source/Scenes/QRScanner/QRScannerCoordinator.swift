@@ -90,6 +90,9 @@ class QRScannerCoordinator {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestService
 	private let recycleBin: RecycleBin
+
+	private let activityIndicatorView = QRScannerActivityIndicatorView()
+	private let activityIndicatorAnimationDuration = 0.45
 	
 	private var presenter: QRScannerPresenter!
 	private weak var parentViewController: UIViewController?
@@ -136,6 +139,12 @@ class QRScannerCoordinator {
 					},
 					noQRCodeFound: {
 						self?.fileScannerCoordinator = nil
+					},
+					showActivityIndicator: {
+						self?.showActivityIndicator()
+					},
+					hideActivityIndicator: {
+						self?.hideActivityIndicator()
 					}
 				)
 				self?.fileScannerCoordinator?.start()
@@ -321,17 +330,20 @@ class QRScannerCoordinator {
 	private func evaluateScannedTicketValidation(
 		_ initializationData: TicketValidationInitializationData
 	) {
-		let ticketValidation = MockTicketValidation()
+		showActivityIndicator()
+		let ticketValidation = MockTicketValidation(with: initializationData)
 		ticketValidation.delay = 1
 
-		ticketValidation.initialize(with: initializationData) { [weak self] result in
-			switch result {
-			case .success:
-				DispatchQueue.main.async {
+		ticketValidation.initialize { [weak self] result in
+			DispatchQueue.main.async {
+				self?.showActivityIndicator()
+
+				switch result {
+				case .success:
 					self?.showScannedTicketValidation(ticketValidation)
+				case .failure:
+					break
 				}
-			case .failure:
-				break
 			}
 		}
 	}
@@ -508,6 +520,39 @@ class QRScannerCoordinator {
 			let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
 			exposureSubmissionCoordinator.start(with: coronaTest.type)
 		}
+	}
+
+	private func showActivityIndicator() {
+		guard let scannerView = qrScannerViewController?.view else {
+			Log.error("Failed to get qrScannerViewController - stop", log: .fileScanner)
+			return
+		}
+		activityIndicatorView.alpha = 0.0
+		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+		scannerView.addSubview(activityIndicatorView)
+		NSLayoutConstraint.activate(
+			[
+				activityIndicatorView.topAnchor.constraint(equalTo: scannerView.layoutMarginsGuide.topAnchor),
+				activityIndicatorView.bottomAnchor.constraint(equalTo: scannerView.layoutMarginsGuide.bottomAnchor),
+				activityIndicatorView.leadingAnchor.constraint(equalTo: scannerView.leadingAnchor),
+				activityIndicatorView.trailingAnchor.constraint(equalTo: scannerView.trailingAnchor)
+			]
+		)
+
+		let animator = UIViewPropertyAnimator(duration: activityIndicatorAnimationDuration, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 1.0
+		}
+		animator.startAnimation()
+	}
+
+	private func hideActivityIndicator() {
+		let animator = UIViewPropertyAnimator(duration: activityIndicatorAnimationDuration, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 0.0
+		}
+		animator.addCompletion { [weak self] _ in
+			self?.activityIndicatorView.removeFromSuperview()
+		}
+		animator.startAnimation()
 	}
 
 	// MARK: Helpers

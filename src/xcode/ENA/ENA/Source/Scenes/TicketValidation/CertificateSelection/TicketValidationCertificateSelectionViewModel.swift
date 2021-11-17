@@ -11,8 +11,10 @@ class TicketValidationCertificateSelectionViewModel {
 	// MARK: - Init
 
 	init(
+		validationConditions: ValidationConditions,
 		healthCertificateService: HealthCertificateService
 	) {
+		self.validationConditions = validationConditions
 		self.healthCertificateService = healthCertificateService
 		
 		let serviceProviderRequirementsDescription = "Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat Geburtsdatum: 1989-12-12 SCHNEIDER<<ANDREA"
@@ -27,7 +29,8 @@ class TicketValidationCertificateSelectionViewModel {
 	// MARK: - Private
 	
 	private var healthCertificateService: HealthCertificateService
-
+	private var validationConditions: ValidationConditions
+	
 	private func setup(for ticketValidationCertificateSelectionState: TicketValidationCertificateSelectionState, with serviceProviderRequirementsDescription: String) {
 		switch ticketValidationCertificateSelectionState {
 		case .suitableCertificates:
