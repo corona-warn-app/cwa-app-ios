@@ -4,11 +4,51 @@
 
 import Foundation
 
+public enum ECKeyPairGenerationError: Error {
+    case privateKeyGenerationError(String?) // if key cannot be used for AES
+    case publicKeyGenerationFailed // if key cannot be used for AES
+    case dataGenerationFromKeyFailed(String?) // if key cannot be used for AES
+}
+
 public struct ECKeyPairGeneration {
     
     // MARK: - Public
 
-    public func generatePrivateKey(with name: String? = nil) -> (SecKey?, String?) {
+    func generateECPair(with name: String? = nil) -> Result<ECKeyPair, ECKeyPairGenerationError> {
+        let secureKey = self.generatePrivateKey(with: name)
+        guard let privateKey = secureKey.0 else {
+            return .failure(.privateKeyGenerationError(secureKey.1))
+        }
+        guard let publicKey = SecKeyCopyPublicKey(privateKey) else {
+            return .failure(.publicKeyGenerationFailed)
+        }
+        let generatedPrivateKeyData = generateData(from: privateKey)
+        guard let privateKeyData = generatedPrivateKeyData.0 else {
+            return .failure(.dataGenerationFromKeyFailed(generatedPrivateKeyData.1))
+        }
+
+        let generatedPublicKeyData = generateData(from: publicKey)
+        guard let publicKeyData = generatedPublicKeyData.0 else {
+            return .failure(.dataGenerationFromKeyFailed(generatedPublicKeyData.1))
+        }
+        
+        return .success(
+            ECKeyPair(
+                privateKey: privateKey,
+                publicKey: publicKey,
+                publicKeyData: publicKeyData,
+                privateKeyData: privateKeyData
+            )
+        )
+    }
+    
+    // MARK: - Private
+    
+    private func tag(for name: String) -> Data {
+      "\(Bundle.main.bundleIdentifier ?? "app").\(name)".data(using: .utf8)!
+    }
+    
+    private func generatePrivateKey(with name: String? = nil) -> (SecKey?, String?) {
       let name = name ?? UUID().uuidString
       let tag = tag(for: name)
       var error: Unmanaged<CFError>?
@@ -45,12 +85,8 @@ public struct ECKeyPairGeneration {
       }
       return (privateKey, nil)
     }
-    
-    public func generatePublicKey(from privateKey: SecKey) -> SecKey? {
-        return SecKeyCopyPublicKey(privateKey)
-    }
-    
-    public func generateData(from key: SecKey) -> (Data?, String?) {
+
+    private func generateData(from key: SecKey) -> (Data?, String?) {
         var error: Unmanaged<CFError>?
 
         guard let keyCFData = SecKeyCopyExternalRepresentation(key, &error) else {
@@ -61,13 +97,7 @@ public struct ECKeyPairGeneration {
         
         return (modifiedData, nil)
     }
-    
-    // MARK: - Private
-    
-    private func tag(for name: String) -> Data {
-      "\(Bundle.main.bundleIdentifier ?? "app").\(name)".data(using: .utf8)!
-    }
-    
+
     private func prependHeaderToData(data: Data) -> Data {
         var appendedData = data
         let headerBytes = [0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x02, 0x01, 0x06, 0x08, 0x2a, 0x86, 0x48, 0xce, 0x3d, 0x03, 0x01, 0x07, 0x03, 0x42, 0x00] as [UInt8]
@@ -75,5 +105,4 @@ public struct ECKeyPairGeneration {
         
         return appendedData
     }
-
 }
