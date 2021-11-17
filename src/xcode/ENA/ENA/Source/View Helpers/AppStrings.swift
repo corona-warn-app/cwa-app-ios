@@ -2482,6 +2482,12 @@ enum AppStrings {
 			static let cancelButtonTitle = NSLocalizedString("TicketValidation_CancelAlert_cancelButtonTitle", comment: "")
 			static let continueButtonTitle = NSLocalizedString("TicketValidation_CancelAlert_continueButtonTitle", comment: "")
 		}
+
+		enum Error {
+			static let serviceProviderErrorNoName = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoName", comment: "")
+			static let serviceProviderError = NSLocalizedString("TicketValidation_Error_serviceProviderError", comment: "")
+			static let tryAgain = NSLocalizedString("TicketValidation_Error_tryAgain", comment: "")
+		}
 	}
 
 	// swiftlint:disable:next file_length

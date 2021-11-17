@@ -71,11 +71,8 @@ class QRCodeParser: QRCodeParsable {
 				healthCertificateService: healthCertificateService,
 				markAsNew: markCertificateAsNew
 			)
-		} else if let jsonData = qrCode.data(using: .utf8),
-				  let ticketValidationInitializationData = try? JSONDecoder().decode(TicketValidationInitializationData.self, from: jsonData),
-				  ticketValidationInitializationData.`protocol`.uppercased() == "DCCVALIDATION" {
-			completion(.success(.ticketValidation(ticketValidationInitializationData)))
-			return
+		} else if qrCode.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("{") {
+			parser = TicketValidationQRCodeParser()
 		}
 
 		guard parser != nil else {

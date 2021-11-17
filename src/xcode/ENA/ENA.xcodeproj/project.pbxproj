@@ -326,6 +326,8 @@
 		01DDF4482657A5E20043B4E1 /* Locale+SupportedLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4472657A5B10043B4E1 /* Locale+SupportedLanguage.swift */; };
 		01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DDF4492657B0450043B4E1 /* Locale+SupportedLanguageTests.swift */; };
 		01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */; };
+		01DE60772744EFB200E12FA4 /* TicketValidationQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60762744EFB200E12FA4 /* TicketValidationQRCodeParser.swift */; };
+		01DE60792744EFF000E12FA4 /* TicketValidationQRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */; };
@@ -1770,6 +1772,8 @@
 		01DDF4472657A5B10043B4E1 /* Locale+SupportedLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+SupportedLanguage.swift"; sourceTree = "<group>"; };
 		01DDF4492657B0450043B4E1 /* Locale+SupportedLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+SupportedLanguageTests.swift"; sourceTree = "<group>"; };
 		01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationInitializationData.swift; sourceTree = "<group>"; };
+		01DE60762744EFB200E12FA4 /* TicketValidationQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRCodeParser.swift; sourceTree = "<group>"; };
+		01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRScannerError.swift; sourceTree = "<group>"; };
 		01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationConfigurationViewController.xib; sourceTree = "<group>"; };
 		01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModel.swift; sourceTree = "<group>"; };
@@ -4675,6 +4679,7 @@
 				8FB776F626F25AE5005255BB /* QRCodeResult.swift */,
 				01C6AC31252B29C00052814D /* QRScannerError.swift */,
 				8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */,
+				01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */,
 				8F3202432600C7BB00D6A224 /* TorchMode.swift */,
 			);
 			path = Model;
@@ -4777,6 +4782,7 @@
 				8FB776F426F22C92005255BB /* CheckinQRCodeParser.swift */,
 				8FB776F826F27E1D005255BB /* CoronaTestsQRCodeParser.swift */,
 				8FB776FA26F28336005255BB /* HealthCertificateQRCodeParser.swift */,
+				01DE60762744EFB200E12FA4 /* TicketValidationQRCodeParser.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -8799,6 +8805,7 @@
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
+				01DE60792744EFF000E12FA4 /* TicketValidationQRScannerError.swift in Sources */,
 				2E1C502A2625805A00188619 /* AntigenExposureSubmissionNegativeTestResultHeaderView.swift in Sources */,
 				01909877257E64BD0065D050 /* DiaryEditEntriesViewController.swift in Sources */,
 				8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */,
@@ -9396,6 +9403,7 @@
 				EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */,
 				01F2A5B92581181A00DA96A6 /* DiaryDayAddTableViewCell.swift in Sources */,
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
+				01DE60772744EFB200E12FA4 /* TicketValidationQRCodeParser.swift in Sources */,
 				0138F6CE25F6134100A9B075 /* TraceLocationDetailsViewModel.swift in Sources */,
 				017EE865267B302F00CD18F6 /* HealthCertificateArray+MostRelevant.swift in Sources */,
 				EB3B349E262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift in Sources */,

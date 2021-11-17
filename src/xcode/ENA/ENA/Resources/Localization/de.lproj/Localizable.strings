@@ -3372,3 +3372,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Ticket Validation */
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";

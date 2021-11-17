@@ -21,6 +21,7 @@ enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case certificateQrError(HealthCertificateServiceError.RegistrationError)
+	case ticketValidation(TicketValidationQRScannerError)
 	
 	// MARK: - Protocol Equatable
 	// swiftlint:disable pattern_matching_keywords
@@ -32,6 +33,8 @@ enum QRCodeParserError: Error, Equatable {
 			return checkinQrErrorLhs == checkinQrErrorRhs
 		case (.certificateQrError(let certificateQrErrorLhs), .certificateQrError(let certificateQrErrorRhs)):
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
+		case (.ticketValidation(let ticketValidationLhs), .ticketValidation(let ticketValidationRhs)):
+			return ticketValidationLhs == ticketValidationRhs
 		default:
 			return false
 		}
