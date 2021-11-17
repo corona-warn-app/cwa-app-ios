@@ -447,18 +447,18 @@ class CoronaTestService {
 						self.pcrTest?.submissionTAN = submissionTAN
 						self.pcrTest?.registrationToken = nil
 
-						Log.info("[CoronaTestService] Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
+						Log.info("Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
 					case .antigen:
 						self.antigenTest?.submissionTAN = submissionTAN
 						self.antigenTest?.registrationToken = nil
 
-						Log.info("[CoronaTestService] Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
+						Log.info("Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
 					}
 
 					completion(.success(submissionTAN))
 
 				case .failure(let error):
-					Log.error("[CoronaTestService] Getting submission tan failed: \(error.localizedDescription)", log: .api)
+					Log.error("Getting submission tan failed: \(error.localizedDescription)", log: .api)
 
 					completion(.failure(.registrationTokenError(error)))
 				}
