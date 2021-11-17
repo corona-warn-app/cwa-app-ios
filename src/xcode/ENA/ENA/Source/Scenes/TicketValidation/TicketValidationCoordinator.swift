@@ -129,6 +129,14 @@ final class TicketValidationCoordinator {
 			message: AppStrings.TicketValidation.CancelAlert.message,
 			preferredStyle: .alert
 		)
+		
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.TicketValidation.CancelAlert.continueButtonTitle,
+				style: .default
+			)
+		)
+		
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.TicketValidation.CancelAlert.cancelButtonTitle,
@@ -138,13 +146,6 @@ final class TicketValidationCoordinator {
 				}
 			)
 		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.TicketValidation.CancelAlert.continueButtonTitle,
-				style: .default
-			)
-		)
-
 		navigationController.present(alert, animated: true)
 	}
 
