@@ -142,6 +142,7 @@ final class TicketValidationCoordinator {
 				title: AppStrings.TicketValidation.CancelAlert.cancelButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
+					self?.ticketValidation.cancel()
 					self?.navigationController.dismiss(animated: true)
 				}
 			)
