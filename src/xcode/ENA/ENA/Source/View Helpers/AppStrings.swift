@@ -2507,6 +2507,7 @@ enum AppStrings {
 			static let bulletPoint2 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint2", comment: "")
 			static let bulletPoint3 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint3", comment: "")
 			static let bulletPoint4 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint4", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("TicketValidation_SecondConsent_DataPrivacyTitle", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_primaryButtonTitle", comment: "")
 			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_secondaryButtonTitle", comment: "")
 			enum Legal {

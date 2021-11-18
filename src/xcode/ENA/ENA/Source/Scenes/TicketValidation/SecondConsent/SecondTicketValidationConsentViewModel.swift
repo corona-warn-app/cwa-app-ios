@@ -123,9 +123,9 @@ struct SecondTicketValidationConsentViewModel {
 				separators: .all,
 				cells: [
 					.body(
-						text: AppStrings.TicketValidation.FirstConsent.dataPrivacyTitle,
+						text: AppStrings.TicketValidation.SecondConsent.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.dataPrivacy,
+						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.SecondConsent.dataPrivacy,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
 							onDataPrivacyTap()
