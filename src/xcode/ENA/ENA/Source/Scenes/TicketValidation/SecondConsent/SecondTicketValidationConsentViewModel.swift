@@ -60,19 +60,25 @@ struct SecondTicketValidationConsentViewModel {
 			// Bulletpoints in consent box
 			.section(
 				cells: [
-					.legalExtendedDataDonation(
+					.legalExtendedTicketValidation(
 						title: NSAttributedString(
-							string: AppStrings.TicketValidation.FirstConsent.legalTitle
+							string: AppStrings.TicketValidation.SecondConsent.Legal.title
 						),
 						description: NSAttributedString(
-							string: AppStrings.TicketValidation.FirstConsent.legalSubtitle,
+							string: AppStrings.TicketValidation.SecondConsent.Legal.subtitle,
 							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]
 						),
 						bulletPoints: [
-							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint1),
-							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint2)
+							NSAttributedString(string: AppStrings.TicketValidation.SecondConsent.Legal.bulletPoint1),
+							NSAttributedString(string: AppStrings.TicketValidation.SecondConsent.Legal.bulletPoint2)
 						],
-						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox,
+						subBulletPoints: [
+							NSAttributedString(string: AppStrings.TicketValidation.SecondConsent.Legal.subBulletPoint1),
+							NSAttributedString(string: AppStrings.TicketValidation.SecondConsent.Legal.subBulletPoint2),
+							NSAttributedString(string: AppStrings.TicketValidation.SecondConsent.Legal.subBulletPoint3),
+							NSAttributedString(string: AppStrings.TicketValidation.SecondConsent.Legal.subBulletPoint4)
+						],
+						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.SecondConsent.legalBox,
 						configure: { _, cell, _ in
 							cell.backgroundColor = .enaColor(for: .background)
 						}
@@ -80,6 +86,7 @@ struct SecondTicketValidationConsentViewModel {
 				]
 			),
 			// Bulletpoints without box
+			/*
 			.section(
 				cells: [
 					.space(
@@ -111,6 +118,7 @@ struct SecondTicketValidationConsentViewModel {
 					)
 				]
 			),
+			 
 			
 			// Data privacy cell
 			.section(
@@ -131,6 +139,7 @@ struct SecondTicketValidationConsentViewModel {
 					)
 				]
 			)
+			 */
 		])
 	}
 	

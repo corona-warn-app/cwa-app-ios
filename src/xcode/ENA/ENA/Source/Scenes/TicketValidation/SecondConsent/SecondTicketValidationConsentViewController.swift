@@ -37,6 +37,12 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 		super.viewWillAppear(animated)
 		navigationController?.navigationBar.prefersLargeTitles = false
 	}
+	
+	// MARK: - Cell reuse identifiers.
+
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legalExtended = "DynamicLegalExtendedCell"
+	}
 
 	// MARK: - Protocol FooterViewHandling
 
