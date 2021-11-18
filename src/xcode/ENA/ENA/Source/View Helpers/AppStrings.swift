@@ -2492,6 +2492,11 @@ enum AppStrings {
 			static let primaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_primaryButtonTitle", comment: "")
 			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_secondaryButtonTitle", comment: "")
 		}
+		
+		enum SecondConsent {
+			static let primaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_primaryButtonTitle", comment: "")
+			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_secondaryButtonTitle", comment: "")
+		}
 
 		enum CancelAlert {
 			static let title = NSLocalizedString("TicketValidation_CancelAlert_title", comment: "")

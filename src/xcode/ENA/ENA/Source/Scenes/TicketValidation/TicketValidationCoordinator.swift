@@ -96,8 +96,43 @@ final class TicketValidationCoordinator {
 
 	}
 
-	private func showSecondConsentScreen(selectedCertificate: HealthCertificate) {
-
+	private func showSecondConsentScreen(
+		selectedCertificate: HealthCertificate
+	) {
+		let secondConsentViewController = SecondTicketValidationConsentViewController(
+			viewModel: SecondTicketValidationConsentViewModel(
+				serviceIdentity: ticketValidation.initializationData.serviceIdentity,
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				healthCertificate: selectedCertificate,
+				onDataPrivacyTap: {
+					self.showDataPrivacy()
+				}
+			),
+			onPrimaryButtonTap: { [weak self] isLoading in
+				isLoading(true)
+				// call grantSecondConsent()
+			},
+			onDismiss: {
+				self.showDismissAlert()
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TicketValidation.SecondConsent.primaryButtonTitle,
+				secondaryButtonName: AppStrings.TicketValidation.SecondConsent.secondaryButtonTitle,
+				isSecondaryButtonEnabled: true,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: false
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: secondConsentViewController,
+			bottomController: footerViewController
+		)
+		
+		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
 
 	private func showResultScreen(for result: TicketValidationResult) {

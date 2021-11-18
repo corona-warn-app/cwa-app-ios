@@ -22,6 +22,7 @@ struct SecondTicketValidationConsentViewModel {
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
+		DynamicTableViewModel([])
 		/*
 		DynamicTableViewModel([
 			// Image with title

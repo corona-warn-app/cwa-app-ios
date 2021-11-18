@@ -3383,6 +3383,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
 
+"TicketValidation_Error_title" = "Fehler";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
+
+/* - Ticket Validation First Consent */
+
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
 
 "TicketValidation_FirstConsent_imageDescription" = "Ein Zertifikat wird für ein Ticketkauf übertragen";
@@ -3409,10 +3419,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
 
-"TicketValidation_Error_title" = "Fehler";
+/* - Ticket Validation Second Consent */
 
-"TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Einverstanden";
 
-"TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
-
-"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Abbrechen";
