@@ -2486,8 +2486,17 @@ enum AppStrings {
 			static let noSuitableCertificateDescription = NSLocalizedString("TicketValidation_CertificateSelection_noSuitableCertificateDescription", comment: "")
 			static let faqDescription = NSLocalizedString("TicketValidation_CertificateSelection_faqDescription", comment: "")
 			static let faq = NSLocalizedString("TicketValidation_CertificateSelection_faq", comment: "")
+			static let dateOfBirth = NSLocalizedString("TicketValidation_CertificateSelection_dateOfBirth", comment: "")
 		}
 
+		enum SupportedCertificateType {
+			static let vaccinationCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_Vaccination_Certificate", comment: "")
+			static let recoveryCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_RecoveryCertificate", comment: "")
+			static let testCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_TestCertificate", comment: "")
+			static let pcrTestCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_PCRTestCertificate", comment: "")
+			static let ratTestCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_RATTestCertificate", comment: "")
+		}
+		
 		enum CancelAlert {
 			static let title = NSLocalizedString("TicketValidation_CancelAlert_title", comment: "")
 			static let message = NSLocalizedString("TicketValidation_CancelAlert_message", comment: "")
