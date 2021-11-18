@@ -20,9 +20,9 @@ class TrustEvaluationTests: XCTestCase {
     func test_CheckServerKeyAgainstJWKSetSucccess() throws {
         let jsonEncoder = JSONEncoder()
         let jwkSet = [
-            try jsonEncoder.encode(JSONWebKey(x5c: derBase64Key, kid: keyIdentifier, alg: "", use: "")),
-            try jsonEncoder.encode(JSONWebKey(x5c: "", kid: "", alg: "", use: "")),
-            try jsonEncoder.encode(JSONWebKey(x5c: "", kid: "", alg: "", use: ""))
+            try jsonEncoder.encode(JSONWebKey(x5c: [derBase64Key], kid: keyIdentifier, alg: "", use: "")),
+            try jsonEncoder.encode(JSONWebKey(x5c: [""], kid: "", alg: "", use: "")),
+            try jsonEncoder.encode(JSONWebKey(x5c: [""], kid: "", alg: "", use: ""))
         ]
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         let trustEvaluation = TrustEvaluation()
@@ -38,9 +38,9 @@ class TrustEvaluationTests: XCTestCase {
     func test_CheckServerKeyAgainstJWKSetError_CERT_PIN_NO_JWK_FOR_KID() throws {
         let jsonEncoder = JSONEncoder()
         let jwkSet = [
-            try jsonEncoder.encode(JSONWebKey(x5c: derBase64Key, kid: "", alg: "", use: "")),
-            try jsonEncoder.encode(JSONWebKey(x5c: "", kid: "", alg: "", use: "")),
-            try jsonEncoder.encode(JSONWebKey(x5c: "", kid: "", alg: "", use: ""))
+            try jsonEncoder.encode(JSONWebKey(x5c: [derBase64Key], kid: "", alg: "", use: "")),
+            try jsonEncoder.encode(JSONWebKey(x5c: [""], kid: "", alg: "", use: "")),
+            try jsonEncoder.encode(JSONWebKey(x5c: [""], kid: "", alg: "", use: ""))
         ]
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         let trustEvaluation = TrustEvaluation()
@@ -61,9 +61,9 @@ class TrustEvaluationTests: XCTestCase {
 
         let jsonEncoder = JSONEncoder()
         let jwkSet = [
-            try jsonEncoder.encode(JSONWebKey(x5c: "MIIKYjCCCUq", kid: keyIdentifier, alg: "", use: "")),
-            try jsonEncoder.encode(JSONWebKey(x5c: "", kid: "", alg: "", use: "")),
-            try jsonEncoder.encode(JSONWebKey(x5c: "", kid: "", alg: "", use: ""))
+            try jsonEncoder.encode(JSONWebKey(x5c: ["MIIKYjCCCUq"], kid: keyIdentifier, alg: "", use: "")),
+            try jsonEncoder.encode(JSONWebKey(x5c: [""], kid: "", alg: "", use: "")),
+            try jsonEncoder.encode(JSONWebKey(x5c: [""], kid: "", alg: "", use: ""))
         ]
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         let trustEvaluation = TrustEvaluation()
