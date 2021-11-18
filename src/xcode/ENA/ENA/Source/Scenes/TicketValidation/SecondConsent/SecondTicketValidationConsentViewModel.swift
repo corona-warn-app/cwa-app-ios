@@ -86,32 +86,31 @@ struct SecondTicketValidationConsentViewModel {
 				]
 			),
 			// Bulletpoints without box
-			/*
 			.section(
 				cells: [
 					.space(
 						height: 20
 					),
 					.bulletPoint(
-						text: AppStrings.TicketValidation.FirstConsent.bulletPoint1
+						text: AppStrings.TicketValidation.SecondConsent.bulletPoint1
 					),
 					.space(
 						height: 20
 					),
 					.bulletPoint(
-						text: AppStrings.TicketValidation.FirstConsent.bulletPoint2
+						text: AppStrings.TicketValidation.SecondConsent.bulletPoint2
 					),
 					.space(
 						height: 20
 					),
 					.bulletPoint(
-						text: AppStrings.TicketValidation.FirstConsent.bulletPoint3
+						text: AppStrings.TicketValidation.SecondConsent.bulletPoint3
 					),
 					.space(
 						height: 20
 					),
 					.bulletPoint(
-						text: AppStrings.TicketValidation.FirstConsent.bulletPoint4
+						text: AppStrings.TicketValidation.SecondConsent.bulletPoint4
 					),
 					.space(
 						height: 20
@@ -119,7 +118,6 @@ struct SecondTicketValidationConsentViewModel {
 				]
 			),
 			 
-			
 			// Data privacy cell
 			.section(
 				separators: .all,
@@ -139,7 +137,6 @@ struct SecondTicketValidationConsentViewModel {
 					)
 				]
 			)
-			 */
 		])
 	}
 	

@@ -3429,6 +3429,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_SecondConsent_explination" = "Das ausgewählte Zertifikat und Ihre Buchungsdaten werden nun an den Prüfpartner des Anbieters übermittelt. Für die Übermittlung Ihrer Daten an den Prüfpartner ist Ihr Einverständnis erforderlich.";
 
+"TicketValidation_SecondConsent_BulletPoint1" = "Der Prüfpartner überprüft, ob die elektronische Signatur echt und das technische Ablaufdatum des Zertifikats noch nicht erreicht ist. Das technische Ablaufdatum und die übermittelten Zertifikatsinhalte können Sie in der App in der Detailansicht des Zertifikats einsehen.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Die Zertifikate enthalten sensible Gesundheitsdaten. Erlauben Sie daher nur solchen Anbietern die Überprüfung, die Ihnen bekannt sind und denen Sie vertrauen.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "Für die Datenverarbeitung durch den Anbieter und den Prüfpartner ist das RKI nicht verantwortlich. Lesen Sie bitte deren Datenschutzhinweise, damit Sie wissen, wozu und wie Ihre Daten verwendet werden.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Der Prüfpartner teilt dem Anbieter sofort das Prüfungsergebnis mit. Es wird nur mitgeteilt, ob die Prüfung erfolgreich war oder nicht.";
+
 "TicketValidation_SecondConsent_primaryButtonTitle" = "Einverstanden";
 
 "TicketValidation_SecondConsent_secondaryButtonTitle" = "Abbrechen";
