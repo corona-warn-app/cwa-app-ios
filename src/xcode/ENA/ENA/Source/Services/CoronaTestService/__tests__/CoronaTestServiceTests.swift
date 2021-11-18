@@ -90,16 +90,10 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.antigenTest = AntigenTest.mock(
-			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-			sampleCollectionDate: nil,
-			testResult: .negative
-		)
-
 		let publisherExpectation = expectation(description: "")
-		publisherExpectation.expectedFulfillmentCount = 2
+		publisherExpectation.expectedFulfillmentCount = 3
 
-		let expectedValues = [false, true]
+		let expectedValues = [false, false, true]
 
 		var receivedValues = [Bool]()
 		let subscription = service.$antigenTestIsOutdated
@@ -107,6 +101,12 @@ class CoronaTestServiceTests: CWATestCase {
 				receivedValues.append($0)
 				publisherExpectation.fulfill()
 			}
+
+		service.antigenTest = AntigenTest.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			sampleCollectionDate: nil,
+			testResult: .negative
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -143,18 +143,10 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		// Outdated only according to sample collection date, not according to point of care consent date
-		// As we are using the sample collection date if set, the test is outdated
-		service.antigenTest = AntigenTest.mock(
-			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
-			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-			testResult: .negative
-		)
-
 		let publisherExpectation = expectation(description: "")
-		publisherExpectation.expectedFulfillmentCount = 2
+		publisherExpectation.expectedFulfillmentCount = 3
 
-		let expectedValues = [false, true]
+		let expectedValues = [false, false, true]
 
 		var receivedValues = [Bool]()
 		let subscription = service.$antigenTestIsOutdated
@@ -162,6 +154,14 @@ class CoronaTestServiceTests: CWATestCase {
 				receivedValues.append($0)
 				publisherExpectation.fulfill()
 			}
+
+		// Outdated only according to sample collection date, not according to point of care consent date
+		// As we are using the sample collection date if set, the test is outdated
+		service.antigenTest = AntigenTest.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
+			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			testResult: .negative
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -198,15 +198,10 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.antigenTest = AntigenTest.mock(
-			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 5),
-			testResult: .negative
-		)
-
 		let publisherExpectation = expectation(description: "")
-		publisherExpectation.expectedFulfillmentCount = 2
+		publisherExpectation.expectedFulfillmentCount = 3
 
-		let expectedValues = [false, true]
+		let expectedValues = [false, false, true]
 
 		var receivedValues = [Bool]()
 		let subscription = service.$antigenTestIsOutdated
@@ -214,6 +209,11 @@ class CoronaTestServiceTests: CWATestCase {
 				receivedValues.append($0)
 				publisherExpectation.fulfill()
 			}
+
+		service.antigenTest = AntigenTest.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 5),
+			testResult: .negative
+		)
 
 		// Setting 10 seconds explicitly as it takes 5 seconds for the outdated state to happen
 		waitForExpectations(timeout: 10)
@@ -251,15 +251,10 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.antigenTest = AntigenTest.mock(
-			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-			testResult: .negative
-		)
-
 		let publisherExpectation = expectation(description: "")
-		publisherExpectation.expectedFulfillmentCount = 3
+		publisherExpectation.expectedFulfillmentCount = 4
 
-		let expectedValues = [false, true, false]
+		let expectedValues = [false, false, true, false]
 
 		var receivedValues = [Bool]()
 		let subscription = service.$antigenTestIsOutdated
@@ -272,6 +267,11 @@ class CoronaTestServiceTests: CWATestCase {
 					service.removeTest(.antigen)
 				}
 			}
+
+		service.antigenTest = AntigenTest.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			testResult: .negative
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -308,16 +308,10 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.antigenTest = AntigenTest.mock(
-			registrationToken: "1",
-			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-			testResult: .negative
-		)
-
 		let publisherExpectation = expectation(description: "")
-		publisherExpectation.expectedFulfillmentCount = 3
+		publisherExpectation.expectedFulfillmentCount = 4
 
-		let expectedValues = [false, true, false]
+		let expectedValues = [false, false, true, false]
 
 		var receivedValues = [Bool]()
 		let subscription = service.$antigenTestIsOutdated
@@ -334,6 +328,12 @@ class CoronaTestServiceTests: CWATestCase {
 					)
 				}
 			}
+
+		service.antigenTest = AntigenTest.mock(
+			registrationToken: "1",
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			testResult: .negative
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -370,16 +370,10 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.antigenTest = AntigenTest.mock(
-			registrationToken: "1",
-			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-			testResult: .negative
-		)
-
 		let publisherExpectation = expectation(description: "")
-		publisherExpectation.expectedFulfillmentCount = 4
+		publisherExpectation.expectedFulfillmentCount = 5
 
-		let expectedValues = [false, true, false, true]
+		let expectedValues = [false, false, true, false, true]
 
 		var receivedValues = [Bool]()
 		let subscription = service.$antigenTestIsOutdated
@@ -396,6 +390,12 @@ class CoronaTestServiceTests: CWATestCase {
 					)
 				}
 			}
+
+		service.antigenTest = AntigenTest.mock(
+			registrationToken: "1",
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			testResult: .negative
+		)
 
 		waitForExpectations(timeout: .short)
 
@@ -434,13 +434,10 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			)
 
-			service.antigenTest = AntigenTest.mock(
-				pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-				testResult: testResult
-			)
-
 			let publisherExpectation = expectation(description: "")
-			let expectedValues = [false]
+			publisherExpectation.expectedFulfillmentCount = 2
+
+			let expectedValues = [false, false]
 
 			var receivedValues = [Bool]()
 			let subscription = service.$antigenTestIsOutdated
@@ -448,6 +445,11 @@ class CoronaTestServiceTests: CWATestCase {
 					receivedValues.append($0)
 					publisherExpectation.fulfill()
 				}
+
+			service.antigenTest = AntigenTest.mock(
+				pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+				testResult: testResult
+			)
 
 			waitForExpectations(timeout: .short)
 
