@@ -33,17 +33,15 @@ enum LinkHelper {
 			return .done
 		}
 		#endif
-		switch interaction {
-		case .invokeDefaultAction:
-			guard UIApplication.shared.canOpenURL(url) else {
-				Log.error("Cannot open url \(url.absoluteString)", log: .api)
-				return .error
-			}
-			UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			return .done
-		default:
+		guard interaction == .invokeDefaultAction else {
 			return .allow
 		}
+		guard UIApplication.shared.canOpenURL(url) else {
+			Log.error("Cannot open url \(url.absoluteString)", log: .api)
+			return .error
+		}
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		return .done
 	}
 	
 	#if DEBUG
