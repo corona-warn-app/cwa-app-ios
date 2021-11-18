@@ -861,24 +861,22 @@ class CoronaTestService {
 			return
 		}
 
-		appConfiguration.appConfiguration()
-			.sink { [weak self] in
-				let hoursToDeemTestOutdated = $0.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
-				guard
-					hoursToDeemTestOutdated != 0,
-					let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.testDate)
-				else {
-					return
-				}
+		let hoursToDeemTestOutdated = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
 
-				if Date() >= outdatedDate {
-					self?.antigenTestIsOutdated = true
-				} else {
-					self?.antigenTestOutdatedDate = outdatedDate
-					self?.scheduleOutdatedStateTimer()
-				}
-			}
-			.store(in: &subscriptions)
+		guard
+			hoursToDeemTestOutdated != 0,
+			let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: antigenTest.testDate)
+		else {
+			return
+		}
+
+		if Date() >= outdatedDate {
+			antigenTestIsOutdated = true
+		} else {
+			antigenTestOutdatedDate = outdatedDate
+			scheduleOutdatedStateTimer()
+		}
 	}
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
