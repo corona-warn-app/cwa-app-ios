@@ -101,7 +101,63 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showResultScreen(for result: TicketValidationResult) {
+		switch result.result {
+		case .OK:
+			self.showValidationPassedScreen()
+		case .CHK:
+			self.showValidationOpenScreen(
+				validationResultItems: result.results
+			)
+		case .NOK:
+			self.showValidationFailedScreen(
+				validationResultItems: result.results
+			)
+		}
+	}
 
+	private func showValidationPassedScreen() {
+		let resultViewController = TicketValidationResultViewController(
+			viewModel: TicketValidationPassedViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider
+			),
+			onDismiss: { [weak self] _ in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+
+		navigationController.pushViewController(detailViewController, animated: true)
+	}
+
+	private func showValidationOpenScreen(
+		validationResultItems: TicketValidationResult.ResultItem
+	) {
+		let resultViewController = TicketValidationResultViewController(
+			viewModel: TicketValidationOpenViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				validationResultItems: validationResultItems
+			),
+			onDismiss: { [weak self] _ in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+
+		navigationController.pushViewController(detailViewController, animated: true)
+	}
+
+	private func showValidationFailedScreen(
+		validationResultItems: TicketValidationResult.ResultItem
+	) {
+		let resultViewController = TicketValidationResultViewController(
+			viewModel: TicketValidationFailedViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				validationResultItems: validationResultItems
+			),
+			onDismiss: { [weak self] _ in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+
+		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {

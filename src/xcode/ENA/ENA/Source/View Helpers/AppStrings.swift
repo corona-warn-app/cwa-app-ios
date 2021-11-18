@@ -52,6 +52,7 @@ enum AppStrings {
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
+		static let ticketValidationFAQ = NSLocalizedString("TicketValidation_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -2491,6 +2492,30 @@ enum AppStrings {
 			static let dataPrivacyTitle = NSLocalizedString("TicketValidation_FirstConsent_DataPrivacyTitle", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_primaryButtonTitle", comment: "")
 			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_secondaryButtonTitle", comment: "")
+		}
+
+		enum Result {
+			static let validationParameters = NSLocalizedString("TicketValidation_Result_validationParameters", comment: "")
+			static let moreInformation = NSLocalizedString("TicketValidation_Result_moreInformation", comment: "")
+			static let moreInformationPlaceholderFAQ = NSLocalizedString("TicketValidation_Result_moreInformation_placeholder_FAQ", comment: "")
+
+			enum Passed {
+				static let title = NSLocalizedString("TicketValidation_Passed_title", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_Passed_subtitle", comment: "")
+				static let description = NSLocalizedString("TicketValidation_Passed_description", comment: "")
+			}
+
+			enum Open {
+				static let title = NSLocalizedString("TicketValidation_Open_title", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_Open_subtitle", comment: "")
+				static let description = NSLocalizedString("TicketValidation_Open_description", comment: "")
+			}
+
+			enum Failed {
+				static let title = NSLocalizedString("TicketValidation_Failed_title", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_Failed_subtitle", comment: "")
+				static let description = NSLocalizedString("TicketValidation_Failed_description", comment: "")
+			}
 		}
 
 		enum CancelAlert {

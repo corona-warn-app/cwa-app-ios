@@ -3409,6 +3409,30 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
 
+"TicketValidation_Result_validationParameters" = "Geprüft am 26.09.21 15:00 vom Prüfpartner";
+
+"TicketValidation_Result_moreInformation" = "Mehr Informationen finden Sie in den %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "FAQ";
+
+"TicketValidation_Passed_title" = "Erfolgreiche Prüfung";
+
+"TicketValidation_Passed_subtitle" = "Ihr Zertifikat wurde erfolgreich überprüft";
+
+"TicketValidation_Passed_description" = "Der Anbieter “%@” wurde über die erfolgreiche Prüfung informiert.";
+
+"TicketValidation_Open_title" = "Zertifikat nicht prüfbar";
+
+"TicketValidation_Open_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
+
+"TicketValidation_Open_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+"TicketValidation_Failed_title" = "Zertifikat nicht anerkannt";
+
+"TicketValidation_Failed_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
+
+"TicketValidation_Failed_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
 "TicketValidation_Error_title" = "Fehler";
 
 "TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
