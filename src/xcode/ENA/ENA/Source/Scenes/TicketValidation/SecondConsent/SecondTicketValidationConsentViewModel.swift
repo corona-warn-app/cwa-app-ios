@@ -141,3 +141,38 @@ struct SecondTicketValidationConsentViewModel {
 	private let healthCertificate: HealthCertificate
 	private let onDataPrivacyTap: () -> Void
 }
+
+internal extension DynamicCell {
+
+	/// A `legalExtendedTicketValidation` to display legal text for Data Donation screen with bullet points and sub bullet points
+	/// - Parameters:
+	///   - title: The title/header for the legal foo.
+	///   - description: Optional description text.
+	///   - bulletPoints: A list of strings to be prefixed with bullet points.
+	///   - subBulletPoints: A list of strings to be prefixed with tiny little bullet points
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display legal texts
+	static func legalExtendedTicketValidation(
+		title: NSAttributedString,
+		description: NSAttributedString,
+		bulletPoints: [NSAttributedString],
+		subBulletPoints: [NSAttributedString],
+		accessibilityIdentifier: String,
+		configure: @escaping CellConfigurator
+	) -> Self {
+		.identifier(SecondTicketValidationConsentViewController.CustomCellReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicLegalExtendedCell else {
+				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
+			}
+			cell.configure(
+				title: title,
+				description: description,
+				bulletPoints: bulletPoints,
+				subBulletPoints: subBulletPoints,
+				accessibilityIdentifier: accessibilityIdentifier
+			)
+			configure(viewController, cell, indexPath)
+		}
+	}
+}
