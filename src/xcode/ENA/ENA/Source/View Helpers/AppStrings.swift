@@ -2494,6 +2494,12 @@ enum AppStrings {
 		}
 		
 		enum SecondConsent {
+			static let subtitle = NSLocalizedString("TicketValidation_SecondConsent_subtitle", comment: "")
+			static let serviceIdentity = NSLocalizedString("TicketValidation_SecondConsent_serviceIdentity", comment: "")
+			static let serviceIdentityValue = NSLocalizedString("\"%@\"", comment: "")
+			static let serviceProvider = NSLocalizedString("TicketValidation_SecondConsent_serviceProvider", comment: "")
+			static let serviceProviderValue = NSLocalizedString("\"%@\"", comment: "")
+			static let explination = NSLocalizedString("TicketValidation_SecondConsent_explination", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_primaryButtonTitle", comment: "")
 			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_secondaryButtonTitle", comment: "")
 		}

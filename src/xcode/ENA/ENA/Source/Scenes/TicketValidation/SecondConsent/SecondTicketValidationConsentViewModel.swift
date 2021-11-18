@@ -22,47 +22,38 @@ struct SecondTicketValidationConsentViewModel {
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([])
-		/*
+		
 		DynamicTableViewModel([
-			// Image with title
-			.section(
-				header: .image(
-					UIImage(named: "Illu_TicketValidation"),
-					title: AppStrings.TicketValidation.FirstConsent.title,
-					accessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
-					accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
-				),
-				cells: []
-			),
-			// Subtitle with service provider and subject
+			// HealthCertificate
+			
+			// Subtitle with serviceIdentity and serviceProvider
 			.section(
 				cells: [
 					.title2(
-						text: AppStrings.TicketValidation.FirstConsent.subtitle
+						text: AppStrings.TicketValidation.SecondConsent.subtitle
 					),
 					.footnote(
-						text: AppStrings.TicketValidation.FirstConsent.serviceProvider,
+						text: AppStrings.TicketValidation.SecondConsent.serviceIdentity,
 						color: .enaColor(for: .textPrimary2)
 					),
 					.bodyWithoutTopInset(
 						text: String(
-							format: AppStrings.TicketValidation.FirstConsent.serviceProviderValue,
+							format: AppStrings.TicketValidation.SecondConsent.serviceIdentityValue,
+							serviceIdentity
+						)
+					),
+					.footnote(
+						text: AppStrings.TicketValidation.SecondConsent.serviceProvider,
+						color: .enaColor(for: .textPrimary2)
+					),
+					.bodyWithoutTopInset(
+						text: String(
+							format: AppStrings.TicketValidation.SecondConsent.serviceProviderValue,
 							serviceProvider
 						)
 					),
-					.footnote(
-						text: AppStrings.TicketValidation.FirstConsent.subject,
-						color: .enaColor(for: .textPrimary2)
-					),
-					.bodyWithoutTopInset(
-						text: String(
-							format: AppStrings.TicketValidation.FirstConsent.subjectValue,
-							subject
-						)
-					),
 					.body(
-						text: AppStrings.TicketValidation.FirstConsent.explination
+						text: AppStrings.TicketValidation.SecondConsent.explination
 					)
 				]
 			),
@@ -141,7 +132,6 @@ struct SecondTicketValidationConsentViewModel {
 				]
 			)
 		])
-		 */
 	}
 	
 	// MARK: - Private
@@ -149,5 +139,5 @@ struct SecondTicketValidationConsentViewModel {
 	private let serviceIdentity: String
 	private let serviceProvider: String
 	private let healthCertificate: HealthCertificate
-	private let onDataPrivacyTap: () -> Void	
+	private let onDataPrivacyTap: () -> Void
 }

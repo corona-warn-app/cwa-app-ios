@@ -3421,6 +3421,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Ticket Validation Second Consent */
 
+"TicketValidation_SecondConsent_subtitle" = "Übermittlung Ihres Zertifikats zur Prüfung";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Prüfpartner:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Anbieter:";
+
+"TicketValidation_SecondConsent_explination" = "Das ausgewählte Zertifikat und Ihre Buchungsdaten werden nun an den Prüfpartner des Anbieters übermittelt.  Für die Übermittlung Ihrer Daten an den Prüfpartner ist Ihr Einverständnis erforderlich.";
+
 "TicketValidation_SecondConsent_primaryButtonTitle" = "Einverstanden";
 
 "TicketValidation_SecondConsent_secondaryButtonTitle" = "Abbrechen";
