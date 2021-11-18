@@ -2230,6 +2230,8 @@
 		50EB4FD9268DFC86009FB402 /* ValidationRulesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationRulesCache.swift; sourceTree = "<group>"; };
 		50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_19_TicketValidation.swift; sourceTree = "<group>"; };
 		50EE76012743FC6F003DE929 /* TicketValidationUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = TicketValidationUITests.xctestplan; path = TestPlans/TicketValidationUITests.xctestplan; sourceTree = "<group>"; };
+		50EE760427467CD9003DE929 /* SecondTicketValidationConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTicketValidationConsentViewController.swift; sourceTree = "<group>"; };
+		50EE760527467CD9003DE929 /* SecondTicketValidationConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTicketValidationConsentViewModel.swift; sourceTree = "<group>"; };
 		50F065392654FFC200774173 /* tri_state_boolean.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tri_state_boolean.pb.swift; sourceTree = "<group>"; };
 		50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageType.swift; sourceTree = "<group>"; };
 		50FA071026021180003C1E46 /* api-response-traceWarning */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-traceWarning"; sourceTree = "<group>"; };
@@ -3198,6 +3200,7 @@
 			children = (
 				010E07AA273D009C00C2BE5F /* TicketValidationCoordinator.swift */,
 				010E07B0273D4CC400C2BE5F /* FirstConsent */,
+				50EE760327467CC4003DE929 /* SecondConsent */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -5311,6 +5314,15 @@
 				50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */,
 			);
 			path = TicketValidation;
+			sourceTree = "<group>";
+		};
+		50EE760327467CC4003DE929 /* SecondConsent */ = {
+			isa = PBXGroup;
+			children = (
+				50EE760427467CD9003DE929 /* SecondTicketValidationConsentViewController.swift */,
+				50EE760527467CD9003DE929 /* SecondTicketValidationConsentViewModel.swift */,
+			);
+			path = SecondConsent;
 			sourceTree = "<group>";
 		};
 		50FA07822609EC6A003C1E46 /* __tests__ */ = {
