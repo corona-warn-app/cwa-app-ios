@@ -31,7 +31,11 @@ class CoronaTestService {
 		#if DEBUG
 		if isUITesting {
 			self.client = ClientMock()
-			self.restServiceProvider = .coronaTestServiceProvider
+			if LaunchArguments.exposureSubmission.isFetchingSubmissionTan.boolValue {
+				self.restServiceProvider = .exposureSubmissionServiceProvider
+			} else {
+				self.restServiceProvider = .coronaTestServiceProvider
+			}
 			self.store = MockTestStore()
 			self.eventStore = MockEventStore()
 			self.diaryStore = MockDiaryStore()
@@ -41,7 +45,7 @@ class CoronaTestService {
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
 
-			self.fakeRequestService = FakeRequestService(client: client)
+			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
 
 			setup()
@@ -63,7 +67,7 @@ class CoronaTestService {
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
 
-		self.fakeRequestService = FakeRequestService(client: client)
+		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
 		healthCertificateService.didRegisterTestCertificate = setUniqueCertificateIdentifier
@@ -429,30 +433,36 @@ class CoronaTestService {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
+			let resource = RegistrationTokenResource(
+				sendModel: SendRegistrationTokenModel(
+					token: registrationToken
+				)
+			)
+			restServiceProvider.load(resource) { result in
+				switch result {
+				case .success(let model):
+					let submissionTAN = model.submissionTAN
+					switch coronaTestType {
+					case .pcr:
+						self.pcrTest?.submissionTAN = submissionTAN
+						self.pcrTest?.registrationToken = nil
 
-		client.getTANForExposureSubmit(forDevice: registrationToken, isFake: false) { result in
-			switch result {
-			case let .failure(error):
-				Log.error("[CoronaTestService] Getting submission tan failed: \(error.localizedDescription)", log: .api)
+						Log.info("Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
+					case .antigen:
+						self.antigenTest?.submissionTAN = submissionTAN
+						self.antigenTest?.registrationToken = nil
 
-				completion(.failure(.responseFailure(error)))
-			case let .success(submissionTAN):
-				switch coronaTestType {
-				case .pcr:
-					self.pcrTest?.submissionTAN = submissionTAN
-					self.pcrTest?.registrationToken = nil
+						Log.info("Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
+					}
 
-					Log.info("[CoronaTestService] Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
-				case .antigen:
-					self.antigenTest?.submissionTAN = submissionTAN
-					self.antigenTest?.registrationToken = nil
+					completion(.success(submissionTAN))
 
-					Log.info("[CoronaTestService] Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
+				case .failure(let error):
+					Log.error("Getting submission tan failed: \(error.localizedDescription)", log: .api)
+
+					completion(.failure(.registrationTokenError(error)))
 				}
-
-				completion(.success(submissionTAN))
 			}
-		}
 	}
 
 	func moveTestToBin(_ coronaTestType: CoronaTestType) {

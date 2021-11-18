@@ -40,6 +40,7 @@ extension Service {
 		return .success(urlRequest)
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
@@ -51,6 +52,13 @@ extension Service {
 			session.dataTask(with: request) { bodyData, response, error in
 				if let error = error {
 					completion(.failure(.transportationError(error)))
+					return
+				}
+
+				guard !resource.locator.isFake else {
+					Log.debug("Fake detected no response given", log: .client)
+					completion(.failure(.fakeResponse))
+					return
 				}
 
 				guard let response = response as? HTTPURLResponse else {

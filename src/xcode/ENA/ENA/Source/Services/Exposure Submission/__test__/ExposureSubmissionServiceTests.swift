@@ -11,7 +11,7 @@ import HealthCertificateToolkit
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: CWATestCase {
 
-	let expectationsTimeout: TimeInterval = 2
+	let expectationsTimeout: TimeInterval = 4
 	let keys = [ENTemporaryExposureKey()]
 
 	// MARK: - Exposure Submission
@@ -22,9 +22,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -62,6 +69,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			deadmanNotificationManager: deadmanNotificationManager,
@@ -103,9 +111,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock())
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: mockStore,
 			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
@@ -136,6 +151,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keysRetrievalMock,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: ClientMock(),
+			restServiceProvider: restServiceProvider,
 			store: mockStore,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -159,9 +175,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
@@ -187,6 +210,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -222,9 +246,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -253,6 +284,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
@@ -310,6 +342,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
@@ -365,6 +398,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -424,6 +458,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -480,6 +515,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -507,9 +543,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
@@ -537,6 +580,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -563,9 +607,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: MockDiaryStore(),
@@ -593,6 +644,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
@@ -615,9 +667,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
 		let store = MockTestStore()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -646,6 +705,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
@@ -669,9 +729,16 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(SubmissionTANModel(submissionTAN: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -700,6 +767,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
@@ -728,10 +796,39 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 		// Force submission error. (Which should result in a 4xx, not a 5xx!)
 		let client = ClientMock(submissionError: .serverError(500))
-		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success("dummyTan")) }
+		var count = 0
+		let getTANExpectation = self.expectation(description: "should be called twice one fake and one not")
+		getTANExpectation.expectedFulfillmentCount = 2
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					if resource.locator.isFake {
+						count += 1
+						getTANExpectation.fulfill()
+					} else {
+						count += 0
+						getTANExpectation.fulfill()
+					}
+				}
+			),
+			LoadResource(
+				result: .failure(
+					ServiceError<RegistrationTokenError>.unexpectedServerError(400)
+				),
+				willLoadResource: nil
+			)
+		])
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -759,6 +856,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
@@ -776,19 +874,14 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 				// Retry.
 				client.onSubmitCountries = { $2(.success(())) }
-				client.onGetTANForExposureSubmit = { _, isFake, completion in
-					XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
-					completion(.failure(.fakeResponse))
-				}
 				service.submitExposure(coronaTestType: .pcr) { result in
-
 					expectation.fulfill()
 					XCTAssertNil(result)
 				}
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	// MARK: - Country Loading
@@ -806,6 +899,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: CoronaTestService(
@@ -865,6 +959,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: CoronaTestService(
@@ -928,6 +1023,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			),
 			appConfigurationProvider: appConfiguration,
 			client: client,
+			restServiceProvider: .fake(),
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: CoronaTestService(
@@ -969,20 +1065,31 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		let client = ClientMock()
-
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			if isFake {
-				XCTAssertEqual(count, 0)
-				count += 1
-				completion(.failure(.fakeResponse))
-			} else {
-				XCTAssertEqual(count, 1)
-				count += 1
-				completion(.success("dummyTan"))
-			}
-		}
-
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					expectation.fulfill()
+					guard let resource = resource as? RegistrationTokenResource else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					if resource.locator.isFake {
+						XCTAssertEqual(count, 0)
+						count += 1
+						
+					} else {
+						XCTAssertEqual(count, 1)
+						count += 1
+						
+					}
+				}
+			)]
+		)
+		
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
@@ -993,6 +1100,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1021,7 +1129,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
-			client: client, store: store,
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)

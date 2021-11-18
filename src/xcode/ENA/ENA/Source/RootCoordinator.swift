@@ -368,6 +368,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				diagnosisKeysRetrieval: exposureManager,
 				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
 				client: ClientMock(),
+				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: eventStore,
 				coronaTestService: coronaTestService
@@ -379,6 +380,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService

@@ -95,7 +95,8 @@
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_invalid()",
         "ENAUITests_14_ValidateHealthCertificate\/test_screenshot_validation_result_valid()",
         "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()",
-        "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()"
+        "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()",
+        "ENAUITests_19_TicketValidation\/test_screenshot_ticket_validation_firstConsent()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
