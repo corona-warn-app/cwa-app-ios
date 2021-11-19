@@ -52,7 +52,9 @@ class RestServiceProviderStub: RestServiceProviding {
 		loadResources.removeFirst()
 	}
 
-	func update(jwkSet: [Data]) {}
+	func update(_ evaluateTrust: EvaluateTrust) {
+		Log.debug("No update supported")
+	}
 
 }
 

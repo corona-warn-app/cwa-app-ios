@@ -87,8 +87,8 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 		}
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
-	private let evaluateTrust: EvaluateTrust
+	var evaluateTrust: EvaluateTrust
 
 }

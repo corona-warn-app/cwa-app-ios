@@ -13,6 +13,5 @@ protocol RestServiceProviding {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 
-	/// update set of JWK inside all RestServices
-	func update(jwkSet: [Data])
+	func update(_ evaluateTrust: EvaluateTrust)
 }

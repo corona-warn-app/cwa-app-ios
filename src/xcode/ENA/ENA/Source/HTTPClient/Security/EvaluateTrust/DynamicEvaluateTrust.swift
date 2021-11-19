@@ -42,10 +42,6 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let trustEvaluation: TrustEvaluation

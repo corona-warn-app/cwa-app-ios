@@ -63,11 +63,10 @@ class RestServiceProvider: RestServiceProviding {
 		}
 	}
 
-	/// update jwkSet for pinning, use a lock to ensure dynamicPinningRestService access
-	func update(jwkSet: [Data]) {
+	// update evaluation trust - only possible for dynamic pinning at the moment
+	func update(_ evaluateTrust: EvaluateTrust) {
 		updateLock.lock()
-		dynamicPinningRestService.session.invalidateAndCancel()
-		dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: optionalSession, jwkSet: jwkSet)
+		dynamicPinningRestService.urlSessionDelegate?.evaluateTrust = evaluateTrust
 		updateLock.unlock()
 	}
 
