@@ -2483,7 +2483,7 @@ enum AppStrings {
 			static let serviceProviderRelevantCertificatesHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline", comment: "")
 			static let serviceProviderRequiredCertificateHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline", comment: "")
 			static let noSupportedCertificateHeadline = NSLocalizedString("TicketValidation_CertificateSelection_noSupportedCertificateHeadline", comment: "")
-			static let noSupportedCertificateDescription = NSLocalizedString("TicketValidation_CertificateSelection_noSuitableCertificateDescription", comment: "")
+			static let noSupportedCertificateDescription = NSLocalizedString("TicketValidation_CertificateSelection_noSupportedCertificateDescription", comment: "")
 			static let faqDescription = NSLocalizedString("TicketValidation_CertificateSelection_faqDescription", comment: "")
 			static let faq = NSLocalizedString("TicketValidation_CertificateSelection_faq", comment: "")
 			static let dateOfBirth = NSLocalizedString("TicketValidation_CertificateSelection_dateOfBirth", comment: "")
