@@ -38,7 +38,7 @@ class DynamicPinningRestService: Service {
 
 		return URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
-			delegate: DynamicPinningSessionDelegate(jwkSet: jwkSet),
+			delegate: CoronaWarnURLSessionDelegate(jwkSet: jwkSet),
 			delegateQueue: .main
 		)
 	}()

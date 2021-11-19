@@ -1247,7 +1247,9 @@
 		BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */; };
 		BA7DB3A22743EED90028683F /* DynamicPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */; };
 		BA7DB3A42743F1A80028683F /* RestServiceProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DB3A32743F1A80028683F /* RestServiceProviderStub.swift */; };
-		BA7DB3A62743FA400028683F /* DynamicPinningSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DB3A52743FA400028683F /* DynamicPinningSessionDelegate.swift */; };
+		BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */; };
+		BA7DCA172747D944009E4557 /* DefaultEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */; };
+		BA7DCA1A2747DA96009E4557 /* DynamicEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15A02629D3F200CA4783 /* RouteTests.swift */; };
 		BA7F15AD2629DA1000CA4783 /* AntigenTestInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15AC2629DA1000CA4783 /* AntigenTestInformationTests.swift */; };
@@ -2762,7 +2764,9 @@
 		BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataDonationViewModel.swift; sourceTree = "<group>"; };
 		BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicPinningRestService.swift; sourceTree = "<group>"; };
 		BA7DB3A32743F1A80028683F /* RestServiceProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderStub.swift; sourceTree = "<group>"; };
-		BA7DB3A52743FA400028683F /* DynamicPinningSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicPinningSessionDelegate.swift; sourceTree = "<group>"; };
+		BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EvaluateTrust.swift; sourceTree = "<group>"; };
+		BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEvaluateTrust.swift; sourceTree = "<group>"; };
+		BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicEvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA7F15A02629D3F200CA4783 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
 		BA7F15AC2629DA1000CA4783 /* AntigenTestInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestInformationTests.swift; sourceTree = "<group>"; };
@@ -7100,12 +7104,12 @@
 		B1CD333F2486AA5F00B06E9B /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				BA7DCA182747DA61009E4557 /* URLSessionDelegates */,
+				BA7DCA132747D918009E4557 /* EvaluateTrust */,
 				35AA4AF2259B40DF00D32306 /* __tests__ */,
 				ABCA884426BBC93C005FF148 /* CheckinEncryption */,
-				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
 				01E102672668D83B009ED803 /* DCCRSAKeyPair.swift */,
 				35EA6158258BC88A0062B50A /* iOS 12 Fallback */,
-				BA7DB3A52743FA400028683F /* DynamicPinningSessionDelegate.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -7851,6 +7855,24 @@
 				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
 			);
 			path = DataDonationDetails;
+			sourceTree = "<group>";
+		};
+		BA7DCA132747D918009E4557 /* EvaluateTrust */ = {
+			isa = PBXGroup;
+			children = (
+				BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */,
+				BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */,
+				BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */,
+			);
+			path = EvaluateTrust;
+			sourceTree = "<group>";
+		};
+		BA7DCA182747DA61009E4557 /* URLSessionDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
+			);
+			path = URLSessionDelegates;
 			sourceTree = "<group>";
 		};
 		BA7F15AB2629D9FA00CA4783 /* __tests_ */ = {
@@ -9154,7 +9176,6 @@
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				2EB7D6892680770000633D30 /* AsyncOperation.swift in Sources */,
 				017EE86326779E1A00CD18F6 /* RecoveryEntry+Extension.swift in Sources */,
-				BA7DB3A62743FA400028683F /* DynamicPinningSessionDelegate.swift in Sources */,
 				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
 				01F6702925FF80490069C4F9 /* CheckinsOverviewViewController.swift in Sources */,
 				3494D92C261EF8AD00EC532C /* UITextField+CGFloat.swift in Sources */,
@@ -9365,6 +9386,7 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */,
+				BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
 				945CD04D25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift in Sources */,
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
@@ -9671,6 +9693,7 @@
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */,
+				BA7DCA172747D944009E4557 /* DefaultEvaluateTrust.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
 				5001DE8826E20903004242FA /* SubmitOnBehalf.swift in Sources */,
 				BADD36EE260B4FBA00DD282A /* GradientNavigationView.swift in Sources */,
@@ -9786,6 +9809,7 @@
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
+				BA7DCA1A2747DA96009E4557 /* DynamicEvaluateTrust.swift in Sources */,
 				BAAC573226CBEF7C0049B55C /* VaccinationProductType.swift in Sources */,
 				3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
