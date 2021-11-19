@@ -39,7 +39,8 @@ struct SecondTicketValidationConsentViewModel {
 							cell.configure(
 								HealthCertificateCellViewModel(
 									healthCertificate: healthCertificate,
-									healthCertifiedPerson: healthCertifiedPerson
+									healthCertifiedPerson: healthCertifiedPerson,
+									details: .overview
 								)
 							)
 						}
