@@ -99,7 +99,10 @@ final class TicketValidationCoordinator {
 		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
 			viewModel: TicketValidationCertificateSelectionViewModel(
 				validationConditions: validationConditions,
-				healthCertificateService: healthCertificateService
+				healthCertificateService: healthCertificateService,
+				onHealthCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+					// TODO: Call Consent II
+				}
 			),
 			onDismiss: {
 				self.showDismissAlert()
