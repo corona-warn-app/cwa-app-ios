@@ -53,6 +53,11 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 			HealthCertificateCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.healthCertificateCell.rawValue
 		)
+		
+		tableView.register(
+			TicketValidationNoSupportedCertificateCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.noSupportedCertificateCell.rawValue
+		)
 	}
 
 }
@@ -62,6 +67,7 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 extension TicketValidationCertificateSelectionViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case healthCertificateCell
+		case noSupportedCertificateCell
 	}
 }
 
