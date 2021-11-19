@@ -44,13 +44,6 @@ final class TicketValidationCoordinator {
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
 				isLoading(true)
-				
-				let mockCert = HealthCertificate.mock()
-				self?.showSecondConsentScreen(
-					selectedCertificate: mockCert,
-					selectedCertifiedPerson: HealthCertifiedPerson(healthCertificates: [mockCert])
-				)
-				/*
 
 				self?.ticketValidation.grantFirstConsent { result in
 					DispatchQueue.main.async {
@@ -64,7 +57,6 @@ final class TicketValidationCoordinator {
 						}
 					}
 				}
-				 */
 			},
 			onDismiss: {
 				self.showDismissAlert()
