@@ -408,7 +408,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto masz możliwość weryfikacji swojego osobistego statusu szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto możesz udowodnić swój osobisty status szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -850,9 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test może być zeskanowany tylko raz.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Usunąć wynik testu?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Jeśli usuniesz test, nie będziesz mieć możliwości pobrania wyniku swojego testu. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Wynik testu zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu.\nMożesz w tym miejscu trwale usunąć wynik testu lub go odzyskać. Wynik testu zostanie automatycznie usunięty po 30 dniach.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Usuń wynik testu";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data rejestracji nieznana";
 
@@ -895,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Odpowiedź nie zawiera żadnej treści.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest niepoprawny lub został już zarejestrowany na innym smartfonie. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest niepoprawny lub został już zarejestrowany na Twoim smartfonie.\nOtrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.\nPo usunięciu testu z aplikacji możesz go odzyskać z kosza.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Niepoprawny kod QR";
 
@@ -930,11 +932,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zarejestrowano już test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie usunięty z aplikacji.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zarejestrowano już szybki test.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie usunięty z aplikacji.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil szybkiego testu";
@@ -1259,12 +1261,6 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Usuń test";
 
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Czy na pewno chcesz usunąć test?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Jeśli to zrobisz, inne osoby nie otrzymają ostrzeżeń.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Usuń";
-
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Zarządzaj testami";
 
@@ -1560,7 +1556,7 @@
 /* Version 2.14 */
 "NewVersionFeature_214_recycleBin_title" = "Funkcja kosza na potrzeby testów";
 
-"NewVersionFeature_214_recycleBin_description" = "Możesz odzyskać szybkie testy oraz testy PCR, które zostały wcześniej usunięte z aplikacji. Oznacza to możliwość odzyskania przypadkowo usuniętych obiektów.";
+"NewVersionFeature_214_recycleBin_description" = "Usunięte szybkie testy i testy PCR są teraz również przenoszone do kosza. Oznacza to, że możesz odzyskać przypadkowo usunięte obiekty.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -3055,12 +3051,16 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
 
+"HealthCertificate_ValidityState_Blocked" = "Certyfikat nieważny";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certyfikat został wycofany przez urząd wydający. Zdobądź nowy cyfrowy certyfikat.";
+
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Skaner kodów QR";
 
 "UniversalQRScanner_InstructionTitle" = "Jakie kody QR można zeskanować?";
 
-"UniversalQRScanner_InstructionDescription" = "Testy PCR i szybkie testy, certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca i zameldowania.";
+"UniversalQRScanner_InstructionDescription" = "Testy PCR, szybkie testy, certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca i zameldowania.";
 
 "UniversalQRScanner_FileButtonTitle" = "Otwórz plik";
 
@@ -3085,6 +3085,10 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Odzyskaj certyfikat";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "Kod QR został już zarejestrowany na Twoim smartfonie. Certyfikat zostanie odzyskany z kosza.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Odzyskaj test";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Kod QR został już zarejestrowany na Twoim smartfonie. Test zostanie odzyskany z kosza.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Biblioteka zdjęć";
@@ -3119,7 +3123,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Brak odpowiedniego kodu QR";
 
-"FileScanner_InvalidQRCode_message" = "Ten kod QR nie jest obsługiwany przez aplikację Corona-Warn-App. Zeskanuj odpowiedni kod QR.";
+"FileScanner_InvalidQRCode_message" = "Ten kod QR nie jest obsługiwany przez aplikację Corona-Warn-App. Wybierz odpowiedni kod QR.";
 
 "FileScanner_FileNotReadable_title" = "Nie można odczytać pliku";
 
@@ -3208,7 +3212,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Kosz jest pusty";
 
-"RecycleBin_EmptyState_description" = "Usunięte certyfikaty są przenoszone do kosza i wyświetlane tutaj.";
+"RecycleBin_EmptyState_description" = "Usunięte certyfikaty i testy są przenoszone do kosza i wyświetlane tutaj.";
 
 "RecycleBin_EmptyState_imageDescription" = "Kosz";
 

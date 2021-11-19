@@ -32,6 +32,8 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 		self.rulesDownloadService = rulesDownloadService
 		self.validationRulesAccess = validationRulesAccess
 	}
+
+	// MARK: - Protocol BoosterNotificationsServiceProviding
 	
 	func applyRulesForCertificates(
 		certificates: [DigitalCovidCertificateWithHeader],
@@ -61,7 +63,8 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 			}
 		}
 	}
-	// MARK: - Protocol BoosterNotificationsServiceProviding
+
+	// MARK: - Private
 	
 	private func downloadBoosterNotificationRules(completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void) {
 		self.rulesDownloadService.downloadRules(
@@ -72,8 +75,7 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 		)
 	}
 	
-	// MARK: - Private
-	
 	private let rulesDownloadService: RulesDownloadServiceProviding
 	private let validationRulesAccess: BoosterRulesAccessing
+	
 }

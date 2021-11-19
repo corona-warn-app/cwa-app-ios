@@ -134,7 +134,7 @@ class HomeTableViewModel {
 				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
 					// Errors because of no registered corona tests or expired tests are ignored
 					break
-				case .responseFailure, .unknownTestResult:
+				case .responseFailure, .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
 					// Only show errors for corona tests that are still expecting their final test result
 					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
 						self.testResultLoadingError = error
@@ -151,7 +151,7 @@ class HomeTableViewModel {
 				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
 					// Errors because of no registered corona tests or expired tests are ignored
 					break
-				case .responseFailure, .unknownTestResult:
+				case .responseFailure, .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
 					// Only show errors for corona tests that are still expecting their final test result
 					if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
 						self.testResultLoadingError = error

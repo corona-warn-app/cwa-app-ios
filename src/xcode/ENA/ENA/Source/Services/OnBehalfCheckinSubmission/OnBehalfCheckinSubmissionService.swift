@@ -10,6 +10,7 @@ class OnBehalfCheckinSubmissionService {
 	// MARK: - Init
 
 	init(
+		restServiceProvider: RestServiceProviding,
 		client: Client,
 		appConfigurationProvider: AppConfigurationProviding
 	) {
@@ -17,6 +18,7 @@ class OnBehalfCheckinSubmissionService {
 		if isUITesting {
 			self.client = ClientMock()
 			self.appConfigurationProvider = CachedAppConfigurationMock()
+			self.restServiceProvider = .onBehalfCheckinSubmissionServiceProviderStub
 
 			return
 		}
@@ -24,6 +26,7 @@ class OnBehalfCheckinSubmissionService {
 
 		self.client = client
 		self.appConfigurationProvider = appConfigurationProvider
+		self.restServiceProvider = restServiceProvider
 	}
 
 	// MARK: - Internal
@@ -64,19 +67,20 @@ class OnBehalfCheckinSubmissionService {
 					case .failure(let error):
 						Log.error("[OnBehalfCheckinSubmissionService] Getting submission TAN failed", log: .api, error: error)
 
-						completion(.failure(.submissionTANError(error)))
+						completion(.failure(.registrationTokenError(error)))
 					}
 				}
 			case .failure(let error):
 				Log.error("[OnBehalfCheckinSubmissionService] Getting registration token failed", log: .api, error: error)
 
-				completion(.failure(.registrationTokenError(error)))
+				completion(.failure(.teleTanError(error)))
 			}
 		}
 	}
 
 	// MARK: - Private
 
+	private let restServiceProvider: RestServiceProviding
 	private let client: Client
 	private let appConfigurationProvider: AppConfigurationProviding
 
@@ -84,28 +88,44 @@ class OnBehalfCheckinSubmissionService {
 
 	private func getRegistrationToken(
 		for tan: String,
-		completion: @escaping (Result<String, URLSession.Response.Failure>) -> Void
+		completion: @escaping (Result<String, ServiceError<TeleTanError>>) -> Void
 	) {
-		client.getRegistrationToken(
-			forKey: tan,
-			withType: "TELETAN",
-			dateOfBirthKey: nil,
-			isFake: false,
-			completion: completion
+		let resource = TeleTanResource(
+			sendModel: KeyModel(
+				key: tan,
+				keyType: .teleTan,
+				keyDob: nil
+			)
 		)
-	}
 
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success(let model):
+				completion(.success(model.registrationToken))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
 	private func getSubmissionTAN(
 		registrationToken: String,
-		completion: @escaping (Result<String, URLSession.Response.Failure>) -> Void
+		completion: @escaping (Result<String, ServiceError<RegistrationTokenError>>) -> Void
 	) {
-		client.getTANForExposureSubmit(
-			forDevice: registrationToken,
-			isFake: false,
-			completion: completion
+		let resource = RegistrationTokenResource(
+			sendModel: SendRegistrationTokenModel(
+				token: registrationToken
+			)
 		)
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success(let model):
+				completion(.success(model.submissionTAN))
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
 	}
-
+	
 	private func submit(
 		checkin: Checkin,
 		submissionTAN: String,
