@@ -83,7 +83,7 @@ class TicketValidationCertificateSelectionViewModel {
 		// sorting on the basis of certificate type
 		supportedHealthCertificates = supportedHealthCertificates.sorted(by: >)
 		
-		// creating service provider requirements descriptions
+		// creating service provider requirements description
 		let serviceProviderRequirementsDescription = generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTypes, validationConditions: validationConditions)
 		
 		// finding health certified person
