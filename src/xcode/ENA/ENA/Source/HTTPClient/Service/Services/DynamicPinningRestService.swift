@@ -36,13 +36,11 @@ class DynamicPinningRestService: Service {
 			return session
 		}
 
-		let newSessionDelegate = CoronaWarnURLSessionDelegate(jwkSet: jwkSet)
 		let session = URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
-			delegate: newSessionDelegate,
+			delegate: CoronaWarnURLSessionDelegate(jwkSet: jwkSet),
 			delegateQueue: .main
 		)
-		self.urlSessionDelegate = newSessionDelegate
 		return session
 	}()
 
@@ -53,6 +51,8 @@ class DynamicPinningRestService: Service {
 
 	// MARK: - Internal
 
-	weak var urlSessionDelegate: CoronaWarnURLSessionDelegate?
+	var urlSessionDelegate: URLSessionDelegate? {
+		session.delegate as? CoronaWarnURLSessionDelegate
+	}
 
 }

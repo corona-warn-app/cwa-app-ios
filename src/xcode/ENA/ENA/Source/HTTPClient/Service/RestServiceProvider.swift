@@ -65,8 +65,12 @@ class RestServiceProvider: RestServiceProviding {
 
 	// update evaluation trust - only possible for dynamic pinning at the moment
 	func update(_ evaluateTrust: EvaluateTrust) {
+		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
+			return
+		}
+
 		updateLock.lock()
-		dynamicPinningRestService.urlSessionDelegate?.evaluateTrust = evaluateTrust
+		delegate.evaluateTrust = evaluateTrust
 		updateLock.unlock()
 	}
 
@@ -77,7 +81,20 @@ class RestServiceProvider: RestServiceProviding {
 	private let restService: StandardRestService
 	private let cachedService: CachedRestService
 	private let wifiOnlyService: WifiOnlyRestService
-	private var dynamicPinningRestService: DynamicPinningRestService
+	private let dynamicPinningRestService: DynamicPinningRestService
 	private let updateLock: NSLock = NSLock()
 
 }
+
+#if !RELEASE
+extension RestServiceProvider {
+
+	var evaluateTrust: EvaluateTrust? {
+		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
+			return nil
+		}
+		return delegate.evaluateTrust
+	}
+
+}
+#endif
