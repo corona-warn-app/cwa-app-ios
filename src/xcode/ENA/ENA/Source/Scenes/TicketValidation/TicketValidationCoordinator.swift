@@ -101,57 +101,27 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showResultScreen(for result: TicketValidationResult) {
+		let viewModel: TicketValidationResultViewModel
+
 		switch result.result {
 		case .OK:
-			self.showValidationPassedScreen()
+			viewModel = TicketValidationPassedViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider
+			)
 		case .CHK:
-			self.showValidationOpenScreen(
+			viewModel = TicketValidationOpenViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
 		case .NOK:
-			self.showValidationFailedScreen(
+			viewModel = TicketValidationFailedViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
 		}
-	}
 
-	private func showValidationPassedScreen() {
 		let resultViewController = TicketValidationResultViewController(
-			viewModel: TicketValidationPassedViewModel(
-				serviceProvider: ticketValidation.initializationData.serviceProvider
-			),
-			onDismiss: { [weak self] in
-				self?.navigationController.dismiss(animated: true)
-			}
-		)
-
-		navigationController.pushViewController(resultViewController, animated: true)
-	}
-
-	private func showValidationOpenScreen(
-		validationResultItems: [TicketValidationResult.ResultItem]
-	) {
-		let resultViewController = TicketValidationResultViewController(
-			viewModel: TicketValidationOpenViewModel(
-				serviceProvider: ticketValidation.initializationData.serviceProvider,
-				validationResultItems: validationResultItems
-			),
-			onDismiss: { [weak self] in
-				self?.navigationController.dismiss(animated: true)
-			}
-		)
-
-		navigationController.pushViewController(resultViewController, animated: true)
-	}
-
-	private func showValidationFailedScreen(
-		validationResultItems: [TicketValidationResult.ResultItem]
-	) {
-		let resultViewController = TicketValidationResultViewController(
-			viewModel: TicketValidationFailedViewModel(
-				serviceProvider: ticketValidation.initializationData.serviceProvider,
-				validationResultItems: validationResultItems
-			),
+			viewModel: viewModel,
 			onDismiss: { [weak self] in
 				self?.navigationController.dismiss(animated: true)
 			}
