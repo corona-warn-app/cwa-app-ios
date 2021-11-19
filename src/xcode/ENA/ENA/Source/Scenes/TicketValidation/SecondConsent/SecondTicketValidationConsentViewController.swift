@@ -36,7 +36,7 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.backgroundColor = .white
+		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
 	}
 	
 	// MARK: - Cell reuse identifiers.
