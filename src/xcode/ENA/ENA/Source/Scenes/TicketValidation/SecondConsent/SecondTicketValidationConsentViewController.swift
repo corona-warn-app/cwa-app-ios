@@ -35,7 +35,8 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.backgroundColor = .white
 	}
 	
 	// MARK: - Cell reuse identifiers.
@@ -73,6 +74,9 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	private let onDismiss: () -> Void
 
 	private func setupView() {
+		
+		title = AppStrings.TicketValidation.SecondConsent.title
+		
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
