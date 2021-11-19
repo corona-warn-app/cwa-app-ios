@@ -36,7 +36,7 @@ class TicketValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 	// MARK: - Internal
 
-	func configure(with cellModel: TicketValidationResultCellModel, onUpdate: @escaping () -> Void) {
+	func configure(with cellModel: TicketValidationResultCellModel) {
 		iconImageView.image = cellModel.iconImage
 		itemDetailsLabel.text = cellModel.itemDetails
 		keyValueAttributedLabel.attributedText = cellModel.keyValueAttributedString

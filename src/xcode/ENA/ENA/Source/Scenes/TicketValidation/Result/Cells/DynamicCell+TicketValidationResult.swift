@@ -12,18 +12,12 @@ extension DynamicCell {
 	) -> Self {
 		.custom(
 			withIdentifier: TicketValidationResultTableViewCell.dynamicTableViewCellReuseIdentifier
-		) { viewController, cell, _ in
+		) { _, cell, _ in
 			if let validationResultCell = cell as? TicketValidationResultTableViewCell {
 				validationResultCell.configure(
 					with: TicketValidationResultCellModel(
 						validationResultItem: validationResultItem
-					),
-					onUpdate: {
-						UIView.performWithoutAnimation {
-							viewController.tableView.beginUpdates()
-							viewController.tableView.endUpdates()
-						}
-					}
+					)
 				)
 			}
 		}
