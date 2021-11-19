@@ -11,11 +11,13 @@ struct SecondTicketValidationConsentViewModel {
 		serviceIdentity: String,
 		serviceProvider: String,
 		healthCertificate: HealthCertificate,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		onDataPrivacyTap: @escaping () -> Void
 	) {
 		self.serviceIdentity = serviceIdentity
 		self.serviceProvider = serviceProvider
 		self.healthCertificate = healthCertificate
+		self.healthCertifiedPerson = healthCertifiedPerson
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
 	
@@ -25,10 +27,32 @@ struct SecondTicketValidationConsentViewModel {
 		
 		DynamicTableViewModel([
 			// HealthCertificate
-			
+			.section(
+				cells: [
+					.identifier(
+						SecondTicketValidationConsentViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+						configure: { _, cell, _ in
+							guard let cell = cell as? HealthCertificateCell else {
+								fatalError("could not initialize cell of type `HealthCertificateCell`")
+							}
+							
+							cell.configure(
+								HealthCertificateCellViewModel(
+									healthCertificate: healthCertificate,
+									healthCertifiedPerson: healthCertifiedPerson
+								)
+							)
+						}
+					)
+				]
+			),
 			// Subtitle with serviceIdentity and serviceProvider
 			.section(
 				cells: [
+					.space(
+						height: 15.0,
+						color: .enaColor(for: .background)
+					),
 					.title2(
 						text: AppStrings.TicketValidation.SecondConsent.subtitle
 					),
@@ -117,7 +141,6 @@ struct SecondTicketValidationConsentViewModel {
 					)
 				]
 			),
-			 
 			// Data privacy cell
 			.section(
 				separators: .all,
@@ -145,6 +168,7 @@ struct SecondTicketValidationConsentViewModel {
 	private let serviceIdentity: String
 	private let serviceProvider: String
 	private let healthCertificate: HealthCertificate
+	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let onDataPrivacyTap: () -> Void
 }
 
