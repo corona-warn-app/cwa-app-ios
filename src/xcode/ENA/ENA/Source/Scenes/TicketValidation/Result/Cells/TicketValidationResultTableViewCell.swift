@@ -38,7 +38,7 @@ class TicketValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProvi
 
 	func configure(with cellModel: TicketValidationResultCellModel, onUpdate: @escaping () -> Void) {
 		iconImageView.image = cellModel.iconImage
-		ruleDescriptionLabel.text = cellModel.ruleDescription
+		itemDetailsLabel.text = cellModel.itemDetails
 		keyValueAttributedLabel.attributedText = cellModel.keyValueAttributedString
 
 		self.cellModel = cellModel
@@ -68,13 +68,13 @@ class TicketValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProvi
 		return iconImageView
 	}()
 
-	private let ruleDescriptionLabel: ENALabel = {
-		let ruleDescriptionLabel = ENALabel(style: .body)
-		ruleDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-		ruleDescriptionLabel.numberOfLines = 0
-		ruleDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
+	private let itemDetailsLabel: ENALabel = {
+		let itemDetailsLabel = ENALabel(style: .body)
+		itemDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
+		itemDetailsLabel.numberOfLines = 0
+		itemDetailsLabel.textColor = .enaColor(for: .textPrimary1)
 
-		return ruleDescriptionLabel
+		return itemDetailsLabel
 	}()
 
 	private let keyValueAttributedLabel: UILabel = {
@@ -100,7 +100,7 @@ class TicketValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProvi
 		contentView.addSubview(backgroundContainerView)
 
 		backgroundContainerView.addSubview(iconImageView)
-		backgroundContainerView.addSubview(ruleDescriptionLabel)
+		backgroundContainerView.addSubview(itemDetailsLabel)
 		backgroundContainerView.addSubview(keyValueAttributedLabel)
 
 		NSLayoutConstraint.activate(
@@ -115,13 +115,13 @@ class TicketValidationResultTableViewCell: UITableViewCell, ReuseIdentifierProvi
 				iconImageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 32.0),
 				iconImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 30.0),
 
-				ruleDescriptionLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 12.0),
-				ruleDescriptionLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor, constant: -4.0),
-				ruleDescriptionLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+				itemDetailsLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 12.0),
+				itemDetailsLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor, constant: -4.0),
+				itemDetailsLabel.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
-				keyValueAttributedLabel.leadingAnchor.constraint(equalTo: ruleDescriptionLabel.leadingAnchor),
-				keyValueAttributedLabel.topAnchor.constraint(equalTo: ruleDescriptionLabel.bottomAnchor, constant: 16.0),
-				keyValueAttributedLabel.trailingAnchor.constraint(equalTo: ruleDescriptionLabel.trailingAnchor),
+				keyValueAttributedLabel.leadingAnchor.constraint(equalTo: itemDetailsLabel.leadingAnchor),
+				keyValueAttributedLabel.topAnchor.constraint(equalTo: itemDetailsLabel.bottomAnchor, constant: 16.0),
+				keyValueAttributedLabel.trailingAnchor.constraint(equalTo: itemDetailsLabel.trailingAnchor),
 				keyValueAttributedLabel.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0)
 			]
 		)

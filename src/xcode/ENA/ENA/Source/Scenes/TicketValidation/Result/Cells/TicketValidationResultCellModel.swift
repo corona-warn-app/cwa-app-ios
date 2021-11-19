@@ -31,7 +31,7 @@ final class TicketValidationResultCellModel {
 		}
 	}
 
-	var ruleDescription: String? {
+	var itemDetails: String? {
 		validationResultItem.details
 	}
 

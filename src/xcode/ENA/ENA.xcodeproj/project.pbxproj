@@ -139,6 +139,8 @@
 		016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E261325AF43450077C64C /* StatisticsInfoViewController.swift */; };
 		016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */; };
 		01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */; };
+		017556EC2747E464002C70DA /* TicketValidationResultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017556E82747E446002C70DA /* TicketValidationResultViewModelTests.swift */; };
+		017556F32747EC30002C70DA /* TicketValidationResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017556EF2747E524002C70DA /* TicketValidationResultCellModelTests.swift */; };
 		0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* ENFRiskCalculationResult.swift */; };
 		0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4B025503805009DD568 /* ScanInstanceTest.swift */; };
 		017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A4DC5625922EB0007D5794 /* HomeShownPositiveTestResultTableViewCell.xib */; };
@@ -1661,6 +1663,8 @@
 		016E261325AF43450077C64C /* StatisticsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsInfoViewController.swift; sourceTree = "<group>"; };
 		016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModel.swift; sourceTree = "<group>"; };
 		01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENExposureConfiguration+Convenience.swift"; sourceTree = "<group>"; };
+		017556E82747E446002C70DA /* TicketValidationResultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultViewModelTests.swift; sourceTree = "<group>"; };
+		017556EF2747E524002C70DA /* TicketValidationResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultCellModelTests.swift; sourceTree = "<group>"; };
 		0177F48125501111009DD568 /* ENFRiskCalculationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENFRiskCalculationResult.swift; sourceTree = "<group>"; };
 		0177F4B025503805009DD568 /* ScanInstanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanInstanceTest.swift; sourceTree = "<group>"; };
 		017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModel.swift; sourceTree = "<group>"; };
@@ -3546,6 +3550,22 @@
 			path = StatisticsInfo;
 			sourceTree = "<group>";
 		};
+		017556E72747E446002C70DA /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				017556E82747E446002C70DA /* TicketValidationResultViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		017556EE2747E524002C70DA /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				017556EF2747E524002C70DA /* TicketValidationResultCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		017AD19925A5C74400FA2B3F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -3735,6 +3755,7 @@
 		01978923274686DA00AAC31C /* Result */ = {
 			isa = PBXGroup;
 			children = (
+				017556E72747E446002C70DA /* __tests__ */,
 				01978928274686EC00AAC31C /* TicketValidationResultViewController.swift */,
 				01978925274686EB00AAC31C /* TicketValidationResultViewModel.swift */,
 				01978926274686EB00AAC31C /* TicketValidationPassedViewModel.swift */,
@@ -3748,6 +3769,7 @@
 		0197892927468A9600AAC31C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				017556EE2747E524002C70DA /* __tests__ */,
 				0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */,
 				0197892B27468A9700AAC31C /* TicketValidationResultCellModel.swift */,
 				0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */,
@@ -10154,6 +10176,7 @@
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
 				BAC1FCB226D910C90095E6D8 /* HealthCertifiedPersonBoosterTests.swift in Sources */,
 				01A6C30E2626DE8200B6E95A /* HomeTestRegistrationCellModelTests.swift in Sources */,
+				017556EC2747E464002C70DA /* TicketValidationResultViewModelTests.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
@@ -10352,6 +10375,7 @@
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
 				35647C18269E308200666E5A /* LocalStatisticsStateTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,
+				017556F32747EC30002C70DA /* TicketValidationResultCellModelTests.swift in Sources */,
 				BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */,
 				5039B3E826A1AD5B00ECA6DE /* ValidationResultCellModelTests.swift in Sources */,
 				AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */,
