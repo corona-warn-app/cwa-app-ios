@@ -42,6 +42,7 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	// MARK: - Cell reuse identifiers.
 
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case healthCertificateCell = "HealthCertificateCell"
 		case legalExtended = "DynamicLegalExtendedCell"
 	}
 
@@ -59,12 +60,6 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 		case .secondary:
 			onDismiss()
 		}
-	}
-	
-	// MARK: - Internal
-	
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legalExtended = "DynamicLegalExtendedCell"
 	}
 	
 	// MARK: - Private
@@ -86,8 +81,12 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 		view.backgroundColor = .enaColor(for: .background)
 		
 		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.healthCertificateCell.rawValue
+		)
+		tableView.register(
 			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.legalExtended.rawValue
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
