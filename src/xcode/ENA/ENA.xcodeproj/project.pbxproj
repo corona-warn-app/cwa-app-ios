@@ -195,7 +195,7 @@
 		01915574268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */; };
 		019155762684AE9600D49C88 /* XCTestCase+HealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019155752684AE1E00D49C88 /* XCTestCase+HealthCertificate.swift */; };
 		01960F4326654438000D714E /* TestCertificateConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01960F42266542C1000D714E /* TestCertificateConsent.swift */; };
-		0197892F2746907100AAC31C /* DynamicCell+ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197892C27468A9700AAC31C /* DynamicCell+ValidationResult.swift */; };
+		0197892F2746907100AAC31C /* DynamicCell+TicketValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */; };
 		019789302746907100AAC31C /* TicketValidationResultCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197892B27468A9700AAC31C /* TicketValidationResultCellModel.swift */; };
 		019789312746907100AAC31C /* TicketValidationResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */; };
 		019789322746920600AAC31C /* TicketValidationFailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978924274686EB00AAC31C /* TicketValidationFailedViewModel.swift */; };
@@ -1719,7 +1719,7 @@
 		01978927274686EC00AAC31C /* TicketValidationOpenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationOpenViewModel.swift; sourceTree = "<group>"; };
 		01978928274686EC00AAC31C /* TicketValidationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultViewController.swift; sourceTree = "<group>"; };
 		0197892B27468A9700AAC31C /* TicketValidationResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultCellModel.swift; sourceTree = "<group>"; };
-		0197892C27468A9700AAC31C /* DynamicCell+ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+ValidationResult.swift"; sourceTree = "<group>"; };
+		0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+TicketValidationResult.swift"; sourceTree = "<group>"; };
 		0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTableViewCell.swift; sourceTree = "<group>"; };
 		019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStoringProviding.swift; sourceTree = "<group>"; };
 		019C9F0725894BE900B26392 /* MockDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiaryStore.swift; sourceTree = "<group>"; };
@@ -3750,7 +3750,7 @@
 			children = (
 				0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */,
 				0197892B27468A9700AAC31C /* TicketValidationResultCellModel.swift */,
-				0197892C27468A9700AAC31C /* DynamicCell+ValidationResult.swift */,
+				0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -9968,7 +9968,7 @@
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
 				AB34787D269C93C40016A8AB /* CertLogicEngineTestData.swift in Sources */,
 				341DC3312682401D0003E6BA /* LocalStatisticsProvider.swift in Sources */,
-				0197892F2746907100AAC31C /* DynamicCell+ValidationResult.swift in Sources */,
+				0197892F2746907100AAC31C /* DynamicCell+TicketValidationResult.swift in Sources */,
 				BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */,
 				AB190EA925FB705500FBFF0D /* CreateTraceTimeIntervalMatchQuery.swift in Sources */,
 				5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */,

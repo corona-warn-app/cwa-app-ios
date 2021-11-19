@@ -4,17 +4,16 @@
 
 import UIKit
 import OpenCombine
-import class CertLogic.ValidationResult
 
 extension DynamicCell {
 
 	static func ticketValidationResult(
-		_ ticketValidationResultItem: TicketValidationResult.ResultItem
+		_ validationResultItem: TicketValidationResult.ResultItem
 	) -> Self {
 		.custom(
-			withIdentifier: TicketValidationResultCellModel.dynamicTableViewCellReuseIdentifier
+			withIdentifier: TicketValidationResultTableViewCell.dynamicTableViewCellReuseIdentifier
 		) { viewController, cell, _ in
-			if let validationResultCell = cell as? TicketValidationResultCellModel {
+			if let validationResultCell = cell as? TicketValidationResultTableViewCell {
 				validationResultCell.configure(
 					with: TicketValidationResultCellModel(
 						validationResultItem: validationResultItem
