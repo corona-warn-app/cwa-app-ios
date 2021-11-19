@@ -19,7 +19,7 @@ class TicketValidationCertificateSelectionViewModel {
 		self.healthCertificateService = healthCertificateService
 		self.onHealthCertificateCellTap = onHealthCertificateCellTap
 		
-		self.suitableHealthCertificates = []
+		self.supportedHealthCertificates = []
 		self.filterCertificatesBasedOnValidationConditions()
 	}
 	
@@ -32,7 +32,7 @@ class TicketValidationCertificateSelectionViewModel {
 	private var healthCertificateService: HealthCertificateService
 	private var validationConditions: ValidationConditions
 	private let onHealthCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
-	private var suitableHealthCertificates: [HealthCertificate]
+	private var supportedHealthCertificates: [HealthCertificate]
 	
 	private func filterCertificatesBasedOnValidationConditions() {
 		guard let certificateTypes = validationConditions.type else {
@@ -49,32 +49,32 @@ class TicketValidationCertificateSelectionViewModel {
 		}) {
 			// if type contains v, all Vaccination Certificates shall pass the filter
 			if certificateTypes.contains("v") {
-				suitableHealthCertificates.append(contentsOf: healthCertifiedPerson.vaccinationCertificates)
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPerson.vaccinationCertificates)
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.vaccinationCertificate)
 			}
 		    // if type contains r, all Recovery Certificates shall pass the filter
 			if certificateTypes.contains("r") {
-				suitableHealthCertificates.append(contentsOf: healthCertifiedPerson.recoveryCertificates)
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPerson.recoveryCertificates)
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.recoveryCertificate)
 			}
 			// if type contains t, all Test Certificates shall pass the filter
 			if certificateTypes.contains("t") {
-				suitableHealthCertificates.append(contentsOf: healthCertifiedPerson.testCertificates)
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPerson.testCertificates)
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.testCertificate)
 			}
 			// if type contains tp, all PCR tests shall pass the filter
 			if certificateTypes.contains("tp") {
-				suitableHealthCertificates.append(contentsOf: healthCertifiedPerson.pcrTestCertificates)
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPerson.pcrTestCertificates)
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
 			}
 			// if type contains tr, all RAT tests shall pass the filter
 			if certificateTypes.contains("tr") {
-				suitableHealthCertificates.append(contentsOf: healthCertifiedPerson.ratTestCertificates)
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPerson.ratTestCertificates)
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
 			}
 			
 			// sorting on the basis of certificate type
-			suitableHealthCertificates = suitableHealthCertificates.sorted(by: >)
+			supportedHealthCertificates = supportedHealthCertificates.sorted(by: >)
 			
 			// creating service provider requirements descriptions
 			serviceProviderRequirementsDescription += supportedCertificateTypes.joined(separator: ", ")
@@ -86,25 +86,25 @@ class TicketValidationCertificateSelectionViewModel {
 			}
 			
 			// setting up view model
-			if suitableHealthCertificates.isEmpty {
-				setup(for: .noSuitableHealthCertificate, healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
+			if supportedHealthCertificates.isEmpty {
+				setup(for: .noSupportedHealthCertificate, healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
 			} else {
-				setup(for: .suitableHealthCertificates, healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
+				setup(for: .supportedHealthCertificates, healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
 			}
 		}
 	}
 
 	private func setup(for ticketValidationCertificateSelectionState: TicketValidationCertificateSelectionState, healthCertifiedPerson: HealthCertifiedPerson, serviceProviderRequirementsDescription: String) {
 		switch ticketValidationCertificateSelectionState {
-		case .suitableHealthCertificates:
-			dynamicTableViewModel = dynamicTableViewModelsuitableHealthCertificates(healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
-		case .noSuitableHealthCertificate:
-			dynamicTableViewModel = dynamicTableViewModelNoSuitableCertificate()
+		case .supportedHealthCertificates:
+			dynamicTableViewModel = dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
+		case .noSupportedHealthCertificate:
+			dynamicTableViewModel = dynamicTableViewModelNoSupportedCertificate()
 	    }
 	}
 		
-	private func dynamicTableViewModelsuitableHealthCertificates(healthCertifiedPerson: HealthCertifiedPerson, serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
-		var suitableHealthCertificatesCells: [DynamicCell] = [
+	private func dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: HealthCertifiedPerson, serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
+		var supportedHealthCertificatesCells: [DynamicCell] = [
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRequirementsHeadline),
 			.subheadline(
 			   text: serviceProviderRequirementsDescription,
@@ -113,11 +113,11 @@ class TicketValidationCertificateSelectionViewModel {
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRelevantCertificatesHeadline)
 		].compactMap { $0 }
 
-		for suitableHealthCertificate in suitableHealthCertificates {
-			suitableHealthCertificatesCells.append(DynamicCell.identifier(
+		for supportedHealthCertificate in supportedHealthCertificates {
+			supportedHealthCertificatesCells.append(DynamicCell.identifier(
 				TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
-					self.onHealthCertificateCellTap(suitableHealthCertificate, healthCertifiedPerson)
+					self.onHealthCertificateCellTap(supportedHealthCertificate, healthCertifiedPerson)
 				},
 				configure: { _, cell, _ in
 					guard let cell = cell as? HealthCertificateCell else {
@@ -126,7 +126,7 @@ class TicketValidationCertificateSelectionViewModel {
 
 					cell.configure(
 						HealthCertificateCellViewModel(
-							healthCertificate: suitableHealthCertificate,
+							healthCertificate: supportedHealthCertificate,
 							healthCertifiedPerson: healthCertifiedPerson
 						)
 					)
@@ -137,16 +137,16 @@ class TicketValidationCertificateSelectionViewModel {
 		return DynamicTableViewModel([
 			.section(
 				separators: .none,
-				cells: suitableHealthCertificatesCells
+				cells: supportedHealthCertificatesCells
 			)
 		])
 	}
 		
-	private func dynamicTableViewModelNoSuitableCertificate() -> DynamicTableViewModel {
-		var noSuitableCertificateCells: [DynamicCell] = [
-			.body(text: AppStrings.TicketValidation.CertificateSelection.noSuitableCertificateHeadline),
+	private func dynamicTableViewModelNoSupportedCertificate() -> DynamicTableViewModel {
+		var noSupportedCertificateCells: [DynamicCell] = [
+			.body(text: AppStrings.TicketValidation.CertificateSelection.noSupportedCertificateHeadline),
 			.subheadline(
-				text: AppStrings.TicketValidation.CertificateSelection.noSuitableCertificateDescription,
+				text: AppStrings.TicketValidation.CertificateSelection.noSupportedCertificateDescription,
 				color: .enaColor(for: .textPrimary2)
 			),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRequiredCertificateHeadline)
@@ -154,7 +154,7 @@ class TicketValidationCertificateSelectionViewModel {
 
 		// TODO: Logic for no suitable cell
 
-		noSuitableCertificateCells.append(
+		noSupportedCertificateCells.append(
 			.textWithLinks(
 				text: String(
 					format: AppStrings.TicketValidation.CertificateSelection.faqDescription,
@@ -170,7 +170,7 @@ class TicketValidationCertificateSelectionViewModel {
 		return DynamicTableViewModel([
 			.section(
 				separators: .none,
-				cells: noSuitableCertificateCells
+				cells: noSupportedCertificateCells
 			)
 		])
 	}

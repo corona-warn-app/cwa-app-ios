@@ -66,6 +66,6 @@ extension TicketValidationCertificateSelectionViewController {
 }
 
 enum TicketValidationCertificateSelectionState: Equatable {
-	case suitableCertificates
-	case noSuitableCertificate
+	case supportedHealthCertificates
+	case noSupportedHealthCertificate
 }
