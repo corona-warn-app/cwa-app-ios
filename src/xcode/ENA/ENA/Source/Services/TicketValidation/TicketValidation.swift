@@ -69,33 +69,19 @@ final class TicketValidation: TicketValidating {
 		}
 		
 		// Encrypt DCC as encryptedDCC
-		let encryptedDCC: Data
+		let encryptDCCResult = encrypt(
+			dcc: plaintext,
+			key: key,
+			initializationVector: initializationVector,
+			encryptionScheme: encryptionScheme
+		)
 		
-		switch encryptionScheme {
-		case .RSAOAEPWithSHA256AESCBC:
-			let cbcEncryption = CBCEncryption(
-				encryptionKey: key,
-				initializationVector: initializationVector,
-				ivLengthConstraint: 16
-			)
-			switch cbcEncryption.encrypt(data: plaintext) {
-			case .success(let encryptedData):
-				encryptedDCC = encryptedData
-			case .failure(let error):
-				return .failure(.AES_CBC_ERROR(error))
-			}
-		case .RSAOAEPWithSHA256AESGCM:
-			let gcmEncryption = GCMEncryption(
-				encryptionKey: key,
-				initializationVector: initializationVector,
-				ivLengthConstraint: 16
-			)
-			switch gcmEncryption.encrypt(data: plaintext) {
-			case .success(let encryptedData):
-				encryptedDCC = encryptedData
-			case .failure(let error):
-				return .failure(.AES_GCM_ERROR(error))
-			}
+		let encryptedDCC: Data
+		switch encryptDCCResult {
+		case .success(let encryptedData):
+			encryptedDCC = encryptedData
+		case .failure(let error):
+			return .failure(error)
 		}
 		
 		// Encrypt key as encryptionKey
@@ -131,5 +117,40 @@ final class TicketValidation: TicketValidating {
 			signatureBase64: signature.base64EncodedString(),
 			signatureAlgorithm: "SHA256withECDSA"
 		))
+	}
+	
+	private func encrypt(
+		dcc: Data,
+		key: Data,
+		initializationVector: Data,
+		encryptionScheme: EncryptionScheme
+	) -> Result<Data, EncryptAndSignError> {
+	
+		switch encryptionScheme {
+		case .RSAOAEPWithSHA256AESCBC:
+			let cbcEncryption = CBCEncryption(
+				encryptionKey: key,
+				initializationVector: initializationVector,
+				ivLengthConstraint: 16
+			)
+			switch cbcEncryption.encrypt(data: dcc) {
+			case .success(let encryptedData):
+				return .success(encryptedData)
+			case .failure(let error):
+				return .failure(.AES_CBC_ERROR(error))
+			}
+		case .RSAOAEPWithSHA256AESGCM:
+			let gcmEncryption = GCMEncryption(
+				encryptionKey: key,
+				initializationVector: initializationVector,
+				ivLengthConstraint: 16
+			)
+			switch gcmEncryption.encrypt(data: dcc) {
+			case .success(let encryptedData):
+				return .success(encryptedData)
+			case .failure(let error):
+				return .failure(.AES_GCM_ERROR(error))
+			}
+		}
 	}
 }
