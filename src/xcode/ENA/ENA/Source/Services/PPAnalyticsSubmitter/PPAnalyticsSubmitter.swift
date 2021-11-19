@@ -676,31 +676,56 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 			if let exposureWindowsAtTestRegistration = metadata?.exposureWindowsAtTestRegistration {
 				$0.exposureWindowsAtTestRegistration = exposureWindowsAtTestRegistration.map { exposureWindow in
-					SAP_Internal_Ppdd_PPANewExposureWindow.with {
-				  
-					  $0.normalizedTime = exposureWindow.normalizedTime
-					  $0.transmissionRiskLevel = Int32(exposureWindow.transmissionRiskLevel)
-					  $0.exposureWindow = SAP_Internal_Ppdd_PPAExposureWindow.with({ protobufWindow in
-						  if let infectiousness = exposureWindow.exposureWindow.infectiousness.protobuf {
-							  protobufWindow.infectiousness = infectiousness
-						  }
-						  if let reportType = exposureWindow.exposureWindow.reportType.protobuf {
-							  protobufWindow.reportType = reportType
-						  }
-						  protobufWindow.calibrationConfidence = Int32(exposureWindow.exposureWindow.calibrationConfidence.rawValue)
-						  protobufWindow.date = Int64(exposureWindow.date.timeIntervalSince1970)
-						  
-						  protobufWindow.scanInstances = exposureWindow.exposureWindow.scanInstances.map({ scanInstance in
-							  SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { protobufScanInstance in
-								  protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
-								  protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
-								  protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
-							  }
-						  })
-					  })
-				 }
+                    SAP_Internal_Ppdd_PPANewExposureWindow.with {
+                        $0.normalizedTime = exposureWindow.normalizedTime
+                        $0.transmissionRiskLevel = Int32(exposureWindow.transmissionRiskLevel)
+                        $0.exposureWindow = SAP_Internal_Ppdd_PPAExposureWindow.with({ protobufWindow in
+                            if let infectiousness = exposureWindow.exposureWindow.infectiousness.protobuf {
+                                protobufWindow.infectiousness = infectiousness
+                            }
+                            if let reportType = exposureWindow.exposureWindow.reportType.protobuf {
+                                protobufWindow.reportType = reportType
+                            }
+                            protobufWindow.calibrationConfidence = Int32(exposureWindow.exposureWindow.calibrationConfidence.rawValue)
+                            protobufWindow.date = Int64(exposureWindow.date.timeIntervalSince1970)
+                            
+                            protobufWindow.scanInstances = exposureWindow.exposureWindow.scanInstances.map({ scanInstance in
+                                SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { protobufScanInstance in
+                                    protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
+                                    protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
+                                    protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
+                                }
+                            })
+                        })
+                    }
 				}
 			}
+            if let exposureWindowsUntilTestResult = metadata?.exposureWindowsUntilTestResult {
+                $0.exposureWindowsUntilTestResult = exposureWindowsUntilTestResult.map { exposureWindow in
+                    SAP_Internal_Ppdd_PPANewExposureWindow.with {
+                        $0.normalizedTime = exposureWindow.normalizedTime
+                        $0.transmissionRiskLevel = Int32(exposureWindow.transmissionRiskLevel)
+                        $0.exposureWindow = SAP_Internal_Ppdd_PPAExposureWindow.with({ protobufWindow in
+                            if let infectiousness = exposureWindow.exposureWindow.infectiousness.protobuf {
+                                protobufWindow.infectiousness = infectiousness
+                            }
+                            if let reportType = exposureWindow.exposureWindow.reportType.protobuf {
+                                protobufWindow.reportType = reportType
+                            }
+                            protobufWindow.calibrationConfidence = Int32(exposureWindow.exposureWindow.calibrationConfidence.rawValue)
+                            protobufWindow.date = Int64(exposureWindow.date.timeIntervalSince1970)
+                            
+                            protobufWindow.scanInstances = exposureWindow.exposureWindow.scanInstances.map({ scanInstance in
+                                SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { protobufScanInstance in
+                                    protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
+                                    protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
+                                    protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
+                                }
+                            })
+                        })
+                    }
+                }
+            }
 		}
 		return resultProtobuf
 	}
