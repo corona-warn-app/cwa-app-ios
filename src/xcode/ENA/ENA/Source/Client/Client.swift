@@ -60,13 +60,6 @@ protocol Client {
 		completion completeWith: @escaping TestResultHandler
 	)
 
-	/// Gets the TAN for the device
-	func getTANForExposureSubmit(
-		forDevice registrationToken: String,
-		isFake: Bool,
-		completion completeWith: @escaping TANHandler
-	)
-
 	// MARK: Submit keys
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.

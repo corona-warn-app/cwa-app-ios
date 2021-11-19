@@ -545,7 +545,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe. Sie werden auf eine externe Website des RKI weitergeleitet.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe und falls Probleme auftreten, können Sie diese melden. \nSie werden auf eine externe Website des RKI weitergeleitet.";
 
 /* Exposure Submission Hotline */
 
@@ -3372,3 +3372,47 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+/* - Ticket Validation */
+
+"TicketValidation_CancelAlert_title" = "Wollen Sie die Überprüfung wirklich abbrechen?";
+
+"TicketValidation_CancelAlert_message" = "Wenn Sie die Überprüfung abbrechen, kann kein Zertifikat überprüft werden.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung abbrechen";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
+
+"TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
+
+"TicketValidation_FirstConsent_imageDescription" = "Ein Zertifikat wird für ein Ticketkauf übertragen";
+
+"TicketValidation_FirstConsent_subtitle" = "Zertifikatsprüfung bei Ticketbuchungen";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Anbieter:";
+
+"TicketValidation_FirstConsent_subject" = "Buchung:";
+
+"TicketValidation_FirstConsent_explination" = "Der Anbieter möchte sicherstellen, dass ein gültiges Zertifikat zu Ihrer Buchung vorliegt. Für den Abruf Ihrer Buchungsdetails vom Anbieter und die Freigabe Ihrer gespeicherten Zertifikate ist Ihr Einverständnis erforderlich.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "Sie sind nicht verpflichtet, die Überprüfung Ihres Zertifikats mit der Corona-Warn-App zu erlauben. Der Nachweis Ihres Impf-, Test- oder Genesungsstatus kann auch auf andere Weise erbracht werden.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Die Anforderungen an das Zertifikat werden vom Anbieter festgelegt. Das RKI hat darauf keinen Einfluss. Weitere Informationen zu den Zertifikatsanforderungen erhalten Sie bei dem Anbieter.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Die Ermittlung der geeigneten Zertifikate erfolgt lokal auf Ihrem Smartphone. Es werden dabei keine Daten an das RKI oder den Anbieter übermittelt.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "Das RKI erfährt die Daten zu Ihrer Buchung oder den von Ihnen gespeicherten Zertifikaten nicht.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Einverstanden";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
+
+"TicketValidation_Error_title" = "Fehler";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";

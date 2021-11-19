@@ -82,8 +82,6 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .httpError(localizedDescription)
 		case .invalidResponse:
 			return .invalidResponse
-		case .regTokenNotExist:
-			return .regTokenNotExist
 		case .qrDoesNotExist:
 			return .qrDoesNotExist
 		case .noResponse:

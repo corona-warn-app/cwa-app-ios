@@ -931,7 +931,9 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed))
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
+			// the extra load response if for the fakeVerificationServerRequest for PlausibleDeniability
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -993,7 +995,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -1082,7 +1085,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -1170,7 +1174,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken2")
-			)
+			),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -1251,7 +1256,8 @@ class CoronaTestServiceTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.failure(ServiceError<TeleTanError>.receivedResourceError(.teleTanAlreadyUsed))
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.teleTanAlreadyUsed)),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -1407,7 +1413,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -1612,7 +1619,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed))
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let store = MockTestStore()
@@ -1670,11 +1678,11 @@ class CoronaTestServiceTests: CWATestCase {
 	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
 		let client = ClientMock()
 
-        let restServiceProvider = RestServiceProviderStub(results: [
-            .success(
-				RegistrationTokenModel(registrationToken: "registrationToken")
-            )
-        ])
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(RegistrationTokenModel(registrationToken: "registrationToken")),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		]
+		)
 
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.serverError(500)))
@@ -1753,9 +1761,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdatePCRTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(
-				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
@@ -1817,9 +1823,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(
-				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		
 		let client = ClientMock()
@@ -2068,9 +2072,19 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake")),
+			.success(SubmissionTANModel(submissionTAN: "fake")),
+			.success(SubmissionTANModel(submissionTAN: "fake")),
+			.success(SubmissionTANModel(submissionTAN: "fake")),
+			.success(SubmissionTANModel(submissionTAN: "fake")),
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+
+		])
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2249,7 +2263,6 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2307,7 +2320,6 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2353,7 +2365,6 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2490,7 +2501,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2528,6 +2538,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2577,6 +2588,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2623,6 +2635,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2674,6 +2687,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
 
+
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2724,7 +2738,6 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
-
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2772,7 +2785,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-
 		let testService = CoronaTestService(
 			client: client,
 			store: store,
@@ -2869,7 +2881,9 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.qrDoesNotExist))
 		}
-
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		])
 		let dateComponents = DateComponents(day: -21)
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
@@ -2878,6 +2892,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2918,7 +2933,9 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.qrDoesNotExist))
 		}
-
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		])
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
 
 		let store = MockTestStore()
@@ -2926,6 +2943,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2966,7 +2984,9 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.qrDoesNotExist))
 		}
-
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		])
 		let dateComponents = DateComponents(day: -21)
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 		// Set point of care date to younger than 21 days to ensure that registration date wins
@@ -2977,6 +2997,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -3018,7 +3039,9 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.qrDoesNotExist))
 		}
-
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		])
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
 		// Set point of care date to older than 21 days to ensure that registration date wins
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21), to: Date()))
@@ -3028,6 +3051,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -3069,7 +3093,9 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.qrDoesNotExist))
 		}
-
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		])
 		let dateComponents = DateComponents(day: -21)
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
 
@@ -3078,6 +3104,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -3119,6 +3146,9 @@ class CoronaTestServiceTests: CWATestCase {
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.qrDoesNotExist))
 		}
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(SubmissionTANModel(submissionTAN: "fake"))
+		])
 
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
@@ -3128,6 +3158,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -3301,24 +3332,25 @@ class CoronaTestServiceTests: CWATestCase {
 						return
 					}
 					expectation.fulfill()
-
+					
 					XCTAssertFalse(resource.locator.isFake)
 					XCTAssertEqual(count, 0)
-
+					
 					count += 1
 				}
-			)
+			),
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { _ in
+					expectation.fulfill()
+					XCTAssertEqual(count, 1)
+					count += 1
+				})
 		])
 
 		let client = ClientMock()
-
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 1)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
 
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
@@ -3418,14 +3450,6 @@ class CoronaTestServiceTests: CWATestCase {
 			completion(.success(.fake(testResult: testResult.rawValue)))
 		}
 
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 1)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertTrue(isFake)
@@ -3436,9 +3460,26 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					SubmissionTANModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					expectation.fulfill()
+					
+					XCTAssertTrue(resource.locator.isFake)
+					XCTAssertEqual(count, 1)
+					count += 1
+				})
+		])
 		let service = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
