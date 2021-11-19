@@ -11,9 +11,9 @@ extension ValidationConditions {
 	static func fake(
 		hash: String? = nil,
 		lang: String? = nil,
-		fnt: String? = "Naveed",
-		gnt: String? = "Khalid",
-		dob: String? = "26-06-1991",
+		fnt: String? = "SCHNEIDER",
+		gnt: String? = "ANDREA",
+		dob: String? = "1942-01-01",
 		type: [String]? = ["v", "r", "t"],
 		coa: String? = nil,
 		roa: String? = nil,
