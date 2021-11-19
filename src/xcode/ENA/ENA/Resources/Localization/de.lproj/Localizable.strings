@@ -3421,6 +3421,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Ticket Validation Second Consent */
 
+"TicketValidation_SecondConsent_title" = "Ihr Einverständnis";
+
 "TicketValidation_SecondConsent_subtitle" = "Übermittlung Ihres Zertifikats zur Prüfung";
 
 "TicketValidation_SecondConsent_serviceIdentity" = "Prüfpartner:";
