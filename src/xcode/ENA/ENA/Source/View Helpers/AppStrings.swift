@@ -2500,21 +2500,21 @@ enum AppStrings {
 			static let moreInformationPlaceholderFAQ = NSLocalizedString("TicketValidation_Result_moreInformation_placeholder_FAQ", comment: "")
 
 			enum Passed {
-				static let title = NSLocalizedString("TicketValidation_Passed_title", comment: "")
-				static let subtitle = NSLocalizedString("TicketValidation_Passed_subtitle", comment: "")
-				static let description = NSLocalizedString("TicketValidation_Passed_description", comment: "")
+				static let title = NSLocalizedString("TicketValidation_Result_Passed_title", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_Result_Passed_subtitle", comment: "")
+				static let description = NSLocalizedString("TicketValidation_Result_Passed_description", comment: "")
 			}
 
 			enum Open {
-				static let title = NSLocalizedString("TicketValidation_Open_title", comment: "")
-				static let subtitle = NSLocalizedString("TicketValidation_Open_subtitle", comment: "")
-				static let description = NSLocalizedString("TicketValidation_Open_description", comment: "")
+				static let title = NSLocalizedString("TicketValidation_Result_Open_title", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_Result_Open_subtitle", comment: "")
+				static let description = NSLocalizedString("TicketValidation_Result_Open_description", comment: "")
 			}
 
 			enum Failed {
-				static let title = NSLocalizedString("TicketValidation_Failed_title", comment: "")
-				static let subtitle = NSLocalizedString("TicketValidation_Failed_subtitle", comment: "")
-				static let description = NSLocalizedString("TicketValidation_Failed_description", comment: "")
+				static let title = NSLocalizedString("TicketValidation_Result_Failed_title", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_Result_Failed_subtitle", comment: "")
+				static let description = NSLocalizedString("TicketValidation_Result_Failed_description", comment: "")
 			}
 		}
 
