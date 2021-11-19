@@ -70,8 +70,3 @@ extension TicketValidationCertificateSelectionViewController {
 		case noSupportedCertificateCell
 	}
 }
-
-enum TicketValidationCertificateSelectionState: Equatable {
-	case supportedHealthCertificates
-	case noSupportedHealthCertificate
-}
