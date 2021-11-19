@@ -188,14 +188,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	var testCertificates: [HealthCertificate] {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
-
-	var pcrTestCertificates: [HealthCertificate] {
-		healthCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == pcrTypeString }
-	}
-	
-	var ratTestCertificates: [HealthCertificate] {
-		healthCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == antigenTypeString }
-	}
 	
 	var unseenNewsCount: Int {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
@@ -225,9 +217,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var subscriptions = Set<AnyCancellable>()
 	private var healthCertificateSubscriptions = Set<AnyCancellable>()
 	private var mostRelevantCertificateTimer: Timer?
-
-	private let pcrTypeString = "LP6464-4"
-	private let antigenTypeString = "LP217198-3"
 
 	private var completeVaccinationProtectionDate: Date? {
 		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
