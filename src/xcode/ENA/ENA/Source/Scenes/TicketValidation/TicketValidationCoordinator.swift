@@ -101,7 +101,7 @@ final class TicketValidationCoordinator {
 				validationConditions: validationConditions,
 				healthCertificateService: healthCertificateService,
 				onHealthCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
-					// TODO: Call Consent II
+					self?.showSecondConsentScreen(selectedCertificate: healthCertificate, selectedCertifiedPerson: healthCertifiedPerson)
 				}
 			),
 			onDismiss: {
@@ -116,6 +116,13 @@ final class TicketValidationCoordinator {
 			
 			self.navigationController.pushViewController(certificateSelectionViewController, animated: true)
 		}
+	}
+	
+	private func showSecondConsentScreen(
+		selectedCertificate: HealthCertificate,
+		selectedCertifiedPerson: HealthCertifiedPerson
+	) {
+		
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {
