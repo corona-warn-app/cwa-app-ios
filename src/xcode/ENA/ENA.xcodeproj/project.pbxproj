@@ -440,6 +440,8 @@
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
 		340421C7263DDCFC00155BC6 /* ENAUITests_04b_ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE70125C4547600C52B3F /* ENAUITests_04b_ExposureDetection.swift */; };
 		340421D4263DDDA700155BC6 /* ENAUITests_05_DataDonation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */; };
+		340AC9B82747E2CF0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340AC9B72747E2CC0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift */; };
+		340AC9BA2747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340AC9B92747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift */; };
 		341320542742B928003E3906 /* SecondTicketValidationConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320532742B928003E3906 /* SecondTicketValidationConsentViewModel.swift */; };
 		341320562742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320552742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift */; };
 		3413205A2742CE42003E3906 /* TicketValidationCertificateSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320592742CE3E003E3906 /* TicketValidationCertificateSelectionViewController.swift */; };
@@ -1891,6 +1893,8 @@
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
+		340AC9B72747E2CC0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationNoSupportedCertificateTableViewCell.swift; sourceTree = "<group>"; };
+		340AC9B92747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationNoSupportedCertificateCellModel.swift; sourceTree = "<group>"; };
 		341320532742B928003E3906 /* SecondTicketValidationConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTicketValidationConsentViewModel.swift; sourceTree = "<group>"; };
 		341320552742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationCertificateSelectionViewModel.swift; sourceTree = "<group>"; };
 		341320592742CE3E003E3906 /* TicketValidationCertificateSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationCertificateSelectionViewController.swift; sourceTree = "<group>"; };
@@ -3079,6 +3083,7 @@
 			isa = PBXGroup;
 			children = (
 				010E07AA273D009C00C2BE5F /* TicketValidationCoordinator.swift */,
+				340AC9B62747D8F90028DE11 /* Cells */,
 				010E07B0273D4CC400C2BE5F /* FirstConsent */,
 				341320502742B8CA003E3906 /* CertificateSelection */,
 				3413204D2742B883003E3906 /* SecondConsent */,
@@ -4295,6 +4300,15 @@
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 			);
 			path = AppStore;
+			sourceTree = "<group>";
+		};
+		340AC9B62747D8F90028DE11 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				340AC9B72747E2CC0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift */,
+				340AC9B92747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		3413204C2742B7FC003E3906 /* Recovered References */ = {
@@ -8890,6 +8904,7 @@
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				01887D3B25DAB4E400FCAFB2 /* DiarySegmentedControl.swift in Sources */,
 				347FBB6A2610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift in Sources */,
+				340AC9BA2747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift in Sources */,
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */,
@@ -9346,6 +9361,7 @@
 				BA5B7FD026458EF400502087 /* HealthCertificateKeyValueTextCell.swift in Sources */,
 				BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */,
 				BA5B7FD226458EF400502087 /* HealthCertificateTopCornerCell.swift in Sources */,
+				340AC9B82747E2CF0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift in Sources */,
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */,
