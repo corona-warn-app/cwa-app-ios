@@ -1043,6 +1043,7 @@
 		ABC506BC2747DC9600698A95 /* EncryptAndSignError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */; };
 		ABC506BD2747DC9C00698A95 /* TicketValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B42747DC8700698A95 /* TicketValidationTests.swift */; };
 		ABC506BF2747DF8B00698A95 /* Data+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506BE2747DF8B00698A95 /* Data+Random.swift */; };
+		ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */; };
 		ABCA884626BBC956005FF148 /* CheckinEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884526BBC956005FF148 /* CheckinEncryption.swift */; };
 		ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */; };
 		ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */; };
@@ -2582,6 +2583,7 @@
 		ABC506B82747DC9600698A95 /* EncryptAndSignResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptAndSignResult.swift; sourceTree = "<group>"; };
 		ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptAndSignError.swift; sourceTree = "<group>"; };
 		ABC506BE2747DF8B00698A95 /* Data+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Random.swift"; sourceTree = "<group>"; };
+		ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationInitializationData+Fake.swift"; sourceTree = "<group>"; };
 		ABCA884526BBC956005FF148 /* CheckinEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryption.swift; sourceTree = "<group>"; };
 		ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryptionTests.swift; sourceTree = "<group>"; };
 		ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBin.swift; sourceTree = "<group>"; };
@@ -6665,6 +6667,7 @@
 		ABC506B32747DC8700698A95 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				ABC506C3274BA86C00698A95 /* Model */,
 				ABC506B42747DC8700698A95 /* TicketValidationTests.swift */,
 			);
 			path = __tests__;
@@ -6678,6 +6681,14 @@
 				ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */,
 			);
 			path = EncryptAndSignDCC;
+			sourceTree = "<group>";
+		};
+		ABC506C3274BA86C00698A95 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		ABCA884426BBC93C005FF148 /* CheckinEncryption */ = {
@@ -10264,6 +10275,7 @@
 				BACBA7072672504200B304D0 /* TestCertificateRequestCellModelTests.swift in Sources */,
 				01915574268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift in Sources */,
 				01F33231270F3E45005CE21E /* RecycleBinViewModelTest.swift in Sources */,
+				ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
