@@ -2339,6 +2339,17 @@ enum AppStrings {
 			static let title = NSLocalizedString("UniversalQRScanner_Tooltip_title", comment: "")
 			static let description = NSLocalizedString("UniversalQRScanner_Tooltip_description", comment: "")
 		}
+
+		enum Info {
+			static let title = NSLocalizedString("UniversalQRScanner_Info_title", comment: "")
+			static let bulletPoint1 = NSLocalizedString("UniversalQRScanner_Info_bulletPoint1", comment: "")
+			static let bulletPoint2 = NSLocalizedString("UniversalQRScanner_Info_bulletPoint2", comment: "")
+			static let bulletPoint3 = NSLocalizedString("UniversalQRScanner_Info_bulletPoint3", comment: "")
+			static let bulletPoint4 = NSLocalizedString("UniversalQRScanner_Info_bulletPoint4", comment: "")
+			static let body1 = NSLocalizedString("UniversalQRScanner_Info_body1", comment: "")
+			static let body2 = NSLocalizedString("UniversalQRScanner_Info_body2", comment: "")
+			static let dataPrivacy = NSLocalizedString("UniversalQRScanner_Info_dataPrivacy", comment: "")
+		}
 	}
 
 	enum FileScanner {

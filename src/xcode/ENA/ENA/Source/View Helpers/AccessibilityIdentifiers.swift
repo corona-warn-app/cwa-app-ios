@@ -271,6 +271,7 @@ enum AccessibilityIdentifiers {
 		static let fakeTicketValidation = "QRScanner_FAKE_TICKET_VALIDATION"
 		static let other = "QRScanner_OTHER"
 		static let cancel = "QRScanner_CANCEL"
+		static let dataPrivacy = "QRScanner_DataPrivacy"
 	}
 
 	enum FileScanner {
