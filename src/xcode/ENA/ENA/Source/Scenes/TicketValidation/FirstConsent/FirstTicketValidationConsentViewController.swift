@@ -90,7 +90,6 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 
 	private func setupView() {
 		tableView.backgroundColor = .enaColor(for: .background)
-		tableView.allowsSelection = false
 		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .never
 		
