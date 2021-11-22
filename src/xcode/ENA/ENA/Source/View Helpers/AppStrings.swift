@@ -41,7 +41,6 @@ enum AppStrings {
 		static let appFaqENError11 = NSLocalizedString("General_moreInfo_URL_EN11", tableName: "Localizable.links", comment: "")
 		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", tableName: "Localizable.links", comment: "")
 		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
-		static let healthCertificateFAQ = NSLocalizedString("HealthCertificate_Info_register_FAQLink", tableName: "Localizable.links", comment: "")
 		static let healthCertificateErrorFAQ = NSLocalizedString("HealthCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let testCertificateErrorFAQ = NSLocalizedString("TestCertificate_Error_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let findTestCentersFAQ = NSLocalizedString("Test_Centers_FAQ_Link", tableName: "Localizable.links", comment: "")
@@ -821,8 +820,6 @@ enum AppStrings {
 		static let generalErrorTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_Title", comment: "")
 
 		static let learnMoreActionTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_Action", comment: "")
-
-		static let learnMoreURL = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_URL", tableName: "Localizable.links", comment: "")
 
 		static let enAuthorizationError = NSLocalizedString("ExposureNotificationSetting_AuthenticationError", comment: "")
 
@@ -2467,6 +2464,44 @@ enum AppStrings {
 			static let message = NSLocalizedString("RecycleBin_DeleteAll_AlertMessage", comment: "")
 			static let confirmButtonTitle = NSLocalizedString("RecycleBin_DeleteAll_AlertConfirmButtonTitle", comment: "")
 			static let cancelButtonTitle = NSLocalizedString("RecycleBin_DeleteAll_AlertCancelButtonTitle", comment: "")
+		}
+	}
+
+	enum TicketValidation {
+		enum FirstConsent {
+			static let title = NSLocalizedString("TicketValidation_FirstConsent_title", comment: "")
+			static let imageDescription = NSLocalizedString("TicketValidation_FirstConsent_imageDescription", comment: "")
+			static let subtitle = NSLocalizedString("TicketValidation_FirstConsent_subtitle", comment: "")
+			static let serviceProvider = NSLocalizedString("TicketValidation_FirstConsent_serviceProvider", comment: "")
+			static let serviceProviderValue = NSLocalizedString("\"%@\"", comment: "")
+			static let subject = NSLocalizedString("TicketValidation_FirstConsent_subject", comment: "")
+			static let subjectValue = NSLocalizedString("\"%@\"", comment: "")
+			static let explination = NSLocalizedString("TicketValidation_FirstConsent_explination", comment: "")
+			static let legalTitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_title", tableName: "Localizable.legal", comment: "")
+			static let legalSubtitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_subtitle", tableName: "Localizable.legal", comment: "")
+			static let legalBulletPoint1 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint1", tableName: "Localizable.legal", comment: "")
+			static let legalBulletPoint2 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint2", tableName: "Localizable.legal", comment: "")
+			static let bulletPoint1 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint1", comment: "")
+			static let bulletPoint2 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint2", comment: "")
+			static let bulletPoint3 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint3", comment: "")
+			static let bulletPoint4 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint4", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("TicketValidation_FirstConsent_DataPrivacyTitle", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_primaryButtonTitle", comment: "")
+			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_secondaryButtonTitle", comment: "")
+		}
+
+		enum CancelAlert {
+			static let title = NSLocalizedString("TicketValidation_CancelAlert_title", comment: "")
+			static let message = NSLocalizedString("TicketValidation_CancelAlert_message", comment: "")
+			static let cancelButtonTitle = NSLocalizedString("TicketValidation_CancelAlert_cancelButtonTitle", comment: "")
+			static let continueButtonTitle = NSLocalizedString("TicketValidation_CancelAlert_continueButtonTitle", comment: "")
+		}
+
+		enum Error {
+			static let title = NSLocalizedString("TicketValidation_Error_title", comment: "")
+			static let serviceProviderErrorNoName = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoName", comment: "")
+			static let serviceProviderError = NSLocalizedString("TicketValidation_Error_serviceProviderError", comment: "")
+			static let tryAgain = NSLocalizedString("TicketValidation_Error_tryAgain", comment: "")
 		}
 	}
 

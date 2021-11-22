@@ -189,16 +189,6 @@ extension HTTPClient {
 			)
 		}
 
-		var tanRetrievalURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"tan"
-			)
-		}
-
 		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation

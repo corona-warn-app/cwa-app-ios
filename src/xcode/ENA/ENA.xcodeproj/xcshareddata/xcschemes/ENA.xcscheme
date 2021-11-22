@@ -161,6 +161,9 @@
          <TestPlanReference
             reference = "container:TestPlans/RecycleBinUITests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/TicketValidationUITests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

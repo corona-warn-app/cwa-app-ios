@@ -6,10 +6,13 @@ import Foundation
 
 enum CoronaTestServiceError: LocalizedError, Equatable {
 	case responseFailure(URLSession.Response.Failure)
+	case serviceError(ServiceError<TeleTanError>)
+	case registrationTokenError(ServiceError<RegistrationTokenError>)
 	case unknownTestResult
 	case testExpired
 	case noRegistrationToken
 	case noCoronaTestOfRequestedType
+	case malformedDateOfBirthKey
 
 	var errorDescription: String? {
 		switch self {
