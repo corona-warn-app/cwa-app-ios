@@ -218,24 +218,20 @@ final class OnboardingInfoViewController: UIViewController {
 		textLabel.text = onboardingInfo.text
 		textLabel.isHidden = onboardingInfo.text.isEmpty
 
-		if Bundle.main.preferredLocalizations.first == "de" {
-			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
+		let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
 
-			let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
+		let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
 
-			linkTextView.attributedText = attributedString
-			linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
-			linkTextView.isScrollEnabled = false
-			linkTextView.isHidden = onboardingInfo.link.isEmpty
-			linkTextView.isUserInteractionEnabled = true
-			linkTextView.adjustsFontForContentSizeCategory = true
-			linkTextView.textContainerInset = .zero
-			linkTextView.textContainer.lineFragmentPadding = .zero
-			linkTextView.backgroundColor = .clear
-			linkTextView.delegate = self
-		} else {
-			linkTextView.isHidden = true
-		}
+		linkTextView.attributedText = attributedString
+		linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
+		linkTextView.isScrollEnabled = false
+		linkTextView.isHidden = onboardingInfo.link.isEmpty
+		linkTextView.isUserInteractionEnabled = true
+		linkTextView.adjustsFontForContentSizeCategory = true
+		linkTextView.textContainerInset = .zero
+		linkTextView.textContainer.lineFragmentPadding = .zero
+		linkTextView.backgroundColor = .clear
+		linkTextView.delegate = self
 
 		if pageType == .enableLoggingOfContactsPage && showStateView {
 			nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
