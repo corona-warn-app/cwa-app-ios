@@ -26,7 +26,6 @@ final class HealthCertificateCellViewModel {
 	}
 	
 	let healthCertificate: HealthCertificate
-	let details: HealthCertificeCellDetails
 	
 	lazy var gradientType: GradientView.GradientType = {
 		switch details {
@@ -171,4 +170,5 @@ final class HealthCertificateCellViewModel {
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let details: HealthCertificeCellDetails
 }
