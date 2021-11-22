@@ -199,7 +199,7 @@ class TicketValidationCertificateSelectionViewModel {
 					format: AppStrings.TicketValidation.CertificateSelection.faqDescription,
 					AppStrings.TicketValidation.CertificateSelection.faq),
 				links: [
-					AppStrings.TicketValidation.CertificateSelection.faq: AppStrings.Links.ticketValidationFAQ
+					AppStrings.TicketValidation.CertificateSelection.faq: AppStrings.Links.ticketValidationNoValidDCCFAQ
 				],
 				linksColor: .enaColor(for: .textTint),
 				style: .footnote
