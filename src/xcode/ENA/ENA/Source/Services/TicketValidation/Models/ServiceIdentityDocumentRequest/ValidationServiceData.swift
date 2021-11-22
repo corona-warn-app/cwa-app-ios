@@ -11,7 +11,7 @@ import ENASecurity
 // | `verificationMethod` | array | An array of Verification Method objects (see below.) |
 // | `service` | array<br />(optional) | An array of Service objects (see below.) As this parameter is optional, it may be defaulted to an empty array. |
 
-struct ServiceIdentityDocument {
+struct ServiceIdentityDocument: Codable {
 	let id: String
 	let verificationMethod: [VerificationMethod]
 	let service: [ValidationServiceData]?
@@ -26,7 +26,7 @@ struct ServiceIdentityDocument {
 // | `publicKeyJwk` | object<br />(optional) | A JWK (see [Data Structure of a JSON Web Key (JWK)]) |
 // | `verificationMethods` | string[]<br />(optional) | An array of strings referencing `id` attributes of other verification methods. As this parameter is optional, it may be defaulted to an empty array. |
 
-struct VerificationMethod {
+struct VerificationMethod: Codable {
 	let id: String
 	let type: String
 	let controller: String
@@ -41,7 +41,7 @@ struct VerificationMethod {
 // | `serviceEndpoint` | string/url | URL to the service endpoint |
 // | `name` | string | Name of the service |
 
-struct ValidationServiceData {
+struct ValidationServiceData: Codable {
 	let id: String
 	let type: String
 	let serviceEndpoint: String
