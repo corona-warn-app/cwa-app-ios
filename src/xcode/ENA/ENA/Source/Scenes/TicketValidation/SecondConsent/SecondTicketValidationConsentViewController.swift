@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import UIKit
 
 class SecondTicketValidationConsentViewController: DynamicTableViewController, FooterViewHandling {
