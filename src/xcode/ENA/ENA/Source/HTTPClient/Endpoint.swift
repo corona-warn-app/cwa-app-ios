@@ -14,6 +14,7 @@ enum Endpoint {
 	case dataDonation
 	case errorLogSubmission
 	case dcc
+	case dynamic(URL)
 
 	// MARK: - Internal
 
@@ -31,6 +32,8 @@ enum Endpoint {
 			return environmentData.dccURL
 		case .dataDonation:
 			return environmentData.dataDonationURL
+		case .dynamic(let url):
+			return url
 		}
 	}
 

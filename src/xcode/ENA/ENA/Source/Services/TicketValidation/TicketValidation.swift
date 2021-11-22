@@ -67,7 +67,8 @@ final class TicketValidation: TicketValidating {
 		validationServiceData: ValidationServiceData,
 		validationServiceJwkSet: [JSONWebKey]
 	) -> Result<ServiceIdentityRequestResult, ServiceIdentityRequestError> {
-			
+		
+		let urlString = validationServiceData.serviceEndpoint
 			
 		return .failure(.VS_ID_CERT_PIN_MISMATCH)
 	}

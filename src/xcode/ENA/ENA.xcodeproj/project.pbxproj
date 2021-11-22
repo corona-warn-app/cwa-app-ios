@@ -1039,6 +1039,8 @@
 		ABC1C273267B854E00223625 /* DCCDateStringFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */; };
 		ABC1C275267B874F00223625 /* DCCDateStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */; };
 		ABC506C22747FE5900698A95 /* ValidationServiceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C12747FE5900698A95 /* ValidationServiceData.swift */; };
+		ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */; };
+		ABC506CF274BE30700698A95 /* Locator+ServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */; };
 		ABCA884626BBC956005FF148 /* CheckinEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884526BBC956005FF148 /* CheckinEncryption.swift */; };
 		ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */; };
 		ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */; };
@@ -2574,6 +2576,8 @@
 		ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatterTests.swift; sourceTree = "<group>"; };
 		ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatter.swift; sourceTree = "<group>"; };
 		ABC506C12747FE5900698A95 /* ValidationServiceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceData.swift; sourceTree = "<group>"; };
+		ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResource.swift; sourceTree = "<group>"; };
+		ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocument.swift"; sourceTree = "<group>"; };
 		ABCA884526BBC956005FF148 /* CheckinEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryption.swift; sourceTree = "<group>"; };
 		ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryptionTests.swift; sourceTree = "<group>"; };
 		ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBin.swift; sourceTree = "<group>"; };
@@ -7764,6 +7768,7 @@
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
 				BA52A69926EA1A1700AA0732 /* SendResources */,
+				ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -8468,6 +8473,7 @@
 				5001DE9126E20F64004242FA /* TWPDownload.swift */,
 				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
 				5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */,
+				ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -9395,6 +9401,7 @@
 				0144DDB625D5596800CFB1D1 /* MockDiaryStore.swift in Sources */,
 				BA5B7FD626458EF400502087 /* HealthCertificateSimpleTextCellViewModel.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
+				ABC506CF274BE30700698A95 /* Locator+ServiceIdentityDocument.swift in Sources */,
 				013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */,
@@ -9502,6 +9509,7 @@
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
 				8F80802E2731242900F8FA3F /* SubmissionTANModel.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
+				ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
