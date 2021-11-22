@@ -175,7 +175,7 @@ struct SecondTicketValidationConsentViewModel {
 
 internal extension DynamicCell {
 
-	/// A `legalExtendedTicketValidation` to display legal text for Data Donation screen with bullet points and sub bullet points
+	/// A `legalExtendedTicketValidation` to display legal text for Ticket Validation consent screen with bullet points and sub bullet points
 	/// - Parameters:
 	///   - title: The title/header for the legal foo.
 	///   - description: Optional description text.
