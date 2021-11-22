@@ -7,7 +7,7 @@ import Foundation
 Wraps the different endpoints for the different resources
 */
 
-enum Endpoint {
+enum Endpoint: Equatable, Hashable {
 	case distribution
 	case submission
 	case verification
@@ -15,7 +15,7 @@ enum Endpoint {
 	case errorLogSubmission
 	case dcc
 	case dynamic(URL)
-
+	
 	// MARK: - Internal
 
 	func url(_ environmentData: EnvironmentData) -> URL {
@@ -36,5 +36,4 @@ enum Endpoint {
 			return url
 		}
 	}
-
 }
