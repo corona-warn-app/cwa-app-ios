@@ -28,15 +28,7 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.onDismiss()
-			}
-		)
-
-		setupTableView()
-
-		view.backgroundColor = .enaColor(for: .background)
+		setupView()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -51,9 +43,16 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 	private let onDismiss: () -> Void
 	private let viewModel: TicketValidationCertificateSelectionViewModel
 
-	private func setupTableView() {
-		tableView.separatorStyle = .none
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	private func setupView() {
+		title = AppStrings.TicketValidation.CertificateSelection.title
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+
+		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
 			HealthCertificateCell.self,
@@ -64,6 +63,9 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 			TicketValidationNoSupportedCertificateCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.noSupportedCertificateCell.rawValue
 		)
+		
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
 	}
 
 }
