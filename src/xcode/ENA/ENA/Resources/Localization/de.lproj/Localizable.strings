@@ -1597,11 +1597,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.14 */
+/* Version 2.15 */
 
-"NewVersionFeature_214_recycleBin_title" = "Papierkorbfunktion für Tests";
+"NewVersionFeature_215_ticketValidation_title" = "Zertifikatprüfung bei Buchungen";
 
-"NewVersionFeature_214_recycleBin_description" = "Entfernte Schnelltests und PCR-Tests werden jetzt auch in den Papierkorb verschoben. Sie haben somit die Möglichkeit, versehentlich gelöschte Tests wiederherzustellen.";
+"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Wird Ihr Zertifikat erfolgreich geprüft und erfüllt die Anforderungen, wird es an das Buchungssystem übertragen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3068,8 +3068,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
 
-"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
-
 "HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
 "HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
@@ -3107,8 +3105,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_Passed_hint1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
 "HealthCertificate_Validation_Passed_hint2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
-
-"HealthCertificate_Validation_Passed_hint3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
