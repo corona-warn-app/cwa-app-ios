@@ -51,6 +51,8 @@ extension OSLog {
 	static let recycleBin = OSLog(subsystem: subsystem, category: "recyclebin")
 	/// Onboarding
 	static let onboarding = OSLog(subsystem: subsystem, category: "onboarding")
+	/// TicketValidation
+	static let ticketValidation = OSLog(subsystem: subsystem, category: "ticketvalidation")
 }
 
 /// Logging
