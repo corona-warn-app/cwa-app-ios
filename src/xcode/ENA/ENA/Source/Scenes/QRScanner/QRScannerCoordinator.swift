@@ -149,6 +149,9 @@ class QRScannerCoordinator {
 					}
 				)
 				self?.fileScannerCoordinator?.start()
+			},
+			onInfoButtonTap: {
+				
 			}
 		)
 		return qrScannerViewController
