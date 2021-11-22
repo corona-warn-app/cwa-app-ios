@@ -7759,16 +7759,16 @@
 		BA64FA8026D79BFD00DD4705 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA7B4C30272AD14300D0ED6A /* __tests__ */,
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
-				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
+				ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */,
+				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */,
+				BA7B4C30272AD14300D0ED6A /* __tests__ */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
 				BA52A69926EA1A1700AA0732 /* SendResources */,
-				ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

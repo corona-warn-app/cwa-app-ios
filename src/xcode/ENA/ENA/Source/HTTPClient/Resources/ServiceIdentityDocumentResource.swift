@@ -4,24 +4,48 @@
 
 import Foundation
 
+enum ServiceIdentityDocumentResourceError: Error {
+	case VS_ID_CLIENT_ERR
+	case VS_ID_NO_NETWORK
+	case VS_ID_SERVER_ERR
+	case VS_ID_NO_ENC_KEY
+	case VS_ID_NO_SIGN_KEY
+	case VS_ID_CERT_PIN_NO_JWK_FOR_KID
+	case VS_ID_CERT_PIN_MISMATCH
+	case VS_ID_PARSE_ERR
+	case VS_ID_EMPTY_X5C
+}
+
 struct ServiceIdentityDocumentResource: Resource {
-	
+
 	// MARK: - Init
 
-	init() {
-		self.locator = .appConfiguration
-		self.type = .caching
+	init(
+		endpointUrl: URL
+	) {
+		self.locator = Locator.serviceIdentityDocument(endpointUrl: endpointUrl)
+		self.type = .default
 		self.sendResource = EmptySendResource()
-		self.receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
+		self.receiveResource = JSONReceiveResource<ServiceIdentityDocument>()
 	}
 	
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
+	typealias Receive = JSONReceiveResource<ServiceIdentityDocument>
+	typealias CustomError = ServiceIdentityDocumentResourceError
 	
-	typealias Receive = <#type#>
+	var locator: Locator
+	var type: ServiceType
+	var sendResource: EmptySendResource
+	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
 	
-	typealias CustomError = Error
-	
-	
+	func customStatusCodeError(statusCode: Int) -> RegistrationTokenError? {
+		switch statusCode {
+		case (400):
+			return .regTokenNotExist
+		default:
+			return nil
+		}
+	}
 }
