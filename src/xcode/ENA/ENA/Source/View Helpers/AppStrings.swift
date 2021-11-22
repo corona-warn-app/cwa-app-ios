@@ -2481,10 +2481,6 @@ enum AppStrings {
 			static let subject = NSLocalizedString("TicketValidation_FirstConsent_subject", comment: "")
 			static let subjectValue = NSLocalizedString("\"%@\"", comment: "")
 			static let explination = NSLocalizedString("TicketValidation_FirstConsent_explination", comment: "")
-			static let legalTitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_title", tableName: "Localizable.legal", comment: "")
-			static let legalSubtitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_subtitle", tableName: "Localizable.legal", comment: "")
-			static let legalBulletPoint1 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint1", tableName: "Localizable.legal", comment: "")
-			static let legalBulletPoint2 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint2", tableName: "Localizable.legal", comment: "")
 			static let bulletPoint1 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint1", comment: "")
 			static let bulletPoint2 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint2", comment: "")
 			static let bulletPoint3 = NSLocalizedString("TicketValidation_FirstConsent_BulletPoint3", comment: "")
@@ -2492,6 +2488,41 @@ enum AppStrings {
 			static let dataPrivacyTitle = NSLocalizedString("TicketValidation_FirstConsent_DataPrivacyTitle", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_primaryButtonTitle", comment: "")
 			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_FirstConsent_secondaryButtonTitle", comment: "")
+			
+			enum Legal {
+				static let title = NSLocalizedString("TicketValidation_FirstConsent_Legal_title", tableName: "Localizable.legal", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_FirstConsent_Legal_subtitle", tableName: "Localizable.legal", comment: "")
+				static let bulletPoint1 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint1", tableName: "Localizable.legal", comment: "")
+				static let bulletPoint2 = NSLocalizedString("TicketValidation_FirstConsent_Legal_bulletPoint2", tableName: "Localizable.legal", comment: "")
+			}
+		}
+		
+		enum SecondConsent {
+			static let title = NSLocalizedString("TicketValidation_SecondConsent_title", comment: "")
+			static let subtitle = NSLocalizedString("TicketValidation_SecondConsent_subtitle", comment: "")
+			static let serviceIdentity = NSLocalizedString("TicketValidation_SecondConsent_serviceIdentity", comment: "")
+			static let serviceIdentityValue = NSLocalizedString("\"%@\"", comment: "")
+			static let serviceProvider = NSLocalizedString("TicketValidation_SecondConsent_serviceProvider", comment: "")
+			static let serviceProviderValue = NSLocalizedString("\"%@\"", comment: "")
+			static let explination = NSLocalizedString("TicketValidation_SecondConsent_explination", comment: "")
+			static let bulletPoint1 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint1", comment: "")
+			static let bulletPoint2 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint2", comment: "")
+			static let bulletPoint3 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint3", comment: "")
+			static let bulletPoint4 = NSLocalizedString("TicketValidation_SecondConsent_BulletPoint4", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("TicketValidation_SecondConsent_DataPrivacyTitle", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_primaryButtonTitle", comment: "")
+			static let secondaryButtonTitle = NSLocalizedString("TicketValidation_SecondConsent_secondaryButtonTitle", comment: "")
+			enum Legal {
+				static let title = NSLocalizedString("TicketValidation_SecondConsent_Legal_title", tableName: "Localizable.legal", comment: "")
+				static let subtitle = NSLocalizedString("TicketValidation_SecondConsent_Legal_subtitle", tableName: "Localizable.legal", comment: "")
+				static let bulletPoint1 = NSLocalizedString("TicketValidation_SecondConsent_Legal_bulletPoint1", tableName: "Localizable.legal", comment: "")
+				static let bulletPoint2 = NSLocalizedString("TicketValidation_SecondConsent_Legal_bulletPoint2", tableName: "Localizable.legal", comment: "")
+				static let subBulletPoint1 = NSLocalizedString("TicketValidation_SecondConsent_Legal_subBulletPoint1", tableName: "Localizable.legal", comment: "")
+				static let subBulletPoint2 = NSLocalizedString("TicketValidation_SecondConsent_Legal_subBulletPoint2", tableName: "Localizable.legal", comment: "")
+				static let subBulletPoint3 = NSLocalizedString("TicketValidation_SecondConsent_Legal_subBulletPoint3", tableName: "Localizable.legal", comment: "")
+				static let subBulletPoint4 = NSLocalizedString("TicketValidation_SecondConsent_Legal_subBulletPoint4", tableName: "Localizable.legal", comment: "")
+			}
+	
 		}
 
 		enum CertificateSelection {

@@ -3375,14 +3375,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* - Ticket Validation First Consent */
 
-"TicketValidation_CancelAlert_title" = "Wollen Sie die Überprüfung wirklich abbrechen?";
-
-"TicketValidation_CancelAlert_message" = "Wenn Sie die Überprüfung abbrechen, kann kein Zertifikat überprüft werden.";
-
-"TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung abbrechen";
-
-"TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
-
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
 
 "TicketValidation_FirstConsent_imageDescription" = "Ein Zertifikat wird für ein Ticketkauf übertragen";
@@ -3409,11 +3401,21 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
 
+"TicketValidation_CancelAlert_title" = "Wollen Sie die Überprüfung wirklich abbrechen?";
+
+"TicketValidation_CancelAlert_message" = "Wenn Sie die Überprüfung abbrechen, kann kein Zertifikat überprüft werden.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung abbrechen";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
+
 "TicketValidation_Error_title" = "Fehler";
 
 "TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
 
 "TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
 
 "TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
 
@@ -3446,3 +3448,29 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_SupportedCertificateType_PCRTestCertificate" = "PCR-Testzertifikat";
 
 "TicketValidation_SupportedCertificateType_RATTestCertificate" = "Schnelltest-Testzertifikat";
+
+/* - Ticket Validation Second Consent */
+
+"TicketValidation_SecondConsent_title" = "Ihr Einverständnis";
+
+"TicketValidation_SecondConsent_subtitle" = "Übermittlung Ihres Zertifikats zur Prüfung";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Prüfpartner:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Anbieter:";
+
+"TicketValidation_SecondConsent_explination" = "Das ausgewählte Zertifikat und Ihre Buchungsdaten werden nun an den Prüfpartner des Anbieters übermittelt. Für die Übermittlung Ihrer Daten an den Prüfpartner ist Ihr Einverständnis erforderlich.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Der Prüfpartner überprüft, ob die elektronische Signatur echt und das technische Ablaufdatum des Zertifikats noch nicht erreicht ist. Das technische Ablaufdatum und die übermittelten Zertifikatsinhalte können Sie in der App in der Detailansicht des Zertifikats einsehen.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Die Zertifikate enthalten sensible Gesundheitsdaten. Erlauben Sie daher nur solchen Anbietern die Überprüfung, die Ihnen bekannt sind und denen Sie vertrauen.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "Für die Datenverarbeitung durch den Anbieter und den Prüfpartner ist das RKI nicht verantwortlich. Lesen Sie bitte deren Datenschutzhinweise, damit Sie wissen, wozu und wie Ihre Daten verwendet werden.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Der Prüfpartner teilt dem Anbieter sofort das Prüfungsergebnis mit. Es wird nur mitgeteilt, ob die Prüfung erfolgreich war oder nicht.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Einverstanden";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Abbrechen";

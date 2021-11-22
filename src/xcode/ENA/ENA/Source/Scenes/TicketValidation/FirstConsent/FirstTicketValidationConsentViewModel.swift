@@ -67,15 +67,15 @@ struct FirstTicketValidationConsentViewModel {
 				cells: [
 					.legalExtendedDataDonation(
 						title: NSAttributedString(
-							string: AppStrings.TicketValidation.FirstConsent.legalTitle
+							string: AppStrings.TicketValidation.FirstConsent.Legal.title
 						),
 						description: NSAttributedString(
-							string: AppStrings.TicketValidation.FirstConsent.legalSubtitle,
+							string: AppStrings.TicketValidation.FirstConsent.Legal.subtitle,
 							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]
 						),
 						bulletPoints: [
-							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint1),
-							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint2)
+							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.Legal.bulletPoint1),
+							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.Legal.bulletPoint2)
 						],
 						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox,
 						configure: { _, cell, _ in
