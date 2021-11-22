@@ -6,7 +6,7 @@ import Foundation
 @testable import ENA
 
 extension TicketValidationInitializationData {
-	static func fake (
+	static func fake(
 		`protocol`: String = "protocol",
 		protocolVersion: String = "protocolVersion",
 		serviceIdentity: String = "serviceIdentity",
