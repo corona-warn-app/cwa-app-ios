@@ -1044,6 +1044,8 @@
 		ABC506BD2747DC9C00698A95 /* TicketValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B42747DC8700698A95 /* TicketValidationTests.swift */; };
 		ABC506BF2747DF8B00698A95 /* Data+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506BE2747DF8B00698A95 /* Data+Random.swift */; };
 		ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */; };
+		ABC506C8274BA9E500698A95 /* DCCEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C7274BA9E500698A95 /* DCCEncryption.swift */; };
+		ABC506CB274BAA5F00698A95 /* DCCEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */; };
 		ABCA884626BBC956005FF148 /* CheckinEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884526BBC956005FF148 /* CheckinEncryption.swift */; };
 		ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */; };
 		ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */; };
@@ -2584,6 +2586,8 @@
 		ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptAndSignError.swift; sourceTree = "<group>"; };
 		ABC506BE2747DF8B00698A95 /* Data+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Random.swift"; sourceTree = "<group>"; };
 		ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationInitializationData+Fake.swift"; sourceTree = "<group>"; };
+		ABC506C7274BA9E500698A95 /* DCCEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryption.swift; sourceTree = "<group>"; };
+		ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryptionTests.swift; sourceTree = "<group>"; };
 		ABCA884526BBC956005FF148 /* CheckinEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryption.swift; sourceTree = "<group>"; };
 		ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryptionTests.swift; sourceTree = "<group>"; };
 		ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBin.swift; sourceTree = "<group>"; };
@@ -3166,6 +3170,7 @@
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
+				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -6669,6 +6674,7 @@
 			children = (
 				ABC506C3274BA86C00698A95 /* Model */,
 				ABC506B42747DC8700698A95 /* TicketValidationTests.swift */,
+				ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9584,6 +9590,7 @@
 				016E260325AF20300077C64C /* HomeStatisticsCardView.swift in Sources */,
 				BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */,
 				9417BA95252B6B5100AD4053 /* DMSQLiteErrorViewController.swift in Sources */,
+				ABC506C8274BA9E500698A95 /* DCCEncryption.swift in Sources */,
 				AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */,
 				BA72C08126CA899D00ED378F /* DMDSCListsController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
@@ -10401,6 +10408,7 @@
 				BAE106E426710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift in Sources */,
 				50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */,
 				BAA19D6D2612184E00CBBDDD /* CheckInDescriptionCellModelTests.swift in Sources */,
+				ABC506CB274BAA5F00698A95 /* DCCEncryptionTests.swift in Sources */,
 				015178C22507D2E50074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift in Sources */,
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
 				50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */,
