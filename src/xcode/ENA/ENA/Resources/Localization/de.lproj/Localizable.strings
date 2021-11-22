@@ -3180,7 +3180,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "Ihre PCR-Tests, Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate sowie Check-ins";
+"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Überprüfungen bei Ticketbuchungen";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
