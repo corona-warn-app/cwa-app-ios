@@ -79,7 +79,7 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 	// MARK: - Internal
 	
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legalExtended = "DynamicLegalExtendedCell"
+		case legal = "DynamicLegalCell"
 	}
 	
 	// MARK: - Private
@@ -94,8 +94,8 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 		tableView.contentInsetAdjustmentBehavior = .never
 		
 		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel

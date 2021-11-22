@@ -66,7 +66,7 @@ struct FirstTicketValidationConsentViewModel {
 			// Bulletpoints in consent box
 			.section(
 				cells: [
-					.legalExtendedDataDonation(
+					.acknowledgement(
 						title: NSAttributedString(
 							string: AppStrings.TicketValidation.FirstConsent.legalTitle
 						),
