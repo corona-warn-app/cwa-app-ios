@@ -68,7 +68,6 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	private let onDismiss: () -> Void
 
 	private func setupView() {
-		
 		title = AppStrings.TicketValidation.SecondConsent.title
 		
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(

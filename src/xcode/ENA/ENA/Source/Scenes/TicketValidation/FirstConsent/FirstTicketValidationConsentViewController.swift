@@ -68,6 +68,8 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	private let onDismiss: () -> Void
 
 	private func setupView() {
+		title = AppStrings.TicketValidation.FirstConsent.title
+
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
