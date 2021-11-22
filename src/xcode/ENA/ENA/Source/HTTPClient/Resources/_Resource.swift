@@ -17,10 +17,16 @@ protocol Resource {
 	var receiveResource: Receive { get }
 
 	func customStatusCodeError(statusCode: Int) -> CustomError?
+	func customError(for error: ServiceError<CustomError>) -> CustomError?
 }
 
+// Custom error handling
 extension Resource {
 	func customStatusCodeError(statusCode: Int) -> CustomError? {
+		return nil
+	}
+	
+	func customError(for error: ServiceError<CustomError>) -> CustomError? {
 		return nil
 	}
 }
