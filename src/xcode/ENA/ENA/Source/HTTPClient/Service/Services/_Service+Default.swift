@@ -51,7 +51,7 @@ extension Service {
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				if let error = error {
-					completion(.failure(.transportationError(error)))
+					completion(.failure(customError(in: resource, for: .transportationError(error))))
 					return
 				}
 
@@ -103,7 +103,7 @@ extension Service {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
-			completion(.failure(.resourceError(resourceError)))
+			completion(.failure(customError(in: resource, for: .resourceError(resourceError))))
 		}
 	}
 
@@ -119,6 +119,17 @@ extension Service {
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
 		return nil
+	}
+	
+	private func customError<R>(
+		in resource: R,
+		for serviceError: ServiceError<R.CustomError>
+	) -> ServiceError<R.CustomError> where R: Resource {
+		if let customError = resource.customError(for: serviceError) {
+			return .receivedResourceError(customError)
+		} else {
+			return .resourceError(.notModified)
+		}
 	}
 
 }
