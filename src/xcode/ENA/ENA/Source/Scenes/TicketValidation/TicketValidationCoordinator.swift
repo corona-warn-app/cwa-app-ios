@@ -112,7 +112,19 @@ final class TicketValidationCoordinator {
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
 				isLoading(true)
-				// call grantSecondConsent()
+				
+				self?.ticketValidation.validate { result in
+					DispatchQueue.main.async {
+						isLoading(false)
+
+						switch result {
+						case .success(let ticketValidationResult):
+							self?.showResultScreen(for: ticketValidationResult)
+						case .failure(let error):
+							self?.showErrorAlert(error: error)
+						}
+					}
+				}
 			},
 			onDismiss: {
 				self.showDismissAlert()
