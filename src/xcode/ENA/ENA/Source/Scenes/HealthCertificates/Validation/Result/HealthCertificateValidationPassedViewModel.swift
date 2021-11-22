@@ -78,7 +78,6 @@ struct HealthCertificateValidationPassedViewModel: HealthCertificateValidationRe
 					.headline(text: AppStrings.HealthCertificate.Validation.Result.Passed.hintsTitle),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint1, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint2, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint3, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.Result.Passed.hint4, spacing: .large)
 				]
 			)
