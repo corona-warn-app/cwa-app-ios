@@ -133,6 +133,7 @@ class TicketValidationCertificateSelectionViewModel {
 		}
 
 		var supportedHealthCertificatesCells: [DynamicCell] = [
+			.title1(text: AppStrings.TicketValidation.CertificateSelection.title),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRequirementsHeadline),
 			.subheadline(
 			   text: serviceProviderRequirementsDescription,
@@ -172,6 +173,7 @@ class TicketValidationCertificateSelectionViewModel {
 		
 	private func dynamicTableViewModelNoSupportedCertificate(serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
 		var noSupportedCertificateCells: [DynamicCell] = [
+			.title1(text: AppStrings.TicketValidation.CertificateSelection.title),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.noSupportedCertificateHeadline),
 			.subheadline(
 				text: AppStrings.TicketValidation.CertificateSelection.noSupportedCertificateDescription,

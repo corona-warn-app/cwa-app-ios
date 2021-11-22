@@ -33,11 +33,17 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 				self?.onDismiss()
 			}
 		)
-		navigationItem.title = AppStrings.TicketValidation.CertificateSelection.title
 
 		setupTableView()
 
 		view.backgroundColor = .enaColor(for: .background)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
+		navigationController?.navigationBar.prefersLargeTitles = false
 	}
 
 	// MARK: - Private
