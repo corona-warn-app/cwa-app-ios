@@ -87,7 +87,7 @@ final class StoreTests: CWATestCase {
 	func testBackupRestoration() throws {
 		// prerequisite: clean state
 		let keychain = try KeychainHelper()
-		try keychain.clearInKeychain(key: SecureStore.keychainDatabaseKey)
+		try keychain.clearInKeychain(key: SecureStore.encryptionKeyKeychainKey)
 
 		// 1. create store and store db key in keychain
 		let store = SecureStore(subDirectory: "test")
@@ -96,7 +96,7 @@ final class StoreTests: CWATestCase {
 		store.isOnboarded.toggle()
 		store.testGUID = UUID().uuidString
 
-		guard let databaseKey = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) else {
+		guard let databaseKey = keychain.loadFromKeychain(key: SecureStore.encryptionKeyKeychainKey) else {
 			XCTFail("expected a key!")
 			return
 		}
@@ -107,16 +107,16 @@ final class StoreTests: CWATestCase {
 		XCTAssertTrue(restore.isOnboarded)
 		XCTAssertEqual(restore.testGUID, store.testGUID)
 		// still the same key?
-		XCTAssertEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
+		XCTAssertEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.encryptionKeyKeychainKey))
 
 		// 3. db key in keychain 'changed' for some reason
 		// swiftlint:disable:next force_unwrapping
-		try keychain.saveToKeychain(key: SecureStore.keychainDatabaseKey, data: "corrupted".data(using: .utf8)!)
+		try keychain.saveToKeychain(key: SecureStore.encryptionKeyKeychainKey, data: "corrupted".data(using: .utf8)!)
 		let restore2 = SecureStore(subDirectory: "test")
 		// database reset?
 		XCTAssertFalse(restore2.isOnboarded)
 		XCTAssertEqual(restore2.testGUID, "") // init values…
-		XCTAssertNotEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
+		XCTAssertNotEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.encryptionKeyKeychainKey))
 
 		// cleanup
 		store.wipeAll(key: nil)

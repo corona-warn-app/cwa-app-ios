@@ -279,6 +279,8 @@ class QRScannerViewController: UIViewController {
 			unwrappedError = checkinQRScannerError
 		case .certificateQrError(let healthCertificateServiceError):
 			unwrappedError = healthCertificateServiceError
+		case .ticketValidation(let ticketValidationError):
+			unwrappedError = ticketValidationError
 		}
 
 		var alertTitle = AppStrings.HealthCertificate.Error.title

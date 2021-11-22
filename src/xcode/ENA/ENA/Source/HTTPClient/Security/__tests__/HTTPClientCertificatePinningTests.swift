@@ -44,9 +44,9 @@ class HTTPClientCertificatePinningTests: CWATestCase {
 			XCTAssertNil(response)
 
 			// failed pinning results in a 'cancelled' error
-			let error = error as NSError?
-			XCTAssertEqual(error?.domain, NSURLErrorDomain)
-			XCTAssertEqual(error?.code, NSURLErrorCancelled)
+			let nsError = error as NSError?
+			XCTAssertEqual(nsError?.domain, NSURLErrorDomain)
+			XCTAssertEqual(nsError?.code, NSURLErrorCancelled)
 			taskFinished.fulfill()
 		}
 		task2.resume()

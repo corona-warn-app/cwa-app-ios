@@ -32,6 +32,11 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 		super.viewDidLoad()
 		setupView()
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = false
+	}
 
 	// MARK: - Protocol FooterViewHandling
 
@@ -49,6 +54,12 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 		}
 	}
 	
+	// MARK: - Internal
+	
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legalExtended = "DynamicLegalExtendedCell"
+	}
+	
 	// MARK: - Private
 
 	private let viewModel: FirstTicketValidationConsentViewModel
@@ -63,6 +74,11 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 		)
 
 		view.backgroundColor = .enaColor(for: .background)
+		
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none

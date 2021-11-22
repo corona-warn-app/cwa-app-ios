@@ -46,10 +46,10 @@ final class TicketValidationCoordinator {
 				}
 			),
 			onPrimaryButtonTap: { [weak self] isLoading in
-				DispatchQueue.main.async {
-					isLoading(true)
+				isLoading(true)
 
-					self?.ticketValidation.grantFirstConsent { result in
+				self?.ticketValidation.grantFirstConsent { result in
+					DispatchQueue.main.async {
 						isLoading(false)
 
 						switch result {
@@ -125,8 +125,31 @@ final class TicketValidationCoordinator {
 		
 	}
 
-	private func showErrorAlert(error: TicketValidationError) {
+	private func showSecondConsentScreen(selectedCertificate: HealthCertificate) {
 
+	}
+
+	private func showResultScreen(for result: TicketValidationResult) {
+
+	}
+
+	private func showErrorAlert(error: TicketValidationError) {
+		let alert = UIAlertController(
+			title: AppStrings.TicketValidation.Error.title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		DispatchQueue.main.async {
+			self.navigationController.present(alert, animated: true)
+		}
 	}
 
 	private func showDismissAlert() {
@@ -135,22 +158,24 @@ final class TicketValidationCoordinator {
 			message: AppStrings.TicketValidation.CancelAlert.message,
 			preferredStyle: .alert
 		)
+		
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.TicketValidation.CancelAlert.continueButtonTitle,
 				style: .default
 			)
 		)
+		
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.TicketValidation.CancelAlert.cancelButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
+					self?.ticketValidation.cancel()
 					self?.navigationController.dismiss(animated: true)
 				}
 			)
 		)
-
 		navigationController.present(alert, animated: true)
 	}
 
