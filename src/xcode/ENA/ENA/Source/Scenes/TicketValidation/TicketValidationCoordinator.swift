@@ -117,13 +117,6 @@ final class TicketValidationCoordinator {
 			self.navigationController.pushViewController(certificateSelectionViewController, animated: true)
 		}
 	}
-	
-	private func showSecondConsentScreen(
-		selectedCertificate: HealthCertificate,
-		selectedCertifiedPerson: HealthCertifiedPerson
-	) {
-		
-	}
 
 	private func showSecondConsentScreen(
 		selectedCertificate: HealthCertificate,

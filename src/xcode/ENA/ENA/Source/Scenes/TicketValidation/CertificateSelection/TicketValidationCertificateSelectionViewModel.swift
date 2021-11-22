@@ -156,8 +156,9 @@ class TicketValidationCertificateSelectionViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: supportedHealthCertificate,
-							healthCertifiedPerson: certifiedPerson
-						)
+							healthCertifiedPerson: certifiedPerson,
+							details: .overview
+						),
 					)
 				})
 			)
