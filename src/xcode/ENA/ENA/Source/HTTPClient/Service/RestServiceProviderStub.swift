@@ -36,20 +36,27 @@ class RestServiceProviderStub: RestServiceProviding {
 			fatalError("load was called to often.")
 		}
 		loadResource.willLoadResource?(resource)
+		guard !resource.locator.isFake else {
+			Log.debug("Fake detected no response given", log: .client)
+			completion(.failure(.fakeResponse))
+			return
+		}
 
 		switch loadResource.result {
 		case .success(let model):
 			guard let _model = model as? R.Receive.ReceiveModel else {
 				fatalError("model does not have the correct type.")
 			}
+			// we need to remove the first resource calling the completion otherwise the second call can enter before removeFirst()
+			loadResources.removeFirst()
 			completion(.success(_model))
 		case .failure(let error):
 			guard let _error = error as? ServiceError<R.CustomError> else {
 				fatalError("error does not have the correct type.")
 			}
+			loadResources.removeFirst()
 			completion(.failure(_error))
 		}
-		loadResources.removeFirst()
 	}
 
 	func update(_ evaluateTrust: EvaluateTrust) {
