@@ -1132,11 +1132,11 @@ enum AppStrings {
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.14 */
+		/* Version 2.15 */
 		
-		static let feature214RecycleBinTitle = NSLocalizedString("NewVersionFeature_214_recycleBin_title", comment: "")
+		static let feature215TicketValidationTitle = NSLocalizedString("NewVersionFeature_215_ticketValidation_title", comment: "")
 		
-		static let feature214RecycleBinDescription = NSLocalizedString("NewVersionFeature_214_recycleBin_description", comment: "")
+		static let feature215TicketValidationDescription = NSLocalizedString("NewVersionFeature_215_ticketValidation_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
