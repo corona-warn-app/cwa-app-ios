@@ -29,22 +29,19 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 		
 		// we expect a chain of at least 2 certificates
 		// index '1' is the required intermediate
-		if let serverCertificate = SecTrustGetCertificateAtIndex(trust, 1),
-		   let serverPublicKey = SecCertificateCopyKey(serverCertificate),
-		   let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data? {
-			
-			// Matching fingerprint?
-			let keyHash = serverPublicKeyData.sha256String()
-			if publicKeyHash == keyHash {
-				// Success! This is our server
-				completionHandler(.useCredential, URLCredential(trust: trust))
-				return
-			}
+		guard let serverCertificate = SecTrustGetCertificateAtIndex(trust, 1),
+			  let serverPublicKey = SecCertificateCopyKey(serverCertificate),
+			  let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data?,
+			  publicKeyHash == serverPublicKeyData.sha256String()
+		else {
+			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+			return
 		}
 		
-		completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+		// Success! This is our server
+		completionHandler(.useCredential, URLCredential(trust: trust))
 	}
-	
+
 	// MARK: - Private
 	
 	private let publicKeyHash: String
