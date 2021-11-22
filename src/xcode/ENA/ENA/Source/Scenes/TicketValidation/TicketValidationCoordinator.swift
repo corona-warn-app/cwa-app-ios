@@ -109,13 +109,11 @@ final class TicketValidationCoordinator {
 			}
 		)
 		
-		DispatchQueue.main.async { [self] in
-			if #available(iOS 13.0, *) {
-				certificateSelectionViewController.isModalInPresentation = true
-			}
-			
-			self.navigationController.pushViewController(certificateSelectionViewController, animated: true)
+		if #available(iOS 13.0, *) {
+			certificateSelectionViewController.isModalInPresentation = true
 		}
+		
+		self.navigationController.pushViewController(certificateSelectionViewController, animated: true)
 	}
 
 	private func showSecondConsentScreen(
