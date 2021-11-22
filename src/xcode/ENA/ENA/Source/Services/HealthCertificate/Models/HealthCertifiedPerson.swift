@@ -181,14 +181,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.filter { $0.vaccinationEntry != nil }
 	}
 
-	var recoveryCertificates: [HealthCertificate] {
-		healthCertificates.filter { $0.recoveryEntry != nil }
-	}
-
 	var testCertificates: [HealthCertificate] {
 		healthCertificates.filter { $0.testEntry != nil }
 	}
-	
+
 	var unseenNewsCount: Int {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
