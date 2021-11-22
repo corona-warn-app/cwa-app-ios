@@ -38,7 +38,7 @@ class TicketValidationNoSupportedCertificateCell: UITableViewCell, ReuseIdentifi
 
 	func configure(_ cellModel: TicketValidationNoSupportedCertificateCellModel) {
 		iconImageView.image = cellModel.iconImage
-		serviceProviderRequirementsDescription.text = cellModel.serviceProviderRequirements
+		serviceProviderRequirementsDescription.text = cellModel.serviceProviderRequirementsDescription
 
 		self.cellModel = cellModel
 	}

@@ -17,15 +17,6 @@ final class TicketValidationNoSupportedCertificateCellModel {
 
 	// MARK: - Internal
 
-	var iconImage: UIImage? {
-		return UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Failed")
-	}
-
-	var serviceProviderRequirements: String? {
-		return self.serviceProviderRequirementsDescription
-	}
-
-	// MARK: - Private
-
-	private let serviceProviderRequirementsDescription: String
+	let serviceProviderRequirementsDescription: String
+	let iconImage = UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Failed")
 }

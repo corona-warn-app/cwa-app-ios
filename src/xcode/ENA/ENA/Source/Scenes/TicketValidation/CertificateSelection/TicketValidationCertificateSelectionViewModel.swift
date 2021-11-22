@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 import OpenCombine
+import HealthCertificateToolkit
 
 class TicketValidationCertificateSelectionViewModel {
 
@@ -34,14 +35,7 @@ class TicketValidationCertificateSelectionViewModel {
 	private let onHealthCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 	private var supportedHealthCertificates: [HealthCertificate]
 	
-	private let pcrTypeString = "LP6464-4"
-	private let antigenTypeString = "LP217198-3"
-	
 	private func filterCertificatesBasedOnValidationConditions() {
-		guard let certificateTypes = validationConditions.type else {
-			return
-		}
-
 		var supportedCertificateTypes: [String] = []
 
 		// all certificates of all persons
@@ -54,30 +48,35 @@ class TicketValidationCertificateSelectionViewModel {
 			$0.dateOfBirth == validationConditions.dob
 		})
 		
-		// if type contains v, all Vaccination Certificates shall pass the filter
-		if certificateTypes.contains("v") {
-			supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.vaccinationEntry != nil })
-			supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.vaccinationCertificate)
-		}
-		// if type contains r, all Recovery Certificates shall pass the filter
-		if certificateTypes.contains("r") {
-			supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.recoveryEntry != nil })
-			supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.recoveryCertificate)
-		}
-		// if type contains t, all Test Certificates shall pass the filter
-		if certificateTypes.contains("t") {
-			supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil })
-			supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.testCertificate)
-		}
-		// if type contains tp, all PCR tests shall pass the filter
-		if certificateTypes.contains("tp") {
-			supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == pcrTypeString })
-			supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
-		}
-		// if type contains tr, all RAT tests shall pass the filter
-		if certificateTypes.contains("tr") {
-			supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == antigenTypeString })
-			supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
+		if let certificateTypes = validationConditions.type, !certificateTypes.isEmpty {
+			// if type contains v, all Vaccination Certificates shall pass the filter
+			if certificateTypes.contains("v") {
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.vaccinationEntry != nil })
+				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.vaccinationCertificate)
+			}
+			// if type contains r, all Recovery Certificates shall pass the filter
+			if certificateTypes.contains("r") {
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.recoveryEntry != nil })
+				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.recoveryCertificate)
+			}
+			// if type contains t, all Test Certificates shall pass the filter
+			if certificateTypes.contains("t") {
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil })
+				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.testCertificate)
+			}
+			// if type contains tp, all PCR tests shall pass the filter
+			if certificateTypes.contains("tp") {
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.pcrTypeString })
+				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
+			}
+			// if type contains tr, all RAT tests shall pass the filter
+			if certificateTypes.contains("tr") {
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.antigenTypeString })
+				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
+			}
+		} else {
+			// if type is nil or empty, then there is no filtering by type
+			supportedHealthCertificates = healthCertifiedPersonCertificates
 		}
 		
 		// sorting on the basis of certificate type

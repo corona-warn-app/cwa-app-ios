@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TicketValidationCertificateSelectionViewController: DynamicTableViewController, DismissHandling {
+class TicketValidationCertificateSelectionViewController: DynamicTableViewController {
 
 	// MARK: - Init
 
@@ -44,8 +44,6 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 	private let viewModel: TicketValidationCertificateSelectionViewModel
 
 	private func setupView() {
-		title = AppStrings.TicketValidation.CertificateSelection.title
-
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
