@@ -42,7 +42,7 @@ struct SecondTicketValidationConsentViewModel {
 									healthCertifiedPerson: healthCertifiedPerson,
 									details: .overview
 								),
-								withDiscloreIndicator: false
+								withDisclosureIndicator: false
 							)
 						}
 					)
