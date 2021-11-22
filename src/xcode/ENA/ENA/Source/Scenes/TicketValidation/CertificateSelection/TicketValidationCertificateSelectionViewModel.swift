@@ -158,7 +158,7 @@ class TicketValidationCertificateSelectionViewModel {
 							healthCertificate: supportedHealthCertificate,
 							healthCertifiedPerson: certifiedPerson,
 							details: .overview
-						),
+						)
 					)
 				})
 			)

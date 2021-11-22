@@ -446,10 +446,8 @@
 		340421D4263DDDA700155BC6 /* ENAUITests_05_DataDonation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */; };
 		340AC9B82747E2CF0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340AC9B72747E2CC0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift */; };
 		340AC9BA2747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340AC9B92747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift */; };
-		341320542742B928003E3906 /* SecondTicketValidationConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320532742B928003E3906 /* SecondTicketValidationConsentViewModel.swift */; };
 		341320562742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320552742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift */; };
 		3413205A2742CE42003E3906 /* TicketValidationCertificateSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320592742CE3E003E3906 /* TicketValidationCertificateSelectionViewController.swift */; };
-		3413205C2742CE52003E3906 /* SecondTicketValidationConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3413205B2742CE52003E3906 /* SecondTicketValidationConsentViewController.swift */; };
 		341DC32F26823F100003E6BA /* LocalStatisticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC32E26823F100003E6BA /* LocalStatisticsProviding.swift */; };
 		341DC3312682401D0003E6BA /* LocalStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC3302682401D0003E6BA /* LocalStatisticsProvider.swift */; };
 		341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */; };
@@ -4460,17 +4458,10 @@
 			children = (
 				34991C2B274282250056F9FA /* TicketValidationCertificateSelectionViewController.swift */,
 				34991C2D274282600056F9FA /* SecondTicketValidationConsentViewController.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		3413204D2742B883003E3906 /* SecondConsent */ = {
-			isa = PBXGroup;
-			children = (
 				3413205B2742CE52003E3906 /* SecondTicketValidationConsentViewController.swift */,
 				341320532742B928003E3906 /* SecondTicketValidationConsentViewModel.swift */,
 			);
-			path = SecondConsent;
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		341320502742B8CA003E3906 /* CertificateSelection */ = {
@@ -9372,7 +9363,6 @@
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
 				01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */,
 				01B72BF22583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift in Sources */,
-				3413205C2742CE52003E3906 /* SecondTicketValidationConsentViewController.swift in Sources */,
 				5058DF7C2666CC7700858446 /* DCCResponse.swift in Sources */,
 				8F7C3A1A261BB53700AEC979 /* CheckinQRScannerError.swift in Sources */,
 				01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */,
@@ -9483,7 +9473,6 @@
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				5071A87926EB76EC00B09B40 /* EmptyReceiveResource.swift in Sources */,
 				ABE9615B25F11FBC00D0F699 /* EventStoring.swift in Sources */,
-				341320542742B928003E3906 /* SecondTicketValidationConsentViewModel.swift in Sources */,
 				01E0D3AC268F061B00E32CF9 /* HealthCertificateValidationCoordinator.swift in Sources */,
 				EB2FDF952639A75E00B2BBF0 /* StringInterpolation+Private.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
