@@ -8,10 +8,16 @@ enum LinkHelper {
 	
 	typealias Success = Bool
 	
+	enum Result {
+		case done
+		case error
+		case allow
+	}
+	
 	@discardableResult
 	static func open(urlString: String) -> Success {
 		if let url = URL(string: urlString) {
-			return open(url: url)
+			return open(url: url) == .done
 		} else {
 			let error = "\(urlString) is no valid URL"
 			Log.error(error, log: .api)
@@ -20,19 +26,22 @@ enum LinkHelper {
 	}
 	
 	@discardableResult
-	static func open(url: URL) -> Success {
+	static func open(url: URL, interaction: UITextItemInteraction = .invokeDefaultAction) -> Result {
 		#if DEBUG
 		if isUITesting {
 			showAlert(url: url)
-			return true
+			return .done
 		}
 		#endif
+		guard interaction == .invokeDefaultAction else {
+			return .allow
+		}
 		guard UIApplication.shared.canOpenURL(url) else {
 			Log.error("Cannot open url \(url.absoluteString)", log: .api)
-			return false
+			return .error
 		}
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
-		return true
+		return .done
 	}
 	
 	#if DEBUG
