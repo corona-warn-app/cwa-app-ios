@@ -5,12 +5,12 @@
 import Foundation
 import UIKit
 
-class FirstTicketValidationConsentViewController: DynamicTableViewController, FooterViewHandling {
+class SecondTicketValidationConsentViewController: DynamicTableViewController, FooterViewHandling {
 	
 	// MARK: - Init
 	
 	init(
-		viewModel: FirstTicketValidationConsentViewModel,
+		viewModel: SecondTicketValidationConsentViewModel,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
@@ -35,8 +35,15 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.navigationBar.backgroundColor = .clear
-		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
+	}
+	
+	// MARK: - Cell reuse identifiers.
+
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case healthCertificateCell = "HealthCertificateCell"
+		case legalExtended = "DynamicLegalExtendedCell"
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -55,19 +62,16 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 		}
 	}
 	
-	// MARK: - Internal
-	
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legalExtended = "DynamicLegalExtendedCell"
-	}
-	
 	// MARK: - Private
 
-	private let viewModel: FirstTicketValidationConsentViewModel
+	private let viewModel: SecondTicketValidationConsentViewModel
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onDismiss: () -> Void
 
 	private func setupView() {
+		
+		title = AppStrings.TicketValidation.SecondConsent.title
+		
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
@@ -77,8 +81,12 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 		view.backgroundColor = .enaColor(for: .background)
 		
 		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.healthCertificateCell.rawValue
+		)
+		tableView.register(
 			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.legalExtended.rawValue
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
