@@ -20,10 +20,21 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(headline: String, image: UIImage, topInset: CGFloat) {
+	func configure(
+		headline: String,
+		image: UIImage,
+		topInset: CGFloat,
+		accessibilityLabel: String? = nil,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = [.header, .image]
+	) {
 		headlineLabel.text = headline
 		backgroundImageView.image = image
 		topInsetConstraint.constant = topInset
+
+		backgroundImageView.accessibilityLabel = accessibilityLabel
+		backgroundImageView.accessibilityIdentifier = accessibilityIdentifier
+		backgroundImageView.accessibilityTraits = accessibilityTraits
 	}
 
 	// MARK: - Private

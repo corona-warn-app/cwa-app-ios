@@ -23,13 +23,14 @@ struct FirstTicketValidationConsentViewModel {
 		DynamicTableViewModel([
 			// Image with title
 			.section(
-				header: .image(
-					UIImage(named: "Illu_TicketValidation"),
-					title: AppStrings.TicketValidation.FirstConsent.title,
-					accessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
-					accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
-				),
-				cells: []
+				cells: [
+					.headlineWithImage(
+						headerText: AppStrings.TicketValidation.FirstConsent.title,
+						image: UIImage(imageLiteralResourceName: "Illu_TicketValidation"),
+						accessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
+					)
+				]
 			),
 			// Subtitle with service provider and subject
 			.section(

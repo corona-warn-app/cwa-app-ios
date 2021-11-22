@@ -248,12 +248,20 @@ extension DynamicCell {
 		topInset: CGFloat = 64.0,
 		font: ENAFont = .title1,
 		image: UIImage,
+		accessibilityLabel: String? = nil,
 		accessibilityIdentifier: String? = nil,
 		accessibilityTraits: UIAccessibilityTraits = [.header, .image],
 		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(CellReuseIdentifier.headlineWithImage, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image, topInset: topInset)
+			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(
+				headline: headerText,
+				image: image,
+				topInset: topInset,
+				accessibilityLabel: accessibilityLabel,
+				accessibilityIdentifier: accessibilityIdentifier,
+				accessibilityTraits: accessibilityTraits
+			)
 			configure?(viewController, cell, indexPath)
 		}
 	}
