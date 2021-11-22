@@ -19,9 +19,9 @@ class RestServiceProvider: RestServiceProviding {
 		self.environment = environment
 		self.optionalSession = session
 
-		self.restService = StandardRestService(environment: environment, session: session)
-		self.cachedService = CachedRestService(environment: environment, session: session, cache: cache)
-		self.wifiOnlyService = WifiOnlyRestService(environment: environment, session: session)
+		self.standardRestService = StandardRestService(environment: environment, session: session)
+		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
 		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session, jwkSet: jwkSet)
 	}
 
@@ -33,9 +33,9 @@ class RestServiceProvider: RestServiceProviding {
 	) {
 		self.environment = environment
 		self.optionalSession = session
-		self.restService = StandardRestService(environment: environment, session: session)
-		self.cachedService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
-		self.wifiOnlyService = WifiOnlyRestService(environment: environment, session: session)
+		self.standardRestService = StandardRestService(environment: environment, session: session)
+		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
 		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session)
 	}
 
@@ -48,11 +48,11 @@ class RestServiceProvider: RestServiceProviding {
 		// dispatch loading to the correct rest service
 		switch resource.type {
 		case .default:
-			restService.load(resource, completion)
+			standardRestService.load(resource, completion)
 		case .caching:
-			cachedService.load(resource, completion)
+			cachedRestService.load(resource, completion)
 		case .wifiOnly:
-			wifiOnlyService.load(resource, completion)
+			wifiOnlyRestService.load(resource, completion)
 		case .retrying:
 			Log.error("Not yet implemented")
 		case .dynamicPinning:
@@ -78,9 +78,9 @@ class RestServiceProvider: RestServiceProviding {
 
 	private let environment: EnvironmentProviding
 	private let optionalSession: URLSession?
-	private let restService: StandardRestService
-	private let cachedService: CachedRestService
-	private let wifiOnlyService: WifiOnlyRestService
+	private let standardRestService: StandardRestService
+	private let cachedRestService: CachedRestService
+	private let wifiOnlyRestService: WifiOnlyRestService
 	private let dynamicPinningRestService: DynamicPinningRestService
 	private let updateLock: NSLock = NSLock()
 
