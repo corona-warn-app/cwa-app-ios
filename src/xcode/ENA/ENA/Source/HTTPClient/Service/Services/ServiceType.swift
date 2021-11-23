@@ -8,4 +8,5 @@ enum ServiceType {
 	case caching
 	case wifiOnly
 	case retrying
+	case dynamicPinning
 }
