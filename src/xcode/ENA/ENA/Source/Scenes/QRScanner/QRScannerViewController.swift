@@ -106,6 +106,8 @@ class QRScannerViewController: UIViewController {
 		let button = UIButton()
 		button.setImage(UIImage(imageLiteralResourceName: "infoBigger"), for: .normal)
 		button.addTarget(self, action: #selector(didHitInfoButton), for: .touchUpInside)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.info
+
 		return button
 	}()
 
