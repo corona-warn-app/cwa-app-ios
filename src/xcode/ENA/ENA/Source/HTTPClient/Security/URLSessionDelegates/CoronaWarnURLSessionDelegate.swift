@@ -3,21 +3,45 @@
 //
 
 import Foundation
+import ENASecurity
 
-final class CoronaWarnURLSessionDelegate: NSObject {
-	private let publicKeyHash: String
+final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 
-	// MARK: - Creating a Delegate
-
+	// MARK: - Init
 
 	/// Initializes a CWA Session delegate
 	/// - Parameter publicKeyHash: the SHA256 of the certificate to pin
-	init(publicKeyHash: String) {
-		self.publicKeyHash = publicKeyHash
-	}
-}
 
-extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
+	init(
+		evaluateTrust: EvaluateTrust
+	) {
+		self.evaluateTrust = evaluateTrust
+	}
+
+	convenience init(
+		publicKeyHash: String
+	) {
+		self.init(
+			evaluateTrust: DefaultEvaluateTrust(
+				publicKeyHash: publicKeyHash
+			)
+		)
+	}
+
+	convenience init(
+		jwkSet: [Data],
+		trustEvaluation: TrustEvaluation = TrustEvaluation()
+	) {
+		self.init(
+			evaluateTrust: DynamicEvaluateTrust(
+				jwkSet: jwkSet,
+				trustEvaluation: trustEvaluation
+			)
+		)
+	}
+
+	// MARK: - Protocol URLSessionDelegate
+
 	func urlSession(
 		_ session: URLSession,
 		didReceive challenge: URLAuthenticationChallenge,
@@ -29,7 +53,6 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
-
 		// Apple's sample code[1] ignores the result of `SecTrustEvaluateAsyncWithError`.
 		// We consider it also safe to not check for failures within `SecTrustEvaluateAsyncWithError`
 		// that might return something different than `errSecSuccess`.
@@ -48,7 +71,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 						return
 					}
-					self?.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
+					self?.evaluateTrust.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
 				}
 			}
 		} else {
@@ -56,7 +79,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			let status = SecTrustEvaluate(trust, &secresult)
 
 			if status == errSecSuccess {
-				self.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
+				self.evaluateTrust.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
 			} else {
 				Log.error("Evaluation failed with status: \(status)", log: .api, error: nil)
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
@@ -64,38 +87,8 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		}
 	}
 
+	// MARK: - Internal
 
-	/// Common evaluation, covering iOS versions 12.5 or 13.x
-	/// - Parameters:
-	///   - challenge: A challenge from a server requiring authentication from the client.
-	///   - trust: Shortcut for `challenge.protectionSpace.serverTrust`
-	///   - completionHandler: the completion handler to accept or reject the request
-	private func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-		#if DEBUG
-		// debug/review: print the chain
-		for i in 0..<SecTrustGetCertificateCount(trust) {
-			if let cert = SecTrustGetCertificateAtIndex(trust, i) {
-				Log.debug("[\(challenge.protectionSpace.host)] @ \(i): \(cert)", log: .crypto)
-			}
-		}
-		#endif
+	var evaluateTrust: EvaluateTrust
 
-		// we expect a chain of at least 2 certificates
-		// index '1' is the required intermediate
-		if
-			let serverCertificate = SecTrustGetCertificateAtIndex(trust, 1),
-			let serverPublicKey = SecCertificateCopyKey(serverCertificate),
-			let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data? {
-
-			// Matching fingerprint?
-			let keyHash = serverPublicKeyData.sha256String()
-			if publicKeyHash == keyHash {
-				// Success! This is our server
-				completionHandler(.useCredential, URLCredential(trust: trust))
-				return
-			}
-		}
-
-		completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
-	}
 }
