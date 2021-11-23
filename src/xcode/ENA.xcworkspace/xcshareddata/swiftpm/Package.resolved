@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "ASN1Decoder",
-        "repositoryURL": "https://github.com/corona-warn-app/ASN1Decoder",
-        "state": {
-          "branch": null,
-          "revision": "6799658a8dde751d932896282ee9cda912a8f384",
-          "version": "1.8.1"
-        }
-      },
-      {
         "package": "base45-swift",
         "repositoryURL": "https://github.com/corona-warn-app/base45-swift",
         "state": {
@@ -26,42 +17,6 @@
           "branch": null,
           "revision": "c119e12decae8f56066df3345a4ac1a05b2f06d5",
           "version": "2.0.1"
-        }
-      },
-      {
-        "package": "Cryptor",
-        "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
-        "state": {
-          "branch": null,
-          "revision": "88fc6e132f41ece53e49acc0e4f67b0331c15b90",
-          "version": "2.0.1"
-        }
-      },
-      {
-        "package": "CryptorECC",
-        "repositoryURL": "https://github.com/Kitura/BlueECC.git",
-        "state": {
-          "branch": null,
-          "revision": "baf6ed3fc1a622675f0041b4aff7c02dd1a93818",
-          "version": "1.2.200"
-        }
-      },
-      {
-        "package": "CryptorRSA",
-        "repositoryURL": "https://github.com/corona-warn-app/BlueRSA.git",
-        "state": {
-          "branch": null,
-          "revision": "4bece7a18aac6e905f5acc215719fc050c2ecbc4",
-          "version": null
-        }
-      },
-      {
-        "package": "CryptoSwift",
-        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "4b0565384d3c4c588af09e660535b2c7c9bf5b39",
-          "version": "1.4.2"
         }
       },
       {
@@ -101,24 +56,6 @@
         }
       },
       {
-        "package": "KituraContracts",
-        "repositoryURL": "https://github.com/Kitura/KituraContracts.git",
-        "state": {
-          "branch": null,
-          "revision": "8a4778c3aa7833e9e1af884e8819d436c237cd70",
-          "version": "1.2.201"
-        }
-      },
-      {
-        "package": "LoggerAPI",
-        "repositoryURL": "https://github.com/Kitura/LoggerAPI.git",
-        "state": {
-          "branch": null,
-          "revision": "e82d34eab3f0b05391082b11ea07d3b70d2f65bb",
-          "version": "1.9.200"
-        }
-      },
-      {
         "package": "OpenCombine",
         "repositoryURL": "https://github.com/OpenCombine/OpenCombine.git",
         "state": {
@@ -152,24 +89,6 @@
           "branch": null,
           "revision": "ff8113eb32ac04124b06372f030c08efdfcfc9fc",
           "version": "4.6.0"
-        }
-      },
-      {
-        "package": "SwiftJWT",
-        "repositoryURL": "https://github.com/corona-warn-app/Swift-JWT.git",
-        "state": {
-          "branch": null,
-          "revision": "881f1f34be480e185fcabee49d4e2d9994c78653",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
-          "version": "1.4.2"
         }
       },
       {
