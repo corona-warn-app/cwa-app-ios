@@ -22,7 +22,8 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
 		trust: SecTrust,
-		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void,
+		evaluationFailed: (Error) -> Void
 	) {
 #if DEBUG
 		// debug/review: print the chain
@@ -38,6 +39,7 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 			completionHandler(.useCredential, URLCredential(trust: trust))
 		case .failure(let error):
 			Log.debug("AuthenticationChallenge failed with error \(error.localizedDescription)", log: .client)
+			evaluationFailed(error)
 			completionHandler(.cancelAuthenticationChallenge, nil)
 		}
 	}

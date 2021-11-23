@@ -71,15 +71,29 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 						return
 					}
-					self?.evaluateTrust.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
+					self?.evaluateTrust.evaluate(
+						challenge: challenge,
+						trust: trust,
+						completionHandler: completionHandler,
+						evaluationFailed: { [weak self] error in
+							self?.trustEvaluationError = error
+						}
+					)
 				}
 			}
 		} else {
 			var secresult = SecTrustResultType.invalid
 			let status = SecTrustEvaluate(trust, &secresult)
-
+			
 			if status == errSecSuccess {
-				self.evaluateTrust.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
+				self.evaluateTrust.evaluate(
+					challenge: challenge,
+					trust: trust,
+					completionHandler: completionHandler,
+					evaluationFailed: { [weak self] error in
+						self?.trustEvaluationError = error
+					}
+				)
 			} else {
 				Log.error("Evaluation failed with status: \(status)", log: .api, error: nil)
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
@@ -90,5 +104,5 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 	// MARK: - Internal
 
 	var evaluateTrust: EvaluateTrust
-
+	var trustEvaluationError: Error?
 }

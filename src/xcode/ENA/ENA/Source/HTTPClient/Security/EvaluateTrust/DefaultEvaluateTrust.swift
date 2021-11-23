@@ -17,7 +17,12 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 	///   - challenge: A challenge from a server requiring authentication from the client.
 	///   - trust: Shortcut for `challenge.protectionSpace.serverTrust`
 	///   - completionHandler: the completion handler to accept or reject the request
-	func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+	func evaluate(
+		challenge: URLAuthenticationChallenge,
+		trust: SecTrust,
+		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void,
+		evaluationFailed: (Error) -> Void
+	) {
 #if DEBUG
 		// debug/review: print the chain
 		for i in 0..<SecTrustGetCertificateCount(trust) {
