@@ -22,11 +22,11 @@ final class TicketValidationResultCellModel {
 
 	var iconImage: UIImage? {
 		switch validationResultItem.result {
-		case .NOK:
+		case .failed:
 			return UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Failed")
-		case .CHK:
+		case .open:
 			return UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Open")
-		case .OK:
+		case .passed:
 			return nil
 		}
 	}

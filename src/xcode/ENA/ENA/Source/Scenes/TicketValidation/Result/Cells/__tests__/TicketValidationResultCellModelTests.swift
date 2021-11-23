@@ -12,7 +12,7 @@ class TicketValidationResultCellModelTests: XCTestCase {
 		let expectedIcon: UIImage? = nil
 
 		let model = TicketValidationResultCellModel(
-			validationResultItem: .fake(result: .OK)
+			validationResultItem: .fake(result: .passed)
 		)
 
 		// WHEN
@@ -27,7 +27,7 @@ class TicketValidationResultCellModelTests: XCTestCase {
 		let expectedIcon: UIImage? = UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Open")
 
 		let model = TicketValidationResultCellModel(
-			validationResultItem: .fake(result: .CHK)
+			validationResultItem: .fake(result: .open)
 		)
 
 		// WHEN
@@ -42,7 +42,7 @@ class TicketValidationResultCellModelTests: XCTestCase {
 		let expectedIcon: UIImage? = UIImage(imageLiteralResourceName: "Icon_CertificateValidation_Failed")
 
 		let model = TicketValidationResultCellModel(
-			validationResultItem: .fake(result: .NOK)
+			validationResultItem: .fake(result: .failed)
 		)
 
 		// WHEN

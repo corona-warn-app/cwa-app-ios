@@ -104,16 +104,16 @@ final class TicketValidationCoordinator {
 		let viewModel: TicketValidationResultViewModel
 
 		switch result.result {
-		case .OK:
+		case .passed:
 			viewModel = TicketValidationPassedViewModel(
 				serviceProvider: ticketValidation.initializationData.serviceProvider
 			)
-		case .CHK:
+		case .open:
 			viewModel = TicketValidationOpenViewModel(
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
-		case .NOK:
+		case .failed:
 			viewModel = TicketValidationFailedViewModel(
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
