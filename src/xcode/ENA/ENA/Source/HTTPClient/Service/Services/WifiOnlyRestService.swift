@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-
 /**
 Specific implementation of a service who is only sending and receiving when using wifi.
 It uses the coronaWarnSessionConfigurationWifiOnly.
