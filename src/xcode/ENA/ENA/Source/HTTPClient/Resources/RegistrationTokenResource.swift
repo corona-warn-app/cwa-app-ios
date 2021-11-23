@@ -29,11 +29,16 @@ struct RegistrationTokenResource: Resource {
 	var type: ServiceType
 	var sendResource: JSONSendResource<SendRegistrationTokenModel>
 	var receiveResource: JSONReceiveResource<SubmissionTANModel>
-
-	func customStatusCodeError(statusCode: Int) -> RegistrationTokenError? {
-		switch statusCode {
-		case (400):
-			return .regTokenNotExist
+	
+	func customError(for error: ServiceError<RegistrationTokenError>) -> RegistrationTokenError? {
+		switch error {
+		case .unexpectedServerError(let statusCode):
+			switch statusCode {
+			case (400):
+				return .regTokenNotExist
+			default:
+				return nil
+			}
 		default:
 			return nil
 		}

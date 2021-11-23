@@ -30,17 +30,22 @@ struct TeleTanResource: Resource {
 	var sendResource: JSONSendResource<KeyModel>
 	var receiveResource: JSONReceiveResource<RegistrationTokenModel>
 
-	func customStatusCodeError(statusCode: Int) -> TeleTanError? {
-		switch (keyModel.keyType, statusCode) {
-		case (.teleTan, 400):
-			return .teleTanAlreadyUsed
-		case (_, 400):
-			return .qrAlreadyUsed
+	func customError(for error: ServiceError<TeleTanError>) -> TeleTanError? {
+		switch error {
+		case .unexpectedServerError(let statusCode):
+			switch (keyModel.keyType, statusCode) {
+			case (.teleTan, 400):
+				return .teleTanAlreadyUsed
+			case (_, 400):
+				return .qrAlreadyUsed
+			default:
+				return nil
+			}
 		default:
 			return nil
 		}
 	}
-
+	
 	// MARK: - Private
 
 	private let keyModel: KeyModel
