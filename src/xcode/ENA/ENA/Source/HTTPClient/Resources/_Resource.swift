@@ -21,6 +21,7 @@ protocol Resource {
 
 // Custom error handling
 extension Resource {
+
 	func customError(for error: ServiceError<CustomError>) -> CustomError? {
 		return nil
 	}

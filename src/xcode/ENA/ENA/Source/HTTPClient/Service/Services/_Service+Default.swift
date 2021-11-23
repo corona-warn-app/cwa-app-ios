@@ -45,9 +45,8 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
-		case let .failure(resourceError):			
+		case let .failure(resourceError):
 			completion(.failure(customError(in: resource, for: .transportationError(resourceError))))
-
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				if let error = error {

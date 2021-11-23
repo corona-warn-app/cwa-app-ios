@@ -15,7 +15,7 @@ enum Endpoint: Equatable, Hashable {
 	case errorLogSubmission
 	case dcc
 	case dynamic(URL)
-	
+
 	// MARK: - Internal
 
 	func url(_ environmentData: EnvironmentData) -> URL {
