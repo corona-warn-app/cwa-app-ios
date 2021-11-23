@@ -462,13 +462,9 @@ class QRScannerViewController: UIViewController {
 		ticketValidation.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeTicketValidation
 		alertVC.addAction(ticketValidation)
 
-		let other = UIAlertAction(title: "Other", style: .destructive, handler: nil)
+		let other = UIAlertAction(title: "Other", style: .cancel)
 		other.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.other
 		alertVC.addAction(other)
-
-		let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-		cancel.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.cancel
-		alertVC.addAction(cancel)
 		
 		present(alertVC, animated: false, completion: nil)
 		
