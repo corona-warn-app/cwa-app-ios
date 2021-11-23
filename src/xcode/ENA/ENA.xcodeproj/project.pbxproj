@@ -4530,17 +4530,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		3413204C2742B7FC003E3906 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				34991C2B274282250056F9FA /* TicketValidationCertificateSelectionViewController.swift */,
-				34991C2D274282600056F9FA /* SecondTicketValidationConsentViewController.swift */,
-				3413205B2742CE52003E3906 /* SecondTicketValidationConsentViewController.swift */,
-				341320532742B928003E3906 /* SecondTicketValidationConsentViewModel.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		341320502742B8CA003E3906 /* CertificateSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -5863,7 +5852,6 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
-				3413204C2742B7FC003E3906 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;

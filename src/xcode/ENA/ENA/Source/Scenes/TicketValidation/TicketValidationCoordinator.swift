@@ -61,8 +61,8 @@ final class TicketValidationCoordinator {
 					}
 				}
 			},
-			onDismiss: {
-				self.showDismissAlert()
+			onDismiss: { [weak self] in
+				self?.showDismissAlert()
 			}
 		)
 		
@@ -101,11 +101,12 @@ final class TicketValidationCoordinator {
 				validationConditions: validationConditions,
 				healthCertificateService: healthCertificateService,
 				onHealthCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+					self?.ticketValidation.selectCertificate(healthCertificate)
 					self?.showSecondConsentScreen(selectedCertificate: healthCertificate, selectedCertifiedPerson: healthCertifiedPerson)
 				}
 			),
-			onDismiss: {
-				self.showDismissAlert()
+			onDismiss: { [weak self] in
+				self?.showDismissAlert()
 			}
 		)
 		
@@ -113,7 +114,7 @@ final class TicketValidationCoordinator {
 			certificateSelectionViewController.isModalInPresentation = true
 		}
 		
-		self.navigationController.pushViewController(certificateSelectionViewController, animated: true)
+		navigationController.pushViewController(certificateSelectionViewController, animated: true)
 	}
 
 	private func showSecondConsentScreen(
@@ -146,8 +147,8 @@ final class TicketValidationCoordinator {
 					}
 				}
 			},
-			onDismiss: {
-				self.showDismissAlert()
+			onDismiss: { [weak self] in
+				self?.showDismissAlert()
 			}
 		)
 		

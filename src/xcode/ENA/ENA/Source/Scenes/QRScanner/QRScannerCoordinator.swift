@@ -377,19 +377,19 @@ class QRScannerCoordinator {
 				let parentPresentingViewController = self.parentViewController?.presentingViewController
 
 				// Dismiss submission/on behalf submission flow
-				self.parentViewController?.dismiss(animated: true) { [weak self] in
-					self?.parentViewController = parentPresentingViewController
+				self.parentViewController?.dismiss(animated: true) {
+					self.parentViewController = parentPresentingViewController
 
-					guard let parentViewController = self?.parentViewController, let healthCertificateService = self?.healthCertificateService else {
+					guard let parentViewController = self.parentViewController else {
 						return
 					}
 
-					self?.ticketValidationCoordinator = TicketValidationCoordinator(
+					self.ticketValidationCoordinator = TicketValidationCoordinator(
 						parentViewController: parentViewController,
-						healthCertificateService: healthCertificateService
+						healthCertificateService: self.healthCertificateService
 					)
 
-					self?.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
+					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
 				}
 			case .checkinTab, .certificateTab, .universalScanner:
 				guard let parentViewController = self.parentViewController else {

@@ -20,7 +20,6 @@ class TicketValidationCertificateSelectionViewModel {
 		self.healthCertificateService = healthCertificateService
 		self.onHealthCertificateCellTap = onHealthCertificateCellTap
 		
-		self.supportedHealthCertificates = []
 		self.filterCertificatesBasedOnValidationConditions()
 	}
 	
@@ -33,9 +32,9 @@ class TicketValidationCertificateSelectionViewModel {
 	private var healthCertificateService: HealthCertificateService
 	private var validationConditions: ValidationConditions
 	private let onHealthCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
-	private var supportedHealthCertificates: [HealthCertificate]
 	
 	private func filterCertificatesBasedOnValidationConditions() {
+		var supportedHealthCertificates: [HealthCertificate] = []
 		var supportedCertificateTypes: [String] = []
 
 		// all certificates of all persons
@@ -99,7 +98,11 @@ class TicketValidationCertificateSelectionViewModel {
 		if supportedHealthCertificates.isEmpty {
 			dynamicTableViewModel = dynamicTableViewModelNoSupportedCertificate(serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
 		} else {
-			dynamicTableViewModel = dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: healthCertifiedPerson, serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
+			dynamicTableViewModel = dynamicTableViewModelSupportedHealthCertificates(
+				healthCertifiedPerson: healthCertifiedPerson,
+				supportedHealthCertificates: supportedHealthCertificates,
+				serviceProviderRequirementsDescription: serviceProviderRequirementsDescription
+			)
 		}
 	}
 		
@@ -121,7 +124,7 @@ class TicketValidationCertificateSelectionViewModel {
 		return serviceProviderRequirementsDescription
 	}
 
-	private func dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: HealthCertifiedPerson?, serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
+	private func dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: HealthCertifiedPerson?, supportedHealthCertificates: [HealthCertificate], serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
 		guard let certifiedPerson = healthCertifiedPerson else {
 			return DynamicTableViewModel([
 				.section(
@@ -132,17 +135,16 @@ class TicketValidationCertificateSelectionViewModel {
 		}
 
 		var supportedHealthCertificatesCells: [DynamicCell] = [
-			.title1(text: AppStrings.TicketValidation.CertificateSelection.title),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRequirementsHeadline),
 			.subheadline(
 			   text: serviceProviderRequirementsDescription,
 			   color: .enaColor(for: .textPrimary2)
 			),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRelevantCertificatesHeadline)
-		].compactMap { $0 }
+		]
 
 		for supportedHealthCertificate in supportedHealthCertificates {
-			supportedHealthCertificatesCells.append(DynamicCell.identifier(
+			supportedHealthCertificatesCells.append(.identifier(
 				TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
 					self.onHealthCertificateCellTap(supportedHealthCertificate, certifiedPerson)
@@ -173,16 +175,15 @@ class TicketValidationCertificateSelectionViewModel {
 		
 	private func dynamicTableViewModelNoSupportedCertificate(serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
 		var noSupportedCertificateCells: [DynamicCell] = [
-			.title1(text: AppStrings.TicketValidation.CertificateSelection.title),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.noSupportedCertificateHeadline),
 			.subheadline(
 				text: AppStrings.TicketValidation.CertificateSelection.noSupportedCertificateDescription,
 				color: .enaColor(for: .textPrimary2)
 			),
 			.body(text: AppStrings.TicketValidation.CertificateSelection.serviceProviderRequiredCertificateHeadline)
-		].compactMap { $0 }
+		]
 
-		noSupportedCertificateCells.append(DynamicCell.identifier(
+		noSupportedCertificateCells.append(.identifier(
 			TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.noSupportedCertificateCell,
 			configure: { _, cell, _ in
 				guard let cell = cell as? TicketValidationNoSupportedCertificateCell else {
