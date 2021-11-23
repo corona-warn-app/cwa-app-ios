@@ -49,7 +49,7 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		}
 		lastCell.waitAndTap()
 		
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.AppInformation.privacyImageDescription].waitForExistence(timeout: .extraLong))
 	}
 	
 	func testCheckinInfoScreen_confirmConsent() throws {

@@ -264,7 +264,11 @@ enum AccessibilityIdentifiers {
 		static let flash = "ExposureSubmissionQRScanner_flash"
 		static let file = "QRScanner_file"
 		static let info = "QRScanner_info"
-		static let dataPrivacy = "QRScanner_dataPrivacy"
+
+		enum Info {
+			static let title = "QRScanner_Info_title"
+			static let dataPrivacy = "QRScanner_Info_dataPrivacy"
+		}
 
 		#if targetEnvironment(simulator)
 		static let fakeHC1 = "QRScanner_FAKE_HC1"

@@ -21,7 +21,8 @@ struct QRScannerInfoViewModel {
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.UniversalQRScanner.Info.title,
-						image: UIImage(imageLiteralResourceName: "Illu_QRScannerInfo")
+						image: UIImage(imageLiteralResourceName: "Illu_QRScannerInfo"),
+						accessibilityIdentifier: AccessibilityIdentifiers.UniversalQRScanner.Info.title
 					),
 					.space(height: 24.0),
 					.icon(
@@ -62,7 +63,7 @@ struct QRScannerInfoViewModel {
 					.body(
 						text: AppStrings.UniversalQRScanner.Info.dataPrivacy,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.UniversalQRScanner.dataPrivacy,
+						accessibilityIdentifier: AccessibilityIdentifiers.UniversalQRScanner.Info.dataPrivacy,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
 							onDataPrivacyTap()
