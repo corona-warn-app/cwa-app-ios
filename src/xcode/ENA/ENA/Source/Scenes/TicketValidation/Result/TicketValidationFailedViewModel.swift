@@ -47,7 +47,7 @@ struct TicketValidationFailedViewModel: TicketValidationResultViewModel {
 					format: AppStrings.TicketValidation.Result.moreInformation,
 					AppStrings.TicketValidation.Result.moreInformationPlaceholderFAQ),
 				links: [
-					AppStrings.TicketValidation.Result.moreInformationPlaceholderFAQ: AppStrings.Links.ticketValidationFAQ
+					AppStrings.TicketValidation.Result.moreInformationPlaceholderFAQ: AppStrings.Links.ticketValidationServiceResultFAQ
 				],
 				linksColor: .enaColor(for: .textTint)
 			)
