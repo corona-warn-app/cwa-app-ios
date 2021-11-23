@@ -40,10 +40,15 @@ struct ServiceIdentityDocumentResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
 	
-	func customStatusCodeError(statusCode: Int) -> RegistrationTokenError? {
-		switch statusCode {
-		case (400):
-			return .regTokenNotExist
+	func customError(for error: ServiceError<ServiceIdentityDocumentResourceError>) -> ServiceIdentityDocumentResourceError? {
+		switch error {
+		case .unexpectedServerError(let statusCode):
+			switch statusCode {
+			case (400):
+				return .VS_ID_NO_ENC_KEY
+			default:
+				return nil
+			}
 		default:
 			return nil
 		}

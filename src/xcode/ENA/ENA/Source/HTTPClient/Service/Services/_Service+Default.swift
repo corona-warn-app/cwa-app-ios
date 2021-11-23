@@ -40,7 +40,6 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	// swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
@@ -83,11 +82,7 @@ extension Service {
 				case 304:
 					cached(resource, completion)
 				default:
-					if let resourceError = resource.customStatusCodeError(statusCode: response.statusCode) {
-						completion(.failure(ServiceError<R.CustomError>.receivedResourceError(resourceError)))
-					} else {
-						completion(.failure(.unexpectedServerError(response.statusCode)))
-					}
+					completion(.failure(customError(in: resource, for: .unexpectedServerError(response.statusCode))))
 				}
 			}.resume()
 		}
@@ -128,7 +123,7 @@ extension Service {
 		if let customError = resource.customError(for: serviceError) {
 			return .receivedResourceError(customError)
 		} else {
-			return .resourceError(.notModified)
+			return serviceError
 		}
 	}
 
