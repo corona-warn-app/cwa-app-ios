@@ -45,8 +45,9 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
-		case let .failure(resourceError):
-			completion(.failure(.transportationError(resourceError)))
+		case let .failure(resourceError):			
+			completion(.failure(customError(in: resource, for: .transportationError(resourceError))))
+
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				if let error = error {
@@ -56,13 +57,13 @@ extension Service {
 
 				guard !resource.locator.isFake else {
 					Log.debug("Fake detected no response given", log: .client)
-					completion(.failure(.fakeResponse))
+					completion(.failure(customError(in: resource, for: .fakeResponse)))
 					return
 				}
 
 				guard let response = response as? HTTPURLResponse else {
 					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
-					completion(.failure(.invalidResponseType))
+					completion(.failure(customError(in: resource, for: .invalidResponseType)))
 					return
 				}
 
@@ -75,7 +76,7 @@ extension Service {
 					decodeModel(resource, bodyData, response, completion)
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
-						completion(.failure(.invalidResponse))
+						completion(.failure(customError(in: resource, for: .invalidResponse)))
 						return
 					}
 					decodeModel(resource, bodyData, response, completion)
@@ -106,7 +107,7 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		completion(.failure(.resourceError(.notModified)))
+		completion(.failure(customError(in: resource, for: .resourceError(.notModified))))
 	}
 	
 	func customHeaders<R>(
@@ -115,16 +116,4 @@ extension Service {
 	) -> [String: String]? where R: ReceiveResource {
 		return nil
 	}
-	
-	private func customError<R>(
-		in resource: R,
-		for serviceError: ServiceError<R.CustomError>
-	) -> ServiceError<R.CustomError> where R: Resource {
-		if let customError = resource.customError(for: serviceError) {
-			return .receivedResourceError(customError)
-		} else {
-			return serviceError
-		}
-	}
-
 }
