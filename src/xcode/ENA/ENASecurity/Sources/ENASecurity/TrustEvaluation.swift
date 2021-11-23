@@ -12,6 +12,12 @@ public enum TrustEvaluationError: Error {
 
 public class TrustEvaluation {
 
+    // MARK: - Init
+
+    public init() {}
+
+    // MARK: - Public
+
     public func check(trust: SecTrust, against jwkSet: [Data]) -> Result<Void, TrustEvaluationError> {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
         if let serverCertificate = SecTrustGetCertificateAtIndex(trust, SecTrustGetCertificateCount(trust) - 1),
