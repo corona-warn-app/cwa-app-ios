@@ -10,9 +10,11 @@ final class TicketValidation: TicketValidating {
 	// MARK: - Protocol TicketValidating
 
 	init(
-		with initializationData: TicketValidationInitializationData
+		with initializationData: TicketValidationInitializationData,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.initializationData = initializationData
+		self.restServiceProvider = restServiceProvider
 	}
 
 	var initializationData: TicketValidationInitializationData
@@ -52,24 +54,40 @@ final class TicketValidation: TicketValidating {
 	}
 	
 	enum ServiceIdentityRequestError: Error {
-		case VS_ID_CLIENT_ERR
-		case VS_ID_NO_NETWORK
-		case VS_ID_SERVER_ERR
 		case VS_ID_NO_ENC_KEY
 		case VS_ID_NO_SIGN_KEY
 		case VS_ID_CERT_PIN_NO_JWK_FOR_KID
 		case VS_ID_CERT_PIN_MISMATCH
-		case VS_ID_PARSE_ERR
 		case VS_ID_EMPTY_X5C
+		case REST_SERVICE_ERROR(ServiceError<ServiceIdentityDocumentResourceError>)
+		case UNKOWN
 	}
 	
 	func requestServiceIdentityDocument(
 		validationServiceData: ValidationServiceData,
-		validationServiceJwkSet: [JSONWebKey]
-	) -> Result<ServiceIdentityRequestResult, ServiceIdentityRequestError> {
+		validationServiceJwkSet: [JSONWebKey],
+		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
+	) {
 		
-		let urlString = validationServiceData.serviceEndpoint
-			
-		return .failure(.VS_ID_CERT_PIN_MISMATCH)
+		guard let url = URL(string: validationServiceData.serviceEndpoint) else {
+			completion(.failure(.UNKOWN))
+			return
+		}
+		
+		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
+		
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success(let serviceIdentityDocument):
+				break;
+			case .failure(let error):
+				completion(.failure(.REST_SERVICE_ERROR(error)))
+			}
+		}
 	}
+	
+	// MARK: - Private
+
+	private let restServiceProvider: RestServiceProviding
+	
 }

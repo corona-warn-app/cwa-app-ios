@@ -5,15 +5,10 @@
 import Foundation
 
 enum ServiceIdentityDocumentResourceError: Error {
-	case VS_ID_CLIENT_ERR
-	case VS_ID_NO_NETWORK
-	case VS_ID_SERVER_ERR
-	case VS_ID_NO_ENC_KEY
-	case VS_ID_NO_SIGN_KEY
-	case VS_ID_CERT_PIN_NO_JWK_FOR_KID
-	case VS_ID_CERT_PIN_MISMATCH
 	case VS_ID_PARSE_ERR
-	case VS_ID_EMPTY_X5C
+	case VS_ID_NO_NETWORK
+	case VS_ID_CLIENT_ERR
+	case VS_ID_SERVER_ERR
 }
 
 struct ServiceIdentityDocumentResource: Resource {
@@ -42,10 +37,16 @@ struct ServiceIdentityDocumentResource: Resource {
 	
 	func customError(for error: ServiceError<ServiceIdentityDocumentResourceError>) -> ServiceIdentityDocumentResourceError? {
 		switch error {
+		case .resourceError:
+			return .VS_ID_PARSE_ERR
+		case .transportationError:
+			return .VS_ID_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case (400):
-				return .VS_ID_NO_ENC_KEY
+			case (400...499):
+				return .VS_ID_CLIENT_ERR
+			case (500...599):
+				return .VS_ID_SERVER_ERR
 			default:
 				return nil
 			}
