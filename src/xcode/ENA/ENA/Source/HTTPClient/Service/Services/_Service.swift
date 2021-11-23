@@ -85,3 +85,17 @@ protocol Service {
 	) -> [String: String]? where R: ReceiveResource
 	
 }
+
+extension Service {
+	
+	func customError<R>(
+		in resource: R,
+		for serviceError: ServiceError<R.CustomError>
+	) -> ServiceError<R.CustomError> where R: Resource {
+		if let customError = resource.customError(for: serviceError) {
+			return .receivedResourceError(customError)
+		} else {
+			return serviceError
+		}
+	}
+}
