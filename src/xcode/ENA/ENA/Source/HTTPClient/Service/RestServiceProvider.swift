@@ -13,11 +13,16 @@ class RestServiceProvider: RestServiceProviding {
 	init(
 		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil,
-		cache: KeyValueCaching
+		cache: KeyValueCaching,
+		jwkSet: [Data] = []
 	) {
-		self.restService = StandardRestService(environment: environment, session: session)
-		self.cachedService = CachedRestService(environment: environment, session: session, cache: cache)
-		self.wifiOnlyService = WifiOnlyRestService(environment: environment, session: session)
+		self.environment = environment
+		self.optionalSession = session
+
+		self.standardRestService = StandardRestService(environment: environment, session: session)
+		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
+		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session, jwkSet: jwkSet)
 	}
 
 	#if DEBUG
@@ -26,9 +31,12 @@ class RestServiceProvider: RestServiceProviding {
 		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil
 	) {
-		self.restService = StandardRestService(environment: environment, session: session)
-		self.cachedService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
-		self.wifiOnlyService = WifiOnlyRestService(environment: environment, session: session)
+		self.environment = environment
+		self.optionalSession = session
+		self.standardRestService = StandardRestService(environment: environment, session: session)
+		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
+		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session)
 	}
 
 	#endif
@@ -40,83 +48,53 @@ class RestServiceProvider: RestServiceProviding {
 		// dispatch loading to the correct rest service
 		switch resource.type {
 		case .default:
-			restService.load(resource, completion)
+			standardRestService.load(resource, completion)
 		case .caching:
-			cachedService.load(resource, completion)
+			cachedRestService.load(resource, completion)
 		case .wifiOnly:
-			wifiOnlyService.load(resource, completion)
+			wifiOnlyRestService.load(resource, completion)
 		case .retrying:
 			Log.error("Not yet implemented")
+		case .dynamicPinning:
+			/// use lock to make sure we are not updating dynamicPinningRestService at the moment
+			updateLock.lock()
+			dynamicPinningRestService.load(resource, completion)
+			updateLock.unlock()
 		}
+	}
+
+	// update evaluation trust - only possible for dynamic pinning at the moment
+	func update(_ evaluateTrust: EvaluateTrust) {
+		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
+			return
+		}
+
+		updateLock.lock()
+		delegate.evaluateTrust = evaluateTrust
+		updateLock.unlock()
 	}
 
 	// MARK: - Private
 
-	private let restService: StandardRestService
-	private let cachedService: CachedRestService
-	private let wifiOnlyService: WifiOnlyRestService
+	private let environment: EnvironmentProviding
+	private let optionalSession: URLSession?
+	private let standardRestService: StandardRestService
+	private let cachedRestService: CachedRestService
+	private let wifiOnlyRestService: WifiOnlyRestService
+	private let dynamicPinningRestService: DynamicPinningRestService
+	private let updateLock: NSLock = NSLock()
 
 }
 
 #if !RELEASE
+extension RestServiceProvider {
 
-struct LoadResource {
-	let result: Result<Any, Error>
-	let willLoadResource: ((Any) -> Void)?
+	var evaluateTrust: EvaluateTrust? {
+		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
+			return nil
+		}
+		return delegate.evaluateTrust
+	}
+
 }
-
-class RestServiceProviderStub: RestServiceProviding {
-	init(
-		loadResources: [LoadResource]
-	) {
-		self.loadResources = loadResources
-	}
-
-	convenience init(results: [Result<Any, Error>]) {
-		let _loadResources = results.map {
-			LoadResource(result: $0, willLoadResource: nil)
-		}
-		self.init(loadResources: _loadResources)
-	}
-
-	private var loadResources: [LoadResource]
-
-	func load<R>(
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
-		guard let loadResource = loadResources.first else {
-			fatalError("load was called to often.")
-		}
-		loadResource.willLoadResource?(resource)
-		guard !resource.locator.isFake else {
-			Log.debug("Fake detected no response given", log: .client)
-			completion(.failure(.fakeResponse))
-			return
-		}
-
-		switch loadResource.result {
-		case .success(let model):
-			guard let _model = model as? R.Receive.ReceiveModel else {
-				fatalError("model does not have the correct type.")
-			}
-			// we need to remove the first resource calling the completion otherwise the second call can enter before removeFirst()
-			loadResources.removeFirst()
-			completion(.success(_model))
-		case .failure(let error):
-			guard let _error = error as? ServiceError<R.CustomError> else {
-				fatalError("error does not have the correct type.")
-			}
-			loadResources.removeFirst()
-			completion(.failure(_error))
-		}
-	}
-}
-
-extension RestServiceProviding where Self == RestServiceProviderStub {
-	static func fake() -> RestServiceProviding {
-		return RestServiceProviderStub(loadResources: [])
-	}
-}
-
 #endif

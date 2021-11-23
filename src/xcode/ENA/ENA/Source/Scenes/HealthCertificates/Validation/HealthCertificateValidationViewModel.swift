@@ -69,7 +69,6 @@ final class HealthCertificateValidationViewModel {
 					),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet1, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet2, spacing: .large),
-					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet3, spacing: .large),
 					.bulletPoint(text: AppStrings.HealthCertificate.Validation.bullet4, spacing: .large),
 					.textWithLinks(
 						text: String(

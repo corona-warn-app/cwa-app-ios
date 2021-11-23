@@ -132,12 +132,12 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
     }
 
     private func decryptPayload(payload: Data, dataEncryptionKey: Data) -> Result<Data, CertificateDecodingError> {
-        let aesEncryption = AESEncryption(
+        let cbcEncryption = CBCEncryption(
             encryptionKey: dataEncryptionKey,
             initializationVector: AESEncryptionConstants.zeroInitializationVector
         )
 
-        let decryptedResult = aesEncryption.decrypt(data: payload)
+        let decryptedResult = cbcEncryption.decrypt(data: payload)
         if case let .success(decryptedPayload) = decryptedResult {
             return .success(decryptedPayload)
         } else {

@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "ASN1Decoder",
-        "repositoryURL": "https://github.com/filom/ASN1Decoder",
-        "state": {
-          "branch": null,
-          "revision": "65953a42a0f039f53c73e48fd88c02809f7db607",
-          "version": "1.8.0"
-        }
-      },
-      {
         "package": "base45-swift",
         "repositoryURL": "https://github.com/corona-warn-app/base45-swift",
         "state": {
