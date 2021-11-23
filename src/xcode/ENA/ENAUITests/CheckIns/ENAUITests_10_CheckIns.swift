@@ -42,10 +42,10 @@ class ENAUITests_10_CheckIns: CWATestCase {
 		}
 		
 		let maxTries = 10
-		var actualTry = 0
-		while lastCell.isHittable == false && actualTry < maxTries {
+		var currentTry = 0
+		while lastCell.isHittable == false && currentTry < maxTries {
 			app.swipeUp()
-			actualTry += 1
+			currentTry += 1
 		}
 		lastCell.waitAndTap()
 		
