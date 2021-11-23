@@ -91,7 +91,11 @@ class RestServiceProviderStub: RestServiceProviding {
 		loadResource.willLoadResource?(resource)
 		guard !resource.locator.isFake else {
 			Log.debug("Fake detected no response given", log: .client)
-			completion(.failure(.fakeResponse))
+			if let customError = resource.customError(for: .fakeResponse) {
+				completion(.failure(.receivedResourceError(customError)))
+			} else {
+				completion(.failure(.fakeResponse))
+			}
 			return
 		}
 
