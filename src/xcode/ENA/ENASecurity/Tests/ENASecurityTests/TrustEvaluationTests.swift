@@ -56,7 +56,7 @@ class TrustEvaluationTests: XCTestCase {
     }
 
     func test_CheckServerKeyAgainstJWKSetError_CERT_PIN_MISMATCH() throws {
-        // To test this error szenario we need to pass only the first correct part of the certificate.
+        // To test this error scenario we need to pass only the first correct part of the certificate.
         // This way the KID check will be successful, but the fingerprint check will fail.
 
         let jsonEncoder = JSONEncoder()

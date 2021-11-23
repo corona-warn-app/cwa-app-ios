@@ -13,11 +13,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.14"
+		self.featureVersion = "2.15"
 		
-		// Recycle bin feature
+		// Ticket Validation feature
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature214RecycleBinTitle, description: AppStrings.NewVersionFeatures.feature214RecycleBinDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature215TicketValidationTitle, description: AppStrings.NewVersionFeatures.feature215TicketValidationDescription)
 		)
 	}
 

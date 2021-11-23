@@ -6,6 +6,8 @@ import Foundation
 import ExposureNotification
 import OpenCombine
 
+// swiftlint:disable file_length
+
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring {
@@ -179,7 +181,10 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	}
 
 	var submissionCountries: [Country] {
-		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
+		get {
+			let countries = kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()]
+			return countries.map({ Country(withCountryCodeFallback: $0.id) })
+		}
 		set { kvStore["submissionCountries"] = newValue }
 	}
 
@@ -239,7 +244,10 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	}
 
 	var lastSelectedValidationCountry: Country {
-		get { kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry() }
+		get {
+			let country = kvStore["lastSelectedValidationCountry"] as Country? ?? Country.defaultCountry()
+			return Country(withCountryCodeFallback: country.id)
+		}
 		set { kvStore["lastSelectedValidationCountry"] = newValue }
 	}
 
@@ -258,7 +266,16 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	// MARK: - Protocol HealthCertificateValidationCaching
 	
 	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? {
-		get { kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil }
+		get {
+			let countriesCache = kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil
+			guard let countries = countriesCache?.onboardedCountries,
+				  let eTag = countriesCache?.lastOnboardedCountriesETag
+			else {
+				return nil
+			}
+			let mappedCountries = countries.map({ Country(withCountryCodeFallback: $0.id) })
+			return HealthCertificateValidationOnboardedCountriesCache(onboardedCountries: mappedCountries, lastOnboardedCountriesETag: eTag)
+		}
 		set { kvStore["validationOnboardedCountriesCache"] = newValue }
 	}
 	
