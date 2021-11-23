@@ -28,7 +28,7 @@ final class MockTicketValidation: TicketValidating {
 		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
-			completion(self.firstConsentResult ?? .success(.fake()))
+			completion(self.firstConsentResult ?? .success(.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "tp", "tr"])))
 		}
 	}
 
