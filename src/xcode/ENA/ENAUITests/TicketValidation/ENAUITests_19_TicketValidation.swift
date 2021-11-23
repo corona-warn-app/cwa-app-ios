@@ -97,5 +97,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		snapshot("screenshot_ticket_validation_second_consent_2")
 		app.swipeUp()
 		snapshot("screenshot_ticket_validation_second_consent_3")
+		app.swipeUp()
+		snapshot("screenshot_ticket_validation_second_consent_4")
 	}
 }
