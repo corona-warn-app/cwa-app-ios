@@ -28,6 +28,8 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		title = AppStrings.TicketValidation.CertificateSelection.title
+
 		setupView()
 	}
 
@@ -35,7 +37,7 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 		super.viewWillAppear(animated)
 		
 		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
-		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Private

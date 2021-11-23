@@ -8,7 +8,7 @@ import CommonCrypto.CommonHMAC
 
 enum CheckinDecryptionError: Error {
 	case messageAuthenticationCodeMissmatch
-	case decryptionFailed(AESEncryptionError)
+	case decryptionFailed(CBCEncryptionError)
 	case checkInRecordDecodingFailed
 }
 
@@ -21,7 +21,7 @@ struct CheckinEncryptionResult {
 enum CheckinEncryptionError: Error {
 	case randomBytesCreationFailed
 	case checkInRecordEncodingFailed
-	case encryptionFailed(AESEncryptionError)
+	case encryptionFailed(CBCEncryptionError)
 	case hmacCreationFailed
 }
 
@@ -69,11 +69,11 @@ struct CheckinEncryption: CheckinEncrypting {
 		let encryptionKey = self.encryptionKey(for: locationId)
 
 		// Create `CheckInRecord`: the `encrypted CheckInRecord` shall be decrypted
-		let aesEncryption = AESEncryption(
+		let cbcEncryption = CBCEncryption(
 			encryptionKey: encryptionKey,
 			initializationVector: initializationVector
 		)
-		let decryptionResult = aesEncryption.decrypt(data: encryptedCheckinRecord)
+		let decryptionResult = cbcEncryption.decrypt(data: encryptedCheckinRecord)
 
 		guard case let .success(checkinRecordData) = decryptionResult else {
 			if case let .failure(error) = decryptionResult {
@@ -114,7 +114,7 @@ struct CheckinEncryption: CheckinEncrypting {
 		// Determine `encryption key`: the `encryption key` shall be determined
 		let encryptionKey = self.encryptionKey(for: locationId)
 
-		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 32 bytes.
+		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 16 bytes.
 		guard let randomInitializationVector = randomBytes(length: 16) else {
 			return .failure(.randomBytesCreationFailed)
 		}
@@ -122,11 +122,11 @@ struct CheckinEncryption: CheckinEncrypting {
 
 
 		// Create `encrypted CheckInRecord`: the `CheckInRecord` shall be encrypted
-		let aesEncryption = AESEncryption(
+		let cbcEncryption = CBCEncryption(
 			encryptionKey: encryptionKey,
 			initializationVector: finalInitializationVector
 		)
-		let encryptionResult = aesEncryption.encrypt(data: checkinRecordData)
+		let encryptionResult = cbcEncryption.encrypt(data: checkinRecordData)
 
 		guard case let .success(encryptedCheckinData) = encryptionResult else {
 			if case let .failure(error) = encryptionResult {
