@@ -29,6 +29,7 @@ class QRScannerCoordinator {
 	init(
 		store: Store,
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		eventStore: EventStoringProviding,
 		appConfiguration: AppConfigurationProviding,
 		eventCheckoutService: EventCheckoutService,
@@ -42,6 +43,7 @@ class QRScannerCoordinator {
 	) {
 		self.store = store
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.eventStore = eventStore
 		self.appConfiguration = appConfiguration
 		self.eventCheckoutService = eventCheckoutService
@@ -81,6 +83,7 @@ class QRScannerCoordinator {
 	
 	private let store: Store
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let eventCheckoutService: EventCheckoutService
@@ -332,7 +335,7 @@ class QRScannerCoordinator {
 		_ initializationData: TicketValidationInitializationData
 	) {
 		showActivityIndicator()
-		let ticketValidation = MockTicketValidation(with: initializationData)
+		let ticketValidation = MockTicketValidation(with: initializationData, restServiceProvider: .fake())
 		ticketValidation.delay = 1
 
 		ticketValidation.initialize { [weak self] result in
