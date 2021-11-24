@@ -74,10 +74,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 					self?.evaluateTrust.evaluate(
 						challenge: challenge,
 						trust: trust,
-						completionHandler: completionHandler,
-						evaluationFailed: { [weak self] error in
-							self?.trustEvaluationError = error
-						}
+						completionHandler: completionHandler
 					)
 				}
 			}
@@ -89,10 +86,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 				self.evaluateTrust.evaluate(
 					challenge: challenge,
 					trust: trust,
-					completionHandler: completionHandler,
-					evaluationFailed: { [weak self] error in
-						self?.trustEvaluationError = error
-					}
+					completionHandler: completionHandler
 				)
 			} else {
 				Log.error("Evaluation failed with status: \(status)", log: .api, error: nil)
@@ -104,5 +98,4 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 	// MARK: - Internal
 
 	var evaluateTrust: EvaluateTrust
-	var trustEvaluationError: Error?
 }

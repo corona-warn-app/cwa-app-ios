@@ -6,7 +6,8 @@ protocol EvaluateTrust {
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
 		trust: SecTrust,
-		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void,
-		evaluationFailed: (Error) -> Void
+		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	)
+	
+	var trustEvaluationError: Error? { get }
 }

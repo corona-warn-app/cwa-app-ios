@@ -52,7 +52,7 @@ extension Service {
 			session.dataTask(with: request) { bodyData, response, error in
 				
 				if let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
-				   let error = coronaSessionDelegate.trustEvaluationError,
+				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
 				   let trustEvaluationError = error as? TrustEvaluationError {
 					completion(.failure(customError(in: resource, for: .trustEvaluationError(trustEvaluationError))))
 					return

@@ -5,7 +5,7 @@
 import Foundation
 import ENASecurity
 
-struct DynamicEvaluateTrust: EvaluateTrust {
+class DynamicEvaluateTrust: EvaluateTrust {
 
 	// MARK: - Init
 
@@ -22,8 +22,7 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
 		trust: SecTrust,
-		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void,
-		evaluationFailed: (Error) -> Void
+		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
 #if DEBUG
 		// debug/review: print the chain
@@ -39,10 +38,14 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 			completionHandler(.useCredential, URLCredential(trust: trust))
 		case .failure(let error):
 			Log.debug("AuthenticationChallenge failed with error \(error.localizedDescription)", log: .client)
-			evaluationFailed(error)
+			trustEvaluationError = error
 			completionHandler(.cancelAuthenticationChallenge, nil)
 		}
 	}
+	
+	// MARK: - Internal
+
+	var trustEvaluationError: Error?
 
 	// MARK: - Private
 

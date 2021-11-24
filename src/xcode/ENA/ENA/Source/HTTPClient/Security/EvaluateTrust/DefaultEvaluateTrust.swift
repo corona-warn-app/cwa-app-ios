@@ -20,8 +20,7 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
 		trust: SecTrust,
-		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void,
-		evaluationFailed: (Error) -> Void
+		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
 #if DEBUG
 		// debug/review: print the chain
@@ -46,6 +45,10 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 		// Success! This is our server
 		completionHandler(.useCredential, URLCredential(trust: trust))
 	}
+	
+	// MARK: - Internal
+
+	var trustEvaluationError: Error?
 
 	// MARK: - Private
 	
