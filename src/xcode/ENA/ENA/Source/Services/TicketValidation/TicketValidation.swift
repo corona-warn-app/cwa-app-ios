@@ -77,7 +77,15 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let serviceIdentityDocument):
-				break;
+				// 2. Verifiy JWKs
+				for method in serviceIdentityDocument.verificationMethod {
+					if let publicKeyJwk = method.publicKeyJwk, publicKeyJwk.x5c.isEmpty {
+						Log.error("Verify JWKs failed", log: .ticketValidation)
+						completion(.failure(.VD_ID_EMPTY_X5C))
+					}
+				}
+				
+				
 			case .failure(let error):
 				completion(.failure(.REST_SERVICE_ERROR(error)))
 			}
