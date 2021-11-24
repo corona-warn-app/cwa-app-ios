@@ -20,6 +20,10 @@ class FakeEvaluateTrust: EvaluateTrust {
 	func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
 		fakeCompletion()
 	}
+	
+	// MARK: - Private
+	
+	var trustEvaluationError: Error?
 
 	// MARK: - Internal
 

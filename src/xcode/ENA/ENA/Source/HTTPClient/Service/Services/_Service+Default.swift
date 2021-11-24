@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 /**
 This is the default implementation of a service and serves not only as default implementation. It provides some hooks to the generic resources and make different service implementations possible.
@@ -49,11 +50,19 @@ extension Service {
 			completion(.failure(customError(in: resource, for: .transportationError(resourceError))))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
+				
+				if let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
+				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
+				   let trustEvaluationError = error as? TrustEvaluationError {
+					completion(.failure(customError(in: resource, for: .trustEvaluationError(trustEvaluationError))))
+					return
+				}
+				
 				if let error = error {
 					completion(.failure(customError(in: resource, for: .transportationError(error))))
 					return
 				}
-
+								
 				guard !resource.locator.isFake else {
 					Log.debug("Fake detected no response given", log: .client)
 					completion(.failure(customError(in: resource, for: .fakeResponse)))

@@ -2,10 +2,13 @@
 // 🦠 Corona-Warn-App
 //
 
+import ENASecurity
+
 /**
 The errors that can occur while using the service and calling http methods.
 */
 enum ServiceError<RE>: Error, Equatable where RE: Error {
+	case trustEvaluationError(TrustEvaluationError)
 	case transportationError(Error)
 	case unexpectedServerError(Int)
 	case resourceError(ResourceError?)
@@ -49,6 +52,10 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 		case (.fakeResponse, .fakeResponse):
 			return true
 		case (.fakeResponse, _):
+			return false
+		case (.trustEvaluationError, .trustEvaluationError):
+			return true
+		case (.trustEvaluationError, _):
 			return false
 		}
 	}
