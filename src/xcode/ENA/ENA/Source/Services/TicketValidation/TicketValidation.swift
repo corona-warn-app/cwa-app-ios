@@ -56,8 +56,6 @@ final class TicketValidation: TicketValidating {
 	enum ServiceIdentityRequestError: Error {
 		case VS_ID_NO_ENC_KEY
 		case VS_ID_NO_SIGN_KEY
-		case VS_ID_CERT_PIN_NO_JWK_FOR_KID
-		case VS_ID_CERT_PIN_MISMATCH
 		case VS_ID_EMPTY_X5C
 		case REST_SERVICE_ERROR(ServiceError<ServiceIdentityDocumentResourceError>)
 		case UNKOWN

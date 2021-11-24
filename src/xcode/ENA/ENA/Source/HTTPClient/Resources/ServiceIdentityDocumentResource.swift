@@ -9,6 +9,8 @@ enum ServiceIdentityDocumentResourceError: Error {
 	case VS_ID_NO_NETWORK
 	case VS_ID_CLIENT_ERR
 	case VS_ID_SERVER_ERR
+	case VS_ID_CERT_PIN_NO_JWK_FOR_KID
+	case VS_ID_CERT_PIN_MISMATCH
 }
 
 struct ServiceIdentityDocumentResource: Resource {
@@ -35,8 +37,18 @@ struct ServiceIdentityDocumentResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
 	
+	// swiftlint:disable cyclomatic_complexity
 	func customError(for error: ServiceError<ServiceIdentityDocumentResourceError>) -> ServiceIdentityDocumentResourceError? {
 		switch error {
+		case .trustEvaluationError(let trustEvaluationError):
+			switch trustEvaluationError {
+			case .CERT_PIN_MISMATCH:
+				return .VS_ID_CERT_PIN_MISMATCH
+			case .CERT_PIN_NO_JWK_FOR_KID:
+				return .VS_ID_CERT_PIN_NO_JWK_FOR_KID
+			default:
+				return nil
+			}
 		case .resourceError:
 			return .VS_ID_PARSE_ERR
 		case .transportationError:
