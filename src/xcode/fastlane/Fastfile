@@ -220,7 +220,7 @@ platform :ios do
       --location \
       --request POST '#{ENV["TSI_CLOUD_URL"]}' \
       --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
-      --form 'uniqueName=“AdhocBuild with ENATestEntitlements“ \ 
+      --form 'uniqueName=AdhocBuild with ENATestEntitlements' \ 
       --form 'file=@../ENA.ipa'"
     )
 
