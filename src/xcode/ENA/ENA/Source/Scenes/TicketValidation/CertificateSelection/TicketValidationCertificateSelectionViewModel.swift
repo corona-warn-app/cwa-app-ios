@@ -12,24 +12,22 @@ class TicketValidationCertificateSelectionViewModel {
 
 	init(
 		validationConditions: ValidationConditions,
-		healthCertificateService: HealthCertificateService,
+		healthCertifiedPersons: [HealthCertifiedPerson],
 		onHealthCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.validationConditions = validationConditions
-		self.healthCertificateService = healthCertificateService
 		self.onHealthCertificateCellTap = onHealthCertificateCellTap
 		
-		self.setup(healthCertifiedPersons: self.healthCertificateService.healthCertifiedPersons)
+		self.setup(healthCertifiedPersons: healthCertifiedPersons)
 	}
 	
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	var isSupportedCertificatesEmpty: Bool = true
-	
+
 	// MARK: - Private
-	
-	private var healthCertificateService: HealthCertificateService
+
 	private var validationConditions: ValidationConditions
 	private let onHealthCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 	
@@ -38,7 +36,7 @@ class TicketValidationCertificateSelectionViewModel {
 		let supportedCertificateTuple = validationConditions.filterCertificates(healthCertifiedPersons: healthCertifiedPersons)
 		
 		// creating service provider requirements description
-		let serviceProviderRequirementsDescription = generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTuple.supportedCertificateTypes, validationConditions: validationConditions)
+		let serviceProviderRequirementsDescription = validationConditions.generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTuple.supportedCertificateTypes)
 		
 		// finding health certified person
 		let healthCertifiedPerson = healthCertifiedPersonForSupportedCertificates(healthCertifiedPersons: healthCertifiedPersons, supportedHealthCertificates: supportedCertificateTuple.supportedHealthCertificates)
@@ -68,24 +66,6 @@ class TicketValidationCertificateSelectionViewModel {
 		}
 
 		return healthCertifiedPerson
-	}
-
-	private func generateServiceProviderRequirementsString(supportedCertificateTypes: [String], validationConditions: ValidationConditions) -> String {
-		var serviceProviderRequirementsDescription: String = ""
-
-		serviceProviderRequirementsDescription += supportedCertificateTypes.joined(separator: ", ")
-		if let dateOfBirth = validationConditions.dob {
-			serviceProviderRequirementsDescription += String(format: AppStrings.TicketValidation.CertificateSelection.dateOfBirth, dateOfBirth)
-		}
-		if let familyName = validationConditions.fnt, let givenName = validationConditions.gnt {
-			serviceProviderRequirementsDescription += "\n\(familyName)<<\(givenName)"
-		} else if let familyName = validationConditions.fnt {
-			serviceProviderRequirementsDescription += "\n\(familyName)<<"
-		} else if let givenName = validationConditions.gnt {
-			serviceProviderRequirementsDescription += "\n<<\(givenName)"
-		}
-		
-		return serviceProviderRequirementsDescription
 	}
 
 	private func dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: HealthCertifiedPerson?, supportedHealthCertificates: [HealthCertificate], serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {

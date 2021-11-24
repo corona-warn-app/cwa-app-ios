@@ -99,7 +99,7 @@ final class TicketValidationCoordinator {
 		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
 			viewModel: TicketValidationCertificateSelectionViewModel(
 				validationConditions: validationConditions,
-				healthCertificateService: healthCertificateService,
+				healthCertifiedPersons: healthCertificateService.healthCertifiedPersons,
 				onHealthCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
 					self?.ticketValidation.selectCertificate(healthCertificate)
 					self?.showSecondConsentScreen(selectedCertificate: healthCertificate, selectedCertifiedPerson: healthCertifiedPerson)

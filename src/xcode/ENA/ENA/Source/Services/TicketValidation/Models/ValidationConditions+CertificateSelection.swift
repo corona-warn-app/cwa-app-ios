@@ -58,4 +58,22 @@ extension ValidationConditions {
 		
 		return (supportedHealthCertificates, supportedCertificateTypes)
 	}
+	
+	func generateServiceProviderRequirementsString(supportedCertificateTypes: [String]) -> String {
+		var serviceProviderRequirementsDescription: String = ""
+
+		serviceProviderRequirementsDescription += supportedCertificateTypes.joined(separator: ", ")
+		if let dateOfBirth = self.dob {
+			serviceProviderRequirementsDescription += String(format: AppStrings.TicketValidation.CertificateSelection.dateOfBirth, dateOfBirth)
+		}
+		if let familyName = self.fnt, let givenName = self.gnt {
+			serviceProviderRequirementsDescription += "\n\(familyName)<<\(givenName)"
+		} else if let familyName = self.fnt {
+			serviceProviderRequirementsDescription += "\n\(familyName)<<"
+		} else if let givenName = self.gnt {
+			serviceProviderRequirementsDescription += "\n<<\(givenName)"
+		}
+		
+		return serviceProviderRequirementsDescription
+	}
 }
