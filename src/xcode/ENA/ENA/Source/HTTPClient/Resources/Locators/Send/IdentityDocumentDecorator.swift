@@ -6,7 +6,7 @@ import Foundation
 
 extension Locator {
 
-	// send:	JSON
+	// send:	Nothing
 	// receive:	JSON
 	// type:	default
 	// comment:	Custom error handling required
@@ -17,5 +17,4 @@ extension Locator {
 			method: .get
 		)
 	}
-
 }
