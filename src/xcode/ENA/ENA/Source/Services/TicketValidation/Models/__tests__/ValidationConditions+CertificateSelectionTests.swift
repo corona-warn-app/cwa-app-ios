@@ -164,7 +164,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		
 		let supportedCertificatesTuple = validationConditions.filterCertificates(healthCertifiedPersons: [certifiedPerson])
 		
-		let serviceProviderRequirementsString = validationConditions.generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificatesTuple.supportedCertificateTypes)
+		let serviceProviderRequirementsString = validationConditions.serviceProviderRequirementsString(supportedCertificateTypes: supportedCertificatesTuple.supportedCertificateTypes)
 
 		XCTAssertEqual("Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat\nGeburtsdatum: 1989-12-12\nSCHNEIDER<<ANDREA", serviceProviderRequirementsString)
 	}
@@ -188,7 +188,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		
 		let supportedCertificatesTuple = validationConditions.filterCertificates(healthCertifiedPersons: [certifiedPerson])
 		
-		let serviceProviderRequirementsString = validationConditions.generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificatesTuple.supportedCertificateTypes)
+		let serviceProviderRequirementsString = validationConditions.serviceProviderRequirementsString(supportedCertificateTypes: supportedCertificatesTuple.supportedCertificateTypes)
 
 		XCTAssertEqual("Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat\nGeburtsdatum: 1989-12-12\n<<ANDREA", serviceProviderRequirementsString)
 	}
@@ -212,7 +212,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		
 		let supportedCertificatesTuple = validationConditions.filterCertificates(healthCertifiedPersons: [certifiedPerson])
 		
-		let serviceProviderRequirementsString = validationConditions.generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificatesTuple.supportedCertificateTypes)
+		let serviceProviderRequirementsString = validationConditions.serviceProviderRequirementsString(supportedCertificateTypes: supportedCertificatesTuple.supportedCertificateTypes)
 
 		XCTAssertEqual("Impfzertifikat, Genesenenzertifikat, Schnelltest-Testzertifikat, PCR-Testzertifikat\nGeburtsdatum: 1989-12-12\nSCHNEIDER<<", serviceProviderRequirementsString)
 	}

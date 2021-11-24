@@ -36,7 +36,7 @@ class TicketValidationCertificateSelectionViewModel {
 		let supportedCertificateTuple = validationConditions.filterCertificates(healthCertifiedPersons: healthCertifiedPersons)
 		
 		// creating service provider requirements description
-		let serviceProviderRequirementsDescription = validationConditions.generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTuple.supportedCertificateTypes)
+		let serviceProviderRequirementsDescription = validationConditions.serviceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTuple.supportedCertificateTypes)
 		
 		// finding health certified person
 		let healthCertifiedPerson = healthCertifiedPersonForSupportedCertificates(healthCertifiedPersons: healthCertifiedPersons, supportedHealthCertificates: supportedCertificateTuple.supportedHealthCertificates)
@@ -89,7 +89,7 @@ class TicketValidationCertificateSelectionViewModel {
 
 		for supportedHealthCertificate in supportedHealthCertificates {
 			supportedHealthCertificatesCells.append(.identifier(
-				TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+				HealthCertificateCell.dynamicTableViewCellReuseIdentifier,
 				action: .execute { _, _ in
 					self.onHealthCertificateCellTap(supportedHealthCertificate, certifiedPerson)
 				},
@@ -128,7 +128,7 @@ class TicketValidationCertificateSelectionViewModel {
 		]
 
 		noSupportedCertificateCells.append(.identifier(
-			TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.noSupportedCertificateCell,
+			TicketValidationNoSupportedCertificateCell.dynamicTableViewCellReuseIdentifier,
 			configure: { _, cell, _ in
 				guard let cell = cell as? TicketValidationNoSupportedCertificateCell else {
 					fatalError("could not initialize cell of type `TicketValidationNoSupportedCertificateCell`")

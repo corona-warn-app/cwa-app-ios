@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import HealthCertificateToolkit
 
 extension ValidationConditions {
 	static let pcrTypeString = "LP6464-4"
@@ -40,12 +41,12 @@ extension ValidationConditions {
 			}
 			// if type contains tp, all PCR tests shall pass the filter
 			if certificateTypes.contains("tp") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == ValidationConditions.pcrTypeString })
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.pcrTypeString })
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
 			}
 			// if type contains tr, all RAT tests shall pass the filter
 			if certificateTypes.contains("tr") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == ValidationConditions.antigenTypeString })
+				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.antigenTypeString })
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
 			}
 		} else {
@@ -59,7 +60,7 @@ extension ValidationConditions {
 		return (supportedHealthCertificates, supportedCertificateTypes)
 	}
 	
-	func generateServiceProviderRequirementsString(supportedCertificateTypes: [String]) -> String {
+	func serviceProviderRequirementsString(supportedCertificateTypes: [String]) -> String {
 		var serviceProviderRequirementsDescription: String = ""
 		
 		// supported certificate types separated by comma
