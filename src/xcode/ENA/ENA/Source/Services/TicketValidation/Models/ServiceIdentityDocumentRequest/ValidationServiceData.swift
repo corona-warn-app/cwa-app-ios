@@ -30,7 +30,7 @@ struct VerificationMethod: Codable {
 	let id: String
 	let type: String
 	let controller: String
-	let publicKeyJwk: JSONWebKey
+    let publicKeyJwk: JSONWebKey?
 	let verificationMethods: [String]?
 }
 

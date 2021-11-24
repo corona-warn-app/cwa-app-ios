@@ -77,14 +77,22 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let serviceIdentityDocument):
+                
 				// 2. Verifiy JWKs
-				for method in serviceIdentityDocument.verificationMethod {
-					if let publicKeyJwk = method.publicKeyJwk, publicKeyJwk.x5c.isEmpty {
+				for verificationMethod in serviceIdentityDocument.verificationMethod {
+                    if let publicKeyJwk = verificationMethod.publicKeyJwk, publicKeyJwk.x5c.isEmpty {
 						Log.error("Verify JWKs failed", log: .ticketValidation)
-						completion(.failure(.VD_ID_EMPTY_X5C))
+						completion(.failure(.VS_ID_EMPTY_X5C))
 					}
 				}
-				
+                
+                // 3. Find verificationMethodsForRSAOAEPWithSHA256AESCBC
+                let regEx = "ValidationServiceEncScheme-RSAOAEPWithSHA256AESCBC$"
+                
+                var verificationMethodsForRSAOAEPWithSHA256AESCBC = serviceIdentityDocument.verificationMethod.first { verificationMethod in
+                    let regExExists = verificationMethod.id.check(regex: regEx)
+                    return regExExists && verificationMethod.verificationMethods != nil
+                }?.verificationMethods ?? []
 				
 			case .failure(let error):
 				completion(.failure(.REST_SERVICE_ERROR(error)))

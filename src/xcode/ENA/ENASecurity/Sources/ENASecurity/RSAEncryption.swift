@@ -11,43 +11,32 @@ public enum RSAEncryptionError: Error {
 }
 
 public struct RSAEncryption {
-
+    
     // MARK: - Init
-
-    public init(
-        publicKey: SecKey,
-        privateKey: SecKey
-    ) {
-        self.publicKey = publicKey
-        self.privateKey = privateKey
-    }
+    
+    public init() {}
 
     // MARK: - Public
 
-    public func encrypt(_ data: Data) -> Result<Data, RSAEncryptionError> {
+    public func encrypt(_ data: Data, publicKey: SecKey) -> Result<Data, RSAEncryptionError> {
         // check algorithm is supported
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
-
-        return encode(data)
+        return encode(data, publicKey: publicKey)
     }
 
-    public func decrypt(data: Data) -> Result<Data, RSAEncryptionError> {
+    public func decrypt(data: Data, privateKey: SecKey) -> Result<Data, RSAEncryptionError> {
         // check algorithm is supported
         guard SecKeyIsAlgorithmSupported(privateKey, .decrypt, SecKeyAlgorithm.rsaEncryptionOAEPSHA256) else {
             return .failure(.RSA_ENC_NOT_SUPPORTED)
         }
-
-        return decode(data)
+        return decode(data, privateKey: privateKey)
     }
 
     // MARK: - Private
 
-    private let publicKey: SecKey
-    private let privateKey: SecKey
-
-    private func decode(_ data: Data) -> Result<Data, RSAEncryptionError> {
+    private func decode(_ data: Data, privateKey: SecKey) -> Result<Data, RSAEncryptionError> {
         var error: Unmanaged<CFError>?
         let decodedData = SecKeyCreateDecryptedData(
             privateKey,
@@ -65,7 +54,7 @@ public struct RSAEncryption {
         }
     }
 
-    private func encode(_ data: Data) -> Result<Data, RSAEncryptionError> {
+    private func encode(_ data: Data, publicKey: SecKey) -> Result<Data, RSAEncryptionError> {
         var error: Unmanaged<CFError>?
         let cipherData = SecKeyCreateEncryptedData(
             publicKey,

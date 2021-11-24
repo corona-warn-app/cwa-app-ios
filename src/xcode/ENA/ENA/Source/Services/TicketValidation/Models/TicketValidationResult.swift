@@ -22,10 +22,10 @@ struct TicketValidationResult {
 		let details: String
 	}
 
-	enum Result {
-		case OK
-		case CHK
-		case NOK
+	enum Result: String {
+		case passed = "OK"
+		case open = "CHK"
+		case failed = "NOK"
 	}
 
 }
