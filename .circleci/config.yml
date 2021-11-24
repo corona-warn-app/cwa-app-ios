@@ -264,9 +264,6 @@ jobs:
       - run: brew bundle
       - run: ./scripts/switch_to_dev_env.sh
       - run:
-          name: fastlane testflight
-          command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
-      - run:
           name: fastlane appcenter and Mobile Device Cloud
           command: cd src/xcode && bundle exec fastlane adHocDistribution
 
