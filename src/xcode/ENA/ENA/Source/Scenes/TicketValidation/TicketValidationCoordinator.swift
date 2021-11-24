@@ -100,7 +100,33 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showResultScreen(for result: TicketValidationResult) {
+		let viewModel: TicketValidationResultViewModel
 
+		switch result.result {
+		case .passed:
+			viewModel = TicketValidationPassedViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider
+			)
+		case .open:
+			viewModel = TicketValidationOpenViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				validationResultItems: result.results
+			)
+		case .failed:
+			viewModel = TicketValidationFailedViewModel(
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				validationResultItems: result.results
+			)
+		}
+
+		let resultViewController = TicketValidationResultViewController(
+			viewModel: viewModel,
+			onDismiss: { [weak self] in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+
+		navigationController.pushViewController(resultViewController, animated: true)
 	}
 
 	private func showErrorAlert(error: TicketValidationError) {

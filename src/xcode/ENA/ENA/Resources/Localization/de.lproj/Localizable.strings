@@ -1601,7 +1601,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_215_ticketValidation_title" = "Zertifikatprüfung bei Buchungen";
 
-"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Wird Ihr Zertifikat erfolgreich geprüft und erfüllt die Anforderungen, wird es an das Buchungssystem übertragen.";
+"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Das Ergebnis der Zertifikatsprüfung wird vom Prüfpartner an das Buchungssystem übertragen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3385,7 +3385,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
-/* - Ticket Validation */
+/* Ticket Validation */
+
+/* - Cancel Alert */
 
 "TicketValidation_CancelAlert_title" = "Wollen Sie die Überprüfung wirklich abbrechen?";
 
@@ -3394,6 +3396,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung abbrechen";
 
 "TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
+
+/* - First Consent */
 
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
 
@@ -3420,6 +3424,34 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_FirstConsent_primaryButtonTitle" = "Einverstanden";
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
+
+/* - Result */
+
+"TicketValidation_Result_validationParameters" = "Geprüft am %@ vom Prüfpartner";
+
+"TicketValidation_Result_moreInformation" = "Mehr Informationen finden Sie in den %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "FAQ";
+
+"TicketValidation_Result_Passed_title" = "Erfolgreiche Prüfung";
+
+"TicketValidation_Result_Passed_subtitle" = "Ihr Zertifikat wurde erfolgreich überprüft";
+
+"TicketValidation_Result_Passed_description" = "Der Anbieter “%@” wurde über die erfolgreiche Prüfung informiert.";
+
+"TicketValidation_Result_Open_title" = "Zertifikat nicht prüfbar";
+
+"TicketValidation_Result_Open_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
+
+"TicketValidation_Result_Open_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+"TicketValidation_Result_Failed_title" = "Zertifikat nicht anerkannt";
+
+"TicketValidation_Result_Failed_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
+
+"TicketValidation_Result_Failed_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+/* - Error */
 
 "TicketValidation_Error_title" = "Fehler";
 

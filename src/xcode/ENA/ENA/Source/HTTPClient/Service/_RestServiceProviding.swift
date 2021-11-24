@@ -12,4 +12,6 @@ protocol RestServiceProviding {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
+
+	func update(_ evaluateTrust: EvaluateTrust)
 }
