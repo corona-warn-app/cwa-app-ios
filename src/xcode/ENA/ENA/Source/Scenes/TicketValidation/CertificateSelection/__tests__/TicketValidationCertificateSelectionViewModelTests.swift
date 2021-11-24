@@ -79,7 +79,7 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 		)
 
 		XCTAssertFalse(model.isSupportedCertificatesEmpty)
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfRows(section: 0), 5) // 3 Text fields + 3 Certificates
+		XCTAssertEqual(model.dynamicTableViewModel.numberOfRows(section: 0), 6) // 3 Text fields + 3 Certificates
 	}
 	
 	func testGIVEN_Certificates_WHEN_CertificateSelectionModelIsCreatedWithDifferentPerson_THEN_ModelIsSetupCorrectly() throws {
