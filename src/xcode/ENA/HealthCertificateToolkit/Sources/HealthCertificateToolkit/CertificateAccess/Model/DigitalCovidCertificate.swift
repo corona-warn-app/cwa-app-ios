@@ -30,7 +30,7 @@ public struct DigitalCovidCertificate: Codable, Equatable {
     public static func fake(
         version: String = "1.3.0",
         name: Name = .fake(),
-        dateOfBirth: String = "1942-01-01",
+        dateOfBirth: String = "1989-12-12",
         vaccinationEntries: [VaccinationEntry]? = nil,
         testEntries: [TestEntry]? = nil,
         recoveryEntries: [RecoveryEntry]? = nil
