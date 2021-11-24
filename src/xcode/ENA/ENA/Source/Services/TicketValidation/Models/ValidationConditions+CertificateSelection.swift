@@ -61,11 +61,14 @@ extension ValidationConditions {
 	
 	func generateServiceProviderRequirementsString(supportedCertificateTypes: [String]) -> String {
 		var serviceProviderRequirementsDescription: String = ""
-
+		
+		// supported certificate types separated by comma
 		serviceProviderRequirementsDescription += supportedCertificateTypes.joined(separator: ", ")
+		// based on dob without any additional formating
 		if let dateOfBirth = self.dob {
 			serviceProviderRequirementsDescription += String(format: AppStrings.TicketValidation.CertificateSelection.dateOfBirth, dateOfBirth)
 		}
+		// concatenation of fnt and gnt separated by <<. If one of them is empty, an empty string shall be used.
 		if let familyName = self.fnt, let givenName = self.gnt {
 			serviceProviderRequirementsDescription += "\n\(familyName)<<\(givenName)"
 		} else if let familyName = self.fnt {
