@@ -22,7 +22,7 @@ struct QRScannerInfoViewModel {
 					.headlineWithImage(
 						headerText: AppStrings.UniversalQRScanner.Info.title,
 						image: UIImage(imageLiteralResourceName: "Illu_QRScannerInfo"),
-						accessibilityIdentifier: AccessibilityIdentifiers.UniversalQRScanner.Info.title
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.UniversalQRScanner.Info.title
 					),
 					.space(height: 24.0),
 					.icon(

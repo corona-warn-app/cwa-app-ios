@@ -24,17 +24,17 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		headline: String,
 		image: UIImage,
 		topInset: CGFloat,
-		accessibilityLabel: String? = nil,
-		accessibilityIdentifier: String? = nil,
-		accessibilityTraits: UIAccessibilityTraits = [.header, .image]
+		imageAccessibilityLabel: String? = nil,
+		imageAccessibilityIdentifier: String? = nil
 	) {
 		headlineLabel.text = headline
 		backgroundImageView.image = image
 		topInsetConstraint.constant = topInset
 
-		backgroundImageView.accessibilityLabel = accessibilityLabel
-		backgroundImageView.accessibilityIdentifier = accessibilityIdentifier
-		backgroundImageView.accessibilityTraits = accessibilityTraits
+		backgroundImageView.accessibilityLabel = imageAccessibilityLabel
+		backgroundImageView.isAccessibilityElement = imageAccessibilityLabel != nil
+
+		backgroundImageView.accessibilityIdentifier = imageAccessibilityIdentifier
 	}
 
 	// MARK: - Private

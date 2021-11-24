@@ -27,8 +27,8 @@ struct FirstTicketValidationConsentViewModel {
 					.headlineWithImage(
 						headerText: AppStrings.TicketValidation.FirstConsent.title,
 						image: UIImage(imageLiteralResourceName: "Illu_TicketValidation"),
-						accessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
+						imageAccessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
 					)
 				]
 			),
