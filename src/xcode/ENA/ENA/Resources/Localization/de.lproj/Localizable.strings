@@ -3176,7 +3176,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Überprüfungen bei Ticketbuchungen";
+"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
@@ -3214,7 +3214,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR-Tests und Schnelltests";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Überprüfung von Zertifikaten bei Ticketbuchungen";
+"UniversalQRScanner_Info_bulletPoint4" = "Nachweis von Zertifikaten bei Ticketbuchungen";
 
 "UniversalQRScanner_Info_body1" = "Die Daten aus dem jeweiligen QR-Code werden ausgelesen.";
 
