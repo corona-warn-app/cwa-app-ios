@@ -21,7 +21,7 @@ struct ServiceIdentityDocumentResource: Resource {
 		endpointUrl: URL
 	) {
 		self.locator = Locator.serviceIdentityDocument(endpointUrl: endpointUrl)
-		self.type = .default
+		self.type = .dynamicPinning
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<ServiceIdentityDocument>()
 	}
