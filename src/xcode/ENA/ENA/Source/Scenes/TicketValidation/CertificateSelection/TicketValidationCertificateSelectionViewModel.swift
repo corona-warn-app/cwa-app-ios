@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import OpenCombine
 import HealthCertificateToolkit
 
 class TicketValidationCertificateSelectionViewModel {
@@ -25,7 +24,8 @@ class TicketValidationCertificateSelectionViewModel {
 	
 	// MARK: - Internal
 
-	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	var isSupportedCertificatesEmpty: Bool = true
 	
 	// MARK: - Private
 	
@@ -97,12 +97,14 @@ class TicketValidationCertificateSelectionViewModel {
 		// setting up view model
 		if supportedHealthCertificates.isEmpty {
 			dynamicTableViewModel = dynamicTableViewModelNoSupportedCertificate(serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
+			isSupportedCertificatesEmpty = true
 		} else {
 			dynamicTableViewModel = dynamicTableViewModelSupportedHealthCertificates(
 				healthCertifiedPerson: healthCertifiedPerson,
 				supportedHealthCertificates: supportedHealthCertificates,
 				serviceProviderRequirementsDescription: serviceProviderRequirementsDescription
 			)
+			isSupportedCertificatesEmpty = false
 		}
 	}
 		

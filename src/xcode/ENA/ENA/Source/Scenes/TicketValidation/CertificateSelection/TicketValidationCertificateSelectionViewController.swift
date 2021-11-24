@@ -4,13 +4,13 @@
 
 import UIKit
 
-class TicketValidationCertificateSelectionViewController: DynamicTableViewController {
+class TicketValidationCertificateSelectionViewController: DynamicTableViewController, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		viewModel: TicketValidationCertificateSelectionViewModel,
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping (_ isSupportedCertificatesEmpty: Bool) -> Void
 	) {
 		self.onDismiss = onDismiss
 		self.viewModel = viewModel
@@ -27,9 +27,10 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		title = AppStrings.TicketValidation.CertificateSelection.title
-
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		
 		setupView()
 	}
 
@@ -39,19 +40,19 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
+	
+	// MARK: - DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss(viewModel.isSupportedCertificatesEmpty)
+	}
 
 	// MARK: - Private
 
-	private let onDismiss: () -> Void
+	private let onDismiss: (_ isSupportedCertificatesEmpty: Bool) -> Void
 	private let viewModel: TicketValidationCertificateSelectionViewModel
 
 	private func setupView() {
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.onDismiss()
-			}
-		)
-
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
@@ -67,7 +68,6 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
-
 }
 
 // MARK: - Cell reuse identifiers.

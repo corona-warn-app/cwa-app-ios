@@ -105,8 +105,13 @@ final class TicketValidationCoordinator {
 					self?.showSecondConsentScreen(selectedCertificate: healthCertificate, selectedCertifiedPerson: healthCertifiedPerson)
 				}
 			),
-			onDismiss: { [weak self] in
-				self?.showDismissAlert()
+			onDismiss: { [weak self] isSupportedCertificatesEmpty in
+				if isSupportedCertificatesEmpty {
+					self?.ticketValidation.cancel()
+					self?.navigationController.dismiss(animated: true)
+				} else {
+					self?.showDismissAlert()
+				}
 			}
 		)
 		

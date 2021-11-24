@@ -14,7 +14,7 @@ extension ValidationConditions {
 		fnt: String? = nil,
 		gnt: String? = nil,
 		dob: String? = nil,
-		type: [String]? = [],
+		type: [String]? = nil,
 		coa: String? = nil,
 		roa: String? = nil,
 		cod: String? = nil,
