@@ -6,9 +6,6 @@ import Foundation
 import HealthCertificateToolkit
 
 extension ValidationConditions {
-	static let pcrTypeString = "LP6464-4"
-	static let antigenTypeString = "LP217198-3"
-
 	func filterCertificates(healthCertifiedPersons: [HealthCertifiedPerson]) -> (supportedHealthCertificates: [HealthCertificate], supportedCertificateTypes: [String]) {
 		var supportedHealthCertificates: [HealthCertificate] = []
 		var supportedCertificateTypes: [String] = []
