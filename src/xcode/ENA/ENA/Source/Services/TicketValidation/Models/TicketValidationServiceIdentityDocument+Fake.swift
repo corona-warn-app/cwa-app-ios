@@ -9,7 +9,7 @@ import ENASecurity
 extension TicketValidationServiceIdentityDocument {
 	
 	static func fake(
-		id: String = "fakeID",
+		id: String = "",
 		verificationMethod: [TicketValidationVerificationMethod] = [.fake()],
 		service: [TicketValidationServiceData]? = [.fake()]
 	) -> TicketValidationServiceIdentityDocument {
@@ -24,11 +24,11 @@ extension TicketValidationServiceIdentityDocument {
 extension TicketValidationVerificationMethod {
 	
 	static func fake(
-		id: String = "someIdWithRegexValidationServiceEncScheme-RSAOAEPWithSHA256AESCBC$",
+		id: String = "",
 		type: String = "",
 		controller: String = "",
 		publicKeyJwk: JSONWebKey? = JSONWebKey.fake(),
-		verificationMethods: [String] = ["", ""]
+		verificationMethods: [String] = [""]
 	) -> TicketValidationVerificationMethod {
 		return TicketValidationVerificationMethod(
 			id: id,

@@ -12,9 +12,25 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_HappyPath_THEN_Success() throws {
 		
 		// GIVEN
+		let expectedResult1 = ["Should be contained in the result, Part 1"]
+		let expectedResult2 = ["Should be contained in the result, Part 2"]
 		let serviceIdentityDocumentProcessor = TVServiceIdentityDocumentProcessor()
 		let validationServiceJwkSet = JSONWebKey.fake()
-		let serviceIdentityDocument = TicketValidationServiceIdentityDocument(id: "", verificationMethod: [], service: nil)
+		let serviceIdentityDocument = TicketValidationServiceIdentityDocument.fake(
+			id: "sidID",
+			verificationMethod: [
+				.fake(
+					id: "someIdWithRegexValidationServiceEncScheme-RSAOAEPWithSHA256AESCBC",
+					publicKeyJwk: .fake(x5c: expectedResult1),
+					verificationMethods: ["someIdWithRegexValidationServiceEncScheme-RSAOAEPWithSHA256AESCBC", "wrongVerificationMethod"]
+				),
+				.fake(
+					id: "someOtherIdWithRegexValidationServiceSignKey-090909",
+					publicKeyJwk: .fake(x5c: expectedResult2),
+					verificationMethods: ["should not be important for this test"]
+				)
+			]
+		)
 		
 		// WHEN
 		serviceIdentityDocumentProcessor.process(
@@ -25,6 +41,11 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 				case let .success(serviceIdentityRequestResult):
 					// THEN
 					XCTAssertNotNil(serviceIdentityRequestResult)
+					XCTAssertEqual(serviceIdentityRequestResult.validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESCBC.count, 1)
+					XCTAssertEqual(serviceIdentityRequestResult.validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESCBC.first?.x5c, expectedResult1)
+					XCTAssertTrue(serviceIdentityRequestResult.validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESGCM.isEmpty)
+					XCTAssertEqual(serviceIdentityRequestResult.validationServiceSignKeyJwkSet.count, 1)
+					XCTAssertEqual(serviceIdentityRequestResult.validationServiceSignKeyJwkSet.first?.x5c, expectedResult2)
 				case let .failure(error):
 					XCTFail("Test should not fail with error: \(error)")
 				}
