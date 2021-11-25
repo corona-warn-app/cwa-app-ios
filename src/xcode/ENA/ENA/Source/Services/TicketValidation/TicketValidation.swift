@@ -9,15 +9,12 @@ final class TicketValidation: TicketValidating {
 	// MARK: - Protocol TicketValidating
 
 	init(
-		with initializationData: TicketValidationInitializationData,
-		restServiceProvider: RestServiceProviding
+		with initializationData: TicketValidationInitializationData
 	) {
 		self.initializationData = initializationData
-		self.restServiceProvider = restServiceProvider
 	}
 
 	var initializationData: TicketValidationInitializationData
-	private let restServiceProvider: RestServiceProviding
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
