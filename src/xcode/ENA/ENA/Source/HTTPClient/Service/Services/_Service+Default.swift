@@ -41,6 +41,7 @@ extension Service {
 		return .success(urlRequest)
 	}
 
+    // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
