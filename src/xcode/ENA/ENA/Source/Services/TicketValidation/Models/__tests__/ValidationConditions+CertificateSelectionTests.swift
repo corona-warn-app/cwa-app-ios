@@ -27,7 +27,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		
 		let supportedCertificatesTuple = validationConditions.filterCertificates(healthCertifiedPersons: [certifiedPerson])
 		
-		XCTAssertEqual(supportedCertificatesTuple.supportedHealthCertificates, [recoveryCertificate, vaccinationCertificate])
+		XCTAssertEqual(supportedCertificatesTuple.supportedHealthCertificates, [vaccinationCertificate, recoveryCertificate])
 		XCTAssertEqual(supportedCertificatesTuple.supportedCertificateTypes, [AppStrings.TicketValidation.SupportedCertificateType.vaccinationCertificate, AppStrings.TicketValidation.SupportedCertificateType.recoveryCertificate])
 	}
 	
@@ -119,7 +119,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		
 		let supportedCertificatesTuple = validationConditions.filterCertificates(healthCertifiedPersons: [certifiedPerson])
 		
-		XCTAssertEqual(supportedCertificatesTuple.supportedHealthCertificates, [testCertificate, recoveryCertificate, vaccinationCertificate])
+		XCTAssertEqual(supportedCertificatesTuple.supportedHealthCertificates, [vaccinationCertificate, testCertificate, recoveryCertificate])
 		XCTAssertEqual(supportedCertificatesTuple.supportedCertificateTypes, [])
 	}
 	
