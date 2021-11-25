@@ -248,4 +248,20 @@ class ValidationDecoratorServiceTests: XCTestCase {
 			}
 		}
 	}
+	
+	func test_If_RestService_Got_ServerError_Then_Abort() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<DecoratorServiceIdentityDocumentError>.unexpectedServerError(500))
+		])
+		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
+
+		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+			switch result {
+			case .success:
+				XCTFail("expected test to fail")
+			case .failure(let error):
+				XCTAssertEqual(error, .VD_ID_SERVER_ERR, "A Server error should occur")
+			}
+		}
+	}
 }
