@@ -264,4 +264,20 @@ class ValidationDecoratorServiceTests: XCTestCase {
 			}
 		}
 	}
+
+	func test_If_RestService_Got_Invalid_JSON_Then_Abort() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<DecoratorServiceIdentityDocumentError>.resourceError(.decoding))
+		])
+		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
+
+		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+			switch result {
+			case .success:
+				XCTFail("expected test to fail")
+			case .failure(let error):
+				XCTAssertEqual(error, .VD_ID_PARSE_ERR, "A Server error should occur")
+			}
+		}
+	}
 }
