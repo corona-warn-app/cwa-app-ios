@@ -3,7 +3,7 @@
 //
 
 import Foundation
-enum DecoratorServiceIdentityDocumentError: Error {
+enum ServiceIdentityDocumentValidationDecoratorError: Error {
  case VD_ID_CLIENT_ERR
  case VD_ID_NO_NETWORK
  case VD_ID_NO_ATS

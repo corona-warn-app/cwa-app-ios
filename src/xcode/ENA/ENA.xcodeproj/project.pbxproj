@@ -835,8 +835,8 @@
 		8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634083262DBB6900077240 /* Route+Equatable.swift */; };
 		8F6635F02713A7B500384B63 /* stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8F6635EF2713A7B400384B63 /* stats.bin */; };
 		8F7068FF274CA5AA005C546B /* DecoratorServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */; };
-		8F706903274CA943005C546B /* DecoratorIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */; };
-		8F706905274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706904274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift */; };
+		8F706903274CA943005C546B /* ServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706902274CA943005C546B /* ServiceIdentityDocumentValidationDecorator.swift */; };
+		8F706905274CAB14005C546B /* ServiceIdentityDocumentValidationDecoratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706904274CAB14005C546B /* ServiceIdentityDocumentValidationDecoratorError.swift */; };
 		8F706907274CAC5D005C546B /* ServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */; };
 		8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */; };
 		8F7AB8CE25F257220043A3C8 /* TopErrorReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */; };
@@ -847,7 +847,7 @@
 		8F80802C2730B48F00F8FA3F /* SendRegistrationTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */; };
 		8F80802E2731242900F8FA3F /* SubmissionTANModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */; };
 		8F87214E274DBCAE00A263D5 /* IdentityDocumentDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214D274DBCAE00A263D5 /* IdentityDocumentDecorator.swift */; };
-		8F872150274DBD7B00A263D5 /* DecoratorIdentityDocumentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214F274DBD7B00A263D5 /* DecoratorIdentityDocumentResource.swift */; };
+		8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */; };
 		8F872152274E4EB100A263D5 /* VerificationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F872151274E4EB100A263D5 /* VerificationMethod.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
@@ -2392,8 +2392,8 @@
 		8F634083262DBB6900077240 /* Route+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+Equatable.swift"; sourceTree = "<group>"; };
 		8F6635EF2713A7B400384B63 /* stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = stats.bin; sourceTree = "<group>"; };
 		8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorServiceModel.swift; sourceTree = "<group>"; };
-		8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorIdentityDocument.swift; sourceTree = "<group>"; };
-		8F706904274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorServiceIdentityDocumentError.swift; sourceTree = "<group>"; };
+		8F706902274CA943005C546B /* ServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecorator.swift; sourceTree = "<group>"; };
+		8F706904274CAB14005C546B /* ServiceIdentityDocumentValidationDecoratorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorError.swift; sourceTree = "<group>"; };
 		8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocument.swift; sourceTree = "<group>"; };
 		8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewModel.swift; sourceTree = "<group>"; };
 		8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewModel.swift; sourceTree = "<group>"; };
@@ -2405,7 +2405,7 @@
 		8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRegistrationTokenModel.swift; sourceTree = "<group>"; };
 		8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionTANModel.swift; sourceTree = "<group>"; };
 		8F87214D274DBCAE00A263D5 /* IdentityDocumentDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityDocumentDecorator.swift; sourceTree = "<group>"; };
-		8F87214F274DBD7B00A263D5 /* DecoratorIdentityDocumentResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorIdentityDocumentResource.swift; sourceTree = "<group>"; };
+		8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResource.swift; sourceTree = "<group>"; };
 		8F872151274E4EB100A263D5 /* VerificationMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMethod.swift; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
@@ -6073,8 +6073,8 @@
 				8F09522F274F5518002B7049 /* __tests__ */,
 				8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */,
 				8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */,
-				8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */,
-				8F706904274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift */,
+				8F706902274CA943005C546B /* ServiceIdentityDocumentValidationDecorator.swift */,
+				8F706904274CAB14005C546B /* ServiceIdentityDocumentValidationDecoratorError.swift */,
 				8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */,
 				8F872151274E4EB100A263D5 /* VerificationMethod.swift */,
 			);
@@ -7855,7 +7855,7 @@
 				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */,
-				8F87214F274DBD7B00A263D5 /* DecoratorIdentityDocumentResource.swift */,
+				8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
 				BA52A69926EA1A1700AA0732 /* SendResources */,
@@ -9425,7 +9425,7 @@
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
 				3529BC1925D6BA800097E492 /* CachingHTTPClientMock.swift in Sources */,
-				8F872150274DBD7B00A263D5 /* DecoratorIdentityDocumentResource.swift in Sources */,
+				8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */,
 				BAFC6ABE26A7183000F18BBE /* DSCListProvider.swift in Sources */,
 				5093B9AA260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift in Sources */,
 				50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */,
@@ -9718,7 +9718,7 @@
 				01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
-				8F706905274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift in Sources */,
+				8F706905274CAB14005C546B /* ServiceIdentityDocumentValidationDecoratorError.swift in Sources */,
 				01F2A563257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift in Sources */,
 				0138F6AE25F25B1400A9B075 /* TraceLocationsInfoViewController.swift in Sources */,
 				BAD3CCD5271EEB5A004C06AD /* _PaddingResource.swift in Sources */,
@@ -9788,7 +9788,7 @@
 				508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */,
 				BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */,
 				01A4DC6C25922EB4007D5794 /* HomeRiskTableViewCell.swift in Sources */,
-				8F706903274CA943005C546B /* DecoratorIdentityDocument.swift in Sources */,
+				8F706903274CA943005C546B /* ServiceIdentityDocumentValidationDecorator.swift in Sources */,
 				BA6C8AF4254D65E1008344F5 /* ScanInstance.swift in Sources */,
 				BA6D1634255AD2AA00ED3492 /* DMWifiClientViewModel.swift in Sources */,
 				BADE38232608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift in Sources */,

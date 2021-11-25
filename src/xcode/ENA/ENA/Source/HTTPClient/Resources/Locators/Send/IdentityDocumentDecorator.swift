@@ -10,7 +10,7 @@ extension Locator {
 	// receive:	JSON
 	// type:	default
 	// comment:	Custom error handling required
-	static func identityDocumentDecorator(url: URL) -> Locator {
+	static func serviceIdentityDocumentValidationDecorator(url: URL) -> Locator {
 		return Locator(
 			endpoint: .dynamic(url),
 			paths: [],

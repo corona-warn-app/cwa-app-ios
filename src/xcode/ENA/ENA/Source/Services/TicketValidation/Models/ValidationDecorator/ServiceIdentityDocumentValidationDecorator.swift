@@ -5,10 +5,10 @@
 import Foundation
 import ENASecurity
 
-public struct DecoratorIdentityDocument: Codable {
-	let accessTokenService: DecoratorServiceModel
+public struct ServiceIdentityDocumentValidationDecorator: Codable {
+	let accessTokenService: ValidationDecoratorServiceModel
 	let accessTokenServiceJwkSet: [JSONWebKey?]
 	let accessTokenSignJwkSet: [JSONWebKey?]
-	let validationService: DecoratorServiceModel
+	let validationService: ValidationDecoratorServiceModel
 	let validationServiceJwkSet: [JSONWebKey?]
 }

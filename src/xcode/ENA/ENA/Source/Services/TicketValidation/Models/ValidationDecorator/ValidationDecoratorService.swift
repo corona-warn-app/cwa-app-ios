@@ -15,16 +15,16 @@ final class ValidationDecoratorService {
 	private let restServiceProvider: RestServiceProviding
 
 	// swiftlint:disable:next cyclomatic_complexity
-	func requestIdentityDocumentOfTheValidationDecorator(
+	func requestServiceIdentityDocumentValidationDecorator(
 		urlString: String,
 		completion:
-		@escaping (Result<DecoratorIdentityDocument, DecoratorServiceIdentityDocumentError>) -> Void
+		@escaping (Result<ServiceIdentityDocumentValidationDecorator, ServiceIdentityDocumentValidationDecoratorError>) -> Void
 	) {
 		guard let url = URL(string: urlString) else {
 			Log.error("URL cant be constructed from input string", log: .ticketValidationDecorator)
 			return
 		}
-		let resource = DecoratorIdentityDocumentResource(url: url)
+		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
@@ -100,7 +100,7 @@ final class ValidationDecoratorService {
 				
 				completion(
 					.success(
-						DecoratorIdentityDocument(
+						ServiceIdentityDocumentValidationDecorator(
 							accessTokenService: accessTokenService,
 							accessTokenServiceJwkSet: accessTokenServiceJwkSet,
 							accessTokenSignJwkSet: accessTokenSignJwkSet,

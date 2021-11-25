@@ -8,7 +8,7 @@ import ENASecurity
 struct ServiceIdentityDocument: Codable {
 	let id: String
 	let verificationMethod: [VerificationMethod]
-	let service: [DecoratorServiceModel]?
+	let service: [ValidationDecoratorServiceModel]?
 	
 	public static func fake(
 		id: String = "fake",
