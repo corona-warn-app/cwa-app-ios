@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class ServiceIdentityDocumentResource: CWATestCase {
+final class ServiceIdentityDocumentResourceTests: CWATestCase {
 
 	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_DecodingFails_THEN_VS_ID_PARSE_ERR_ERROR() throws {
 	
