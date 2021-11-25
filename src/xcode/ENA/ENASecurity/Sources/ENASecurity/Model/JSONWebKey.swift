@@ -48,4 +48,13 @@ public struct JSONWebKey: Codable {
         }
         return pemData
     }
+    
+    public static func fake(
+        x5c: [String] = ["fake"],
+        kid: String = "fake",
+        alg: String = "fake",
+        use: String = "fake"
+    ) -> JSONWebKey {
+        JSONWebKey(x5c: x5c, kid: kid, alg: alg, use: use)
+    }
 }
