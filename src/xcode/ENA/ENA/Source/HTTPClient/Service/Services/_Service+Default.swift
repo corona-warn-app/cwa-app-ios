@@ -48,7 +48,7 @@ extension Service {
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
-			completion(.failure(customError(in: resource, for: .transportationError(resourceError))))
+			completion(.failure(customError(in: resource, for: .invalidRequestError(resourceError))))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				

@@ -8,27 +8,103 @@ import XCTest
 
 final class ServiceIdentityDocumentResourceTests: CWATestCase {
 
-	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_DecodingFails_THEN_VS_ID_PARSE_ERR_ERROR() throws {
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_THEN_Success() throws {
+		let expectedServiceIdentityDocument = TicketValidationServiceIdentityDocument.fake()
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode(
+				expectedServiceIdentityDocument
+			)
+		)
+		
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+
+		let fakeURL = try XCTUnwrap(URL(string: "some"))
+		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+
+		let expectation = expectation(description: "Expect that we got a completion")
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success(let serviceIdentityDocument):
+				XCTAssertEqual(serviceIdentityDocument, expectedServiceIdentityDocument)
+			case .failure(let error):
+				XCTFail("Success expected. Instead error received: \(error)")
+			}
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DecodingFails_THEN_VS_ID_PARSE_ERR_ERROR() throws {
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode(
+				"Not TicketValidationServiceIdentityDocument"
+			)
+		)
+		
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+
+		let fakeURL = try XCTUnwrap(URL(string: "some"))
+		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+
+		let expectation = expectation(description: "Expect that we got a completion")
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.VS_ID_PARSE_ERR) = error else {
+					XCTFail("VS_ID_PARSE_ERR error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_NetworkFails_THEN_VS_ID_NO_NETWORK() throws {
+		let stack = MockNetworkStack(
+			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+		)
+		
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+
+		let fakeURL = try XCTUnwrap(URL(string: "some"))
+		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+
+		let expectation = expectation(description: "Expect that we got a completion")
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.VS_ID_NO_NETWORK) = error else {
+					XCTFail("VS_ID_NO_NETWORK error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_ClientFails_THEN_VS_ID_CLIENT_ERR() throws {
+	}
+	
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_ServerFails_THEN_VS_ID_SERVER_ERR() throws {
 	
 	}
 	
-	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_NetworkFails_THEN_VS_ID_NO_NETWORK() throws {
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynmaicPinningNoJwkFound_THEN_VS_ID_CERT_PIN_NO_JWK_FOR_KID() throws {
 	
 	}
 	
-	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_ClientFails_THEN_VS_ID_CLIENT_ERR() throws {
-	
-	}
-	
-	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_ServerFails_THEN_VS_ID_SERVER_ERR() throws {
-	
-	}
-	
-	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_DynmaicPinningNoJwkFound_THEN_VS_ID_CERT_PIN_NO_JWK_FOR_KID() throws {
-	
-	}
-	
-	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Loading_DynamicPinningCertificateMismatches_THEN_VS_ID_CERT_PIN_MISMATCH() throws {
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynamicPinningCertificateMismatches_THEN_VS_ID_CERT_PIN_MISMATCH() throws {
 	
 	}
 	

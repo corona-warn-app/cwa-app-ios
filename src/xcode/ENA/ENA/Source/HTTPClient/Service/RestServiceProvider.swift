@@ -59,7 +59,7 @@ class RestServiceProvider: RestServiceProviding {
 			/// use lock to make sure we are not updating dynamicPinningRestService at the moment
 			updateLock.lock()
 			dynamicPinningRestService.load(resource, completion)
-			updateLock.unlock()
+			updateLock.unlock()			
 		}
 	}
 
