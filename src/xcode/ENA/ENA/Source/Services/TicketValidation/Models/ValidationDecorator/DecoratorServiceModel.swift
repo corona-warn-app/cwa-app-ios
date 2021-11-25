@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct DecoratorService: Codable {
+public struct DecoratorServiceModel: Codable {
 	let id: String
 	let type: String
 	let serviceEndpoint: String
