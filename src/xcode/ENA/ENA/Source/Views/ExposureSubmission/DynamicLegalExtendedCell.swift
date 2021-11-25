@@ -76,7 +76,7 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 		let description2 = NSAttributedString(string: "")
 		configure(title: title, description1: description, description2: description2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
 	}
-
+	
 	/// Configure a legal extended cell:
 	/// - Parameters:
 	/// - title, (bold)
@@ -95,9 +95,72 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 		
 		configure(title: title, description1: description, description2: NSAttributedString(), textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
 	}
+	
+	/// Configure a legal extended cell with bullet points and sub bullet points:
+	/// - Parameters:
+	/// - title, (bold)
+	/// - description
+	/// - bulletPoints
+	/// - subBulletPoints
+	func configure(
+		title: NSAttributedString,
+		description: NSAttributedString,
+		bulletPoints: [NSAttributedString],
+		subBulletPoints: [NSAttributedString],
+		accessibilityIdentifier: String
+	) {
+		let label = ENALabel() // get the default font – create fake label
+		
+		let formattedBulletPoints = bulletPoints.map({ $0.bulletPointString(bulletPointFont: label.font) })
+		let formattedSubBulletPoints = subBulletPoints.map({ $0.bulletPointString(bulletPointFont: .systemFont(ofSize: 9)) })
+		
+		titleLabel.attributedText = title
+		descriptionLabel1.attributedText = description
 
+		descriptionLabel1.isHidden = false
+		descriptionLabel2.isHidden = true
+		
+		self.accessibilityIdentifier = accessibilityIdentifier
+		
+		// pruning stack view before setting (new) label
+		contentStackView1.removeAllArrangedSubviews()
+		contentStackView2.removeAllArrangedSubviews()
+		
+		formattedBulletPoints.forEach { string in
+			let label = ENALabel()
+			label.style = .body
+			label.numberOfLines = 0
+			label.lineBreakMode = .byWordWrapping
+			label.attributedText = string
+			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
+			contentStackView1.addArrangedSubview(label)
+		}
+		
+		formattedSubBulletPoints.forEach { string in
+			let label = ENALabel()
+			label.style = .body
+			label.numberOfLines = 0
+			label.lineBreakMode = .byWordWrapping
+			label.attributedText = string
+			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
+			contentStackView2.addArrangedSubview(label)
+		}
+		// We need for the subBulletPoints some more indentation
+		contentStackView2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60).isActive = true
+		
+		cardView.layoutIfNeeded()
+	}
 
-	func configure(title: NSAttributedString, description1: NSAttributedString?, description2: NSAttributedString?, textBlocks1: [NSAttributedString], textBlocks2: [NSAttributedString], accessibilityIdentifier: String? = nil) {
+	private func configure(
+		title: NSAttributedString,
+		description1: NSAttributedString?,
+		description2: NSAttributedString?,
+		textBlocks1: [NSAttributedString],
+		textBlocks2: [NSAttributedString],
+		accessibilityIdentifier: String? = nil
+	) {
 		
 		titleLabel.attributedText = title
 		descriptionLabel1.attributedText = description1
@@ -133,7 +196,6 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 			label.setContentHuggingPriority(.required, for: .vertical)
 			contentStackView2.addArrangedSubview(label)
 		}
-		
 		cardView.layoutIfNeeded()
 	}
 

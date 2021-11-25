@@ -366,7 +366,8 @@ class QRScannerCoordinator {
 		showActivityIndicator()
 		let ticketValidation = MockTicketValidation(with: initializationData)
 		ticketValidation.delay = 1
-
+		ticketValidation.firstConsentResult = .success(.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "tp", "tr"]))
+															 
 		ticketValidation.initialize { [weak self] result in
 			DispatchQueue.main.async {
 				self?.hideActivityIndicator()
@@ -417,7 +418,8 @@ class QRScannerCoordinator {
 					}
 
 					self.ticketValidationCoordinator = TicketValidationCoordinator(
-						parentViewController: parentViewController
+						parentViewController: parentViewController,
+						healthCertificateService: self.healthCertificateService
 					)
 
 					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
@@ -428,7 +430,8 @@ class QRScannerCoordinator {
 				}
 
 				self.ticketValidationCoordinator = TicketValidationCoordinator(
-					parentViewController: parentViewController
+					parentViewController: parentViewController,
+					healthCertificateService: self.healthCertificateService
 				)
 
 				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)

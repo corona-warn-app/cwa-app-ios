@@ -41,7 +41,6 @@ extension ValidationConditions {
 			validTo: validTo
 		)
 	}
-
 }
 
 #endif

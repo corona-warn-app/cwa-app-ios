@@ -10,9 +10,11 @@ final class TicketValidationCoordinator {
 	// MARK: - Init
 	
 	init(
-		parentViewController: UIViewController
+		parentViewController: UIViewController,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.parentViewController = parentViewController
+		self.healthCertificateService = healthCertificateService
 	}
 	
 	// MARK: - Internal
@@ -31,7 +33,8 @@ final class TicketValidationCoordinator {
 	private weak var parentViewController: UIViewController!
 	private var navigationController: UINavigationController!
 	private var ticketValidation: TicketValidating!
-	
+	private var healthCertificateService: HealthCertificateService
+
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
 			viewModel: FirstTicketValidationConsentViewModel(
@@ -57,8 +60,8 @@ final class TicketValidationCoordinator {
 					}
 				}
 			},
-			onDismiss: {
-				self.showDismissAlert()
+			onDismiss: { [weak self] in
+				self?.showDismissAlert()
 			}
 		)
 		
@@ -92,11 +95,83 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showCertificateSelectionScreen(validationConditions: ValidationConditions) {
-
+		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
+			viewModel: TicketValidationCertificateSelectionViewModel(
+				validationConditions: validationConditions,
+				healthCertifiedPersons: healthCertificateService.healthCertifiedPersons,
+				onHealthCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+					self?.ticketValidation.selectCertificate(healthCertificate)
+					self?.showSecondConsentScreen(selectedCertificate: healthCertificate, selectedCertifiedPerson: healthCertifiedPerson)
+				}
+			),
+			onDismiss: { [weak self] isSupportedCertificatesEmpty in
+				if isSupportedCertificatesEmpty {
+					self?.ticketValidation.cancel()
+					self?.navigationController.dismiss(animated: true)
+				} else {
+					self?.showDismissAlert()
+				}
+			}
+		)
+		
+		if #available(iOS 13.0, *) {
+			certificateSelectionViewController.isModalInPresentation = true
+		}
+		
+		navigationController.pushViewController(certificateSelectionViewController, animated: true)
 	}
 
-	private func showSecondConsentScreen(selectedCertificate: HealthCertificate) {
+	private func showSecondConsentScreen(
+		selectedCertificate: HealthCertificate,
+		selectedCertifiedPerson: HealthCertifiedPerson
+	) {
+		let secondConsentViewController = SecondTicketValidationConsentViewController(
+			viewModel: SecondTicketValidationConsentViewModel(
+				serviceIdentity: ticketValidation.initializationData.serviceIdentity,
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
+				healthCertificate: selectedCertificate,
+				healthCertifiedPerson: selectedCertifiedPerson,
+				onDataPrivacyTap: {
+					self.showDataPrivacy()
+				}
+			),
+			onPrimaryButtonTap: { [weak self] isLoading in
+				isLoading(true)
+				
+				self?.ticketValidation.validate { result in
+					DispatchQueue.main.async {
+						isLoading(false)
 
+						switch result {
+						case .success(let ticketValidationResult):
+							self?.showResultScreen(for: ticketValidationResult)
+						case .failure(let error):
+							self?.showErrorAlert(error: error)
+						}
+					}
+				}
+			},
+			onDismiss: { [weak self] in
+				self?.showDismissAlert()
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TicketValidation.SecondConsent.primaryButtonTitle,
+				secondaryButtonName: AppStrings.TicketValidation.SecondConsent.secondaryButtonTitle,
+				isSecondaryButtonEnabled: true,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: false
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: secondConsentViewController,
+			bottomController: footerViewController
+		)
+		
+		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
 
 	private func showResultScreen(for result: TicketValidationResult) {
