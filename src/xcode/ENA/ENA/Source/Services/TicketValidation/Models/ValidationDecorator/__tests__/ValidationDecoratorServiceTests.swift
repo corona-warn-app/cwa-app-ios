@@ -230,4 +230,22 @@ class ValidationDecoratorServiceTests: XCTestCase {
 			}
 		}
 	}
+	
+	// Rest Service Custom errors Failure Cases
+
+	func test_If_RestService_Got_ClientError_Then_Abort() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<DecoratorServiceIdentityDocumentError>.unexpectedServerError(404))
+		])
+		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
+
+		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+			switch result {
+			case .success:
+				XCTFail("expected test to fail")
+			case .failure(let error):
+				XCTAssertEqual(error, .VD_ID_CLIENT_ERR, "A Client error should occur")
+			}
+		}
+	}
 }
