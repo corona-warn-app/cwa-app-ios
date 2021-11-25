@@ -660,6 +660,7 @@
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
 		50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */; };
+		50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */; };
 		508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */; };
 		508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */; };
 		5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */; };
@@ -2206,6 +2207,7 @@
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
+		50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationServiceIdentityDocument+Fake.swift"; sourceTree = "<group>"; };
 		5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewModel.swift; sourceTree = "<group>"; };
 		508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewController.swift; sourceTree = "<group>"; };
 		5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPElsTests.swift"; sourceTree = "<group>"; };
@@ -4194,6 +4196,7 @@
 				ABC506B62747DC9600698A95 /* EncryptAndSignDCC */,
 				01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */,
 				ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */,
+				50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */,
 				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
 				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
 				ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */,
@@ -10609,6 +10612,7 @@
 				017EE867267B4F2600CD18F6 /* HealthCertificateArray+MostRelevantTests.swift in Sources */,
 				01F3323D27174583005CE21E /* PCRTest+Mock.swift in Sources */,
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
+				50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */,
 				BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
