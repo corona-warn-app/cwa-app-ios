@@ -793,6 +793,7 @@
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
 		8F09522E274F54F1002B7049 /* ValidationDecoratorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */; };
+		8F095231274F554C002B7049 /* ValidationDecoratorServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F095230274F554C002B7049 /* ValidationDecoratorServiceTests.swift */; };
 		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
 		8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */; };
@@ -2349,6 +2350,7 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
 		8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDecoratorService.swift; sourceTree = "<group>"; };
+		8F095230274F554C002B7049 /* ValidationDecoratorServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDecoratorServiceTests.swift; sourceTree = "<group>"; };
 		8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationServiceError.swift; sourceTree = "<group>"; };
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
 		8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsService.swift; sourceTree = "<group>"; };
@@ -5959,6 +5961,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		8F09522F274F5518002B7049 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8F095230274F554C002B7049 /* ValidationDecoratorServiceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		8F27018D259B58D700E48CFE /* StoreV2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -6060,6 +6070,7 @@
 		8F7068FD274CA583005C546B /* ValidationDecorator */ = {
 			isa = PBXGroup;
 			children = (
+				8F09522F274F5518002B7049 /* __tests__ */,
 				8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */,
 				8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */,
 				8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */,
@@ -10247,6 +10258,7 @@
 				010172BC26CAAF4D00CD1510 /* ExposureSubmissionCheckinsViewModelTests.swift in Sources */,
 				01DDF44A2657B0460043B4E1 /* Locale+SupportedLanguageTests.swift in Sources */,
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
+				8F095231274F554C002B7049 /* ValidationDecoratorServiceTests.swift in Sources */,
 				BAC1FCB226D910C90095E6D8 /* HealthCertifiedPersonBoosterTests.swift in Sources */,
 				01A6C30E2626DE8200B6E95A /* HomeTestRegistrationCellModelTests.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
