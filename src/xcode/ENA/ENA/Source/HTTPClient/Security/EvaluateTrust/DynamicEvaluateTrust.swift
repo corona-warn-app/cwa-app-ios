@@ -10,7 +10,7 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 	// MARK: - Init
 
 	init(
-		jwkSet: [Data],
+		jwkSet: [JSONWebKey],
 		trustEvaluation: TrustEvaluation
 	) {
 		self.jwkSet = jwkSet
@@ -45,6 +45,6 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 	// MARK: - Private
 
 	private let trustEvaluation: TrustEvaluation
-	private var jwkSet: [Data]
+	private var jwkSet: [JSONWebKey]
 
 }

@@ -293,6 +293,7 @@
 		01BA0760262096D100237DD8 /* checkin-timeinterval-derivation.json in Resources */ = {isa = PBXBuildFile; fileRef = 01BA07192620919E00237DD8 /* checkin-timeinterval-derivation.json */; };
 		01BB00CF274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */; };
 		01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */; };
+		01BB00D2274FDE750065D1D1 /* TVAccessTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00D1274FDE750065D1D1 /* TVAccessTokenProcessor.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
@@ -1836,6 +1837,7 @@
 		01BA0751262093F600237DD8 /* AerosoleDecayFunctionLinear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerosoleDecayFunctionLinear.swift; sourceTree = "<group>"; };
 		01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TicketValidationConditions+Fake.swift"; sourceTree = "<group>"; };
 		01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationConditions.swift; sourceTree = "<group>"; };
+		01BB00D1274FDE750065D1D1 /* TVAccessTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVAccessTokenProcessor.swift; sourceTree = "<group>"; };
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C6ABF32527273D0052814D /* String+Insertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Insertion.swift"; sourceTree = "<group>"; };
 		01C6AC25252B23D70052814D /* QRScannerFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerFocusView.swift; sourceTree = "<group>"; };
@@ -3223,6 +3225,8 @@
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
 				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
+				01BB00D1274FDE750065D1D1 /* TVAccessTokenProcessor.swift */,
+				ABC506D0274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -10041,6 +10045,7 @@
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
+				01BB00D2274FDE750065D1D1 /* TVAccessTokenProcessor.swift in Sources */,
 				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */,

@@ -6,10 +6,6 @@ import Foundation
 
 protocol TicketValidating {
 
-	init(
-		with initializationData: TicketValidationInitializationData
-	)
-
 	var initializationData: TicketValidationInitializationData { get }
 
 	func initialize(

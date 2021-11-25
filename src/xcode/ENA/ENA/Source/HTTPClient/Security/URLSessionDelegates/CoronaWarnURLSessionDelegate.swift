@@ -29,7 +29,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 	}
 
 	convenience init(
-		jwkSet: [Data],
+		jwkSet: [JSONWebKey],
 		trustEvaluation: TrustEvaluation = TrustEvaluation()
 	) {
 		self.init(
