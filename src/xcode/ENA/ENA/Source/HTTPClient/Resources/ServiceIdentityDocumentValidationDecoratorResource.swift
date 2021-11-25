@@ -4,12 +4,12 @@
 
 import Foundation
 
-struct DecoratorIdentityDocumentResource: Resource {
+struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 
 	// MARK: - Init
 
 	init(url: URL, isFake: Bool = false) {
-		self.locator = .identityDocumentDecorator(url: url)
+		self.locator = .serviceIdentityDocumentValidationDecorator(url: url)
 		self.type = .default
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<ServiceIdentityDocument>()
@@ -19,14 +19,14 @@ struct DecoratorIdentityDocumentResource: Resource {
 
 	typealias Send = EmptySendResource
 	typealias Receive = JSONReceiveResource<ServiceIdentityDocument>
-	typealias CustomError = DecoratorServiceIdentityDocumentError
+	typealias CustomError = ServiceIdentityDocumentValidationDecoratorError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
 	
-	func customError(for error: ServiceError<DecoratorServiceIdentityDocumentError>) -> DecoratorServiceIdentityDocumentError? {
+	func customError(for error: ServiceError<ServiceIdentityDocumentValidationDecoratorError>) -> ServiceIdentityDocumentValidationDecoratorError? {
 		switch error {
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
