@@ -256,8 +256,7 @@
 		01A6C3152626EA8000B6E95A /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E52626D71600B6E95A /* HomeTestResultCellModelTests.swift */; };
 		01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */; };
 		01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */; };
-		01B45CC02743DE2400A54B7B /* ValidationConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */; };
-		01B45CC22743DE3400A54B7B /* ValidationConditions+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */; };
+		01B45CC22743DE3400A54B7B /* TicketValidationConditions+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B45CC12743DE3400A54B7B /* TicketValidationConditions+Fake.swift */; };
 		01B5DFD826E0FD9500043955 /* VaccinationHintCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */; };
 		01B5DFD926E0FD9500043955 /* VaccinationHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */; };
 		01B605C4258A30C70093DB8E /* DiaryOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */; };
@@ -1056,6 +1055,10 @@
 		ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */; };
 		ABC506C8274BA9E500698A95 /* DCCEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C7274BA9E500698A95 /* DCCEncryption.swift */; };
 		ABC506CB274BAA5F00698A95 /* DCCEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */; };
+		ABC506D6274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */; };
+		ABC506D8274F9DF400698A95 /* TicketValidationAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */; };
+		ABC506DC274FA07300698A95 /* TicketValidationTransactionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */; };
+		ABC506DE274FA4DF00698A95 /* TicketValidationConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506DD274FA4DF00698A95 /* TicketValidationConditions.swift */; };
 		ABCA884626BBC956005FF148 /* CheckinEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884526BBC956005FF148 /* CheckinEncryption.swift */; };
 		ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */; };
 		ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */; };
@@ -1791,8 +1794,7 @@
 		01A6C30D2626DE4F00B6E95A /* HomeTestRegistrationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestRegistrationCellModelTests.swift; sourceTree = "<group>"; };
 		01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModelTests.swift; sourceTree = "<group>"; };
 		01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModelTests.swift; sourceTree = "<group>"; };
-		01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationConditions.swift; sourceTree = "<group>"; };
-		01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationConditions+Fake.swift"; sourceTree = "<group>"; };
+		01B45CC12743DE3400A54B7B /* TicketValidationConditions+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationConditions+Fake.swift"; sourceTree = "<group>"; };
 		01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintCellModel.swift; sourceTree = "<group>"; };
 		01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintTableViewCell.swift; sourceTree = "<group>"; };
 		01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModelTest.swift; sourceTree = "<group>"; };
@@ -2615,6 +2617,10 @@
 		ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationInitializationData+Fake.swift"; sourceTree = "<group>"; };
 		ABC506C7274BA9E500698A95 /* DCCEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryption.swift; sourceTree = "<group>"; };
 		ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryptionTests.swift; sourceTree = "<group>"; };
+		ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocument.swift; sourceTree = "<group>"; };
+		ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessToken.swift; sourceTree = "<group>"; };
+		ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationTransactionContext.swift; sourceTree = "<group>"; };
+		ABC506DD274FA4DF00698A95 /* TicketValidationConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationConditions.swift; sourceTree = "<group>"; };
 		ABCA884526BBC956005FF148 /* CheckinEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryption.swift; sourceTree = "<group>"; };
 		ABCA884826BBC9B4005FF148 /* CheckinEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinEncryptionTests.swift; sourceTree = "<group>"; };
 		ABCAD91E270EF5C6000E8BAA /* RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBin.swift; sourceTree = "<group>"; };
@@ -3203,8 +3209,8 @@
 				0104CBD4273EAD72009A543D /* TicketValidation.swift */,
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
-				01DE60732744EF2E00E12FA4 /* Models */,
 				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
+				01DE60732744EF2E00E12FA4 /* Models */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -4174,10 +4180,13 @@
 			children = (
 				ABC506B62747DC9600698A95 /* EncryptAndSignDCC */,
 				01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */,
+				ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */,
 				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
 				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
-				01B45CBF2743DE2400A54B7B /* ValidationConditions.swift */,
-				01B45CC12743DE3400A54B7B /* ValidationConditions+Fake.swift */,
+				ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */,
+				ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */,
+				ABC506DD274FA4DF00698A95 /* TicketValidationConditions.swift */,
+				01B45CC12743DE3400A54B7B /* TicketValidationConditions+Fake.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -9286,7 +9295,6 @@
 				ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */,
 				BA5B7FD326458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
-				01B45CC02743DE2400A54B7B /* ValidationConditions.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
@@ -9344,7 +9352,7 @@
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */,
-				01B45CC22743DE3400A54B7B /* ValidationConditions+Fake.swift in Sources */,
+				01B45CC22743DE3400A54B7B /* TicketValidationConditions+Fake.swift in Sources */,
 				01E1025D266665A6009ED803 /* AntigenTest.swift in Sources */,
 				BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */,
 				011217052617446500320745 /* CoronaTest.swift in Sources */,
@@ -9618,6 +9626,7 @@
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
+				ABC506DE274FA4DF00698A95 /* TicketValidationConditions.swift in Sources */,
 				018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */,
 				BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
@@ -9652,6 +9661,7 @@
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
+				ABC506D8274F9DF400698A95 /* TicketValidationAccessToken.swift in Sources */,
 				EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */,
 				BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
@@ -9782,6 +9792,7 @@
 				EB513E0625FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift in Sources */,
 				0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */,
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
+				ABC506D6274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift in Sources */,
 				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				019789362746920600AAC31C /* TicketValidationPassedViewModel.swift in Sources */,
@@ -9987,6 +9998,7 @@
 				BA52A69E26EA1B8D00AA0732 /* ProtobufSendResource.swift in Sources */,
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
 				BA94BBAD260DF4F0005CF38F /* CheckInTimeModel.swift in Sources */,
+				ABC506DC274FA07300698A95 /* TicketValidationTransactionContext.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
 				01F6702A25FF80490069C4F9 /* AddCheckinCellModel.swift in Sources */,

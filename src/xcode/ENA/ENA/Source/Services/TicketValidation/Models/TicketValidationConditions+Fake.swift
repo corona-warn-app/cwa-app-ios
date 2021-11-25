@@ -6,7 +6,7 @@
 
 import Foundation
 
-extension ValidationConditions {
+extension TicketValidationConditions {
 
 	static func fake(
 		hash: String? = nil,
@@ -20,11 +20,11 @@ extension ValidationConditions {
 		cod: String? = nil,
 		rod: String? = nil,
 		category: [String]? = nil,
-		validationClock: Date? = nil,
-		validFrom: Date? = nil,
-		validTo: Date? = nil
-	) -> ValidationConditions {
-		ValidationConditions(
+		validationClock: String? = nil,
+		validFrom: String? = nil,
+		validTo: String? = nil
+	) -> TicketValidationConditions {
+		TicketValidationConditions(
 			hash: hash,
 			lang: lang,
 			fnt: fnt,
