@@ -6,9 +6,9 @@ import Foundation
 import ENASecurity
 
 public struct DecoratorIdentityDocument: Codable {
-	let accessTokenService: DecoratorService
+	let accessTokenService: DecoratorServiceModel
 	let accessTokenServiceJwkSet: [JSONWebKey?]
 	let accessTokenSignJwkSet: [JSONWebKey?]
-	let validationService: DecoratorService
+	let validationService: DecoratorServiceModel
 	let validationServiceJwkSet: [JSONWebKey?]
 }
