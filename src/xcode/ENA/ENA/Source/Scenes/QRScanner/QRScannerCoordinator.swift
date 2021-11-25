@@ -364,10 +364,24 @@ class QRScannerCoordinator {
 		_ initializationData: TicketValidationInitializationData
 	) {
 		showActivityIndicator()
+		
+		#if DEBUG
 		let ticketValidation = MockTicketValidation(with: initializationData)
-		ticketValidation.delay = 1
+		
 		ticketValidation.firstConsentResult = .success(.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "tp", "tr"]))
-															 
+		
+		if LaunchArguments.ticketValidation.result.isFailed.boolValue {
+			ticketValidation.validationResult = .success(.fake(result: .failed, results: [.fake(identifier: "TR-002", result: .failed, type: "", details: "Ein Testzertifikat muss von einem zertifizierten Testzentrum ausgestellt werden.")]))
+		} else if LaunchArguments.ticketValidation.result.isOpen.boolValue {
+			ticketValidation.validationResult = .success(.fake(result: .open, results: [.fake(identifier: "TR-002", result: .open, type: "", details: "Ein Antigentest ist maximal 48h gültig.")]))
+		} else {
+			// set the default to passed
+			ticketValidation.validationResult = .success(.fake())
+		}
+		#else
+		let ticketValidation = TicketValidation(with: initializationData)
+		#endif
+
 		ticketValidation.initialize { [weak self] result in
 			DispatchQueue.main.async {
 				self?.hideActivityIndicator()
