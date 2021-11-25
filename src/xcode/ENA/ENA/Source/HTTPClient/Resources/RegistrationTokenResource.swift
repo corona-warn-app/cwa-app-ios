@@ -14,20 +14,20 @@ struct RegistrationTokenResource: Resource {
 	) {
 		self.locator = .tanForExposureSubmit(registrationToken: sendModel.tokenString, isFake: isFake)
 		self.type = .default
-		self.sendResource = JSONSendResource<SendRegistrationTokenModel>(sendModel)
+		self.sendResource = PaddingJSONSendResource<SendRegistrationTokenModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<SubmissionTANModel>()
 		self.registrationTokenModel = sendModel
 	}
 
 	// MARK: - Protocol Resource
 
-	typealias Send = JSONSendResource<SendRegistrationTokenModel>
+	typealias Send = PaddingJSONSendResource<SendRegistrationTokenModel>
 	typealias Receive = JSONReceiveResource<SubmissionTANModel>
 	typealias CustomError = RegistrationTokenError
 
 	var locator: Locator
 	var type: ServiceType
-	var sendResource: JSONSendResource<SendRegistrationTokenModel>
+	var sendResource: PaddingJSONSendResource<SendRegistrationTokenModel>
 	var receiveResource: JSONReceiveResource<SubmissionTANModel>
 	
 	func customError(for error: ServiceError<RegistrationTokenError>) -> RegistrationTokenError? {
