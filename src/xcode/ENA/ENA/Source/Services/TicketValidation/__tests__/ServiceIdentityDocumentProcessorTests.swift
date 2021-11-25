@@ -12,9 +12,9 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_HappyPath_THEN_Success() throws {
 		
 		// GIVEN
-		let serviceIdentityDocumentProcessor = ServiceIdentityDocumentProcessor()
+		let serviceIdentityDocumentProcessor = TVServiceIdentityDocumentProcessor()
 		let validationServiceJwkSet = JSONWebKey.fake()
-		let serviceIdentityDocument = ServiceIdentityDocument(id: "", verificationMethod: [], service: nil)
+		let serviceIdentityDocument = TicketValidationServiceIdentityDocument(id: "", verificationMethod: [], service: nil)
 		
 		// WHEN
 		serviceIdentityDocumentProcessor.process(

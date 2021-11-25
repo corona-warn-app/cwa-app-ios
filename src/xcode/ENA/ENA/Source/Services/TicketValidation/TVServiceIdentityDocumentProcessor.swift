@@ -5,19 +5,19 @@
 import Foundation
 import ENASecurity
 
-protocol ServiceIdentityDocumentProcessing {
+protocol TVServiceIdentityDocumentProcessing {
 	func process(
 		validationServiceJwkSet: [JSONWebKey],
-		serviceIdentityDocument: ServiceIdentityDocument,
+		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	)
 }
 
-struct ServiceIdentityDocumentProcessor: ServiceIdentityDocumentProcessing {
+struct TVServiceIdentityDocumentProcessor: TVServiceIdentityDocumentProcessing {
 	
 	func process(
 		validationServiceJwkSet: [JSONWebKey],
-		serviceIdentityDocument: ServiceIdentityDocument,
+		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	) {
 		// 2. Verifiy JWKs

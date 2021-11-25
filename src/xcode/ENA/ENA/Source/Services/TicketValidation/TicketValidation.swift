@@ -26,7 +26,7 @@ final class TicketValidation: TicketValidating {
 	init(
 		with initializationData: TicketValidationInitializationData,
 		restServiceProvider: RestServiceProviding,
-		serviceIdentityProcessor: ServiceIdentityDocumentProcessing
+		serviceIdentityProcessor: TVServiceIdentityDocumentProcessing
 	) {
 		self.initializationData = initializationData
 		self.restServiceProvider = restServiceProvider
@@ -42,7 +42,7 @@ final class TicketValidation: TicketValidating {
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
 
 	}
@@ -64,7 +64,7 @@ final class TicketValidation: TicketValidating {
 	}
 	
 	func requestServiceIdentityDocument(
-		validationServiceData: ValidationServiceData,
+		validationServiceData: TicketValidationServiceData,
 		validationServiceJwkSet: [JSONWebKey],
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	) {
@@ -92,6 +92,6 @@ final class TicketValidation: TicketValidating {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-	private let serviceIdentityProcessor: ServiceIdentityDocumentProcessing
+	private let serviceIdentityProcessor: TVServiceIdentityDocumentProcessing
 	
 }

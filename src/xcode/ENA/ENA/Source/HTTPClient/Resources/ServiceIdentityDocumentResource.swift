@@ -23,19 +23,19 @@ struct ServiceIdentityDocumentResource: Resource {
 		self.locator = Locator.serviceIdentityDocument(endpointUrl: endpointUrl)
 		self.type = .dynamicPinning
 		self.sendResource = EmptySendResource()
-		self.receiveResource = JSONReceiveResource<ServiceIdentityDocument>()
+		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
 	}
 	
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
-	typealias Receive = JSONReceiveResource<ServiceIdentityDocument>
+	typealias Receive = JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	typealias CustomError = ServiceIdentityDocumentResourceError
 	
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
+	var receiveResource: JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	
 	// swiftlint:disable cyclomatic_complexity
 	func customError(for error: ServiceError<ServiceIdentityDocumentResourceError>) -> ServiceIdentityDocumentResourceError? {
