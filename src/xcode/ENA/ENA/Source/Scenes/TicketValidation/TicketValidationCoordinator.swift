@@ -22,10 +22,9 @@ final class TicketValidationCoordinator {
 	func start(ticketValidation: TicketValidating) {
 		self.ticketValidation = ticketValidation
 
-		navigationController = DismissHandlingNavigationController(
-			rootViewController: firstConsentScreen,
-			transparent: true
-		)
+		navigationController = DismissHandlingNavigationController(rootViewController: firstConsentScreen)
+		navigationController.navigationBar.prefersLargeTitles = true
+
 		parentViewController.present(navigationController, animated: true)
 	}
 	

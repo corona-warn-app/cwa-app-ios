@@ -18,6 +18,40 @@ class ENAUITests_16_UniversalQRCodeScanner: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
+	func test_screenshot_UniversalQRCodeScannerAndQRScannerInfoScreen() throws {
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
+
+		/// Simulator only Alert will open where you can choose what the QRScanner should scan -> dismiss
+		let certificateButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.other])
+		certificateButton.waitAndTap()
+
+		/// QR scanner screen
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.flash].waitForExistence(timeout: .short))
+
+		snapshot("universal_qr_code_scanner")
+
+		/// Open info screen
+		app.buttons[AccessibilityIdentifiers.UniversalQRScanner.info].waitAndTap()
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.UniversalQRScanner.Info.title].waitForExistence(timeout: .short))
+
+		snapshot("universal_qr_code_scanner_info")
+
+		// find data privacy cell (last cell) and tap it
+		let dataPrivacyButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.UniversalQRScanner.Info.dataPrivacy])
+
+		let maxTries = 10
+		var currentTry = 0
+		while dataPrivacyButton.isHittable == false && currentTry < maxTries {
+			app.swipeUp()
+			currentTry += 1
+		}
+		dataPrivacyButton.waitAndTap()
+
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+	}
+
 	func test_RegisterCertificateFromUniversalQRCodeScannerWithInfoScreen() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: false)
 		app.launch()

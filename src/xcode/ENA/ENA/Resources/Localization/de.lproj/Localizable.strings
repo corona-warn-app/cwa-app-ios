@@ -1601,7 +1601,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_215_ticketValidation_title" = "Zertifikatprüfung bei Buchungen";
 
-"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Wird Ihr Zertifikat erfolgreich geprüft und erfüllt die Anforderungen, wird es an das Buchungssystem übertragen.";
+"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Das Ergebnis der Zertifikatsprüfung wird vom Prüfpartner an das Buchungssystem übertragen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3176,7 +3176,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "Ihre PCR-Tests, Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate sowie Check-ins";
+"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
@@ -3205,6 +3205,22 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Test wiederherstellen";
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
+
+"UniversalQRScanner_Info_title" = "Informationen zu QR-Codes";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Ihre Testzertifikate, Impfzertifikate, Gensenenzertifikate, sowie Zertifikate Ihrer Familienmitglieder";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Check-ins für Veranstaltungen und Orte";
+
+"UniversalQRScanner_Info_bulletPoint3" = "PCR-Tests und Schnelltests";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Nachweis von Zertifikaten bei Ticketbuchungen";
+
+"UniversalQRScanner_Info_body1" = "Die Daten aus dem jeweiligen QR-Code werden ausgelesen.";
+
+"UniversalQRScanner_Info_body2" = "Beim Scan von QR-Codes zur Zertifikat-Prüfung bei Ticketbuchungen werden weitere Angaben zum Anbieter der Buchung abgefragt.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Foto Mediathek";
