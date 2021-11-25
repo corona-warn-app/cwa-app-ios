@@ -51,6 +51,7 @@ enum AppStrings {
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
+		static let ticketValidationNoValidDCCFAQ = NSLocalizedString("TicketValidation_NoValidDCC_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationServiceResultFAQ = NSLocalizedString("TicketValidation_ServiceResult_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
@@ -2492,6 +2493,26 @@ enum AppStrings {
 			}
 		}
 		
+		enum CertificateSelection {
+			static let title = NSLocalizedString("TicketValidation_CertificateSelection_title", comment: "")
+			static let serviceProviderRequirementsHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline", comment: "")
+			static let serviceProviderRelevantCertificatesHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline", comment: "")
+			static let serviceProviderRequiredCertificateHeadline = NSLocalizedString("TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline", comment: "")
+			static let noSupportedCertificateHeadline = NSLocalizedString("TicketValidation_CertificateSelection_noSupportedCertificateHeadline", comment: "")
+			static let noSupportedCertificateDescription = NSLocalizedString("TicketValidation_CertificateSelection_noSupportedCertificateDescription", comment: "")
+			static let faqDescription = NSLocalizedString("TicketValidation_CertificateSelection_faqDescription", comment: "")
+			static let faq = NSLocalizedString("TicketValidation_CertificateSelection_faq", comment: "")
+			static let dateOfBirth = NSLocalizedString("TicketValidation_CertificateSelection_dateOfBirth", comment: "")
+		}
+
+		enum SupportedCertificateType {
+			static let vaccinationCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_Vaccination_Certificate", comment: "")
+			static let recoveryCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_RecoveryCertificate", comment: "")
+			static let testCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_TestCertificate", comment: "")
+			static let pcrTestCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_PCRTestCertificate", comment: "")
+			static let ratTestCertificate = NSLocalizedString("TicketValidation_SupportedCertificateType_RATTestCertificate", comment: "")
+		}
+
 		enum SecondConsent {
 			static let title = NSLocalizedString("TicketValidation_SecondConsent_title", comment: "")
 			static let subtitle = NSLocalizedString("TicketValidation_SecondConsent_subtitle", comment: "")
@@ -2519,7 +2540,7 @@ enum AppStrings {
 			}
 	
 		}
-
+		
 		enum Result {
 			static let validationParameters = NSLocalizedString("TicketValidation_Result_validationParameters", comment: "")
 			static let moreInformation = NSLocalizedString("TicketValidation_Result_moreInformation", comment: "")
@@ -2558,6 +2579,5 @@ enum AppStrings {
 			static let tryAgain = NSLocalizedString("TicketValidation_Error_tryAgain", comment: "")
 		}
 	}
-
 	// swiftlint:disable:next file_length
 }

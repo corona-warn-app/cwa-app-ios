@@ -46,4 +46,6 @@
 
 "NotificationSettings_FAQLink" = "https://www.coronawarn.app/en/faq/#notification_settings";
 
+"TicketValidation_NoValidDCC_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_no_valid_dcc";
+
 "TicketValidation_ServiceResult_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_result";

@@ -35,6 +35,7 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
 	}
@@ -69,7 +70,6 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	private let onDismiss: () -> Void
 
 	private func setupView() {
-		
 		title = AppStrings.TicketValidation.SecondConsent.title
 		
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(

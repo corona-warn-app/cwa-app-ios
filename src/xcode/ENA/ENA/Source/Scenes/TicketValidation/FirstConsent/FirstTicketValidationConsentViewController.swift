@@ -35,6 +35,7 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
 		navigationController?.navigationBar.backgroundColor = .clear
 		navigationController?.navigationBar.prefersLargeTitles = false
 	}
