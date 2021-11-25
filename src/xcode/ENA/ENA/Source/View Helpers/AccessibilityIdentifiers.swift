@@ -774,6 +774,21 @@ enum AccessibilityIdentifiers {
 			static let legalBox = "TicketValidation.SecondConsent.legalBox"
 			static let dataPrivacy = "TicketValidation.SecondConsent.dataPrivacy"
 		}
+		
+		enum ValidationResult {
+			enum Passed {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Passed.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Passed.subtitle"
+			}
+			enum Failed {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Failed.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Failed.subtitle"
+			}
+			enum Open {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Open.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Open.subtitle"
+			}
+		}
 	}
 
 }
