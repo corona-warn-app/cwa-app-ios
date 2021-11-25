@@ -20,11 +20,14 @@ struct TVServiceIdentityDocumentProcessor: TVServiceIdentityDocumentProcessing {
 		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	) {
-		// 2. Verifiy JWKs
+		Log.info("Process TicketValidationServiceIdentityDocument", log: .ticketValidation)
+
+		// 2. Verify JWKs
 		for verificationMethod in serviceIdentityDocument.verificationMethod {
 			if let publicKeyJwk = verificationMethod.publicKeyJwk, publicKeyJwk.x5c.isEmpty {
 				Log.error("Verify JWKs failed", log: .ticketValidation)
 				completion(.failure(.VS_ID_EMPTY_X5C))
+				return
 			}
 		}
 		
@@ -60,6 +63,7 @@ struct TVServiceIdentityDocumentProcessor: TVServiceIdentityDocumentProcessing {
 		
 		// 7. Check encryption keys
 		if validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESCBC.isEmpty && validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESGCM.isEmpty {
+			Log.error("No encryption keys found. Error: VS_ID_NO_ENC_KEY", log: .ticketValidation)
 			completion(.failure(.VS_ID_NO_ENC_KEY))
 			return
 		}
@@ -73,6 +77,7 @@ struct TVServiceIdentityDocumentProcessor: TVServiceIdentityDocumentProcessing {
 		}
 		
 		if validationServiceSignKeyJwkSet.isEmpty {
+			Log.error("No signing keys found. Error: VS_ID_NO_SIGN_KEY", log: .ticketValidation)
 			completion(.failure(.VS_ID_NO_SIGN_KEY))
 			return
 		}
@@ -83,6 +88,9 @@ struct TVServiceIdentityDocumentProcessor: TVServiceIdentityDocumentProcessing {
 			validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESGCM: validationServiceEncKeyJwkSetForRSAOAEPWithSHA256AESGCM,
 			validationServiceSignKeyJwkSet: validationServiceSignKeyJwkSet
 		)
+		
+		Log.info("Finished processing TicketValidationServiceIdentityDocument", log: .ticketValidation)
+
 		completion(.success(result))
 	}
 }
