@@ -9,15 +9,12 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Protocol TicketValidating
 
 	init(
-		with initializationData: TicketValidationInitializationData,
-		restServiceProvider: RestServiceProviding = .fake()
+		with initializationData: TicketValidationInitializationData
 	) {
 		self.initializationData = initializationData
-		self.restServiceProvider = restServiceProvider
 	}
 
 	var initializationData: TicketValidationInitializationData
-	let restServiceProvider: RestServiceProviding
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
