@@ -85,7 +85,7 @@ public struct VaccinationEntry: Codable, Equatable {
         marketingAuthorizationHolder: String = "ORG-100030215",
         doseNumber: Int = 1,
         totalSeriesOfDoses: Int = 2,
-        dateOfVaccination: String = "2021-02-02",
+        dateOfVaccination: String = "2021-06-01",
         countryOfVaccination: String = "DE",
         certificateIssuer: String = "Bundesministerium für Gesundheit",
         uniqueCertificateIdentifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S"
