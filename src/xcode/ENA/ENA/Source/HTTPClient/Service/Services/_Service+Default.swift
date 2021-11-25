@@ -31,7 +31,7 @@ extension Service {
 			return .failure(error)
 		}
 
-		locator.headers.forEach { key, value in
+		locator.headers.forEach { key, value in 
 			urlRequest.setValue(value, forHTTPHeaderField: key)
 		}
 
