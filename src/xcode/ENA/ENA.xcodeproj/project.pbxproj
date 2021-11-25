@@ -792,8 +792,8 @@
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
-		8F09522E274F54F1002B7049 /* ValidationDecoratorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */; };
 		8F095231274F554C002B7049 /* ValidationDecoratorServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F095230274F554C002B7049 /* ValidationDecoratorServiceTests.swift */; };
+		8F09522E274F54F1002B7049 /* TVDecoratorIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09522D274F54F1002B7049 /* TVDecoratorIdentityDocumentProcessor.swift */; };
 		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
 		8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */; };
@@ -2349,8 +2349,8 @@
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
-		8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDecoratorService.swift; sourceTree = "<group>"; };
 		8F095230274F554C002B7049 /* ValidationDecoratorServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDecoratorServiceTests.swift; sourceTree = "<group>"; };
+		8F09522D274F54F1002B7049 /* TVDecoratorIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVDecoratorIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
 		8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationServiceError.swift; sourceTree = "<group>"; };
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
 		8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsService.swift; sourceTree = "<group>"; };
@@ -6072,7 +6072,7 @@
 			children = (
 				8F09522F274F5518002B7049 /* __tests__ */,
 				8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */,
-				8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */,
+				8F09522D274F54F1002B7049 /* TVDecoratorIdentityDocumentProcessor.swift */,
 				8F706902274CA943005C546B /* ServiceIdentityDocumentValidationDecorator.swift */,
 				8F706904274CAB14005C546B /* ServiceIdentityDocumentValidationDecoratorError.swift */,
 				8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */,
@@ -10233,7 +10233,7 @@
 				AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
-				8F09522E274F54F1002B7049 /* ValidationDecoratorService.swift in Sources */,
+				8F09522E274F54F1002B7049 /* TVDecoratorIdentityDocumentProcessor.swift in Sources */,
 				504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingCrossCountrySupportViewModel.swift in Sources */,
 				8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */,

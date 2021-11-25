@@ -19,14 +19,14 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 
 	typealias Send = EmptySendResource
 	typealias Receive = JSONReceiveResource<ServiceIdentityDocument>
-	typealias CustomError = ServiceIdentityDocumentValidationDecoratorError
+	typealias CustomError = ServiceIdentityResourceDecoratorError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
 	
-	func customError(for error: ServiceError<ServiceIdentityDocumentValidationDecoratorError>) -> ServiceIdentityDocumentValidationDecoratorError? {
+	func customError(for error: ServiceError<ServiceIdentityResourceDecoratorError>) -> ServiceIdentityResourceDecoratorError? {
 		switch error {
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
