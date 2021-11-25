@@ -92,7 +92,7 @@ final class TicketValidationCoordinator {
 		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
-	private func showCertificateSelectionScreen(validationConditions: ValidationConditions) {
+	private func showCertificateSelectionScreen(validationConditions: TicketValidationConditions) {
 
 	}
 
