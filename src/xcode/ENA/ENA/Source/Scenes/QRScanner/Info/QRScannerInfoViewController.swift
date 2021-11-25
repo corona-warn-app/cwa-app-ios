@@ -5,17 +5,15 @@
 import Foundation
 import UIKit
 
-class FirstTicketValidationConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
+class QRScannerInfoViewController: DynamicTableViewController, DismissHandling {
 	
 	// MARK: - Init
 	
 	init(
-		viewModel: FirstTicketValidationConsentViewModel,
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onDataPrivacyTap: @escaping () -> Void,
 		onDismiss: @escaping () -> Void
 	) {
-		self.viewModel = viewModel
-		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.viewModel = QRScannerInfoViewModel(onDataPrivacyTap: onDataPrivacyTap)
 		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
@@ -37,7 +35,7 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 
 		setupView()
 	}
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
@@ -59,44 +57,16 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 	func wasAttemptedToBeDismissed() {
 		onDismiss()
 	}
-
-	// MARK: - Protocol FooterViewHandling
-
-	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		switch type {
-		case .primary:
-			onPrimaryButtonTap { [weak self] isLoading in
-				guard let self = self else { return }
-
-				self.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
-				self.footerView?.setLoadingIndicator(false, disable: isLoading, button: .secondary)
-			}
-		case .secondary:
-			onDismiss()
-		}
-	}
-	
-	// MARK: - Internal
-	
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legal = "DynamicLegalCell"
-	}
 	
 	// MARK: - Private
 
-	private let viewModel: FirstTicketValidationConsentViewModel
-	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
+	private let viewModel: QRScannerInfoViewModel
 	private let onDismiss: () -> Void
 
 	private func setupView() {
 		tableView.backgroundColor = .enaColor(for: .background)
 		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .never
-		
-		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
-		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
