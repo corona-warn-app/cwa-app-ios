@@ -792,6 +792,7 @@
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
+		8F09522E274F54F1002B7049 /* ValidationDecoratorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */; };
 		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
 		8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */; };
@@ -832,7 +833,7 @@
 		8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */; };
 		8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634083262DBB6900077240 /* Route+Equatable.swift */; };
 		8F6635F02713A7B500384B63 /* stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8F6635EF2713A7B400384B63 /* stats.bin */; };
-		8F7068FF274CA5AA005C546B /* DecoratorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7068FE274CA5AA005C546B /* DecoratorService.swift */; };
+		8F7068FF274CA5AA005C546B /* DecoratorServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */; };
 		8F706903274CA943005C546B /* DecoratorIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */; };
 		8F706905274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706904274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift */; };
 		8F706907274CAC5D005C546B /* ServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */; };
@@ -2347,6 +2348,7 @@
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
+		8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDecoratorService.swift; sourceTree = "<group>"; };
 		8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationServiceError.swift; sourceTree = "<group>"; };
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
 		8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsService.swift; sourceTree = "<group>"; };
@@ -2387,7 +2389,7 @@
 		8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AntigenTestInformation+Mock.swift"; sourceTree = "<group>"; };
 		8F634083262DBB6900077240 /* Route+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+Equatable.swift"; sourceTree = "<group>"; };
 		8F6635EF2713A7B400384B63 /* stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = stats.bin; sourceTree = "<group>"; };
-		8F7068FE274CA5AA005C546B /* DecoratorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorService.swift; sourceTree = "<group>"; };
+		8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorServiceModel.swift; sourceTree = "<group>"; };
 		8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorIdentityDocument.swift; sourceTree = "<group>"; };
 		8F706904274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorServiceIdentityDocumentError.swift; sourceTree = "<group>"; };
 		8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocument.swift; sourceTree = "<group>"; };
@@ -6058,7 +6060,8 @@
 		8F7068FD274CA583005C546B /* ValidationDecorator */ = {
 			isa = PBXGroup;
 			children = (
-				8F7068FE274CA5AA005C546B /* DecoratorService.swift */,
+				8F7068FE274CA5AA005C546B /* DecoratorServiceModel.swift */,
+				8F09522D274F54F1002B7049 /* ValidationDecoratorService.swift */,
 				8F706902274CA943005C546B /* DecoratorIdentityDocument.swift */,
 				8F706904274CAB14005C546B /* DecoratorServiceIdentityDocumentError.swift */,
 				8F706906274CAC5D005C546B /* ServiceIdentityDocument.swift */,
@@ -10150,7 +10153,7 @@
 				BA6C8AC4254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift in Sources */,
 				BA7F7344271F0C6900E3CE14 /* ValidationOnboardedCountriesResource.swift in Sources */,
 				BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */,
-				8F7068FF274CA5AA005C546B /* DecoratorService.swift in Sources */,
+				8F7068FF274CA5AA005C546B /* DecoratorServiceModel.swift in Sources */,
 				3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */,
 				8F7AB8CE25F257220043A3C8 /* TopErrorReportViewModel.swift in Sources */,
 				AB190EB725FB72F600FBFF0D /* CreateTraceWarningPackageMetadataQuery.swift in Sources */,
@@ -10219,6 +10222,7 @@
 				AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
+				8F09522E274F54F1002B7049 /* ValidationDecoratorService.swift in Sources */,
 				504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingCrossCountrySupportViewModel.swift in Sources */,
 				8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */,
