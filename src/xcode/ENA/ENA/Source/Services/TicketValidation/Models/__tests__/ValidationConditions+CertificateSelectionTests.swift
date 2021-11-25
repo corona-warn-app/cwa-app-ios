@@ -4,6 +4,7 @@
 
 import XCTest
 @testable import ENA
+@testable import HealthCertificateToolkit
 
 class ValidationConditionsCertificateSelectionTests: XCTestCase {
 
@@ -65,7 +66,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		)
 		
 		let antigenTestCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: ValidationConditions.antigenTypeString)]))
+			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: TestEntry.antigenTypeString)]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, antigenTestCertificate])
@@ -88,7 +89,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 		)
 		
 		let pcrTestCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: ValidationConditions.pcrTypeString)]))
+			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: TestEntry.pcrTypeString)]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, pcrTestCertificate])
