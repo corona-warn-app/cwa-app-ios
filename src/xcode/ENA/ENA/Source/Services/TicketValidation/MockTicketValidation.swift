@@ -9,9 +9,11 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Protocol TicketValidating
 
 	init(
-		with initializationData: TicketValidationInitializationData
+		with initializationData: TicketValidationInitializationData,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.initializationData = initializationData
+		self.restServiceProvider = restServiceProvider
 	}
 
 	var initializationData: TicketValidationInitializationData
@@ -57,4 +59,7 @@ final class MockTicketValidation: TicketValidating {
 
 	var delay: TimeInterval = 0
 
+	// MARK: - Private
+	
+	private let restServiceProvider: RestServiceProviding
 }
