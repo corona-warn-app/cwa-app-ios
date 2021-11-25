@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import OpenCombine
 import HealthCertificateToolkit
 
 class TicketValidationCertificateSelectionViewModel {
@@ -13,115 +12,60 @@ class TicketValidationCertificateSelectionViewModel {
 
 	init(
 		validationConditions: ValidationConditions,
-		healthCertificateService: HealthCertificateService,
+		healthCertifiedPersons: [HealthCertifiedPerson],
 		onHealthCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.validationConditions = validationConditions
-		self.healthCertificateService = healthCertificateService
 		self.onHealthCertificateCellTap = onHealthCertificateCellTap
 		
-		self.filterCertificatesBasedOnValidationConditions()
+		self.setup(healthCertifiedPersons: healthCertifiedPersons)
 	}
 	
 	// MARK: - Internal
 
-	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-	
+	var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	var isSupportedCertificatesEmpty: Bool = true
+
 	// MARK: - Private
-	
-	private var healthCertificateService: HealthCertificateService
+
 	private var validationConditions: ValidationConditions
 	private let onHealthCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 	
-	private func filterCertificatesBasedOnValidationConditions() {
-		var supportedHealthCertificates: [HealthCertificate] = []
-		var supportedCertificateTypes: [String] = []
-
-		// all certificates of all persons
-		let allCertificates = self.healthCertificateService.healthCertifiedPersons.flatMap { $0.healthCertificates }
-		
-		// certificates that matches person's validation conditions
-		let healthCertifiedPersonCertificates = allCertificates.filter({
-			$0.name.standardizedGivenName == validationConditions.gnt &&
-			$0.name.standardizedFamilyName == validationConditions.fnt &&
-			$0.dateOfBirth == validationConditions.dob
-		})
-		
-		if let certificateTypes = validationConditions.type, !certificateTypes.isEmpty {
-			// if type contains v, all Vaccination Certificates shall pass the filter
-			if certificateTypes.contains("v") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.vaccinationEntry != nil })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.vaccinationCertificate)
-			}
-			// if type contains r, all Recovery Certificates shall pass the filter
-			if certificateTypes.contains("r") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.recoveryEntry != nil })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.recoveryCertificate)
-			}
-			// if type contains t, all Test Certificates shall pass the filter
-			if certificateTypes.contains("t") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.testCertificate)
-			}
-			// if type contains tp, all PCR tests shall pass the filter
-			if certificateTypes.contains("tp") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.pcrTypeString })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
-			}
-			// if type contains tr, all RAT tests shall pass the filter
-			if certificateTypes.contains("tr") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.antigenTypeString })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
-			}
-		} else {
-			// if type is nil or empty, then there is no filtering by type
-			supportedHealthCertificates = healthCertifiedPersonCertificates
-		}
-		
-		// sorting on the basis of certificate type
-		supportedHealthCertificates = supportedHealthCertificates.sorted(by: >)
+	private func setup(healthCertifiedPersons: [HealthCertifiedPerson]) {
+		// filter certificates based on validation conditions
+		let supportedCertificateTuple = validationConditions.filterCertificates(healthCertifiedPersons: healthCertifiedPersons)
 		
 		// creating service provider requirements description
-		let serviceProviderRequirementsDescription = generateServiceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTypes, validationConditions: validationConditions)
+		let serviceProviderRequirementsDescription = validationConditions.serviceProviderRequirementsString(supportedCertificateTypes: supportedCertificateTuple.supportedCertificateTypes)
 		
 		// finding health certified person
+		let healthCertifiedPerson = healthCertifiedPersonForSupportedCertificates(healthCertifiedPersons: healthCertifiedPersons, supportedHealthCertificates: supportedCertificateTuple.supportedHealthCertificates)
+		
+		// setting up view model
+		if supportedCertificateTuple.supportedHealthCertificates.isEmpty {
+			isSupportedCertificatesEmpty = true
+			dynamicTableViewModel = dynamicTableViewModelNoSupportedCertificate(serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
+		} else {
+			isSupportedCertificatesEmpty = false
+			dynamicTableViewModel = dynamicTableViewModelSupportedHealthCertificates(
+				healthCertifiedPerson: healthCertifiedPerson,
+				supportedHealthCertificates: supportedCertificateTuple.supportedHealthCertificates,
+				serviceProviderRequirementsDescription: serviceProviderRequirementsDescription
+			)
+		}
+	}
+		
+	private func healthCertifiedPersonForSupportedCertificates(healthCertifiedPersons: [HealthCertifiedPerson], supportedHealthCertificates: [HealthCertificate]) -> HealthCertifiedPerson? {
 		var healthCertifiedPerson: HealthCertifiedPerson?
-		self.healthCertificateService.healthCertifiedPersons.forEach { certifiedPerson in
+		healthCertifiedPersons.forEach { certifiedPerson in
 			supportedHealthCertificates.forEach { healthCertificate in
 				if certifiedPerson.healthCertificates.contains(healthCertificate) {
 					healthCertifiedPerson = certifiedPerson
 				}
 			}
 		}
-		
-		// setting up view model
-		if supportedHealthCertificates.isEmpty {
-			dynamicTableViewModel = dynamicTableViewModelNoSupportedCertificate(serviceProviderRequirementsDescription: serviceProviderRequirementsDescription)
-		} else {
-			dynamicTableViewModel = dynamicTableViewModelSupportedHealthCertificates(
-				healthCertifiedPerson: healthCertifiedPerson,
-				supportedHealthCertificates: supportedHealthCertificates,
-				serviceProviderRequirementsDescription: serviceProviderRequirementsDescription
-			)
-		}
-	}
-		
-	private func generateServiceProviderRequirementsString(supportedCertificateTypes: [String], validationConditions: ValidationConditions) -> String {
-		var serviceProviderRequirementsDescription: String = ""
 
-		serviceProviderRequirementsDescription += supportedCertificateTypes.joined(separator: ", ")
-		if let dateOfBirth = validationConditions.dob {
-			serviceProviderRequirementsDescription += String(format: AppStrings.TicketValidation.CertificateSelection.dateOfBirth, dateOfBirth)
-		}
-		if let familyName = validationConditions.fnt, let givenName = validationConditions.gnt {
-			serviceProviderRequirementsDescription += "\n\(familyName)<<\(givenName)"
-		} else if let familyName = validationConditions.fnt {
-			serviceProviderRequirementsDescription += "\n\(familyName)<<"
-		} else if let givenName = validationConditions.gnt {
-			serviceProviderRequirementsDescription += "\n<<\(givenName)"
-		}
-		
-		return serviceProviderRequirementsDescription
+		return healthCertifiedPerson
 	}
 
 	private func dynamicTableViewModelSupportedHealthCertificates(healthCertifiedPerson: HealthCertifiedPerson?, supportedHealthCertificates: [HealthCertificate], serviceProviderRequirementsDescription: String) -> DynamicTableViewModel {
@@ -145,7 +89,7 @@ class TicketValidationCertificateSelectionViewModel {
 
 		for supportedHealthCertificate in supportedHealthCertificates {
 			supportedHealthCertificatesCells.append(.identifier(
-				TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.healthCertificateCell,
+				HealthCertificateCell.dynamicTableViewCellReuseIdentifier,
 				action: .execute { _, _ in
 					self.onHealthCertificateCellTap(supportedHealthCertificate, certifiedPerson)
 				},
@@ -184,7 +128,7 @@ class TicketValidationCertificateSelectionViewModel {
 		]
 
 		noSupportedCertificateCells.append(.identifier(
-			TicketValidationCertificateSelectionViewController.CustomCellReuseIdentifiers.noSupportedCertificateCell,
+			TicketValidationNoSupportedCertificateCell.dynamicTableViewCellReuseIdentifier,
 			configure: { _, cell, _ in
 				guard let cell = cell as? TicketValidationNoSupportedCertificateCell else {
 					fatalError("could not initialize cell of type `TicketValidationNoSupportedCertificateCell`")
