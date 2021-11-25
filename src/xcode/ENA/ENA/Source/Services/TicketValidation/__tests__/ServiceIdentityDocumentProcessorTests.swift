@@ -4,6 +4,7 @@
 
 import Foundation
 import XCTest
+@testable import ENA
 
 class ServiceIdentityDocumentProcessorTests: XCTestCase {
     
