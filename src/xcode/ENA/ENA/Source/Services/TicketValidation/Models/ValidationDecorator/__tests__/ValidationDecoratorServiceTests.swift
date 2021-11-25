@@ -58,4 +58,33 @@ class ValidationDecoratorServiceTests: XCTestCase {
 			}
 		}
 	}
+	
+	func test_If_AccessTokenService_Not_Found_Then_Abort() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(ServiceIdentityDocument.fake(service: [
+				DecoratorServiceModel(
+					id: "test",
+					type: "CancellationService",
+					serviceEndpoint: "test",
+					name: "test"
+				),
+				DecoratorServiceModel(
+					id: "test",
+					type: "ValidationService",
+					serviceEndpoint: "test",
+					name: "test"
+				)
+			]))
+		])
+		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
+		
+		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+			switch result {
+			case .success:
+				XCTFail("expected test to fail")
+			case .failure(let error):
+				XCTAssertEqual(error, .VD_ID_NO_ATS, "An error should occur due to not finding the accessTokenService")
+			}
+		}
+	}
 }
