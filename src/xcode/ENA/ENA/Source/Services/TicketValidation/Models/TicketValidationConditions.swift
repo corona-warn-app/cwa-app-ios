@@ -23,7 +23,7 @@ import Foundation
 // | `validFrom` | string<br />(optional) | ISO8601 date where the DCC must be valid from |
 // | `validTo` | string<br />(optional) | ISO8601 date where the DCC must be valid to |
 
-struct TicketValidationConditions: Codable {
+struct TicketValidationConditions: Equatable, Codable {
 	let hash: String?
 	let lang: String?
 	let fnt: String?

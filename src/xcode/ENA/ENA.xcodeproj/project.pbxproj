@@ -23,6 +23,8 @@
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
 		0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */; };
+		010A474C27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474B27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift */; };
+		010A474E27512A05000AA80E /* MockJWTVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474D27512A05000AA80E /* MockJWTVerification.swift */; };
 		010A57A427185E4D001F5A09 /* RecycleBinItemCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3322F270F3D8D005CE21E /* RecycleBinItemCellModelTests.swift */; };
 		010A57A92719C181001F5A09 /* ENAUITests_18_RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
@@ -1578,6 +1580,8 @@
 		0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Mock.swift"; sourceTree = "<group>"; };
 		0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+Mock.swift"; sourceTree = "<group>"; };
+		010A474B27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessorTests.swift; sourceTree = "<group>"; };
+		010A474D27512A05000AA80E /* MockJWTVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockJWTVerification.swift; path = Model/MockJWTVerification.swift; sourceTree = "<group>"; };
 		010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_18_RecycleBin.swift; sourceTree = "<group>"; };
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
 		010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModelTests.swift; sourceTree = "<group>"; };
@@ -6776,6 +6780,8 @@
 			isa = PBXGroup;
 			children = (
 				ABC506C3274BA86C00698A95 /* Model */,
+				010A474B27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift */,
+				010A474D27512A05000AA80E /* MockJWTVerification.swift */,
 				ABC506B42747DC8700698A95 /* TicketValidationTests.swift */,
 				ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */,
 			);
@@ -10431,6 +10437,7 @@
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */,
+				010A474C27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift in Sources */,
 				AB34787C269C93C20016A8AB /* CertLogicEngineTestData.swift in Sources */,
 				010A57A427185E4D001F5A09 /* RecycleBinItemCellModelTests.swift in Sources */,
 				35BDAB2E25F1148E004DFE32 /* ELSServiceTests.swift in Sources */,
@@ -10528,6 +10535,7 @@
 				BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */,
 				5039B3E826A1AD5B00ECA6DE /* ValidationResultCellModelTests.swift in Sources */,
 				AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */,
+				010A474E27512A05000AA80E /* MockJWTVerification.swift in Sources */,
 				010172C126CAC07700CD1510 /* TraceLocationSelectionCellModelTests.swift in Sources */,
 				5058DF8B2667666900858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift in Sources */,
 				A1E419462495479D0016E52A /* MockNetworkStack.swift in Sources */,

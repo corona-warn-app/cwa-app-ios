@@ -13,6 +13,7 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["x-nonce": "Nonce"],
 			responseData: "accessJWT".data(using: .utf8)
 		)
 
@@ -26,6 +27,7 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 			switch result {
 			case .success(let result):
 				XCTAssertEqual(result.jwt, "accessJWT")
+				XCTAssertEqual(result.headers["x-nonce"] as? String, "Nonce")
 			case .failure(let error):
 				XCTFail("Encountered Error when receiving registration token! \(error)")
 			}

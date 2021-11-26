@@ -15,7 +15,13 @@ public enum JWTVerificationError: Error {
 
 public struct JWTVerificationClaim: Claims { }
 
-public class JWTVerification {
+public protocol JWTVerifying {
+
+    func verify(jwtString: String, against jwkSet: [JSONWebKey]) -> Result<Void, JWTVerificationError>
+
+}
+
+public class JWTVerification: JWTVerifying {
 
     public init() { }
 

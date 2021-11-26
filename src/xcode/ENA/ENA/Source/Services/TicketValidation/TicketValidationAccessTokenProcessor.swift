@@ -12,25 +12,30 @@ struct TicketValidationAccessTokenResult {
 	let nonceBase64: String
 }
 
-protocol TicketValidationAccessTokenProcessing {
-	static func process(
-		accessToken: String,
-		accessTokenSignJwkSet: [JSONWebKey],
-		nonceBase64: String,
-		completion: @escaping (Result<TicketValidationAccessTokenResult, AccessTokenRequestError>) -> Void
-	)
-}
+struct TicketValidationAccessTokenProcessor {
 
-struct TicketValidationAccessTokenProcessor: TicketValidationAccessTokenProcessing {
+	// MARK: - Init
+
+	init(jwtVerification: JWTVerifying) {
+		self.jwtVerification = jwtVerification
+	}
+
+	// MARK: - Internal
 	
-	static func process(
-		accessToken: String,
+	func process(
+		jwtWithHeadersModel: JWTWithHeadersModel,
 		accessTokenSignJwkSet: [JSONWebKey],
-		nonceBase64: String,
 		completion: @escaping (Result<TicketValidationAccessTokenResult, AccessTokenRequestError>) -> Void
 	) {
-		// Verifiy
-		switch JWTVerification().verify(jwtString: accessToken, against: accessTokenSignJwkSet) {
+		guard let nonceBase64 = jwtWithHeadersModel.headers["x-nonce"] as? String else {
+			Log.error("Missing header field x-nonce", log: .ticketValidation)
+			completion(.failure(.UNKNOWN))
+			return
+		}
+
+		let accessToken = jwtWithHeadersModel.jwt
+
+		switch jwtVerification.verify(jwtString: accessToken, against: accessTokenSignJwkSet) {
 		case .success:
 			guard let jwtObject = try? JWT<TicketValidationAccessToken>(jwtString: accessToken) else {
 				completion(.failure(.ATR_PARSE_ERR))
@@ -59,24 +64,28 @@ struct TicketValidationAccessTokenProcessor: TicketValidationAccessTokenProcessi
 				)
 			)
 		case .failure(let error):
-			switch error {
-			case .JWT_VER_ALG_NOT_SUPPORTED:
-				completion(.failure(.ATR_JWT_VER_ALG_NOT_SUPPORTED))
-			case .JWT_VER_EMPTY_JWKS:
-				completion(.failure(.ATR_JWT_VER_EMPTY_JWKS))
-			case .JWT_VER_NO_JWK_FOR_KID:
-				completion(.failure(.ATR_JWT_VER_NO_JWK_FOR_KID))
-			case .JWT_VER_NO_KID:
-				completion(.failure(.ATR_JWT_VER_NO_KID))
-			case .JWT_VER_SIG_INVALID:
-				completion(.failure(.ATR_JWT_VER_SIG_INVALID))
-			}
-
+			completion(.failure(mappedError(error)))
 		}
-
-		// Parsing
 
 	}
 
+	// MARK: - Private
+
+	private let jwtVerification: JWTVerifying
+
+	private func mappedError(_ error: JWTVerificationError) -> AccessTokenRequestError {
+		switch error {
+		case .JWT_VER_ALG_NOT_SUPPORTED:
+			return .ATR_JWT_VER_ALG_NOT_SUPPORTED
+		case .JWT_VER_EMPTY_JWKS:
+			return .ATR_JWT_VER_EMPTY_JWKS
+		case .JWT_VER_NO_JWK_FOR_KID:
+			return .ATR_JWT_VER_NO_JWK_FOR_KID
+		case .JWT_VER_NO_KID:
+			return .ATR_JWT_VER_NO_KID
+		case .JWT_VER_SIG_INVALID:
+			return .ATR_JWT_VER_SIG_INVALID
+		}
+	}
 
 }

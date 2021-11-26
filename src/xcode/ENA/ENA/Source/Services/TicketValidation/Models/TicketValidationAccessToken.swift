@@ -19,7 +19,7 @@ import SwiftJWT
 // | `t` | int | The type of the validation (0 = Structure, 1 = Cryptographic, 2 = Full) |
 // | `vc` | object | A data structure representing the validation conditions (see below) |
 
-struct TicketValidationAccessToken: Codable, Claims {
+struct TicketValidationAccessToken: Equatable, Codable, Claims {
 	let iss: String
 	let iat: Date?
 	let exp: Date?
