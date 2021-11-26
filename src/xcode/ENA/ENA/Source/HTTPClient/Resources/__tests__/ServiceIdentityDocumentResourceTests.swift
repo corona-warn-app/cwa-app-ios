@@ -150,10 +150,80 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 	
 	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynmaicPinningNoJwkFound_THEN_VS_ID_CERT_PIN_NO_JWK_FOR_KID() throws {
 
+		let trustErrorStub = EvaluateTrustErrorStub(
+			error: TrustEvaluationError.CERT_PIN_NO_JWK_FOR_KID
+		)
+		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
+		let stack = MockNetworkStack(
+			sessionDelegate: sessionDelegate
+		)
+		
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+
+		let fakeURL = try XCTUnwrap(URL(string: "some"))
+		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+
+		let expectation = expectation(description: "Expect that we got a completion")
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.VS_ID_CERT_PIN_NO_JWK_FOR_KID) = error else {
+					XCTFail("CERT_PIN_NO_JWK_FOR_KID error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: .short)
 	}
 	
 	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynamicPinningCertificateMismatches_THEN_VS_ID_CERT_PIN_MISMATCH() throws {
-	
+		
+		let trustErrorStub = EvaluateTrustErrorStub(
+			error: TrustEvaluationError.CERT_PIN_MISMATCH
+		)
+		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
+		let stack = MockNetworkStack(
+			sessionDelegate: sessionDelegate
+		)
+		
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+
+		let fakeURL = try XCTUnwrap(URL(string: "some"))
+		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+
+		let expectation = expectation(description: "Expect that we got a completion")
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.VS_ID_CERT_PIN_MISMATCH) = error else {
+					XCTFail("VS_ID_CERT_PIN_MISMATCH error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: .short)
 	}
 	
+}
+
+struct EvaluateTrustErrorStub: EvaluateTrust {
+
+	init(error: Error) {
+		trustEvaluationError = error
+	}
+	
+	// MARK: - Protocol EvaluateTrust
+	
+	// We don't need to implement, trustEvaluationError will be used by the delegate to read the error.
+	func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {}
+	
+	var trustEvaluationError: Error?
 }
