@@ -6,10 +6,10 @@ import XCTest
 @testable import ENA
 @testable import HealthCertificateToolkit
 
-class ValidationConditionsCertificateSelectionTests: XCTestCase {
+class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 
 	func testGIVEN_Certificates_WHEN_FilterCertificateMethodIsCalledWithTwoTypes_THEN_ResultIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -32,7 +32,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_FilterCertificateMethodIsCalledWithOneType_THEN_ResultIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["t"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -55,7 +55,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_FilterCertificateMethodIsCalledWithOneTypeRAT_THEN_ResultIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["tr"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["tr"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -78,7 +78,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_FilterCertificateMethodIsCalledWithOneTypePCR_THEN_ResultIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["tp"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["tp"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -101,7 +101,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_FilterCertificateMethodIsCalledWithNoType_THEN_ResultIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: [])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: [])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -124,7 +124,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_FilterCertificateMethodIsCalledWithDifferentPerson_THEN_ResultIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "THOMAS", dob: "1983-12-12", type: ["v", "r", "t"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "THOMAS", dob: "1983-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -147,7 +147,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_ServiceProviderRequirementsMethodIsCalledWithSupportedTypes_THEN_StringIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "t"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -171,7 +171,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_ServiceProviderRequirementsMethodIsCalledWithSupportedTypesWithNoGivenName_THEN_StringIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "t"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
@@ -195,7 +195,7 @@ class ValidationConditionsCertificateSelectionTests: XCTestCase {
 	}
 	
 	func testGIVEN_Certificates_WHEN_ServiceProviderRequirementsMethodIsCalledWithSupportedTypesWithNoFamilyName_THEN_StringIsCorrect() throws {
-		let validationConditions = ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "", dob: "1989-12-12", type: ["v", "r", "t"])
+		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "", dob: "1989-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), vaccinationEntries: [.fake()]))
