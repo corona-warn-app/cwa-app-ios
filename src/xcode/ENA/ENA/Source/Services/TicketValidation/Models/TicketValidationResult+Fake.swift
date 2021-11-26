@@ -14,7 +14,7 @@ extension TicketValidationResult {
 		exp: Int = 0,
 		sub: String = "",
 		category: String = "",
-		result: TicketValidationResult.Result = .OK,
+		result: TicketValidationResult.Result = .passed,
 		results: [TicketValidationResult.ResultItem] = [.fake()],
 		confirmation: String = ""
 	) -> TicketValidationResult {
@@ -36,7 +36,7 @@ extension TicketValidationResult.ResultItem {
 
 	static func fake(
 		identifier: String = "",
-		result: TicketValidationResult.Result = .OK,
+		result: TicketValidationResult.Result = .passed,
 		type: String = "",
 		details: String = ""
 	) -> TicketValidationResult.ResultItem {

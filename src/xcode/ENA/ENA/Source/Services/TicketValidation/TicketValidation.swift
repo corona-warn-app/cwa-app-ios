@@ -24,7 +24,7 @@ final class TicketValidation: TicketValidating {
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
 
 	}
@@ -48,7 +48,7 @@ final class TicketValidation: TicketValidating {
 	func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:
-		@escaping (Result<ServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
+		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
 		guard let url = URL(string: urlString) else {
 			Log.error("URL cant be constructed from input string", log: .ticketValidationDecorator)
@@ -58,7 +58,7 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
-				TVDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
+				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
 					completion(result)
 				}
 			case .failure(let error):

@@ -26,7 +26,7 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
 			completion(self.firstConsentResult ?? .success(.fake()))
@@ -54,7 +54,7 @@ final class MockTicketValidation: TicketValidating {
 	func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:
-		@escaping (Result<ServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
+		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
 		guard let url = URL(string: urlString) else {
 			Log.error("URL cant be constructed from input string", log: .ticketValidationDecorator)
@@ -64,7 +64,7 @@ final class MockTicketValidation: TicketValidating {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
-				TVDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
+				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
 					completion(result)
 				}
 			case .failure(let error):
@@ -77,7 +77,7 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Internal
 
 	var initializationResult: Result<Void, TicketValidationError>?
-	var firstConsentResult: Result<ValidationConditions, TicketValidationError>?
+	var firstConsentResult: Result<TicketValidationConditions, TicketValidationError>?
 	var validationResult: Result<TicketValidationResult, TicketValidationError>?
 
 	var delay: TimeInterval = 0

@@ -4,12 +4,12 @@
 
 import Foundation
 
-final class TVDecoratorIdentityDocumentProcessor {
+final class TicketValidationDecoratorIdentityDocumentProcessor {
 	
 	func validateIdentityDocument(
-		serviceIdentityDocument: ServiceIdentityDocument,
+		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
 		completion:
-		@escaping (Result<ServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
+		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
 		// 2 - Verify JWKs
 		for method in serviceIdentityDocument.verificationMethod {
@@ -83,7 +83,7 @@ final class TVDecoratorIdentityDocumentProcessor {
 		
 		completion(
 			.success(
-				ServiceIdentityDocumentValidationDecorator(
+				TicketValidationServiceIdentityDocumentValidationDecorator(
 					accessTokenService: accessTokenService,
 					accessTokenServiceJwkSet: accessTokenServiceJwkSet,
 					accessTokenSignJwkSet: accessTokenSignJwkSet,

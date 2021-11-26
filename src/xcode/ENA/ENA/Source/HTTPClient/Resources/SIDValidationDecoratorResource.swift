@@ -12,19 +12,19 @@ struct SIDValidationDecoratorResource: Resource {
 		self.locator = .serviceIdentityDocumentValidationDecorator(url: url)
 		self.type = .default
 		self.sendResource = EmptySendResource()
-		self.receiveResource = JSONReceiveResource<ServiceIdentityDocument>()
+		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
 	}
 
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
-	typealias Receive = JSONReceiveResource<ServiceIdentityDocument>
+	typealias Receive = JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	typealias CustomError = ServiceIdentityResourceDecoratorError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: JSONReceiveResource<ServiceIdentityDocument>
+	var receiveResource: JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	
 	func customError(for error: ServiceError<ServiceIdentityResourceDecoratorError>) -> ServiceIdentityResourceDecoratorError? {
 		switch error {
