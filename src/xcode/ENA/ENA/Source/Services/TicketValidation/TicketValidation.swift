@@ -26,7 +26,7 @@ final class TicketValidation: TicketValidating {
 	init(
 		with initializationData: TicketValidationInitializationData,
 		restServiceProvider: RestServiceProviding,
-		serviceIdentityProcessor: TVServiceIdentityDocumentProcessing
+		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
 	) {
 		self.initializationData = initializationData
 		self.restServiceProvider = restServiceProvider
@@ -92,6 +92,6 @@ final class TicketValidation: TicketValidating {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-	private let serviceIdentityProcessor: TVServiceIdentityDocumentProcessing
+	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
 	
 }

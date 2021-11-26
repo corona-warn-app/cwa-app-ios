@@ -14,7 +14,7 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 		// GIVEN
 		let expectedResult1 = ["Should be contained in the result, Part 1"]
 		let expectedResult2 = ["Should be contained in the result, Part 2"]
-		let serviceIdentityDocumentProcessor = TVServiceIdentityDocumentProcessor()
+		let serviceIdentityDocumentProcessor = TicketValidationServiceIdentityDocumentProcessor()
 		let validationServiceJwkSet = JSONWebKey.fake()
 		let serviceIdentityDocument = TicketValidationServiceIdentityDocument.fake(
 			id: "sidID",
@@ -55,7 +55,7 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 	
 	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Processing_JwkSetIsNotAvailable_THEN_VS_ID_EMPTY_X5C_ERROR() throws {
 		// GIVEN
-		let serviceIdentityDocumentProcessor = TVServiceIdentityDocumentProcessor()
+		let serviceIdentityDocumentProcessor = TicketValidationServiceIdentityDocumentProcessor()
 		let validationServiceJwkSet = JSONWebKey.fake()
 		let serviceIdentityDocument = TicketValidationServiceIdentityDocument.fake(
 			verificationMethod: [
@@ -85,7 +85,7 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 	
 	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Processing_NoEncryptionKeysFound_THEN_VS_ID_NO_ENC_KEY_ERROR() throws {
 		// GIVEN
-		let serviceIdentityDocumentProcessor = TVServiceIdentityDocumentProcessor()
+		let serviceIdentityDocumentProcessor = TicketValidationServiceIdentityDocumentProcessor()
 		let validationServiceJwkSet = JSONWebKey.fake()
 		let serviceIdentityDocument = TicketValidationServiceIdentityDocument.fake(
 			verificationMethod: []
@@ -111,7 +111,7 @@ class ServiceIdentityDocumentProcessorTests: XCTestCase {
 	
 	func testGIVEN_ServiceIdentityDocumentProcessor_WHEN_Processing_NoSigningKeyFound_THEN_VS_ID_NO_SIGN_KEY_ERROR() throws {
 		// GIVEN
-		let serviceIdentityDocumentProcessor = TVServiceIdentityDocumentProcessor()
+		let serviceIdentityDocumentProcessor = TicketValidationServiceIdentityDocumentProcessor()
 		let validationServiceJwkSet = JSONWebKey.fake()
 		let serviceIdentityDocument = TicketValidationServiceIdentityDocument.fake(
 			id: "sidID",

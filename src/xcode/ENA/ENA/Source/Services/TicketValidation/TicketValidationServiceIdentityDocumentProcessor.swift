@@ -5,7 +5,7 @@
 import Foundation
 import ENASecurity
 
-protocol TVServiceIdentityDocumentProcessing {
+protocol TicketValidationServiceIdentityDocumentProcessing {
 	func process(
 		validationServiceJwkSet: [JSONWebKey],
 		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
@@ -13,7 +13,7 @@ protocol TVServiceIdentityDocumentProcessing {
 	)
 }
 
-struct TVServiceIdentityDocumentProcessor: TVServiceIdentityDocumentProcessing {
+struct TicketValidationServiceIdentityDocumentProcessor: TicketValidationServiceIdentityDocumentProcessing {
 	
 	func process(
 		validationServiceJwkSet: [JSONWebKey],

@@ -1061,7 +1061,7 @@
 		ABC506CB274BAA5F00698A95 /* DCCEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */; };
 		ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */; };
 		ABC506CF274BE30700698A95 /* Locator+ServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */; };
-		ABC506D1274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D0274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift */; };
+		ABC506D1274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D0274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift */; };
 		ABC506D6274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */; };
 		ABC506D8274F9DF400698A95 /* TicketValidationAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */; };
 		ABC506DC274FA07300698A95 /* TicketValidationTransactionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */; };
@@ -2629,7 +2629,7 @@
 		ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryptionTests.swift; sourceTree = "<group>"; };
 		ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResource.swift; sourceTree = "<group>"; };
 		ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocument.swift"; sourceTree = "<group>"; };
-		ABC506D0274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVServiceIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
+		ABC506D0274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
 		ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentProcessorTests.swift; sourceTree = "<group>"; };
 		ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocument.swift; sourceTree = "<group>"; };
 		ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessToken.swift; sourceTree = "<group>"; };
@@ -3225,7 +3225,7 @@
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
 				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
-				ABC506D0274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift */,
+				ABC506D0274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -9535,7 +9535,7 @@
 				AB0246E327230F5F002668A1 /* RegistrationTokenModel.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
 				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
-				ABC506D1274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift in Sources */,
+				ABC506D1274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
 				EB08F1862541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift in Sources */,
 				010E07AB273D00AE00C2BE5F /* TicketValidationCoordinator.swift in Sources */,
