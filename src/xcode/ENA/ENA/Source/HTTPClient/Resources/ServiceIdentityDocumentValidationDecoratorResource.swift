@@ -44,3 +44,10 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 		}
 	}
 }
+
+enum ServiceIdentityResourceDecoratorError: Error {
+	case VD_ID_CLIENT_ERR
+	case VD_ID_NO_NETWORK
+	case VD_ID_SERVER_ERR
+	case VD_ID_PARSE_ERR
+}
