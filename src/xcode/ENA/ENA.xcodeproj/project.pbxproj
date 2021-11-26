@@ -670,6 +670,8 @@
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
 		50842BF2275127940015E63F /* DisabledPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BF1275127940015E63F /* DisabledPinningRestService.swift */; };
+		50842BF627512F080015E63F /* DisabledPinningRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BF427512EF00015E63F /* DisabledPinningRestServiceTests.swift */; };
+		50842BF82751307F0015E63F /* StandardRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BF72751307F0015E63F /* StandardRestServiceTests.swift */; };
 		508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */; };
 		508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */; };
 		5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */; };
@@ -2224,6 +2226,8 @@
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
 		50842BF1275127940015E63F /* DisabledPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPinningRestService.swift; sourceTree = "<group>"; };
+		50842BF427512EF00015E63F /* DisabledPinningRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPinningRestServiceTests.swift; sourceTree = "<group>"; };
+		50842BF72751307F0015E63F /* StandardRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardRestServiceTests.swift; sourceTree = "<group>"; };
 		5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewModel.swift; sourceTree = "<group>"; };
 		508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewController.swift; sourceTree = "<group>"; };
 		5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPElsTests.swift"; sourceTree = "<group>"; };
@@ -5187,6 +5191,7 @@
 		5071A88526EB815C00B09B40 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				50842BF327512EA90015E63F /* __tests__ */,
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				5071A88326EB810D00B09B40 /* _Service+Default.swift */,
 				BADE51ED272B058000CBAA63 /* CachedRestService.swift */,
@@ -5267,6 +5272,16 @@
 				0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */,
 			);
 			path = __test__;
+			sourceTree = "<group>";
+		};
+		50842BF327512EA90015E63F /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
+				50842BF72751307F0015E63F /* StandardRestServiceTests.swift */,
+				50842BF427512EF00015E63F /* DisabledPinningRestServiceTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		5084889E26822D53004299E6 /* DMErrorLogSharing */ = {
@@ -8110,7 +8125,6 @@
 			children = (
 				A1E419442495476C0016E52A /* MockNetworkStack.swift */,
 				CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */,
-				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10610,6 +10624,7 @@
 				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
 				8F1E6EEF26DFC22600483660 /* BoosterNotificationsServiceTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
+				50842BF627512F080015E63F /* DisabledPinningRestServiceTests.swift in Sources */,
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
 				01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */,
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
@@ -10618,6 +10633,7 @@
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
 				BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */,
+				50842BF82751307F0015E63F /* StandardRestServiceTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
 				BA7DCA1D2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift in Sources */,
 				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
