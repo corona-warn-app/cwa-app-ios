@@ -56,20 +56,20 @@ struct ServiceIdentityDocument: Codable {
 				verificationMethods: nil
 			)
 		],
-		service: [DecoratorServiceModel]? = [
-			DecoratorServiceModel(
+		service: [ValidationDecoratorServiceModel]? = [
+			ValidationDecoratorServiceModel(
 				id: "test",
 				type: "CancellationService",
 				serviceEndpoint: "test",
 				name: "test"
 			),
-			DecoratorServiceModel(
+			ValidationDecoratorServiceModel(
 				id: "test",
 				type: "ValidationService",
 				serviceEndpoint: "test",
 				name: "test"
 			),
-			DecoratorServiceModel(
+			ValidationDecoratorServiceModel(
 				id: "test",
 				type: "AccessTokenService",
 				serviceEndpoint: "test",
