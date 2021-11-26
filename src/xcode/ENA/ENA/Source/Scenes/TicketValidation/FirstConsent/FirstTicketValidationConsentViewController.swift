@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class FirstTicketValidationConsentViewController: DynamicTableViewController, FooterViewHandling {
+class FirstTicketValidationConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 	
 	// MARK: - Init
 	
@@ -30,12 +30,34 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.largeTitleDisplayMode = .never
+
 		setupView()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.navigationBar.prefersLargeTitles = false
+
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.setupTransparentNavigationBar()
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.restoreOriginalNavigationBar()
+		}
+	}
+
+	// MARK: - DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -57,7 +79,7 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	// MARK: - Internal
 	
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legalExtended = "DynamicLegalExtendedCell"
+		case legal = "DynamicLegalCell"
 	}
 	
 	// MARK: - Private
@@ -67,21 +89,16 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Fo
 	private let onDismiss: () -> Void
 
 	private func setupView() {
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.onDismiss()
-			}
-		)
-
-		view.backgroundColor = .enaColor(for: .background)
+		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.separatorStyle = .none
+		tableView.contentInsetAdjustmentBehavior = .never
 		
 		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
-		tableView.separatorStyle = .none
 	}
 
 }

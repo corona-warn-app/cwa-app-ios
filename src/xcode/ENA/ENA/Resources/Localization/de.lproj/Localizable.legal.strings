@@ -220,7 +220,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "Sie haben jederzeit die Möglichkeit, Testzertifikate in der App wieder zu löschen. Bis dahin bleiben die Testzertifikate auf Ihrem Smartphone gespeichert.";
 
-/* Ticket Validation */
+/* Ticket Validation First Consent */
 
 "TicketValidation_FirstConsent_Legal_title" = "Ihr Einverständnis";
 
@@ -229,3 +229,21 @@
 "TicketValidation_FirstConsent_Legal_bulletPoint1" = "Die App ruft vom Anbieter den Namen und das Geburtsdatum der bei Buchung angegebenen Person, die für die Prüfung relevanten Buchungsdetails (z. B. Zielland und Reisedatum) und die vom Anbieter zu Ihrer Buchung festgelegten Anforderungen an das Zertifikat ab.";
 
 "TicketValidation_FirstConsent_Legal_bulletPoint2" = "Die abgerufenen Daten werden von der App genutzt, um festzustellen, welche Ihrer gespeicherten Zertifikate verwendet werden können.";
+
+/* Ticket Validation Second Consent */
+
+"TicketValidation_SecondConsent_Legal_title" = "Ihr Einverständnis";
+
+"TicketValidation_SecondConsent_Legal_subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in die Übermittlung der folgenden Daten an den Prüfpartner ein:";
+
+"TicketValidation_SecondConsent_Legal_bulletPoint1" = "Zertifikatsinhalt und elektronische Signatur des ausgewählten Zertifikats (u. a. Name und Geburtsdatum des Zertifikatsinhabers, Gültigkeitsdauer, Aussteller und Ausstellungsdatum, Angaben zu Impfstoff/Test/Genesung).";
+
+"TicketValidation_SecondConsent_Legal_bulletPoint2" = "Die bei dem Anbieter abgerufenen Buchungsdaten:";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint1" = "Zeitraum, in dem das Zertifikat gültig sein muss (Reisedauer oder Veranstaltungsdatum)";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint2" = "bei Reisebuchungen: Ausgangsland und Zielland der Reise";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint3" = "bei grenzüberschreitenden Reisen: Anforderungen des Ziellandes an das Zertifikat";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint4" = "weitere Anforderungen des Anbieters an das Zertifikat (z. B. welche Impfstoffe oder Testverfahren akzeptiert werden)";
