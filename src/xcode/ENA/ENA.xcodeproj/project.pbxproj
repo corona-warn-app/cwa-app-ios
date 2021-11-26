@@ -361,7 +361,7 @@
 		01E1027A266BCD2B009ED803 /* TestCertificateRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */; };
 		01E10284266E2F7F009ED803 /* TestEntry+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10283266E2F7F009ED803 /* TestEntry+Extension.swift */; };
 		01E1C947274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */; };
-		01E1C949274FB3CB007FD7B3 /* TicketValidationAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C948274FB3CB007FD7B3 /* TicketValidationAccessToken.swift */; };
+		01E1C949274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */; };
 		01E1C94B274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
@@ -1906,7 +1906,7 @@
 		01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCertificateRequestTableViewCell.xib; sourceTree = "<group>"; };
 		01E10283266E2F7F009ED803 /* TestEntry+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestEntry+Extension.swift"; sourceTree = "<group>"; };
 		01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResource.swift; sourceTree = "<group>"; };
-		01E1C948274FB3CB007FD7B3 /* TicketValidationAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessToken.swift; sourceTree = "<group>"; };
+		01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenLocator.swift; sourceTree = "<group>"; };
 		01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenModel.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
@@ -8624,7 +8624,7 @@
 				5001DE8D26E20D76004242FA /* SubmitPPA.swift */,
 				5001DE8326E206AB004242FA /* TANForExposureSubmit.swift */,
 				5001DE8126E2057C004242FA /* TestResultDownload.swift */,
-				01E1C948274FB3CB007FD7B3 /* TicketValidationAccessToken.swift */,
+				01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -9468,7 +9468,7 @@
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
 				BA00FED226BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift in Sources */,
-				01E1C949274FB3CB007FD7B3 /* TicketValidationAccessToken.swift in Sources */,
+				01E1C949274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */,

@@ -33,8 +33,31 @@ struct TicketValidationAccessTokenProcessor: TicketValidationAccessTokenProcessi
 		switch JWTVerification().verify(jwtString: accessToken, against: accessTokenSignJwkSet) {
 		case .success:
 			guard let jwtObject = try? JWT<TicketValidationAccessToken>(jwtString: accessToken) else {
-				return .failure(.ATR_PARSE_ERR)
+				completion(.failure(.ATR_PARSE_ERR))
+				return
 			}
+
+			let accessTokenPayload = jwtObject.claims
+
+			guard accessTokenPayload.t == 1 || accessTokenPayload.t == 2 else {
+				completion(.failure(.ATR_TYPE_INVALID))
+				return
+			}
+
+			guard !accessTokenPayload.aud.trimmingCharacters(in: .whitespaces).isEmpty else {
+				completion(.failure(.ATR_AUD_INVALID))
+				return
+			}
+
+			completion(
+				.success(
+					TicketValidationAccessTokenResult(
+						accessToken: accessToken,
+						accessTokenPayload: accessTokenPayload,
+						nonceBase64: nonceBase64
+					)
+				)
+			)
 		case .failure(let error):
 			switch error {
 			case .JWT_VER_ALG_NOT_SUPPORTED:

@@ -21,8 +21,8 @@ import SwiftJWT
 
 struct TicketValidationAccessToken: Codable, Claims {
 	let iss: String
-	let iat: Int
-	let exp: Int
+	let iat: Date?
+	let exp: Date?
 	let sub: String
 	let aud: String
 	let jti: String

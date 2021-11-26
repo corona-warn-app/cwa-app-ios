@@ -21,7 +21,7 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 		}
 		do {
 			let model = try decoder.decode(R.self, from: data)
-			return .success(ReceiveModelWithHeaders<R>(receiveModel: model, headers: headers))
+			return .success(model)
 		} catch let DecodingError.keyNotFound(key, context) {
 			Log.debug("missing key: \(key.stringValue)", log: .client)
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
