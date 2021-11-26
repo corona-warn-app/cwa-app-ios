@@ -332,7 +332,7 @@ class QRScannerCoordinator {
 		_ initializationData: TicketValidationInitializationData
 	) {
 		showActivityIndicator()
-		let ticketValidation = MockTicketValidation(with: initializationData)
+		let ticketValidation = MockTicketValidation(with: initializationData, restServiceProvider: RestServiceProviderStub(loadResources: []))
 		ticketValidation.delay = 1
 
 		ticketValidation.initialize { [weak self] result in

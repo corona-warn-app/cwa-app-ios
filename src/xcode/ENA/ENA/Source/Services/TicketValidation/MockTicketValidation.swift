@@ -8,9 +8,7 @@ final class MockTicketValidation: TicketValidating {
 
 	// MARK: - Protocol TicketValidating
 
-	init(
-		with initializationData: TicketValidationInitializationData
-	) {
+	init(with initializationData: TicketValidationInitializationData, restServiceProvider: RestServiceProviding) {
 		self.initializationData = initializationData
 	}
 
