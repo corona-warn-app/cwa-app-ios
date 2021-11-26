@@ -28,7 +28,8 @@ class DisabledPinningRestService: Service {
 		optionalSession ??
 		.coronaWarnSession(
 			configuration: .coronaWarnSessionConfiguration(),
-			delegateQueue: .main
+			delegateQueue: .main,
+			withPinning: false
 		)
 	}()
 
