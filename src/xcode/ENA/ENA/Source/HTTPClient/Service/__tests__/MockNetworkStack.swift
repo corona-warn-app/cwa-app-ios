@@ -22,6 +22,7 @@ struct MockNetworkStack {
 		httpVersion: String = "HTTP/2",
 		headerFields: [String: String] = [:],
 		responseData: Data?,
+		error: Error? = nil,
 		requestObserver: MockUrlSession.URLRequestObserver? = nil,
 		sessionDelegate: URLSessionDelegate? = nil
 	) {
@@ -34,7 +35,7 @@ struct MockNetworkStack {
 		urlSession = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
-			error: nil,
+			error: error,
 			urlRequestObserver: requestObserver,
 			sessionDelegate: sessionDelegate
 		)
