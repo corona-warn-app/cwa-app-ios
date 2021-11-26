@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftJWT
 
 // The Access Token is a JWT token with the following payload (as JSON):
 //
@@ -18,7 +19,7 @@ import Foundation
 // | `t` | int | The type of the validation (0 = Structure, 1 = Cryptographic, 2 = Full) |
 // | `vc` | object | A data structure representing the validation conditions (see below) |
 
-struct TicketValidationAccessToken: Codable {
+struct TicketValidationAccessToken: Codable, Claims {
 	let iss: String
 	let iat: Int
 	let exp: Int

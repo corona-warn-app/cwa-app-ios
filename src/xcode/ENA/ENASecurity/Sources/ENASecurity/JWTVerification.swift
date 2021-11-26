@@ -17,6 +17,8 @@ public struct JWTVerificationClaim: Claims { }
 
 public class JWTVerification {
 
+    public init() { }
+
     public func verify(jwtString: String, against jwkSet: [JSONWebKey]) -> Result<Void, JWTVerificationError> {
         // Check for empty jwkSet: if jwkSet is empty, the operation shall abort early with error code JWT_VER_EMPTY_JWKS
         guard !jwkSet.isEmpty else {

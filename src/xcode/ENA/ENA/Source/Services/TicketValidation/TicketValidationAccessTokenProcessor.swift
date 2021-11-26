@@ -4,6 +4,7 @@
 
 import Foundation
 import ENASecurity
+import SwiftJWT
 
 struct TicketValidationAccessTokenResult {
 	let accessToken: String
@@ -28,7 +29,31 @@ struct TicketValidationAccessTokenProcessor: TicketValidationAccessTokenProcessi
 		nonceBase64: String,
 		completion: @escaping (Result<TicketValidationAccessTokenResult, AccessTokenRequestError>) -> Void
 	) {
+		// Verifiy
+		switch JWTVerification().verify(jwtString: accessToken, against: accessTokenSignJwkSet) {
+		case .success:
+			guard let jwtObject = try? JWT<TicketValidationAccessToken>(jwtString: accessToken) else {
+				return .failure(.ATR_PARSE_ERR)
+			}
+		case .failure(let error):
+			switch error {
+			case .JWT_VER_ALG_NOT_SUPPORTED:
+				completion(.failure(.ATR_JWT_VER_ALG_NOT_SUPPORTED))
+			case .JWT_VER_EMPTY_JWKS:
+				completion(.failure(.ATR_JWT_VER_EMPTY_JWKS))
+			case .JWT_VER_NO_JWK_FOR_KID:
+				completion(.failure(.ATR_JWT_VER_NO_JWK_FOR_KID))
+			case .JWT_VER_NO_KID:
+				completion(.failure(.ATR_JWT_VER_NO_KID))
+			case .JWT_VER_SIG_INVALID:
+				completion(.failure(.ATR_JWT_VER_SIG_INVALID))
+			}
 
+		}
+
+		// Parsing
 
 	}
+
+
 }
