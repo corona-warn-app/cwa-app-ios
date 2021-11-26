@@ -10,7 +10,7 @@ struct ServiceIdentityDocument: Codable {
 	let verificationMethod: [VerificationMethod]
 	let service: [ValidationDecoratorServiceModel]?
 	
-	public static func fake(
+	static func fake(
 		id: String = "fake",
 		verificationMethod: [VerificationMethod] = [
 			VerificationMethod(
