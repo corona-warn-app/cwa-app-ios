@@ -26,7 +26,7 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
 			completion(self.firstConsentResult ?? .success(.fake()))
@@ -54,7 +54,7 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Internal
 
 	var initializationResult: Result<Void, TicketValidationError>?
-	var firstConsentResult: Result<ValidationConditions, TicketValidationError>?
+	var firstConsentResult: Result<TicketValidationConditions, TicketValidationError>?
 	var validationResult: Result<TicketValidationResult, TicketValidationError>?
 
 	var delay: TimeInterval = 0

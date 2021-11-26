@@ -45,3 +45,5 @@
 "CovPass_Check_FAQLink" = "https://www.coronawarn.app/en/faq/#eu_dcc_check";
 
 "NotificationSettings_FAQLink" = "https://www.coronawarn.app/en/faq/#notification_settings";
+
+"TicketValidation_ServiceResult_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_result";

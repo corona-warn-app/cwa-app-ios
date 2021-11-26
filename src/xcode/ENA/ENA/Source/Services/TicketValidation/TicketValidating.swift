@@ -18,7 +18,7 @@ protocol TicketValidating {
 	)
 
 	func grantFirstConsent(
-		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	)
 
 	func selectCertificate(
