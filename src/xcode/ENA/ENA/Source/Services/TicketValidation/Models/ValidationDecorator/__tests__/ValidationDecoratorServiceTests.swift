@@ -7,16 +7,13 @@ import ENASecurity
 @testable import ENA
 
 class ValidationDecoratorServiceTests: XCTestCase {
-
+	
 	// Happy scenario success Case
 	
 	func test_happyScenario_Return_Identity_Document() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake())
-		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-		
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake()
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success(let identityDocument):
 				XCTAssertEqual(identityDocument.accessTokenService.id, "test")
@@ -27,29 +24,26 @@ class ValidationDecoratorServiceTests: XCTestCase {
 	}
 	
 	// Validation Failure Cases
-
+	
 	func test_If_Verification_Of_JWKs_Fails_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake(verificationMethod: [
-				VerificationMethod(
-					id: "https://test.com/AccessTokenSignKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(x5c: [], kid: "test", alg: "test", use: "test"),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/AccessTokenServiceKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				)
-			]))
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake(verificationMethod: [
+			VerificationMethod(
+				id: "https://test.com/AccessTokenSignKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(x5c: [], kid: "test", alg: "test", use: "test"),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/AccessTokenServiceKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			)
 		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-		
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success:
 				XCTFail("expected test to fail")
@@ -60,25 +54,22 @@ class ValidationDecoratorServiceTests: XCTestCase {
 	}
 	
 	func test_If_AccessTokenService_Not_Found_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake(service: [
-				DecoratorServiceModel(
-					id: "test",
-					type: "CancellationService",
-					serviceEndpoint: "test",
-					name: "test"
-				),
-				DecoratorServiceModel(
-					id: "test",
-					type: "ValidationService",
-					serviceEndpoint: "test",
-					name: "test"
-				)
-			]))
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake(service: [
+			ValidationDecoratorServiceModel(
+				id: "test",
+				type: "CancellationService",
+				serviceEndpoint: "test",
+				name: "test"
+			),
+			ValidationDecoratorServiceModel(
+				id: "test",
+				type: "ValidationService",
+				serviceEndpoint: "test",
+				name: "test"
+			)
 		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-		
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success:
 				XCTFail("expected test to fail")
@@ -89,25 +80,22 @@ class ValidationDecoratorServiceTests: XCTestCase {
 	}
 	
 	func test_If_ValidationService_Not_Found_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake(service: [
-				DecoratorServiceModel(
-					id: "test",
-					type: "CancellationService",
-					serviceEndpoint: "test",
-					name: "test"
-				),
-				DecoratorServiceModel(
-					id: "test",
-					type: "AccessTokenService",
-					serviceEndpoint: "test",
-					name: "test"
-				)
-			]))
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake(service: [
+			ValidationDecoratorServiceModel(
+				id: "test",
+				type: "CancellationService",
+				serviceEndpoint: "test",
+				name: "test"
+			),
+			ValidationDecoratorServiceModel(
+				id: "test",
+				type: "AccessTokenService",
+				serviceEndpoint: "test",
+				name: "test"
+			)
 		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-		
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success:
 				XCTFail("expected test to fail")
@@ -118,34 +106,31 @@ class ValidationDecoratorServiceTests: XCTestCase {
 	}
 	
 	func test_If_AccessTokenSignJwkSet_Not_Found_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake(verificationMethod: [
-				VerificationMethod(
-					id: "https://test.com/AccessTokenServiceKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/AccessTokenServiceKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/ValidationServiceKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				)
-			]))
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake(verificationMethod: [
+			VerificationMethod(
+				id: "https://test.com/AccessTokenServiceKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/AccessTokenServiceKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/ValidationServiceKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			)
 		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-		
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success:
 				XCTFail("expected test to fail")
@@ -156,34 +141,31 @@ class ValidationDecoratorServiceTests: XCTestCase {
 	}
 	
 	func test_If_AccessTokenServiceJwkSet_Not_Found_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake(verificationMethod: [
-				VerificationMethod(
-					id: "https://test.com/AccessTokenSignKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/wrongPath",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/ValidationServiceKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				)
-			]))
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake(verificationMethod: [
+			VerificationMethod(
+				id: "https://test.com/AccessTokenSignKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/wrongPath",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/ValidationServiceKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			)
 		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success:
 				XCTFail("expected test to fail")
@@ -192,36 +174,33 @@ class ValidationDecoratorServiceTests: XCTestCase {
 			}
 		}
 	}
-
+	
 	func test_If_ValidationServiceJwkSet_Not_Found_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(ServiceIdentityDocument.fake(verificationMethod: [
-				VerificationMethod(
-					id: "https://test.com/AccessTokenSignKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/AccessTokenServiceKey-1",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				),
-				VerificationMethod(
-					id: "https://test.com/wrongPath",
-					type: "JsonWebKey2020",
-					controller: "https://test.com/api/identity",
-					publicKeyJwk: JSONWebKey.fake(),
-					verificationMethods: nil
-				)
-			]))
+		let decoratorService = TVDecoratorIdentityDocumentProcessor()
+		let serviceIdentityDocument = ServiceIdentityDocument.fake(verificationMethod: [
+			VerificationMethod(
+				id: "https://test.com/AccessTokenSignKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/AccessTokenServiceKey-1",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			),
+			VerificationMethod(
+				id: "https://test.com/wrongPath",
+				type: "JsonWebKey2020",
+				controller: "https://test.com/api/identity",
+				publicKeyJwk: JSONWebKey.fake(),
+				verificationMethods: nil
+			)
 		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
+		decoratorService.validateIdentityDocument(serviceIdentityDocument: serviceIdentityDocument) { result in
 			switch result {
 			case .success:
 				XCTFail("expected test to fail")
@@ -231,53 +210,4 @@ class ValidationDecoratorServiceTests: XCTestCase {
 		}
 	}
 	
-	// Rest Service Custom errors Failure Cases
-
-	func test_If_RestService_Got_ClientError_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.failure(ServiceError<DecoratorServiceIdentityDocumentError>.unexpectedServerError(404))
-		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
-			switch result {
-			case .success:
-				XCTFail("expected test to fail")
-			case .failure(let error):
-				XCTAssertEqual(error, .VD_ID_CLIENT_ERR, "A Client error should occur")
-			}
-		}
-	}
-	
-	func test_If_RestService_Got_ServerError_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.failure(ServiceError<DecoratorServiceIdentityDocumentError>.unexpectedServerError(500))
-		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
-			switch result {
-			case .success:
-				XCTFail("expected test to fail")
-			case .failure(let error):
-				XCTAssertEqual(error, .VD_ID_SERVER_ERR, "A Server error should occur")
-			}
-		}
-	}
-
-	func test_If_RestService_Got_Invalid_JSON_Then_Abort() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.failure(ServiceError<DecoratorServiceIdentityDocumentError>.resourceError(.decoding))
-		])
-		let decoratorService = ValidationDecoratorService(restServiceProvider: restServiceProvider)
-
-		decoratorService.requestIdentityDocumentOfTheValidationDecorator(urlString: "test") { result in
-			switch result {
-			case .success:
-				XCTFail("expected test to fail")
-			case .failure(let error):
-				XCTAssertEqual(error, .VD_ID_PARSE_ERR, "A Server error should occur")
-			}
-		}
-	}
 }
