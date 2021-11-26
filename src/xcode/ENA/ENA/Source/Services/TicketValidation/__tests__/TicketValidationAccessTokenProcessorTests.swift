@@ -295,17 +295,7 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 	private func accessToken(aud: String, t: Int) throws -> (string: String, payload: TicketValidationAccessToken) {
 		let accessTokenHeader = Header()
 
-		let accessTokenPayload = TicketValidationAccessToken(
-			iss: "",
-			iat: nil,
-			exp: nil,
-			sub: "",
-			aud: aud,
-			jti: "",
-			v: "",
-			t: t,
-			vc: .fake()
-		)
+		let accessTokenPayload = TicketValidationAccessToken.fake(aud: aud, t: t)
 		let accessTokenPayloadString = try accessTokenPayload.encode()
 
 		let jsonEncoder = JSONEncoder()
