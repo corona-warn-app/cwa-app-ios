@@ -4,13 +4,11 @@
 
 import Foundation
 
-struct StringReceiveResource: ReceiveResource {
+struct JWTReceiveResource: ReceiveResource {
 	
 	// MARK: - Protocol ReceiveResource
-	
-	typealias ReceiveModel = String
-	
-	func decode(_ data: Data?) -> Result<String, ResourceError> {
+
+	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<JWTWithHeadersModel, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
 		}
@@ -19,7 +17,7 @@ struct StringReceiveResource: ReceiveResource {
 			return .failure(.decoding)
 		}
 
-		return .success(string)
+		return .success(JWTWithHeadersModel(jwt: string, headers: headers))
 	}
 
 }

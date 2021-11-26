@@ -15,13 +15,13 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 	
 	typealias ReceiveModel = R
 	
-	func decode(_ data: Data?) -> Result<R, ResourceError> {
+	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<R, ResourceError> {
 		guard let data = data else {
 			return .failure(.missingData)
 		}
 		do {
 			let model = try decoder.decode(R.self, from: data)
-			return .success(model)
+			return .success(ReceiveModelWithHeaders<R>(receiveModel: model, headers: headers))
 		} catch let DecodingError.keyNotFound(key, context) {
 			Log.debug("missing key: \(key.stringValue)", log: .client)
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)

@@ -5,10 +5,15 @@
 import Foundation
 import ENASecurity
 
-enum ServiceIdentityRequestError: Error {
-    case VS_ID_NO_ENC_KEY
-    case VS_ID_NO_SIGN_KEY
-    case VS_ID_EMPTY_X5C
+enum AccessTokenRequestError: Error {
+	case ATR_JWT_VER_ALG_NOT_SUPPORTED
+	case ATR_JWT_VER_EMPTY_JWKS
+	case ATR_JWT_VER_NO_JWK_FOR_KID
+	case ATR_JWT_VER_NO_KID
+	case ATR_JWT_VER_SIG_INVALID
+	case ATR_PARSE_ERR
+	case ATR_TYPE_INVALID
+	case ATR_AUD_INVALID
     case REST_SERVICE_ERROR(ServiceError<TicketValidationAccessTokenError>)
     case UNKOWN
 }
@@ -19,7 +24,7 @@ final class TicketValidation: TicketValidating {
 
 	init(
 		with initializationData: TicketValidationInitializationData,
-        restServiceProvider: RestServiceProvider
+		restServiceProvider: RestServiceProvider
 	) {
 		self.initializationData = initializationData
         self.restServiceProvider = restServiceProvider
@@ -55,28 +60,23 @@ final class TicketValidation: TicketValidating {
 
 	}
 
-	struct TicketValidationAccessTokenResult {
-		let accessToken: String
-		let accessTokenPayload: TicketValidationAccessToken
-		let nonceBase64: String
-	}
-
-    func requestAccessToken(
+    private func requestAccessToken(
         accessTokenService: TicketValidationServiceData,
         accessTokenServiceJwkSet: [JSONWebKey],
         accessTokenSignJwkSet: [JSONWebKey],
         jwt: String,
         validationService: TicketValidationServiceData,
         publicKeyBase64: String,
-        completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
+        completion: @escaping (Result<TicketValidationAccessTokenResult, AccessTokenRequestError>) -> Void
     ) {
         guard let url = URL(string: accessTokenService.serviceEndpoint) else {
+			Log.error("Invalid access token service endpoint", log: .ticketValidation)
             completion(.failure(.UNKOWN))
             return
         }
 
         let resource = TicketValidationAccessTokenResource(
-            accessTokenServiceURL: accessTokenService.url,
+            accessTokenServiceURL: url,
             jwt: jwt
         )
 
@@ -87,13 +87,20 @@ final class TicketValidation: TicketValidating {
             )
         )
 
-        restServiceProvider.load(resource) { [weak self] result in
+        restServiceProvider.load(resource) { result in
             switch result {
-            case .success(let accessToken):
-                self?.serviceIdentityProcessor.process(
-                    validationServiceJwkSet: validationServiceJwkSet,
-                    serviceIdentityDocument: serviceIdentityDocument,
-                    completion: completion
+            case .success(let result):
+				guard let nonceBase64 = result.headers["x-nonce"] as? String else {
+					Log.error("Missing header field x-nonce", log: .ticketValidation)
+					completion(.failure(.UNKOWN))
+					return
+				}
+
+				TicketValidationAccessTokenProcessor.process(
+					accessToken: result.jwt,
+					accessTokenSignJwkSet: accessTokenSignJwkSet,
+					nonceBase64: nonceBase64,
+					completion: completion
                 )
             case .failure(let error):
                 completion(.failure(.REST_SERVICE_ERROR(error)))

@@ -169,6 +169,7 @@
 		0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */; };
 		0187F8A026E2111900F1436E /* CertLogicRule+LocalizedDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */; };
 		01887D3B25DAB4E400FCAFB2 /* DiarySegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */; };
+		01899D44275113A4008DB734 /* JWTWithHeadersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01899D43275113A4008DB734 /* JWTWithHeadersModel.swift */; };
 		018B852526CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */; };
 		018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */; };
 		018B852A26CFDBC70037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B852926CFDBC60037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift */; };
@@ -293,7 +294,7 @@
 		01BA0760262096D100237DD8 /* checkin-timeinterval-derivation.json in Resources */ = {isa = PBXBuildFile; fileRef = 01BA07192620919E00237DD8 /* checkin-timeinterval-derivation.json */; };
 		01BB00CF274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */; };
 		01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */; };
-		01BB00D2274FDE750065D1D1 /* TVAccessTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00D1274FDE750065D1D1 /* TVAccessTokenProcessor.swift */; };
+		01BB00D2274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
@@ -1714,6 +1715,7 @@
 		0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewModel.swift; sourceTree = "<group>"; };
 		0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertLogicRule+LocalizedDescription.swift"; sourceTree = "<group>"; };
 		01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySegmentedControl.swift; sourceTree = "<group>"; };
+		01899D43275113A4008DB734 /* JWTWithHeadersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTWithHeadersModel.swift; sourceTree = "<group>"; };
 		018B852426CE8A310037DD54 /* OnBehalfCheckinSubmissionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionError.swift; sourceTree = "<group>"; };
 		018B852726CE996F0037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionServiceTests.swift; sourceTree = "<group>"; };
 		018B852926CFDBC60037DD54 /* ENAUITests_15_OnBehalfCheckinSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_15_OnBehalfCheckinSubmission.swift; sourceTree = "<group>"; };
@@ -1837,7 +1839,7 @@
 		01BA0751262093F600237DD8 /* AerosoleDecayFunctionLinear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerosoleDecayFunctionLinear.swift; sourceTree = "<group>"; };
 		01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TicketValidationConditions+Fake.swift"; sourceTree = "<group>"; };
 		01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationConditions.swift; sourceTree = "<group>"; };
-		01BB00D1274FDE750065D1D1 /* TVAccessTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVAccessTokenProcessor.swift; sourceTree = "<group>"; };
+		01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessor.swift; sourceTree = "<group>"; };
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C6ABF32527273D0052814D /* String+Insertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Insertion.swift"; sourceTree = "<group>"; };
 		01C6AC25252B23D70052814D /* QRScannerFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerFocusView.swift; sourceTree = "<group>"; };
@@ -3225,8 +3227,7 @@
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
 				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
-				01BB00D1274FDE750065D1D1 /* TVAccessTokenProcessor.swift */,
-				ABC506D0274F8D2300698A95 /* TVServiceIdentityDocumentProcessor.swift */,
+				01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -7857,6 +7858,7 @@
 			isa = PBXGroup;
 			children = (
 				AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */,
+				01899D43275113A4008DB734 /* JWTWithHeadersModel.swift */,
 				8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */,
 			);
 			path = Receive;
@@ -10045,7 +10047,7 @@
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
-				01BB00D2274FDE750065D1D1 /* TVAccessTokenProcessor.swift in Sources */,
+				01BB00D2274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift in Sources */,
 				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */,
@@ -10149,6 +10151,7 @@
 				AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
+				01899D44275113A4008DB734 /* JWTWithHeadersModel.swift in Sources */,
 				8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */,
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
