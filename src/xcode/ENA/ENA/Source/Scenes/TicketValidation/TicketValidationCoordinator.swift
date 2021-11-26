@@ -95,7 +95,7 @@ final class TicketValidationCoordinator {
 	}
 
 	private func showCertificateSelectionScreen(
-        validationConditions: ValidationConditions
+        validationConditions: TicketValidationConditions
     ) {
 		let certificateSelectionViewController = TicketValidationCertificateSelectionViewController(
 			viewModel: TicketValidationCertificateSelectionViewModel(
