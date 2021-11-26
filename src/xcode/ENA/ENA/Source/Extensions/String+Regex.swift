@@ -5,8 +5,6 @@
 import Foundation
 
 extension String {
-    /// This method generates a random string containing the lowercase english alphabet letters a-z,
-    /// given a specific size.
     public func check(regex: String) -> Bool {
        
         do {
