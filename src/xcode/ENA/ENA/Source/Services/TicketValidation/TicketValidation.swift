@@ -14,8 +14,8 @@ enum AccessTokenRequestError: Error, Equatable {
 	case ATR_PARSE_ERR
 	case ATR_TYPE_INVALID
 	case ATR_AUD_INVALID
-    case REST_SERVICE_ERROR(ServiceError<TicketValidationAccessTokenError>)
-    case UNKNOWN
+	case REST_SERVICE_ERROR(ServiceError<TicketValidationAccessTokenError>)
+	case UNKNOWN
 }
 
 final class TicketValidation: TicketValidating {

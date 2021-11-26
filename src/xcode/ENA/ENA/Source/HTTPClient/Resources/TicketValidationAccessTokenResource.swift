@@ -13,7 +13,7 @@ struct TicketValidationAccessTokenResource: Resource {
 		jwt: String
 	) {
 		self.locator = .ticketValidationAccessToken(accessTokenServiceURL: accessTokenServiceURL, jwt: jwt)
-        self.type = .dynamicPinning
+		self.type = .dynamicPinning
 		self.sendResource = JSONSendResource<TicketValidationAccessTokenModel>()
 		self.receiveResource = JWTReceiveResource()
 	}
