@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
+struct SIDValidationDecoratorResource: Resource {
 
 	// MARK: - Init
 
@@ -35,6 +35,14 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 			case 500...509:
 				return .VD_ID_SERVER_ERR
 			default:
+				return nil
+			}
+		case .transportationError(let transportationError):
+			if let error = transportationError as NSError?,
+			   error.domain == NSURLErrorDomain,
+			   error.code == NSURLErrorNotConnectedToInternet {
+				return .VD_ID_NO_NETWORK
+			} else {
 				return nil
 			}
 		case .resourceError(.decoding):
