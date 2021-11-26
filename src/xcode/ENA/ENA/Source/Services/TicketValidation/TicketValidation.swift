@@ -54,7 +54,7 @@ final class TicketValidation: TicketValidating {
 			Log.error("URL cant be constructed from input string", log: .ticketValidationDecorator)
 			return
 		}
-		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
+		let resource = SIDValidationDecoratorResource(url: url)
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
