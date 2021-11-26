@@ -60,8 +60,8 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		/// check for the content on validation result screen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.headerImageWithTitle].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.subtitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.headerImageWithTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.subtitle].waitForExistence(timeout: .short))
 	}
 	
 	func test_screenshot_ticketValidation_passed() throws {
@@ -112,8 +112,8 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		/// check for the content on validation result screen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.headerImageWithTitle].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.subtitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.headerImageWithTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.subtitle].waitForExistence(timeout: .short))
 		
 		/// take screenshot on validation result screen
 		snapshot("screenshot_ticket_validation_result_passed")
@@ -149,8 +149,8 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		/// check for the content on validation result screen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.ValidationResult.Failed.headerImageWithTitle].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.ValidationResult.Failed.subtitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.TicketValidation.ValidationResult.Failed.headerImageWithTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.TicketValidation.ValidationResult.Failed.subtitle].waitForExistence(timeout: .short))
 		
 		/// take screenshot on validation result screen
 		snapshot("screenshot_ticket_validation_result_failed")
