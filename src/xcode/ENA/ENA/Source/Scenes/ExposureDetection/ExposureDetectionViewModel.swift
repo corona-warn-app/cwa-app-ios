@@ -620,9 +620,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		]
 		if numberOfExposures > 0 {
 			cells.append(
-				.link(
+				.textWithLinks(
 					text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
-					url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
+					links: [
+						AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ: AppStrings.Home.riskEncounterLowFAQLink
+					]
 				)
 			)
 		}
@@ -650,9 +652,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			text: AppStrings.ExposureDetection.explanationTextLowWithEncounter,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter
 		),
-		.link(
+		.textWithLinks(
 			text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
-			url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
+			links: [
+				AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ: AppStrings.Home.riskEncounterLowFAQLink
+			]
 		)
 	].compactMap { $0 }
 	

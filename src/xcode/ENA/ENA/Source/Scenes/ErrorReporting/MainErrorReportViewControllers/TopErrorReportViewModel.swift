@@ -27,9 +27,11 @@ class TopErrorReportViewModel {
 					text: AppStrings.ErrorReport.description1,
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.topBody
 				),
-				.link(
+				.textWithLinks(
 					text: AppStrings.ErrorReport.faq,
-					url: URL(string: AppStrings.ErrorReport.faqURL),
+					links: [
+						AppStrings.ErrorReport.faq: AppStrings.ErrorReport.faqURL
+					],
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq
 				)
 			])
