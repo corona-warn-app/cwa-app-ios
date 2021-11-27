@@ -893,7 +893,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung und Gültigkeitsdauer von Test-Nachweisen in Ihrem Bundesland.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
