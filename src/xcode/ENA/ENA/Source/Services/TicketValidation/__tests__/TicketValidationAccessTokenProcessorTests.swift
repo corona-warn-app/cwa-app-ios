@@ -17,8 +17,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -47,8 +47,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: [:]
 				),
 				accessTokenSignJwkSet: [],
@@ -74,8 +74,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: "notAJWT",
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: "notAJWT",
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -102,8 +102,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -130,8 +130,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -158,8 +158,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_ALG_NOT_SUPPORTED))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -186,8 +186,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_EMPTY_JWKS))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -214,8 +214,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_NO_JWK_FOR_KID))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -242,8 +242,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_NO_KID))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],
@@ -270,8 +270,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_SIG_INVALID))
 		)
 			.process(
-				jwtWithHeadersModel: JWTWithHeadersModel(
-					jwt: accessToken.string,
+				jwtWithHeadersModel: ModelWithHeaders(
+					model: accessToken.string,
 					headers: ["x-nonce": "Nonce"]
 				),
 				accessTokenSignJwkSet: [],

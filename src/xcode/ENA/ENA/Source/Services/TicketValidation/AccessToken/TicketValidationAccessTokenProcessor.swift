@@ -17,13 +17,13 @@ struct TicketValidationAccessTokenProcessor {
 	// MARK: - Internal
 	
 	func process(
-		jwtWithHeadersModel: JWTWithHeadersModel,
+		jwtWithHeadersModel: ModelWithHeaders<String>,
 		accessTokenSignJwkSet: [JSONWebKey],
 		completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
 	) {
 		/// 2. Find `accessToken`
 
-		let accessToken = jwtWithHeadersModel.jwt
+		let accessToken = jwtWithHeadersModel.model
 
 		/// 3. Verify signature
 

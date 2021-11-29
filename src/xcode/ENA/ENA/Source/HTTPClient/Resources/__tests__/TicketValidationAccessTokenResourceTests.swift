@@ -20,13 +20,14 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		serviceProvider.load(ticketValidationAccessTokenResource) { result in
 			switch result {
 			case .success(let result):
-				XCTAssertEqual(result.jwt, "accessJWT")
+				XCTAssertEqual(result.model, "accessJWT")
 				XCTAssertEqual(result.headers["x-nonce"] as? String, "Nonce")
 			case .failure(let error):
 				XCTFail("Encountered Error when receiving registration token! \(error)")
@@ -48,7 +49,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		serviceProvider.load(ticketValidationAccessTokenResource) { result in
@@ -72,7 +74,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 	func testCustomError400() throws {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		let customError = try XCTUnwrap(
@@ -85,7 +88,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 	func testCustomError500() throws {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		let customError = try XCTUnwrap(
@@ -98,7 +102,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 	func testCustomTransportationError() throws {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		let customError = try XCTUnwrap(
@@ -119,7 +124,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 	func testCustomCertificatePinningMismatchError() throws {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		let customError = try XCTUnwrap(
@@ -132,7 +138,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 	func testCustomCertificatePinningNoJWKForKIDError() throws {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT"
+			jwt: "headerJWT",
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
 		)
 
 		let customError = try XCTUnwrap(
