@@ -82,7 +82,7 @@ final class TicketValidation: TicketValidating {
 			)
 		)
 
-		/// 1. Call Access Token Service
+		Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
 
 		restServiceProvider.load(resource) { result in
 			switch result {
@@ -94,6 +94,8 @@ final class TicketValidation: TicketValidating {
 						completion: completion
 					)
 			case .failure(let error):
+				Log.error("Ticket Validation: Requesting access token failed", log: .ticketValidation, error: error)
+
 				completion(.failure(.REST_SERVICE_ERROR(error)))
 			}
 		}

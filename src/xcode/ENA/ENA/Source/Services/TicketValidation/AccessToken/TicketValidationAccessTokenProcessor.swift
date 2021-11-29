@@ -21,17 +21,23 @@ struct TicketValidationAccessTokenProcessor {
 		accessTokenSignJwkSet: [JSONWebKey],
 		completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
 	) {
-		/// 2. Find `accessToken`: the `accessToken` shall be set to the body of the HTTP response.
+		/// 2. Find `accessToken`
 
 		let accessToken = jwtWithHeadersModel.jwt
 
-		/// 3. Verify signature: the signature of the `accessToken` shall be verified
+		/// 3. Verify signature
+
+		Log.info("Ticket Validation: Verifying access token signature", log: .ticketValidation)
 
 		switch jwtVerification.verify(jwtString: accessToken, against: accessTokenSignJwkSet) {
 		case .success:
-			/// 4. Determine `accessTokenPayload`: the `accessTokenPayload` shall be set to the payload of the `accessToken`
+			Log.info("Ticket Validation: Verifying access token signature succeeded", log: .ticketValidation)
+
+			/// 4. Determine `accessTokenPayload`
 
 			guard let jwtObject = try? JWT<TicketValidationAccessToken>(jwtString: accessToken) else {
+				Log.error("Ticket Validation: Parsing access token failed", log: .ticketValidation)
+
 				completion(.failure(.ATR_PARSE_ERR))
 				return
 			}
@@ -41,22 +47,29 @@ struct TicketValidationAccessTokenProcessor {
 			/// 5. Validate `accessTokenPayload`
 
 			guard accessTokenPayload.t == 1 || accessTokenPayload.t == 2 else {
+				Log.error("Ticket Validation: Access token payload t is \(accessTokenPayload.t)", log: .ticketValidation)
+
 				completion(.failure(.ATR_TYPE_INVALID))
 				return
 			}
 
 			guard !accessTokenPayload.aud.trimmingCharacters(in: .whitespaces).isEmpty else {
+				Log.error("Ticket Validation: Access token payload aud is empty", log: .ticketValidation)
+
 				completion(.failure(.ATR_AUD_INVALID))
 				return
 			}
 
-			/// 6. Determine `nonceBase64`: the `nonceBase64` shall be set to the value of the x-nonce header field in the HTTP response.
+			/// 6. Determine `nonceBase64`
 
 			guard let nonceBase64 = jwtWithHeadersModel.headers["x-nonce"] as? String else {
-				Log.error("Missing header field x-nonce", log: .ticketValidation)
+				Log.error("Ticket Validation: Missing header field x-nonce", log: .ticketValidation)
+
 				completion(.failure(.UNKNOWN))
 				return
 			}
+
+			Log.info("Ticket Validation: access token processing succeeded", log: .ticketValidation)
 
 			completion(
 				.success(
@@ -68,6 +81,8 @@ struct TicketValidationAccessTokenProcessor {
 				)
 			)
 		case .failure(let error):
+			Log.error("Ticket Validation: Verifying access token signature failed", log: .ticketValidation, error: error)
+
 			completion(.failure(mappedError(error)))
 		}
 
