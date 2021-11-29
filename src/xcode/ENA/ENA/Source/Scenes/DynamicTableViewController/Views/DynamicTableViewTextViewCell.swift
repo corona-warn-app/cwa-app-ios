@@ -105,6 +105,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.textContainerInset = .zero
 		textView.textContainer.lineFragmentPadding = .zero
 		textView.tintColor = .enaColor(for: .textTint)
+		textView.delegate = self
 
 		contentView.addSubview(textView)
 		contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: textView.topAnchor).isActive = true
@@ -118,5 +119,13 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 	private func resetMargins() {
 		contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 		contentView.insetsLayoutMarginsFromSafeArea = false
+	}
+}
+
+// MARK: - Protocol UITextViewDelegate
+
+extension DynamicTableViewTextViewCell: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		LinkHelper.open(url: url, interaction: interaction) == .allow
 	}
 }
