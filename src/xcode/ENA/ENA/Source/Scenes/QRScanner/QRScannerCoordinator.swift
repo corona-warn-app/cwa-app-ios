@@ -364,7 +364,7 @@ class QRScannerCoordinator {
 		_ initializationData: TicketValidationInitializationData
 	) {
 		showActivityIndicator()
-		let ticketValidation = MockTicketValidation(with: initializationData)
+		let ticketValidation = MockTicketValidation(with: initializationData, restServiceProvider: RestServiceProviderStub(loadResources: []))
 		ticketValidation.delay = 1
 		ticketValidation.firstConsentResult = .success(.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "tp", "tr"]))
 															 

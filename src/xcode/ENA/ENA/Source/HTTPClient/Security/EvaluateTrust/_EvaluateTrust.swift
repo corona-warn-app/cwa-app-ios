@@ -3,5 +3,11 @@
 //
 
 protocol EvaluateTrust {
-	func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
+	func evaluate(
+		challenge: URLAuthenticationChallenge,
+		trust: SecTrust,
+		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+	)
+	
+	var trustEvaluationError: Error? { get set }
 }
