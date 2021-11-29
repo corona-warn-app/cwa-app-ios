@@ -155,7 +155,8 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		)
 		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
 		let stack = MockNetworkStack(
-			sessionDelegate: sessionDelegate
+			sessionDelegate: sessionDelegate,
+			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 		
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
@@ -187,7 +188,8 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		)
 		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
 		let stack = MockNetworkStack(
-			sessionDelegate: sessionDelegate
+			sessionDelegate: sessionDelegate,
+			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 		
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
