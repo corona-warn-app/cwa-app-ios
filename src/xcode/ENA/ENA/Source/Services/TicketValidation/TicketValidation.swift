@@ -33,7 +33,8 @@ final class TicketValidation: TicketValidating {
 		self.serviceIdentityProcessor = serviceIdentityProcessor
 	}
 
-	var initializationData: TicketValidationInitializationData
+	let initializationData: TicketValidationInitializationData
+
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
@@ -88,7 +89,12 @@ final class TicketValidation: TicketValidating {
 		}
 	}
 
-	func validateIdentityDocumentOfValidationDecorator(
+	// MARK: - Private
+
+	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+	private let restServiceProvider: RestServiceProviding
+	
+	private func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:
 		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
@@ -110,8 +116,54 @@ final class TicketValidation: TicketValidating {
 			}
 		}
 	}
-	
-	// MARK: - Private
-	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
-	private let restServiceProvider: RestServiceProviding
+
+    private func requestAccessToken(
+        accessTokenService: TicketValidationServiceData,
+        accessTokenServiceJwkSet: [JSONWebKey],
+        accessTokenSignJwkSet: [JSONWebKey],
+        jwt: String,
+        validationService: TicketValidationServiceData,
+        publicKeyBase64: String,
+        completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
+    ) {
+        guard let url = URL(string: accessTokenService.serviceEndpoint) else {
+            Log.error("Invalid access token service endpoint", log: .ticketValidation)
+            completion(.failure(.UNKNOWN))
+            return
+        }
+
+        let resource = TicketValidationAccessTokenResource(
+            accessTokenServiceURL: url,
+            jwt: jwt,
+            sendModel: TicketValidationAccessTokenSendModel(
+                service: validationService.id,
+                pubKey: publicKeyBase64
+            )
+        )
+
+        restServiceProvider.update(
+            DynamicEvaluateTrust(
+                jwkSet: accessTokenServiceJwkSet,
+                trustEvaluation: TrustEvaluation()
+            )
+        )
+
+        Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
+
+        restServiceProvider.load(resource) { result in
+            switch result {
+            case .success(let jwtWithHeadersModel):
+                TicketValidationAccessTokenProcessor(jwtVerification: JWTVerification())
+                    .process(
+                        jwtWithHeadersModel: jwtWithHeadersModel,
+                        accessTokenSignJwkSet: accessTokenSignJwkSet,
+                        completion: completion
+                    )
+            case .failure(let error):
+                Log.error("Ticket Validation: Requesting access token failed", log: .ticketValidation, error: error)
+
+                completion(.failure(.REST_SERVICE_ERROR(error)))
+            }
+        }
+    }
 }

@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 /**
 RestServiceProvider is basically a dispatcher that directs work to the correct service by type.
@@ -14,7 +15,7 @@ class RestServiceProvider: RestServiceProviding {
 		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil,
 		cache: KeyValueCaching,
-		jwkSet: [Data] = []
+		jwkSet: [JSONWebKey] = []
 	) {
 		self.environment = environment
 		self.optionalSession = session

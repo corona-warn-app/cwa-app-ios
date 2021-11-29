@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct JSONSendResource<S>: SendResource where S: Encodable {
+struct PaddingJSONSendResource<S>: SendResource where S: Encodable & PaddingResource {
 	
 	// MARK: - Init
 	
@@ -24,7 +24,9 @@ struct JSONSendResource<S>: SendResource where S: Encodable {
 			return .success(nil)
 		}
 		do {
-			let data = try encoder.encode(model)
+			var paddingModel = model
+			paddingModel.requestPadding = model.paddingCount
+			let data = try encoder.encode(paddingModel)
 			return Result.success(data)
 		} catch {
 			return Result.failure(.encoding)

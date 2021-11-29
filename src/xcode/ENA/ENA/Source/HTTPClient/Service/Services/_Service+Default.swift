@@ -113,7 +113,7 @@ extension Service {
 		_ response: HTTPURLResponse?,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		switch resource.receiveResource.decode(bodyData) {
+		switch resource.receiveResource.decode(bodyData, headers: response?.allHeaderFields ?? [:]) {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
