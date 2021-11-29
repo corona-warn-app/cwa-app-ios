@@ -82,6 +82,8 @@ final class TicketValidation: TicketValidating {
 			)
 		)
 
+		/// 1. Call Access Token Service
+
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let jwtWithHeadersModel):
