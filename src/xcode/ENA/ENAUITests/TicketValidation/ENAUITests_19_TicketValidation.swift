@@ -38,7 +38,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitForExistence(timeout: .short))
 		
 		/// navigate to the certificate selection screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TicketValidation.FirstConsent.primaryButton].waitAndTap()
 		
 		/// check for the number of certificates on certificate selection screen
 		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
@@ -57,7 +57,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitForExistence(timeout: .short))
 		
 		/// navigate to the validation result screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TicketValidation.SecondConsent.primaryButton].waitAndTap()
 		
 		/// check for the content on validation result screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.headerImageWithTitle].waitForExistence(timeout: .short))
@@ -85,7 +85,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		snapshot("screenshot_ticket_validation_first_consent_3")
 		
 		/// navigate to certificate selection screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TicketValidation.FirstConsent.primaryButton].waitAndTap()
 		
 		/// check for health certificate cell on certificate selection screen
 		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
@@ -111,7 +111,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		snapshot("screenshot_ticket_validation_second_consent_4")
 		
 		/// navigate to the validation result screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TicketValidation.SecondConsent.primaryButton].waitAndTap()
 		
 		/// check for the content on validation result screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.headerImageWithTitle].waitForExistence(timeout: .short))
@@ -136,7 +136,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox].waitForExistence(timeout: .short))
 		
 		/// navigate to certificate selection screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TicketValidation.FirstConsent.primaryButton].waitAndTap()
 		
 		/// check for health certificate cell on certificate selection screen
 		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
@@ -150,7 +150,7 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.SecondConsent.legalBox].waitForExistence(timeout: .short))
 		
 		/// navigate to the validation result screen
-		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TicketValidation.SecondConsent.primaryButton].waitAndTap()
 		
 		/// check for the content on validation result screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TicketValidation.ValidationResult.Failed.headerImageWithTitle].waitForExistence(timeout: .short))

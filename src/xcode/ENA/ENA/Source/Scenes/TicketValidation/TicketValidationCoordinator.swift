@@ -69,6 +69,7 @@ final class TicketValidationCoordinator {
 			FooterViewModel(
 				primaryButtonName: AppStrings.TicketValidation.FirstConsent.primaryButtonTitle,
 				secondaryButtonName: AppStrings.TicketValidation.FirstConsent.secondaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.primaryButton,
 				isSecondaryButtonEnabled: true,
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: false
@@ -160,6 +161,7 @@ final class TicketValidationCoordinator {
 			FooterViewModel(
 				primaryButtonName: AppStrings.TicketValidation.SecondConsent.primaryButtonTitle,
 				secondaryButtonName: AppStrings.TicketValidation.SecondConsent.secondaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.TicketValidation.SecondConsent.primaryButton,
 				isSecondaryButtonEnabled: true,
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: false
