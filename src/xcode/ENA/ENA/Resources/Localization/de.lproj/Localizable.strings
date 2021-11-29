@@ -3208,7 +3208,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Info_title" = "Informationen zu QR-Codes";
 
-"UniversalQRScanner_Info_bulletPoint1" = "Ihre Testzertifikate, Impfzertifikate, Gensenenzertifikate, sowie Zertifikate Ihrer Familienmitglieder";
+"UniversalQRScanner_Info_bulletPoint1" = "Ihre Testzertifikate, Impfzertifikate, Genesenenzertifikate, sowie Zertifikate Ihrer Familienmitglieder";
 
 "UniversalQRScanner_Info_bulletPoint2" = "Check-ins für Veranstaltungen und Orte";
 
