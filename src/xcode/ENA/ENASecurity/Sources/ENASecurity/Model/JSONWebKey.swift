@@ -6,7 +6,7 @@ import Foundation
 import ASN1Decoder
 
 public struct JSONWebKey: Codable {
-    let x5c: [String]
+    public let x5c: [String]
     let kid: String
     let alg: String
     let use: String
