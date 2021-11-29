@@ -10,23 +10,24 @@ struct TicketValidationAccessTokenResource: Resource {
 
 	init(
 		accessTokenServiceURL: URL,
-		jwt: String
+		jwt: String,
+		sendModel: TicketValidationAccessTokenSendModel
 	) {
 		self.locator = .ticketValidationAccessToken(accessTokenServiceURL: accessTokenServiceURL, jwt: jwt)
 		self.type = .dynamicPinning
-		self.sendResource = JSONSendResource<TicketValidationAccessTokenModel>()
+		self.sendResource = JSONSendResource<TicketValidationAccessTokenSendModel>(sendModel)
 		self.receiveResource = JWTReceiveResource()
 	}
 
 	// MARK: - Protocol Resource
 
-	typealias Send = JSONSendResource<TicketValidationAccessTokenModel>
+	typealias Send = JSONSendResource<TicketValidationAccessTokenSendModel>
 	typealias Receive = JWTReceiveResource
 	typealias CustomError = TicketValidationAccessTokenError
 
 	var locator: Locator
 	var type: ServiceType
-	var sendResource: JSONSendResource<TicketValidationAccessTokenModel>
+	var sendResource: JSONSendResource<TicketValidationAccessTokenSendModel>
 	var receiveResource: JWTReceiveResource
 
 	// swiftlint:disable cyclomatic_complexity

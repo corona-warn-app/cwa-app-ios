@@ -369,7 +369,7 @@
 		01E1C945274BA2FE007FD7B3 /* QRScannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C940274B96F9007FD7B3 /* QRScannerInfoViewController.swift */; };
 		01E1C947274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */; };
 		01E1C949274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */; };
-		01E1C94B274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift */; };
+		01E1C94B274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
 		01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */; };
@@ -1931,7 +1931,7 @@
 		01E1C941274B96F9007FD7B3 /* QRScannerInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerInfoViewModel.swift; sourceTree = "<group>"; };
 		01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResource.swift; sourceTree = "<group>"; };
 		01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenLocator.swift; sourceTree = "<group>"; };
-		01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenModel.swift; sourceTree = "<group>"; };
+		01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenSendModel.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42994251DCDCE0057FCBE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
@@ -7956,7 +7956,7 @@
 			children = (
 				BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */,
 				8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */,
-				01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift */,
+				01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -9941,7 +9941,7 @@
 				EB3B3499262B109E00B1801E /* ExposureSubmissionCheckinDescriptionTableViewCell.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
-				01E1C94B274FB5A0007FD7B3 /* TicketValidationAccessTokenModel.swift in Sources */,
+				01E1C94B274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift in Sources */,
 				8F499B092682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift in Sources */,
 				0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */,
 				019E2F0726A05196000EC4AD /* HealthCertificateValidityState.swift in Sources */,

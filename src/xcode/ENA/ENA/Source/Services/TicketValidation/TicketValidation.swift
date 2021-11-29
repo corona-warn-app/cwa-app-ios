@@ -68,7 +68,11 @@ final class TicketValidation: TicketValidating {
 
 		let resource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: url,
-			jwt: jwt
+			jwt: jwt,
+			sendModel: TicketValidationAccessTokenSendModel(
+				service: validationService.id,
+				pubKey: publicKeyBase64
+			)
 		)
 
 		restServiceProvider.update(
