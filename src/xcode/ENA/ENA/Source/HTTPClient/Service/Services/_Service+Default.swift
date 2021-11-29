@@ -52,10 +52,19 @@ extension Service {
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				
-				if let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
+				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
+				if error != nil,
+				   let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
 				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
 				   let trustEvaluationError = error as? TrustEvaluationError {
+					
 					completion(.failure(customError(in: resource, for: .trustEvaluationError(trustEvaluationError))))
+					
+					// Reset the error to not block future requests.
+					// I know, this error state is not a nice solution.
+					// If you have an idea how to solve the problem of having a detailed trust evaluation error at this point, without holding the state, feel free to refactor :)
+					coronaSessionDelegate.evaluateTrust.trustEvaluationError = nil
+					
 					return
 				}
 				
