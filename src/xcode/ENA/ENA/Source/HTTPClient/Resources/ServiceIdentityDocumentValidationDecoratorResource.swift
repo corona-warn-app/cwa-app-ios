@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct SIDValidationDecoratorResource: Resource {
+struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 
 	// MARK: - Init
 

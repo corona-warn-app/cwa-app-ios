@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SIDValidationDecoratorResourceTests: XCTestCase {
+class ServiceIdentityDocumentValidationDecoratorResourceTests: XCTestCase {
 	
 	func test_If_RestService_Got_ClientError_Then_Abort() {
 		let expectation = expectation(description: "Expect that we got a completion")
@@ -20,7 +20,7 @@ class SIDValidationDecoratorResourceTests: XCTestCase {
 			XCTFail("Failed to create URL")
 			return
 		}
-		let resource = SIDValidationDecoratorResource(url: url)
+		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		serviceProvider.load(resource) { result in
 			switch result {
 			case .success:
@@ -50,7 +50,7 @@ class SIDValidationDecoratorResourceTests: XCTestCase {
 			XCTFail("Failed to create URL")
 			return
 		}
-		let resource = SIDValidationDecoratorResource(url: url)
+		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		serviceProvider.load(resource) { result in
 			switch result {
 			case .success:
@@ -81,7 +81,7 @@ class SIDValidationDecoratorResourceTests: XCTestCase {
 			XCTFail("Failed to create URL")
 			return
 		}
-		let resource = SIDValidationDecoratorResource(url: url)
+		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		serviceProvider.load(resource) { result in
 			switch result {
 			case .success:
@@ -119,7 +119,7 @@ class SIDValidationDecoratorResourceTests: XCTestCase {
 			XCTFail("Failed to create URL")
 			return
 		}
-		let resource = SIDValidationDecoratorResource(url: url)
+		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		serviceProvider.load(resource) { result in
 			switch result {
 			case .success:
