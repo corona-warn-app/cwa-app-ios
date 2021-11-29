@@ -5,7 +5,7 @@
 import Foundation
 
 protocol TicketValidating {
-
+	
 	init(
 		with initializationData: TicketValidationInitializationData,
 		restServiceProvider: RestServiceProviding
