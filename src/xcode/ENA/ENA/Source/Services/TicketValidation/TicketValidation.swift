@@ -124,4 +124,63 @@ final class TicketValidation: TicketValidating {
         }
     }
 
+	// swiftlint:disable function_parameter_count
+	private func requestResultToken(
+		serviceEndpoint: String,
+		validationServiceJwkSet: [JSONWebKey],
+		validationServiceSignJwkSet: [JSONWebKey],
+		jwt: String,
+		encryptionKeyKid: String,
+		encryptedDCCBase64: String,
+		encryptionKeyBase64: String,
+		signatureBase64: String,
+		signatureAlgorithm: String,
+		encryptionScheme: String,
+		completion: @escaping (Result<TicketValidationResultTokenResult, TicketValidationResultTokenProcessingError>) -> Void
+	) {
+		guard let url = URL(string: serviceEndpoint) else {
+			Log.error("Invalid result token service endpoint", log: .ticketValidation)
+			completion(.failure(.UNKNOWN))
+			return
+		}
+
+		let resource = TicketValidationResultTokenResource(
+			resultTokenServiceURL: url,
+			jwt: jwt,
+			sendModel: TicketValidationResultTokenSendModel(
+				kid: encryptionKeyKid,
+				dcc: encryptedDCCBase64,
+				sig: signatureBase64,
+				encKey: encryptionKeyBase64,
+				encScheme: encryptionScheme,
+				sigAlg: signatureAlgorithm
+			)
+		)
+
+		restServiceProvider.update(
+			DynamicEvaluateTrust(
+				jwkSet: validationServiceJwkSet,
+				trustEvaluation: TrustEvaluation()
+			)
+		)
+
+		Log.info("Ticket Validation: Requesting result token", log: .ticketValidation)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success(let resultToken):
+				TicketValidationResultTokenProcessor(jwtVerification: JWTVerification())
+					.process(
+						resultToken: resultToken,
+						validationServiceSignJwkSet: validationServiceSignJwkSet,
+						completion: completion
+					)
+			case .failure(let error):
+				Log.error("Ticket Validation: Requesting result token failed", log: .ticketValidation, error: error)
+
+				completion(.failure(.REST_SERVICE_ERROR(error)))
+			}
+		}
+	}
+
 }

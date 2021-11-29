@@ -28,7 +28,13 @@
 		010A47512751415E000AA80E /* TicketValidationAccessToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */; };
 		010A47542754C1AE000AA80E /* TicketValidationAccessTokenResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */; };
 		010A47562754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */; };
+		010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47652754C74F000AA80E /* TicketValidationResultTokenResource.swift */; };
+		010A47682754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47672754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift */; };
+		010A476A2754D5F6000AA80E /* TicketValidationResultTokenLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47692754D5F6000AA80E /* TicketValidationResultTokenLocator.swift */; };
 		010A476C27551596000AA80E /* StringReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A476B27551596000AA80E /* StringReceiveResource.swift */; };
+		010A476D27551B18000AA80E /* TicketValidationResultTokenProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47632754C674000AA80E /* TicketValidationResultTokenProcessingError.swift */; };
+		010A476E27551B18000AA80E /* TicketValidationResultTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47622754C674000AA80E /* TicketValidationResultTokenProcessor.swift */; };
+		010A476F27551B18000AA80E /* TicketValidationResultTokenResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47642754C674000AA80E /* TicketValidationResultTokenResult.swift */; };
 		010A57A427185E4D001F5A09 /* RecycleBinItemCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3322F270F3D8D005CE21E /* RecycleBinItemCellModelTests.swift */; };
 		010A57A92719C181001F5A09 /* ENAUITests_18_RecycleBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
@@ -1607,6 +1613,12 @@
 		010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationAccessToken+Fake.swift"; sourceTree = "<group>"; };
 		010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResult.swift; sourceTree = "<group>"; };
 		010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessingError.swift; sourceTree = "<group>"; };
+		010A47622754C674000AA80E /* TicketValidationResultTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessor.swift; sourceTree = "<group>"; };
+		010A47632754C674000AA80E /* TicketValidationResultTokenProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessingError.swift; sourceTree = "<group>"; };
+		010A47642754C674000AA80E /* TicketValidationResultTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResult.swift; sourceTree = "<group>"; };
+		010A47652754C74F000AA80E /* TicketValidationResultTokenResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResource.swift; sourceTree = "<group>"; };
+		010A47672754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenSendModel.swift; sourceTree = "<group>"; };
+		010A47692754D5F6000AA80E /* TicketValidationResultTokenLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenLocator.swift; sourceTree = "<group>"; };
 		010A476B27551596000AA80E /* StringReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringReceiveResource.swift; sourceTree = "<group>"; };
 		010A57A82719C161001F5A09 /* ENAUITests_18_RecycleBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_18_RecycleBin.swift; sourceTree = "<group>"; };
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
@@ -3276,6 +3288,7 @@
 				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
 				010A47522754C1A3000AA80E /* AccessToken */,
+				010A47612754C65C000AA80E /* ResultToken */,
 			);
 			path = TicketValidation;
 			sourceTree = "<group>";
@@ -3308,6 +3321,16 @@
 				010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */,
 			);
 			path = AccessToken;
+			sourceTree = "<group>";
+		};
+		010A47612754C65C000AA80E /* ResultToken */ = {
+			isa = PBXGroup;
+			children = (
+				010A47622754C674000AA80E /* TicketValidationResultTokenProcessor.swift */,
+				010A47632754C674000AA80E /* TicketValidationResultTokenProcessingError.swift */,
+				010A47642754C674000AA80E /* TicketValidationResultTokenResult.swift */,
+			);
+			path = ResultToken;
 			sourceTree = "<group>";
 		};
 		010A57A72719C157001F5A09 /* RecycleBin */ = {
@@ -4264,12 +4287,9 @@
 				01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */,
 				01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */,
 				01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */,
+				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
 				0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */,
 				0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */,
-				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
-				ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */,
-				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
-				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
 				ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */,
 				ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */,
 				34039DD7274E6C7B000AF3C4 /* TicketValidationConditions+CertificateSelection.swift */,
@@ -7995,6 +8015,7 @@
 				BAD3CCD2271EEB2C004C06AD /* KeyModel.swift */,
 				8F80802B2730B48F00F8FA3F /* SendRegistrationTokenModel.swift */,
 				01E1C94A274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift */,
+				010A47672754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -8051,6 +8072,7 @@
 				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
 				01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */,
+				010A47652754C74F000AA80E /* TicketValidationResultTokenResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */,
 				8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
@@ -8772,6 +8794,7 @@
 				5001DE8126E2057C004242FA /* TestResultDownload.swift */,
 				01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */,
 				8F87214D274DBCAE00A263D5 /* IdentityDocumentDecorator.swift */,
+				010A47692754D5F6000AA80E /* TicketValidationResultTokenLocator.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -9506,6 +9529,7 @@
 				0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */,
 				35E121DB25B273280098D754 /* statistics.pb.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
+				010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */,
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
 				EB08F17E2541CE3300D11FA9 /* app_version_config.pb.swift in Sources */,
 				0138F54B25ECD44300A9B075 /* semantic_version.pb.swift in Sources */,
@@ -9584,6 +9608,7 @@
 				35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */,
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				2EB7D6892680770000633D30 /* AsyncOperation.swift in Sources */,
+				010A47682754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift in Sources */,
 				017EE86326779E1A00CD18F6 /* RecoveryEntry+Extension.swift in Sources */,
 				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
 				01F6702925FF80490069C4F9 /* CheckinsOverviewViewController.swift in Sources */,
@@ -9680,6 +9705,7 @@
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				01BA0755262094D700237DD8 /* AerosoleDecayFunctionLinear.swift in Sources */,
+				010A476A2754D5F6000AA80E /* TicketValidationResultTokenLocator.swift in Sources */,
 				019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */,
 				01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
@@ -9880,6 +9906,7 @@
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
+				010A476F27551B18000AA80E /* TicketValidationResultTokenResult.swift in Sources */,
 				8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */,
 				01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */,
 				01E102662668D40F009ED803 /* TestCertificateRequest.swift in Sources */,
@@ -10027,6 +10054,7 @@
 				BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */,
 				BA64FA8226D79C2300DD4705 /* StandardRestService.swift in Sources */,
 				BA00FECE26BC2D14009DA07F /* AppFeatureProvider.swift in Sources */,
+				010A476D27551B18000AA80E /* TicketValidationResultTokenProcessingError.swift in Sources */,
 				BA6F0073265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift in Sources */,
 				01A6C3032626DE2500B6E95A /* HomeTestResultTableViewCell.swift in Sources */,
 				BA5B7FD026458EF400502087 /* HealthCertificateKeyValueTextCell.swift in Sources */,
@@ -10198,6 +10226,7 @@
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
 				017AD122259DDED100FA2B3F /* ISO8601DateFormatter+Extensions.swift in Sources */,
 				504C9CC925C44C180005875B /* OTPService.swift in Sources */,
+				010A476E27551B18000AA80E /* TicketValidationResultTokenProcessor.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				ABB078EE272C260B0037B30F /* RestServiceProviderFactory.swift in Sources */,
 				8F80802A2730AF7800F8FA3F /* RegistrationTokenResource.swift in Sources */,
