@@ -88,7 +88,9 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		/// check for health certificate cell on certificate selection screen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitForExistence(timeout: .short))
+		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 1)
 		
 		/// take screenshot on certificate selection screen
 		snapshot("screenshot_ticket_validation_certificate_selection")
@@ -137,7 +139,9 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		/// check for health certificate cell on certificate selection screen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitForExistence(timeout: .short))
+		let certificateCells = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell])
+		XCTAssertTrue(certificateCells.waitForExistence(timeout: .short))
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 1)
 		
 		/// navigate to second consent screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].firstMatch.waitAndTap()
