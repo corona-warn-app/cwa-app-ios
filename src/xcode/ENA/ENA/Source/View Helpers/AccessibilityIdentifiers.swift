@@ -774,7 +774,7 @@ enum AccessibilityIdentifiers {
 		enum SecondConsent {
 			static let legalBox = "TicketValidation.SecondConsent.legalBox"
 			static let dataPrivacy = "TicketValidation.SecondConsent.dataPrivacy"
-			static let primaryButton = "TicketValidation.FirstConsent.primaryButton"
+			static let primaryButton = "TicketValidation.SecondConsent.primaryButton"
 		}
 		
 		enum ValidationResult {
