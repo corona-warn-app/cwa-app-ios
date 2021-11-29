@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum AccessTokenRequestError: Error, Equatable {
+enum TicketValidationAccessTokenProcessingError: Error, Equatable {
 	case ATR_JWT_VER_ALG_NOT_SUPPORTED
 	case ATR_JWT_VER_EMPTY_JWKS
 	case ATR_JWT_VER_NO_JWK_FOR_KID
