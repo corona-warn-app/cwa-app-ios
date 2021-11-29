@@ -149,9 +149,41 @@ class QRScannerCoordinator {
 					}
 				)
 				self?.fileScannerCoordinator?.start()
+			},
+			onInfoButtonTap: { [weak self] in
+				self?.showQRScannerInfoScreen()
 			}
 		)
 		return qrScannerViewController
+	}
+
+	private func showQRScannerInfoScreen() {
+		let navigationController = DismissHandlingNavigationController()
+		navigationController.navigationBar.prefersLargeTitles = true
+
+		let viewController = QRScannerInfoViewController(
+			onDataPrivacyTap: { [weak self] in
+				self?.showDataPrivacy(on: navigationController)
+			},
+			onDismiss: { [weak self] in
+				self?.qrScannerViewController?.dismiss(animated: true)
+			}
+		)
+
+		navigationController.viewControllers = [viewController]
+
+		qrScannerViewController?.present(navigationController, animated: true)
+	}
+
+	private func showDataPrivacy(on navigationController: UINavigationController) {
+		let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+		detailViewController.title = AppStrings.AppInformation.privacyTitle
+		detailViewController.isDismissable = false
+		if #available(iOS 13.0, *) {
+			detailViewController.isModalInPresentation = true
+		}
+
+		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
 	private func showQRCodeResult(qrCodeResult: QRCodeResult) {
@@ -334,7 +366,8 @@ class QRScannerCoordinator {
 		showActivityIndicator()
 		let ticketValidation = MockTicketValidation(with: initializationData)
 		ticketValidation.delay = 1
-
+		ticketValidation.firstConsentResult = .success(.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "tp", "tr"]))
+															 
 		ticketValidation.initialize { [weak self] result in
 			DispatchQueue.main.async {
 				self?.hideActivityIndicator()
@@ -385,7 +418,8 @@ class QRScannerCoordinator {
 					}
 
 					self.ticketValidationCoordinator = TicketValidationCoordinator(
-						parentViewController: parentViewController
+						parentViewController: parentViewController,
+						healthCertificateService: self.healthCertificateService
 					)
 
 					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
@@ -396,7 +430,8 @@ class QRScannerCoordinator {
 				}
 
 				self.ticketValidationCoordinator = TicketValidationCoordinator(
-					parentViewController: parentViewController
+					parentViewController: parentViewController,
+					healthCertificateService: self.healthCertificateService
 				)
 
 				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)

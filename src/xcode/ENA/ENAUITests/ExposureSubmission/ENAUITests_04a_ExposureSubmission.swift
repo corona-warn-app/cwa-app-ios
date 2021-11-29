@@ -57,7 +57,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want to cancel here.
-		let cancelButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.cancel])
+		let cancelButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.other])
 		cancelButton.waitAndTap()
 		
 		// QR Code Scanner Screen
