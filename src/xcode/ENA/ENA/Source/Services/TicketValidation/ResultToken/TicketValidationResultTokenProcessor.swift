@@ -40,6 +40,8 @@ struct TicketValidationResultTokenProcessor {
 
 			let resultTokenPayload = jwtObject.claims
 
+			Log.info("Ticket Validation: result token processing succeeded", log: .ticketValidation)
+
 			completion(
 				.success(
 					TicketValidationResultTokenResult(
