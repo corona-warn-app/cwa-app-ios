@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct JWTWithHeadersModel {
-	let jwt: String
+struct ModelWithHeaders<M> {
+	let model: M
 	let headers: [AnyHashable: Any]
 }

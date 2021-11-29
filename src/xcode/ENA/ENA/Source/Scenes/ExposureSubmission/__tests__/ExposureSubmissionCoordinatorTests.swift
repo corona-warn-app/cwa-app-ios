@@ -111,6 +111,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		qrScannerCoordinator = QRScannerCoordinator(
 			store: store,
 			client: client,
+			restServiceProvider: .fake(),
 			eventStore: eventStore,
 			appConfiguration: appConfiguration,
 			eventCheckoutService: EventCheckoutService(
