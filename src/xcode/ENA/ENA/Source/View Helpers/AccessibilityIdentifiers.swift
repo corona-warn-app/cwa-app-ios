@@ -768,11 +768,30 @@ enum AccessibilityIdentifiers {
 			static let image = "TicketValidation.FirstConsent.image"
 			static let legalBox = "TicketValidation.FirstConsent.legalBox"
 			static let dataPrivacy = "TicketValidation.FirstConsent.dataPrivacy"
+			static let primaryButton = "TicketValidation.FirstConsent.primaryButton"
+			static let secondaryButton = "TicketValidation.FirstConsent.secondaryButton"
 		}
 		
 		enum SecondConsent {
 			static let legalBox = "TicketValidation.SecondConsent.legalBox"
 			static let dataPrivacy = "TicketValidation.SecondConsent.dataPrivacy"
+			static let primaryButton = "TicketValidation.SecondConsent.primaryButton"
+			static let secondaryButton = "TicketValidation.SecondConsent.secondaryButton"
+		}
+		
+		enum ValidationResult {
+			enum Passed {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Passed.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Passed.subtitle"
+			}
+			enum Failed {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Failed.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Failed.subtitle"
+			}
+			enum Open {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Open.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Open.subtitle"
+			}
 		}
 	}
 
