@@ -134,6 +134,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		let qrScannerCoordinator = QRScannerCoordinator(
 			store: store,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			eventStore: eventStore,
 			appConfiguration: appConfigurationProvider,
 			eventCheckoutService: eventCheckoutService,

@@ -51,54 +51,77 @@ final class TicketValidation: TicketValidating {
 
     private let restServiceProvider: RestServiceProvider
 
-	private func requestAccessToken(
-		accessTokenService: TicketValidationServiceData,
-		accessTokenServiceJwkSet: [JSONWebKey],
-		accessTokenSignJwkSet: [JSONWebKey],
-		jwt: String,
-		validationService: TicketValidationServiceData,
-		publicKeyBase64: String,
-		completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
+	private func validateIdentityDocumentOfValidationDecorator(
+		urlString: String,
+		completion:
+		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
-		guard let url = URL(string: accessTokenService.serviceEndpoint) else {
-			Log.error("Invalid access token service endpoint", log: .ticketValidation)
-			completion(.failure(.UNKNOWN))
+		guard let url = URL(string: urlString) else {
+			Log.error("URL cant be constructed from input string", log: .ticketValidationDecorator)
 			return
 		}
-
-		let resource = TicketValidationAccessTokenResource(
-			accessTokenServiceURL: url,
-			jwt: jwt,
-			sendModel: TicketValidationAccessTokenSendModel(
-				service: validationService.id,
-				pubKey: publicKeyBase64
-			)
-		)
-
-		restServiceProvider.update(
-			DynamicEvaluateTrust(
-				jwkSet: accessTokenServiceJwkSet,
-				trustEvaluation: TrustEvaluation()
-			)
-		)
-
-		Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
-
+		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		restServiceProvider.load(resource) { result in
 			switch result {
-			case .success(let jwtWithHeadersModel):
-				TicketValidationAccessTokenProcessor(jwtVerification: JWTVerification())
-					.process(
-						jwtWithHeadersModel: jwtWithHeadersModel,
-						accessTokenSignJwkSet: accessTokenSignJwkSet,
-						completion: completion
-					)
+			case .success(let model):
+				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
+					completion(result)
+				}
 			case .failure(let error):
-				Log.error("Ticket Validation: Requesting access token failed", log: .ticketValidation, error: error)
-
 				completion(.failure(.REST_SERVICE_ERROR(error)))
+				Log.error(error.localizedDescription, log: .ticketValidationDecorator)
 			}
 		}
 	}
+
+    private func requestAccessToken(
+        accessTokenService: TicketValidationServiceData,
+        accessTokenServiceJwkSet: [JSONWebKey],
+        accessTokenSignJwkSet: [JSONWebKey],
+        jwt: String,
+        validationService: TicketValidationServiceData,
+        publicKeyBase64: String,
+        completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
+    ) {
+        guard let url = URL(string: accessTokenService.serviceEndpoint) else {
+            Log.error("Invalid access token service endpoint", log: .ticketValidation)
+            completion(.failure(.UNKNOWN))
+            return
+        }
+
+        let resource = TicketValidationAccessTokenResource(
+            accessTokenServiceURL: url,
+            jwt: jwt,
+            sendModel: TicketValidationAccessTokenSendModel(
+                service: validationService.id,
+                pubKey: publicKeyBase64
+            )
+        )
+
+        restServiceProvider.update(
+            DynamicEvaluateTrust(
+                jwkSet: accessTokenServiceJwkSet,
+                trustEvaluation: TrustEvaluation()
+            )
+        )
+
+        Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
+
+        restServiceProvider.load(resource) { result in
+            switch result {
+            case .success(let jwtWithHeadersModel):
+                TicketValidationAccessTokenProcessor(jwtVerification: JWTVerification())
+                    .process(
+                        jwtWithHeadersModel: jwtWithHeadersModel,
+                        accessTokenSignJwkSet: accessTokenSignJwkSet,
+                        completion: completion
+                    )
+            case .failure(let error):
+                Log.error("Ticket Validation: Requesting access token failed", log: .ticketValidation, error: error)
+
+                completion(.failure(.REST_SERVICE_ERROR(error)))
+            }
+        }
+    }
 
 }
