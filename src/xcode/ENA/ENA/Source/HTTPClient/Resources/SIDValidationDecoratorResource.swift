@@ -10,7 +10,7 @@ struct SIDValidationDecoratorResource: Resource {
 
 	init(url: URL, isFake: Bool = false) {
 		self.locator = .serviceIdentityDocumentValidationDecorator(url: url)
-		self.type = .default
+		self.type = .disabledPinning
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
 	}

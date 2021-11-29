@@ -10,22 +10,34 @@ final class HealthCertificateCellViewModel {
 	
 	init(
 		healthCertificate: HealthCertificate,
-		healthCertifiedPerson: HealthCertifiedPerson
+		healthCertifiedPerson: HealthCertifiedPerson,
+		details: HealthCertificeCellDetails = .allDetails
 	) {
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
+		self.details = details
 	}
 
 	// MARK: - Internal
 	
+	enum HealthCertificeCellDetails {
+		case allDetails
+		case overview
+	}
+	
 	let healthCertificate: HealthCertificate
-
+	
 	lazy var gradientType: GradientView.GradientType = {
-		if healthCertificate.isUsable &&
-			healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
+		switch details {
+		case .allDetails:
+			if healthCertificate.isUsable &&
+				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
+				return .lightBlue(withStars: false)
+			} else {
+				return .solidGrey(withStars: false)
+			}
+		case .overview:
 			return .lightBlue(withStars: false)
-		} else {
-			return .solidGrey(withStars: false)
 		}
 	}()
 
@@ -87,26 +99,31 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var validityStateInfo: String? = {
-		if !healthCertificate.isConsideredValid {
-			switch healthCertificate.validityState {
-			case .valid:
+		switch details {
+		case .allDetails:
+			if !healthCertificate.isConsideredValid {
+				switch healthCertificate.validityState {
+				case .valid:
+					return nil
+				case .expiringSoon:
+					return String(
+						format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+						DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
+						DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
+					)
+				case .expired:
+					return AppStrings.HealthCertificate.ValidityState.expired
+				case .invalid:
+					return AppStrings.HealthCertificate.ValidityState.invalid
+				case .blocked:
+					return AppStrings.HealthCertificate.ValidityState.blocked
+				}
+			} else if healthCertificate.isNew {
+				return AppStrings.HealthCertificate.Person.newlyAddedCertificate
+			} else {
 				return nil
-			case .expiringSoon:
-				return String(
-					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
-					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
-					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
-				)
-			case .expired:
-				return AppStrings.HealthCertificate.ValidityState.expired
-			case .invalid:
-				return AppStrings.HealthCertificate.ValidityState.invalid
-			case .blocked:
-				return AppStrings.HealthCertificate.ValidityState.blocked
 			}
-		} else if healthCertificate.isNew {
-			return AppStrings.HealthCertificate.Person.newlyAddedCertificate
-		} else {
+		case .overview:
 			return nil
 		}
 	}()
@@ -133,15 +150,25 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var isCurrentlyUsedCertificateHintVisible: Bool = {
-		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
+		switch details {
+		case .allDetails:
+			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
+		case .overview:
+			return false
+		}
 	}()
 
 	lazy var isUnseenNewsIndicatorVisible: Bool = {
-		healthCertificate.isNew || healthCertificate.isValidityStateNew
+		switch details {
+		case .allDetails:
+			return healthCertificate.isNew || healthCertificate.isValidityStateNew
+		case .overview:
+			return false
+		}
 	}()
 
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-
+	private let details: HealthCertificeCellDetails
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -83,10 +83,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="Vne-NW-PQu" secondAttribute="bottom" id="Q5W-g3-Elk"/>
+                    <constraint firstAttribute="bottom" secondItem="Vne-NW-PQu" secondAttribute="bottom" constant="11" id="Q5W-g3-Elk"/>
                     <constraint firstItem="Vne-NW-PQu" firstAttribute="leading" secondItem="8U6-zD-74H" secondAttribute="leadingMargin" id="Uh5-Qd-AdV"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Vne-NW-PQu" secondAttribute="trailing" id="t43-QH-ADJ"/>
-                    <constraint firstItem="Vne-NW-PQu" firstAttribute="top" secondItem="8U6-zD-74H" secondAttribute="topMargin" id="xBH-9o-jUs"/>
+                    <constraint firstItem="Vne-NW-PQu" firstAttribute="top" secondItem="8U6-zD-74H" secondAttribute="top" constant="11" id="xBH-9o-jUs"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="oVd-SM-sXj"/>
