@@ -15,7 +15,15 @@ public enum JWTVerificationError: Error {
 
 public struct JWTVerificationClaim: Claims { }
 
-public class JWTVerification {
+public protocol JWTVerifying {
+
+    func verify(jwtString: String, against jwkSet: [JSONWebKey]) -> Result<Void, JWTVerificationError>
+
+}
+
+public class JWTVerification: JWTVerifying {
+
+    public init() { }
 
     public func verify(jwtString: String, against jwkSet: [JSONWebKey]) -> Result<Void, JWTVerificationError> {
         // Check for empty jwkSet: if jwkSet is empty, the operation shall abort early with error code JWT_VER_EMPTY_JWKS

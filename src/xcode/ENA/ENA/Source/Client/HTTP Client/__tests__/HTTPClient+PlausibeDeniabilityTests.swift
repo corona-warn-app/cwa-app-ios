@@ -33,7 +33,7 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 
 	func test_getRegistrationToken_requestPadding() {
 		// GIVE
-		let sendResource = JSONSendResource<KeyModel>(
+		let sendResource = PaddingJSONSendResource<KeyModel>(
 			KeyModel(
 				key: "123456789",
 				keyType: .teleTan
@@ -54,7 +54,7 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 
 	func test_getTANForExposureSubmit_requestPadding() {
 		
-		let sendResource = JSONSendResource<SendRegistrationTokenModel>(
+		let sendResource = PaddingJSONSendResource<SendRegistrationTokenModel>(
 			SendRegistrationTokenModel(token: "dummyRegToken")
 		)
 		if case let .success(bodyData) = sendResource.encode() {

@@ -14,7 +14,7 @@ import ENASecurity
 struct TicketValidationServiceIdentityDocument: Codable {
 	let id: String
 	let verificationMethod: [TicketValidationVerificationMethod]
-	let service: [TicketValidationValidationServiceData]?
+	let service: [TicketValidationServiceData]?
 }
 
 
@@ -41,7 +41,7 @@ struct TicketValidationVerificationMethod: Codable {
 // | `serviceEndpoint` | string/url | URL to the service endpoint |
 // | `name` | string | Name of the service |
 
-struct TicketValidationValidationServiceData: Codable {
+struct TicketValidationServiceData: Codable {
 	let id: String
 	let type: String
 	let serviceEndpoint: String

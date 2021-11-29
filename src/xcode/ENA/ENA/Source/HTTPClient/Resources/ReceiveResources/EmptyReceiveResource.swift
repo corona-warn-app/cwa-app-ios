@@ -14,7 +14,7 @@ struct EmptyReceiveResource: ReceiveResource {
 	
 	typealias ReceiveModel = Void
 
-	func decode(_ data: Data?) -> Result<ReceiveModel, ResourceError> {
+	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<ReceiveModel, ResourceError> {
 		return .success(())
 	}
 }
