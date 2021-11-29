@@ -19,7 +19,7 @@ struct TicketValidationAccessTokenProcessor {
 	func process(
 		jwtWithHeadersModel: JWTWithHeadersModel,
 		accessTokenSignJwkSet: [JSONWebKey],
-		completion: @escaping (Result<TicketValidationAccessTokenResult, AccessTokenRequestError>) -> Void
+		completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
 	) {
 		guard let nonceBase64 = jwtWithHeadersModel.headers["x-nonce"] as? String else {
 			Log.error("Missing header field x-nonce", log: .ticketValidation)
@@ -67,7 +67,7 @@ struct TicketValidationAccessTokenProcessor {
 
 	private let jwtVerification: JWTVerifying
 
-	private func mappedError(_ error: JWTVerificationError) -> AccessTokenRequestError {
+	private func mappedError(_ error: JWTVerificationError) -> TicketValidationAccessTokenProcessingError {
 		switch error {
 		case .JWT_VER_ALG_NOT_SUPPORTED:
 			return .ATR_JWT_VER_ALG_NOT_SUPPORTED

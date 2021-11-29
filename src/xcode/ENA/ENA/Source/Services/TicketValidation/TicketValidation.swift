@@ -58,7 +58,7 @@ final class TicketValidation: TicketValidating {
 		jwt: String,
 		validationService: TicketValidationServiceData,
 		publicKeyBase64: String,
-		completion: @escaping (Result<TicketValidationAccessTokenResult, AccessTokenRequestError>) -> Void
+		completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
 	) {
 		guard let url = URL(string: accessTokenService.serviceEndpoint) else {
 			Log.error("Invalid access token service endpoint", log: .ticketValidation)
