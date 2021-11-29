@@ -286,7 +286,6 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				
 		healthCertificatesTabCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
 	}
-
 	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(

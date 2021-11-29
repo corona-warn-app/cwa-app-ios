@@ -41,7 +41,6 @@ extension TicketValidationConditions {
 			validTo: validTo
 		)
 	}
-
 }
 
 #endif
