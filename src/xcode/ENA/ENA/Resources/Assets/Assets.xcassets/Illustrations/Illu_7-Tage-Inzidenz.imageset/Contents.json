@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_7-Tage-Inzidenz.pdf",
+      "filename" : "Incidence_Light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_7-Tage-Inzidenz_dark.pdf",
+      "filename" : "Incidence_Dark.pdf",
       "idiom" : "universal"
     }
   ],

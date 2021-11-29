@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "LocalIncidence.pdf",
+      "filename" : "Localized_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "LocalIncidence-Dark.pdf",
+      "filename" : "Localized_dark.pdf",
       "idiom" : "universal"
     }
   ],
