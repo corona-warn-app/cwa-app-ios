@@ -308,6 +308,7 @@
 		01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */; };
 		01BB00D2274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */; };
 		01BCBFAD2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFAC2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift */; };
+		01BCBFAF27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
@@ -1884,6 +1885,7 @@
 		01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationConditions.swift; sourceTree = "<group>"; };
 		01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessor.swift; sourceTree = "<group>"; };
 		01BCBFAC2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessorTests.swift; sourceTree = "<group>"; };
+		01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResourceTests.swift; sourceTree = "<group>"; };
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C6ABF32527273D0052814D /* String+Insertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Insertion.swift"; sourceTree = "<group>"; };
 		01C6AC25252B23D70052814D /* QRScannerFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerFocusView.swift; sourceTree = "<group>"; };
@@ -8227,6 +8229,7 @@
 				A1E419562495A8F50016E52A /* TeleTanResourceTests.swift */,
 				8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */,
 				01AD1D77274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift */,
+				01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10771,6 +10774,7 @@
 				0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				BAC7292026037D61006D83C7 /* AddCheckinCellModelTests.swift in Sources */,
+				01BCBFAF27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift in Sources */,
 				AB68531E25F9235200380F5A /* FMDB+Access.swift in Sources */,
 				AB68880625D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,

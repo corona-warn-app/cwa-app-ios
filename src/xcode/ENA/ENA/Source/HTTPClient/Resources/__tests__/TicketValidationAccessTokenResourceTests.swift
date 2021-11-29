@@ -30,7 +30,7 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 				XCTAssertEqual(result.model, "accessJWT")
 				XCTAssertEqual(result.headers["x-nonce"] as? String, "Nonce")
 			case .failure(let error):
-				XCTFail("Encountered Error when receiving registration token! \(error)")
+				XCTFail("Encountered Error when receiving access token! \(error)")
 			}
 			expectation.fulfill()
 		}
@@ -56,7 +56,7 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		serviceProvider.load(ticketValidationAccessTokenResource) { result in
 			switch result {
 			case .success:
-				XCTFail("Expected Error when receiving registration token!")
+				XCTFail("Expected Error when receiving access token!")
 			case .failure(let error):
 				guard case let .receivedResourceError(customError) = error,
 					  .ATR_PARSE_ERR == customError else {
