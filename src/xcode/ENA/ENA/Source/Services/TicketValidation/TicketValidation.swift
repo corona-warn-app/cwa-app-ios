@@ -51,7 +51,7 @@ final class TicketValidation: TicketValidating {
 	}
 
 	func validate(
-		completion: @escaping (Result<TicketValidationResult, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationResultToken, TicketValidationError>) -> Void
 	) {
 
 	}

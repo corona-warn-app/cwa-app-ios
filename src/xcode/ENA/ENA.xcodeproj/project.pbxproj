@@ -16,8 +16,8 @@
 		010172CC26CBD8D900CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010172CA26CBD83600CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift */; };
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0104CBCD273EAC46009A543D /* TicketValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCC273EAC46009A543D /* TicketValidationError.swift */; };
-		0104CBCF273EAC5B009A543D /* TicketValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */; };
-		0104CBD1273EAC7A009A543D /* TicketValidationResult+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */; };
+		0104CBCF273EAC5B009A543D /* TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */; };
+		0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */; };
 		0104CBD3273EACA1009A543D /* MockTicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD2273EACA1009A543D /* MockTicketValidation.swift */; };
 		0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
@@ -1585,8 +1585,8 @@
 		010172CA26CBD83600CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfDateTimeSelectionViewModelTests.swift; sourceTree = "<group>"; };
 		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
 		0104CBCC273EAC46009A543D /* TicketValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationError.swift; sourceTree = "<group>"; };
-		0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResult.swift; sourceTree = "<group>"; };
-		0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationResult+Fake.swift"; sourceTree = "<group>"; };
+		0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultToken.swift; sourceTree = "<group>"; };
+		0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationResultToken+Fake.swift"; sourceTree = "<group>"; };
 		0104CBD2273EACA1009A543D /* MockTicketValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTicketValidation.swift; sourceTree = "<group>"; };
 		0104CBD4273EAD72009A543D /* TicketValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidation.swift; sourceTree = "<group>"; };
 		0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_KeyFigure+Formatting.swift"; sourceTree = "<group>"; };
@@ -4236,8 +4236,8 @@
 				01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */,
 				01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */,
 				01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */,
-				0104CBCE273EAC5B009A543D /* TicketValidationResult.swift */,
-				0104CBD0273EAC7A009A543D /* TicketValidationResult+Fake.swift */,
+				0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */,
+				0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */,
 				ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */,
 				ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */,
 				34039DD7274E6C7B000AF3C4 /* TicketValidationConditions+CertificateSelection.swift */,
@@ -9720,7 +9720,7 @@
 				EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
-				0104CBCF273EAC5B009A543D /* TicketValidationResult.swift in Sources */,
+				0104CBCF273EAC5B009A543D /* TicketValidationResultToken.swift in Sources */,
 				0138F54825ECD44300A9B075 /* app_features.pb.swift in Sources */,
 				BA0A1E3F26A5CC090045E712 /* dsc_list.pb.swift in Sources */,
 				ABF0F60C260B8A8000E50B0F /* CheckinRiskCalculationResult.swift in Sources */,
@@ -9796,7 +9796,7 @@
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */,
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
-				0104CBD1273EAC7A009A543D /* TicketValidationResult+Fake.swift in Sources */,
+				0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */,
 				018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */,
 				01F3323627146EF5005CE21E /* RecycleBinViewController.swift in Sources */,
 				BA7FDD09272C2C49009829AB /* WifiOnlyRestService.swift in Sources */,

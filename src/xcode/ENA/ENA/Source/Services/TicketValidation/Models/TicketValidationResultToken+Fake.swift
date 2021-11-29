@@ -6,18 +6,18 @@
 
 import Foundation
 
-extension TicketValidationResult {
+extension TicketValidationResultToken {
 
 	static func fake(
 		iss: String = "",
-		iat: Int = 0,
-		exp: Int = 0,
+		iat: Date? = nil,
+		exp: Date? = nil,
 		sub: String = "",
 		category: String = "",
-		result: TicketValidationResult.Result = .passed,
-		results: [TicketValidationResult.ResultItem] = [.fake()],
+		result: TicketValidationResultToken.Result = .passed,
+		results: [TicketValidationResultToken.ResultItem] = [.fake()],
 		confirmation: String = ""
-	) -> TicketValidationResult {
+	) -> TicketValidationResultToken {
 		return .init(
 			iss: iss,
 			iat: iat,
@@ -32,14 +32,14 @@ extension TicketValidationResult {
 
 }
 
-extension TicketValidationResult.ResultItem {
+extension TicketValidationResultToken.ResultItem {
 
 	static func fake(
 		identifier: String = "",
-		result: TicketValidationResult.Result = .passed,
+		result: TicketValidationResultToken.Result = .passed,
 		type: String = "",
 		details: String = ""
-	) -> TicketValidationResult.ResultItem {
+	) -> TicketValidationResultToken.ResultItem {
 		return .init(
 			identifier: identifier,
 			result: result,

@@ -12,7 +12,7 @@ struct TicketValidationOpenViewModel: TicketValidationResultViewModel {
 
 	init(
 		serviceProvider: String,
-		validationResultItems: [TicketValidationResult.ResultItem]
+		validationResultItems: [TicketValidationResultToken.ResultItem]
 	) {
 		self.serviceProvider = serviceProvider
 		self.validationResultItems = validationResultItems
@@ -65,6 +65,6 @@ struct TicketValidationOpenViewModel: TicketValidationResultViewModel {
 	// MARK: - Private
 
 	private let serviceProvider: String
-	private let validationResultItems: [TicketValidationResult.ResultItem]
+	private let validationResultItems: [TicketValidationResultToken.ResultItem]
 
 }

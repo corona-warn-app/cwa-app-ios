@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftJWT
 
 // The Result Token is a JWT token with the following payload (as JSON):
 //
@@ -17,11 +18,11 @@ import Foundation
 // | `results` | object[] | An array of Result Item objects (see below) |
 // | `confirmation` | string | A JWT token with reduced set of information about the result. |
 
-struct TicketValidationResult {
+struct TicketValidationResultToken: Equatable, Codable, Claims {
 
 	let iss: String
-	let iat: Int
-	let exp: Int
+	let iat: Date?
+	let exp: Date?
 	let sub: String
 	let category: String
 	let result: Result
@@ -37,14 +38,14 @@ struct TicketValidationResult {
 	// | `type` | string | The type of check |
 	// | `details` | string | Description of the check |
 	
-	struct ResultItem {
+	struct ResultItem: Codable, Equatable {
 		let identifier: String
 		let result: Result
 		let type: String
 		let details: String
 	}
 
-	enum Result: String {
+	enum Result: String, Codable {
 		case passed = "OK"
 		case open = "CHK"
 		case failed = "NOK"

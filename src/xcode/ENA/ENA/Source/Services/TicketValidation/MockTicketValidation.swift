@@ -37,7 +37,7 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func validate(
-		completion: @escaping (Result<TicketValidationResult, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationResultToken, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
 			completion(self.validationResult ?? .success(.fake()))
@@ -52,7 +52,7 @@ final class MockTicketValidation: TicketValidating {
 
 	var initializationResult: Result<Void, TicketValidationError>?
 	var firstConsentResult: Result<TicketValidationConditions, TicketValidationError>?
-	var validationResult: Result<TicketValidationResult, TicketValidationError>?
+	var validationResult: Result<TicketValidationResultToken, TicketValidationError>?
 
 	var delay: TimeInterval = 0
 

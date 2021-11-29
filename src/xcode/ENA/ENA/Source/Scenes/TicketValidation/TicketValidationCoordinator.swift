@@ -176,7 +176,7 @@ final class TicketValidationCoordinator {
 		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
 
-	private func showResultScreen(for result: TicketValidationResult) {
+	private func showResultScreen(for result: TicketValidationResultToken) {
 		let viewModel: TicketValidationResultViewModel
 
 		switch result.result {
