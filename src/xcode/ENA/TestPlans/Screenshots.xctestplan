@@ -98,7 +98,8 @@
         "ENAUITests_16_UniversalQRCodeScanner\/test_UniversalQRCodeScannerAndQRScannerInfoScreen()",
         "ENAUITests_16_UniversalQRCodeScanner\/test_screenshot_UniversalQRCodeScannerAndQRScannerInfoScreen()",
         "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()",
-        "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_flow()"
+        "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_failed()",
+        "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_passed()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
