@@ -6,9 +6,9 @@ import Foundation
 import ENASecurity
 
 public struct TicketValidationServiceIdentityDocumentValidationDecorator: Codable {
-	let accessTokenService: TicketValidationValidationServiceData
+	let accessTokenService: TicketValidationServiceData
 	let accessTokenServiceJwkSet: [JSONWebKey?]
 	let accessTokenSignJwkSet: [JSONWebKey?]
-	let validationService: TicketValidationValidationServiceData
+	let validationService: TicketValidationServiceData
 	let validationServiceJwkSet: [JSONWebKey?]
 }
