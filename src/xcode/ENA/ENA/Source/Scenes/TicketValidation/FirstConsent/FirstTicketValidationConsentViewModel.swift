@@ -23,13 +23,14 @@ struct FirstTicketValidationConsentViewModel {
 		DynamicTableViewModel([
 			// Image with title
 			.section(
-				header: .image(
-					UIImage(named: "Illu_TicketValidation"),
-					title: AppStrings.TicketValidation.FirstConsent.title,
-					accessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
-					accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
-				),
-				cells: []
+				cells: [
+					.headlineWithImage(
+						headerText: AppStrings.TicketValidation.FirstConsent.title,
+						image: UIImage(imageLiteralResourceName: "Illu_TicketValidation"),
+						imageAccessibilityLabel: AppStrings.TicketValidation.FirstConsent.imageDescription,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.image
+					)
+				]
 			),
 			// Subtitle with service provider and subject
 			.section(
@@ -65,17 +66,17 @@ struct FirstTicketValidationConsentViewModel {
 			// Bulletpoints in consent box
 			.section(
 				cells: [
-					.legalExtendedDataDonation(
+					.acknowledgement(
 						title: NSAttributedString(
-							string: AppStrings.TicketValidation.FirstConsent.legalTitle
+							string: AppStrings.TicketValidation.FirstConsent.Legal.title
 						),
 						description: NSAttributedString(
-							string: AppStrings.TicketValidation.FirstConsent.legalSubtitle,
+							string: AppStrings.TicketValidation.FirstConsent.Legal.subtitle,
 							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]
 						),
 						bulletPoints: [
-							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint1),
-							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.legalBulletPoint2)
+							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.Legal.bulletPoint1),
+							NSAttributedString(string: AppStrings.TicketValidation.FirstConsent.Legal.bulletPoint2)
 						],
 						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox,
 						configure: { _, cell, _ in

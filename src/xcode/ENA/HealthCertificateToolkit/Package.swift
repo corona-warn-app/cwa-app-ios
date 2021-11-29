@@ -21,7 +21,7 @@ let package = Package(
         .package(name: "JSONSchema", url: "https://github.com/eu-digital-green-certificates/JSONSchema.swift", .revision("addef0a5c7ed181d877f1fdfde1e3fc1c6c28cfe")),
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0")),
         .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("b2c60391396b3f0e3c4bf0b6b9685cbae4a34c7a")),
-        .package(url: "https://github.com/filom/ASN1Decoder", .upToNextMajor(from: "1.8.0")),
+        .package(url: "https://github.com/corona-warn-app/ASN1Decoder", .upToNextMajor(from: "1.8.1")),
         .package(name: "ENASecurity", path: "ENA/ENASecurity")
     ],
     targets: [

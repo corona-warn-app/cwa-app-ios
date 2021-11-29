@@ -1597,11 +1597,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.14 */
+/* Version 2.15 */
 
-"NewVersionFeature_214_recycleBin_title" = "Papierkorbfunktion für Tests";
+"NewVersionFeature_215_ticketValidation_title" = "Zertifikatprüfung bei Buchungen";
 
-"NewVersionFeature_214_recycleBin_description" = "Entfernte Schnelltests und PCR-Tests werden jetzt auch in den Papierkorb verschoben. Sie haben somit die Möglichkeit, versehentlich gelöschte Tests wiederherzustellen.";
+"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Das Ergebnis der Zertifikatsprüfung wird vom Prüfpartner an das Buchungssystem übertragen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3068,8 +3068,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Bullet2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
 
-"HealthCertificate_Validation_Bullet3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
-
 "HealthCertificate_Validation_Bullet4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
 "HealthCertificate_Validation_Legal_Title" = "Datenschutz und Datensicherheit";
@@ -3107,8 +3105,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Validation_Passed_hint1" = "Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher das Zertifikat kurz vor der Einreise (max. 48 Stunden).";
 
 "HealthCertificate_Validation_Passed_hint2" = "Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten.";
-
-"HealthCertificate_Validation_Passed_hint3" = "Um die Echtheit eines Zertifikats sicherzustellen, wird jedes Zertifikat mit einer digitalen Signatur ausgestellt. Diese Signatur wird nur in einer Prüf-Anwendung validiert.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Ob die im Zertifikat eingetragenen Daten richtig sind, wird in der Corona-Warn-App nicht geprüft.";
 
@@ -3180,7 +3176,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "Ihre PCR-Tests, Schnelltests, Testzertifikate, Impfzertifikate, Genesenenzertifikate sowie Check-ins";
+"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
@@ -3209,6 +3205,22 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Test wiederherstellen";
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
+
+"UniversalQRScanner_Info_title" = "Informationen zu QR-Codes";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Ihre Testzertifikate, Impfzertifikate, Genesenenzertifikate, sowie Zertifikate Ihrer Familienmitglieder";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Check-ins für Veranstaltungen und Orte";
+
+"UniversalQRScanner_Info_bulletPoint3" = "PCR-Tests und Schnelltests";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Nachweis von Zertifikaten bei Ticketbuchungen";
+
+"UniversalQRScanner_Info_body1" = "Die Daten aus dem jeweiligen QR-Code werden ausgelesen.";
+
+"UniversalQRScanner_Info_body2" = "Beim Scan von QR-Codes zur Zertifikat-Prüfung bei Ticketbuchungen werden weitere Angaben zum Anbieter der Buchung abgefragt.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Foto Mediathek";
@@ -3373,7 +3385,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
-/* - Ticket Validation */
+/* Ticket Validation */
+
+/* - Cancel Alert */
 
 "TicketValidation_CancelAlert_title" = "Wollen Sie die Überprüfung wirklich abbrechen?";
 
@@ -3382,6 +3396,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_CancelAlert_cancelButtonTitle" = "Überprüfung abbrechen";
 
 "TicketValidation_CancelAlert_continueButtonTitle" = "Überprüfung fortsetzen";
+
+/* - Error */
+
+"TicketValidation_Error_title" = "Fehler";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+
+"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
+
+/* - First Consent */
 
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
 
@@ -3409,10 +3435,84 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_FirstConsent_secondaryButtonTitle" = "Abbrechen";
 
-"TicketValidation_Error_title" = "Fehler";
+/* Certificate Selection */
 
-"TicketValidation_Error_serviceProviderErrorNoName" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+"TicketValidation_CertificateSelection_title" = "Zertifikat auswählen";
 
-"TicketValidation_Error_serviceProviderError" = "Es trat ein Fehler bei der Verbindung mit dem Anbieter „%@“ auf. Bitte kontaktieren Sie den Anbieter wenn das Problem weiterhin besteht.";
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Anforderungen des Anbieters:";
 
-"TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Folgende Zertifikate entsprechen den Anforderungen des Anbieters und können zum Nachweis verwendet werden:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "Folgendes Zertifikat wird angefordert:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Kein geeignetes Zertifikat vorhanden.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "Mehr Informationen finden Sie in den %@.";
+
+"TicketValidation_CertificateSelection_faq" = "FAQ";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nGeburtsdatum: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Impfzertifikat";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "Genesenenzertifikat";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Schnelltest-Testzertifikat, PCR-Testzertifikat";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "PCR-Testzertifikat";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Schnelltest-Testzertifikat";
+
+/* - Second Consent */
+
+"TicketValidation_SecondConsent_title" = "Ihr Einverständnis";
+
+"TicketValidation_SecondConsent_subtitle" = "Übermittlung Ihres Zertifikats zur Prüfung";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Prüfpartner:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Anbieter:";
+
+"TicketValidation_SecondConsent_explination" = "Das ausgewählte Zertifikat und Ihre Buchungsdaten werden nun an den Prüfpartner des Anbieters übermittelt. Für die Übermittlung Ihrer Daten an den Prüfpartner ist Ihr Einverständnis erforderlich.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Der Prüfpartner überprüft, ob die elektronische Signatur echt und das technische Ablaufdatum des Zertifikats noch nicht erreicht ist. Das technische Ablaufdatum und die übermittelten Zertifikatsinhalte können Sie in der App in der Detailansicht des Zertifikats einsehen.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Die Zertifikate enthalten sensible Gesundheitsdaten. Erlauben Sie daher nur solchen Anbietern die Überprüfung, die Ihnen bekannt sind und denen Sie vertrauen.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "Für die Datenverarbeitung durch den Anbieter und den Prüfpartner ist das RKI nicht verantwortlich. Lesen Sie bitte deren Datenschutzhinweise, damit Sie wissen, wozu und wie Ihre Daten verwendet werden.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Der Prüfpartner teilt dem Anbieter sofort das Prüfungsergebnis mit. Es wird nur mitgeteilt, ob die Prüfung erfolgreich war oder nicht.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Einverstanden";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Abbrechen";
+
+/* - Result */
+
+"TicketValidation_Result_validationParameters" = "Geprüft am %@ vom Prüfpartner";
+
+"TicketValidation_Result_moreInformation" = "Mehr Informationen finden Sie in den %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "FAQ";
+
+"TicketValidation_Result_Passed_title" = "Erfolgreiche Prüfung";
+
+"TicketValidation_Result_Passed_subtitle" = "Ihr Zertifikat wurde erfolgreich überprüft";
+
+"TicketValidation_Result_Passed_description" = "Der Anbieter “%@” wurde über die erfolgreiche Prüfung informiert.";
+
+"TicketValidation_Result_Open_title" = "Zertifikat nicht prüfbar";
+
+"TicketValidation_Result_Open_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
+
+"TicketValidation_Result_Open_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+"TicketValidation_Result_Failed_title" = "Zertifikat nicht anerkannt";
+
+"TicketValidation_Result_Failed_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
+
+"TicketValidation_Result_Failed_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
