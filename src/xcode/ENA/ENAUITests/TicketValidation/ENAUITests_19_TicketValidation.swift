@@ -34,8 +34,8 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.FirstConsent.dataPrivacy].waitForExistence(timeout: .short))
 	
 		/// check for the action buttons on first consent screen
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TicketValidation.FirstConsent.primaryButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TicketValidation.FirstConsent.secondaryButton].waitForExistence(timeout: .short))
 		
 		/// navigate to the certificate selection screen
 		app.buttons[AccessibilityIdentifiers.TicketValidation.FirstConsent.primaryButton].waitAndTap()
@@ -53,8 +53,8 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.SecondConsent.dataPrivacy].waitForExistence(timeout: .short))
 		
 		/// check for the action buttons on second consent screen
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TicketValidation.SecondConsent.primaryButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.TicketValidation.SecondConsent.secondaryButton].waitForExistence(timeout: .short))
 		
 		/// navigate to the validation result screen
 		app.buttons[AccessibilityIdentifiers.TicketValidation.SecondConsent.primaryButton].waitAndTap()
