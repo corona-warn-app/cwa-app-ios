@@ -9,7 +9,10 @@ final class AllowListService {
 	
 	// MARK: - Init
 	
-	init(restServiceProvider: RestServiceProviding, store: Store) {
+	init(
+	    restServiceProvider: RestServiceProviding,
+	    store: Store
+	) {
 		self.restServiceProvider = restServiceProvider
 		self.store = store
 	}
