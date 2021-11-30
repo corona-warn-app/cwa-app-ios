@@ -269,6 +269,10 @@ protocol RecycleBinStoring: AnyObject {
 	var recycleBinItems: Set<RecycleBinItem> { get set }
 }
 
+protocol AllowListCaching: AnyObject {
+	var ticketValidationAllowList: TicketValidationAllowList { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -291,6 +295,7 @@ protocol Store:
 	DSCListCaching,
 	DeviceTimeCheckStoring,
 	AppFeaturesStoring,
-	RecycleBinStoring
+	RecycleBinStoring,
+	AllowListCaching
 {}
 // swiftlint:enable all
