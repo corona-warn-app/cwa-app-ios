@@ -112,7 +112,7 @@ final class TicketValidation: TicketValidating {
 			encryptionScheme = .RSAOAEPWithSHA256AESCBC
 			jwk = firstCBCKey
 		} else {
-			completion(.failure(.VS_ID_NO_ENC_KEY))
+			completion(.failure(.validationServiceDocument(.VS_ID_NO_ENC_KEY)))
 			return
 		}
 
