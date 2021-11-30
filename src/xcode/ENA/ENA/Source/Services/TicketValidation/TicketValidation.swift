@@ -11,10 +11,12 @@ final class TicketValidation: TicketValidating {
 
 	init(
 		with initializationData: TicketValidationInitializationData,
-		restServiceProvider: RestServiceProvider
+		restServiceProvider: RestServiceProviding,
+		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
 	) {
 		self.initializationData = initializationData
-        self.restServiceProvider = restServiceProvider
+		self.restServiceProvider = restServiceProvider
+		self.serviceIdentityProcessor = serviceIdentityProcessor
 	}
 
 	let initializationData: TicketValidationInitializationData
@@ -47,10 +49,37 @@ final class TicketValidation: TicketValidating {
 
 	}
 	
+	func requestServiceIdentityDocument(
+		validationServiceData: TicketValidationServiceData,
+		validationServiceJwkSet: [JSONWebKey],
+		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
+	) {
+		guard let url = URL(string: validationServiceData.serviceEndpoint) else {
+			completion(.failure(.UNKOWN))
+			return
+		}
+		
+		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
+		
+		restServiceProvider.load(resource) { [weak self] result in
+			switch result {
+			case .success(let serviceIdentityDocument):
+				self?.serviceIdentityProcessor.process(
+					validationServiceJwkSet: validationServiceJwkSet,
+					serviceIdentityDocument: serviceIdentityDocument,
+					completion: completion
+				)
+			case .failure(let error):
+				completion(.failure(.REST_SERVICE_ERROR(error)))
+			}
+		}
+	}
+
 	// MARK: - Private
 
-    private let restServiceProvider: RestServiceProvider
-
+	private let restServiceProvider: RestServiceProviding
+	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+	
 	private func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:

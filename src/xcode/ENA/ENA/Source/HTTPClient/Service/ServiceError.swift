@@ -8,6 +8,7 @@ import ENASecurity
 The errors that can occur while using the service and calling http methods.
 */
 enum ServiceError<RE>: Error, Equatable where RE: Error {
+	case invalidRequestError(ResourceError)
 	case trustEvaluationError(TrustEvaluationError)
 	case transportationError(Error)
 	case unexpectedServerError(Int)
@@ -22,6 +23,10 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 	// swiftlint:disable cyclomatic_complexity
 	static func == (lhs: ServiceError, rhs: ServiceError) -> Bool {
 		switch (lhs, rhs) {
+		case let (.invalidRequestError(lResourceError), .invalidRequestError(rResourceError)):
+			return lResourceError == rResourceError
+		case (.invalidRequestError, _):
+			return false
 		case let (.transportationError(lError), .transportationError(rError)):
 			return lError.localizedDescription == rError.localizedDescription
 		case (.transportationError, _):

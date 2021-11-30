@@ -309,6 +309,8 @@
 		01BB00D2274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */; };
 		01BCBFAD2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFAC2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift */; };
 		01BCBFAF27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */; };
+		01BCBFB22756092100E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFB12756092000E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift */; };
+		01BCBFB42756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFB32756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
@@ -692,6 +694,8 @@
 		5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */; };
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
+		50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */; };
+		50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */; };
 		50842BF2275127940015E63F /* DisabledPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BF1275127940015E63F /* DisabledPinningRestService.swift */; };
 		508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */; };
 		508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */; };
@@ -745,6 +749,8 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50D3493D274E85E400F00493 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493C274E85E400F00493 /* String+Regex.swift */; };
+		50D3493F274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */; };
 		50D7BD7026DE405100494FB7 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* Locator.swift */; };
 		50D7BD7426DE716A00494FB7 /* DMNHCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */; };
 		50D7BD7526DE716A00494FB7 /* DMNHCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7326DE6E5100494FB7 /* DMNHCViewModel.swift */; };
@@ -1096,6 +1102,9 @@
 		ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */; };
 		ABC506C8274BA9E500698A95 /* DCCEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C7274BA9E500698A95 /* DCCEncryption.swift */; };
 		ABC506CB274BAA5F00698A95 /* DCCEncryptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */; };
+		ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */; };
+		ABC506CF274BE30700698A95 /* Locator+ServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */; };
+		ABC506D1274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D0274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift */; };
 		ABC506D6274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */; };
 		ABC506D8274F9DF400698A95 /* TicketValidationAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */; };
 		ABC506DC274FA07300698A95 /* TicketValidationTransactionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */; };
@@ -1886,6 +1895,8 @@
 		01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessor.swift; sourceTree = "<group>"; };
 		01BCBFAC2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessorTests.swift; sourceTree = "<group>"; };
 		01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResourceTests.swift; sourceTree = "<group>"; };
+		01BCBFB12756092000E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentError.swift; sourceTree = "<group>"; };
+		01BCBFB32756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentResult.swift; sourceTree = "<group>"; };
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C6ABF32527273D0052814D /* String+Insertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Insertion.swift"; sourceTree = "<group>"; };
 		01C6AC25252B23D70052814D /* QRScannerFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerFocusView.swift; sourceTree = "<group>"; };
@@ -2273,6 +2284,7 @@
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
+		50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationServiceIdentityDocument+Fake.swift"; sourceTree = "<group>"; };
 		50842BF1275127940015E63F /* DisabledPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPinningRestService.swift; sourceTree = "<group>"; };
 		5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewModel.swift; sourceTree = "<group>"; };
 		508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewController.swift; sourceTree = "<group>"; };
@@ -2327,6 +2339,8 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50D3493C274E85E400F00493 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
+		50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResourceTests.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
 		50D7BD6F26DE405100494FB7 /* Locator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
 		50D7BD7226DE6E5100494FB7 /* DMNHCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewController.swift; sourceTree = "<group>"; };
@@ -2698,6 +2712,10 @@
 		ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationInitializationData+Fake.swift"; sourceTree = "<group>"; };
 		ABC506C7274BA9E500698A95 /* DCCEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryption.swift; sourceTree = "<group>"; };
 		ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCEncryptionTests.swift; sourceTree = "<group>"; };
+		ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResource.swift; sourceTree = "<group>"; };
+		ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocument.swift"; sourceTree = "<group>"; };
+		ABC506D0274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
+		ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentProcessorTests.swift; sourceTree = "<group>"; };
 		ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocument.swift; sourceTree = "<group>"; };
 		ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessToken.swift; sourceTree = "<group>"; };
 		ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationTransactionContext.swift; sourceTree = "<group>"; };
@@ -3291,6 +3309,7 @@
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
 				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
+				01BCBFB02756090E00E4B6F1 /* ServiceIdentityDocument */,
 				010A47522754C1A3000AA80E /* AccessToken */,
 				010A47612754C65C000AA80E /* ResultToken */,
 			);
@@ -4142,6 +4161,16 @@
 			path = PresenceTracingSubmissionConfiguration;
 			sourceTree = "<group>";
 		};
+		01BCBFB02756090E00E4B6F1 /* ServiceIdentityDocument */ = {
+			isa = PBXGroup;
+			children = (
+				ABC506D0274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift */,
+				01BCBFB12756092000E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift */,
+				01BCBFB32756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift */,
+			);
+			path = ServiceIdentityDocument;
+			sourceTree = "<group>";
+		};
 		01C2D43F2501243400FB23BF /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -4294,6 +4323,7 @@
 				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
 				0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */,
 				0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */,
+				50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */,
 				ABC506D5274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift */,
 				ABC506DB274FA07300698A95 /* TicketValidationTransactionContext.swift */,
 				34039DD7274E6C7B000AF3C4 /* TicketValidationConditions+CertificateSelection.swift */,
@@ -5751,6 +5781,7 @@
 				01C6ABF32527273D0052814D /* String+Insertion.swift */,
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
+				50D3493C274E85E400F00493 /* String+Regex.swift */,
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
 				015FC28127395DCF000BEDE2 /* String+DataWithHexString.swift */,
 				EB2FDF942639A75D00B2BBF0 /* StringInterpolation+Private.swift */,
@@ -6947,6 +6978,7 @@
 				010A474D27512A05000AA80E /* MockJWTVerification.swift */,
 				ABC506B42747DC8700698A95 /* TicketValidationTests.swift */,
 				ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */,
+				ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8071,14 +8103,15 @@
 		BA64FA8026D79BFD00DD4705 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA7B4C30272AD14300D0ED6A /* __tests__ */,
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
-				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
+				ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */,
+				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */,
 				010A47652754C74F000AA80E /* TicketValidationResultTokenResource.swift */,
 				5071A88626EB8C9000B09B40 /* ValidationOnboardedCountriesResource.swift */,
+				BA7B4C30272AD14300D0ED6A /* __tests__ */,
 				8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */,
 				BAF640EF26DFA08E00B3A18E /* Locators */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
@@ -8228,6 +8261,7 @@
 			children = (
 				A1E419562495A8F50016E52A /* TeleTanResourceTests.swift */,
 				8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */,
+				50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */,
 				01AD1D77274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift */,
 				01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */,
 			);
@@ -8820,6 +8854,7 @@
 				5001DE9126E20F64004242FA /* TWPDownload.swift */,
 				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
 				5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */,
+				ABC506CE274BE30700698A95 /* Locator+ServiceIdentityDocument.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -9695,6 +9730,7 @@
 				BA3A79C42631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
 				504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */,
+				50D3493D274E85E400F00493 /* String+Regex.swift in Sources */,
 				01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */,
 				BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */,
 				BAB8F2EF2695C4A500AF68A3 /* ValidationInformationViewController.swift in Sources */,
@@ -9725,6 +9761,7 @@
 				AB0246E327230F5F002668A1 /* RegistrationTokenModel.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
 				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
+				ABC506D1274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
 				EB08F1862541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift in Sources */,
 				010E07AB273D00AE00C2BE5F /* TicketValidationCoordinator.swift in Sources */,
@@ -9761,6 +9798,7 @@
 				34079851274D3D41007E6071 /* HealthCertificateService+UITestingMethods.swift in Sources */,
 				BA5B7FD626458EF400502087 /* HealthCertificateSimpleTextCellViewModel.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
+				ABC506CF274BE30700698A95 /* Locator+ServiceIdentityDocument.swift in Sources */,
 				013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */,
@@ -9872,6 +9910,7 @@
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
 				8F80802E2731242900F8FA3F /* SubmissionTANModel.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
+				ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
@@ -10061,6 +10100,7 @@
 				BA64FA8226D79C2300DD4705 /* StandardRestService.swift in Sources */,
 				BA00FECE26BC2D14009DA07F /* AppFeatureProvider.swift in Sources */,
 				010A476D27551B18000AA80E /* TicketValidationResultTokenProcessingError.swift in Sources */,
+				01BCBFB22756092100E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift in Sources */,
 				BA6F0073265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift in Sources */,
 				01A6C3032626DE2500B6E95A /* HomeTestResultTableViewCell.swift in Sources */,
 				BA5B7FD026458EF400502087 /* HealthCertificateKeyValueTextCell.swift in Sources */,
@@ -10251,6 +10291,7 @@
 				8FB776F526F22C92005255BB /* CheckinQRCodeParser.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
 				8F39058F2715B84400A90E79 /* MoreActionItemView.swift in Sources */,
+				01BCBFB42756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
@@ -10574,6 +10615,7 @@
 				50690CAE2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift in Sources */,
 				01F3323C27174575005CE21E /* AntigenTest+Mock.swift in Sources */,
 				507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */,
+				50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */,
 				01865C5A273541D6001BBCE9 /* FakeBoosterNotificationsService.swift in Sources */,
 				AB6887FE25D6AAEF00907465 /* ContactDiaryStoreSchemaV3Tests.swift in Sources */,
 				5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */,
@@ -10788,6 +10830,7 @@
 				50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */,
 				AB5F84B424F8FA26000400D4 /* SerialMigratorTests.swift in Sources */,
 				01A1FA3826F0E91C0047B4CC /* CertLogicRule+LocalizedDescriptionTests.swift in Sources */,
+				50D3493F274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift in Sources */,
 				341DC33726849D1F0003E6BA /* LocalStatisticsProviderTests.swift in Sources */,
 				AB190EED25FF6C3700FBFF0D /* ContactDiaryMigration3To4Tests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
@@ -10824,6 +10867,7 @@
 				017EE867267B4F2600CD18F6 /* HealthCertificateArray+MostRelevantTests.swift in Sources */,
 				01F3323D27174583005CE21E /* PCRTest+Mock.swift in Sources */,
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
+				50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */,
 				BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,

@@ -4,6 +4,17 @@
 
 import Foundation
 
+enum RegistrationTokenError: Error {
+	case regTokenNotExist
+
+	var errorDescription: String? {
+		switch self {
+		case .regTokenNotExist:
+			return AppStrings.ExposureSubmissionError.regTokenNotExist
+		}
+	}
+}
+
 struct RegistrationTokenResource: Resource {
 
 	// MARK: - Init
@@ -47,16 +58,4 @@ struct RegistrationTokenResource: Resource {
 	// MARK: - Internal
 
 	let registrationTokenModel: SendRegistrationTokenModel
-
-}
-
-enum RegistrationTokenError: Error {
-	case regTokenNotExist
-
-	var errorDescription: String? {
-		switch self {
-		case .regTokenNotExist:
-			return AppStrings.ExposureSubmissionError.regTokenNotExist
-		}
-	}
 }
