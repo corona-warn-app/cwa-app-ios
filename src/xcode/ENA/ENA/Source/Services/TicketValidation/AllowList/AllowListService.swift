@@ -23,7 +23,9 @@ final class AllowListService {
 
 	func fetchAllowList() {
 		let resource = AllowListResource()
-		restServiceProvider.load(resource) { result in
+		restServiceProvider.load(resource) { [weak self] result in
+			guard let self = self else { return }
+
 			switch result {
 			case .success(let allowList):
 				let serviceProviderAllowlist = allowList.serviceProviders.map({
