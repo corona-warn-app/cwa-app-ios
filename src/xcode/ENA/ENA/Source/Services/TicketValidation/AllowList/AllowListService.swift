@@ -84,4 +84,18 @@ final class AllowListService {
 		}
 		return nil
 	}
+	
+	func checkServiceIdentityAgainstServiceProviderAllowlist(
+		serviceProviderAllowlist: [Data],
+		serviceIdentity: String
+	) -> AllowListError? {
+		
+		if serviceProviderAllowlist.contains(where: {
+			$0.sha256().base64EncodedString() == serviceIdentity.sha256()
+		}) {
+			return nil
+		} else {
+			return .SP_ALLOWLIST_NO_MATCH
+		}
+	}
 }
