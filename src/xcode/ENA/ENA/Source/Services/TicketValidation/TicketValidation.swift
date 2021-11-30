@@ -162,8 +162,6 @@ final class TicketValidation: TicketValidating {
 				case .failure(let error):
 					completion(.failure(.resultToken(error)))
 				}
-
-
 			}
 		case .failure(let error):
 			completion(.failure(.encryption(error)))
