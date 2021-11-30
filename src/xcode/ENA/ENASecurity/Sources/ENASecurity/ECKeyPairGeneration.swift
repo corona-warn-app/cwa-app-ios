@@ -21,8 +21,8 @@ public struct ECKeyPairGeneration {
     
     // MARK: - Public
 
-    public func generateECPair(with name: String? = nil) -> Result<ECKeyPair, ECKeyPairGenerationError> {
-        let secureKey = self.generatePrivateKey(with: name)
+    public func generateECPair() -> Result<ECKeyPair, ECKeyPairGenerationError> {
+        let secureKey = self.generatePrivateKey()
         guard let privateKey = secureKey.0 else {
             return .failure(.privateKeyGenerationError(secureKey.1))
         }
@@ -51,46 +51,23 @@ public struct ECKeyPairGeneration {
     
     // MARK: - Private
     
-    private func tag(for name: String) -> Data {
-      "\(Bundle.main.bundleIdentifier ?? "app").\(name)".data(using: .utf8)!
-    }
-    
-    private func generatePrivateKey(with name: String? = nil) -> (SecKey?, String?) {
-      let name = name ?? UUID().uuidString
-      let tag = tag(for: name)
-      var error: Unmanaged<CFError>?
-      guard
-        let access =
-          SecAccessControlCreateWithFlags(
-            kCFAllocatorDefault,
-            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            [.privateKeyUsage],
-            &error
-          )
-      else {
-        return (nil, error?.takeRetainedValue().localizedDescription)
-      }
-      var attributes: [String: Any] = [
-        kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-        kSecAttrKeySizeInBits as String: 256,
-        kSecPrivateKeyAttrs as String: [
-          kSecAttrApplicationTag as String: tag,
-          kSecAttrAccessControl as String: access
+    private func generatePrivateKey() -> (SecKey?, String?) {
+        var error: Unmanaged<CFError>?
+
+        let attributes: [String: Any] = [
+            kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+            kSecAttrKeySizeInBits as String: 256
         ]
-      ]
-        
-      #if !targetEnvironment(simulator)
-      attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
-      #endif
-      guard
-        let privateKey = SecKeyCreateRandomKey(
-          attributes as CFDictionary,
-          &error
-        )
-      else {
-        return (nil, error?.takeRetainedValue().localizedDescription)
-      }
-      return (privateKey, nil)
+
+        guard
+            let privateKey = SecKeyCreateRandomKey(
+                attributes as CFDictionary,
+                &error
+            )
+        else {
+            return (nil, error?.takeRetainedValue().localizedDescription)
+        }
+        return (privateKey, nil)
     }
 
     private func generateData(from key: SecKey) -> (Data?, String?) {
