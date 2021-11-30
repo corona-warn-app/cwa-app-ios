@@ -46,4 +46,42 @@ final class AllowListService {
 			}
 		}
 	}
+	
+	func checkServerCertificateAgainstAllowlist(
+		hostname: String,
+		certificateChain: [Data], // can be construct by: Data(base64Encoded: x509String)
+		allowlist: [ValidationServiceAllowlistEntry]
+	) -> AllowListError? {
+		guard let leafCertificate = certificateChain.first else {
+			Log.error("Certificate chain should include at least one certificate")
+			return .CERT_PIN_MISMATCH
+		}
+		// Find requiredFingerprints: the requiredFingerprints shall be set by mapping each entry in allowlist to their fingerprint256 attribute.
+
+		let requiredFingerprints = allowlist.map({
+			$0.fingerprint256
+		})
+		
+		// Compare fingerprints: if the SHA-256 fingerprints of leafCertificate is not included in requiredFingerprints, the operation shall abort with error code CERT_PIN_MISMATCH.
+		let leafFingerPrint = leafCertificate.sha256().base64EncodedString()
+		if requiredFingerprints.contains(where: {
+			$0 == leafFingerPrint
+		}) {
+			Log.error("fingerprints found")
+		} else {
+			return .CERT_PIN_MISMATCH
+		}
+		
+		let requiredHostnames: [String] = allowlist.compactMap({
+			$0.fingerprint256 == leafFingerPrint ? $0.hostname : nil
+		})
+		if requiredHostnames.contains(where: {
+			$0 == hostname
+		}) {
+			Log.error("requiredHostnames found")
+		} else {
+			return .CERT_PIN_HOST_MISMATCH
+		}
+		return nil
+	}
 }
