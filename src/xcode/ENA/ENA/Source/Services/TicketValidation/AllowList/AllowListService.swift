@@ -24,14 +24,17 @@ final class AllowListService {
 	
 	// MARK: - Internal
 
-	func fetchAllowList() {
+	func fetchAllowList(completion: @escaping (TicketValidationAllowList?) -> Void) {
 		let resource = AllowListResource()
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let allowListProtoBuf):
 				Log.debug("Allow List received", log: .ticketValidationAllowList)
+				completion(allowListProtoBuf.allowlist)
+				return
 			case .failure(let error):
 				Log.debug(error.localizedDescription, log: .ticketValidationAllowList)
+				completion(nil)
 			}
 		}
 	}
