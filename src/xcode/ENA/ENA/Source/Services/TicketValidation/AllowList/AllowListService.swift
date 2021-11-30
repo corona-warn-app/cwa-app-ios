@@ -51,10 +51,10 @@ final class AllowListService {
 		hostname: String,
 		certificateChain: [Data], // can be construct by: Data(base64Encoded: x509String)
 		allowlist: [ValidationServiceAllowlistEntry]
-	) -> AllowListError? {
+	) -> Result<Void, AllowListError> {
 		guard let leafCertificate = certificateChain.first else {
 			Log.error("Certificate chain should include at least one certificate")
-			return .CERT_PIN_MISMATCH
+			return .failure(.CERT_PIN_MISMATCH)
 		}
 		// Find requiredFingerprints: the requiredFingerprints shall be set by mapping each entry in allowlist to their fingerprint256 attribute.
 
@@ -69,7 +69,7 @@ final class AllowListService {
 		}) {
 			Log.error("fingerprints found")
 		} else {
-			return .CERT_PIN_MISMATCH
+			return .failure(.CERT_PIN_MISMATCH)
 		}
 		
 		let requiredHostnames: [String] = allowlist.compactMap({
@@ -80,22 +80,22 @@ final class AllowListService {
 		}) {
 			Log.error("requiredHostnames found")
 		} else {
-			return .CERT_PIN_HOST_MISMATCH
+			return .failure(.CERT_PIN_HOST_MISMATCH)
 		}
-		return nil
+		return .success(())
 	}
 	
 	func checkServiceIdentityAgainstServiceProviderAllowlist(
 		serviceProviderAllowlist: [Data],
 		serviceIdentity: String
-	) -> AllowListError? {
+	) -> Result<Void, AllowListError> {
 		
 		if serviceProviderAllowlist.contains(where: {
 			$0.sha256().base64EncodedString() == serviceIdentity.sha256()
 		}) {
-			return nil
+			return .success(())
 		} else {
-			return .SP_ALLOWLIST_NO_MATCH
+			return .failure(.SP_ALLOWLIST_NO_MATCH)
 		}
 	}
 	
