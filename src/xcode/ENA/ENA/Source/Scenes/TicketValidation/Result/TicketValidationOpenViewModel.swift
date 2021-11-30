@@ -24,7 +24,8 @@ struct TicketValidationOpenViewModel: TicketValidationResultViewModel {
 		var cells: [DynamicCell] = [
 			.headlineWithImage(
 				headerText: AppStrings.TicketValidation.Result.Open.title,
-				image: UIImage(imageLiteralResourceName: "Illu_Validation_Unknown")
+				image: UIImage(imageLiteralResourceName: "Illu_Validation_Unknown"),
+				imageAccessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.headerImageWithTitle
 			),
 			.footnote(
 				text: String(
@@ -34,7 +35,8 @@ struct TicketValidationOpenViewModel: TicketValidationResultViewModel {
 				color: .enaColor(for: .textPrimary2)
 			),
 			.title2(
-				text: AppStrings.TicketValidation.Result.Open.subtitle
+				text: AppStrings.TicketValidation.Result.Open.subtitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.ValidationResult.Open.subtitle
 			),
 			.body(
 				text: String(

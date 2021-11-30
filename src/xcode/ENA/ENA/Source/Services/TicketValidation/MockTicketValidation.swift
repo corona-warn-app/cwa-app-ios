@@ -9,14 +9,13 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Protocol TicketValidating
 
 	init(
-		with initializationData: TicketValidationInitializationData,
-		restServiceProvider: RestServiceProviding
+		with initializationData: TicketValidationInitializationData
 	) {
 		self.initializationData = initializationData
-		self.restServiceProvider = restServiceProvider
 	}
 
-	var initializationData: TicketValidationInitializationData
+	let initializationData: TicketValidationInitializationData
+
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
@@ -58,8 +57,5 @@ final class MockTicketValidation: TicketValidating {
 	var validationResult: Result<TicketValidationResult, TicketValidationError>?
 
 	var delay: TimeInterval = 0
-
-	// MARK: - Private
 	
-	private let restServiceProvider: RestServiceProviding
 }
