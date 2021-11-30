@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum ECKeyPairGenerationError: Error {
     case privateKeyGenerationError(String?) // if key cannot be used for AES
@@ -11,10 +12,16 @@ public enum ECKeyPairGenerationError: Error {
 }
 
 public struct ECKeyPairGeneration {
+
+    // MARK: - Init
+
+    public init() {
+
+    }
     
     // MARK: - Public
 
-    func generateECPair(with name: String? = nil) -> Result<ECKeyPair, ECKeyPairGenerationError> {
+    public func generateECPair(with name: String? = nil) -> Result<ECKeyPair, ECKeyPairGenerationError> {
         let secureKey = self.generatePrivateKey(with: name)
         guard let privateKey = secureKey.0 else {
             return .failure(.privateKeyGenerationError(secureKey.1))
