@@ -595,7 +595,23 @@ extension SecureStore: CoronaTestStoringLegacy {
 		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
+}
 
+extension SecureStore: AllowListCaching {
+	var ticketValidationAllowList: TicketValidationAllowList {
+		get {
+			kvStore["ticketValidationAllowList"] as TicketValidationAllowList? ?? TicketValidationAllowList(
+				validationServiceAllowList: [],
+				serviceProviderAllowList: []
+			)
+		}
+		set { kvStore["ticketValidationAllowList"] = newValue }
+	}
+	
+	var serviceProviderAllowlist: [Data] {
+		get { kvStore["serviceProviderAllowlist"] as [Data]? ?? [] }
+		set { kvStore["serviceProviderAllowlist"] = newValue }
+	}
 }
 
 extension SecureStore: DSCListCaching {
