@@ -3307,8 +3307,9 @@
 				0104CBD4273EAD72009A543D /* TicketValidation.swift */,
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
-				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
+				ABC506B62747DC9600698A95 /* EncryptAndSignDCC */,
+				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
 				01BCBFB02756090E00E4B6F1 /* ServiceIdentityDocument */,
 				010A47522754C1A3000AA80E /* AccessToken */,
 				010A47612754C65C000AA80E /* ResultToken */,
@@ -4314,13 +4315,11 @@
 			isa = PBXGroup;
 			children = (
 				3427F8D9274E87CB0062E679 /* __tests__ */,
-				ABC506B62747DC9600698A95 /* EncryptAndSignDCC */,
 				ABC506D7274F9DF400698A95 /* TicketValidationAccessToken.swift */,
 				010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */,
 				01BB00CE274FDAD70065D1D1 /* TicketValidationConditions.swift */,
 				01BB00CD274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift */,
 				01DE60742744EF3F00E12FA4 /* TicketValidationInitializationData.swift */,
-				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
 				0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */,
 				0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */,
 				50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */,
@@ -6986,6 +6985,7 @@
 		ABC506B62747DC9600698A95 /* EncryptAndSignDCC */ = {
 			isa = PBXGroup;
 			children = (
+				ABC506C7274BA9E500698A95 /* DCCEncryption.swift */,
 				ABC506B72747DC9600698A95 /* EncryptionScheme.swift */,
 				ABC506B82747DC9600698A95 /* EncryptAndSignResult.swift */,
 				ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */,
