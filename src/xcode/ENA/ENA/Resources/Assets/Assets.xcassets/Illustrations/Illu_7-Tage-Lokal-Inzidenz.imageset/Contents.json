@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Localized_light.pdf",
+      "filename" : "Illu_7-Tage-Lokal-Inzidenz.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Localized_dark.pdf",
+      "filename" : "Illu_7-Tage-Lokal-Inzidenz_dark.pdf",
       "idiom" : "universal"
     }
   ],
