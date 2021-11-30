@@ -37,6 +37,14 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 			default:
 				return nil
 			}
+		case .transportationError(let transportationError):
+			if let error = transportationError as NSError?,
+			   error.domain == NSURLErrorDomain,
+			   error.code == NSURLErrorNotConnectedToInternet {
+				return .VD_ID_NO_NETWORK
+			} else {
+				return nil
+			}
 		case .resourceError(.decoding):
 			return .VD_ID_PARSE_ERR
 		default:
