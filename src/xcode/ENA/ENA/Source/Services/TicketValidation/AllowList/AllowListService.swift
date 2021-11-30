@@ -42,7 +42,7 @@ final class AllowListService {
 				)
 				
 			case .failure(let error):
-				Log.debug(error.localizedDescription)
+				Log.debug(error.localizedDescription, log: .ticketValidationAllowList)
 			}
 		}
 	}
@@ -53,7 +53,7 @@ final class AllowListService {
 		allowlist: [ValidationServiceAllowlistEntry]
 	) -> Result<Void, AllowListError> {
 		guard let leafCertificate = certificateChain.first else {
-			Log.error("Certificate chain should include at least one certificate")
+			Log.debug("Certificate chain should include at least one certificate", log: .ticketValidationAllowList)
 			return .failure(.CERT_PIN_MISMATCH)
 		}
 		// Find requiredFingerprints: the requiredFingerprints shall be set by mapping each entry in allowlist to their fingerprint256 attribute.
@@ -67,7 +67,7 @@ final class AllowListService {
 		if requiredFingerprints.contains(where: {
 			$0 == leafFingerPrint
 		}) {
-			Log.error("fingerprints found")
+			Log.debug("fingerprints found", log: .ticketValidationAllowList)
 		} else {
 			return .failure(.CERT_PIN_MISMATCH)
 		}
@@ -78,7 +78,7 @@ final class AllowListService {
 		if requiredHostnames.contains(where: {
 			$0 == hostname
 		}) {
-			Log.error("requiredHostnames found")
+			Log.debug("requiredHostnames found", log: .ticketValidationAllowList)
 		} else {
 			return .failure(.CERT_PIN_HOST_MISMATCH)
 		}
