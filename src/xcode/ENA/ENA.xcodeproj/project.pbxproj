@@ -470,12 +470,12 @@
 		341FE0B32721BA2100A4D28F /* AppDelegate+UITestingMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341FE0B22721BA2000A4D28F /* AppDelegate+UITestingMethods.swift */; };
 		3427F8D8274E773B0062E679 /* TicketValidationCertificateSelectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3427F8D7274E773B0062E679 /* TicketValidationCertificateSelectionViewModelTests.swift */; };
 		3427F8DB274E87E90062E679 /* ValidationConditions+CertificateSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3427F8DA274E87E90062E679 /* ValidationConditions+CertificateSelectionTests.swift */; };
+		345065FE2756419F003636DB /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A407502655254E00F9307D /* LaunchArguments.swift */; };
 		3456D95225EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95125EFD4DE00A62F5D /* ErrorReportHistoryViewController.swift */; };
 		3456D95725EFD51900A62F5D /* ErrorReportHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95625EFD51900A62F5D /* ErrorReportHistoryViewModel.swift */; };
 		3456D95C25EFE02E00A62F5D /* ErrorReportHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */; };
 		3456D96125EFE08E00A62F5D /* ErrorReportHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3456D96025EFE08E00A62F5D /* ErrorReportHistoryCell.xib */; };
 		3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D96625F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift */; };
-		345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A407502655254E00F9307D /* LaunchArguments.swift */; };
 		347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */; };
 		347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB17260C9C4600672770 /* ENAUITests_09_TraceLocations.swift */; };
 		347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB40260E405000672770 /* TraceLocationDetailsHeaderCell.swift */; };
@@ -1956,7 +1956,7 @@
 		13156D00248CDECC00AFC472 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/usage.html; sourceTree = "<group>"; };
 		134F0DB9247578FF00D88934 /* ENAUITests_01a_Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITests_01a_Home.swift; sourceTree = "<group>"; };
 		134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
-		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
+		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
@@ -1997,8 +1997,8 @@
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
-		34079850274D3D40007E6071 /* HealthCertificateService+UITestingMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateService+UITestingMethods.swift"; sourceTree = "<group>"; };
 		34039DD7274E6C7B000AF3C4 /* ValidationConditions+CertificateSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValidationConditions+CertificateSelection.swift"; sourceTree = "<group>"; };
+		34079850274D3D40007E6071 /* HealthCertificateService+UITestingMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateService+UITestingMethods.swift"; sourceTree = "<group>"; };
 		340AC9B72747E2CC0028DE11 /* TicketValidationNoSupportedCertificateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationNoSupportedCertificateTableViewCell.swift; sourceTree = "<group>"; };
 		340AC9B92747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationNoSupportedCertificateCellModel.swift; sourceTree = "<group>"; };
 		341320552742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationCertificateSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -4603,6 +4603,16 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		345065FD27564182003636DB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
+				34A407502655254E00F9307D /* LaunchArguments.swift */,
+				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		3456D95025EFD2A700A62F5D /* ErrorReportHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -5927,6 +5937,9 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
+				85D7596524570491008175F0 /* Info.plist */,
+				345065FD27564182003636DB /* Utils */,
+				941B68AD253F005600DC1962 /* Helper */,
 				2E4C3FE7263AA69400E9FAFF /* AntigenTestProfile */,
 				35573D002657A1D80057723F /* AppDelegate */,
 				13E5046A248E3CE60086641C /* AppInformation */,
@@ -5935,23 +5948,17 @@
 				347FBB16260C911300672770 /* ContactJournal */,
 				50D50A5E25D6CC760092BC2A /* DataDonation */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
-				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				AB7DE70025C4543700C52B3F /* ExposureDetection */,
 				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
 				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
 				BA53FD25270B284500CF8475 /* FileScanner */,
 				BAC291482652BE1E00CFA8A5 /* HealthCertificate */,
-				941B68AD253F005600DC1962 /* Helper */,
 				134F0DB8247578FF00D88934 /* Home */,
-				85D7596524570491008175F0 /* Info.plist */,
-				34A407502655254E00F9307D /* LaunchArguments.swift */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
 				010A57A72719C157001F5A09 /* RecycleBin */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
-				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				50EE75FE2743FB9B003DE929 /* TicketValidation */,
 				347FBB15260C8BBA00672770 /* TraceLocations */,
-				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
 				013069532707451500D945E3 /* UniversalQRCodeScanner */,
 				EB1C221625B718FA00A5CA6E /* UpdateOS */,
 			);
@@ -6230,6 +6237,7 @@
 			children = (
 				941B689E253EFF2300DC1962 /* Int+Increment.swift */,
 				505F2E512587738900697CC2 /* AccessibilityLabels.swift */,
+				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -9945,7 +9953,6 @@
 				5071A88026EB808A00B09B40 /* HTTP+Method.swift in Sources */,
 				BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
-				345A03D226565C2600D5E0D6 /* LaunchArguments.swift in Sources */,
 				ABCAD91F270EF5C6000E8BAA /* RecycleBin.swift in Sources */,
 				50C0299025E4067400460FA4 /* KeySubmissionMetadata.swift in Sources */,
 				01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */,
@@ -10206,6 +10213,7 @@
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
 				8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
+				345065FE2756419F003636DB /* LaunchArguments.swift in Sources */,
 				AB190E9925FB677800FBFF0D /* DeleteCheckinQuery.swift in Sources */,
 				341FE0B32721BA2100A4D28F /* AppDelegate+UITestingMethods.swift in Sources */,
 				010E07AE273D3AB400C2BE5F /* FirstTicketValidationConsentViewController.swift in Sources */,
