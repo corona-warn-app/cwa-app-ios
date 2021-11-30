@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class SecondTicketValidationConsentViewController: DynamicTableViewController, FooterViewHandling {
+class SecondTicketValidationConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 	
 	// MARK: - Init
 	
@@ -37,7 +37,6 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 		super.viewWillAppear(animated)
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
 	}
 	
 	// MARK: - Cell reuse identifiers.
@@ -45,6 +44,12 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case healthCertificateCell = "HealthCertificateCell"
 		case legalExtended = "DynamicLegalExtendedCell"
+	}
+
+	// MARK: - DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -72,11 +77,8 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, F
 	private func setupView() {
 		title = AppStrings.TicketValidation.SecondConsent.title
 		
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.onDismiss()
-			}
-		)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.largeTitleDisplayMode = .always
 
 		view.backgroundColor = .enaColor(for: .background)
 		

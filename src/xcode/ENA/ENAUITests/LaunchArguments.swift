@@ -111,6 +111,7 @@ enum LaunchArguments {
 	}
 
 	enum recycleBin {
+		/// To show PCR test in recycle bin
 		static let pcrTest = LaunchArgument(name: "recycleBinPCRTest")
 	}
 
@@ -161,4 +162,11 @@ enum LaunchArguments {
 		static let maximumRegionsSelected = LaunchArgument(name: "maximumRegionsSelected")
 	}
 
+	enum ticketValidation {
+		/// Set the result of validation
+		enum result {
+			static let isFailed = LaunchArgument(name: "isFailed")
+			static let isOpen = LaunchArgument(name: "isOpen")
+		}
+	}
 }
