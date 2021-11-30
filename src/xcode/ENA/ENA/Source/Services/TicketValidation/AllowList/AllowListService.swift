@@ -11,17 +11,14 @@ final class AllowListService {
 	// MARK: - Init
 	
 	init(
-	    restServiceProvider: RestServiceProviding,
-	    store: Store
+	    restServiceProvider: RestServiceProviding
 	) {
 		self.restServiceProvider = restServiceProvider
-		self.store = store
 	}
 	
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-	private let store: Store
 	
 	// MARK: - Internal
 
