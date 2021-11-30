@@ -24,7 +24,8 @@ struct TicketValidationPassedViewModel: TicketValidationResultViewModel {
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.TicketValidation.Result.Passed.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Validation_Valid")
+						image: UIImage(imageLiteralResourceName: "Illu_Validation_Valid"),
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.headerImageWithTitle
 					),
 					.footnote(
 						text: String(
@@ -34,7 +35,8 @@ struct TicketValidationPassedViewModel: TicketValidationResultViewModel {
 						color: .enaColor(for: .textPrimary2)
 					),
 					.title2(
-						text: AppStrings.TicketValidation.Result.Passed.subtitle
+						text: AppStrings.TicketValidation.Result.Passed.subtitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.subtitle
 					),
 					.body(
 						text: String(

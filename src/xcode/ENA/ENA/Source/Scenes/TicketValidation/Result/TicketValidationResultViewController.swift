@@ -39,6 +39,18 @@ class TicketValidationResultViewController: DynamicTableViewController, DismissH
 		setupTableView()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.setupTransparentNavigationBar()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		navigationController?.restoreOriginalNavigationBar()
+	}
+
 	// MARK: - DismissHandling
 
 	func wasAttemptedToBeDismissed() {

@@ -19,5 +19,7 @@
 	<true/>
 	<key>com.apple.developer.exposure-notification-test-skip-file-verification</key>
 	<true/>
+	<key>com.apple.developer.usernotifications.time-sensitive</key>
+	<true/>
 </dict>
 </plist>

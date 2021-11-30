@@ -36,5 +36,4 @@ enum Endpoint: Equatable, Hashable {
 			return url
 		}
 	}
-
 }
