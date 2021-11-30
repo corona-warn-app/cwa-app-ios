@@ -26,10 +26,10 @@ final class AllowListService {
 
 	func fetchAllowList() {
 		let resource = AllowListResource()
-		restServiceProvider.load(resource) { result in
+		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let allowListProtoBuf):
-				self.allowlist = allowListProtoBuf.allowlist
+				self?.allowlist = allowListProtoBuf.allowlist
 			case .failure(let error):
 				Log.debug(error.localizedDescription, log: .ticketValidationAllowList)
 			}
