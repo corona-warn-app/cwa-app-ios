@@ -28,6 +28,10 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 
 	// MARK: - Overrides
 
+	override var navigationController: DismissHandlingNavigationController? {
+		return super.navigationController as? DismissHandlingNavigationController
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -37,21 +41,17 @@ class FirstTicketValidationConsentViewController: DynamicTableViewController, Di
 
 		setupView()
 	}
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-			dismissHandlingNC.setupTransparentNavigationBar()
-		}
+		navigationController?.setupTransparentNavigationBar()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-			dismissHandlingNC.restoreOriginalNavigationBar()
-		}
+		navigationController?.restoreOriginalNavigationBar()
 	}
 
 	// MARK: - DismissHandling

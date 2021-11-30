@@ -30,6 +30,8 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 		
 		title = AppStrings.TicketValidation.CertificateSelection.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.largeTitleDisplayMode = .always
 		
 		setupView()
 	}
@@ -37,7 +39,6 @@ class TicketValidationCertificateSelectionViewController: DynamicTableViewContro
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 	
