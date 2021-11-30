@@ -195,6 +195,13 @@ final class MockTestStore: Store, PPAnalyticsData {
 			recycleBinItemsSubject.value = recycleBinItems
 		}
 	}
+	
+	// MARK: - Protocol AllowListCaching
+
+	var ticketValidationAllowList: TicketValidationAllowList = TicketValidationAllowList(
+		validationServiceAllowList: [],
+		serviceProviderAllowList: []
+	)
 }
 
 #endif
