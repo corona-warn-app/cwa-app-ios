@@ -24,7 +24,7 @@ struct TicketValidationResultToken: Equatable, Codable, Claims {
 	let iat: Date?
 	let exp: Date?
 	let sub: String
-	let category: String
+	let category: [String]
 	let result: Result
 	let results: [ResultItem]
 	let confirmation: String
