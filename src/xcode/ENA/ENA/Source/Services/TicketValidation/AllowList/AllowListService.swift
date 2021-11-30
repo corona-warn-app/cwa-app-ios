@@ -98,4 +98,25 @@ final class AllowListService {
 			return .SP_ALLOWLIST_NO_MATCH
 		}
 	}
+	
+	func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> ([ValidationServiceAllowlistEntry], [JSONWebKey]) {
+		
+		var filteredAllowList = [ValidationServiceAllowlistEntry]()
+		let filteredJwkSet = jwkSet.filter({
+			guard let x509String = $0.x5c.first, let x509Data = Data(base64Encoded: x509String) else {
+				return false
+			}
+			
+			return allowList.contains { entry in
+				if entry.fingerprint256 == x509Data.sha256().base64EncodedString() {
+					filteredAllowList.append(entry)
+					return true
+				} else {
+					return false
+				}
+			}
+		})
+		
+		return (filteredAllowList, filteredJwkSet)
+	}
 }
