@@ -56,9 +56,10 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.navigationBar.prefersLargeTitles = false
-		// Must be set here, otherwise navBar will be translucent.
-		navigationController?.navigationBar.isTranslucent = false
+		// Need to call here again to set the nav bar size correctly.
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.restoreOriginalNavigationBar()
+		}
 	}
 
 	// MARK: - Protocol UIActivityItemSource
