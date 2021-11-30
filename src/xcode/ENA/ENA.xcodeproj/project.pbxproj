@@ -922,6 +922,7 @@
 		8FEC122D27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */; };
 		8FEC122F27564D1B00C5DADC /* AllowListError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122E27564D1B00C5DADC /* AllowListError.swift */; };
 		8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */; };
+		8FEC12332756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
 		9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */; };
@@ -2539,6 +2540,7 @@
 		8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceAllowlistEntry.swift; sourceTree = "<group>"; };
 		8FEC122E27564D1B00C5DADC /* AllowListError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListError.swift; sourceTree = "<group>"; };
 		8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAllowList.swift; sourceTree = "<group>"; };
+		8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift"; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
@@ -6405,6 +6407,7 @@
 			children = (
 				8FEC122927564C7A00C5DADC /* AllowListService.swift */,
 				8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */,
+				8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */,
 				8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */,
 				8FEC122E27564D1B00C5DADC /* AllowListError.swift */,
 			);
@@ -8134,7 +8137,6 @@
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
 				8FEC1227275521E500C5DADC /* AllowListResource.swift */,
-				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
 				ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */,
 				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
@@ -9690,6 +9692,7 @@
 				3494D92C261EF8AD00EC532C /* UITextField+CGFloat.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */,
+				8FEC12332756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */,

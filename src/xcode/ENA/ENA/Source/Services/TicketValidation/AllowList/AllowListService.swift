@@ -26,26 +26,10 @@ final class AllowListService {
 
 	func fetchAllowList() {
 		let resource = AllowListResource()
-		restServiceProvider.load(resource) { [weak self] result in
-			guard let self = self else { return }
-
+		restServiceProvider.load(resource) { result in
 			switch result {
-			case .success(let allowList):
-				let serviceProviderAllowlist = allowList.serviceProviders.map({
-					$0.serviceIdentityHash
-				})
-				let validationServiceAllowlist = allowList.certificates.map({
-					ValidationServiceAllowlistEntry(
-						serviceProvider: $0.serviceProvider,
-						hostname: $0.hostname,
-						fingerprint256: $0.fingerprint256.base64EncodedString()
-					)
-				})
-				self.store.ticketValidationAllowList = TicketValidationAllowList(
-					validationServiceAllowList: validationServiceAllowlist,
-					serviceProviderAllowList: serviceProviderAllowlist
-				)
-				
+			case .success(let allowListProtoBuf):
+				Log.debug("Allow List received", log: .ticketValidationAllowList)
 			case .failure(let error):
 				Log.debug(error.localizedDescription, log: .ticketValidationAllowList)
 			}
@@ -68,9 +52,9 @@ final class AllowListService {
 		})
 		
 		// Compare fingerprints: if the SHA-256 fingerprints of leafCertificate is not included in requiredFingerprints, the operation shall abort with error code CERT_PIN_MISMATCH.
-		let leafFingerPrint = leafCertificate.sha256().base64EncodedString()
+		let leafFingerprint = leafCertificate.sha256().base64EncodedString()
 		if requiredFingerprints.contains(where: {
-			$0 == leafFingerPrint
+			$0 == leafFingerprint
 		}) {
 			Log.debug("fingerprints found", log: .ticketValidationAllowList)
 		} else {
@@ -78,7 +62,7 @@ final class AllowListService {
 		}
 		
 		let requiredHostnames: [String] = allowlist.compactMap({
-			$0.fingerprint256 == leafFingerPrint ? $0.hostname : nil
+			$0.fingerprint256 == leafFingerprint ? $0.hostname : nil
 		})
 		if requiredHostnames.contains(where: {
 			$0 == hostname
