@@ -41,14 +41,14 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	// swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
-			completion(.failure(customError(in: resource, for: .transportationError(resourceError))))
+			completion(.failure(customError(in: resource, for: .invalidRequestError(resourceError))))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				
