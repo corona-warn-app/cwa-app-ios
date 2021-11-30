@@ -55,5 +55,5 @@ struct TicketValidationTransactionContext {
 	let signatureBase64: String
 	let signatureAlgorithm: String
 	let resultToken: String
-	let resultTokenPayload: TicketValidationResult
+	let resultTokenPayload: TicketValidationResultToken
 }

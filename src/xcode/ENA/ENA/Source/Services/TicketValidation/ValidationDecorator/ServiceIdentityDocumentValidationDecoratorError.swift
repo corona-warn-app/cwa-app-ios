@@ -3,6 +3,7 @@
 //
 
 import Foundation
+
 enum ServiceIdentityValidationDecoratorError: Error {
 	case VD_ID_NO_ATS
 	case VD_ID_NO_ATS_SIGN_KEY

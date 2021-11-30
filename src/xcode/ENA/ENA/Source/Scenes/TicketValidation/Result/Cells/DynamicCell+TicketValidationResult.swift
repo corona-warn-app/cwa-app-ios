@@ -8,7 +8,7 @@ import OpenCombine
 extension DynamicCell {
 
 	static func ticketValidationResult(
-		_ validationResultItem: TicketValidationResult.ResultItem
+		_ validationResultItem: TicketValidationResultToken.ResultItem
 	) -> Self {
 		.custom(
 			withIdentifier: TicketValidationResultTableViewCell.dynamicTableViewCellReuseIdentifier
