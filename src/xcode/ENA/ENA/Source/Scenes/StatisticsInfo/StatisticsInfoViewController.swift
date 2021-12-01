@@ -199,9 +199,11 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.faqLinkText,
 						accessibilityIdentifier: nil
 					),
-					.link(
+					.textWithLinks(
 						text: AppStrings.Statistics.Info.faqLinkTitle,
-						url: URL(string: AppStrings.Statistics.Info.faqLink)
+						links: [
+							AppStrings.Statistics.Info.faqLinkTitle: AppStrings.Statistics.Info.faqLink
+						]
 					)
 				]
 			),
