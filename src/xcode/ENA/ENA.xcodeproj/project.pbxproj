@@ -915,6 +915,14 @@
 		8FCC60DB273923C900531BE6 /* RegistrationTokenResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
+		8FEC12242754B6C000C5DADC /* ValidationServiceAllowlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12232754B6C000C5DADC /* ValidationServiceAllowlist.swift */; };
+		8FEC122627551F6700C5DADC /* validation_service_allowlist.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */; };
+		8FEC1228275521E500C5DADC /* AllowListResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC1227275521E500C5DADC /* AllowListResource.swift */; };
+		8FEC122A27564C7A00C5DADC /* AllowListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122927564C7A00C5DADC /* AllowListService.swift */; };
+		8FEC122D27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */; };
+		8FEC122F27564D1B00C5DADC /* AllowListError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122E27564D1B00C5DADC /* AllowListError.swift */; };
+		8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */; };
+		8FEC12332756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
 		9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */; };
@@ -2525,6 +2533,14 @@
 		8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenResourceTests.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
+		8FEC12232754B6C000C5DADC /* ValidationServiceAllowlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceAllowlist.swift; sourceTree = "<group>"; };
+		8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = validation_service_allowlist.pb.swift; sourceTree = "<group>"; };
+		8FEC1227275521E500C5DADC /* AllowListResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListResource.swift; sourceTree = "<group>"; };
+		8FEC122927564C7A00C5DADC /* AllowListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListService.swift; sourceTree = "<group>"; };
+		8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceAllowlistEntry.swift; sourceTree = "<group>"; };
+		8FEC122E27564D1B00C5DADC /* AllowListError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListError.swift; sourceTree = "<group>"; };
+		8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAllowList.swift; sourceTree = "<group>"; };
+		8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift"; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
@@ -3305,6 +3321,7 @@
 			children = (
 				ABC506B32747DC8700698A95 /* __tests__ */,
 				0104CBD2273EACA1009A543D /* MockTicketValidation.swift */,
+				8FEC122B27564C9300C5DADC /* AllowList */,
 				0104CBD4273EAD72009A543D /* TicketValidation.swift */,
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
@@ -3984,6 +4001,7 @@
 			isa = PBXGroup;
 			children = (
 				01A1A25526443FBD001E8183 /* value_sets.pb.swift */,
+				8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */,
 				BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */,
 			);
 			name = dgc;
@@ -6384,6 +6402,18 @@
 			path = HealthCertifiedPerson;
 			sourceTree = "<group>";
 		};
+		8FEC122B27564C9300C5DADC /* AllowList */ = {
+			isa = PBXGroup;
+			children = (
+				8FEC122927564C7A00C5DADC /* AllowListService.swift */,
+				8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */,
+				8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */,
+				8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */,
+				8FEC122E27564D1B00C5DADC /* AllowListError.swift */,
+			);
+			path = AllowList;
+			sourceTree = "<group>";
+		};
 		941B68AD253F005600DC1962 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -8106,6 +8136,7 @@
 			children = (
 				BA64FA8326D7A12400DD4705 /* _Resource.swift */,
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
+				8FEC1227275521E500C5DADC /* AllowListResource.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
 				ABC506CC274BE0A600698A95 /* ServiceIdentityDocumentResource.swift */,
 				BAD3CCD7271EF973004C06AD /* TeleTANResource.swift */,
@@ -8837,6 +8868,7 @@
 				01E1C948274FB3CB007FD7B3 /* TicketValidationAccessTokenLocator.swift */,
 				8F87214D274DBCAE00A263D5 /* IdentityDocumentDecorator.swift */,
 				010A47692754D5F6000AA80E /* TicketValidationResultTokenLocator.swift */,
+				8FEC12232754B6C000C5DADC /* ValidationServiceAllowlist.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -9540,6 +9572,7 @@
 				5001DE9226E20F64004242FA /* TWPDownload.swift in Sources */,
 				01E1C945274BA2FE007FD7B3 /* QRScannerInfoViewController.swift in Sources */,
 				0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */,
+				8FEC122A27564C7A00C5DADC /* AllowListService.swift in Sources */,
 				BA7F7343271F09F600E3CE14 /* AppConfigurationResource.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
 				0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */,
@@ -9637,6 +9670,7 @@
 				BADE51EF272B05FA00CBAA63 /* _Service+Default.swift in Sources */,
 				BA9CD38426FC84C200CB1C51 /* FileScannerCoordinator.swift in Sources */,
 				01115C332721AEB2006F390D /* CoronaTestRestorationHandler.swift in Sources */,
+				8FEC122F27564D1B00C5DADC /* AllowListError.swift in Sources */,
 				8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */,
 				BA5B7FD926458EF400502087 /* HealthCertificateQRCodeCellViewModel.swift in Sources */,
 				BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */,
@@ -9658,6 +9692,7 @@
 				3494D92C261EF8AD00EC532C /* UITextField+CGFloat.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */,
+				8FEC12332756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */,
@@ -10169,6 +10204,7 @@
 				BA7F7348271F12CE00E3CE14 /* _ReceiveResource.swift in Sources */,
 				BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */,
 				01E1C944274BA2F9007FD7B3 /* QRScannerInfoViewModel.swift in Sources */,
+				8FEC1228275521E500C5DADC /* AllowListResource.swift in Sources */,
 				508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */,
 				BA5B7FDB26458EF400502087 /* HealthCertifiedPersonViewModel.swift in Sources */,
 				8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */,
@@ -10285,6 +10321,7 @@
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
+				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
@@ -10326,6 +10363,7 @@
 				EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				BA941DCE25E5450D003F9653 /* TopBottomContainerViewController.swift in Sources */,
+				8FEC122D27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift in Sources */,
 				01164CD326C559A8007F9C3E /* OnBehalfInfoViewModel.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				8F39D05E263C414A0096F4E2 /* VaccinationValueSetsProvider.swift in Sources */,
@@ -10469,6 +10507,7 @@
 				0138F6D825F6180100A9B075 /* TraceLocationTypeSelectionViewModel.swift in Sources */,
 				01A1A25626443FBE001E8183 /* value_sets.pb.swift in Sources */,
 				BA6C8AC4254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift in Sources */,
+				8FEC122627551F6700C5DADC /* validation_service_allowlist.pb.swift in Sources */,
 				BA7F7344271F0C6900E3CE14 /* ValidationOnboardedCountriesResource.swift in Sources */,
 				BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */,
 				0150899B274FCE470047447B /* WithHeaderReceiveResource.swift in Sources */,
@@ -10508,6 +10547,7 @@
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
+				8FEC12242754B6C000C5DADC /* ValidationServiceAllowlist.swift in Sources */,
 				5001DE8426E206AB004242FA /* TANForExposureSubmit.swift in Sources */,
 				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
 				5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */,

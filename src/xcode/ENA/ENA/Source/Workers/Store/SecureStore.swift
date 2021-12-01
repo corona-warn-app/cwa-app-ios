@@ -595,7 +595,6 @@ extension SecureStore: CoronaTestStoringLegacy {
 		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
-
 }
 
 extension SecureStore: DSCListCaching {
