@@ -186,15 +186,18 @@ final class TicketValidationCoordinator {
 		switch result.result {
 		case .passed:
 			viewModel = TicketValidationPassedViewModel(
+				validationDate: result.iat,
 				serviceProvider: ticketValidation.initializationData.serviceProvider
 			)
 		case .open:
 			viewModel = TicketValidationOpenViewModel(
+				validationDate: result.iat,
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
 		case .failed:
 			viewModel = TicketValidationFailedViewModel(
+				validationDate: result.iat,
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
