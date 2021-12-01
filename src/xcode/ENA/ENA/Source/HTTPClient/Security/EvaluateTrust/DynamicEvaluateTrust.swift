@@ -32,7 +32,13 @@ class DynamicEvaluateTrust: EvaluateTrust {
 			}
 		}
 #endif
-		let result = trustEvaluation.check(trust: trust, against: jwkSet)
+		let result = trustEvaluation.check(
+			trust: trust,
+			against: jwkSet,
+			logMessage: { message in
+				Log.debug("Log message from trust evaluation check: \(message)", log: .client)
+			}
+		)
 		switch result {
 		case .success:
 			completionHandler(.useCredential, URLCredential(trust: trust))

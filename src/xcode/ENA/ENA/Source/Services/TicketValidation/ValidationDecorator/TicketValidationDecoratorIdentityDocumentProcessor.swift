@@ -11,6 +11,8 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 		completion:
 		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
+		Log.info("Started validation of identity document.", log: .ticketValidation)
+
 		// 2 - Verify JWKs
 		for method in serviceIdentityDocument.verificationMethod {
 			if let publicKeyJwk = method.publicKeyJwk, publicKeyJwk.x5c.isEmpty {
@@ -41,7 +43,7 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 		let accessTokenSignJwkSet = matchedAccessSignMethods.compactMap {
 			$0.publicKeyJwk
 		}
-		Log.debug("\(accessTokenSignJwkSet)", log: .ticketValidationDecorator)
+		Log.debug("accessTokenSignJwkSet: \(private: accessTokenSignJwkSet)", log: .ticketValidationDecorator)
 		
 		// 5 - Find accessTokenServiceJwkSet
 		let matchedAccessServiceMethods = serviceIdentityDocument.verificationMethod.filter({
@@ -55,7 +57,7 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 		let accessTokenServiceJwkSet = matchedAccessServiceMethods.compactMap {
 			$0.publicKeyJwk
 		}
-		Log.debug("\(accessTokenServiceJwkSet)", log: .ticketValidationDecorator)
+		Log.debug("accessTokenServiceJwkSet: \(private: accessTokenServiceJwkSet)", log: .ticketValidationDecorator)
 		
 		// 6 - Find validationService
 		guard let validationService = serviceIdentityDocument.service?.first(where: {
@@ -79,8 +81,9 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 		let validationServiceJwkSet = matchedValidationServiceMethods.compactMap {
 			$0.publicKeyJwk
 		}
-		Log.debug("\(validationServiceJwkSet)", log: .ticketValidationDecorator)
-		
+		Log.debug("validationServiceJwkSet: \(private: validationServiceJwkSet)", log: .ticketValidationDecorator)
+		Log.info("Finished validation of identity document.", log: .ticketValidation)
+
 		completion(
 			.success(
 				TicketValidationServiceIdentityDocumentValidationDecorator(
