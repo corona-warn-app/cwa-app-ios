@@ -11,7 +11,7 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 		completion:
 		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
-		Log.info("Validate identity document.", log: .ticketValidation)
+		Log.info("Started validation of identity document.", log: .ticketValidation)
 
 		// 2 - Verify JWKs
 		for method in serviceIdentityDocument.verificationMethod {
