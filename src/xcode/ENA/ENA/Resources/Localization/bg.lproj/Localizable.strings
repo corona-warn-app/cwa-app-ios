@@ -531,7 +531,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Търсене на център за тестване";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Намерете центровете за тестване в близост до вас. Ще бъдете препратени към външен уебсайт на RKI.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Намерете центровете за тестване в близост до вас. Ако възникнат проблеми, можете да докладвате за тях.\nЩе бъдете препратени към външен уеб сайт на RKI.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Заявете ТАН код за PCR тест";
@@ -850,7 +850,7 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Изтриване на резултат от тест?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Изтриване на резултата от теста?";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Резултатът от тест ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Резултатът от тест ще бъде изтрит автоматично след 30 дни.";
 
@@ -897,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Съдържанието на отговора е празно.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на Вашия смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас. Ако сте изтрили този тест в приложението може да го възстановите от кошчето.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на Вашия смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза „коронавирус“, службата за обществено здравеопазване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.\nАко сте изтрили този тест в приложението може да го възстановите от кошчето.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Невалиден QR код";
 
@@ -1259,7 +1259,7 @@
 
 "Home_Finding_Positive_Card_Button" = "Предупредете другите";
 
-"Home_Finding_Positive_Card_Button_Remove_Test" = "Премахване на теста";
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Изтриване на тест";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Управлявайте тестовете си";
@@ -1553,10 +1553,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.14 */
-"NewVersionFeature_214_recycleBin_title" = "Функция \"Кошче\" за тестове";
+/* Version 2.15 */
+"NewVersionFeature_215_ticketValidation_title" = "Валидиране на сертификат при продажба на билети";
 
-"NewVersionFeature_214_recycleBin_description" = "Изтритите бързи и PCR тестове са преместени в кошчето. Това означава, че имате възможност да възстановявате файлове, които сте изтрили неволно.";
+"NewVersionFeature_215_ticketValidation_description" = "Когато резервирате билет, можете да предоставите доказателство, че сте ваксинирани, преболедували или имате отрицателен резултат от тестване. За целта сканирайте QR кода, показан в системата за продажба на билети и изберете правилния сертификат в приложението. Резултатът от валидирането на сертификата ще бъде изпратен до системата за продажба на билети от партньора за валидиране.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1769,7 +1769,7 @@
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Наистина ли искате да изтриете всички лица?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Ако премахнете всички лица, всички записи за тях ще бъдат премахнати от дневника Ви.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Ако изтриете всички лица, всички записи за тях ще бъдат изтрити от дневника Ви.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Да";
 
@@ -1777,7 +1777,7 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Наистина ли искате да изтриете това лице?";
 
-"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Ако изтриете дадено лице, всички записи за него ще бъдат премахнати от Вашия дневник.";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Ако изтриете дадено лице, всички записи за него ще бъдат изтрити от Вашия дневник.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Да";
 
@@ -1789,7 +1789,7 @@
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Наистина ли искате да изтриете всички места?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Ако премахнете всички места, всички записи за тях ще бъдат премахнати от Вашия дневник.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Ако изтриете всички места, всички записи за тях ще бъдат изтрити от дневника Ви.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Да";
 
@@ -1797,7 +1797,7 @@
 
 "ContactDiary_EditEntries_Location_AlertTitle" = "Наистина ли искате да изтриете това място?";
 
-"ContactDiary_EditEntries_Location_AlertMessage" = "Ако изтриете дадено място, всички записи за него ще бъдат премахнати от Вашия дневник.";
+"ContactDiary_EditEntries_Location_AlertMessage" = "Ако изтриете дадено място, всички записи за него ще бъдат изтрити от Вашия дневник.";
 
 "ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Да";
 
@@ -1818,7 +1818,7 @@
 
 "ContactDiary_Information_Item_Lock_Title" = "Единствено Вие имате достъп до записите от Вашия дневник. Те ще се пазят само на Вашия смартфон.";
 
-"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Можете да премахвате записи за хора и места от Вашия дневник по всяко време. Записите от дневника ще се изтриват автоматично след 16 дни.";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Можете да изтривате записи за хора и места от Вашия дневник по всяко време. Записите от дневника ще се изтриват автоматично след 16 дни.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "Ако е необходимо, можете да експортирате Вашия дневник на контактите във формат на обикновен текст и след това да го разпечатате, редактирате или предоставите на службата за обществено здравеопазване.";
 
@@ -2730,27 +2730,27 @@
 
 "HealthCertificate_Info_section02" = "Тези сертификати се считат за валидно доказателство в рамките на ЕС (например при пътуване).";
 
-"HealthCertificate_Info_section03" = "След като добавите сертификат, той ще се запази в смартфона Ви. Ще се споделя с останалите само ако представите сертификат за ваксинация.";
+"HealthCertificate_Info_section03" = "След като добавите сертификат, той ще се запази в смартфона Ви. Ще се споделя с останалите само ако представите сертификат за валидиране.";
 
 "HealthCertificate_Info_section04" = "Добавете сертификати за Вас и Вашето семейство.";
 
 "HealthCertificate_Info_primaryButton" = "Напред";
 
 /* CovPass Info Screen */
-"CovPass_Check_Info_Title" = "Проверка на сертификат от трети лица";
+"CovPass_Check_Info_Title" = "Валидиране на сертификат от трети лица";
 
-"CovPass_Check_Info_body" = "Трети лица могат да използват приложението CovPassCheck, за да извършват надеждна проверка за валидност на сертификатите за ваксинация, сертификатите за възстановяване или сертификатите за тест.";
+"CovPass_Check_Info_body" = "Трети лица могат да използват приложението CovPassCheck, за да могат надеждно да определят валидността на сертификатите за ваксинация, сертификатите за възстановяване или сертификатите за тест.";
 
-"CovPass_Check_Info_faq" = "ЧЗВ за проверка на сертификати от трети лица";
+"CovPass_Check_Info_faq" = "ЧЗВ за валидиране на сертификати от трети лица";
 
 "CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите си в приложението Corona-Warn-App. Не ви е нужно приложението CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Но имайте предвид, че визуалната проверка на сертификатите не е достатъчна за третите лица. В Германия те трябва да използват приложението CovPassCheck.";
 
-"CovPass_Check_Info_text03" = "Имайте предвид също така, че третите лица в други държави може да използват различни приложения за проверка на сертификатите.";
+"CovPass_Check_Info_text03" = "Имайте предвид, че третите лица в други държави може да използват различни приложения за валидиране на сертификатите.";
 
 /* Health Certified Person Screen */
-"HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно проверен с приложението CovPassCheck.";
+"HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно валидиран с приложението CovPassCheck.";
 
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
@@ -2869,7 +2869,7 @@
 
 "RecoveryCertificate_Details_subtitle" = "Цифров сертификат за COVID на ЕС";
 
-"RecoveryCertificate_Details_primaryButton" = "Изтриване на сертификат за възстановяване";
+"RecoveryCertificate_Details_primaryButton" = "Сертификат за възстановяване";
 
 /* Recovery Certificate Delete Alert */
 "RecoveryCertificate_Alert_title" = "Желаете ли да изтриете сертификата за възстановяване?";
@@ -2955,8 +2955,6 @@
 
 "HealthCertificate_Validation_Bullet2" = "В отделни райони може да се прилагат допълнителни правила и ограничения.";
 
-"HealthCertificate_Validation_Bullet3" = "С цел удостоверяване на автентичността всеки сертификат се издава с електронен подпис, който се проверява с помощта на приложение за проверка.";
-
 "HealthCertificate_Validation_Bullet4" = "Corona-Warn-App не проверява дали записаните в сертификата данни са валидни.";
 
 "HealthCertificate_Validation_Legal_Title" = "Защита на личните данни";
@@ -2992,8 +2990,6 @@
 "HealthCertificate_Validation_Passed_hint1" = "Моля, имайте предвид, че правилата за влизане подлежат на промяна. Затова, моля, проверете сертификата си непосредствено преди да влезете в държавата на местоназначение (макс. 48 часа).";
 
 "HealthCertificate_Validation_Passed_hint2" = "В отделни райони може да се прилагат допълнителни правила и ограничения.";
-
-"HealthCertificate_Validation_Passed_hint3" = "С цел удостоверяване на автентичността всеки сертификат се издава с електронен подпис, който се проверява с помощта на приложение за проверка.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Corona-Warn-App не проверява дали записаните в сертификата данни са валидни.";
 
@@ -3060,7 +3056,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
 
-"UniversalQRScanner_InstructionDescription" = "Вашите PCR и бързи тестове, сертификати за тестове, ваксинация и възстановяване и регистрации.";
+"UniversalQRScanner_InstructionDescription" = "Тестове, сертификати, регистрации и валидиране при резервиране на билети";
 
 "UniversalQRScanner_FileButtonTitle" = "Отваряне на файл";
 
@@ -3089,6 +3085,22 @@
 "UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Възстановяване на тест";
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Тестът ще бъде възстановен от кошчето.";
+
+"UniversalQRScanner_Info_title" = "Информация за QR кодове";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Вашите сертификати за тестване, сертификати за ваксиниране, сертификати за възстановяване и сертификати за членовете на семейството Ви";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Регистрации за места и събития";
+
+"UniversalQRScanner_Info_bulletPoint3" = "PCR тестове и бързи тестове";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Валидиране на сертификати при резервиране на билети";
+
+"UniversalQRScanner_Info_body1" = "Данните от съответния QR код са прочетени.";
+
+"UniversalQRScanner_Info_body2" = "Когато сканирате QR кодове за валидиране на сертификати при резервиране на билети се извлича допълнителна информация за доставчика на резервации.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Галерия със снимки";
@@ -3242,4 +3254,129 @@
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Изтриване";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Отказ";
+
+/* Ticket Validation */
+/* - Cancel Alert */
+"TicketValidation_CancelAlert_title" = "Желаете ли да отмените валидирането?";
+
+"TicketValidation_CancelAlert_message" = "Ако отмените валидирането, сертификатът не може да бъде валидиран.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Отмяна на валидирането";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Продължаване на валидирането";
+
+/* - Error */
+"TicketValidation_Error_title" = "Грешка";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Възникна грешка при свързване с доставчика. Моля, свържете се с доставчика, ако проблемът продължава.";
+
+"TicketValidation_Error_serviceProviderError" = "Възникна грешка при свързване с доставчик “%@”. Моля, свържете се с доставчика, ако проблемът продължава.";
+
+"TicketValidation_Error_tryAgain" = "Възникна грешка при обработката на данни. Моля, опитайте отново по-късно.";
+
+/* - First Consent */
+"TicketValidation_FirstConsent_title" = "Вашето съгласие";
+
+"TicketValidation_FirstConsent_imageDescription" = "Пренесен е сертификат за закупуване на билет";
+
+"TicketValidation_FirstConsent_subtitle" = "Проверка на сертификат при резервиране на билети";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Доставчик:";
+
+"TicketValidation_FirstConsent_subject" = "Резервация:";
+
+"TicketValidation_FirstConsent_explination" = "Доставчикът иска да гарантира, че за резервацията Ви е наличен валиден сертификат. Изисква се съгласието Ви за извличане на подробни данни за продажба на билети от доставчика и деблокиране на запазените Ви сертификати.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "Не е необходимо да позволявате валидиране на сертификата Ви с Corona-Warn-App. Можете да предоставите доказателство за ваксинация, тестване или статус на възстановяване и по различен начин.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Изискванията за сертификат се определят от доставчика. RKI няма влияние върху този процес. Моля, свържете се с доставчика за повече информация относно изискванията за сертификат.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Идентифицирането на подходящите сертификати се изпълнява локално на Вашия смартфон. Никакви данни не се изпращат до RKI или доставчика.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "RKI не получава никакви данни за Вашите билети или сертификатите, които сте запазили.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Приемам";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Отказ";
+
+/* Certificate Selection */
+"TicketValidation_CertificateSelection_title" = "Избор на сертификат";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Изисквания на доставчик:";
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Следните сертификати отговарят на изискванията на доставчика и могат да се използват като доказателство:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "Изисква се следният сертификат:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Няма наличен подходящ сертификат.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Нямате сертификат, който отговаря на изискванията на системата за продажба на билето. Моля, уверете се, че изписването на името Ви в системата за продажба на билети съответства на името в сертификатите Ви. Ако са Ви необходими допълнителни сертификати, които още не са налични в приложението, добавете ги сега и стартирайте валидирането отново.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "За повече информация вижте страницата ни с %@.";
+
+"TicketValidation_CertificateSelection_faq" = "ЧЗВ";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nДата на раждане: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Сертификат за ваксинация";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "Сертификат за възстановяване";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Сертификат за бърз тест, сертификат за PCR тест";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "Сертификат за PCR тест";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Сертификат за бърз тест";
+
+/* - Second Consent */
+"TicketValidation_SecondConsent_title" = "Вашето съгласие";
+
+"TicketValidation_SecondConsent_subtitle" = "Изпращане на Вашия сертификат за валидиране";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Партньор за валидиране:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Доставчик:";
+
+"TicketValidation_SecondConsent_explination" = "Избраният сертификат и информацията за резервацията Ви ще бъдат изпратени до партньора за валидиране на доставчика. За изпращане на данните до партньора за валидиране се изисква Вашето съгласие.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Партньорът за валидиране проверява дали електронният подпис е валиден и техническата дата на изтичане на сертификата не е достигната. Можете да видите техническата дата изтичане и пренесеното съдържание на сертификата в подробния изглед на сертификата в приложението.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Сертификатите съдържат поверителни здравни данни. Затова трябва да позволявате само на доставчици, които познавате и на които имате доверие, да валидират сертификатите Ви.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "RKI не отговаря за обработката на данни от доставчика и партньора за валидиране. Моля, прочетете техните декларации за поверителност, за да разберете по какъв начин и за какви цели се използват данните Ви.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Партньорът за валидиране незабавно известява доставчика за резултата. Партньорът съобщава само дали валидирането е успешно или не.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Приемам";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Отказ";
+
+/* - Result */
+"TicketValidation_Result_validationParameters" = "Проверен от партньора за валидиране на %@";
+
+"TicketValidation_Result_moreInformation" = "За повече информация вижте страницата ни с %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "ЧЗВ";
+
+"TicketValidation_Result_Passed_title" = "Валидирането е успешно";
+
+"TicketValidation_Result_Passed_subtitle" = "Сертификатът Ви е успешно валидиран.";
+
+"TicketValidation_Result_Passed_description" = "Изпратено е известие на доставчик “%@”, че валидирането е успешно.";
+
+"TicketValidation_Result_Open_title" = "Сертификатът не може да бъде валидиран";
+
+"TicketValidation_Result_Open_subtitle" = "Вашият сертификат не отговаря на изискванията на доставчика.";
+
+"TicketValidation_Result_Open_description" = "Ако имате въпроси, моля свържете се с доставчика “%@”.";
+
+"TicketValidation_Result_Failed_title" = "Сертификатът не е разпознат";
+
+"TicketValidation_Result_Failed_subtitle" = "Вашият сертификат не отговаря на изискванията на доставчика.";
+
+"TicketValidation_Result_Failed_description" = "Ако имате въпроси, моля свържете се с доставчика “%@”.";
 
