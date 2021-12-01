@@ -65,7 +65,7 @@ final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 	}
 }
 
-#if DEBUG
+#if !RELEASE
 
 final class KeyValueCacheFake: KeyValueCaching {
 
