@@ -11,8 +11,10 @@ struct TicketValidationPassedViewModel: TicketValidationResultViewModel {
 	// MARK: - Init
 
 	init(
+		validationDate: Date,
 		serviceProvider: String
 	) {
+		self.validationDate = validationDate
 		self.serviceProvider = serviceProvider
 	}
 
@@ -30,7 +32,7 @@ struct TicketValidationPassedViewModel: TicketValidationResultViewModel {
 					.footnote(
 						text: String(
 							format: AppStrings.TicketValidation.Result.validationParameters,
-							DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+							DateFormatter.localizedString(from: validationDate, dateStyle: .short, timeStyle: .short)
 						),
 						color: .enaColor(for: .textPrimary2)
 					),
@@ -60,6 +62,7 @@ struct TicketValidationPassedViewModel: TicketValidationResultViewModel {
 
 	// MARK: - Private
 
+	private let validationDate: Date
 	private let serviceProvider: String
 
 }

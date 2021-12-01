@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 class DynamicPinningRestService: Service {
 
@@ -20,7 +21,7 @@ class DynamicPinningRestService: Service {
 	init(
 		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil,
-		jwkSet: [Data]
+		jwkSet: [JSONWebKey]
 	) {
 		self.environment = environment
 		self.optionalSession = session
@@ -47,7 +48,7 @@ class DynamicPinningRestService: Service {
 	// MARK: - Private
 
 	private let optionalSession: URLSession?
-	private let jwkSet: [Data]
+	private let jwkSet: [JSONWebKey]
 
 	// MARK: - Internal
 

@@ -3,6 +3,7 @@
 //
 
 import Foundation
+@testable import ENA
 
 class MockURLSessionDataTask: URLSessionDataTask {
 	private let completion: () -> Void

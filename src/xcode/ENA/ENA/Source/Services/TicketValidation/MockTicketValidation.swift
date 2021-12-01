@@ -4,6 +4,8 @@
 
 import Foundation
 
+#if DEBUG
+
 final class MockTicketValidation: TicketValidating {
 
 	// MARK: - Protocol TicketValidating
@@ -14,7 +16,7 @@ final class MockTicketValidation: TicketValidating {
 		self.initializationData = initializationData
 	}
 
-	var initializationData: TicketValidationInitializationData
+	let initializationData: TicketValidationInitializationData
 
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
@@ -25,7 +27,7 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func grantFirstConsent(
-		completion: @escaping (Result<ValidationConditions, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
 			completion(self.firstConsentResult ?? .success(.fake()))
@@ -39,7 +41,7 @@ final class MockTicketValidation: TicketValidating {
 	}
 
 	func validate(
-		completion: @escaping (Result<TicketValidationResult, TicketValidationError>) -> Void
+		completion: @escaping (Result<TicketValidationResultToken, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
 			completion(self.validationResult ?? .success(.fake()))
@@ -53,9 +55,11 @@ final class MockTicketValidation: TicketValidating {
 	// MARK: - Internal
 
 	var initializationResult: Result<Void, TicketValidationError>?
-	var firstConsentResult: Result<ValidationConditions, TicketValidationError>?
-	var validationResult: Result<TicketValidationResult, TicketValidationError>?
+	var firstConsentResult: Result<TicketValidationConditions, TicketValidationError>?
+	var validationResult: Result<TicketValidationResultToken, TicketValidationError>?
 
 	var delay: TimeInterval = 0
-
+	
 }
+
+#endif

@@ -115,7 +115,7 @@ struct CheckinEncryption: CheckinEncrypting {
 		let encryptionKey = self.encryptionKey(for: locationId)
 
 		// Determine random `iv`: the initialization vector `iv` shall be determined as a secure random sequence of 16 bytes.
-		guard let randomInitializationVector = randomBytes(length: 16) else {
+		guard let randomInitializationVector = Data.randomBytes(length: 16) else {
 			return .failure(.randomBytesCreationFailed)
 		}
 		let finalInitializationVector = initializationVector ?? randomInitializationVector
@@ -212,23 +212,5 @@ struct CheckinEncryption: CheckinEncrypting {
 		let key = messageAuthenticationCodeKey(for: locationId)
 		let data = initializationVector + encryptedCheckinRecord
 		return hmac(data: data, key: key)
-	}
-
-	private func randomBytes(length: Int) -> Data? {
-		var randomData = Data(count: length)
-
-		let result: Int32? = randomData.withUnsafeMutableBytes {
-			guard let baseAddress = $0.baseAddress else {
-				Log.error("Could not access base address.", log: .checkin)
-				return nil
-			}
-			return SecRandomCopyBytes(kSecRandomDefault, length, baseAddress)
-		}
-		if let result = result, result == errSecSuccess {
-			return randomData
-		} else {
-			Log.error("Failed to generate random bytes.", log: .checkin)
-			return nil
-		}
 	}
 }
