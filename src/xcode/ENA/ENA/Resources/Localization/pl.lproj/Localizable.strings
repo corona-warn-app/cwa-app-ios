@@ -531,7 +531,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Znajdź ośrodek testujący";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu. Zostaniesz przekierowany(-a) na zewnętrzną stronę internetową RKI.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu. Jeśli wystąpią jakiekolwiek problemy, możesz je zgłosić.\nZostaniesz przekierowany(-a) na zewnętrzną stronę internetową RKI.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Poproś o TAN do testu PCR";
@@ -715,7 +715,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Ustalenie wyniku Twojego testu jest niemożliwe";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy laboratorium, aby dowiedzieć się, jak dalej postępować.";
+"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy lub laboratorium, aby dowiedzieć się, jak dalej postępować.";
 
 "ExposureSubmissionResult_testExpired" = "Ustalenie wyniku Twojego testu jest niemożliwe";
 
@@ -1553,10 +1553,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.14 */
-"NewVersionFeature_214_recycleBin_title" = "Funkcja kosza na potrzeby testów";
+/* Version 2.15 */
+"NewVersionFeature_215_ticketValidation_title" = "Walidacja certyfikatów podczas rezerwacji/zakupu biletów";
 
-"NewVersionFeature_214_recycleBin_description" = "Usunięte szybkie testy i testy PCR są teraz również przenoszone do kosza. Oznacza to, że możesz odzyskać przypadkowo usunięte obiekty.";
+"NewVersionFeature_215_ticketValidation_description" = "Podczas rezerwacji biletu możesz przedstawić dowód zaszczepienia, statusu ozdrowieńca lub negatywnego wyniku testu. W tym celu zeskanuj kod QR wyświetlony w systemie biletowym, a następnie wybierz odpowiedni certyfikat w aplikacji. Wynik walidacji certyfikatu jest przesyłany do systemu biletowego przez partnera walidacyjnego.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1765,7 +1765,7 @@
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Edytuj osoby";
 
-"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Usuń wszystko";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Usuń wszystkie";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie osoby?";
 
@@ -1785,7 +1785,7 @@
 
 "ContactDiary_EditEntries_Locations_Title" = "Edytuj miejsca";
 
-"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Usuń wszystko";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Usuń wszystkie";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie miejsca?";
 
@@ -2242,7 +2242,7 @@
 
 "Checkins_Overview_EmptyImageDescription" = "Budynek z symbolem kodu QR w tle";
 
-"Checkins_Overview_DeleteAllButtonTitle" = "Usuń wszystko";
+"Checkins_Overview_DeleteAllButtonTitle" = "Usuń wszystkie";
 
 "Checkins_Overview_DurationTitle" = "Czas trwania";
 
@@ -2252,7 +2252,7 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Wymelduj się teraz";
 
-"Checkins_Overview_DeleteOne_AlertTitle" = "Czy na pewno chcesz usunąć ten wpis?";
+"Checkins_Overview_DeleteOne_AlertTitle" = "Czy usunąć ten wpis?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Nie będziesz mieć możliwości ostrzegania osób, które zameldowały się w tym samym czasie w tym miejscu lub na tym wydarzeniu, ani one nie będą ostrzegać Ciebie.";
 
@@ -2260,7 +2260,7 @@
 
 "Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Anuluj";
 
-"Checkins_Overview_DeleteAll_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie wpisy?";
+"Checkins_Overview_DeleteAll_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie osoby?";
 
 "Checkins_Overview_DeleteAll_AlertMessage" = "Nie będziesz mieć możliwości ostrzegania osób, które zameldowały się w tym samym czasie w tych miejscach lub na tych wydarzeniach, ani one nie będą ostrzegać Ciebie.";
 
@@ -2305,7 +2305,7 @@
 
 "TraceLocations_Overview_EmptyImageDescription" = "Smartfon z symbolem kodu QR";
 
-"TraceLocations_Overview_DeleteAllButtonTitle" = "Usuń wszystko";
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Usuń wszystkie";
 
 "TraceLocations_Overview_SelfCheckinButtonTitle" = "Zamelduj się";
 
@@ -2482,7 +2482,7 @@
 
 "ErrorReport_DetailedInformation_Title" = "Szczegółowe informacje na temat wysyłania raportów o błędach";
 
-"errorReport_DetailedInformation_Headline" = "Weryfikacja autentyczności i przekazywanie danych do krajów trzecich";
+"errorReport_DetailedInformation_Headline" = "Walidacja autentyczności i przekazywanie danych do krajów trzecich";
 
 "errorReport_DetailedInformation_Content1" = "Aby potwierdzić autentyczność aplikacji, smartfon generuje unikalny identyfikator zawierający informacje o wersji smartfona i aplikacji. Jest to konieczne w celu zapewnienia, by tylko osoby, które faktycznie używają aplikacji Corona-Warn-App mogły wysyłać dane do pomocy technicznej, i wykluczenia zmanipulowanych raportów o błędach. W tym celu identyfikator jest wysyłany do Apple. W tym procesie dane mogą być przekazywane do Stanów Zjednoczonych lub innych krajów trzecich, gdzie poziom prywatności danych może nie odpowiadać prawu europejskiemu i możesz nie być w stanie wyegzekwować swoich europejskich praw do prywatności danych. W szczególności organy ds. bezpieczeństwa w kraju trzecim mogłyby uzyskać dostęp do danych i analizować je przy pomocy Apple, nawet jeśli nie ma podstaw do podejrzeń, i na przykład łączyć te dane z innymi informacjami. Dotyczy to tylko identyfikatora wysyłanego do Apple. Apple nie otrzymuje informacji z Twojego raportu o błędzie, może jednak określić Twoją tożsamość na podstawie identyfikatora i poprzez prześledzenie danych ustalić, że sprawdzanie autentyczności zostało przeprowadzone na Twoim smartfonie.\n\nJeśli nie wyrażasz zgody na przekazanie swoich danych do kraju trzeciego, nie klikaj opcji „Akceptuj i wyślij”. Nadal będziesz mieć możliwość korzystania z aplikacji, ale wysyłanie raportów o błędach będzie niemożliwe.";
 
@@ -2705,7 +2705,7 @@
 /* Test Certificate Request Errors */
 "TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
 
-"TestCertificateRequest_Error_DCC_EXPIRED" = "Ten certyfikat nie jest już aktualny. Możesz go usunąć z aplikacji Corona-Warn-App (%@)";
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Ten certyfikat nie jest już aktualny. Możesz go usunąć z aplikacji Corona-Warn-App. (%@)";
 
 "TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Nie możesz zażądać wydania certyfikatu testu, ponieważ ten punkt testowania nie wydaje certyfikatów testów. Usuń certyfikat lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
 
@@ -2730,27 +2730,27 @@
 
 "HealthCertificate_Info_section02" = "Takie certyfikaty są uznawane za ważny dowód w UE (np. w przypadku podróży).";
 
-"HealthCertificate_Info_section03" = "Po dodaniu certyfikatu pozostanie on na Twoim smartfonie. Zostanie on udostępniony innym tylko podczas jego okazywania w celu weryfikacji.";
+"HealthCertificate_Info_section03" = "Po dodaniu certyfikatu pozostanie on na Twoim smartfonie. Zostanie on udostępniony innym tylko podczas jego okazywania w celu walidacji.";
 
 "HealthCertificate_Info_section04" = "Dodaj istniejące certyfikaty dla siebie i członków swojej rodziny.";
 
 "HealthCertificate_Info_primaryButton" = "Kontynuuj";
 
 /* CovPass Info Screen */
-"CovPass_Check_Info_Title" = "Weryfikacja certyfikatów przez osoby trzecie";
+"CovPass_Check_Info_Title" = "Walidacja certyfikatów przez osoby trzecie";
 
-"CovPass_Check_Info_body" = "Osoby trzecie mogą korzystać z aplikacji CovPassCheck, aby wiarygodnie sprawdzić, czy certyfikat szczepienia, certyfikat statusu ozdrowieńca lub certyfikat testu jest ważny.";
+"CovPass_Check_Info_body" = "Osoby trzecie mogą korzystać z aplikacji CovPassCheck, aby w wiarygodny sposób ustalić, czy certyfikat szczepienia, certyfikat statusu ozdrowieńca lub certyfikat testu jest ważny.";
 
-"CovPass_Check_Info_faq" = "Często zadawane pytania dotyczące weryfikacji certyfikatu przez osoby trzecie";
+"CovPass_Check_Info_faq" = "Często zadawane pytania dotyczące walidacji certyfikatu przez osoby trzecie";
 
 "CovPass_Check_Info_text01" = "Ważność certyfikatów możesz sprawdzić samodzielnie w aplikacji Corona-Warn-App bez korzystania z aplikacji CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Dla osób trzecich nie wystarczy jednak wizualna kontrola certyfikatów. Muszą one korzystać z aplikacji CovPassCheck w Niemczech.";
 
-"CovPass_Check_Info_text03" = "Należy pamiętać, że osoby trzecie w innych krajach mogą używać innych aplikacji do weryfikacji certyfikatów.";
+"CovPass_Check_Info_text03" = "Należy pamiętać, że osoby trzecie w innych krajach mogą używać innych aplikacji do walidacji certyfikatów.";
 
 /* Health Certified Person Screen */
-"HealthCertificate_unified_QR_code_notice" = "Ten kod QR można wiarygodnie zweryfikować za pomocą aplikacji CovPassCheck.";
+"HealthCertificate_unified_QR_code_notice" = "Ten kod QR można wiarygodnie walidować za pomocą aplikacji CovPassCheck.";
 
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
@@ -2925,7 +2925,7 @@
 
 "HealthCertificate_Error_invalidSignature_msg" = "Podpis certyfikatu jest nieprawidłowy. Certyfikatu nie można używać jako dowodu i w związku z tym nie można go importować.";
 
-"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Często zadawane pytania na temat weryfikacji podpisu";
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Często zadawane pytania na temat walidacji podpisu";
 
 /* Health Certificate Validation Errors */
 "HealthCertificate_Validation_Error_Title" = "Walidacja nie powiodła się";
@@ -2955,8 +2955,6 @@
 
 "HealthCertificate_Validation_Bullet2" = "W poszczególnych regionach mogą obowiązywać dodatkowe zasady i ograniczenia.";
 
-"HealthCertificate_Validation_Bullet3" = "Wszystkie certyfikaty są opatrzone podpisem cyfrowym zapewniającym ich autentyczność. Aplikacja walidacyjna jedynie weryfikuje ten podpis.";
-
 "HealthCertificate_Validation_Bullet4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
 
 "HealthCertificate_Validation_Legal_Title" = "Prywatność i bezpieczeństwo danych";
@@ -2968,7 +2966,7 @@
 "HealthCertificate_Validation_ButtonTitle" = "Sprawdź";
 
 /* Health Certificate Validation Result */
-"HealthCertificate_Validation_Result_validationParameters" = "Wjazd do %@ dnia %@\nZweryfikowano dnia %@";
+"HealthCertificate_Validation_Result_validationParameters" = "Wjazd do %@ dnia %@\nWalidowano dnia %@";
 
 "HealthCertificate_Validation_Result_acceptanceRule" = "To jest zasada obowiązująca w kraju docelowym, %@.";
 
@@ -2985,15 +2983,13 @@
 
 "HealthCertificate_Validation_Passed_subtitle" = "Twój certyfikat jest ważny w wybranym kraju";
 
-"HealthCertificate_Validation_Passed_unknownSubtitle" = "Twój certyfikat nie mógł zostać zweryfikowany";
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Twój certyfikat nie mógł zostać walidowany";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Uwagi";
 
 "HealthCertificate_Validation_Passed_hint1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
 
 "HealthCertificate_Validation_Passed_hint2" = "W poszczególnych regionach mogą obowiązywać dodatkowe zasady i ograniczenia.";
-
-"HealthCertificate_Validation_Passed_hint3" = "Wszystkie certyfikaty są opatrzone podpisem cyfrowym zapewniającym ich autentyczność. Aplikacja walidacyjna jedynie weryfikuje ten podpis.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
 
@@ -3002,7 +2998,7 @@
 /* - Open */
 "HealthCertificate_Validation_Open_title" = "Walidacja certyfikatu jest niemożliwa";
 
-"HealthCertificate_Validation_Open_subtitle" = "Twój certyfikat nie mógł zostać całkowicie zweryfikowany";
+"HealthCertificate_Validation_Open_subtitle" = "Twój certyfikat nie mógł zostać całkowicie walidowany";
 
 "HealthCertificate_Validation_Open_openSectionTitle" = "Uwagi";
 
@@ -3060,7 +3056,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Jakie kody QR można zeskanować?";
 
-"UniversalQRScanner_InstructionDescription" = "Testy PCR, szybkie testy, certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca i zameldowania.";
+"UniversalQRScanner_InstructionDescription" = "Testy, certyfikaty, zameldowania i walidacja podczas rezerwacji biletów.";
 
 "UniversalQRScanner_FileButtonTitle" = "Otwórz plik";
 
@@ -3089,6 +3085,22 @@
 "UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Odzyskaj test";
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Kod QR został już zarejestrowany na Twoim smartfonie. Test zostanie odzyskany z kosza.";
+
+"UniversalQRScanner_Info_title" = "Informacje o kodach QR";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Twoje certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca oraz certyfikaty dla członków Twojej rodziny";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Zameldowania obecności w wydarzeniu lub miejscu";
+
+"UniversalQRScanner_Info_bulletPoint3" = "Testy PCR i szybkie testy";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Walidacja certyfikatów podczas rezerwacji biletów";
+
+"UniversalQRScanner_Info_body1" = "Odczytywane są dane z odpowiedniego kodu.";
+
+"UniversalQRScanner_Info_body2" = "Podczas skanowania kodów QR w celu walidacji certyfikatu przy rezerwacji biletu pobierane są dodatkowe informacje o dostawcy rezerwacji.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "Informacje na temat przetwarzania danych znajdują się w oświadczeniu o ochronie prywatności.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Biblioteka zdjęć";
@@ -3242,4 +3254,129 @@
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Usuń";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
+
+/* Ticket Validation */
+/* - Cancel Alert */
+"TicketValidation_CancelAlert_title" = "Czy chcesz anulować walidację?";
+
+"TicketValidation_CancelAlert_message" = "Jeśli anulujesz walidację, certyfikat nie będzie mógł być walidowany.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Anuluj walidację";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Wznów walidację";
+
+/* - Error */
+"TicketValidation_Error_title" = "Błąd";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Podczas łączenia się z dostawcą wystąpił błąd. Skontaktuj się z dostawcą, jeśli problem nie zostanie rozwiązany.";
+
+"TicketValidation_Error_serviceProviderError" = "Podczas łączenia się z dostawcą „%@” wystąpił błąd. Skontaktuj się z dostawcą, jeśli problem nie zostanie rozwiązany.";
+
+"TicketValidation_Error_tryAgain" = "Podczas przetwarzania danych wystąpił błąd. Spróbuj ponownie później.";
+
+/* - First Consent */
+"TicketValidation_FirstConsent_title" = "Twoja zgoda";
+
+"TicketValidation_FirstConsent_imageDescription" = "Certyfikat jest przekazywany na potrzeby zakupu biletu";
+
+"TicketValidation_FirstConsent_subtitle" = "Kontrola certyfikatu podczas rezerwacji biletu";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Dostawca:";
+
+"TicketValidation_FirstConsent_subject" = "Rezerwacja:";
+
+"TicketValidation_FirstConsent_explination" = "Dostawca chce mieć pewność, że dla Twojej rezerwacji dostępny jest ważny certyfikat. Twoja zgoda jest wymagana do pobrania od dostawcy danych dotyczących biletu i udostępnienia zapisanych certyfikatów.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "Nie musisz zezwalać na walidację Twojego certyfikatu za pomocą aplikacji Corona-Warn-App. Możesz również przedstawić dowód swojego szczepienia, testu lub statusu ozdrowieńca w inny sposób.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Wymagania dotyczące certyfikatu są określane przez dostawcę. RKI nie ma wpływu na ten proces. Aby uzyskać więcej informacji na temat wymagań dotyczących certyfikatu, skontaktuj się z dostawcą.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Identyfikacja odpowiednich certyfikatów odbywa się lokalnie na Twoim smartfonie. Żadne dane nie są przesyłane do RKI ani do dostawcy.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "RKI nie otrzymuje żadnych danych dotyczących Twoich biletów ani zapisanych przez Ciebie certyfikatów.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Akceptuj";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Anuluj";
+
+/* Certificate Selection */
+"TicketValidation_CertificateSelection_title" = "Wybierz certyfikat";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Wymagania dostawcy:";
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Poniższe certyfikaty spełniają wymagania dostawcy i mogą być wykorzystane jako dowód:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "Wymagany jest następujący certyfikat:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Nie jest dostępny odpowiedni certyfikat.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Nie posiadasz certyfikatu, który spełnia wymagania systemu biletowego. Upewnij się, że pisownia Twojego nazwiska w systemie biletowym jest zgodna z nazwiskiem na Twoich certyfikatach. Jeśli potrzebujesz dodatkowych certyfikatów, które nie są jeszcze dostępne w aplikacji, dodaj je teraz, a następnie rozpocznij walidację ponownie.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"TicketValidation_CertificateSelection_faq" = "Często zadawane pytania";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nData urodzenia: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Certyfikat szczepienia";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "Certyfikat statusu ozdrowieńca";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Certyfikat szybkiego testu, certyfikat testu PCR";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "Certyfikat testu PCR";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Certyfikat szybkiego testu";
+
+/* - Second Consent */
+"TicketValidation_SecondConsent_title" = "Twoja zgoda";
+
+"TicketValidation_SecondConsent_subtitle" = "Wysyłanie certyfikatu do walidacji";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Partner walidacyjny:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Dostawca:";
+
+"TicketValidation_SecondConsent_explination" = "Wybrany certyfikat i informacje o Twojej rezerwacji zostaną teraz wysłane do partnera walidacyjnego dostawcy. Przesłanie Twoich danych do partnera walidacyjnego wymaga Twojej zgody.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Partner walidacyjny sprawdza, czy podpis elektroniczny jest ważny i czy techniczna data wygaśnięcia certyfikatu jeszcze nie minęła. Możesz sprawdzić techniczną datę wygaśnięcia i przesłaną zawartość certyfikatu w szczegółowym widoku certyfikatu w aplikacji.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Certyfikaty zawierają wrażliwe dane dotyczące zdrowia. Z tego względu zezwalaj na walidację certyfikatów tylko tym dostawcom, których znasz i którym ufasz.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "RKI nie ponosi odpowiedzialności za przetwarzanie danych przez dostawcę i partnera walidacyjnego. Zapoznaj się z ich oświadczeniami o ochronie prywatności, aby dowiedzieć się, w jaki sposób wykorzystywane są Twoje dane i do jakich celów.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Partner walidacyjny natychmiast powiadamia dostawcę o wyniku. Partner jedynie informuje, czy walidacja się powiodła, czy nie.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Akceptuj";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Anuluj";
+
+/* - Result */
+"TicketValidation_Result_validationParameters" = "Sprawdzone przez partnera walidacyjnego w dniu %@";
+
+"TicketValidation_Result_moreInformation" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "Często zadawane pytania";
+
+"TicketValidation_Result_Passed_title" = "Walidacja powiodła się";
+
+"TicketValidation_Result_Passed_subtitle" = "Twój certyfikat został pomyślnie walidowany.";
+
+"TicketValidation_Result_Passed_description" = "Dostawca „%@” został powiadomiony, że walidacja powiodła się.";
+
+"TicketValidation_Result_Open_title" = "Walidacja certyfikatu jest niemożliwa";
+
+"TicketValidation_Result_Open_subtitle" = "Twój certyfikat nie spełnia wymagań dostawcy.";
+
+"TicketValidation_Result_Open_description" = "W przypadku pytań skontaktuj się z dostawcą „%@”.";
+
+"TicketValidation_Result_Failed_title" = "Certyfikat nierozpoznany";
+
+"TicketValidation_Result_Failed_subtitle" = "Twój certyfikat nie spełnia wymagań dostawcy.";
+
+"TicketValidation_Result_Failed_description" = "W przypadku pytań skontaktuj się z dostawcą „%@”.";
 
