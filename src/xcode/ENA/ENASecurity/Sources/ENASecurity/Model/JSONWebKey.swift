@@ -8,7 +8,7 @@ import ASN1Decoder
 public struct JSONWebKey: Codable, Equatable {
     
     public let x5c: [String]
-    let kid: String
+    public let kid: String
     let alg: String
     let use: String
 
@@ -19,6 +19,21 @@ public struct JSONWebKey: Codable, Equatable {
             return nil
         }
         return x509Certificate.publicKey
+    }
+
+    public var publicRSASecKey: SecKey? {
+        guard let publicKeyData = publicKeyData else {
+            return nil
+        }
+
+        return SecKeyCreateWithData(
+            publicKeyData as NSData,
+            [
+                kSecAttrKeyType: kSecAttrKeyTypeRSA,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            ] as NSDictionary,
+            nil
+        )
     }
 
     public var publicKeyData: Data? {

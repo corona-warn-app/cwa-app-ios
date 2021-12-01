@@ -11,9 +11,11 @@ struct TicketValidationFailedViewModel: TicketValidationResultViewModel {
 	// MARK: - Init
 
 	init(
+		validationDate: Date,
 		serviceProvider: String,
 		validationResultItems: [TicketValidationResultToken.ResultItem]
 	) {
+		self.validationDate = validationDate
 		self.serviceProvider = serviceProvider
 		self.validationResultItems = validationResultItems
 	}
@@ -30,7 +32,7 @@ struct TicketValidationFailedViewModel: TicketValidationResultViewModel {
 			.footnote(
 				text: String(
 					format: AppStrings.TicketValidation.Result.validationParameters,
-					DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+					DateFormatter.localizedString(from: validationDate, dateStyle: .short, timeStyle: .short)
 				),
 				color: .enaColor(for: .textPrimary2)
 			),
@@ -66,6 +68,7 @@ struct TicketValidationFailedViewModel: TicketValidationResultViewModel {
 
 	// MARK: - Private
 
+	private let validationDate: Date
 	private let serviceProvider: String
 	private let validationResultItems: [TicketValidationResultToken.ResultItem]
 

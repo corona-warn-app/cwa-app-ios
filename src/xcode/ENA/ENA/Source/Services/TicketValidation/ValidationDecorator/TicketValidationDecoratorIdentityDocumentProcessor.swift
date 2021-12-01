@@ -38,9 +38,9 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 			completion(.failure(.VD_ID_NO_ATS_SIGN_KEY))
 			return
 		}
-		let accessTokenSignJwkSet = matchedAccessSignMethods.map({
+		let accessTokenSignJwkSet = matchedAccessSignMethods.compactMap {
 			$0.publicKeyJwk
-		})
+		}
 		Log.debug("\(accessTokenSignJwkSet)", log: .ticketValidationDecorator)
 		
 		// 5 - Find accessTokenServiceJwkSet
@@ -52,9 +52,9 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 			completion(.failure(.VD_ID_NO_ATS_SVC_KEY))
 			return
 		}
-		let accessTokenServiceJwkSet = matchedAccessServiceMethods.map({
+		let accessTokenServiceJwkSet = matchedAccessServiceMethods.compactMap {
 			$0.publicKeyJwk
-		})
+		}
 		Log.debug("\(accessTokenServiceJwkSet)", log: .ticketValidationDecorator)
 		
 		// 6 - Find validationService
@@ -76,9 +76,9 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 			completion(.failure(.VD_ID_NO_VS_SVC_KEY))
 			return
 		}
-		let validationServiceJwkSet = matchedValidationServiceMethods.map({
+		let validationServiceJwkSet = matchedValidationServiceMethods.compactMap {
 			$0.publicKeyJwk
-		})
+		}
 		Log.debug("\(validationServiceJwkSet)", log: .ticketValidationDecorator)
 		
 		completion(

@@ -20,11 +20,10 @@ public class TrustEvaluation {
 
     public func check(trust: SecTrust, against jwkSet: [JSONWebKey]) -> Result<Void, TrustEvaluationError> {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
-        if let serverCertificate = SecTrustGetCertificateAtIndex(trust, SecTrustGetCertificateCount(trust) - 1),
-           let serverPublicKey = SecCertificateCopyKey(serverCertificate),
-           let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil) as Data? {
+        if let serverCertificate = SecTrustGetCertificateAtIndex(trust, 0),
+           let serverCertificateData = SecCertificateCopyData(serverCertificate) as Data? {
 
-            return check(serverKeyData: serverPublicKeyData, against: jwkSet)
+            return check(serverKeyData: serverCertificateData, against: jwkSet)
         } else {
             return .failure(.CERT_CHAIN_EMTPY)
         }

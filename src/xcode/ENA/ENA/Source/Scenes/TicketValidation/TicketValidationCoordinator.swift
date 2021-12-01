@@ -131,7 +131,8 @@ final class TicketValidationCoordinator {
 	) {
 		let secondConsentViewController = SecondTicketValidationConsentViewController(
 			viewModel: SecondTicketValidationConsentViewModel(
-				serviceIdentity: ticketValidation.initializationData.serviceIdentity,
+				// EXPOSUREAPP-10834: Needs to be set from allowlist when it's available: allowlist[0].serviceProvider
+				serviceIdentity: "",
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				healthCertificate: selectedCertificate,
 				healthCertifiedPerson: selectedCertifiedPerson,
@@ -186,15 +187,18 @@ final class TicketValidationCoordinator {
 		switch result.result {
 		case .passed:
 			viewModel = TicketValidationPassedViewModel(
+				validationDate: result.iat ?? Date(),
 				serviceProvider: ticketValidation.initializationData.serviceProvider
 			)
 		case .open:
 			viewModel = TicketValidationOpenViewModel(
+				validationDate: result.iat ?? Date(),
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
 		case .failed:
 			viewModel = TicketValidationFailedViewModel(
+				validationDate: result.iat ?? Date(),
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				validationResultItems: result.results
 			)
@@ -213,7 +217,7 @@ final class TicketValidationCoordinator {
 	private func showErrorAlert(error: TicketValidationError) {
 		let alert = UIAlertController(
 			title: AppStrings.TicketValidation.Error.title,
-			message: error.localizedDescription,
+			message: error.errorDescription(serviceProvider: ticketValidation.initializationData.serviceProvider),
 			preferredStyle: .alert
 		)
 

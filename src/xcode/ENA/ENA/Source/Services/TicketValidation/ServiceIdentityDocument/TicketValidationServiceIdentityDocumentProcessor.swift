@@ -7,7 +7,6 @@ import ENASecurity
 
 protocol TicketValidationServiceIdentityDocumentProcessing {
 	func process(
-		validationServiceJwkSet: [JSONWebKey],
 		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	)
@@ -16,7 +15,6 @@ protocol TicketValidationServiceIdentityDocumentProcessing {
 struct TicketValidationServiceIdentityDocumentProcessor: TicketValidationServiceIdentityDocumentProcessing {
 	
 	func process(
-		validationServiceJwkSet: [JSONWebKey],
 		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	) {

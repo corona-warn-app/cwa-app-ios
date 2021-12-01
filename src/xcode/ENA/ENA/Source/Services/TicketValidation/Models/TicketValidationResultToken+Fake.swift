@@ -13,7 +13,7 @@ extension TicketValidationResultToken {
 		iat: Date? = nil,
 		exp: Date? = nil,
 		sub: String = "",
-		category: String = "",
+		category: [String] = [],
 		result: TicketValidationResultToken.Result = .passed,
 		results: [TicketValidationResultToken.ResultItem] = [.fake()],
 		confirmation: String = ""
