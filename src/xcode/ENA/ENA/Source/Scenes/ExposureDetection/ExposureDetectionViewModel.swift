@@ -607,8 +607,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		)
 	}
 
-	private func explanationSection(text: String, numberOfExposures: Int = -1, accessibilityIdentifier: String?) -> DynamicSection {
-		var cells = [
+	private func explanationSection(text: String, accessibilityIdentifier: String?) -> DynamicSection {
+		let cells = [
 			DynamicCell.header(
 				title: AppStrings.ExposureDetection.explanationTitle,
 				subtitle: AppStrings.ExposureDetection.explanationSubtitle
@@ -618,14 +618,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				accessibilityIdentifier: accessibilityIdentifier
 			)
 		]
-		if numberOfExposures > 0 {
-			cells.append(
-				.link(
-					text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
-					url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
-				)
-			)
-		}
 		return .section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
@@ -650,9 +642,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			text: AppStrings.ExposureDetection.explanationTextLowWithEncounter,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter
 		),
-		.link(
+		.textWithLinks(
 			text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
-			url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
+			links: [
+				AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ: AppStrings.Home.riskEncounterLowFAQLink
+			]
 		)
 	].compactMap { $0 }
 	
