@@ -9,4 +9,5 @@ enum ServiceType {
 	case wifiOnly
 	case retrying
 	case dynamicPinning
+	case disabledPinning
 }

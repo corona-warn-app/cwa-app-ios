@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 /**
 RestServiceProvider is basically a dispatcher that directs work to the correct service by type.
@@ -14,7 +15,7 @@ class RestServiceProvider: RestServiceProviding {
 		environment: EnvironmentProviding = Environments(),
 		session: URLSession? = nil,
 		cache: KeyValueCaching,
-		jwkSet: [Data] = []
+		jwkSet: [JSONWebKey] = []
 	) {
 		self.environment = environment
 		self.optionalSession = session
@@ -23,6 +24,7 @@ class RestServiceProvider: RestServiceProviding {
 		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
 		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
 		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session, jwkSet: jwkSet)
+		self.disabledPinningRestService = DisabledPinningRestService(environment: environment, session: session)
 	}
 
 	#if DEBUG
@@ -37,6 +39,7 @@ class RestServiceProvider: RestServiceProviding {
 		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
 		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
 		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session)
+		self.disabledPinningRestService = DisabledPinningRestService(environment: environment, session: session)
 	}
 
 	#endif
@@ -60,6 +63,9 @@ class RestServiceProvider: RestServiceProviding {
 			updateLock.lock()
 			dynamicPinningRestService.load(resource, completion)
 			updateLock.unlock()
+		case .disabledPinning:
+			disabledPinningRestService.load(resource, completion)
+			
 		}
 	}
 
@@ -82,6 +88,7 @@ class RestServiceProvider: RestServiceProviding {
 	private let cachedRestService: CachedRestService
 	private let wifiOnlyRestService: WifiOnlyRestService
 	private let dynamicPinningRestService: DynamicPinningRestService
+	private let disabledPinningRestService: DisabledPinningRestService
 	private let updateLock: NSLock = NSLock()
 
 }

@@ -11,7 +11,7 @@ class TicketValidationCertificateSelectionViewModel {
 	// MARK: - Init
 
 	init(
-		validationConditions: ValidationConditions,
+		validationConditions: TicketValidationConditions,
 		healthCertifiedPersons: [HealthCertifiedPerson],
 		onHealthCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
@@ -28,7 +28,7 @@ class TicketValidationCertificateSelectionViewModel {
 
 	// MARK: - Private
 
-	private var validationConditions: ValidationConditions
+	private var validationConditions: TicketValidationConditions
 	private let onHealthCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 	
 	private func setup(healthCertifiedPersons: [HealthCertifiedPerson]) {

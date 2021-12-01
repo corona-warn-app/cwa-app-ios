@@ -61,7 +61,6 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, D
 				guard let self = self else { return }
 
 				self.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
-				self.footerView?.setLoadingIndicator(false, disable: isLoading, button: .secondary)
 			}
 		case .secondary:
 			onDismiss()

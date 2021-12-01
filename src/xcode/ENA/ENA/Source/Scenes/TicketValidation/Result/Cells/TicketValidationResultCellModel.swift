@@ -13,7 +13,7 @@ final class TicketValidationResultCellModel {
 	// MARK: - Init
 
 	init(
-		validationResultItem: TicketValidationResult.ResultItem
+		validationResultItem: TicketValidationResultToken.ResultItem
 	) {
 		self.validationResultItem = validationResultItem
 	}
@@ -46,7 +46,7 @@ final class TicketValidationResultCellModel {
 
 	// MARK: - Private
 
-	private let validationResultItem: TicketValidationResult.ResultItem
+	private let validationResultItem: TicketValidationResultToken.ResultItem
 
 	private func keyFormatterAttributedString(key: String) -> NSAttributedString {
 		let spaceParagraphStyle = NSMutableParagraphStyle()

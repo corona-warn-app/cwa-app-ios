@@ -8,5 +8,5 @@ The resource only knows of which type ReceiveModel is and implements the concret
 */
 protocol ReceiveResource {
 	associatedtype ReceiveModel
-	func decode(_ data: Data?) -> Result<ReceiveModel, ResourceError>
+	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<ReceiveModel, ResourceError>
 }

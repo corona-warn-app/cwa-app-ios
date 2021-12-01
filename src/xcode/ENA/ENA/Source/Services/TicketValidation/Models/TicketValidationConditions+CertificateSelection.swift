@@ -5,7 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-extension ValidationConditions {
+extension TicketValidationConditions {
 	func filterCertificates(healthCertifiedPersons: [HealthCertifiedPerson]) -> (supportedHealthCertificates: [HealthCertificate], supportedCertificateTypes: [String]) {
 		var supportedHealthCertificates: [HealthCertificate] = []
 		var supportedCertificateTypes: [String] = []

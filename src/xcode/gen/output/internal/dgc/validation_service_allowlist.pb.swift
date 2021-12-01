@@ -29,6 +29,8 @@ struct SAP_Internal_Dgc_ValidationServiceAllowlist {
 
   var certificates: [SAP_Internal_Dgc_ValidationServiceAllowlistItem] = []
 
+  var serviceProviders: [SAP_Internal_Dgc_ServiceProviderAllowlistItem] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -45,32 +47,17 @@ struct SAP_Internal_Dgc_ValidationServiceAllowlistItem {
 
   var fingerprint256: Data = Data()
 
-  var signKey: SAP_Internal_Dgc_ValidationServicePublicKeyJWK {
-    get {return _signKey ?? SAP_Internal_Dgc_ValidationServicePublicKeyJWK()}
-    set {_signKey = newValue}
-  }
-  /// Returns true if `signKey` has been explicitly set.
-  var hasSignKey: Bool {return self._signKey != nil}
-  /// Clears the value of `signKey`. Subsequent reads from it will return its default value.
-  mutating func clearSignKey() {self._signKey = nil}
-
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _signKey: SAP_Internal_Dgc_ValidationServicePublicKeyJWK? = nil
 }
 
-struct SAP_Internal_Dgc_ValidationServicePublicKeyJWK {
+struct SAP_Internal_Dgc_ServiceProviderAllowlistItem {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var x5C: [Data] = []
-
-  var kid: String = String()
-
-  var alg: String = String()
+  var serviceIdentityHash: Data = Data()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -85,6 +72,7 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlist: SwiftProtobuf.Message, Sw
   static let protoMessageName: String = _protobuf_package + ".ValidationServiceAllowlist"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "certificates"),
+    2: .same(proto: "serviceProviders"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -94,6 +82,7 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlist: SwiftProtobuf.Message, Sw
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.certificates) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.serviceProviders) }()
       default: break
       }
     }
@@ -103,11 +92,15 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlist: SwiftProtobuf.Message, Sw
     if !self.certificates.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.certificates, fieldNumber: 1)
     }
+    if !self.serviceProviders.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.serviceProviders, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_Dgc_ValidationServiceAllowlist, rhs: SAP_Internal_Dgc_ValidationServiceAllowlist) -> Bool {
     if lhs.certificates != rhs.certificates {return false}
+    if lhs.serviceProviders != rhs.serviceProviders {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -119,7 +112,6 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlistItem: SwiftProtobuf.Message
     1: .same(proto: "serviceProvider"),
     2: .same(proto: "hostname"),
     3: .same(proto: "fingerprint256"),
-    4: .same(proto: "signKey"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -131,7 +123,6 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlistItem: SwiftProtobuf.Message
       case 1: try { try decoder.decodeSingularStringField(value: &self.serviceProvider) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.hostname) }()
       case 3: try { try decoder.decodeSingularBytesField(value: &self.fingerprint256) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._signKey) }()
       default: break
       }
     }
@@ -147,9 +138,6 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlistItem: SwiftProtobuf.Message
     if !self.fingerprint256.isEmpty {
       try visitor.visitSingularBytesField(value: self.fingerprint256, fieldNumber: 3)
     }
-    if let v = self._signKey {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -157,18 +145,15 @@ extension SAP_Internal_Dgc_ValidationServiceAllowlistItem: SwiftProtobuf.Message
     if lhs.serviceProvider != rhs.serviceProvider {return false}
     if lhs.hostname != rhs.hostname {return false}
     if lhs.fingerprint256 != rhs.fingerprint256 {return false}
-    if lhs._signKey != rhs._signKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension SAP_Internal_Dgc_ValidationServicePublicKeyJWK: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ValidationServicePublicKeyJWK"
+extension SAP_Internal_Dgc_ServiceProviderAllowlistItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ServiceProviderAllowlistItem"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "x5c"),
-    2: .same(proto: "kid"),
-    3: .same(proto: "alg"),
+    1: .same(proto: "serviceIdentityHash"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -177,31 +162,21 @@ extension SAP_Internal_Dgc_ValidationServicePublicKeyJWK: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedBytesField(value: &self.x5C) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.kid) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.alg) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.serviceIdentityHash) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.x5C.isEmpty {
-      try visitor.visitRepeatedBytesField(value: self.x5C, fieldNumber: 1)
-    }
-    if !self.kid.isEmpty {
-      try visitor.visitSingularStringField(value: self.kid, fieldNumber: 2)
-    }
-    if !self.alg.isEmpty {
-      try visitor.visitSingularStringField(value: self.alg, fieldNumber: 3)
+    if !self.serviceIdentityHash.isEmpty {
+      try visitor.visitSingularBytesField(value: self.serviceIdentityHash, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SAP_Internal_Dgc_ValidationServicePublicKeyJWK, rhs: SAP_Internal_Dgc_ValidationServicePublicKeyJWK) -> Bool {
-    if lhs.x5C != rhs.x5C {return false}
-    if lhs.kid != rhs.kid {return false}
-    if lhs.alg != rhs.alg {return false}
+  static func ==(lhs: SAP_Internal_Dgc_ServiceProviderAllowlistItem, rhs: SAP_Internal_Dgc_ServiceProviderAllowlistItem) -> Bool {
+    if lhs.serviceIdentityHash != rhs.serviceIdentityHash {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
