@@ -270,7 +270,6 @@ enum AccessibilityIdentifiers {
 			static let dataPrivacy = "QRScanner_Info_dataPrivacy"
 		}
 
-		#if targetEnvironment(simulator)
 		static let fakeHC1 = "QRScanner_FAKE_HC1"
 		static let fakeHC2 = "QRScanner_FAKE_HC2"
 		static let fakePCR = "QRScanner_FAKE_PCR"
@@ -279,7 +278,6 @@ enum AccessibilityIdentifiers {
 		static let fakeTicketValidation = "QRScanner_FAKE_TICKET_VALIDATION"
 		static let other = "QRScanner_OTHER"
 		static let cancel = "QRScanner_CANCEL"
-		#endif
 	}
 
 	enum FileScanner {

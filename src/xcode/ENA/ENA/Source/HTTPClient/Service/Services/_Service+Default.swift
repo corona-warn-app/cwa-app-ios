@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 /**
 This is the default implementation of a service and serves not only as default implementation. It provides some hooks to the generic resources and make different service implementations possible.
@@ -40,30 +41,47 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	// swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
-			completion(.failure(.transportationError(resourceError)))
+			completion(.failure(customError(in: resource, for: .invalidRequestError(resourceError))))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
-				if let error = error {
-					completion(.failure(.transportationError(error)))
+				
+				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
+				if error != nil,
+				   let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
+				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
+				   let trustEvaluationError = error as? TrustEvaluationError {
+					
+					completion(.failure(customError(in: resource, for: .trustEvaluationError(trustEvaluationError))))
+					
+					// Reset the error to not block future requests.
+					// I know, this error state is not a nice solution.
+					// If you have an idea how to solve the problem of having a detailed trust evaluation error at this point, without holding the state, feel free to refactor :)
+					coronaSessionDelegate.evaluateTrust.trustEvaluationError = nil
+					
 					return
 				}
-
+				
+				if let error = error {
+					completion(.failure(customError(in: resource, for: .transportationError(error))))
+					return
+				}
+								
 				guard !resource.locator.isFake else {
 					Log.debug("Fake detected no response given", log: .client)
-					completion(.failure(.fakeResponse))
+					completion(.failure(customError(in: resource, for: .fakeResponse)))
 					return
 				}
 
 				guard let response = response as? HTTPURLResponse else {
 					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
-					completion(.failure(.invalidResponseType))
+					completion(.failure(customError(in: resource, for: .invalidResponseType)))
 					return
 				}
 
@@ -76,18 +94,14 @@ extension Service {
 					decodeModel(resource, bodyData, response, completion)
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
-						completion(.failure(.invalidResponse))
+						completion(.failure(customError(in: resource, for: .invalidResponse)))
 						return
 					}
 					decodeModel(resource, bodyData, response, completion)
 				case 304:
 					cached(resource, completion)
 				default:
-					if let resourceError = resource.customStatusCodeError(statusCode: response.statusCode) {
-						completion(.failure(ServiceError<R.CustomError>.receivedResourceError(resourceError)))
-					} else {
-						completion(.failure(.unexpectedServerError(response.statusCode)))
-					}
+					completion(.failure(customError(in: resource, for: .unexpectedServerError(response.statusCode))))
 				}
 			}.resume()
 		}
@@ -99,11 +113,11 @@ extension Service {
 		_ response: HTTPURLResponse?,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		switch resource.receiveResource.decode(bodyData) {
+		switch resource.receiveResource.decode(bodyData, headers: response?.allHeaderFields ?? [:]) {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
-			completion(.failure(.resourceError(resourceError)))
+			completion(.failure(customError(in: resource, for: .resourceError(resourceError))))
 		}
 	}
 
@@ -111,7 +125,7 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		completion(.failure(.resourceError(.notModified)))
+		completion(.failure(customError(in: resource, for: .resourceError(.notModified))))
 	}
 	
 	func customHeaders<R>(
@@ -120,5 +134,4 @@ extension Service {
 	) -> [String: String]? where R: ReceiveResource {
 		return nil
 	}
-
 }

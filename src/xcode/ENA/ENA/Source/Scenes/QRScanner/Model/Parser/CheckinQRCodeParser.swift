@@ -102,7 +102,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 		onError: @escaping((CheckinQRScannerError) -> Void)
 	) {
 		guard !traceLocation.description.isEmpty,
-			  traceLocation.description.count <= 100,
+			  traceLocation.description.count <= kMaxDescriptionLength,
 			  !traceLocation.description.contains("\n"),
 			  !traceLocation.description.contains("\r")
 		else {
@@ -111,7 +111,7 @@ class CheckinQRCodeParser: QRCodeParsable {
 			return
 		}
 		guard !traceLocation.address.isEmpty,
-			  traceLocation.address.count <= 100,
+			  traceLocation.address.count <= kMaxAddressLength,
 			  !traceLocation.address.contains("\n"),
 			  !traceLocation.address.contains("\r")
 		else {
@@ -140,5 +140,9 @@ class CheckinQRCodeParser: QRCodeParsable {
 	
 	// MARK: - Private
 
+	private let kMaxDescriptionLength: Int = 255
+	private let kMaxAddressLength: Int = 255
+
 	private let appConfigurationProvider: AppConfigurationProviding
+
 }

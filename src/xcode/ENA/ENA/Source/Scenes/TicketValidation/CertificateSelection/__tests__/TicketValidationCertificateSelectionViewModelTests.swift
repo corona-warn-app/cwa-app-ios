@@ -23,7 +23,7 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
 		
 		let model = TicketValidationCertificateSelectionViewModel(
-			validationConditions: ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r"]),
+			validationConditions: TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r"]),
 			healthCertifiedPersons: [certifiedPerson],
 			onHealthCertificateCellTap: { _, _ in }
 		)
@@ -48,7 +48,7 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
 		
 		let model = TicketValidationCertificateSelectionViewModel(
-			validationConditions: ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v"]),
+			validationConditions: TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v"]),
 			healthCertifiedPersons: [certifiedPerson],
 			onHealthCertificateCellTap: { _, _ in }
 		)
@@ -73,7 +73,7 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
 		
 		let model = TicketValidationCertificateSelectionViewModel(
-			validationConditions: ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: []),
+			validationConditions: TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: []),
 			healthCertifiedPersons: [certifiedPerson],
 			onHealthCertificateCellTap: { _, _ in }
 		)
@@ -98,7 +98,7 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
 		
 		let model = TicketValidationCertificateSelectionViewModel(
-			validationConditions: ValidationConditions.fake(fnt: "SCHNEIDER", gnt: "PIA", dob: "1989-12-12", type: ["v", "r", "t"]),
+			validationConditions: TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "PIA", dob: "1989-12-12", type: ["v", "r", "t"]),
 			healthCertifiedPersons: [certifiedPerson],
 			onHealthCertificateCellTap: { _, _ in }
 		)

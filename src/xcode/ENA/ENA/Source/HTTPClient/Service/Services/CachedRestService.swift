@@ -48,7 +48,7 @@ class CachedRestService: Service {
 		_ response: HTTPURLResponse?,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		switch resource.receiveResource.decode(bodyData) {
+		switch resource.receiveResource.decode(bodyData, headers: response?.allHeaderFields ?? [:]) {
 		case .success(let model):
 			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
 				  let data = bodyData else {
@@ -62,7 +62,7 @@ class CachedRestService: Service {
 			completion(.success(model))
 
 		case .failure:
-			completion(.failure(.resourceError(.decoding)))
+			completion(.failure(customError(in: resource, for: .resourceError(.decoding))))
 		}
 	}
 
@@ -72,7 +72,7 @@ class CachedRestService: Service {
 	) where R: Resource {
 		guard let cachedModel = cache[resource.locator.hashValue] else {
 			Log.debug("no data found in cache", log: .client)
-			completion(.failure(.resourceError(.missingData)))
+			completion(.failure(customError(in: resource, for: .resourceError(.missingData))))
 			return
 		}
 		decodeModel(resource, cachedModel.data, nil, completion)

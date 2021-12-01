@@ -101,10 +101,10 @@ struct DummyResourceModel: PaddingResource, Codable, Equatable {
 class ResourceFake: Resource {
 	var locator: Locator = .fake()
 	var type: ServiceType = .caching
-	var sendResource = JSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: ""))
+	var sendResource = PaddingJSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: ""))
 	var receiveResource = JSONReceiveResource<DummyResourceModel>()
 
-	typealias Send = JSONSendResource<DummyResourceModel>
+	typealias Send = PaddingJSONSendResource<DummyResourceModel>
 	typealias Receive = JSONReceiveResource<DummyResourceModel>
 	typealias CustomError = Error
 

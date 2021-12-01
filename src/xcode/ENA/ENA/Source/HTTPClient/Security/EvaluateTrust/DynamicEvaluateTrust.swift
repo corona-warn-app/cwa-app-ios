@@ -5,12 +5,12 @@
 import Foundation
 import ENASecurity
 
-struct DynamicEvaluateTrust: EvaluateTrust {
+class DynamicEvaluateTrust: EvaluateTrust {
 
 	// MARK: - Init
 
 	init(
-		jwkSet: [Data],
+		jwkSet: [JSONWebKey],
 		trustEvaluation: TrustEvaluation
 	) {
 		self.jwkSet = jwkSet
@@ -32,19 +32,30 @@ struct DynamicEvaluateTrust: EvaluateTrust {
 			}
 		}
 #endif
-		let result = trustEvaluation.check(trust: trust, against: jwkSet)
+		let result = trustEvaluation.check(
+			trust: trust,
+			against: jwkSet,
+			logMessage: { message in
+				Log.debug("Log message from trust evaluation check: \(message)", log: .client)
+			}
+		)
 		switch result {
 		case .success:
 			completionHandler(.useCredential, URLCredential(trust: trust))
 		case .failure(let error):
 			Log.debug("AuthenticationChallenge failed with error \(error.localizedDescription)", log: .client)
+			trustEvaluationError = error
 			completionHandler(.cancelAuthenticationChallenge, nil)
 		}
 	}
+	
+	// MARK: - Internal
+
+	var trustEvaluationError: Error?
 
 	// MARK: - Private
 
 	private let trustEvaluation: TrustEvaluation
-	private var jwkSet: [Data]
+	private var jwkSet: [JSONWebKey]
 
 }

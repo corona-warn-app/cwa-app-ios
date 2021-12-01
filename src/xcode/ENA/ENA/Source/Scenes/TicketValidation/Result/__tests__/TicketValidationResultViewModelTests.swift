@@ -9,6 +9,7 @@ class TicketValidationResultViewModelTests: XCTestCase {
 
 	func testGIVEN_ValidationResults_WHEN_PassedModelIsCreated_THEN_ModelIsSetupCorrectly() throws {
 		let model = TicketValidationPassedViewModel(
+			validationDate: Date(),
 			serviceProvider: "serviceProvider"
 		)
 
@@ -18,6 +19,7 @@ class TicketValidationResultViewModelTests: XCTestCase {
 	
 	func testGIVEN_ValidationResults_WHEN_OpenModelIsCreated_THEN_ModelIsSetupCorrectly() throws {
 		let model = TicketValidationOpenViewModel(
+			validationDate: Date(),
 			serviceProvider: "serviceProvider",
 			validationResultItems: [
 				.fake(identifier: "identifier1"),
@@ -32,6 +34,7 @@ class TicketValidationResultViewModelTests: XCTestCase {
 	
 	func testGIVEN_ValidationResults_WHEN_FailedModelIsCreated_THEN_ModelIsSetupCorrectly() throws {
 		let model = TicketValidationFailedViewModel(
+			validationDate: Date(),
 			serviceProvider: "serviceProvider",
 			validationResultItems: [
 				.fake(identifier: "identifier1"),
