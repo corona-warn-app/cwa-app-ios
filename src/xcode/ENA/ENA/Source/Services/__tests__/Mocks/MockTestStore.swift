@@ -194,7 +194,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 		didSet {
 			recycleBinItemsSubject.value = recycleBinItems
 		}
-	}	
+	}
 }
 
 #endif
