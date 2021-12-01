@@ -160,7 +160,7 @@ class CheckinQRCodeParserTests: CWATestCase {
 	
 	func testValidPayload_InvalidDescription_Over100() {
 		let traceLocation = TraceLocation.mock(
-			description: "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890x",
+			description: "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345x",
 			address: "Test",
 			cryptographicSeed: cryptographicSeed()
 			)
@@ -173,7 +173,7 @@ class CheckinQRCodeParserTests: CWATestCase {
 			traceLocation: traceLocation,
 			onSuccess: { _ in },
 			onError: { error in
-				XCTAssertEqual(error, .invalidDescription, "TraceLocation description cannot be > 100 characters!")
+				XCTAssertEqual(error, .invalidDescription, "TraceLocation description cannot be > 255 characters!")
 				onErrorExpectation.fulfill()
 			}
 		)
@@ -183,7 +183,7 @@ class CheckinQRCodeParserTests: CWATestCase {
 	func testValidPayload_InvalidAddress_Over100() {
 		let traceLocation = TraceLocation.mock(
 			description: "Test",
-			address: "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890x",
+			address: "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345x",
 			cryptographicSeed: cryptographicSeed()
 			)
 		let onErrorExpectation = expectation(description: "onError called")
@@ -195,7 +195,7 @@ class CheckinQRCodeParserTests: CWATestCase {
 			traceLocation: traceLocation,
 			onSuccess: { _ in },
 			onError: { error in
-				XCTAssertEqual(error, .invalidAddress, "TraceLocation address cannot be > 100 characters!")
+				XCTAssertEqual(error, .invalidAddress, "TraceLocation address cannot be > 255 characters!")
 				onErrorExpectation.fulfill()
 			}
 		)
