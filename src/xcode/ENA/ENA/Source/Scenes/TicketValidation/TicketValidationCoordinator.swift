@@ -131,7 +131,8 @@ final class TicketValidationCoordinator {
 	) {
 		let secondConsentViewController = SecondTicketValidationConsentViewController(
 			viewModel: SecondTicketValidationConsentViewModel(
-				serviceIdentity: ticketValidation.initializationData.serviceIdentity,
+				// EXPOSUREAPP-10834: Needs to be set from allowlist when it's available: allowlist[0].serviceProvider
+				serviceIdentity: "",
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				healthCertificate: selectedCertificate,
 				healthCertifiedPerson: selectedCertifiedPerson,
