@@ -55,6 +55,9 @@ extension OSLog {
 	static let ticketValidationDecorator = OSLog(subsystem: subsystem, category: "ticketValidationDecorator")
 	/// TicketValidation
 	static let ticketValidation = OSLog(subsystem: subsystem, category: "ticketvalidation")
+	/// TicketValidationAllowList
+	static let ticketValidationAllowList = OSLog(subsystem: subsystem, category: "TicketValidationAllowList")
+
 }
 
 /// Logging
