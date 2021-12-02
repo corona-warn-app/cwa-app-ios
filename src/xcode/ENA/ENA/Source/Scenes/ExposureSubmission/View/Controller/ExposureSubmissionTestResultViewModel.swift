@@ -544,8 +544,8 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		var cells = [DynamicCell]()
 
+		// Health Certificate
 		if coronaTest.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: coronaTest.uniqueCertificateIdentifier ?? "") {
-			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -574,6 +574,19 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		#endif
 
+		// Evidence / Proof
+		cells.append(contentsOf: [
+			.title2(
+				text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
+			),
+			.body(
+				text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
+			)
+		])
+		
+		// Information on proceduce
 		cells.append(DynamicCell.title2(
 			text: AppStrings.ExposureSubmissionResult.procedure,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
@@ -614,18 +627,18 @@ extension ExposureSubmissionTestResultViewModel {
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
 				hairline: .none
 			)
-			
 		])
 
+		// Further Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
 			),
+			.body(text: AppStrings.ExposureSubmissionResult.furtherInfos_Desc),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large)
 		])
 		
 		return [
@@ -640,8 +653,8 @@ extension ExposureSubmissionTestResultViewModel {
 	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
+		// Health Certificate
 		if test.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
-			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -670,30 +683,19 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		#endif
 
-		if test.testedPerson.fullName != nil && test.testedPerson.dateOfBirth != nil {
-			cells.append(contentsOf: [
-				.title2(
-					text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
-				),
-				.body(
-					text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
-				)
-			])
-		} else {
-			cells.append(contentsOf: [
-				.title2(
-					text: AppStrings.ExposureSubmissionResult.Antigen.noProofTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
-				),
-				.body(
-					text: AppStrings.ExposureSubmissionResult.Antigen.noProofDesc,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
-				)
-			])
-		}
+		// Evidence / Proof
+		cells.append(contentsOf: [
+			.title2(
+				text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
+			),
+			.body(
+				text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
+			)
+		])
 		
+		// Information on proceduce
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.procedure,
@@ -719,15 +721,16 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 
+		// Further Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
 			),
+			.body(text: AppStrings.ExposureSubmissionResult.furtherInfos_Desc),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large)
 		])
 
 		return [

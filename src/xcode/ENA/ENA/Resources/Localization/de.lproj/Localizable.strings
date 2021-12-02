@@ -720,13 +720,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre Hausarztpraxis.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Sie haben trotzdem akute gesundheitliche Beschwerden?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Bleiben Sie bis zu Ihrer Genesung möglichst zu Hause. Verringern Sie Ihr Risiko, sich zusätzlich zu einer anderen Infektion mit dem Coronavirus zu infizieren.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Gehen Sie nicht krank zur Arbeit, um die Ansteckung anderer Personen zu vermeiden.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Wenn Sie sich sehr krank fühlen oder Ihre Beschwerden zunehmen, wenden Sie sich bitte an Ihre Hausarztpraxis. Diese kann Sie auch über die Notwendigkeit eines weiteren SARS-CoV-2-Tests beraten.";
 
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
@@ -893,7 +893,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich diesbezüglich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
