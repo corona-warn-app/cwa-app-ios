@@ -222,12 +222,11 @@ final class TicketValidation: TicketValidating {
 		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
 
 		restServiceProvider.update(
-			DynamicEvaluateTrust(
-				jwkSet: validationServiceJwkSet,
+			AllowListEvaluationTrust(
+				allowList: allowList.validationServiceAllowList,
 				trustEvaluation: TrustEvaluation()
 			)
 		)
-
 		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let serviceIdentityDocument):
@@ -325,8 +324,8 @@ final class TicketValidation: TicketValidating {
 		)
 
 		restServiceProvider.update(
-			DynamicEvaluateTrust(
-				jwkSet: validationServiceJwkSet,
+			AllowListEvaluationTrust(
+				allowList: allowList.validationServiceAllowList,
 				trustEvaluation: TrustEvaluation()
 			)
 		)
