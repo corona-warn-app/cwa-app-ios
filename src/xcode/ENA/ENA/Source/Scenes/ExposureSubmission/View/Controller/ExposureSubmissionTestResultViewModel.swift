@@ -544,8 +544,8 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		var cells = [DynamicCell]()
 
+		// Health Certificate
 		if coronaTest.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: coronaTest.uniqueCertificateIdentifier ?? "") {
-			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -574,6 +574,7 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		#endif
 
+		// Evidence / Proof
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
@@ -585,6 +586,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 		
+		// Information on proceduce
 		cells.append(DynamicCell.title2(
 			text: AppStrings.ExposureSubmissionResult.procedure,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
@@ -627,6 +629,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 
+		// Futher Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
@@ -650,8 +653,8 @@ extension ExposureSubmissionTestResultViewModel {
 	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
+		// Health Certificate
 		if test.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
-			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -680,6 +683,7 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		#endif
 
+		// Evidence / Proof
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
@@ -691,6 +695,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 		
+		// Information on proceduce
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.procedure,
@@ -716,6 +721,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 
+		// Futher Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
