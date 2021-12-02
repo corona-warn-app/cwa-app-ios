@@ -4,7 +4,6 @@
 
 import Foundation
 import ENASecurity
-import OpenCombine
 
 final class AllowListService {
 	
@@ -22,16 +21,17 @@ final class AllowListService {
 	
 	// MARK: - Internal
 
-	@OpenCombine.Published var allowlist: TicketValidationAllowList?
-
-	func fetchAllowList() {
+	func fetchAllowList(completion: @escaping (Result<TicketValidationAllowList, AllowListError>) -> Void) {
 		let resource = AllowListResource()
-		restServiceProvider.load(resource) { [weak self] result in
+		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let allowListProtoBuf):
-				self?.allowlist = allowListProtoBuf.allowlist
+				Log.debug("Allow List received", log: .ticketValidationAllowList)
+				completion(.success(allowListProtoBuf.allowlist))
+				return
 			case .failure(let error):
 				Log.debug(error.localizedDescription, log: .ticketValidationAllowList)
+				completion(.failure(.REST_SERVICE_ERROR(error)))
 			}
 		}
 	}
