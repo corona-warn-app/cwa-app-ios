@@ -15,7 +15,7 @@ extension Locator {
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
-			endpoint: .distribution,
+			endpoint: .verification,
 			paths: ["version", "v1", "tan"],
 			method: .post,
 			defaultHeaders: [
