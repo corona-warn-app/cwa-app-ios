@@ -629,7 +629,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 
-		// Futher Information
+		// Further Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
@@ -721,7 +721,7 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 
-		// Futher Information
+		// Further Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
