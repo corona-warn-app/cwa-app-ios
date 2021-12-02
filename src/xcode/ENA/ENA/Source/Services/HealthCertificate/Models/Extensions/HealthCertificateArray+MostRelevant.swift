@@ -18,13 +18,13 @@ extension Array where Element == HealthCertificate {
 			return vaccinationEntry.localVaccinationDate.flatMap {
 				Calendar.current.date(byAdding: .day, value: 15, to: $0)
 			}
-		case .test(let testEntry) where testEntry.coronaTestType == .antigen && ageInHours < 24:
-			return testEntry.sampleCollectionDate.flatMap {
-				Calendar.current.date(byAdding: .hour, value: 24, to: $0)
-			}
-		case .test(let testEntry) where testEntry.coronaTestType == .pcr && ageInHours < 48:
+		case .test(let testEntry) where testEntry.coronaTestType == .antigen && ageInHours < 48:
 			return testEntry.sampleCollectionDate.flatMap {
 				Calendar.current.date(byAdding: .hour, value: 48, to: $0)
+			}
+		case .test(let testEntry) where testEntry.coronaTestType == .pcr && ageInHours < 72:
+			return testEntry.sampleCollectionDate.flatMap {
+				Calendar.current.date(byAdding: .hour, value: 72, to: $0)
 			}
 		case .recovery(let recoveryEntry):
 			return recoveryEntry.localCertificateValidityStartDate.flatMap {
@@ -101,28 +101,28 @@ extension Array where Element == HealthCertificate {
 			return validRecoveryCertificate
 		}
 
-		// PCR Test Certificate < 48 hours
+		// PCR Test Certificate < 72 hours
 
 		let currentPCRTestCertificate = last {
 			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 				return false
 			}
 
-			return coronaTestType == .pcr && ageInHours < 48
+			return coronaTestType == .pcr && ageInHours < 72
 		}
 
 		if let currentPCRTestCertificate = currentPCRTestCertificate {
 			return currentPCRTestCertificate
 		}
 
-		// RAT Test Certificate < 24 hours
+		// RAT Test Certificate < 48 hours
 
 		let currentAntigenTestCertificate = last {
 			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
 				return false
 			}
 
-			return coronaTestType == .antigen && ageInHours < 24
+			return coronaTestType == .antigen && ageInHours < 48
 		}
 
 		if let currentAntigenTestCertificate = currentAntigenTestCertificate {
@@ -155,13 +155,13 @@ extension Array where Element == HealthCertificate {
 			return outdatedRecoveryCertificate
 		}
 
-		// PCR Test Certificate > 48 hours
+		// PCR Test Certificate > 72 hours
 
 		if let outdatedPCRTestCertificate = last(where: { $0.testEntry?.coronaTestType == .pcr }) {
 			return outdatedPCRTestCertificate
 		}
 
-		// RAT Test Certificate > 24 hours
+		// RAT Test Certificate > 48 hours
 
 		if let outdatedAntigenTestCertificate = last(where: { $0.testEntry?.coronaTestType == .antigen }) {
 			return outdatedAntigenTestCertificate
