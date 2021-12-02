@@ -2,9 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
-import HealthCertificateToolkit
+import Foundation
 
 extension Array where Element == HealthCertificate {
 
@@ -66,34 +64,6 @@ extension Array where Element == HealthCertificate {
 	}
 	
 	private var mostRelevantIgnoringValidityState: HealthCertificate? {
-		// PCR Test Certificate < 48 hours
-
-		let currentPCRTestCertificate = last {
-			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
-				return false
-			}
-			
-			return coronaTestType == .pcr && ageInHours < 48
-		}
-
-		if let currentPCRTestCertificate = currentPCRTestCertificate {
-			return currentPCRTestCertificate
-		}
-
-		// RAT Test Certificate < 24 hours
-
-		let currentAntigenTestCertificate = last {
-			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
-				return false
-			}
-			
-			return coronaTestType == .antigen && ageInHours < 24
-		}
-
-		if let currentAntigenTestCertificate = currentAntigenTestCertificate {
-			return currentAntigenTestCertificate
-		}
-		
 		// Valid / Complete Vaccination Certificate
 		
 		// Booster (3/3) on Biontech, Moderna, Astra (2/2) -> gets priority
@@ -129,6 +99,34 @@ extension Array where Element == HealthCertificate {
 
 		if let validRecoveryCertificate = validRecoveryCertificate {
 			return validRecoveryCertificate
+		}
+
+		// PCR Test Certificate < 48 hours
+
+		let currentPCRTestCertificate = last {
+			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
+				return false
+			}
+
+			return coronaTestType == .pcr && ageInHours < 48
+		}
+
+		if let currentPCRTestCertificate = currentPCRTestCertificate {
+			return currentPCRTestCertificate
+		}
+
+		// RAT Test Certificate < 24 hours
+
+		let currentAntigenTestCertificate = last {
+			guard let coronaTestType = $0.testEntry?.coronaTestType, let ageInHours = $0.ageInHours else {
+				return false
+			}
+
+			return coronaTestType == .antigen && ageInHours < 24
+		}
+
+		if let currentAntigenTestCertificate = currentAntigenTestCertificate {
+			return currentAntigenTestCertificate
 		}
 
 		// Series-completing Vaccination Certificate <= 14 days
@@ -171,4 +169,5 @@ extension Array where Element == HealthCertificate {
 
 		return nil
 	}
+
 }

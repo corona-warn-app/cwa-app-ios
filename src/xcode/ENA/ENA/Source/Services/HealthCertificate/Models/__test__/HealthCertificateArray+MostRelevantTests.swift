@@ -136,19 +136,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		].shuffled()
 
 		// Valid and Expiring Soon Certificates are the most relevant
-		
-		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidPCRTest)
 
-		healthCertificates.removeAll(where: { $0 == mostRecentValidPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, olderValidPCRTest)
-
-		healthCertificates.removeAll(where: { $0 == olderValidPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == mostRecentValidAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, olderValidAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == olderValidAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentBoosterVaccinationCertificate })
@@ -167,6 +155,18 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, olderValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == olderValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentValidPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == olderValidPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentValidAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == olderValidAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentSeriesCompletingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentSeriesCompletingVaccinationCertificate })
@@ -199,12 +199,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		// Expired Certificates are the second most relevant
 
 		healthCertificates.removeAll(where: { $0 == olderOutdatedAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentPCRTest)
-		
-		healthCertificates.removeAll(where: { $0 == expiredRecentPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentAntigenTest)
-		
-		healthCertificates.removeAll(where: { $0 == expiredRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == expiredRecentBoosterVaccinationCertificate })
@@ -214,6 +208,12 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == expiredRecentValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == expiredRecentPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == expiredRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentSeriesCompletingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == expiredRecentSeriesCompletingVaccinationCertificate })
@@ -231,18 +231,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		// Invalid Certificates are the least relevant
 		
 		healthCertificates.removeAll(where: { $0 == expiredOutdatedAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentPCRTest)
-
-		healthCertificates.removeAll(where: { $0 == invalidRecentPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentPCRTest)
-
-		healthCertificates.removeAll(where: { $0 == blockedRecentPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == invalidRecentAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == blockedRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == invalidRecentBoosterVaccinationCertificate })
@@ -261,6 +249,18 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == blockedRecentValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == invalidRecentPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == blockedRecentPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == invalidRecentAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == blockedRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentSeriesCompletingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == invalidRecentSeriesCompletingVaccinationCertificate })
