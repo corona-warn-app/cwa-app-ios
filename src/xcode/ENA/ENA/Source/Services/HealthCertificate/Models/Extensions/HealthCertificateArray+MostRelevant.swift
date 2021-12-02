@@ -2,9 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
-import HealthCertificateToolkit
+import Foundation
 
 extension Array where Element == HealthCertificate {
 
@@ -171,4 +169,5 @@ extension Array where Element == HealthCertificate {
 
 		return nil
 	}
+
 }
