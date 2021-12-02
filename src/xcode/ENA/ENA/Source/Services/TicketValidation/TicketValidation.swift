@@ -349,5 +349,38 @@ final class TicketValidation: TicketValidating {
 			}
 		}
 	}
+	
+	private func validateServiceIdentityAgainstAllowlist(completion: @escaping ((Result<TicketValidationAllowList, AllowListError>)) -> Void) {
+		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		
+		allowListService.fetchAllowList { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let allowList):
+				let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
+					serviceProviderAllowlist: allowList.serviceProviderAllowList,
+					serviceIdentity: self.initializationData.serviceIdentity
+				)
+				switch result {
+				case .success:
+					self.allowList = allowList
+					completion(.success(allowList))
+				case .failure(let error):
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				Log.error("Ticket Validation AllowList fetching failed", log: .ticketValidationAllowList, error: error)
+				completion(.failure(error))
+			}
+		}
+	}
 
+	private func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> Result<Void, AllowListError> {
+		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		
+		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
+		return filteringResult
+	}
+	
+	private var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 }
