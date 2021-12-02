@@ -11,6 +11,7 @@ enum ServiceIdentityDocumentResourceError: Error {
 	case VS_ID_SERVER_ERR
 	case VS_ID_CERT_PIN_NO_JWK_FOR_KID
 	case VS_ID_CERT_PIN_MISMATCH
+	case VS_ID_CERT_PIN_HOST_MISMATCH
 }
 
 struct ServiceIdentityDocumentResource: Resource {
@@ -46,6 +47,8 @@ struct ServiceIdentityDocumentResource: Resource {
 				return .VS_ID_CERT_PIN_MISMATCH
 			case .CERT_PIN_NO_JWK_FOR_KID:
 				return .VS_ID_CERT_PIN_NO_JWK_FOR_KID
+			case .CERT_PIN_HOST_MISMATCH:
+				return .VS_ID_CERT_PIN_HOST_MISMATCH
 			default:
 				return nil
 			}
