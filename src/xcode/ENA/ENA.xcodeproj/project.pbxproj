@@ -140,6 +140,7 @@
 		0160CC2B26B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */; };
 		0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */; };
 		016146912487A43E00660992 /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* LinkHelper.swift */; };
+		01635EAE2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */; };
 		01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */; };
 		01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
@@ -1739,6 +1740,7 @@
 		0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeView.swift; sourceTree = "<group>"; };
 		0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewModelTests.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
+		01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+AdmissionState.swift"; sourceTree = "<group>"; };
 		01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionService.swift; sourceTree = "<group>"; };
 		01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+SubmissionPreparation.swift"; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
@@ -4365,6 +4367,7 @@
 				01E10283266E2F7F009ED803 /* TestEntry+Extension.swift */,
 				017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */,
 				017D8DA9263B03BD0009E91C /* VaccinationEntry+Extension.swift */,
+				01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */,
 				017EE864267B302F00CD18F6 /* HealthCertificateArray+MostRelevant.swift */,
 			);
 			path = Extensions;
@@ -10443,6 +10446,7 @@
 				8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */,
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
+				01635EAE2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
 				50293D55267A4191004B3EBE /* AddButtonAsTableViewCell.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
