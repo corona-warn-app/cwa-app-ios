@@ -11,7 +11,6 @@ extension Locator {
 	// type:	default
 	// comment:
 	static func tanForExposureSubmit(
-		registrationToken: String,
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
