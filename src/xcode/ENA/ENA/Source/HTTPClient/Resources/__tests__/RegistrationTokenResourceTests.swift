@@ -145,7 +145,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 				return
 			}
 
-			guard content["tokenString"] == fakeToken else {
+			guard content["registrationToken"] == fakeToken else {
 				XCTFail("POST JSON body did not have tokenString value, or it was incorrect!")
 				return
 			}
