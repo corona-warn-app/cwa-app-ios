@@ -810,7 +810,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let section = model.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 9)
+		XCTAssertEqual(cells.count, 11)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
