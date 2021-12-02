@@ -50,7 +50,7 @@ final class AllowListService {
 		}
 	}
 	
-	func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> ([ValidationServiceAllowlistEntry], [JSONWebKey]) {
+	func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> Result<Void, AllowListError> {
 		
 		var filteredAllowList = [ValidationServiceAllowlistEntry]()
 		let filteredJwkSet = jwkSet.filter({
@@ -67,7 +67,10 @@ final class AllowListService {
 				}
 			}
 		})
-		
-		return (filteredAllowList, filteredJwkSet)
+		if filteredJwkSet.isEmpty {
+			return .failure(.SP_ALLOWLIST_NO_MATCH)
+		} else {
+			return .success(())
+		}
 	}
 }
