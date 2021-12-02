@@ -8,6 +8,7 @@ public enum TrustEvaluationError: Error {
     case CERT_CHAIN_EMTPY
     case CERT_PIN_NO_JWK_FOR_KID
     case CERT_PIN_MISMATCH
+    case CERT_PIN_HOST_MISMATCH
 }
 
 public class TrustEvaluation {
