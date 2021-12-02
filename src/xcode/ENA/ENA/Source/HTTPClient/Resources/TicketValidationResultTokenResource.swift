@@ -44,9 +44,9 @@ struct TicketValidationResultTokenResource: Resource {
 			return .RTR_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case (400...409):
+			case (400...499):
 				return .RTR_CLIENT_ERR
-			case (500...509):
+			case (500...599):
 				return .RTR_SERVER_ERR
 			default:
 				return nil
