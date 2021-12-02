@@ -24,17 +24,38 @@ final class TicketValidation: TicketValidating {
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		validateIdentityDocumentOfValidationDecorator(
-			urlString: initializationData.serviceIdentity
-		) { [weak self] result in
+		validateServiceIdentityAgainstAllowlist(completion: { [weak self] result in
+			guard let self = self else { return }
+			
 			switch result {
-			case .success(let validationDecoratorDocument):
-				self?.validationDecoratorDocument = validationDecoratorDocument
-				completion(.success(()))
+			case .success:
+				self.validateIdentityDocumentOfValidationDecorator(
+					urlString: self.initializationData.serviceIdentity
+				) { [weak self] result in
+					guard let self = self else { return }
+					
+					switch result {
+					case .success(let validationDecoratorDocument):
+						self.validationDecoratorDocument = validationDecoratorDocument
+						let filterResult = self.filterJWKsAgainstAllowList(
+							allowList: self.allowList.validationServiceAllowList,
+							jwkSet: validationDecoratorDocument.validationServiceJwkSet
+						)
+						
+						switch filterResult {
+						case .success:
+							completion(.success(()))
+						case .failure(let error):
+							completion(.failure(.allowListError(error)))
+						}
+					case .failure(let error):
+						completion(.failure(.validationDecoratorDocument(error)))
+					}
+				}
 			case .failure(let error):
-				completion(.failure(.validationDecoratorDocument(error)))
+				completion(.failure(.allowListError(error)))
 			}
-		}
+		})
 	}
 
 	func grantFirstConsent(
