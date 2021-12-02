@@ -199,7 +199,10 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
-				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
+				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(
+					serviceIdentityDocument: model,
+					allowList: self.allowList.validationServiceAllowList
+				) { result in
 					completion(result)
 				}
 			case .failure(let error):
