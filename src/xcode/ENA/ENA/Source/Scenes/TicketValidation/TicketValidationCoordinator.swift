@@ -224,7 +224,11 @@ final class TicketValidationCoordinator {
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
-				style: .default
+				style: .default,
+				handler: { [weak self] _ in
+					self?.ticketValidation.cancel()
+					self?.navigationController.dismiss(animated: true)
+				}
 			)
 		)
 
