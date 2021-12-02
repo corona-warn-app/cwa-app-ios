@@ -35,6 +35,8 @@ struct TicketValidationResultTokenResource: Resource {
 				return .RTR_CERT_PIN_MISMATCH
 			case .CERT_PIN_NO_JWK_FOR_KID:
 				return .RTR_CERT_PIN_NO_JWK_FOR_KID
+			case .CERT_PIN_HOST_MISMATCH:
+				return .RTR_CERT_PIN_HOST_MISMATCH
 			default:
 				return nil
 			}
@@ -66,5 +68,5 @@ enum TicketValidationResultTokenError: LocalizedError {
 	case RTR_CERT_PIN_NO_JWK_FOR_KID
 	case RTR_CERT_PIN_MISMATCH
 	case RTR_PARSE_ERR
-
+	case RTR_CERT_PIN_HOST_MISMATCH
 }
