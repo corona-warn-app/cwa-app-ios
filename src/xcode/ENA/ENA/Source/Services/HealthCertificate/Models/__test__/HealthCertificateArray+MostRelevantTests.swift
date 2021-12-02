@@ -60,17 +60,17 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		let invalidRecentOutdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 181, validityState: .invalid)
 		let blockedRecentOutdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 182, validityState: .blocked)
 
-		let mostRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48)
+		let mostRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 72)
 		let olderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 1068)
-		let expiredRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48, validityState: .expired)
-		let invalidOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48, validityState: .invalid)
-		let blockedOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 49, validityState: .blocked)
+		let expiredRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 72, validityState: .expired)
+		let invalidOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 72, validityState: .invalid)
+		let blockedOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 73, validityState: .blocked)
 
-		let mostRecentOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24)
+		let mostRecentOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 48)
 		let olderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 653)
-		let expiredOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24, validityState: .expired)
-		let invalidOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24, validityState: .invalid)
-		let blockedOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 25, validityState: .blocked)
+		let expiredOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 48, validityState: .expired)
+		let invalidOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 48, validityState: .invalid)
+		let blockedOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 49, validityState: .blocked)
 
 		var healthCertificates = [
 			mostRecentValidPCRTest,
