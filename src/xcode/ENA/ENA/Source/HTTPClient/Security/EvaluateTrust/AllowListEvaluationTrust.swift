@@ -40,7 +40,6 @@ class AllowListEvaluationTrust: EvaluateTrust {
 			trust: trust,
 			allowList: allowList
 		)
-
 		switch result {
 		case .success:
 			completionHandler(.useCredential, URLCredential(trust: trust))
