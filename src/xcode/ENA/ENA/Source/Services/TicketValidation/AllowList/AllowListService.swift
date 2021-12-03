@@ -42,6 +42,15 @@ final class AllowListService {
 		serviceProviderAllowlist: [Data],
 		serviceIdentity: String
 	) -> Result<Void, AllowListError> {
+
+#if !RELEASE
+		// override result if skipAllowlistValidation is true
+		guard !store.skipAllowlistValidation else {
+			Log.info("Skip allow list toggle in Developer Menu is on", log: .ticketValidation)
+			return .success(())
+		}
+#endif
+
 		let base64EncodedServiceIdentityHash = Data(hex: serviceIdentity.sha256()).base64EncodedString()
 		if serviceProviderAllowlist.contains(where: {
 			$0.base64EncodedString() == base64EncodedServiceIdentityHash

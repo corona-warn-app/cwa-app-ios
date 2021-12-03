@@ -14,7 +14,6 @@ final class DMTicketValidationViewModel {
 		store: Store
 	) {
 		self.store = store
-		self.toggleAllowList = true
 	}
 
 	// MARK: - Internal
@@ -42,11 +41,11 @@ final class DMTicketValidationViewModel {
 				labelText: "Allowlist check:",
 				isOn: { [weak self] in
 					guard let self = self else { return false }
-					return self.toggleAllowList
+					return self.store.skipAllowlistValidation
 				},
 				toggle: { [weak self] in
 					guard let self = self else { return }
-					self.toggleAllowList.toggle()
+					self.store.skipAllowlistValidation.toggle()
 				}
 			)
 
@@ -60,7 +59,6 @@ final class DMTicketValidationViewModel {
 	}
 
 	private let store: Store
-	private var toggleAllowList: Bool
 }
 
 #endif
