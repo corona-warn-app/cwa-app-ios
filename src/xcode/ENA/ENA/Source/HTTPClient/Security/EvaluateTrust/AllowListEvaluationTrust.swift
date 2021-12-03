@@ -11,12 +11,10 @@ class AllowListEvaluationTrust: EvaluateTrust {
 
 	init(
 		allowList: [ValidationServiceAllowlistEntry],
-		trustEvaluation: TrustEvaluation,
-		store: Store
+		trustEvaluation: TrustEvaluation
 	) {
 		self.allowList = allowList
 		self.trustEvaluation = trustEvaluation
-		self.store = store
 	}
 
 	// MARK: - Protocol EvaluateTrust
@@ -37,16 +35,11 @@ class AllowListEvaluationTrust: EvaluateTrust {
 			Log.debug("\(item)", log: .ticketValidationAllowList)
 		}
 	#endif
-		var result = trustEvaluation.checkServerCertificateAgainstAllowlist(
+		let result = trustEvaluation.checkServerCertificateAgainstAllowlist(
 			hostname: challenge.protectionSpace.host,
 			trust: trust,
 			allowList: allowList
 		)
-
-	#if !RELEASE
-		// override result if skipAllowlistValidation is true
-		result = store.skipAllowlistValidation ? .success(()) : result
-	#endif
 
 		switch result {
 		case .success:
@@ -65,7 +58,6 @@ class AllowListEvaluationTrust: EvaluateTrust {
 	// MARK: - Private
 
 	private let trustEvaluation: TrustEvaluation
-	private let store: Store
 
 	private var allowList: [ValidationServiceAllowlistEntry]
 

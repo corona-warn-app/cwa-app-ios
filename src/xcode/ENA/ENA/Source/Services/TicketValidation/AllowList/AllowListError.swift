@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+
 enum AllowListError: LocalizedError {
 	case CERT_PIN_HOST_MISMATCH
 	case SP_ALLOWLIST_NO_MATCH

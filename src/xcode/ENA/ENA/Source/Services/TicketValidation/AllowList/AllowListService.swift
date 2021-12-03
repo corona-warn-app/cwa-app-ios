@@ -10,9 +10,11 @@ final class AllowListService {
 	// MARK: - Init
 	
 	init(
-	    restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		store: Store
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.store = store
 	}
 	
 	// MARK: - Private
@@ -73,4 +75,9 @@ final class AllowListService {
 			return .success(())
 		}
 	}
+
+	// MARK: - private
+	
+	private let store: Store
+
 }

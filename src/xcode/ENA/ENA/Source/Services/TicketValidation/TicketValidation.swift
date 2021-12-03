@@ -270,8 +270,7 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation(),
-				store: store
+				trustEvaluation: TrustEvaluation()
 			)
 		)
 		restServiceProvider.load(resource) { [weak self] result in
@@ -383,8 +382,7 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation(),
-				store: store
+				trustEvaluation: TrustEvaluation()
 			)
 		)
 
@@ -408,7 +406,10 @@ final class TicketValidation: TicketValidating {
 	}
 	
 	private func validateServiceIdentityAgainstAllowlist(completion: @escaping ((Result<Void, AllowListError>)) -> Void) {
-		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		let allowListService = AllowListService(
+			restServiceProvider: restServiceProvider,
+			store: store
+		)
 		
 		allowListService.fetchAllowList { [weak self] result in
 			guard let self = self else {
@@ -438,7 +439,10 @@ final class TicketValidation: TicketValidating {
 	}
 
 	private func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> Result<Void, AllowListError> {
-		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		let allowListService = AllowListService(
+			restServiceProvider: restServiceProvider,
+			store: store
+		)
 		
 		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		return filteringResult
