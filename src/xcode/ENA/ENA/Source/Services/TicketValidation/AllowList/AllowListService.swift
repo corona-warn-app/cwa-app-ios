@@ -45,7 +45,7 @@ final class AllowListService {
 
 #if !RELEASE
 		// override result if skipAllowlistValidation is true
-		guard !store.skipAllowlistValidation else {
+		if store.skipAllowlistValidation {
 			Log.info("Skip allow list toggle in Developer Menu is on", log: .ticketValidation)
 			return .success(())
 		}
