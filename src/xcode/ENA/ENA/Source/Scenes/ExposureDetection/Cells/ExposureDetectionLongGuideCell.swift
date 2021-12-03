@@ -5,6 +5,12 @@
 import Foundation
 import UIKit
 
+struct LinkedText {
+	let text: String
+	let linkText: String
+	let link: String
+}
+
 class ExposureDetectionLongGuideCell: UITableViewCell {
 	@IBOutlet private var stackView: UIStackView!
 
@@ -13,6 +19,58 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 		configure(image: image, attributedText: strings)
 	}
 
+	func configure(
+		titleText: NSAttributedString,
+		titleImage: UIImage?,
+		linkedTexts: [LinkedText]
+	) {
+		for subview in stackView.arrangedSubviews {
+			stackView.removeArrangedSubview(subview)
+			subview.removeFromSuperview()
+		}
+
+		imageView?.image = titleImage
+		textLabel?.attributedText = titleText
+		
+		for linkedText in linkedTexts {
+			let imageView = UIImageView(image: UIImage(named: "Icons_Dot"))
+			imageView.translatesAutoresizingMaskIntoConstraints = false
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+
+			let linkedTextView = ENALinkedTextView()
+			linkedTextView.translatesAutoresizingMaskIntoConstraints = false
+			linkedTextView.configure(
+				text: linkedText.text,
+				textFont: .body,
+				textColor: .enaColor(for: .textPrimary1),
+				links: [ENALinkedTextView.Link(text: linkedText.linkText, link: linkedText.link)],
+				tintColor: .enaColor(for: .tint),
+				linkColor: .enaColor(for: .tint)
+			)
+
+			let labelView = UIView()
+			labelView.translatesAutoresizingMaskIntoConstraints = false
+			labelView.addSubview(linkedTextView)
+			labelView.topAnchor.constraint(equalTo: linkedTextView.topAnchor).isActive = true
+			labelView.bottomAnchor.constraint(equalTo: linkedTextView.bottomAnchor).isActive = true
+			labelView.leadingAnchor.constraint(equalTo: linkedTextView.leadingAnchor).isActive = true
+			labelView.trailingAnchor.constraint(equalTo: linkedTextView.trailingAnchor).isActive = true
+
+			let stackView = UIStackView(arrangedSubviews: [imageView, labelView])
+			stackView.axis = .horizontal
+			stackView.alignment = .center
+			stackView.spacing = self.stackView.spacing
+			self.stackView.addArrangedSubview(stackView)
+
+			// swiftlint:disable:next force_unwrapping
+			imageView.widthAnchor.constraint(equalTo: self.imageView!.widthAnchor).isActive = true
+
+			stackView.setContentHuggingPriority(.required, for: .vertical)
+			labelView.setContentHuggingPriority(.required, for: .vertical)
+			linkedTextView.setContentHuggingPriority(.required, for: .vertical)
+		}
+	}
+	
 	func configure(image: UIImage?, attributedText text: [NSAttributedString]) {
 		for subview in stackView.arrangedSubviews {
 			stackView.removeArrangedSubview(subview)

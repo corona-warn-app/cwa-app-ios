@@ -987,6 +987,8 @@
 		AB0246E327230F5F002668A1 /* RegistrationTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */; };
 		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
+		AB1820102758DC7C0054B873 /* DummyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18200F2758DC7C0054B873 /* DummyScreen.swift */; };
+		AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */; };
 		AB18807826540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18807726540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
@@ -2608,6 +2610,8 @@
 		AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTokenModel.swift; sourceTree = "<group>"; };
 		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
+		AB18200F2758DC7C0054B873 /* DummyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyScreen.swift; sourceTree = "<group>"; };
+		AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALinkedTextView.swift; sourceTree = "<group>"; };
 		AB18807726540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAAnalyticsTestResultCollector.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -5670,6 +5674,7 @@
 		514E81312461946E00636861 /* ExposureDetection */ = {
 			isa = PBXGroup;
 			children = (
+				AB18200E2758DB1C0054B873 /* InfoScreens */,
 				A36FACC224C5E9FC00DED947 /* __tests__ */,
 				71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */,
 				01D02666258B750800B6389A /* ExposureDetectionViewController.xib */,
@@ -6007,6 +6012,7 @@
 				71B804462484CC0800D53506 /* ENALabel.swift */,
 				711EFCC62492EE31005FEF21 /* ENAFooterView.swift */,
 				BAC42DC32583AF9D001A94C0 /* ENATextField.swift */,
+				AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */,
 			);
 			path = BaseElements;
 			sourceTree = "<group>";
@@ -6605,6 +6611,14 @@
 				01DDF44326541CEC0043B4E1 /* DidSetPublished.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		AB18200E2758DB1C0054B873 /* InfoScreens */ = {
+			isa = PBXGroup;
+			children = (
+				AB18200F2758DC7C0054B873 /* DummyScreen.swift */,
+			);
+			path = InfoScreens;
 			sourceTree = "<group>";
 		};
 		AB1885CF25238D9B00D39BBE /* __tests__ */ = {
@@ -9923,6 +9937,7 @@
 				019789352746920600AAC31C /* TicketValidationOpenViewModel.swift in Sources */,
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
+				AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */,
 				BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */,
@@ -9944,6 +9959,7 @@
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
 				EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */,
+				AB1820102758DC7C0054B873 /* DummyScreen.swift in Sources */,
 				EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */,
 				5078DCA62684B60400535917 /* HealthCertificateValidationError.swift in Sources */,
 				B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */,

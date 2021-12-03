@@ -112,21 +112,7 @@
 
 "ExposureDetection_Guide_Home" = "По възможност се приберете и си останете вкъщи.";
 
-"ExposureDetection_Guide_Hotline1" = "Ако имате въпроси относно симптомите, възможностите за тестване или карантинните мерки, моля обърнете се към:";
-
-"ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
-
-"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116 117";
-
-"ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
-
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Ако все още не сте се ваксинирали, консултирайте се с личния си лекар или се обадете на телефона на Общата служба за медицинска помощ, за да си запазите час за тест. След теста обсъдете с личния си лекар възможността за ваксинация срещу SARS-CoV-2.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Ако се тествате, ще получите допълнителна информация относно процедурата за тестване в %@.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "ЧЗВ относно процедурата за тестване";
 
 "ExposureDetection_Explanation_Title" = "Риск от заразяване";
 
