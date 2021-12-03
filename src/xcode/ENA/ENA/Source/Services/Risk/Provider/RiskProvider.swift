@@ -94,7 +94,7 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 		
-		successOnTargetQueue(risk: Risk.mocked(level: .high))
+		successOnTargetQueue(risk: Risk.mocked(level: .low))
 		return
 		
 		guard !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {

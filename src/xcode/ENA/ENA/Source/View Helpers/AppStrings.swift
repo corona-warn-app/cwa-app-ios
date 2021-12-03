@@ -507,10 +507,12 @@ enum AppStrings {
 
 		static let behaviorTitle = NSLocalizedString("ExposureDetection_Behavior_Title", comment: "")
 		static let behaviorSubtitle = NSLocalizedString("ExposureDetection_Behavior_Subtitle", comment: "")
+		static let lowRiskBehaviorSubtitle = NSLocalizedString("ExposureDetection_LowRisk_Behavior_Subtitle", comment: "")
 
 		static let guideVaccination = NSLocalizedString("ExposureDetection_Guide_Vaccination", comment: "")
 		static let guideHands = NSLocalizedString("ExposureDetection_Guide_Hands", comment: "")
 		static let guideMask = NSLocalizedString("ExposureDetection_Guide_Mask", comment: "")
+		static let guideDistance = NSLocalizedString("ExposureDetection_Guide_Distance", comment: "")
 		static let guideSneeze = NSLocalizedString("ExposureDetection_Guide_Sneeze", comment: "")
 		static let guideVentilation = NSLocalizedString("ExposureDetection_Guide_Ventilation", comment: "")
 		static let guideSymptoms = NSLocalizedString("ExposureDetection_Guide_Symptoms", comment: "")

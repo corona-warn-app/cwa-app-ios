@@ -537,11 +537,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		.section(
 			header: .backgroundSpace(height: 16),
 			cells: [
-				.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+				.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.lowRiskBehaviorSubtitle),
 				.guide(text: AppStrings.ExposureDetection.guideVaccination, image: UIImage(named: "Icons - VaccinatedArm")),
-				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
 				.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "Icons - Mundschutz")),
+				.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
 				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "Icons - Niesen")),
+				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
 				.guide(text: AppStrings.ExposureDetection.guideVentilation, image: UIImage(named: "Icons - Ventilation")),
 				.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer"))
 			]

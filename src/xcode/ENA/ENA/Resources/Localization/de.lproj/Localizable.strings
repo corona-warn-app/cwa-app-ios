@@ -99,19 +99,23 @@
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig, auch, wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben:";
 
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
+
 "ExposureDetection_Guide_Hygiene" = "Bitte achten Sie jetzt besonders auf die üblichen Hygieneregeln.";
 
 "ExposureDetection_Guide_Vaccination" = "Lassen Sie sich gegen SARS-CoV-2 impfen, falls Sie noch nicht geimpft sind.";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
-"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
+"ExposureDetection_Guide_Mask" = "Tragen Sie eine Maske bei Begegnungen mit anderen Personen.";
+
+"ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
 
 "ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 
-"ExposureDetection_Guide_Symptoms" = "Achten Sie auf Krankheitssymptome. Symptome können auch bei geimpften und bei genesenen Personen auftreten. Falls Sie sich krank fühlen oder Symptome auftreten, wenden Sie sich bitte an Ihre Hausarztpraxis.";
+"ExposureDetection_Guide_Symptoms" = "Achten Sie auf Symptome. Symptome können auch bei geimpften und bei genesenen Personen auftreten. Falls Sie sich krank fühlen oder Symptome auftreten, wenden Sie sich bitte an Ihre Hausarztpraxis.";
 
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause und vermeiden Sie Begegnungen außerhalb Ihres Haushalts.";
 
