@@ -4,18 +4,9 @@
 
 import Foundation
 
-enum AdmissionState {
-	case twoGPlusPCR(twoG: HealthCertificate, pcrTest: HealthCertificate)
-	case twoGPlusAntigen(twoG: HealthCertificate, antigenTest: HealthCertificate)
-	case twoG
-	case threeGWithPCR
-	case threeGWithAntigen
-	case other
-}
-
 extension Array where Element == HealthCertificate {
 
-	var admissionState: AdmissionState {
+	var admissionState: HealthCertifiedPersonAdmissionState {
 		let validOrExpiringSoonCertificates = self
 			.filter {
 				$0.validityState == .valid || $0.validityState == .expiringSoon

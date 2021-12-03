@@ -141,6 +141,7 @@
 		0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */; };
 		016146912487A43E00660992 /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* LinkHelper.swift */; };
 		01635EAE2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */; };
+		01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */; };
 		01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */; };
 		01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
@@ -1741,6 +1742,7 @@
 		0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewModelTests.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
 		01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+AdmissionState.swift"; sourceTree = "<group>"; };
+		01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonAdmissionState.swift; sourceTree = "<group>"; };
 		01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionService.swift; sourceTree = "<group>"; };
 		01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+SubmissionPreparation.swift"; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
@@ -3790,6 +3792,7 @@
 				01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */,
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
+				01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
 			);
@@ -9556,6 +9559,7 @@
 				BA5B7FD126458EF400502087 /* HealthCertificateBottomCornerCell.swift in Sources */,
 				ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */,
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
+				01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */,
