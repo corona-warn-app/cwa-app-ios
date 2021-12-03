@@ -57,7 +57,6 @@ class AllowListEvaluationTrust: EvaluateTrust {
 	// MARK: - Private
 
 	private let trustEvaluation: TrustEvaluation
-
 	private var allowList: [ValidationServiceAllowlistEntry]
 
 }
