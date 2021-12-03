@@ -4,6 +4,7 @@
 
 import Foundation
 import ENASecurity
+import jsonlogic
 
 final class TicketValidation: TicketValidating {
 	
@@ -24,15 +25,21 @@ final class TicketValidation: TicketValidating {
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		validateServiceIdentityAgainstAllowlist(completion: { [weak self] result in
-			guard let self = self else { return }
-			
+		validateServiceIdentityAgainstAllowlist { [weak self] result in
+			guard let self = self else {
+				Log.error("Cannot capture self in the closure", log: .ticketValidationAllowList)
+				return
+			}
+
 			switch result {
 			case .success:
 				self.validateIdentityDocumentOfValidationDecorator(
 					urlString: self.initializationData.serviceIdentity
 				) { [weak self] result in
-					guard let self = self else { return }
+					guard let self = self else {
+						Log.error("Cannot capture self in the closure", log: .ticketValidationDecorator)
+						return
+					}
 					
 					switch result {
 					case .success(let validationDecoratorDocument):
@@ -55,7 +62,7 @@ final class TicketValidation: TicketValidating {
 			case .failure(let error):
 				completion(.failure(.allowListError(error)))
 			}
-		})
+		}
 	}
 
 	func grantFirstConsent(
@@ -377,7 +384,11 @@ final class TicketValidation: TicketValidating {
 		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
 		
 		allowListService.fetchAllowList { [weak self] result in
-			guard let self = self else { return }
+			guard let self = self else {
+				Log.error("Cannot capture self in the closure", log: .ticketValidationDecorator)
+				return
+			}
+
 			switch result {
 			case .success(let allowList):
 				let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
