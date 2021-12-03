@@ -19,20 +19,23 @@ public class TrustEvaluation {
 
     // MARK: - Public
 
-    public func check(trust: SecTrust, against jwkSet: [JSONWebKey]) -> Result<Void, TrustEvaluationError> {
+    public func check(trust: SecTrust, against jwkSet: [JSONWebKey], logMessage: ((String) -> Void)?) -> Result<Void, TrustEvaluationError> {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
         if let serverCertificate = SecTrustGetCertificateAtIndex(trust, 0),
            let serverCertificateData = SecCertificateCopyData(serverCertificate) as Data? {
 
-            return check(serverKeyData: serverCertificateData, against: jwkSet)
+            return check(serverKeyData: serverCertificateData, against: jwkSet, logMessage: logMessage)
         } else {
             return .failure(.CERT_CHAIN_EMTPY)
         }
     }
 
-    public func check(serverKeyData: Data, against jwkSet: [JSONWebKey]) -> Result<Void, TrustEvaluationError> {
+    public func check(serverKeyData: Data, against jwkSet: [JSONWebKey], logMessage: ((String) -> Void)?) -> Result<Void, TrustEvaluationError> {
         // Determine requiredKid: the requiredKid (a string) shall be determined by taking the first 8 bytes of the SHA-256 fingerprint of the leafCertificate and encoding it with base64.
+        
         let requiredKid = serverKeyData.keyIdentifier
+        
+        logMessage?("Server certificate key identifier (requiredKid): \(requiredKid)")
 
         // Find requiredJwkSet: the requiredJwkSet shall be set to the array of entries from jwkSet where kid matches the requiredKid.
         let requiredJwkSet = jwkSet

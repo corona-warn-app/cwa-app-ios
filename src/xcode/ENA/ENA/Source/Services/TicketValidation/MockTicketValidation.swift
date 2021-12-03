@@ -4,6 +4,8 @@
 
 import Foundation
 
+#if DEBUG
+
 final class MockTicketValidation: TicketValidating {
 
 	// MARK: - Protocol TicketValidating
@@ -59,3 +61,5 @@ final class MockTicketValidation: TicketValidating {
 	var delay: TimeInterval = 0
 	
 }
+
+#endif

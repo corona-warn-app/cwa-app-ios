@@ -674,7 +674,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.AddCard.localCardTitle)
 		XCTAssertEqual(viewModel.subtitle, regionStatisticsLocalTrend.region.name)
-		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "LocalIncidence"))
+		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Illu_7-Tage-Lokal-Inzidenz"))
 		XCTAssertEqual(viewModel.primaryValue, "43,1")
 		XCTAssertEqual(viewModel.primaryTrendImage, UIImage(named: "Pfeil_steigend_plain"))
 		XCTAssertEqual(viewModel.primaryTrendImageTintColor, .enaColor(for: .riskHigh))

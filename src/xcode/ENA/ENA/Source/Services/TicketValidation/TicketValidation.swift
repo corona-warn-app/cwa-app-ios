@@ -68,6 +68,8 @@ final class TicketValidation: TicketValidating {
 	func grantFirstConsent(
 		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
+		Log.info("Grant first consent.", log: .ticketValidation)
+
 		guard let validationDecoratorDocument = validationDecoratorDocument else {
 			Log.error("grantFirstConsent called too early")
 			completion(.failure(.other))
@@ -128,6 +130,7 @@ final class TicketValidation: TicketValidating {
 	func validate(
 		completion: @escaping (Result<TicketValidationResultToken, TicketValidationError>) -> Void
 	) {
+
 		/// 1.  Determine `encryptionParameters`
 
 		let encryptionScheme: EncryptionScheme
@@ -219,10 +222,15 @@ final class TicketValidation: TicketValidating {
 		completion:
 		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
+		Log.info("Validate identity document of validation decorator.", log: .ticketValidation)
+
 		guard let url = URL(string: urlString) else {
 			Log.error("URL cant be constructed from input string", log: .ticketValidationDecorator)
 			return
 		}
+		
+		Log.debug("Request document of validation decorator at URL: \(url)", log: .ticketValidation)
+		
 		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		restServiceProvider.load(resource) { result in
 			switch result {
@@ -234,6 +242,8 @@ final class TicketValidation: TicketValidating {
 					completion(result)
 				}
 			case .failure(let error):
+				Log.error("Failed to request document of validation decorator with error: \(error)", log: .ticketValidation)
+
 				completion(.failure(.REST_SERVICE_ERROR(error)))
 				Log.error(error.localizedDescription, log: .ticketValidationDecorator)
 			}
@@ -245,13 +255,16 @@ final class TicketValidation: TicketValidating {
 		validationServiceJwkSet: [JSONWebKey],
 		completion: @escaping (Result<ServiceIdentityRequestResult, ServiceIdentityRequestError>) -> Void
 	) {
+		Log.info("Request document of service identity", log: .ticketValidation)
+
 		guard let url = URL(string: validationServiceData.serviceEndpoint) else {
 			completion(.failure(.UNKOWN))
 			return
 		}
 
-		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
+		Log.debug("Request document of service identity at URL: \(url)", log: .ticketValidation)
 
+		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
@@ -266,6 +279,8 @@ final class TicketValidation: TicketValidating {
 					completion: completion
 				)
 			case .failure(let error):
+				Log.error("Failed to request document of service identity with error: \(error)", log: .ticketValidation)
+				
 				completion(.failure(.REST_SERVICE_ERROR(error)))
 			}
 		}
@@ -280,11 +295,15 @@ final class TicketValidation: TicketValidating {
         publicKeyBase64: String,
         completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
     ) {
+		Log.info("Request access token", log: .ticketValidation)
+
         guard let url = URL(string: accessTokenService.serviceEndpoint) else {
             Log.error("Invalid access token service endpoint", log: .ticketValidation)
             completion(.failure(.UNKNOWN))
             return
         }
+
+		Log.debug("Request access token at URL: \(url)", log: .ticketValidation)
 
         let resource = TicketValidationAccessTokenResource(
             accessTokenServiceURL: url,
@@ -335,11 +354,15 @@ final class TicketValidation: TicketValidating {
 		encryptionScheme: EncryptionScheme,
 		completion: @escaping (Result<TicketValidationResultTokenResult, TicketValidationResultTokenProcessingError>) -> Void
 	) {
+		Log.info("Request result token", log: .ticketValidation)
+
 		guard let url = URL(string: serviceEndpoint) else {
 			Log.error("Invalid result token service endpoint", log: .ticketValidation)
 			completion(.failure(.UNKNOWN))
 			return
 		}
+
+		Log.debug("Request result token at URL: \(url)", log: .ticketValidation)
 
 		let resource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: url,
