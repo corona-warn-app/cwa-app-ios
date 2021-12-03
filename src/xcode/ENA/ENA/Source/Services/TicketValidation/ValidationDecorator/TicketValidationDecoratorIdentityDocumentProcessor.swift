@@ -3,11 +3,13 @@
 //
 
 import Foundation
+import ENASecurity
 
 final class TicketValidationDecoratorIdentityDocumentProcessor {
 	
 	func validateIdentityDocument(
 		serviceIdentityDocument: TicketValidationServiceIdentityDocument,
+		allowList: [ValidationServiceAllowlistEntry],
 		completion:
 		@escaping (Result<TicketValidationServiceIdentityDocumentValidationDecorator, ServiceIdentityValidationDecoratorError>) -> Void
 	) {
@@ -60,8 +62,12 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 		Log.debug("accessTokenServiceJwkSet: \(private: accessTokenServiceJwkSet)", log: .ticketValidationDecorator)
 		
 		// 6 - Find validationService
-		guard let validationService = serviceIdentityDocument.service?.first(where: {
-			$0.type == "ValidationService"
+		guard let validationService = serviceIdentityDocument.service?.first(where: { service -> Bool in
+			let isValidationService = service.type == "ValidationService"
+			let serviceContainsAllowListHost = allowList.contains { allowListEntry in
+				service.serviceEndpoint.starts(with: "https://" + allowListEntry.hostname)
+			}
+			return serviceContainsAllowListHost && isValidationService
 		}) else {
 			Log.error("no match for validation service", log: .ticketValidationDecorator)
 			completion(.failure(.VD_ID_NO_VS))

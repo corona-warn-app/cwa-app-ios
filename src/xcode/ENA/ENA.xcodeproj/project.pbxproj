@@ -878,6 +878,7 @@
 		8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */; };
 		8F4E623B25EE878E00FF4F0A /* BottomErrorReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */; };
 		8F4E624225EE879B00FF4F0A /* TopErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */; };
+		8F5336782758FE440046D8BF /* AllowListEvaluationTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5336772758FE440046D8BF /* AllowListEvaluationTrust.swift */; };
 		8F5B5C0E26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C0C26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift */; };
 		8F5B5C172648CD3800456381 /* HealthCertifiedPersonCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C162648CD3800456381 /* HealthCertifiedPersonCellModel.swift */; };
 		8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */; };
@@ -919,7 +920,6 @@
 		8FEC122627551F6700C5DADC /* validation_service_allowlist.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */; };
 		8FEC1228275521E500C5DADC /* AllowListResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC1227275521E500C5DADC /* AllowListResource.swift */; };
 		8FEC122A27564C7A00C5DADC /* AllowListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122927564C7A00C5DADC /* AllowListService.swift */; };
-		8FEC122D27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */; };
 		8FEC122F27564D1B00C5DADC /* AllowListError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122E27564D1B00C5DADC /* AllowListError.swift */; };
 		8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */; };
 		8FEC12332756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */; };
@@ -2496,6 +2496,7 @@
 		8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomErrorReportViewController.swift; sourceTree = "<group>"; };
 		8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomErrorReportViewController.xib; sourceTree = "<group>"; };
 		8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewController.swift; sourceTree = "<group>"; };
+		8F5336772758FE440046D8BF /* AllowListEvaluationTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListEvaluationTrust.swift; sourceTree = "<group>"; };
 		8F5B5C0C26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonTableViewCell.swift; sourceTree = "<group>"; };
 		8F5B5C162648CD3800456381 /* HealthCertifiedPersonCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModel.swift; sourceTree = "<group>"; };
 		8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AntigenTestInformation+Mock.swift"; sourceTree = "<group>"; };
@@ -2537,7 +2538,6 @@
 		8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = validation_service_allowlist.pb.swift; sourceTree = "<group>"; };
 		8FEC1227275521E500C5DADC /* AllowListResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListResource.swift; sourceTree = "<group>"; };
 		8FEC122927564C7A00C5DADC /* AllowListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListService.swift; sourceTree = "<group>"; };
-		8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationServiceAllowlistEntry.swift; sourceTree = "<group>"; };
 		8FEC122E27564D1B00C5DADC /* AllowListError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllowListError.swift; sourceTree = "<group>"; };
 		8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAllowList.swift; sourceTree = "<group>"; };
 		8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift"; sourceTree = "<group>"; };
@@ -6413,7 +6413,6 @@
 			isa = PBXGroup;
 			children = (
 				8FEC122927564C7A00C5DADC /* AllowListService.swift */,
-				8FEC122C27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift */,
 				8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */,
 				8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */,
 				8FEC122E27564D1B00C5DADC /* AllowListError.swift */,
@@ -8358,6 +8357,7 @@
 				BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */,
 				BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */,
 				BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */,
+				8F5336772758FE440046D8BF /* AllowListEvaluationTrust.swift */,
 			);
 			path = EvaluateTrust;
 			sourceTree = "<group>";
@@ -10184,6 +10184,7 @@
 				017D8DA8263B02F70009E91C /* Name+Extension.swift in Sources */,
 				506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */,
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
+				8F5336782758FE440046D8BF /* AllowListEvaluationTrust.swift in Sources */,
 				01164CD226C559A5007F9C3E /* OnBehalfInfoViewController.swift in Sources */,
 				35BDAB2225F10094004DFE32 /* Data+Appending.swift in Sources */,
 				5065E12B26F0F0F000F18B96 /* QRScannerCoordinator.swift in Sources */,
@@ -10370,7 +10371,6 @@
 				EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				BA941DCE25E5450D003F9653 /* TopBottomContainerViewController.swift in Sources */,
-				8FEC122D27564CEB00C5DADC /* ValidationServiceAllowlistEntry.swift in Sources */,
 				01164CD326C559A8007F9C3E /* OnBehalfInfoViewModel.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				8F39D05E263C414A0096F4E2 /* VaccinationValueSetsProvider.swift in Sources */,
