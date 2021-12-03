@@ -145,6 +145,8 @@ extension DynamicCell {
 			
 			if let accessoryType = accessoryType {
 				cell.accessoryType = accessoryType
+			} else {
+				cell.accessoryType = .none
 			}
 		}
 	}
