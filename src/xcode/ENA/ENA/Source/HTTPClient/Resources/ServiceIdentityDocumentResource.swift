@@ -58,9 +58,9 @@ struct ServiceIdentityDocumentResource: Resource {
 			return .VS_ID_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case (400...409):
+			case (400...499):
 				return .VS_ID_CLIENT_ERR
-			case (500...509):
+			case (500...599):
 				return .VS_ID_SERVER_ERR
 			default:
 				return nil
