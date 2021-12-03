@@ -5,18 +5,19 @@
 import UIKit
 
 extension SAP_Internal_Stats_KeyFigure {
+
+	// MARK: - Internal
+
 	var formattedValue: String? {
 		let decimals = max(0, Int(self.decimals))
-		let numberFormatter = NumberFormatter()
-		numberFormatter.numberStyle = .decimal
+		let numberFormatter = Self.decimalNumberFormatter
 		numberFormatter.minimumFractionDigits = Int(decimals)
 		numberFormatter.maximumFractionDigits = Int(decimals)
 		return numberFormatter.string(from: NSNumber(value: value))
 	}
 
 	var formattedValueWithPercent: String? {
-		let numberFormatter = NumberFormatter()
-		numberFormatter.numberStyle = .percent
+		let numberFormatter = Self.percentNumberFormatter
 		let decimals = max(0, Int(self.decimals))
 		numberFormatter.maximumFractionDigits = Int(decimals)
 		return numberFormatter.string(from: NSNumber(value: value))?.filter({ !$0.isWhitespace })
@@ -81,5 +82,20 @@ extension SAP_Internal_Stats_KeyFigure {
 			return nil
 		}
 	}
+
+	// MARK: - Private
+
+	private static let decimalNumberFormatter: NumberFormatter = {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.roundingMode = .halfUp
+		numberFormatter.numberStyle = .decimal
+		return numberFormatter
+	}()
+
+	private static let percentNumberFormatter: NumberFormatter = {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.numberStyle = .percent
+		return numberFormatter
+	}()
 
 }
