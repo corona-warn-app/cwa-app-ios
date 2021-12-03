@@ -12,6 +12,8 @@ class ENALinkedTextView: UITextView {
 		let link: String
 	}
 	
+	// MARK: - Init
+
 	override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: frame, textContainer: textContainer)
 		
@@ -31,6 +33,12 @@ class ENALinkedTextView: UITextView {
 		delegate = self
 	}
 	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Internal
+
 	func configure(
 		text: String,
 		textFont: ENAFont,
@@ -66,9 +74,6 @@ class ENALinkedTextView: UITextView {
 		self.tintColor = tintColor
 	}
 	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
 }
 
 // MARK: - Protocol UITextViewDelegate
