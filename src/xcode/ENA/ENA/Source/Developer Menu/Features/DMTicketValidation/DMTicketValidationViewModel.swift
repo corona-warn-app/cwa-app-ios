@@ -38,7 +38,7 @@ final class DMTicketValidationViewModel {
 		switch section {
 		case .toggleAllowList:
 			return DMSwitchCellViewModel(
-				labelText: "Allowlist check:",
+				labelText: "Skip allowlist check:",
 				isOn: { [weak self] in
 					guard let self = self else { return false }
 					return self.store.skipAllowlistValidation
