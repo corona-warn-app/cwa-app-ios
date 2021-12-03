@@ -132,19 +132,4 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 
 		XCTAssertEqual(customError, .RTR_CERT_PIN_MISMATCH)
 	}
-
-	func testCustomCertificatePinningNoJWKForKIDError() throws {
-		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
-			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
-			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
-		)
-
-		let customError = try XCTUnwrap(
-			ticketValidationResultTokenResource.customError(for: .trustEvaluationError(.CERT_PIN_NO_JWK_FOR_KID))
-		)
-
-		XCTAssertEqual(customError, .RTR_CERT_PIN_NO_JWK_FOR_KID)
-	}
-
 }
