@@ -407,7 +407,7 @@ final class TicketValidation: TicketValidating {
 		}
 	}
 	
-	private func validateServiceIdentityAgainstAllowlist(completion: @escaping ((Result<TicketValidationAllowList, AllowListError>)) -> Void) {
+	private func validateServiceIdentityAgainstAllowlist(completion: @escaping ((Result<Void, AllowListError>)) -> Void) {
 		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
 		
 		allowListService.fetchAllowList { [weak self] result in
@@ -418,15 +418,16 @@ final class TicketValidation: TicketValidating {
 
 			switch result {
 			case .success(let allowList):
+				self.allowList = allowList
 				let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
 					serviceProviderAllowlist: allowList.serviceProviderAllowList,
 					serviceIdentity: self.initializationData.serviceIdentity
 				)
 				switch result {
 				case .success:
-					self.allowList = allowList
-					completion(.success(allowList))
+					completion(.success(()))
 				case .failure(let error):
+					Log.error("Ticket Validation AllowList serviceIdentity check failed", log: .ticketValidationAllowList, error: error)
 					completion(.failure(error))
 				}
 			case .failure(let error):

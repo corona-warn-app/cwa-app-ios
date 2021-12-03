@@ -40,9 +40,9 @@ final class AllowListService {
 		serviceProviderAllowlist: [Data],
 		serviceIdentity: String
 	) -> Result<Void, AllowListError> {
-		
+		let base64EncodedServiceIdentityHash = Data(hex: serviceIdentity.sha256()).base64EncodedString()
 		if serviceProviderAllowlist.contains(where: {
-			$0.sha256().base64EncodedString() == serviceIdentity.sha256()
+			$0.base64EncodedString() == base64EncodedServiceIdentityHash
 		}) {
 			return .success(())
 		} else {

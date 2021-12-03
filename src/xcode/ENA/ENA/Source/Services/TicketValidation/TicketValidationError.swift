@@ -32,7 +32,7 @@ enum TicketValidationError: LocalizedError {
 			}
 		case .validationServiceDocument(let error):
 			switch error {
-			case .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_CERT_PIN_MISMATCH)), .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_CERT_PIN_NO_JWK_FOR_KID)), .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_CLIENT_ERR)), .VS_ID_EMPTY_X5C, .VS_ID_NO_ENC_KEY, .VS_ID_NO_SIGN_KEY, .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_PARSE_ERR)):
+			case .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_CERT_PIN_MISMATCH)), .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_CLIENT_ERR)), .VS_ID_EMPTY_X5C, .VS_ID_NO_ENC_KEY, .VS_ID_NO_SIGN_KEY, .REST_SERVICE_ERROR(.receivedResourceError(.VS_ID_PARSE_ERR)):
 				return "\(serviceProviderError) (\(error))"
 			default:
 				return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
@@ -57,7 +57,7 @@ enum TicketValidationError: LocalizedError {
 			}
 		case .allowListError(let error):
 			switch error {
-			case .CERT_PIN_HOST_MISMATCH, .CERT_PIN_MISMATCH, .SP_ALLOWLIST_NO_MATCH:
+			case .CERT_PIN_HOST_MISMATCH, .SP_ALLOWLIST_NO_MATCH:
 				return "\(serviceProviderError) (\(error))"
 			case .REST_SERVICE_ERROR(let serviceError):
 				return "\(serviceProviderError) (\(serviceError))"
