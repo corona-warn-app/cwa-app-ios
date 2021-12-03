@@ -24,7 +24,7 @@ class AllowListEvaluationTrust: EvaluateTrust {
 		trust: SecTrust,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
-	#if DEBUG
+#if DEBUG
 		// debug/review: print the chain
 		for i in 0..<SecTrustGetCertificateCount(trust) {
 			if let cert = SecTrustGetCertificateAtIndex(trust, i) {
@@ -34,7 +34,7 @@ class AllowListEvaluationTrust: EvaluateTrust {
 		for item in allowList {
 			Log.debug("\(item)", log: .ticketValidationAllowList)
 		}
-	#endif
+#endif
 		let result = trustEvaluation.checkServerCertificateAgainstAllowlist(
 			hostname: challenge.protectionSpace.host,
 			trust: trust,
