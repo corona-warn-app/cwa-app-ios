@@ -4,7 +4,6 @@
 
 import Foundation
 import ENASecurity
-import jsonlogic
 
 final class TicketValidation: TicketValidating {
 	
