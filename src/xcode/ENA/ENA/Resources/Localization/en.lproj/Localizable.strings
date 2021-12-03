@@ -531,7 +531,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Find Testing Center";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Find test centers near you. You will be forwarded to an external RKI website.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Find testing centers near you. If any problems occur, you can report them.\nYou will be forwarded to an external RKI website.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Request TAN for PCR Test";
@@ -715,7 +715,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Your test cannot be evaluated";
 
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the test center or laboratory involved to find out how to proceed.";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the testing center or laboratory involved to find out how to proceed.";
 
 "ExposureSubmissionResult_testExpired" = "Your test cannot be evaluated";
 
@@ -753,7 +753,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consent “Warn others” not granted";
 
-"ExposureSubmissionResult_testRemove" = "Delete test";
+"ExposureSubmissionResult_testRemove" = "Delete Test";
 
 "ExposureSubmissionResult_testRemoveDesc" = "You have to remove the last test before you can register a new one.";
 
@@ -761,7 +761,7 @@
 
 "ExposureSubmissionResult_secondaryButtonTitle" = "Don’t Enter Symptoms";
 
-"ExposureSubmissionResult_deleteButton" = "Delete test";
+"ExposureSubmissionResult_deleteButton" = "Delete Test";
 
 "ExposureSubmissionResult_refreshButton" = "Update";
 
@@ -850,11 +850,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Remove the test result?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test result?";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "The test result will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page.\nYou can permanently delete the test result or restore it there. The test result will be deleted automatically after 30 days.";
 
-"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Remove Test Result";
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Delete Test Result";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
@@ -897,7 +897,7 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on your smartphone already.\nYou will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus the public health authority will be notified through the legally prescribed channel and will contact you.\nIf you have deleted the test in the app, you can restore it from the recycle bin.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on your smartphone already.\nYou will receive your test result from the testing center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus the public health authority will be notified through the legally prescribed channel and will contact you.\nIf you have deleted the test in the app, you can restore it from the recycle bin.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
 
@@ -1259,7 +1259,7 @@
 
 "Home_Finding_Positive_Card_Button" = "Warn Others";
 
-"Home_Finding_Positive_Card_Button_Remove_Test" = "Remove Test";
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Delete Test";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Manage Your Tests";
@@ -1553,10 +1553,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.14 */
-"NewVersionFeature_214_recycleBin_title" = "Recycle Bin Function for Tests";
+/* Version 2.15 */
+"NewVersionFeature_215_ticketValidation_title" = "Certificate Validation during Ticketing";
 
-"NewVersionFeature_214_recycleBin_description" = "Removed rapid tests and PCR tests are now also moved to the recycle bin. This means you can recover objects that you deleted accidentally.";
+"NewVersionFeature_215_ticketValidation_description" = "When you book a ticket, you can present proof that you have been vaccinated, recovered, or tested negative. To do so, scan the QR code displayed in the ticketing system and then select the right certificate in the app. The result of the certificate validation is sent to the ticketing system by the validation partner.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1765,19 +1765,19 @@
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Edit People";
 
-"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Remove All";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Delete All";
 
-"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Do you really want to remove all people?";
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Do you really want to delete all people?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove all people, all the entries for all people will be removed from your journal.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you delete all people, all the entries for all people will be deleted from your journal.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Yes";
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "No";
 
-"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Do you really want to remove this person?";
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Do you really want to delete this person?";
 
-"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "If you delete a person, all the entries for that person will be deleted from your journal.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Yes";
 
@@ -1785,19 +1785,19 @@
 
 "ContactDiary_EditEntries_Locations_Title" = "Edit Places";
 
-"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Remove All";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Delete All";
 
-"ContactDiary_EditEntries_Locations_AlertTitle" = "Do you really want to remove all places?";
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Do you really want to delete all places?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove all places, all the entries for all places will be removed from your journal.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "If you delete all places, all the entries for all places will be deleted from your journal.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Yes";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "No";
 
-"ContactDiary_EditEntries_Location_AlertTitle" = "Do you really want to remove this place?";
+"ContactDiary_EditEntries_Location_AlertTitle" = "Do you really want to delete this place?";
 
-"ContactDiary_EditEntries_Location_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+"ContactDiary_EditEntries_Location_AlertMessage" = "If you delete a place, all the entries for that place will be deleted from your journal.";
 
 "ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Yes";
 
@@ -1818,7 +1818,7 @@
 
 "ContactDiary_Information_Item_Lock_Title" = "You are the only one who can access your journal entries. Your entries will be saved only on your smartphone.";
 
-"ContactDiary_Information_Item_DeletedAutomatically_Title" = "You can remove entries for people and places from your journal at any time. Journal entries will be deleted automatically after 16 days.";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "You can delete entries for people and places from your journal at any time. Journal entries will be deleted automatically after 16 days.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "You can export your contact journal in plain text format and then print out the entries, edit them, or provide them to your public health office as needed.";
 
@@ -2242,7 +2242,7 @@
 
 "Checkins_Overview_EmptyImageDescription" = "A building with a QR code symbol in the background";
 
-"Checkins_Overview_DeleteAllButtonTitle" = "Remove All";
+"Checkins_Overview_DeleteAllButtonTitle" = "Delete All";
 
 "Checkins_Overview_DurationTitle" = "Duration";
 
@@ -2252,19 +2252,19 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Check Out Now";
 
-"Checkins_Overview_DeleteOne_AlertTitle" = "Do you really want to remove this entry?";
+"Checkins_Overview_DeleteOne_AlertTitle" = "Delete this entry?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "You will no longer be able to warn people who were checked in to this place or event at the same time, nor will you be warned by them.";
 
-"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Remove";
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Delete";
 
 "Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Cancel";
 
-"Checkins_Overview_DeleteAll_AlertTitle" = "Do you really want to remove all entries?";
+"Checkins_Overview_DeleteAll_AlertTitle" = "Do you really want to delete all entries?";
 
 "Checkins_Overview_DeleteAll_AlertMessage" = "You will no longer be able to warn people who were checked in to these places or events at the same time, nor will you be warned by them.";
 
-"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Remove";
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Delete";
 
 "Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Cancel";
 
@@ -2305,7 +2305,7 @@
 
 "TraceLocations_Overview_EmptyImageDescription" = "Smartphone with QR code symbol";
 
-"TraceLocations_Overview_DeleteAllButtonTitle" = "Remove All";
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Delete All";
 
 "TraceLocations_Overview_SelfCheckinButtonTitle" = "Check In";
 
@@ -2482,7 +2482,7 @@
 
 "ErrorReport_DetailedInformation_Title" = "Detailed Information on Sending Error Reports";
 
-"errorReport_DetailedInformation_Headline" = "Verification of Authenticity and Data Transfer to Third Countries";
+"errorReport_DetailedInformation_Headline" = "Validation of Authenticity and Data Transfer to Third Countries";
 
 "errorReport_DetailedInformation_Content1" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send data to technical support and rule out manipulated error reports. To do so, the identifier is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple. Apple does not receive the information from your error report, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Agree and Send”. You will still be able to use the app, but you cannot send error reports.";
 
@@ -2686,7 +2686,7 @@
 
 "TestCertificateRequest_tryAgainButtonTitle" = "Try Again";
 
-"TestCertificateRequest_removeButtonTitle" = "Remove Test Certificate";
+"TestCertificateRequest_removeButtonTitle" = "Delete Test Certificate";
 
 /* - Test Certificate Request Error Alert */
 "TestCertificateRequest_ErrorAlert_title" = "There are still problems with the request.";
@@ -2694,7 +2694,7 @@
 "TestCertificateRequest_ErrorAlert_Button_title" = "OK";
 
 /* - Test Certificate Request Remove Alert */
-"TestCertificateRequest_RemoveAlert_title" = "Do you want to remove the certificate?";
+"TestCertificateRequest_RemoveAlert_title" = "Do you want to delete the certificate?";
 
 "TestCertificateRequest_RemoveAlert_message" = "If you remove the certificate, you cannot request it again.";
 
@@ -2705,9 +2705,9 @@
 /* Test Certificate Request Errors */
 "TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
-"TestCertificateRequest_Error_DCC_EXPIRED" = "This certificate is no longer current. You can remove it from the Corona-Warn-App. (%@)";
+"TestCertificateRequest_Error_DCC_EXPIRED" = "This certificate is no longer current. You can delete it from the Corona-Warn-App. (%@)";
 
-"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please remove the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please delete the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
 "TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
@@ -2717,7 +2717,7 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Your certificate it not available yet. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
-"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please remove the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "You cannot request a test certificate because this testing point does not support the issuing of test certificates. Please delete the certificate or contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Add Certificates";
@@ -2730,27 +2730,27 @@
 
 "HealthCertificate_Info_section02" = "These certificates are considered to be valid proof within the EU (e.g. for travel).";
 
-"HealthCertificate_Info_section03" = "After you add a certificate, it will remain on your smartphone. It will only be shared with others if you present a certificate for verification.";
+"HealthCertificate_Info_section03" = "After you add a certificate, it will remain on your smartphone. It will only be shared with others if you present a certificate for validation.";
 
 "HealthCertificate_Info_section04" = "Add existing certificates for yourself and your family members.";
 
 "HealthCertificate_Info_primaryButton" = "Continue";
 
 /* CovPass Info Screen */
-"CovPass_Check_Info_Title" = "Certificate Verification by Third Parties";
+"CovPass_Check_Info_Title" = "Certificate Validation by Third Parties";
 
-"CovPass_Check_Info_body" = "Third parties can use the CovPassCheck app to reliably verify whether the vaccination certificate, certificate of recovery, or test certificate is valid.";
+"CovPass_Check_Info_body" = "Third parties can use the CovPassCheck app to reliably determine whether the vaccination certificate, certificate of recovery, or test certificate is valid.";
 
-"CovPass_Check_Info_faq" = "FAQ for Certificate Verification by Third Parties";
+"CovPass_Check_Info_faq" = "FAQ for Certificate Validation by Third Parties";
 
 "CovPass_Check_Info_text01" = "You can check the validity of your certificates in the Corona-Warn-App yourself and do not need the CovPassCheck app.";
 
 "CovPass_Check_Info_text02" = "A visual check of the certificates is not sufficient for third parties, however. They must use the CovPassCheck app in Germany.";
 
-"CovPass_Check_Info_text03" = "Please note that third parties in other countries may use other apps to verify certificates.";
+"CovPass_Check_Info_text03" = "Please note that third parties in other countries may use other apps to validate certificates.";
 
 /* Health Certified Person Screen */
-"HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
+"HealthCertificate_unified_QR_code_notice" = "This QR code can be validated reliably with the CovPassCheck app.";
 
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
@@ -2839,12 +2839,12 @@
 "VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
 
 /* Health Certificate Delete Alert */
-"HealthCertificate_Alert_deleteButton" = "Remove Certificate";
+"HealthCertificate_Alert_deleteButton" = "Delete Certificate";
 
 "HealthCertificate_Alert_cancelButton" = "Cancel";
 
 /* Vaccination Certificate Delete Alert */
-"VaccinationCertificate_Alert_title" = "Do you want to remove the vaccination certificate?";
+"VaccinationCertificate_Alert_title" = "Do you want to delete the vaccination certificate?";
 
 "VaccinationCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
@@ -2853,14 +2853,14 @@
 
 "TestCertificate_Details_subtitle" = "Negative SARS-CoV-2 test";
 
-"TestCertificate_Details_primaryButton" = "Remove Test Certificate";
+"TestCertificate_Details_primaryButton" = "Delete Test Certificate";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your test certificate, please see our FAQ page.";
 
 "TestCertificate_Error_FAQ_Button_Title" = "FAQ for Test Certificates";
 
 /* Test Certificate Delete Alert */
-"TestCertificate_Alert_title" = "Do you want to remove the test certificate?";
+"TestCertificate_Alert_title" = "Do you want to delete the test certificate?";
 
 "TestCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
@@ -2869,10 +2869,10 @@
 
 "RecoveryCertificate_Details_subtitle" = "EU Digital COVID Certificate";
 
-"RecoveryCertificate_Details_primaryButton" = "Remove Certificate of Recovery";
+"RecoveryCertificate_Details_primaryButton" = "Delete Certificate of Recovery";
 
 /* Recovery Certificate Delete Alert */
-"RecoveryCertificate_Alert_title" = "Do you want to remove the certificate of recovery?";
+"RecoveryCertificate_Alert_title" = "Do you want to delete the certificate of recovery?";
 
 "RecoveryCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
@@ -2955,8 +2955,6 @@
 
 "HealthCertificate_Validation_Bullet2" = "Additional rules and restrictions may apply in individual regions.";
 
-"HealthCertificate_Validation_Bullet3" = "To ensure the authenticity of certificates, each certificate is issued with a digital signature. A validation app merely validates this signature.";
-
 "HealthCertificate_Validation_Bullet4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
 
 "HealthCertificate_Validation_Legal_Title" = "Privacy and Data Security";
@@ -2992,8 +2990,6 @@
 "HealthCertificate_Validation_Passed_hint1" = "Please note that entry rules are subject to change. Therefore, please check the certificate shortly before you enter the destination country (max. 48 hours).";
 
 "HealthCertificate_Validation_Passed_hint2" = "Additional rules and restrictions may apply in individual regions.";
-
-"HealthCertificate_Validation_Passed_hint3" = "To ensure the authenticity of certificates, each certificate is issued with a digital signature. A validation app merely validates this signature.";
 
 "HealthCertificate_Validation_Passed_hint4" = "The Corona-Warn-App does not check whether the data recorded in the certificate is valid.";
 
@@ -3060,7 +3056,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
 
-"UniversalQRScanner_InstructionDescription" = "Your PCR tests, rapid tests, test certificates, vaccination certificates, certificates of recovery, and check-ins.";
+"UniversalQRScanner_InstructionDescription" = "Tests, Certificates, Check-ins, and Validation during Ticket Booking";
 
 "UniversalQRScanner_FileButtonTitle" = "Open File";
 
@@ -3089,6 +3085,22 @@
 "UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Restore Test";
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "The QR code has already been registered on your smartphone. The test will be restored from the recycle bin.";
+
+"UniversalQRScanner_Info_title" = "Information about QR codes";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Your test certificates, vaccination certificates, certificates of recovery, and certificates for your family members";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Check-ins for events and places";
+
+"UniversalQRScanner_Info_bulletPoint3" = "PCR tests and rapid tests";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Validation of certificates during ticket booking";
+
+"UniversalQRScanner_Info_body1" = "The data from the respective QR code is read.";
+
+"UniversalQRScanner_Info_body2" = "When you scan QR codes for certificate validation during ticket booking, additional information about the booking provider is retrieved.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "For information about data processing, please refer to the privacy notice.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Photo Library";
@@ -3212,7 +3224,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "The Recycle Bin Is Empty";
 
-"RecycleBin_EmptyState_description" = "When you remove certificates and tests, they are moved to the recycle bin and displayed here.";
+"RecycleBin_EmptyState_description" = "When you delete certificates and tests, they are moved to the recycle bin and displayed here.";
 
 "RecycleBin_EmptyState_imageDescription" = "A recycle bin";
 
@@ -3242,4 +3254,129 @@
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Delete";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Cancel";
+
+/* Ticket Validation */
+/* - Cancel Alert */
+"TicketValidation_CancelAlert_title" = "Do you want to cancel validation?";
+
+"TicketValidation_CancelAlert_message" = "If you cancel validation, the certificate cannot be validated.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Cancel Validation";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Resume Validation";
+
+/* - Error */
+"TicketValidation_Error_title" = "Error";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "An error occurred when connecting to the provider. Please contact the provider if the problem persists.";
+
+"TicketValidation_Error_serviceProviderError" = "An error occurred when connecting to the provider “%@”. Please contact the provider if the problem persists.";
+
+"TicketValidation_Error_tryAgain" = "An error occurred during data processing. Please try again later.";
+
+/* - First Consent */
+"TicketValidation_FirstConsent_title" = "Your Consent";
+
+"TicketValidation_FirstConsent_imageDescription" = "A certificate is transferred for a ticket purchase";
+
+"TicketValidation_FirstConsent_subtitle" = "Certificate check during ticket booking";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Provider:";
+
+"TicketValidation_FirstConsent_subject" = "Booking:";
+
+"TicketValidation_FirstConsent_explination" = "The provider wants to ensure that a valid certificate is available for your booking. Your consent is required to retrieve your ticketing details from the provider and to release your saved certificates.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "You are not required to allow validation of your certificate with the Corona-Warn-App. You can also present proof of your vaccination, testing, or recovery status in a different way.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "The requirements of the certificate are defined by the provider. The RKI has no influence over this process. Please contact the provider to obtain more information about the certificate requirements.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "The identification of suitable certificates takes place locally on your smartphone. No data is sent to the RKI or to the provider.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "The RKI does not receive any data regarding your ticketing or the certificates you have saved.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Accept";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Cancel";
+
+/* Certificate Selection */
+"TicketValidation_CertificateSelection_title" = "Select Certificate";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Provider requirements:";
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "The following certificates meet the provider’s requirements and can be used as proof:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "The following certificate is required:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "No suitable certificate is available.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "You do not have a certificate that meets the ticketing system’s requirements. Please make sure that the spelling of your name in the ticketing system matches the name on your certificates. If you need additional certificates that aren’t available in the app yet, please add them now and then start validation again.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "For further information, please see our %@ page.";
+
+"TicketValidation_CertificateSelection_faq" = "FAQ";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nDate of birth: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Vaccination Certificate";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "Certificate of Recovery";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Rapid Test Certificate, PCR Test Certificate";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "PCR Test Certificate";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Rapid Test Certificate";
+
+/* - Second Consent */
+"TicketValidation_SecondConsent_title" = "Your Consent";
+
+"TicketValidation_SecondConsent_subtitle" = "Sending your certificate for validation";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Validation partner:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Provider:";
+
+"TicketValidation_SecondConsent_explination" = "The selected certificate and your booking information will now be sent to the provider’s validation partner. Your consent is required to send your data to the validation partner.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "The validation partner checks whether the electronic signature is valid and that the technical expiration date of the certificate has not been reached yet. You can see the technical expiration date and the transmitted certificate contents in the detail view of the certificate in the app.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "The certificates contain sensitive health data. Therefore, you should only allow providers that you know and trust to validate your certificates.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "The RKI is not responsible for data processing by the provider and the validation partner. Please read their privacy notices to find out how your data is used and for what purposes.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "The validation partner notifies the provider of the result immediately. The partner merely communicates whether the validation was successful or not.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "For more detailed information about data processing, please refer to the privacy notice.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Accept";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Cancel";
+
+/* - Result */
+"TicketValidation_Result_validationParameters" = "Checked by the validation partner on %@";
+
+"TicketValidation_Result_moreInformation" = "For further information, please see our %@ page.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "FAQ";
+
+"TicketValidation_Result_Passed_title" = "Validation Successful";
+
+"TicketValidation_Result_Passed_subtitle" = "Your certificate has been validated successfully.";
+
+"TicketValidation_Result_Passed_description" = "The provider “%@” has been notified that validation was successful.";
+
+"TicketValidation_Result_Open_title" = "Certificate Cannot Be Validated";
+
+"TicketValidation_Result_Open_subtitle" = "Your certificate does not meet the provider’s requirements.";
+
+"TicketValidation_Result_Open_description" = "If you have questions, please contact the provider “%@”.";
+
+"TicketValidation_Result_Failed_title" = "Certificate not recognized";
+
+"TicketValidation_Result_Failed_subtitle" = "Your certificate does not meet the provider’s requirements.";
+
+"TicketValidation_Result_Failed_description" = "If you have questions, please contact the provider “%@”.";
 
