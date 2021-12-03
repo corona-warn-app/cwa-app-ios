@@ -11,10 +11,12 @@ class AllowListEvaluationTrust: EvaluateTrust {
 
 	init(
 		allowList: [ValidationServiceAllowlistEntry],
-		trustEvaluation: TrustEvaluation
+		trustEvaluation: TrustEvaluation,
+		store: Store
 	) {
 		self.allowList = allowList
 		self.trustEvaluation = trustEvaluation
+		self.store = store
 	}
 
 	// MARK: - Protocol EvaluateTrust
@@ -24,7 +26,7 @@ class AllowListEvaluationTrust: EvaluateTrust {
 		trust: SecTrust,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
-#if DEBUG
+	#if DEBUG
 		// debug/review: print the chain
 		for i in 0..<SecTrustGetCertificateCount(trust) {
 			if let cert = SecTrustGetCertificateAtIndex(trust, i) {
@@ -34,12 +36,18 @@ class AllowListEvaluationTrust: EvaluateTrust {
 		for item in allowList {
 			Log.debug("\(item)", log: .ticketValidationAllowList)
 		}
-#endif
-		let result = trustEvaluation.checkServerCertificateAgainstAllowlist(
+	#endif
+		var result = trustEvaluation.checkServerCertificateAgainstAllowlist(
 			hostname: challenge.protectionSpace.host,
 			trust: trust,
 			allowList: allowList
 		)
+
+	#if !RELEASE
+		// override result if skipAllowlistValidation is true
+		result = store.skipAllowlistValidation ? .success(()) : result
+	#endif
+
 		switch result {
 		case .success:
 			completionHandler(.useCredential, URLCredential(trust: trust))
@@ -57,6 +65,8 @@ class AllowListEvaluationTrust: EvaluateTrust {
 	// MARK: - Private
 
 	private let trustEvaluation: TrustEvaluation
+	private let store: Store
+
 	private var allowList: [ValidationServiceAllowlistEntry]
 
 }

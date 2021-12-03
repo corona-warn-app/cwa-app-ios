@@ -12,11 +12,13 @@ final class TicketValidation: TicketValidating {
 	init(
 		with initializationData: TicketValidationInitializationData,
 		restServiceProvider: RestServiceProviding,
-		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing,
+		store: Store
 	) {
 		self.initializationData = initializationData
 		self.restServiceProvider = restServiceProvider
 		self.serviceIdentityProcessor = serviceIdentityProcessor
+		self.store = store
 	}
 
 	let initializationData: TicketValidationInitializationData
@@ -206,6 +208,7 @@ final class TicketValidation: TicketValidating {
 
 	private let restServiceProvider: RestServiceProviding
 	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+	private let store: Store
 
 	private var validationDecoratorDocument: TicketValidationServiceIdentityDocumentValidationDecorator?
 	private var validationServiceDocument: ServiceIdentityRequestResult?
@@ -267,7 +270,8 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
+				trustEvaluation: TrustEvaluation(),
+				store: store
 			)
 		)
 		restServiceProvider.load(resource) { [weak self] result in
@@ -379,7 +383,8 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
+				trustEvaluation: TrustEvaluation(),
+				store: store
 			)
 		)
 
