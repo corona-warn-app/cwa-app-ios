@@ -93,15 +93,11 @@ final class ExposureDetectionCoordinator {
 	private let surveyURLProvider: SurveyURLProviding
 	
 	private func showHygieneRulesInfoScreen() {
-		// TODO: Replace with final screen
-		let dummyVC = DummyScreenViewController()
-		navigationController?.pushViewController(dummyVC, animated: true)
+		// TODODODO: Navigate
 	}
 	
 	private func showRiskOfContagionInfoScreen() {
-		// TODO: Replace with final screen
-		let dummyVC = DummyScreenViewController()
-		navigationController?.pushViewController(dummyVC, animated: true)
+		// TODODODO: Navigate
 	}
 	
 	private func showSurveyConsent() {
