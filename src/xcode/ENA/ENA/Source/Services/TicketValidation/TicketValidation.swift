@@ -12,11 +12,13 @@ final class TicketValidation: TicketValidating {
 	init(
 		with initializationData: TicketValidationInitializationData,
 		restServiceProvider: RestServiceProviding,
-		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing,
+		store: Store
 	) {
 		self.initializationData = initializationData
 		self.restServiceProvider = restServiceProvider
 		self.serviceIdentityProcessor = serviceIdentityProcessor
+		self.store = store
 	}
 
 	let initializationData: TicketValidationInitializationData
@@ -207,6 +209,7 @@ final class TicketValidation: TicketValidating {
 
 	private let restServiceProvider: RestServiceProviding
 	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+	private let store: Store
 
 	private var validationDecoratorDocument: TicketValidationServiceIdentityDocumentValidationDecorator?
 	private var validationServiceDocument: ServiceIdentityRequestResult?
@@ -404,7 +407,10 @@ final class TicketValidation: TicketValidating {
 	}
 	
 	private func validateServiceIdentityAgainstAllowlist(completion: @escaping ((Result<Void, AllowListError>)) -> Void) {
-		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		let allowListService = AllowListService(
+			restServiceProvider: restServiceProvider,
+			store: store
+		)
 		
 		allowListService.fetchAllowList { [weak self] result in
 			guard let self = self else {
@@ -434,7 +440,10 @@ final class TicketValidation: TicketValidating {
 	}
 
 	private func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> Result<Void, AllowListError> {
-		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		let allowListService = AllowListService(
+			restServiceProvider: restServiceProvider,
+			store: store
+		)
 		
 		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		return filteringResult

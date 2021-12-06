@@ -185,6 +185,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var dmKillDeviceTimeCheck = false
 	var unencryptedCheckinsEnabled = false
 
+	// MARK: - TicketValidationStoring
+	var skipAllowlistValidation: Bool = false
+
 	// MARK: - Protocol RecycleBinStoring
 
 	lazy var recycleBinItemsSubject = {
