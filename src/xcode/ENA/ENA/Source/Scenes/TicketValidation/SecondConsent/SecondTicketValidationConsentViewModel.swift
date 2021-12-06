@@ -2,25 +2,41 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
-struct SecondTicketValidationConsentViewModel {
+class SecondTicketValidationConsentViewModel {
 	
 	init(
 		serviceIdentity: String,
 		serviceProvider: String,
 		healthCertificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
+		restServiceProvider: RestServiceProviding,
 		onDataPrivacyTap: @escaping () -> Void
 	) {
 		self.serviceIdentity = serviceIdentity
 		self.serviceProvider = serviceProvider
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
+		self.restServiceProvider = restServiceProvider
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
+
+	func fetchAllowListServiceProvider(completion: @escaping () -> Void) {
+		let allowListService = AllowListService(restServiceProvider: restServiceProvider)
+		allowListService.fetchAllowList { result in
+			switch result {
+			case.success(let fetchedAllowList):
+				self.serviceProvider = fetchedAllowList.validationServiceAllowList.first?.serviceProvider ?? ""
+			case .failure(let error):
+			break //	Log.error(error.localizedDescription, logger: .ticketValidationAllowList)
+			}
+			completion()
+		}
+	}
 	
+	var serviceProvider: String = ""
+
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -31,15 +47,16 @@ struct SecondTicketValidationConsentViewModel {
 				cells: [
 					.identifier(
 						SecondTicketValidationConsentViewController.CustomCellReuseIdentifiers.healthCertificateCell,
-						configure: { _, cell, _ in
+						configure: { [weak self] _, cell, _ in
+							guard let self = self else { return }
 							guard let cell = cell as? HealthCertificateCell else {
 								fatalError("could not initialize cell of type `HealthCertificateCell`")
 							}
 							
 							cell.configure(
 								HealthCertificateCellViewModel(
-									healthCertificate: healthCertificate,
-									healthCertifiedPerson: healthCertifiedPerson,
+									healthCertificate: self.healthCertificate,
+									healthCertifiedPerson: self.healthCertifiedPerson,
 									details: .overview
 								),
 								withDisclosureIndicator: false
@@ -152,8 +169,8 @@ struct SecondTicketValidationConsentViewModel {
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.SecondConsent.dataPrivacy,
 						accessibilityTraits: UIAccessibilityTraits.link,
-						action: .execute { _, _ in
-							onDataPrivacyTap()
+						action: .execute { [weak self] _, _ in
+							self?.onDataPrivacyTap()
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -168,9 +185,9 @@ struct SecondTicketValidationConsentViewModel {
 	// MARK: - Private
 	
 	private let serviceIdentity: String
-	private let serviceProvider: String
 	private let healthCertificate: HealthCertificate
 	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let restServiceProvider: RestServiceProviding
 	private let onDataPrivacyTap: () -> Void
 }
 
