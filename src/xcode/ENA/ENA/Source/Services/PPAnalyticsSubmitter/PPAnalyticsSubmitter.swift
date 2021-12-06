@@ -255,18 +255,23 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		submitted is true
 		OR
 		- differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata
+		AND
+		Test result is positive
 		*/
 
 		let isSubmitted: Bool
 		let _testResultReceivedDate: Date?
+		let isTestResultPositive: Bool
 
 		switch type {
 		case .pcr:
 			isSubmitted = store.pcrKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate
+			isTestResultPositive = coronaTestService.pcrTest?.testResult == .positive
 		case .antigen:
 			isSubmitted = store.antigenKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.antigenTest?.finalTestResultReceivedDate
+			isTestResultPositive = coronaTestService.pcrTest?.testResult == .positive
 		}
 
 		// if there is no test result time stamp
@@ -281,7 +286,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
 			timeDifferenceFulfillsCriteria = true
 		}
-		return isSubmitted || timeDifferenceFulfillsCriteria
+		return (isSubmitted || timeDifferenceFulfillsCriteria) && isTestResultPositive
 	}
 
 	private func shouldIncludeTestResultMetadata(for type: CoronaTestType) -> Bool {
