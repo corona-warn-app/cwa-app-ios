@@ -7,19 +7,19 @@ import Foundation
 extension Array where Element == HealthCertificate {
 
 	var admissionState: HealthCertifiedPersonAdmissionState {
-		let validOrExpiringSoonCertificates = self
+		let validOrSoonExpiringCertificates = self
 			.filter {
 				$0.validityState == .valid || $0.validityState == .expiringSoon
 			}
 			.sorted()
 
-		let lastCompleteVaccinationCertificate = validOrExpiringSoonCertificates.lastCompleteVaccinationCertificate
-		let lastValidRecoveryCertificate = validOrExpiringSoonCertificates.lastValidRecoveryCertificate
+		let lastCompleteVaccinationCertificate = validOrSoonExpiringCertificates.lastCompleteVaccinationCertificate
+		let lastValidRecoveryCertificate = validOrSoonExpiringCertificates.lastValidRecoveryCertificate
 
 		let twoGCertificate = lastCompleteVaccinationCertificate ?? lastValidRecoveryCertificate
 
-		let currentPCRTestCertificate = validOrExpiringSoonCertificates.currentPCRTestCertificate
-		let currentAntigenTestCertificate = validOrExpiringSoonCertificates.currentAntigenTestCertificate
+		let currentPCRTestCertificate = validOrSoonExpiringCertificates.currentPCRTestCertificate
+		let currentAntigenTestCertificate = validOrSoonExpiringCertificates.currentAntigenTestCertificate
 
 		switch (twoGCertificate, currentPCRTestCertificate, currentAntigenTestCertificate) {
 		case let (.some(twoG), .some(pcrTest), _):
