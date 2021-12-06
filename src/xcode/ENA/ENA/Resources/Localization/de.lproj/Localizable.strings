@@ -3214,7 +3214,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR-Tests und Schnelltests";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Nachweis von Zertifikaten bei Ticketbuchungen";
+"UniversalQRScanner_Info_bulletPoint4" = "Nachweis Ihrer Zertifikate bei Ticketbuchungen";
 
 "UniversalQRScanner_Info_body1" = "Die Daten aus dem jeweiligen QR-Code werden ausgelesen.";
 
