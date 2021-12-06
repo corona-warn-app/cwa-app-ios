@@ -10,9 +10,11 @@ final class AllowListService {
 	// MARK: - Init
 	
 	init(
-	    restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		store: Store
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.store = store
 	}
 	
 	// MARK: - Private
@@ -40,6 +42,15 @@ final class AllowListService {
 		serviceProviderAllowlist: [Data],
 		serviceIdentity: String
 	) -> Result<Void, AllowListError> {
+
+#if !RELEASE
+		// override result if skipAllowlistValidation is true
+		if store.skipAllowlistValidation {
+			Log.info("Skip allow list toggle in Developer Menu is on", log: .ticketValidation)
+			return .success(())
+		}
+#endif
+
 		let base64EncodedServiceIdentityHash = Data(hex: serviceIdentity.sha256()).base64EncodedString()
 		if serviceProviderAllowlist.contains(where: {
 			$0.base64EncodedString() == base64EncodedServiceIdentityHash
@@ -73,4 +84,9 @@ final class AllowListService {
 			return .success(())
 		}
 	}
+
+	// MARK: - private
+	
+	private let store: Store
+
 }
