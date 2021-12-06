@@ -18,6 +18,7 @@ final class MockTicketValidation: TicketValidating {
 
 	let initializationData: TicketValidationInitializationData
 	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
+	
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
