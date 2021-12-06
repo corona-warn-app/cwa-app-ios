@@ -113,6 +113,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			// States and subscriptions only need to be updated if certificates were added or removed
 			if healthCertificates.map({ $0.uniqueCertificateIdentifier }) != oldValue.map({ $0.uniqueCertificateIdentifier }) {
 				updateVaccinationState()
+				updateAdmissionState()
 				updateMostRelevantHealthCertificate()
 				updateHealthCertificateSubscriptions(for: healthCertificates)
 			}
@@ -137,6 +138,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	@DidSetPublished var vaccinationState: VaccinationState = .notVaccinated {
 		didSet {
 			if vaccinationState != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var admissionState: HealthCertifiedPersonAdmissionState = .other {
+		didSet {
+			if admissionState != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -245,6 +254,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	private func setup() {
 		updateVaccinationState()
+		updateAdmissionState()
 		updateMostRelevantHealthCertificate()
 		updateHealthCertificateSubscriptions(for: healthCertificates)
 
@@ -287,6 +297,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		} else {
 			vaccinationState = .notVaccinated
 		}
+	}
+
+	private func updateAdmissionState() {
+		admissionState = healthCertificates.admissionState
 	}
 
 	private func subscribeToNotifications() {
