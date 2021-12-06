@@ -11,12 +11,10 @@ final class TicketValidationCoordinator {
 	
 	init(
 		parentViewController: UIViewController,
-		healthCertificateService: HealthCertificateService,
-		restServiceProvider: RestServiceProviding
+		healthCertificateService: HealthCertificateService
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
-		self.restServiceProvider = restServiceProvider
 	}
 
 	// MARK: - Internal
@@ -36,7 +34,6 @@ final class TicketValidationCoordinator {
 	private var navigationController: UINavigationController!
 	private var ticketValidation: TicketValidating!
 	private var healthCertificateService: HealthCertificateService
-	private let restServiceProvider: RestServiceProviding
 
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
