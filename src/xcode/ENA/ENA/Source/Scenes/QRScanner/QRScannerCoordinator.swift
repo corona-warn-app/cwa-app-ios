@@ -100,7 +100,7 @@ class QRScannerCoordinator {
 	
 	private var presenter: QRScannerPresenter!
 	private weak var parentViewController: UIViewController?
-	private weak var qrScannerViewController: UIViewController?
+	private weak var qrScannerViewController: QRScannerViewController?
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
@@ -109,7 +109,7 @@ class QRScannerCoordinator {
 
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool
-	) -> UIViewController {
+	) -> QRScannerViewController {
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
 			healthCertificateService: healthCertificateService,
@@ -401,23 +401,26 @@ class QRScannerCoordinator {
 				case .success:
 					self?.showScannedTicketValidation(ticketValidation)
 				case .failure(let error):
-					self?.showErrorAlert(error: error)
+					self?.showErrorAlert(error: error, serviceProvider: initializationData.serviceProvider)
 				}
 			}
 		}
 	}
 
-	private func showErrorAlert(error: TicketValidationError) {
+	private func showErrorAlert(error: TicketValidationError, serviceProvider: String) {
 		let alert = UIAlertController(
 			title: AppStrings.TicketValidation.Error.title,
-			message: error.localizedDescription,
+			message: error.errorDescription(serviceProvider: serviceProvider),
 			preferredStyle: .alert
 		)
 
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
-				style: .default
+				style: .default,
+				handler: { [weak self] _ in
+					self?.qrScannerViewController?.activateScanning()
+				}
 			)
 		)
 
