@@ -3447,7 +3447,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Kein geeignetes Zertifikat vorhanden.";
 
-"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise Ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
 
 "TicketValidation_CertificateSelection_faqDescription" = "Mehr Informationen finden Sie in den %@.";
 
