@@ -271,7 +271,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		case .antigen:
 			isSubmitted = store.antigenKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.antigenTest?.finalTestResultReceivedDate
-			isTestResultPositive = coronaTestService.pcrTest?.testResult == .positive
+			isTestResultPositive = coronaTestService.antigenTest?.testResult == .positive
 		}
 
 		// if there is no test result time stamp
