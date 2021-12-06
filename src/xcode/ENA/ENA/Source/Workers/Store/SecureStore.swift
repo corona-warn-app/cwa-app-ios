@@ -422,6 +422,15 @@ extension SecureStore: AppFeaturesStoring {
 	#endif
 }
 
+extension SecureStore: TicketValidationStoring {
+	#if !RELEASE
+	var skipAllowlistValidation: Bool {
+		get { kvStore["skipAllowlistValidation"] as Bool? ?? false }
+		set { kvStore["skipAllowlistValidation"] = newValue }
+	}
+	#endif
+}
+
 extension SecureStore: AppConfigCaching {
 	var appConfigMetadata: AppConfigMetadata? {
 		get { kvStore["appConfigMetadataV2"] as AppConfigMetadata? ?? nil }
