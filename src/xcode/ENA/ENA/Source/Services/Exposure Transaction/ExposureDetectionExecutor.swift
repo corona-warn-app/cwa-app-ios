@@ -65,7 +65,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		writtenPackages: WrittenPackages,
 		completion: @escaping (Result<[ENExposureWindow], Error>) -> Void
 	) -> Progress {
-		let progress = Progress(totalUnitCount: 2)
+		let progress = Progress(totalUnitCount: Int64.max)
 
 		let detectExposuresProgress = exposureDetector.detectExposures(
 			configuration: configuration,
@@ -82,12 +82,26 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 						completion(.failure(error))
 					}
 				}
+				
+				// Prevent adding a child which is perhaps already finish or cancelled because this would crash the app.
+				guard !exposureWindowsProgress.isFinished, !exposureWindowsProgress.isCancelled else {
+					Log.info("Not adding a child due to already finished or cancelled exposureWindowsProgress", log: .riskDetection)
+					completion(.failure(ExposureDetectionError.isAlreadyRunning))
+					return
+				}
+				
 				Log.info("2nd child added to progress", log: .riskDetection)
 				progress.addChild(exposureWindowsProgress, withPendingUnitCount: 1)
 			} else if let error = error {
 				self.clearCacheOnErrorBadParameter(error: error)
 				completion(.failure(error))
 			}
+		}
+		
+		// Prevent adding a child which is perhaps already finish or cancelled because this would crash the app.
+		guard !detectExposuresProgress.isFinished, !detectExposuresProgress.isCancelled else {
+			Log.info("Not adding a child due to already finished or cancelled detectExposuresProgress", log: .riskDetection)
+			return progress
 		}
 
 		Log.info("1st child added to progress", log: .riskDetection)
