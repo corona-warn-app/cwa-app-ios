@@ -2,7 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
 struct SecondTicketValidationConsentViewModel {
@@ -20,7 +19,7 @@ struct SecondTicketValidationConsentViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.onDataPrivacyTap = onDataPrivacyTap
 	}
-	
+
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -167,8 +166,8 @@ struct SecondTicketValidationConsentViewModel {
 	
 	// MARK: - Private
 	
-	private let serviceIdentity: String
 	private let serviceProvider: String
+	private let serviceIdentity: String
 	private let healthCertificate: HealthCertificate
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let onDataPrivacyTap: () -> Void
