@@ -22,6 +22,7 @@ final class TicketValidation: TicketValidating {
 	}
 
 	let initializationData: TicketValidationInitializationData
+	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
@@ -447,6 +448,4 @@ final class TicketValidation: TicketValidating {
 		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		return filteringResult
 	}
-	
-	private var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 }
