@@ -18,6 +18,10 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		checkFormattedValue(value: 4.65, decimals: 1, expectedString: "4,7", expectedStringWithPercent: "465%")
 	}
 
+	func testFormattedSpecialSmallRoundedValueWithDecimals() {
+		checkFormattedValue(value: 4.649, decimals: 1, expectedString: "4,6", expectedStringWithPercent: "464,9%")
+	}
+
 	func testFormattedSmallValueWithNegativeDecimalsIsHandledAsZeroDecimals() {
 		checkFormattedValue(value: 0.1798, decimals: -1, expectedString: "0", expectedStringWithPercent: "18%")
 	}
