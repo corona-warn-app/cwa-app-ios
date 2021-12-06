@@ -131,11 +131,10 @@ final class TicketValidationCoordinator {
 	) {
 		let secondConsentViewController = SecondTicketValidationConsentViewController(
 			viewModel: SecondTicketValidationConsentViewModel(
-				serviceIdentity: "",
-				serviceProvider: "",
+				serviceIdentity: ticketValidation.allowList.validationServiceAllowList.first?.serviceProvider ?? "",
+				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				healthCertificate: selectedCertificate,
 				healthCertifiedPerson: selectedCertifiedPerson,
-				restServiceProvider: restServiceProvider,
 				onDataPrivacyTap: {
 					self.showDataPrivacy()
 				}
