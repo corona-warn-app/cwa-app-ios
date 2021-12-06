@@ -11,12 +11,14 @@ final class TicketValidationCoordinator {
 	
 	init(
 		parentViewController: UIViewController,
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateService,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
+		self.restServiceProvider = restServiceProvider
 	}
-	
+
 	// MARK: - Internal
 
 	func start(ticketValidation: TicketValidating) {
@@ -34,6 +36,7 @@ final class TicketValidationCoordinator {
 	private var navigationController: UINavigationController!
 	private var ticketValidation: TicketValidating!
 	private var healthCertificateService: HealthCertificateService
+	private let restServiceProvider: RestServiceProviding
 
 	private var firstConsentScreen: UIViewController {
 		let firstConsentViewController = FirstTicketValidationConsentViewController(
@@ -136,6 +139,7 @@ final class TicketValidationCoordinator {
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				healthCertificate: selectedCertificate,
 				healthCertifiedPerson: selectedCertifiedPerson,
+				restServiceProvider: restServiceProvider,
 				onDataPrivacyTap: {
 					self.showDataPrivacy()
 				}

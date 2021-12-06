@@ -446,7 +446,8 @@ class QRScannerCoordinator {
 
 					self.ticketValidationCoordinator = TicketValidationCoordinator(
 						parentViewController: parentViewController,
-						healthCertificateService: self.healthCertificateService
+						healthCertificateService: self.healthCertificateService,
+						restServiceProvider: self.restServiceProvider
 					)
 
 					self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
@@ -458,7 +459,8 @@ class QRScannerCoordinator {
 
 				self.ticketValidationCoordinator = TicketValidationCoordinator(
 					parentViewController: parentViewController,
-					healthCertificateService: self.healthCertificateService
+					healthCertificateService: self.healthCertificateService,
+					restServiceProvider: self.restServiceProvider
 				)
 
 				self.ticketValidationCoordinator?.start(ticketValidation: ticketValidation)
