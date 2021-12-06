@@ -132,6 +132,7 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 
 		XCTAssertEqual(customError, .RTR_CERT_PIN_MISMATCH)
 	}
+	
 	func testCustomCertificatePinningHostMismatchError() throws {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
