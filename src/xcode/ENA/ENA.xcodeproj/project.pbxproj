@@ -1550,6 +1550,7 @@
 		EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */; };
 		EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* UpdateOSView.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
+		EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD1D7B2275E4B8A0046A1C3 /* KeySubmissionMetadata+Mock.swift */; };
 		EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */; };
 		EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskProviding.swift */; };
 		EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */; };
@@ -3192,6 +3193,7 @@
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
 		EBCB271F25EBE3FC00B96123 /* CGPDFDocument+EmbedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPDFDocument+EmbedImage.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
+		EBD1D7B2275E4B8A0046A1C3 /* KeySubmissionMetadata+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeySubmissionMetadata+Mock.swift"; sourceTree = "<group>"; };
 		EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModelTests.swift; sourceTree = "<group>"; };
 		EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRiskProvider.swift; sourceTree = "<group>"; };
 		EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewController.swift; sourceTree = "<group>"; };
@@ -5565,6 +5567,7 @@
 			isa = PBXGroup;
 			children = (
 				50C0297A25E4067400460FA4 /* KeySubmissionMetadataTests.swift */,
+				EBD1D7B2275E4B8A0046A1C3 /* KeySubmissionMetadata+Mock.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10715,6 +10718,7 @@
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
+				EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */,
 				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
 				50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */,
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
