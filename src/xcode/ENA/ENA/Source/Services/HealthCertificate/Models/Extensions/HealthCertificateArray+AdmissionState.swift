@@ -35,7 +35,6 @@ extension Array where Element == HealthCertificate {
 		default:
 			return .other
 		}
-
 	}
 
 }

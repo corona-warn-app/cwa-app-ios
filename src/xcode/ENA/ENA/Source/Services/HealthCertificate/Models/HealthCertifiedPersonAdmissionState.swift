@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum HealthCertifiedPersonAdmissionState {
+enum HealthCertifiedPersonAdmissionState: Equatable {
 	case twoGPlusPCR(twoG: HealthCertificate, pcrTest: HealthCertificate)
 	case twoGPlusAntigen(twoG: HealthCertificate, antigenTest: HealthCertificate)
 	case twoG
