@@ -371,7 +371,8 @@ class QRScannerCoordinator {
 		var ticketValidation: TicketValidating = TicketValidation(
 			with: initializationData,
 			restServiceProvider: restServiceProvider,
-			serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessor()
+			serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessor(),
+			store: store
 		)
 
 		#if DEBUG

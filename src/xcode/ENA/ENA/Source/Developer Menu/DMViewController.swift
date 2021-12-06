@@ -87,6 +87,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMNHCViewController(
 				store: store
 			)
+
+		case .ticketValidation:
+			vc = DMTicketValidationViewController(store: store)
+
 		case .keys:
 			vc = DMKeysViewController(
 				client: client,
