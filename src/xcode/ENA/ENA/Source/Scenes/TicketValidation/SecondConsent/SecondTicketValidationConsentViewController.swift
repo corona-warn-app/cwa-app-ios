@@ -92,6 +92,14 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, D
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+		
+		viewModel.fetchAllowListServiceProvider { [weak self] in
+			guard let self = self else { return }
+			self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
+			DispatchQueue.main.async(execute: { [weak self] in
+				self?.tableView.reloadData()
+			})
+		}
 	}
 
 }
