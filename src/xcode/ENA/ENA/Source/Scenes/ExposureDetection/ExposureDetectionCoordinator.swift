@@ -93,7 +93,15 @@ final class ExposureDetectionCoordinator {
 	private let surveyURLProvider: SurveyURLProviding
 	
 	private func showHygieneRulesInfoScreen() {
-		// TODODODO: Navigate
+		let infoNavigationController = UINavigationController()
+		let viewController = HygieneRulesInfoViewController(
+			dismiss: {
+				infoNavigationController.dismiss(animated: true)
+			}
+		)
+		infoNavigationController.navigationBar.prefersLargeTitles = true
+		infoNavigationController.pushViewController(viewController, animated: false)
+		navigationController?.present(infoNavigationController, animated: true)
 	}
 	
 	private func showRiskOfContagionInfoScreen() {

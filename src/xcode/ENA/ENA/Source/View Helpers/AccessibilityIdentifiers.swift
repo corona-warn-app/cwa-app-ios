@@ -249,6 +249,8 @@ enum AccessibilityIdentifiers {
 		static let surveyCardCell = "AppStrings.ExposureDetection.surveyCardCell"
 		static let surveyCardButton = "AppStrings.ExposureDetection.surveyCardButton"
 		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
+		
+		static let hygieneRulesTitle = "AppStrings.ExposureDetection.hygieneRulesTitle"
 	}
 	
 	enum SurveyConsent {
