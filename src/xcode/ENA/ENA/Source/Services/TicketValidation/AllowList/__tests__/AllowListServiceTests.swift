@@ -97,4 +97,27 @@ class AllowListServiceTests: XCTestCase {
 		}
 	}
 	
+	func test_filterJWKsAgainstAllowList() throws {
+		let testX509String = "testX509String"
+		let testX509Data = try XCTUnwrap(testX509String.data(using: .utf8))
+
+		let testX509String64 = testX509Data.base64EncodedString()
+		
+		let jwkSet = [JSONWebKey.fake(x5c: [testX509String64])]
+		let expectedFingerPRint = testX509Data.sha256().base64EncodedString()
+		
+		let allowList = [ValidationServiceAllowlistEntry(serviceProvider: "", hostname: "", fingerprint256: expectedFingerPRint)]
+		let store = MockTestStore()
+		
+		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: store)
+		let result = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
+		
+		switch result {
+		case .failure(let error):
+			XCTFail("expected to skip the allowlist validation \(error.localizedDescription)")
+		default:
+			break
+		}
+	}
+	
 }
