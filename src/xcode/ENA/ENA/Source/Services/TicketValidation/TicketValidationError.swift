@@ -84,5 +84,8 @@ enum TicketValidationError: LocalizedError {
 		default:
 			return "\(AppStrings.TicketValidation.Error.tryAgain) (\(self))"
 		}
+
 	}
+
+
 }
