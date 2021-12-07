@@ -12,11 +12,11 @@ class HealthCertifiedPersonTests: CWATestCase {
 
 	func testHealthCertifiedPersonObjectDidChangeTriggered() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
-		let healthCertificate = HealthCertificate.mock(base45: HealthCertificateMocks.firstBase45Mock)
+		let healthCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 15)
 
 		let objectDidChangeExpectation = expectation(description: "objectDidChange publisher updated")
-		// One update from the vaccination state, one from the most relevant certificate determination and one from extending the health certificate array itself
-		objectDidChangeExpectation.expectedFulfillmentCount = 3
+		// One update from the vaccination state, one from the admission state, one from the most relevant certificate determination and one from extending the health certificate array itself
+		objectDidChangeExpectation.expectedFulfillmentCount = 4
 
 		let subscription = healthCertifiedPerson.objectDidChange
 			.sink {

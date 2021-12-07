@@ -140,6 +140,9 @@
 		0160CC2B26B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */; };
 		0160CC2D26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */; };
 		016146912487A43E00660992 /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* LinkHelper.swift */; };
+		01635EAE2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */; };
+		01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */; };
+		01635EB2275A614500A479EB /* HealthCertificateArray+AdmissionStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EAF275A0BCB00A479EB /* HealthCertificateArray+AdmissionStateTests.swift */; };
 		01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */; };
 		01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
@@ -174,7 +177,7 @@
 		017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D8DAB263BEF920009E91C /* HealthCertificateServiceError.swift */; };
 		017EE86326779E1A00CD18F6 /* RecoveryEntry+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */; };
 		017EE865267B302F00CD18F6 /* HealthCertificateArray+MostRelevant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE864267B302F00CD18F6 /* HealthCertificateArray+MostRelevant.swift */; };
-		017EE867267B4F2600CD18F6 /* HealthCertificateArray+MostRelevantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE866267B3F0A00CD18F6 /* HealthCertificateArray+MostRelevantTests.swift */; };
+		017EE867267B4F2600CD18F6 /* CWATestCase+HealthCertificateConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */; };
 		0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */; };
 		01865C5A273541D6001BBCE9 /* FakeBoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01865C5827354192001BBCE9 /* FakeBoosterNotificationsService.swift */; };
 		0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */; };
@@ -1739,6 +1742,10 @@
 		0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeView.swift; sourceTree = "<group>"; };
 		0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewModelTests.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
+		01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+AdmissionState.swift"; sourceTree = "<group>"; };
+		01635EAF275A0BCB00A479EB /* HealthCertificateArray+AdmissionStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+AdmissionStateTests.swift"; sourceTree = "<group>"; };
+		01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonAdmissionState.swift; sourceTree = "<group>"; };
+		01635EB3275E044800A479EB /* HealthCertificateArray+MostRelevantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+MostRelevantTests.swift"; sourceTree = "<group>"; };
 		01653FA426CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfCheckinSubmissionService.swift; sourceTree = "<group>"; };
 		01653FA626CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+SubmissionPreparation.swift"; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
@@ -1769,7 +1776,7 @@
 		017D8DAB263BEF920009E91C /* HealthCertificateServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateServiceError.swift; sourceTree = "<group>"; };
 		017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoveryEntry+Extension.swift"; sourceTree = "<group>"; };
 		017EE864267B302F00CD18F6 /* HealthCertificateArray+MostRelevant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+MostRelevant.swift"; sourceTree = "<group>"; };
-		017EE866267B3F0A00CD18F6 /* HealthCertificateArray+MostRelevantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+MostRelevantTests.swift"; sourceTree = "<group>"; };
+		017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CWATestCase+HealthCertificateConvenience.swift"; sourceTree = "<group>"; };
 		0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModelTests.swift; sourceTree = "<group>"; };
 		01865C5827354192001BBCE9 /* FakeBoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBoosterNotificationsService.swift; sourceTree = "<group>"; };
 		0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewController.swift; sourceTree = "<group>"; };
@@ -3788,6 +3795,7 @@
 				01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */,
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
+				01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
 			);
@@ -4365,6 +4373,7 @@
 				01E10283266E2F7F009ED803 /* TestEntry+Extension.swift */,
 				017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */,
 				017D8DA9263B03BD0009E91C /* VaccinationEntry+Extension.swift */,
+				01635EAD2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift */,
 				017EE864267B302F00CD18F6 /* HealthCertificateArray+MostRelevant.swift */,
 			);
 			path = Extensions;
@@ -4546,7 +4555,9 @@
 				BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */,
 				01FE5E592648546800155906 /* HealthCertificate+Mock.swift */,
 				5055EC00267239690062C15E /* HealthCertificateTests.swift */,
-				017EE866267B3F0A00CD18F6 /* HealthCertificateArray+MostRelevantTests.swift */,
+				017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */,
+				01635EB3275E044800A479EB /* HealthCertificateArray+MostRelevantTests.swift */,
+				01635EAF275A0BCB00A479EB /* HealthCertificateArray+AdmissionStateTests.swift */,
 				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
 				BAAC572F26CBE8FA0049B55C /* HealthCertifiedPersonKnownVaccinationTests.swift */,
 				BAAC572D26CBE88E0049B55C /* HealthCertifiedPersonOtherVaccinationProductTypeTests.swift */,
@@ -9553,6 +9564,7 @@
 				BA5B7FD126458EF400502087 /* HealthCertificateBottomCornerCell.swift in Sources */,
 				ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */,
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
+				01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */,
@@ -10443,6 +10455,7 @@
 				8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */,
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
+				01635EAE2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
 				50293D55267A4191004B3EBE /* AddButtonAsTableViewCell.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
@@ -10637,6 +10650,7 @@
 				01BA06C1261F384A00237DD8 /* WarnOthersReminderTests.swift in Sources */,
 				01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */,
 				BA573D5E2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift in Sources */,
+				01635EB2275A614500A479EB /* HealthCertificateArray+AdmissionStateTests.swift in Sources */,
 				017AD13625A3238300FA2B3F /* iOS13TestCase.swift in Sources */,
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
 				5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */,
@@ -10914,7 +10928,7 @@
 				F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */,
 				8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */,
 				ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */,
-				017EE867267B4F2600CD18F6 /* HealthCertificateArray+MostRelevantTests.swift in Sources */,
+				017EE867267B4F2600CD18F6 /* CWATestCase+HealthCertificateConvenience.swift in Sources */,
 				01F3323D27174583005CE21E /* PCRTest+Mock.swift in Sources */,
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
 				50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */,
