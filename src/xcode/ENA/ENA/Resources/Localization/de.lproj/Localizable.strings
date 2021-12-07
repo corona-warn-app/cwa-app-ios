@@ -93,15 +93,21 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Weitere Informationen zu Ihren Risiko-Begegnungen finden Sie in Ihrem Kontakt-Tagebuch.";
 
+"ExposureDetection_Contact_Journal_Text_P2" = "Sie haben ein erhöhtes Risiko, sich angesteckt zu haben. Falls Sie sich angesteckt haben, können Sie Ihrerseits andere Personen anstecken, auch wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben.";
+
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
-"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig, auch, wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben:";
+
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
+
+"ExposureDetection_Guide_Hygiene" = "Bitte achten Sie jetzt besonders auf die üblichen Hygieneregeln.";
 
 "ExposureDetection_Guide_Vaccination" = "Lassen Sie sich gegen SARS-CoV-2 impfen, falls Sie noch nicht geimpft sind.";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
-"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
+"ExposureDetection_Guide_Mask" = "Tragen Sie eine Maske bei Begegnungen mit anderen Personen.";
 
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
@@ -109,25 +115,22 @@
 
 "ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 
-"ExposureDetection_Guide_Symptoms" = "Achten Sie auf COVID-19-typische Symptome. Symptome können in seltenen Fällen auch bei geimpften Personen auftreten. Sobald Symptome auftreten, lassen Sie sich testen.";
+"ExposureDetection_Guide_Symptoms" = "Achten Sie auf Symptome. Symptome können auch bei geimpften und bei genesenen Personen auftreten. Falls Sie sich krank fühlen oder Symptome auftreten, wenden Sie sich bitte an Ihre Hausarztpraxis.";
 
-"ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
+"ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause und vermeiden Sie Begegnungen außerhalb Ihres Haushalts.";
 
-"ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Quarantäne-Maßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
+"ExposureDetection_Guide_Hotline" = "Bei sonstigen Fragen wenden Sie sich bitte an den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117.";
 
-"ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis.";
 
-"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117";
+"ExposureDetection_Guide_Title" = "Lassen Sie sich testen, auch wenn Sie keine Symptome haben. Bei einer Warnung über ein erhöhtes Risiko (\"Rote Kachel\") haben Sie Anspruch auf einen kostenlosen Test. Dies muss nicht notwendigerweise ein PCR-Test sein.
+";
 
-"ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
+"ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier  oder wenden Sie sich an Ihre Hausarztpraxis oder Apotheke.";
+"ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, lassen Sie sich nach Rücksprache mit Ihrer Hausarztpraxis oder dem kassenärztlichen Bereitschaftsdienst testen. Besprechen Sie ebenfalls die SARS-CoV-2-Impfung nach der Testung mit Ihrer Hausarztpraxis.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Falls Sie sich testen lassen, finden Sie weitere Informationen in der %@.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "FAQ zum Testablauf";
+"ExposureDetection_Guide_Point2" = "Weitere Informationen in der FAQ zum Testablauf.";
+"ExposureDetection_Guide_Point2_LinkText" = "FAQ zum Testablauf";
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 

@@ -93,7 +93,7 @@ final class RiskProvider: RiskProviding {
 			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
 			return
 		}
-
+		
 		guard !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
 			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
 

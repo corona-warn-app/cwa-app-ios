@@ -112,21 +112,7 @@
 
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
 
-"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau măsurile de carantină, contactați fie:";
-
-"ExposureDetection_Guide_Hotline2" = "Medicul de familie";
-
-"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116 117";
-
-"ExposureDetection_Guide_Hotline4" = "Autoritatea de sănătate publică relevantă";
-
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie sau serviciul medical de urgență pentru a stabili efectuarea unui test. După testare, discutați opțiunile de vaccinare împotriva SARS-CoV-2 cu medicul dvs. de familie.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Dacă vă testați, veți găsi mai multe informații despre procedura de testare în %@.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "Întrebări frecvente despre procedura de testare";
 
 "ExposureDetection_Explanation_Title" = "Risc de infectare";
 
