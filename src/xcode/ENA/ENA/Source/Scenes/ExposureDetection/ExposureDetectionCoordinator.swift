@@ -103,13 +103,12 @@ final class ExposureDetectionCoordinator {
 	}
 	
 	private func showRiskOfContagionInfoScreen() {
-		let infoNavigationController = UINavigationController()
 		let viewController = ContagionInfoViewController(
-			dismiss: {
-				infoNavigationController.dismiss(animated: true)
+			dismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
 			}
 		)
-		infoNavigationController.pushViewController(viewController, animated: false)
+		let infoNavigationController = UINavigationController(rootViewController: viewController)
 		navigationController?.present(infoNavigationController, animated: true)
 	}
 	
