@@ -59,5 +59,23 @@ class AllowListServiceTests: XCTestCase {
 			break
 		}
 	}
-
+	
+	func test_ServiceIdentityAllowList_NoMatch_then_SP_ALLOWLIST_NO_MATCH() {
+		let testString = "www.testServiceIdentity.com"
+		let allowListMatchObject = Data(hex: "wrongString".sha256())
+		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: MockTestStore())
+		let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
+			serviceProviderAllowlist: [allowListMatchObject],
+			serviceIdentity: testString
+		)
+		
+		switch result {
+		case .failure(let error):
+			XCTAssertEqual(error, .SP_ALLOWLIST_NO_MATCH)
+		default:
+			XCTFail("Expected SP_ALLOWLIST_NO_MATCH when Validating Service identity Against AllowList")
+		}
+	}
+	
+	
 }
