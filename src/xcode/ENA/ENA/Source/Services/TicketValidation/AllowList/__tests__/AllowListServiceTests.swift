@@ -43,4 +43,21 @@ class AllowListServiceTests: XCTestCase {
 		}
 	}
 	
+	func test_ServiceIdentityAllowList_MatchFound() {
+		let testString = "www.testServiceIdentity.com"
+		let allowListMatchObject = Data(hex: testString.sha256())
+		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: MockTestStore())
+		let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
+			serviceProviderAllowlist: [allowListMatchObject],
+			serviceIdentity: testString
+		)
+		
+		switch result {
+		case .failure(let error):
+			XCTFail("expected to find service identity match in the allowlist \(error.localizedDescription)")
+		default:
+			break
+		}
+	}
+
 }
