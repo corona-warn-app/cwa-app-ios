@@ -69,8 +69,15 @@ enum TicketValidationError: LocalizedError {
 			return "\(serviceProviderError) (\(error))"
 		case .resultToken(let error):
 			switch error {
-			case .REST_SERVICE_ERROR(.receivedResourceError(.RTR_CERT_PIN_MISMATCH)), .REST_SERVICE_ERROR(.receivedResourceError(.RTR_CERT_PIN_HOST_MISMATCH)), .REST_SERVICE_ERROR(.receivedResourceError(.RTR_CLIENT_ERR)), .RTR_JWT_VER_ALG_NOT_SUPPORTED, .RTR_JWT_VER_EMPTY_JWKS, .RTR_JWT_VER_NO_JWK_FOR_KID, .RTR_JWT_VER_NO_KID, .RTR_JWT_VER_SIG_INVALID, .RTR_PARSE_ERR, .REST_SERVICE_ERROR(.receivedResourceError(.RTR_PARSE_ERR)):
+			case .RTR_JWT_VER_ALG_NOT_SUPPORTED, .RTR_JWT_VER_EMPTY_JWKS, .RTR_JWT_VER_NO_JWK_FOR_KID, .RTR_JWT_VER_NO_KID, .RTR_JWT_VER_SIG_INVALID, .RTR_PARSE_ERR:
 				return "\(serviceProviderError) (\(error))"
+			case .REST_SERVICE_ERROR(let serviceError):
+				switch serviceError {
+				case .receivedResourceError(.RTR_CERT_PIN_MISMATCH), .receivedResourceError(.RTR_CERT_PIN_HOST_MISMATCH), .receivedResourceError(.RTR_CLIENT_ERR), .receivedResourceError(.RTR_PARSE_ERR):
+					return "\(serviceProviderError) (\(serviceError.errorDescription))"
+				default:
+					return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
+				}
 			default:
 				return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
 			}
