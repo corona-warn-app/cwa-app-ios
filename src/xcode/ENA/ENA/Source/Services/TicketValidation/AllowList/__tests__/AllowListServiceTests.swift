@@ -120,4 +120,25 @@ class AllowListServiceTests: XCTestCase {
 		}
 	}
 	
+	func test_filterJWKsAgainstAllowList_NoMatch_then_SP_ALLOWLIST_NO_MATCH() throws {
+		let testX509String = "testX509String"
+		let testX509Data = try XCTUnwrap(testX509String.data(using: .utf8))
+		
+		let jwkSet = [JSONWebKey.fake(x5c: ["otherString"])]
+		let expectedFingerPrint = testX509Data.sha256().base64EncodedString()
+		
+		let allowList = [ValidationServiceAllowlistEntry(serviceProvider: "", hostname: "", fingerprint256: expectedFingerPrint)]
+		let store = MockTestStore()
+		
+		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: store)
+		let result = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
+		
+		switch result {
+		case .failure(let error):
+			XCTAssertEqual(error, .SP_ALLOWLIST_NO_MATCH)
+		default:
+			XCTFail("Expected SP_ALLOWLIST_NO_MATCH when filtering JWKs Against AllowList")
+		}
+	}
+
 }
