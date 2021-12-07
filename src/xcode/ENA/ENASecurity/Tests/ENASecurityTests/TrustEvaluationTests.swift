@@ -159,6 +159,7 @@ class TrustEvaluationTests: XCTestCase {
             XCTFail("expected to fail evaluation but with error CERT_PIN_MISMATCH")
         }
     }
+    
     func test_CheckServerCertificateAgainstAllowlist_HostNotFound_Then_CERT_PIN_HOST_MISMATCH() throws {
         let data = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         // the following code to create the trust is taken from apple developer documentation site
