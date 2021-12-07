@@ -23,4 +23,24 @@ class AllowListServiceTests: XCTestCase {
 		}
 	}
 	
+	func test_FetchingAllowList_Failure() {
+		let errorFake = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.failure(ServiceError<AllowListResource.CustomError>.transportationError(errorFake))
+			]
+		)
+		let store = MockTestStore()
+		let service = AllowListService(restServiceProvider: restServiceProvider, store: store)
+		
+		service.fetchAllowList { result in
+			switch result {
+			case .success:
+				XCTFail("expected to fail fetching the allowlist")
+			case .failure(let error):
+				XCTAssertEqual(error, .REST_SERVICE_ERROR(.transportationError(errorFake)), "should have the same error type")
+			}
+		}
+	}
+	
 }
