@@ -12,7 +12,10 @@ class HygieneRulesInfoViewController: DynamicTableViewController {
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
+
 		super.init(nibName: nil, bundle: nil)
+
+		self.dynamicTableViewModel = HygieneRulesInfoViewModel().dynamicTableViewModel
 		setupView()
 	}
 
@@ -26,8 +29,6 @@ class HygieneRulesInfoViewController: DynamicTableViewController {
 	private let dismiss: () -> Void
 	
 	private func setupView() {
-		self.dynamicTableViewModel = HygieneRulesInfoViewModel().dynamicTableViewModel
-
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.ExposureDetection.hygieneRulesTitle
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
