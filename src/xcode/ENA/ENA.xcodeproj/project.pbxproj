@@ -990,6 +990,9 @@
 		AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */; };
 		AB182015275E1FE50054B873 /* HygieneRulesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182014275E1FE50054B873 /* HygieneRulesInfoViewController.swift */; };
 		AB182018275E20150054B873 /* HygieneRulesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182017275E20150054B873 /* HygieneRulesInfoViewModel.swift */; };
+		AB18201C275F63F40054B873 /* ContagionInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18201A275F63F40054B873 /* ContagionInfoViewModel.swift */; };
+		AB18201D275F63F40054B873 /* ContagionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18201B275F63F40054B873 /* ContagionInfoViewController.swift */; };
+		AB18201F275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18201E275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift */; };
 		AB18807826540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18807726540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
@@ -2614,6 +2617,9 @@
 		AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALinkedTextView.swift; sourceTree = "<group>"; };
 		AB182014275E1FE50054B873 /* HygieneRulesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HygieneRulesInfoViewController.swift; sourceTree = "<group>"; };
 		AB182017275E20150054B873 /* HygieneRulesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HygieneRulesInfoViewModel.swift; sourceTree = "<group>"; };
+		AB18201A275F63F40054B873 /* ContagionInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContagionInfoViewModel.swift; sourceTree = "<group>"; };
+		AB18201B275F63F40054B873 /* ContagionInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContagionInfoViewController.swift; sourceTree = "<group>"; };
+		AB18201E275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIconWithLinkTextCell.swift; sourceTree = "<group>"; };
 		AB18807726540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAAnalyticsTestResultCollector.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -5973,6 +5979,7 @@
 				714194E9247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift */,
 				710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */,
 				71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */,
+				AB18201E275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift */,
 				EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */,
 				71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */,
 				2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */,
@@ -6618,6 +6625,7 @@
 		AB182013275E1FCC0054B873 /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				AB182019275F63F40054B873 /* Contagion */,
 				AB182016275E1FEA0054B873 /* HygieneRules */,
 			);
 			path = Info;
@@ -6630,6 +6638,15 @@
 				AB182017275E20150054B873 /* HygieneRulesInfoViewModel.swift */,
 			);
 			path = HygieneRules;
+			sourceTree = "<group>";
+		};
+		AB182019275F63F40054B873 /* Contagion */ = {
+			isa = PBXGroup;
+			children = (
+				AB18201A275F63F40054B873 /* ContagionInfoViewModel.swift */,
+				AB18201B275F63F40054B873 /* ContagionInfoViewController.swift */,
+			);
+			path = Contagion;
 			sourceTree = "<group>";
 		};
 		AB1885CF25238D9B00D39BBE /* __tests__ */ = {
@@ -9636,6 +9653,7 @@
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
 				EB8A39DB261DCE6000AFA709 /* Foundation+Base64URL.swift in Sources */,
 				0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */,
+				AB18201D275F63F40054B873 /* ContagionInfoViewController.swift in Sources */,
 				35E121DB25B273280098D754 /* statistics.pb.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */,
@@ -10235,6 +10253,7 @@
 				50FE680B2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift in Sources */,
 				ABE9617125F1220600D0F699 /* EventStore.swift in Sources */,
 				50C0298525E4067400460FA4 /* UserMetadata.swift in Sources */,
+				AB18201F275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift in Sources */,
 				8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */,
 				BA7F7348271F12CE00E3CE14 /* _ReceiveResource.swift in Sources */,
 				BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */,
@@ -10312,6 +10331,7 @@
 				3525AC3425E7BDC3002DDC82 /* StreamReader.swift in Sources */,
 				5001DE9C26E2155C004242FA /* DCCRules.swift in Sources */,
 				BAD3CCD3271EEB2C004C06AD /* KeyModel.swift in Sources */,
+				AB18201C275F63F40054B873 /* ContagionInfoViewModel.swift in Sources */,
 				5001DE9426E2114F004242FA /* DCCRegisterPublicKey.swift in Sources */,
 				01960F4326654438000D714E /* TestCertificateConsent.swift in Sources */,
 				2EDE67F9266E406900864D53 /* StackViewLabel.swift in Sources */,

@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class DynamicTableViewIconCell: UITableViewCell {
+class DynamicTableViewIconWithLinkTextCell: UITableViewCell {
 
 	// MARK: - Init
 
@@ -29,12 +29,8 @@ class DynamicTableViewIconCell: UITableViewCell {
 
 		stackView.addArrangedSubview(iconImageView)
 
-		contentTextLabel.style = .body
-		contentTextLabel.adjustsFontForContentSizeCategory = true
-		contentTextLabel.textColor = .enaColor(for: .textPrimary1)
-		contentTextLabel.numberOfLines = 0
-		contentTextLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-		stackView.addArrangedSubview(contentTextLabel)
+		contentTextView.setContentCompressionResistancePriority(.required, for: .vertical)
+		stackView.addArrangedSubview(contentTextView)
 
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
@@ -45,27 +41,14 @@ class DynamicTableViewIconCell: UITableViewCell {
 		])
 	}
 
-	// MARK: - Overrides
-
-	override var textLabel: UILabel? {
-		contentTextLabel
-	}
-
-	override var imageView: UIImageView? {
-		iconImageView
-	}
-
 	// MARK: - Internal
 
-	enum Text {
-		case string(String)
-		case attributedString(NSAttributedString)
-	}
-
+	// swiftlint:disable function_parameter_count
 	func configure(
 		image: UIImage?,
 		imageAlignment: DynamicCell.ImageAlignment = .left,
-		text: Text,
+		text: String,
+		links: [ENALinkedTextView.Link],
 		customTintColor: UIColor?,
 		style: ENAFont,
 		iconWidth: CGFloat,
@@ -91,14 +74,14 @@ class DynamicTableViewIconCell: UITableViewCell {
 		}
 		imageViewWidthConstraint?.constant = iconWidth
 		
-		contentTextLabel.style = style.labelStyle
-		
-		switch text {
-		case .string(let string):
-			contentTextLabel.text = string
-		case .attributedString(let attributedString):
-			contentTextLabel.attributedText = attributedString
-		}
+		contentTextView.configure(
+			text: text,
+			textFont: style,
+			textColor: .enaColor(for: .textPrimary1),
+			links: links,
+			tintColor: customTintColor ?? tintColor,
+			linkColor: customTintColor ?? tintColor
+		)
 		
 		self.selectionStyle = selectionStyle
 	}
@@ -108,6 +91,6 @@ class DynamicTableViewIconCell: UITableViewCell {
 	private var stackView = UIStackView()
 	private var imageViewWidthConstraint: NSLayoutConstraint?
 	private var iconImageView = UIImageView()
-	private var contentTextLabel = ENALabel()
+	private var contentTextView = ENALinkedTextView()
 
 }
