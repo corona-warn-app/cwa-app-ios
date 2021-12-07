@@ -83,7 +83,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 					}
 				}
 				
-				// Prevent adding a child which is perhaps already finish or cancelled because this would crash the app.
+				// Prevent adding a child which is perhaps already finished or cancelled because this would crash the app.
 				guard !exposureWindowsProgress.isFinished, !exposureWindowsProgress.isCancelled else {
 					Log.info("Not adding a child due to already finished or cancelled exposureWindowsProgress", log: .riskDetection)
 					completion(.failure(ExposureDetectionError.isAlreadyRunning))
