@@ -12,27 +12,57 @@ final class TicketValidation: TicketValidating {
 	init(
 		with initializationData: TicketValidationInitializationData,
 		restServiceProvider: RestServiceProviding,
-		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+		serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing,
+		store: Store
 	) {
 		self.initializationData = initializationData
 		self.restServiceProvider = restServiceProvider
 		self.serviceIdentityProcessor = serviceIdentityProcessor
+		self.store = store
 	}
 
 	let initializationData: TicketValidationInitializationData
+	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 
 	func initialize(
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		validateIdentityDocumentOfValidationDecorator(
-			urlString: initializationData.serviceIdentity
-		) { [weak self] result in
+		validateServiceIdentityAgainstAllowlist { [weak self] result in
+			guard let self = self else {
+				Log.error("Cannot capture self in the closure", log: .ticketValidationAllowList)
+				return
+			}
+
 			switch result {
-			case .success(let validationDecoratorDocument):
-				self?.validationDecoratorDocument = validationDecoratorDocument
-				completion(.success(()))
+			case .success:
+				self.validateIdentityDocumentOfValidationDecorator(
+					urlString: self.initializationData.serviceIdentity
+				) { [weak self] result in
+					guard let self = self else {
+						Log.error("Cannot capture self in the closure", log: .ticketValidationDecorator)
+						return
+					}
+					
+					switch result {
+					case .success(let validationDecoratorDocument):
+						self.validationDecoratorDocument = validationDecoratorDocument
+						let filterResult = self.filterJWKsAgainstAllowList(
+							allowList: self.allowList.validationServiceAllowList,
+							jwkSet: validationDecoratorDocument.validationServiceJwkSet
+						)
+						
+						switch filterResult {
+						case .success:
+							completion(.success(()))
+						case .failure(let error):
+							completion(.failure(.allowListError(error)))
+						}
+					case .failure(let error):
+						completion(.failure(.validationDecoratorDocument(error)))
+					}
+				}
 			case .failure(let error):
-				completion(.failure(.validationDecoratorDocument(error)))
+				completion(.failure(.allowListError(error)))
 			}
 		}
 	}
@@ -179,6 +209,7 @@ final class TicketValidation: TicketValidating {
 
 	private let restServiceProvider: RestServiceProviding
 	private let serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessing
+	private let store: Store
 
 	private var validationDecoratorDocument: TicketValidationServiceIdentityDocumentValidationDecorator?
 	private var validationServiceDocument: ServiceIdentityRequestResult?
@@ -207,7 +238,10 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let model):
-				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(serviceIdentityDocument: model) { result in
+				TicketValidationDecoratorIdentityDocumentProcessor().validateIdentityDocument(
+					serviceIdentityDocument: model,
+					allowList: self.allowList.validationServiceAllowList
+				) { result in
 					completion(result)
 				}
 			case .failure(let error):
@@ -235,12 +269,11 @@ final class TicketValidation: TicketValidating {
 
 		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
 		restServiceProvider.update(
-			DynamicEvaluateTrust(
-				jwkSet: validationServiceJwkSet,
+			AllowListEvaluationTrust(
+				allowList: allowList.validationServiceAllowList,
 				trustEvaluation: TrustEvaluation()
 			)
 		)
-
 		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let serviceIdentityDocument):
@@ -348,8 +381,8 @@ final class TicketValidation: TicketValidating {
 		)
 
 		restServiceProvider.update(
-			DynamicEvaluateTrust(
-				jwkSet: validationServiceJwkSet,
+			AllowListEvaluationTrust(
+				allowList: allowList.validationServiceAllowList,
 				trustEvaluation: TrustEvaluation()
 			)
 		)
@@ -372,5 +405,47 @@ final class TicketValidation: TicketValidating {
 			}
 		}
 	}
+	
+	private func validateServiceIdentityAgainstAllowlist(completion: @escaping ((Result<Void, AllowListError>)) -> Void) {
+		let allowListService = AllowListService(
+			restServiceProvider: restServiceProvider,
+			store: store
+		)
+		
+		allowListService.fetchAllowList { [weak self] result in
+			guard let self = self else {
+				Log.error("Cannot capture self in the closure", log: .ticketValidationDecorator)
+				return
+			}
 
+			switch result {
+			case .success(let allowList):
+				self.allowList = allowList
+				let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
+					serviceProviderAllowlist: allowList.serviceProviderAllowList,
+					serviceIdentity: self.initializationData.serviceIdentity
+				)
+				switch result {
+				case .success:
+					completion(.success(()))
+				case .failure(let error):
+					Log.error("Ticket Validation AllowList serviceIdentity check failed", log: .ticketValidationAllowList, error: error)
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				Log.error("Ticket Validation AllowList fetching failed", log: .ticketValidationAllowList, error: error)
+				completion(.failure(error))
+			}
+		}
+	}
+
+	private func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> Result<Void, AllowListError> {
+		let allowListService = AllowListService(
+			restServiceProvider: restServiceProvider,
+			store: store
+		)
+		
+		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
+		return filteringResult
+	}
 }

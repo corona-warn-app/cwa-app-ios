@@ -4,11 +4,11 @@
 
 import Foundation
 
-struct ValidationServiceAllowlistEntry: Codable {
+public struct ValidationServiceAllowlistEntry: Codable {
 
 	// MARK: - Init
 	
-	init(
+	public init(
 		serviceProvider: String,
 		hostname: String,
 		fingerprint256: String
@@ -21,9 +21,9 @@ struct ValidationServiceAllowlistEntry: Codable {
 	// MARK: - Internal
 
 	// Display name for the provider of the Validation Service
-	let serviceProvider: String
+    public let serviceProvider: String
 	// The hostname of the Validation Service
-	let hostname: String
+    public let hostname: String
 	// The SHA-256 fingerprint of the certificate of the Validation Service
-	let fingerprint256: String
+	public let fingerprint256: String
 }

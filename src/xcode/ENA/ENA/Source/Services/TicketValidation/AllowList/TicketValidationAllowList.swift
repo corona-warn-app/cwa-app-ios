@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 struct TicketValidationAllowList: Codable {
 	let validationServiceAllowList: [ValidationServiceAllowlistEntry]

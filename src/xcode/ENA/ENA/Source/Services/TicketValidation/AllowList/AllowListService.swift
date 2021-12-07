@@ -4,16 +4,17 @@
 
 import Foundation
 import ENASecurity
-import OpenCombine
 
 final class AllowListService {
 	
 	// MARK: - Init
 	
 	init(
-	    restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		store: Store
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.store = store
 	}
 	
 	// MARK: - Private
@@ -22,65 +23,37 @@ final class AllowListService {
 	
 	// MARK: - Internal
 
-	@OpenCombine.Published var allowlist: TicketValidationAllowList?
-
-	func fetchAllowList() {
+	func fetchAllowList(completion: @escaping (Result<TicketValidationAllowList, AllowListError>) -> Void) {
 		let resource = AllowListResource()
-		restServiceProvider.load(resource) { [weak self] result in
+		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success(let allowListProtoBuf):
-				self?.allowlist = allowListProtoBuf.allowlist
+				Log.debug("Allow List received", log: .ticketValidationAllowList)
+				completion(.success(allowListProtoBuf.allowlist))
+				return
 			case .failure(let error):
 				Log.debug(error.localizedDescription, log: .ticketValidationAllowList)
+				completion(.failure(.REST_SERVICE_ERROR(error)))
 			}
 		}
-	}
-	
-	func checkServerCertificateAgainstAllowlist(
-		hostname: String,
-		certificateChain: [Data], // can be construct by: Data(base64Encoded: x509String)
-		allowlist: [ValidationServiceAllowlistEntry]
-	) -> Result<Void, AllowListError> {
-		guard let leafCertificate = certificateChain.first else {
-			Log.debug("Certificate chain should include at least one certificate", log: .ticketValidationAllowList)
-			return .failure(.CERT_PIN_MISMATCH)
-		}
-		// Find requiredFingerprints: the requiredFingerprints shall be set by mapping each entry in allowlist to their fingerprint256 attribute.
-
-		let requiredFingerprints = allowlist.map({
-			$0.fingerprint256
-		})
-		
-		// Compare fingerprints: if the SHA-256 fingerprints of leafCertificate is not included in requiredFingerprints, the operation shall abort with error code CERT_PIN_MISMATCH.
-		let leafFingerprint = leafCertificate.sha256().base64EncodedString()
-		if requiredFingerprints.contains(where: {
-			$0 == leafFingerprint
-		}) {
-			Log.debug("fingerprints found", log: .ticketValidationAllowList)
-		} else {
-			return .failure(.CERT_PIN_MISMATCH)
-		}
-		
-		let requiredHostnames: [String] = allowlist.compactMap({
-			$0.fingerprint256 == leafFingerprint ? $0.hostname : nil
-		})
-		if requiredHostnames.contains(where: {
-			$0 == hostname
-		}) {
-			Log.debug("requiredHostnames found", log: .ticketValidationAllowList)
-		} else {
-			return .failure(.CERT_PIN_HOST_MISMATCH)
-		}
-		return .success(())
 	}
 	
 	func checkServiceIdentityAgainstServiceProviderAllowlist(
 		serviceProviderAllowlist: [Data],
 		serviceIdentity: String
 	) -> Result<Void, AllowListError> {
-		
+
+#if !RELEASE
+		// override result if skipAllowlistValidation is true
+		if store.skipAllowlistValidation {
+			Log.info("Skip allow list toggle in Developer Menu is on", log: .ticketValidation)
+			return .success(())
+		}
+#endif
+
+		let base64EncodedServiceIdentityHash = Data(hex: serviceIdentity.sha256()).base64EncodedString()
 		if serviceProviderAllowlist.contains(where: {
-			$0.sha256().base64EncodedString() == serviceIdentity.sha256()
+			$0.base64EncodedString() == base64EncodedServiceIdentityHash
 		}) {
 			return .success(())
 		} else {
@@ -88,7 +61,7 @@ final class AllowListService {
 		}
 	}
 	
-	func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> ([ValidationServiceAllowlistEntry], [JSONWebKey]) {
+	func filterJWKsAgainstAllowList(allowList: [ValidationServiceAllowlistEntry], jwkSet: [JSONWebKey]) -> Result<Void, AllowListError> {
 		
 		var filteredAllowList = [ValidationServiceAllowlistEntry]()
 		let filteredJwkSet = jwkSet.filter({
@@ -105,7 +78,15 @@ final class AllowListService {
 				}
 			}
 		})
-		
-		return (filteredAllowList, filteredJwkSet)
+		if filteredJwkSet.isEmpty {
+			return .failure(.SP_ALLOWLIST_NO_MATCH)
+		} else {
+			return .success(())
+		}
 	}
+
+	// MARK: - private
+	
+	private let store: Store
+
 }

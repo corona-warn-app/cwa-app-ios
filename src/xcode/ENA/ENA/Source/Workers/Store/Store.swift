@@ -99,6 +99,12 @@ protocol AppFeaturesStoring: AnyObject {
 	#endif
 }
 
+protocol TicketValidationStoring: AnyObject {
+	#if !RELEASE
+	var skipAllowlistValidation: Bool { get set }
+	#endif
+}
+
 protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
@@ -291,6 +297,7 @@ protocol Store:
 	DSCListCaching,
 	DeviceTimeCheckStoring,
 	AppFeaturesStoring,
-	RecycleBinStoring
+	RecycleBinStoring,
+	TicketValidationStoring
 {}
 // swiftlint:enable all

@@ -5,9 +5,13 @@
 import UIKit
 
 extension SAP_Internal_Stats_KeyFigure {
+
+	// MARK: - Internal
+
 	var formattedValue: String? {
 		let decimals = max(0, Int(self.decimals))
 		let numberFormatter = NumberFormatter()
+		numberFormatter.roundingMode = .halfUp
 		numberFormatter.numberStyle = .decimal
 		numberFormatter.minimumFractionDigits = Int(decimals)
 		numberFormatter.maximumFractionDigits = Int(decimals)

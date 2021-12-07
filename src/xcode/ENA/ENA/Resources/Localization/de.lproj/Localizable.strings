@@ -3176,7 +3176,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
+"UniversalQRScanner_InstructionDescription" = "Tests, Ihre Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
@@ -3214,7 +3214,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR-Tests und Schnelltests";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Nachweis von Zertifikaten bei Ticketbuchungen";
+"UniversalQRScanner_Info_bulletPoint4" = "Nachweis Ihrer Zertifikate bei Ticketbuchungen";
 
 "UniversalQRScanner_Info_body1" = "Die Daten aus dem jeweiligen QR-Code werden ausgelesen.";
 
@@ -3447,7 +3447,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Kein geeignetes Zertifikat vorhanden.";
 
-"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise Ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
 
 "TicketValidation_CertificateSelection_faqDescription" = "Mehr Informationen finden Sie in den %@.";
 
