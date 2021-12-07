@@ -26,7 +26,9 @@ class TrustEvaluationTests: XCTestCase {
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         let trustEvaluation = TrustEvaluation()
 
-        let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet)
+        let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet) { message in
+            print(message)
+        }
 
         if case .failure(let error) = result {
             XCTFail("Failed with error: \(error)")
@@ -43,7 +45,9 @@ class TrustEvaluationTests: XCTestCase {
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         let trustEvaluation = TrustEvaluation()
 
-        let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet)
+        let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet) { message in
+            print(message)
+        }
 
         guard case .failure(let error) = result,
               error == .CERT_PIN_NO_JWK_FOR_KID else {
@@ -65,7 +69,9 @@ class TrustEvaluationTests: XCTestCase {
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
         let trustEvaluation = TrustEvaluation()
 
-        let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet)
+        let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet) { message in
+            print(message)
+        }
 
         guard case .failure(let error) = result,
               error == .CERT_PIN_MISMATCH else {

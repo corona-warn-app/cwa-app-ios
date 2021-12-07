@@ -11,7 +11,7 @@ final class ECKeyPairGenerationTests: XCTestCase {
     
     func test_validPublicKeyBase64_isGenerated() {
         let generationClass = ECKeyPairGeneration()
-        let generationOutputResult = generationClass.generateECPair(with: "test")
+        let generationOutputResult = generationClass.generateECPair()
         
         switch generationOutputResult {
         case .success(let ecKeyPair):
