@@ -77,5 +77,24 @@ class AllowListServiceTests: XCTestCase {
 		}
 	}
 	
+	func test_ServiceIdentityAllowList_NoMatch_DevMenuSkipValidation() {
+		let testString = "www.testServiceIdentity.com"
+		let allowListMatchObject = Data(hex: "wrongString".sha256())
+		let store = MockTestStore()
+		store.skipAllowlistValidation = true
+		
+		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: store)
+		let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
+			serviceProviderAllowlist: [allowListMatchObject],
+			serviceIdentity: testString
+		)
+		
+		switch result {
+		case .failure(let error):
+			XCTFail("expected to skip the allowlist validation \(error.localizedDescription)")
+		default:
+			break
+		}
+	}
 	
 }
