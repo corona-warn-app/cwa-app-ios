@@ -450,7 +450,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						accessoryType: .detailButton,
 						accessoryAction: .execute(block: { [weak self] _, _ in
 							self?.onHygieneRulesInfoButtonTap()
-						})
+						}),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene
 					),
 					.guide(
 						text: AppStrings.ExposureDetection.guideHome,
@@ -458,7 +459,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						accessoryType: .detailButton,
 						accessoryAction: .execute(block: { [weak self] _, _ in
 							self?.onRiskOfContagionInfoButtonTap()
-						})
+						}),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.detailsGuideHome
 					),
 					.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer")),
 					.guide(

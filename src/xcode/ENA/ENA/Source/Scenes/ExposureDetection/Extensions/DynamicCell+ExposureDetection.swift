@@ -130,7 +130,8 @@ extension DynamicCell {
 		text: String,
 		image: UIImage?,
 		accessoryType: UITableViewCell.AccessoryType? = nil,
-		accessoryAction: DynamicAction = .none
+		accessoryAction: DynamicAction = .none,
+		accessibilityIdentifier: String? = nil
 	) -> DynamicCell {
 		.exposureDetectionCell(
 			ExposureDetectionViewController.ReusableCellIdentifier.guide,
@@ -141,13 +142,8 @@ extension DynamicCell {
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
 			cell.imageView?.tintColor = viewController.viewModel.riskTintColor
-			cell.accessibilityIdentifier = nil
-			
-			if let accessoryType = accessoryType {
-				cell.accessoryType = accessoryType
-			} else {
-				cell.accessoryType = .none
-			}
+			cell.accessibilityIdentifier = accessibilityIdentifier
+			cell.accessoryType = accessoryType ?? .none
 		}
 	}
 
