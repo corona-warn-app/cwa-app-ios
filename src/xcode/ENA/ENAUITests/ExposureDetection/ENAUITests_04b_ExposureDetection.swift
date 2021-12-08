@@ -33,6 +33,30 @@ class ENAUITests_04b_ExposureDetection: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].waitAndTap()
 	}
 
+	func test_navigateToInformationGuideHygiene() throws {
+		launch()
+
+		// Tap risk card and wait for exposure details.
+		app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
+
+		// Scroll to and tap iButton from cell
+		let iButton = app.cells[AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene].buttons.firstMatch
+		iButton.waitAndTap()
+	}
+
+	func test_navigateToInformationGuideHome() throws {
+		launch()
+
+		// Tap risk card and wait for exposure details.
+		app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
+
+		// Scroll to and tap iButton from cell
+		let iButton = app.cells[AccessibilityIdentifiers.ExposureDetection.detailsGuideHome].buttons.firstMatch
+		iButton.waitAndTap()
+	}
+
 	private func launch() {
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
