@@ -818,21 +818,13 @@ enum AppStrings {
 	}
 
 	enum ExposureNotificationError {
-
 		static let generalErrorTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_Title", comment: "")
-
 		static let learnMoreActionTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_Action", comment: "")
-
 		static let enAuthorizationError = NSLocalizedString("ExposureNotificationSetting_AuthenticationError", comment: "")
-
 		static let enActivationRequiredError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_Required", comment: "")
-
 		static let enUnavailableError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_unavailable", comment: "")
-
 		static let enUnknownError = NSLocalizedString("ExposureNotificationSetting_unknownError", comment: "")
-
 		static let apiMisuse = NSLocalizedString("ExposureNotificationSetting_apiMisuse", comment: "")
-		
 		static let notResponding = NSLocalizedString("ExposureNotificationSetting_notResponding", comment: "")
 	}
 
@@ -1123,41 +1115,32 @@ enum AppStrings {
 	
 	enum NewVersionFeatures {
 		static let accImageLabel = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel", comment: "")
-		
 		static let title = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Title", comment: "")
-		
 		static let release = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Release", comment: "")
-		
 		static let buttonContinue = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Button_Continue", comment: "")
-		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
-		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.15 */
+		/* Version 2.16 */
 		
-		static let feature215TicketValidationTitle = NSLocalizedString("NewVersionFeature_215_ticketValidation_title", comment: "")
-		
-		static let feature215TicketValidationDescription = NSLocalizedString("NewVersionFeature_215_ticketValidation_description", comment: "")
+		static let feature216TicketValidationTitle = NSLocalizedString("NewVersionFeature_216_2g_title", comment: "")
+		static let feature216TicketValidationDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
+		static let feature216NegativeTestNoticeTitle = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_title", comment: "")
+		static let feature216NegativeTestNoticeDescription = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_description", comment: "")
+		static let feature216HighRiskNotificationTitle = NSLocalizedString("NewVersionFeature_216_highRiskNotification_description", comment: "")
+		static let feature216HighRiskNotificationDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
 		static let accImageLabel = NSLocalizedString("DeltaOnboarding_AccessibilityImageLabel", comment: "")
-		
 		static let title = NSLocalizedString("DeltaOnboarding_Headline", comment: "")
-		
 		static let description = NSLocalizedString("DeltaOnboarding_Description", comment: "")
 		static let participatingCountries = NSLocalizedString("DeltaOnboarding_ParticipatingCountries", comment: "")
-		
 		static let participatingCountriesListUnavailableTitle = NSLocalizedString("DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title", comment: "")
 		static let participatingCountriesListUnavailable = NSLocalizedString("DeltaOnboarding_ParticipatingCountriesList_Unavailable", comment: "")
-		
 		static let primaryButton = NSLocalizedString("DeltaOnboarding_PrimaryButton_Continue", comment: "")
-		
 		static let legalDataProcessingInfoTitle = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_title", tableName: "Localizable.legal", comment: "")
-		
 		static let legalDataProcessingInfoContent = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_content", tableName: "Localizable.legal", comment: "")
-
 		static let termsDescription1 = NSLocalizedString("DeltaOnboarding_Terms_Description1", comment: "")
 		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
 		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
