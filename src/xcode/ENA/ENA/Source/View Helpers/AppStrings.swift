@@ -1127,8 +1127,8 @@ enum AppStrings {
 		static let feature2162GDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
 		static let feature216NegativeTestNoticeTitle = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_title", comment: "")
 		static let feature216NegativeTestNoticeDescription = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_description", comment: "")
-		static let feature216HighRiskNotificationTitle = NSLocalizedString("NewVersionFeature_216_highRiskNotification_description", comment: "")
-		static let feature216HighRiskNotificationDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
+		static let feature216HighRiskNotificationTitle = NSLocalizedString("NewVersionFeature_216_highRiskNotification_title", comment: "")
+		static let feature216HighRiskNotificationDescription = NSLocalizedString("NewVersionFeature_216_highRiskNotification_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
