@@ -16,7 +16,7 @@ final class TicketValidationCoordinator {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
 	}
-	
+
 	// MARK: - Internal
 
 	func start(ticketValidation: TicketValidating) {
@@ -131,8 +131,7 @@ final class TicketValidationCoordinator {
 	) {
 		let secondConsentViewController = SecondTicketValidationConsentViewController(
 			viewModel: SecondTicketValidationConsentViewModel(
-				// EXPOSUREAPP-10834: Needs to be set from allowlist when it's available: allowlist[0].serviceProvider
-				serviceIdentity: "",
+				serviceIdentity: ticketValidation.allowList.validationServiceAllowList.first?.serviceProvider ?? "",
 				serviceProvider: ticketValidation.initializationData.serviceProvider,
 				healthCertificate: selectedCertificate,
 				healthCertifiedPerson: selectedCertifiedPerson,

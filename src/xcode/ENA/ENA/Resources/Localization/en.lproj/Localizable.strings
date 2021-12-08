@@ -2061,7 +2061,7 @@
 
 "Statistics_Info_Trend_Text" = "The trend compares the value from the previous day with the value from two days ago (for the 7-day incidence, 7-day hospitalization incidence, COVID-19 patients in intensive care units, 7-day R value) or, for the 7-day trends, the average value from the last 7 days with the average value from the 7 days prior to that (for the 7-day mean value of confirmed new infections, warnings by app users, vaccine doses administered). The respective version of the data as initially published is used; subsequent updates are not taken into account.\n\nThe arrow direction indicates whether the trend is increasing, decreasing, or remaining steady – that is, demonstrates a deviation of less than 1% compared to the previous day or 5% compared to the previous week (taking decimal places into account). The color indicates this trend as positive (green), negative (red), or neutral (gray). ";
 
-"Statistics_Info_Trends_Title" = "The following trends can be shown:";
+"Statistics_Info_Trends_Title" = "Examples of displayed trends:";
 
 "Statistics_Info_Trends_Increasing" = "Trend: upwards (negative)";
 
@@ -3042,7 +3042,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
 
-"UniversalQRScanner_InstructionDescription" = "Tests, Certificates, Check-ins, and Validation during Ticket Booking";
+"UniversalQRScanner_InstructionDescription" = "Tests, your certificates, check-ins, and validation during ticket booking";
 
 "UniversalQRScanner_FileButtonTitle" = "Open File";
 
@@ -3080,7 +3080,7 @@
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR tests and rapid tests";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Validation of certificates during ticket booking";
+"UniversalQRScanner_Info_bulletPoint4" = "Validation of your certificates during ticket booking";
 
 "UniversalQRScanner_Info_body1" = "The data from the respective QR code is read.";
 
@@ -3356,7 +3356,7 @@
 
 "TicketValidation_Result_Open_title" = "Certificate Cannot Be Validated";
 
-"TicketValidation_Result_Open_subtitle" = "Your certificate does not meet the provider’s requirements.";
+"TicketValidation_Result_Open_subtitle" = "Your certificate could not be validated by the validation partner";
 
 "TicketValidation_Result_Open_description" = "If you have questions, please contact the provider “%@”.";
 
