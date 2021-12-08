@@ -22,6 +22,8 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 
 	var description: String {
 		switch self {
+		case .trustEvaluationError(let trustEvaluationError):
+			return "\(trustEvaluationError)"
 		case .receivedResourceError(let resourceError):
 			return "\(resourceError)"
 		default:
