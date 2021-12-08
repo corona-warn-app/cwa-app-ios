@@ -149,6 +149,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.homeController = homeController
 		addToEnStateUpdateList(homeState)
 
+		setupRiskChangeHomeBadgeCount()
+
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
 			#if !RELEASE
@@ -489,6 +491,27 @@ class HomeCoordinator: RequiresAppDependencies {
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.rootViewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+			}
+			.store(in: &subscriptions)
+	}
+
+	private func setupRiskChangeHomeBadgeCount() {
+		guard let homeState = homeState else {
+			Log.error("HomeState missing can not setup badge count")
+			return
+		}
+
+		homeState.$riskState
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] riskState in
+				guard case let .risk(risk) = riskState,
+					  risk.riskLevelHasChanged,
+					  risk.level == .high
+				else {
+					Log.info("Risk level decreased - ignored")
+					return
+				}
+					self?.rootViewController.tabBarItem.badgeValue = "1"
 			}
 			.store(in: &subscriptions)
 	}
