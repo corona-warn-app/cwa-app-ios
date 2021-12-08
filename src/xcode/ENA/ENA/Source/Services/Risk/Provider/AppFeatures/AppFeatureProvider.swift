@@ -41,10 +41,41 @@ class AppFeatureProvider: AppFeatureProviding {
 		for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature,
 		from config: SAP_Internal_V2_ApplicationConfigurationIOS
 	) -> Bool {
-
-		let feature = config.appFeatures.appFeatures.first {
-			$0.label == appFeature.rawValue
+		switch appFeature {
+		case .isTicketValidationEnabled:
+			return isTicketValidationEnabled(from: config)
+		default:
+			let feature = config.appFeatures.appFeatures.first {
+				$0.label == appFeature.rawValue
+			}
+			return feature?.value == 1
 		}
-		return feature?.value == 1
 	}
+	
+	private func isTicketValidationEnabled(
+		from config: SAP_Internal_V2_ApplicationConfigurationIOS
+	) -> Bool {
+		
+		let major = config.appFeatures.appFeatures.first {
+			$0.label == "validation-service-ios-min-version-major"
+		}
+		let minor = config.appFeatures.appFeatures.first {
+			$0.label == "validation-service-ios-min-version-minor"
+		}
+		let patch = config.appFeatures.appFeatures.first {
+			$0.label == "validation-service-ios-min-version-patch"
+		}
+		
+		guard let currentSemanticAppVersion = Bundle.main.appVersion.semanticVersion else {
+			return false
+		}
+		
+		var minimumVersion = SAP_Internal_V2_SemanticVersion()
+		minimumVersion.major = UInt32(major?.value ?? 0)
+		minimumVersion.minor = UInt32(minor?.value ?? 0)
+		minimumVersion.patch = UInt32(patch?.value ?? 0)
+		
+		return currentSemanticAppVersion >= minimumVersion
+	}
+	
 }
