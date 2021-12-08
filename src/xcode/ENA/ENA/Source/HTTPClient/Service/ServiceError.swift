@@ -29,11 +29,11 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 		case .transportationError(let error):
 			return "transportationError(\(error))"
 		case .unexpectedServerError(let errorCode):
-			return "unexpectedServerError\(errorCode)"
+			return "unexpectedServerError(\(errorCode))"
 		case .resourceError(let resourceError):
-			return "\resourceError(\(String(describing: resourceError)))"
+			return "resourceError(\(String(describing: resourceError)))"
 		case .receivedResourceError(let resourceError):
-			return "\(resourceError)"
+			return "(\(resourceError))"
 		case .invalidResponse:
 			return "invalidResponse"
 		case .invalidResponseType:
