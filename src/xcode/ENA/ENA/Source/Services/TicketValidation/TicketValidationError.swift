@@ -13,6 +13,7 @@ enum TicketValidationError: LocalizedError {
 	case encryption(EncryptAndSignError)
 	case resultToken(TicketValidationResultTokenProcessingError)
 	case allowListError(AllowListError)
+	case versionError(VersionError)
 	case other
 
 	// swiftlint:disable cyclomatic_complexity
@@ -58,10 +59,12 @@ enum TicketValidationError: LocalizedError {
 		case .allowListError(let error):
 			switch error {
 			case .SP_ALLOWLIST_NO_MATCH:
-				return "\(AppStrings.TicketValidation.Error.serviceProviderErrorNoName) (\(error))"
+				return "\(AppStrings.TicketValidation.Error.serviceProviderErrorNoMatch) (\(error))"
 			case .REST_SERVICE_ERROR(let error):
 				return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
 			}
+		case .versionError(let error):
+			return "\(AppStrings.TicketValidation.Error.outdatedApp) (\(error))"
 		default:
 			return "\(AppStrings.TicketValidation.Error.tryAgain) (\(self))"
 		}
