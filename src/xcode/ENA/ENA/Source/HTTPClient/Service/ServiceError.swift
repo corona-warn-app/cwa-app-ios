@@ -33,7 +33,7 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 		case .resourceError(let resourceError):
 			return "resourceError(\(String(describing: resourceError)))"
 		case .receivedResourceError(let resourceError):
-			return "(\(resourceError))"
+			return "\(resourceError)"
 		case .invalidResponse:
 			return "invalidResponse"
 		case .invalidResponseType:
