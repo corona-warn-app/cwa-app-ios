@@ -5,6 +5,7 @@
 import Foundation
 import ENASecurity
 
+// swiftlint:disable type_body_length
 final class TicketValidation: TicketValidating {
 	
 	// MARK: - Protocol TicketValidating
