@@ -1123,8 +1123,8 @@ enum AppStrings {
 		
 		/* Version 2.16 */
 		
-		static let feature216TicketValidationTitle = NSLocalizedString("NewVersionFeature_216_2g_title", comment: "")
-		static let feature216TicketValidationDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
+		static let feature2162GTitle = NSLocalizedString("NewVersionFeature_216_2g_title", comment: "")
+		static let feature2162GDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
 		static let feature216NegativeTestNoticeTitle = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_title", comment: "")
 		static let feature216NegativeTestNoticeDescription = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_description", comment: "")
 		static let feature216HighRiskNotificationTitle = NSLocalizedString("NewVersionFeature_216_highRiskNotification_description", comment: "")
