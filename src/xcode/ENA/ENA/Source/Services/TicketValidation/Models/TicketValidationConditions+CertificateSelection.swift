@@ -35,16 +35,17 @@ extension TicketValidationConditions {
 			if certificateTypes.contains("t") {
 				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil })
 				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.testCertificate)
-			}
-			// if type contains tp, all PCR tests shall pass the filter
-			if certificateTypes.contains("tp") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.pcrTypeString })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
-			}
-			// if type contains tr, all RAT tests shall pass the filter
-			if certificateTypes.contains("tr") {
-				supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.antigenTypeString })
-				supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
+			} else {
+				// if type contains tp, all PCR tests shall pass the filter
+				if certificateTypes.contains("tp") {
+					supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.pcrTypeString })
+					supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.pcrTestCertificate)
+				}
+				// if type contains tr, all RAT tests shall pass the filter
+				if certificateTypes.contains("tr") {
+					supportedHealthCertificates.append(contentsOf: healthCertifiedPersonCertificates.filter { $0.testEntry != nil && $0.testEntry?.typeOfTest == TestEntry.antigenTypeString })
+					supportedCertificateTypes.append(AppStrings.TicketValidation.SupportedCertificateType.ratTestCertificate)
+				}
 			}
 		} else {
 			// if type is nil or empty, then there is no filtering by type
