@@ -42,9 +42,9 @@ enum TicketValidationError: LocalizedError {
 			case .REST_SERVICE_ERROR(let serviceError):
 				switch serviceError {
 				case .receivedResourceError(.VS_ID_CERT_PIN_MISMATCH), .receivedResourceError(.VS_ID_CERT_PIN_HOST_MISMATCH), .receivedResourceError(.VS_ID_CLIENT_ERR), .receivedResourceError(.VS_ID_PARSE_ERR):
-					return "\(serviceProviderError) (\(serviceError.errorDescription))"
+					return "\(serviceProviderError) (\(serviceError))"
 				default:
-					return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
+					return "\(AppStrings.TicketValidation.Error.tryAgain) (\(serviceError))"
 				}
 			default:
 				return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
