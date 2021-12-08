@@ -48,9 +48,7 @@ class HygieneRulesInfoViewController: DynamicTableViewController {
 		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .never
 		
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
-		// AccessibilityIdentifiers.AccessibilityLabel.close can appear multiple times, better make it unique for UI testing
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close + "HygieneRules"
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss, accessibilityIdentifierSuffix: "HygieneRules")
 
 		if traitCollection.userInterfaceStyle == .dark {
 			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
