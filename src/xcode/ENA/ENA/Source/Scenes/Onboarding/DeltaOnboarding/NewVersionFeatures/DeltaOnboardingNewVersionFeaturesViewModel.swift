@@ -27,7 +27,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// High Risk Notification
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature216HighRiskNotificationTitle, description: AppStrings.NewVersionFeatures.feature216NegativeTestNoticeDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature216HighRiskNotificationTitle, description: AppStrings.NewVersionFeatures.feature216HighRiskNotificationDescription)
 		)
 	}
 
