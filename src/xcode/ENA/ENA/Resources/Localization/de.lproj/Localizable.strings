@@ -3409,7 +3409,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_Error_OutdatedApp" = "In der aktuellen Version ihrer Corona-Warn-App wird die Ticketüberprüfung nicht mehr unterstützt. Bitte aktualisieren Sie Ihre App und versuchen Sie die Ticketüberprüfung erneut.";
 
-"TicketValidation_Error_UpdateAction" = "zum App Store";
+"TicketValidation_Error_UpdateAction" = "Zum App Store";
 
 "TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Sicherheitshinweis";
 

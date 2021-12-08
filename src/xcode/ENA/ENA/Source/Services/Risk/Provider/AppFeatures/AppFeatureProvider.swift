@@ -66,7 +66,6 @@ class AppFeatureProvider: AppFeatureProviding {
 			$0.label == "validation-service-ios-min-version-patch"
 		}
 		
-		
 		guard let currentSemanticAppVersion = Bundle.main.appVersion.semanticVersion else {
 			return false
 		}
@@ -76,7 +75,7 @@ class AppFeatureProvider: AppFeatureProviding {
 		minimumVersion.minor = UInt32(minor?.value ?? 0)
 		minimumVersion.patch = UInt32(patch?.value ?? 0)
 		
-		return !(currentSemanticAppVersion < minimumVersion)
+		return currentSemanticAppVersion >= minimumVersion
 	}
 	
 }
