@@ -40,21 +40,17 @@ class ENAUITests_04b_ExposureDetection: CWATestCase {
 		app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitAndTap()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
 
-		// Scroll to and tap iButton from cell
-		let iButton = app.cells[AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene].buttons.firstMatch
-		iButton.waitAndTap()
-	}
+		// Scroll to and tap iButton from first cell
+		let iButtonFirst = app.cells[AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene].buttons.firstMatch
+		iButtonFirst.waitAndTap()
 
-	func test_navigateToInformationGuideHome() throws {
-		launch()
+		// Details screen - not we may have multiple
+		let closeButton = app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close + "HygieneRules"]
+		closeButton.waitAndTap()
 
-		// Tap risk card and wait for exposure details.
-		app.cells.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitAndTap()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
-
-		// Scroll to and tap iButton from cell
-		let iButton = app.cells[AccessibilityIdentifiers.ExposureDetection.detailsGuideHome].buttons.firstMatch
-		iButton.waitAndTap()
+		// Scroll to and tap iButton from second cell
+		let iButtonSecond = app.cells[AccessibilityIdentifiers.ExposureDetection.detailsGuideHome].buttons.firstMatch
+		iButtonSecond.waitAndTap()
 	}
 
 	private func launch() {
