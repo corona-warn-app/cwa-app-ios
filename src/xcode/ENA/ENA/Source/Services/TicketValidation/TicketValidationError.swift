@@ -30,9 +30,9 @@ enum TicketValidationError: LocalizedError {
 			case .REST_SERVICE_ERROR(let serviceError):
 				switch serviceError {
 				case .receivedResourceError(.VD_ID_CLIENT_ERR), .receivedResourceError(.VD_ID_PARSE_ERR):
-					return "\(serviceProviderError) (\(serviceError.errorDescription))"
+					return "\(serviceProviderError) (\(serviceError))"
 				default:
-					return "\(AppStrings.TicketValidation.Error.tryAgain) (\(error))"
+					return "\(AppStrings.TicketValidation.Error.tryAgain) (\(serviceError))"
 				}
 			}
 		case .validationServiceDocument(let error):
