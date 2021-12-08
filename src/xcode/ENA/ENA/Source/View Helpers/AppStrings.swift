@@ -504,7 +504,6 @@ enum AppStrings {
 		static let contactJournalText = NSLocalizedString("ExposureDetection_Contact_Journal_Text", comment: "")
 		static let contactJournalTextP2 = NSLocalizedString("ExposureDetection_Contact_Journal_Text_P2", comment: "")
 
-
 		static let behaviorTitle = NSLocalizedString("ExposureDetection_Behavior_Title", comment: "")
 		static let behaviorSubtitle = NSLocalizedString("ExposureDetection_Behavior_Subtitle", comment: "")
 		static let lowRiskBehaviorSubtitle = NSLocalizedString("ExposureDetection_LowRisk_Behavior_Subtitle", comment: "")
@@ -561,6 +560,14 @@ enum AppStrings {
 		static let surveyCardTitle = NSLocalizedString("ExposureDetection_Survey_Card_Title", comment: "")
 		static let surveyCardBody = NSLocalizedString("ExposureDetection_Survey_Card_Body", comment: "")
 		static let surveyCardButton = NSLocalizedString("ExposureDetection_Survey_Card_Button", comment: "")
+		
+		static let hygieneRulesTitle = NSLocalizedString("ExposureDetection_Info_HygieneRules_Title", comment: "")
+		static let hygieneRulesPoint1 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point1", comment: "")
+		static let hygieneRulesPoint2 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point2", comment: "")
+		static let hygieneRulesPoint3 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point3", comment: "")
+		static let hygieneRulesPoint4 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point4", comment: "")
+		static let hygieneRulesPoint5 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point5", comment: "")
+		static let hygieneRulesTitleImageDescription = NSLocalizedString("ExposureDetection_Info_HygieneRules_TitleImage_Description", comment: "")
 	}
 
 	enum SurveyConsent {

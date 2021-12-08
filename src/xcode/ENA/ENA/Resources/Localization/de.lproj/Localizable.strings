@@ -184,6 +184,20 @@
 
 "ExposureDetection_Survey_Card_Button" = "Zur Befragung";
 
+"ExposureDetection_Info_HygieneRules_Title" = "Hygieneregeln";
+
+"ExposureDetection_Info_HygieneRules_Point1" = "Tragen Sie bei Begegnungen mit anderen Personen eine Maske.";
+
+"ExposureDetection_Info_HygieneRules_Point2" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
+
+"ExposureDetection_Info_HygieneRules_Point3" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
+
+"ExposureDetection_Info_HygieneRules_Point4" = "Waschen Sie Ihre Hände regelmäßig mit Seife für mindestens 20 Sekunden.";
+
+"ExposureDetection_Info_HygieneRules_Point5" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
+
+"ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Mehrere Personen, die Abstand halten und einen Mundschutz tragen.";
+
 /* Survey Errors */
 
 "SurveyConsent_Error_Title" = "Fehler";
