@@ -25,8 +25,13 @@ final class TicketValidation: TicketValidating {
 	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 
 	func initialize(
+		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
+		guard let version = appVersion, appFeatureProvider.value(for: .isTicketValidationEnabled(version) != false) else {
+			// TODO return new error case for unsupported appversion
+		}
+		
 		validateServiceIdentityAgainstAllowlist { [weak self] result in
 			guard let self = self else {
 				Log.error("Cannot capture self in the closure", log: .ticketValidationAllowList)
@@ -66,7 +71,7 @@ final class TicketValidation: TicketValidating {
 			}
 		}
 	}
-
+	
 	func grantFirstConsent(
 		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
@@ -219,6 +224,22 @@ final class TicketValidation: TicketValidating {
 	private var encryptionResult: EncryptAndSignResult?
 
 	private var selectedHealthCertificate: HealthCertificate?
+	
+	private var appVersion: Version? {
+		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
+		guard appVersionParts.count == 3,
+			  let majorAppVerson = Int(appVersionParts[0]),
+			  let minorAppVerson = Int(appVersionParts[1]),
+			  let patchAppVersion = Int((appVersionParts[2])) else {
+				  // add error code
+				  return nil
+			  }
+		return cwaVersion = Version(
+			major: majorAppVerson,
+			minor: minorAppVerson,
+			patch: patchAppVersion
+		)
+	}
 	
 	private func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,

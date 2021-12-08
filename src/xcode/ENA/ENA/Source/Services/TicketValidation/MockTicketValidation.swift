@@ -20,6 +20,7 @@ final class MockTicketValidation: TicketValidating {
 	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 	
 	func initialize(
+		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
 		DispatchQueue.global().asyncAfter(deadline: .now() + delay) {
