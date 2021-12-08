@@ -92,22 +92,6 @@ class ENAUITests_01a_Home: CWATestCase {
 		XCTAssertTrue(settingsLabel.waitForExistence(timeout: .medium))
 	}
 	
-	func test_riskCardHigh_details_faqLink() throws {
-		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: "high")
-		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
-		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.launch()
-
-		let riskCell = app.cells.element(boundBy: 1)
-		riskCell.waitAndTap()
-
-		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
-		faqCell.waitAndTap()
-
-		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/#red_card_how_to_test'
-		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/#red_card_how_to_test"].waitForExistence(timeout: .short))
-	}
-	
 	func test_homescreen_remove_positive_test_result() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)

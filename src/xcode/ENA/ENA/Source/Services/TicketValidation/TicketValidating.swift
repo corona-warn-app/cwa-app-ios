@@ -10,6 +10,7 @@ protocol TicketValidating {
 	var allowList: TicketValidationAllowList { get }
 	
 	func initialize(
+		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	)
 

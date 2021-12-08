@@ -7,7 +7,7 @@ import ENASecurity
 /**
 The errors that can occur while using the service and calling http methods.
 */
-enum ServiceError<RE>: Error, Equatable where RE: Error {
+enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error {
 	case invalidRequestError(ResourceError)
 	case trustEvaluationError(TrustEvaluationError)
 	case transportationError(Error)
@@ -17,6 +17,31 @@ enum ServiceError<RE>: Error, Equatable where RE: Error {
 	case invalidResponse
 	case invalidResponseType
 	case fakeResponse
+
+	// MARK: - Protocol CustomStringConvertible
+
+	var description: String {
+		switch self {
+		case .invalidRequestError(let resourceError):
+			return "invalidRequestError(\(resourceError))"
+		case .trustEvaluationError(let trustEvaluationError):
+			return "trustEvaluationError(\(trustEvaluationError))"
+		case .transportationError(let error):
+			return "transportationError(\(error))"
+		case .unexpectedServerError(let errorCode):
+			return "unexpectedServerError(\(errorCode))"
+		case .resourceError(let resourceError):
+			return "resourceError(\(String(describing: resourceError)))"
+		case .receivedResourceError(let resourceError):
+			return "\(resourceError)"
+		case .invalidResponse:
+			return "invalidResponse"
+		case .invalidResponseType:
+			return "invalidResponseType"
+		case .fakeResponse:
+			return "fakeResponse"
+		}
+	}
 
 	// MARK: - Protocol Equatable
 

@@ -112,21 +112,7 @@
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın.";
 
-"ExposureDetection_Guide_Hotline1" = "Belirtiler, test kullanılabilirliği veya karantina önlemleri hakkında sorularınız varsa lütfen aşağıdakilerden biri ile iletişime geçin:";
-
-"ExposureDetection_Guide_Hotline2" = "Aile hekiminiz";
-
-"ExposureDetection_Guide_Hotline3" = "116 117 numaralı telefondan genel acil servis";
-
-"ExposureDetection_Guide_Hotline4" = "Kamu sağlığı yetkiliniz";
-
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız bir test randevusu oluşturmak için aile hekiminize veya genel acil servis numarasına danışın. Testinizi yaptırdıktan sonra aile hekiminizle SARS-CoV-2 aşısı hakkında görüşün.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Test yaptırırsanız %@ bölümünde test prosedürü hakkında ek bilgi bulabilirsiniz.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "Test prosedürü hakkında SSS";
 
 "ExposureDetection_Explanation_Title" = "Enfeksiyon Riski";
 

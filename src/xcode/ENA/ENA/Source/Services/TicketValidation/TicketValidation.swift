@@ -5,6 +5,7 @@
 import Foundation
 import ENASecurity
 
+// swiftlint:disable type_body_length
 final class TicketValidation: TicketValidating {
 	
 	// MARK: - Protocol TicketValidating
@@ -25,8 +26,14 @@ final class TicketValidation: TicketValidating {
 	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 
 	func initialize(
+		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
+		guard appFeatureProvider.value(for: .isTicketValidationEnabled) != false else {
+			completion(.failure(.versionError(.MIN_VERSION_REQUIRED)))
+			return
+		}
+		
 		validateServiceIdentityAgainstAllowlist { [weak self] result in
 			guard let self = self else {
 				Log.error("Cannot capture self in the closure", log: .ticketValidationAllowList)
@@ -219,7 +226,7 @@ final class TicketValidation: TicketValidating {
 	private var encryptionResult: EncryptAndSignResult?
 
 	private var selectedHealthCertificate: HealthCertificate?
-	
+
 	private func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:

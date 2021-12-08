@@ -112,21 +112,7 @@
 
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home.";
 
-"ExposureDetection_Guide_Hotline1" = "If you have questions about symptoms, testing availability, or quarantine measures, please contact one of the following:";
-
-"ExposureDetection_Guide_Hotline2" = "Your general practitioner";
-
-"ExposureDetection_Guide_Hotline3" = "General medical emergency service on telephone number 116 117";
-
-"ExposureDetection_Guide_Hotline4" = "Your public health authority";
-
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor or the general medical emergency service number to arrange a test. After your test, discuss the SARS-CoV-2 vaccination with your family doctor.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "If you get tested, you will find additional information about the testing procedure in the %@.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "FAQ on the testing procedure";
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 

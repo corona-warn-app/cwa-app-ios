@@ -27,7 +27,7 @@
 		010A474E27512A05000AA80E /* MockJWTVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474D27512A05000AA80E /* MockJWTVerification.swift */; };
 		010A47512751415E000AA80E /* TicketValidationAccessToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */; };
 		010A47542754C1AE000AA80E /* TicketValidationAccessTokenResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */; };
-		010A47562754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */; };
+		010A47562754C1BC000AA80E /* VersionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47552754C1BC000AA80E /* VersionError.swift */; };
 		010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47652754C74F000AA80E /* TicketValidationResultTokenResource.swift */; };
 		010A47682754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47672754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift */; };
 		010A476A2754D5F6000AA80E /* TicketValidationResultTokenLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47692754D5F6000AA80E /* TicketValidationResultTokenLocator.swift */; };
@@ -988,6 +988,14 @@
 		AB0246E327230F5F002668A1 /* RegistrationTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */; };
 		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
+		AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */; };
+		AB182015275E1FE50054B873 /* HygieneRulesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182014275E1FE50054B873 /* HygieneRulesInfoViewController.swift */; };
+		AB182018275E20150054B873 /* HygieneRulesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182017275E20150054B873 /* HygieneRulesInfoViewModel.swift */; };
+		AB18201C275F63F40054B873 /* ContagionInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18201A275F63F40054B873 /* ContagionInfoViewModel.swift */; };
+		AB18201D275F63F40054B873 /* ContagionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18201B275F63F40054B873 /* ContagionInfoViewController.swift */; };
+		AB18201F275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18201E275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift */; };
+		AB1820222760EEF40054B873 /* ContagionInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1820212760EEF40054B873 /* ContagionInfoViewModelTests.swift */; };
+		AB1820252760F4FE0054B873 /* HygieneRulesInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1820232760F4F40054B873 /* HygieneRulesInfoViewModelTests.swift */; };
 		AB18807826540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB18807726540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
@@ -1524,6 +1532,7 @@
 		EB54936B25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift */; };
 		EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */; };
 		EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */ = {isa = PBXBuildFile; fileRef = EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */; };
+		EB5F21FE2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5F21FD2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift */; };
 		EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */; };
 		EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */; };
 		EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */; };
@@ -1635,7 +1644,7 @@
 		010A474D27512A05000AA80E /* MockJWTVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockJWTVerification.swift; path = Model/MockJWTVerification.swift; sourceTree = "<group>"; };
 		010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationAccessToken+Fake.swift"; sourceTree = "<group>"; };
 		010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResult.swift; sourceTree = "<group>"; };
-		010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessingError.swift; sourceTree = "<group>"; };
+		010A47552754C1BC000AA80E /* VersionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionError.swift; sourceTree = "<group>"; };
 		010A47622754C674000AA80E /* TicketValidationResultTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessor.swift; sourceTree = "<group>"; };
 		010A47632754C674000AA80E /* TicketValidationResultTokenProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessingError.swift; sourceTree = "<group>"; };
 		010A47642754C674000AA80E /* TicketValidationResultTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResult.swift; sourceTree = "<group>"; };
@@ -2613,6 +2622,14 @@
 		AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTokenModel.swift; sourceTree = "<group>"; };
 		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
+		AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALinkedTextView.swift; sourceTree = "<group>"; };
+		AB182014275E1FE50054B873 /* HygieneRulesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HygieneRulesInfoViewController.swift; sourceTree = "<group>"; };
+		AB182017275E20150054B873 /* HygieneRulesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HygieneRulesInfoViewModel.swift; sourceTree = "<group>"; };
+		AB18201A275F63F40054B873 /* ContagionInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContagionInfoViewModel.swift; sourceTree = "<group>"; };
+		AB18201B275F63F40054B873 /* ContagionInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContagionInfoViewController.swift; sourceTree = "<group>"; };
+		AB18201E275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIconWithLinkTextCell.swift; sourceTree = "<group>"; };
+		AB1820212760EEF40054B873 /* ContagionInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContagionInfoViewModelTests.swift; sourceTree = "<group>"; };
+		AB1820232760F4F40054B873 /* HygieneRulesInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HygieneRulesInfoViewModelTests.swift; sourceTree = "<group>"; };
 		AB18807726540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAAnalyticsTestResultCollector.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -3149,6 +3166,7 @@
 		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
 		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
 		EB5DAABC271EE2EE0043065D /* RecycleBinUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = RecycleBinUITests.xctestplan; path = TestPlans/RecycleBinUITests.xctestplan; sourceTree = "<group>"; };
+		EB5F21FD2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessingError.swift; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
 		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewController.swift; sourceTree = "<group>"; };
@@ -3333,6 +3351,7 @@
 				0104CBD4273EAD72009A543D /* TicketValidation.swift */,
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
+				010A47552754C1BC000AA80E /* VersionError.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
 				ABC506B62747DC9600698A95 /* EncryptAndSignDCC */,
 				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
@@ -3366,8 +3385,8 @@
 		010A47522754C1A3000AA80E /* AccessToken */ = {
 			isa = PBXGroup;
 			children = (
+				EB5F21FD2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift */,
 				01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */,
-				010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */,
 				010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */,
 			);
 			path = AccessToken;
@@ -5680,6 +5699,7 @@
 			isa = PBXGroup;
 			children = (
 				A36FACC224C5E9FC00DED947 /* __tests__ */,
+				AB182013275E1FCC0054B873 /* Info */,
 				71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */,
 				01D02666258B750800B6389A /* ExposureDetectionViewController.xib */,
 				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewModel.swift */,
@@ -5975,6 +5995,7 @@
 				714194E9247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift */,
 				710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */,
 				71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */,
+				AB18201E275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift */,
 				EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */,
 				71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */,
 				2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */,
@@ -6016,6 +6037,7 @@
 				71B804462484CC0800D53506 /* ENALabel.swift */,
 				711EFCC62492EE31005FEF21 /* ENAFooterView.swift */,
 				BAC42DC32583AF9D001A94C0 /* ENATextField.swift */,
+				AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */,
 			);
 			path = BaseElements;
 			sourceTree = "<group>";
@@ -6536,6 +6558,7 @@
 		A36FACC224C5E9FC00DED947 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				AB1820202760EEDB0054B873 /* Info */,
 				AB7BDF8725CC07A400E70744 /* Survey */,
 				A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */,
 				010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */,
@@ -6622,6 +6645,42 @@
 				01DDF44326541CEC0043B4E1 /* DidSetPublished.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		AB182013275E1FCC0054B873 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				AB182019275F63F40054B873 /* Contagion */,
+				AB182016275E1FEA0054B873 /* HygieneRules */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		AB182016275E1FEA0054B873 /* HygieneRules */ = {
+			isa = PBXGroup;
+			children = (
+				AB182014275E1FE50054B873 /* HygieneRulesInfoViewController.swift */,
+				AB182017275E20150054B873 /* HygieneRulesInfoViewModel.swift */,
+			);
+			path = HygieneRules;
+			sourceTree = "<group>";
+		};
+		AB182019275F63F40054B873 /* Contagion */ = {
+			isa = PBXGroup;
+			children = (
+				AB18201A275F63F40054B873 /* ContagionInfoViewModel.swift */,
+				AB18201B275F63F40054B873 /* ContagionInfoViewController.swift */,
+			);
+			path = Contagion;
+			sourceTree = "<group>";
+		};
+		AB1820202760EEDB0054B873 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				AB1820212760EEF40054B873 /* ContagionInfoViewModelTests.swift */,
+				AB1820232760F4F40054B873 /* HygieneRulesInfoViewModelTests.swift */,
+			);
+			path = Info;
 			sourceTree = "<group>";
 		};
 		AB1885CF25238D9B00D39BBE /* __tests__ */ = {
@@ -9639,6 +9698,7 @@
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
 				EB8A39DB261DCE6000AFA709 /* Foundation+Base64URL.swift in Sources */,
 				0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */,
+				AB18201D275F63F40054B873 /* ContagionInfoViewController.swift in Sources */,
 				35E121DB25B273280098D754 /* statistics.pb.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */,
@@ -9676,6 +9736,7 @@
 				BA6C8B05254D6B1F008344F5 /* RiskCalculation.swift in Sources */,
 				01F3323527146EF5005CE21E /* RecycleBinViewModel.swift in Sources */,
 				BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */,
+				AB182015275E1FE50054B873 /* HygieneRulesInfoViewController.swift in Sources */,
 				ABE5E0BA269363B900D50C2B /* CountrySelectionCell.swift in Sources */,
 				BA291AC3275A48CA003C42C2 /* DMTicketValidationViewModel.swift in Sources */,
 				EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */,
@@ -9862,7 +9923,7 @@
 				EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */,
 				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
-				010A47562754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift in Sources */,
+				010A47562754C1BC000AA80E /* VersionError.swift in Sources */,
 				50293D56267A41BC004B3EBE /* AddCertificateCellModel.swift in Sources */,
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				0160CC2A26B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift in Sources */,
@@ -9934,6 +9995,7 @@
 				50680B8F26164255002EA256 /* DMRecentTraceLocationCheckedInto.swift in Sources */,
 				BACF839E26A08C8800E5876C /* HealthCertificateExpirationDateCell.swift in Sources */,
 				BA83C193271702A50039D504 /* MockTestStore+Migration.swift in Sources */,
+				EB5F21FE2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				01E10284266E2F7F009ED803 /* TestEntry+Extension.swift in Sources */,
 				50C0298B25E4067400460FA4 /* ExposureWindowsMetadata.swift in Sources */,
@@ -9952,6 +10014,7 @@
 				019789352746920600AAC31C /* TicketValidationOpenViewModel.swift in Sources */,
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
+				AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */,
 				BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */,
@@ -10238,6 +10301,7 @@
 				50FE680B2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift in Sources */,
 				ABE9617125F1220600D0F699 /* EventStore.swift in Sources */,
 				50C0298525E4067400460FA4 /* UserMetadata.swift in Sources */,
+				AB18201F275F9F8F0054B873 /* DynamicTableViewIconWithLinkTextCell.swift in Sources */,
 				8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */,
 				BA7F7348271F12CE00E3CE14 /* _ReceiveResource.swift in Sources */,
 				BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */,
@@ -10315,6 +10379,7 @@
 				3525AC3425E7BDC3002DDC82 /* StreamReader.swift in Sources */,
 				5001DE9C26E2155C004242FA /* DCCRules.swift in Sources */,
 				BAD3CCD3271EEB2C004C06AD /* KeyModel.swift in Sources */,
+				AB18201C275F63F40054B873 /* ContagionInfoViewModel.swift in Sources */,
 				5001DE9426E2114F004242FA /* DCCRegisterPublicKey.swift in Sources */,
 				01960F4326654438000D714E /* TestCertificateConsent.swift in Sources */,
 				2EDE67F9266E406900864D53 /* StackViewLabel.swift in Sources */,
@@ -10458,6 +10523,7 @@
 				50EB4FDA268DFC86009FB402 /* ValidationRulesCache.swift in Sources */,
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
+				AB182018275E20150054B873 /* HygieneRulesInfoViewModel.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				BA94BBBD260DF51F005CF38F /* CheckInNoticeCell.swift in Sources */,
 				EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */,
@@ -10657,6 +10723,7 @@
 				010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
+				AB1820222760EEF40054B873 /* ContagionInfoViewModelTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
 				2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */,
 				019DDEDF26F1E48C00390509 /* VaccinationHintCellModelTests.swift in Sources */,
@@ -10665,6 +10732,7 @@
 				BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */,
 				A1E419582495A8F90016E52A /* TeleTanResourceTests.swift in Sources */,
 				01BA06C1261F384A00237DD8 /* WarnOthersReminderTests.swift in Sources */,
+				AB1820252760F4FE0054B873 /* HygieneRulesInfoViewModelTests.swift in Sources */,
 				01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */,
 				BA573D5E2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift in Sources */,
 				017AD13625A3238300FA2B3F /* iOS13TestCase.swift in Sources */,
