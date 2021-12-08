@@ -73,7 +73,7 @@ final class TicketValidation: TicketValidating {
 			}
 		}
 	}
-	
+
 	func grantFirstConsent(
 		completion: @escaping (Result<TicketValidationConditions, TicketValidationError>) -> Void
 	) {
@@ -226,7 +226,7 @@ final class TicketValidation: TicketValidating {
 	private var encryptionResult: EncryptAndSignResult?
 
 	private var selectedHealthCertificate: HealthCertificate?
-		
+
 	private func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:
