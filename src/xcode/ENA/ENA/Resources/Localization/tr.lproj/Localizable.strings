@@ -2075,7 +2075,7 @@
 
 "Statistics_Info_Trend_Text" = "Trend, (7 günlük olay, 7 günlük hastaneye yatış olayı, yoğun bakım ünitelerindeki COVID-19 hastaları, 7 günlük R değeri için) önceki güne ait değeri iki gün önceki değer ile karşılaştırır veya 7 günlük trendlerde, (onaylanan yeni enfeksiyon sayısına, uygulama kullanıcılarının uyarılarına, uygulanan aşı dozlarına ilişkin 7 günlük ortalama değer için) son 7 güne ait ortalama değeri ondan önceki 7 güne ait ortalama değer ile karşılaştırır. Verilerin ilk yayınlandığı versiyonu kullanılır; sonraki güncellemeler hesaba katılmaz.\n\nOk yönü trendin arttığını, azaldığını ya da sabit kaldığını belirtir. Sabit kalması, önceki güne göre %1’den az veya önceki haftaya göre %5’ten az sapma olduğu anlamına gelir (ondalık basamaklar hesaba katılır). Renk ise bu trendin pozitif (yeşil), negatif (kırmızı) ya da nötr (gri) olduğunu belirtir. ";
 
-"Statistics_Info_Trends_Title" = "Şu trendler gösterilebilir:";
+"Statistics_Info_Trends_Title" = "Görüntülenen trend örnekleri:";
 
 "Statistics_Info_Trends_Increasing" = "Trend: yukarı (negatif)";
 
@@ -3056,7 +3056,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Hangi QR kodları tarayabilirsiniz?";
 
-"UniversalQRScanner_InstructionDescription" = "Testler, Sertifikalar, Check-in'ler ve Bilet Rezervasyonu sırasında Doğrulama";
+"UniversalQRScanner_InstructionDescription" = "Testler, sertifikalarınız, check-in'ler ve bilet rezervasyonu sırasında doğrulama";
 
 "UniversalQRScanner_FileButtonTitle" = "Dosya Aç";
 
@@ -3094,7 +3094,7 @@
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR testleri ve hızlı testler";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Bilet rezervasyonu sırasında sertifikalara ilişkin doğrulama";
+"UniversalQRScanner_Info_bulletPoint4" = "Bilet rezervasyonu sırasında sertifikalarınıza ilişkin doğrulama";
 
 "UniversalQRScanner_Info_body1" = "İlgili QR koddan alınan veriler okunur.";
 
@@ -3370,7 +3370,7 @@
 
 "TicketValidation_Result_Open_title" = "Sertifika Doğrulanamıyor";
 
-"TicketValidation_Result_Open_subtitle" = "Sertifikanız sağlayıcı gerekliliklerini karşılamıyor.";
+"TicketValidation_Result_Open_subtitle" = "Sertifikanız doğrulama ortağı tarafından doğrulanamadı";
 
 "TicketValidation_Result_Open_description" = "Sorularınız varsa lütfen sağlayıcı \"%@\" ile iletişime geçin.";
 
