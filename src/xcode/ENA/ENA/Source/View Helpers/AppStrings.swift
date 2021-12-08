@@ -2613,6 +2613,10 @@ enum AppStrings {
 			static let serviceProviderErrorNoName = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoName", comment: "")
 			static let serviceProviderError = NSLocalizedString("TicketValidation_Error_serviceProviderError", comment: "")
 			static let tryAgain = NSLocalizedString("TicketValidation_Error_tryAgain", comment: "")
+			static let outdatedApp = NSLocalizedString("TicketValidation_Error_OutdatedApp", comment: "")
+			static let updateApp = NSLocalizedString("TicketValidation_Error_UpdateAction", comment: "")
+			static let serviceProviderErrorNoMatch = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoMatch", comment: "")
+			static let serviceProviderErrorNoMatchTitle = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoMatchTitle", comment: "")
 		}
 	}
 	// swiftlint:disable:next file_length

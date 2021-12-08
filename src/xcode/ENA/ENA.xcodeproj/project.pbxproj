@@ -27,7 +27,7 @@
 		010A474E27512A05000AA80E /* MockJWTVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474D27512A05000AA80E /* MockJWTVerification.swift */; };
 		010A47512751415E000AA80E /* TicketValidationAccessToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */; };
 		010A47542754C1AE000AA80E /* TicketValidationAccessTokenResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */; };
-		010A47562754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */; };
+		010A47562754C1BC000AA80E /* VersionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47552754C1BC000AA80E /* VersionError.swift */; };
 		010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47652754C74F000AA80E /* TicketValidationResultTokenResource.swift */; };
 		010A47682754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47672754C7E7000AA80E /* TicketValidationResultTokenSendModel.swift */; };
 		010A476A2754D5F6000AA80E /* TicketValidationResultTokenLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47692754D5F6000AA80E /* TicketValidationResultTokenLocator.swift */; };
@@ -1530,6 +1530,7 @@
 		EB54936B25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift */; };
 		EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */; };
 		EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */ = {isa = PBXBuildFile; fileRef = EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */; };
+		EB5F21FE2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5F21FD2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift */; };
 		EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */; };
 		EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */; };
 		EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */; };
@@ -1641,7 +1642,7 @@
 		010A474D27512A05000AA80E /* MockJWTVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockJWTVerification.swift; path = Model/MockJWTVerification.swift; sourceTree = "<group>"; };
 		010A474F27514084000AA80E /* TicketValidationAccessToken+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationAccessToken+Fake.swift"; sourceTree = "<group>"; };
 		010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResult.swift; sourceTree = "<group>"; };
-		010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessingError.swift; sourceTree = "<group>"; };
+		010A47552754C1BC000AA80E /* VersionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionError.swift; sourceTree = "<group>"; };
 		010A47622754C674000AA80E /* TicketValidationResultTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessor.swift; sourceTree = "<group>"; };
 		010A47632754C674000AA80E /* TicketValidationResultTokenProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenProcessingError.swift; sourceTree = "<group>"; };
 		010A47642754C674000AA80E /* TicketValidationResultTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResult.swift; sourceTree = "<group>"; };
@@ -3161,6 +3162,7 @@
 		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
 		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
 		EB5DAABC271EE2EE0043065D /* RecycleBinUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = RecycleBinUITests.xctestplan; path = TestPlans/RecycleBinUITests.xctestplan; sourceTree = "<group>"; };
+		EB5F21FD2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenProcessingError.swift; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
 		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB67B5DA262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCheckinsViewController.swift; sourceTree = "<group>"; };
@@ -3345,6 +3347,7 @@
 				0104CBD4273EAD72009A543D /* TicketValidation.swift */,
 				010E07B1273D809800C2BE5F /* TicketValidating.swift */,
 				0104CBCC273EAC46009A543D /* TicketValidationError.swift */,
+				010A47552754C1BC000AA80E /* VersionError.swift */,
 				01DE60732744EF2E00E12FA4 /* Models */,
 				ABC506B62747DC9600698A95 /* EncryptAndSignDCC */,
 				8FB7C9212750EF2D0071C98C /* ValidationDecorator */,
@@ -3378,8 +3381,8 @@
 		010A47522754C1A3000AA80E /* AccessToken */ = {
 			isa = PBXGroup;
 			children = (
+				EB5F21FD2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift */,
 				01BB00D1274FDE750065D1D1 /* TicketValidationAccessTokenProcessor.swift */,
-				010A47552754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift */,
 				010A47532754C1AE000AA80E /* TicketValidationAccessTokenResult.swift */,
 			);
 			path = AccessToken;
@@ -9906,7 +9909,7 @@
 				EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */,
 				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
-				010A47562754C1BC000AA80E /* TicketValidationAccessTokenProcessingError.swift in Sources */,
+				010A47562754C1BC000AA80E /* VersionError.swift in Sources */,
 				50293D56267A41BC004B3EBE /* AddCertificateCellModel.swift in Sources */,
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				0160CC2A26B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift in Sources */,
@@ -9978,6 +9981,7 @@
 				50680B8F26164255002EA256 /* DMRecentTraceLocationCheckedInto.swift in Sources */,
 				BACF839E26A08C8800E5876C /* HealthCertificateExpirationDateCell.swift in Sources */,
 				BA83C193271702A50039D504 /* MockTestStore+Migration.swift in Sources */,
+				EB5F21FE2760E60A00667593 /* TicketValidationAccessTokenProcessingError.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				01E10284266E2F7F009ED803 /* TestEntry+Extension.swift in Sources */,
 				50C0298B25E4067400460FA4 /* ExposureWindowsMetadata.swift in Sources */,
