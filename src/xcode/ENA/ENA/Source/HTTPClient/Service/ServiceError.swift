@@ -7,9 +7,11 @@ import ENASecurity
 /**
 The errors that can occur while using the service and calling http methods.
 */
-enum ServiceError<RE>: Error, Equatable where RE: Error {
-	// we need this property for nested errors
-	var errorDescription: String {
+enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error {
+
+		// MARK: - Protocol CustomStringConvertible
+
+		var description: String {
 		switch self {
 		case .receivedResourceError(let resourceError):
 			return "\(resourceError)"
