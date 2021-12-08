@@ -2061,7 +2061,7 @@
 
 "Statistics_Info_Trend_Text" = "Tendința compară valoarea din ziua anterioară cu valoarea de acum două zile (pentru incidența pe 7 zile, incidența spitalizării pe 7 zile, pacienții COVID-19 din unitățile de terapie intensivă, valoarea R pe 7 zile) sau, pentru tendințele pe 7 zile, valoarea medie din ultimele 7 zile cu valoarea medie din cele 7 zile anterioare acestora (pentru valoarea medie pe 7 zile a infectărilor noi confirmate, avertizări de către utilizatorii aplicației, dozele de vaccin administrate). Este utilizată versiunea respectivă a datelor publicate inițial; actualizările ulterioare nu sunt luate în considerare.\n\nDirecția săgeții indică dacă tendința este în creștere, în scădere sau dacă rămâne constantă – mai exact, demonstrează o abatere de sub 1% în comparație cu ziua precedentă sau de 5% în comparație cu săptămâna precedentă (ținând cont de pozițiile zecimale). Culoarea indică faptul că tendința este pozitivă (verde), negativă (roșu) sau neutră (gri). ";
 
-"Statistics_Info_Trends_Title" = "Pot fi afișate următoarele tendințe:";
+"Statistics_Info_Trends_Title" = "Exemple de tendințe afișate:";
 
 "Statistics_Info_Trends_Increasing" = "Tendință: ascendentă (negativă)";
 
@@ -3042,7 +3042,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Ce coduri QR puteți scana?";
 
-"UniversalQRScanner_InstructionDescription" = "Testele, certificatele, check-inurile și validarea la rezervarea biletului";
+"UniversalQRScanner_InstructionDescription" = "Testele, certificatele dvs., check-inurile și validarea la rezervarea biletului";
 
 "UniversalQRScanner_FileButtonTitle" = "Deschidere fișier";
 
@@ -3080,7 +3080,7 @@
 
 "UniversalQRScanner_Info_bulletPoint3" = "Teste PCR și teste rapide";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Validarea certificatelor la rezervarea biletelor";
+"UniversalQRScanner_Info_bulletPoint4" = "Validarea certificatelor dvs. la rezervarea biletelor";
 
 "UniversalQRScanner_Info_body1" = "Sunt citite datele de la codul QR respectiv.";
 
@@ -3356,7 +3356,7 @@
 
 "TicketValidation_Result_Open_title" = "Certificatul nu poate fi validat";
 
-"TicketValidation_Result_Open_subtitle" = "Certificatul dvs. nu îndeplinește cerințele furnizorului.";
+"TicketValidation_Result_Open_subtitle" = "Certificatul dvs. nu a putut fi validat de către partenerul de validare";
 
 "TicketValidation_Result_Open_description" = "Dacă aveți întrebări, contactați furnizorul „%@”.";
 

@@ -16,22 +16,30 @@ extension NSAttributedString {
 	///   - bulletPointFont: The Font for the bullet point and first part of the `from` string. Required to align and scale the bullet point.
 	///   - keepOriginalAttributes: If true, this ensures, that the original passed in attributes are kept.
 	/// - Returns: An attributed string that is prefixed with a bullet point.
-	static func bulletPointString(_ from: NSAttributedString, bulletPointFont font: UIFont, bulletPointColor color: UIColor = ColorCompatibility.label, keepOriginalAttributes: Bool = false) -> NSAttributedString {
-		// <bullet point>|--- indentation ---|<rest of text>
-		let indentation: CGFloat = 20.0
+	static func bulletPointString(
+		_ from: NSAttributedString,
+		bulletPointFont font: UIFont,
+		bulletPointColor color: UIColor = ColorCompatibility.label,
+		keepOriginalAttributes: Bool = false,
+		indentationTabs: Int = 0
+	) -> NSAttributedString {
+		// indentation ---|<bullet point>|--- spacing ---|<rest of text>
+		let spacing: CGFloat = 20.0
 		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.tabStops = [NSTextTab(textAlignment: .natural, location: indentation, options: [:])]
-		paragraphStyle.defaultTabInterval = indentation
-		paragraphStyle.headIndent = indentation
+		paragraphStyle.tabStops = [NSTextTab(textAlignment: .natural, location: spacing, options: [:])]
+		paragraphStyle.defaultTabInterval = spacing
+		paragraphStyle.headIndent = spacing + (CGFloat(indentationTabs) * spacing)
 		paragraphStyle.paragraphSpacing = 8
 
 		let bulletAttributes: [NSAttributedString.Key: Any] = [
 			.font: font.scaledFont(size: font.pointSize, weight: .black),
 			.foregroundColor: color
 		]
+	
+		let tabs = String(repeating: "\t", count: indentationTabs)
 		
 		let bullet = "\u{2022}"
-		let prefixString = "\(bullet)\t"
+		let prefixString = "\(tabs)\(bullet)\t"
 		
 		let attributedString = NSMutableAttributedString(string: prefixString)
 		attributedString.append(from)
@@ -64,8 +72,17 @@ extension NSAttributedString {
 	///   - bulletPointFont: The Font for the bullet point and first part of the `from` string. Required to align and scale the bullet point.
 	///   - keepOriginalAttributes: If true, this ensures, that the original passed in attributes are kept.
 	/// - Returns: An attributed string that is prefixed with a bullet point.
-	func bulletPointString(bulletPointFont font: UIFont, keepOriginalAttributes: Bool = false) -> NSAttributedString {
-		return NSAttributedString.bulletPointString(self, bulletPointFont: font, keepOriginalAttributes: keepOriginalAttributes)
+	func bulletPointString(
+		bulletPointFont font: UIFont,
+		keepOriginalAttributes: Bool = false,
+		indentationTabs: Int = 0
+	) -> NSAttributedString {
+		return NSAttributedString.bulletPointString(
+			self,
+			bulletPointFont: font,
+			keepOriginalAttributes: keepOriginalAttributes,
+			indentationTabs: indentationTabs
+		)
 	}
 	
 	func bulletPointString(bulletPointFont font: UIFont, bulletPointColor: UIColor) -> NSAttributedString {

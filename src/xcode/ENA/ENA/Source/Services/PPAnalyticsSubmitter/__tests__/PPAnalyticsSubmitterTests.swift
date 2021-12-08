@@ -106,7 +106,229 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
 	}
+	
+	// MARK: - KeySubmissionMetaData
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestPostiveANDSubmitted_THEN_KeySubmissionMetadataIsSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
 
+		store.antigenTest = .mock(testResult: .positive, keysSubmitted: true)
+		store.antigenKeySubmissionMetadata = .mock(submitted: true)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
+	}
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestPostiveANDTimeDifference_THEN_KeySubmissionMetadataIsSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		
+		store.antigenTest = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
+		store.antigenKeySubmissionMetadata = .mock()
+		
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
+	}
+	
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestPostiveANDTimeDifferenceWrongANDNotSubmitted_THEN_KeySubmissionMetadataIsNotSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		
+		store.antigenTest = .mock(
+			testResult: .positive,
+			finalTestResultReceivedDate: Calendar.current.date(byAdding: .day, value: 3, to: Date()),
+			keysSubmitted: false
+		)
+		store.antigenKeySubmissionMetadata = .mock()
+		
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertTrue(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must be empty")
+	}
+	
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestNegativeANDSubmitted_THEN_KeySubmissionMetadataIsNotSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		
+		store.antigenTest = .mock(
+			testResult: .negative,
+			keysSubmitted: true
+		)
+		store.antigenKeySubmissionMetadata = .mock()
+		
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertTrue(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must be empty")
+	}
+	
 	// MARK: - Failures
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
