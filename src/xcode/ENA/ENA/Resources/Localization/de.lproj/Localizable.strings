@@ -3407,6 +3407,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
 
+"TicketValidation_Error_OutdatedApp" = "In der aktuellen Version ihrer Corona-Warn-App wird die Ticketüberprüfung nicht mehr unterstützt. Bitte aktualisieren Sie Ihre App und versuchen Sie die Ticketüberprüfung erneut.";
+
+"TicketValidation_Error_UpdateAction" = "zum App Store";
+
+"TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Sicherheitshinweis";
+
+"TicketValidation_Error_serviceProviderErrorNoMatch" = "Der Anbieter ist uns nicht bekannt. Aus Sicherheitsgründen ist die Überprüfung bei Ticketbuchungen nur für bekannte Anbieter möglich. Bitte kontaktieren Sie den Anbieter, der Ihnen diesen QR-Code bereitgestellt hat und versuchen Sie Ihre App auf die neuste Version zu aktualisieren.";
+
 /* - First Consent */
 
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";

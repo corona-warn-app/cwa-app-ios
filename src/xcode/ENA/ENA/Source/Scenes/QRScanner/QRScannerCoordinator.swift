@@ -408,8 +408,15 @@ class QRScannerCoordinator {
 	}
 
 	private func showErrorAlert(error: TicketValidationError, serviceProvider: String) {
+		let title: String
+		if case .allowListError(.SP_ALLOWLIST_NO_MATCH) = error {
+			title = AppStrings.TicketValidation.Error.serviceProviderErrorNoMatchTitle
+		} else {
+			title = AppStrings.TicketValidation.Error.title
+		}
+		
 		let alert = UIAlertController(
-			title: AppStrings.TicketValidation.Error.title,
+			title: title,
 			message: error.errorDescription(serviceProvider: serviceProvider),
 			preferredStyle: .alert
 		)
@@ -427,7 +434,7 @@ class QRScannerCoordinator {
 		if case .versionError = error {
 			alert.addAction(
 				UIAlertAction(
-					title: AppStrings.UpdateMessage.actionUpdate,
+					title: AppStrings.TicketValidation.Error.updateApp,
 					style: .default,
 					handler: { _ in
 						LinkHelper.open(urlString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
