@@ -48,7 +48,7 @@ class HygieneRulesInfoViewController: DynamicTableViewController {
 		tableView.separatorStyle = .none
 		tableView.contentInsetAdjustmentBehavior = .never
 		
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss, accessibilityIdentifierSuffix: "HygieneRules")
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss, accessibilityIdentifierSuffix: AccessibilityIdentifiers.ExposureDetection.closeButtonSuffix)
 
 		if traitCollection.userInterfaceStyle == .dark {
 			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)

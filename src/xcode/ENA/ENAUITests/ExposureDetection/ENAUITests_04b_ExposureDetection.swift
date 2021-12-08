@@ -45,7 +45,7 @@ class ENAUITests_04b_ExposureDetection: CWATestCase {
 		iButtonFirst.waitAndTap()
 
 		// Details screen - not we may have multiple
-		let closeButton = app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close + "HygieneRules"]
+		let closeButton = app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close + AccessibilityIdentifiers.ExposureDetection.closeButtonSuffix]
 		closeButton.waitAndTap()
 
 		// Scroll to and tap iButton from second cell
