@@ -90,6 +90,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				)
 			}
 			.store(in: &subscriptions)
+
+		viewModel.state.$riskState
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { riskState in
+				guard case let .risk(risk) = riskState,
+					  risk.riskLevelHasChanged,
+					  risk.level == .high
+				else {
+					Log.info("Risk level decreased - ignored")
+					return
+				}
+				self.tabBarItem.badgeValue = "1"
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
