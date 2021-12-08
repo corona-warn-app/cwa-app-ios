@@ -112,21 +112,7 @@
 
 "ExposureDetection_Guide_Home" = "Jeśli to możliwe, idź do domu i w nim pozostań.";
 
-"ExposureDetection_Guide_Hotline1" = "W przypadku pytań dotyczących objawów, możliwości wykonania testu lub kwarantanny skontaktuj się z jednym z poniższych miejsc:";
-
-"ExposureDetection_Guide_Hotline2" = "Twój lekarz rodzinny";
-
-"ExposureDetection_Guide_Hotline3" = "Pogotowie ratunkowe pod numerem telefonu 116 117";
-
-"ExposureDetection_Guide_Hotline4" = "Organ ds. zdrowia publicznego";
-
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym lub pogotowiem ratunkowym, aby umówić się na test. Po wykonaniu testu omów kwestię szczepienia przeciw SARS-CoV-2 ze swoim lekarzem rodzinnym.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Jeśli poddasz się testowi, dodatkowe informacje na temat procedury testowania znajdziesz w %@.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "Często zadawane pytania na temat procedury testowania";
 
 "ExposureDetection_Explanation_Title" = "Ryzyko zakażenia";
 
