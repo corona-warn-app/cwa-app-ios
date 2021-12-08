@@ -68,7 +68,7 @@ final class ExposureDetectionCoordinator {
 					self?.showHygieneRulesInfoScreen()
 				},
 				onRiskOfContagionInfoButtonTap: { [weak self] in
-					self?.showHygieneRulesInfoScreen()
+					self?.showRiskOfContagionInfoScreen()
 				}
 			),
 			store: store
@@ -103,7 +103,13 @@ final class ExposureDetectionCoordinator {
 	}
 	
 	private func showRiskOfContagionInfoScreen() {
-		// TODODODO: Navigate
+		let viewController = ContagionInfoViewController(
+			dismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let infoNavigationController = UINavigationController(rootViewController: viewController)
+		navigationController?.present(infoNavigationController, animated: true)
 	}
 	
 	private func showSurveyConsent() {

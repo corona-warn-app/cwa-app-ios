@@ -198,6 +198,30 @@
 
 "ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Mehrere Personen, die Abstand halten und einen Mundschutz tragen.";
 
+"ExposureDetection_Info_Contagion_Title" = "Ansteckungsrisiko minimieren";
+
+"ExposureDetection_Info_Contagion_Image_Title" = "Falls Sie sich angesteckt haben, verringern Sie so das Risiko, andere anzustecken:";
+
+"ExposureDetection_Info_Contagion_TitleImage_Description" = "Eine Person sitzt auf dem Sofa und liest ein Buch. Eine andere Person schaut auf ihr Smartphone.";
+
+"ExposureDetection_Info_Contagion_Point1" = "Treffen und Veranstaltungen: Verzichten Sie auf Besuche und Aktivitäten, bei denen Sie mit anderen Menschen zusammenkommen (Clubs, Bars, Restaurants, Kino, Theater, Sportveranstaltungen).";
+
+"ExposureDetection_Info_Contagion_Point2" = "Home Office: Arbeiten Sie von zu Hause, wenn es für Sie möglich ist.";
+
+"ExposureDetection_Info_Contagion_Point3" = "Einkaufen: Lassen Sie sich die Lebensmittel liefern oder bitten Sie jemanden, die Einkäufe für Sie zu erledigen.";
+
+"ExposureDetection_Info_Contagion_Point4" = "Öffentliche Verkehrsmittel: Meiden Sie diese so gut es geht, vor allem zu Stoßzeiten.";
+
+"ExposureDetection_Info_Contagion_Point5" = "Reisen: Verzichten Sie auf Flug- und Zugreisen.";
+
+"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt.";
+
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Fragen zu Quarantäne-Maßnahmen";
+
+"ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
+
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ zur freiwilligen Selbstquarantäne";
+
 /* Survey Errors */
 
 "SurveyConsent_Error_Title" = "Fehler";

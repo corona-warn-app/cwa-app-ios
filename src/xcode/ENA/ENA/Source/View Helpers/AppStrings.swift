@@ -53,6 +53,8 @@ enum AppStrings {
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationNoValidDCCFAQ = NSLocalizedString("TicketValidation_NoValidDCC_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationServiceResultFAQ = NSLocalizedString("TicketValidation_ServiceResult_FAQLink", tableName: "Localizable.links", comment: "")
+		static let selfQuarantineFAQ = NSLocalizedString("Risk_Voluntary_Self_Quarantine_FAQ_URL", tableName: "Localizable.links", comment: "")
+		static let quarantineMeasuresFAQ = NSLocalizedString("Risk_Quarantine_Measures_FAQ_URL", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -568,6 +570,19 @@ enum AppStrings {
 		static let hygieneRulesPoint4 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point4", comment: "")
 		static let hygieneRulesPoint5 = NSLocalizedString("ExposureDetection_Info_HygieneRules_Point5", comment: "")
 		static let hygieneRulesTitleImageDescription = NSLocalizedString("ExposureDetection_Info_HygieneRules_TitleImage_Description", comment: "")
+		
+		static let contagionTitle = NSLocalizedString("ExposureDetection_Info_Contagion_Title", comment: "")
+		static let contagionImageTitle = NSLocalizedString("ExposureDetection_Info_Contagion_Image_Title", comment: "")
+		static let contagionTitleImageDescription = NSLocalizedString("ExposureDetection_Info_Contagion_TitleImage_Description", comment: "")
+		static let contagionPoint1 = NSLocalizedString("ExposureDetection_Info_Contagion_Point1", comment: "")
+		static let contagionPoint2 = NSLocalizedString("ExposureDetection_Info_Contagion_Point2", comment: "")
+		static let contagionPoint3 = NSLocalizedString("ExposureDetection_Info_Contagion_Point3", comment: "")
+		static let contagionPoint4 = NSLocalizedString("ExposureDetection_Info_Contagion_Point4", comment: "")
+		static let contagionPoint5 = NSLocalizedString("ExposureDetection_Info_Contagion_Point5", comment: "")
+		static let contagionPoint6 = NSLocalizedString("ExposureDetection_Info_Contagion_Point6", comment: "")
+		static let contagionPoint6LinkText = NSLocalizedString("ExposureDetection_Info_Contagion_Point6_LinkText", comment: "")
+		static let contagionFooter = NSLocalizedString("ExposureDetection_Info_Contagion_Footer", comment: "")
+		static let contagionFooterLinkText = NSLocalizedString("ExposureDetection_Info_Contagion_Footer_LinkText", comment: "")
 	}
 
 	enum SurveyConsent {

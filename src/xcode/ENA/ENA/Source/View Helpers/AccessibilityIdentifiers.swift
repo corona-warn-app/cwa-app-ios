@@ -251,6 +251,7 @@ enum AccessibilityIdentifiers {
 		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
 		
 		static let hygieneRulesTitle = "AppStrings.ExposureDetection.hygieneRulesTitle"
+		static let contagionTitle = "AppStrings.ExposureDetection.contagionTitle"
 	}
 	
 	enum SurveyConsent {
