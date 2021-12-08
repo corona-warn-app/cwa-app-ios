@@ -393,7 +393,7 @@ class QRScannerCoordinator {
 		}
 		#endif
 
-		ticketValidation.initialize { [weak self] result in
+		ticketValidation.initialize(appFeatureProvider: appConfiguration.featureProvider) { [weak self] result in
 			DispatchQueue.main.async {
 				self?.hideActivityIndicator()
 
@@ -423,6 +423,18 @@ class QRScannerCoordinator {
 				}
 			)
 		)
+		
+		if case .versionError = error {
+			alert.addAction(
+				UIAlertAction(
+					title: AppStrings.UpdateMessage.actionUpdate,
+					style: .default,
+					handler: { _ in
+						LinkHelper.open(urlString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
+					}
+				)
+			)
+		}
 
 		DispatchQueue.main.async {
 			self.qrScannerViewController?.present(alert, animated: true)

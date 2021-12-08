@@ -23,23 +23,12 @@ class AppFeatureProvider: AppFeatureProviding {
 	// MARK: - Protocol AppFeaturesProviding
 
 	func value(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool {
-		switch appFeature {
-		case .isTicketValidationEnabled(let currentAppVersion):
-			if let configuration = appConfigurationProvider?.currentAppConfig.value {
-				return isTicketValidationEnabled(currentVersion: Version, from: configuration)
-			} else if let configuration = appConfig {
-				return isTicketValidationEnabled(currentVersion: Version, from: configuration)
-			} else {
-				return false
-			}
-		default:
-			if let configuration = appConfigurationProvider?.currentAppConfig.value {
-				return value(for: appFeature, from: configuration)
-			} else if let configuration = appConfig {
-				return value(for: appFeature, from: configuration)
-			} else {
-				return false
-			}
+		if let configuration = appConfigurationProvider?.currentAppConfig.value {
+			return value(for: appFeature, from: configuration)
+		} else if let configuration = appConfig {
+			return value(for: appFeature, from: configuration)
+		} else {
+			return false
 		}
 	}
 
@@ -52,17 +41,21 @@ class AppFeatureProvider: AppFeatureProviding {
 		for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature,
 		from config: SAP_Internal_V2_ApplicationConfigurationIOS
 	) -> Bool {
-
-		let feature = config.appFeatures.appFeatures.first {
-			$0.label == appFeature.rawValue
+		switch appFeature {
+		case .isTicketValidationEnabled:
+			return isTicketValidationEnabled(from: config)
+		default:
+			let feature = config.appFeatures.appFeatures.first {
+				$0.label == appFeature.rawValue
+			}
+			return feature?.value == 1
 		}
-		return feature?.value == 1
 	}
 	
 	private func isTicketValidationEnabled(
-		currentVersion: Version,
 		from config: SAP_Internal_V2_ApplicationConfigurationIOS
-	) {
+	) -> Bool {
+		
 		let major = config.appFeatures.appFeatures.first {
 			$0.label == "validation-service-ios-min-version-major"
 		}
@@ -72,5 +65,18 @@ class AppFeatureProvider: AppFeatureProviding {
 		let patch = config.appFeatures.appFeatures.first {
 			$0.label == "validation-service-ios-min-version-patch"
 		}
+		
+		
+		guard let currentSemanticAppVersion = Bundle.main.appVersion.semanticVersion else {
+			return false
+		}
+		
+		var minimumVersion = SAP_Internal_V2_SemanticVersion()
+		minimumVersion.major = UInt32(major?.value ?? 0)
+		minimumVersion.minor = UInt32(minor?.value ?? 0)
+		minimumVersion.patch = UInt32(patch?.value ?? 0)
+		
+		return !(currentSemanticAppVersion < minimumVersion)
 	}
+	
 }

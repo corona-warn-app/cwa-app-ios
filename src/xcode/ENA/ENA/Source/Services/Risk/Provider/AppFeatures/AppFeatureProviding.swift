@@ -11,8 +11,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS {
 		
 		case disableDeviceTimeCheck = "disable-device-time-check"
 		case unencryptedCheckinsEnabled = "unencrypted-checkins-enabled"
-		case validationServiceMinVersionMajor = "validation-service-ios-min-version-major"
-		case isTicketValidationEnabled(Version) = "isTicketValidationEnabled"
+		case isTicketValidationEnabled = "isTicketValidationEnabled"
 //		case validationServiceMinVersionMajor = "validation-service-ios-min-version-major"
 //		case validationServiceMinVersionMinor = "validation-service-ios-min-version-minor"
 //		case validationServiceMinVersionPatch = "validation-service-ios-min-version-patch"

@@ -13,6 +13,7 @@ enum TicketValidationError: LocalizedError {
 	case encryption(EncryptAndSignError)
 	case resultToken(TicketValidationResultTokenProcessingError)
 	case allowListError(AllowListError)
+	case versionError(VersionError)
 	case other
 
 	// swiftlint:disable cyclomatic_complexity
