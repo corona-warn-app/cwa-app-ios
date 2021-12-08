@@ -27,7 +27,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -66,7 +66,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -102,7 +102,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -139,7 +139,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -179,7 +179,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -227,7 +227,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -272,7 +272,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -318,7 +318,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -360,7 +360,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -399,7 +399,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -435,7 +435,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -472,7 +472,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -510,7 +510,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -549,7 +549,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -585,7 +585,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -622,7 +622,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -660,7 +660,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -699,7 +699,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -735,7 +735,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -772,7 +772,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -814,7 +814,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -857,7 +857,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -893,7 +893,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -930,7 +930,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -973,7 +973,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1017,7 +1017,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1054,7 +1054,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1092,7 +1092,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1134,7 +1134,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1177,7 +1177,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1213,7 +1213,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1250,7 +1250,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1286,7 +1286,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1323,7 +1323,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1359,7 +1359,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1396,7 +1396,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1432,7 +1432,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1469,7 +1469,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1505,7 +1505,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1542,7 +1542,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1580,7 +1580,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1619,7 +1619,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1655,7 +1655,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1692,7 +1692,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1732,7 +1732,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1780,7 +1780,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1822,7 +1822,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1868,7 +1868,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1911,7 +1911,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1948,7 +1948,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -1984,7 +1984,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2021,7 +2021,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2057,7 +2057,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2094,7 +2094,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2130,7 +2130,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2167,7 +2167,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2203,7 +2203,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2240,7 +2240,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2276,7 +2276,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
@@ -2313,7 +2313,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			),
 			accessibilityText: "accessibilityText",
 			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN

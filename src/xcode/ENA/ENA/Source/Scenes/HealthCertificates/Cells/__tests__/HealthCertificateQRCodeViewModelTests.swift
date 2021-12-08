@@ -6,6 +6,7 @@ import XCTest
 @testable import ENA
 import HealthCertificateToolkit
 
+// swiftlint:disable type_body_length
 class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 	// MARK: - Vaccination Certificate
@@ -24,7 +25,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -51,7 +53,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -78,7 +81,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -105,7 +109,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -132,7 +137,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -159,7 +165,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: true,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -188,7 +195,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -215,7 +223,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -242,7 +251,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -269,7 +279,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -296,7 +307,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -323,7 +335,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: true,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -352,7 +365,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -379,7 +393,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -406,7 +421,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -433,7 +449,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -460,7 +477,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
@@ -487,7 +505,8 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: true,
 			accessibilityLabel: "accessibilityLabel",
-			showInfoHit: { }
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")

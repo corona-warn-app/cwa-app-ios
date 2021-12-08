@@ -106,7 +106,7 @@ final class HealthCertificateViewModel {
 			mode: .details,
 			healthCertificate: healthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription,
-			showInfoHit: { [weak self] in
+			onCovPassCheckInfoButtonTap: { [weak self] in
 				self?.showInfo()
 			}
 		)

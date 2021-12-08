@@ -132,7 +132,7 @@ final class HealthCertifiedPersonViewModel {
 			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
 				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
 			},
-			showInfoHit: { [ weak self] in
+			onCovPassCheckInfoButtonTap: { [ weak self] in
 				self?.showInfo()
 			}
 		)
