@@ -12,9 +12,16 @@ enum QRCodeResult {
 }
 
 struct CertificateResult {
-	let restoredFromBin: Bool
+
+	enum RegistrationDetail {
+		case restoredFromBin
+		case personWarnThresholdReached
+	}
+
+	let registrationDetail: RegistrationDetail?
 	let person: HealthCertifiedPerson
 	let certificate: HealthCertificate
+
 }
 
 enum QRCodeParserError: Error, Equatable {

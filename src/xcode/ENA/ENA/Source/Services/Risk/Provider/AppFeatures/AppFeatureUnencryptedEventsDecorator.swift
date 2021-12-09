@@ -19,12 +19,22 @@ class AppFeatureUnencryptedEventsDecorator: AppFeatureProviding {
 
 	// MARK: - Protocol AppFeaturesProviding
 
-	func value(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool {
+	func boolValue(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool {
 		guard appFeature == .unencryptedCheckinsEnabled,
 			  store.unencryptedCheckinsEnabled else {
-			return decorator.value(for: appFeature)
+			return decorator.boolValue(for: appFeature)
 		}
-			return true
+
+		return true
+	}
+
+	func intValue(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Int {
+		guard appFeature == .unencryptedCheckinsEnabled,
+			  store.unencryptedCheckinsEnabled else {
+			return decorator.intValue(for: appFeature)
+		}
+
+		return 1
 	}
 
 	// MARK: - Private
