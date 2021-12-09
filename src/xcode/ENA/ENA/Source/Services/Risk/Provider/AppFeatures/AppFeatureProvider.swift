@@ -67,6 +67,10 @@ class AppFeatureProvider: AppFeatureProviding {
 			return appFeature.defaultValue
 		}
 
+		if feature.value <= 0 {
+			return appFeature.defaultValue
+		}
+
 		return Int(feature.value)
 	}
 	
