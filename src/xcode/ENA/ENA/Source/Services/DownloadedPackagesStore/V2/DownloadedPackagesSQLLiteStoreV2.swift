@@ -585,5 +585,25 @@ extension DownloadedPackagesSQLLiteStoreV2 {
 				Log.error("Cannot move file to new location. Error: \(error)", log: .localData, error: error)
 			}
 		}
+		
+		// Remove old temp files
+		let tempFileURLs = [
+			documentDir
+					.appendingPathComponent(fileName)
+					.appendingPathExtension("sqlite3-shm"),
+			documentDir
+					.appendingPathComponent(fileName)
+					.appendingPathExtension("sqlite3-wal")
+		]
+		
+		for tempFileURL in tempFileURLs {
+			if fileManager.fileExists(atPath: tempFileURL.path) {
+				do {
+					try fileManager.removeItem(at: tempFileURL)
+				} catch {
+					Log.error("Cannot remove file temp file. Error: \(error)", log: .localData, error: error)
+				}
+			}
+		}
 	}
 }
