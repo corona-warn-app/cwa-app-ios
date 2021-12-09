@@ -506,12 +506,14 @@ class HomeCoordinator: RequiresAppDependencies {
 			.sink { [weak self] riskState in
 				guard case let .risk(risk) = riskState,
 					  risk.riskLevelHasChanged,
-					  risk.level == .high
+					  risk.level == .high,
+					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController,
+					  let self = self
 				else {
-					Log.info("Risk level decreased - ignored")
+					Log.info("Risk level decreased - or HomeViewController is currently active")
 					return
 				}
-					self?.rootViewController.tabBarItem.badgeValue = "1"
+					self.rootViewController.tabBarItem.badgeValue = "1"
 			}
 			.store(in: &subscriptions)
 	}
