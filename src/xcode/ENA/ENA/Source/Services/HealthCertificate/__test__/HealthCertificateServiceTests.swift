@@ -588,7 +588,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				  XCTFail("certificateResult expected.")
 				  return
 		}
-		XCTAssertTrue(certificateResult.restoredFromBin)
+		XCTAssertEqual(certificateResult.registrationDetail, .restoredFromBin)
 	}
 
 	func testValidityStateUpdate_Valid() throws {

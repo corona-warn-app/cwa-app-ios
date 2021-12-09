@@ -20,8 +20,7 @@ class QRCodeParsableMock: QRCodeParsable {
 			completion(.success(
 				QRCodeResult.certificate(
 					CertificateResult(
-						restoredFromBin: false,
-						personWarnThresholdReached: false,
+						registrationDetail: nil,
 						person: HealthCertifiedPerson(healthCertificates: []),
 						certificate: certificate
 					)
