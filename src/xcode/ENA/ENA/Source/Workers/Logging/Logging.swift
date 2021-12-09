@@ -257,6 +257,27 @@ struct FileLogger {
 			Log.error("Can't remove logs at \(logFileBaseURL)", log: .localData, error: error)
 		}
 	}
+	
+	func deleteLegacyDevLogs() {
+		do {
+			let debugLogURLs = [
+				allLogsFileURL,
+				logFileBaseURL.appendingPathComponent("\(OSLogType.debug.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.info.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.error.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.default.title).log")
+			]
+			
+			for debugLogURL in debugLogURLs {
+				if FileManager.default.fileExists(atPath: debugLogURL.path) {
+					try FileManager.default.removeItem(at: debugLogURL)
+				}
+			}
+
+		} catch {
+			Log.error("Can't delete legacy dev logs", log: .localData, error: error)
+		}
+	}
 
 	// MARK: - Private
 
@@ -326,25 +347,6 @@ struct FileLogger {
 
 			let fileHandle = try? FileHandle(forWritingTo: url)
 			return fileHandle
-		} catch {
-			Log.error("File handle error", log: .localData, error: error)
-			return nil
-		}
-	}
-
-	private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
-		#if DEBUG
-		// logacy logs stay `txt` unless migrated
-		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
-		#else
-		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).log")
-		#endif
-		return makeReadFileHandle(with: logFileURL)
-	}
-
-	private func makeReadFileHandle(with url: URL) -> FileHandle? {
-		do {
-			return try FileHandle(forReadingFrom: url)
 		} catch {
 			Log.error("File handle error", log: .localData, error: error)
 			return nil

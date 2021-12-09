@@ -95,6 +95,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Migrate the old pcr test structure from versions older than v2.1
 		coronaTestService.migrate()
+
+		#if RELEASE
+		// Delete legacy dev logs to free up disk space.
+		Log.fileLogger.deleteLegacyDevLogs()
+		#endif
 	}
 
 	deinit {
