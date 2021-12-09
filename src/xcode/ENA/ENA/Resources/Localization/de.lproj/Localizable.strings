@@ -3253,7 +3253,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Die Corona-Warn-App darf nicht zur  Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Danach können Sie keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Die Corona-Warn-App darf nicht zur  Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für 20 Personen Zertifikate hinzufügen. Sie können keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Die Corona-Warn-App darf nicht zur  Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Sie können keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Download CovPassCheck-App";
 
