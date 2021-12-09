@@ -179,6 +179,10 @@ class HomeCoordinator: RequiresAppDependencies {
 		homeState?.updateDetectionMode(detectionMode)
 	}
 
+	func resetHomeBadgeRiskStateIncreased() {
+		homeBadgeWrapper.reset(.riskStateIncreased)
+	}
+
 	// MARK: - Private
 	
 	private let ppacService: PrivacyPreservingAccessControl

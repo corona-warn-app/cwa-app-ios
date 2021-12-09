@@ -94,7 +94,13 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 
 		return true
 	}
-	
+
+	/// reset increase risk level badge if tab gets selected
+	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+		guard viewController == homeCoordinator?.rootViewController else { return }
+		homeCoordinator?.resetHomeBadgeRiskStateIncreased()
+	}
+
 	// MARK: - Internal
 
 	let viewController: UIViewController = {
