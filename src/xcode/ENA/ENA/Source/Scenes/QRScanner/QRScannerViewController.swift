@@ -295,6 +295,7 @@ class QRScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	private func showErrorAlert(error: QRCodeParserError) {
 		guard let viewModel = viewModel else {
 			return
