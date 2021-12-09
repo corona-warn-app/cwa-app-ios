@@ -189,9 +189,9 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					AppFeatureProvider(appConfig: appConfig),
 					store: store
 				)
-				unencryptedCheckinsEnabled = appFeatureProvider.value(for: .unencryptedCheckinsEnabled)
+				unencryptedCheckinsEnabled = appFeatureProvider.boolValue(for: .unencryptedCheckinsEnabled)
 				#else
-				unencryptedCheckinsEnabled = AppFeatureProvider(appConfig: appConfig).value(for: .unencryptedCheckinsEnabled)
+				unencryptedCheckinsEnabled = AppFeatureProvider(appConfig: appConfig).boolValue(for: .unencryptedCheckinsEnabled)
 				#endif
 
 				// Go now for the real download
