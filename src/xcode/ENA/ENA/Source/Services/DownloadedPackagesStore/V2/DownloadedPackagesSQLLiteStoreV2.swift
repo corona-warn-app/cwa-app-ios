@@ -601,7 +601,7 @@ extension DownloadedPackagesSQLLiteStoreV2 {
 				do {
 					try fileManager.removeItem(at: tempFileURL)
 				} catch {
-					Log.error("Cannot remove file temp file. Error: \(error)", log: .localData, error: error)
+					Log.error("Cannot remove old sqlite temp files. Error: \(error)", log: .localData, error: error)
 				}
 			}
 		}
