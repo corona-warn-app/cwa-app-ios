@@ -53,3 +53,7 @@
 "Risk_Voluntary_Self_Quarantine_FAQ_URL" = "https://www.coronawarn.app/en/faq/#voluntary_self_quarantine";
 
 "Risk_Quarantine_Measures_FAQ_URL" = "https://www.coronawarn.app/en/faq/#quarantine_measures";
+
+"UniversalQRScanner_MaxPersonAmountAlert_FAQLink" = "https://www.coronawarn.app/en/faq/#eu_dcc_check";
+
+"UniversalQRScanner_MaxPersonAmountAlert_CovPassCheckLink" = "https://apps.apple.com/de/app/covpass-check/id1566140314?mt=8";
