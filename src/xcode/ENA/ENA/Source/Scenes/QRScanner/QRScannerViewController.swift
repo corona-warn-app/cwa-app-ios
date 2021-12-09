@@ -296,7 +296,11 @@ class QRScannerViewController: UIViewController {
 	}
 
 	private func showErrorAlert(error: QRCodeParserError) {
-		viewModel?.deactivateScanning()
+		guard let viewModel = viewModel else {
+			return
+		}
+
+		viewModel.deactivateScanning()
 
 		let unwrappedError: Error
 		switch error {
@@ -312,33 +316,64 @@ class QRScannerViewController: UIViewController {
 
 		var alertTitle = AppStrings.HealthCertificate.Error.title
 		var errorMessage = unwrappedError.localizedDescription
-		var faqAlertAction: UIAlertAction?
+		var additionalActions = [UIAlertAction]()
 
 		if case .certificateQrError(.invalidSignature) = error {
 			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
 			errorMessage = unwrappedError.localizedDescription
-			faqAlertAction = UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
-						self?.viewModel?.activateScanning()
+			additionalActions.append(
+				UIAlertAction(
+					title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
+							self?.viewModel?.activateScanning()
+						}
 					}
-				}
+				)
 			)
+		} else if case .certificateQrError(.tooManyPersonsRegistered) = error {
+			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
+			alertTitle = AppStrings.UniversalQRScanner.MaxPersonAmountAlert.errorTitle
+			errorMessage = String(
+				format: unwrappedError.localizedDescription,
+				viewModel.dccPersonCountMax
+			)
+			additionalActions.append(contentsOf: [
+				UIAlertAction(
+					title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.covPassCheckButton,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.covPassCheckLink) {
+							self?.viewModel?.activateScanning()
+						}
+					}
+				),
+				UIAlertAction(
+					title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.faqButton,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.faqLink) {
+							self?.viewModel?.activateScanning()
+						}
+					}
+				)
+			])
 		} else if case .certificateQrError = error {
 			// Show FAQ section for other certificate errors
 			errorMessage += AppStrings.HealthCertificate.Error.faqDescription
 
-			faqAlertAction = UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
-						self?.viewModel?.activateScanning()
+			additionalActions.append(
+				UIAlertAction(
+					title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
+							self?.viewModel?.activateScanning()
+						}
 					}
-				}
+				)
 			)
 		}
 
@@ -348,8 +383,8 @@ class QRScannerViewController: UIViewController {
 			preferredStyle: .alert
 		)
 
-		if let faqAlertAction = faqAlertAction {
-			alert.addAction(faqAlertAction)
+		additionalActions.forEach {
+			alert.addAction($0)
 		}
 		alert.addAction(
 			UIAlertAction(
