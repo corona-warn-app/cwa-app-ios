@@ -54,6 +54,7 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 	private let migrator: SerialMigratorProtocol
 }
 
+// swiftlint:disable file_length
 extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func open() { // might throw errors in future versions!
