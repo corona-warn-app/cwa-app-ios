@@ -212,6 +212,11 @@ struct FileLogger {
 			}
 			assert(!fileManager.fileExists(atPath: oldURL.path, isDirectory: &isDir))
 		}
+		
+		#if RELEASE
+		// Delete legacy dev logs to free up disk space.
+		deleteLegacyDevLogs()
+		#endif
 	}
 
 	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
@@ -258,27 +263,6 @@ struct FileLogger {
 		}
 	}
 	
-	func deleteLegacyDevLogs() {
-		do {
-			let debugLogURLs = [
-				allLogsFileURL,
-				logFileBaseURL.appendingPathComponent("\(OSLogType.debug.title).log"),
-				logFileBaseURL.appendingPathComponent("\(OSLogType.info.title).log"),
-				logFileBaseURL.appendingPathComponent("\(OSLogType.error.title).log"),
-				logFileBaseURL.appendingPathComponent("\(OSLogType.default.title).log")
-			]
-			
-			for debugLogURL in debugLogURLs {
-				if FileManager.default.fileExists(atPath: debugLogURL.path) {
-					try FileManager.default.removeItem(at: debugLogURL)
-				}
-			}
-
-		} catch {
-			Log.error("Can't delete legacy dev logs", log: .localData, error: error)
-		}
-	}
-
 	// MARK: - Private
 
 	private let logDateFormatter = ISO8601DateFormatter()
@@ -352,6 +336,29 @@ struct FileLogger {
 			return nil
 		}
 	}
+	
+	#if RELEASE
+	private func deleteLegacyDevLogs() {
+		do {
+			let debugLogURLs = [
+				allLogsFileURL,
+				logFileBaseURL.appendingPathComponent("\(OSLogType.debug.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.info.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.error.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.default.title).log")
+			]
+			
+			for debugLogURL in debugLogURLs {
+				if FileManager.default.fileExists(atPath: debugLogURL.path) {
+					try FileManager.default.removeItem(at: debugLogURL)
+				}
+			}
+
+		} catch {
+			Log.error("Can't delete legacy dev logs", log: .localData, error: error)
+		}
+	}
+	#endif
 }
 
 protocol Logging {
