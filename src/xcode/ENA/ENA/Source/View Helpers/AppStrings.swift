@@ -2351,6 +2351,17 @@ enum AppStrings {
 		static let testRestoredFromBinAlertTitle = NSLocalizedString("UniversalQRScanner_TestRestoredFromBinAlert_Title", comment: "")
 		static let testRestoredFromBinAlertMessage = NSLocalizedString("UniversalQRScanner_TestRestoredFromBinAlert_Message", comment: "")
 
+		enum MaxPersonAmountAlert {
+			static let warningTitle = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_warningTitle", comment: "")
+			static let errorTitle = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_errorTitle", comment: "")
+			static let warningMessage = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_warningMessage", comment: "")
+			static let errorMessage = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_errorMessage", comment: "")
+			static let covPassCheckButton = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton", comment: "")
+			static let covPassCheckLink = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_CovPassCheckLink", tableName: "Localizable.links", comment: "")
+			static let faqButton = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_faqButton", comment: "")
+			static let faqLink = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_FAQLink", tableName: "Localizable.links", comment: "")
+		}
+
 		enum Error {
 			enum CameraPermissionDenied {
 				static let title = NSLocalizedString("UniversalQRScanner_Error_cameraPermissionDenied_title", comment: "")
