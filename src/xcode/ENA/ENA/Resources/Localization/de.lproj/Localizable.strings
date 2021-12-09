@@ -2910,7 +2910,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
-"HealthCertifiedPerson_validationButtonTitle" = "Gültigkeit prüfen";
+"HealthCertifiedPerson_validationButtonTitle" = "Reisegültigkeit prüfen";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
 
@@ -2964,7 +2964,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
+"HealthCertificate_Details_validationButtonTitle" = "Reisegültigkeit prüfen";
 
 "HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat löschen";
 
