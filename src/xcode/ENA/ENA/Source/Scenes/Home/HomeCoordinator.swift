@@ -148,9 +148,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.homeState = homeState
 		self.homeController = homeController
 		addToEnStateUpdateList(homeState)
-
 		setupRiskChangeHomeBadgeCount()
-
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
 			#if !RELEASE
@@ -504,16 +502,16 @@ class HomeCoordinator: RequiresAppDependencies {
 		homeState.$riskState
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] riskState in
+				// check if risk level raised and if home screen tab is not selected
 				guard case let .risk(risk) = riskState,
 					  risk.riskLevelHasChanged,
 					  risk.level == .high,
-					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController,
-					  let self = self
+					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController
 				else {
-					Log.info("Risk level decreased - or HomeViewController is currently active")
+					Log.info("wrong risk level or home screen tab is active - skipped to set tab bar badge")
 					return
 				}
-					self.rootViewController.tabBarItem.badgeValue = "1"
+					self?.rootViewController.tabBarItem.badgeValue = "1"
 			}
 			.store(in: &subscriptions)
 	}
