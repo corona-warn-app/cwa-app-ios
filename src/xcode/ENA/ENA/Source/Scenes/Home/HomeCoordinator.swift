@@ -36,7 +36,11 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
+		self.homeBadgeWrapper = HomeBadgeWrapper()
 
+		homeBadgeWrapper.updateView = { [weak self] stringValue in
+			self?.rootViewController.tabBarItem.badgeValue = stringValue
+		}
 		setupHomeBadgeCount()
 	}
 
@@ -186,6 +190,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
+	private let homeBadgeWrapper: HomeBadgeWrapper
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -488,7 +493,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		coronaTestService.unseenTestsCount
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
-				self?.rootViewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+				self?.homeBadgeWrapper.update(.unseenTests, value: $0)
 			}
 			.store(in: &subscriptions)
 	}
@@ -511,7 +516,7 @@ class HomeCoordinator: RequiresAppDependencies {
 					Log.info("wrong risk level or home screen tab is active - skipped to set tab bar badge")
 					return
 				}
-					self?.rootViewController.tabBarItem.badgeValue = "1"
+				self?.homeBadgeWrapper.update(.riskStateIncreased, value: 1)
 			}
 			.store(in: &subscriptions)
 	}
