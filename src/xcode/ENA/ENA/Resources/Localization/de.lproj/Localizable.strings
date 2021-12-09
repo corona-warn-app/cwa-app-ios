@@ -2890,7 +2890,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "CovPass_Check_Info_faq" = "FAQ zur Zertifikatsprüfung durch Dritte";
 
-"CovPass_Check_Info_text01" = "Sie selbst können Ihre Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
+"CovPass_Check_Info_text01" = "Sie selbst können Ihre Zertifikate in der Corona-Warn-App vor einer Reise auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
 
 "CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
 
@@ -2918,7 +2918,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
-"HealthCertifiedPerson_validationButtonTitle" = "Gültigkeit prüfen";
+"HealthCertifiedPerson_validationButtonTitle" = "Reisegültigkeit prüfen";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
 
@@ -2972,7 +2972,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
+"HealthCertificate_Details_validationButtonTitle" = "Reisegültigkeit prüfen";
 
 "HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat löschen";
 
@@ -3254,6 +3254,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Test wiederherstellen";
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningTitle" = "Warnung";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Fehler";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Die Corona-Warn-App darf nicht zur Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Danach können Sie keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Die Corona-Warn-App darf nicht zur Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Sie können keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Download CovPassCheck-App";
+
+"UniversalQRScanner_MaxPersonAmountAlert_faqButton" = "FAQ zur Zertifikatsprüfung ";
 
 "UniversalQRScanner_Info_title" = "Informationen zu QR-Codes";
 

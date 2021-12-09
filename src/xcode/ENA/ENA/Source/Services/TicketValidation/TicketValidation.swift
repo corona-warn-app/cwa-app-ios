@@ -29,7 +29,7 @@ final class TicketValidation: TicketValidating {
 		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
-		guard appFeatureProvider.value(for: .isTicketValidationEnabled) != false else {
+		guard isTicketValidationEnabled(appFeatureProvider: appFeatureProvider) else {
 			completion(.failure(.versionError(.MIN_VERSION_REQUIRED)))
 			return
 		}
@@ -455,4 +455,24 @@ final class TicketValidation: TicketValidating {
 		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		return filteringResult
 	}
+
+	private func isTicketValidationEnabled(
+		appFeatureProvider: AppFeatureProviding
+	) -> Bool {
+		let major = appFeatureProvider.intValue(for: .validationServiceMinVersionMajor)
+		let minor = appFeatureProvider.intValue(for: .validationServiceMinVersionMinor)
+		let patch = appFeatureProvider.intValue(for: .validationServiceMinVersionPatch)
+
+		guard let currentSemanticAppVersion = Bundle.main.appVersion.semanticVersion else {
+			return false
+		}
+
+		var minimumVersion = SAP_Internal_V2_SemanticVersion()
+		minimumVersion.major = UInt32(major)
+		minimumVersion.minor = UInt32(minor)
+		minimumVersion.patch = UInt32(patch)
+
+		return currentSemanticAppVersion >= minimumVersion
+	}
+
 }
