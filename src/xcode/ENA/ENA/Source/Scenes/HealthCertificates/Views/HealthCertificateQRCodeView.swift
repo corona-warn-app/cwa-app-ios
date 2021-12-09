@@ -30,11 +30,13 @@ class HealthCertificateQRCodeView: UIView {
 	func configure(with viewModel: HealthCertificateQRCodeViewModel) {
 		switch viewModel.covPassCheckInfoPosition {
 		case .top:
-			stackView.removeAllArrangedSubviews()
+			stackView.removeArrangedSubview(covPassCheckInfoStackView)
+			stackView.removeArrangedSubview(qrCodeImageContainerView)
 			stackView.addArrangedSubview(covPassCheckInfoStackView)
 			stackView.addArrangedSubview(qrCodeImageContainerView)
 		case .bottom:
-			stackView.removeAllArrangedSubviews()
+			stackView.removeArrangedSubview(qrCodeImageContainerView)
+			stackView.removeArrangedSubview(covPassCheckInfoStackView)
 			stackView.addArrangedSubview(qrCodeImageContainerView)
 			stackView.addArrangedSubview(covPassCheckInfoStackView)
 		}
@@ -51,7 +53,8 @@ class HealthCertificateQRCodeView: UIView {
 	private let stackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .vertical
-		stackView.spacing = 14
+		stackView.spacing = 8
+
 		return stackView
 	}()
 
@@ -59,6 +62,7 @@ class HealthCertificateQRCodeView: UIView {
 		let stackView = UIStackView(arrangedSubviews: [covPassCheckInfoLabel, covPassCheckInfoButton])
 		stackView.spacing = 4
 		stackView.alignment = .center
+
 		return stackView
 	}()
 
@@ -67,6 +71,7 @@ class HealthCertificateQRCodeView: UIView {
 		covPassCheckInfoLabel.numberOfLines = 0
 		covPassCheckInfoLabel.textColor = UIColor(enaColor: .textPrimary1)
 		covPassCheckInfoLabel.text = AppStrings.HealthCertificate.UnifiedQRCode.notice
+
 		return covPassCheckInfoLabel
 	}()
 
@@ -74,6 +79,7 @@ class HealthCertificateQRCodeView: UIView {
 		let button = UIButton()
 		button.setImage(UIImage(imageLiteralResourceName: "infoBigger"), for: .normal)
 		button.addTarget(self, action: #selector(didTapCovPassCheckInfoButton), for: .touchUpInside)
+
 		return button
 	}()
 
@@ -123,7 +129,7 @@ class HealthCertificateQRCodeView: UIView {
 			stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			stackView.topAnchor.constraint(equalTo: topAnchor),
 			stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
+			stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
 			covPassCheckInfoButton.widthAnchor.constraint(equalToConstant: 30.0),
 			covPassCheckInfoButton.heightAnchor.constraint(equalToConstant: 30.0),

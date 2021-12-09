@@ -111,7 +111,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 	private let bottomView: UIView = {
 		let bottomView = UIView()
-		bottomView.backgroundColor = .enaColor(for: .background)
+		bottomView.backgroundColor = .enaColor(for: .backgroundLightGray)
 		bottomView.clipsToBounds = false
 		bottomView.layer.borderWidth = 1.0
 		bottomView.layer.cornerRadius = 14.0
