@@ -166,6 +166,22 @@ class HealthCertificateServiceTests: CWATestCase {
 	// swiftlint:disable cyclomatic_complexity
 	// swiftlint:disable:next function_body_length
 	func testRegisteringCertificates() throws {
+		var thresholdFeature = SAP_Internal_V2_AppFeature()
+		thresholdFeature.label = "dcc-person-warn-threshold"
+		thresholdFeature.value = 2
+
+		var maxCountFeature = SAP_Internal_V2_AppFeature()
+		maxCountFeature.label = "dcc-person-count-max"
+		maxCountFeature.value = 3
+
+		var appFeatures = SAP_Internal_V2_AppFeatures()
+		appFeatures.appFeatures = [thresholdFeature, maxCountFeature]
+
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		appConfig.appFeatures = appFeatures
+
+		let appConfigProvider = CachedAppConfigurationMock(with: appConfig, store: MockTestStore())
+
 		let store = MockTestStore()
 		let client = ClientMock()
 
@@ -174,7 +190,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfigProvider,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
 			),
@@ -202,6 +218,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate])
+			XCTAssertNil(certificateResult.registrationDetail)
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
@@ -271,6 +288,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate, secondTestCertificate])
+			XCTAssertNil(certificateResult.registrationDetail)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -301,6 +319,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+			XCTAssertNil(certificateResult.registrationDetail)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -332,6 +351,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [secondVaccinationCertificate])
+			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -394,6 +414,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstRecoveryCertificate])
+			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -426,6 +447,29 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey(withStars: true))
+
+		// Attempt to add a 4th person, max amount was set to 3
+
+		let secondRecoveryCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "AHMED", standardizedGivenName: "OMAR"),
+				recoveryEntries: [.fake(
+					uniqueCertificateIdentifier: "6"
+				)]
+			),
+			and: .fake(expirationTime: .distantPast)
+		)
+
+		registrationResult = service.registerHealthCertificate(base45: secondRecoveryCertificateBase45)
+
+		switch registrationResult {
+		case .success:
+			XCTFail("Registration should fail")
+		case .failure(let error):
+			if case .tooManyPersonsRegistered = error {} else {
+				XCTFail("Expected .tooManyPersonsRegistered error")
+			}
+		}
 
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
