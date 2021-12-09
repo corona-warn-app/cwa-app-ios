@@ -541,7 +541,7 @@ class QRScannerCoordinator {
 		let alert = UIAlertController(
 			title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.warningTitle,
 			message: String(
-				format: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.message,
+				format: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.warningMessage,
 				appConfiguration.featureProvider.intValue(for: .dccPersonCountMax)
 			),
 			preferredStyle: .alert

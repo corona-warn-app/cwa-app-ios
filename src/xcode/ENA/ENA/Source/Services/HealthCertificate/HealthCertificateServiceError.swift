@@ -64,7 +64,7 @@ enum HealthCertificateServiceError: Error {
 			case .certificateHasTooManyEntries:
 				return "\(AppStrings.HealthCertificate.Error.hcNotSupported) (HC_TOO_MANY_ENTRIES)"
 			case .tooManyPersonsRegistered:
-				return AppStrings.UniversalQRScanner.MaxPersonAmountAlert.message
+				return AppStrings.UniversalQRScanner.MaxPersonAmountAlert.errorMessage
 			case .invalidSignature(let error):
 				return "\(AppStrings.HealthCertificate.Error.invalidSignatureText) (\(error))"
 			case .other(let error):

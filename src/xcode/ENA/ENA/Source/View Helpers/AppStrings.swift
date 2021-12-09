@@ -2354,7 +2354,8 @@ enum AppStrings {
 		enum MaxPersonAmountAlert {
 			static let warningTitle = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_warningTitle", comment: "")
 			static let errorTitle = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_errorTitle", comment: "")
-			static let message = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_message", comment: "")
+			static let warningMessage = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_warningMessage", comment: "")
+			static let errorMessage = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_errorMessage", comment: "")
 			static let covPassCheckButton = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton", comment: "")
 			static let covPassCheckLink = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_CovPassCheckLink", tableName: "Localizable.links", comment: "")
 			static let faqButton = NSLocalizedString("UniversalQRScanner_MaxPersonAmountAlert_faqButton", comment: "")
