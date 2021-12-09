@@ -39,7 +39,9 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.homeBadgeWrapper = HomeBadgeWrapper()
 
 		homeBadgeWrapper.updateView = { [weak self] stringValue in
-			self?.rootViewController.tabBarItem.badgeValue = stringValue
+			DispatchQueue.main.async {
+				self?.rootViewController.tabBarItem.badgeValue = stringValue
+			}
 		}
 		setupHomeBadgeCount()
 	}
