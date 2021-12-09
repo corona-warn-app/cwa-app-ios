@@ -264,23 +264,32 @@ struct FileLogger {
 	private let writeQueue = DispatchQueue(label: "de.rki.coronawarnapp.logging.write") // Serial by default
 	
 	private func writeLog(of logType: OSLogType, message: String) {
+		#if !RELEASE
 		let logHandle = makeWriteFileHandle(with: logType)
 		let allLogsHandle = makeWriteFileHandle(with: allLogsFileURL)
+		#endif
+			
 		let errorLogHandle = makeWriteFileHandle(with: errorLogFileURL)
 
 		guard let logMessageData = message.data(using: .utf8) else { return }
 		defer {
+			#if !RELEASE
 			logHandle?.closeFile()
 			allLogsHandle?.closeFile()
+			#endif
+
 			errorLogHandle?.closeFile()
 		}
 		
 		writeQueue.sync {
+			
+			#if !RELEASE
 			logHandle?.seekToEndOfFile()
 			logHandle?.write(logMessageData)
 
 			allLogsHandle?.seekToEndOfFile()
 			allLogsHandle?.write(logMessageData)
+			#endif
 
 			if ErrorLogSubmissionService.errorLoggingEnabled {
 				errorLogHandle?.seekToEndOfFile()
