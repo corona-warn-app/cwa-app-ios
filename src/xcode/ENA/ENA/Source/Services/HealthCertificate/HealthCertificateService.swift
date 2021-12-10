@@ -182,7 +182,7 @@ class HealthCertificateService {
 			if let registeredHealthCertifiedPerson = registeredHealthCertifiedPerson(for: healthCertificate) {
 				healthCertifiedPerson = registeredHealthCertifiedPerson
 			} else {
-				if healthCertifiedPersons.count == appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
+				if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
 					return .failure(.tooManyPersonsRegistered)
 				}
 
