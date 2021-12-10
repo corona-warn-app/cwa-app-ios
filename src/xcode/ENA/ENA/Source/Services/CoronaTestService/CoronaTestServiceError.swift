@@ -30,7 +30,9 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return "\(AppStrings.ExposureSubmissionError.other)\(errorCode)\(AppStrings.ExposureSubmissionError.otherend)"
 			case .receivedResourceError(let receivedResourceError):
 				return receivedResourceError.localizedDescription
-			case .resourceError, .invalidResponse, .invalidResponseType:
+			case .invalidResponseType:
+				return AppStrings.ExposureSubmissionError.noResponse
+			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
 			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
 				return AppStrings.ExposureSubmissionError.defaultError
@@ -43,7 +45,9 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return "\(AppStrings.ExposureSubmissionError.other)\(errorCode)\(AppStrings.ExposureSubmissionError.otherend)"
 			case .receivedResourceError(let receivedResourceError):
 				return receivedResourceError.localizedDescription
-			case .resourceError, .invalidResponse, .invalidResponseType:
+			case .invalidResponseType:
+				return AppStrings.ExposureSubmissionError.noResponse
+			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
 			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
 				return AppStrings.ExposureSubmissionError.defaultError
