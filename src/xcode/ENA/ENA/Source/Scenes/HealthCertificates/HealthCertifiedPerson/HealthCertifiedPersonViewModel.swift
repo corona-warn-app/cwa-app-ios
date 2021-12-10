@@ -26,6 +26,8 @@ final class HealthCertifiedPersonViewModel {
 		self.showInfo = showInfoHit
 
 		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
 		healthCertifiedPerson.objectDidChange
@@ -63,6 +65,7 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
+		case admissionState
 		case vaccinationHint
 		case person
 		case certificates
@@ -114,6 +117,7 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	let vaccinationHintCellViewModel: VaccinationHintCellModel
+	let vaccinationAdmissionStateViewModel: AdmissionStateCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
@@ -153,6 +157,8 @@ final class HealthCertifiedPersonViewModel {
 		case .header:
 			return 1
 		case .qrCode:
+			return 1
+		case .admissionState:
 			return 1
 		case .vaccinationHint:
 			return vaccinationHintIsVisible ? 1 : 0
