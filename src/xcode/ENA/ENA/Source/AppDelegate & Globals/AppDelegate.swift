@@ -294,7 +294,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var badgeWrapper: HomeBadgeWrapper = {
-		return HomeBadgeWrapper()
+		return HomeBadgeWrapper(store)
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(

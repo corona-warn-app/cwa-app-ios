@@ -275,6 +275,10 @@ protocol RecycleBinStoring: AnyObject {
 	var recycleBinItems: Set<RecycleBinItem> { get set }
 }
 
+protocol HomeBadgeStoring: AnyObject {
+	var badgesData: Data { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -298,6 +302,7 @@ protocol Store:
 	DeviceTimeCheckStoring,
 	AppFeaturesStoring,
 	RecycleBinStoring,
-	TicketValidationStoring
+	TicketValidationStoring,
+	HomeBadgeStoring
 {}
 // swiftlint:enable all

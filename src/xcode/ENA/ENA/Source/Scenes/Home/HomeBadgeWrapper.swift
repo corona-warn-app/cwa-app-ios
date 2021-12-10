@@ -9,16 +9,12 @@ final class HomeBadgeWrapper {
 
 	// MARK: - Init
 
-	init() {
-		self.badgesCount = [:]
-		load()
-	}
-
 	init(
-		values: [BadgeTyoe: Int?] = [:],
-		updateView: @escaping (String?) -> Void
+		_ store: HomeBadgeStoring
 	) {
-		self.badgesCount = values
+		self.store = store
+		self.badgesCount = [:]
+		
 		load()
 	}
 
@@ -53,6 +49,8 @@ final class HomeBadgeWrapper {
 
 	// MARK: - Private
 
+	private let store: HomeBadgeStoring
+
 	private var badgesCount: [BadgeTyoe: Int?] = [:]
 
 	private func saveAndUpdate() {
@@ -69,18 +67,17 @@ final class HomeBadgeWrapper {
 	private func save() {
 		let encoder = JSONEncoder()
 		do {
-			let data = try encoder.encode(badgesCount)
+			store.badgesData = try encoder.encode(badgesCount)
 		} catch {
 			Log.error("Failed to serialize HomeBadgeWrapper data")
 		}
-		let storeedData = data
 	}
 
 	private func load() {
-		let data = Data()
 		let decoder = JSONDecoder()
 		do {
-			badgesCount = try decoder.decode([BadgeTyoe: Int?].self, from: data)
+			badgesCount = try decoder.decode([BadgeTyoe: Int?].self, from: store.badgesData)
+			stringValue = processBadgeCountString
 		} catch {
 			Log.error("Failed to deserialize HomeBadgeWrapper data")
 		}

@@ -613,3 +613,10 @@ extension SecureStore: DSCListCaching {
 		set { kvStore["DSCList"] = newValue }
 	}
 }
+
+extension SecureStore: HomeBadgeStoring {
+	var badgesData: Data {
+		get { kvStore["badgesData"] as Data? ?? Data() }
+		set { kvStore["badgesData"] = newValue }
+	}
+}

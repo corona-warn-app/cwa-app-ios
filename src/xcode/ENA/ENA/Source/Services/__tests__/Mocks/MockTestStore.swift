@@ -198,6 +198,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 			recycleBinItemsSubject.value = recycleBinItems
 		}
 	}
+
+	// MARK: - HomeBadgeStoring
+	var badgesData: Data = Data()
+
 }
 
 #endif
