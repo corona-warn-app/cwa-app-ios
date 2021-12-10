@@ -140,7 +140,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 		}
 
 		// WHEN
-		homeBadgesWrapper.restAll()
+		homeBadgesWrapper.resetAll()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)

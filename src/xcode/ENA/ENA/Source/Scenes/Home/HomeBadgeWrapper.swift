@@ -40,7 +40,7 @@ final class HomeBadgeWrapper {
 		update(badgeCount, value: nil)
 	}
 
-	func restAll() {
+	func resetAll() {
 		badgesCount = [:]
 		updateView?(badgeString)
 	}
