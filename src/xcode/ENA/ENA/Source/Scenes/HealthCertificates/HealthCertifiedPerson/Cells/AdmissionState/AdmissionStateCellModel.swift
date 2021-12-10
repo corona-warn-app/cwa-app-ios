@@ -10,21 +10,19 @@ final class AdmissionStateCellModel {
 
 	// MARK: - Init
 
-	init(
-		healthCertifiedPerson: HealthCertifiedPerson
-	) {
-		self.healthCertifiedPerson = healthCertifiedPerson
+	init(admissionState: HealthCertifiedPersonAdmissionState) {
+		self.admissionState = admissionState
 	}
 
 	// MARK: - Internal
 
 	let title = AppStrings.HealthCertificate.Person.AdmissionState.title
 	var subtitle: String? {
-		return healthCertifiedPerson.admissionState.subtitle
+		return admissionState.subtitle
 	}
 
 	var description: String? {
-		return healthCertifiedPerson.admissionState.description
+		return admissionState.description
 	}
 
 	var faqLink: NSAttributedString? {
@@ -57,6 +55,6 @@ final class AdmissionStateCellModel {
 
 	// MARK: - Private
 
-	let healthCertifiedPerson: HealthCertifiedPerson
+	let admissionState: HealthCertifiedPersonAdmissionState
 
 }

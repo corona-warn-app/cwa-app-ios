@@ -26,7 +26,7 @@ final class HealthCertifiedPersonViewModel {
 		self.showInfo = showInfoHit
 
 		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
-		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(admissionState: healthCertifiedPerson.admissionState)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -210,7 +210,7 @@ final class HealthCertifiedPersonViewModel {
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 	private var admissionStateIsVisible: Bool {
-		return !(healthCertifiedPerson.admissionState == .other)
+		return healthCertifiedPerson.admissionState != .other
 	}
 
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
