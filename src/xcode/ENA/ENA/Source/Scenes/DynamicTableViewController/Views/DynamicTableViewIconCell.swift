@@ -38,9 +38,9 @@ class DynamicTableViewIconCell: UITableViewCell {
 
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
 			stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
 			iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
 		])
 	}

@@ -67,7 +67,7 @@ final class DeviceTimeCheck: DeviceTimeChecking {
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
 
-		let killSwitchActive = appFeatureProvider.value(for: .disableDeviceTimeCheck)
+		let killSwitchActive = appFeatureProvider.boolValue(for: .disableDeviceTimeCheck)
 		guard !killSwitchActive,
 			  configUpdateSuccessful else {
 			return .assumedCorrect

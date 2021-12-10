@@ -112,7 +112,11 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 		let label = ENALabel() // get the default font – create fake label
 		
 		let formattedBulletPoints = bulletPoints.map({ $0.bulletPointString(bulletPointFont: label.font) })
-		let formattedSubBulletPoints = subBulletPoints.map({ $0.bulletPointString(bulletPointFont: .systemFont(ofSize: 9)) })
+		let formattedSubBulletPoints = subBulletPoints.map({ $0.bulletPointString(
+				bulletPointFont: .systemFont(ofSize: 9),
+				indentationTabs: 1
+			)
+		})
 		
 		titleLabel.attributedText = title
 		descriptionLabel1.attributedText = description
@@ -147,9 +151,7 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 			label.setContentHuggingPriority(.required, for: .vertical)
 			contentStackView2.addArrangedSubview(label)
 		}
-		// We need for the subBulletPoints some more indentation
-		contentStackView2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60).isActive = true
-		
+
 		cardView.layoutIfNeeded()
 	}
 
