@@ -52,7 +52,7 @@ struct TeleTanResource: Resource {
 
 }
 
-enum TeleTanError: Error {
+enum TeleTanError: LocalizedError {
 	case teleTanAlreadyUsed
 	case qrAlreadyUsed
 
