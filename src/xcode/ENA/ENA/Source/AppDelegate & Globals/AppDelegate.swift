@@ -288,8 +288,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
 		)
+	}()
+
+	lazy var badgeWrapper: HomeBadgeWrapper = {
+		return HomeBadgeWrapper()
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
@@ -790,7 +795,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 		elsService: elsService,
 		recycleBin: recycleBin,
-		restServiceProvider: restServiceProvider
+		restServiceProvider: restServiceProvider,
+		badgeWrapper: badgeWrapper
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
