@@ -159,7 +159,7 @@ final class HealthCertifiedPersonViewModel {
 		case .qrCode:
 			return 1
 		case .admissionState:
-			return 1
+			return admissionStateIsVisible ? 1 : 0
 		case .vaccinationHint:
 			return vaccinationHintIsVisible ? 1 : 0
 		case .person:
@@ -209,6 +209,9 @@ final class HealthCertifiedPersonViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
+	private var admissionStateIsVisible: Bool {
+		return !(healthCertifiedPerson.admissionState == .other)
+	}
 
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
 		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
