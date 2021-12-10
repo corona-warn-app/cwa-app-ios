@@ -92,9 +92,15 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Ще намерите още информация относно излаганията ви на риск във вашия дневник на контактите.";
 
+"ExposureDetection_Contact_Journal_Text_P2" = "Имате повишено ниво на риск от заразяване. Ако сте заразени Вие може да заразявате други хора, дори и да сте ваксинирани или преболедували и дори и да не проявявате никакви симптоми.";
+
 "ExposureDetection_Behavior_Title" = "Насоки";
 
-"ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите:";
+"ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите, дори и да сте ваксинирани или преболедували, или не проявявате никакви симптоми:";
+
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "Ето какво трябва да направите:";
+
+"ExposureDetection_Guide_Hygiene" = "Моля, обърнете специално внимание на правила за хигиена.";
 
 "ExposureDetection_Guide_Vaccination" = "Ваксинирайте се срещу вируса SARS-CoV-2, ако все още не сте го направили.";
 
@@ -108,11 +114,23 @@
 
 "ExposureDetection_Guide_Ventilation" = "Проветрявайте затворените помещения по няколко пъти на ден. За целта отворете прозорците възможно най-широко за няколко минути (т.нар. ударно проветряване).";
 
-"ExposureDetection_Guide_Symptoms" = "Следете за типичните симптоми на COVID-19. Дори ваксинираните хора проявяват такива при случаи на пробив в защитата на ваксината. Направете си тест, ако забележите съмнителни симптоми.";
+"ExposureDetection_Guide_Symptoms" = "Следете за типичните симптоми на COVID-19. Дори ваксинираните хора и преболедувалите може да проявят симптоми. Ако не се чувствате добре или проявявате симптоми моля, свържете се с Вашия личен лекар.";
 
-"ExposureDetection_Guide_Home" = "По възможност се приберете и си останете вкъщи.";
+"ExposureDetection_Guide_Home" = "По възможност се приберете и си останете вкъщи, избягвайки срещи с хора, които не са от Вашето домакинство.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Ако все още не сте се ваксинирали, консултирайте се с личния си лекар или се обадете на телефона на Общата служба за медицинска помощ, за да си запазите час за тест. След теста обсъдете с личния си лекар възможността за ваксинация срещу SARS-CoV-2.";
+"ExposureDetection_Guide_Hotline" = "Ако имате въпроси, свързани със здравето, се обадете на горещата линия на службата за медицинска помощ на телефон 116 117.";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Ако все още не сте се ваксинирали, консултирайте се с Вашия личен лекар, след като се тествате.";
+
+"ExposureDetection_Guide_Title" = "Моля, направете си тест, дори и да не проявявате симптоми. Ако получите предупреждение за повишено ниво на риск от заразяване (“червена плочка”) Вие имате право на безплатен тест. Не е задължително да е PCR тест.\n";
+
+"ExposureDetection_Guide_Point1" = "Тук може да видите възможности за тестване или да се свържете с Вашия личен лекар или аптека.";
+
+"ExposureDetection_Guide_Point1_LinkText" = "Тук ще откриете възможности за тестване:";
+
+"ExposureDetection_Guide_Point2" = "Повече информация относно процедурата  за тестване може да намерите на страницата ни за „ЧЗВ“.";
+
+"ExposureDetection_Guide_Point2_LinkText" = "ЧЗВ относно процедурата за тестване";
 
 "ExposureDetection_Explanation_Title" = "Риск от заразяване";
 
@@ -165,6 +183,44 @@
 "ExposureDetection_Survey_Card_Body" = "Помогнете ни да подобрим приложението, като отговорите на няколко лесни въпроса.";
 
 "ExposureDetection_Survey_Card_Button" = "Към анкетата";
+
+"ExposureDetection_Info_HygieneRules_Title" = "Правила за хигиена";
+
+"ExposureDetection_Info_HygieneRules_Point1" = "Носете маска, когато се виждате с други хора.";
+
+"ExposureDetection_Info_HygieneRules_Point2" = "Спазвайте дистанция от поне 1,5 м от околните.";
+
+"ExposureDetection_Info_HygieneRules_Point3" = "Кихайте и кашляйте в кърпичка или в сгъвката на лакътя си.";
+
+"ExposureDetection_Info_HygieneRules_Point4" = "Мийте редовно ръцете си със сапун в продължение на поне 20 сек.";
+
+"ExposureDetection_Info_HygieneRules_Point5" = "Проветрявайте затворените помещения по няколко пъти на ден. За целта отворете прозорците възможно най-широко за няколко минути (т.нар. ударно проветряване).";
+
+"ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Няколко човека, които спазват дистанция и носят маски.";
+
+"ExposureDetection_Info_Contagion_Title" = "Намалете Вашето ниво на риск от заразяване";
+
+"ExposureDetection_Info_Contagion_Image_Title" = "Ако сте заразени, може да намалире риска от предаване на инфекцията на други хора:";
+
+"ExposureDetection_Info_Contagion_TitleImage_Description" = "Лице, което седи на диван и чете книга. Друго лице, което гледа своя смартфон.";
+
+"ExposureDetection_Info_Contagion_Point1" = "Срещи и събития: избягвайте посещения и дейности, на които се събирате с други хора (клубове, барове, ресторанти, кина, театри, спортни събития).";
+
+"ExposureDetection_Info_Contagion_Point2" = "Работа от вкъщи: ако имате възможност работете от вкъщи.";
+
+"ExposureDetection_Info_Contagion_Point3" = "Пазаруване: използвайте доставка на продукти или помолете някой да пазарува вместо Вас.";
+
+"ExposureDetection_Info_Contagion_Point4" = "Обществен транспорт: избягвайте пътуване с обществен транспорт по възможност, особено в час пик.";
+
+"ExposureDetection_Info_Contagion_Point5" = "Пътуване: не пътувайте със самолет или влак.";
+
+"ExposureDetection_Info_Contagion_Point6" = "Ако имате въпроси относно карантинните мерки моля, свържете се с Вашата здравна служба.";
+
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "ЧЗВ относно карантинните мерки";
+
+"ExposureDetection_Info_Contagion_Footer" = "Допълнителна информация относно доброволната карантина е достъпна на нашата страница “ЧЗВ”.";
+
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "ЧЗВ относно доброволната карантина";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Грешка";
@@ -1542,7 +1598,7 @@
 /* Version 2.15 */
 "NewVersionFeature_215_ticketValidation_title" = "Валидиране на сертификат при продажба на билети";
 
-"NewVersionFeature_215_ticketValidation_description" = "Когато резервирате билет, можете да предоставите доказателство, че сте ваксинирани, преболедували или имате отрицателен резултат от тестване. За целта сканирайте QR кода, показан в системата за продажба на билети и изберете правилния сертификат в приложението. Резултатът от валидирането на сертификата ще бъде изпратен до системата за продажба на билети от партньора за валидиране.";
+"NewVersionFeature_215_ticketValidation_description" = "Когато резервирате билет, можете да предоставите доказателство, че сте ваксинирани, преболедували или имате отрицателен резултат от тестване. За целта сканирайте QR кода, показан в системата за продажба на билети и изберете правилния сертификат в приложението. Резултатът от проверката на сертификата ще бъде изпратен до системата за продажба на билети от партньора за валидиране.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2716,27 +2772,27 @@
 
 "HealthCertificate_Info_section02" = "Тези сертификати се считат за валидно доказателство в рамките на ЕС (например при пътуване).";
 
-"HealthCertificate_Info_section03" = "След като добавите сертификат, той ще се запази в смартфона Ви. Ще се споделя с останалите само ако представите сертификат за валидиране.";
+"HealthCertificate_Info_section03" = "След като добавите сертификат, той ще се запази в смартфона Ви. Сертификатът ще се споделя с останалите само ако го представите за ваксинация.";
 
 "HealthCertificate_Info_section04" = "Добавете сертификати за Вас и Вашето семейство.";
 
 "HealthCertificate_Info_primaryButton" = "Напред";
 
 /* CovPass Info Screen */
-"CovPass_Check_Info_Title" = "Валидиране на сертификат от трети лица";
+"CovPass_Check_Info_Title" = "Проверка на сертификат от трети лица";
 
 "CovPass_Check_Info_body" = "Трети лица могат да използват приложението CovPassCheck, за да могат надеждно да определят валидността на сертификатите за ваксинация, сертификатите за възстановяване или сертификатите за тест.";
 
-"CovPass_Check_Info_faq" = "ЧЗВ за валидиране на сертификати от трети лица";
+"CovPass_Check_Info_faq" = "ЧЗВ за проверка на сертификати от трети лица";
 
-"CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите си в приложението Corona-Warn-App. Не ви е нужно приложението CovPassCheck.";
+"CovPass_Check_Info_text01" = "Можете сами да проверите валидността на сертификатите си в приложението Corona-Warn-App преди да пътувате. Не ви е нужно приложението CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Но имайте предвид, че визуалната проверка на сертификатите не е достатъчна за третите лица. В Германия те трябва да използват приложението CovPassCheck.";
 
-"CovPass_Check_Info_text03" = "Имайте предвид, че третите лица в други държави може да използват различни приложения за валидиране на сертификатите.";
+"CovPass_Check_Info_text03" = "Имайте предвид също така, че трети лица в други държави може да използват различни приложения за проверка на сертификатите.";
 
 /* Health Certified Person Screen */
-"HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно валидиран с приложението CovPassCheck.";
+"HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно проверен с приложението CovPassCheck.";
 
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
@@ -2756,7 +2812,7 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "QR код с текущия сертификат";
 
-"HealthCertifiedPerson_validationButtonTitle" = "Проверка на валидност";
+"HealthCertifiedPerson_validationButtonTitle" = "Проверка за валидност на сертификат за пътуване";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Сертификат за ваксинация";
 
@@ -2809,7 +2865,7 @@
 
 "HealthCertificate_Details_identifier" = "Номер на сертификат";
 
-"HealthCertificate_Details_validationButtonTitle" = "Проверка на валидност";
+"HealthCertificate_Details_validationButtonTitle" = "Проверка за валидност на сертификат за пътуване";
 
 "HealthCertificate_Details_deleteButtonTitle" = "Изтриване на сертификата за ваксинация";
 
@@ -2952,7 +3008,7 @@
 "HealthCertificate_Validation_ButtonTitle" = "Проверка";
 
 /* Health Certificate Validation Result */
-"HealthCertificate_Validation_Result_validationParameters" = "Влизане в %@ на %@\nВалидирано на %@";
+"HealthCertificate_Validation_Result_validationParameters" = "Влизане в %@ на %@, валидирано на %@";
 
 "HealthCertificate_Validation_Result_acceptanceRule" = "Това е правило в държавата, където отивате: %@.";
 
@@ -2969,7 +3025,7 @@
 
 "HealthCertificate_Validation_Passed_subtitle" = "Сертификатът ви е валиден в избраната държава";
 
-"HealthCertificate_Validation_Passed_unknownSubtitle" = "Сертификатът ви не беше валидиран";
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Сертификатът Ви не беше валидиран";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Бележки";
 
@@ -3042,7 +3098,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
 
-"UniversalQRScanner_InstructionDescription" = "Тестове, Вашите сертификати, регистрации и валидиране при резервиране на билети";
+"UniversalQRScanner_InstructionDescription" = "Тестове, Вашите сертификати, регистрации и валидиране при продажба на билети";
 
 "UniversalQRScanner_FileButtonTitle" = "Отваряне на файл";
 
@@ -3072,6 +3128,18 @@
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "QR кодът вече е регистриран на устройството Ви. Тестът ще бъде възстановен от кошчето.";
 
+"UniversalQRScanner_MaxPersonAmountAlert_warningTitle" = "Предупреждение";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Грешка";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Приложението Corona-Warn-App не може да се използва за валидиране на сертификат от трети страни. За тази цел използвайте приложението  CovPassCheck.\n\nМоже да добавите сертификати за до %i човека. Когато достигнете лимита Вие няма да може да сканирате повече сертификати за допълнителни лица.\n\nЩе откриете повече информация за ваксинационни сертификати на нашата страница “ЧЗВ”.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Приложението Corona-Warn-App не може да се използва за валидиране на сертификат от трети страни. За тази цел използвайте приложението  CovPassCheck.\n\nМоже да добавите сертификати за до %i човека. Не може да сканирате повече сертификати за допълнителни лица.\n\nЩе откриете повече информация за ваксинационни сертификати на нашата страница “ЧЗВ”.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Изтегляне не CovPassCheck App";
+
+"UniversalQRScanner_MaxPersonAmountAlert_faqButton" = "ЧЗВ относно валидирането на сертификат ";
+
 "UniversalQRScanner_Info_title" = "Информация за QR кодове";
 
 "UniversalQRScanner_Info_bulletPoint1" = "Вашите сертификати за тестване, сертификати за ваксиниране, сертификати за възстановяване и сертификати за членовете на семейството Ви";
@@ -3080,11 +3148,11 @@
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR тестове и бързи тестове";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Валидиране на Вашите сертификати при резервиране на билети";
+"UniversalQRScanner_Info_bulletPoint4" = "Валидиране на Вашите сертификати при продажба на билети";
 
 "UniversalQRScanner_Info_body1" = "Данните от съответния QR код са прочетени.";
 
-"UniversalQRScanner_Info_body2" = "Когато сканирате QR кодове за валидиране на сертификати при резервиране на билети се извлича допълнителна информация за доставчика на резервации.";
+"UniversalQRScanner_Info_body2" = "Когато сканирате QR кодове за проверка на сертификати при закупуване на билети се извлича допълнителна информация за доставчика на резервации.";
 
 "UniversalQRScanner_Info_dataPrivacy" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
 
@@ -3245,7 +3313,7 @@
 /* - Cancel Alert */
 "TicketValidation_CancelAlert_title" = "Желаете ли да отмените валидирането?";
 
-"TicketValidation_CancelAlert_message" = "Ако отмените валидирането, сертификатът не може да бъде валидиран.";
+"TicketValidation_CancelAlert_message" = "Ако отмените валидирането, сертификатът не може да бъде проверен.";
 
 "TicketValidation_CancelAlert_cancelButtonTitle" = "Отмяна на валидирането";
 
@@ -3260,12 +3328,20 @@
 
 "TicketValidation_Error_tryAgain" = "Възникна грешка при обработката на данни. Моля, опитайте отново по-късно.";
 
+"TicketValidation_Error_OutdatedApp" = "Последната версия на приложението Ви  Corona-Warn-App вече не поддържа проверка на билети. Моля, актуализирайте приложението и започнете проверката на билет отново.";
+
+"TicketValidation_Error_UpdateAction" = "Отидете в App Store";
+
+"TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Бележка за сигурността";
+
+"TicketValidation_Error_serviceProviderErrorNoMatch" = "Този доставчик не ни е известен. От съображения за сигурност, валидирането при продажба на билети е възможно само за известни доставчици. Моля, свържете се с доставчика, който ви е предоставил този QR кода и актуализирайте Вашите приложение с най-новата версия.";
+
 /* - First Consent */
 "TicketValidation_FirstConsent_title" = "Вашето съгласие";
 
 "TicketValidation_FirstConsent_imageDescription" = "Пренесен е сертификат за закупуване на билет";
 
-"TicketValidation_FirstConsent_subtitle" = "Проверка на сертификат при резервиране на билети";
+"TicketValidation_FirstConsent_subtitle" = "Валидиране на сертификат при продажба на билети";
 
 "TicketValidation_FirstConsent_serviceProvider" = "Доставчик:";
 
@@ -3273,7 +3349,7 @@
 
 "TicketValidation_FirstConsent_explination" = "Доставчикът иска да гарантира, че за резервацията Ви е наличен валиден сертификат. Изисква се съгласието Ви за извличане на подробни данни за продажба на билети от доставчика и деблокиране на запазените Ви сертификати.";
 
-"TicketValidation_FirstConsent_BulletPoint1" = "Не е необходимо да позволявате валидиране на сертификата Ви с Corona-Warn-App. Можете да предоставите доказателство за ваксинация, тестване или статус на възстановяване и по различен начин.";
+"TicketValidation_FirstConsent_BulletPoint1" = "Не е необходимо да позволявате проверка на сертификата Ви с Corona-Warn-App. Можете да предоставите доказателство за ваксинация, тестване или статус на възстановяване и по различен начин.";
 
 "TicketValidation_FirstConsent_BulletPoint2" = "Изискванията за сертификат се определят от доставчика. RKI няма влияние върху този процес. Моля, свържете се с доставчика за повече информация относно изискванията за сертификат.";
 
@@ -3298,7 +3374,7 @@
 
 "TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Няма наличен подходящ сертификат.";
 
-"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Нямате сертификат, който отговаря на изискванията на системата за продажба на билето. Моля, уверете се, че изписването на името Ви в системата за продажба на билети съответства на името в сертификатите Ви. Ако са Ви необходими допълнителни сертификати, които още не са налични в приложението, добавете ги сега и стартирайте валидирането отново.";
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Нямате сертификат, който отговаря на изискванията на системата за продажба на билети. Моля, уверете се, че изписването на името Ви в системата за продажба на билети съответства на името в сертификатите Ви. Ако са Ви необходими допълнителни сертификати, които още не са налични в приложението, добавете ги сега и стартирайте валидирането отново.";
 
 "TicketValidation_CertificateSelection_faqDescription" = "За повече информация вижте страницата ни с %@.";
 
@@ -3350,13 +3426,13 @@
 
 "TicketValidation_Result_Passed_title" = "Валидирането е успешно";
 
-"TicketValidation_Result_Passed_subtitle" = "Сертификатът Ви е успешно валидиран.";
+"TicketValidation_Result_Passed_subtitle" = "Сертификатът Ви е успешно валидиран";
 
 "TicketValidation_Result_Passed_description" = "Изпратено е известие на доставчик “%@”, че валидирането е успешно.";
 
 "TicketValidation_Result_Open_title" = "Сертификатът не може да бъде валидиран";
 
-"TicketValidation_Result_Open_subtitle" = "Вашият сертификат не можа да се валидира от от партньора за валидиране";
+"TicketValidation_Result_Open_subtitle" = "Вашият сертификат не можа да се валидира от партньора за валидиране";
 
 "TicketValidation_Result_Open_description" = "Ако имате въпроси, моля свържете се с доставчика “%@”.";
 
