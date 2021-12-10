@@ -92,6 +92,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
+		case .admissionState:
+			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.vaccinationAdmissionStateViewModel)
+			return cell
+
 		case .vaccinationHint:
 			let cell = tableView.dequeueReusableCell(cellType: VaccinationHintTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationHintCellViewModel)
