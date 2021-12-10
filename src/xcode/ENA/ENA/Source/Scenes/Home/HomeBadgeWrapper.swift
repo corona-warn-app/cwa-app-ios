@@ -26,14 +26,10 @@ final class HomeBadgeWrapper {
 	}
 
 	var updateView: ((String?) -> Void)?
-	private var badgeString: String? {
-		let value = badgesCount.values.compactMap { $0 }.reduce(0, +)
-		return value == 0 ? nil : String(value)
-	}
 
 	func update(_ badgeCount: Badges, value: Int?) {
 		badgesCount[badgeCount] = value
-		updateView?(badgeString)
+		updateView?(badgeValueString)
 	}
 
 	func reset(_ badgeCount: Badges) {
@@ -42,13 +38,16 @@ final class HomeBadgeWrapper {
 
 	func resetAll() {
 		badgesCount = [:]
-		updateView?(badgeString)
+		updateView?(badgeValueString)
 	}
 
 	// MARK: - Private
 
-
 	private var badgesCount: [Badges: Int?] = [:]
 
+	private var badgeValueString: String? {
+		let value = badgesCount.values.compactMap { $0 }.reduce(0, +)
+		return value == 0 ? nil : String(value)
+	}
 
 }
