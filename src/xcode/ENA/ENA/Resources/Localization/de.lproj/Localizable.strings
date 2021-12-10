@@ -93,7 +93,7 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Weitere Informationen zu Ihren Risiko-Begegnungen finden Sie in Ihrem Kontakt-Tagebuch.";
 
-"ExposureDetection_Contact_Journal_Text_P2" = "Sie haben ein erhöhtes Risiko, sich angesteckt zu haben. Falls Sie sich angesteckt haben, können Sie Ihrerseits andere Personen anstecken, auch wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben.";
+"ExposureDetection_Contact_Journal_Text_P2" = "Sie haben ein erhöhtes Risiko, sich angesteckt zu haben. Falls Sie infiziert sind, können Sie Ihrerseits andere Personen anstecken, auch wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben.";
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
@@ -200,7 +200,7 @@
 
 "ExposureDetection_Info_Contagion_Title" = "Ansteckungsrisiko minimieren";
 
-"ExposureDetection_Info_Contagion_Image_Title" = "Falls Sie sich angesteckt haben, verringern Sie so das Risiko, andere anzustecken:";
+"ExposureDetection_Info_Contagion_Image_Title" = "Falls Sie sich unerkannt angesteckt haben, verringern Sie so das Risiko, andere zu infizieren:";
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "Eine Person sitzt auf dem Sofa und liest ein Buch. Eine andere Person schaut auf ihr Smartphone.";
 
