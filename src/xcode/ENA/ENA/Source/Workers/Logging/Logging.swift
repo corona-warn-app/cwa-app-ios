@@ -332,7 +332,9 @@ struct FileLogger {
 			let fileHandle = try? FileHandle(forWritingTo: url)
 			return fileHandle
 		} catch {
-			Log.error("File handle error", log: .localData, error: error)
+			// We must not use our Log here because it would produce a crash (we want to log in case we cannot create a log 🤪)
+			// swiftlint:disable:next no_direct_oslog
+			os_log("%{public}@ %{public}@", log: .default, type: .error, "Error while creating log file handler. Fallback to system logging to log this error.")
 			return nil
 		}
 	}
