@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum RegistrationTokenError: Error {
+enum RegistrationTokenError: LocalizedError {
 	case regTokenNotExist
 
 	var errorDescription: String? {

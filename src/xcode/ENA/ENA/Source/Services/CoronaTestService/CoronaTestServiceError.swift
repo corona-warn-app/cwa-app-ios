@@ -17,12 +17,42 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 	var errorDescription: String? {
 		switch self {
 		case let .responseFailure(responseFailure):
-			return responseFailure.errorDescription
+			return responseFailure.localizedDescription
 		case .noRegistrationToken:
 			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .testExpired:
 			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
-		default:
+		case .serviceError(let serviceError):
+			switch serviceError {
+			case .transportationError:
+				return AppStrings.ExposureSubmissionError.noNetworkConnection
+			case .unexpectedServerError(let errorCode):
+				return "\(AppStrings.ExposureSubmissionError.other)\(errorCode)\(AppStrings.ExposureSubmissionError.otherend)"
+			case .receivedResourceError(let receivedResourceError):
+				return receivedResourceError.localizedDescription
+			case .invalidResponseType:
+				return AppStrings.ExposureSubmissionError.noResponse
+			case .resourceError, .invalidResponse:
+				return AppStrings.ExposureSubmissionError.invalidResponse
+			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
+				return AppStrings.ExposureSubmissionError.defaultError
+			}
+		case .registrationTokenError(let registrationTokenError):
+			switch registrationTokenError {
+			case .transportationError:
+				return AppStrings.ExposureSubmissionError.noNetworkConnection
+			case .unexpectedServerError(let errorCode):
+				return "\(AppStrings.ExposureSubmissionError.other)\(errorCode)\(AppStrings.ExposureSubmissionError.otherend)"
+			case .receivedResourceError(let receivedResourceError):
+				return receivedResourceError.localizedDescription
+			case .invalidResponseType:
+				return AppStrings.ExposureSubmissionError.noResponse
+			case .resourceError, .invalidResponse:
+				return AppStrings.ExposureSubmissionError.invalidResponse
+			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
+				return AppStrings.ExposureSubmissionError.defaultError
+			}
+		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey:
 			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError
 		}
