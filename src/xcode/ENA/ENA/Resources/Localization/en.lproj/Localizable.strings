@@ -126,11 +126,11 @@
 
 "ExposureDetection_Guide_Point1" = "You can find testing possibilities here or contact your family doctor or a pharmacy.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "You will find testing possibilities here:";
+"ExposureDetection_Guide_Point1_LinkText" = "here";
 
 "ExposureDetection_Guide_Point2" = "More information about the testing procedure is available on our FAQ page.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "FAQ on the testing procedure";
+"ExposureDetection_Guide_Point2_LinkText" = "FAQ";
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
