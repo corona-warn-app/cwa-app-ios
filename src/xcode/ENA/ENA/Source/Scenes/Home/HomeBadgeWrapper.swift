@@ -62,10 +62,10 @@ class HomeBadgeWrapper {
 	private func saveAndUpdate() {
 		// serialize change to store and update string value for UI
 		save()
-		stringValue = processBadgeCountString
+		stringValue = processedBadgeCountString
 	}
 
-	private var processBadgeCountString: String? {
+	private var processedBadgeCountString: String? {
 		let value = badgesCount.values.compactMap { $0 }.reduce(0, +)
 		return value == 0 ? nil : String(value)
 	}
@@ -83,7 +83,7 @@ class HomeBadgeWrapper {
 		let decoder = JSONDecoder()
 		do {
 			badgesCount = try decoder.decode([BadgeType: Int?].self, from: store.badgesData)
-			stringValue = processBadgeCountString
+			stringValue = processedBadgeCountString
 		} catch {
 			Log.error("Failed to deserialize HomeBadgeWrapper data")
 		}
