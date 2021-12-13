@@ -92,7 +92,7 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Veți găsi mai multe informații despre expunerile dvs. în jurnalul dvs. de contacte.";
 
-"ExposureDetection_Contact_Journal_Text_P2" = "Aveți un risc crescut de infectare. Dacă ați fost infectat, puteți infecta alte persoane, chiar dacă sunteți vaccinat sau dacă v-ați recuperat după boală și chiar dacă nu aveți simptome.";
+"ExposureDetection_Contact_Journal_Text_P2" = "Există un risc crescut să fi fost infectat. Dacă ați fost infectat, puteți infecta alte persoane, chiar dacă sunteți vaccinat sau dacă v-ați recuperat după boală și chiar dacă nu aveți simptome.";
 
 "ExposureDetection_Behavior_Title" = "Instrucțiuni";
 
@@ -200,7 +200,7 @@
 
 "ExposureDetection_Info_Contagion_Title" = "Minimizați riscul dvs. de infectare";
 
-"ExposureDetection_Info_Contagion_Image_Title" = "Dacă v-ați infectat, puteți reduce riscul de infectare a altor persoane:";
+"ExposureDetection_Info_Contagion_Image_Title" = "Dacă v-ați infectat fără să știți, iată cum puteți reduce riscul de infectare a altor persoane:";
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "O persoană care stă pe canapea, citind o carte. O altă persoană care se uită pe smartphone.";
 
