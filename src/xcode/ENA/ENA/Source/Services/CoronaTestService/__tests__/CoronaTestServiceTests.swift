@@ -764,7 +764,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 	}
 
-	/*
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithDateOfBirth() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
@@ -794,7 +793,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -814,14 +813,15 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
-			badgeWrapper: .fake()
+			badgeWrapper: badgeWrapper
 		)
 		
-		let expectedCounts = [0]
+		let expectedCounts: [String?] = [nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 1
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
+		var receivedCounts = [String?]()
+
+		let countSubscription = badgeWrapper.$stringValue
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -859,7 +859,6 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
 		XCTAssertTrue(pcrTest.certificateRequested)
 	}
-	 */
 
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
 		let store = MockTestStore()
