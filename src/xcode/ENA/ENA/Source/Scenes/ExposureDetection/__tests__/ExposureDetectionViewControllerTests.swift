@@ -39,7 +39,9 @@ class ExposureDetectionViewControllerTests: CWATestCase {
 				homeState: homeState,
 				appConfigurationProvider: CachedAppConfigurationMock(),
 				onSurveyTap: { },
-				onInactiveButtonTap: { }
+				onInactiveButtonTap: { },
+				onHygieneRulesInfoButtonTap: { },
+				onRiskOfContagionInfoButtonTap: { }
 			),
 			store: store
 		)

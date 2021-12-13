@@ -9,7 +9,7 @@ struct SendRegistrationTokenModel: PaddingResource {
 	init(
 		token: String
 	) {
-		self.tokenString = token
+		self.registrationToken = token
 	}
 
 	// MARK: - Protocol PaddingResource
@@ -19,5 +19,5 @@ struct SendRegistrationTokenModel: PaddingResource {
 	// MARK: - Internal
 
 	// Don't change these names, they are used as keys for a http request.
-	let tokenString: String
+	let registrationToken: String
 }

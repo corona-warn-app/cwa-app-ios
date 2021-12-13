@@ -378,4 +378,20 @@ class QRScannerViewModelTests: XCTestCase {
 		wait(for: [onSuccessExpectation], timeout: .short)
 	}
 
+	func testDCCPersonCountMax() {
+		var appFeature = SAP_Internal_V2_AppFeature()
+		appFeature.label = "dcc-person-count-max"
+		appFeature.value = 17
+
+		var appFeatures = SAP_Internal_V2_AppFeatures()
+		appFeatures.appFeatures = [appFeature]
+
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		appConfig.appFeatures = appFeatures
+
+		let appConfigProvider = CachedAppConfigurationMock(with: appConfig, store: MockTestStore())
+
+		XCTAssertEqual(appConfigProvider.featureProvider.intValue(for: .dccPersonCountMax), 17)
+	}
+
 }

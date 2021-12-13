@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 extension SAP_Internal_Dgc_ValidationServiceAllowlist {
 	var allowlist: TicketValidationAllowList {

@@ -42,6 +42,7 @@ class QRScannerActivityIndicatorView: UIView {
 
 		let hudTextLabel = ENALabel(style: .body)
 		hudTextLabel.translatesAutoresizingMaskIntoConstraints = false
+		hudTextLabel.numberOfLines = 0
 		hudTextLabel.textColor = .enaColor(for: .textPrimary1Contrast)
 		hudTextLabel.text = AppStrings.FileScanner.hudText
 

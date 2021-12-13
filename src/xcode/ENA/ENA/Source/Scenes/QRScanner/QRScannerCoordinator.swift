@@ -100,7 +100,7 @@ class QRScannerCoordinator {
 	
 	private var presenter: QRScannerPresenter!
 	private weak var parentViewController: UIViewController?
-	private weak var qrScannerViewController: UIViewController?
+	private weak var qrScannerViewController: QRScannerViewController?
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
 	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
@@ -109,7 +109,7 @@ class QRScannerCoordinator {
 
 	private func qrScannerViewController(
 		markCertificateAsNew: Bool
-	) -> UIViewController {
+	) -> QRScannerViewController {
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
 			healthCertificateService: healthCertificateService,
@@ -258,7 +258,7 @@ class QRScannerCoordinator {
 			return
 		}
 
-		showRestoredFromBinAlertIfNeeded(for: certificateResult, from: qrScannerViewController) { [weak self] in
+		showCertificateRegistrationDetailAlertIfNeeded(for: certificateResult, from: qrScannerViewController) { [weak self] in
 			guard let self = self else { return }
 
 			self.qrScannerViewController?.dismiss(animated: true) {
@@ -371,7 +371,8 @@ class QRScannerCoordinator {
 		var ticketValidation: TicketValidating = TicketValidation(
 			with: initializationData,
 			restServiceProvider: restServiceProvider,
-			serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessor()
+			serviceIdentityProcessor: TicketValidationServiceIdentityDocumentProcessor(),
+			store: store
 		)
 
 		#if DEBUG
@@ -392,7 +393,7 @@ class QRScannerCoordinator {
 		}
 		#endif
 
-		ticketValidation.initialize { [weak self] result in
+		ticketValidation.initialize(appFeatureProvider: appConfiguration.featureProvider) { [weak self] result in
 			DispatchQueue.main.async {
 				self?.hideActivityIndicator()
 
@@ -400,25 +401,47 @@ class QRScannerCoordinator {
 				case .success:
 					self?.showScannedTicketValidation(ticketValidation)
 				case .failure(let error):
-					self?.showErrorAlert(error: error)
+					self?.showErrorAlert(error: error, serviceProvider: initializationData.serviceProvider)
 				}
 			}
 		}
 	}
 
-	private func showErrorAlert(error: TicketValidationError) {
+	private func showErrorAlert(error: TicketValidationError, serviceProvider: String) {
+		let title: String
+		if case .allowListError(.SP_ALLOWLIST_NO_MATCH) = error {
+			title = AppStrings.TicketValidation.Error.serviceProviderErrorNoMatchTitle
+		} else {
+			title = AppStrings.TicketValidation.Error.title
+		}
+		
 		let alert = UIAlertController(
-			title: AppStrings.TicketValidation.Error.title,
-			message: error.localizedDescription,
+			title: title,
+			message: error.errorDescription(serviceProvider: serviceProvider),
 			preferredStyle: .alert
 		)
 
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.Common.alertActionOk,
-				style: .default
+				style: .default,
+				handler: { [weak self] _ in
+					self?.qrScannerViewController?.activateScanning()
+				}
 			)
 		)
+		
+		if case .versionError = error {
+			alert.addAction(
+				UIAlertAction(
+					title: AppStrings.TicketValidation.Error.updateApp,
+					style: .default,
+					handler: { _ in
+						LinkHelper.open(urlString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
+					}
+				)
+			)
+		}
 
 		DispatchQueue.main.async {
 			self.qrScannerViewController?.present(alert, animated: true)
@@ -465,20 +488,83 @@ class QRScannerCoordinator {
 		}
 	}
 
-	private func showRestoredFromBinAlertIfNeeded(
+	private func showCertificateRegistrationDetailAlertIfNeeded(
 		for certificateResult: CertificateResult,
 		from presentationController: UIViewController,
 		completion: @escaping () -> Void
 	) {
-		guard certificateResult.restoredFromBin else {
+		guard let registrationDetail = certificateResult.registrationDetail else {
 			completion()
 			return
 		}
 
+		switch registrationDetail {
+		case .restoredFromBin:
+			showRestoredFromBinAlert(
+				from: presentationController,
+				completion: completion
+			)
+		case .personWarnThresholdReached:
+			showPersonThresholdReachedAlert(
+				from: presentationController,
+				completion: completion
+			)
+		}
+	}
+
+	private func showRestoredFromBinAlert(
+		from presentationController: UIViewController,
+		completion: @escaping () -> Void
+	) {
 		let alert = UIAlertController(
 			title: AppStrings.UniversalQRScanner.certificateRestoredFromBinAlertTitle,
 			message: AppStrings.UniversalQRScanner.certificateRestoredFromBinAlertMessage,
 			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default,
+				handler: { _ in
+					completion()
+				}
+			)
+		)
+
+		presentationController.present(alert, animated: true)
+	}
+
+	private func showPersonThresholdReachedAlert(
+		from presentationController: UIViewController,
+		completion: @escaping () -> Void
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.warningTitle,
+			message: String(
+				format: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.warningMessage,
+				appConfiguration.featureProvider.intValue(for: .dccPersonCountMax)
+			),
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.covPassCheckButton,
+				style: .default,
+				handler: { _ in
+					LinkHelper.open(urlString: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.covPassCheckLink)
+					completion()
+				}
+			)
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.faqButton,
+				style: .default,
+				handler: { _ in
+					LinkHelper.open(urlString: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.faqLink)
+					completion()
+				}
+			)
 		)
 		alert.addAction(
 			UIAlertAction(

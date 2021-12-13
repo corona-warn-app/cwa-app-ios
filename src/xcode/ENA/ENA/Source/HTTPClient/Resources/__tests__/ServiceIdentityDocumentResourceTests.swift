@@ -148,17 +148,17 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynmaicPinningNoJwkFound_THEN_VS_ID_CERT_PIN_NO_JWK_FOR_KID() throws {
+	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynmaicPinningNoHostMatchFound_THEN_VS_ID_CERT_PIN_HOST_MISMATCH() throws {
 
 		let trustErrorStub = EvaluateTrustErrorStub(
-			error: TrustEvaluationError.CERT_PIN_NO_JWK_FOR_KID
+			error: TrustEvaluationError.CERT_PIN_HOST_MISMATCH
 		)
 		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
 		let stack = MockNetworkStack(
 			sessionDelegate: sessionDelegate,
 			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
-		
+
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
@@ -170,14 +170,14 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			case .success:
 				XCTFail("Failure expected.")
 			case .failure(let error):
-				guard case .receivedResourceError(.VS_ID_CERT_PIN_NO_JWK_FOR_KID) = error else {
-					XCTFail("CERT_PIN_NO_JWK_FOR_KID error expected. Instead error received: \(error)")
+				guard case .receivedResourceError(.VS_ID_CERT_PIN_HOST_MISMATCH) = error else {
+					XCTFail("VS_ID_CERT_PIN_HOST_MISMATCH error expected. Instead error received: \(error)")
 					return
 				}
 			}
 			expectation.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: .short)
 	}
 	

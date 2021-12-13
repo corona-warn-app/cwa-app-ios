@@ -93,15 +93,21 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Weitere Informationen zu Ihren Risiko-Begegnungen finden Sie in Ihrem Kontakt-Tagebuch.";
 
+"ExposureDetection_Contact_Journal_Text_P2" = "Sie haben ein erhöhtes Risiko, sich angesteckt zu haben. Falls Sie infiziert sind, können Sie Ihrerseits andere Personen anstecken, auch wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben.";
+
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
-"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig, auch, wenn Sie geimpft oder genesen sind, und auch, wenn Sie keine Symptome haben:";
+
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
+
+"ExposureDetection_Guide_Hygiene" = "Bitte achten Sie jetzt besonders auf die üblichen Hygieneregeln.";
 
 "ExposureDetection_Guide_Vaccination" = "Lassen Sie sich gegen SARS-CoV-2 impfen, falls Sie noch nicht geimpft sind.";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
-"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
+"ExposureDetection_Guide_Mask" = "Tragen Sie eine Maske bei Begegnungen mit anderen Personen.";
 
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
@@ -109,25 +115,22 @@
 
 "ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 
-"ExposureDetection_Guide_Symptoms" = "Achten Sie auf COVID-19-typische Symptome. Symptome können in seltenen Fällen auch bei geimpften Personen auftreten. Sobald Symptome auftreten, lassen Sie sich testen.";
+"ExposureDetection_Guide_Symptoms" = "Achten Sie auf Symptome. Symptome können auch bei geimpften und bei genesenen Personen auftreten. Falls Sie sich krank fühlen oder Symptome auftreten, wenden Sie sich bitte an Ihre Hausarztpraxis.";
 
-"ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
+"ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause und vermeiden Sie Begegnungen außerhalb Ihres Haushalts.";
 
-"ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Quarantäne-Maßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
+"ExposureDetection_Guide_Hotline" = "Bei sonstigen Fragen wenden Sie sich bitte an den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117.";
 
-"ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis.";
 
-"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117";
+"ExposureDetection_Guide_Title" = "Lassen Sie sich testen, auch wenn Sie keine Symptome haben. Bei einer Warnung über ein erhöhtes Risiko (\"Rote Kachel\") haben Sie Anspruch auf einen kostenlosen Test. Dies muss nicht notwendigerweise ein PCR-Test sein.
+";
 
-"ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
+"ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier  oder wenden Sie sich an Ihre Hausarztpraxis oder Apotheke.";
+"ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, lassen Sie sich nach Rücksprache mit Ihrer Hausarztpraxis oder dem kassenärztlichen Bereitschaftsdienst testen. Besprechen Sie ebenfalls die SARS-CoV-2-Impfung nach der Testung mit Ihrer Hausarztpraxis.";
-
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Falls Sie sich testen lassen, finden Sie weitere Informationen in der %@.";
-
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "FAQ zum Testablauf";
+"ExposureDetection_Guide_Point2" = "Weitere Informationen in der FAQ zum Testablauf.";
+"ExposureDetection_Guide_Point2_LinkText" = "FAQ zum Testablauf";
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
@@ -180,6 +183,44 @@
 "ExposureDetection_Survey_Card_Body" = "Helfen Sie uns, die App zu verbessern, indem Sie einige einfache Fragen beantworten.";
 
 "ExposureDetection_Survey_Card_Button" = "Zur Befragung";
+
+"ExposureDetection_Info_HygieneRules_Title" = "Hygieneregeln";
+
+"ExposureDetection_Info_HygieneRules_Point1" = "Tragen Sie bei Begegnungen mit anderen Personen eine Maske.";
+
+"ExposureDetection_Info_HygieneRules_Point2" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
+
+"ExposureDetection_Info_HygieneRules_Point3" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
+
+"ExposureDetection_Info_HygieneRules_Point4" = "Waschen Sie Ihre Hände regelmäßig mit Seife für mindestens 20 Sekunden.";
+
+"ExposureDetection_Info_HygieneRules_Point5" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
+
+"ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Mehrere Personen, die Abstand halten und einen Mundschutz tragen.";
+
+"ExposureDetection_Info_Contagion_Title" = "Ansteckungsrisiko minimieren";
+
+"ExposureDetection_Info_Contagion_Image_Title" = "Falls Sie sich unerkannt angesteckt haben, verringern Sie so das Risiko, andere zu infizieren:";
+
+"ExposureDetection_Info_Contagion_TitleImage_Description" = "Eine Person sitzt auf dem Sofa und liest ein Buch. Eine andere Person schaut auf ihr Smartphone.";
+
+"ExposureDetection_Info_Contagion_Point1" = "Treffen und Veranstaltungen: Verzichten Sie auf Besuche und Aktivitäten, bei denen Sie mit anderen Menschen zusammenkommen (Clubs, Bars, Restaurants, Kino, Theater, Sportveranstaltungen).";
+
+"ExposureDetection_Info_Contagion_Point2" = "Home Office: Arbeiten Sie von zu Hause, wenn es für Sie möglich ist.";
+
+"ExposureDetection_Info_Contagion_Point3" = "Einkaufen: Lassen Sie sich die Lebensmittel liefern oder bitten Sie jemanden, die Einkäufe für Sie zu erledigen.";
+
+"ExposureDetection_Info_Contagion_Point4" = "Öffentliche Verkehrsmittel: Meiden Sie diese so gut es geht, vor allem zu Stoßzeiten.";
+
+"ExposureDetection_Info_Contagion_Point5" = "Reisen: Verzichten Sie auf Flug- und Zugreisen.";
+
+"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt.";
+
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Fragen zu Quarantäne-Maßnahmen";
+
+"ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
+
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ zur freiwilligen Selbstquarantäne";
 
 /* Survey Errors */
 
@@ -720,13 +761,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre Hausarztpraxis.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Sie haben trotzdem akute gesundheitliche Beschwerden?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Bleiben Sie bis zu Ihrer Genesung möglichst zu Hause. Verringern Sie Ihr Risiko, sich zusätzlich zu einer anderen Infektion mit dem Coronavirus zu infizieren.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Gehen Sie nicht krank zur Arbeit, um die Ansteckung anderer Personen zu vermeiden.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Wenn Sie sich sehr krank fühlen oder Ihre Beschwerden zunehmen, wenden Sie sich bitte an Ihre Hausarztpraxis. Diese kann Sie auch über die Notwendigkeit eines weiteren SARS-CoV-2-Tests beraten.";
 
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
@@ -893,7 +934,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich diesbezüglich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
@@ -1597,11 +1638,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.15 */
+/* Version 2.16 */
 
-"NewVersionFeature_215_ticketValidation_title" = "Zertifikatprüfung bei Buchungen";
+"NewVersionFeature_216_2g_title" = "Status-Nachweis 2G+";
 
-"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Das Ergebnis der Zertifikatsprüfung wird vom Prüfpartner an das Buchungssystem übertragen.";
+"NewVersionFeature_216_2g_description" = "Wenn Sie ein gültiges Impf- oder Genesenenzertifikat haben und ein Testzertifikat in der App hinzufügen, so werden diese in der Zertifikatsübersicht in einer kombinierten Anzeige dargestellt. Sie können zwischen dem QR-Code des Impf-/Genesenenzertifikats und dem des Testzertifikats mit Hilfe eines Schalters wechseln. Beide QR-Codes müssen von der CovPassCheck-App geprüft werden, wenn ein 2G+-Nachweis erforderlich ist.";
+
+"NewVersionFeature_216_negativeTestNotice_title" = "Hinweise bei negativem Testergebnis";
+
+"NewVersionFeature_216_negativeTestNotice_description" = "Im Falle eines negativen Testergebnis erhalten Sie jetzt weitere Handlungsempfehlungen für den Fall, daß Sie trotzdem akute gesundheitliche Beschwerden haben.";
+
+"NewVersionFeature_216_highRiskNotification_title" = "Nachricht bei erhöhtem Risiko";
+
+"NewVersionFeature_216_highRiskNotification_description" = "Sie erhalten trotz geöffneter App eine Benachrichtigung, wenn ein erhöhtes Infektionsrisikio für Sie ermittelt wird. Damit soll vermieden werden, daß Sie die Risiko-Warnung auf der Status-Registerkarte übersehen, falls Sie sich gerade auf einer anderen Registerkarte befinden. Zusätzlich wird auf der Status-Registerkarte ein roter Punkt erscheinen, solange Sie diese noch nicht angeschaut haben.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2841,7 +2890,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "CovPass_Check_Info_faq" = "FAQ zur Zertifikatsprüfung durch Dritte";
 
-"CovPass_Check_Info_text01" = "Sie selbst können Ihre Zertifikate in der Corona-Warn-App auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
+"CovPass_Check_Info_text01" = "Sie selbst können Ihre Zertifikate in der Corona-Warn-App vor einer Reise auf Gültigkeit prüfen und benötigen dazu nicht die CovPassCheck-App.";
 
 "CovPass_Check_Info_text02" = "Für Dritte reicht eine Sichtprüfung der Zertifikate nicht aus. Sie müssen in Deutschland die CovPassCheck-App nutzen.";
 
@@ -2899,7 +2948,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Ein QR-Code mit dem aktuellen Zertifikat";
 
-"HealthCertifiedPerson_validationButtonTitle" = "Gültigkeit prüfen";
+"HealthCertifiedPerson_validationButtonTitle" = "Reisegültigkeit prüfen";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Impfzertifikat";
 
@@ -2953,7 +3002,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_identifier" = "Zertifikationsnummer";
 
-"HealthCertificate_Details_validationButtonTitle" = "Gültigkeit prüfen";
+"HealthCertificate_Details_validationButtonTitle" = "Reisegültigkeit prüfen";
 
 "HealthCertificate_Details_deleteButtonTitle" = "Impfzertifikat löschen";
 
@@ -3206,7 +3255,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
-"UniversalQRScanner_InstructionDescription" = "Tests, Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
+"UniversalQRScanner_InstructionDescription" = "Tests, Ihre Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 
@@ -3236,6 +3285,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Der QR-Code wurde bereits auf Ihrem Smartphone registriert. Der Test wird aus dem Papierkorb wiederhergestellt.";
 
+"UniversalQRScanner_MaxPersonAmountAlert_warningTitle" = "Warnung";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Fehler";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Die Corona-Warn-App darf nicht zur Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Danach können Sie keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Die Corona-Warn-App darf nicht zur Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Sie können keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zum Impfzertifikat finden Sie in den FAQ.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Download CovPassCheck-App";
+
+"UniversalQRScanner_MaxPersonAmountAlert_faqButton" = "FAQ zur Zertifikatsprüfung ";
+
 "UniversalQRScanner_Info_title" = "Informationen zu QR-Codes";
 
 "UniversalQRScanner_Info_bulletPoint1" = "Ihre Testzertifikate, Impfzertifikate, Genesenenzertifikate, sowie Zertifikate Ihrer Familienmitglieder";
@@ -3244,7 +3305,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_Info_bulletPoint3" = "PCR-Tests und Schnelltests";
 
-"UniversalQRScanner_Info_bulletPoint4" = "Nachweis von Zertifikaten bei Ticketbuchungen";
+"UniversalQRScanner_Info_bulletPoint4" = "Nachweis Ihrer Zertifikate bei Ticketbuchungen";
 
 "UniversalQRScanner_Info_body1" = "Die Daten aus dem jeweiligen QR-Code werden ausgelesen.";
 
@@ -3437,6 +3498,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_Error_tryAgain" = "Es trat ein Fehler bei der Verarbeitung der Daten auf. Bitte versuchen Sie es später erneut.";
 
+"TicketValidation_Error_OutdatedApp" = "In der aktuellen Version ihrer Corona-Warn-App wird die Ticketüberprüfung nicht mehr unterstützt. Bitte aktualisieren Sie Ihre App und versuchen Sie die Ticketüberprüfung erneut.";
+
+"TicketValidation_Error_UpdateAction" = "Zum App Store";
+
+"TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Sicherheitshinweis";
+
+"TicketValidation_Error_serviceProviderErrorNoMatch" = "Der Anbieter ist uns nicht bekannt. Aus Sicherheitsgründen ist die Überprüfung bei Ticketbuchungen nur für bekannte Anbieter möglich. Bitte kontaktieren Sie den Anbieter, der Ihnen diesen QR-Code bereitgestellt hat und versuchen Sie Ihre App auf die neuste Version zu aktualisieren.";
+
 /* - First Consent */
 
 "TicketValidation_FirstConsent_title" = "Ihr Einverständnis";
@@ -3477,7 +3546,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Kein geeignetes Zertifikat vorhanden.";
 
-"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Sie haben kein Zertifikat, das den Anforderungen des Buchungssystems entspricht. Prüfen Sie, ob die Schreibweise Ihres Namens im Buchungssystem mit der in Ihren Zertifikaten übereinstimmt. Falls Sie weitere Zertifikate benötigen, die noch nicht in der App verfügbar sind, fügen Sie diese bitte hinzu und starten Sie die Überprüfung erneut.";
 
 "TicketValidation_CertificateSelection_faqDescription" = "Mehr Informationen finden Sie in den %@.";
 

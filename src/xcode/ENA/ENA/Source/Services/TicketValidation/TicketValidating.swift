@@ -7,8 +7,10 @@ import Foundation
 protocol TicketValidating {
 
 	var initializationData: TicketValidationInitializationData { get }
-
+	var allowList: TicketValidationAllowList { get }
+	
 	func initialize(
+		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	)
 

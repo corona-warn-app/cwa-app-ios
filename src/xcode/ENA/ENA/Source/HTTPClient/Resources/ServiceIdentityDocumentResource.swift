@@ -9,8 +9,8 @@ enum ServiceIdentityDocumentResourceError: Error {
 	case VS_ID_NO_NETWORK
 	case VS_ID_CLIENT_ERR
 	case VS_ID_SERVER_ERR
-	case VS_ID_CERT_PIN_NO_JWK_FOR_KID
 	case VS_ID_CERT_PIN_MISMATCH
+	case VS_ID_CERT_PIN_HOST_MISMATCH
 }
 
 struct ServiceIdentityDocumentResource: Resource {
@@ -44,8 +44,8 @@ struct ServiceIdentityDocumentResource: Resource {
 			switch trustEvaluationError {
 			case .CERT_PIN_MISMATCH:
 				return .VS_ID_CERT_PIN_MISMATCH
-			case .CERT_PIN_NO_JWK_FOR_KID:
-				return .VS_ID_CERT_PIN_NO_JWK_FOR_KID
+			case .CERT_PIN_HOST_MISMATCH:
+				return .VS_ID_CERT_PIN_HOST_MISMATCH
 			default:
 				return nil
 			}
@@ -55,9 +55,9 @@ struct ServiceIdentityDocumentResource: Resource {
 			return .VS_ID_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case (400...409):
+			case (400...499):
 				return .VS_ID_CLIENT_ERR
-			case (500...509):
+			case (500...599):
 				return .VS_ID_SERVER_ERR
 			default:
 				return nil

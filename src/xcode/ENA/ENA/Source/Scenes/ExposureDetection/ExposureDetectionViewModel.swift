@@ -17,12 +17,17 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		homeState: HomeState,
 		appConfigurationProvider: AppConfigurationProviding,
 		onSurveyTap: @escaping () -> Void,
-		onInactiveButtonTap: @escaping () -> Void
+		onInactiveButtonTap: @escaping () -> Void,
+		onHygieneRulesInfoButtonTap: @escaping () -> Void,
+		onRiskOfContagionInfoButtonTap: @escaping () -> Void
+
 	) {
 		self.homeState = homeState
 		self.appConfigurationProvider = appConfigurationProvider
 		self.onInactiveButtonTap = onInactiveButtonTap
 		self.onSurveyTap = onSurveyTap
+		self.onHygieneRulesInfoButtonTap = onHygieneRulesInfoButtonTap
+		self.onRiskOfContagionInfoButtonTap = onRiskOfContagionInfoButtonTap
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -165,6 +170,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	private let onInactiveButtonTap: () -> Void
 	private let onSurveyTap: () -> Void
+	private let onHygieneRulesInfoButtonTap: () -> Void
+	private let onRiskOfContagionInfoButtonTap: () -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
@@ -435,22 +442,44 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				header: .backgroundSpace(height: 16),
 				cells: [
 					.body(text: AppStrings.ExposureDetection.contactJournalText),
+					.body(text: AppStrings.ExposureDetection.contactJournalTextP2),
 					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
-					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "Icons - Home")),
-					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
-					.guide(image: UIImage(named: "Icons - Hotline"), text: [
-						AppStrings.ExposureDetection.guideHotline1,
-						AppStrings.ExposureDetection.guideHotline2,
-						AppStrings.ExposureDetection.guideHotline3,
-						AppStrings.ExposureDetection.guideHotline4
-					]),
-					.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer")),
-					.guide(text: AppStrings.ExposureDetection.guideVaccinationHighRisk, image: UIImage(named: "Icons - VaccinatedArm")),
 					.guide(
-						attributedString: faqLinkText(),
-						image: UIImage(named: "Icons - Test Tube"),
-						link: URL(string: AppStrings.Links.exposureDetectionFAQ),
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ)
+						text: AppStrings.ExposureDetection.guideHygiene,
+						image: UIImage(named: "Icons - Abstand"),
+						accessoryType: .detailButton,
+						accessoryAction: .execute(block: { [weak self] _, _ in
+							self?.onHygieneRulesInfoButtonTap()
+						}),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene
+					),
+					.guide(
+						text: AppStrings.ExposureDetection.guideHome,
+						image: UIImage(named: "Icons - Home"),
+						accessoryType: .detailButton,
+						accessoryAction: .execute(block: { [weak self] _, _ in
+							self?.onRiskOfContagionInfoButtonTap()
+						}),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.detailsGuideHome
+					),
+					.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer")),
+					.guide(
+						titleText: NSAttributedString(string: AppStrings.ExposureDetection.guideTitle),
+						titleImage: UIImage(named: "Icons - Test Tube"),
+						linkedTexts: [
+							LinkedText(
+								text: AppStrings.ExposureDetection.guidePoint1,
+								linkText: AppStrings.ExposureDetection.guidePoint1LinkText,
+								link: AppStrings.Links.findTestCentersFAQ
+							),
+							LinkedText(
+								text: AppStrings.ExposureDetection.guidePoint2,
+								linkText: AppStrings.ExposureDetection.guidePoint2LinkText,
+								link: AppStrings.Links.exposureDetectionFAQ
+							)
+						]),
+					.guide(text: AppStrings.ExposureDetection.guideVaccinationHighRisk, image: UIImage(named: "Icons - VaccinatedArm")),
+					.guide(text: AppStrings.ExposureDetection.guideHotline, image: UIImage(named: "Icons - Hotline"))
 				]
 			),
 			activeTracingSection(
@@ -469,18 +498,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			sections.insert(surveySection(), at: 3)
 		}
 		return DynamicTableViewModel(sections)
-	}
-
-	private func faqLinkText(tintColor: UIColor = .enaColor(for: .textTint)) -> NSAttributedString {
-		let rawString = String(format: AppStrings.ExposureDetection.guideFAQ, AppStrings.ExposureDetection.guideFAQLinkText)
-		let string = NSMutableAttributedString(string: rawString)
-		let range = string.mutableString.range(of: AppStrings.ExposureDetection.guideFAQLinkText)
-		if range.location != NSNotFound {
-			// Links don't work in UILabels so we fake it here. Link handling in done in view controller on cell tap.
-			string.addAttribute(.foregroundColor, value: tintColor, range: range)
-			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
-		}
-		return string
 	}
 
 	// MARK: Sections
@@ -522,12 +539,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		.section(
 			header: .backgroundSpace(height: 16),
 			cells: [
-				.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+				.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.lowRiskBehaviorSubtitle),
 				.guide(text: AppStrings.ExposureDetection.guideVaccination, image: UIImage(named: "Icons - VaccinatedArm")),
-				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
 				.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "Icons - Mundschutz")),
 				.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
 				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "Icons - Niesen")),
+				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
 				.guide(text: AppStrings.ExposureDetection.guideVentilation, image: UIImage(named: "Icons - Ventilation")),
 				.guide(text: AppStrings.ExposureDetection.guideSymptoms, image: UIImage(named: "Icons - Thermometer"))
 			]

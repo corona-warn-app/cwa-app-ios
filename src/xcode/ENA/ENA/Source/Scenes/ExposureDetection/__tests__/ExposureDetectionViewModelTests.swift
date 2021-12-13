@@ -46,7 +46,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -122,7 +124,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -258,7 +262,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -326,7 +332,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -434,7 +442,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -536,7 +546,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -616,7 +628,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -734,7 +748,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -805,7 +821,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -854,7 +872,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -904,7 +924,9 @@ class ExposureDetectionViewModelTests: CWATestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() },
+			onHygieneRulesInfoButtonTap: { },
+			onRiskOfContagionInfoButtonTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -1005,15 +1027,16 @@ class ExposureDetectionViewModelTests: CWATestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 8)
+		XCTAssertEqual(section.cells.count, 9)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
-		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
-		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[6].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[6].cellReuseIdentifier.rawValue, "longGuideCell")
 		XCTAssertEqual(section.cells[7].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[8].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Tracing section
 		section = dynamicTableViewModel.section(3)
@@ -1049,15 +1072,16 @@ class ExposureDetectionViewModelTests: CWATestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 8)
+		XCTAssertEqual(section.cells.count, 9)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "labelCell")
-		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "headerCell")
-		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
-		XCTAssertEqual(section.cells[6].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[6].cellReuseIdentifier.rawValue, "longGuideCell")
 		XCTAssertEqual(section.cells[7].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[8].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Survey section
 		section = dynamicTableViewModel.section(3)
