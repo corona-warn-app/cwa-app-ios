@@ -76,6 +76,12 @@ extension Service {
 						cached(resource, completion)
 						return
 					}
+					// If we have no cache and still no internet connection, we try to get the default value of the resource.
+					else if let defaultModel = resource.defaultModel {
+						Log.info("Found some default value", log: .client)
+						completion(.success(defaultModel))
+						return
+					}
 					// If we still have nothing we return the transportation error.
 					else {
 						Log.error("No fallback found. Will throw .transportationError", log: .client)
@@ -137,6 +143,12 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		completion(.failure(customError(in: resource, for: .resourceError(.notModified))))
+	}
+	
+	func hasCachedData<R>(
+		_ resource: R
+	) -> Bool where R: Resource {
+		return false
 	}
 	
 	func customHeaders<R>(

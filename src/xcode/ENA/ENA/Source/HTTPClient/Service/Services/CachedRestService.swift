@@ -77,6 +77,12 @@ class CachedRestService: Service {
 		}
 		decodeModel(resource, cachedModel.data, nil, completion)
 	}
+	
+	func hasCachedData<R>(
+		_ resource: R
+	) -> Bool where R: Resource {
+		return cache[resource.locator.hashValue] != nil
+	}
 
 	func customHeaders<R>(
 		_ receiveResource: R,

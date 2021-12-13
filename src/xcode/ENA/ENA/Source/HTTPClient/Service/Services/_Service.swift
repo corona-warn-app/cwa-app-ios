@@ -73,6 +73,16 @@ protocol Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 	
+	
+	/// implement this functions if you want to check if we have something cached for this resource.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - return: True if we have a cached model of this resource, otherwise false.
+	func hasCachedData<R>(
+		_ resource: R
+	) -> Bool where R: Resource
+	
 	/// implement this functions if you want to set special headers.
 	///
 	/// - Parameters:
