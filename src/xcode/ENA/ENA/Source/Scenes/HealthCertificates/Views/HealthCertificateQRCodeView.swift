@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HealthCertificateQRCodeView: UIView {
 
@@ -41,14 +42,26 @@ class HealthCertificateQRCodeView: UIView {
 			stackView.addArrangedSubview(covPassCheckInfoStackView)
 		}
 
-		qrCodeImageView.image = viewModel.qrCodeImage
 		accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
 		covPassCheckInfoStackView.isHidden = viewModel.shouldBlockCertificateCode
 		onCovPassCheckInfoButtonTap = viewModel.onCovPassCheckInfoButtonTap
+
+		subscriptions.removeAll()
+
+		viewModel.$qrCodeImage
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.image, on: qrCodeImageView)
+			.store(in: &subscriptions)
+
+		self.viewModel = viewModel
 	}
 
 	// MARK: - Private
+
+	private var viewModel: HealthCertificateQRCodeViewModel?
+
+	private var subscriptions = Set<AnyCancellable>()
 
 	private let stackView: UIStackView = {
 		let stackView = UIStackView()

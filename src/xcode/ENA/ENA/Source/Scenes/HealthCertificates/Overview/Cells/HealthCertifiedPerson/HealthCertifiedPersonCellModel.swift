@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OrderedCollections
 import OpenCombine
 
 class HealthCertifiedPersonCellModel {
@@ -26,7 +27,8 @@ class HealthCertifiedPersonCellModel {
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: mostRelevantCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
-			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription, covPassCheckInfoPosition: .bottom,
+			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
+			covPassCheckInfoPosition: healthCertifiedPerson.admissionState == .other ? .top : .bottom,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
 		)
 
@@ -66,6 +68,19 @@ class HealthCertifiedPersonCellModel {
 		} else {
 			self.caption = nil
 		}
+
+		isStatusTitleVisible = healthCertifiedPerson.admissionState != .other
+
+		switch healthCertifiedPerson.admissionState {
+		case let .twoGPlusPCR(twoG: twoGCertificate, pcrTest: testCertificate),
+			 let .twoGPlusAntigen(twoG: twoGCertificate, antigenTest: testCertificate):
+			switchableHealthCertificates = [
+				AppStrings.HealthCertificate.Overview.twoGCertificate: twoGCertificate,
+				AppStrings.HealthCertificate.Overview.testCertificate: testCertificate
+			]
+		case .threeGWithPCR, .threeGWithAntigen, .twoG, .other:
+			switchableHealthCertificates = [:]
+		}
 	}
 
 	init?(
@@ -89,6 +104,9 @@ class HealthCertifiedPersonCellModel {
 			image: UIImage(named: "Icon_ExpiredInvalid"),
 			description: "\(decodingFailedHealthCertificate.error)"
 		)
+
+		isStatusTitleVisible = false
+		switchableHealthCertificates = [:]
 	}
 
 	// MARK: - Internal
@@ -106,5 +124,13 @@ class HealthCertifiedPersonCellModel {
 	let qrCodeViewModel: HealthCertificateQRCodeViewModel
 
 	let caption: Caption?
+
+	let isStatusTitleVisible: Bool
+
+	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
+
+	func showHealthCertificate(at index: Int) {
+		qrCodeViewModel.updateImage(with: switchableHealthCertificates.elements[index].value)
+	}
 
 }

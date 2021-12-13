@@ -2013,6 +2013,9 @@ enum AppStrings {
 			static let emptyImageDescription = NSLocalizedString("HealthCertificate_Overview_EmptyImageDescription", comment: "")
 			static let covidTitle = NSLocalizedString("HealthCertificate_Overview_Covid_Title", comment: "")
 			static let covidDescription = NSLocalizedString("HealthCertificate_Overview_Covid_Certificate_Description", comment: "")
+			static let admissionStateTitle = NSLocalizedString("HealthCertificate_Overview_AdmissionState_Title", comment: "")
+			static let twoGCertificate = NSLocalizedString("HealthCertificate_Overview_TwoGCertificate", comment: "")
+			static let testCertificate = NSLocalizedString("HealthCertificate_Overview_TestCertificate", comment: "")
 			static let news = NSLocalizedString("HealthCertificate_Overview_News", comment: "")
 
 			enum TestCertificateRequest {

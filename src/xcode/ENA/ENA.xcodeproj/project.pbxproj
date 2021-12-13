@@ -8072,7 +8072,6 @@
 				BA5B7FC126458EF400502087 /* HealthCertificateSimpleTextCell.swift */,
 				BA5B7FC226458EF400502087 /* HealthCertificateSimpleTextCellViewModel.swift */,
 				BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */,
-				0160CC2826B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -8406,7 +8405,6 @@
 			children = (
 				BA8848BF264AC18D00EEA542 /* HealthCertificateSimpleTextCellViewModelTests.swift */,
 				BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */,
-				0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8687,6 +8685,7 @@
 			children = (
 				BAD3199B26FA20EC006E82E7 /* __tests__ */,
 				0160CC2926B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift */,
+				0160CC2826B7EBD500AFB7DC /* HealthCertificateQRCodeViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -8695,6 +8694,7 @@
 			isa = PBXGroup;
 			children = (
 				BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */,
+				0160CC2C26B990DF00AFB7DC /* HealthCertificateQRCodeViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";

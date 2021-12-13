@@ -16,11 +16,12 @@ struct HealthCertificateQRCodeViewModel {
 		covPassCheckInfoPosition: CovPassCheckInfoPosition,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
-		self.base45 = healthCertificate.base45
 		self.shouldBlockCertificateCode = !healthCertificate.isUsable && !(showRealQRCodeIfValidityStateBlocked && healthCertificate.validityState == .blocked)
 		self.accessibilityLabel = accessibilityLabel
 		self.covPassCheckInfoPosition = covPassCheckInfoPosition
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
+
+		updateImage(with: healthCertificate)
 	}
 
 	init(
@@ -30,11 +31,12 @@ struct HealthCertificateQRCodeViewModel {
 		covPassCheckInfoPosition: CovPassCheckInfoPosition,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
-		self.base45 = base45
 		self.shouldBlockCertificateCode = shouldBlockCertificateCode
 		self.accessibilityLabel = accessibilityLabel
 		self.covPassCheckInfoPosition = covPassCheckInfoPosition
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
+
+		updateImage(with: base45)
 	}
 
 	// MARK: - Internal
@@ -49,7 +51,15 @@ struct HealthCertificateQRCodeViewModel {
 	let covPassCheckInfoPosition: CovPassCheckInfoPosition
 	let onCovPassCheckInfoButtonTap: () -> Void
 
-	var qrCodeImage: UIImage? {
+	@DidSetPublished var qrCodeImage: UIImage?
+
+	func updateImage(with healthCertificate: HealthCertificate) {
+		updateImage(with: healthCertificate.base45)
+	}
+
+	// MARK: - Private
+
+	private func updateImage(with base45: Base45) {
 		var qrCodeString: String
 		if shouldBlockCertificateCode {
 			qrCodeString = AppStrings.Links.invalidSignatureFAQ
@@ -59,7 +69,7 @@ struct HealthCertificateQRCodeViewModel {
 
 		let qrCodeSize = UIScreen.main.bounds.width - 100
 
-		return UIImage.qrCode(
+		qrCodeImage = UIImage.qrCode(
 			with: qrCodeString,
 			encoding: .utf8,
 			size: CGSize(width: qrCodeSize, height: qrCodeSize),
@@ -67,9 +77,5 @@ struct HealthCertificateQRCodeViewModel {
 			qrCodeErrorCorrectionLevel: .medium
 		)
 	}
-
-	// MARK: - Private
-
-	private let base45: Base45
 
 }

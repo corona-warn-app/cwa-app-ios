@@ -44,6 +44,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	// MARK: - Internal
 
 	func configure(with cellModel: HealthCertifiedPersonCellModel) {
+		self.cellModel = cellModel
+
 		gradientView.type = cellModel.backgroundGradientType
 
 		titleLabel.text = cellModel.title
@@ -68,6 +70,23 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		case .none:
 			captionStackView.isHidden = true
 			captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
+		}
+
+		admissionStateStackView.isHidden = !cellModel.isStatusTitleVisible
+
+		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
+
+		segmentedControl.removeAllSegments()
+		for certificate in cellModel.switchableHealthCertificates.enumerated() {
+			segmentedControl.insertSegment(
+				withTitle: certificate.element.key,
+				at: certificate.offset,
+				animated: false
+			)
+		}
+
+		if segmentedControl.numberOfSegments > 0 {
+			segmentedControl.selectedSegmentIndex = 0
 		}
 
 		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
@@ -115,7 +134,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		bottomView.clipsToBounds = false
 		bottomView.layer.borderWidth = 1.0
 		bottomView.layer.cornerRadius = 14.0
-		bottomView.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+		bottomView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 		if #available(iOS 13.0, *) {
 			bottomView.layer.cornerCurve = .continuous
 		}
@@ -123,7 +142,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return bottomView
 	}()
 
-	private lazy var stackView: UIStackView = {
+	private lazy var titleStackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [titleLabel, nameLabel])
 		stackView.axis = .vertical
 		stackView.spacing = 8.0
@@ -143,7 +162,65 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return qrCodeContainerView
 	}()
 
+	private lazy var qrCodeContainerStackView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [admissionStateStackView, qrCodeView, segmentedControl])
+		stackView.axis = .vertical
+		stackView.spacing = 8.0
+
+		return stackView
+	}()
+
+	private lazy var admissionStateStackView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [admissionStateTitleLabel, admissionStateView])
+		stackView.axis = .horizontal
+		stackView.spacing = 8.0
+		stackView.alignment = .firstBaseline
+
+		return stackView
+	}()
+
+	private let admissionStateTitleLabel: ENALabel = {
+		let admissionStateTitleLabel = ENALabel(style: .headline)
+		admissionStateTitleLabel.numberOfLines = 0
+		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
+		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
+
+		return admissionStateTitleLabel
+	}()
+
+	private let admissionStateView = UIView()
+
 	private let qrCodeView = HealthCertificateQRCodeView()
+
+	private let segmentedControl: UISegmentedControl = {
+		let segmentedControl = UISegmentedControl()
+
+		// required to make segmented control look a bit like iOS 13
+		if #available(iOS 13, *) {
+		} else {
+			segmentedControl.tintColor = .enaColor(for: .cellBackground)
+			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
+			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
+
+			segmentedControl.setBackgroundImage(unselectedBackgroundImage, for: .normal, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .selected, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .highlighted, barMetrics: .default)
+
+			segmentedControl.tintAdjustmentMode = .normal
+
+			segmentedControl.layer.borderWidth = 2.5
+			segmentedControl.layer.masksToBounds = true
+			segmentedControl.layer.cornerRadius = 5.0
+			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
+		}
+
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+
+		segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+
+		return segmentedControl
+	}()
 	
 	private let accessoryIconView: UIImageView = {
 		return UIImageView(image: UIImage(imageLiteralResourceName: "Icons_Chevron_plain_white"))
@@ -195,6 +272,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return captionLabel
 	}()
 
+	private var cellModel: HealthCertifiedPersonCellModel?
+
 	private func setupAccessibility(validityStateTitleIsVisible: Bool) {
 		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView]
 
@@ -223,14 +302,14 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(bottomView)
 
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		gradientView.addSubview(stackView)
+		titleStackView.translatesAutoresizingMaskIntoConstraints = false
+		gradientView.addSubview(titleStackView)
 
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(qrCodeContainerView)
 
-		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeContainerView.addSubview(qrCodeView)
+		qrCodeContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeContainerView.addSubview(qrCodeContainerStackView)
 
 		captionStackView.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.addSubview(captionStackView)
@@ -260,22 +339,24 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				// placement is based on new figma design
 				accessoryIconView.widthAnchor.constraint(equalToConstant: 12.0),
 				accessoryIconView.heightAnchor.constraint(equalToConstant: 21.0),
-				accessoryIconView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 35.0),
+				accessoryIconView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				accessoryIconView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -18.0),
 				
-				stackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
-				stackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
-				stackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
+				titleStackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
+				titleStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
+				titleStackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
 
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
-				qrCodeContainerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20.0),
+				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
 				qrCodeContainerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -24.0),
 
-				qrCodeView.leadingAnchor.constraint(equalTo: qrCodeContainerView.leadingAnchor, constant: 16.0),
-				qrCodeView.topAnchor.constraint(equalTo: qrCodeContainerView.topAnchor, constant: 16.0),
-				qrCodeView.trailingAnchor.constraint(equalTo: qrCodeContainerView.trailingAnchor, constant: -16.0),
-				qrCodeView.bottomAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: -16.0),
+				qrCodeContainerStackView.leadingAnchor.constraint(equalTo: qrCodeContainerView.leadingAnchor, constant: 16.0),
+				qrCodeContainerStackView.topAnchor.constraint(equalTo: qrCodeContainerView.topAnchor, constant: 16.0),
+				qrCodeContainerStackView.trailingAnchor.constraint(equalTo: qrCodeContainerView.trailingAnchor, constant: -16.0),
+				qrCodeContainerStackView.bottomAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: -16.0),
+
+				segmentedControl.heightAnchor.constraint(equalToConstant: 41),
 
 				captionStackView.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 18.0),
 				captionStackView.topAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: 12.0),
@@ -295,6 +376,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private func updateBorderColors() {
 		bottomView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
+	}
+
+	@objc
+	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+		cellModel?.showHealthCertificate(at: sender.selectedSegmentIndex)
 	}
 
 }

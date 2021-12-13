@@ -2743,27 +2743,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_Covid_Title" = "Digitales COVID-Zertifikat der EU";
 
-"VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Status-Nachweis";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G-Zertifikat";
+
+"HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
+
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
-
-/* - Test Certificate Info */
-
-"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
-
-/* - Test Certificate */
-
-"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
