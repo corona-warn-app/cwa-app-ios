@@ -5,15 +5,6 @@
 import Foundation
 import OpenCombine
 
-extension HomeBadgeWrapper {
-
-	static func fake() -> HomeBadgeWrapper {
-		let mockStore = MockTestStore()
-		return  HomeBadgeWrapper(mockStore)
-	}
-
-}
-
 class HomeBadgeWrapper {
 
 	// MARK: - Init

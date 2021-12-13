@@ -1457,6 +1457,7 @@
 		BADD36EE260B4FBA00DD282A /* GradientNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADD36E7260B4FBA00DD282A /* GradientNavigationView.swift */; };
 		BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */; };
 		BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */; };
+		BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */; };
 		BADE38092608D9EC00E07890 /* TraceLocationTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */; };
 		BADE38232608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */; };
 		BADE51EE272B058000CBAA63 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE51ED272B058000CBAA63 /* CachedRestService.swift */; };
@@ -3078,6 +3079,7 @@
 		BADD36E7260B4FBA00DD282A /* GradientNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientNavigationView.swift; sourceTree = "<group>"; };
 		BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModelTests.swift; sourceTree = "<group>"; };
+		BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeBadgeWrapper+Fake.swift"; sourceTree = "<group>"; };
 		BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeTest.swift; sourceTree = "<group>"; };
 		BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeHeaderView.swift; sourceTree = "<group>"; };
 		BADE51ED272B058000CBAA63 /* CachedRestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedRestService.swift; sourceTree = "<group>"; };
@@ -9122,6 +9124,7 @@
 			children = (
 				EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */,
 				BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */,
+				BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10848,6 +10851,7 @@
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
+				BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */,
