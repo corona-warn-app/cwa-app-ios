@@ -200,7 +200,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	}
 
 	// MARK: - HomeBadgeStoring
-	var badgesData: Data = Data()
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] = [:]
 
 }
 

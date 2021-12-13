@@ -536,10 +536,6 @@ extension SecureStore: CoronaTestStoring {
 		set { kvStore["antigenTest"] = newValue }
 	}
 
-	var unseenTestsCount: Int {
-		get { kvStore["unseenTestsCount"] as Int? ?? 0 }
-		set { kvStore["unseenTestsCount"] = newValue }
-	}
 }
 
 extension SecureStore: CoronaTestStoringLegacy {
@@ -615,8 +611,8 @@ extension SecureStore: DSCListCaching {
 }
 
 extension SecureStore: HomeBadgeStoring {
-	var badgesData: Data {
-		get { kvStore["badgesData"] as Data? ?? Data() }
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] {
+		get { kvStore["badgesData"] as [HomeBadgeWrapper.BadgeType: Int?]? ?? [:] }
 		set { kvStore["badgesData"] = newValue }
 	}
 }

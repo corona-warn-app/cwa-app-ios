@@ -71,21 +71,11 @@ class HomeBadgeWrapper {
 	}
 
 	private func save() {
-		let encoder = JSONEncoder()
-		do {
-			store.badgesData = try encoder.encode(badgesCount)
-		} catch {
-			Log.error("Failed to serialize HomeBadgeWrapper data")
-		}
+		store.badgesData = badgesCount
 	}
 
 	private func load() {
-		let decoder = JSONDecoder()
-		do {
-			badgesCount = try decoder.decode([BadgeType: Int?].self, from: store.badgesData)
-			stringValue = processedBadgeCountString
-		} catch {
-			Log.error("Failed to deserialize HomeBadgeWrapper data")
-		}
+		badgesCount = store.badgesData
+		stringValue = processedBadgeCountString
 	}
 }
