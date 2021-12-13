@@ -22,7 +22,7 @@ extension Name {
 	}
 
 	var standardizedName: String {
-		return [ standardizedGivenName, standardizedFamilyName].formatted()
+		return [standardizedGivenName, standardizedFamilyName].formatted()
 	}
 	
 	var groupingStandardizedName: String {
