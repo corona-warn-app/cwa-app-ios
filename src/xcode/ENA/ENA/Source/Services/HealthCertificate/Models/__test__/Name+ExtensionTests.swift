@@ -20,7 +20,7 @@ class Name_ExtensionTests: XCTestCase {
 	
 	func testGIVEN_ValidName_THEN_GroupingStandardizedNameIsTrimmed() {
 		// GIVEN
-		let name = Name(familyName: "Meyer ", givenName: "Thomas Arming ", standardizedFamilyName: "MEYER<", standardizedGivenName: "THOMAS<ARMIN<"
+		let name = Name(familyName: "Meyer ", givenName: "Thomas Armin ", standardizedFamilyName: "MEYER<", standardizedGivenName: "THOMAS<ARMIN<"
 		)
 
 		// THEN
