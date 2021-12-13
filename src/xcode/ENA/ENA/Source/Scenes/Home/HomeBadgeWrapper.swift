@@ -10,10 +10,11 @@ class HomeBadgeWrapper {
 	// MARK: - Init
 
 	init(
-		_ store: HomeBadgeStoring
+		_ store: HomeBadgeStoring,
+		badgesCount: [BadgeType: Int?] = [:]
 	) {
 		self.store = store
-		self.badgesCount = [:]
+		self.badgesCount = badgesCount
 		
 		load()
 	}

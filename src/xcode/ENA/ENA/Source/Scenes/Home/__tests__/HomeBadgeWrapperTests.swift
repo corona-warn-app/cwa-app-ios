@@ -3,23 +3,26 @@
 //
 
 import XCTest
+import OpenCombine
 @testable import ENA
 
 class HomeBadgeWrapperTests: XCTestCase {
-/*
+
 	func testGIVEN_homeBadgesWrapper_WHEN_updateAndReset_THEN_BothTriggerUpdateView() throws {
 		// GIVEN
 		let expectation = expectation(description: "Update or reset called")
-		expectation.expectedFulfillmentCount = 2
+		expectation.expectedFulfillmentCount = 3
 
 		let homeBadgesWrapper = HomeBadgeWrapper.fake()
-		homeBadgesWrapper.updateView = { _ in
-			expectation.fulfill()
-		}
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { _ in
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.update(.unseenTests, value: nil)
 		homeBadgesWrapper.reset(.riskStateIncreased)
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
@@ -28,23 +31,26 @@ class HomeBadgeWrapperTests: XCTestCase {
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_updateTestsUnseen_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Update called")
-		expectation.expectedFulfillmentCount = 1
+		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper([.unseenTests: 5])
-		homeBadgesWrapper.updateView = { newValue in
-			value = newValue
-			expectation.fulfill()
-		}
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 5])
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { newStringValue in
+				value = newStringValue
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.update(.unseenTests, value: 7)
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
 		XCTAssertEqual(value, "7")
 	}
 
+	/*
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_updateRiskStateIncreased_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Update called")

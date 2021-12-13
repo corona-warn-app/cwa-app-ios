@@ -8,7 +8,9 @@ import OpenCombine
 
 extension HomeBadgeWrapper {
 
-	static func fake() -> HomeBadgeWrapper {
+	static func fake(
+		badgesCount: [BadgeType: Int?] = [:]
+	) -> HomeBadgeWrapper {
 		let mockStore = MockTestStore()
 		return  HomeBadgeWrapper(mockStore)
 	}
