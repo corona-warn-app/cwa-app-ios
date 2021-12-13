@@ -12,9 +12,11 @@ protocol Resource {
 
 	var locator: Locator { get }
 	var type: ServiceType { get }
-
 	var sendResource: Send { get }
 	var receiveResource: Receive { get }
+	
+	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
+	var defaultModel: Receive.ReceiveModel? { get }
 
 	func customError(for error: ServiceError<CustomError>) -> CustomError?
 }
@@ -22,6 +24,10 @@ protocol Resource {
 // Custom error handling
 extension Resource {
 
+	var defaultModel: Receive.ReceiveModel? {
+		return nil
+	}
+	
 	func customError(for error: ServiceError<CustomError>) -> CustomError? {
 		return nil
 	}

@@ -69,8 +69,19 @@ extension Service {
 				}
 				
 				if let error = error {
-					completion(.failure(customError(in: resource, for: .transportationError(error))))
-					return
+					Log.info("No network connection (.transportationError)", log: .client)
+					// If we have no internet connection, we have to check first if we have a cached model for this resource.
+					if hasCachedData(resource) {
+						Log.info("Found some cached data", log: .client)
+						cached(resource, completion)
+						return
+					}
+					// If we still have nothing we return the transportation error.
+					else {
+						Log.error("No fallback found. Will throw .transportationError", log: .client)
+						completion(.failure(customError(in: resource, for: .transportationError(error))))
+						return
+					}
 				}
 								
 				guard !resource.locator.isFake else {
