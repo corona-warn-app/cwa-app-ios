@@ -3,6 +3,7 @@
 //
 
 @testable import ENA
+import OpenCombine
 import ExposureNotification
 import HealthCertificateToolkit
 import XCTest
@@ -639,7 +640,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 	}
 
-	/*
 	func testRegisterPCRTestAndGetResult_successWithSubmissionAndCertificateConsentGiven() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
@@ -669,7 +669,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -689,16 +689,17 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
-			badgeWrapper: .fake()
+			badgeWrapper: badgeWrapper
 		)
 
-		let expectedCounts = [0, 1, 0]
+		let expectedCounts = [nil, "1", nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 3
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
-			.sink {
-				receivedCounts.append($0)
+		var receivedCounts = [String?]()
+
+		let countSubscription = badgeWrapper.$stringValue
+			.sink { stringValue in
+				receivedCounts.append(stringValue)
 				countExpectation.fulfill()
 			}
 
@@ -722,7 +723,7 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		service.resetUnseenTestsCount()
+		badgeWrapper.reset(.unseenTests)
 
 		waitForExpectations(timeout: .short)
 
@@ -762,7 +763,6 @@ class CoronaTestServiceTests: CWATestCase {
 			accuracy: 10
 		)
 	}
-	 */
 
 	/*
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithDateOfBirth() {
