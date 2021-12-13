@@ -52,7 +52,7 @@ class CachedRestService: Service {
 		case .success(let model):
 			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
 				  let data = bodyData else {
-				Log.debug("ETag not found - do not write to cache")
+				Log.info("ETag not found - do not write to cache")
 				 completion(.success(model))
 				return
 			}
@@ -62,6 +62,7 @@ class CachedRestService: Service {
 			completion(.success(model))
 
 		case .failure:
+			Log.error("Decoding for receive resource failed.", log: .client)
 			completion(.failure(customError(in: resource, for: .resourceError(.decoding))))
 		}
 	}
@@ -71,7 +72,7 @@ class CachedRestService: Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		guard let cachedModel = cache[resource.locator.hashValue] else {
-			Log.debug("no data found in cache", log: .client)
+			Log.error("No data found in cache", log: .client)
 			completion(.failure(customError(in: resource, for: .resourceError(.missingData))))
 			return
 		}
