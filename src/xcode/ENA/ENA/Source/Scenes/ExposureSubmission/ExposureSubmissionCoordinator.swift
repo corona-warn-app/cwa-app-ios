@@ -1159,7 +1159,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			didTapContinue: { [weak self] in
 				self?.showAntigenTestProfileInput(editMode: false)
 			},
-			dismiss: { [weak self] in self?.dismiss() }
+			dismiss: { [weak self] in
+				self?.store.antigenTestProfileInfoScreenShown = false
+				self?.dismiss()
+			}
 		)
 
 		let footerViewModel = FooterViewModel(
