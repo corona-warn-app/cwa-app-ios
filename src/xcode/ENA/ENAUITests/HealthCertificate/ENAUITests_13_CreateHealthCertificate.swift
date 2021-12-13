@@ -72,7 +72,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		certificateTitle.waitAndTap()
 
-		app.swipeUp(velocity: .slow)
+		app.swipeUp(velocity: .fast)
 
 		let certificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].firstMatch
 		certificateCell.waitAndTap()
@@ -371,7 +371,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		certificateTitle.waitAndTap()
 
-		app.swipeUp(velocity: .slow)
+		app.swipeUp(velocity: .fast)
 
 		let certificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].firstMatch
 		certificateCell.waitAndTap()
