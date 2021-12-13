@@ -20,25 +20,25 @@ class HomeBadgeWrapper {
 
 	// MARK: - Internal
 
-	enum BadgeTyoe: Int, CaseIterable, Codable {
+	enum BadgeType: Int, CaseIterable, Codable {
 		case unseenTests = 0
 		case riskStateIncreased
 	}
 
 	@OpenCombine.Published private(set) var stringValue: String?
 
-	func increase(_ badgeType: BadgeTyoe, by value: Int) {
+	func increase(_ badgeType: BadgeType, by value: Int) {
 		let oldValue = badgesCount[badgeType] ?? 0
 		badgesCount[badgeType] = (oldValue ?? 0) + value
 		saveAndUpdate()
 	}
 
-	func update(_ badgeType: BadgeTyoe, value: Int?) {
+	func update(_ badgeType: BadgeType, value: Int?) {
 		badgesCount[badgeType] = value
 		saveAndUpdate()
 	}
 
-	func reset(_ badgeType: BadgeTyoe) {
+	func reset(_ badgeType: BadgeType) {
 		update(badgeType, value: nil)
 	}
 
@@ -51,7 +51,7 @@ class HomeBadgeWrapper {
 
 	private let store: HomeBadgeStoring
 
-	private var badgesCount: [BadgeTyoe: Int?] = [:]
+	private var badgesCount: [BadgeType: Int?] = [:]
 
 	private func saveAndUpdate() {
 		// serialize change to store and update string value for UI
@@ -76,7 +76,7 @@ class HomeBadgeWrapper {
 	private func load() {
 		let decoder = JSONDecoder()
 		do {
-			badgesCount = try decoder.decode([BadgeTyoe: Int?].self, from: store.badgesData)
+			badgesCount = try decoder.decode([BadgeType: Int?].self, from: store.badgesData)
 			stringValue = processBadgeCountString
 		} catch {
 			Log.error("Failed to deserialize HomeBadgeWrapper data")
