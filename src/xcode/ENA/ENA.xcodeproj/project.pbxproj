@@ -9122,9 +9122,9 @@
 		EBD2D07C25A86144006E4220 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */,
-				BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */,
 				BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */,
+				BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */,
+				EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
