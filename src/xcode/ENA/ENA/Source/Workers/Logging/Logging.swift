@@ -334,7 +334,7 @@ struct FileLogger {
 		} catch {
 			// We must not use our Log here because it would produce a crash (we want to log in case we cannot create a log 🤪)
 			// swiftlint:disable:next no_direct_oslog
-			os_log("%{public}@ %{public}@", log: .default, type: .error, "Error while creating log file handler. Fallback to system logging to log this error.")
+			os_log("%{public}@", log: .default, type: .error, "Error while creating log file handler. Fallback to system logging to log this error.")
 			return nil
 		}
 	}
