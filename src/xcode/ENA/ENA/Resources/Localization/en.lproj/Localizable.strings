@@ -92,7 +92,7 @@
 
 "ExposureDetection_Contact_Journal_Text" = "You will find more information about your exposures in your contact journal.";
 
-"ExposureDetection_Contact_Journal_Text_P2" = "You have an increased risk of infection. If you have been infected, you can infect other people, even if you have been vaccinated or have recovered and even if you don’t have any symptoms.";
+"ExposureDetection_Contact_Journal_Text_P2" = "There is an increased risk that you have been infected. If you have been infected, you can infect other people, even if you have been vaccinated or have recovered and even if you don’t have any symptoms.";
 
 "ExposureDetection_Behavior_Title" = "Guidelines";
 
@@ -126,11 +126,11 @@
 
 "ExposureDetection_Guide_Point1" = "You can find testing possibilities here or contact your family doctor or a pharmacy.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "You will find testing possibilities here:";
+"ExposureDetection_Guide_Point1_LinkText" = "here";
 
 "ExposureDetection_Guide_Point2" = "More information about the testing procedure is available on our FAQ page.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "FAQ on the testing procedure";
+"ExposureDetection_Guide_Point2_LinkText" = "FAQ";
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
@@ -200,7 +200,7 @@
 
 "ExposureDetection_Info_Contagion_Title" = "Minimize Your Risk of Infection";
 
-"ExposureDetection_Info_Contagion_Image_Title" = "If you have been infected, you can reduce the risk of infecting others:";
+"ExposureDetection_Info_Contagion_Image_Title" = "If you have been infected unknowingly, here’s how you can reduce the risk of infecting others:";
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "A person is sitting on a couch, reading a book. Another person is looking at their smartphone.";
 
