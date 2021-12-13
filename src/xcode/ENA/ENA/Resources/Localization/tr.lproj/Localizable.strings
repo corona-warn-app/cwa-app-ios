@@ -92,7 +92,7 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Temas güncenizde maruz kalmalarınız hakkında daha fazla bilgi bulabilirsiniz.";
 
-"ExposureDetection_Contact_Journal_Text_P2" = "Enfeksiyon riskiniz daha yüksek. Enfekte olduysanız aşı olmuş ya da iyileşmiş olsanız bile ve hiçbir belirtiniz olmasa bile başka kişilerin enfekte olmasına neden olabilirsiniz.";
+"ExposureDetection_Contact_Journal_Text_P2" = "Enfekte olmuş olma riskiniz daha yüksek. Enfekte olduysanız aşı olmuş ya da iyileşmiş olsanız bile ve hiçbir belirtiniz olmasa bile başka kişilerin enfekte olmasına neden olabilirsiniz.";
 
 "ExposureDetection_Behavior_Title" = "Talimatlar";
 
@@ -126,11 +126,11 @@
 
 "ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilir ya da aile hekiminize veya bir eczaneye danışabilirsiniz.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "Test olanaklarını burada bulabilirsiniz:";
+"ExposureDetection_Guide_Point1_LinkText" = "burada";
 
 "ExposureDetection_Guide_Point2" = "SSS sayfamızda test prosedürü hakkında daha fazla bilgi bulunmaktadır.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "Test prosedürü hakkında SSS";
+"ExposureDetection_Guide_Point2_LinkText" = "SSS";
 
 "ExposureDetection_Explanation_Title" = "Enfeksiyon Riski";
 
@@ -200,7 +200,7 @@
 
 "ExposureDetection_Info_Contagion_Title" = "Enfeksiyon Riskinizi En Aza İndirin";
 
-"ExposureDetection_Info_Contagion_Image_Title" = "Enfekte olduysanız başkalarını enfekte etme riskini azaltabilirsiniz:";
+"ExposureDetection_Info_Contagion_Image_Title" = "Farkında olmadan enfekte olduysanız başkalarını enfekte etme riskini azaltabilirsiniz:";
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "Koltukta oturan ve kitap okuyan bir kişi. Akıllı telefonuna bakan başka bir kişi.";
 
