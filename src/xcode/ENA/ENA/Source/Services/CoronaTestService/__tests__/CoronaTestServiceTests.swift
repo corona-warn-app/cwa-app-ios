@@ -1510,7 +1510,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		badgeWrapper.reset(.unseenTests)
-		
+
 		waitForExpectations(timeout: .short)
 
 		guard let antigenTest = service.antigenTest else {
@@ -1540,7 +1540,6 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.certificateRequested)
 	}
 
-	/*
 	func testRegisterAntigenTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = mockRiskCalculationResult()
@@ -1571,7 +1570,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1594,11 +1593,11 @@ class CoronaTestServiceTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 		
-		let expectedCounts = [0]
+		let expectedCounts: [String?] = [nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 1
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -1642,7 +1641,6 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertTrue(antigenTest.certificateConsentGiven)
 		XCTAssertTrue(antigenTest.certificateRequested)
 	}
-	 */
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
 		let client = ClientMock()
