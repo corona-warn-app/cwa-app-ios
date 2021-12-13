@@ -66,7 +66,7 @@ class HealthCertificateQRCodeView: UIView {
 	private let stackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .vertical
-		stackView.spacing = 8
+		stackView.spacing = 10
 
 		return stackView
 	}()

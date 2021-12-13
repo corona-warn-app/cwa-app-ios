@@ -165,7 +165,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private lazy var qrCodeContainerStackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [admissionStateStackView, qrCodeView, segmentedControl])
 		stackView.axis = .vertical
-		stackView.spacing = 8.0
+		stackView.spacing = 14.0
 
 		return stackView
 	}()
@@ -197,10 +197,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 		// required to make segmented control look a bit like iOS 13
 		if #available(iOS 13, *) {
+			segmentedControl.backgroundColor = .enaColor(for: .cellBackground)
+			segmentedControl.selectedSegmentTintColor = .enaColor(for: .selectedSegmentTint)
 		} else {
 			segmentedControl.tintColor = .enaColor(for: .cellBackground)
 			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
-			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
+			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .selectedSegmentTint))
 
 			segmentedControl.setBackgroundImage(unselectedBackgroundImage, for: .normal, barMetrics: .default)
 			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .selected, barMetrics: .default)
