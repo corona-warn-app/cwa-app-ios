@@ -44,10 +44,10 @@ final class AdmissionStateCellModel {
 			string: text,
 			attributes: textAttributes
 		)
-		//	TODO Add the correct FAQ link
+
 		attributedString.mark(
 			AppStrings.HealthCertificate.Person.AdmissionState.faqPlaceHolder,
-			with: AppStrings.Links.healthCertificateBoosterFAQ
+			with: AppStrings.Links.healthCertificateAdmissionPolicyFAQ
 		)
 
 		return attributedString

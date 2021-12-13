@@ -53,6 +53,7 @@ enum AppStrings {
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationNoValidDCCFAQ = NSLocalizedString("TicketValidation_NoValidDCC_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationServiceResultFAQ = NSLocalizedString("TicketValidation_ServiceResult_FAQLink", tableName: "Localizable.links", comment: "")
+		static let healthCertificateAdmissionPolicyFAQ = NSLocalizedString("HealthCertificate_AdmissionPolicy_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
