@@ -12,7 +12,7 @@ extension HomeBadgeWrapper {
 		badgesCount: [BadgeType: Int?] = [:]
 	) -> HomeBadgeWrapper {
 		let mockStore = MockTestStore()
-		return  HomeBadgeWrapper(mockStore)
+		return  HomeBadgeWrapper(mockStore, badgesCount: badgesCount)
 	}
 
 }

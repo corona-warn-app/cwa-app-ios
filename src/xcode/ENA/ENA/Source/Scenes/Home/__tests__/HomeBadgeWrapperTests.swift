@@ -50,21 +50,22 @@ class HomeBadgeWrapperTests: XCTestCase {
 		XCTAssertEqual(value, "7")
 	}
 
-	/*
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_updateRiskStateIncreased_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Update called")
-		expectation.expectedFulfillmentCount = 1
+		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper([.unseenTests: 5])
-		homeBadgesWrapper.updateView = { newValue in
-			value = newValue
-			expectation.fulfill()
-		}
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 5])
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { newStringValue in
+				value = newStringValue
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.update(.riskStateIncreased, value: 1)
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
@@ -74,39 +75,42 @@ class HomeBadgeWrapperTests: XCTestCase {
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_updateBoth_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Updates called")
-		expectation.expectedFulfillmentCount = 2
+		expectation.expectedFulfillmentCount = 3
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper([.unseenTests: 5])
-		homeBadgesWrapper.updateView = { newValue in
-			value = newValue
-			expectation.fulfill()
-		}
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 5])
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { newStringValue in
+				value = newStringValue
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.update(.riskStateIncreased, value: 1)
 		homeBadgesWrapper.update(.unseenTests, value: 4)
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
 		XCTAssertEqual(value, "5")
 	}
 
-
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_resetRiskIncreased_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Reset called")
-		expectation.expectedFulfillmentCount = 1
+		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper([.unseenTests: 3, .riskStateIncreased: 1])
-		homeBadgesWrapper.updateView = { newValue in
-			value = newValue
-			expectation.fulfill()
-		}
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateIncreased: 1])
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { newStringValue in
+				value = newStringValue
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.reset(.riskStateIncreased)
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
@@ -116,17 +120,19 @@ class HomeBadgeWrapperTests: XCTestCase {
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_resetUnseenTests_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Reset called")
-		expectation.expectedFulfillmentCount = 1
+		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper([.unseenTests: 3, .riskStateIncreased: 1])
-		homeBadgesWrapper.updateView = { newValue in
-			value = newValue
-			expectation.fulfill()
-		}
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateIncreased: 1])
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { newStringValue in
+				value = newStringValue
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.reset(.unseenTests)
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
@@ -136,21 +142,22 @@ class HomeBadgeWrapperTests: XCTestCase {
 	func testGIVEN_homeBadgesWrapperWithValues_WHEN_resetAll_THEN_CountValueIsCorrect() {
 		// GIVEN
 		let expectation = expectation(description: "Reset all called")
-		expectation.expectedFulfillmentCount = 1
+		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper([.unseenTests: 3, .riskStateIncreased: 1])
-		homeBadgesWrapper.updateView = { newValue in
-			value = newValue
-			expectation.fulfill()
-		}
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateIncreased: 1])
+		let subscription = homeBadgesWrapper.$stringValue
+			.sink { newStringValue in
+				value = newStringValue
+				expectation.fulfill()
+			}
 
 		// WHEN
 		homeBadgesWrapper.resetAll()
+		subscription.cancel()
 
 		// THEN
 		wait(for: [expectation], timeout: .short)
 		XCTAssertNil(value)
 	}
-*/
 }

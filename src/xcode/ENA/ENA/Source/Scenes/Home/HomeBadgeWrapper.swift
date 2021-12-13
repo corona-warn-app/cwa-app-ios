@@ -16,6 +16,11 @@ class HomeBadgeWrapper {
 		self.store = store
 		self.badgesCount = badgesCount
 		
+		// we only load data if not injected
+		guard badgesCount.isEmpty else {
+			self.badgesCount = badgesCount
+			return
+		}
 		load()
 	}
 
