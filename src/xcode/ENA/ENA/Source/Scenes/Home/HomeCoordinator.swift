@@ -493,7 +493,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			return
 		}
 
-		// risk change might update the badge count strint
+		// risk change might update the badge count string
 		state.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] riskState in
