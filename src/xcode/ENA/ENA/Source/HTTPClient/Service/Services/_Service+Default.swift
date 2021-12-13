@@ -28,6 +28,7 @@ extension Service {
 		case let .success(data):
 			urlRequest.httpBody = data
 		case let .failure(error):
+			Log.error("Encoding for send resource data failed.", log: .client)
 			return .failure(error)
 		}
 
@@ -48,6 +49,7 @@ extension Service {
 	) where R: Resource {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
+			Log.error("Creating url request failed.", log: .client)
 			completion(.failure(customError(in: resource, for: .invalidRequestError(resourceError))))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
@@ -57,7 +59,7 @@ extension Service {
 				   let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
 				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
 				   let trustEvaluationError = error as? TrustEvaluationError {
-					
+					Log.error("TrustEvaluation failed.", log: .client)
 					completion(.failure(customError(in: resource, for: .trustEvaluationError(trustEvaluationError))))
 					
 					// Reset the error to not block future requests.
@@ -91,13 +93,13 @@ extension Service {
 				}
 								
 				guard !resource.locator.isFake else {
-					Log.debug("Fake detected no response given", log: .client)
+					Log.info("Fake detected no response given", log: .client)
 					completion(.failure(customError(in: resource, for: .fakeResponse)))
 					return
 				}
 
 				guard let response = response as? HTTPURLResponse else {
-					Log.debug("Error: \(error?.localizedDescription ?? "no reason given")", log: .client)
+					Log.error("Invalid response.", log: .client, error: error)
 					completion(.failure(customError(in: resource, for: .invalidResponseType)))
 					return
 				}
@@ -111,6 +113,7 @@ extension Service {
 					decodeModel(resource, bodyData, response, completion)
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
+						Log.error("This is not an EmptyReceiveResource", log: .client)
 						completion(.failure(customError(in: resource, for: .invalidResponse)))
 						return
 					}
@@ -118,6 +121,7 @@ extension Service {
 				case 304:
 					cached(resource, completion)
 				default:
+					Log.error("Unexpected server error: (\(response.statusCode)", log: .client)
 					completion(.failure(customError(in: resource, for: .unexpectedServerError(response.statusCode))))
 				}
 			}.resume()
@@ -134,6 +138,7 @@ extension Service {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
+			Log.error("Decoding for receive resource failed.", log: .client)
 			completion(.failure(customError(in: resource, for: .resourceError(resourceError))))
 		}
 	}
@@ -142,6 +147,7 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
+		Log.info("No caching allowed for current service.", log: .client)
 		completion(.failure(customError(in: resource, for: .resourceError(.notModified))))
 	}
 	
