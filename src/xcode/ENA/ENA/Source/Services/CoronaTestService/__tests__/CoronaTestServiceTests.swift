@@ -1434,7 +1434,6 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.certificateRequested)
 	}
 
-	/*
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
@@ -1450,7 +1449,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1470,14 +1469,14 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
-			badgeWrapper: .fake()
+			badgeWrapper: badgeWrapper
 		)
 		
-		let expectedCounts = [0, 1, 0]
+		let expectedCounts = [nil, "1", nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 3
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -1510,7 +1509,7 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		service.resetUnseenTestsCount()
+		badgeWrapper.reset(.unseenTests)
 		
 		waitForExpectations(timeout: .short)
 
@@ -1540,7 +1539,6 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.certificateConsentGiven)
 		XCTAssertFalse(antigenTest.certificateRequested)
 	}
-	 */
 
 	/*
 	func testRegisterAntigenTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
