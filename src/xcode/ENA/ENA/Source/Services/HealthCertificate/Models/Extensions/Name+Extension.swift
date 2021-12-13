@@ -7,6 +7,8 @@ import HealthCertificateToolkit
 
 extension Name {
 
+	// MARK: - Internal
+
 	var fullName: String {
 		return [resolvedGivenName, resolvedFamilyName].formatted()
 	}
@@ -37,6 +39,8 @@ extension Name {
 		standardizedFamilyName += "<<"
 		return [standardizedFamilyName, standardizedGivenName].formatted(separator: "")
 	}
+
+	// MARK: - Private
 
 	private var trimmedStandardizedName: String {
 		return [
