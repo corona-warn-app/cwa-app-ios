@@ -26,7 +26,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 		let viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: service,
-			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: []),
+			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
 			didTapValidationButton: { _, _ in },
@@ -36,9 +36,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .header), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .person), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 1)
 
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.header.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.qrCode.rawValue)))
@@ -46,12 +47,13 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.person.rawValue)))
 		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 5)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 6)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(0), .header)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(1), .qrCode)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .vaccinationHint)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .person)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(4), .certificates)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .admissionState)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .vaccinationHint)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(4), .person)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(5), .certificates)
 	}
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_qrCodeCellViewModel_THEN_noFatalError() throws {
