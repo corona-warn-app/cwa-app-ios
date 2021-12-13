@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Hygieneregeln";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Tragen Sie bei Begegnungen mit anderen Personen eine Maske.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Tragen Sie eine Maske bei Begegnungen mit anderen Personen.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
@@ -761,13 +761,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre Hausarztpraxis.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Sie haben trotzdem akute gesundheitliche Beschwerden?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Bleiben Sie bis zu Ihrer Genesung möglichst zu Hause. Verringern Sie Ihr Risiko, sich zusätzlich zu einer anderen Infektion mit dem Coronavirus zu infizieren.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Gehen Sie nicht krank zur Arbeit, um die Ansteckung anderer Personen zu vermeiden.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Wenn Sie sich sehr krank fühlen oder Ihre Beschwerden zunehmen, wenden Sie sich bitte an Ihre Hausarztpraxis. Diese kann Sie auch über die Notwendigkeit eines weiteren SARS-CoV-2-Tests beraten.";
 
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
@@ -934,7 +934,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Sie können den hier angezeigten Befund auch als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwenden.\n\nBitte beachten Sie, dass Sie nur dann einen Nachweis über Ihr Schnelltest-Ergebnis erbringen müssen, wenn dies gesetzlich festgelegt ist. Sie können den Nachweis über die App oder auch auf andere Weise erbringen. Informieren Sie sich hierzu bitte auch über die Kriterien für die Anerkennung von Test-Nachweisen in Ihrem Bundesland.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich diesbezüglich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
@@ -1638,11 +1638,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.15 */
+/* Version 2.16 */
 
-"NewVersionFeature_215_ticketValidation_title" = "Zertifikatprüfung bei Buchungen";
+"NewVersionFeature_216_2g_title" = "Status-Nachweis 2G+";
 
-"NewVersionFeature_215_ticketValidation_description" = "Bereits bei einer Ticketbuchung können Sie den Nachweis erbringen, dass Sie geimpft, genesen oder negativ getestet sind. Dazu scannen Sie einen vom Buchungssystem angezeigten QR-Code und wählen dann in der App das passende Zertifikat aus. Das Ergebnis der Zertifikatsprüfung wird vom Prüfpartner an das Buchungssystem übertragen.";
+"NewVersionFeature_216_2g_description" = "Wenn Sie ein gültiges Impf- oder Genesenenzertifikat haben und ein Testzertifikat in der App hinzufügen, so werden diese in der Zertifikatsübersicht in einer kombinierten Anzeige dargestellt. Sie können zwischen dem QR-Code des Impf-/Genesenenzertifikats und dem des Testzertifikats mit Hilfe eines Schalters wechseln. Beide QR-Codes müssen von der CovPassCheck-App geprüft werden, wenn ein 2G+-Nachweis erforderlich ist.";
+
+"NewVersionFeature_216_negativeTestNotice_title" = "Hinweise bei negativem Testergebnis";
+
+"NewVersionFeature_216_negativeTestNotice_description" = "Im Falle eines negativen Testergebnis erhalten Sie jetzt weitere Handlungsempfehlungen für den Fall, daß Sie trotzdem akute gesundheitliche Beschwerden haben.";
+
+"NewVersionFeature_216_highRiskNotification_title" = "Nachricht bei erhöhtem Risiko";
+
+"NewVersionFeature_216_highRiskNotification_description" = "Sie erhalten trotz geöffneter App eine Benachrichtigung, wenn ein erhöhtes Infektionsrisikio für Sie ermittelt wird. Damit soll vermieden werden, daß Sie die Risiko-Warnung auf der Status-Registerkarte übersehen, falls Sie sich gerade auf einer anderen Registerkarte befinden. Zusätzlich wird auf der Status-Registerkarte ein roter Punkt erscheinen, solange Sie diese noch nicht angeschaut haben.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
