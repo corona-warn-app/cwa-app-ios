@@ -92,7 +92,7 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Więcej informacji na temat narażeń znajdziesz w swoim dzienniku kontaktów.";
 
-"ExposureDetection_Contact_Journal_Text_P2" = "Masz zwiększone ryzyko infekcji. Jeśli zostałeś(-aś) zarażony(-a), możesz zarazić inne osoby, nawet jeśli jesteś zaszczepiony(-a) lub jesteś ozdrowieńcem bądź jeżeli nie masz żadnych objawów.";
+"ExposureDetection_Contact_Journal_Text_P2" = "Istnieje zwiększone ryzyko, że zostałeś zakażony(-a). Jeśli doszło do zakażenia, możesz zarazić inne osoby, nawet jeśli zostałeś(-aś) zaszczepiony(-a) lub jesteś ozdrowieńcem bądź jeśli nie masz żadnych objawów.";
 
 "ExposureDetection_Behavior_Title" = "Wytyczne";
 
@@ -200,7 +200,7 @@
 
 "ExposureDetection_Info_Contagion_Title" = "Zminimalizuj ryzyko zakażenia";
 
-"ExposureDetection_Info_Contagion_Image_Title" = "Jeśli zostałeś zarażony(-a), możesz zmniejszyć ryzyko zarażenia innych:";
+"ExposureDetection_Info_Contagion_Image_Title" = "Jeśli zostałeś zarażony(-a) nieświadomie, możesz w poniższy sposób zmniejszyć ryzyko zarażenia innych:";
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "Osoba siedzi na kanapie i czyta książkę. Inna osoba patrzy na swojego smartfona.";
 
