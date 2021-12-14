@@ -30,8 +30,17 @@ struct AllowListResource: Resource {
 	var defaultModel: SAP_Internal_Dgc_ValidationServiceAllowlist? {
 		return SAP_Internal_Dgc_ValidationServiceAllowlist()
 	}
-
+	
 	var cachingTypes: Set<CachingType> {
-		[.noNetwork, .statusCode(404)]
+		[CachingType.noNetwork]
+		.blubb(statusCodeRange: 400...409)
+		.blubb(statusCodeRange: 500...509)
+//		return CachingType.blubb(first: [.noNetwork], second: 400...409)
+//		[.noNetwork, .statusCode(400)...CachingType.statusCode(409)]
+//		return CachingType.statusCodesWithRange(400...409) + .noNetwork
+//		[.noNetwork, .statusCodesWithRange(400...409)]
+//		var cachingTypes = CachingType.statusCodesWithRange(400...409)
+//		cachingTypes.insert(.noNetwork)
+//		return cachingTypes
 	}
 }

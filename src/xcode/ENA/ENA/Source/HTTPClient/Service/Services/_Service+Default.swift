@@ -159,6 +159,7 @@ extension Service {
 			completion(.failure(.resourceError(ResourceError.missingData)))
 			return
 		}
+
 		// check if a cached resource exists
 		if hasCachedData(resource) {
 			Log.info("Found some cached data", log: .client)
@@ -182,9 +183,9 @@ extension Service {
 				Log.error("custom error wrapped into a .transportationError", log: .client)
 				completion(.failure(customError(in: resource, for: .transportationError(error))))
 
-			case .statusCode(let statusCode):
-				Log.error("Unexpected server error: (\(statusCode)", log: .client)
-				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCode))))
+			case .statusCode(let statusCodes):
+				Log.error("Unexpected server error: (\(statusCodes)", log: .client)
+				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCodes))))
 			}
 		}
 	}
