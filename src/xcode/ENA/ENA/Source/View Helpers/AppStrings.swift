@@ -2116,6 +2116,14 @@ enum AppStrings {
 				static let description2GPlusAntigen = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description2GPlusAntigen", comment: "")
 				static let description3G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description3G", comment: "")
 				static let description3GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description3GPlus", comment: "")
+			
+				enum ShortTitle {
+					static let title2G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title2G", comment: "")
+					static let title2GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus", comment: "")
+					static let title3G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title3G", comment: "")
+					static let title3GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus", comment: "")
+
+				}
 			}
 			enum PreferredPerson {
 				static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")

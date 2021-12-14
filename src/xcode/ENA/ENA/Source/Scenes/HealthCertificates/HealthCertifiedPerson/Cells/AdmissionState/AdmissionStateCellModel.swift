@@ -52,6 +52,10 @@ final class AdmissionStateCellModel {
 
 		return attributedString
 	}
+	
+	var shortTitle: String? {
+		return admissionState.shortTitle
+	}
 
 	// MARK: - Private
 

@@ -2918,6 +2918,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "FAQ";
 
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
 /* Health Certified Person Hint */
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Impfstatus";
