@@ -54,6 +54,7 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 	private let migrator: SerialMigratorProtocol
 }
 
+// swiftlint:disable file_length
 extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func open() { // might throw errors in future versions!
@@ -583,6 +584,26 @@ extension DownloadedPackagesSQLLiteStoreV2 {
 				try fileManager.moveItem(atPath: oldStoreURL.path, toPath: newURL.path)
 			} catch {
 				Log.error("Cannot move file to new location. Error: \(error)", log: .localData, error: error)
+			}
+		}
+		
+		// Remove old temp files
+		let tempFileURLs = [
+			documentDir
+					.appendingPathComponent(fileName)
+					.appendingPathExtension("sqlite3-shm"),
+			documentDir
+					.appendingPathComponent(fileName)
+					.appendingPathExtension("sqlite3-wal")
+		]
+		
+		for tempFileURL in tempFileURLs {
+			if fileManager.fileExists(atPath: tempFileURL.path) {
+				do {
+					try fileManager.removeItem(at: tempFileURL)
+				} catch {
+					Log.error("Cannot remove old sqlite temp files. Error: \(error)", log: .localData, error: error)
+				}
 			}
 		}
 	}

@@ -8,6 +8,7 @@ public enum TrustEvaluationError: Error {
     case CERT_CHAIN_EMTPY
     case CERT_PIN_NO_JWK_FOR_KID
     case CERT_PIN_MISMATCH
+    case CERT_PIN_HOST_MISMATCH
 }
 
 public class TrustEvaluation {
@@ -67,6 +68,36 @@ public class TrustEvaluation {
         } else {
             return .failure(.CERT_PIN_MISMATCH)
         }
+    }
+    
+    public func checkServerCertificateAgainstAllowlist(
+        hostname: String,
+        trust: SecTrust,
+        allowList: [ValidationServiceAllowlistEntry]
+    ) -> Result<Void, TrustEvaluationError> {
+                
+        guard let serverCertificate = SecTrustGetCertificateAtIndex(trust, 0),
+           let leafCertificate = SecCertificateCopyData(serverCertificate) as Data? else {
+            return .failure(.CERT_CHAIN_EMTPY)
+        }
+
+        // Compare fingerprints: if the SHA-256 fingerprints of leafCertificate is not included in requiredFingerprints, the operation shall abort with error code CERT_PIN_MISMATCH.
+        let leafFingerprint = leafCertificate.sha256().base64EncodedString()
+        if !allowList.contains(where: {
+            $0.fingerprint256 == leafFingerprint
+        }) {
+            return .failure(.CERT_PIN_MISMATCH)
+        }
+        
+        let requiredHostnames: [String] = allowList.compactMap({
+            $0.fingerprint256 == leafFingerprint ? $0.hostname : nil
+        })
+        if !requiredHostnames.contains(where: {
+            $0 == hostname
+        }) {
+            return .failure(.CERT_PIN_HOST_MISMATCH)
+        }
+        return .success(())
     }
 
 }

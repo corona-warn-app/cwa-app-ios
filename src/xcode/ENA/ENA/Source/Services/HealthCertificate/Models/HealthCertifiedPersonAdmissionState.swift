@@ -11,4 +11,37 @@ enum HealthCertifiedPersonAdmissionState: Equatable {
 	case threeGWithPCR
 	case threeGWithAntigen
 	case other
+	
+	var subtitle: String? {
+		switch self {
+		case .twoGPlusPCR:
+			return AppStrings.HealthCertificate.Person.AdmissionState.subtitle2GPlusPCR
+		case .twoGPlusAntigen:
+			return AppStrings.HealthCertificate.Person.AdmissionState.subtitle2GPlusAntigen
+		case .twoG:
+			return AppStrings.HealthCertificate.Person.AdmissionState.subtitle2G
+		case .threeGWithPCR:
+			return AppStrings.HealthCertificate.Person.AdmissionState.subtitle3GPlus
+		case .threeGWithAntigen:
+			return AppStrings.HealthCertificate.Person.AdmissionState.subtitle3G
+		case .other:
+			return nil
+		}
+	}
+	var description: String? {
+		switch self {
+		case .twoGPlusPCR:
+			return AppStrings.HealthCertificate.Person.AdmissionState.description2GPlusPCR
+		case .twoGPlusAntigen:
+			return AppStrings.HealthCertificate.Person.AdmissionState.description2GPlusAntigen
+		case .twoG:
+			return AppStrings.HealthCertificate.Person.AdmissionState.description2G
+		case .threeGWithPCR:
+			return AppStrings.HealthCertificate.Person.AdmissionState.description3GPlus
+		case .threeGWithAntigen:
+			return AppStrings.HealthCertificate.Person.AdmissionState.description3G
+		case .other:
+			return nil
+		}
+	}
 }

@@ -32,7 +32,8 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				),
 				recycleBin: recycleBin
 			),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: .fake()
 		)
 
 		let restorationHandler = CoronaTestRestorationHandler(service: service)
@@ -99,7 +100,8 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				),
 				recycleBin: recycleBin
 			),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: .fake()
 		)
 
 		let restorationHandler = CoronaTestRestorationHandler(service: service)
@@ -145,7 +147,8 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				),
 				recycleBin: recycleBin
 			),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: .fake()
 		)
 
 		let restorationHandler = CoronaTestRestorationHandler(service: service)

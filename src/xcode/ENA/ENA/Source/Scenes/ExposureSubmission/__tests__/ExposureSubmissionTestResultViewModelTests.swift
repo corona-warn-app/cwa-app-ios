@@ -50,7 +50,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
 		
@@ -112,7 +113,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
 			
@@ -172,7 +174,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
@@ -227,7 +230,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
@@ -302,7 +306,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
@@ -349,7 +354,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 		
@@ -420,7 +426,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 		
@@ -468,7 +475,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
 			
@@ -517,7 +525,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
 		
@@ -564,7 +573,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 			
@@ -618,7 +628,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			)
 			coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
 			
@@ -674,7 +685,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 						),
 						recycleBin: .fake()
 					),
-					recycleBin: .fake()
+					recycleBin: .fake(),
+					badgeWrapper: .fake()
 				)
 				coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
 				
@@ -729,7 +741,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
 		
@@ -790,7 +803,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
 		
@@ -810,7 +824,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let section = model.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 9)
+		XCTAssertEqual(cells.count, 11)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -818,11 +832,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let secondItem = cells[1]
 		id = secondItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let fourthItem = cells[3]
 		id = fourthItem.cellReuseIdentifier
@@ -830,22 +844,30 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let fifthItem = cells[4]
 		id = fifthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let sixthItem = cells[5]
 		id = sixthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let seventhItem = cells[6]
 		id = seventhItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let eigthItem = cells[7]
 		id = eigthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let ninthItem = cells[8]
 		id = ninthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		
+		let tenthItem = cells[9]
+		id = tenthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		
+		let eventhItem = cells[10]
+		id = eventhItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	
@@ -871,7 +893,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .invalid)
 		
@@ -932,7 +955,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
 		
@@ -997,7 +1021,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
 		

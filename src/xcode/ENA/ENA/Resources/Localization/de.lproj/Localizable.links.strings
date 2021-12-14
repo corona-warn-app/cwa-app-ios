@@ -42,6 +42,8 @@
 
 "HealthCertificate_Booster_FAQLink" = "https://www.coronawarn.app/de/faq/#vac_booster";
 
+"HealthCertificate_AdmissionPolicy_FAQLink" = "https://www.coronawarn.app/de/faq/#admission_policy";
+
 "CovPass_Check_FAQLink" = "https://www.coronawarn.app/de/faq/#eu_dcc_check";
 
 "NotificationSettings_FAQLink" = "https://www.coronawarn.app/de/faq/#notification_settings";
@@ -49,3 +51,13 @@
 "TicketValidation_NoValidDCC_FAQLink" = "https://www.coronawarn.app/de/faq/#val_service_no_valid_dcc";
 
 "TicketValidation_ServiceResult_FAQLink" = "https://www.coronawarn.app/de/faq/#val_service_result";
+
+"Risk_Encounter_Low_FAQ_URL" = "https://www.coronawarn.app/de/faq/#encounter_but_green";
+
+"Risk_Voluntary_Self_Quarantine_FAQ_URL" = "https://www.coronawarn.app/de/faq/#voluntary_self_quarantine";
+
+"Risk_Quarantine_Measures_FAQ_URL" = "https://www.coronawarn.app/de/faq/#quarantine_measures";
+
+"UniversalQRScanner_MaxPersonAmountAlert_FAQLink" = "https://www.coronawarn.app/de/faq/#eu_dcc_check";
+
+"UniversalQRScanner_MaxPersonAmountAlert_CovPassCheckLink" = "https://apps.apple.com/de/app/covpass-check/id1566140314?mt=8";

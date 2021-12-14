@@ -63,6 +63,12 @@ final class ExposureDetectionCoordinator {
 						}
 					)
 					self.navigationController?.pushViewController(vc, animated: true)
+				},
+				onHygieneRulesInfoButtonTap: { [weak self] in
+					self?.showHygieneRulesInfoScreen()
+				},
+				onRiskOfContagionInfoButtonTap: { [weak self] in
+					self?.showRiskOfContagionInfoScreen()
 				}
 			),
 			store: store
@@ -85,6 +91,26 @@ final class ExposureDetectionCoordinator {
 	private let exposureManager: ExposureManager
 	private let otpService: OTPServiceProviding
 	private let surveyURLProvider: SurveyURLProviding
+	
+	private func showHygieneRulesInfoScreen() {
+		let viewController = HygieneRulesInfoViewController(
+			dismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let infoNavigationController = UINavigationController(rootViewController: viewController)
+		navigationController?.present(infoNavigationController, animated: true)
+	}
+	
+	private func showRiskOfContagionInfoScreen() {
+		let viewController = ContagionInfoViewController(
+			dismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let infoNavigationController = UINavigationController(rootViewController: viewController)
+		navigationController?.present(infoNavigationController, animated: true)
+	}
 	
 	private func showSurveyConsent() {
 		setNavigationBarHidden(false)

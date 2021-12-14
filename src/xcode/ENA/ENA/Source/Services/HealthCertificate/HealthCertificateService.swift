@@ -9,7 +9,7 @@ import UserNotifications
 
 // global to access in unit tests
 // version will be used for migration logic
-public let kCurrentHealthCertifiedPersonsVersion = 1
+public let kCurrentHealthCertifiedPersonsVersion = 2
 
 // swiftlint:disable:next type_body_length
 class HealthCertificateService {
@@ -144,13 +144,13 @@ class HealthCertificateService {
 
 		// If the certificate is in the recycle bin, restore it and skip registration process.
 		if let recycleBinItem = recycleBin.item(for: base45), case let .certificate(healthCertificate) = recycleBinItem.item {
-			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
+			let healthCertifiedPerson = registeredHealthCertifiedPerson(for: healthCertificate) ?? HealthCertifiedPerson(healthCertificates: [])
 			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
 			recycleBin.remove(recycleBinItem)
 
 			return .success(
 				CertificateResult(
-					restoredFromBin: true,
+					registrationDetail: .restoredFromBin,
 					person: healthCertifiedPerson,
 					certificate: healthCertificate
 				)
@@ -176,7 +176,22 @@ class HealthCertificateService {
 				return .failure(.certificateHasTooManyEntries)
 			}
 
-			let healthCertifiedPerson = healthCertifiedPerson(for: healthCertificate)
+			var healthCertifiedPerson: HealthCertifiedPerson
+			var personWarnThresholdReached = false
+
+			if let registeredHealthCertifiedPerson = registeredHealthCertifiedPerson(for: healthCertificate) {
+				healthCertifiedPerson = registeredHealthCertifiedPerson
+			} else {
+				if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
+					return .failure(.tooManyPersonsRegistered)
+				}
+
+				if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
+					personWarnThresholdReached = true
+				}
+
+				healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
+			}
 
 			let isDuplicate = healthCertifiedPerson.healthCertificates
 				.contains(where: {
@@ -191,7 +206,7 @@ class HealthCertificateService {
 
 			return .success(
 				CertificateResult(
-					restoredFromBin: false,
+					registrationDetail: personWarnThresholdReached ? .personWarnThresholdReached : nil,
 					person: healthCertifiedPerson,
 					certificate: healthCertificate
 				)
@@ -205,18 +220,18 @@ class HealthCertificateService {
 		}
 	}
 
-	func healthCertifiedPerson(for healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
+	func registeredHealthCertifiedPerson(for healthCertificate: HealthCertificate) -> HealthCertifiedPerson? {
 		healthCertifiedPersons
 			.first(where: {
 				$0.healthCertificates.first?.name.groupingStandardizedName == healthCertificate.name.groupingStandardizedName &&
 				$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
-			}) ?? HealthCertifiedPerson(healthCertificates: [])
+			})
 	}
 
 	func addHealthCertificate(_ healthCertificate: HealthCertificate) {
 		addHealthCertificate(
 			healthCertificate,
-			to: healthCertifiedPerson(for: healthCertificate)
+			to: registeredHealthCertifiedPerson(for: healthCertificate) ?? HealthCertifiedPerson(healthCertificates: [])
 		)
 	}
 

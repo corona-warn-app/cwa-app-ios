@@ -13,12 +13,14 @@ class HomeTableViewModel {
 		state: HomeState,
 		store: Store,
 		coronaTestService: CoronaTestService,
-		onTestResultCellTap: @escaping (CoronaTestType?) -> Void
+		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.state = state
 		self.store = store
 		self.coronaTestService = coronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
+		self.badgeWrapper = badgeWrapper
 
 		coronaTestService.$pcrTest
 			.sink { [weak self] _ in
@@ -162,12 +164,14 @@ class HomeTableViewModel {
 	}
 
 	func resetBadgeCount() {
-		coronaTestService.resetUnseenTestsCount()
+		badgeWrapper.resetAll()
 	}
 
 	// MARK: - Private
 
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
+	private let badgeWrapper: HomeBadgeWrapper
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {

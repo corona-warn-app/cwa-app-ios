@@ -422,6 +422,15 @@ extension SecureStore: AppFeaturesStoring {
 	#endif
 }
 
+extension SecureStore: TicketValidationStoring {
+	#if !RELEASE
+	var skipAllowlistValidation: Bool {
+		get { kvStore["skipAllowlistValidation"] as Bool? ?? false }
+		set { kvStore["skipAllowlistValidation"] = newValue }
+	}
+	#endif
+}
+
 extension SecureStore: AppConfigCaching {
 	var appConfigMetadata: AppConfigMetadata? {
 		get { kvStore["appConfigMetadataV2"] as AppConfigMetadata? ?? nil }
@@ -527,10 +536,6 @@ extension SecureStore: CoronaTestStoring {
 		set { kvStore["antigenTest"] = newValue }
 	}
 
-	var unseenTestsCount: Int {
-		get { kvStore["unseenTestsCount"] as Int? ?? 0 }
-		set { kvStore["unseenTestsCount"] = newValue }
-	}
 }
 
 extension SecureStore: CoronaTestStoringLegacy {
@@ -602,5 +607,12 @@ extension SecureStore: DSCListCaching {
 	var dscList: DSCListMetaData? {
 		get { kvStore["DSCList"] as DSCListMetaData? }
 		set { kvStore["DSCList"] = newValue }
+	}
+}
+
+extension SecureStore: HomeBadgeStoring {
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] {
+		get { kvStore["badgesData"] as [HomeBadgeWrapper.BadgeType: Int?]? ?? [:] }
+		set { kvStore["badgesData"] = newValue }
 	}
 }

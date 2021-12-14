@@ -33,8 +33,8 @@ struct TicketValidationResultTokenResource: Resource {
 			switch trustEvaluationError {
 			case .CERT_PIN_MISMATCH:
 				return .RTR_CERT_PIN_MISMATCH
-			case .CERT_PIN_NO_JWK_FOR_KID:
-				return .RTR_CERT_PIN_NO_JWK_FOR_KID
+			case .CERT_PIN_HOST_MISMATCH:
+				return .RTR_CERT_PIN_HOST_MISMATCH
 			default:
 				return nil
 			}
@@ -44,9 +44,9 @@ struct TicketValidationResultTokenResource: Resource {
 			return .RTR_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case (400...409):
+			case (400...499):
 				return .RTR_CLIENT_ERR
-			case (500...509):
+			case (500...599):
 				return .RTR_SERVER_ERR
 			default:
 				return nil
@@ -63,8 +63,7 @@ enum TicketValidationResultTokenError: LocalizedError {
 	case RTR_CLIENT_ERR
 	case RTR_NO_NETWORK
 	case RTR_SERVER_ERR
-	case RTR_CERT_PIN_NO_JWK_FOR_KID
 	case RTR_CERT_PIN_MISMATCH
 	case RTR_PARSE_ERR
-
+	case RTR_CERT_PIN_HOST_MISMATCH
 }

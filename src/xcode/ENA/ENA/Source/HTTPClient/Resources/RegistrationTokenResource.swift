@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum RegistrationTokenError: Error {
+enum RegistrationTokenError: LocalizedError {
 	case regTokenNotExist
 
 	var errorDescription: String? {
@@ -23,7 +23,7 @@ struct RegistrationTokenResource: Resource {
 		isFake: Bool = false,
 		sendModel: SendRegistrationTokenModel
 	) {
-		self.locator = .tanForExposureSubmit(registrationToken: sendModel.tokenString, isFake: isFake)
+		self.locator = .tanForExposureSubmit(isFake: isFake)
 		self.type = .default
 		self.sendResource = PaddingJSONSendResource<SendRegistrationTokenModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<SubmissionTANModel>()
