@@ -100,7 +100,11 @@ class CachedRestService: Service {
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
-		return !resource.cacheUsages.contains(
+		// lookup if type has a cache usage
+		guard case let .caching(usage) = resource.type else {
+			return true
+		}
+		return !usage.contains(
 			CacheUseCase.statusCode(statusCode)
 		)
 	}

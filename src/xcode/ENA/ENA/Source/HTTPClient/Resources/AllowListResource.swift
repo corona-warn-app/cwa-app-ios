@@ -10,7 +10,10 @@ struct AllowListResource: Resource {
 
 	init() {
 		self.locator = .validationServiceAllowlist()
-		self.type = .caching
+		self.type = .caching(
+			Set<CacheUseCase>([.noNetwork])
+				.statusCode(400...409)
+				.statusCode(500...509))
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>()
 	}
@@ -31,9 +34,4 @@ struct AllowListResource: Resource {
 		return SAP_Internal_Dgc_ValidationServiceAllowlist()
 	}
 	
-	var cacheUsages: Set<CacheUseCase> {
-		Set<CacheUseCase>([.noNetwork])
-			.statusCode(400...409)
-			.statusCode(500...509)
-	}
 }

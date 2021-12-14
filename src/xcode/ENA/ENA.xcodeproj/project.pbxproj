@@ -5352,13 +5352,12 @@
 		5071A88526EB815C00B09B40 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BA35C7702768FBC3008E28C1 /* Types */,
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				5071A88326EB810D00B09B40 /* _Service+Default.swift */,
 				BADE51ED272B058000CBAA63 /* CachedRestService.swift */,
-				BA35C76E2768BEA6008E28C1 /* CacheUseCase.swift */,
 				50842BF1275127940015E63F /* DisabledPinningRestService.swift */,
 				BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */,
-				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				BA64FA8126D79C2300DD4705 /* StandardRestService.swift */,
 				BA7FDD08272C2C49009829AB /* WifiOnlyRestService.swift */,
 			);
@@ -8006,6 +8005,15 @@
 				A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */,
 			);
 			path = ExposureSubmission;
+			sourceTree = "<group>";
+		};
+		BA35C7702768FBC3008E28C1 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				BA35C76E2768BEA6008E28C1 /* CacheUseCase.swift */,
+				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 		BA3A79C22631B7AF00B6D6C0 /* AntigenTestProfileInformation */ = {

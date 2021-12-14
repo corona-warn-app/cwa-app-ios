@@ -167,7 +167,8 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		// check the requested caching behavior of the resource
-		guard resource.cacheUsages.contains(cachingType) else {
+		guard case let .caching(usage) = resource.type,
+			  usage.contains(cachingType) else {
 				  completion(.failure(.resourceError(ResourceError.missingData)))
 				  return
 			  }

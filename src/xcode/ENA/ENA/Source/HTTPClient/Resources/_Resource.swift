@@ -16,7 +16,6 @@ protocol Resource {
 	var receiveResource: Receive { get }
 	
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
-	var cacheUsages: Set<CacheUseCase> { get }
 	var defaultModel: Receive.ReceiveModel? { get }
 
 	func customError(for error: ServiceError<CustomError>) -> CustomError?
@@ -25,10 +24,6 @@ protocol Resource {
 // Custom error handling & caching support
 
 extension Resource {
-
-	var cacheUsages: Set<CacheUseCase> {
-		Set<CacheUseCase>()
-	}
 
 	var defaultModel: Receive.ReceiveModel? {
 		nil

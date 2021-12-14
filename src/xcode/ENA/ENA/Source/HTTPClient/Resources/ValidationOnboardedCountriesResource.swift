@@ -12,7 +12,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 		isFake: Bool = false
 	) {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
-		self.type = .caching
+		self.type = .caching([])
 		self.sendResource = EmptySendResource()
 		self.receiveResource = EmptyReceiveResource()
 	}
