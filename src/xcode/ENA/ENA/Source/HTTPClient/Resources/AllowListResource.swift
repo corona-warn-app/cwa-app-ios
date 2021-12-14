@@ -32,15 +32,8 @@ struct AllowListResource: Resource {
 	}
 	
 	var cachingTypes: Set<CachingType> {
-		[CachingType.noNetwork]
-		.blubb(statusCodeRange: 400...409)
-		.blubb(statusCodeRange: 500...509)
-//		return CachingType.blubb(first: [.noNetwork], second: 400...409)
-//		[.noNetwork, .statusCode(400)...CachingType.statusCode(409)]
-//		return CachingType.statusCodesWithRange(400...409) + .noNetwork
-//		[.noNetwork, .statusCodesWithRange(400...409)]
-//		var cachingTypes = CachingType.statusCodesWithRange(400...409)
-//		cachingTypes.insert(.noNetwork)
-//		return cachingTypes
+		Set<CachingType>([.noNetwork])
+			.statusCode(400...409)
+			.statusCode(500...509)
 	}
 }
