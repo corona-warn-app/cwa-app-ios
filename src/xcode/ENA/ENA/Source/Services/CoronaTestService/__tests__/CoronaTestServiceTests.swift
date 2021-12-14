@@ -3,6 +3,7 @@
 //
 
 @testable import ENA
+import OpenCombine
 import ExposureNotification
 import HealthCertificateToolkit
 import XCTest
@@ -33,7 +34,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		// WHEN
@@ -70,7 +72,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
@@ -125,7 +128,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		let publisherExpectation = expectation(description: "")
@@ -178,7 +182,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		let publisherExpectation = expectation(description: "")
@@ -233,7 +238,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		let publisherExpectation = expectation(description: "")
@@ -286,7 +292,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		let publisherExpectation = expectation(description: "")
@@ -343,7 +350,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		let publisherExpectation = expectation(description: "")
@@ -405,7 +413,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		let publisherExpectation = expectation(description: "")
@@ -469,7 +478,8 @@ class CoronaTestServiceTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			)
 
 			let publisherExpectation = expectation(description: "")
@@ -519,7 +529,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		XCTAssertNil(service.coronaTest(ofType: .pcr))
@@ -575,7 +586,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = nil
 
@@ -657,7 +669,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -676,16 +688,18 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
 		)
 
-		let expectedCounts = [0, 1, 0]
+		let expectedCounts = [nil, "1", nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 3
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
-			.sink {
-				receivedCounts.append($0)
+		var receivedCounts = [String?]()
+
+		let countSubscription = badgeWrapper.$stringValue
+			.sink { stringValue in
+				receivedCounts.append(stringValue)
 				countExpectation.fulfill()
 			}
 
@@ -709,7 +723,7 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		service.resetUnseenTestsCount()
+		badgeWrapper.reset(.unseenTests)
 
 		waitForExpectations(timeout: .short)
 
@@ -779,7 +793,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -798,14 +812,16 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
 		)
 		
-		let expectedCounts = [0]
+		let expectedCounts: [String?] = [nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 1
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
+		var receivedCounts = [String?]()
+
+		let countSubscription = badgeWrapper.$stringValue
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -893,7 +909,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = nil
 
@@ -960,7 +977,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = nil
 
@@ -1026,7 +1044,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = nil
 
@@ -1113,7 +1132,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		Analytics.setupMock(
 			store: store,
@@ -1203,7 +1223,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		
 		service.pcrTest = nil
@@ -1283,7 +1304,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = nil
 
@@ -1358,7 +1380,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1426,7 +1449,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1445,14 +1468,15 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
 		)
 		
-		let expectedCounts = [0, 1, 0]
+		let expectedCounts = [nil, "1", nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 3
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -1485,8 +1509,8 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		service.resetUnseenTestsCount()
-		
+		badgeWrapper.reset(.unseenTests)
+
 		waitForExpectations(timeout: .short)
 
 		guard let antigenTest = service.antigenTest else {
@@ -1546,7 +1570,7 @@ class CoronaTestServiceTests: CWATestCase {
 		}
 
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1565,14 +1589,15 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		
-		let expectedCounts = [0]
+		let expectedCounts: [String?] = [nil]
 		let countExpectation = expectation(description: "Count updated")
 		countExpectation.expectedFulfillmentCount = 1
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenTestsCount
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
 			.sink {
 				receivedCounts.append($0)
 				countExpectation.fulfill()
@@ -1646,7 +1671,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1711,7 +1737,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1792,7 +1819,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 
@@ -1854,7 +1882,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		
@@ -1907,7 +1936,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = nil
 
@@ -1948,7 +1978,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.antigenTest = nil
 
@@ -1989,7 +2020,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: nil)
 
@@ -2038,7 +2070,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.antigenTest = AntigenTest.mock(registrationToken: nil)
 
@@ -2103,7 +2136,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2156,7 +2190,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2196,7 +2231,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2239,7 +2275,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2283,7 +2320,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		let antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2340,7 +2378,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2385,7 +2424,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2431,7 +2471,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2477,7 +2518,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -2521,7 +2563,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
@@ -2560,7 +2603,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2609,7 +2653,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2657,7 +2702,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2708,7 +2754,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2758,7 +2805,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2805,7 +2853,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2858,7 +2907,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -2911,7 +2961,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.pcrTest = PCRTest.mock(
 			registrationToken: "regToken",
@@ -2962,7 +3013,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.pcrTest = PCRTest.mock(
 			registrationToken: "regToken",
@@ -3016,7 +3068,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -3070,7 +3123,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -3123,7 +3177,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -3177,7 +3232,8 @@ class CoronaTestServiceTests: CWATestCase {
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		testService.antigenTest = AntigenTest.mock(
 			registrationToken: "regToken",
@@ -3222,7 +3278,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: recycleBin
 			),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: .fake()
 		)
 
 		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
@@ -3282,7 +3339,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
@@ -3385,7 +3443,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
@@ -3497,7 +3556,8 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
 		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")

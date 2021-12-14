@@ -3,7 +3,6 @@
 //
 
 import BackgroundTasks
-import Foundation
 import UIKit
 import HealthCertificateToolkit
 import OpenCombine
@@ -255,11 +254,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 			guard let self = self else { return }
 			if risk.riskLevelHasChanged {
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.detectExposureTitle,
-					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ActionableNotificationIdentifier.riskDetection.identifier
-				)
 				Log.info("[ENATaskExecutionDelegate] Risk has changed.", log: .riskDetection)
 				completion(true)
 			} else {
