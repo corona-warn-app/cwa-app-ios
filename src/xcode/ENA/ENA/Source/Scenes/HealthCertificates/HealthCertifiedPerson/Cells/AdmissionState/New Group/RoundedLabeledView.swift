@@ -12,12 +12,18 @@ class RoundedLabeledView: UIView {
 		super.layoutSubviews()
 		
 		roundedView.layer.cornerRadius = roundedView.bounds.height / 2
+		
+		isAccessibilityElement = true
+		accessibilityTraits = .button
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 	}
 
 	// MARK: - Internal
 
 	func configure(title: String?) {
 		titleLabel.text = title
+		accessibilityLabel = title
 
 		setupGradient()
 	}
