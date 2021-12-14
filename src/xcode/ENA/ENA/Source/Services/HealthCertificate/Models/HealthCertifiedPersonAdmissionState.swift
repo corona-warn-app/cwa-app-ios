@@ -44,4 +44,19 @@ enum HealthCertifiedPersonAdmissionState: Equatable {
 			return nil
 		}
 	}
+	
+	var shortTitle: String? {
+		switch self {
+		case .twoGPlusPCR, .twoGPlusAntigen:
+			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title2GPlus
+		case .twoG:
+			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title2G
+		case .threeGWithPCR:
+			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title2GPlus
+		case .threeGWithAntigen:
+			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title3G
+		case .other:
+			return nil
+		}
+	}
 }
