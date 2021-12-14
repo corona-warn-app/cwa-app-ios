@@ -17,16 +17,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cia-vs-cGX">
-                    <rect key="frame" x="84.5" y="66" width="40.5" height="26.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="125" height="114"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3G" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pph-YB-54k" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="12" y="6" width="16.5" height="14.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="3G" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pph-YB-54k" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="12" y="6" width="101" height="102"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" name="ENA Text Contrast Color"/>
                             <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
-                            </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemPinkColor"/>
@@ -40,8 +37,10 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstItem="Cia-vs-cGX" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="6cO-Rt-e6D"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Cia-vs-cGX" secondAttribute="trailing" id="BNi-pW-sz3"/>
+                <constraint firstAttribute="trailing" secondItem="Cia-vs-cGX" secondAttribute="trailing" id="BNi-pW-sz3"/>
+                <constraint firstItem="Cia-vs-cGX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jHU-al-eiT"/>
+                <constraint firstAttribute="bottom" secondItem="Cia-vs-cGX" secondAttribute="bottom" id="oZm-1h-aTa"/>
+                <constraint firstItem="Cia-vs-cGX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pEH-ov-a5Z"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -53,7 +52,7 @@
     </objects>
     <designables>
         <designable name="Pph-YB-54k">
-            <size key="intrinsicContentSize" width="16.5" height="14.5"/>
+            <size key="intrinsicContentSize" width="20.5" height="18"/>
         </designable>
     </designables>
     <resources>

@@ -12,6 +12,7 @@ class RoundedLabeledView: UIView {
 		super.layoutSubviews()
 		
 		roundedView.layer.cornerRadius = roundedView.bounds.height / 2
+		titleLabel.font = .enaFont(for: .subheadline, weight: .semibold, italic: false)
 		
 		isAccessibilityElement = true
 		accessibilityTraits = .button
