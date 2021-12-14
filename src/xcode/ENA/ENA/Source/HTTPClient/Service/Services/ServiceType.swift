@@ -11,9 +11,3 @@ enum ServiceType {
 	case dynamicPinning
 	case disabledPinning
 }
-
-
-enum CachingType {
-	case noNetwork(Error)
-	case statusCode(Int)
-}

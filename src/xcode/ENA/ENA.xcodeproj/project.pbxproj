@@ -1280,6 +1280,7 @@
 		BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */; };
 		BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4F04263701950080FD77 /* SimpleTextCellViewModelTests.swift */; };
 		BA2D4F0D2637037C0080FD77 /* QRCodeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4F0C2637037C0080FD77 /* QRCodeCellViewModelTests.swift */; };
+		BA35C76F2768BEA6008E28C1 /* CachingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA35C76E2768BEA6008E28C1 /* CachingType.swift */; };
 		BA38183425CB104900C1DB6C /* ConfigureableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38183325CB104900C1DB6C /* ConfigureableCell.swift */; };
 		BA3A79C42631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A79C32631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift */; };
 		BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */; };
@@ -2909,6 +2910,7 @@
 		BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewModelTests.swift; sourceTree = "<group>"; };
 		BA2D4F04263701950080FD77 /* SimpleTextCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA2D4F0C2637037C0080FD77 /* QRCodeCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCellViewModelTests.swift; sourceTree = "<group>"; };
+		BA35C76E2768BEA6008E28C1 /* CachingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingType.swift; sourceTree = "<group>"; };
 		BA38183325CB104900C1DB6C /* ConfigureableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigureableCell.swift; sourceTree = "<group>"; };
 		BA3A79C32631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInformationViewController.swift; sourceTree = "<group>"; };
 		BA3A79C82631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInformationViewModel.swift; sourceTree = "<group>"; };
@@ -5353,11 +5355,12 @@
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				5071A88326EB810D00B09B40 /* _Service+Default.swift */,
 				BADE51ED272B058000CBAA63 /* CachedRestService.swift */,
+				BA35C76E2768BEA6008E28C1 /* CachingType.swift */,
+				50842BF1275127940015E63F /* DisabledPinningRestService.swift */,
 				BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */,
 				5071A87C26EB803F00B09B40 /* ServiceType.swift */,
 				BA64FA8126D79C2300DD4705 /* StandardRestService.swift */,
 				BA7FDD08272C2C49009829AB /* WifiOnlyRestService.swift */,
-				50842BF1275127940015E63F /* DisabledPinningRestService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -9726,6 +9729,7 @@
 				01E1025D266665A6009ED803 /* AntigenTest.swift in Sources */,
 				BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */,
 				011217052617446500320745 /* CoronaTest.swift in Sources */,
+				BA35C76F2768BEA6008E28C1 /* CachingType.swift in Sources */,
 				ABF574E425C405710098E315 /* ExposureDetectionCoordinator.swift in Sources */,
 				017AD10F259DC46E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.swift in Sources */,
 				AB7420AC251B67A8006666AC /* DeltaOnboardingCrossCountrySupport.swift in Sources */,

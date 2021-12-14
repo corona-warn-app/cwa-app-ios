@@ -71,7 +71,7 @@ extension Service {
 				
 				if let error = error {
 					Log.info("No network connection (.transportationError)", log: .client)
-					cachedFallBackHandling(.noNetwork(error), resource, completion)
+					fallbackHandling(.noNetwork, error, resource, completion)
 					return
 				}
 								
@@ -104,7 +104,7 @@ extension Service {
 				case 304:
 					cached(resource, completion)
 				default:
-					cachedFallBackHandling(.statusCode(response.statusCode), resource, completion)
+					fallbackHandling(.statusCode(response.statusCode), nil, resource, completion)
 				}
 			}.resume()
 		}
@@ -148,11 +148,17 @@ extension Service {
 
 	// MARK: - Private
 
-	private func cachedFallBackHandling<R>(
+	private func fallbackHandling<R>(
 		_ cachingType: CachingType,
+		_ error: Error?,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
+		// check the requested caching behavior of the resource
+		guard resource.cachingTypes.contains(cachingType) else {
+			completion(.failure(.resourceError(ResourceError.missingData)))
+			return
+		}
 		// check if a cached resource exists
 		if hasCachedData(resource) {
 			Log.info("Found some cached data", log: .client)
@@ -165,14 +171,20 @@ extension Service {
 		}
 		// If we still have nothing we return the transportation error.
 		else {
-			if case let .noNetwork(error) = cachingType {
-				Log.error("No fallback found. Will throw .transportationError", log: .client)
+			Log.info("No fallback found")
+			switch cachingType {
+			case .noNetwork:
+				guard let error = error else {
+					Log.error("no custom error given", log: .client)
+					completion(.failure(customError(in: resource, for: .invalidResponse)))
+					return
+				}
+				Log.error("custom error wrapped into a .transportationError", log: .client)
 				completion(.failure(customError(in: resource, for: .transportationError(error))))
-			} else if case let .statusCode(statusCode) = cachingType {
+
+			case .statusCode(let statusCode):
 				Log.error("Unexpected server error: (\(statusCode)", log: .client)
 				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCode))))
-			} else {
-				Log.error("Unexpected case found - stop", log: .client)
 			}
 		}
 	}

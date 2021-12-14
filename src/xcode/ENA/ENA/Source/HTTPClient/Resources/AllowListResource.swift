@@ -30,4 +30,8 @@ struct AllowListResource: Resource {
 	var defaultModel: SAP_Internal_Dgc_ValidationServiceAllowlist? {
 		return SAP_Internal_Dgc_ValidationServiceAllowlist()
 	}
+
+	var cachingTypes: Set<CachingType> {
+		[.noNetwork, .statusCode(404)]
+	}
 }
