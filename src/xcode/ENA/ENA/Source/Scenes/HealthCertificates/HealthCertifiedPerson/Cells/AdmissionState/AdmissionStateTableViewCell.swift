@@ -34,15 +34,24 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 	func configure(with cellModel: AdmissionStateCellModel) {
 		titleLabel.text = cellModel.title
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		
 		subtitleLabel.text = cellModel.subtitle
+		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
+
 		descriptionLabel.text = cellModel.description
+		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
 
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = cellModel.faqLink == nil
+		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
+
+		roundedLabeledView?.configure(title: cellModel.shortTitle)
 	}
 
 	// MARK: - Private
-
+	
+	private var roundedLabeledView: RoundedLabeledView?
 	private let backgroundContainerView: UIView = {
 		let backgroundContainerView = UIView()
 		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
@@ -131,7 +140,14 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 
+		let nibName = String(describing: RoundedLabeledView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
 		titleStackView.addArrangedSubview(titleLabel)
+
+		if let roundedLabeledView = nib.instantiate(withOwner: self, options: nil).first as? RoundedLabeledView {
+			self.roundedLabeledView = roundedLabeledView
+			titleStackView.addArrangedSubview(roundedLabeledView)
+		}
 
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.setCustomSpacing(0, after: titleStackView)
@@ -139,6 +155,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		contentStackView.addArrangedSubview(descriptionLabel)
 		contentStackView.setCustomSpacing(16, after: descriptionLabel)
 		contentStackView.addArrangedSubview(faqLinkTextView)
+		
 
 		NSLayoutConstraint.activate(
 			[
