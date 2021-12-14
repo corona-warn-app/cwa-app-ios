@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Ако имате въпроси относно карантинните мерки моля, свържете се с Вашата здравна служба.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "ЧЗВ относно карантинните мерки";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "въпроси относно карантинните мерки";
 
 "ExposureDetection_Info_Contagion_Footer" = "Допълнителна информация относно доброволната карантина е достъпна на нашата страница “ЧЗВ”.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "ЧЗВ относно доброволната карантина";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "ЧЗВ";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Грешка";
