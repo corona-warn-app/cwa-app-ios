@@ -38,7 +38,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 	}
 		

@@ -22,7 +22,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureSubmissionService: ExposureSubmissionService,
 		qrScannerCoordinator: QRScannerCoordinator,
 		recycleBin: RecycleBin,
-		restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -36,8 +37,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
-
-		setupHomeBadgeCount()
+		self.badgeWrapper = badgeWrapper
 	}
 
 	deinit {
@@ -76,7 +76,8 @@ class HomeCoordinator: RequiresAppDependencies {
 				coronaTestService: coronaTestService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
-				}
+				},
+				badgeWrapper: badgeWrapper
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
@@ -148,6 +149,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.homeState = homeState
 		self.homeController = homeController
 		addToEnStateUpdateList(homeState)
+		setupHomeBadgeCount()
 
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
@@ -186,6 +188,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
+	private let badgeWrapper: HomeBadgeWrapper
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -485,10 +488,33 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func setupHomeBadgeCount() {
-		coronaTestService.unseenTestsCount
+		guard let state = homeState else {
+			Log.error("Can'r observe badge changed - homeStat is missing, stop.")
+			return
+		}
+
+		// risk change might update the badge count string
+		state.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] in
-				self?.rootViewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+			.sink { [weak self] riskState in
+				// check if risk level raised and if home screen tab is not selected
+				guard case let .risk(risk) = riskState,
+					  risk.riskLevelHasChanged,
+					  risk.level == .high,
+					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController
+				else {
+					Log.info("wrong risk level or home screen tab is active - skipped to set tab bar badge")
+					return
+				}
+				self?.badgeWrapper.update(.riskStateIncreased, value: 1)
+			}
+			.store(in: &subscriptions)
+
+		// badge count string updates gets shown inside UI
+		badgeWrapper.$stringValue
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] badgeStringValue in
+				self?.rootViewController.tabBarItem.badgeValue = badgeStringValue
 			}
 			.store(in: &subscriptions)
 	}

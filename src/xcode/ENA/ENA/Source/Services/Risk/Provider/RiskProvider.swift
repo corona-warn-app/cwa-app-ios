@@ -2,7 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import ExposureNotification
 import UIKit
 import OpenCombine
@@ -420,6 +419,7 @@ final class RiskProvider: RiskProviding {
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
+		checkIfRiskLevelHasChangedForNotifications(risk)
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
@@ -438,6 +438,18 @@ final class RiskProvider: RiskProviding {
 		#endif
 		
 		consumer?.provideRiskCalculationResult(result)
+	}
+	
+	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk) {
+		/// Triggers a notification for every risk level change.
+		if risk.riskLevelHasChanged {
+			Log.info("Trigger notification about changed risk level", log: .riskDetection)
+			UNUserNotificationCenter.current().presentNotification(
+				title: AppStrings.LocalNotifications.detectExposureTitle,
+				body: AppStrings.LocalNotifications.detectExposureBody,
+				identifier: ActionableNotificationIdentifier.riskDetection.identifier
+			)
+		}
 	}
 
 	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {

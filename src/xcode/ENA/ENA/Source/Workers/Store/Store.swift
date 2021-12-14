@@ -181,8 +181,6 @@ protocol CoronaTestStoring {
 	var pcrTest: PCRTest? { get set }
 
 	var antigenTest: AntigenTest? { get set }
-	
-	var unseenTestsCount: Int { get set }
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
@@ -275,6 +273,10 @@ protocol RecycleBinStoring: AnyObject {
 	var recycleBinItems: Set<RecycleBinItem> { get set }
 }
 
+protocol HomeBadgeStoring: AnyObject {
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -298,6 +300,7 @@ protocol Store:
 	DeviceTimeCheckStoring,
 	AppFeaturesStoring,
 	RecycleBinStoring,
-	TicketValidationStoring
+	TicketValidationStoring,
+	HomeBadgeStoring
 {}
 // swiftlint:enable all
