@@ -13,6 +13,7 @@ class HomeTableViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -44,9 +45,11 @@ class HomeTableViewModelTests: CWATestCase {
 					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: badgeWrapper
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			badgeWrapper: badgeWrapper
 		)
 
 		// Number of Sections
@@ -76,6 +79,7 @@ class HomeTableViewModelTests: CWATestCase {
 			keysSubmitted: true
 		)
 		
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -109,9 +113,11 @@ class HomeTableViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: badgeWrapper
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			badgeWrapper: badgeWrapper
 		)
 		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
@@ -129,7 +135,7 @@ class HomeTableViewModelTests: CWATestCase {
 			positiveTestResultWasShown: true,
 			keysSubmitted: false
 		)
-		
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -163,9 +169,11 @@ class HomeTableViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: badgeWrapper
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			badgeWrapper: badgeWrapper
 		)
 		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
@@ -176,7 +184,7 @@ class HomeTableViewModelTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -210,9 +218,11 @@ class HomeTableViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: badgeWrapper
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			badgeWrapper: badgeWrapper
 		)
 		viewModel.state.statistics.keyFigureCards = []
 
@@ -231,6 +241,7 @@ class HomeTableViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -264,9 +275,11 @@ class HomeTableViewModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: badgeWrapper
 			),
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			badgeWrapper: badgeWrapper
 		)
 		viewModel.state.updateStatistics()
 
@@ -285,6 +298,7 @@ class HomeTableViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let badgeWrapper = HomeBadgeWrapper.fake()
 		let coronaTestService = CoronaTestService(
 			client: client,
 			store: store,
@@ -302,7 +316,8 @@ class HomeTableViewModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
 		)
 
 		let viewModel = HomeTableViewModel(
@@ -322,7 +337,8 @@ class HomeTableViewModelTests: CWATestCase {
 			),
 			store: store,
 			coronaTestService: coronaTestService,
-			onTestResultCellTap: { _ in }
+			onTestResultCellTap: { _ in },
+			badgeWrapper: badgeWrapper
 		)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))

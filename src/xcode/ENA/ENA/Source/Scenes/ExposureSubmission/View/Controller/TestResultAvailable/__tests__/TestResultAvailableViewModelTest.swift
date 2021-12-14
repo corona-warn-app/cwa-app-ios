@@ -14,7 +14,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		let expectationFulFill = expectation(description: "primary button code execute")
 		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
-
+		
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
@@ -38,9 +38,10 @@ class TestResultAvailableViewModelTest: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -62,12 +63,12 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
-
+		
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
-
+		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
@@ -86,9 +87,10 @@ class TestResultAvailableViewModelTest: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -104,7 +106,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		viewModel.$dynamicTableViewModel.sink { dynamicTableViewModel in
 			resultDynamicTableViewModel = dynamicTableViewModel
 		}.store(in: &bindings)
-
+		
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(3, resultDynamicTableViewModel?.numberOfSection)
@@ -119,12 +121,12 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
-
+		
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.pcrTest = PCRTest.mock(testResult: .positive)
-
+		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
 			coronaTestService: CoronaTestService(
@@ -143,9 +145,10 @@ class TestResultAvailableViewModelTest: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},
@@ -161,7 +164,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 			resultDynamicTableViewModel = dynamicTableViewModel
 			waitForCombineExpectation.fulfill()
 		}.store(in: &bindings)
-	
+		
 		wait(for: [waitForCombineExpectation], timeout: .medium)
 		let iconCell = resultDynamicTableViewModel?.cell(at: IndexPath(row: 0, section: 1))
 		
