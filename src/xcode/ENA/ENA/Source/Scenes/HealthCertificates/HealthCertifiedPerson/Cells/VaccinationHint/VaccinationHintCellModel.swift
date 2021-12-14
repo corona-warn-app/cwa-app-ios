@@ -23,7 +23,10 @@ final class VaccinationHintCellModel {
 	var subtitle: String? {
 		guard let lastVaccinationDate = healthCertifiedPerson.vaccinationCertificates.last?.vaccinationEntry?.localVaccinationDate,
 			  let daysSinceLastVaccination = Calendar.autoupdatingCurrent.dateComponents([.day], from: lastVaccinationDate, to: Date()).day else {
-				  fatalError("Cell cannot be shown if person is not vaccinated")
+				  // Returning nil if the days since last vaccination can't be determined, e.g. in case of an invalid date, like 2021-19-29
+				  Log.info("Cannot retrieve days since last vaccination for vaccination date \(private: String(describing: healthCertifiedPerson.vaccinationCertificates.last?.vaccinationEntry?.dateOfVaccination))", log: .vaccination)
+
+				  return nil
 		}
 
 		return String(

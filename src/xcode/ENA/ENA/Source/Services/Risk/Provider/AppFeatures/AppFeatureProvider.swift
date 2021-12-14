@@ -22,13 +22,23 @@ class AppFeatureProvider: AppFeatureProviding {
 
 	// MARK: - Protocol AppFeaturesProviding
 
-	func value(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool {
+	func boolValue(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Bool {
 		if let configuration = appConfigurationProvider?.currentAppConfig.value {
-			return value(for: appFeature, from: configuration)
+			return boolValue(for: appFeature, from: configuration)
 		} else if let configuration = appConfig {
-			return value(for: appFeature, from: configuration)
+			return boolValue(for: appFeature, from: configuration)
 		} else {
-			return false
+			return appFeature.defaultValue == 1
+		}
+	}
+
+	func intValue(for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature) -> Int {
+		if let configuration = appConfigurationProvider?.currentAppConfig.value {
+			return intValue(for: appFeature, from: configuration)
+		} else if let configuration = appConfig {
+			return intValue(for: appFeature, from: configuration)
+		} else {
+			return appFeature.defaultValue
 		}
 	}
 
@@ -37,14 +47,31 @@ class AppFeatureProvider: AppFeatureProviding {
 	private weak var appConfigurationProvider: AppConfigurationProviding?
 	private var appConfig: SAP_Internal_V2_ApplicationConfigurationIOS?
 
-	private func value(
+	private func boolValue(
 		for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature,
 		from config: SAP_Internal_V2_ApplicationConfigurationIOS
 	) -> Bool {
-
 		let feature = config.appFeatures.appFeatures.first {
 			$0.label == appFeature.rawValue
 		}
 		return feature?.value == 1
 	}
+
+	private func intValue(
+		for appFeature: SAP_Internal_V2_ApplicationConfigurationIOS.AppFeature,
+		from config: SAP_Internal_V2_ApplicationConfigurationIOS
+	) -> Int {
+		guard let feature = config.appFeatures.appFeatures.first(where: {
+			$0.label == appFeature.rawValue
+		}) else {
+			return appFeature.defaultValue
+		}
+
+		if feature.value <= 0 {
+			return appFeature.defaultValue
+		}
+
+		return Int(feature.value)
+	}
+	
 }

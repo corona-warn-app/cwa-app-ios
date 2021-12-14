@@ -138,7 +138,7 @@ class OnBehalfCheckinSubmissionService {
 					return
 				}
 
-				let unencryptedCheckinsEnabled = self.appConfigurationProvider.featureProvider.value(for: .unencryptedCheckinsEnabled)
+				let unencryptedCheckinsEnabled = self.appConfigurationProvider.featureProvider.boolValue(for: .unencryptedCheckinsEnabled)
 
 				var unencryptedCheckins = [SAP_Internal_Pt_CheckIn]()
 				if unencryptedCheckinsEnabled {

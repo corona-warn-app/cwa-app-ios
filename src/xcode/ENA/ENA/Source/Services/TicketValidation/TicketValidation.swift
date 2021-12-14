@@ -5,6 +5,7 @@
 import Foundation
 import ENASecurity
 
+// swiftlint:disable type_body_length
 final class TicketValidation: TicketValidating {
 	
 	// MARK: - Protocol TicketValidating
@@ -25,8 +26,14 @@ final class TicketValidation: TicketValidating {
 	var allowList = TicketValidationAllowList(validationServiceAllowList: [], serviceProviderAllowList: [])
 
 	func initialize(
+		appFeatureProvider: AppFeatureProviding,
 		completion: @escaping (Result<Void, TicketValidationError>) -> Void
 	) {
+		guard isTicketValidationEnabled(appFeatureProvider: appFeatureProvider) else {
+			completion(.failure(.versionError(.MIN_VERSION_REQUIRED)))
+			return
+		}
+		
 		validateServiceIdentityAgainstAllowlist { [weak self] result in
 			guard let self = self else {
 				Log.error("Cannot capture self in the closure", log: .ticketValidationAllowList)
@@ -219,7 +226,7 @@ final class TicketValidation: TicketValidating {
 	private var encryptionResult: EncryptAndSignResult?
 
 	private var selectedHealthCertificate: HealthCertificate?
-	
+
 	private func validateIdentityDocumentOfValidationDecorator(
 		urlString: String,
 		completion:
@@ -448,4 +455,24 @@ final class TicketValidation: TicketValidating {
 		let filteringResult = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		return filteringResult
 	}
+
+	private func isTicketValidationEnabled(
+		appFeatureProvider: AppFeatureProviding
+	) -> Bool {
+		let major = appFeatureProvider.intValue(for: .validationServiceMinVersionMajor)
+		let minor = appFeatureProvider.intValue(for: .validationServiceMinVersionMinor)
+		let patch = appFeatureProvider.intValue(for: .validationServiceMinVersionPatch)
+
+		guard let currentSemanticAppVersion = Bundle.main.appVersion.semanticVersion else {
+			return false
+		}
+
+		var minimumVersion = SAP_Internal_V2_SemanticVersion()
+		minimumVersion.major = UInt32(major)
+		minimumVersion.minor = UInt32(minor)
+		minimumVersion.patch = UInt32(patch)
+
+		return currentSemanticAppVersion >= minimumVersion
+	}
+
 }

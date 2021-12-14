@@ -212,6 +212,11 @@ struct FileLogger {
 			}
 			assert(!fileManager.fileExists(atPath: oldURL.path, isDirectory: &isDir))
 		}
+		
+		#if RELEASE
+		// Delete legacy dev logs to free up disk space.
+		deleteLegacyDevLogs()
+		#endif
 	}
 
 	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
@@ -257,30 +262,39 @@ struct FileLogger {
 			Log.error("Can't remove logs at \(logFileBaseURL)", log: .localData, error: error)
 		}
 	}
-
+	
 	// MARK: - Private
 
 	private let logDateFormatter = ISO8601DateFormatter()
 	private let writeQueue = DispatchQueue(label: "de.rki.coronawarnapp.logging.write") // Serial by default
 	
 	private func writeLog(of logType: OSLogType, message: String) {
+		#if !RELEASE
 		let logHandle = makeWriteFileHandle(with: logType)
 		let allLogsHandle = makeWriteFileHandle(with: allLogsFileURL)
+		#endif
+			
 		let errorLogHandle = makeWriteFileHandle(with: errorLogFileURL)
 
 		guard let logMessageData = message.data(using: .utf8) else { return }
 		defer {
+			#if !RELEASE
 			logHandle?.closeFile()
 			allLogsHandle?.closeFile()
+			#endif
+
 			errorLogHandle?.closeFile()
 		}
 		
 		writeQueue.sync {
+			
+			#if !RELEASE
 			logHandle?.seekToEndOfFile()
 			logHandle?.write(logMessageData)
 
 			allLogsHandle?.seekToEndOfFile()
 			allLogsHandle?.write(logMessageData)
+			#endif
 
 			if ErrorLogSubmissionService.errorLoggingEnabled {
 				errorLogHandle?.seekToEndOfFile()
@@ -318,29 +332,35 @@ struct FileLogger {
 			let fileHandle = try? FileHandle(forWritingTo: url)
 			return fileHandle
 		} catch {
-			Log.error("File handle error", log: .localData, error: error)
+			// We must not use our Log here because it would produce a crash (we want to log in case we cannot create a log 🤪)
+			// swiftlint:disable:next no_direct_oslog
+			os_log("%{public}@", log: .default, type: .error, "Error while creating log file handler. Fallback to system logging to log this error.")
 			return nil
 		}
 	}
-
-	private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
-		#if DEBUG
-		// logacy logs stay `txt` unless migrated
-		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
-		#else
-		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).log")
-		#endif
-		return makeReadFileHandle(with: logFileURL)
-	}
-
-	private func makeReadFileHandle(with url: URL) -> FileHandle? {
+	
+	#if RELEASE
+	private func deleteLegacyDevLogs() {
 		do {
-			return try FileHandle(forReadingFrom: url)
+			let debugLogURLs = [
+				allLogsFileURL,
+				logFileBaseURL.appendingPathComponent("\(OSLogType.debug.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.info.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.error.title).log"),
+				logFileBaseURL.appendingPathComponent("\(OSLogType.default.title).log")
+			]
+			
+			for debugLogURL in debugLogURLs {
+				if FileManager.default.fileExists(atPath: debugLogURL.path) {
+					try FileManager.default.removeItem(at: debugLogURL)
+				}
+			}
+
 		} catch {
-			Log.error("File handle error", log: .localData, error: error)
-			return nil
+			Log.error("Can't delete legacy dev logs", log: .localData, error: error)
 		}
 	}
+	#endif
 }
 
 protocol Logging {
