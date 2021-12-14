@@ -52,7 +52,7 @@ enum HealthCertifiedPersonAdmissionState: Equatable {
 		case .twoG:
 			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title2G
 		case .threeGWithPCR:
-			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title2GPlus
+			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title3GPlus
 		case .threeGWithAntigen:
 			return AppStrings.HealthCertificate.Person.AdmissionState.ShortTitle.title3G
 		case .other:
