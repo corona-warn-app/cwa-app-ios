@@ -81,6 +81,8 @@ class HealthCertifiedPersonCellModel {
 		case .threeGWithPCR, .threeGWithAntigen, .twoG, .other:
 			switchableHealthCertificates = [:]
 		}
+
+		shortStatus = healthCertifiedPerson.admissionState.shortTitle
 	}
 
 	init?(
@@ -106,6 +108,8 @@ class HealthCertifiedPersonCellModel {
 		)
 
 		isStatusTitleVisible = false
+		shortStatus = nil
+
 		switchableHealthCertificates = [:]
 	}
 
@@ -126,6 +130,7 @@ class HealthCertifiedPersonCellModel {
 	let caption: Caption?
 
 	let isStatusTitleVisible: Bool
+	let shortStatus: String?
 
 	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
 
