@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Dacă aveți întrebări despre măsurile de carantină, contactați departamentul aferent de sănătate publică.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Întrebări frecvente despre măsurile de carantină";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "întrebări despre măsurile de carantină";
 
 "ExposureDetection_Info_Contagion_Footer" = "Informații suplimentare despre autocarantina voluntară sunt disponibile pe pagina noastră de întrebări frecvente.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Întrebări frecvente despre autocarantina voluntară";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "pagina noastră de întrebări frecvente";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Eroare";

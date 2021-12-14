@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "W przypadku pytań dotyczących kwarantanny skontaktuj się z departamentem zdrowia publicznego.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Często zadawane pytania na temat kwarantanny";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "pytań dotyczących kwarantanny";
 
 "ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Często zadawane pytania na temat dobrowolnej samoizolacji";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Często zadawane pytania";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Błąd";

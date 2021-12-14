@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "FAQ on quarantine measures";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "questions about quarantine";
 
 "ExposureDetection_Info_Contagion_Footer" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ on voluntary self-quarantine";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ page on voluntary self-quarantine";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Error";
