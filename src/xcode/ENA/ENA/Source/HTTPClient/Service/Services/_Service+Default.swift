@@ -71,7 +71,7 @@ extension Service {
 				
 				if let error = error {
 					Log.info("No network connection (.transportationError)", log: .client)
-					fallbackHandling(.noNetwork, error, resource, completion)
+					cacheUseCaseHandling(.noNetwork, error, resource, completion)
 					return
 				}
 								
@@ -91,6 +91,11 @@ extension Service {
 				Log.debug("URL Response \(response.statusCode)", log: .client)
 				#endif
 
+				guard hasNoStatusCodeCacheUseCase(resource, response.statusCode) else {
+					cacheUseCaseHandling(.statusCode(response.statusCode), nil, resource, completion)
+					return
+				}
+
 				switch response.statusCode {
 				case 200, 201:
 					decodeModel(resource, bodyData, response, completion)
@@ -104,7 +109,7 @@ extension Service {
 				case 304:
 					cached(resource, completion)
 				default:
-					fallbackHandling(.statusCode(response.statusCode), nil, resource, completion)
+					completion(.failure(customError(in: resource, for: .unexpectedServerError(response.statusCode))))
 				}
 			}.resume()
 		}
@@ -146,19 +151,26 @@ extension Service {
 		return nil
 	}
 
+	func hasNoStatusCodeCacheUseCase<R>(
+		_ resource: R,
+		_ statusCode: Int
+	) -> Bool where R: Resource {
+		return true
+	}
+
 	// MARK: - Private
 
-	private func fallbackHandling<R>(
-		_ cachingType: CachingType,
+	private func cacheUseCaseHandling<R>(
+		_ cachingType: CacheUseCase,
 		_ error: Error?,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		// check the requested caching behavior of the resource
-		guard resource.cachingTypes.contains(cachingType) else {
-			completion(.failure(.resourceError(ResourceError.missingData)))
-			return
-		}
+		guard resource.cacheUsages.contains(cachingType) else {
+				  completion(.failure(.resourceError(ResourceError.missingData)))
+				  return
+			  }
 
 		// check if a cached resource exists
 		if hasCachedData(resource) {
@@ -189,5 +201,6 @@ extension Service {
 			}
 		}
 	}
+
 
 }

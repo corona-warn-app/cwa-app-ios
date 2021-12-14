@@ -93,7 +93,13 @@ protocol Service {
 		_ receiveResource: R,
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource
-	
+
+
+	func hasNoStatusCodeCacheUseCase<R>(
+		_ resource: R,
+		_ statusCode: Int
+	) -> Bool where R: Resource
+
 }
 
 extension Service {

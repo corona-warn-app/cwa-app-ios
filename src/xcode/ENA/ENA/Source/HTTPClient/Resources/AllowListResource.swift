@@ -31,8 +31,8 @@ struct AllowListResource: Resource {
 		return SAP_Internal_Dgc_ValidationServiceAllowlist()
 	}
 	
-	var cachingTypes: Set<CachingType> {
-		Set<CachingType>([.noNetwork])
+	var cacheUsages: Set<CacheUseCase> {
+		Set<CacheUseCase>([.noNetwork])
 			.statusCode(400...409)
 			.statusCode(500...509)
 	}
