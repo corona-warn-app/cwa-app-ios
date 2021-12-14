@@ -66,30 +66,13 @@ extension Service {
 					// I know, this error state is not a nice solution.
 					// If you have an idea how to solve the problem of having a detailed trust evaluation error at this point, without holding the state, feel free to refactor :)
 					coronaSessionDelegate.evaluateTrust.trustEvaluationError = nil
-					
 					return
 				}
 				
 				if let error = error {
 					Log.info("No network connection (.transportationError)", log: .client)
-					// If we have no internet connection, we have to check first if we have a cached model for this resource.
-					if hasCachedData(resource) {
-						Log.info("Found some cached data", log: .client)
-						cached(resource, completion)
-						return
-					}
-					// If we have no cache and still no internet connection, we try to get the default value of the resource.
-					else if let defaultModel = resource.defaultModel {
-						Log.info("Found some default value", log: .client)
-						completion(.success(defaultModel))
-						return
-					}
-					// If we still have nothing we return the transportation error.
-					else {
-						Log.error("No fallback found. Will throw .transportationError", log: .client)
-						completion(.failure(customError(in: resource, for: .transportationError(error))))
-						return
-					}
+					cachedFallBackHandling(.noNetwork(error), resource, completion)
+					return
 				}
 								
 				guard !resource.locator.isFake else {
@@ -121,8 +104,7 @@ extension Service {
 				case 304:
 					cached(resource, completion)
 				default:
-					Log.error("Unexpected server error: (\(response.statusCode)", log: .client)
-					completion(.failure(customError(in: resource, for: .unexpectedServerError(response.statusCode))))
+					cachedFallBackHandling(.statusCode(response.statusCode), resource, completion)
 				}
 			}.resume()
 		}
@@ -163,4 +145,36 @@ extension Service {
 	) -> [String: String]? where R: ReceiveResource {
 		return nil
 	}
+
+	// MARK: - Private
+
+	private func cachedFallBackHandling<R>(
+		_ cachingType: CachingType,
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		// check if a cached resource exists
+		if hasCachedData(resource) {
+			Log.info("Found some cached data", log: .client)
+			cached(resource, completion)
+		}
+		// otherwise try to get the default value of the resource.
+		else if let defaultModel = resource.defaultModel {
+			Log.info("Found some default value", log: .client)
+			completion(.success(defaultModel))
+		}
+		// If we still have nothing we return the transportation error.
+		else {
+			if case let .noNetwork(error) = cachingType {
+				Log.error("No fallback found. Will throw .transportationError", log: .client)
+				completion(.failure(customError(in: resource, for: .transportationError(error))))
+			} else if case let .statusCode(statusCode) = cachingType {
+				Log.error("Unexpected server error: (\(statusCode)", log: .client)
+				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCode))))
+			} else {
+				Log.error("Unexpected case found - stop", log: .client)
+			}
+		}
+	}
+
 }

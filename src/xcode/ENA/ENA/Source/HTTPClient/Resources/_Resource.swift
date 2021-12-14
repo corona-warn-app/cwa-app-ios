@@ -21,7 +21,8 @@ protocol Resource {
 	func customError(for error: ServiceError<CustomError>) -> CustomError?
 }
 
-// Custom error handling
+// Custom error handling & caching support
+
 extension Resource {
 
 	var defaultModel: Receive.ReceiveModel? {
