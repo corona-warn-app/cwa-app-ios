@@ -1257,6 +1257,8 @@
 		BA01BA66264423CF00D906B6 /* HealthCertificateInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */; };
 		BA01BA6B2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA6A2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift */; };
 		BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA02641225E6A0800019CD55 /* FooterViewModelTests.swift */; };
+		BA0562A9276236F30072501E /* HomeBadgeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0562A8276236F30072501E /* HomeBadgeWrapper.swift */; };
+		BA0562AB27623FA00072501E /* HomeBadgeWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */; };
 		BA056F1B259B89B50022B0A4 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */; };
 		BA05ED712653F60100A103AC /* HealthCertificate+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FE5E592648546800155906 /* HealthCertificate+Mock.swift */; };
 		BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */; };
@@ -1468,6 +1470,7 @@
 		BADD36EE260B4FBA00DD282A /* GradientNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADD36E7260B4FBA00DD282A /* GradientNavigationView.swift */; };
 		BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */; };
 		BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */; };
+		BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */; };
 		BADE38092608D9EC00E07890 /* TraceLocationTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */; };
 		BADE38232608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */; };
 		BADE51EE272B058000CBAA63 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE51ED272B058000CBAA63 /* CachedRestService.swift */; };
@@ -2891,6 +2894,8 @@
 		BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateInfoViewModel.swift; sourceTree = "<group>"; };
 		BA01BA6A2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateConsentViewModelTests.swift; sourceTree = "<group>"; };
 		BA02641225E6A0800019CD55 /* FooterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewModelTests.swift; sourceTree = "<group>"; };
+		BA0562A8276236F30072501E /* HomeBadgeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBadgeWrapper.swift; sourceTree = "<group>"; };
+		BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBadgeWrapperTests.swift; sourceTree = "<group>"; };
 		BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
 		BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryModel.swift; sourceTree = "<group>"; };
@@ -3102,6 +3107,7 @@
 		BADD36E7260B4FBA00DD282A /* GradientNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientNavigationView.swift; sourceTree = "<group>"; };
 		BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModelTests.swift; sourceTree = "<group>"; };
+		BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeBadgeWrapper+Fake.swift"; sourceTree = "<group>"; };
 		BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeTest.swift; sourceTree = "<group>"; };
 		BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeHeaderView.swift; sourceTree = "<group>"; };
 		BADE51ED272B058000CBAA63 /* CachedRestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedRestService.swift; sourceTree = "<group>"; };
@@ -4450,6 +4456,7 @@
 				01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */,
 				01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */,
 				01EA17FD259217B100E98E02 /* HomeState.swift */,
+				BA0562A8276236F30072501E /* HomeBadgeWrapper.swift */,
 				01EA176E2590F02F00E98E02 /* Cells */,
 				01A4DC6025922EB2007D5794 /* Views */,
 			);
@@ -9199,6 +9206,8 @@
 		EBD2D07C25A86144006E4220 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				BADE0DD0276764ED00DAE055 /* HomeBadgeWrapper+Fake.swift */,
+				BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */,
 				EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */,
 			);
 			path = __tests__;
@@ -9687,6 +9696,7 @@
 				BA5B7FD326458EF400502087 /* HealthCertificateKeyValueCellViewModel.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
+				BA0562A9276236F30072501E /* HomeBadgeWrapper.swift in Sources */,
 				01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
 				0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */,
@@ -10853,6 +10863,7 @@
 				BAA4D71825E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
+				BA0562AB27623FA00072501E /* HomeBadgeWrapperTests.swift in Sources */,
 				AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */,
 				010A474C27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift in Sources */,
 				AB34787C269C93C20016A8AB /* CertLogicEngineTestData.swift in Sources */,
@@ -10938,6 +10949,7 @@
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
+				BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */,

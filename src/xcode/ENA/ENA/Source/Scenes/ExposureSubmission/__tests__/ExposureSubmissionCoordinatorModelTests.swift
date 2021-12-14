@@ -34,7 +34,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		coronaTestService.pcrTest = nil
@@ -72,7 +73,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -123,7 +125,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		coronaTestService.pcrTest = nil
@@ -178,7 +181,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
@@ -220,7 +224,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -252,7 +257,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -295,7 +301,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -338,7 +345,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -381,7 +389,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -415,7 +424,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -456,7 +466,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -504,7 +515,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -554,7 +566,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -604,7 +617,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -651,7 +665,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -699,7 +714,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -746,7 +762,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -793,7 +810,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -853,7 +871,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -913,7 +932,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -975,7 +995,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -1043,7 +1064,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)
@@ -1118,7 +1140,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 					),
 					recycleBin: .fake()
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
 			),
 			eventProvider: MockEventStore()
 		)

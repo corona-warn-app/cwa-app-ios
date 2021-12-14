@@ -120,6 +120,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
 		currentlyUsedImageView.contentMode = .scaleAspectFit
 		currentlyUsedImageView.setContentHuggingPriority(.required, for: .horizontal)
+		currentlyUsedImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 		currentlyUsedStackView.addArrangedSubview(currentlyUsedImageView)
 
 		currentlyUsedLabel.style = .body

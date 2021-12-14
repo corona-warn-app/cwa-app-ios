@@ -9,7 +9,7 @@ import UserNotifications
 
 // global to access in unit tests
 // version will be used for migration logic
-public let kCurrentHealthCertifiedPersonsVersion = 1
+public let kCurrentHealthCertifiedPersonsVersion = 2
 
 // swiftlint:disable:next type_body_length
 class HealthCertificateService {
