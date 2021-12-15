@@ -160,15 +160,23 @@ extension Service {
 
 	// MARK: - Private
 
+	/// checks if special cache handlings needs to be done. If looks up if cached data or default data can be returned.
+	/// Then the special use case handling is done otherwise the original error is given in completion handler
+	///
+	/// - Parameters:
+	///   - cacheUseCase: the caching use case that gets handled
+	///   - error: original error as a fallback for some cached use cases
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	private func cacheUseCaseHandling<R>(
-		_ cachingType: CacheUseCase,
+		_ cacheUseCase: CacheUseCase,
 		_ error: Error?,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		// check the requested caching behavior of the resource
 		guard case let .caching(usage) = resource.type,
-			  usage.contains(cachingType) else {
+			  usage.contains(cacheUseCase) else {
 				  completion(.failure(.resourceError(ResourceError.missingData)))
 				  return
 			  }
@@ -186,7 +194,7 @@ extension Service {
 		// If we still have nothing we return the transportation error.
 		else {
 			Log.info("No fallback found")
-			switch cachingType {
+			switch cacheUseCase {
 			case .noNetwork:
 				guard let error = error else {
 					Log.error("no custom error given", log: .client)
@@ -202,6 +210,5 @@ extension Service {
 			}
 		}
 	}
-
 
 }
