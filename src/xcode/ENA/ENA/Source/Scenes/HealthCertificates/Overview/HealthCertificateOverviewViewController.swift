@@ -14,13 +14,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		showInfoHit: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
-		self.showInfo = showInfoHit
+		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
 
 		super.init(style: .grouped)
 		
@@ -137,7 +137,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
-	private let showInfo: () -> Void
+	private let onCovPassCheckInfoButtonTap: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -216,8 +216,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { [weak self] in
-					self?.showInfo()
+				onCovPassCheckInfoButtonTap: { [weak self] in
+					self?.onCovPassCheckInfoButtonTap()
 				}
 			  ) else {
 			return UITableViewCell()
@@ -236,8 +236,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		guard let decodingFailedHealthCertificate = viewModel.decodingFailedHealthCertificates[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				decodingFailedHealthCertificate: decodingFailedHealthCertificate,
-				showInfoHit: { [weak self] in
-					self?.showInfo()
+				onCovPassCheckInfoButtonTap: { [weak self] in
+					self?.onCovPassCheckInfoButtonTap()
 				}
 			  ) else {
 			return UITableViewCell()

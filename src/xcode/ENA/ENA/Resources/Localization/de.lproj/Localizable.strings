@@ -2792,27 +2792,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_Covid_Title" = "Digitales COVID-Zertifikat der EU";
 
-"VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Status-Nachweis";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G-Zertifikat";
+
+"HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
+
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
-
-/* - Test Certificate Info */
-
-"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
-
-/* - Test Certificate */
-
-"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
@@ -2901,6 +2889,44 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_unified_QR_code_notice" = "Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.";
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
+
+/* Health Certified Person Admission State */
+
+"HealthCertifiedPerson_AdmissionState_title" = "Status-Nachweis";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR-Test";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ Schnelltest";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
+
+"HealthCertifiedPerson_AdmissionState_description2G" = "Ihre Zertifikate erfüllen die 2G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description3G" = "Ihre Zertifikate erfüllen die 3G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Ihre Zertifikate erfüllen die 3G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionStateFAQ" = "Mehr Informationen finden Sie in den %@.";
+
+"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "FAQ";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
+/* Health Certified Person Hint */
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Impfstatus";
 

@@ -92,6 +92,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
+		case .admissionState:
+			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.vaccinationAdmissionStateViewModel)
+			return cell
+
 		case .vaccinationHint:
 			let cell = tableView.dequeueReusableCell(cellType: VaccinationHintTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.vaccinationHintCellViewModel)
@@ -197,7 +202,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	private let didSwipeToDelete: (HealthCertificate, @escaping () -> Void) -> Void
 
 	private let viewModel: HealthCertifiedPersonViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))
+	private let backgroundView = GradientBackgroundView(type: .solidGrey, withStars: true)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -270,6 +275,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			HealthCertificateSimpleTextCell.self,
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
 		)
+		tableView.register(
+			AdmissionStateTableViewCell.self,
+			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
+		)
+
 		tableView.register(
 			HealthCertificateQRCodeCell.self,
 			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
