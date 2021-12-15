@@ -73,7 +73,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		admissionStateStackView.isHidden = !cellModel.isStatusTitleVisible
-		admissionStateView?.configure(title: cellModel.shortStatus)
+		admissionStateView?.configure(title: cellModel.shortStatus, gradientType: cellModel.backgroundGradientType)
 
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
@@ -118,7 +118,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private let gradientView: GradientView = {
-		let gradientView = GradientView()
+		let gradientView = GradientView(withStars: true)
 		gradientView.layer.masksToBounds = true
 		gradientView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 		gradientView.layer.cornerRadius = 14.0

@@ -26,7 +26,7 @@ final class HealthCertifiedPersonViewModel {
 		self.showInfo = showInfoHit
 
 		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
-		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(admissionState: healthCertifiedPerson.admissionState)
+		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -119,7 +119,7 @@ final class HealthCertifiedPersonViewModel {
 	let vaccinationHintCellViewModel: VaccinationHintCellModel
 	let vaccinationAdmissionStateViewModel: AdmissionStateCellModel
 
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 

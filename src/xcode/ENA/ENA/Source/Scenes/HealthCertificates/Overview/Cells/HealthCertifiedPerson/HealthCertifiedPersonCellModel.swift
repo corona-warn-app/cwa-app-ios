@@ -89,7 +89,7 @@ class HealthCertifiedPersonCellModel {
 		decodingFailedHealthCertificate: DecodingFailedHealthCertificate,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
-		backgroundGradientType = .solidGrey(withStars: true)
+		backgroundGradientType = .solidGrey
 
 		title = AppStrings.HealthCertificate.Overview.covidTitle
 		name = ""

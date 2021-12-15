@@ -159,7 +159,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
 
 	@DidSetPublished var boosterRule: Rule? {
 		didSet {

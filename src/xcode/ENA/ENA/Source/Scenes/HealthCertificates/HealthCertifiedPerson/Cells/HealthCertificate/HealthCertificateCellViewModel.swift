@@ -32,12 +32,12 @@ final class HealthCertificateCellViewModel {
 		case .allDetails:
 			if healthCertificate.isUsable &&
 				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-				return .lightBlue(withStars: false)
+				return healthCertifiedPerson.gradientType
 			} else {
-				return .solidGrey(withStars: false)
+				return .solidGrey
 			}
 		case .overview:
-			return .lightBlue(withStars: false)
+			return .lightBlue
 		}
 	}()
 
@@ -155,6 +155,19 @@ final class HealthCertificateCellViewModel {
 			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 		case .overview:
 			return false
+		}
+	}()
+
+	lazy var currentlyUsedImage: UIImage? = {
+		switch gradientType {
+		case .lightBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_light")
+		case .mediumBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_medium")
+		case .darkBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_dark")
+		case .blueRedTilted, .blueOnly, .solidGrey, .whiteToLightBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_light")
 		}
 	}()
 

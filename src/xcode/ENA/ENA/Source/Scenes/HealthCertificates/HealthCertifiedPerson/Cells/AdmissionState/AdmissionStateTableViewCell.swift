@@ -46,7 +46,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.isHidden = cellModel.faqLink == nil
 		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
 
-		roundedLabeledView?.configure(title: cellModel.shortTitle)
+		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
 	}
 
 	// MARK: - Private

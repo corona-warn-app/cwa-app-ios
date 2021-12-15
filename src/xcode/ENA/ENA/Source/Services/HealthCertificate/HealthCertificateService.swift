@@ -691,7 +691,7 @@ class HealthCertificateService {
 	}
 
 	private func updateGradients() {
-		let gradientTypes: [GradientView.GradientType] = [.lightBlue(withStars: true), .mediumBlue(withStars: true), .darkBlue(withStars: true)]
+		let gradientTypes: [GradientView.GradientType] = [.lightBlue, .mediumBlue, .darkBlue]
 		self.healthCertifiedPersons
 			.enumerated()
 			.forEach { index, person in
@@ -702,7 +702,7 @@ class HealthCertificateService {
 					(healthCertificate?.type == .test && healthCertificate?.validityState == .expired) {
 					person.gradientType = gradientTypes[index % 3]
 				} else {
-					person.gradientType = .solidGrey(withStars: true)
+					person.gradientType = .solidGrey
 				}
 			}
 	}

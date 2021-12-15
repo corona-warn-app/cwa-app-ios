@@ -121,7 +121,7 @@ final class HealthCertificateViewModel {
 		)
 	}
 
-	@DidSetPublished private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@DidSetPublished private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@DidSetPublished private(set) var isPrimaryFooterButtonEnabled: Bool = true
 	@DidSetPublished private(set) var triggerReload: Bool = false
 	@DidSetPublished private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
@@ -407,7 +407,7 @@ final class HealthCertificateViewModel {
 				(healthCertificate.validityState == .expired && healthCertificate.type == .test)) {
 			gradientType = healthCertifiedPerson.gradientType
 		} else {
-			gradientType = .solidGrey(withStars: true)
+			gradientType = .solidGrey
 		}
 	}
 
