@@ -15,7 +15,7 @@ struct HealthCertificateQRCodeCellViewModel {
 		healthCertificate: HealthCertificate,
 		accessibilityText: String,
 		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil,
-		showInfoHit: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.mode = mode
 		self.healthCertificate = healthCertificate
@@ -25,7 +25,8 @@ struct HealthCertificateQRCodeCellViewModel {
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: mode == .details,
 			accessibilityLabel: accessibilityText,
-			showInfoHit: showInfoHit
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
 		)
 
 		if !healthCertificate.isConsideredValid {

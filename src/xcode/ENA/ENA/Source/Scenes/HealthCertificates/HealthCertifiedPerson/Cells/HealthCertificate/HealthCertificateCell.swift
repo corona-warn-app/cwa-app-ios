@@ -44,6 +44,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		validityStateInfoLabel.isHidden = cellViewModel.validityStateInfo == nil
 
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
+		currentlyUsedImageView.image = cellViewModel.currentlyUsedImage
+
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 	
 		disclosureImageView.isHidden = !withDisclosureIndicator
@@ -117,7 +119,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		validityStateInfoLabel.textColor = .enaColor(for: .textPrimary1)
 		validityStateInfoLabel.numberOfLines = 0
 
-		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
 		currentlyUsedImageView.contentMode = .scaleAspectFit
 		currentlyUsedImageView.setContentHuggingPriority(.required, for: .horizontal)
 		currentlyUsedImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -137,7 +138,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		vStackView.axis = .vertical
 		vStackView.spacing = 6
 
-		gradientBackground.type = .solidGrey(withStars: false)
+		gradientBackground.type = .solidGrey
 		gradientBackground.translatesAutoresizingMaskIntoConstraints = false
 		if #available(iOS 13.0, *) {
 			gradientBackground.layer.cornerCurve = .continuous

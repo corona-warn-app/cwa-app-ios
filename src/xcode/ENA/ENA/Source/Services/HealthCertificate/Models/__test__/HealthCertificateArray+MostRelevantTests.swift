@@ -60,17 +60,17 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		let invalidRecentOutdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 181, validityState: .invalid)
 		let blockedRecentOutdatedRecoveryCertificate = try recoveryCertificate(ageInDays: 182, validityState: .blocked)
 
-		let mostRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48)
+		let mostRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 72)
 		let olderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 1068)
-		let expiredRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48, validityState: .expired)
-		let invalidOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 48, validityState: .invalid)
-		let blockedOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 49, validityState: .blocked)
+		let expiredRecentOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 72, validityState: .expired)
+		let invalidOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 72, validityState: .invalid)
+		let blockedOlderOutdatedPCRTest = try testCertificate(coronaTestType: .pcr, ageInHours: 73, validityState: .blocked)
 
-		let mostRecentOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24)
+		let mostRecentOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 48)
 		let olderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 653)
-		let expiredOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24, validityState: .expired)
-		let invalidOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 24, validityState: .invalid)
-		let blockedOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 25, validityState: .blocked)
+		let expiredOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 48, validityState: .expired)
+		let invalidOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 48, validityState: .invalid)
+		let blockedOlderOutdatedAntigenTest = try testCertificate(coronaTestType: .antigen, ageInHours: 49, validityState: .blocked)
 
 		var healthCertificates = [
 			mostRecentValidPCRTest,
@@ -136,19 +136,7 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		].shuffled()
 
 		// Valid and Expiring Soon Certificates are the most relevant
-		
-		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidPCRTest)
 
-		healthCertificates.removeAll(where: { $0 == mostRecentValidPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, olderValidPCRTest)
-
-		healthCertificates.removeAll(where: { $0 == olderValidPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == mostRecentValidAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, olderValidAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == olderValidAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentBoosterVaccinationCertificate })
@@ -167,6 +155,18 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, olderValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == olderValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentValidPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == olderValidPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentValidAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == mostRecentValidAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, olderValidAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == olderValidAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentSeriesCompletingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == mostRecentSeriesCompletingVaccinationCertificate })
@@ -199,12 +199,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		// Expired Certificates are the second most relevant
 
 		healthCertificates.removeAll(where: { $0 == olderOutdatedAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentPCRTest)
-		
-		healthCertificates.removeAll(where: { $0 == expiredRecentPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentAntigenTest)
-		
-		healthCertificates.removeAll(where: { $0 == expiredRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == expiredRecentBoosterVaccinationCertificate })
@@ -214,6 +208,12 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == expiredRecentValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == expiredRecentPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == expiredRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, expiredRecentSeriesCompletingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == expiredRecentSeriesCompletingVaccinationCertificate })
@@ -231,18 +231,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		// Invalid Certificates are the least relevant
 		
 		healthCertificates.removeAll(where: { $0 == expiredOutdatedAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentPCRTest)
-
-		healthCertificates.removeAll(where: { $0 == invalidRecentPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentPCRTest)
-
-		healthCertificates.removeAll(where: { $0 == blockedRecentPCRTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == invalidRecentAntigenTest })
-		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentAntigenTest)
-
-		healthCertificates.removeAll(where: { $0 == blockedRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentBoosterVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == invalidRecentBoosterVaccinationCertificate })
@@ -261,6 +249,18 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentValidRecoveryCertificate)
 
 		healthCertificates.removeAll(where: { $0 == blockedRecentValidRecoveryCertificate })
+		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == invalidRecentPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentPCRTest)
+
+		healthCertificates.removeAll(where: { $0 == blockedRecentPCRTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == invalidRecentAntigenTest })
+		XCTAssertEqual(healthCertificates.mostRelevant, blockedRecentAntigenTest)
+
+		healthCertificates.removeAll(where: { $0 == blockedRecentAntigenTest })
 		XCTAssertEqual(healthCertificates.mostRelevant, invalidRecentSeriesCompletingVaccinationCertificate)
 
 		healthCertificates.removeAll(where: { $0 == invalidRecentSeriesCompletingVaccinationCertificate })
@@ -292,133 +292,6 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 
 		healthCertificates.removeAll(where: { $0 == blockedOlderOutdatedAntigenTest })
 		XCTAssertTrue(healthCertificates.isEmpty)
-	}
-	// MARK: - Private
-
-	private enum MockError: Error {
-		case error(String)
-	}
-
-	private enum VaccinationCertificateType {
-		case booster
-		case seriesCompleting
-		case recovery
-		case incomplete
-	}
-
-	private func recoveryCertificate(
-		ageInDays: Int,
-		validityState: HealthCertificateValidityState = .valid
-	) throws -> HealthCertificate {
-		guard let certificateValidityStartDate = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Date()) else {
-			throw MockError.error("Could not create date")
-		}
-		let formattedCertificateValidityStartDate = ISO8601DateFormatter.string(from: certificateValidityStartDate, timeZone: .current, formatOptions: .withFullDate)
-
-		let base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				recoveryEntries: [
-					RecoveryEntry.fake(
-						certificateValidFrom: formattedCertificateValidityStartDate
-					)
-				]
-			)
-		)
-
-		return try HealthCertificate(base45: base45, validityState: validityState)
-	}
-
-	private func testCertificate(
-		coronaTestType: CoronaTestType,
-		ageInHours: Int,
-		validityState: HealthCertificateValidityState = .valid
-	) throws -> HealthCertificate {
-		let typeOfTest: String
-		switch coronaTestType {
-		case .pcr:
-			typeOfTest = TestEntry.pcrTypeString
-		case .antigen:
-			typeOfTest = TestEntry.antigenTypeString
-		}
-
-		guard let sampleCollectionDate = Calendar.current.date(byAdding: .hour, value: -ageInHours, to: Date()) else {
-			throw MockError.error("Could not create date")
-		}
-		let formattedSampleCollectionDate = ISO8601DateFormatter.string(from: sampleCollectionDate, timeZone: .current, formatOptions: .withInternetDateTime)
-
-		let base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [
-					TestEntry.fake(
-						typeOfTest: typeOfTest,
-						dateTimeOfSampleCollection: formattedSampleCollectionDate
-					)
-				]
-			)
-		)
-
-		return try HealthCertificate(base45: base45, validityState: validityState)
-	}
-
-	private func vaccinationCertificate(
-		type: VaccinationCertificateType,
-		ageInDays: Int,
-		validityState: HealthCertificateValidityState = .valid
-	) throws -> HealthCertificate {
-		var vaccinations = [(vaccinationProductType: VaccinationProductType, doseNumber: Int, totalSeriesOfDoses: Int)]()
-
-		switch type {
-		case .booster:
-			let doseNumberGreater1 = Int.random(in: 2...9)
-			let doseNumberGreater2 = Int.random(in: 3...9)
-			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .biontech, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .moderna, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .johnsonAndJohnson, doseNumber: doseNumberGreater1, totalSeriesOfDoses: doseNumberGreater1)
-			]
-		case .seriesCompleting:
-			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: 2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .biontech, doseNumber: 2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .moderna, doseNumber: 2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .johnsonAndJohnson, doseNumber: 1, totalSeriesOfDoses: 1)
-			]
-		case .recovery:
-			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1)
-			]
-		case .incomplete:
-			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 2)
-			]
-		}
-
-		let vaccination = try XCTUnwrap(vaccinations.randomElement())
-
-		guard let vaccinationDate = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Date()) else {
-			throw MockError.error("Could not create date")
-		}
-		let formattedVaccinationDate = ISO8601DateFormatter.string(from: vaccinationDate, timeZone: .current, formatOptions: .withFullDate)
-
-		let base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				vaccinationEntries: [
-					VaccinationEntry.fake(
-						vaccineMedicinalProduct: vaccination.vaccinationProductType.value ?? "",
-						doseNumber: vaccination.doseNumber,
-						totalSeriesOfDoses: vaccination.totalSeriesOfDoses,
-						dateOfVaccination: formattedVaccinationDate
-					)
-				]
-			)
-		)
-
-		return try HealthCertificate(base45: base45, validityState: validityState)
 	}
 
 }
