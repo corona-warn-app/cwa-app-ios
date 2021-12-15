@@ -110,7 +110,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		return subtitleLabel
 	}()
 
-	private let roundedLabeledView: RoundedLabeledView? = {
+	private lazy var roundedLabeledView: RoundedLabeledView? = {
 		let nibName = String(describing: RoundedLabeledView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
 
@@ -169,7 +169,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		contentStackView.addArrangedSubview(descriptionLabel)
 		contentStackView.setCustomSpacing(16, after: descriptionLabel)
 		contentStackView.addArrangedSubview(faqLinkTextView)
-		
+
 		NSLayoutConstraint.activate(
 			[
 				backgroundContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4.0),

@@ -193,7 +193,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return admissionStateTitleLabel
 	}()
 
-	private let admissionStateView: RoundedLabeledView? = {
+	private lazy var admissionStateView: RoundedLabeledView? = {
 		let nibName = String(describing: RoundedLabeledView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
 
@@ -202,7 +202,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 	private let qrCodeView = HealthCertificateQRCodeView()
 
-	private let segmentedControl: UISegmentedControl = {
+	private lazy var segmentedControl: UISegmentedControl = {
 		let segmentedControl = UISegmentedControl()
 
 		if #available(iOS 13, *) {
