@@ -141,7 +141,7 @@ class CachedRestServiceTests: XCTestCase {
 		let cache = KeyValueCacheFake()
 		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
-		// Return nil and http code 304. In this case the service should load the reault from the cache.
+		// Return nil and http code 304. In this case the service should load the caching value from the cache.
 		let stack = MockNetworkStack(
 			httpStatus: 304,
 			headerFields: [
@@ -191,7 +191,7 @@ class CachedRestServiceTests: XCTestCase {
 		let cache = KeyValueCacheFake()
 		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
-		// Return nil and http code 304. In this case the service should load the reault from the cache.
+		// Return nil and http code 500. In this case the service would ignore caching behavior and look up for default values.
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			headerFields: [
@@ -209,7 +209,7 @@ class CachedRestServiceTests: XCTestCase {
 		let loadExpectation = expectation(description: "Load completion should be called.")
 
 		cachedService.load(resource) { result in
-			// Check if the value returned is the same like the one stored in the cache before.
+			// Check if the value returned is the same like the one defined before.
 
 			guard case let .success(responseModel) = result else {
 				XCTFail("Success expected")
@@ -240,7 +240,7 @@ class CachedRestServiceTests: XCTestCase {
 		let cache = KeyValueCacheFake()
 		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
-		// Return nil and http code 304. In this case the service should load the reault from the cache.
+		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache use case to return cache values for a specific http status code (500)
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			headerFields: [
@@ -254,7 +254,11 @@ class CachedRestServiceTests: XCTestCase {
 			cache: cache
 		)
 
-		let resource = ResourceFake(locator: locator, defaultModel: defaultDummyModel)
+		let resource = ResourceFake(
+			locator: locator,
+			type: .caching([.statusCode(500)]),
+			defaultModel: defaultDummyModel
+		)
 		let loadExpectation = expectation(description: "Load completion should be called.")
 
 		cachedService.load(resource) { result in
@@ -265,8 +269,44 @@ class CachedRestServiceTests: XCTestCase {
 				return
 			}
 
-			XCTAssertNotEqual(responseModel, cachedDummyModel)
-			XCTAssertEqual(responseModel, defaultDummyModel)
+			XCTAssertEqual(responseModel, cachedDummyModel)
+			XCTAssertNotEqual(responseModel, defaultDummyModel)
+			loadExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+	
+	func test_NoCachedAndNoValueIsLoadedWithDefinedCacheUseCases() throws {
+		
+		// Store the dummy data in the cache.
+		let cache = KeyValueCacheFake()
+
+		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache use case to return cache values for a specific http status code (500)
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: nil
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.noNetwork])
+		)
+		let loadExpectation = expectation(description: "Load completion should be called.")
+
+		cachedService.load(resource) { result in
+			// Check if the value returned is the same like the one stored in the cache before.
+
+			guard case let .failure(error) = result else {
+				XCTFail("Error expected")
+				return
+			}
+
+			XCTAssertEqual(error, .unexpectedServerError(500))
 			loadExpectation.fulfill()
 		}
 
