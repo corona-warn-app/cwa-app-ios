@@ -139,6 +139,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		didSet {
 			if vaccinationState != oldValue {
 				objectDidChange.send(self)
+				updateAdmissionState()
 			}
 		}
 	}
@@ -271,6 +272,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					guard let self = self else { return }
 
 					self.updateVaccinationState()
+					self.updateAdmissionState()
 					self.updateMostRelevantHealthCertificate()
 
 					self.objectDidChange.send(self)
