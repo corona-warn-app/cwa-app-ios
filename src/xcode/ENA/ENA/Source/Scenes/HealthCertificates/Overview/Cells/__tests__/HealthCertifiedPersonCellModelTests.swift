@@ -25,7 +25,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -54,7 +54,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -93,7 +93,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -125,7 +125,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -157,7 +157,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -189,7 +189,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -217,7 +217,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -244,7 +244,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -271,7 +271,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -302,7 +302,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -333,7 +333,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -362,7 +362,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -401,7 +401,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -433,7 +433,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -465,7 +465,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -537,7 +537,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -560,7 +560,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -579,7 +579,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 

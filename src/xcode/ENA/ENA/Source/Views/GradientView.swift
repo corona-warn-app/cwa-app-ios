@@ -10,25 +10,30 @@ class GradientView: UIView {
 	// MARK: - Init
 
 	init(
-		type: GradientType = .solidGrey(withStars: false),
+		type: GradientType = .solidGrey,
+		withStars starsAreVisible: Bool = false,
 		frame: CGRect = .zero
 	) {
 		super.init(frame: frame)
+
 		setupView()
+
 		self.type = type
-		updatedLayer()
+		self.starsAreVisible = starsAreVisible
+
+		updateLayer()
 	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setupView()
-		updatedLayer()
+		updateLayer()
 	}
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		setupView()
-		updatedLayer()
+		updateLayer()
 	}
 
 	// MARK: - Overrides
@@ -39,7 +44,7 @@ class GradientView: UIView {
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
-		updatedLayer()
+		updateLayer()
 	}
 
 	// MARK: - Internal
@@ -47,22 +52,22 @@ class GradientView: UIView {
 	enum GradientType: Equatable {
 		case blueRedTilted
 		case blueOnly
-		case solidGrey(withStars: Bool)
-		case lightBlue(withStars: Bool)
-		case mediumBlue(withStars: Bool)
-		case darkBlue(withStars: Bool)
+		case solidGrey
+		case lightBlue
+		case mediumBlue
+		case darkBlue
 		case whiteToLightBlue
 
 		var starsColor: UIColor? {
 			switch self {
-			case let .solidGrey(withStars):
-				return withStars ? UIColor(red: 87.0 / 255.0, green: 103.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0) : nil
-			case let .lightBlue(withStars):
-				return withStars ? UIColor(red: 1.0 / 255.0, green: 145.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0) : nil
-			case let .mediumBlue(withStars):
-				return withStars ? UIColor(red: 7.0 / 255.0, green: 106.0 / 255.0, blue: 159.0 / 255.0, alpha: 1.0) : nil
-			case let .darkBlue(withStars):
-				return withStars ? UIColor(red: 2.0 / 255.0, green: 90.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0) : nil
+			case .solidGrey:
+				return UIColor(red: 87.0 / 255.0, green: 103.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0)
+			case .lightBlue:
+				return UIColor(red: 1.0 / 255.0, green: 145.0 / 255.0, blue: 198.0 / 255.0, alpha: 1.0)
+			case .mediumBlue:
+				return UIColor(red: 7.0 / 255.0, green: 106.0 / 255.0, blue: 159.0 / 255.0, alpha: 1.0)
+			case .darkBlue:
+				return UIColor(red: 2.0 / 255.0, green: 90.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
 			default:
 				return nil
 			}
@@ -71,7 +76,13 @@ class GradientView: UIView {
 
 	var type: GradientType = .blueRedTilted {
 		didSet {
-			updatedLayer()
+			updateLayer()
+		}
+	}
+
+	var starsAreVisible: Bool = false {
+		didSet {
+			updateLayer()
 		}
 	}
 
@@ -92,7 +103,7 @@ class GradientView: UIView {
 
 	private func updateStars() {
 		// update stars view
-		if let starsColor = type.starsColor {
+		if let starsColor = type.starsColor, starsAreVisible {
 			imageView.tintColor = starsColor
 			imageView.tintAdjustmentMode = .normal
 			imageView.image = UIImage(imageLiteralResourceName: "EUStarsGroup")
@@ -189,8 +200,9 @@ class GradientView: UIView {
 		}
 	}
 
-	private func updatedLayer() {
+	private func updateLayer() {
 		updateStars()
 		updateGradient()
 	}
+
 }

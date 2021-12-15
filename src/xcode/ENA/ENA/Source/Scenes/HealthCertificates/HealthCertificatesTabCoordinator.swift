@@ -111,7 +111,7 @@ final class HealthCertificatesTabCoordinator {
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
 			},
-			showInfoHit: { [weak self] in
+			onCovPassCheckInfoButtonTap: { [weak self] in
 				self?.presentCovPassInfoScreen()
 			}
 		)

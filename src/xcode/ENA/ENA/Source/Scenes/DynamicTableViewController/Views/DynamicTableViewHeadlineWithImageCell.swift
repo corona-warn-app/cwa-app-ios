@@ -41,7 +41,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 	private let headlineLabel = ENALabel(style: .title1)
 	private let backgroundImageView = UIImageView()
-	private let gradientView = GradientView(type: .whiteToLightBlue)
+	private let gradientView = GradientView(type: .whiteToLightBlue, withStars: false)
 
 	private var topInsetConstraint: NSLayoutConstraint!
 

@@ -32,7 +32,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
@@ -65,7 +65,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
@@ -83,7 +83,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 2 von 2")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon"))
@@ -102,7 +102,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 3 von 3")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
@@ -118,7 +118,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 2 von 2")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
@@ -138,7 +138,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
@@ -171,7 +171,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
@@ -211,7 +211,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
@@ -244,7 +244,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
@@ -277,7 +277,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
@@ -308,7 +308,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
@@ -340,7 +340,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
@@ -373,7 +373,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
@@ -406,7 +406,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
@@ -438,7 +438,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
@@ -470,7 +470,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "Probenahme am 13.05.21")
@@ -502,7 +502,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
@@ -534,7 +534,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
 		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
@@ -564,7 +564,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
@@ -595,7 +595,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
@@ -628,7 +628,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
@@ -666,7 +666,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
@@ -697,7 +697,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
@@ -728,7 +728,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .solidGrey(withStars: false))
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subheadline)
 		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")

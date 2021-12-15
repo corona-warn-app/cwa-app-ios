@@ -745,6 +745,15 @@ enum AccessibilityIdentifiers {
 			static let certificateCell = "HealthCertificate.Person.cell"
 			static let validationButton = "HealthCertificate.Person.validationButton"
 		}
+		
+		enum AdmissionState {
+			static let roundedView = "HealthCertificate.AdmissionState.roundedView"
+			static let title = "HealthCertificate.AdmissionState.title"
+			static let subtitle = "HealthCertificate.AdmissionState.subtitle"
+			static let description = "HealthCertificate.AdmissionState.description"
+			static let faq = "HealthCertificate.AdmissionState.faq"
+
+		}
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"

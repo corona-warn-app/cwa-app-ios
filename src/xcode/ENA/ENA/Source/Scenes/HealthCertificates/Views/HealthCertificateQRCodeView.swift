@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HealthCertificateQRCodeView: UIView {
 
@@ -28,39 +29,74 @@ class HealthCertificateQRCodeView: UIView {
 	// MARK: - Internal
 
 	func configure(with viewModel: HealthCertificateQRCodeViewModel) {
-		qrCodeImageView.image = viewModel.qrCodeImage
+		switch viewModel.covPassCheckInfoPosition {
+		case .top:
+			stackView.removeArrangedSubview(covPassCheckInfoStackView)
+			stackView.removeArrangedSubview(qrCodeImageContainerView)
+			stackView.addArrangedSubview(covPassCheckInfoStackView)
+			stackView.addArrangedSubview(qrCodeImageContainerView)
+		case .bottom:
+			stackView.removeArrangedSubview(qrCodeImageContainerView)
+			stackView.removeArrangedSubview(covPassCheckInfoStackView)
+			stackView.addArrangedSubview(qrCodeImageContainerView)
+			stackView.addArrangedSubview(covPassCheckInfoStackView)
+		}
+
 		accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
-		infoButtonaction = viewModel.showInfo
-		if viewModel.shouldBlockCertificateCode {
-			NSLayoutConstraint.deactivate(visibleConstraints)
-			NSLayoutConstraint.activate(invisibleConstraints)
-			noticeLabel.isHidden = true
-			infoButton.isHidden = true
-		} else {
-			NSLayoutConstraint.deactivate(invisibleConstraints)
-			NSLayoutConstraint.activate(visibleConstraints)
-			noticeLabel.isHidden = false
-			infoButton.isHidden = false
-		}
+		covPassCheckInfoStackView.isHidden = viewModel.shouldBlockCertificateCode
+		onCovPassCheckInfoButtonTap = viewModel.onCovPassCheckInfoButtonTap
+
+		subscriptions.removeAll()
+
+		viewModel.$qrCodeImage
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.image, on: qrCodeImageView)
+			.store(in: &subscriptions)
+
+		self.viewModel = viewModel
 	}
 
 	// MARK: - Private
 
-	private let noticeLabel: UILabel = {
-		let noticeLabel = ENALabel(style: .subheadline)
-		noticeLabel.numberOfLines = 0
-		noticeLabel.textColor = UIColor(enaColor: .textPrimary1)
-		noticeLabel.text = AppStrings.HealthCertificate.UnifiedQRCode.notice
-		return noticeLabel
+	private var viewModel: HealthCertificateQRCodeViewModel?
+
+	private var subscriptions = Set<AnyCancellable>()
+
+	private let stackView: UIStackView = {
+		let stackView = UIStackView()
+		stackView.axis = .vertical
+		stackView.spacing = 10
+
+		return stackView
 	}()
 
-	private lazy var infoButton: UIButton = {
+	private lazy var covPassCheckInfoStackView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [covPassCheckInfoLabel, covPassCheckInfoButton])
+		stackView.spacing = 4
+		stackView.alignment = .center
+
+		return stackView
+	}()
+
+	private let covPassCheckInfoLabel: UILabel = {
+		let covPassCheckInfoLabel = ENALabel(style: .subheadline)
+		covPassCheckInfoLabel.numberOfLines = 0
+		covPassCheckInfoLabel.textColor = UIColor(enaColor: .textPrimary1)
+		covPassCheckInfoLabel.text = AppStrings.HealthCertificate.UnifiedQRCode.notice
+
+		return covPassCheckInfoLabel
+	}()
+
+	private lazy var covPassCheckInfoButton: UIButton = {
 		let button = UIButton()
 		button.setImage(UIImage(imageLiteralResourceName: "infoBigger"), for: .normal)
-		button.addTarget(self, action: #selector(didHitInfoButton), for: .touchUpInside)
+		button.addTarget(self, action: #selector(didTapCovPassCheckInfoButton), for: .touchUpInside)
+
 		return button
 	}()
+
+	private let qrCodeImageContainerView = UIView()
 
 	private let qrCodeImageView: UIImageView = {
 		let qrCodeImageView = UIImageView()
@@ -84,94 +120,61 @@ class HealthCertificateQRCodeView: UIView {
 		return warningTriangleImageView
 	}()
 
-	private var infoButtonaction: (() -> Void)?
+	private var onCovPassCheckInfoButtonTap: (() -> Void)?
 
 	private func setUp() {
 		backgroundColor = .clear
 		accessibilityTraits = .image
 
-		noticeLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(noticeLabel)
-
-		infoButton.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(infoButton)
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(stackView)
 
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(qrCodeImageView)
+		qrCodeImageContainerView.addSubview(qrCodeImageView)
 
 		blockingView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(blockingView)
+		qrCodeImageContainerView.addSubview(blockingView)
 
 		warningTriangleImageView.translatesAutoresizingMaskIntoConstraints = false
 		blockingView.addSubview(warningTriangleImageView)
 		
-		NSLayoutConstraint.activate(invisibleConstraints)
+		NSLayoutConstraint.activate([
+			stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			stackView.topAnchor.constraint(equalTo: topAnchor),
+			stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+			covPassCheckInfoButton.widthAnchor.constraint(equalToConstant: 30.0),
+			covPassCheckInfoButton.heightAnchor.constraint(equalToConstant: 30.0),
+
+			qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
+
+			qrCodeImageView.leadingAnchor.constraint(equalTo: qrCodeImageContainerView.leadingAnchor),
+			qrCodeImageView.topAnchor.constraint(equalTo: qrCodeImageContainerView.topAnchor),
+			qrCodeImageView.trailingAnchor.constraint(equalTo: qrCodeImageContainerView.trailingAnchor),
+			qrCodeImageView.bottomAnchor.constraint(equalTo: qrCodeImageContainerView.bottomAnchor),
+
+			blockingView.leadingAnchor.constraint(equalTo: qrCodeImageContainerView.leadingAnchor),
+			blockingView.topAnchor.constraint(equalTo: qrCodeImageContainerView.topAnchor),
+			blockingView.trailingAnchor.constraint(equalTo: qrCodeImageContainerView.trailingAnchor),
+			blockingView.bottomAnchor.constraint(equalTo: qrCodeImageContainerView.bottomAnchor),
+
+			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
+			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
+		])
 	}
 
-	lazy var visibleConstraints: [NSLayoutConstraint] = {
-		[
-			noticeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-			noticeLabel.topAnchor.constraint(equalTo: topAnchor),
-
-			infoButton.leadingAnchor.constraint(equalTo: noticeLabel.trailingAnchor, constant: 4.0),
-			infoButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-			infoButton.centerYAnchor.constraint(equalTo: noticeLabel.centerYAnchor),
-			infoButton.widthAnchor.constraint(equalToConstant: 30.0),
-			infoButton.heightAnchor.constraint(equalToConstant: 30.0),
-
-			qrCodeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			qrCodeImageView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 14.0),
-			qrCodeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			qrCodeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
-
-			qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
-
-			blockingView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			blockingView.topAnchor.constraint(equalTo: topAnchor),
-			blockingView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			blockingView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
-
-			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
-			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
-		]
-	}()
-
-	lazy var invisibleConstraints: [NSLayoutConstraint] = {
-		[
-			qrCodeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			qrCodeImageView.topAnchor.constraint(equalTo: topAnchor),
-			qrCodeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			qrCodeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
-
-			qrCodeImageView.heightAnchor.constraint(equalTo: qrCodeImageView.widthAnchor),
-
-			blockingView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			blockingView.topAnchor.constraint(equalTo: topAnchor),
-			blockingView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			blockingView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8.0),
-
-			warningTriangleImageView.centerXAnchor.constraint(equalTo: blockingView.centerXAnchor),
-			warningTriangleImageView.centerYAnchor.constraint(equalTo: blockingView.centerYAnchor)
-		]
-	}()
-
-
 	@objc
-	private func didHitInfoButton() {
-		infoButtonaction?()
+	private func didTapCovPassCheckInfoButton() {
+		onCovPassCheckInfoButtonTap?()
 	}
 
 	// MARK: - Unitest helpers
 
 #if DEBUG
-	var noticeLabelIsHidden: Bool {
-		noticeLabel.isHidden
+	var covPassCheckInfoStackViewIsHidden: Bool {
+		covPassCheckInfoStackView.isHidden
 	}
-
-	var infoButtonIsHidden: Bool {
-		infoButton.isHidden
-	}
-
 #endif
 
 }
