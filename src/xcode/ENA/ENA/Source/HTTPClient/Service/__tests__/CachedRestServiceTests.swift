@@ -91,6 +91,41 @@ class CachedRestServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+	
+	func test_DefaultValueIsLoaded() throws {
+		let dummyModel = DummyResourceModel(
+			dummyValue: "SomeValue"
+		)
+		let cache = KeyValueCacheFake()
+
+		// Return nil and http code 304. In this case the service should load the reault from the cache.
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: nil
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		let resource = ResourceFake(defaultValue: dummyModel)
+		let loadExpectation = expectation(description: "Default value should be returned.")
+
+		cachedService.load(resource) { result in
+			// Check if the value returned is the same like the default one.
+
+			guard case let .success(responseModel) = result else {
+				XCTFail("Success expected")
+				return
+			}
+
+			XCTAssertEqual(responseModel, dummyModel)
+			loadExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 }
 
 struct DummyResourceModel: PaddingResource, Codable, Equatable {
@@ -99,10 +134,17 @@ struct DummyResourceModel: PaddingResource, Codable, Equatable {
 }
 
 class ResourceFake: Resource {
+	
+	init(
+		defaultValue: Receive.ReceiveModel? = nil
+	) {
+		self.defaultModel = defaultValue
+	}
 	var locator: Locator = .fake()
 	var type: ServiceType = .caching([])
 	var sendResource = PaddingJSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: ""))
 	var receiveResource = JSONReceiveResource<DummyResourceModel>()
+	var defaultModel: Receive.ReceiveModel?
 
 	typealias Send = PaddingJSONSendResource<DummyResourceModel>
 	typealias Receive = JSONReceiveResource<DummyResourceModel>
