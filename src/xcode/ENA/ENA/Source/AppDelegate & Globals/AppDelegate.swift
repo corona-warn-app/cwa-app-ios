@@ -196,6 +196,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.error(errorMessage, log: .vaccination, error: nil)
 		})
 	}
+	
+	func applicationWillTerminate(_ application: UIApplication) {
+		Log.info("Application will terminate.", log: .appLifecycle)
+	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)

@@ -62,6 +62,8 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
+		Log.info("Download validation rules.")
+		
 		client.getDCCRules(
 			eTag: eTag,
 			isFake: false,
@@ -97,6 +99,8 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
 	) {
+		Log.info("Download booster rules.")
+
 		client.getBoosterNotificationRules(
 			eTag: eTag, isFake: false,
 			completion: { [weak self] result in
