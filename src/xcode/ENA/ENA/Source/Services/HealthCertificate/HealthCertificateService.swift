@@ -64,6 +64,8 @@ class HealthCertificateService {
 
 	@DidSetPublished private(set) var healthCertifiedPersons = [HealthCertifiedPerson]() {
 		didSet {
+			Log.debug("Did set healthCertifiedPersons.")
+
 			let personsAddedOrRemoved = oldValue.map({ "\(String(describing: $0.name?.fullName))\(String(describing: $0.dateOfBirth))" }) != healthCertifiedPersons.map({ "\(String(describing: $0.name?.fullName))\(String(describing: $0.dateOfBirth))" })
 
 			if initialHealthCertifiedPersonsReadFromStore {
@@ -83,6 +85,8 @@ class HealthCertificateService {
 
 	@DidSetPublished private(set) var testCertificateRequests = [TestCertificateRequest]() {
 		didSet {
+			Log.debug("Did set testCertificateRequests.")
+
 			if initialTestCertificateRequestsReadFromStore {
 				store.testCertificateRequests = testCertificateRequests
 			}
@@ -117,6 +121,8 @@ class HealthCertificateService {
 	*/
 	
 	func checkIfBoosterRulesShouldBeFetched(completion: @escaping(String?) -> Void) {
+		Log.debug("Check if booster rules should be fetched.")
+
 		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
 		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
 			let errorMessage = "general: Booster Notifications rules was already Download today, will be skipped..."
@@ -129,6 +135,8 @@ class HealthCertificateService {
 	}
 	
 	private func applyBoosterRulesForHealthCertificates(completion: @escaping(String?) -> Void) {
+		Log.info("Apply booster rules for health certificates")
+
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson, completion: completion)
 		}
@@ -162,11 +170,14 @@ class HealthCertificateService {
 
 			// check signature
 			if checkSignatureUpfront {
+				Log.debug("Check signature of certificate upfront.")
+
 				if case .failure(let error) = dccSignatureVerifier.verify(
 					certificate: base45,
 					with: dscListProvider.signingCertificates.value,
 					and: Date()
 				) {
+					Log.error("Signature check of certificate failed with error: \(error).")
 					return .failure(.invalidSignature(error))
 				}
 			}
@@ -183,10 +194,12 @@ class HealthCertificateService {
 				healthCertifiedPerson = registeredHealthCertifiedPerson
 			} else {
 				if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
+					Log.debug("Abort registering certificate due to too many persons registered.")
 					return .failure(.tooManyPersonsRegistered)
 				}
 
 				if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
+					Log.debug("Person warn treshhold is reached.")
 					personWarnThresholdReached = true
 				}
 
@@ -204,6 +217,7 @@ class HealthCertificateService {
 
 			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
 
+			Log.info("Successfuly registered health certificate.")
 			return .success(
 				CertificateResult(
 					registrationDetail: personWarnThresholdReached ? .personWarnThresholdReached : nil,
@@ -236,6 +250,8 @@ class HealthCertificateService {
 	}
 
 	func addHealthCertificate(_ healthCertificate: HealthCertificate, to healthCertifiedPerson: HealthCertifiedPerson) {
+		Log.info("Add health certificate to person.")
+
 		healthCertifiedPerson.healthCertificates.append(healthCertificate)
 		healthCertifiedPerson.healthCertificates.sort(by: <)
 
@@ -256,6 +272,8 @@ class HealthCertificateService {
 		if healthCertificate.type != .test {
 			createNotifications(for: healthCertificate)
 		}
+		
+		Log.info("Finished adding health certificate to person.")
 	}
 
 	func moveHealthCertificateToBin(_ healthCertificate: HealthCertificate) {
@@ -452,6 +470,8 @@ class HealthCertificateService {
 	}
 
 	func migration() {
+		Log.info("Migrate certificates.")
+
 		// at the moment we only have 1 migration step
 		// if more is needed we should add a migration serial queue
 		let lastVersion = store.healthCertifiedPersonsVersion ?? 0
@@ -494,6 +514,8 @@ class HealthCertificateService {
 	}
 
 	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
+		Log.info("Update validity state and notifications with fresh dsc list.")
+
 		// .dropFirst: drops the first callback, which is called with default signing certificates.
 		// .first: only executes 1 element and no subsequent elements.
 		// This way only the 2. call with freshly fetched signing certificates is executed.
@@ -507,6 +529,8 @@ class HealthCertificateService {
 	}
 
 	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
+		Log.info("Update validity state and notifications.")
+
 		let currentAppConfiguration = appConfiguration.currentAppConfig.value
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
@@ -560,6 +584,8 @@ class HealthCertificateService {
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
+		Log.info("Read valid until dates.")
+
 		let dccValidation = DCCSignatureVerification()
 		return healthCertificates
 			.map { certificate in
@@ -665,6 +691,8 @@ class HealthCertificateService {
 	}
 
 	private func updateHealthCertifiedPersonSubscriptions(for healthCertifiedPersons: [HealthCertifiedPerson]) {
+		Log.info("Update health certificate subscriptions.")
+
 		healthCertifiedPersonSubscriptions = []
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
@@ -710,6 +738,8 @@ class HealthCertificateService {
 	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
 	/// First, removes all local notifications and then re-adds all updates or new notifications to the notification center.
 	private func updateNotifications() {
+		Log.debug("Update notifications.")
+
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				// No notifications for test certificates
@@ -723,6 +753,8 @@ class HealthCertificateService {
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
+		Log.debug("Update test certificate subscriptions.")
+
 		testCertificateRequestSubscriptions = []
 
 		testCertificateRequests.forEach { testCertificateRequest in
@@ -880,6 +912,8 @@ class HealthCertificateService {
 	}
 	
 	private func createNotifications(for healthCertificate: HealthCertificate) {
+		Log.info("Create notifications.")
+
 		let id = healthCertificate.uniqueCertificateIdentifier
 		
 		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
@@ -1033,6 +1067,7 @@ class HealthCertificateService {
 		boosterNotificationsService.applyRulesForCertificates(certificates: healthCertificatesWithHeader, completion: { result in
 			switch result {
 			case .success(let validationResult):
+				
 				let previousSavedBoosterRule = healthCertifiedPerson.boosterRule
 				healthCertifiedPerson.boosterRule = validationResult.rule
 				
@@ -1048,6 +1083,9 @@ class HealthCertificateService {
 					}
 					let id = ENAHasher.sha256(name + dateOfBirth)
 					self.scheduleBoosterNotification(id: id)
+					
+					Log.info("Successfuly applied rules for certificate.", log: .vaccination)
+
 					completion(nil)
 				} else {
 					let errorMessage = "The New passed booster rule has the same identifier as the old one saved for this person, so we will not trigger the notification"
@@ -1069,7 +1107,6 @@ class HealthCertificateService {
 	}
 	
 	private func scheduleBoosterNotification(id: String) {
-		
 		Log.info("Schedule booster notification for certificate with id: \(private: id) with trigger date: \(Date())", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
