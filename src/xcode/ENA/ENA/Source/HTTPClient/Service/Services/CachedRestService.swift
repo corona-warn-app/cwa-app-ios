@@ -63,7 +63,7 @@ class CachedRestService: Service {
 
 		case .failure:
 			Log.error("Decoding for receive resource failed.", log: .client)
-			completion(.failure(customError(in: resource, for: .resourceError(.decoding))))
+			failureOrDefaultValueHandling(resource, .resourceError(.decoding), completion)
 		}
 	}
 
@@ -73,7 +73,7 @@ class CachedRestService: Service {
 	) where R: Resource {
 		guard let cachedModel = cache[resource.locator.hashValue] else {
 			Log.error("No data found in cache", log: .client)
-			completion(.failure(customError(in: resource, for: .resourceError(.missingData))))
+			failureOrDefaultValueHandling(resource, .resourceError(.missingData), completion)
 			return
 		}
 		decodeModel(resource, cachedModel.data, nil, completion)

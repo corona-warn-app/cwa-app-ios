@@ -50,7 +50,7 @@ extension Service {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			Log.error("Creating url request failed.", log: .client)
-			completion(.failure(customError(in: resource, for: .invalidRequestError(resourceError))))
+			failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError), completion)
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				
@@ -60,7 +60,7 @@ extension Service {
 				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
 				   let trustEvaluationError = error as? TrustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
-					completion(.failure(customError(in: resource, for: .trustEvaluationError(trustEvaluationError))))
+					failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError), completion)
 					
 					// Reset the error to not block future requests.
 					// I know, this error state is not a nice solution.
@@ -70,20 +70,19 @@ extension Service {
 				}
 				
 				if let error = error {
-					Log.info("No network connection (.transportationError)", log: .client)
 					cacheUseCaseHandling(.noNetwork, error, resource, completion)
 					return
 				}
 								
 				guard !resource.locator.isFake else {
 					Log.info("Fake detected no response given", log: .client)
-					completion(.failure(customError(in: resource, for: .fakeResponse)))
+					failureOrDefaultValueHandling(resource, .fakeResponse, completion)
 					return
 				}
 
 				guard let response = response as? HTTPURLResponse else {
 					Log.error("Invalid response.", log: .client, error: error)
-					completion(.failure(customError(in: resource, for: .invalidResponseType)))
+					failureOrDefaultValueHandling(resource, .invalidResponseType, completion)
 					return
 				}
 
@@ -102,14 +101,14 @@ extension Service {
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
 						Log.error("This is not an EmptyReceiveResource", log: .client)
-						completion(.failure(customError(in: resource, for: .invalidResponse)))
+						failureOrDefaultValueHandling(resource, .invalidResponse, completion)
 						return
 					}
 					decodeModel(resource, bodyData, response, completion)
 				case 304:
 					cached(resource, completion)
 				default:
-					completion(.failure(customError(in: resource, for: .unexpectedServerError(response.statusCode))))
+					failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), completion)
 				}
 			}.resume()
 		}
@@ -126,7 +125,7 @@ extension Service {
 			completion(.success(model))
 		case .failure(let resourceError):
 			Log.error("Decoding for receive resource failed.", log: .client)
-			completion(.failure(customError(in: resource, for: .resourceError(resourceError))))
+			failureOrDefaultValueHandling(resource, .resourceError(resourceError), completion)
 		}
 	}
 
@@ -135,7 +134,7 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		Log.info("No caching allowed for current service.", log: .client)
-		completion(.failure(customError(in: resource, for: .resourceError(.notModified))))
+		failureOrDefaultValueHandling(resource, .resourceError(.notModified), completion)
 	}
 	
 	func hasCachedData<R>(
@@ -157,6 +156,44 @@ extension Service {
 	) -> Bool where R: Resource {
 		return true
 	}
+	
+	// MARK: - Internal
+	
+	/// Before returning the originial error, we look up in the resource if there is some customized error cases.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - serviceError: The error that would be thrown with the fail.
+	func customError<R>(
+		in resource: R,
+		for serviceError: ServiceError<R.CustomError>
+	) -> ServiceError<R.CustomError> where R: Resource {
+		if let customError = resource.customError(for: serviceError) {
+			return .receivedResourceError(customError)
+		} else {
+			return serviceError
+		}
+	}
+	
+	/// Before failing, this checks if the resource has defined a defaultValue so we can call a .success with it instead of failing. If not defaultValue is given, it will fail as normal.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - error: The error that would be thrown with the fail.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	func failureOrDefaultValueHandling<R>(
+		_ resource: R,
+		_ error: ServiceError<R.CustomError>,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		if let defaultModel = resource.defaultModel {
+			Log.info("Found some default value", log: .client)
+			completion(.success(defaultModel))
+		} else {
+			Log.error("Found no default value. Will fail now.", log: .client, error: error)
+			completion(.failure(customError(in: resource, for: error)))
+		}
+	}
 
 	// MARK: - Private
 
@@ -174,47 +211,53 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		// Check the requested caching behavior of the resource
+		
+		// Check if we can handle caching use case handling
 		guard case let .caching(usage) = resource.type,
 			  usage.contains(cacheUseCase) else {
-				  // We do not have some caching here. Return orignial error.
-				  guard let error = error else {
-					  Log.error("no custom error given", log: .client)
-					  completion(.failure(customError(in: resource, for: .invalidResponse)))
-					  return
-				  }
-				  Log.error("custom error wrapped into a .transportationError", log: .client)
-				  completion(.failure(customError(in: resource, for: .transportationError(error))))
+				  // Otherwise, fall back to the default
+				  Log.info("No cache use case handling defined. Fallback to default error handling")
+				  defaultErrorHandling(error, resource, completion)
 				  return
-			  }
-
-		// check if a cached resource exists
+		}
+		
+		// If so, first we check if have something cached
 		if hasCachedData(resource) {
 			Log.info("Found some cached data", log: .client)
 			cached(resource, completion)
+			return
 		}
-		// otherwise try to get the default value of the resource.
-		else if let defaultModel = resource.defaultModel {
-			Log.info("Found some default value", log: .client)
-			completion(.success(defaultModel))
-		}
-		// If we still have nothing we return the transportation error.
+		// If not, we will handle now the cache use cases
 		else {
-			Log.info("No fallback found")
+			Log.info("Found nothing cached. Handling cache use cases")
 			switch cacheUseCase {
 			case .noNetwork:
-				guard let error = error else {
-					Log.error("no custom error given", log: .client)
-					completion(.failure(customError(in: resource, for: .invalidResponse)))
-					return
-				}
-				Log.error("custom error wrapped into a .transportationError", log: .client)
-				completion(.failure(customError(in: resource, for: .transportationError(error))))
-
+				defaultErrorHandling(error, resource, completion)
 			case .statusCode(let statusCodes):
 				Log.error("Unexpected server error: (\(statusCodes)", log: .client)
 				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCodes))))
 			}
 		}
+	}
+	
+	/// Handle default error for no network. If the error is nil, it is an invalid response.
+	///
+	/// - Parameters:
+	///   - error: original error.
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func defaultErrorHandling<R>(
+		_ error: Error?,
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		guard let error = error else {
+			Log.error("No custom error given", log: .client)
+			completion(.failure(customError(in: resource, for: .invalidResponse)))
+			return
+		}
+		Log.info("No network connection (.transportationError)", log: .client)
+		completion(.failure(customError(in: resource, for: .transportationError(error))))
+		return
 	}
 }
