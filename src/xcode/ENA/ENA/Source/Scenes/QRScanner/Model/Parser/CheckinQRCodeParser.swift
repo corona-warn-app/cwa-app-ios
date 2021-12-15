@@ -21,6 +21,8 @@ class CheckinQRCodeParser: QRCodeParsable {
 		qrCode: String,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
 	) {
+		Log.info("Parse checkin.")
+
 		#if DEBUG
 		if isUITesting {
 			let traceLocation = TraceLocation(
@@ -43,9 +45,11 @@ class CheckinQRCodeParser: QRCodeParsable {
 		verifyQrCode(
 			qrCodeString: qrCode,
 			onSuccess: { traceLocation in
+				Log.info("Successfuly parsed checkin.")
 				completion(.success(.traceLocation(traceLocation)))
 			},
 			onError: { error in
+				Log.info("Failed parsing checkin with error: \(error)")
 				completion(.failure(.checkinQrError(error)))
 			}
 		)

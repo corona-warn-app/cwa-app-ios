@@ -29,7 +29,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		coronaTestService.pcrTest = PCRTest.mock(
@@ -128,7 +129,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 				),
 				recycleBin: .fake()
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 
 		coronaTestService.antigenTest = AntigenTest.mock(

@@ -38,7 +38,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		elsService: ErrorLogSubmissionProviding,
 		recycleBin: RecycleBin,
-		restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -54,6 +55,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.elsService = elsService
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
+		self.badgeWrapper = badgeWrapper
 	}
 
 	deinit {
@@ -94,7 +96,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 
 		return true
 	}
-	
+
 	// MARK: - Internal
 
 	let viewController: UIViewController = {
@@ -160,7 +162,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			exposureSubmissionService: exposureSubmissionService,
 			qrScannerCoordinator: qrScannerCoordinator,
 			recycleBin: recycleBin,
-			restServiceProvider: restServiceProvider
+			restServiceProvider: restServiceProvider,
+			badgeWrapper: badgeWrapper
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -346,6 +349,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
+	private let badgeWrapper: HomeBadgeWrapper
 
 	private let tabBarController = UITabBarController()
 

@@ -26,7 +26,8 @@ class CoronaTestService {
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -44,6 +45,7 @@ class CoronaTestService {
 			self.healthCertificateService = healthCertificateService
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
+			self.badgeWrapper = badgeWrapper
 
 			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -66,6 +68,7 @@ class CoronaTestService {
 		self.healthCertificateService = healthCertificateService
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
+		self.badgeWrapper = badgeWrapper
 
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
@@ -85,7 +88,8 @@ class CoronaTestService {
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.init(
 			client: client,
@@ -96,7 +100,8 @@ class CoronaTestService {
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
 			notificationCenter: notificationCenter,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
 		)
 	}
 
@@ -177,7 +182,7 @@ class CoronaTestService {
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					// updating badge count for home tab
 					if markAsUnseen {
-						self?.unseenTestsCount.value += 1
+						self?.badgeWrapper.increase(.unseenTests, by: 1)
 					}
 
 					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
@@ -330,7 +335,7 @@ class CoronaTestService {
 
 					// updating badge count for home tab
 					if markAsUnseen {
-						self?.unseenTestsCount.value += 1
+						self?.badgeWrapper.increase(.unseenTests, by: 1)
 					}
 
 					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
@@ -581,10 +586,6 @@ class CoronaTestService {
 		return healthTuple
 	}
 
-	func resetUnseenTestsCount() {
-		unseenTestsCount.value = 0
-	}
-
 	// MARK: - Private
 
 	private let client: Client
@@ -596,6 +597,7 @@ class CoronaTestService {
 	private let healthCertificateService: HealthCertificateService
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
+	private let badgeWrapper: HomeBadgeWrapper
 	private let serialQueue = AsyncOperation.serialQueue(named: "CoronaTestService.serialQueue")
 
 	private let fakeRequestService: FakeRequestService
@@ -605,8 +607,6 @@ class CoronaTestService {
 	private var antigenTestOutdatedDate: Date?
 
 	private var subscriptions = Set<AnyCancellable>()
-
-	private(set) var unseenTestsCount = CurrentValueSubject<Int, Never>(0)
 
 	private func setup() {
 		updatePublishersFromStore()
@@ -635,12 +635,6 @@ class CoronaTestService {
 				if let antigenTest = antigenTest {
 					self?.setupOutdatedPublisher(for: antigenTest)
 				}
-			}
-			.store(in: &subscriptions)
-		
-		unseenTestsCount
-			.sink { [weak self] in
-				self?.store.unseenTestsCount = $0
 			}
 			.store(in: &subscriptions)
 	}
