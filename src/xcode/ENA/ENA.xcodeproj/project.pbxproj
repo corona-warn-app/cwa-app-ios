@@ -677,6 +677,7 @@
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
 		506BEF03276A45690062D5D6 /* Resource+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506BEF01276A454B0062D5D6 /* Resource+Fake.swift */; };
+		506BEF05276A465A0062D5D6 /* StandardRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506BEF04276A465A0062D5D6 /* StandardRestServiceTests.swift */; };
 		5071A87326EA662400B09B40 /* JSONReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87226EA662400B09B40 /* JSONReceiveResource.swift */; };
 		5071A87526EA662F00B09B40 /* PaddingJSONSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87426EA662F00B09B40 /* PaddingJSONSendResource.swift */; };
 		5071A87726EB76E000B09B40 /* EmptySendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87626EB76E000B09B40 /* EmptySendResource.swift */; };
@@ -2291,6 +2292,7 @@
 		506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewController.swift; sourceTree = "<group>"; };
 		506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewModel.swift; sourceTree = "<group>"; };
 		506BEF01276A454B0062D5D6 /* Resource+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Fake.swift"; sourceTree = "<group>"; };
+		506BEF04276A465A0062D5D6 /* StandardRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardRestServiceTests.swift; sourceTree = "<group>"; };
 		5071A87226EA662400B09B40 /* JSONReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONReceiveResource.swift; sourceTree = "<group>"; };
 		5071A87426EA662F00B09B40 /* PaddingJSONSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingJSONSendResource.swift; sourceTree = "<group>"; };
 		5071A87626EB76E000B09B40 /* EmptySendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySendResource.swift; sourceTree = "<group>"; };
@@ -8398,6 +8400,7 @@
 				A1E419442495476C0016E52A /* MockNetworkStack.swift */,
 				CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */,
 				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
+				506BEF04276A465A0062D5D6 /* StandardRestServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10974,6 +10977,7 @@
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
 				BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
+				506BEF05276A465A0062D5D6 /* StandardRestServiceTests.swift in Sources */,
 				BA7DCA1D2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift in Sources */,
 				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
 				350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */,
