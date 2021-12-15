@@ -29,8 +29,7 @@ class CachedRestServiceTests: XCTestCase {
 			cache: cache
 		)
 
-		let resource = ResourceFake()
-		resource.locator = locator
+		let resource = ResourceFake(locator: locator)
 		let loadExpectation = expectation(description: "Load completion should be called.")
 
 		cachedService.load(resource) { _ in
@@ -73,8 +72,7 @@ class CachedRestServiceTests: XCTestCase {
 			cache: cache
 		)
 
-		let resource = ResourceFake()
-		resource.locator = locator
+		let resource = ResourceFake(locator: locator)
 		let loadExpectation = expectation(description: "Load completion should be called.")
 
 		cachedService.load(resource) { result in
@@ -109,7 +107,7 @@ class CachedRestServiceTests: XCTestCase {
 			cache: cache
 		)
 
-		let resource = ResourceFake(defaultValue: dummyModel)
+		let resource = ResourceFake(defaultModel: dummyModel)
 		let loadExpectation = expectation(description: "Default value should be returned.")
 
 		cachedService.load(resource) { result in
@@ -126,28 +124,4 @@ class CachedRestServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
-}
-
-struct DummyResourceModel: PaddingResource, Codable, Equatable {
-	var dummyValue: String
-	var requestPadding: String = ""
-}
-
-class ResourceFake: Resource {
-	
-	init(
-		defaultValue: Receive.ReceiveModel? = nil
-	) {
-		self.defaultModel = defaultValue
-	}
-	var locator: Locator = .fake()
-	var type: ServiceType = .caching([])
-	var sendResource = PaddingJSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: ""))
-	var receiveResource = JSONReceiveResource<DummyResourceModel>()
-	var defaultModel: Receive.ReceiveModel?
-
-	typealias Send = PaddingJSONSendResource<DummyResourceModel>
-	typealias Receive = JSONReceiveResource<DummyResourceModel>
-	typealias CustomError = Error
-
 }

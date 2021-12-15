@@ -676,6 +676,7 @@
 		50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */; };
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
+		506BEF03276A45690062D5D6 /* Resource+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506BEF01276A454B0062D5D6 /* Resource+Fake.swift */; };
 		5071A87326EA662400B09B40 /* JSONReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87226EA662400B09B40 /* JSONReceiveResource.swift */; };
 		5071A87526EA662F00B09B40 /* PaddingJSONSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87426EA662F00B09B40 /* PaddingJSONSendResource.swift */; };
 		5071A87726EB76E000B09B40 /* EmptySendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A87626EB76E000B09B40 /* EmptySendResource.swift */; };
@@ -2289,6 +2290,7 @@
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
 		506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewController.swift; sourceTree = "<group>"; };
 		506AB74B265800C7004AE743 /* DMPPAActualDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAActualDataViewModel.swift; sourceTree = "<group>"; };
+		506BEF01276A454B0062D5D6 /* Resource+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Fake.swift"; sourceTree = "<group>"; };
 		5071A87226EA662400B09B40 /* JSONReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONReceiveResource.swift; sourceTree = "<group>"; };
 		5071A87426EA662F00B09B40 /* PaddingJSONSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingJSONSendResource.swift; sourceTree = "<group>"; };
 		5071A87626EB76E000B09B40 /* EmptySendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySendResource.swift; sourceTree = "<group>"; };
@@ -8403,6 +8405,7 @@
 		BA7B4C30272AD14300D0ED6A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				506BEF01276A454B0062D5D6 /* Resource+Fake.swift */,
 				A1E419562495A8F50016E52A /* TeleTanResourceTests.swift */,
 				8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */,
 				8F09523227508642002B7049 /* ServiceIdentityDocumentValidationDecoratorResourceTests.swift */,
@@ -11079,6 +11082,7 @@
 				BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */,
 				AB68881025DA6C0200907465 /* ContactDiaryStoreTests.swift in Sources */,
 				BA00FED526BC2FC7009DA07F /* AppFeatureMocks.swift in Sources */,
+				506BEF03276A45690062D5D6 /* Resource+Fake.swift in Sources */,
 				2FC0356F24B342FA00E234AC /* UIViewcontroller+AlertTest.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				AB5F84BD24F92E92000400D4 /* SerialMigratorFake.swift in Sources */,
