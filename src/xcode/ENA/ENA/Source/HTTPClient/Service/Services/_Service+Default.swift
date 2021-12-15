@@ -174,10 +174,17 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		// check the requested caching behavior of the resource
+		// Check the requested caching behavior of the resource
 		guard case let .caching(usage) = resource.type,
 			  usage.contains(cacheUseCase) else {
-				  completion(.failure(.resourceError(ResourceError.missingData)))
+				  // We do not have some caching here. Return orignial error.
+				  guard let error = error else {
+					  Log.error("no custom error given", log: .client)
+					  completion(.failure(customError(in: resource, for: .invalidResponse)))
+					  return
+				  }
+				  Log.error("custom error wrapped into a .transportationError", log: .client)
+				  completion(.failure(customError(in: resource, for: .transportationError(error))))
 				  return
 			  }
 
@@ -210,5 +217,4 @@ extension Service {
 			}
 		}
 	}
-
 }

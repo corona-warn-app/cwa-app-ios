@@ -100,7 +100,7 @@ struct DummyResourceModel: PaddingResource, Codable, Equatable {
 
 class ResourceFake: Resource {
 	var locator: Locator = .fake()
-	var type: ServiceType = .caching
+	var type: ServiceType = .caching([])
 	var sendResource = PaddingJSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: ""))
 	var receiveResource = JSONReceiveResource<DummyResourceModel>()
 
